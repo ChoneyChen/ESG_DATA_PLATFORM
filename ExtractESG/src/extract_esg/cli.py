@@ -154,7 +154,7 @@ def main(argv: list[str] | None = None) -> int:
     web = sub.add_parser("serve")
     web.add_argument("--db", default=None)
     web.add_argument("--host", default="127.0.0.1")
-    web.add_argument("--port", type=int, default=8765)
+    web.add_argument("--port", type=int, default=18765)
 
     args = parser.parse_args(argv)
     if args.command == "inspect-pdf":

@@ -109,12 +109,13 @@ The default `run-local` command does not call cloud models. It prepares local ev
 
 ## Optional Local Console
 
-The local console is optional. It can choose a PDF, select per-step model
+The local console is optional. It can choose a PDF, accept a Qiniu API key for
+the current browser session, refresh the Qiniu model list, select per-step model
 defaults, visualize the local/API-planned workflow, run the local evidence to
 SQLite chain, and browse database results:
 
 ```bash
-python -m extract_esg.cli serve --host 127.0.0.1 --port 8765
+python -m extract_esg.cli serve --host 127.0.0.1 --port 18765
 ```
 
 All core functions remain available through CLI and Python APIs without the frontend.

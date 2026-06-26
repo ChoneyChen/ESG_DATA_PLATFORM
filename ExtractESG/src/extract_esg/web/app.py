@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from extract_esg.ai import QiniuModelRegistry, api_model_assessment_payload
+from extract_esg.ai import QiniuModelAdapter, QiniuModelRegistry, api_model_assessment_payload
 from extract_esg.config import Settings
 from extract_esg.persistence import SqliteStore
 from extract_esg.workflows import ReportProcessingWorkflow
@@ -158,7 +158,7 @@ def _page() -> str:
     .tiny { font-size: 12px; }
     label { display: block; font-weight: 650; margin: 12px 0 6px; }
     input, select, button, textarea { font: inherit; }
-    input[type="text"], select { width: 100%; box-sizing: border-box; border: 1px solid #c8d1df; border-radius: 10px; padding: 9px 10px; background: white; }
+    input[type="text"], input[type="password"], select { width: 100%; box-sizing: border-box; border: 1px solid #c8d1df; border-radius: 10px; padding: 9px 10px; background: white; }
     input[type="file"] { width: 100%; }
     button { border: 1px solid #1d4ed8; background: #1d4ed8; color: white; border-radius: 10px; padding: 10px 14px; cursor: pointer; font-weight: 650; }
     button.secondary { background: white; color: #1d4ed8; }
@@ -197,7 +197,15 @@ def _page() -> str:
         <input id="reportId" type="text" placeholder="可留空，系统自动生成" />
       </div>
       <div class="card">
-        <h2>2. 模型选择</h2>
+        <h2>2. 七牛 API Key</h2>
+        <label for="apiKey">QINIU_API_KEY</label>
+        <input id="apiKey" type="password" autocomplete="off" placeholder="在这里粘贴你的七牛 API Key" />
+        <p class="muted tiny">只保存在当前浏览器会话里，不写入 .env、不写入数据库、不在响应里回显。</p>
+        <button class="secondary" id="refreshModelsBtn" onclick="refreshQiniuModels()">刷新七牛模型列表</button>
+        <p id="apiKeyStatus" class="muted tiny">尚未刷新模型。</p>
+      </div>
+      <div class="card">
+        <h2>3. 模型选择</h2>
         <p class="muted tiny">默认值来自当前能力评估。这里先用于流程规划展示；真实云调用接入后会写入 cloud task 审计记录。</p>
         <div id="modelSelectors">加载中...</div>
       </div>
@@ -209,15 +217,15 @@ def _page() -> str:
     </section>
     <section class="stack">
       <div class="card">
-        <h2>3. 流程状态</h2>
+        <h2>4. 流程状态</h2>
         <div id="steps"></div>
       </div>
       <div class="card">
-        <h2>4. 数据库报告列表</h2>
+        <h2>5. 数据库报告列表</h2>
         <div id="reports"></div>
       </div>
       <div class="card">
-        <h2>5. 结果详情</h2>
+        <h2>6. 结果详情</h2>
         <pre id="detail">等待运行或点击报告查看详情。</pre>
       </div>
     </section>
@@ -225,6 +233,16 @@ def _page() -> str:
 <script>
 let assessments = [];
 let cachedModels = [];
+
+function getApiKey() {
+  return document.getElementById('apiKey').value.trim();
+}
+
+function setApiStatus(message, isError = false) {
+  const node = document.getElementById('apiKeyStatus');
+  node.textContent = message;
+  node.style.color = isError ? '#991b1b' : '';
+}
 
 function uniq(values) {
   return [...new Set(values.filter(Boolean))];
@@ -310,6 +328,39 @@ async function loadAssessment() {
   renderSteps(data.pipeline_steps || []);
 }
 
+async function refreshQiniuModels() {
+  const btn = document.getElementById('refreshModelsBtn');
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    setApiStatus('请先填写 QINIU_API_KEY。', true);
+    return;
+  }
+  sessionStorage.setItem('extract_esg_qiniu_api_key', apiKey);
+  btn.disabled = true;
+  btn.textContent = '刷新中...';
+  setApiStatus('正在调用本机后端刷新七牛模型列表...');
+  try {
+    const res = await fetch('/api/refresh-models', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({qiniu_api_key: apiKey})
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setApiStatus(data.error || '刷新失败。', true);
+      return;
+    }
+    cachedModels = data.cached_models || [];
+    renderModelSelectors();
+    setApiStatus(`刷新成功：${data.model_count} 个模型已缓存。`);
+  } catch (err) {
+    setApiStatus(String(err), true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '刷新七牛模型列表';
+  }
+}
+
 async function loadReports() {
   const res = await fetch('/api/reports');
   const data = await res.json();
@@ -364,7 +415,8 @@ async function runLocal() {
     const body = {
       path: document.getElementById('pdfPath').value.trim(),
       report_id: document.getElementById('reportId').value.trim(),
-      selected_models: selectedModels
+      selected_models: selectedModels,
+      qiniu_api_key: getApiKey()
     };
     const file = document.getElementById('pdfFile').files[0];
     if (file) {
@@ -393,6 +445,11 @@ async function runLocal() {
 }
 
 async function init() {
+  const storedApiKey = sessionStorage.getItem('extract_esg_qiniu_api_key');
+  if (storedApiKey) {
+    document.getElementById('apiKey').value = storedApiKey;
+    setApiStatus('已从当前浏览器会话恢复 API Key。');
+  }
   await loadAssessment();
   await loadReports();
 }
@@ -430,6 +487,9 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
+        if parsed.path == "/api/refresh-models":
+            self._refresh_models()
+            return
         if parsed.path == "/api/run-local":
             self._run_local()
             return
@@ -448,6 +508,32 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
             "pipeline_steps": _pipeline_steps({}),
             "note": "Model names are planning defaults. Refresh Qiniu models with CLI before real cloud calls.",
         }
+
+    def _refresh_models(self) -> None:
+        try:
+            payload = _read_json_body(self)
+            api_key = str(payload.get("qiniu_api_key") or "").strip()
+            if not api_key:
+                raise ValueError("QINIU_API_KEY is required to refresh Qiniu models.")
+
+            settings = self.settings.__class__(**{**self.settings.__dict__, "qiniu_api_key": api_key})
+            registry = QiniuModelRegistry(
+                cache_path=self.settings.model_cache,
+                adapter=QiniuModelAdapter(settings),
+            )
+            models = registry.refresh()
+            _json_response(
+                self,
+                {
+                    "status": "refreshed",
+                    "cache": str(registry.cache_path),
+                    "model_count": len(models),
+                    "cached_models": [model.model_dump(mode="json") for model in models],
+                    "note": "API key was used for this request only and was not returned.",
+                },
+            )
+        except Exception as exc:
+            _json_response(self, {"error": str(exc)}, status=400)
 
     def _run_local(self) -> None:
         try:
@@ -500,7 +586,7 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
         return
 
 
-def serve(*, db_path: str | Path, host: str = "127.0.0.1", port: int = 8765, settings: Settings | None = None) -> None:
+def serve(*, db_path: str | Path, host: str = "127.0.0.1", port: int = 18765, settings: Settings | None = None) -> None:
     LocalConsoleHandler.settings = settings or Settings.from_env()
     LocalConsoleHandler.store = SqliteStore(db_path)
     server = ThreadingHTTPServer((host, port), LocalConsoleHandler)
