@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "extract-esg"
+version = "0.1.0"
+description = "Evidence-first ESG PDF extraction pipeline using local PDF evidence and Qiniu cloud models."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.8",
+  "pdfplumber>=0.11",
+  "pypdfium2>=4.30",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[project.scripts]
+extract-esg = "extract_esg.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+extract_esg = ["py.typed"]
+
