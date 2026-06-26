@@ -27,12 +27,16 @@ class CloudModelInfo(ContractModel):
 class CloudTaskRequest(ContractModel):
     id: str = Field(default_factory=lambda: new_id("cloud_task"))
     task_type: Literal[
+        "page_classification",
         "vision_ocr",
         "file_recognition",
+        "table_vision_extract",
         "structured_extract",
+        "qualitative_summarization",
         "long_context_understanding",
         "mapping_review",
         "verification",
+        "visual_verification",
     ]
     model_id: str
     input_refs: list[str]
@@ -54,4 +58,3 @@ class CloudTaskResult(ContractModel):
     latency_ms: float | None = None
     source: SourceTrace
     quality_flags: list[str] = Field(default_factory=list)
-

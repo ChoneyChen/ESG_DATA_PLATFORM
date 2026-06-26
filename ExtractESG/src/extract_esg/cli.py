@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from extract_esg.ai import CloudModelRouter, QiniuModelRegistry
+from extract_esg.ai import CloudModelRouter, QiniuModelRegistry, api_model_assessment_payload
 from extract_esg.config import Settings
 from extract_esg.persistence import SqliteStore
 from extract_esg.web.app import serve
@@ -94,10 +94,15 @@ def select_model(args: argparse.Namespace) -> int:
     return 0
 
 
+def model_assessment(args: argparse.Namespace) -> int:
+    print(json.dumps(api_model_assessment_payload(), ensure_ascii=False, indent=2))
+    return 0
+
+
 def serve_web(args: argparse.Namespace) -> int:
     settings = _settings(args)
     db_path = Path(args.db or settings.sqlite_db_path)
-    serve(db_path=db_path, host=args.host, port=args.port)
+    serve(db_path=db_path, host=args.host, port=args.port, settings=settings)
     return 0
 
 
@@ -127,16 +132,21 @@ def main(argv: list[str] | None = None) -> int:
     refresh = sub.add_parser("refresh-models")
     refresh.add_argument("--cache", default=None)
 
+    sub.add_parser("model-assessment")
+
     select = sub.add_parser("select-model")
     select.add_argument(
         "task",
         choices=[
             "page_classification",
             "vision_ocr",
+            "table_vision_extract",
             "structured_extract",
+            "qualitative_summarization",
             "long_context_understanding",
             "mapping_review",
             "verification",
+            "visual_verification",
         ],
     )
     select.add_argument("--cache", default=None)
@@ -159,6 +169,8 @@ def main(argv: list[str] | None = None) -> int:
         return list_cached_models(args)
     if args.command == "refresh-models":
         return refresh_models(args)
+    if args.command == "model-assessment":
+        return model_assessment(args)
     if args.command == "select-model":
         return select_model(args)
     if args.command == "serve":

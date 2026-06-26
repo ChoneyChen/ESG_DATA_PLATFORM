@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+import base64
 import json
+import re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+from extract_esg.ai import QiniuModelRegistry, api_model_assessment_payload
+from extract_esg.config import Settings
 from extract_esg.persistence import SqliteStore
+from extract_esg.workflows import ReportProcessingWorkflow
 
 
 def _json_response(handler: BaseHTTPRequestHandler, payload: object, status: int = 200) -> None:
@@ -26,6 +31,112 @@ def _html_response(handler: BaseHTTPRequestHandler, html: str, status: int = 200
     handler.wfile.write(data)
 
 
+def _read_json_body(handler: BaseHTTPRequestHandler) -> dict[str, object]:
+    length = int(handler.headers.get("Content-Length") or "0")
+    if length <= 0:
+        return {}
+    raw = handler.rfile.read(length)
+    return json.loads(raw.decode("utf-8"))
+
+
+def _safe_filename(name: str) -> str:
+    stem = Path(name or "uploaded.pdf").name
+    cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", stem).strip("._")
+    return cleaned or "uploaded.pdf"
+
+
+def _selected_model(selected_models: dict[str, str], key: str) -> str | None:
+    value = selected_models.get(key)
+    return value if value else None
+
+
+def _pipeline_steps(selected_models: dict[str, str], *, completed: bool = False) -> list[dict[str, object]]:
+    status = "completed" if completed else "pending"
+    api_status = "planned_not_run" if completed else "planned"
+    return [
+        {
+            "key": "local_pdf",
+            "label": "Local PDF inspection",
+            "mode": "local",
+            "status": status,
+            "model": None,
+            "description": "Extract native text, page metadata, hashes, and local quality flags.",
+        },
+        {
+            "key": "evidence_packets",
+            "label": "Evidence packet build",
+            "mode": "local",
+            "status": status,
+            "model": None,
+            "description": "Convert pages and local text into replayable evidence packets.",
+        },
+        {
+            "key": "page_classification",
+            "label": "Page / section classification",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "page_classification"),
+            "description": "Future cloud call: classify ESG topic, table pages, appendix pages, and standard references.",
+        },
+        {
+            "key": "vision_ocr",
+            "label": "Scanned-page OCR",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "vision_ocr"),
+            "description": "Future cloud call: recover visual text and reading order when local text is weak.",
+        },
+        {
+            "key": "table_vision_extract",
+            "label": "Image/table extraction",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "table_vision_extract"),
+            "description": "Future cloud call: reconstruct table cells, headers, units, and footnotes.",
+        },
+        {
+            "key": "structured_extract",
+            "label": "Full-harvest extraction",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "structured_extract"),
+            "description": "Future cloud call: emit quantitative and qualitative disclosure candidates from packets.",
+        },
+        {
+            "key": "qualitative_summarization",
+            "label": "Qualitative compression",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "qualitative_summarization"),
+            "description": "Future cloud call: summarize policies, targets, controls, and governance claims with evidence ids.",
+        },
+        {
+            "key": "mapping_review",
+            "label": "Standard mapping review",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "mapping_review"),
+            "description": "Future cloud call: map candidates to HKEX, ESRS, GRI, ISSB, and internal concepts.",
+        },
+        {
+            "key": "verification",
+            "label": "Independent verification",
+            "mode": "api",
+            "status": api_status,
+            "model": _selected_model(selected_models, "verification"),
+            "description": "Future cloud call: evidence-only audit before publication.",
+        },
+        {
+            "key": "sqlite_save",
+            "label": "SQLite persistence",
+            "mode": "local",
+            "status": status,
+            "model": None,
+            "description": "Save document, packets, and local candidate disclosures to the local database.",
+        },
+    ]
+
+
 def _page() -> str:
     return """<!doctype html>
 <html lang="zh-CN">
@@ -34,47 +145,265 @@ def _page() -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ExtractESG Local Console</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 32px; color: #172033; }
-    h1 { margin-bottom: 4px; }
-    .muted { color: #6b7280; }
-    .card { border: 1px solid #d7dde8; border-radius: 12px; padding: 16px; margin: 16px 0; }
-    code { background: #f3f4f6; padding: 2px 6px; border-radius: 6px; }
-    button { padding: 8px 12px; border-radius: 8px; border: 1px solid #9aa4b2; background: white; cursor: pointer; }
-    pre { white-space: pre-wrap; background: #0f172a; color: #e5e7eb; padding: 16px; border-radius: 12px; overflow: auto; }
-    a { color: #2563eb; }
+    :root { color-scheme: light; --bg: #f6f8fb; --card: #ffffff; --line: #dbe2ee; --ink: #172033; --muted: #687386; --blue: #2563eb; --green: #12805c; --amber: #a16207; --slate: #475569; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    header { padding: 28px 36px 18px; background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin: 0 0 12px; font-size: 18px; }
+    p { line-height: 1.55; }
+    main { padding: 24px 36px 40px; display: grid; grid-template-columns: minmax(340px, 460px) minmax(520px, 1fr); gap: 18px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05); }
+    .stack { display: grid; gap: 14px; }
+    .muted { color: var(--muted); }
+    .tiny { font-size: 12px; }
+    label { display: block; font-weight: 650; margin: 12px 0 6px; }
+    input, select, button, textarea { font: inherit; }
+    input[type="text"], select { width: 100%; box-sizing: border-box; border: 1px solid #c8d1df; border-radius: 10px; padding: 9px 10px; background: white; }
+    input[type="file"] { width: 100%; }
+    button { border: 1px solid #1d4ed8; background: #1d4ed8; color: white; border-radius: 10px; padding: 10px 14px; cursor: pointer; font-weight: 650; }
+    button.secondary { background: white; color: #1d4ed8; }
+    button:disabled { opacity: .6; cursor: wait; }
+    code { background: #eef2f7; padding: 2px 6px; border-radius: 6px; }
+    pre { white-space: pre-wrap; background: #0f172a; color: #e5e7eb; padding: 14px; border-radius: 12px; overflow: auto; max-height: 520px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .step { border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 8px 0; }
+    .step-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+    .badge { display: inline-block; border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 700; }
+    .local { background: #e0f2fe; color: #075985; }
+    .api { background: #fef3c7; color: #92400e; }
+    .completed { background: #dcfce7; color: #166534; }
+    .planned, .planned_not_run, .pending { background: #e2e8f0; color: #334155; }
+    .error { background: #fee2e2; color: #991b1b; }
+    .report-link { color: var(--blue); cursor: pointer; text-decoration: underline; }
+    .model-row { border-top: 1px solid #edf1f7; padding-top: 10px; }
+    @media (max-width: 980px) { main { grid-template-columns: 1fr; padding: 18px; } header { padding: 22px 18px; } }
   </style>
 </head>
 <body>
-  <h1>ExtractESG Local Console</h1>
-  <p class="muted">本地只读控制台。所有能力也都可以通过 CLI/API 直接使用。</p>
-  <div class="card">
-    <button onclick="loadReports()">刷新报告列表</button>
-    <span class="muted">API: <code>/api/reports</code></span>
-    <div id="reports"></div>
-  </div>
-  <div class="card">
-    <h2>详情</h2>
-    <pre id="detail">点击报告查看详情。</pre>
-  </div>
+  <header>
+    <h1>ExtractESG Local Console</h1>
+    <p>本地演示控制台：选择 PDF、选择每个 API 步骤的模型、查看流程状态，并展示 SQLite 入库结果。CLI/headless 能力仍然完整保留。</p>
+  </header>
+  <main>
+    <section class="stack">
+      <div class="card">
+        <h2>1. 选择 PDF</h2>
+        <label for="pdfPath">本机路径模式</label>
+        <input id="pdfPath" type="text" placeholder="/Users/.../report.pdf" />
+        <p class="muted tiny">适合大 PDF。浏览器不会自动暴露文件绝对路径，所以也保留下面的上传模式。</p>
+        <label for="pdfFile">上传模式</label>
+        <input id="pdfFile" type="file" accept="application/pdf,.pdf" />
+        <label for="reportId">Report ID</label>
+        <input id="reportId" type="text" placeholder="可留空，系统自动生成" />
+      </div>
+      <div class="card">
+        <h2>2. 模型选择</h2>
+        <p class="muted tiny">默认值来自当前能力评估。这里先用于流程规划展示；真实云调用接入后会写入 cloud task 审计记录。</p>
+        <div id="modelSelectors">加载中...</div>
+      </div>
+      <div class="card">
+        <button id="runBtn" onclick="runLocal()">运行本地链路并入库</button>
+        <button class="secondary" onclick="loadReports()">刷新数据库展示</button>
+        <p class="muted tiny">当前按钮不会调用付费云模型；API 步骤会显示为 planned_not_run。本地链路包括 PDF 初处理、证据包、baseline 抽取、SQLite 入库。</p>
+      </div>
+    </section>
+    <section class="stack">
+      <div class="card">
+        <h2>3. 流程状态</h2>
+        <div id="steps"></div>
+      </div>
+      <div class="card">
+        <h2>4. 数据库报告列表</h2>
+        <div id="reports"></div>
+      </div>
+      <div class="card">
+        <h2>5. 结果详情</h2>
+        <pre id="detail">等待运行或点击报告查看详情。</pre>
+      </div>
+    </section>
+  </main>
 <script>
+let assessments = [];
+let cachedModels = [];
+
+function uniq(values) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function optionNames(item) {
+  const recommended = [item.default_model.name].concat((item.alternatives || []).map(x => x.name));
+  const cacheNames = cachedModels.map(m => m.id || m.name);
+  return uniq(recommended.concat(cacheNames));
+}
+
+function renderModelSelectors() {
+  const root = document.getElementById('modelSelectors');
+  if (!assessments.length) {
+    root.innerHTML = '<p class="muted">暂无模型评估。</p>';
+    return;
+  }
+  root.innerHTML = '';
+  for (const item of assessments) {
+    const wrap = document.createElement('div');
+    wrap.className = 'model-row';
+    const label = document.createElement('label');
+    label.textContent = item.label;
+    const select = document.createElement('select');
+    select.id = 'model-' + item.key;
+    for (const name of optionNames(item)) {
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name === item.default_model.name ? name + '（默认）' : name;
+      select.appendChild(option);
+    }
+    const note = document.createElement('p');
+    note.className = 'muted tiny';
+    note.textContent = item.default_model.why;
+    wrap.appendChild(label);
+    wrap.appendChild(select);
+    wrap.appendChild(note);
+    root.appendChild(wrap);
+  }
+}
+
+function collectSelectedModels() {
+  const selected = {};
+  for (const item of assessments) {
+    const node = document.getElementById('model-' + item.key);
+    selected[item.key] = node ? node.value : item.default_model.name;
+  }
+  return selected;
+}
+
+function renderSteps(steps) {
+  const root = document.getElementById('steps');
+  if (!steps || !steps.length) {
+    root.innerHTML = '<p class="muted">暂无流程状态。</p>';
+    return;
+  }
+  root.innerHTML = '';
+  for (const step of steps) {
+    const div = document.createElement('div');
+    div.className = 'step';
+    const model = step.model ? `<p class="tiny muted">模型：<code>${step.model}</code></p>` : '';
+    div.innerHTML = `
+      <div class="step-head">
+        <strong>${step.label}</strong>
+        <span>
+          <span class="badge ${step.mode}">${step.mode}</span>
+          <span class="badge ${step.status}">${step.status}</span>
+        </span>
+      </div>
+      <p class="muted tiny">${step.description || ''}</p>
+      ${model}
+    `;
+    root.appendChild(div);
+  }
+}
+
+async function loadAssessment() {
+  const res = await fetch('/api/model-assessment');
+  const data = await res.json();
+  assessments = data.recommendations || [];
+  cachedModels = data.cached_models || [];
+  renderModelSelectors();
+  renderSteps(data.pipeline_steps || []);
+}
+
 async function loadReports() {
   const res = await fetch('/api/reports');
   const data = await res.json();
   const root = document.getElementById('reports');
-  if (!data.length) { root.innerHTML = '<p class="muted">暂无报告。先运行 run-local。</p>'; return; }
-  root.innerHTML = '<ul>' + data.map(r => `<li><a href="#" onclick="loadReport('${r.report_id}')">${r.report_id}</a> - pages=${r.page_count}, packets=${r.packet_count}, disclosures=${r.disclosure_count}</li>`).join('') + '</ul>';
+  if (!data.length) {
+    root.innerHTML = '<p class="muted">暂无报告。先运行本地链路。</p>';
+    return;
+  }
+  root.innerHTML = '';
+  const list = document.createElement('ul');
+  for (const r of data) {
+    const li = document.createElement('li');
+    const a = document.createElement('span');
+    a.className = 'report-link';
+    a.textContent = r.report_id;
+    a.onclick = () => loadReport(r.report_id);
+    li.appendChild(a);
+    li.appendChild(document.createTextNode(` - pages=${r.page_count}, packets=${r.packet_count}, disclosures=${r.disclosure_count}`));
+    list.appendChild(li);
+  }
+  root.appendChild(list);
 }
+
 async function loadReport(id) {
   const res = await fetch('/api/reports/' + encodeURIComponent(id));
   document.getElementById('detail').textContent = JSON.stringify(await res.json(), null, 2);
 }
-loadReports();
+
+async function fileToBase64(file) {
+  const buffer = await file.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 0x8000;
+  let binary = '';
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+  }
+  return btoa(binary);
+}
+
+async function runLocal() {
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = '运行中...';
+  const selectedModels = collectSelectedModels();
+  renderSteps([
+    {key:'local_pdf', label:'Local PDF inspection', mode:'local', status:'pending', description:'正在准备本地 PDF 证据。'},
+    {key:'evidence_packets', label:'Evidence packet build', mode:'local', status:'pending', description:'等待构造证据包。'},
+    {key:'api_plan', label:'API model plan', mode:'api', status:'planned', description:'云模型步骤本轮仅展示模型选择，不实际调用。'},
+    {key:'sqlite_save', label:'SQLite persistence', mode:'local', status:'pending', description:'等待入库。'}
+  ]);
+  try {
+    const body = {
+      path: document.getElementById('pdfPath').value.trim(),
+      report_id: document.getElementById('reportId').value.trim(),
+      selected_models: selectedModels
+    };
+    const file = document.getElementById('pdfFile').files[0];
+    if (file) {
+      body.upload = { filename: file.name, content_base64: await fileToBase64(file) };
+      body.path = '';
+    }
+    const res = await fetch('/api/run-local', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      renderSteps([{key:'error', label:'Run failed', mode:'local', status:'error', description:data.error || 'unknown error'}]);
+    } else {
+      renderSteps(data.steps || []);
+      document.getElementById('detail').textContent = JSON.stringify(data, null, 2);
+      await loadReports();
+    }
+  } catch (err) {
+    renderSteps([{key:'error', label:'Run failed', mode:'local', status:'error', description:String(err)}]);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '运行本地链路并入库';
+  }
+}
+
+async function init() {
+  await loadAssessment();
+  await loadReports();
+}
+init();
 </script>
 </body>
 </html>"""
 
 
 class LocalConsoleHandler(BaseHTTPRequestHandler):
+    settings: Settings
     store: SqliteStore
 
     def do_GET(self) -> None:  # noqa: N802
@@ -82,6 +411,9 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
         path = parsed.path
         if path == "/":
             _html_response(self, _page())
+            return
+        if path == "/api/model-assessment":
+            _json_response(self, self._model_assessment())
             return
         if path == "/api/reports":
             _json_response(self, self.store.list_reports())
@@ -96,11 +428,80 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
             return
         _json_response(self, {"error": "not_found"}, status=404)
 
+    def do_POST(self) -> None:  # noqa: N802
+        parsed = urlparse(self.path)
+        if parsed.path == "/api/run-local":
+            self._run_local()
+            return
+        _json_response(self, {"error": "not_found"}, status=404)
+
+    def _model_assessment(self) -> dict[str, object]:
+        cached_models: list[dict[str, object]] = []
+        registry = QiniuModelRegistry(cache_path=self.settings.model_cache)
+        try:
+            cached_models = [model.model_dump(mode="json") for model in registry.load_cache()]
+        except Exception as exc:  # pragma: no cover - diagnostic only
+            cached_models = [{"error": f"model cache unavailable: {exc}"}]
+        return {
+            "recommendations": api_model_assessment_payload(),
+            "cached_models": cached_models,
+            "pipeline_steps": _pipeline_steps({}),
+            "note": "Model names are planning defaults. Refresh Qiniu models with CLI before real cloud calls.",
+        }
+
+    def _run_local(self) -> None:
+        try:
+            payload = _read_json_body(self)
+            selected_models = {
+                str(key): str(value)
+                for key, value in (payload.get("selected_models") or {}).items()  # type: ignore[union-attr]
+                if value
+            }
+            artifact_path = self._artifact_path_from_payload(payload)
+            report_id_raw = payload.get("report_id")
+            report_id = str(report_id_raw).strip() if report_id_raw else None
+            state = ReportProcessingWorkflow().run_local_pipeline(artifact_path, report_id=report_id or None, store=self.store)
+            result = {
+                "status": state.status,
+                "report_id": state.report_id,
+                "artifact_path": str(artifact_path),
+                "selected_models": selected_models,
+                "steps": _pipeline_steps(selected_models, completed=True),
+                "counts": {
+                    "pages": len(state.document_ir.pages) if state.document_ir else 0,
+                    "packets": len(state.packets),
+                    "disclosures": len(state.disclosures),
+                },
+                "note": "This local-console run does not call paid cloud models yet; API steps are planned_not_run.",
+            }
+            _json_response(self, result)
+        except Exception as exc:
+            _json_response(self, {"error": str(exc)}, status=400)
+
+    def _artifact_path_from_payload(self, payload: dict[str, object]) -> Path:
+        upload = payload.get("upload")
+        if isinstance(upload, dict) and upload.get("content_base64"):
+            filename = _safe_filename(str(upload.get("filename") or "uploaded.pdf"))
+            upload_dir = self.settings.object_store / "uploads"
+            upload_dir.mkdir(parents=True, exist_ok=True)
+            artifact_path = upload_dir / filename
+            artifact_path.write_bytes(base64.b64decode(str(upload["content_base64"])))
+            return artifact_path
+
+        path_value = str(payload.get("path") or "").strip()
+        if not path_value:
+            raise ValueError("Provide either a PDF path or a PDF upload.")
+        artifact_path = Path(path_value).expanduser()
+        if not artifact_path.exists():
+            raise FileNotFoundError(f"PDF not found: {artifact_path}")
+        return artifact_path
+
     def log_message(self, format: str, *args: object) -> None:
         return
 
 
-def serve(*, db_path: str | Path, host: str = "127.0.0.1", port: int = 8765) -> None:
+def serve(*, db_path: str | Path, host: str = "127.0.0.1", port: int = 8765, settings: Settings | None = None) -> None:
+    LocalConsoleHandler.settings = settings or Settings.from_env()
     LocalConsoleHandler.store = SqliteStore(db_path)
     server = ThreadingHTTPServer((host, port), LocalConsoleHandler)
     print(f"ExtractESG local console: http://{host}:{port}")
@@ -111,4 +512,3 @@ def serve(*, db_path: str | Path, host: str = "127.0.0.1", port: int = 8765) -> 
         print("\nStopping ExtractESG local console.")
     finally:
         server.server_close()
-

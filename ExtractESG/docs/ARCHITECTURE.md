@@ -20,6 +20,25 @@ PDF artifact
        candidates only until review and publication gates
 ```
 
+## Controlled Agent Architecture
+
+ExtractESG uses a controlled multi-agent workflow, not an open-ended Codex-like
+agent that freely decides tools and edits system state.
+
+In this project an "agent" means a bounded worker:
+
+- it has one role, such as document parsing, evidence construction, extraction,
+  mapping, verification, or publication;
+- it receives typed inputs such as `DocumentIR`, `EvidencePacket`, or
+  `DisclosureObject`;
+- it emits typed outputs with source traces and quality flags;
+- it can call only the cloud model route assigned to that task;
+- it cannot publish a fact unless the workflow's review gates allow it.
+
+The orchestrator is the actual state machine. It owns task ordering, retry
+policy, model selection, persistence, and publishability decisions. This keeps
+AI useful without letting it silently rewrite the database logic.
+
 ## Why Local Evidence Still Matters
 
 Qiniu cloud models may read PDF files or rendered page images, but the platform still needs local evidence anchors:
@@ -40,4 +59,3 @@ Any cloud output without a replay path remains a candidate and cannot be publish
 3. Cloud model benchmark harness.
 4. Evidence packet quality and cost controls.
 5. Human review and publication gates.
-

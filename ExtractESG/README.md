@@ -46,6 +46,7 @@ cp .env.example .env
 python -m extract_esg.cli init-db
 python -m extract_esg.cli run-local "../越秀地产2024可持续发展报告(1).pdf"
 python -m extract_esg.cli list-reports
+python -m extract_esg.cli model-assessment
 python -m extract_esg.cli serve
 ```
 
@@ -71,9 +72,14 @@ Model registry commands:
 ```bash
 python -m extract_esg.cli refresh-models
 python -m extract_esg.cli list-cached-models
+python -m extract_esg.cli model-assessment
 python -m extract_esg.cli select-model vision_ocr
 python -m extract_esg.cli select-model structured_extract
 ```
+
+`model-assessment` prints the current planning defaults and backups for every
+API model step. The live runtime should still confirm account-visible model IDs
+through Qiniu `/v1/models` before a paid cloud call.
 
 ## Current Local Database
 
@@ -103,7 +109,9 @@ The default `run-local` command does not call cloud models. It prepares local ev
 
 ## Optional Local Console
 
-The local console is optional and read-only:
+The local console is optional. It can choose a PDF, select per-step model
+defaults, visualize the local/API-planned workflow, run the local evidence to
+SQLite chain, and browse database results:
 
 ```bash
 python -m extract_esg.cli serve --host 127.0.0.1 --port 8765

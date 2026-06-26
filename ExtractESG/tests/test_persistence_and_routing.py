@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from extract_esg.ai import CloudModelRouter, QiniuModelRegistry
+from extract_esg.ai import CloudModelRouter, QiniuModelRegistry, api_model_assessment_payload
 from extract_esg.config import Settings
 from extract_esg.contracts.cloud import CloudModelInfo
 from extract_esg.persistence import SqliteStore
@@ -52,7 +52,17 @@ class PersistenceAndRoutingTests(unittest.TestCase):
             self.assertEqual(choice.model.id, "pinned-vision")
             self.assertEqual(choice.reason, "explicit_env_model")
 
+    def test_model_assessment_covers_api_tasks(self) -> None:
+        payload = api_model_assessment_payload()
+        keys = {item["key"] for item in payload}
+        self.assertIn("vision_ocr", keys)
+        self.assertIn("structured_extract", keys)
+        self.assertIn("mapping_review", keys)
+        self.assertIn("verification", keys)
+        for item in payload:
+            self.assertTrue(item["default_model"]["name"])
+            self.assertGreaterEqual(len(item["alternatives"]), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
-
