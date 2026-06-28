@@ -9,6 +9,10 @@ Last updated: 2026-06-28
 
 - `v0.1` remains reference-only. The active system is the greenfield
   `ExtractESG` architecture.
+- Every discussion and implementation step should first be checked against the
+  active skeleton: evidence-first, local-first, controlled agents, Qiniu-only
+  cloud models in phase 1, candidate-only model output, and review gates before
+  publication.
 - Do not modify the extraction chain casually. Structural changes must be
   recorded here and checked against `docs/ARCHITECTURE.md` and
   `docs/QINIU_MODEL_STRATEGY.md`.
@@ -107,6 +111,42 @@ one of them is currently implemented as a real chain.
 | ESG standard mapping review | Yes | Not yet | Planned route only. No HKEX/ESRS/GRI/ISSB clause library or mapper is wired. |
 | Independent text/evidence verification | Yes | Not yet | Only local evidence-id subset check exists. No independent model verifier yet. |
 | Independent visual verification | Yes | Not yet | Planned route only. |
+
+## Local-First / Model-When-Needed Policy
+
+Current best architecture is not "call a model at every step." The intended
+policy is:
+
+```text
+local deterministic method first
+  -> quality/risk/ambiguity gate
+  -> cloud model only when justified
+  -> candidate result
+  -> deterministic validation and independent review
+  -> human review/publication later
+```
+
+Examples:
+
+- page classification starts with local headings, TOC, keywords, and page
+  quality flags; model classification is used when local signals are ambiguous
+  or control expensive downstream work;
+- OCR/VLM is skipped when native text is good and used only for scanned,
+  image-only, or visually inconsistent pages;
+- visual table extraction is skipped when deterministic table extraction is
+  good enough and used only for image tables or uncertain header/unit paths;
+- structured ESG extraction needs model support for semantic recall, but still
+  operates only on evidence packets;
+- standard mapping must start from local standard-library/dictionary/vector
+  candidates, then use a model for semantic judgement;
+- verification must be independent from the generation call for high-risk facts.
+
+Composite model calls are allowed only when they share the same evidence and do
+not remove review boundaries. Acceptable composites include page classification
+plus routing flags, visual OCR plus layout notes, table structure plus raw
+numeric candidates, and packet extraction plus qualitative claim candidates.
+Forbidden composites include extraction plus self-verification, model-only
+standard retrieval plus final mapping, and model output plus publication.
 
 ## Non-Model Tools Actually Used
 
@@ -224,3 +264,22 @@ Not constructed in this entry:
 - No frontend redesign yet.
 - No new OCR/table/vector/synonym/standard-mapping implementation.
 
+### 2026-06-28: Model gating and composite-call policy
+
+Constructed in this entry:
+
+- Confirmed the local-first/model-when-needed strategy is consistent with the
+  active ExtractESG skeleton.
+- Updated architecture documentation with model use policy and composite-call
+  boundaries.
+- Updated Qiniu model strategy with local-first gates and allowed/forbidden
+  composite calls.
+- Recorded that every discussion and implementation step should check back
+  against the active skeleton.
+
+Not constructed in this entry:
+
+- No extraction-chain code changes.
+- No new model calls.
+- No frontend redesign.
+- No OCR/table/vector/synonym/standard-mapping implementation.

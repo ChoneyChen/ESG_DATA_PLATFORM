@@ -19,6 +19,51 @@ The model list is dynamic. ExtractESG must sync capabilities from Qiniu rather t
 - Use structured-output models for disclosure candidates and claim extraction.
 - Use reasoning-capable models for standard mapping and conflict review.
 - Use a different model or prompt version for independent verification when cost allows.
+- Prefer deterministic local methods when they are reliable enough; model calls
+  are gated by evidence quality, ambiguity, and risk.
+
+## Local-First Gating Matrix
+
+| Stage | Local method first? | Model trigger | Can be combined with |
+|---|---:|---|---|
+| Page / section classification | Yes | Page is semantically ambiguous, controls expensive downstream calls, or keyword/title rules disagree | extraction-worthiness and OCR/table-routing flags |
+| Scanned-page OCR and visual reading | Yes | Native text is empty, garbled, too short, or visually inconsistent | visual layout notes for the same page/region |
+| Image/table structure extraction | Yes | Native table extraction fails, image table is detected, or header/unit paths are unclear | raw value/unit/period candidates from the same table crop |
+| Full-harvest structured ESG extraction | Partly | Evidence packet is ESG-relevant and needs semantic candidate generation | qualitative claim compression and initial concept candidates from the same packet |
+| Qualitative claim compression | Partly | Long narrative claims need canonical subject-action-object summaries | full-harvest extraction when reading the same packet |
+| Whole-report long-context synthesis | Yes | Advisory report-level inventory or consistency analysis is needed | topic inventory and consistency warnings |
+| ESG standard mapping review | Yes | Local dictionary/vector/standard-library candidates need semantic judgement | rationale generation for the supplied candidate clauses |
+| Independent text/evidence verification | Partly | Candidate is high value, quantitative, mapped to a standard, or low-confidence | Do not combine with candidate generation for the same fact |
+| Independent visual verification | Partly | Candidate depends on OCR, table crop, chart, or visual layout | Do not combine with the visual extraction that generated the candidate |
+
+## Composite Call Policy
+
+Composite calls are allowed only when all of these are true:
+
+- the combined tasks read the same evidence object or crop;
+- outputs are separated into typed fields with their own quality flags;
+- prompt and schema versions record that the call was composite;
+- the result remains candidate-only until downstream verification;
+- the composite call does not remove an independent review gate.
+
+Recommended composites:
+
+| Composite | Why it is acceptable | Boundary that must remain |
+|---|---|---|
+| Page classification + route flags | The same page text can determine topic, extraction-worthiness, and whether OCR/table work is needed | It cannot extract final facts |
+| Vision OCR + layout notes | The same page image is already being read | It cannot verify itself |
+| Visual table structure + raw numeric candidates | The same table crop contains cells, headers, units, and values | Deterministic numeric parsing and unit normalization still run after it |
+| Full-harvest extraction + qualitative claim candidates + initial concept candidates | The same evidence packet is already in context | Mapping and verification remain separate |
+| Whole-report inventory + consistency warnings | This is advisory analysis, not database fact creation | It cannot create facts without packet evidence |
+
+Forbidden composites:
+
+- extraction plus independent verification by the same model call;
+- model-only standard retrieval plus final mapping without local standard
+  clauses;
+- any model call that writes directly to publication tables;
+- mixing unrelated evidence packets just to save money;
+- visual extraction plus final visual verification from the same call.
 
 ## Current Default Model Matrix
 
