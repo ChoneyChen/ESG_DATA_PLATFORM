@@ -17,6 +17,7 @@ def _json_response(handler: BaseHTTPRequestHandler, payload: object, status: int
     data = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
+    handler.send_header("Cache-Control", "no-store")
     handler.send_header("Content-Length", str(len(data)))
     handler.end_headers()
     handler.wfile.write(data)
@@ -26,6 +27,7 @@ def _html_response(handler: BaseHTTPRequestHandler, html: str, status: int = 200
     data = html.encode("utf-8")
     handler.send_response(status)
     handler.send_header("Content-Type", "text/html; charset=utf-8")
+    handler.send_header("Cache-Control", "no-store")
     handler.send_header("Content-Length", str(len(data)))
     handler.end_headers()
     handler.wfile.write(data)
@@ -187,6 +189,7 @@ def _page() -> str:
 <body>
   <header>
     <h1>ExtractESG Local Console</h1>
+    <p><strong>真实云抽取版</strong>：已接入七牛 /chat/completions，可运行小样本真实云模型抽取并入库。</p>
     <p>本地演示控制台：选择 PDF、选择每个 API 步骤的模型、查看流程状态，并展示 SQLite 入库结果。CLI/headless 能力仍然完整保留。</p>
   </header>
   <main>
