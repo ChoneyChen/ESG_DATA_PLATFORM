@@ -174,10 +174,12 @@ class SqliteStore:
                     r.page_count,
                     r.created_at,
                     COUNT(DISTINCT p.packet_id) AS packet_count,
-                    COUNT(DISTINCT d.disclosure_id) AS disclosure_count
+                    COUNT(DISTINCT d.disclosure_id) AS disclosure_count,
+                    COUNT(DISTINCT c.request_id) AS cloud_result_count
                 FROM reports r
                 LEFT JOIN evidence_packets p ON p.report_id = r.report_id
                 LEFT JOIN disclosures d ON d.report_id = r.report_id
+                LEFT JOIN cloud_task_results c ON c.report_id = r.report_id
                 GROUP BY r.report_id
                 ORDER BY r.created_at DESC
                 """
@@ -198,9 +200,13 @@ class SqliteStore:
                 "SELECT disclosure_id, disclosure_type, raw_label, raw_text, quality_flags_json FROM disclosures WHERE report_id = ?",
                 (report_id,),
             ).fetchall()
+            cloud_results = conn.execute(
+                "SELECT request_id, model_id, task_type, result_json, created_at FROM cloud_task_results WHERE report_id = ? ORDER BY created_at",
+                (report_id,),
+            ).fetchall()
         return {
             "report": dict(report),
             "pages": [dict(row) for row in pages],
             "disclosures": [dict(row) for row in disclosures],
+            "cloud_results": [dict(row) for row in cloud_results],
         }
-

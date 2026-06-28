@@ -6,7 +6,9 @@ from pathlib import Path
 
 from extract_esg.ai import CloudModelRouter, QiniuModelRegistry, api_model_assessment_payload
 from extract_esg.config import Settings
-from extract_esg.contracts.cloud import CloudModelInfo
+from extract_esg.contracts.base import SourceTrace
+from extract_esg.contracts.cloud import CloudModelInfo, CloudTaskResult
+from extract_esg.extraction import parse_structured_disclosures
 from extract_esg.persistence import SqliteStore
 from extract_esg.workflows import ReportProcessingWorkflow
 
@@ -62,6 +64,38 @@ class PersistenceAndRoutingTests(unittest.TestCase):
         for item in payload:
             self.assertTrue(item["default_model"]["name"])
             self.assertGreaterEqual(len(item["alternatives"]), 1)
+
+    def test_registry_infers_capabilities_from_model_id(self) -> None:
+        model = QiniuModelRegistry._parse_model({"id": "qwen2.5-vl-72b-instruct", "object": "model"})
+        self.assertIn("image", model.input_modalities)
+        self.assertTrue(model.supports_schema_output)
+        self.assertGreaterEqual(model.context_length or 0, 32768)
+
+    def test_parse_structured_cloud_disclosures(self) -> None:
+        result = CloudTaskResult(
+            request_id="cloud_task_test",
+            model_id="qwen-turbo",
+            raw_response={
+                "choices": [
+                    {
+                        "message": {
+                            "content": (
+                                '{"disclosures":[{"raw_label":"GHG emissions","raw_text":"2024 emissions were 12 tCO2e",'
+                                '"disclosure_type":"quantitative","concept_candidates":["emissions"],"evidence_ids":["ev_1"]}]}'
+                            )
+                        }
+                    }
+                ]
+            },
+            source=SourceTrace(run_id="cloud_task_test", producer="test", version="test"),
+        )
+
+        disclosures, parsed = parse_structured_disclosures(result, report_id="r1", allowed_evidence_ids={"ev_1"})
+
+        self.assertEqual(len(disclosures), 1)
+        self.assertEqual(disclosures[0].disclosure_type, "quantitative")
+        self.assertEqual(disclosures[0].evidence_ids, ["ev_1"])
+        self.assertIn("disclosures", parsed)
 
 
 if __name__ == "__main__":

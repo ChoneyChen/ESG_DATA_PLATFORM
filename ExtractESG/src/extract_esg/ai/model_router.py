@@ -47,6 +47,10 @@ class CloudModelRouter:
                 reason="explicit_env_model" if model else "explicit_env_model_not_in_registry",
             )
 
+        preferred = self._preferred_model(task_kind)
+        if preferred:
+            return ModelChoice(task_kind, preferred, None, "preferred_available_model")
+
         if task_kind in {"vision_ocr", "table_vision_extract", "visual_verification"}:
             model = self.registry.select(requires_image=True, min_context=32000)
             return ModelChoice(task_kind, model, None, "requires_image")
@@ -71,5 +75,65 @@ class CloudModelRouter:
     def _find(self, model_id: str) -> CloudModelInfo | None:
         for model in self.registry.models:
             if model.id == model_id:
+                return model
+        return None
+
+    def _preferred_model(self, task_kind: TaskKind) -> CloudModelInfo | None:
+        preferred_ids = {
+            "page_classification": (
+                "deepseek/deepseek-v4-flash",
+                "qwen-turbo",
+                "qwen3-next-80b-a3b-instruct",
+            ),
+            "vision_ocr": (
+                "qwen/qwen3.5-plus",
+                "qwen-vl-max-2025-01-25",
+                "qwen2.5-vl-72b-instruct",
+                "moonshotai/kimi-k2.5",
+            ),
+            "table_vision_extract": (
+                "qwen/qwen3.5-plus",
+                "qwen-vl-max-2025-01-25",
+                "qwen2.5-vl-72b-instruct",
+                "moonshotai/kimi-k2.5",
+            ),
+            "structured_extract": (
+                "doubao-seed-2.0-lite",
+                "deepseek/deepseek-v4-flash",
+                "qwen3-next-80b-a3b-instruct",
+                "qwen/qwen3.5-plus",
+                "qwen-turbo",
+            ),
+            "qualitative_summarization": (
+                "deepseek/deepseek-v4-flash",
+                "doubao-seed-1.6-flash",
+                "qwen3-next-80b-a3b-instruct",
+            ),
+            "long_context_understanding": (
+                "deepseek/deepseek-v4-flash",
+                "deepseek/deepseek-v4-pro",
+                "z-ai/glm-5.2",
+            ),
+            "mapping_review": (
+                "deepseek/deepseek-v4-pro",
+                "z-ai/glm-5",
+                "minimax/minimax-m2.7",
+                "qwen3-max",
+            ),
+            "verification": (
+                "z-ai/glm-5",
+                "deepseek/deepseek-v4-pro",
+                "minimax/minimax-m2.7",
+                "qwen3-next-80b-a3b-thinking",
+            ),
+            "visual_verification": (
+                "moonshotai/kimi-k2.5",
+                "qwen/qwen3.5-plus",
+                "qwen-vl-max-2025-01-25",
+            ),
+        }
+        for model_id in preferred_ids.get(task_kind, ()):
+            model = self._find(model_id)
+            if model:
                 return model
         return None

@@ -55,6 +55,37 @@ def run_local(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_cloud(args: argparse.Namespace) -> int:
+    settings = _settings(args)
+    db_path = Path(args.db or settings.sqlite_db_path)
+    store = SqliteStore(db_path)
+    state = ReportProcessingWorkflow().run_cloud_pipeline(
+        args.path,
+        report_id=args.report_id,
+        store=store,
+        settings=settings,
+        model_id=args.model,
+        start_packet=args.start_packet,
+        max_packets=args.max_packets,
+        max_chars_per_packet=args.max_chars_per_packet,
+    )
+    payload = {
+        "db": str(db_path),
+        "report_id": state.report_id,
+        "status": state.status,
+        "model_ids": sorted({result.model_id for result in state.cloud_results}),
+        "pages": len(state.document_ir.pages) if state.document_ir else 0,
+        "packets_total": len(state.packets),
+        "packets_sent_to_cloud": len(state.cloud_results),
+        "cloud_results": len(state.cloud_results),
+        "disclosures": len(state.disclosures),
+        "usage": [result.usage for result in state.cloud_results],
+        "note": "cloud disclosures are candidates only; review/publication gates are still required",
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
 def list_reports(args: argparse.Namespace) -> int:
     settings = _settings(args)
     db_path = Path(args.db or settings.sqlite_db_path)
@@ -123,6 +154,15 @@ def main(argv: list[str] | None = None) -> int:
     local.add_argument("--report-id", default=None)
     local.add_argument("--db", default=None)
 
+    cloud = sub.add_parser("run-cloud")
+    cloud.add_argument("path")
+    cloud.add_argument("--report-id", default=None)
+    cloud.add_argument("--db", default=None)
+    cloud.add_argument("--model", default=None)
+    cloud.add_argument("--start-packet", type=int, default=0)
+    cloud.add_argument("--max-packets", type=int, default=2)
+    cloud.add_argument("--max-chars-per-packet", type=int, default=6000)
+
     reports = sub.add_parser("list-reports")
     reports.add_argument("--db", default=None)
 
@@ -163,6 +203,8 @@ def main(argv: list[str] | None = None) -> int:
         return init_db(args)
     if args.command == "run-local":
         return run_local(args)
+    if args.command == "run-cloud":
+        return run_cloud(args)
     if args.command == "list-reports":
         return list_reports(args)
     if args.command == "list-cached-models":

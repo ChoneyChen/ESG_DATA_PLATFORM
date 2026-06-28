@@ -45,6 +45,7 @@ pip install -e ".[dev]"
 cp .env.example .env
 python -m extract_esg.cli init-db
 python -m extract_esg.cli run-local "../越秀地产2024可持续发展报告(1).pdf"
+python -m extract_esg.cli run-cloud "../越秀地产2024可持续发展报告(1).pdf" --start-packet 4 --max-packets 2
 python -m extract_esg.cli list-reports
 python -m extract_esg.cli model-assessment
 python -m extract_esg.cli serve
@@ -106,6 +107,21 @@ Cloud models are expected in these blocks:
 | Independent verification | separate model or prompt version |
 
 The default `run-local` command does not call cloud models. It prepares local evidence, evidence packets, and local baseline candidates for offline smoke testing.
+
+Use `run-cloud` for the real Qiniu model loop:
+
+```bash
+python -m extract_esg.cli --env-file ExtractESG/.env run-cloud "../越秀地产2024可持续发展报告(1).pdf" \
+  --start-packet 4 \
+  --max-packets 2 \
+  --max-chars-per-packet 5000
+```
+
+`run-cloud` prepares local evidence, sends selected evidence packets to Qiniu
+`/chat/completions`, stores raw cloud task results, parses strict JSON into
+candidate disclosures, and saves them to SQLite. The default is intentionally
+small so a smoke test proves the chain without sending a full 300-page report
+to the model.
 
 ## Optional Local Console
 
@@ -169,6 +185,7 @@ pip install -e ".[dev]"
 cp .env.example .env
 python -m extract_esg.cli init-db
 python -m extract_esg.cli run-local "../越秀地产2024可持续发展报告(1).pdf"
+python -m extract_esg.cli run-cloud "../越秀地产2024可持续发展报告(1).pdf" --start-packet 4 --max-packets 2
 python -m extract_esg.cli list-reports
 python -m extract_esg.cli model-assessment
 python -m extract_esg.cli serve
@@ -228,6 +245,18 @@ python -m extract_esg.cli select-model structured_extract
 | 独立审核 | 不同模型或不同 prompt 版本 |
 
 默认的 `run-local` 命令不会调用云模型。它只会准备本地证据、证据包和本地 baseline 候选结果，用于离线烟测。
+
+如果要跑真实七牛云模型链路，使用 `run-cloud`：
+
+```bash
+python -m extract_esg.cli --env-file ExtractESG/.env run-cloud "../越秀地产2024可持续发展报告(1).pdf" \
+  --start-packet 4 \
+  --max-packets 2 \
+  --max-chars-per-packet 5000
+```
+
+`run-cloud` 会准备本地证据包，把选中的 evidence packets 发送到七牛
+`/chat/completions`，保存原始 cloud task result，把严格 JSON 解析为候选披露项，并写入 SQLite。默认只发送少量 packet，是为了用低成本方式证明真实链路，而不是一次性把 300 页报告全部发给模型。
 
 ## 可选本地控制台
 

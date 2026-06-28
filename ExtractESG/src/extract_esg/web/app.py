@@ -50,9 +50,14 @@ def _selected_model(selected_models: dict[str, str], key: str) -> str | None:
     return value if value else None
 
 
-def _pipeline_steps(selected_models: dict[str, str], *, completed: bool = False) -> list[dict[str, object]]:
+def _pipeline_steps(
+    selected_models: dict[str, str],
+    *,
+    completed: bool = False,
+    api_completed: bool = False,
+) -> list[dict[str, object]]:
     status = "completed" if completed else "pending"
-    api_status = "planned_not_run" if completed else "planned"
+    api_status = "completed" if api_completed else "planned_not_run" if completed else "planned"
     return [
         {
             "key": "local_pdf",
@@ -158,7 +163,7 @@ def _page() -> str:
     .tiny { font-size: 12px; }
     label { display: block; font-weight: 650; margin: 12px 0 6px; }
     input, select, button, textarea { font: inherit; }
-    input[type="text"], input[type="password"], select { width: 100%; box-sizing: border-box; border: 1px solid #c8d1df; border-radius: 10px; padding: 9px 10px; background: white; }
+    input[type="text"], input[type="password"], input[type="number"], select { width: 100%; box-sizing: border-box; border: 1px solid #c8d1df; border-radius: 10px; padding: 9px 10px; background: white; }
     input[type="file"] { width: 100%; }
     button { border: 1px solid #1d4ed8; background: #1d4ed8; color: white; border-radius: 10px; padding: 10px 14px; cursor: pointer; font-weight: 650; }
     button.secondary { background: white; color: #1d4ed8; }
@@ -211,8 +216,19 @@ def _page() -> str:
       </div>
       <div class="card">
         <button id="runBtn" onclick="runLocal()">运行本地链路并入库</button>
+        <button id="runCloudBtn" onclick="runCloud()">运行真实云抽取</button>
         <button class="secondary" onclick="loadReports()">刷新数据库展示</button>
-        <p class="muted tiny">当前按钮不会调用付费云模型；API 步骤会显示为 planned_not_run。本地链路包括 PDF 初处理、证据包、baseline 抽取、SQLite 入库。</p>
+        <div class="grid2">
+          <div>
+            <label for="startPacket">云抽取起始 packet</label>
+            <input id="startPacket" type="number" min="0" value="4" />
+          </div>
+          <div>
+            <label for="maxPackets">最多发送 packets</label>
+            <input id="maxPackets" type="number" min="1" max="10" value="2" />
+          </div>
+        </div>
+        <p class="muted tiny">本地链路不会调用付费云模型；真实云抽取默认从 packet 4 开始、最多发送 2 个 evidence packets，用于低成本验证端到端链路。</p>
       </div>
     </section>
     <section class="stack">
@@ -378,7 +394,7 @@ async function loadReports() {
     a.textContent = r.report_id;
     a.onclick = () => loadReport(r.report_id);
     li.appendChild(a);
-    li.appendChild(document.createTextNode(` - pages=${r.page_count}, packets=${r.packet_count}, disclosures=${r.disclosure_count}`));
+    li.appendChild(document.createTextNode(` - pages=${r.page_count}, packets=${r.packet_count}, disclosures=${r.disclosure_count}, cloud=${r.cloud_result_count || 0}`));
     list.appendChild(li);
   }
   root.appendChild(list);
@@ -444,6 +460,52 @@ async function runLocal() {
   }
 }
 
+async function runCloud() {
+  const btn = document.getElementById('runCloudBtn');
+  btn.disabled = true;
+  btn.textContent = '云抽取中...';
+  const selectedModels = collectSelectedModels();
+  renderSteps([
+    {key:'local_pdf', label:'Local PDF inspection', mode:'local', status:'pending', description:'正在准备本地 PDF 证据。'},
+    {key:'evidence_packets', label:'Evidence packet build', mode:'local', status:'pending', description:'等待构造证据包。'},
+    {key:'structured_extract', label:'Full-harvest extraction', mode:'api', status:'pending', description:'即将真实调用七牛模型。'},
+    {key:'sqlite_save', label:'SQLite persistence', mode:'local', status:'pending', description:'等待保存 cloud result 和候选披露。'}
+  ]);
+  try {
+    const body = {
+      path: document.getElementById('pdfPath').value.trim(),
+      report_id: document.getElementById('reportId').value.trim(),
+      selected_models: selectedModels,
+      qiniu_api_key: getApiKey(),
+      start_packet: Number(document.getElementById('startPacket').value || 0),
+      max_packets: Number(document.getElementById('maxPackets').value || 2)
+    };
+    const file = document.getElementById('pdfFile').files[0];
+    if (file) {
+      body.upload = { filename: file.name, content_base64: await fileToBase64(file) };
+      body.path = '';
+    }
+    const res = await fetch('/api/run-cloud', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      renderSteps([{key:'error', label:'Cloud run failed', mode:'api', status:'error', description:data.error || 'unknown error'}]);
+    } else {
+      renderSteps(data.steps || []);
+      document.getElementById('detail').textContent = JSON.stringify(data, null, 2);
+      await loadReports();
+    }
+  } catch (err) {
+    renderSteps([{key:'error', label:'Cloud run failed', mode:'api', status:'error', description:String(err)}]);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '运行真实云抽取';
+  }
+}
+
 async function init() {
   const storedApiKey = sessionStorage.getItem('extract_esg_qiniu_api_key');
   if (storedApiKey) {
@@ -493,6 +555,9 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
         if parsed.path == "/api/run-local":
             self._run_local()
             return
+        if parsed.path == "/api/run-cloud":
+            self._run_cloud()
+            return
         _json_response(self, {"error": "not_found"}, status=404)
 
     def _model_assessment(self) -> dict[str, object]:
@@ -534,6 +599,64 @@ class LocalConsoleHandler(BaseHTTPRequestHandler):
             )
         except Exception as exc:
             _json_response(self, {"error": str(exc)}, status=400)
+
+    def _run_cloud(self) -> None:
+        try:
+            payload = _read_json_body(self)
+            selected_models = {
+                str(key): str(value)
+                for key, value in (payload.get("selected_models") or {}).items()  # type: ignore[union-attr]
+                if value
+            }
+            api_key = str(payload.get("qiniu_api_key") or "").strip()
+            settings = self.settings.__class__(**{**self.settings.__dict__, "qiniu_api_key": api_key or self.settings.qiniu_api_key})
+            if not settings.qiniu_api_key:
+                raise ValueError("QINIU_API_KEY is required for real cloud extraction.")
+
+            artifact_path = self._artifact_path_from_payload(payload)
+            report_id_raw = payload.get("report_id")
+            report_id = str(report_id_raw).strip() if report_id_raw else None
+            model_id = self._exact_cached_model_id(selected_models.get("structured_extract"))
+            start_packet = int(payload.get("start_packet") or 0)
+            max_packets = int(payload.get("max_packets") or 2)
+            state = ReportProcessingWorkflow().run_cloud_pipeline(
+                artifact_path,
+                report_id=report_id or None,
+                store=self.store,
+                settings=settings,
+                model_id=model_id,
+                start_packet=max(0, start_packet),
+                max_packets=max(1, min(max_packets, 10)),
+            )
+            result = {
+                "status": state.status,
+                "report_id": state.report_id,
+                "artifact_path": str(artifact_path),
+                "selected_models": selected_models,
+                "actual_model_ids": sorted({item.model_id for item in state.cloud_results}),
+                "steps": _pipeline_steps(selected_models, completed=True, api_completed=True),
+                "counts": {
+                    "pages": len(state.document_ir.pages) if state.document_ir else 0,
+                    "packets_total": len(state.packets),
+                    "cloud_results": len(state.cloud_results),
+                    "disclosures": len(state.disclosures),
+                },
+                "usage": [item.usage for item in state.cloud_results],
+                "note": "Real cloud extraction completed. Results are candidate disclosures and still require review gates.",
+            }
+            _json_response(self, result)
+        except Exception as exc:
+            _json_response(self, {"error": str(exc)}, status=400)
+
+    def _exact_cached_model_id(self, selected: str | None) -> str | None:
+        if not selected:
+            return None
+        try:
+            registry = QiniuModelRegistry(cache_path=self.settings.model_cache)
+            ids = {model.id for model in registry.load_cache()}
+        except Exception:
+            ids = set()
+        return selected if selected in ids else None
 
     def _run_local(self) -> None:
         try:
