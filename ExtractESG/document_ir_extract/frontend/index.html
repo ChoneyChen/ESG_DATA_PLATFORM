@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ESG Evidence Hub · Document IR Console</title>
+    <link rel="stylesheet" href="./src/styles.css?v=package-v1-20260718-2" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">ESG Evidence Hub v2</p>
+          <h1>Document Intelligence 工作台</h1>
+          <p class="lede">从 PaddleOCR 原始结果，到页图、坐标、结构、表格图、视觉复核与 IR 准入，逐层查看每一个中间过程。</p>
+        </div>
+        <div class="hero-actions">
+          <label class="compact-field">Backend URL<input id="backend-url" type="url" value="http://127.0.0.1:18080" /></label>
+          <button id="refresh-all" class="secondary" type="button">刷新运行记录</button>
+          <div class="status-pill" id="health">Backend: checking...</div>
+        </div>
+      </header>
+
+      <section class="pipeline-card">
+        <div class="section-heading"><div><p class="eyebrow">Live pipeline</p><h2>Document IR 构建链路</h2></div><span id="pipeline-state" class="muted">等待任务</span></div>
+        <div id="pipeline-stages" class="pipeline-stages"></div>
+      </section>
+
+      <section class="card model-strip-card">
+        <div class="section-heading">
+          <div><p class="eyebrow">Agent runtime</p><h2>七牛模型注册表与健康状态</h2></div>
+          <button id="refresh-models" class="secondary" type="button">刷新模型状态</button>
+        </div>
+        <div id="model-status" class="model-status"><span class="muted">尚未读取模型目录。</span></div>
+      </section>
+
+      <section class="two-column setup-grid">
+        <form id="ocr-form" class="card">
+          <div class="step-label">Step 1 · Primary parser</div>
+          <h2>PDF → PaddleOCR-VL</h2>
+          <label>PaddleOCR-VL Token<input id="token" type="password" placeholder="留空则使用后端环境变量；不会写入产物" /></label>
+          <label>本地 PDF<input id="pdf-file" type="file" accept="application/pdf,.pdf" /></label>
+          <label>或 PDF URL<input id="file-url" type="url" placeholder="https://..." /></label>
+          <label>Model<input id="model" value="PaddleOCR-VL-1.6" /></label>
+          <div class="checks">
+            <label><input id="use-orientation" type="checkbox" /> 方向分类</label>
+            <label><input id="use-unwarping" type="checkbox" /> 文档矫正</label>
+            <label><input id="use-chart" type="checkbox" /> 图表识别</label>
+          </div>
+          <button type="submit">开始 OCR</button>
+          <p class="hint">v2 从上游 PDF artifact 开始，不承担爬虫、Kodo 文件登记或公司主数据。</p>
+        </form>
+
+        <form id="ir-form" class="card">
+          <div class="step-label">Step 2 · Platform document model</div>
+          <h2>OCR Output → Document IR</h2>
+          <label>OCR Run ID<input id="ocr-run-id" placeholder="ocr-xxxxxxxxxxxx" /></label>
+          <label>原 PDF 本机路径（可选）<input id="pdf-path" placeholder="上传任务通常可自动推断" /></label>
+          <div class="field-row">
+            <label>渲染 DPI<input id="render-dpi" type="number" min="72" max="300" value="144" /></label>
+            <label>父 IR 版本<select id="parent-ir-run"><option value="">新建独立 revision</option></select></label>
+          </div>
+          <label>七牛 API Key（仅开启 VLM 时）<input id="qiniu-key" type="password" placeholder="留空则使用后端环境变量" /></label>
+          <label class="checkbox-line"><input id="execute-vlm" type="checkbox" /> 执行质量路由产生的七牛 VLM 复核任务</label>
+          <p class="agent-note">自动闭环：主审模型提出局部候选 → 本地 Patch Guard → 不同模型家族独立复核 → 最多一次自动返修。API 故障进入自动待处理，不直接转人工。</p>
+          <button type="submit">构建 Document IR</button>
+          <p class="hint">模型复核只生成候选修正；分歧必须进入 Conflict/Patch，不直接覆盖 OCR。</p>
+        </form>
+      </section>
+
+      <section class="two-column">
+        <section class="card run-card">
+          <div class="section-heading"><div><div class="step-label">OCR runs</div><h2>OCR 运行与原始产物</h2></div><select id="ocr-history"><option value="">选择 OCR Run</option></select></div>
+          <div id="current-run" class="run-id">尚未启动</div>
+          <pre id="logs" class="logs"></pre>
+          <details><summary>OCR Manifest</summary><pre id="manifest" class="json"></pre></details>
+          <details open><summary>ocr_output 文件</summary><div id="artifacts" class="artifacts"></div></details>
+          <details><summary>Markdown 预览</summary><pre id="markdown-preview" class="preview">点击任意 content/pages/page-0001.md。</pre></details>
+        </section>
+
+        <section class="card run-card">
+          <div class="section-heading"><div><div class="step-label">IR runs</div><h2>Document IR 运行与版本</h2></div><select id="ir-history"><option value="">选择 IR Run</option></select></div>
+          <div id="current-ir-run" class="run-id">尚未启动</div>
+          <pre id="ir-logs" class="logs"></pre>
+          <div id="revision-list" class="revision-list"></div>
+          <details><summary>IR Manifest</summary><pre id="ir-manifest" class="json"></pre></details>
+        </section>
+      </section>
+
+      <section id="ir-workbench" class="workbench hidden">
+        <section class="card overview-card">
+          <div class="section-heading">
+            <div><p class="eyebrow">Immutable snapshot</p><h2>IR 概览与准入门槛</h2></div>
+            <div id="readiness-badge" class="readiness">BUILDING</div>
+          </div>
+          <div id="metric-grid" class="metric-grid"></div>
+          <div class="two-column overview-lower">
+            <div><h3>覆盖率与验证</h3><div id="validation-view" class="validation-view"></div></div>
+            <div><h3>质量信号</h3><pre id="quality-report" class="json compact-json"></pre></div>
+          </div>
+        </section>
+
+        <section class="card explorer-card">
+          <div class="section-heading">
+            <div><p class="eyebrow">Page / layout / coordinate</p><h2>页面与版面浏览器</h2></div>
+            <select id="page-select"></select>
+          </div>
+          <div class="page-explorer">
+            <div class="page-stage"><div id="page-canvas" class="page-canvas"><div class="empty-state">选择页面后显示页图和坐标框</div></div></div>
+            <aside class="object-panel">
+              <div id="page-meta" class="page-meta"></div>
+              <div id="layout-list" class="layout-list"></div>
+              <pre id="object-detail" class="json object-detail">点击坐标框或结构对象查看详情。</pre>
+            </aside>
+          </div>
+        </section>
+
+        <section class="two-column">
+          <section class="card">
+            <div class="section-heading"><div><p class="eyebrow">Table graph</p><h2>表格结构与跨页关系</h2></div><select id="table-select"></select></div>
+            <div id="table-meta" class="meta-strip"></div>
+            <div class="table-layout"><div id="table-grid" class="table-grid"></div><div id="table-visual" class="crop-view"></div></div>
+            <div id="table-edges" class="edge-summary"></div>
+          </section>
+          <section class="card">
+            <p class="eyebrow">Visual regions</p><h2>图片、图表与区域截图</h2>
+            <div id="figure-gallery" class="figure-gallery"></div>
+          </section>
+        </section>
+
+        <section class="card review-cockpit">
+          <div class="section-heading"><div><p class="eyebrow">Agent review loop</p><h2>质量路由、双模型复核与人工边界</h2></div><span class="muted">只有 Guard 与独立 verifier 均通过，候选补丁才写入当前 revision</span></div>
+          <div id="review-summary" class="review-summary"></div>
+          <div class="three-column review-columns">
+            <div><h3>Review Tasks</h3><div id="review-tasks" class="review-list"></div></div>
+            <div><h3>Atomic Patches</h3><div id="correction-patches" class="review-list"></div></div>
+            <div><h3>Conflict Groups</h3><div id="conflict-groups" class="review-list"></div></div>
+          </div>
+          <div class="review-detail-grid">
+            <div>
+              <h3>所选任务的完整 Agent 时间线</h3>
+              <div id="review-timeline" class="review-timeline"><div class="muted">点击 Review Task 查看每一次模型调用。</div></div>
+            </div>
+            <div>
+              <h3>候选修正前后差异</h3>
+              <div id="candidate-diff" class="candidate-diff"><div class="muted">尚无候选差异。</div></div>
+            </div>
+          </div>
+          <div class="operator-grid">
+            <form id="human-decision-form" class="operator-panel">
+              <div><p class="eyebrow">Human fallback</p><h3>只处理最终仍有语义分歧的阻断项</h3></div>
+              <label>待裁决 Patch<select id="human-patch"><option value="">选择 human_required patch</option></select></label>
+              <label>操作人<input id="human-operator" value="local-operator" /></label>
+              <label>备注<input id="human-notes" placeholder="裁决依据" /></label>
+              <div class="button-row"><button type="button" id="accept-patch">接受补丁并建子版本</button><button type="button" id="reject-patch" class="danger">拒绝补丁并建子版本</button></div>
+            </form>
+            <form id="repair-form" class="operator-panel">
+              <div><p class="eyebrow">Targeted repair</p><h3>从下游反馈目标对象，建立定向返修 revision</h3></div>
+              <label>Target IDs<input id="repair-targets" placeholder="table-p0005-0001, block-p0005-0001" /></label>
+              <label>Reason code<input id="repair-reason" value="downstream_document_ir_mismatch" /></label>
+              <label>发起人<input id="repair-requester" value="local-operator" /></label>
+              <label class="checkbox-line"><input id="repair-execute-vlm" type="checkbox" checked /> 立即执行七牛 Agent 复核</label>
+              <button type="submit">发起定向返修</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="two-column">
+          <section class="card"><p class="eyebrow">Artifact inventory</p><h2>document_ir_output 全部文件</h2><div id="ir-artifacts" class="artifacts tall"></div></section>
+          <section class="card"><p class="eyebrow">Artifact preview</p><h2>中间文件内容</h2><pre id="json-preview" class="preview tall">点击任意 JSON / Markdown 文件。</pre></section>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="./src/main.js?v=package-v1-20260718-2"></script>
+  </body>
+</html>

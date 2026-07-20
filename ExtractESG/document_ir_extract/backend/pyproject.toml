@@ -1,0 +1,27 @@
+[project]
+name = "esg-v2"
+version = "0.2.0"
+description = "OCR-first ESG PDF extraction backend"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.111",
+  "pdfplumber>=0.11",
+  "pypdfium2>=4.30",
+  "pydantic>=2.7",
+  "python-multipart>=0.0.9",
+  "requests>=2.32",
+  "uvicorn[standard]>=0.30",
+]
+
+[project.optional-dependencies]
+dev = ["httpx>=0.28", "pytest>=8.2"]
+
+[project.scripts]
+esg-v2 = "esg_v2.cli:main"
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

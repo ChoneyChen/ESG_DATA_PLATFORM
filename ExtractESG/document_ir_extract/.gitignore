@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.env.local
+.local/
+backend/.venv/
+backend/__pycache__/
+backend/src/**/__pycache__/
+backend/src/**/*.egg-info/
+ocr_output/*
+!ocr_output/.gitkeep
+document_ir_output/*
+!document_ir_output/.gitkeep
