@@ -1,0 +1,28 @@
+concept_id,alias,language,source_type,source_url,source_locator,confidence,notes
+ghg_emissions,GHG emissions,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-305-emissions-2016/,Disclosure 305-4,high,Exact official wording.
+ghg_emissions,溫室氣體排放量,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/8299,Paragraph 28,high,Exact official wording.
+scope_1_emissions,Direct (Scope 1) GHG emissions,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-305-emissions-2016/,Disclosure 305-1,high,Exact official title.
+scope_1_emissions,範圍1溫室氣體排放,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/8299,Paragraph 28(a),high,Exact official wording.
+scope_2_emissions,Energy indirect (Scope 2) GHG emissions,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-305-emissions-2016/,Disclosure 305-2,high,Exact official title.
+scope_2_emissions,範圍2溫室氣體排放,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/8299,Paragraph 28(b),high,Exact official wording.
+scope_3_emissions,Other indirect (Scope 3) GHG emissions,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-305-emissions-2016/,Disclosure 305-3,high,Exact official title.
+scope_3_emissions,範圍3溫室氣體排放,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/8299,Paragraph 28(c),high,Exact official wording.
+energy_consumption,Energy consumption,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-302-energy-2016/,Disclosure 302-1,high,Exact official wording in title.
+energy_consumption,Energy consumption within the organization,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-302-energy-2016/,Disclosure 302-1,high,Exact official title.
+water_withdrawal,Water withdrawal,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-303-water-and-effluents-2018/,Disclosure 303-3,high,Exact official title.
+water_discharge,Water discharge,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-303-water-and-effluents-2018/,Disclosure 303-4,high,Exact official title.
+water_consumption,Water consumption,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-303-water-and-effluents-2018/,Disclosure 303-5,high,Exact official title.
+waste_generated,Waste generated,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-306-waste-2020/,Disclosure 306-3,high,Exact official title.
+waste_generated,有害廢棄物,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI A1.3,high,Exact official wording.
+waste_generated,無害廢棄物,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI A1.4,high,Exact official wording.
+waste_diverted_from_disposal,Waste diverted from disposal,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-306-waste-2020/,Disclosure 306-4,high,Exact official title.
+waste_directed_to_disposal,Waste directed to disposal,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-306-waste-2020/,Disclosure 306-5,high,Exact official title.
+health_safety,Occupational health and safety,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-403-occupational-health-and-safety-2018/,Standard title,high,Exact official wording.
+work_related_injuries,Work-related injuries,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-403-occupational-health-and-safety-2018/,Disclosure 403-9,high,Exact official title.
+work_related_injuries,因工傷損失工作日數,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI B2.2,high,Exact official wording.
+work_related_injuries,因工亡故,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI B2.1,high,Exact official wording.
+training_hours,Average hours of training per year per employee,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-404-training-and-education-2016/,Disclosure 404-1,high,Exact official title.
+training_hours,平均時數,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI B3.2,high,Exact official wording; scope must be checked in source.
+training_hours,受訓僱員,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI B3.1,high,Exact official wording; scope must be checked in source.
+diversity,Diversity of governance bodies and employees,en,official_standard_title,https://www.globalreporting.org/publications/documents/english/gri-405-diversity-and-equal-opportunity-2016/,Disclosure 405-1,high,Exact official title.
+diversity_governance_employees,性別,zh-Hant,official_rule_text,https://cn-rules.hkex.com.hk/entiresection/13223,KPI B1.1,medium,Substring occurring in the official wording; not sufficient alone for a final mapping.
