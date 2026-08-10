@@ -9,6 +9,7 @@ import pytest
 
 from esg_v2.document.artifact_loader import OcrArtifactLoader
 from esg_v2.contracts import OcrJobState, OcrRunRequest
+from esg_v2.ocr.client import PaddleOcrVlClient
 from esg_v2.ocr.output_writer import OcrOutputWriter
 from esg_v2.storage.package_layout import create_package_root
 from esg_v2.storage.package_validator import validate_package
@@ -23,6 +24,18 @@ class DownloadClient:
 
     def download_bytes(self, url: str) -> bytes:
         return self.image
+
+
+def test_paddle_client_ignores_environment_proxy_by_default() -> None:
+    direct_client = PaddleOcrVlClient("https://provider.test/jobs", "token")
+    proxied_client = PaddleOcrVlClient(
+        "https://provider.test/jobs",
+        "token",
+        trust_environment_proxy=True,
+    )
+
+    assert direct_client.session.trust_env is False
+    assert proxied_client.session.trust_env is True
 
 
 def test_ocr_package_uses_portable_paths_and_one_based_page_names(tmp_path: Path) -> None:

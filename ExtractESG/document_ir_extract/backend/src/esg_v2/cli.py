@@ -7,6 +7,10 @@ from pathlib import Path
 from esg_v2.config import get_settings, load_env_file
 from esg_v2.contracts import OcrRunRequest, OptionalPayload
 from esg_v2.document.contracts import DocumentIrBuildRequest
+from esg_v2.evidence.builder import EvidenceInventoryBuilder
+from esg_v2.evidence.contracts import EvidenceBuildRequest
+from esg_v2.targeted.contracts import TargetedRunRequest
+from esg_v2.targeted.workflow import TargetedRecallWorkflow
 from esg_v2.workflows.ir_workflow import DocumentIrWorkflow
 from esg_v2.workflows.ocr_workflow import OcrWorkflow
 
@@ -35,6 +39,26 @@ def main() -> int:
     ir.add_argument("--render-dpi", type=int, default=144)
     ir.add_argument("--execute-vlm-reviews", action="store_true")
     ir.add_argument("--review-target-id", action="append", default=[])
+
+    evidence = sub.add_parser("evidence", help="Build deterministic Evidence Inventory packages")
+    evidence_sub = evidence.add_subparsers(dest="evidence_command", required=True)
+    evidence_build = evidence_sub.add_parser("build")
+    evidence_build.add_argument("--ir-run-id", required=True)
+    evidence_build.add_argument("--run-id", default=None)
+
+    targeted = sub.add_parser("targeted", help="Run local-first standard-task extraction")
+    targeted_sub = targeted.add_subparsers(dest="targeted_command", required=True)
+    targeted_plan = targeted_sub.add_parser("plan")
+    targeted_plan.add_argument("--template", required=True)
+    targeted_run = targeted_sub.add_parser("run")
+    targeted_run.add_argument("--ir-run-id", required=True)
+    targeted_run.add_argument("--template", required=True)
+    targeted_run.add_argument("--evidence-run-id", default=None)
+    targeted_run.add_argument("--run-id", default=None)
+    targeted_run.add_argument("--mode", choices=["local_strict", "local_semantic"], default="local_strict")
+    targeted_run.add_argument("--top-k", type=int, default=30)
+    targeted_run.add_argument("--local-embedding-model", default="intfloat/multilingual-e5-small")
+    targeted_run.add_argument("--allow-local-model-download", action="store_true")
 
 
     args = parser.parse_args()
@@ -70,6 +94,45 @@ def main() -> int:
         result = DocumentIrWorkflow(get_settings()).run(request, log=lambda msg: print(msg, flush=True))
         print(json.dumps(result.model_dump(mode="json"), ensure_ascii=False, indent=2))
         return 0
+
+    if args.command == "evidence" and args.evidence_command == "build":
+        settings = get_settings()
+        result = EvidenceInventoryBuilder(
+            settings.document_ir_output_root,
+            settings.evidence_output_root,
+        ).build(
+            EvidenceBuildRequest(ir_run_id=args.ir_run_id, run_id=args.run_id),
+            log=lambda msg: print(msg, flush=True),
+        )
+        print(json.dumps(result.model_dump(mode="json"), ensure_ascii=False, indent=2))
+        return 0
+
+    if args.command == "targeted":
+        settings = get_settings()
+        workflow = TargetedRecallWorkflow(
+            document_ir_root=settings.document_ir_output_root,
+            evidence_output_root=settings.evidence_output_root,
+            targeted_output_root=settings.targeted_output_root,
+        )
+        if args.targeted_command == "plan":
+            print(json.dumps(workflow.plan(Path(args.template)), ensure_ascii=False, indent=2))
+            return 0
+        if args.targeted_command == "run":
+            result = workflow.run(
+                TargetedRunRequest(
+                    ir_run_id=args.ir_run_id,
+                    template_path=Path(args.template),
+                    evidence_run_id=args.evidence_run_id,
+                    run_id=args.run_id,
+                    mode=args.mode,
+                    top_k=args.top_k,
+                    local_embedding_model=args.local_embedding_model,
+                    allow_local_model_download=args.allow_local_model_download,
+                ),
+                log=lambda msg: print(msg, flush=True),
+            )
+            print(json.dumps(result.model_dump(mode="json"), ensure_ascii=False, indent=2))
+            return 0
 
     return 1
 

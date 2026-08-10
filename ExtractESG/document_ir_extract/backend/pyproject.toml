@@ -6,7 +6,8 @@ requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.111",
   "pdfplumber>=0.11",
-  "pypdfium2>=4.30",
+  "Pillow>=10.3",
+  "pypdfium2>=5.12.1,<6",
   "pydantic>=2.7",
   "python-multipart>=0.0.9",
   "requests>=2.32",
@@ -15,6 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["httpx>=0.28", "pytest>=8.2"]
+semantic = ["numpy>=1.26", "sentence-transformers>=3.0"]
 
 [project.scripts]
 esg-v2 = "esg_v2.cli:main"

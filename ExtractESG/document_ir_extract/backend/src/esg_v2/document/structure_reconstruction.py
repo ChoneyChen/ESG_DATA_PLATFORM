@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from collections import Counter
 
 from esg_v2.document.contracts import DocumentIR, SectionIR, StructureEdge
 
@@ -10,7 +11,11 @@ class StructureReconstructor:
 
     def reconstruct(self, document: DocumentIR) -> DocumentIR:
         document.sections = self._rebuild_sections(document)
-        edges: list[StructureEdge] = []
+        edges: list[StructureEdge] = [
+            edge.model_copy(deep=True)
+            for edge in document.structure_edges
+            if edge.relation.startswith("visual_")
+        ]
         blocks_by_page: dict[int, list] = {}
         for block in document.blocks:
             blocks_by_page.setdefault(block.page_index, []).append(block)
@@ -136,10 +141,11 @@ class StructureReconstructor:
         for block in ordered_blocks:
             if block.block_type == "heading" and block.figure_id and block.figure_id not in first_heading_by_figure:
                 first_heading_by_figure[block.figure_id] = block.block_id
-        headings = []
-        if chapter_headers:
-            headings.append(chapter_headers[0])
-        headings.extend(
+        first_chapter_header_by_title = {}
+        for block in chapter_headers:
+            first_chapter_header_by_title.setdefault(self._normalized_heading(block.text), block)
+        heading_candidates = [*first_chapter_header_by_title.values()]
+        heading_candidates.extend(
             block
             for block in ordered_blocks
             if block.block_type == "heading"
@@ -147,7 +153,31 @@ class StructureReconstructor:
             and not re.fullmatch(r"(?:具體|具体)內容[:：]?", block.text.strip())
             and (not block.figure_id or first_heading_by_figure.get(block.figure_id) == block.block_id)
         )
-        headings = list({block.block_id: block for block in headings}.values())
+        heading_candidates = list({block.block_id: block for block in heading_candidates}.values())
+        title_counts = Counter(self._normalized_heading(block.text) for block in heading_candidates)
+        repeat_threshold = max(5, int(max(1, len(document.pages)) * 0.02))
+        headings = []
+        repeated_chapter_titles_seen: set[str] = set()
+        for block in heading_candidates:
+            normalized_title = self._normalized_heading(block.text)
+            repeated_chapter = (
+                bool(re.match(r"^第[一二三四五六七八九十百\d]+章", block.text.strip()))
+                and title_counts[normalized_title] >= repeat_threshold
+            )
+            if repeated_chapter and normalized_title in repeated_chapter_titles_seen:
+                self._add_flag(block.quality_flags, "section_heading_rejected_repeated_running_header")
+                continue
+            reason = self._heading_rejection_reason(
+                block.text,
+                repeated_count=title_counts[normalized_title],
+                repeat_threshold=repeat_threshold,
+            )
+            if reason:
+                self._add_flag(block.quality_flags, f"section_heading_rejected_{reason}")
+                continue
+            headings.append(block)
+            if repeated_chapter:
+                repeated_chapter_titles_seen.add(normalized_title)
         headings.sort(key=lambda item: (item.page_index, *self._reading_key(item)))
         sections: list[SectionIR] = []
         stack: list[SectionIR] = []
@@ -187,7 +217,43 @@ class StructureReconstructor:
                 active.block_ids.append(block.block_id)
         last_page = max((page.page_index for page in document.pages), default=0)
         self._close_section_ranges(sections, last_page)
+        document.metadata.source_artifacts["section_reconstruction"] = {
+            "candidate_heading_count": len(heading_candidates),
+            "accepted_heading_count": len(headings),
+            "rejected_heading_count": len(heading_candidates) - len(headings),
+            "repeat_threshold": repeat_threshold,
+        }
         return sections
+
+    @classmethod
+    def _heading_rejection_reason(cls, text: str, *, repeated_count: int, repeat_threshold: int) -> str | None:
+        value = re.sub(r"\s+", " ", text or "").strip()
+        if cls.is_suspicious_title(value):
+            return "semantic_noise"
+        numbered = bool(re.match(r"^(?:第[一二三四五六七八九十百\d]+章|\d+(?:\.\d+)+)", value))
+        if not numbered and len(value) <= 24 and repeated_count >= repeat_threshold:
+            return "repeated_label"
+        return None
+
+    @staticmethod
+    def is_suspicious_title(text: str) -> bool:
+        value = re.sub(r"\s+", " ", text or "").strip()
+        if not value or len(value) > 100:
+            return True
+        if not re.search(r"[A-Za-z0-9\u3400-\u9fff]", value):
+            return True
+        if re.fullmatch(r"[\d\W_]+", value, re.UNICODE):
+            return True
+        sentence_marks = len(re.findall(r"[。！？!?；;]", value))
+        if len(value) > 40 and (sentence_marks >= 2 or value.endswith(("。", ".", "！", "!", "？", "?"))):
+            return True
+        if value.count("\n") >= 3:
+            return True
+        return False
+
+    @staticmethod
+    def _normalized_heading(text: str) -> str:
+        return re.sub(r"[\s\W_]+", "", text or "", flags=re.UNICODE).lower()
 
     @staticmethod
     def _close_section_ranges(sections: list[SectionIR], last_page: int) -> None:
@@ -233,3 +299,8 @@ class StructureReconstructor:
     @staticmethod
     def _dedupe(edges):
         return list({edge.edge_id: edge for edge in edges}.values())
+
+    @staticmethod
+    def _add_flag(flags, value):
+        if value not in flags:
+            flags.append(value)

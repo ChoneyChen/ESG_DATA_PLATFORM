@@ -29,7 +29,11 @@ class VisualSemanticGrouper:
                     continue
                 material.append(figure)
 
-            clusters = self._clusters(material, page.height if page else None)
+            clusters = self._clusters(
+                material,
+                page_width=page.width if page else None,
+                page_height=page.height if page else None,
+            )
             for cluster in clusters:
                 if len(cluster) == 1:
                     figure = cluster[0]
@@ -93,48 +97,96 @@ class VisualSemanticGrouper:
                 return True
         return False
 
-    def _clusters(self, figures, page_height: float | None):
+    def _clusters(self, figures, *, page_width: float | None, page_height: float | None):
         remaining = list(figures)
         clusters = []
-        max_gap = max(45.0, (page_height or 0) * 0.065)
         while remaining:
             cluster = [remaining.pop(0)]
             changed = True
             while changed:
                 changed = False
                 for candidate in list(remaining):
-                    if any(self._vertical_gap(candidate.bbox, item.bbox) <= max_gap for item in cluster):
+                    if any(
+                        self._semantically_near(
+                            candidate.bbox,
+                            item.bbox,
+                            page_width=page_width,
+                            page_height=page_height,
+                        )
+                        for item in cluster
+                    ):
                         cluster.append(candidate)
                         remaining.remove(candidate)
                         changed = True
             clusters.append(sorted(cluster, key=lambda item: item.order))
         return clusters
 
-    @staticmethod
-    def _vertical_gap(first: BoundingBox | None, second: BoundingBox | None) -> float:
+    @classmethod
+    def _semantically_near(
+        cls,
+        first: BoundingBox | None,
+        second: BoundingBox | None,
+        *,
+        page_width: float | None,
+        page_height: float | None,
+    ) -> bool:
         if first is None or second is None:
-            return float("inf")
-        if first.y1 < second.y0:
-            return second.y0 - first.y1
-        if second.y1 < first.y0:
-            return first.y0 - second.y1
-        return 0.0
+            return False
+        horizontal_overlap = cls._axis_overlap_ratio(first.x0, first.x1, second.x0, second.x1)
+        vertical_overlap = cls._axis_overlap_ratio(first.y0, first.y1, second.y0, second.y1)
+        horizontal_gap = cls._axis_gap(first.x0, first.x1, second.x0, second.x1)
+        vertical_gap = cls._axis_gap(first.y0, first.y1, second.y0, second.y1)
+        close_horizontally = horizontal_gap <= max(18.0, (page_width or 0) * 0.035)
+        close_vertically = vertical_gap <= max(24.0, (page_height or 0) * 0.04)
+        return (
+            vertical_overlap >= 0.30 and close_horizontally
+        ) or (
+            horizontal_overlap >= 0.30 and close_vertically
+        )
 
     @staticmethod
     def _related_blocks(bbox: BoundingBox | None, blocks, page_height: float | None):
         if bbox is None:
             return []
-        expansion = max(55.0, min(145.0, (page_height or 0) * 0.18))
-        top = bbox.y0 - 28.0
-        bottom = bbox.y1 + expansion
-        return [
-            block
-            for block in blocks
-            if block.bbox
-            and block.block_type not in {"header", "footer", "table_markdown"}
-            and block.bbox.y0 >= top
-            and block.bbox.y1 <= bottom
-        ]
+        caption_gap = max(24.0, min(55.0, (page_height or 0) * 0.065))
+        related = []
+        for block in blocks:
+            if not block.bbox or block.block_type in {"header", "footer", "table_markdown"}:
+                continue
+            contained = bbox_containment(block.bbox, bbox) >= 0.75
+            horizontal_overlap = VisualSemanticGrouper._axis_overlap_ratio(
+                block.bbox.x0,
+                block.bbox.x1,
+                bbox.x0,
+                bbox.x1,
+            )
+            vertical_gap = VisualSemanticGrouper._axis_gap(
+                block.bbox.y0,
+                block.bbox.y1,
+                bbox.y0,
+                bbox.y1,
+            )
+            caption_like = (
+                block.block_type in {"heading", "caption"}
+                and horizontal_overlap >= 0.30
+                and vertical_gap <= caption_gap
+            )
+            if contained or caption_like:
+                related.append(block)
+        return related
+
+    @staticmethod
+    def _axis_gap(first_start: float, first_end: float, second_start: float, second_end: float) -> float:
+        if first_end < second_start:
+            return second_start - first_end
+        if second_end < first_start:
+            return first_start - second_end
+        return 0.0
+
+    @staticmethod
+    def _axis_overlap_ratio(first_start: float, first_end: float, second_start: float, second_end: float) -> float:
+        overlap = max(0.0, min(first_end, second_end) - max(first_start, second_start))
+        return overlap / max(1.0, min(first_end - first_start, second_end - second_start))
 
     @staticmethod
     def _caption(blocks) -> str | None:

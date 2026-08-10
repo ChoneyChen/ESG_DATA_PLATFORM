@@ -59,6 +59,13 @@ class CanonicalIdentifierNormalizer:
         for figure in document.figures:
             figure.figure_id = figure_map.get(figure.figure_id, figure.figure_id)
 
+        for logical_table in document.logical_tables:
+            logical_table.source_table_ids = self._map_list(logical_table.source_table_ids, table_map)
+            for segment in logical_table.segments:
+                segment.table_id = table_map.get(segment.table_id, segment.table_id)
+            for mapping in logical_table.cell_mappings:
+                mapping.source_table_id = table_map.get(mapping.source_table_id, mapping.source_table_id)
+
         for conflict in document.conflict_groups:
             conflict.target_id = entity_map.get(conflict.target_id, conflict.target_id)
         for sequence, conflict in enumerate(

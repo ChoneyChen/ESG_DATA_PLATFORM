@@ -111,6 +111,8 @@ class TableGraphBuilder:
             group_id = first.continuation_group_id or f"table-group-{group_counter:04d}-{first.table_id}"
             first.continuation_group_id = group_id
             second.continuation_group_id = group_id
+            first.continuation_axis = "vertical"
+            second.continuation_axis = "vertical"
             first.continues_to_table_id = second.table_id
             second.continues_from_table_id = first.table_id
             self._add_flag(first.quality_flags, "cross_page_table_linked")
@@ -160,24 +162,32 @@ class TableGraphBuilder:
 
     @staticmethod
     def _write_continuation_edges(document: DocumentIR) -> None:
-        existing = {edge.edge_id for edge in document.structure_edges}
+        existing = {
+            (edge.source_id, edge.target_id, edge.relation)
+            for edge in document.structure_edges
+        }
         for table in document.tables:
             if not table.continues_to_table_id:
                 continue
-            edge_id = f"edge-{table.table_id}-continues-{table.continues_to_table_id}"
-            if edge_id in existing:
+            relation = "horizontal_continuation" if table.continuation_axis == "horizontal" else "continues"
+            semantic_key = (table.table_id, table.continues_to_table_id, relation)
+            if semantic_key in existing:
                 continue
             document.structure_edges.append(
                 StructureEdge(
-                    edge_id=edge_id,
+                    edge_id=f"edge-{len(document.structure_edges) + 1:06d}",
                     source_id=table.table_id,
                     target_id=table.continues_to_table_id,
-                    relation="continues",
+                    relation=relation,
                     confidence=0.82,
-                    source="deterministic_table_graph",
+                    source=(
+                        "agent_spread_review"
+                        if relation == "horizontal_continuation"
+                        else "deterministic_table_graph"
+                    ),
                 )
             )
-            existing.add(edge_id)
+            existing.add(semantic_key)
 
     @staticmethod
     def _add_flag(flags, value):

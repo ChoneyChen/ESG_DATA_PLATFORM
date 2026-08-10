@@ -34,6 +34,7 @@ class OcrWorkflow:
             job_url=self.settings.paddle_job_url,
             token=token,
             timeout_seconds=self.settings.request_timeout_seconds,
+            trust_environment_proxy=self.settings.paddle_trust_environment_proxy,
         )
 
         source_summary = self._source_summary(request)

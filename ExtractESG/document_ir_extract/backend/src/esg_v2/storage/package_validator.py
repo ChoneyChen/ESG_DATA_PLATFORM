@@ -50,7 +50,16 @@ def validate_package(
     if package_schema != expected_schema:
         errors.append(f"package_schema_version must be {expected_schema!r}, got {package_schema!r}")
     run_id = manifest.get("run_id")
-    run_kind = "ocr" if expected_type == "ocr-run" else "ir"
+    run_kind_by_type = {
+        "ocr-run": "ocr",
+        "document-ir-revision": "ir",
+        "evidence-inventory": "evd",
+        "targeted-recall-run": "trg",
+    }
+    run_kind = run_kind_by_type.get(expected_type)
+    if run_kind is None:
+        errors.append(f"package validator does not recognize package_type {expected_type!r}")
+        run_kind = "ir"
     try:
         require_run_id(str(run_id), run_kind)
     except ValueError as exc:

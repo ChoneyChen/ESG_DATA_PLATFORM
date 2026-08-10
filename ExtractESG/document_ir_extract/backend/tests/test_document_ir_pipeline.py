@@ -6,6 +6,7 @@ import re
 import time
 from pathlib import Path
 
+import pytest
 from PIL import Image, ImageDraw
 from fastapi.testclient import TestClient
 
@@ -18,6 +19,7 @@ from esg_v2.document.contracts import (
     PageIR,
     SourceTrace,
 )
+from esg_v2.document.page_renderer import PageRenderer
 from esg_v2.document.structure_reconstruction import StructureReconstructor
 from esg_v2.document.reader import DocumentIrPackageReader
 from esg_v2.document.validator import DocumentIrValidator
@@ -83,6 +85,53 @@ def _write_ocr_run(root: Path, run_id: str, pdf_path: Path) -> None:
     )
 
 
+def test_page_renderer_isolates_pdfium_and_reports_progress(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "report.pdf"
+    output_dir = tmp_path / "page-images"
+    _write_pdf(pdf_path)
+    progress: list[tuple[int, int]] = []
+
+    rendered = PageRenderer(timeout_seconds=30).render(
+        str(pdf_path),
+        output_dir,
+        dpi=144,
+        progress=lambda current, total: progress.append((current, total)),
+    )
+
+    assert len(rendered.pages) == 2
+    assert rendered.errors == []
+    assert progress[-1] == (2, 2)
+    assert not (output_dir / ".render-result.json").exists()
+    assert not (output_dir / ".render-status.json").exists()
+    assert all(page.artifact.source.endswith("isolated-worker") for page in rendered.pages)
+
+
+def test_page_renderer_turns_native_worker_crash_into_python_failure(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    pdf_path = tmp_path / "report.pdf"
+    _write_pdf(pdf_path, page_count=1)
+
+    class CrashedProcess:
+        returncode = -11
+
+        @staticmethod
+        def poll():
+            return -11
+
+    monkeypatch.setattr(
+        "esg_v2.document.page_renderer.subprocess.Popen",
+        lambda *args, **kwargs: CrashedProcess(),
+    )
+
+    with pytest.raises(RuntimeError, match="signal 11"):
+        PageRenderer(timeout_seconds=30).render(
+            str(pdf_path),
+            tmp_path / "page-images",
+        )
+
+
 def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path: Path) -> None:
     pdf_path = tmp_path / "report.pdf"
     _write_pdf(pdf_path)
@@ -97,13 +146,14 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     )
     document = json.loads(result.document_ir_path.read_text(encoding="utf-8"))
 
-    assert document["schema_version"] == "document-ir-v0.4"
+    assert document["schema_version"] == "document-ir-v0.11"
     assert len(document["pages"]) == 2
     assert len(document["layout_objects"]) == 8
     assert all(page["page_image_path"] for page in document["pages"])
     assert all(item["bbox"]["unit"] == "points" for item in document["layout_objects"])
     assert len(document["coordinate_systems"]) == 6
     assert len(document["tables"]) == 2
+    assert len(document["logical_tables"]) == 1
     assert document["tables"][0]["continues_to_table_id"] == document["tables"][1]["table_id"]
     assert document["tables"][1]["continues_from_table_id"] == document["tables"][0]["table_id"]
     assert all(table["graph_edges"] for table in document["tables"])
@@ -111,13 +161,15 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     assert all(figure["crop_artifact_id"] for figure in document["figures"])
     assert document["validation_report"]["checks"]["page_render_coverage_complete"] is True
     assert document["validation_report"]["checks"]["all_layout_geometry_available"] is True
-    assert document["readiness"] == "ready_with_warnings"
+    assert document["readiness"] == "auto_review_pending"
     assert (result.output_dir / "review" / "calls" / "model-calls.jsonl").exists()
     assert (result.output_dir / "review" / "decisions" / "final-decisions.jsonl").exists()
     assert (result.output_dir / "artifacts" / "page-images" / "page-0001.png").exists()
     assert (result.output_dir / "artifacts" / "crops" / "tables" / f"{document['tables'][0]['table_id']}.png").exists()
     assert (result.output_dir / "canonical" / "document.json").exists()
     assert (result.output_dir / "canonical" / "pages" / "page-0001.json").exists()
+    assert (result.output_dir / "canonical" / "spreads" / "index.json").exists()
+    assert (result.output_dir / "canonical" / "logical-tables" / "index.json").exists()
     assert (result.output_dir / "integrity" / "files.json").exists()
     assert all(re.fullmatch(r"block-p\d{4}-\d{4}", item["block_id"]) for item in document["blocks"])
     assert all(re.fullmatch(r"table-p\d{4}-\d{4}", item["table_id"]) for item in document["tables"])
@@ -128,6 +180,8 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     manifest = json.loads(manifest_text)
     assert manifest["package_schema_version"] == "document-ir-package-v1"
     assert manifest["entrypoints"]["canonical_document"] == "canonical/document.json"
+    assert manifest["entrypoints"]["spreads"] == "canonical/spreads/index.json"
+    assert manifest["entrypoints"]["logical_tables"] == "canonical/logical-tables/index.json"
 
 
 def test_ir_revision_increments_from_parent(tmp_path: Path) -> None:
@@ -182,17 +236,30 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
         time.sleep(0.05)
     assert state["status"] == "done", state
     assert client.get(f"/api/document-ir/jobs/{run_id}/manifest").status_code == 200
-    assert client.get(f"/api/document-ir/jobs/{run_id}/validation-report").json()["readiness"] == "ready_with_warnings"
+    assert client.get(f"/api/document-ir/jobs/{run_id}/validation-report").json()["readiness"] == "auto_review_pending"
     assert len(client.get(f"/api/document-ir/jobs/{run_id}/pages").json()) == 2
     assert client.get(f"/api/document-ir/jobs/{run_id}/pages/0").json()["layout_objects"]
     tables = client.get(f"/api/document-ir/jobs/{run_id}/tables").json()
     assert len(tables) == 2
     assert client.get(f"/api/document-ir/jobs/{run_id}/tables/{tables[0]['table_id']}").status_code == 200
+    logical_tables = client.get(f"/api/document-ir/jobs/{run_id}/logical-tables").json()
+    assert len(logical_tables) == 1
+    assert (
+        client.get(
+            f"/api/document-ir/jobs/{run_id}/logical-tables/{logical_tables[0]['logical_table_id']}"
+        ).status_code
+        == 200
+    )
     tasks = client.get(f"/api/document-ir/jobs/{run_id}/review-tasks").json()
+    inbox = client.get(f"/api/document-ir/jobs/{run_id}/human-review/inbox").json()
+    assert inbox["schema_version"] == "document-ir-human-review-inbox-v1"
+    assert sum(inbox["counts"].values()) == len(tasks)
+    assert inbox["groups"]["blocking_deferred"][0]["guidance"]["recommended_action"]
     for artifact_endpoint in (
         "model-calls",
         "reviewer-results",
         "atomic-patches",
+        "patch-transactions",
         "guard-results",
         "verifier-results",
         "final-decisions",
@@ -200,6 +267,25 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     ):
         assert client.get(f"/api/document-ir/jobs/{run_id}/{artifact_endpoint}").status_code == 200
     assert client.get(f"/api/document-ir/jobs/{run_id}/reviews/{tasks[0]['task_id']}").status_code == 200
+
+    queued: dict[str, object] = {}
+
+    class NoopThread:
+        def __init__(self, *, target, args, daemon):
+            queued.update({"target": target, "args": args, "daemon": daemon})
+
+        def start(self):
+            queued["started"] = True
+
+    monkeypatch.setattr(api_main.threading, "Thread", NoopThread)
+    retry = client.post(
+        f"/api/document-ir/jobs/{run_id}/reviews/retry",
+        json={"task_ids": [tasks[0]["task_id"]], "requested_by": "api-test"},
+    )
+    assert retry.status_code == 200
+    assert retry.json()["status"] == "queued"
+    assert queued["started"] is True
+    assert queued["args"][1] == run_id
 
     duplicate = client.post(
         "/api/document-ir/jobs",

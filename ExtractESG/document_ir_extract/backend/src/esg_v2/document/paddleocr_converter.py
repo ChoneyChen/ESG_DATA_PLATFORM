@@ -26,6 +26,7 @@ from esg_v2.document.geometry import bbox_area_ratio, bbox_containment, bbox_iou
 from esg_v2.document.html_table_parser import parse_html_table
 from esg_v2.document.page_renderer import RenderedDocument
 from esg_v2.document.provenance import durable_remote_reference, sanitize_ir_payload
+from esg_v2.document.text_normalization import comparison_key, normalize_ocr_text
 from esg_v2.utils.hashing import sha256_file
 
 
@@ -193,19 +194,28 @@ class PaddleOcrDocumentConverter:
                     embedded_table_images.update(Path(item).name for item in parsed.image_sources)
 
         for spec in self._markdown_blocks(page_artifact.markdown_text):
-            normalized = self._normalize_text(str(spec["text"]))
+            raw_text = str(spec["text"])
+            visible = (
+                raw_text
+                if spec["type"] == "table_markdown"
+                else normalize_ocr_text(raw_text)
+            )
+            normalized = self._normalize_text(visible)
             if normalized and self._text_already_seen(normalized, seen_text):
                 continue
+            quality_flags = ["markdown_fallback_without_layout_geometry"]
+            if visible != raw_text:
+                quality_flags.append("deterministic_visible_text_normalized")
             block_id = f"blk-{page_artifact.page_index + 1:04d}-{len(blocks) + 1:04d}"
             block = BlockIR(
                 block_id=block_id,
                 page_index=page_artifact.page_index,
                 order=len(blocks),
                 block_type=spec["type"],
-                text=str(spec["text"]),
+                text=visible,
                 markdown=str(spec.get("markdown") or "") or None,
                 heading_level=spec.get("heading_level"),
-                quality_flags=["markdown_fallback_without_layout_geometry"],
+                quality_flags=quality_flags,
                 source_trace=source,
             )
             blocks.append(block)
@@ -326,8 +336,11 @@ class PaddleOcrDocumentConverter:
 
     def _block_from_layout(self, layout: LayoutObjectIR, order: int, source: SourceTrace) -> BlockIR:
         block_type, heading_level = self._map_block_type(layout.label)
-        text = layout.text
+        raw_text = layout.text
+        text = raw_text if block_type == "table_markdown" else normalize_ocr_text(raw_text)
         quality_flags = list(layout.quality_flags)
+        if text != raw_text:
+            quality_flags.append("deterministic_visible_text_normalized")
         if block_type == "heading" and re.fullmatch(r"\d{1,3}", text.strip()):
             block_type = "paragraph"
             heading_level = None
@@ -339,7 +352,7 @@ class PaddleOcrDocumentConverter:
             order=order,
             block_type=block_type,
             text=text,
-            markdown=text if block_type == "table_markdown" else None,
+            markdown=raw_text if block_type == "table_markdown" or raw_text != text else None,
             heading_level=heading_level,
             bbox=layout.bbox,
             polygon=layout.polygon,
@@ -591,7 +604,7 @@ class PaddleOcrDocumentConverter:
                     page_index=page_index,
                     row_index=parsed_cell.row_index,
                     col_index=parsed_cell.col_index,
-                    text=parsed_cell.text,
+                    text=normalize_ocr_text(parsed_cell.text),
                     row_span=parsed_cell.row_span,
                     col_span=parsed_cell.col_span,
                     is_header=parsed_cell.is_header,
@@ -630,7 +643,7 @@ class PaddleOcrDocumentConverter:
         header_row = rows[0] if rows else []
         for row_index, row in enumerate(rows):
             for col_index in range(column_count):
-                text = row[col_index].strip() if col_index < len(row) else ""
+                text = normalize_ocr_text(row[col_index].strip()) if col_index < len(row) else ""
                 cells.append(
                     CellIR(
                         cell_id=f"{table_id}-r{row_index + 1:03d}-c{col_index + 1:03d}",
@@ -717,7 +730,7 @@ class PaddleOcrDocumentConverter:
 
     @staticmethod
     def _normalize_text(text: str) -> str:
-        return re.sub(r"\s+", " ", text).strip().lower()
+        return comparison_key(text)
 
     @staticmethod
     def _text_already_seen(candidate: str, existing: list[str]) -> bool:

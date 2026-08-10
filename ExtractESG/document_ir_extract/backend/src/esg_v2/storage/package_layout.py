@@ -12,12 +12,12 @@ from typing import Any, Iterable
 from esg_v2.utils.hashing import sha256_file
 
 
-RUN_ID_PATTERN = re.compile(r"^(ocr|ir)-\d{8}T\d{6}Z-[0-9a-f]{12}$")
+RUN_ID_PATTERN = re.compile(r"^(ocr|ir|evd|trg)-\d{8}T\d{6}Z-[0-9a-f]{12}$")
 PACKAGE_DIR_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 
 
 def new_run_id(kind: str) -> str:
-    if kind not in {"ocr", "ir"}:
+    if kind not in {"ocr", "ir", "evd", "trg"}:
         raise ValueError(f"Unsupported run kind: {kind}")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     return f"{kind}-{stamp}-{uuid.uuid4().hex[:12]}"
@@ -191,8 +191,16 @@ class DocumentIrPackageLayout:
         return self.root / "canonical" / "tables" / "index.json"
 
     @property
+    def logical_table_index(self) -> Path:
+        return self.root / "canonical" / "logical-tables" / "index.json"
+
+    @property
     def figure_index(self) -> Path:
         return self.root / "canonical" / "figures" / "index.json"
+
+    @property
+    def spread_index(self) -> Path:
+        return self.root / "canonical" / "spreads" / "index.json"
 
     @property
     def structure_edges(self) -> Path:
@@ -205,6 +213,10 @@ class DocumentIrPackageLayout:
     @property
     def local_forensics(self) -> Path:
         return self.root / "observations" / "local-pdf" / "forensics.json"
+
+    @property
+    def retired_entities(self) -> Path:
+        return self.root / "observations" / "retired-entities.jsonl"
 
     @property
     def artifact_index(self) -> Path:
@@ -239,8 +251,14 @@ class DocumentIrPackageLayout:
     def table(self, table_id: str) -> Path:
         return self.root / "canonical" / "tables" / f"{table_id}.json"
 
+    def logical_table(self, logical_table_id: str) -> Path:
+        return self.root / "canonical" / "logical-tables" / f"{logical_table_id}.json"
+
     def figure(self, figure_id: str) -> Path:
         return self.root / "canonical" / "figures" / f"{figure_id}.json"
+
+    def spread(self, spread_id: str) -> Path:
+        return self.root / "canonical" / "spreads" / f"{spread_id}.json"
 
     def page_image(self, page_index: int) -> Path:
         return self.root / "artifacts" / "page-images" / f"{page_stem(page_index)}.png"
@@ -249,6 +267,9 @@ class DocumentIrPackageLayout:
         if kind not in {"tables", "figures"}:
             raise ValueError(f"Unsupported crop kind: {kind}")
         return self.root / "artifacts" / "crops" / kind / f"{entity_id}.png"
+
+    def spread_image(self, spread_id: str) -> Path:
+        return self.root / "artifacts" / "spreads" / f"{spread_id}.png"
 
     def review_task(self, task_id: str) -> Path:
         return self.root / "review" / "tasks" / f"{task_id}.json"

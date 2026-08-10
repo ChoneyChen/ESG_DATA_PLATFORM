@@ -1,0 +1,185 @@
+{
+  "version": "esrs-direct-fill-execution-v2",
+  "rules": [
+    {
+      "patterns": ["ghg emissions per scope"],
+      "concept_id": "ghg_emissions_by_scope",
+      "measure_aliases": ["GHG emissions", "greenhouse gas emissions", "溫室氣體排放量", "温室气体排放量", "碳排放量"],
+      "negative_aliases": ["排放因素", "盤查計劃", "盘查计划", "氣候風險", "气候风险"],
+      "unit_families": ["emissions"],
+      "dimensions": {
+        "scope": {
+          "aliases": ["scope 1", "scope1", "範圍1", "范围1", "範圍一", "范围一", "scope 2", "scope2", "範圍2", "范围2", "範圍二", "范围二", "scope 3", "scope3", "範圍3", "范围3", "範圍三", "范围三"],
+          "minimum_distinct": 3,
+          "relation": "same_table"
+        }
+      },
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "table_bundle"
+    },
+    {
+      "patterns": ["financial and operational control"],
+      "concept_id": "ghg_emissions_control_boundary",
+      "measure_aliases": ["GHG emissions", "greenhouse gas emissions", "溫室氣體排放", "温室气体排放", "財務控制", "财务控制", "營運控制", "营运控制"],
+      "unit_families": ["emissions"],
+      "dimensions": {
+        "financial_control": {"aliases": ["financial control", "財務控制", "财务控制"], "minimum_distinct": 1, "relation": "same_table"},
+        "operational_control": {"aliases": ["operational control", "營運控制", "营运控制"], "minimum_distinct": 1, "relation": "same_table"}
+      },
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "table_bundle"
+    },
+    {
+      "patterns": ["disaggregation of ghg emissions"],
+      "concept_id": "ghg_emissions_disaggregation",
+      "measure_aliases": ["GHG emissions", "greenhouse gas emissions", "溫室氣體排放量", "温室气体排放量", "排放分拆", "排放细分"],
+      "negative_aliases": ["生態足跡", "生态足迹", "影響類別", "影响类别"],
+      "unit_families": ["emissions"],
+      "dimensions": {
+        "disaggregation_axis": {"aliases": ["country", "segment", "subsidiary", "source type", "site", "sector", "國家", "国家", "地區", "地区", "業務分部", "业务分部", "附屬公司", "附属公司", "來源類型", "来源类型", "場址", "场址"], "minimum_distinct": 1, "relation": "same_table"}
+      },
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["total ghg emissions - value chain", "value chain [table]"],
+      "concept_id": "value_chain_ghg_emissions",
+      "measure_aliases": ["value chain emissions", "scope 3 emissions", "價值鏈排放", "价值链排放", "範圍3排放", "范围3排放", "範圍三排放", "范围三排放"],
+      "unit_families": ["emissions"],
+      "dimensions": {"value_chain": {"aliases": ["value chain", "scope 3", "scope3", "價值鏈", "价值链", "範圍3", "范围3", "範圍三", "范围三"], "minimum_distinct": 1, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "table_bundle"
+    },
+    {
+      "patterns": ["carbon pricing scheme"],
+      "concept_id": "carbon_pricing_scheme",
+      "measure_aliases": ["carbon price", "carbon pricing", "internal carbon price", "碳價", "碳价", "碳定價", "碳定价"],
+      "unit_families": ["monetary"],
+      "dimensions": {"pricing_type": {"aliases": ["internal", "external", "shadow price", "內部", "内部", "外部", "影子價格", "影子价格"], "minimum_distinct": 1, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": false,
+      "multiplicity": "all_instances"
+    },
+    {
+      "patterns": ["pollution of air, water and soil", "pollution of air", "water and soil"],
+      "concept_id": "pollution_amount_by_medium",
+      "measure_aliases": ["pollutant emissions", "air emissions", "water discharge", "soil pollution", "污染物排放量", "廢水排放量", "废水排放量", "廢氣排放量", "废气排放量"],
+      "negative_aliases": ["影響清單", "影响清单", "風險識別", "风险识别"],
+      "unit_families": ["mass", "volume"],
+      "dimensions": {"disaggregation_axis": {"aliases": ["site", "source type", "sector", "geographical area", "場址", "场址", "來源", "来源", "行業", "行业", "地區", "地区"], "minimum_distinct": 1, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["substances of concern", "hazard classes"],
+      "concept_id": "substances_of_concern_amount",
+      "measure_aliases": ["substances of concern", "hazardous substances", "關注物質", "关注物质", "有害物質", "有害物质", "危險化學品", "危险化学品"],
+      "unit_families": ["mass"],
+      "dimensions": {"hazard_class": {"aliases": ["hazard class", "危害類別", "危害类别", "危險類別", "危险类别"], "minimum_distinct": 1, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["number of employees by gender"],
+      "concept_id": "employee_headcount_by_gender",
+      "measure_aliases": ["number of employees", "employee headcount", "employees by gender", "僱員總數", "雇员总数", "員工總人數", "员工总人数", "按性別", "按性别"],
+      "negative_aliases": ["流失率", "流動率", "流动率", "turnover", "training", "培訓", "培训"],
+      "unit_families": ["count_person"],
+      "dimensions": {"gender": {"aliases": ["male", "female", "男性", "女性"], "minimum_distinct": 2, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["employees in countries with 50 or more"],
+      "concept_id": "employee_headcount_by_country_threshold",
+      "measure_aliases": ["employees by country", "employee headcount", "按國家劃分", "按国家划分", "僱員總數", "雇员总数"],
+      "negative_aliases": ["供應商", "供应商", "流失率", "turnover"],
+      "unit_families": ["count_person"],
+      "dimensions": {
+        "geography": {"aliases": ["country", "國家", "国家", "中國", "中国", "hong kong", "香港"], "minimum_distinct": 1, "relation": "same_table"},
+        "country_threshold": {"aliases": ["50 employees", "50名員工", "50名员工", "10%", "10 %"], "minimum_distinct": 1, "relation": "co_present"}
+      },
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["contract type and gender"],
+      "concept_id": "employee_headcount_by_contract_and_gender",
+      "measure_aliases": ["employees by contract type", "employment type", "僱傭類型", "雇佣类型", "僱員總數", "雇员总数"],
+      "negative_aliases": ["流失率", "turnover"],
+      "unit_families": ["count_person"],
+      "dimensions": {
+        "contract_type": {"aliases": ["full-time", "part-time", "全職", "全职", "兼職", "兼职"], "minimum_distinct": 2, "relation": "cross_tab"},
+        "gender": {"aliases": ["male", "female", "男性", "女性"], "minimum_distinct": 2, "relation": "cross_tab"}
+      },
+      "required_numeric": true,
+      "required_period": true,
+      "requires_dimension_intersection": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["employees by region"],
+      "concept_id": "employee_headcount_by_region",
+      "measure_aliases": ["employees by region", "employee headcount", "按地區劃分", "按地区划分", "僱員總數", "雇员总数", "員工總人數", "员工总人数"],
+      "negative_aliases": ["供應商", "供应商", "流失率", "turnover", "危機", "危机"],
+      "unit_families": ["count_person"],
+      "dimensions": {"geography": {"aliases": ["region", "mainland china", "hong kong", "overseas", "地區", "地区", "中國內地", "中国内地", "港澳台", "海外"], "minimum_distinct": 2, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["training and skills development indicators gender"],
+      "concept_id": "employee_training_rate_by_gender",
+      "measure_aliases": ["trained employees", "employees trained", "training rate", "受訓僱員比例", "受训雇员比例", "受訓比例", "受训比例"],
+      "negative_aliases": ["流失率", "turnover"],
+      "unit_families": ["percent"],
+      "dimensions": {"gender": {"aliases": ["male", "female", "男性", "女性"], "minimum_distinct": 2, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["average number of training hours"],
+      "concept_id": "average_training_hours_by_gender",
+      "measure_aliases": ["average training hours", "training hours", "受訓平均時數", "受训平均时数", "培訓時數", "培训时数", "培訓小時", "培训小时"],
+      "negative_aliases": ["流失率", "turnover", "培訓覆蓋率", "培训覆盖率"],
+      "unit_families": ["hours"],
+      "dimensions": {"gender": {"aliases": ["male", "female", "男性", "女性"], "minimum_distinct": 2, "relation": "same_table"}},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "group_by_dimension"
+    },
+    {
+      "patterns": ["number of incidents of discrimination"],
+      "concept_id": "discrimination_incident_count",
+      "measure_aliases": ["incidents of discrimination", "discrimination incidents", "discrimination", "歧視事件", "歧视事件", "歧視", "歧视"],
+      "negative_aliases": ["指標索引", "指标索引", "糾正行動", "纠正行动"],
+      "unit_families": ["count_incident"],
+      "dimensions": {},
+      "required_numeric": true,
+      "allow_explicit_zero_statement": true,
+      "required_period": false,
+      "multiplicity": "single_best"
+    },
+    {
+      "patterns": ["anti-corruption and bribery training table", "anti-corruption and bribery training"],
+      "concept_id": "anti_corruption_training",
+      "measure_aliases": ["anti-corruption training", "anti-bribery training", "反貪污培訓", "反贪污培训", "反腐敗培訓", "反腐败培训", "反貪腐培訓", "反贪腐培训"],
+      "negative_aliases": ["公平競爭", "公平竞争", "指標索引", "指标索引"],
+      "unit_families": ["count_person", "hours", "percent"],
+      "dimensions": {},
+      "required_numeric": true,
+      "required_period": true,
+      "multiplicity": "all_instances"
+    }
+  ]
+}

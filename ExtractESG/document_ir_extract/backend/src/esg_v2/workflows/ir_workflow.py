@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
 from esg_v2.config import Settings
 from esg_v2.document.artifact_loader import OcrArtifactLoader
@@ -9,13 +9,16 @@ from esg_v2.document.contracts import DocumentIrBuildRequest, DocumentIrBuildRes
 from esg_v2.document.deduplicator import DeterministicEntityDeduplicator
 from esg_v2.document.identifier_normalizer import CanonicalIdentifierNormalizer
 from esg_v2.document.local_forensics import LocalPdfProcessor
+from esg_v2.document.logical_table_builder import LogicalTableBuilder
 from esg_v2.document.page_renderer import PageRenderer
 from esg_v2.document.paddleocr_converter import PaddleOcrDocumentConverter
 from esg_v2.document.parser_fusion import ParserFusion
 from esg_v2.document.quality_router import OcrQualityRouter
 from esg_v2.document.review_orchestrator import AgentReviewOrchestrator
 from esg_v2.document.structure_reconstruction import StructureReconstructor
+from esg_v2.document.spread_builder import HorizontalSpreadBuilder
 from esg_v2.document.table_graph_builder import TableGraphBuilder
+from esg_v2.document.table_geometry_resolver import TableGeometryResolver
 from esg_v2.document.validator import DocumentIrValidator
 from esg_v2.document.versioning import DocumentIrVersionManager
 from esg_v2.document.visual_region_builder import VisualRegionBuilder
@@ -32,13 +35,21 @@ from esg_v2.storage.package_layout import (
 
 
 LogFn = Callable[[str], None]
+TelemetryFn = Callable[[dict[str, Any]], None]
 
 
 class DocumentIrWorkflow:
     def __init__(self, settings: Settings):
         self.settings = settings
 
-    def run(self, request: DocumentIrBuildRequest, *, run_id: str | None = None, log: LogFn | None = None) -> DocumentIrBuildResult:
+    def run(
+        self,
+        request: DocumentIrBuildRequest,
+        *,
+        run_id: str | None = None,
+        log: LogFn | None = None,
+        telemetry: TelemetryFn | None = None,
+    ) -> DocumentIrBuildResult:
         run_id = run_id or request.run_id or self._new_run_id(request.ocr_run_id)
         require_run_id(run_id, "ir")
         require_package_dir_name(request.ocr_run_id)
@@ -50,17 +61,40 @@ class DocumentIrWorkflow:
         version_manager = DocumentIrVersionManager(self.settings.document_ir_output_root)
         revision = version_manager.next_revision(request.ocr_run_id, request.parent_ir_run_id)
 
-        self._log(log, f"1/10 Loading immutable OCR artifacts: {request.ocr_run_id}")
+        self._stage(log, telemetry, 1, f"Loading immutable OCR artifacts: {request.ocr_run_id}")
         artifact = OcrArtifactLoader(self.settings.output_root).load(request.ocr_run_id)
         pdf_path = request.pdf_path or self._infer_pdf_path(artifact)
 
-        self._log(log, f"2/10 Rendering PDF pages at {request.render_dpi} DPI")
-        rendered = PageRenderer().render(pdf_path, package.root / "artifacts" / "page-images", dpi=request.render_dpi)
+        render_message = f"2/11 Rendering PDF pages at {request.render_dpi} DPI"
+        self._stage(log, telemetry, 2, f"Rendering PDF pages at {request.render_dpi} DPI")
+        last_render_progress = -1
 
-        self._log(log, "3/10 Running deterministic local PDF forensics")
+        def render_progress(rendered_pages: int, total_pages: int) -> None:
+            nonlocal last_render_progress
+            if (
+                rendered_pages == total_pages
+                or rendered_pages == 1
+                or rendered_pages - last_render_progress >= 10
+            ):
+                last_render_progress = rendered_pages
+                self._log(
+                    log,
+                    f"{render_message} ({rendered_pages}/{total_pages})",
+                )
+
+        rendered = PageRenderer(
+            timeout_seconds=self.settings.pdf_render_timeout_seconds,
+        ).render(
+            pdf_path,
+            package.root / "artifacts" / "page-images",
+            dpi=request.render_dpi,
+            progress=render_progress,
+        )
+
+        self._stage(log, telemetry, 3, "Running deterministic local PDF forensics")
         local_forensics = LocalPdfProcessor().analyze(pdf_path, rendered)
 
-        self._log(log, "4/10 Parsing PaddleOCR raw layout and building the IR candidate")
+        self._stage(log, telemetry, 4, "Parsing PaddleOCR raw layout and building the IR candidate")
         document = PaddleOcrDocumentConverter().convert(
             artifact,
             run_id=run_id,
@@ -70,38 +104,49 @@ class DocumentIrWorkflow:
             parent_ir_run_id=revision.parent_ir_run_id,
         )
 
-        self._log(log, "5/10 Reconstructing reading order, sections, captions, and footnotes")
+        self._stage(log, telemetry, 5, "Reconstructing reading order, sections, captions, and footnotes")
         fusion = ParserFusion()
         document = fusion.fuse(document, local_forensics=local_forensics)
         document = DeterministicEntityDeduplicator().deduplicate(document)
-        document = VisualSemanticGrouper().group(document)
         document = CanonicalIdentifierNormalizer().normalize(document)
+        document = TableGeometryResolver().resolve(document, local_forensics)
+        document = VisualSemanticGrouper().group(document)
         document = StructureReconstructor().reconstruct(document)
 
-        self._log(log, "6/10 Building table graphs and cross-page table links")
+        self._stage(log, telemetry, 6, "Building table graphs and cross-page table links")
         document = TableGraphBuilder().build(document)
+        document = LogicalTableBuilder().build(document)
 
-        self._log(log, "7/10 Building visual regions and auditable crop artifacts")
+        self._stage(log, telemetry, 7, "Building visual regions and auditable crop artifacts")
         document = VisualRegionBuilder().build(document, output_dir)
 
-        self._log(log, "8/10 Routing page-level quality risks and optional Qiniu agent reviews")
+        self._stage(log, telemetry, 8, "Detecting horizontal page spreads and building composite evidence")
+        document = HorizontalSpreadBuilder().build(document, output_dir)
+
+        self._stage(log, telemetry, 9, "Routing typed quality risks and optional Qiniu agent reviews")
         document = OcrQualityRouter().route(document, local_forensics).document
         if request.execute_vlm_reviews:
-            document = AgentReviewOrchestrator(self.settings, api_key=request.qiniu_api_key).execute(
+            document = AgentReviewOrchestrator(
+                self.settings,
+                api_key=request.qiniu_api_key,
+                telemetry=telemetry,
+            ).execute(
                 document,
                 review_target_ids=request.review_target_ids,
                 max_auto_review_rounds=request.max_auto_review_rounds,
                 log=log,
             )
 
-        self._log(log, "9/10 Rebuilding corrected structure and reconciling accepted review decisions")
+        self._stage(log, telemetry, 10, "Rebuilding corrected structure and reconciling accepted review decisions")
         if request.execute_vlm_reviews and any(patch.status == "accepted" for patch in document.atomic_patches):
+            document = TableGeometryResolver().resolve(document, local_forensics)
             document = StructureReconstructor().reconstruct(document)
             document = TableGraphBuilder().build(document)
+            document = LogicalTableBuilder().build(document)
             document = VisualRegionBuilder().build(document, output_dir)
         document = fusion.reconcile_reviews(document)
 
-        self._log(log, "10/10 Validating Document IR readiness and writing immutable artifacts")
+        self._stage(log, telemetry, 11, "Validating Document IR readiness and writing immutable artifacts")
         expected_page_count = artifact.manifest.get("page_count")
         document = DocumentIrValidator().validate(
             document,
@@ -122,6 +167,7 @@ class DocumentIrWorkflow:
             block_count=len(document.blocks),
             table_count=len(document.tables),
             figure_count=len(document.figures),
+            spread_count=len(document.spreads),
             review_task_count=len(document.review_tasks),
             readiness=document.readiness,
         )
@@ -148,3 +194,15 @@ class DocumentIrWorkflow:
     def _log(log: LogFn | None, message: str) -> None:
         if log:
             log(message)
+
+    @classmethod
+    def _stage(
+        cls,
+        log: LogFn | None,
+        telemetry: TelemetryFn | None,
+        index: int,
+        name: str,
+    ) -> None:
+        if telemetry:
+            telemetry({"event": "stage_started", "index": index, "total": 11, "name": name})
+        cls._log(log, f"{index}/11 {name}")

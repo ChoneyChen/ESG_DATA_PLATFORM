@@ -42,6 +42,17 @@ class CropBuilder:
                 media_type="image/png",
                 page_index=page_index,
                 bbox=bbox,
+                width_pixels=right - left,
+                height_pixels=bottom - top,
+                page_pixel_bbox=BoundingBox(
+                    x0=left,
+                    y0=top,
+                    x1=right,
+                    y1=bottom,
+                    unit="pixels",
+                    origin="top_left",
+                    coordinate_system_id=image_system.coordinate_system_id,
+                ),
                 sha256=sha256_file(path),
                 source="CropBuilder",
             )

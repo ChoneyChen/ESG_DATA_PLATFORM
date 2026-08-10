@@ -4,10 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ESG Evidence Hub · Document IR Console</title>
-    <link rel="stylesheet" href="./src/styles.css?v=package-v1-20260718-2" />
+    <link rel="stylesheet" href="./src/styles.css?v=document-ir-v011-targeted-nav-20260809" />
   </head>
   <body>
     <main class="shell">
+      <nav class="app-nav" aria-label="主功能">
+        <a class="active" href="./index.html">文档解析 · Document IR</a>
+        <a href="./targeted.html">按表抽取 · Targeted Recall</a>
+      </nav>
       <header class="hero">
         <div>
           <p class="eyebrow">ESG Evidence Hub v2</p>
@@ -24,6 +28,18 @@
       <section class="pipeline-card">
         <div class="section-heading"><div><p class="eyebrow">Live pipeline</p><h2>Document IR 构建链路</h2></div><span id="pipeline-state" class="muted">等待任务</span></div>
         <div id="pipeline-stages" class="pipeline-stages"></div>
+      </section>
+
+      <section id="runtime-telemetry" class="card runtime-card">
+        <div class="section-heading">
+          <div><p class="eyebrow">Live telemetry</p><h2>运行计时与模型调用</h2></div>
+          <span id="runtime-updated" class="muted">等待 Document IR 任务</span>
+        </div>
+        <div id="runtime-metrics" class="runtime-metrics"></div>
+        <div class="runtime-lower">
+          <div><h3>当前执行</h3><div id="runtime-current" class="runtime-current muted">尚无运行数据。</div></div>
+          <div><h3>阶段耗时</h3><div id="runtime-stages" class="runtime-stages"></div></div>
+        </div>
       </section>
 
       <section class="card model-strip-card">
@@ -62,7 +78,7 @@
           </div>
           <label>七牛 API Key（仅开启 VLM 时）<input id="qiniu-key" type="password" placeholder="留空则使用后端环境变量" /></label>
           <label class="checkbox-line"><input id="execute-vlm" type="checkbox" /> 执行质量路由产生的七牛 VLM 复核任务</label>
-          <p class="agent-note">自动闭环：主审模型提出局部候选 → 本地 Patch Guard → 不同模型家族独立复核 → 最多一次自动返修。API 故障进入自动待处理，不直接转人工。</p>
+          <p class="agent-note">自动闭环：主审模型提出局部候选 → 本地 Patch Guard → 不同模型家族独立复核 → 最多两次反馈返修（三轮主审）。API 故障进入自动待处理，不直接转人工。</p>
           <button type="submit">构建 Document IR</button>
           <p class="hint">模型复核只生成候选修正；分歧必须进入 Conflict/Patch，不直接覆盖 OCR。</p>
         </form>
@@ -121,6 +137,7 @@
             <div id="table-meta" class="meta-strip"></div>
             <div class="table-layout"><div id="table-grid" class="table-grid"></div><div id="table-visual" class="crop-view"></div></div>
             <div id="table-edges" class="edge-summary"></div>
+            <div id="logical-table-view" class="logical-table-view"></div>
           </section>
           <section class="card">
             <p class="eyebrow">Visual regions</p><h2>图片、图表与区域截图</h2>
@@ -128,30 +145,61 @@
           </section>
         </section>
 
+        <section class="card spread-routing-card">
+          <div class="section-heading">
+            <div><p class="eyebrow">Horizontal spread preflight</p><h2>左右跨页本地分流</h2></div>
+            <span class="muted">纯视觉连续保留关系但不调用模型；信息跨缝与不确定项进入详细复核</span>
+          </div>
+          <div id="spread-routing-summary" class="spread-routing-summary"></div>
+          <div id="spread-routing-list" class="spread-routing-list"></div>
+        </section>
+
         <section class="card review-cockpit">
-          <div class="section-heading"><div><p class="eyebrow">Agent review loop</p><h2>质量路由、双模型复核与人工边界</h2></div><span class="muted">只有 Guard 与独立 verifier 均通过，候选补丁才写入当前 revision</span></div>
+          <div class="section-heading"><div><p class="eyebrow">Agent review loop</p><h2>分层自动复核与人工内容判断</h2></div><span class="muted">服务或协议问题由系统处理；只有可读证据仍存在语义分歧时才交给人</span></div>
+          <div id="review-retry-outcome" class="review-retry-outcome hidden"></div>
           <div id="review-summary" class="review-summary"></div>
-          <div class="three-column review-columns">
-            <div><h3>Review Tasks</h3><div id="review-tasks" class="review-list"></div></div>
-            <div><h3>Atomic Patches</h3><div id="correction-patches" class="review-list"></div></div>
-            <div><h3>Conflict Groups</h3><div id="conflict-groups" class="review-list"></div></div>
-          </div>
-          <div class="review-detail-grid">
-            <div>
-              <h3>所选任务的完整 Agent 时间线</h3>
-              <div id="review-timeline" class="review-timeline"><div class="muted">点击 Review Task 查看每一次模型调用。</div></div>
+          <div class="review-toolbar">
+            <div id="review-tabs" class="review-tabs">
+              <button type="button" class="review-tab active" data-review-group="human_required">人工内容判断</button>
+              <button type="button" class="review-tab" data-review-group="system_blocked">链路修复阻塞</button>
+              <button type="button" class="review-tab" data-review-group="blocking_deferred">自动修复待处理</button>
+              <button type="button" class="review-tab" data-review-group="optional_deferred">非阻塞增强</button>
+              <button type="button" class="review-tab" data-review-group="resolved">已解决</button>
             </div>
-            <div>
-              <h3>候选修正前后差异</h3>
-              <div id="candidate-diff" class="candidate-diff"><div class="muted">尚无候选差异。</div></div>
+            <div class="button-row">
+              <button id="retry-blocking-reviews" type="button" class="secondary">重试全部阻塞待处理</button>
+              <button id="run-optional-reviews" type="button" class="secondary">运行全部非阻塞增强</button>
             </div>
           </div>
+          <div class="review-workbench-grid">
+            <aside>
+              <h3 id="review-queue-title">人工内容判断</h3>
+              <div id="review-tasks" class="review-list review-inbox"><div class="muted">选择 Document IR 后显示队列。</div></div>
+            </aside>
+            <section class="review-evidence-panel">
+              <div id="review-guidance" class="review-guidance"><div class="muted">选择一项后显示人话诊断与建议。</div></div>
+              <div id="review-visual" class="review-visual"><div class="muted">原页与区域截图会显示在这里。</div></div>
+            </section>
+            <section class="review-action-panel">
+              <div><p class="eyebrow">Decision</p><h3>基于证据作出一个决定</h3></div>
+              <div id="review-actions" class="review-actions"><span class="muted">选择任务后显示操作。</span></div>
+              <div><h3>候选修正前后差异</h3><div id="candidate-diff" class="candidate-diff"><div class="muted">尚无候选差异。</div></div></div>
+            </section>
+          </div>
+          <details class="review-audit">
+            <summary>查看完整 Agent 时间线与原始 JSON</summary>
+            <div class="three-column review-columns">
+              <div><h3>所选任务时间线</h3><div id="review-timeline" class="review-timeline"><div class="muted">选择 Review Task 后显示。</div></div></div>
+              <div><h3>Atomic Patches</h3><div id="correction-patches" class="review-list"></div></div>
+              <div><h3>Conflict Groups</h3><div id="conflict-groups" class="review-list"></div></div>
+            </div>
+          </details>
           <div class="operator-grid">
             <form id="human-decision-form" class="operator-panel">
-              <div><p class="eyebrow">Human fallback</p><h3>只处理最终仍有语义分歧的阻断项</h3></div>
+              <div><p class="eyebrow">Human evidence</p><h3>人工依据会写入不可变子版本</h3></div>
               <label>待裁决 Patch<select id="human-patch"><option value="">选择 human_required patch</option></select></label>
               <label>操作人<input id="human-operator" value="local-operator" /></label>
-              <label>备注<input id="human-notes" placeholder="裁决依据" /></label>
+              <label>判断依据<textarea id="human-notes" rows="3" placeholder="写清看到了什么、原页如何支持你的判断；保留当前 IR 时必填"></textarea></label>
               <div class="button-row"><button type="button" id="accept-patch">接受补丁并建子版本</button><button type="button" id="reject-patch" class="danger">拒绝补丁并建子版本</button></div>
             </form>
             <form id="repair-form" class="operator-panel">
@@ -171,6 +219,6 @@
         </section>
       </section>
     </main>
-    <script type="module" src="./src/main.js?v=package-v1-20260718-2"></script>
+    <script type="module" src="./src/main.js?v=document-ir-v011-20260805"></script>
   </body>
 </html>

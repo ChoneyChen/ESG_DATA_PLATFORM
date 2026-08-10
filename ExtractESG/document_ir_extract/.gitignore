@@ -10,3 +10,7 @@ ocr_output/*
 !ocr_output/.gitkeep
 document_ir_output/*
 !document_ir_output/.gitkeep
+evidence_output/*
+!evidence_output/.gitkeep
+targeted_fill_output/*
+!targeted_fill_output/.gitkeep

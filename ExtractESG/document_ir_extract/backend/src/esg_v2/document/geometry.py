@@ -48,6 +48,73 @@ def bbox_area_ratio(bbox: BoundingBox | None, *, page_width: float | None, page_
     return area / (page_width * page_height)
 
 
+def normalize_bbox_to_page(
+    bbox: BoundingBox,
+    *,
+    page_width: float | None,
+    page_height: float | None,
+    reject_overflow_ratio: float = 0.02,
+) -> tuple[BoundingBox | None, str]:
+    """Validate a box against its page, clipping only small parser drift.
+
+    A materially out-of-page box is evidence that the parser found the wrong
+    region, not a coordinate rounding problem. Returning it as rejected keeps a
+    false table candidate from becoming canonical merely because it can be
+    clipped into a legal rectangle.
+    """
+    if not page_width or not page_height or page_width <= 0 or page_height <= 0:
+        return bbox, "unchanged"
+    if bbox.x0 >= bbox.x1 or bbox.y0 >= bbox.y1:
+        return None, "rejected_degenerate"
+
+    overflow_ratio = max(
+        max(0.0, -bbox.x0) / page_width,
+        max(0.0, bbox.x1 - page_width) / page_width,
+        max(0.0, -bbox.y0) / page_height,
+        max(0.0, bbox.y1 - page_height) / page_height,
+    )
+    if overflow_ratio > reject_overflow_ratio:
+        return None, "rejected_out_of_bounds"
+
+    clipped = BoundingBox(
+        x0=max(0.0, min(page_width, bbox.x0)),
+        y0=max(0.0, min(page_height, bbox.y0)),
+        x1=max(0.0, min(page_width, bbox.x1)),
+        y1=max(0.0, min(page_height, bbox.y1)),
+        unit=bbox.unit,
+        origin=bbox.origin,
+        coordinate_system_id=bbox.coordinate_system_id,
+    )
+    if clipped.x0 >= clipped.x1 or clipped.y0 >= clipped.y1:
+        return None, "rejected_degenerate"
+    if clipped == bbox:
+        return clipped, "unchanged"
+    return clipped, "clipped_to_page"
+
+
+def union_bboxes(boxes: list[BoundingBox]) -> BoundingBox | None:
+    values = [box for box in boxes if box is not None]
+    if not values:
+        return None
+    first = values[0]
+    if any(
+        box.unit != first.unit
+        or box.origin != first.origin
+        or box.coordinate_system_id != first.coordinate_system_id
+        for box in values[1:]
+    ):
+        return None
+    return BoundingBox(
+        x0=min(box.x0 for box in values),
+        y0=min(box.y0 for box in values),
+        x1=max(box.x1 for box in values),
+        y1=max(box.y1 for box in values),
+        unit=first.unit,
+        origin=first.origin,
+        coordinate_system_id=first.coordinate_system_id,
+    )
+
+
 def image_bbox_from_path(path: str, *, coordinate_system_id: str | None = None) -> BoundingBox | None:
     match = _IMAGE_BOX_PATTERN.search(Path(path).name)
     if not match:

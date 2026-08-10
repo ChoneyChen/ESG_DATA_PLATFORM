@@ -24,6 +24,7 @@ class ReviewResultInterpreter:
                         conflict_type="unparseable_review_output",
                         observation_refs=[task.task_id],
                         status="human_required",
+                        routing_disposition="human_required",
                     )
                 )
                 continue
@@ -37,6 +38,7 @@ class ReviewResultInterpreter:
                         conflict_type="invalid_review_schema",
                         observation_refs=[task.task_id],
                         status="human_required",
+                        routing_disposition="human_required",
                     )
                 )
                 continue
@@ -66,6 +68,7 @@ class ReviewResultInterpreter:
                         observation_refs=[task.task_id],
                         patch_ids=[patch.patch_id],
                         status="human_required",
+                        routing_disposition="human_required",
                     )
                 )
             elif confidence >= 0.8 and not needs_human:

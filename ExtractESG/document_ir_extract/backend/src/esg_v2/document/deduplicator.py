@@ -1,24 +1,24 @@
 from __future__ import annotations
 
-import html
-import re
+from collections import Counter
 from difflib import SequenceMatcher
 
-from esg_v2.document.contracts import DocumentIR
-from esg_v2.document.geometry import bbox_iou
+from esg_v2.document.contracts import DocumentIR, RetiredEntityIR
+from esg_v2.document.geometry import bbox_containment, bbox_iou
+from esg_v2.document.text_normalization import comparison_key
 
 
 class DeterministicEntityDeduplicator:
     """Deduplicates canonical entities while preserving raw layout observations."""
 
     def deduplicate(self, document: DocumentIR) -> DocumentIR:
-        document.blocks, block_map = self._dedupe_blocks(document.blocks)
+        document.blocks, block_map = self._dedupe_blocks(document.blocks, document)
         document.tables, table_map = self._dedupe_tables(document.tables)
         document.figures, figure_map = self._dedupe_figures(document.figures)
         self._rewrite_references(document, block_map, table_map, figure_map)
         return document
 
-    def _dedupe_blocks(self, blocks):
+    def _dedupe_blocks(self, blocks, document: DocumentIR):
         kept = []
         mapping: dict[str, str] = {}
         for block in sorted(blocks, key=lambda item: (item.page_index, item.order, item.block_id)):
@@ -36,8 +36,108 @@ class DeterministicEntityDeduplicator:
             else:
                 mapping[block.block_id] = duplicate.block_id
                 self._merge_block(duplicate, discarded)
+        kept, fallback_mapping = self._retire_duplicate_fallbacks(kept, document)
+        mapping.update(fallback_mapping)
         self._renumber_orders(kept)
         return kept, mapping
+
+    def _retire_duplicate_fallbacks(self, blocks, document: DocumentIR):
+        fallback_mapping: dict[str, str] = {}
+        kept = list(blocks)
+        by_page: dict[int, list] = {}
+        for block in kept:
+            by_page.setdefault(block.page_index, []).append(block)
+
+        for page_blocks in by_page.values():
+            grounded = [
+                block
+                for block in page_blocks
+                if block.bbox is not None
+                and "markdown_fallback_without_layout_geometry" not in block.quality_flags
+            ]
+            fallbacks = [
+                block
+                for block in page_blocks
+                if block.bbox is None
+                and block.table_id is None
+                and "markdown_fallback_without_layout_geometry" in block.quality_flags
+            ]
+            for fallback in fallbacks:
+                matches = self._fallback_matches(fallback, grounded)
+                if not matches:
+                    continue
+                fallback_mapping[fallback.block_id] = matches[0].block_id
+                if fallback in kept:
+                    kept.remove(fallback)
+                evidence_refs = list(
+                    dict.fromkeys(
+                        [
+                            *fallback.source_trace.artifact_ids,
+                            *(
+                                [fallback.source_trace.page_markdown_path]
+                                if fallback.source_trace.page_markdown_path
+                                else []
+                            ),
+                        ]
+                    )
+                )
+                document.retired_entities.append(
+                    RetiredEntityIR(
+                        entity_id=fallback.block_id,
+                        entity_type="block",
+                        page_index=fallback.page_index,
+                        disposition="duplicate_fallback",
+                        snapshot=fallback.model_dump(mode="json"),
+                        canonical_target_ids=[match.block_id for match in matches],
+                        evidence_refs=evidence_refs,
+                        reason=(
+                            "Markdown fallback text is already represented by a grounded canonical "
+                            "block sequence on the same page: "
+                            f"{', '.join(match.block_id for match in matches)}."
+                        ),
+                    )
+                )
+                for match in matches:
+                    self._merge_source_trace(match.source_trace, fallback.source_trace)
+                    match.quality_flags = list(
+                        dict.fromkeys([*match.quality_flags, "markdown_fallback_subsumed"])
+                    )
+        return kept, fallback_mapping
+
+    def _fallback_matches(self, fallback, grounded):
+        candidate = self._normalize(fallback.text)
+        if not candidate:
+            return []
+        eligible = [
+            block
+            for block in sorted(grounded, key=lambda item: (item.order, item.block_id))
+            if self._same_source_observation(fallback, block)
+        ]
+        for block in eligible:
+            target = self._normalize(block.text)
+            if candidate == target or candidate in target:
+                return [block]
+        for start in range(len(eligible)):
+            for length in range(2, min(6, len(eligible) - start) + 1):
+                sequence = eligible[start : start + length]
+                if any(
+                    second.order - first.order > 2
+                    for first, second in zip(sequence, sequence[1:])
+                ):
+                    break
+                combined = "".join(self._normalize(block.text) for block in sequence)
+                if candidate == combined:
+                    return sequence
+        return []
+
+    @staticmethod
+    def _same_source_observation(first, second) -> bool:
+        first_artifacts = set(first.source_trace.artifact_ids)
+        second_artifacts = set(second.source_trace.artifact_ids)
+        return bool(first_artifacts & second_artifacts) or (
+            first.source_trace.page_markdown_path
+            and first.source_trace.page_markdown_path == second.source_trace.page_markdown_path
+        )
 
     def _dedupe_tables(self, tables):
         kept = []
@@ -93,6 +193,13 @@ class DeterministicEntityDeduplicator:
             return False
         if first.bbox and second.bbox and bbox_iou(first.bbox, second.bbox) >= 0.88:
             return True
+        local, canonical = self._local_and_canonical(first, second)
+        if local is not None and canonical is not None:
+            if bbox_containment(local.bbox, canonical.bbox) >= 0.92:
+                local_text = self._cell_signature(local)
+                canonical_text = self._cell_signature(canonical) or self._normalize(canonical.markdown)
+                if self._text_coverage(local_text, canonical_text) >= 0.72:
+                    return True
         first_text = self._normalize(first.markdown)
         second_text = self._normalize(second.markdown)
         if first_text and second_text and self._text_similarity(first_text, second_text) >= 0.95:
@@ -120,7 +227,13 @@ class DeterministicEntityDeduplicator:
 
     @staticmethod
     def _table_quality(table):
-        return (bool(table.bbox), len(table.cells), table.row_count * table.column_count, bool(table.block_id))
+        return (
+            "local_only_table_candidate" not in table.quality_flags,
+            bool(table.bbox),
+            len(table.cells),
+            table.row_count * table.column_count,
+            bool(table.block_id),
+        )
 
     @staticmethod
     def _figure_quality(figure):
@@ -138,7 +251,25 @@ class DeterministicEntityDeduplicator:
 
     @staticmethod
     def _merge_table(target, source) -> None:
-        target.quality_flags = list(dict.fromkeys([*target.quality_flags, *source.quality_flags, "deduplicated_entity"]))
+        source_flags = list(source.quality_flags)
+        if (
+            "local_only_table_candidate" in source_flags
+            and "local_only_table_candidate" not in target.quality_flags
+        ):
+            source_flags = [
+                flag
+                for flag in source_flags
+                if flag
+                not in {
+                    "local_only_table_candidate",
+                    "blank_visual_encoding_cells",
+                    "table_structure_recovered_from_pdfplumber",
+                }
+            ]
+            source_flags.append("local_candidate_subsumed")
+        target.quality_flags = list(
+            dict.fromkeys([*target.quality_flags, *source_flags, "deduplicated_entity"])
+        )
         target.review_task_ids = list(dict.fromkeys([*target.review_task_ids, *source.review_task_ids]))
         target.observations = list({item.observation_id: item for item in [*target.observations, *source.observations]}.values())
         target.bbox = target.bbox or source.bbox
@@ -192,6 +323,10 @@ class DeterministicEntityDeduplicator:
         for table in document.tables:
             if table.block_id:
                 table.block_id = block_map.get(table.block_id, table.block_id)
+        for section in document.sections:
+            if section.heading_block_id:
+                section.heading_block_id = block_map.get(section.heading_block_id, section.heading_block_id)
+            section.block_ids = list(dict.fromkeys(block_map.get(item, item) for item in section.block_ids))
 
     @staticmethod
     def _renumber_orders(items) -> None:
@@ -204,9 +339,7 @@ class DeterministicEntityDeduplicator:
 
     @staticmethod
     def _normalize(text: str) -> str:
-        value = re.sub(r"<img\b[^>]*>", " ", text or "", flags=re.IGNORECASE)
-        value = re.sub(r"<[^>]+>", " ", value)
-        return re.sub(r"\s+", "", html.unescape(value)).strip().lower()
+        return comparison_key(text)
 
     @classmethod
     def _cell_signature(cls, table) -> str:
@@ -221,3 +354,20 @@ class DeterministicEntityDeduplicator:
         if shorter and shorter in longer and len(shorter) / len(longer) >= 0.8:
             return 1.0
         return SequenceMatcher(None, first, second).ratio()
+
+    @staticmethod
+    def _local_and_canonical(first, second):
+        first_local = "local_only_table_candidate" in first.quality_flags
+        second_local = "local_only_table_candidate" in second.quality_flags
+        if first_local == second_local:
+            return None, None
+        return (first, second) if first_local else (second, first)
+
+    @staticmethod
+    def _text_coverage(source: str, candidate: str) -> float:
+        source_chars = Counter(character for character in source if character.isalnum())
+        candidate_chars = Counter(character for character in candidate if character.isalnum())
+        if not source_chars:
+            return 0.0
+        retained = sum((source_chars & candidate_chars).values())
+        return retained / sum(source_chars.values())

@@ -10,7 +10,9 @@ CANONICAL_ID_PATTERNS = {
     "block": re.compile(r"^block-p\d{4}-\d{4}$"),
     "layout": re.compile(r"^layout-p\d{4}-\d{4}$"),
     "table": re.compile(r"^table-p\d{4}-\d{4}$"),
+    "logical-table": re.compile(r"^logical-table-\d{6}$"),
     "figure": re.compile(r"^figure-p\d{4}-\d{4}$"),
+    "spread": re.compile(r"^spread-p\d{4}-p\d{4}$"),
     "cell": re.compile(r"^cell-p\d{4}-t\d{4}-r\d{4}-c\d{4}$"),
     "review": re.compile(r"^review-\d{6}$"),
     "model-call": re.compile(r"^model-call-\d{6}$"),
@@ -19,6 +21,7 @@ CANONICAL_ID_PATTERNS = {
     "verifier": re.compile(r"^verifier-\d{6}$"),
     "patch": re.compile(r"^patch-\d{6}$"),
     "candidate": re.compile(r"^candidate-\d{6}$"),
+    "transaction": re.compile(r"^transaction-\d{6}$"),
     "decision": re.compile(r"^decision-\d{6}$"),
     "conflict": re.compile(r"^conflict-\d{6}$"),
 }

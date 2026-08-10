@@ -10,12 +10,20 @@ from esg_v2.contracts import OptionalPayload
 
 
 class PaddleOcrVlClient:
-    def __init__(self, job_url: str, token: str, timeout_seconds: float = 120):
+    def __init__(
+        self,
+        job_url: str,
+        token: str,
+        timeout_seconds: float = 120,
+        trust_environment_proxy: bool = False,
+    ):
         if not token:
             raise ValueError("PaddleOCR-VL token is required")
         self.job_url = job_url.rstrip("/")
         self.timeout_seconds = timeout_seconds
         self.headers = {"Authorization": f"bearer {token}"}
+        self.session = requests.Session()
+        self.session.trust_env = trust_environment_proxy
 
     def submit(
         self,
@@ -35,7 +43,7 @@ class PaddleOcrVlClient:
                 "model": model,
                 "optionalPayload": optional_payload.model_dump(),
             }
-            response = requests.post(
+            response = self.session.post(
                 self.job_url,
                 json=payload,
                 headers=headers,
@@ -51,7 +59,7 @@ class PaddleOcrVlClient:
             }
             with path.open("rb") as fh:
                 files = {"file": fh}
-                response = requests.post(
+                response = self.session.post(
                     self.job_url,
                     headers=self.headers,
                     data=data,
@@ -63,7 +71,7 @@ class PaddleOcrVlClient:
         return response.json()
 
     def get_job(self, job_id: str) -> dict[str, Any]:
-        response = requests.get(
+        response = self.session.get(
             f"{self.job_url}/{job_id}",
             headers=self.headers,
             timeout=self.timeout_seconds,
@@ -72,12 +80,12 @@ class PaddleOcrVlClient:
         return response.json()
 
     def download_text(self, url: str) -> str:
-        response = requests.get(url, timeout=self.timeout_seconds)
+        response = self.session.get(url, timeout=self.timeout_seconds)
         response.raise_for_status()
         return response.text
 
     def download_bytes(self, url: str) -> bytes:
-        response = requests.get(url, timeout=self.timeout_seconds)
+        response = self.session.get(url, timeout=self.timeout_seconds)
         response.raise_for_status()
         return response.content
 

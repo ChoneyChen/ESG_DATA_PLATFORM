@@ -46,7 +46,9 @@ class DocumentIrWriter:
                 "canonical_document",
                 "pages",
                 "tables",
+                "logical_tables",
                 "figures",
+                "spreads",
                 "structure_edges",
                 "coordinate_systems",
                 "local_forensics",
@@ -64,12 +66,19 @@ class DocumentIrWriter:
         paths: dict[str, Path] = {}
         page_rows = []
         table_rows = []
+        logical_table_rows = []
         figure_rows = []
+        spread_rows = []
         edge_rows = [item.model_dump(mode="json") for item in document.structure_edges]
 
         for page in sorted(document.pages, key=lambda item: item.page_index):
             page_path = self.layout.page(page.page_index)
             blocks = [item for item in document.blocks if item.page_index == page.page_index]
+            logical_table_ids = [
+                item.logical_table_id
+                for item in document.logical_tables
+                if page.page_index in item.page_indices
+            ]
             edge_ids = [
                 item.edge_id
                 for item in document.structure_edges
@@ -84,7 +93,9 @@ class DocumentIrWriter:
                     "page": page.model_dump(mode="json"),
                     "blocks": [item.model_dump(mode="json") for item in blocks],
                     "table_ids": list(page.table_ids),
+                    "logical_table_ids": logical_table_ids,
                     "figure_ids": list(page.figure_ids),
+                    "spread_ids": list(page.spread_ids),
                     "structure_edge_ids": edge_ids,
                 },
             )
@@ -97,7 +108,9 @@ class DocumentIrWriter:
                     "path": relative_path(self.output_dir, page_path),
                     "block_count": len(blocks),
                     "table_count": len(page.table_ids),
+                    "logical_table_count": len(logical_table_ids),
                     "figure_count": len(page.figure_ids),
+                    "spread_count": len(page.spread_ids),
                 }
             )
 
@@ -116,6 +129,22 @@ class DocumentIrWriter:
                 }
             )
 
+        for logical_table in sorted(document.logical_tables, key=lambda item: item.logical_table_id):
+            logical_table_path = self.layout.logical_table(logical_table.logical_table_id)
+            write_json(logical_table_path, logical_table.model_dump(mode="json"))
+            logical_table_rows.append(
+                {
+                    "logical_table_id": logical_table.logical_table_id,
+                    "source_table_ids": logical_table.source_table_ids,
+                    "page_indices": logical_table.page_indices,
+                    "composition_axis": logical_table.composition_axis,
+                    "status": logical_table.status,
+                    "path": relative_path(self.output_dir, logical_table_path),
+                    "logical_row_count": logical_table.logical_row_count,
+                    "logical_column_count": logical_table.logical_column_count,
+                }
+            )
+
         for figure in sorted(document.figures, key=lambda item: (item.page_index, item.order, item.figure_id)):
             figure_path = self.layout.figure(figure.figure_id)
             write_json(figure_path, figure.model_dump(mode="json"))
@@ -130,6 +159,26 @@ class DocumentIrWriter:
                 }
             )
 
+        for spread in sorted(document.spreads, key=lambda item: (item.page_indices, item.spread_id)):
+            spread_path = self.layout.spread(spread.spread_id)
+            write_json(spread_path, spread.model_dump(mode="json"))
+            spread_rows.append(
+                {
+                    "spread_id": spread.spread_id,
+                    "page_indices": spread.page_indices,
+                    "page_ids": spread.page_ids,
+                    "path": relative_path(self.output_dir, spread_path),
+                    "status": spread.status,
+                    "confidence": spread.confidence,
+                    "classification": spread.classification,
+                    "content_dependency": spread.content_dependency,
+                    "requires_detailed_review": spread.requires_detailed_review,
+                    "resolution_source": spread.resolution_source,
+                    "preflight_confidence": spread.preflight_confidence,
+                    "composite_artifact_id": spread.composite_artifact_id,
+                }
+            )
+
         paths["page_index"] = write_json(
             self.layout.page_index,
             {"schema_version": "document-ir-page-index-v1", "page_count": len(page_rows), "pages": page_rows},
@@ -138,9 +187,25 @@ class DocumentIrWriter:
             self.layout.table_index,
             {"schema_version": "document-ir-table-index-v1", "table_count": len(table_rows), "tables": table_rows},
         )
+        paths["logical_table_index"] = write_json(
+            self.layout.logical_table_index,
+            {
+                "schema_version": "document-ir-logical-table-index-v1",
+                "logical_table_count": len(logical_table_rows),
+                "logical_tables": logical_table_rows,
+            },
+        )
         paths["figure_index"] = write_json(
             self.layout.figure_index,
             {"schema_version": "document-ir-figure-index-v1", "figure_count": len(figure_rows), "figures": figure_rows},
+        )
+        paths["spread_index"] = write_json(
+            self.layout.spread_index,
+            {
+                "schema_version": "document-ir-spread-index-v1",
+                "spread_count": len(spread_rows),
+                "spreads": spread_rows,
+            },
         )
         paths["structure_edges"] = write_jsonl(self.layout.structure_edges, edge_rows)
         paths["coordinate_systems"] = write_json(
@@ -164,9 +229,12 @@ class DocumentIrWriter:
                 "collections": {
                     "pages": relative_path(self.output_dir, self.layout.page_index),
                     "tables": relative_path(self.output_dir, self.layout.table_index),
+                    "logical_tables": relative_path(self.output_dir, self.layout.logical_table_index),
                     "figures": relative_path(self.output_dir, self.layout.figure_index),
+                    "spreads": relative_path(self.output_dir, self.layout.spread_index),
                     "structure_edges": relative_path(self.output_dir, self.layout.structure_edges),
                     "coordinate_systems": relative_path(self.output_dir, self.layout.coordinate_systems),
+                    "retired_entities": relative_path(self.output_dir, self.layout.retired_entities),
                 },
                 "counts": self._counts(document),
             },
@@ -193,7 +261,11 @@ class DocumentIrWriter:
             "local_forensics": write_json(
                 self.layout.local_forensics,
                 {"schema_version": "document-ir-local-forensics-v1", "forensics": local_forensics},
-            )
+            ),
+            "retired_entities": write_jsonl(
+                self.layout.retired_entities,
+                (item.model_dump(mode="json") for item in document.retired_entities),
+            ),
         }
 
     def _write_quality(self, document: DocumentIR) -> dict[str, Path]:
@@ -226,6 +298,10 @@ class DocumentIrWriter:
             "atomic_patches": write_jsonl(
                 self.layout.review_collection("patches/atomic-patches.jsonl"),
                 (item.model_dump(mode="json") for item in document.atomic_patches),
+            ),
+            "patch_transactions": write_jsonl(
+                self.layout.review_collection("patches/patch-transactions.jsonl"),
+                (item.model_dump(mode="json") for item in document.patch_transactions),
             ),
             "correction_patches": write_jsonl(
                 self.layout.review_collection("patches/correction-patches.jsonl"),
@@ -265,6 +341,11 @@ class DocumentIrWriter:
                         "model_call_ids": [item.call_id for item in document.model_calls if item.task_id == task.task_id],
                         "reviewer_result_ids": [item.reviewer_result_id for item in document.reviewer_results if item.task_id == task.task_id],
                         "patch_ids": [item.patch_id for item in document.atomic_patches if item.source_task_id == task.task_id],
+                        "transaction_ids": [
+                            item.transaction_id
+                            for item in document.patch_transactions
+                            if item.task_id == task.task_id
+                        ],
                         "guard_result_ids": [item.guard_result_id for item in document.guard_results if item.task_id == task.task_id],
                         "verifier_result_ids": [item.verifier_result_id for item in document.verifier_results if item.task_id == task.task_id],
                         "candidate_ids": [item.candidate_id for item in document.candidate_revisions if item.task_id == task.task_id],
@@ -305,10 +386,13 @@ class DocumentIrWriter:
             "canonical_document": relative_path(self.output_dir, self.layout.canonical_document),
             "pages": relative_path(self.output_dir, self.layout.page_index),
             "tables": relative_path(self.output_dir, self.layout.table_index),
+            "logical_tables": relative_path(self.output_dir, self.layout.logical_table_index),
             "figures": relative_path(self.output_dir, self.layout.figure_index),
+            "spreads": relative_path(self.output_dir, self.layout.spread_index),
             "structure_edges": relative_path(self.output_dir, self.layout.structure_edges),
             "coordinate_systems": relative_path(self.output_dir, self.layout.coordinate_systems),
             "local_forensics": relative_path(self.output_dir, self.layout.local_forensics),
+            "retired_entities": relative_path(self.output_dir, self.layout.retired_entities),
             "artifacts": relative_path(self.output_dir, self.layout.artifact_index),
             "quality_report": relative_path(self.output_dir, self.layout.quality_report),
             "validation_report": relative_path(self.output_dir, self.layout.validation_report),
@@ -334,6 +418,7 @@ class DocumentIrWriter:
             },
             "entrypoints": entrypoints,
             "counts": counts,
+            "review_retry_result": document.quality_report.get("review_retry_result"),
             **{f"{key}_count": value for key, value in counts.items()},
             "written_at": datetime.now(timezone.utc).isoformat(),
         }
@@ -347,7 +432,9 @@ class DocumentIrWriter:
             "block": len(document.blocks),
             "layout_object": len(document.layout_objects),
             "table": len(document.tables),
+            "logical_table": len(document.logical_tables),
             "figure": len(document.figures),
+            "spread": len(document.spreads),
             "structure_edge": len(document.structure_edges),
             "artifact": len(document.artifacts),
             "review_task": len(document.review_tasks),
@@ -359,7 +446,9 @@ class DocumentIrWriter:
             "verifier_result": len(document.verifier_results),
             "final_decision": len(document.final_decisions),
             "candidate_revision": len(document.candidate_revisions),
+            "patch_transaction": len(document.patch_transactions),
             "conflict_group": len(document.conflict_groups),
+            "retired_entity": len(document.retired_entities),
         }
 
     def _make_portable(self, document: DocumentIR) -> None:
@@ -424,6 +513,8 @@ class DocumentIrWriter:
             *((item.layout_object_id, item) for item in document.layout_objects),
             *((item.block_id, item) for item in document.blocks),
             *((item.table_id, item) for item in document.tables),
+            *((item.logical_table_id, item) for item in document.logical_tables),
             *((item.figure_id, item) for item in document.figures),
+            *((item.spread_id, item) for item in document.spreads),
             *((item.cell_id, item) for table in document.tables for item in table.cells),
         ]
