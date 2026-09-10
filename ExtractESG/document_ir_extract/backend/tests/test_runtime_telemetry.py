@@ -27,9 +27,18 @@ def test_verifier_aliases_are_normalized_before_contract_validation() -> None:
             "rationale": "The patch matches the visible evidence.",
             "verdict": "accept",
             "confidence": 0.93,
-            "disagreements": "The patch matches the visible evidence.",
+            "disagreements": ["The patch matches the visible evidence."],
         }
     ]
+
+
+def test_empty_negative_verifier_decision_is_protocol_invalid() -> None:
+    import pytest
+
+    with pytest.raises(ValueError, match="concrete evidence disagreement"):
+        ReviewResponseAdapter.normalize_verifier(
+            {"verdict": "reject", "confidence": 0.95, "disagreements": []}
+        )
 
 
 def test_runtime_telemetry_counts_logical_and_actual_model_attempts() -> None:

@@ -1,0 +1,41 @@
+[project]
+name = "extractesg-targeted-table"
+version = "0.4.2"
+description = "Evidence-grounded targeted ESG extraction from Document IR and compiled standard packages."
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116,<1",
+  "numpy>=2.0,<3",
+  "openpyxl>=3.1,<4",
+  "Pillow>=10,<13",
+  "pydantic>=2.11,<3",
+  "uvicorn>=0.35,<1",
+]
+
+[project.optional-dependencies]
+models = [
+  "Jinja2>=3.1,<4",
+  "mlx-embeddings>=0.1,<0.2",
+  "mlx-vlm>=0.6.16,<0.7",
+]
+dev = [
+  "httpx>=0.28,<1",
+  "pytest>=8.4,<10",
+]
+
+[project.scripts]
+esg-targeted = "esg_targeted.cli:main"
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+esg_targeted = ["resources/*.json"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "../../standard_packages/src"]
+testpaths = ["tests"]

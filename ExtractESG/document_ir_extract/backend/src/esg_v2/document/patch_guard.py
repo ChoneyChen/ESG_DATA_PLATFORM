@@ -9,6 +9,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from typing import Any
 
+from esg_v2.document.chart_spec_normalizer import ChartSpecNormalizer
 from esg_v2.document.contracts import (
     AtomicPatch,
     BlockIR,
@@ -33,6 +34,7 @@ from esg_v2.document.identifiers import sequential_id
 from esg_v2.document.geometry import bbox_containment, bbox_iou, union_bboxes
 from esg_v2.document.logical_table_builder import LogicalTableBuilder
 from esg_v2.document.operation_registry import OperationRegistry
+from esg_v2.document.spread_pair_analysis import SpreadPairAnalyzer
 from esg_v2.document.text_normalization import canonical_page_text, comparison_key, visible_text
 from esg_v2.storage.package_layout import cell_id as canonical_cell_id
 from esg_v2.storage.package_layout import page_object_id
@@ -277,7 +279,7 @@ class PatchGuard:
             transaction_id=transaction_id,
             patch_ids=[patch.patch_id for patch in patches],
             passed=passed,
-            requires_independent_verifier=bool(patches),
+            requires_independent_verifier=any(patch.operation != "confirm" for patch in patches),
             checks=checks,
         )
 
@@ -939,25 +941,36 @@ class PatchGuard:
                 ]
             )
         if patch.operation == "upsert_chart_spec":
+            raw_chart = patch.proposed_value if isinstance(patch.proposed_value, dict) else {}
+            raw_visual_refs = raw_chart.get("visual_evidence_refs")
+            if not isinstance(raw_visual_refs, list):
+                raw_visual_refs = []
+            evidence_refs = {
+                *patch.evidence_refs,
+                *(str(ref) for ref in raw_visual_refs if ref),
+            }
+            schema_errors: list[str] = []
             try:
                 chart = ChartSpec.model_validate(patch.proposed_value)
                 point_count = sum(len(series.points) for series in chart.series)
                 chart_valid = bool(chart.series) and point_count > 0
-                evidence_refs = {
-                    *chart.visual_evidence_refs,
-                    *patch.evidence_refs,
-                    *(
-                        ref
-                        for series in chart.series
-                        for point in series.points
-                        for ref in point.evidence_refs
-                    ),
-                }
-            except (TypeError, ValueError):
+                evidence_refs.update(chart.visual_evidence_refs)
+                evidence_refs.update(
+                    ref
+                    for series in chart.series
+                    for point in series.points
+                    for ref in point.evidence_refs
+                )
+            except (TypeError, ValueError) as exc:
                 chart = None
                 chart_valid = False
                 point_count = 0
-                evidence_refs = set()
+                schema_errors = [str(exc)]
+            evidence_resolves = any(
+                artifact.path in evidence_refs or artifact.remote_uri in evidence_refs
+                for artifact in document.artifacts
+            )
+            aliases = ChartSpecNormalizer.recognized_aliases(raw_chart)
             checks.extend(
                 [
                     self._check(
@@ -967,12 +980,26 @@ class PatchGuard:
                         f"ChartSpec contains {point_count} visible data points."
                         if chart_valid
                         else "ChartSpec requires at least one series and one visible data point.",
+                        details={
+                            "schema_errors": schema_errors,
+                            "recognized_aliases": aliases,
+                            "adapter_contract_mismatch": bool(aliases),
+                            "recommended_operation": (
+                                "normalize_chart_spec_aliases"
+                                if aliases
+                                else "return_canonical_chart_spec"
+                            ),
+                        },
                     ),
                     self._check(
                         f"{patch.patch_id}:chart_spec_evidence",
-                        bool(evidence_refs),
+                        evidence_resolves,
                         "blocking",
-                        "ChartSpec resolves to visual evidence.",
+                        (
+                            "ChartSpec resolves to visual evidence."
+                            if evidence_resolves
+                            else "ChartSpec visual evidence does not resolve to a tracked artifact."
+                        ),
                         details={
                             "visual_evidence_refs": sorted(evidence_refs),
                             "recommended_operation": "upsert_chart_spec",
@@ -1161,8 +1188,8 @@ class PatchGuard:
             return None
         if patch.operation == "bind_block_to_figure":
             return {
-                "figure_id": target.figure_id,
-                "visual_role": target.visual_role,
+                "figure_id": getattr(target, "figure_id", None),
+                "visual_role": getattr(target, "visual_role", None),
             }
         if patch.operation == "upsert_figure_structure":
             return {
@@ -1300,23 +1327,7 @@ class PatchGuard:
         document: DocumentIR,
         spread: SpreadIR,
     ) -> bool:
-        pages = cls._entity_page_indices(document)
-        by_type_and_page: dict[tuple[str, int], int] = {}
-        for entity_id in spread.member_entity_ids:
-            entity = cls._target(document, entity_id)
-            entity_type = cls._target_type(entity)
-            if entity_type not in {"block", "table", "figure"}:
-                continue
-            for page_index in pages.get(entity_id, set()):
-                by_type_and_page[(entity_type, page_index)] = (
-                    by_type_and_page.get((entity_type, page_index), 0) + 1
-                )
-        left, right = spread.page_indices
-        return any(
-            by_type_and_page.get((entity_type, left), 0) == 1
-            and by_type_and_page.get((entity_type, right), 0) == 1
-            for entity_type in ("block", "table", "figure")
-        )
+        return SpreadPairAnalyzer().analyze(document, spread).unique_link_pair is not None
 
     @staticmethod
     def _check(

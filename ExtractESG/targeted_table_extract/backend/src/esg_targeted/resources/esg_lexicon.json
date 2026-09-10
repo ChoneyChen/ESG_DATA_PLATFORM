@@ -1,0 +1,21 @@
+{
+  "air pollution": ["空气污染", "大气污染", "空气排放", "排入空气", "air emission", "emissions to air", "废气", "烟气", "氮氧化物", "硫氧化物", "颗粒物", "NOx", "SOx", "VOC"],
+  "water pollution": ["水污染", "水体排放", "排入水体", "废水", "污水", "effluent", "discharge to water"],
+  "soil pollution": ["土壤污染", "土壤排放", "排放至土壤", "soil emission", "emissions to soil", "release to soil"],
+  "pollutant": ["污染物", "污染因子", "polluting substance", "contaminant", "氮氧化物", "硫氧化物", "颗粒物", "NOx", "SOx", "VOC", "COD", "BOD"],
+  "emission amount": ["排放量", "释放量", "排放总量", "emissions", "discharges", "releases"],
+  "microplastics": ["微塑料", "microplastic", "micro-plastic"],
+  "role:generated": ["产生", "产生量", "生成", "生成量", "产出", "generated", "generation", "produced"],
+  "role:used": ["使用", "使用量", "采用", "used", "usage", "use"],
+  "role:generated_and_used": ["产生和使用", "产生及使用", "产生与使用", "产生/使用", "产生使用总量", "generated and used", "generated/used", "generation and use"],
+  "measurement method": ["测量方法", "监测方法", "直接测量", "估算", "计算方法", "measurement", "estimation", "calculation"],
+  "reporting boundary": ["报告边界", "统计范围", "合并范围", "核算边界", "reporting scope", "consolidation scope"],
+  "reporting period": ["报告期", "本年度", "财政年度", "reporting year", "reporting period"],
+  "water risk": ["水风险", "水资源风险", "water risk"],
+  "water stress": ["水压力", "高水压力", "water stress"],
+  "BAT-AEL": ["最佳可行技术相关排放水平", "BAT AEL", "BAT-AEL"],
+  "BAT-AEPL": ["最佳可行技术相关环境绩效水平", "BAT AEPL", "BAT-AEPL"],
+  "IED": ["工业排放指令", "Industrial Emissions Directive", "IED"],
+  "BREF": ["最佳可行技术参考文件", "BAT Reference Document", "BREF"],
+  "compliance": ["合规", "违规", "超标", "执法行动", "豁免", "compliance", "violation", "enforcement", "derogation"]
+}

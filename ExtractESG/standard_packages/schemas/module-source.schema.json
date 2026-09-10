@@ -1,0 +1,1503 @@
+{
+  "$defs": {
+    "BindingStorage": {
+      "enum": [
+        "core_field",
+        "attribute",
+        "dimension"
+      ],
+      "title": "BindingStorage",
+      "type": "string"
+    },
+    "Cardinality": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "minimum": 0,
+          "title": "Minimum",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "minimum"
+      ],
+      "title": "Cardinality",
+      "type": "object"
+    },
+    "CodeSetDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Code Set Id",
+          "type": "string"
+        },
+        "extensible": {
+          "default": false,
+          "title": "Extensible",
+          "type": "boolean"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/CodeValue"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code_set_id",
+        "values"
+      ],
+      "title": "CodeSetDefinition",
+      "type": "object"
+    },
+    "CodeSetMembershipParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Code Set Id",
+          "type": "string"
+        },
+        "element_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Element Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "element_id",
+        "code_set_id"
+      ],
+      "title": "CodeSetMembershipParameters",
+      "type": "object"
+    },
+    "CodeValue": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Code",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "labels"
+      ],
+      "title": "CodeValue",
+      "type": "object"
+    },
+    "DerivationOperand": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "operand_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Operand Id",
+          "type": "string"
+        },
+        "role": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Role",
+          "type": "string"
+        },
+        "source_metric_id": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Metric Id"
+        }
+      },
+      "required": [
+        "operand_id",
+        "role",
+        "description"
+      ],
+      "title": "DerivationOperand",
+      "type": "object"
+    },
+    "DerivationRule": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_stage": {
+          "const": "data_processing",
+          "title": "Execution Stage",
+          "type": "string"
+        },
+        "guards": {
+          "items": {
+            "$ref": "#/$defs/Predicate"
+          },
+          "title": "Guards",
+          "type": "array"
+        },
+        "operands": {
+          "items": {
+            "$ref": "#/$defs/DerivationOperand"
+          },
+          "title": "Operands",
+          "type": "array"
+        },
+        "operation": {
+          "enum": [
+            "ratio",
+            "sum"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "reported_value_priority": {
+          "title": "Reported Value Priority",
+          "type": "boolean"
+        },
+        "required_match_dimensions": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Required Match Dimensions",
+          "type": "array"
+        },
+        "rule_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "target_metric_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Target Metric Id",
+          "type": "string"
+        },
+        "unit_policy": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Unit Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "target_metric_id",
+        "operation",
+        "operands",
+        "required_match_dimensions",
+        "unit_policy",
+        "guards",
+        "execution_stage",
+        "reported_value_priority",
+        "source_refs"
+      ],
+      "title": "DerivationRule",
+      "type": "object"
+    },
+    "DimensionDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Set Id"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "dimension_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Dimension Id",
+          "type": "string"
+        },
+        "hierarchical": {
+          "default": false,
+          "title": "Hierarchical",
+          "type": "boolean"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        },
+        "value_type": {
+          "$ref": "#/$defs/ValueType"
+        }
+      },
+      "required": [
+        "dimension_id",
+        "value_type",
+        "labels",
+        "description"
+      ],
+      "title": "DimensionDefinition",
+      "type": "object"
+    },
+    "ElementBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "record_type": {
+          "$ref": "#/$defs/RecordClass"
+        },
+        "storage": {
+          "$ref": "#/$defs/BindingStorage"
+        },
+        "target": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "storage",
+        "target"
+      ],
+      "title": "ElementBinding",
+      "type": "object"
+    },
+    "ElementDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/ElementBinding"
+        },
+        "cardinality": {
+          "$ref": "#/$defs/Cardinality"
+        },
+        "concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Concept Ids",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "element_code": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Element Code",
+          "type": "string"
+        },
+        "element_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Element Id",
+          "type": "string"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        },
+        "metric_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "null_allowed": {
+          "title": "Null Allowed",
+          "type": "boolean"
+        },
+        "requirement_level": {
+          "$ref": "#/$defs/RequirementLevel"
+        },
+        "semantic_role": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Semantic Role",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "value_concept_root_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Value Concept Root Ids",
+          "type": "array"
+        },
+        "value_contract": {
+          "$ref": "#/$defs/ValueContract"
+        }
+      },
+      "required": [
+        "element_id",
+        "metric_id",
+        "element_code",
+        "labels",
+        "description",
+        "semantic_role",
+        "requirement_level",
+        "cardinality",
+        "null_allowed",
+        "value_contract",
+        "binding",
+        "source_refs"
+      ],
+      "title": "ElementDefinition",
+      "type": "object"
+    },
+    "EvidenceRequiredParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "when_value_origin": {
+          "enum": [
+            "reported",
+            "derived",
+            "any"
+          ],
+          "title": "When Value Origin",
+          "type": "string"
+        }
+      },
+      "required": [
+        "when_value_origin"
+      ],
+      "title": "EvidenceRequiredParameters",
+      "type": "object"
+    },
+    "FixedValueParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "element_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Element Id",
+          "type": "string"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "title": "Expected"
+        }
+      },
+      "required": [
+        "element_id",
+        "expected"
+      ],
+      "title": "FixedValueParameters",
+      "type": "object"
+    },
+    "MatchingContextParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "fields"
+      ],
+      "title": "MatchingContextParameters",
+      "type": "object"
+    },
+    "MetricDataClass": {
+      "enum": [
+        "structure",
+        "quantitative",
+        "qualitative",
+        "mixed"
+      ],
+      "title": "MetricDataClass",
+      "type": "string"
+    },
+    "MetricDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_value_origins": {
+          "items": {
+            "enum": [
+              "reported",
+              "derived"
+            ],
+            "type": "string"
+          },
+          "title": "Allowed Value Origins",
+          "type": "array"
+        },
+        "application_requirements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Application Requirements",
+          "type": "array"
+        },
+        "cardinality": {
+          "$ref": "#/$defs/Cardinality"
+        },
+        "context_concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Context Concept Ids",
+          "type": "array"
+        },
+        "data_class": {
+          "$ref": "#/$defs/MetricDataClass"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "disclosure_requirement": {
+          "title": "Disclosure Requirement",
+          "type": "string"
+        },
+        "excluded_concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Excluded Concept Ids",
+          "type": "array"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        },
+        "metric_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "obligation_class": {
+          "$ref": "#/$defs/ObligationClass"
+        },
+        "official_data_type": {
+          "title": "Official Data Type",
+          "type": "string"
+        },
+        "optional_dimension_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Optional Dimension Ids",
+          "type": "array"
+        },
+        "paragraph": {
+          "title": "Paragraph",
+          "type": "string"
+        },
+        "reporting_requirement": {
+          "title": "Reporting Requirement",
+          "type": "string"
+        },
+        "required_dimension_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Required Dimension Ids",
+          "type": "array"
+        },
+        "source_datapoint_id": {
+          "title": "Source Datapoint Id",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "subject_concept_groups": {
+          "items": {
+            "items": {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Subject Concept Groups",
+          "type": "array"
+        },
+        "value_family": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Value Family",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric_id",
+        "source_datapoint_id",
+        "disclosure_requirement",
+        "paragraph",
+        "application_requirements",
+        "labels",
+        "official_data_type",
+        "data_class",
+        "value_family",
+        "obligation_class",
+        "allowed_value_origins",
+        "cardinality",
+        "description",
+        "reporting_requirement",
+        "source_refs"
+      ],
+      "title": "MetricDefinition",
+      "type": "object"
+    },
+    "MetricRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "activation_predicate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Predicate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "member_metric_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Member Metric Ids",
+          "type": "array"
+        },
+        "policy": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Policy",
+          "type": "string"
+        },
+        "relation_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Relation Id",
+          "type": "string"
+        },
+        "relation_type": {
+          "$ref": "#/$defs/RelationType"
+        },
+        "source_metric_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Source Metric Ids",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        },
+        "target_metric_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Target Metric Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "relation_id",
+        "relation_type",
+        "policy",
+        "description",
+        "source_refs"
+      ],
+      "title": "MetricRelation",
+      "type": "object"
+    },
+    "NumericRangeParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "element_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Element Id",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        }
+      },
+      "required": [
+        "element_id"
+      ],
+      "title": "NumericRangeParameters",
+      "type": "object"
+    },
+    "ObligationClass": {
+      "enum": [
+        "mandatory_if_material",
+        "alternative_if_material",
+        "voluntary_if_material",
+        "conditional_if_material",
+        "conditional_voluntary_if_material"
+      ],
+      "title": "ObligationClass",
+      "type": "string"
+    },
+    "PackageFileSet": {
+      "additionalProperties": false,
+      "properties": {
+        "code_sets": {
+          "title": "Code Sets",
+          "type": "string"
+        },
+        "concepts": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Concepts"
+        },
+        "derivations": {
+          "title": "Derivations",
+          "type": "string"
+        },
+        "dimensions": {
+          "title": "Dimensions",
+          "type": "string"
+        },
+        "elements": {
+          "title": "Elements",
+          "type": "string"
+        },
+        "metrics": {
+          "title": "Metrics",
+          "type": "string"
+        },
+        "relations": {
+          "title": "Relations",
+          "type": "string"
+        },
+        "sources": {
+          "title": "Sources",
+          "type": "string"
+        },
+        "validation_rules": {
+          "title": "Validation Rules",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metrics",
+        "elements",
+        "relations",
+        "code_sets",
+        "dimensions",
+        "derivations",
+        "validation_rules",
+        "sources"
+      ],
+      "title": "PackageFileSet",
+      "type": "object"
+    },
+    "PackageManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "core_schema_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Core Schema Id",
+          "type": "string"
+        },
+        "core_schema_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Core Schema Version",
+          "type": "string"
+        },
+        "default_language": {
+          "title": "Default Language",
+          "type": "string"
+        },
+        "files": {
+          "$ref": "#/$defs/PackageFileSet"
+        },
+        "format_version": {
+          "enum": [
+            "1.0",
+            "1.1"
+          ],
+          "title": "Format Version",
+          "type": "string"
+        },
+        "package_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Package Id",
+          "type": "string"
+        },
+        "package_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Package Version",
+          "type": "string"
+        },
+        "standard": {
+          "$ref": "#/$defs/StandardIdentity"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "released",
+            "deprecated"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "supported_languages": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Languages",
+          "type": "array"
+        }
+      },
+      "required": [
+        "format_version",
+        "package_id",
+        "package_version",
+        "status",
+        "standard",
+        "core_schema_id",
+        "core_schema_version",
+        "default_language",
+        "supported_languages",
+        "files"
+      ],
+      "title": "PackageManifest",
+      "type": "object"
+    },
+    "Predicate": {
+      "additionalProperties": false,
+      "properties": {
+        "operator": {
+          "$ref": "#/$defs/PredicateOperator"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "path",
+        "operator"
+      ],
+      "title": "Predicate",
+      "type": "object"
+    },
+    "PredicateOperator": {
+      "enum": [
+        "eq",
+        "neq",
+        "in",
+        "not_in",
+        "exists",
+        "not_exists"
+      ],
+      "title": "PredicateOperator",
+      "type": "string"
+    },
+    "RecordClass": {
+      "enum": [
+        "reporting_task",
+        "quantitative_observation",
+        "qualitative_assertion",
+        "attribute_value",
+        "dimension_value",
+        "evidence_reference"
+      ],
+      "title": "RecordClass",
+      "type": "string"
+    },
+    "RelationType": {
+      "enum": [
+        "alternative_group",
+        "conditional_activation",
+        "requires",
+        "contextualizes"
+      ],
+      "title": "RelationType",
+      "type": "string"
+    },
+    "RequiredElementParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "element_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Element Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "element_id"
+      ],
+      "title": "RequiredElementParameters",
+      "type": "object"
+    },
+    "RequirementLevel": {
+      "enum": [
+        "required",
+        "recommended",
+        "optional",
+        "conditional"
+      ],
+      "title": "RequirementLevel",
+      "type": "string"
+    },
+    "SemanticConcept": {
+      "additionalProperties": false,
+      "properties": {
+        "abbreviations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Abbreviations",
+          "type": "array"
+        },
+        "aliases": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Aliases",
+          "type": "object"
+        },
+        "applicable_context_concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Applicable Context Concept Ids",
+          "type": "array"
+        },
+        "broader_concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Broader Concept Ids",
+          "type": "array"
+        },
+        "concept_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Concept Id",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "excluded_concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Excluded Concept Ids",
+          "type": "array"
+        },
+        "formulas": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Formulas",
+          "type": "array"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        },
+        "related_concept_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Related Concept Ids",
+          "type": "array"
+        },
+        "source_refs": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "concept_id",
+        "labels",
+        "description",
+        "source_refs"
+      ],
+      "title": "SemanticConcept",
+      "type": "object"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "enum": [
+            "authoritative_law",
+            "official_digital_taxonomy",
+            "official_reproduction",
+            "official_explanation",
+            "non_authoritative_implementation_guidance"
+          ],
+          "title": "Authority",
+          "type": "string"
+        },
+        "locator": {
+          "title": "Locator",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "source_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "version_or_date": {
+          "title": "Version Or Date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "authority",
+        "version_or_date",
+        "locator",
+        "url"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "StandardIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "disclosure_requirement": {
+          "title": "Disclosure Requirement",
+          "type": "string"
+        },
+        "effective_from": {
+          "title": "Effective From",
+          "type": "string"
+        },
+        "effective_to": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective To"
+        },
+        "framework_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Framework Id",
+          "type": "string"
+        },
+        "framework_version": {
+          "title": "Framework Version",
+          "type": "string"
+        },
+        "jurisdiction": {
+          "title": "Jurisdiction",
+          "type": "string"
+        },
+        "module_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Module Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "framework_id",
+        "framework_version",
+        "jurisdiction",
+        "module_id",
+        "disclosure_requirement",
+        "effective_from"
+      ],
+      "title": "StandardIdentity",
+      "type": "object"
+    },
+    "ValidationRule": {
+      "additionalProperties": false,
+      "properties": {
+        "assertion": {
+          "enum": [
+            "required_element",
+            "fixed_value",
+            "numeric_range",
+            "code_set_membership",
+            "evidence_required",
+            "matching_context"
+          ],
+          "title": "Assertion",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "parameters": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RequiredElementParameters"
+            },
+            {
+              "$ref": "#/$defs/FixedValueParameters"
+            },
+            {
+              "$ref": "#/$defs/NumericRangeParameters"
+            },
+            {
+              "$ref": "#/$defs/CodeSetMembershipParameters"
+            },
+            {
+              "$ref": "#/$defs/EvidenceRequiredParameters"
+            },
+            {
+              "$ref": "#/$defs/MatchingContextParameters"
+            }
+          ],
+          "title": "Parameters"
+        },
+        "rule_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "target": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "target",
+        "assertion",
+        "severity",
+        "parameters",
+        "message"
+      ],
+      "title": "ValidationRule",
+      "type": "object"
+    },
+    "ValueContract": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Set Id"
+        },
+        "fallback_types": {
+          "items": {
+            "$ref": "#/$defs/ValueType"
+          },
+          "title": "Fallback Types",
+          "type": "array"
+        },
+        "fixed_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fixed Value"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "primary_type": {
+          "$ref": "#/$defs/ValueType"
+        },
+        "unit_dimension": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Dimension"
+        }
+      },
+      "required": [
+        "primary_type"
+      ],
+      "title": "ValueContract",
+      "type": "object"
+    },
+    "ValueType": {
+      "enum": [
+        "string",
+        "text",
+        "integer",
+        "decimal",
+        "boolean",
+        "date",
+        "year",
+        "date_range",
+        "decimal_range",
+        "enum",
+        "identifier",
+        "uri",
+        "hash"
+      ],
+      "title": "ValueType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "code_sets": {
+      "items": {
+        "$ref": "#/$defs/CodeSetDefinition"
+      },
+      "title": "Code Sets",
+      "type": "array"
+    },
+    "concepts": {
+      "items": {
+        "$ref": "#/$defs/SemanticConcept"
+      },
+      "title": "Concepts",
+      "type": "array"
+    },
+    "derivations": {
+      "items": {
+        "$ref": "#/$defs/DerivationRule"
+      },
+      "title": "Derivations",
+      "type": "array"
+    },
+    "dimensions": {
+      "items": {
+        "$ref": "#/$defs/DimensionDefinition"
+      },
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "elements": {
+      "items": {
+        "$ref": "#/$defs/ElementDefinition"
+      },
+      "title": "Elements",
+      "type": "array"
+    },
+    "manifest": {
+      "$ref": "#/$defs/PackageManifest"
+    },
+    "metrics": {
+      "items": {
+        "$ref": "#/$defs/MetricDefinition"
+      },
+      "title": "Metrics",
+      "type": "array"
+    },
+    "relations": {
+      "items": {
+        "$ref": "#/$defs/MetricRelation"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/SourceReference"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "validation_rules": {
+      "items": {
+        "$ref": "#/$defs/ValidationRule"
+      },
+      "title": "Validation Rules",
+      "type": "array"
+    }
+  },
+  "required": [
+    "manifest",
+    "metrics",
+    "elements",
+    "relations",
+    "code_sets",
+    "dimensions",
+    "derivations",
+    "validation_rules",
+    "sources"
+  ],
+  "title": "ModuleSource",
+  "type": "object"
+}

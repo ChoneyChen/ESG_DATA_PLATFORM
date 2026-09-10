@@ -88,16 +88,15 @@ class TransactionCoordinator:
     @staticmethod
     def covered_targets(document: DocumentIR, patches: list[AtomicPatch]) -> set[str]:
         covered: set[str] = set()
-        page_ids = {page.page_index: page.page_id for page in document.pages}
 
         def add_entity(target_id: str) -> None:
             covered.add(target_id)
             target = PatchGuard._target(document, target_id)
             if isinstance(target, CellIR):
                 covered.add(target.table_id)
-            page_index = getattr(target, "page_index", None)
-            if isinstance(page_index, int) and page_index in page_ids:
-                covered.add(page_ids[page_index])
+            # Editing a table is not a confirmation of its containing page.
+            # Page confirmations are independent transactions. Promoting these
+            # implicit pages made spread transactions fail unrelated coverage.
 
         for patch in patches:
             add_entity(patch.target_id)

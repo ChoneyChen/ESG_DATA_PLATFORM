@@ -1,21 +1,34 @@
-# ESG Evidence Hub：Document IR 与定向抽取
+# ESG Document IR v2
 
-本目录是从零开始的新主线实现，当前完成四块：
+项目级现状、跨模块关系和新对话交接见仓库根目录 [`../../README.md`](../../README.md)。
+本文只维护 OCR 与 Document IR 的详细运行和产物说明。
 
-1. `PDF -> PaddleOCR-VL API -> ocr_output`；
+本目录 `ExtractESG/document_ir_extract` 是 Document IR 的唯一现行源码与本地运行根目录。
+“v2”仅表示产品代际，不再对应工作区根目录中的独立 `v2/` 项目副本。
+当前主线完成两块：
+
+1. `PDF -> 本地优先 PaddleOCR-VL（API 可切换/回退） -> ocr_output`；
 2. `ocr_output + 原 PDF -> validated/versioned Document IR`。
-3. `admitted Document IR -> deterministic Evidence Inventory`；
-4. `Evidence Inventory + 标准任务表 -> local-first Targeted Recall -> guarded JSONL/XLSX`。
 
-本模块不负责报告爬取、Kodo 文件索引、公司/年份/行业主数据或全局报告登记。
-本地上传、路径和 URL 只是开发输入方式。当前只实现“按标准任务表定向抽取”
-这一条候选事实路径；PDF-first Full Harvest、规范化、标准映射复审和正式发布库仍未建设。
+Document IR 链路不负责报告爬取、Kodo 文件索引、公司/年份/行业主数据或全局报告登记。
+本地上传、路径和 URL 只是开发输入方式。当前系统到不可变 Document IR 为止，
+不包含任何下游处理实现。
 
 ## 当前真实链路
 
 ```text
 PDF
-  -> PaddleOCR-VL API
+  -> local PDF canvas preflight (every page)
+  -> provider-safe structural rewrite when required
+       -> mixed/oversized canvas: per-page uniform scale
+       -> rotated/non-zero-origin page: canonical page box
+       -> incremental/Form PDF: flattened catalog structure
+       -> no crop, no stretch, no page merge
+  -> OCR Provider Router
+       -> local_first (default)
+       -> Local PaddleOCR-VL + MLX-VLM
+       -> PaddleOCR-VL AI Studio API (explicit/fallback)
+  -> one provider-neutral ocr-package-v1 contract
   -> raw JSONL / Markdown / OCR images
   -> isolated page-render worker (pypdfium2)
   -> native PDF cross-check (pdfplumber)
@@ -31,19 +44,20 @@ PDF
   -> Table Graph / cross-page links
   -> semantic visual grouping
   -> table and figure crops
-  -> horizontal spread detection (adjacent-edge geometry + pixel seam continuity)
+  -> horizontal spread detection (matched seam entities + structured RGB continuity)
   -> side-by-side spread artifact + SpreadIR candidate
   -> local spread preflight (content crossing / visual continuity / uncertain)
   -> visual-only continuity terminates locally without a cloud call
   -> typed quality routing (one risk -> one review question)
   -> deterministic candidate screening
-  -> blocking-first dynamic Qiniu review queue
-  -> Provider-aware pacing (RPM backoff / TPD run circuit)
+  -> blocking-first provider-neutral review queue
+  -> selected provider: local NuExtract3 MLX or Qiniu VLM
+  -> Qiniu-only pacing (RPM backoff / TPD run circuit)
   -> resume Guard-passing Verifier checkpoints before new Reviewer work
   -> classify object type before structure reconstruction
   -> minimum AtomicPatch candidate
   -> local Patch Guard
-  -> independent Qiniu verifier (different model family)
+  -> verifier pass (Qiniu different family / local isolated same-model pass)
   -> at most two feedback-guided automatic repair rounds (three reviewer rounds total)
   -> failure-classified PatchTransaction
   -> accepted local patch application
@@ -51,29 +65,15 @@ PDF
   -> corrected physical structure + LogicalTableIR rebuild
   -> readiness validation
   -> immutable Document IR revision
-  -> can_build_evidence gate
-  -> deterministic Evidence Inventory
-  -> Disclosure Catalog (physical/logical table, paragraph and figure groups)
-  -> task-template adapter + RequirementExecutionSpec v2 compiler
-  -> specialized rule / conditional rule / generic local rule
-  -> required slots (concept, value, unit, period, scope, dimensions, statement)
-  -> deterministic numeric / period / unit-family / statement / index feature tools
-  -> SQLite FTS5 / BM25 / trigram local retrieval
-  -> optional local multilingual embedding retrieval
-  -> concept / dimension / topic / combined retrieval lanes
-  -> reciprocal-rank fusion + disclosure-group structural reranking
-  -> independent per-candidate Requirement Verifier
-  -> multiplicity policy (single / all instances / dimension groups / table bundle)
-  -> report-search coverage ledger and top-k truncation abstention
-  -> conditional applicability rules + independent result Guard
-  -> immutable Targeted Recall package
-  -> JSONL canonical answers + template-preserving XLSX export
 ```
 
-PaddleOCR-VL 是第一主解析器。七牛模型只处理质量路由选出的复杂表格、
+PaddleOCR-VL 是第一主解析器。本地和 API 只改变运行位置，不改变 OCR 包或
+Document IR 合同。视觉模型只处理质量路由选出的复杂表格、
 数据图表和冲突区域。普通插画、装饰和已经稳定建模的流程图不会因为“页面有图”
 就创建模型任务。模型结果不能直接覆盖 OCR：主审结果必须先形成局部候选，
-通过本地 Guard，再由不同模型家族复核。云 API、协议、预算或补丁校验失败进入
+通过本地 Guard，再进入 Verifier。七牛模式使用不同模型家族；本地 NuExtract3
+模式使用隔离上下文的同模型二次核验，并在 IR 中明确记录它不具备模型家族独立性。
+本地运行、云 API、协议、预算或补丁校验失败进入
 自动处理队列，不会被误算为人工审核。仍可按既定策略继续调用的任务是
 `auto_review_pending`；重复 Guard 无效、协议耗尽或其他非重试型系统问题是
 `repair_required`。只有可读证据在限定自动轮次后仍有阻断性语义分歧，才进入
@@ -119,9 +119,12 @@ OCR：
 ocr_output/<run_id>/
   manifest.json                     # 唯一入口和相对路径目录
   source/request.json
+  source/preflight.json             # 全页画布、旋转、页框、结构风险和坐标变换
+  source/provider-input.pdf         # 仅需规范化时生成；实际送往 Paddle 的副本
   provider/submit-response.json
   provider/poll-events.jsonl
-  provider/result.jsonl             # PaddleOCR-VL 原始返回
+  provider/result.jsonl             # 统一 Paddle layoutParsingResults 信封
+  provider/local-resources/         # 仅本地 Provider：可追溯原始图片引用
   observations/pages/index.json
   observations/pages/page-0001.json
   content/pages/page-0001.md
@@ -129,6 +132,39 @@ ocr_output/<run_id>/
   artifacts/images/page-0001/
   artifacts/layouts/page-0001.jpg
   integrity/files.json
+```
+
+OCR 输入层始终把用户上传的 PDF 作为不可变原件。系统会先用 `pypdf` 读取每页
+`MediaBox/CropBox/Rotate`，再用 `pypdfium2` 对全部页面做低分辨率可渲染验证。
+普通页面直接送入 Paddle；混合尺寸、超大画布、旋转页、非零页框原点、增量更新
+或交互表单等高风险 PDF 会生成 `source/provider-input.pdf`。每一页只允许等比缩放
+和结构重写，禁止裁切、拉伸、拼页或改变页序。
+
+`source/preflight.json` 为每页保存原画布、供应商画布、缩放比例以及
+`provider_to_source` 逆变换。OCR manifest 的来源 SHA-256、`document_id` 和后续
+Document IR 都仍绑定原 PDF；规范化副本只解决供应商读取问题，不会成为新的报告
+身份。Paddle 返回的坐标继续由现有 `CoordinateMapper` 按页面宽高映射回原 PDF
+坐标，因此证据定位和原文复现不受供应商输入缩放影响。即使 Paddle 任务失败，
+预检报告、提交响应、轮询事件和 provider job id 也会保留并在前端展示。
+
+OCR 默认使用 `local_first`。本地 Provider 会先检查独立 Python 运行时、
+PaddleOCR/PaddlePaddle/MLX-VLM 导入和模型权重完整性；本地可用时不会触碰 API。
+本地不可用或执行失败时，只有在任务允许回退且提供了 API Token 的情况下才会
+调用 AI Studio。`manifest.json` 的 `ocr_provider` 与 `provider_route` 会记录请求
+模式、最终 Provider、每次尝试和回退原因。选择 `local_paddleocr` 可强制禁止云端，
+选择 `paddle_api` 可强制沿用原 API 路径。前端只是这些后端参数的操作面，CLI 同样
+支持：
+
+本地 worker 会持续上报已完成页数、总页数、当前页等待时间和存活心跳。单页处理较慢
+不会被视为失败；默认连续 `600` 秒没有完成任何新页面才判定为停滞，终止本地 worker，
+并按 `local_first` 的既有许可决定是否回退 API。总任务时限仍独立保持 `7200` 秒。
+两个阈值分别由 `LOCAL_PADDLEOCR_STALL_TIMEOUT_SECONDS` 和
+`LOCAL_PADDLEOCR_JOB_TIMEOUT_SECONDS` 配置。
+
+```bash
+esg-v2 ocr --file report.pdf --provider local_first
+esg-v2 ocr --file report.pdf --provider local_paddleocr
+esg-v2 ocr --file report.pdf --provider paddle_api --token "$PADDLEOCR_VL_API_TOKEN"
 ```
 
 Document IR：
@@ -159,47 +195,6 @@ document_ir_output/<run_id>/
   exports/document-ir.snapshot.json # 可重建兼容快照
 ```
 
-Evidence Inventory：
-
-```text
-evidence_output/<run_id>/
-  manifest.json
-  inventory/atoms.jsonl
-  inventory/index.json
-  quality/validation-report.json
-  integrity/files.json
-```
-
-Targeted Recall：
-
-```text
-targeted_fill_output/<run_id>/
-  manifest.json
-  input/task-template.xlsx
-  input/task-set.json
-  requirements/profiles.jsonl
-  catalog/disclosures.jsonl
-  retrieval/queries.jsonl
-  retrieval/hits.jsonl
-  retrieval/local-index.sqlite3
-  assessment/results.jsonl
-  assessment/verifications.jsonl
-  evidence/selected-packets.jsonl
-  quality/validation-report.json
-  quality/search-coverage.jsonl
-  audit/local-inferences.jsonl
-  audit/cloud-calls.jsonl
-  final/answers.jsonl
-  exports/filled-result.xlsx
-  integrity/files.json
-```
-
-`final/answers.jsonl` 是正式结果源，Excel 是模板保持型派生导出。`found` 和
-`not_applicable` 必须绑定披露组、Evidence Atom、原文和槽位覆盖；定量正向结论
-还必须形成 `FactInstance`。索引页只能参与路由，不能替代正文事实。候选达到上限
-时不得输出确定的 `not_found`；`not_found`、`uncertain`、`system_failed` 相互独立。
-默认云预算为零，Targeted 模块不导入七牛适配器。
-
 OCR 和 IR 的运行状态不属于不可变产物，统一写入 `.local/jobs/`。所有包内
 路径均为相对路径；系统生成页文件统一从 `page-0001` 开始。完整命名、编号、
 权威数据与审计分层规则见 `docs/ARCHITECTURE.md` 的
@@ -211,6 +206,45 @@ OCR 和 IR 的运行状态不属于不可变产物，统一写入 `.local/jobs/`
 漏文件/多余文件、字节数和 SHA-256。新建包不接受随意 run ID；旧版平铺产物保持
 只读兼容，不会被原地改写。已存在的 run 目录也不能复用或覆盖。
 
+### 多 PDF 身份、命名与版本归类
+
+系统不再把 `ocr_run_id` 当作文档身份，也不会从文件名猜测公司、年份或报告类型。
+Document IR 使用四层互不混淆的标识：
+
+- `document_id`：`doc-sha256-<完整 64 位 SHA-256>`，标识 PDF 的精确字节内容。
+  同一 PDF 改名、移动或重新 OCR 后仍是同一个 ID；同名但内容不同的 PDF 必然分开。
+- `ocr_run_id`：一次 PaddleOCR-VL 处理尝试，仍采用
+  `ocr-YYYYMMDDTHHMMSSZ-<12 hex>`。
+- `lineage_id`：一个独立 IR 修订分支，采用 `irl-<24 hex>`。每次不指定父版本的
+  独立构建都创建新分支并从 `r1` 开始。
+- `ir_run_id`：一个不可变 IR 产物包，仍采用
+  `ir-YYYYMMDDTHHMMSSZ-<12 hex>`；修复、复审或人工裁决继承父分支并递增
+  `ir_revision`。
+
+### 最佳 IR 单版本保留
+
+每个 `ocr_run_id` 最终只保留一个质量最好的 Document IR 包。修复、模型复审和人工
+裁决仍先写入一个完整、不可变、自包含的新 Revision；只有新包写入成功并通过合同校验
+后，`DocumentIrRetentionManager` 才比较 Evidence 准入、阻断/错误数量、未完成复核、
+readiness、人工闭环数量和 revision。新包晋升为最佳版本后，上一版本的 IR Package 与
+本地任务状态会通过可回滚事务自动清理。
+
+当前保留包已经包含从父版本继承的 Canonical 数据、页面/局部图、模型调用、Guard、
+Verifier、Patch 和人工决策记录，因此删除父包不会删除已进入当前包的复核依据。排队中
+的 IR 修复、复核重试和定向抽取任务会先自动改指向新的保留 Run ID；仍被运行中任务
+读取的版本暂缓清理。保留状态和清理审计位于 `.local/storage-cleanup/ir-retention/` 与
+`ir-retention-audit.jsonl`，不写回不可变 IR 包。诊断时可设置
+`ESG_V2_DOCUMENT_IR_BEST_ONLY=0` 暂停该策略。
+
+`document_label` 只用于前端显示，默认取原 PDF 文件名，不参与相等性判断。
+`external_document_id` 是可选的上游文档索引透传字段；本模块不承担公司主数据、
+报告年份或 Kodo 文件登记。若 OCR manifest 已记录来源 hash，IR 构建前会校验本机
+PDF SHA-256 与该不可变 hash，防止批量任务串用错误 PDF。
+
+前端的“PDF 与 Document IR 归类”以及 `GET /api/document-ir/documents` 会把相同
+PDF 的多次 OCR、多个独立 IR 分支和各分支修订集中展示。历史 v0.11 包不会被改写；
+目录读取器会根据其来源 hash 和父版本链动态推导 `document_id` 与 `lineage_id`。
+
 `manifest.json` 中的 `readiness` 为：
 
 - `ready`
@@ -220,7 +254,13 @@ OCR 和 IR 的运行状态不属于不可变产物，统一写入 `.local/jobs/`
 - `review_required`
 - `failed`
 
-只有 `can_build_evidence=true` 的 revision 才允许进入 Evidence Inventory。
+`can_build_evidence` 是 Document IR 的质量准入字段，仅描述当前 revision 是否满足
+后续消费条件，不代表本模块已经实现任何下游抽取流程。
+
+局部问题不再必然阻塞全报告：新增 `can_build_limited_evidence` 和 `evidence_policy`，
+只允许消费明确排除问题页面之后的部分。原 readiness、未解决任务和失败补丁保持原状；
+全局结构/身份/文件完整性错误或无法定位的阻塞仍不可绕过。下游受限结果必须标为 partial。
+04 复核页的 `continue_limited` 操作要求备注，创建子修订而不是把错误补丁标为通过。
 
 Agent 主审协议使用无歧义的 `confirm / propose_patch / abstain`，并要求对每个
 路由 scope 单独表态。模型不再提供可信的 `before_value`；该值由本地系统从当前
@@ -248,6 +288,22 @@ model_service / rate_limit / repeated_failure` 等机器可判定类别和稳定
 再次失败时成立。不同页面或不同图表即使得到相同 Guard 文案，也不会共享失败
 指纹，更不会互相造成“禁止原样重试”。
 
+图表模型输出先经过独立的 `ChartSpecNormalizer`。它只做可证明的字段归一化：
+`type -> chart_type`、`x_categories -> categories`、`data/values -> points`，以及
+对象式 categories 到 `series[].points` 的无损展开；人数与比例会保留为不同
+series，页图/crop 会写入 `visual_evidence_refs`。无法确定转换的形状仍交给 Guard
+拒绝，不会猜测。转换成功后直接重新走既有 Guard/Verifier，不追加模型调用。
+Guard 会独立报告 schema 与证据结果，已存在的视觉证据不会再因 schema 失败被
+误报为空。终局失败指纹包含 task、真实目标和操作语义。
+
+模型 JSON 在进入上述语义归一化前还经过严格的 `ModelJsonObjectDecoder`。它只处理
+一种可证明无损的语法缺口：数组中的前一对象少了闭合 `}`，而下一对象已经明确开始。
+修复器只补容器符号，不改键、文字、数值或证据引用；修复后的完整内容仍须通过标准
+JSON、Pydantic Schema、Guard 和 Verifier，并记录
+`adapter_json_missing_array_item_object_closer_repaired`。其他损坏继续拒绝。
+`invalid_response / not valid JSON` 归属 `model_protocol · model`，本地内部异常归属
+`system_contract · system`，不再误显示为模型服务宕机。
+
 默认 `ESG_V2_REVIEW_COMPLETENESS_MODE=true`：调度器把同轮所有阻塞任务和
 非阻塞 Spread/Figure 增强纳入明确执行批次，默认不再制造 `scheduler_deferred`
 积压。`ESG_V2_MAX_VLM_REVIEWS_PER_IR_RUN=0` 表示无全局硬上限；只有显式关闭
@@ -260,17 +316,17 @@ model_service / rate_limit / repeated_failure` 等机器可判定类别和稳定
 物理页永远不会被合并或删除。`HorizontalSpreadBuilder` 只扫描相邻页，并同时要求：
 
 - 左页对象触达右装订边、右页对象触达左装订边；
-- 两侧对象在垂直方向对齐；
+- 两侧同类型对象经过页高归一化后形成真实的垂直配对；
 - 表格、图片、图示或多段截断文字提供结构信号；
-- 两页装订缝附近存在有效像素连续性；
+- 两页装订缝附近存在纹理、线条或局部颜色变化的结构连续性；纯同色背景不算；
 - 可用时，印刷页码满足偶数左页和相邻奇数右页。
 
 通过本地筛选的页对会生成一个 `SpreadIR` 和
 `artifacts/spreads/spread-pXXXX-pYYYY.png`。随后 `SpreadPreflightClassifier` 根据
-缝线两侧已经存在的 Block、Table、Figure 和语义类型区分三类：两侧存在表格或
-信息对象的是 `content_crossing`；只有图片版式连续、没有跨缝文字或表格语义的是
-`visual_continuity`；本地证据不足的是 `uncertain`。纯视觉连续页直接在本地终结，
-保留拼接图和分类依据但不创建七牛任务。只有内容跨页或不确定页才由七牛视觉复审
+缝线两侧已经存在的 Block、Table、Figure、bbox 和语义类型区分：几何匹配的信息
+对象是 `content_crossing`；只有图片版式连续的是 `visual_continuity`；同色背景、
+没有匹配实体或重复表头的普通续表是 `standalone_pages`。后两类直接在本地终结，
+保留拼接图和分类依据但不创建七牛任务。只有内容跨页或不确定页才由视觉模型复审
 查看拼接图和两张原始物理页，并明确执行 `confirm_spread`、`reject_spread` 或
 `abstain`。确认后可用
 `link_horizontal_continuation` 连接左右页的表格、文字块或图示；表格段保留各自
@@ -407,30 +463,15 @@ GET  /api/document-ir/jobs/{run_id}/structure-edges
 GET  /api/document-ir/jobs/{run_id}/artifact-index
 GET  /api/document-ir/jobs/{run_id}/artifacts
 GET  /api/document-ir/revisions/{ocr_run_id}
+GET  /api/document-ir/documents
+GET  /api/document-ir/documents/{document_id}/revisions
 POST /api/document-ir/jobs/{run_id}/patches/{patch_id}/decision
 POST /api/document-ir/jobs/{run_id}/review-tasks/{task_id}/decision
 POST /api/document-ir/jobs/{run_id}/repair
 GET  /api/document-ir/jobs/{run_id}/human-review/inbox
+GET  /api/document-ir/review-worklist
 POST /api/document-ir/jobs/{run_id}/reviews/retry
 GET  /api/models/status
-
-POST /api/evidence/build
-GET  /api/evidence/runs
-GET  /api/evidence/runs/{run_id}
-
-GET  /api/targeted-fill/capabilities
-GET  /api/targeted-fill/templates
-POST /api/targeted-fill/plan
-POST /api/targeted-fill/jobs
-GET  /api/targeted-fill/jobs
-GET  /api/targeted-fill/jobs/{run_id}
-GET  /api/targeted-fill/jobs/{run_id}/manifest
-GET  /api/targeted-fill/jobs/{run_id}/requirements
-GET  /api/targeted-fill/jobs/{run_id}/requirements/{requirement_id}
-GET  /api/targeted-fill/jobs/{run_id}/results
-GET  /api/targeted-fill/jobs/{run_id}/validation-report
-GET  /api/targeted-fill/jobs/{run_id}/artifacts
-GET  /api/targeted-fill/jobs/{run_id}/export
 ```
 
 ## 前端启动
@@ -441,50 +482,51 @@ GET  /api/targeted-fill/jobs/{run_id}/export
 
 打开 `http://127.0.0.1:18081`。
 
-也可以同时启动前后端：
+完整平台使用桌面上的 `启动ESG统一工作台.command`，或运行：
 
 ```bash
-./scripts/run_all.sh
+./ESG_DATA_PLATFORM/ExtractESG/scripts/start_local_workbenches.sh
 ```
 
-Document IR 页面为 `http://127.0.0.1:18081/index.html`；按表抽取页面为
-`http://127.0.0.1:18081/targeted.html`。两个页面共享 Backend URL，但业务控制器和
-页面状态独立。关闭前端不会影响 CLI 或 HTTP API。
+启动器拉起三个服务：Document/OCR 后端 `18080`、定向抽取后端 `18180`、统一前端
+`18081`。前端关闭不会影响 CLI 或 HTTP API；关闭启动器终端会停止由该窗口创建的服务。
+日志和统一任务状态位于工作区 `.local/platform-runtime/`。
+Document/OCR 后端默认不开启 Uvicorn 热重载，避免开发期间修改源码时重启 worker、把正在
+运行或排队的持久化任务错误标记为 `interrupted`。只有明确设置
+`ESG_V2_DEV_RELOAD=1` 时才启用开发热重载；运行真实 OCR/IR 任务时不要开启该变量。
 
-## 按表抽取
+统一前端分为七个业务页面：报告资产、OCR 任务、Document IR 任务、IR 复核检查、
+定向抽取、抽取结果、07 链路控制。页面底部是全局任务工作台，集中显示队列、日志和系统状态。
 
-纯本地严格模式不需要安装任何模型：
+07 计划 API 为 `GET/POST /api/pipeline/plans` 和 `POST /api/pipeline/plans/{id}/{pause|resume|cancel}`。
+支持文件夹 PDF 导入、资产多选、跨标准指标多选、模型和 Top N 配置、成功 OCR/IR 复用。
+计划保存在同一 SQLite 的 `pipeline_plans` 表，只派发现有队列任务，不直接运行模型。
+子步骤按 OCR → IR → 各标准包抽取推进；派发键唯一，后端重启可恢复；一个报告失败不阻止其他报告。
+暂停只停后续派发，当前步骤完成；重试由用户显式选择，不对失败步骤无限重试。
+密钥不持久化；后端重启后须具备相应环境凭证。旧编译标准退役后，排队抽取使用入队快照。
+计划引用的终态队列记录保留，不由普通队列历史清理删除。
+OCR、IR 构建/返修/复核重试以及定向抽取/续跑都通过 `加入任务` 进入同一个持久化
+SQLite 队列。单 worker 每次只运行一个隔离进程，排队任务可拖动排序；终止运行任务
+会停止整个子进程组，避免模型进程继续占用统一内存。
+“单 worker”只限制同时执行数，不限制提交数。OCR、Document IR、复核/返修和定向抽取
+按钮只在入队 HTTP 请求期间短暂禁用，入队成功后立即恢复，可继续选择其他报告或任务
+加入队列。
 
-```bash
-esg-v2 targeted plan --template /path/to/task.xlsx
-esg-v2 evidence build --ir-run-id ir-...
-esg-v2 targeted run --ir-run-id ir-... --template /path/to/task.xlsx --mode local_strict
-```
+三个任务页面的输入互不借用页面状态：Document IR 页面直接浏览全部 OCR Package，
+不需要先去 OCR 页面选择或打开某个运行；定向抽取页面直接浏览全部 Document IR
+Revision，不需要先去 Document IR 页面打开版本。选择卡完整显示报告文件名、识别年份、
+页数、OCR Provider 或 IR Schema/Revision、准入状态、生成时间和完整 Run ID；当前选中项
+另有确认卡。搜索和状态筛选只影响当前页面的目录视图，不会修改其他页面的选择。
 
-本地语义增强是可选依赖，不会自动下载模型：
-
-```bash
-pip install -e '.[semantic]'
-esg-v2 targeted run --ir-run-id ir-... --template /path/to/task.xlsx \
-  --mode local_semantic --allow-local-model-download
-```
-
-模型不可用时运行会显式记录 `fallback` 并改用 `local_strict`，不会调用云 API。
-当前首个模板适配器支持 ESRS 43 条试填表和同列结构的任意任务条数。抽取核心只
-依赖通用 `RequirementExecutionSpec v2`：当前 43 条中 28 条条件式任务走明确的
-政策/行动/目标规则，15 条定量任务全部命中专门规则。未来未命中专门规则的新条款
-会显式标记为 `generic_local_rule`，本地推断概念、数值、单位、期间和维度槽位并在
-预检中提示，不会假装已经有专门规则。其他工作簿格式通过新模板适配器接入。
-
-macOS 桌面入口为 `启动ESG-v2前后端.command`。双击后会检查两个服务、
-复用已经运行的正确实例、等待健康检查通过并自动打开前端。启动日志保存在
-`.local/logs/`；关闭启动器终端会停止由本次启动器拉起的服务。
+专用报告目录默认为仓库外一层的 `../../pdf`。其中
+`report-catalog.json` 只记录 PDF 文件身份、大小、hash 和已完成 OCR run 索引，不保存
+OCR/IR 业务内容。OCR 页面默认从该目录选择，并明确标识未处理和已处理报告。
 
 前端是独立操作台，保留 OCR 上传、状态、Manifest、Markdown 和全部文件浏览，
 并增加：
 
 - 11 个后端节点对应的可视化链路；
-- 当前阶段、总耗时、阶段耗时、逻辑模型调用、真实 HTTP 请求、同模型重试、
+- 当前阶段、总耗时、阶段耗时、逻辑模型调用、实际模型请求、同模型重试、
   成功/协议无效响应和当前模型任务的实时遥测；
 - 全部左右跨页候选的本地分类、是否进入详细复核、判断信号和拼接图；
 - OCR/IR 运行历史和 revision；
@@ -492,35 +534,91 @@ macOS 桌面入口为 `启动ESG-v2前后端.command`。双击后会检查两个
 - 页图、Paddle layout 坐标框和对象详情；
 - 物理表格单元格、Table Graph 与跨页 LogicalTableIR；
 - 图片/图表区域截图；
+- 七牛云与本地 NuExtract3 的并列 Provider 选择及独立健康状态；
 - 复合 Review Task、每一轮模型调用、Reviewer 结果和模型健康状态；
 - Atomic Patch、修正前后 diff、本地 Guard、独立 Verifier 和最终决策；
 - 将“人工内容判断”“自动修复待处理”“非阻塞增强”“已解决”分开的审核收件箱；
+- IR 复核检查页首先提供跨报告的“未完成复核任务表”，只汇总每条 Lineage 最新
+  revision 的当前待办。可按报告/Task/Target 搜索，按任务归属和 Evidence 影响筛选，
+  点击整行直接载入对应报告、IR revision、页码、证据和原有决策面板；已晋升版本的
+  旧父包会自动清理，不会重复制造当前待办。
 - 将不可继续自动重试的系统阻塞单独放入“系统修复”队列，并展示失败类别、指纹、
   最近一次事务和可执行动作；
 - 每项只展示一个明确问题、风险、三步证据清单、为何需要人、原页/局部图、
   Guard 状态和 Verifier 分歧；
 - 自动联动页面与表格浏览器，支持单任务/全部阻塞任务续跑；
-- 支持显式运行全部非阻塞增强；也允许操作员写明依据后，把某项可选增强标记为
+- 支持显式运行全部非阻塞增强；也允许操作员把某项可选增强标记为
   `accepted_nonmaterial_difference`。该动作只关闭可选队列，不会把候选 Spread
   或图表语义伪装成已经验证；
 - 只允许接受通过 Guard 的 `human_required` 补丁；拒绝补丁不会误关闭任务，
-  人工必须再明确“保留当前 IR”并写依据，或发起 Targeted Repair；
+  人工必须再明确“保留当前 IR”或发起 Targeted Repair，判断依据为可选；
 - `document_ir_output` 全部中间文件预览。
 - OCR/IR 文件按 Package 入口、输入、服务商原件、可读内容、观察、Canonical、
   图像、质量、复核、完整性和兼容导出分组浏览；切换后端会清空旧上下文，
   不接受上一个后端的迟到响应。
+- OCR、Document IR 和复核表单保留全部 Provider、回退、渲染、父版本、目标范围与
+  临时凭证选项，但提交语义统一为“加入任务”。
+- 报告资产同时展示 `/pdf` 原文件目录和 `document_id -> OCR run -> 当前最佳 IR`
+  产物树，并标识“当前唯一保留版”。
+- 报告资产展示包/状态完整性、文件数量、占用空间、父子修订和 Evidence 准入，
+  并可在不进入文件系统的情况下预览每个中间文件。
+- 清理操作先生成依赖计划。运行中任务、仍被 IR 使用的 OCR、仍有子修订的 IR
+  默认禁止删除；执行前查看级联范围和下游依赖警告，再单击确认即可，无需输入口令。
+- 批量清理只纳入失败、中断或不完整且未运行的记录；包目录、任务状态和上传副本
+  作为同一事务移动，失败时回滚，审计记录保存在不可变产物之外。
+- 定向抽取页保留 IR/标准包/指标及三种模型开关；有效标准包同时以常显卡片和原生
+  下拉框呈现。E1-5、E1-6、E2-4 卡片之间切换时，各包已经勾选的细分指标持续保留，
+  卡片与跨标准总览分别显示每包和全局选中数。一次提交通过批量队列接口原子创建
+  多个相邻任务：共享同一个 IR 与模型配置，但每个标准包仍固定自己的 version、digest
+  和 Result Bundle，不能把不同标准合同混成一个后端 job。标准目录校验失败数也会显示。
+- 抽取结果页保留合同完整性、下载、搜索筛选、结构化事实、证据、Guard、检索、
+  Packet/模型诊断和全部中间文件；空列表会同时核对任务 SQLite 与 Result Bundle
+  目录并显示真实计数/路径，请求失败不再静默伪装成“尚无记录”。
+- Document IR 与定向抽取各自拥有独立、版本感知的输入目录；OCR 浏览历史、IR 检查器
+  和任务输入选择之间不再存在隐式联动。
+
+统一控制面 API：
+
+```text
+GET  /api/pipeline/tasks
+PUT  /api/pipeline/tasks/order
+POST /api/pipeline/tasks/{task_id}/cancel
+GET  /api/pipeline/tasks/{task_id}/events
+GET  /api/pipeline/status
+POST /api/pipeline/tasks/ocr
+POST /api/pipeline/tasks/document-ir
+POST /api/pipeline/tasks/targeted-extraction
+POST /api/pipeline/tasks/targeted-extraction/batch
+POST /api/pipeline/tasks/targeted-extraction/{job_id}/resume
+GET/POST/DELETE /api/report-assets
+```
+
+原 OCR、Document IR、定向抽取 API 和 CLI 保留，供独立后端集成与迁移使用；统一前端
+只走新的队列入口，避免三条重模型链路在本机并发。
 
 ## 密钥
 
-前端可以临时填写 PaddleOCR 和七牛 API Key。密钥只随请求发送，不写入产物。
-也可以放到被 Git 忽略的 `.env.local`：
+前端可以选择本地 NuExtract3 或七牛，并临时填写 PaddleOCR 和七牛 API Key。
+本地模式不需要 API Key；密钥只随请求发送，不写入产物。
+也可以放到被 Git 忽略的 `document_ir_extract/.env.local`：
 
 ```text
 PADDLEOCR_VL_API_TOKEN=...
 PADDLEOCR_VL_TRUST_ENV_PROXY=false
+ESG_V2_OCR_PDF_CANVAS_NORMALIZATION=true
+ESG_V2_OCR_PROVIDER_MAX_CANVAS_POINTS=1200
+ESG_V2_OCR_PROVIDER_MAX_LOCAL_FILE_BYTES=104857600
+ESG_V2_OCR_PROVIDER_MAX_PDF_PAGES=1000
+LOCAL_PADDLEOCR_HEARTBEAT_SECONDS=15
+LOCAL_PADDLEOCR_STALL_TIMEOUT_SECONDS=600
+LOCAL_PADDLEOCR_JOB_TIMEOUT_SECONDS=7200
 QINIU_API_KEY=...
 QINIU_BASE_URL=https://api.qnaigc.com/v1
 QINIU_VLM_MODEL=...
+ESG_V2_REVIEW_PROVIDER=local_nuextract
+NUEXTRACT_MODEL_PATH=~/Desktop/model/NuExtract3-mlx-4bits
+NUEXTRACT_RUNTIME_PYTHON=~/Desktop/model/.runtime/venv/bin/python
+NUEXTRACT_TIMEOUT_SECONDS=900
 ESG_V2_MAX_VLM_REVIEWS_PER_IR_RUN=0
 ESG_V2_MAX_BLOCKING_VLM_REVIEWS_PER_IR_RUN=64
 ESG_V2_MAX_OPTIONAL_VLM_REVIEWS_PER_IR_RUN=64
@@ -531,6 +629,10 @@ ESG_V2_PDF_RENDER_TIMEOUT_SECONDS=1800
 PaddleOCR 客户端默认不继承操作系统或进程环境代理，避免通用代理对百度 OCR
 域名造成 TLS 中断。只有部署环境明确要求 PaddleOCR 走代理时，才将
 `PADDLEOCR_VL_TRUST_ENV_PROXY` 设置为 `true`。
+
+PDF 输入阈值全部可配置。默认把供应商输入的最长页边控制在 `1200` PDF points，
+本地文件上限为 `100 MiB`、页数上限为 `1000`；账号或 API 版本若采用更低限制，
+部署时应收紧对应变量。阈值只控制 OCR 输入适配，不修改原 PDF。
 
 `QINIU_VLM_MODEL` 可以填写逗号分隔的固定降级链。未设置时，系统从 `/models`
 建立已批准且未退役的视觉模型候选顺序，并交错不同模型家族。2026-07-23
@@ -556,10 +658,17 @@ PaddleOCR 客户端默认不继承操作系统或进程环境代理，避免通�
 本地视觉输入会压缩为七牛建议的 JPEG data URI；服务器阶段优先使用 Kodo/CDN
 地址，避免大体积内联传输。
 
+本地 NuExtract3 运行在独立 MLX 虚拟环境中，由后端管理常驻 worker，首次真实调用
+才加载权重，后续任务复用同一进程。它接收与七牛相同的 ReviewPlan、上下文和页图，
+返回相同的 `ReviewerPayload` / `VerifierPayload`；调用结果仍写入
+`review/calls/model-calls.jsonl`，候选仍必须经过同一 Patch Guard、事务与版本冻结。
+因此后续完全关闭七牛只需选择 `local_nuextract` 或设置
+`ESG_V2_REVIEW_PROVIDER=local_nuextract`，不需要改 Document IR 或下游消费者。
+
 ## 测试
 
 ```bash
-cd backend
+cd ESG_DATA_PLATFORM/ExtractESG/document_ir_extract/backend
 source .venv/bin/activate
 pip install -e '.[dev]'
 pytest -q
@@ -576,11 +685,7 @@ pytest -q
 非重试型系统阻塞分流、持久化模型健康状态、Package/API 逻辑表读取、跨目标
 失败指纹隔离、`needs_repair` 兼容、Spread 原子组合事务、Figure 归一化/crop
 像素坐标换算、非阻塞增强的不可变审计式关闭、纯视觉跨页本地终结、Verifier
-常见别名协议归一化，以及运行阶段/真实模型请求遥测计数。Targeted Recall 测试另
-覆盖 IR 准入硬门槛、Evidence 溯源、零云调用、条件式条款适用性、表格必要维度、
-目录索引不得冒充正文、相近指标排除、交叉维度不得由分散行伪造、变长任务表、未知
-条款通用编译、多披露实例保留、召回截断禁止假阴性、Package v2 完整性、CLI/API
-独立运行和 Excel 仅修改允许列。当前完整后端测试为 132 项。
+常见别名协议归一化，以及运行阶段/真实模型请求遥测计数。
 PDFium 渲染在受监督子进程中执行，逐页显式释放 image、bitmap 和 page；页数
 进度会回写到任务状态。原生渲染器若超时、异常退出或收到 `SIGSEGV`，只会使该
 Document IR 任务失败并留下明确原因，不会再拖死 FastAPI 后端。渲染超时可通过
@@ -588,14 +693,6 @@ Document IR 任务失败并留下明确原因，不会再拖死 FastAPI 后端�
 真实 OCR/Document IR/VLM 全链路测试由用户主动发起；开发修改后默认只运行本地
 单元测试和静态检查，随后等待用户生成新结果再做只读分析。
 
-## 下一阶段
+## 当前边界
 
-当前 Targeted Recall v2 本地语义契约与可解释链路已完成，下一阶段建设：
-
-- Full Harvest 与覆盖账本；
-- 面向全量抽取和跨报告复用的 Evidence Packet/检索服务增强；
-- 可发布级数值、单位换算、期间与组织范围规范化；
-- Concept 与 Requirement Mapping；
-- 独立事实验证、人工审核和 Publication。
-- 本地语义模型基准集、可选 reranker/NLI 和跨运行向量缓存；
-- 其他 ESRS/HKEX/GRI/用户自定义任务表适配器。
+本模块当前终止于 Document IR。所有下游流程将在新方案确定后另行建设。

@@ -46,7 +46,7 @@ def _write_human_parent(tmp_path: Path, settings: Settings):
     return document, parent_dir
 
 
-def test_human_patch_decision_creates_child_revision_without_mutating_parent(tmp_path: Path) -> None:
+def test_human_patch_decision_promotes_child_and_prunes_superseded_parent(tmp_path: Path) -> None:
     settings = _settings(tmp_path)
     parent, parent_dir = _write_human_parent(tmp_path, settings)
     patch = next(item for item in parent.atomic_patches if item.status == "human_required")
@@ -58,14 +58,15 @@ def test_human_patch_decision_creates_child_revision_without_mutating_parent(tmp
     )
     child_dir = settings.document_ir_output_root / manifest["run_id"]
     child = DocumentIrPackageReader(child_dir, ocr_output_root=settings.output_root).load_document()
-    unchanged_parent = DocumentIrPackageReader(parent_dir, ocr_output_root=settings.output_root).load_document()
 
     assert manifest["parent_ir_run_id"] == PARENT_RUN_ID
     assert manifest["ir_revision"] == 2
+    assert manifest["retention"]["retained_run_id"] == manifest["run_id"]
+    assert manifest["retention"]["pruned_run_ids"] == [PARENT_RUN_ID]
     assert child.blocks[0].text == "the metric"
     assert child.review_tasks[0].status == "reviewed"
     assert child.final_decisions[-1].outcome == "human_resolved"
-    assert unchanged_parent.blocks[0].text == "teh metric"
+    assert not parent_dir.exists()
 
 
 def test_rejecting_patch_does_not_close_task_until_human_explicitly_keeps_current_ir(tmp_path: Path) -> None:
@@ -93,7 +94,7 @@ def test_rejecting_patch_does_not_close_task_until_human_explicitly_keeps_curren
         PatchDecisionRequest(
             action="keep_current",
             decided_by="tester",
-            notes="The source page matches the existing IR text; no correction is required.",
+            notes=None,
         ),
     )
     resolved = DocumentIrPackageReader(
@@ -191,19 +192,16 @@ def test_optional_enhancement_can_be_audited_as_nonmaterial_in_child_revision(
         PatchDecisionRequest(
             action="accept_current_nonmaterial",
             decided_by="tester",
-            notes="The current IR preserves all source content; this visual enhancement is noncritical.",
+            notes=None,
         ),
     )
     child = DocumentIrPackageReader(
         settings.document_ir_output_root / manifest["run_id"],
         ocr_output_root=settings.output_root,
     ).load_document()
-    unchanged_parent = DocumentIrPackageReader(
-        parent_dir,
-        ocr_output_root=settings.output_root,
-    ).load_document()
-
     assert manifest["parent_ir_run_id"] == PARENT_RUN_ID
+    assert manifest["retention"]["retained_run_id"] == manifest["run_id"]
+    assert manifest["retention"]["pruned_run_ids"] == [PARENT_RUN_ID]
     assert child.review_tasks[0].status == "reviewed"
     assert child.review_tasks[0].failure_class == "none"
     assert child.review_tasks[0].failure_owner == "none"
@@ -214,7 +212,7 @@ def test_optional_enhancement_can_be_audited_as_nonmaterial_in_child_revision(
         == "accepted_nonmaterial_difference"
     )
     assert child.quality_report["human_actions"][-1]["action"] == "accept_current_nonmaterial"
-    assert unchanged_parent.review_tasks[0].status == "deferred"
+    assert not parent_dir.exists()
 
 
 def test_blocking_task_cannot_be_accepted_as_nonmaterial(tmp_path: Path) -> None:
@@ -280,7 +278,8 @@ def test_resume_reviews_targets_existing_deferred_task_in_child_revision(tmp_pat
     logs: list[str] = []
 
     class FakeOrchestrator:
-        def __init__(self, settings, *, api_key=None, telemetry=None):
+        def __init__(self, settings, *, provider="qiniu", api_key=None, telemetry=None):
+            calls["provider"] = provider
             calls["api_key"] = api_key
 
         def execute(self, document, *, review_target_ids=None, max_auto_review_rounds=2, log=None):
@@ -314,7 +313,12 @@ def test_resume_reviews_targets_existing_deferred_task_in_child_revision(tmp_pat
     assert manifest["review_retry_result"]["resolved_count"] == 1
     assert manifest["review_retry_result"]["remaining_count"] == 0
     assert child.quality_report["review_retry_result"]["status_transitions"]["review-1"]["after"] == "auto_resolved"
-    assert calls == {"api_key": "runtime-key", "targets": ["review-1"], "rounds": 3}
+    assert calls == {
+        "provider": "qiniu",
+        "api_key": "runtime-key",
+        "targets": ["review-1"],
+        "rounds": 3,
+    }
     assert [event["index"] for event in telemetry_events if event["event"] == "stage_started"] == [1, 2, 3]
     assert logs[-1].startswith("3/3")
 
@@ -333,7 +337,7 @@ def test_resume_reviews_defaults_to_blocking_tasks_only(tmp_path: Path, monkeypa
     selected: list[str] = []
 
     class FakeOrchestrator:
-        def __init__(self, settings, *, api_key=None, telemetry=None):
+        def __init__(self, settings, *, provider="qiniu", api_key=None, telemetry=None):
             pass
 
         def execute(self, document, *, review_target_ids=None, max_auto_review_rounds=2, log=None):

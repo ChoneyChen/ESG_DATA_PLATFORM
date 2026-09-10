@@ -1,0 +1,73 @@
+[
+  {
+    "activation_predicate": {
+      "operator": "eq",
+      "path": "report_context.has_high_climate_impact_sector_activity",
+      "value": true
+    },
+    "description": "Only applies when the undertaking has activities in high climate impact sectors.",
+    "member_metric_ids": [],
+    "policy": "activate-when-condition-met",
+    "relation_id": "esrs.2023-set1.e1-5.relation.high-climate-impact-conditional",
+    "relation_type": "conditional_activation",
+    "source_metric_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-5.dp10",
+      "esrs.2023-set1.e1-5.dp11",
+      "esrs.2023-set1.e1-5.dp12",
+      "esrs.2023-set1.e1-5.dp13",
+      "esrs.2023-set1.e1-5.dp14",
+      "esrs.2023-set1.e1-5.dp15",
+      "esrs.2023-set1.e1-5.dp18",
+      "esrs.2023-set1.e1-5.dp19",
+      "esrs.2023-set1.e1-5.dp20",
+      "esrs.2023-set1.e1-5.dp21",
+      "esrs.2023-set1.e1-5.dp22",
+      "esrs.2023-set1.e1-5.dp23"
+    ]
+  },
+  {
+    "activation_predicate": {
+      "operator": "eq",
+      "path": "report_context.produces_energy",
+      "value": true
+    },
+    "description": "Production metrics apply when the undertaking produces energy.",
+    "member_metric_ids": [],
+    "policy": "activate-when-condition-met",
+    "relation_id": "esrs.2023-set1.e1-5.relation.energy-production-conditional",
+    "relation_type": "conditional_activation",
+    "source_metric_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-5.dp16",
+      "esrs.2023-set1.e1-5.dp17"
+    ]
+  },
+  {
+    "activation_predicate": null,
+    "description": "Energy amount, sectors and reconciled revenue explain the reported energy intensity.",
+    "member_metric_ids": [],
+    "policy": "retain-linked-context",
+    "relation_id": "esrs.2023-set1.e1-5.relation.intensity-context",
+    "relation_type": "contextualizes",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-5.dp19",
+      "esrs.2023-set1.e1-5.dp20",
+      "esrs.2023-set1.e1-5.dp21",
+      "esrs.2023-set1.e1-5.dp22",
+      "esrs.2023-set1.e1-5.dp23"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-5.dp18"
+    ]
+  }
+]

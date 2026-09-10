@@ -41,6 +41,10 @@ class PaddleOcrDocumentConverter:
         run_id: str,
         pdf_path: str | None = None,
         rendered: RenderedDocument | None = None,
+        document_id: str | None = None,
+        document_label: str | None = None,
+        external_document_id: str | None = None,
+        lineage_id: str | None = None,
         ir_revision: int = 1,
         parent_ir_run_id: str | None = None,
     ) -> DocumentIR:
@@ -48,6 +52,10 @@ class PaddleOcrDocumentConverter:
         metadata = DocumentIRMetadata(
             run_id=run_id,
             ocr_run_id=artifact.run_id,
+            document_id=document_id,
+            document_label=document_label,
+            external_document_id=external_document_id,
+            lineage_id=lineage_id,
             ir_revision=ir_revision,
             parent_ir_run_id=parent_ir_run_id,
             source_pdf_path=pdf_path,
@@ -613,7 +621,7 @@ class PaddleOcrDocumentConverter:
                 )
             )
         header_rows = sorted({cell.row_index for cell in cells if cell.is_header})
-        flags = ["html_table_parsed"]
+        flags = ["html_table_parsed", *parsed.quality_flags]
         if parsed.image_sources:
             flags.append("embedded_table_images_present")
         if bbox is None:

@@ -1,0 +1,272 @@
+{
+  "format_version": "1.0",
+  "core_schema_id": "extractesg.core",
+  "core_schema_version": "1.0.0",
+  "record_types": [
+    {
+      "record_type": "reporting_task",
+      "primary_key": "task_id",
+      "description": "One selected standard datapoint for one report and one immutable IR revision.",
+      "fields": [
+        {"field_id": "task_id", "value_type": "identifier", "required": true, "description": "Stable task identifier."},
+        {"field_id": "report_id", "value_type": "identifier", "required": true, "description": "Upstream report reference."},
+        {"field_id": "document_id", "value_type": "identifier", "required": true, "description": "Immutable source document identifier."},
+        {"field_id": "ir_run_id", "value_type": "identifier", "required": true, "description": "Document IR run identifier."},
+        {"field_id": "ir_revision", "value_type": "integer", "required": true, "description": "Document IR revision."},
+        {"field_id": "package_id", "value_type": "identifier", "required": true, "description": "Standard package identifier."},
+        {"field_id": "package_version", "value_type": "string", "required": true, "description": "Standard package semantic version."},
+        {"field_id": "metric_id", "value_type": "identifier", "required": true, "description": "Namespaced metric identifier."},
+        {"field_id": "materiality_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.materiality-status", "description": "Materiality state."},
+        {"field_id": "applicability_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.applicability-status", "description": "Applicability state."},
+        {"field_id": "found_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.found-status", "description": "Disclosure finding state."},
+        {"field_id": "result_count", "value_type": "integer", "required": true, "description": "Number of accepted result records."},
+        {"field_id": "evidence_count", "value_type": "integer", "required": true, "description": "Number of attached evidence records."},
+        {"field_id": "uncertainty_reason", "value_type": "text", "required": false, "nullable": true, "description": "Bounded reason when the task cannot be resolved."},
+        {"field_id": "review_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.review-status", "description": "Review state."},
+        {"field_id": "task_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.task-status", "description": "Task execution state."}
+      ]
+    },
+    {
+      "record_type": "quantitative_observation",
+      "primary_key": "observation_id",
+      "description": "One quantitative value for one metric, period, boundary and dimension combination.",
+      "fields": [
+        {"field_id": "observation_id", "value_type": "identifier", "required": true, "description": "Stable quantitative observation identifier."},
+        {"field_id": "task_id", "value_type": "identifier", "required": true, "description": "Owning reporting task."},
+        {"field_id": "metric_id", "value_type": "identifier", "required": true, "description": "Namespaced metric identifier."},
+        {"field_id": "value_origin", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.value-origin", "description": "Reported or derived origin."},
+        {"field_id": "value_raw", "value_type": "string", "required": true, "description": "Value exactly as represented by the report."},
+        {"field_id": "comparator", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.comparator", "description": "Exact, approximate, bound or range comparator."},
+        {"field_id": "value_numeric", "value_type": "decimal", "required": false, "nullable": true, "description": "Typed exact or central numeric value."},
+        {"field_id": "value_lower", "value_type": "decimal", "required": false, "nullable": true, "description": "Typed lower bound."},
+        {"field_id": "value_upper", "value_type": "decimal", "required": false, "nullable": true, "description": "Typed upper bound."},
+        {"field_id": "unit_raw", "value_type": "string", "required": false, "nullable": true, "description": "Unit exactly as represented by the report."},
+        {"field_id": "unit_id", "value_type": "identifier", "required": false, "nullable": true, "description": "Controlled unit identifier."},
+        {"field_id": "reporting_period_raw", "value_type": "string", "required": false, "nullable": true, "description": "Reporting period exactly as represented by the report."},
+        {"field_id": "reporting_year", "value_type": "year", "required": false, "nullable": true, "description": "Reporting year when the period is annual."},
+        {"field_id": "period_start", "value_type": "date", "required": false, "nullable": true, "description": "Reporting period start."},
+        {"field_id": "period_end", "value_type": "date", "required": false, "nullable": true, "description": "Reporting period end."},
+        {"field_id": "reporting_boundary", "value_type": "string", "required": false, "nullable": true, "description": "Original reporting boundary or scope."},
+        {"field_id": "evidence_set_id", "value_type": "identifier", "required": true, "description": "Evidence set supporting this observation."},
+        {"field_id": "confidence", "value_type": "decimal", "required": false, "nullable": true, "description": "Machine confidence from zero to one."},
+        {"field_id": "review_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.review-status", "description": "Review state."}
+      ]
+    },
+    {
+      "record_type": "qualitative_assertion",
+      "primary_key": "assertion_id",
+      "description": "One independently supportable qualitative assertion or list item.",
+      "fields": [
+        {"field_id": "assertion_id", "value_type": "identifier", "required": true, "description": "Stable qualitative assertion identifier."},
+        {"field_id": "task_id", "value_type": "identifier", "required": true, "description": "Owning reporting task."},
+        {"field_id": "metric_id", "value_type": "identifier", "required": true, "description": "Namespaced metric identifier."},
+        {"field_id": "statement_raw", "value_type": "text", "required": true, "description": "Evidence-grounded original assertion text."},
+        {"field_id": "statement_summary", "value_type": "text", "required": false, "nullable": true, "description": "Constrained normalized assertion."},
+        {"field_id": "reporting_period_raw", "value_type": "string", "required": false, "nullable": true, "description": "Applicable period exactly as represented by the report."},
+        {"field_id": "reporting_year", "value_type": "year", "required": false, "nullable": true, "description": "Reporting year when applicable."},
+        {"field_id": "period_start", "value_type": "date", "required": false, "nullable": true, "description": "Applicable period start."},
+        {"field_id": "period_end", "value_type": "date", "required": false, "nullable": true, "description": "Applicable period end."},
+        {"field_id": "reporting_boundary", "value_type": "string", "required": false, "nullable": true, "description": "Original reporting boundary or scope."},
+        {"field_id": "evidence_set_id", "value_type": "identifier", "required": true, "description": "Evidence set supporting this assertion."},
+        {"field_id": "confidence", "value_type": "decimal", "required": false, "nullable": true, "description": "Machine confidence from zero to one."},
+        {"field_id": "review_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.review-status", "description": "Review state."}
+      ]
+    },
+    {
+      "record_type": "attribute_value",
+      "primary_key": "attribute_id",
+      "description": "A typed module-specific property attached to a task, observation or assertion.",
+      "fields": [
+        {"field_id": "attribute_id", "value_type": "identifier", "required": true, "description": "Stable attribute identifier."},
+        {"field_id": "parent_record_type", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.parent-record-type", "description": "Type of parent record."},
+        {"field_id": "parent_record_id", "value_type": "identifier", "required": true, "description": "Parent record identifier."},
+        {"field_id": "metric_id", "value_type": "identifier", "required": true, "description": "Namespaced metric identifier."},
+        {"field_id": "element_id", "value_type": "identifier", "required": true, "description": "Namespaced semantic element identifier."},
+        {"field_id": "value_type", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.attribute-value-type", "description": "Populated typed value column."},
+        {"field_id": "value_text", "value_type": "text", "required": false, "nullable": true, "description": "Text value."},
+        {"field_id": "value_numeric", "value_type": "decimal", "required": false, "nullable": true, "description": "Numeric value."},
+        {"field_id": "value_boolean", "value_type": "boolean", "required": false, "nullable": true, "description": "Boolean value."},
+        {"field_id": "value_date", "value_type": "date", "required": false, "nullable": true, "description": "Date value."},
+        {"field_id": "value_code", "value_type": "identifier", "required": false, "nullable": true, "description": "Controlled code value."},
+        {"field_id": "unit_id", "value_type": "identifier", "required": false, "nullable": true, "description": "Controlled unit identifier when applicable."},
+        {"field_id": "sequence", "value_type": "integer", "required": true, "description": "Stable order for repeated attributes."},
+        {"field_id": "evidence_set_id", "value_type": "identifier", "required": false, "nullable": true, "description": "Evidence set supporting this attribute."},
+        {"field_id": "review_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.review-status", "description": "Review state."}
+      ]
+    },
+    {
+      "record_type": "dimension_value",
+      "primary_key": "dimension_value_id",
+      "description": "One controlled or original dimension attached to a result record.",
+      "fields": [
+        {"field_id": "dimension_value_id", "value_type": "identifier", "required": true, "description": "Stable dimension value identifier."},
+        {"field_id": "parent_record_type", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.parent-record-type", "description": "Type of parent record."},
+        {"field_id": "parent_record_id", "value_type": "identifier", "required": true, "description": "Parent record identifier."},
+        {"field_id": "metric_id", "value_type": "identifier", "required": true, "description": "Namespaced metric identifier."},
+        {"field_id": "element_id", "value_type": "identifier", "required": true, "description": "Namespaced semantic element identifier."},
+        {"field_id": "dimension_id", "value_type": "identifier", "required": true, "description": "Controlled dimension identifier."},
+        {"field_id": "value_raw", "value_type": "string", "required": true, "description": "Original dimension value."},
+        {"field_id": "value_code", "value_type": "identifier", "required": false, "nullable": true, "description": "Normalized dimension code."},
+        {"field_id": "value_level", "value_type": "integer", "required": false, "nullable": true, "description": "Hierarchy level when applicable."},
+        {"field_id": "parent_dimension_value_id", "value_type": "identifier", "required": false, "nullable": true, "description": "Parent dimension value when hierarchical."},
+        {"field_id": "sequence", "value_type": "integer", "required": true, "description": "Stable order for repeated values."},
+        {"field_id": "evidence_set_id", "value_type": "identifier", "required": false, "nullable": true, "description": "Evidence set supporting this dimension."},
+        {"field_id": "review_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.review-status", "description": "Review state."}
+      ]
+    },
+    {
+      "record_type": "evidence_reference",
+      "primary_key": "evidence_id",
+      "description": "A reproducible reference from a result record to Document IR and the source PDF.",
+      "fields": [
+        {"field_id": "evidence_id", "value_type": "identifier", "required": true, "description": "Stable evidence identifier."},
+        {"field_id": "evidence_set_id", "value_type": "identifier", "required": true, "description": "Evidence group identifier."},
+        {"field_id": "source_record_type", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.parent-record-type", "description": "Supported record type."},
+        {"field_id": "source_record_id", "value_type": "identifier", "required": true, "description": "Supported record identifier."},
+        {"field_id": "document_id", "value_type": "identifier", "required": true, "description": "Immutable source document identifier."},
+        {"field_id": "ir_run_id", "value_type": "identifier", "required": true, "description": "Document IR run identifier."},
+        {"field_id": "ir_revision", "value_type": "integer", "required": true, "description": "Document IR revision."},
+        {"field_id": "ir_object_type", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.ir-object-type", "description": "Document IR object type."},
+        {"field_id": "ir_object_id", "value_type": "identifier", "required": true, "description": "Document IR object identifier."},
+        {"field_id": "pdf_page_index", "value_type": "integer", "required": true, "description": "Zero-based physical PDF page index."},
+        {"field_id": "printed_page_label", "value_type": "string", "required": false, "nullable": true, "description": "Printed page label when available."},
+        {"field_id": "bbox_x0", "value_type": "decimal", "required": false, "nullable": true, "description": "Left source coordinate."},
+        {"field_id": "bbox_y0", "value_type": "decimal", "required": false, "nullable": true, "description": "Top source coordinate."},
+        {"field_id": "bbox_x1", "value_type": "decimal", "required": false, "nullable": true, "description": "Right source coordinate."},
+        {"field_id": "bbox_y1", "value_type": "decimal", "required": false, "nullable": true, "description": "Bottom source coordinate."},
+        {"field_id": "evidence_excerpt", "value_type": "text", "required": true, "description": "Bounded supporting excerpt."},
+        {"field_id": "quote_sha256", "value_type": "hash", "required": true, "description": "Hash of the normalized supporting excerpt."},
+        {"field_id": "evidence_role", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.evidence-role", "description": "Primary, supporting or contextual evidence role."},
+        {"field_id": "review_status", "value_type": "enum", "required": true, "code_set_id": "extractesg.core.codeset.review-status", "description": "Review state."}
+      ]
+    }
+  ],
+  "common_code_sets": [
+    {
+      "code_set_id": "extractesg.core.codeset.materiality-status",
+      "values": [
+        {"code": "material", "labels": {"zh": "重大", "en": "Material"}},
+        {"code": "not_material", "labels": {"zh": "不重大", "en": "Not material"}},
+        {"code": "not_assessed", "labels": {"zh": "未评估", "en": "Not assessed"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.applicability-status",
+      "values": [
+        {"code": "applicable", "labels": {"zh": "适用", "en": "Applicable"}},
+        {"code": "not_applicable", "labels": {"zh": "不适用", "en": "Not applicable"}},
+        {"code": "uncertain", "labels": {"zh": "待判断", "en": "Uncertain"}},
+        {"code": "not_assessed", "labels": {"zh": "未评估", "en": "Not assessed"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.found-status",
+      "values": [
+        {"code": "reported", "labels": {"zh": "找到直接披露", "en": "Reported"}},
+        {"code": "explicit_zero", "labels": {"zh": "明确零披露", "en": "Explicit zero"}},
+        {"code": "partial", "labels": {"zh": "部分找到", "en": "Partial"}},
+        {"code": "not_found_after_complete_search", "labels": {"zh": "完整检索后未找到", "en": "Not found after complete search"}},
+        {"code": "uncertain", "labels": {"zh": "不确定", "en": "Uncertain"}},
+        {"code": "not_applicable", "labels": {"zh": "不适用", "en": "Not applicable"}},
+        {"code": "not_assessed", "labels": {"zh": "未评估", "en": "Not assessed"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.review-status",
+      "values": [
+        {"code": "pending", "labels": {"zh": "待审核", "en": "Pending"}},
+        {"code": "auto_verified", "labels": {"zh": "自动校验通过", "en": "Automatically verified"}},
+        {"code": "human_required", "labels": {"zh": "需人工判断", "en": "Human review required"}},
+        {"code": "approved", "labels": {"zh": "已批准", "en": "Approved"}},
+        {"code": "rejected", "labels": {"zh": "已拒绝", "en": "Rejected"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.task-status",
+      "values": [
+        {"code": "not_started", "labels": {"zh": "未开始", "en": "Not started"}},
+        {"code": "running", "labels": {"zh": "处理中", "en": "Running"}},
+        {"code": "completed", "labels": {"zh": "已完成", "en": "Completed"}},
+        {"code": "partial", "labels": {"zh": "部分完成", "en": "Partial"}},
+        {"code": "blocked", "labels": {"zh": "阻塞", "en": "Blocked"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.value-origin",
+      "values": [
+        {"code": "reported", "labels": {"zh": "报告直接披露", "en": "Reported"}},
+        {"code": "derived", "labels": {"zh": "后续处理派生", "en": "Derived"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.comparator",
+      "values": [
+        {"code": "exact", "labels": {"zh": "精确值", "en": "Exact"}},
+        {"code": "about", "labels": {"zh": "约数", "en": "Approximate"}},
+        {"code": "less_than", "labels": {"zh": "小于", "en": "Less than"}},
+        {"code": "greater_than", "labels": {"zh": "大于", "en": "Greater than"}},
+        {"code": "range", "labels": {"zh": "区间", "en": "Range"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.parent-record-type",
+      "values": [
+        {"code": "reporting_task", "labels": {"zh": "指标任务", "en": "Reporting task"}},
+        {"code": "quantitative_observation", "labels": {"zh": "量化事实", "en": "Quantitative observation"}},
+        {"code": "qualitative_assertion", "labels": {"zh": "定性断言", "en": "Qualitative assertion"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.attribute-value-type",
+      "values": [
+        {"code": "text", "labels": {"zh": "文本", "en": "Text"}},
+        {"code": "numeric", "labels": {"zh": "数值", "en": "Numeric"}},
+        {"code": "boolean", "labels": {"zh": "布尔", "en": "Boolean"}},
+        {"code": "date", "labels": {"zh": "日期", "en": "Date"}},
+        {"code": "code", "labels": {"zh": "受控代码", "en": "Controlled code"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.boolean-unknown",
+      "values": [
+        {"code": "true", "labels": {"zh": "是", "en": "True"}},
+        {"code": "false", "labels": {"zh": "否", "en": "False"}},
+        {"code": "unknown", "labels": {"zh": "未知", "en": "Unknown"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.ir-object-type",
+      "values": [
+        {"code": "page", "labels": {"zh": "页面", "en": "Page"}},
+        {"code": "section", "labels": {"zh": "章节", "en": "Section"}},
+        {"code": "block", "labels": {"zh": "版面块", "en": "Block"}},
+        {"code": "table", "labels": {"zh": "表格", "en": "Table"}},
+        {"code": "cell", "labels": {"zh": "单元格", "en": "Cell"}},
+        {"code": "figure", "labels": {"zh": "图形", "en": "Figure"}},
+        {"code": "spread", "labels": {"zh": "跨页拼接", "en": "Spread"}}
+      ]
+    },
+    {
+      "code_set_id": "extractesg.core.codeset.evidence-role",
+      "values": [
+        {"code": "primary", "labels": {"zh": "主证据", "en": "Primary"}},
+        {"code": "supporting", "labels": {"zh": "辅助证据", "en": "Supporting"}},
+        {"code": "context", "labels": {"zh": "上下文证据", "en": "Context"}}
+      ]
+    }
+  ],
+  "common_dimensions": [
+    {"dimension_id": "extractesg.core.dimension.site", "value_type": "string", "labels": {"zh": "场地", "en": "Site"}, "description": "A reporting site or location."},
+    {"dimension_id": "extractesg.core.dimension.facility", "value_type": "string", "labels": {"zh": "设施", "en": "Facility"}, "description": "A named operating facility or installation."},
+    {"dimension_id": "extractesg.core.dimension.geography", "value_type": "string", "labels": {"zh": "地理区域", "en": "Geography"}, "hierarchical": true, "description": "Country, region or other geographical area."},
+    {"dimension_id": "extractesg.core.dimension.business-segment", "value_type": "string", "labels": {"zh": "业务板块", "en": "Business segment"}, "hierarchical": true, "description": "Business, operating or sector segment."},
+    {"dimension_id": "extractesg.core.dimension.source-type", "value_type": "string", "labels": {"zh": "来源类型", "en": "Source type"}, "description": "Type of source used to disaggregate a disclosure."}
+  ],
+  "common_units": [
+    {"unit_id": "extractesg.core.unit.tonne", "symbol": "t", "dimension": "extractesg.core.unit-dimension.mass", "labels": {"zh": "吨", "en": "tonne"}, "scale_to_si": "1000"},
+    {"unit_id": "extractesg.core.unit.kilogram", "symbol": "kg", "dimension": "extractesg.core.unit-dimension.mass", "labels": {"zh": "千克", "en": "kilogram"}, "scale_to_si": "1"},
+    {"unit_id": "extractesg.core.unit.gram", "symbol": "g", "dimension": "extractesg.core.unit-dimension.mass", "labels": {"zh": "克", "en": "gram"}, "scale_to_si": "0.001"},
+    {"unit_id": "extractesg.core.unit.milligram", "symbol": "mg", "dimension": "extractesg.core.unit-dimension.mass", "labels": {"zh": "毫克", "en": "milligram"}, "scale_to_si": "0.000001"},
+    {"unit_id": "extractesg.core.unit.percent", "symbol": "%", "dimension": "extractesg.core.unit-dimension.ratio", "labels": {"zh": "百分比", "en": "percent"}, "scale_to_si": "0.01"}
+  ]
+}

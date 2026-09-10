@@ -12,12 +12,12 @@ from typing import Any, Iterable
 from esg_v2.utils.hashing import sha256_file
 
 
-RUN_ID_PATTERN = re.compile(r"^(ocr|ir|evd|trg)-\d{8}T\d{6}Z-[0-9a-f]{12}$")
+RUN_ID_PATTERN = re.compile(r"^(ocr|ir)-\d{8}T\d{6}Z-[0-9a-f]{12}$")
 PACKAGE_DIR_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 
 
 def new_run_id(kind: str) -> str:
-    if kind not in {"ocr", "ir", "evd", "trg"}:
+    if kind not in {"ocr", "ir"}:
         raise ValueError(f"Unsupported run kind: {kind}")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     return f"{kind}-{stamp}-{uuid.uuid4().hex[:12]}"
@@ -136,6 +136,14 @@ class OcrPackageLayout:
     @property
     def source_request(self) -> Path:
         return self.root / "source" / "request.json"
+
+    @property
+    def source_preflight(self) -> Path:
+        return self.root / "source" / "preflight.json"
+
+    @property
+    def provider_input(self) -> Path:
+        return self.root / "source" / "provider-input.pdf"
 
     @property
     def submit_response(self) -> Path:

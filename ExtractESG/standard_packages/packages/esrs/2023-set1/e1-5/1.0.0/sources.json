@@ -1,0 +1,20 @@
+[
+  {
+    "authority": "authoritative_law",
+    "locator": "ESRS E1 paragraphs 35–43 and AR 32–38",
+    "notes": "E1-5 的法律语义、计量单位和应用要求以本来源为准。",
+    "source_id": "esrs.2023-set1.e1-5.source.eu-2023-2772",
+    "title": "Commission Delegated Regulation (EU) 2023/2772 — ESRS E1",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R2772",
+    "version_or_date": "2023-12-22"
+  },
+  {
+    "authority": "non_authoritative_implementation_guidance",
+    "locator": "ESRS E1 worksheet rows 84–106 (E1-5_01 through E1-5_23)",
+    "notes": "用于数据点清单、条件和 phase-in 交叉核对；与法规冲突时以法规正文为准。",
+    "source_id": "esrs.2023-set1.e1-5.source.efrag-ig3-2025",
+    "title": "EFRAG IG 3 List of ESRS Data Points",
+    "url": "https://www.efrag.org/sites/default/files/media/document/2025-06/EFRAG%20IG%203%20List%20of%20ESRS%20Data%20Points%20%281%29%20%281%29.xlsx",
+    "version_or_date": "2025-06"
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "description": "IG 3 marks the combined, generated and used datapoints as alternatives; the relation is not an addition formula.",
+    "member_metric_ids": [
+      "esrs.2023-set1.e2-4.dp05",
+      "esrs.2023-set1.e2-4.dp06",
+      "esrs.2023-set1.e2-4.dp07"
+    ],
+    "policy": "esrs.2023-set1.e2-4.policy.report-applicable-alternative-without-arithmetic",
+    "relation_id": "esrs.2023-set1.e2-4.relation.microplastics-alternative-group",
+    "relation_type": "alternative_group",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-note"
+    ]
+  },
+  {
+    "activation_predicate": {
+      "operator": "in",
+      "path": "esrs.2023-set1.e2-4.dp09.element.method_code",
+      "value": [
+        "periodic_measurement",
+        "site_specific_calculation",
+        "published_factor_calculation",
+        "estimation"
+      ]
+    },
+    "description": "The reason disclosure is applicable when a method below direct measurement is used.",
+    "policy": "esrs.2023-set1.e2-4.policy.activate-when-inferior-method-reported",
+    "relation_id": "esrs.2023-set1.e2-4.relation.inferior-method-reason-activation",
+    "relation_type": "conditional_activation",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp09"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp15"
+    ]
+  },
+  {
+    "activation_predicate": {
+      "operator": "eq",
+      "path": "report_context.ied_or_bref_applicable",
+      "value": true
+    },
+    "description": "AR 25 supplementary datapoints are considered when IED and relevant BREF or BAT conclusions apply.",
+    "policy": "esrs.2023-set1.e2-4.policy.activate-ied-bref-supplementary-datapoints",
+    "relation_id": "esrs.2023-set1.e2-4.relation.ied-bref-conditional-group",
+    "relation_type": "conditional_activation",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp16",
+      "esrs.2023-set1.e2-4.dp17",
+      "esrs.2023-set1.e2-4.dp18",
+      "esrs.2023-set1.e2-4.dp19",
+      "esrs.2023-set1.e2-4.dp20"
+    ]
+  }
+]

@@ -8,6 +8,7 @@ from esg_v2.document.artifact_loader import OcrArtifactLoader
 from esg_v2.document.contracts import DocumentIrBuildRequest, DocumentIrBuildResult
 from esg_v2.document.deduplicator import DeterministicEntityDeduplicator
 from esg_v2.document.identifier_normalizer import CanonicalIdentifierNormalizer
+from esg_v2.document.identity import resolve_document_identity
 from esg_v2.document.local_forensics import LocalPdfProcessor
 from esg_v2.document.logical_table_builder import LogicalTableBuilder
 from esg_v2.document.page_renderer import PageRenderer
@@ -32,6 +33,7 @@ from esg_v2.storage.package_layout import (
     require_package_dir_name,
     require_run_id,
 )
+from esg_v2.storage.ir_retention import DocumentIrRetentionManager
 
 
 LogFn = Callable[[str], None]
@@ -56,14 +58,25 @@ class DocumentIrWorkflow:
         if request.parent_ir_run_id:
             require_package_dir_name(request.parent_ir_run_id)
         output_dir = package_dir(self.settings.document_ir_output_root, run_id)
-        create_package_root(output_dir)
-        package = DocumentIrPackageLayout(output_dir)
-        version_manager = DocumentIrVersionManager(self.settings.document_ir_output_root)
-        revision = version_manager.next_revision(request.ocr_run_id, request.parent_ir_run_id)
 
         self._stage(log, telemetry, 1, f"Loading immutable OCR artifacts: {request.ocr_run_id}")
         artifact = OcrArtifactLoader(self.settings.output_root).load(request.ocr_run_id)
         pdf_path = request.pdf_path or self._infer_pdf_path(artifact)
+        identity = resolve_document_identity(
+            ocr_run_id=request.ocr_run_id,
+            ocr_manifest=artifact.manifest,
+            pdf_path=pdf_path,
+            document_label=request.document_label,
+        )
+        version_manager = DocumentIrVersionManager(self.settings.document_ir_output_root)
+        revision = version_manager.next_revision(
+            request.ocr_run_id,
+            request.parent_ir_run_id,
+            document_id=identity.document_id,
+            root_ir_run_id=run_id,
+        )
+        create_package_root(output_dir)
+        package = DocumentIrPackageLayout(output_dir)
 
         render_message = f"2/11 Rendering PDF pages at {request.render_dpi} DPI"
         self._stage(log, telemetry, 2, f"Rendering PDF pages at {request.render_dpi} DPI")
@@ -100,6 +113,10 @@ class DocumentIrWorkflow:
             run_id=run_id,
             pdf_path=pdf_path,
             rendered=rendered,
+            document_id=identity.document_id,
+            document_label=identity.document_label,
+            external_document_id=request.external_document_id,
+            lineage_id=revision.lineage_id,
             ir_revision=revision.revision,
             parent_ir_run_id=revision.parent_ir_run_id,
         )
@@ -123,11 +140,17 @@ class DocumentIrWorkflow:
         self._stage(log, telemetry, 8, "Detecting horizontal page spreads and building composite evidence")
         document = HorizontalSpreadBuilder().build(document, output_dir)
 
-        self._stage(log, telemetry, 9, "Routing typed quality risks and optional Qiniu agent reviews")
+        self._stage(
+            log,
+            telemetry,
+            9,
+            f"Routing typed quality risks and optional {request.review_provider} agent reviews",
+        )
         document = OcrQualityRouter().route(document, local_forensics).document
         if request.execute_vlm_reviews:
             document = AgentReviewOrchestrator(
                 self.settings,
+                provider=request.review_provider,
                 api_key=request.qiniu_api_key,
                 telemetry=telemetry,
             ).execute(
@@ -153,6 +176,21 @@ class DocumentIrWorkflow:
             expected_page_count=int(expected_page_count) if isinstance(expected_page_count, (int, float, str)) and str(expected_page_count).isdigit() else None,
         )
         paths = DocumentIrWriter(output_dir).write(document)
+        retention = DocumentIrRetentionManager(
+            ir_output_root=self.settings.document_ir_output_root,
+            ir_state_root=self.settings.document_ir_job_state_root,
+            cleanup_root=self.settings.storage_cleanup_root,
+            pipeline_queue_db=self.settings.pipeline_queue_db,
+            enabled=self.settings.document_ir_best_only_retention,
+        ).reconcile_safely(run_id)
+        if retention.get("action") == "cleanup_failed":
+            self._log(log, f"Document IR retention cleanup failed: {retention.get('error')}")
+        elif retention.get("pruned_run_ids"):
+            self._log(
+                log,
+                f"Retained best Document IR {retention['retained_run_id']}; pruned "
+                f"{len(retention['pruned_run_ids'])} superseded revision(s)",
+            )
 
         return DocumentIrBuildResult(
             run_id=run_id,
@@ -170,6 +208,7 @@ class DocumentIrWorkflow:
             spread_count=len(document.spreads),
             review_task_count=len(document.review_tasks),
             readiness=document.readiness,
+            retention=retention,
         )
 
     @staticmethod

@@ -5,7 +5,9 @@ import re
 from collections.abc import Callable
 from typing import Any
 
+from esg_v2.document.chart_spec_normalizer import ChartSpecNormalizer
 from esg_v2.document.contracts import BlockIR, DocumentIR, FigureIR, TableIR, VlmReviewTask
+from esg_v2.document.model_json_decoder import ModelJsonObjectDecoder
 from esg_v2.document.operation_registry import PATCH_OPERATION_NAMES
 from esg_v2.document.patch_guard import PatchGuard
 from esg_v2.document.text_normalization import comparison_key
@@ -41,19 +43,12 @@ class ReviewResponseAdapter:
             if lines and lines[-1].strip() == "```":
                 lines = lines[:-1]
             text = "\n".join(lines).strip()
-        try:
-            value = json.loads(text)
-        except json.JSONDecodeError as exc:
-            start, end = text.find("{"), text.rfind("}")
-            if start >= 0 and end > start:
-                try:
-                    value = json.loads(text[start : end + 1])
-                except json.JSONDecodeError:
-                    raise ValueError(f"Response content is not valid JSON: {exc}") from exc
-            else:
-                raise ValueError(f"Response content is not valid JSON: {exc}") from exc
-        if not isinstance(value, dict):
-            raise ValueError("Response JSON must be an object")
+        decoded = ModelJsonObjectDecoder.decode(text)
+        value = decoded.value
+        if decoded.repair_codes:
+            raw_flags = value.get("quality_flags")
+            flags = raw_flags if isinstance(raw_flags, list) else [raw_flags] if isinstance(raw_flags, str) else []
+            value["quality_flags"] = list(dict.fromkeys([*flags, *decoded.repair_codes]))
         return value
 
     def normalize_reviewer(
@@ -65,17 +60,117 @@ class ReviewResponseAdapter:
         alias_normalizer: Callable[..., dict[str, Any]],
     ) -> dict[str, Any]:
         normalized = alias_normalizer(document, payload, task=task)
+        self._normalize_non_table_visual_abstention(document, normalized, task)
         for patch in normalized.get("patches", []):
-            if not isinstance(patch, dict) or patch.get("operation") != "set_table_grid":
+            if not isinstance(patch, dict):
                 continue
             value = patch.get("proposed_value")
             if not isinstance(value, dict):
+                continue
+            if patch.get("operation") == "upsert_chart_spec":
+                raw_patch_refs = patch.get("evidence_refs")
+                patch_refs = (
+                    [raw_patch_refs]
+                    if isinstance(raw_patch_refs, str)
+                    else list(raw_patch_refs or [])
+                )
+                patch["evidence_refs"] = patch_refs
+                chart = ChartSpecNormalizer.normalize(
+                    value,
+                    evidence_refs=[
+                        *patch_refs,
+                        *task.input_refs,
+                    ],
+                )
+                if chart != value:
+                    patch["proposed_value"] = chart
+                    flags = normalized.setdefault("quality_flags", [])
+                    if "chart_spec_aliases_normalized" not in flags:
+                        flags.append("chart_spec_aliases_normalized")
+                continue
+            if patch.get("operation") != "set_table_grid":
                 continue
             target = PatchGuard._target(document, str(patch.get("target_id") or ""))
             if not isinstance(target, TableIR):
                 continue
             self._complete_table_repair_contract(value, target, patch, task)
         return normalized
+
+    @staticmethod
+    def _normalize_non_table_visual_abstention(
+        document: DocumentIR,
+        normalized: dict[str, Any],
+        task: VlmReviewTask,
+    ) -> None:
+        if normalized.get("verdict") != "abstain":
+            return
+        if not task.review_plan or task.review_plan.review_kind != "table_candidate_classification":
+            return
+        table = PatchGuard._target(document, task.target_id)
+        if not isinstance(table, TableIR) or "local_only_table_candidate" not in table.quality_flags:
+            return
+        raw_findings = normalized.get("findings") or []
+        if isinstance(raw_findings, str):
+            raw_findings = [raw_findings]
+        explanation = " ".join(
+            str(value)
+            for value in [
+                *raw_findings,
+                normalized.get("abstain_reason") or "",
+                *(decision.get("rationale") or "" for decision in normalized.get("scope_decisions", []) if isinstance(decision, dict)),
+            ]
+        ).casefold()
+        decisive_non_table = any(
+            phrase in explanation
+            for phrase in (
+                "not a table",
+                "not tabular",
+                "non-tabular",
+                "non tabular",
+                "不是表格",
+                "非表格",
+                "treemap",
+            )
+        )
+        visual_classification = any(
+            phrase in explanation
+            for phrase in ("visualization", "visualisation", "infographic", "chart", "treemap", "图表", "可视化")
+        )
+        if not decisive_non_table or not visual_classification:
+            return
+        rationale = (
+            "The reviewer explicitly classified the local OCR candidate as a non-tabular visual; "
+            "the adapter converts that unambiguous classification into the registered retirement operation."
+        )
+        normalized.update(
+            {
+                "verdict": "propose_patch",
+                "scope_decisions": [
+                    {
+                        "target_type": "table",
+                        "target_id": table.table_id,
+                        "decision": "propose_patch",
+                        "rationale": rationale,
+                        "confidence": max(0.9, float(normalized.get("confidence") or 0.0)),
+                    }
+                ],
+                "patches": [
+                    {
+                        "target_type": "table",
+                        "target_id": table.table_id,
+                        "operation": "retire_table_candidate",
+                        "proposed_value": {"disposition": "non_table_visual"},
+                        "evidence_refs": list(task.input_refs),
+                        "rationale": rationale,
+                        "confidence": max(0.9, float(normalized.get("confidence") or 0.0)),
+                    }
+                ],
+                "abstain_reason": None,
+            }
+        )
+        flags = normalized.setdefault("quality_flags", [])
+        if "adapter_non_table_visual_classification" not in flags:
+            flags.append("adapter_non_table_visual_classification")
 
     @staticmethod
     def normalize_verifier(payload: dict[str, Any]) -> dict[str, Any]:
@@ -103,6 +198,21 @@ class ReviewResponseAdapter:
             if raw in abstain_aliases:
                 return "abstain"
             return default
+
+        def messages(value: Any) -> list[str]:
+            if value is None:
+                return []
+            if isinstance(value, str):
+                return [value] if value.strip() else []
+            if isinstance(value, dict):
+                return [json.dumps(value, ensure_ascii=False, sort_keys=True)]
+            if isinstance(value, (list, tuple)):
+                return [
+                    item if isinstance(item, str) else json.dumps(item, ensure_ascii=False, sort_keys=True)
+                    for item in value
+                    if str(item).strip()
+                ]
+            return [str(value)]
 
         try:
             top_confidence = max(0.0, min(1.0, float(normalized.get("confidence", 0.5))))
@@ -133,12 +243,11 @@ class ReviewResponseAdapter:
                     )
                 except (TypeError, ValueError):
                     decision["confidence"] = top_confidence
-                decision["disagreements"] = (
+                decision["disagreements"] = messages(
                     raw.get("disagreements")
                     or raw.get("reasons")
                     or raw.get("reason")
                     or raw.get("rationale")
-                    or []
                 )
                 decisions.append(decision)
 
@@ -151,12 +260,23 @@ class ReviewResponseAdapter:
             top_verdict = "reject" if "reject" in verdicts else "abstain" if "abstain" in verdicts else "accept"
         normalized["verdict"] = top_verdict or "abstain"
         normalized["confidence"] = top_confidence
-        normalized["disagreements"] = (
+        normalized["disagreements"] = messages(
             normalized.get("disagreements")
             or normalized.get("reasons")
             or normalized.get("reason")
-            or []
         )
+        for decision in decisions:
+            if decision["verdict"] in {"reject", "abstain"} and not decision["disagreements"]:
+                decision["disagreements"] = list(normalized["disagreements"])
+        if normalized["verdict"] in {"reject", "abstain"} and not normalized["disagreements"]:
+            if not decisions or any(
+                decision["verdict"] in {"reject", "abstain"} and not decision["disagreements"]
+                for decision in decisions
+            ):
+                raise ValueError(
+                    "Verifier reject/abstain must identify a concrete evidence disagreement; "
+                    "an empty negative verdict is not a valid review decision."
+                )
         normalized["transaction_decisions"] = decisions
         return normalized
 
@@ -441,6 +561,19 @@ class ReviewResponseAdapter:
                 ),
                 None,
             )
+            raw_evidence_refs = (
+                patch.get("evidence_refs")
+                or patch.get("visual_evidence_refs")
+                or patch.get("evidence_ids")
+                or patch.get("evidence")
+                or []
+            )
+            if isinstance(raw_evidence_refs, str):
+                raw_evidence_refs = [raw_evidence_refs]
+            elif isinstance(raw_evidence_refs, (tuple, set)):
+                raw_evidence_refs = list(raw_evidence_refs)
+            elif not isinstance(raw_evidence_refs, list):
+                raw_evidence_refs = [raw_evidence_refs]
             review_kind = task.review_plan.review_kind if task and task.review_plan else ""
             if (
                 operation in {"replace_block_text", "replace_cell_text"}
@@ -463,18 +596,51 @@ class ReviewResponseAdapter:
                 target_type = "spread"
                 normalized_flags.append("spread_operation_target_normalized")
             if operation == "bind_block_to_figure" and not isinstance(target, BlockIR):
+                original_figure = target if isinstance(target, FigureIR) else None
                 block_id = (
                     proposed_value.get("block_id")
                     if isinstance(proposed_value, dict)
                     else None
                 )
+                if not block_id:
+                    referenced_blocks = [
+                        str(ref)
+                        for ref in raw_evidence_refs
+                        if isinstance(PatchGuard._target(document, str(ref)), BlockIR)
+                    ]
+                    if len(referenced_blocks) == 1:
+                        block_id = referenced_blocks[0]
                 block = PatchGuard._target(document, str(block_id or ""))
-                if isinstance(block, BlockIR):
+                binding_payload = dict(proposed_value) if isinstance(proposed_value, dict) else {}
+                if (
+                    isinstance(block, BlockIR)
+                    and original_figure is not None
+                    and binding_payload.get("visual_role")
+                ):
                     target_id = block.block_id
                     target = block
                     actual_target_type = "block"
                     target_type = "block"
+                    binding_payload.setdefault("figure_id", original_figure.figure_id)
+                    binding_payload.setdefault("relation", "element")
+                    proposed_value = binding_payload
                     normalized_flags.append("figure_binding_target_normalized_to_block")
+                else:
+                    normalized_flags.append("invalid_figure_binding_patch_dropped")
+                    continue
+            if operation == "bind_block_to_figure":
+                binding_payload = proposed_value if isinstance(proposed_value, dict) else {}
+                relation = str(binding_payload.get("relation") or "element")
+                if (
+                    not isinstance(target, BlockIR)
+                    or not binding_payload.get("figure_id")
+                    or (relation != "caption" and not binding_payload.get("visual_role"))
+                ):
+                    normalized_flags.append("invalid_figure_binding_patch_dropped")
+                    continue
+            if operation == "set_caption" and not str(proposed_value or "").strip():
+                normalized_flags.append("empty_caption_patch_dropped")
+                continue
             if operation == "add_visual_text_block" and isinstance(proposed_value, dict):
                 caption_type = str(proposed_value.get("block_type") or "").casefold()
                 if caption_type in {"figure_caption", "table_caption"}:
@@ -568,11 +734,7 @@ class ReviewResponseAdapter:
                     "field_path": field_path or None,
                     "proposed_value": proposed_value,
                     "evidence_refs": (
-                        patch.get("evidence_refs")
-                        or patch.get("visual_evidence_refs")
-                        or patch.get("evidence_ids")
-                        or patch.get("evidence")
-                        or []
+                        raw_evidence_refs
                     ),
                     "rationale": patch.get("rationale")
                     or patch.get("reason")

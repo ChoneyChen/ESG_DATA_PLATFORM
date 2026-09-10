@@ -54,7 +54,13 @@ OPERATION_SPECS = (
     _spec("add_visual_text_block", "page figure", "medium", "{text,bbox,visual_role?}", "Add only visible text absent from existing blocks and cells."),
     _spec("set_figure_legend_text", "figure", "medium", "list[string]", "Transcribe visible legend labels exactly."),
     _spec("upsert_figure_structure", "figure", "high", "figure structure object", "Model a non-chart visual using bounded visible nodes and relations."),
-    _spec("upsert_chart_spec", "figure", "high", "ChartSpec", "Return a compact chart specification with visible categories, series, values, units, and evidence refs."),
+    _spec(
+        "upsert_chart_spec",
+        "figure",
+        "high",
+        "{chart_type,title?,categories?,series:[{name,unit?,points:[{category,value,display_value?,evidence_refs?}]}],visual_evidence_refs}",
+        "If chart_spec is null and visible values exist, do not confirm unchanged. Return canonical ChartSpec using series[].points; never use type, x_categories, data, or values aliases.",
+    ),
     _spec("bind_block_to_figure", "block", "medium", "{figure_id,visual_role?}", "Bind an existing block instead of duplicating its text."),
     # Compatibility operations are readable for old revisions but are never planned for new work.
     _spec("replace_text", "page block cell", "high", "legacy", "Legacy compatibility operation."),

@@ -39,16 +39,16 @@ from esg_v2.document.transaction_coordinator import TransactionCoordinator
 from esg_v2.document.convergence_engine import ConvergenceEngine
 from esg_v2.document.review_context import ReviewContextCompiler
 from esg_v2.document.review_response_adapter import ReviewResponseAdapter
+from esg_v2.document.spread_pair_analysis import SpreadPairAnalyzer
 from esg_v2.document.model_runner import (
     ModelRunner,
     ProviderAccountQuotaUnavailable,
     ReviewExecutionUnavailable,
 )
 from esg_v2.models.contracts import CloudChatResult
-from esg_v2.models.model_registry import ModelHealthRegistry, ModelProfile, QiniuModelRegistry
-from esg_v2.models.provider_rate_limit import ProviderRateLimitCoordinator
-from esg_v2.models.qiniu_adapter import QiniuApiError, QiniuModelAdapter
-from esg_v2.models.vision_input import QiniuVisionInputResolver
+from esg_v2.models.model_registry import ModelHealthRegistry, ModelProfile
+from esg_v2.models.provider_error import ModelProviderError
+from esg_v2.models.review_provider import ReviewProviderName, create_review_provider
 
 
 LogFn = Callable[[str], None]
@@ -62,17 +62,19 @@ class AgentReviewOrchestrator:
         self,
         settings: Settings,
         *,
+        provider: ReviewProviderName = "qiniu",
         api_key: str | None = None,
         telemetry: Callable[[dict[str, Any]], None] | None = None,
     ):
         self.settings = settings
-        self.adapter = QiniuModelAdapter(settings, api_key=api_key)
-        self.rate_limits = ProviderRateLimitCoordinator(
-            settings,
-            self.adapter.credential_scope_id,
-        )
-        self.registry = QiniuModelRegistry(settings, self.adapter)
-        self.input_resolver = QiniuVisionInputResolver()
+        provider_bundle = create_review_provider(settings, provider, api_key=api_key)
+        self.provider_name = provider_bundle.name
+        self.adapter = provider_bundle.adapter
+        self.rate_limits = provider_bundle.rate_limits
+        self.registry = provider_bundle.registry
+        self.input_resolver = provider_bundle.input_resolver
+        self.verification_policy = provider_bundle.verification_policy
+        self.independent_model_family = provider_bundle.independent_model_family
         self.guard = PatchGuard()
         self.applier = DocumentPatchApplier()
         self.policy = ReviewPolicyEngine()
@@ -90,6 +92,7 @@ class AgentReviewOrchestrator:
             self.response_adapter,
             telemetry=telemetry,
             rate_limits=self.rate_limits,
+            verification_policy=self.verification_policy,
         )
 
     def execute(
@@ -101,7 +104,14 @@ class AgentReviewOrchestrator:
         log: LogFn | None = None,
     ) -> DocumentIR:
         selected_targets = set(review_target_ids or [])
+        document.quality_report["review_provider"] = {
+            "provider": self.provider_name,
+            "verification_policy": self.verification_policy,
+            "independent_model_family": self.independent_model_family,
+        }
         for task in document.review_tasks:
+            if self._selected(task, selected_targets):
+                task.provider = self.provider_name
             try:
                 self.plan_compiler.validate(document, task)
             except ReviewPlanContractError as exc:
@@ -177,7 +187,7 @@ class AgentReviewOrchestrator:
                 for patch in document.atomic_patches
             ]
             return document
-        cached_provider_block = self.rate_limits.account_block()
+        cached_provider_block = self.rate_limits.account_block() if self.rate_limits is not None else None
         if cached_provider_block is not None:
             reason = self._provider_block_reason(cached_provider_block, cached=True)
             skipped = self._defer_provider_blocked_tasks(
@@ -199,8 +209,8 @@ class AgentReviewOrchestrator:
             return document
         try:
             catalog = self.registry.refresh()
-        except QiniuApiError as exc:
-            if exc.account_wide_rate_limit:
+        except ModelProviderError as exc:
+            if exc.account_wide_rate_limit and self.rate_limits is not None:
                 provider_state = self.rate_limits.record_tpd(
                     str(exc),
                     retry_after_seconds=exc.retry_after_seconds,
@@ -289,7 +299,9 @@ class AgentReviewOrchestrator:
                 )
             except ProviderAccountQuotaUnavailable as exc:
                 provider_blocked = True
-                provider_state = exc.provider_state or self.rate_limits.snapshot()
+                provider_state = exc.provider_state or (
+                    self.rate_limits.snapshot() if self.rate_limits is not None else {}
+                )
                 provider_reason = str(exc)
                 self._defer(
                     document,
@@ -316,11 +328,19 @@ class AgentReviewOrchestrator:
             if task.status == "pending" and selected_targets and not self._selected(task, selected_targets):
                 self._defer(document, task, "outside_targeted_review_scope")
         document.quality_report["model_registry"] = self.registry.catalog_snapshot()
-        document.quality_report["provider_rate_limit"] = {
-            **self.rate_limits.snapshot(),
-            "run_short_circuited": provider_blocked,
-            "http_skipped_task_count": provider_skipped_count,
-        }
+        if self.rate_limits is not None:
+            document.quality_report["provider_rate_limit"] = {
+                **self.rate_limits.snapshot(),
+                "run_short_circuited": provider_blocked,
+                "http_skipped_task_count": provider_skipped_count,
+            }
+        else:
+            document.quality_report["provider_rate_limit"] = {
+                "provider": self.provider_name,
+                "not_applicable": True,
+                "run_short_circuited": False,
+                "http_skipped_task_count": 0,
+            }
         self._finish_report(document)
         document.correction_patches = [
             CorrectionPatch.model_validate(patch.model_dump(mode="json")) for patch in document.atomic_patches
@@ -528,8 +548,10 @@ class AgentReviewOrchestrator:
                         "failure_class": "repeated_failure",
                         "failure_owner": "model",
                         "retryable": False,
-                        "failure_fingerprint": self.convergence.failure_fingerprint(
-                            "repeated_failure",
+                        "failure_fingerprint": self.convergence.terminal_repeated_failure_fingerprint(
+                            task.task_id,
+                            transactions,
+                            patches,
                             feedback,
                         ),
                     }
@@ -542,8 +564,60 @@ class AgentReviewOrchestrator:
                 )
                 return
 
+            guard_only_transactions = []
+            verifier_transactions = []
+            for transaction in passed_transactions:
+                transaction_patches = [
+                    patch
+                    for patch in passed_patches
+                    if patch.transaction_id == transaction.transaction_id
+                ]
+                if transaction_patches and all(patch.operation == "confirm" for patch in transaction_patches):
+                    guard_only_transactions.append(transaction)
+                else:
+                    verifier_transactions.append(transaction)
+            for transaction in guard_only_transactions:
+                transaction_patches = [
+                    patch
+                    for patch in passed_patches
+                    if patch.transaction_id == transaction.transaction_id
+                ]
+                self.applier.apply(document, transaction_patches)
+                transaction.status = "accepted"
+                candidates_by_transaction[transaction.transaction_id].status = "accepted"
+                resolved_required_targets.update(transaction.target_ids)
+            passed_transactions = verifier_transactions
+            passed_patches = [
+                patch
+                for patch in passed_patches
+                if patch.transaction_id in {item.transaction_id for item in verifier_transactions}
+            ]
+            if not passed_transactions:
+                if required_targets.issubset(resolved_required_targets):
+                    self._resolve_task(document, task, reviewer_result, None)
+                    self._resolve_superseded_optional_tasks(document, task.task_id)
+                    return
+                self._defer(
+                    document,
+                    task,
+                    "required_review_targets_incomplete_after_guard_confirmation",
+                    errors=[
+                        "Guard-confirmed transactions did not cover required targets: "
+                        f"{sorted(required_targets - resolved_required_targets)}."
+                    ],
+                    failure_class="system_contract",
+                    failure_owner="system",
+                    retryable=False,
+                )
+                return
+
             if log:
-                log(f"Agent review {task.task_id}: independent verifier round {round_index}")
+                verifier_label = (
+                    "same-model isolated verifier"
+                    if self.verification_policy == "same_model_secondary_verification"
+                    else "independent verifier"
+                )
+                log(f"Agent review {task.task_id}: {verifier_label} round {round_index}")
             try:
                 task.verifier_call_count += 1
                 task.resume_stage = "verifier_pending"
@@ -616,6 +690,9 @@ class AgentReviewOrchestrator:
                 task_id=task.task_id,
                 model_id=verifier_profile.model_id,
                 model_family=verifier_profile.family,
+                provider=verifier_profile.provider,
+                verification_policy=self.verification_policy,
+                independent_model_family=(verifier_profile.family != profile.family),
                 reviewer_result_id=reviewer_result.reviewer_result_id,
                 transaction_ids=[item.transaction_id for item in passed_transactions],
                 transaction_decisions=transaction_decisions,
@@ -1328,6 +1405,13 @@ class AgentReviewOrchestrator:
                 if decision.decision == "confirm" and decision.target_id not in covered_targets
             )
 
+        proposals = self._complete_spread_transaction(
+            document,
+            task,
+            proposals,
+            confidence=payload.confidence,
+        )
+
         patches = []
         for index, proposal in enumerate(proposals, start=1):
             patch = AtomicPatch(
@@ -1387,6 +1471,7 @@ class AgentReviewOrchestrator:
             task_id=task.task_id,
             model_id=profile.model_id,
             model_family=profile.family,
+            provider=profile.provider,
             attempt=round_index,
             verdict=payload.verdict,
             findings=payload.findings,
@@ -1410,48 +1495,71 @@ class AgentReviewOrchestrator:
         *,
         confidence: float,
     ) -> AtomicPatchProposal | None:
+        spread_target_id = (
+            task.target_id
+            if task.target_type == "spread"
+            else next(
+                (
+                    item.target_id
+                    for item in task.scope
+                    if item.target_type == "spread"
+                ),
+                None,
+            )
+        )
         spread = next(
-            (item for item in document.spreads if item.spread_id == task.target_id),
+            (item for item in document.spreads if item.spread_id == spread_target_id),
             None,
         )
         if spread is None or len(spread.page_indices) != 2:
             return None
-        entity_pages = PatchGuard._entity_page_indices(document)
-        left_page, right_page = spread.page_indices
-        for entity_type in ("table", "figure", "block"):
-            left_ids = []
-            right_ids = []
-            for entity_id in spread.member_entity_ids:
-                entity = PatchGuard._target(document, entity_id)
-                if PatchGuard._target_type(entity) != entity_type:
-                    continue
-                pages = entity_pages.get(entity_id, set())
-                if pages == {left_page}:
-                    left_ids.append(entity_id)
-                elif pages == {right_page}:
-                    right_ids.append(entity_id)
-            if len(left_ids) == 1 and len(right_ids) == 1:
-                return AtomicPatchProposal(
-                    target_type="spread",
-                    target_id=spread.spread_id,
-                    operation="link_horizontal_continuation",
-                    proposed_value={
-                        "links": [
-                            {
-                                "source_id": left_ids[0],
-                                "target_id": right_ids[0],
-                                "confidence": confidence,
-                            }
-                        ]
-                    },
-                    evidence_refs=list(task.input_refs),
-                    rationale=(
-                        "Reviewer confirmed the spread and the local seam inventory contains "
-                        f"one unambiguous {entity_type} on each member page."
-                    ),
-                    confidence=confidence,
-                )
-        return None
+        pair = SpreadPairAnalyzer().analyze(document, spread).unique_link_pair
+        if pair is None:
+            return None
+        return AtomicPatchProposal(
+            target_type="spread",
+            target_id=spread.spread_id,
+            operation="link_horizontal_continuation",
+            proposed_value={
+                "links": [
+                    {
+                        "source_id": pair.left_id,
+                        "target_id": pair.right_id,
+                        "confidence": confidence,
+                    }
+                ]
+            },
+            evidence_refs=list(task.input_refs),
+            rationale=(
+                "Reviewer confirmed the spread and local geometry contains one "
+                f"unambiguous aligned {pair.entity_type} pair across the seam."
+            ),
+            confidence=confidence,
+        )
+
+    @classmethod
+    def _complete_spread_transaction(
+        cls,
+        document: DocumentIR,
+        task: VlmReviewTask,
+        proposals: list[AtomicPatchProposal],
+        *,
+        confidence: float,
+    ) -> list[AtomicPatchProposal]:
+        """Compile deterministic dependencies after semantic spread confirmation."""
+        completed = list(proposals)
+        if not any(item.operation == "confirm_spread" for item in completed):
+            return completed
+        if any(item.operation == "link_horizontal_continuation" for item in completed):
+            return completed
+        inferred = cls._unique_spread_link_proposal(
+            document,
+            task,
+            confidence=confidence,
+        )
+        if inferred is not None:
+            completed.append(inferred)
+        return completed
 
     @staticmethod
     def _tracked_evidence_refs(
@@ -1765,7 +1873,7 @@ class AgentReviewOrchestrator:
         document: DocumentIR,
         task: VlmReviewTask,
         reviewer: ReviewerResult,
-        verifier: VerifierResult,
+        verifier: VerifierResult | None,
     ) -> None:
         accepted = [
             patch
@@ -1786,7 +1894,10 @@ class AgentReviewOrchestrator:
             guard_result_ids=list(task.guard_result_ids),
             verifier_result_ids=list(task.verifier_result_ids),
             reason=(
-                "All required review targets are covered by independently guarded patch "
+                "All required review targets are covered by Guard-passing confirmation transactions; "
+                "no content mutation required a second model call."
+                if verifier is None
+                else "All required review targets are covered by independently guarded patch "
                 "transactions and an independent model-family verifier."
             ),
             decided_by="agent_consensus",

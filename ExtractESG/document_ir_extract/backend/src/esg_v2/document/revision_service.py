@@ -38,6 +38,7 @@ from esg_v2.storage.package_layout import (
     page_stem,
     require_run_id,
 )
+from esg_v2.storage.ir_retention import DocumentIrRetentionManager
 
 
 class DocumentIrRevisionService:
@@ -74,15 +75,21 @@ class DocumentIrRevisionService:
         task = next((item for item in document.review_tasks if item.task_id == task_id), None)
         if task is None:
             raise KeyError(f"Review task not found: {task_id}")
+        if request.action == "continue_limited":
+            if not request.notes or not request.notes.strip():
+                raise ValueError("Limited continuation requires an explicit reason")
+            self._record_human_action(document, request, target_type="review_task", target_id=task_id)
+            # Keep the unresolved task and failed patches truthful. This action
+            # publishes a revision with bounded evidence availability, not approval.
+            document.quality_report.setdefault("limited_continuation_requests", []).append({
+                "task_id": task_id, "decided_by": request.decided_by, "notes": request.notes,
+            })
+            return self._finalize(document, output_dir, rebuild=False)
         if request.action == "accept_current_nonmaterial":
             if task.blocking:
                 raise ValueError("Only a non-blocking enhancement may be accepted as non-material")
             if task.status not in {"pending", "queued", "deferred", "failed", "skipped"}:
                 raise ValueError(f"Optional review task is not open: {task.status}")
-            if not str(request.notes or "").strip():
-                raise ValueError(
-                    "Explain why this optional enhancement may remain unexecuted in the current revision"
-                )
             self._record_human_action(
                 document,
                 request,
@@ -172,8 +179,6 @@ class DocumentIrRevisionService:
             return self._finalize(document, output_dir, rebuild=False)
         if request.action != "keep_current":
             raise ValueError("A review task can be closed only with keep_current or a typed spread decision")
-        if not str(request.notes or "").strip():
-            raise ValueError("Explain why the current IR is correct before closing the human task")
         unresolved = [
             patch
             for patch in document.atomic_patches
@@ -282,11 +287,19 @@ class DocumentIrRevisionService:
             "requested_by": request.requested_by,
             "notes": request.notes,
             "requested_at": datetime.now(timezone.utc).isoformat(),
+            "review_provider": request.review_provider,
         }
         if request.execute_vlm_reviews:
-            self._stage(telemetry, log, 3, 4, "Running targeted Qiniu agent review")
+            self._stage(
+                telemetry,
+                log,
+                3,
+                4,
+                f"Running targeted {request.review_provider} agent review",
+            )
             document = AgentReviewOrchestrator(
                 self.settings,
+                provider=request.review_provider,
                 api_key=request.qiniu_api_key,
                 telemetry=telemetry,
             ).execute(
@@ -351,13 +364,21 @@ class DocumentIrRevisionService:
             "requested_by": request.requested_by,
             "notes": request.notes,
             "requested_at": datetime.now(timezone.utc).isoformat(),
+            "review_provider": request.review_provider,
         }
         document.quality_report.setdefault("review_retry_history", []).append(
             document.metadata.source_artifacts["review_retry_request"]
         )
-        self._stage(telemetry, log, 2, 3, "Running selected Qiniu review tasks")
+        self._stage(
+            telemetry,
+            log,
+            2,
+            3,
+            f"Running selected {request.review_provider} review tasks",
+        )
         document = AgentReviewOrchestrator(
             self.settings,
+            provider=request.review_provider,
             api_key=request.qiniu_api_key,
             telemetry=telemetry,
         ).execute(
@@ -455,6 +476,8 @@ class DocumentIrRevisionService:
         revision = DocumentIrVersionManager(self.settings.document_ir_output_root).next_revision(
             document.metadata.ocr_run_id,
             parent_run_id,
+            document_id=document.metadata.document_id,
+            root_ir_run_id=requested_run_id,
         )
         run_id = requested_run_id or self._new_run_id(document.metadata.ocr_run_id, suffix)
         require_run_id(run_id, "ir")
@@ -468,11 +491,13 @@ class DocumentIrRevisionService:
         else:
             self._copy_legacy_visual_artifacts(document, parent_dir, output_dir)
         document.metadata.run_id = run_id
+        document.metadata.document_id = revision.document_id
+        document.metadata.lineage_id = revision.lineage_id
         document.metadata.ir_revision = revision.revision
         document.metadata.parent_ir_run_id = parent_run_id
         document.metadata.created_at = datetime.now(timezone.utc).isoformat()
-        document.schema_version = "document-ir-v0.11"
-        document.metadata.pipeline_version = "document-pipeline-v0.11.1"
+        document.schema_version = "document-ir-v0.12"
+        document.metadata.pipeline_version = "document-pipeline-v0.12.1"
         document.metadata.source_artifacts["revision_lineage"] = {
             "parent_ir_run_id": parent_run_id,
             "revision_type": suffix,
@@ -498,7 +523,15 @@ class DocumentIrRevisionService:
         ]
         document = DocumentIrValidator().validate(document, expected_page_count=len(document.pages))
         paths = DocumentIrWriter(output_dir).write(document)
-        return json.loads(paths["manifest"].read_text(encoding="utf-8"))
+        manifest = json.loads(paths["manifest"].read_text(encoding="utf-8"))
+        manifest["retention"] = DocumentIrRetentionManager(
+            ir_output_root=self.settings.document_ir_output_root,
+            ir_state_root=self.settings.document_ir_job_state_root,
+            cleanup_root=self.settings.storage_cleanup_root,
+            pipeline_queue_db=self.settings.pipeline_queue_db,
+            enabled=self.settings.document_ir_best_only_retention,
+        ).reconcile_safely(document.metadata.run_id)
+        return manifest
 
     @staticmethod
     def _finish_human_task_if_resolved(document: DocumentIR, task_id: str, request: PatchDecisionRequest) -> None:

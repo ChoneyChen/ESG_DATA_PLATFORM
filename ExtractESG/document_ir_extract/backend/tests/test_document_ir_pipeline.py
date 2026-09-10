@@ -146,7 +146,7 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     )
     document = json.loads(result.document_ir_path.read_text(encoding="utf-8"))
 
-    assert document["schema_version"] == "document-ir-v0.11"
+    assert document["schema_version"] == "document-ir-v0.12"
     assert len(document["pages"]) == 2
     assert len(document["layout_objects"]) == 8
     assert all(page["page_image_path"] for page in document["pages"])
@@ -179,6 +179,9 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     assert str(tmp_path) not in (result.output_dir / "canonical" / "document.json").read_text(encoding="utf-8")
     manifest = json.loads(manifest_text)
     assert manifest["package_schema_version"] == "document-ir-package-v1"
+    assert manifest["document_id"].startswith("doc-sha256-")
+    assert manifest["document_label"] == "report.pdf"
+    assert manifest["lineage_id"].startswith("irl-")
     assert manifest["entrypoints"]["canonical_document"] == "canonical/document.json"
     assert manifest["entrypoints"]["spreads"] == "canonical/spreads/index.json"
     assert manifest["entrypoints"]["logical_tables"] == "canonical/logical-tables/index.json"
@@ -195,15 +198,18 @@ def test_ir_revision_increments_from_parent(tmp_path: Path) -> None:
     first_run_id = "ir-20260718T010101Z-000000000002"
     second_run_id = "ir-20260718T010101Z-000000000003"
     first = workflow.run(DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path)), run_id=first_run_id)
+    first_manifest = json.loads(first.manifest_path.read_text(encoding="utf-8"))
     second = workflow.run(
         DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path), parent_ir_run_id=first_run_id),
         run_id=second_run_id,
     )
-    first_manifest = json.loads(first.manifest_path.read_text(encoding="utf-8"))
     second_manifest = json.loads(second.manifest_path.read_text(encoding="utf-8"))
     assert first_manifest["ir_revision"] == 1
     assert second_manifest["ir_revision"] == 2
     assert second_manifest["parent_ir_run_id"] == first_run_id
+    assert second.retention["retained_run_id"] == second_run_id
+    assert second.retention["pruned_run_ids"] == [first_run_id]
+    assert not first.manifest_path.exists()
 
 
 def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch) -> None:
@@ -293,6 +299,10 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     )
     assert duplicate.status_code == 409
     assert client.get("/api/document-ir/revisions/ocr-layout").json()[0]["ir_revision"] == 1
+    catalog = client.get("/api/document-ir/documents").json()
+    assert len(catalog) == 1
+    assert catalog[0]["document_label"] == "report.pdf"
+    assert client.get(f"/api/document-ir/documents/{catalog[0]['document_id']}/revisions").status_code == 200
 
 
 def test_nested_section_ranges_cover_all_descendant_pages() -> None:

@@ -1,0 +1,308 @@
+[
+  {
+    "aliases": {"en": ["environmental pollution"], "zh": ["环境污染"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollution",
+    "description": "Pollution as the common parent topic for releases to air, water and soil.",
+    "labels": {"en": "Pollution", "zh": "污染"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {
+      "en": ["air emissions", "emissions to air", "air pollutant emissions", "flue gas emissions"],
+      "zh": ["空气污染", "大气污染", "大气污染物", "空气排放", "废气排放", "烟气排放", "排入空气"]
+    },
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollution"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.air-pollution",
+    "description": "Pollution released to the air, including report headings for air-pollutant tables.",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.soil-pollution",
+      "esrs.2023-set1.e2-4.concept.water-pollution"
+    ],
+    "labels": {"en": "Air pollution", "zh": "空气污染排放"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {
+      "en": ["emissions to water", "discharge to water", "effluent discharge"],
+      "zh": ["水污染", "水体排放", "废水排放", "污水排放", "排入水体"]
+    },
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollution"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.water-pollution",
+    "description": "Pollution released to water bodies.",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.air-pollution",
+      "esrs.2023-set1.e2-4.concept.soil-pollution"
+    ],
+    "labels": {"en": "Water pollution", "zh": "水体污染排放"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {
+      "en": ["emissions to soil", "release to soil", "soil emissions"],
+      "zh": ["土壤污染", "土壤排放", "排放至土壤", "排入土壤"]
+    },
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollution"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.soil-pollution",
+    "description": "Pollution released to soil.",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.air-pollution",
+      "esrs.2023-set1.e2-4.concept.water-pollution"
+    ],
+    "labels": {"en": "Soil pollution", "zh": "土壤污染排放"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {
+      "en": ["polluting substance", "contaminant"],
+      "zh": ["污染因子", "污染物种类", "污染物名称"]
+    },
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant",
+    "description": "A pollutant disclosed by the undertaking; narrower concepts provide normalization aliases.",
+    "labels": {"en": "Pollutant", "zh": "污染物"},
+    "related_concept_ids": ["esrs.2023-set1.e2-4.concept.pollution"],
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["sulphur dioxide", "sulfur dioxide emissions"], "zh": ["二氧化硫排放", "硫氧化物"]},
+    "abbreviations": ["SO2"],
+    "applicable_context_concept_ids": ["esrs.2023-set1.e2-4.concept.air-pollution"],
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant.sulfur-dioxide",
+    "description": "Sulfur dioxide pollutant and common report variants.",
+    "formulas": ["SO₂"],
+    "labels": {"en": "Sulfur dioxide", "zh": "二氧化硫"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["nitrogen oxide emissions"], "zh": ["氮氧化物排放", "氮氧化物"]},
+    "abbreviations": ["NOx"],
+    "applicable_context_concept_ids": ["esrs.2023-set1.e2-4.concept.air-pollution"],
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant.nitrogen-oxides",
+    "description": "Nitrogen oxides pollutant family and common report abbreviation.",
+    "labels": {"en": "Nitrogen oxides", "zh": "氮氧化物类"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["particulates", "dust emissions"], "zh": ["颗粒物排放", "颗粒排放物", "粉尘排放", "烟尘", "顆粒物", "顆粒物排放", "顆粒排放物"]},
+    "abbreviations": ["PM", "PM10", "PM2.5"],
+    "applicable_context_concept_ids": ["esrs.2023-set1.e2-4.concept.air-pollution"],
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant.particulate-matter",
+    "description": "Particulate matter and common particle-size or dust expressions.",
+    "labels": {"en": "Particulate matter", "zh": "颗粒物"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["volatile organic compound emissions"], "zh": ["挥发性有机化合物", "挥发性有机物排放"]},
+    "abbreviations": ["VOC", "VOCs"],
+    "applicable_context_concept_ids": ["esrs.2023-set1.e2-4.concept.air-pollution"],
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant.voc",
+    "description": "Volatile organic compounds and common abbreviations.",
+    "labels": {"en": "Volatile organic compounds", "zh": "挥发性有机物"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["chemical oxygen demand indicator"], "zh": ["化学需氧量"]},
+    "abbreviations": ["COD"],
+    "applicable_context_concept_ids": ["esrs.2023-set1.e2-4.concept.water-pollution"],
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant.cod",
+    "description": "Chemical oxygen demand as commonly disclosed in wastewater tables.",
+    "labels": {"en": "Chemical oxygen demand", "zh": "化学需氧量指标"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["biochemical oxygen demand indicator"], "zh": ["生化需氧量"]},
+    "abbreviations": ["BOD"],
+    "applicable_context_concept_ids": ["esrs.2023-set1.e2-4.concept.water-pollution"],
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.pollutant.bod",
+    "description": "Biochemical oxygen demand as commonly disclosed in wastewater tables.",
+    "labels": {"en": "Biochemical oxygen demand", "zh": "生化需氧量指标"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["emissions", "discharges", "releases", "released amount"], "zh": ["排放量", "排放总量", "释放量", "排放数量"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.emission-amount",
+    "description": "A quantitative amount of pollution emitted, discharged or released.",
+    "labels": {"en": "Emission amount", "zh": "污染排放量"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["microplastic", "micro-plastics"], "zh": ["微塑料颗粒"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.microplastics",
+    "description": "Microplastics generated or used by the undertaking.",
+    "labels": {"en": "Microplastics", "zh": "微塑料"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["generation", "produced"], "zh": ["产生量", "生成", "生成量", "产出"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.generated",
+    "description": "Material generated by the undertaking.",
+    "labels": {"en": "Generated", "zh": "产生"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["usage", "use"], "zh": ["使用量", "采用"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.used",
+    "description": "Material used by the undertaking.",
+    "labels": {"en": "Used", "zh": "使用"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["generated and used", "generation and use"], "zh": ["产生和使用", "产生及使用", "产生与使用", "产生使用总量"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.generated-and-used",
+    "description": "A combined disclosure of material generated and used.",
+    "labels": {"en": "Generated and used combined", "zh": "产生与使用合并口径"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.efrag-ig3-2025"]
+  },
+  {
+    "aliases": {"en": ["measurement", "monitoring method", "estimation method", "calculation method"], "zh": ["测量方法", "监测方法", "直接测量", "估算方法", "计算方法"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.measurement-method",
+    "description": "Method used to quantify pollution-related data.",
+    "labels": {"en": "Measurement methodology", "zh": "污染测量方法"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["reason for estimation", "reason for lower-priority method"], "zh": ["方法选择原因", "采用估算的原因", "未采用直接测量的原因"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.method-choice-reason",
+    "description": "Reason for using a quantification method below direct measurement in the prescribed hierarchy.",
+    "labels": {"en": "Method choice reason", "zh": "量化方法选择原因"},
+    "related_concept_ids": ["esrs.2023-set1.e2-4.concept.measurement-method"],
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["data collection process", "information collection process"], "zh": ["数据收集流程", "数据采集流程", "信息来源"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.data-collection-process",
+    "description": "Process for collecting pollution accounting and reporting information.",
+    "labels": {"en": "Pollution data collection process", "zh": "污染数据收集流程"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["trend", "year-on-year change", "change during the period"], "zh": ["变化趋势", "同比变化", "年度变化", "随时间变化"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.change-over-time",
+    "description": "Change or trend in pollution performance over time.",
+    "labels": {"en": "Change over time", "zh": "时间变化"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["water-risk area", "area at water risk"], "zh": ["水资源风险", "水风险地区", "水风险区域"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.water-risk",
+    "description": "Area classified as being at water risk.",
+    "labels": {"en": "Water risk", "zh": "水风险"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["high-water-stress area", "area of high water stress"], "zh": ["水压力", "高水压力地区", "高水压力区域"]},
+    "broader_concept_ids": ["esrs.2023-set1.e2-4.concept.water-risk"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.water-stress",
+    "description": "Area classified as being under high water stress.",
+    "labels": {"en": "High water stress", "zh": "高水压力"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["share", "proportion", "percentage of total"], "zh": ["占比", "比例", "百分比"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.percentage",
+    "description": "A disclosed proportion or percentage.",
+    "labels": {"en": "Percentage", "zh": "百分比指标"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["EU industrial emissions law"], "zh": ["工业排放指令"]},
+    "abbreviations": ["IED"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.ied",
+    "description": "The EU Industrial Emissions Directive.",
+    "labels": {"en": "Industrial emissions directive", "zh": "欧盟工业排放指令"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["best available techniques reference document"], "zh": ["最佳可行技术参考文件"]},
+    "abbreviations": ["BREF"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.bref",
+    "description": "Best available techniques reference documents.",
+    "labels": {"en": "BAT reference document", "zh": "BAT参考文件"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["BAT AEL", "best available techniques associated emission level"], "zh": ["最佳可行技术相关排放水平"]},
+    "abbreviations": ["BAT-AEL"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.bat-ael",
+    "description": "Emission levels associated with best available techniques.",
+    "labels": {"en": "BAT-associated emission level", "zh": "BAT相关排放水平"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["BAT AEPL", "best available techniques associated environmental performance level"], "zh": ["最佳可行技术相关环境绩效水平"]},
+    "abbreviations": ["BAT-AEPL"],
+    "concept_id": "esrs.2023-set1.e2-4.concept.bat-aepl",
+    "description": "Environmental performance levels associated with best available techniques.",
+    "labels": {"en": "BAT-associated environmental performance level", "zh": "BAT相关环境绩效水平"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["actual performance"], "zh": ["实际绩效", "环境表现"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.environmental-performance",
+    "description": "Actual environmental performance used for comparison with BAT levels.",
+    "labels": {"en": "Environmental performance", "zh": "环境绩效"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["operating site"], "zh": ["装置", "厂区"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.installation",
+    "description": "An installation or site operated by the undertaking.",
+    "labels": {"en": "Installation", "zh": "运营设施"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["violation", "permit breach"], "zh": ["不合规", "违规", "超标", "许可条件违反"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.non-compliance",
+    "description": "Non-compliance incident or breach of permit conditions.",
+    "labels": {"en": "Non-compliance", "zh": "不合规事件"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["enforcement", "regulatory action"], "zh": ["执法行动", "监管行动", "处罚措施"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.enforcement-action",
+    "description": "Enforcement action related to pollution permits or compliance.",
+    "labels": {"en": "Enforcement action", "zh": "执法措施"},
+    "related_concept_ids": ["esrs.2023-set1.e2-4.concept.non-compliance"],
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["compliance plan", "compliance timetable"], "zh": ["合规计划", "合规时间表", "整改计划"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.compliance-schedule",
+    "description": "A schedule or plan for achieving compliance.",
+    "labels": {"en": "Compliance schedule", "zh": "合规进度计划"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["Article 15(4) exemption", "competent-authority derogation"], "zh": ["豁免", "监管豁免", "主管机关豁免"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.derogation",
+    "description": "A derogation granted under Article 15(4) IED.",
+    "labels": {"en": "IED derogation", "zh": "IED豁免"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["reporting year", "fiscal year"], "zh": ["报告期", "本年度", "财政年度"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.reporting-period",
+    "description": "The period to which a reported fact applies.",
+    "labels": {"en": "Reporting period", "zh": "报告期间"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["reporting scope", "consolidation scope"], "zh": ["报告边界", "统计范围", "合并范围", "核算边界"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.reporting-boundary",
+    "description": "The organizational or operational boundary of a reported fact.",
+    "labels": {"en": "Reporting boundary", "zh": "报告范围边界"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  },
+  {
+    "aliases": {"en": ["GHG", "CO2 equivalent", "CO2e", "CO₂e", "CO_{2}e", "scope 1", "scope 2", "scope 3"], "zh": ["温室气体", "二氧化碳当量", "范围一", "范围二", "范围三", "范畴一", "范畴二", "范畴三"]},
+    "concept_id": "esrs.2023-set1.e2-4.concept.greenhouse-gas",
+    "description": "Greenhouse-gas disclosures handled under ESRS E1 and excluded from E2-4 air pollutants.",
+    "labels": {"en": "Greenhouse gas", "zh": "温室气体排放"},
+    "source_refs": ["esrs.2023-set1.e2-4.source.eu-2023-2772"]
+  }
+]

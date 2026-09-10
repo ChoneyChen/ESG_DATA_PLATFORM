@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any, Callable, TypeVar
 
 from pydantic import BaseModel, ValidationError
@@ -10,9 +11,10 @@ from esg_v2.document.identifiers import sequential_id
 from esg_v2.document.operation_registry import OperationRegistry
 from esg_v2.document.review_response_adapter import ModelOutputTruncated, ReviewResponseAdapter
 from esg_v2.models.contracts import CloudChatRequest, CloudChatResult
-from esg_v2.models.model_registry import ModelHealthRegistry, ModelProfile, QiniuModelRegistry
+from esg_v2.models.model_registry import ModelHealthRegistry, ModelProfile
 from esg_v2.models.provider_rate_limit import ProviderRateLimitCoordinator, ProviderRateLimitOpen
-from esg_v2.models.qiniu_adapter import QiniuApiError, QiniuModelAdapter
+from esg_v2.models.provider_error import ModelProviderError
+from esg_v2.models.review_provider import ReviewModelAdapter, ReviewModelRegistry
 
 
 PayloadT = TypeVar("PayloadT", bound=BaseModel)
@@ -33,16 +35,17 @@ class ModelRequestConfigurationError(ValueError):
 
 
 class ModelRunner:
-    """Capability-aware Qiniu runner with same-task retry and explicit failure categories."""
+    """Capability-aware review runner with provider-neutral retry and audit output."""
 
     def __init__(
         self,
         settings: Settings,
-        adapter: QiniuModelAdapter,
-        registry: QiniuModelRegistry,
+        adapter: ReviewModelAdapter,
+        registry: ReviewModelRegistry,
         response_adapter: ReviewResponseAdapter,
         telemetry: Callable[[dict[str, Any]], None] | None = None,
         rate_limits: ProviderRateLimitCoordinator | None = None,
+        verification_policy: str = "different_model_family",
     ) -> None:
         self.settings = settings
         self.adapter = adapter
@@ -50,6 +53,7 @@ class ModelRunner:
         self.response_adapter = response_adapter
         self.telemetry = telemetry
         self.rate_limits = rate_limits
+        self.verification_policy = verification_policy
 
     def run(
         self,
@@ -69,6 +73,13 @@ class ModelRunner:
         # a service failure solely because the deployment exposes one reviewer family.
         # Verifier independence remains strict and never uses this fallback.
         if not profiles and role == "reviewer" and exclude_family:
+            profiles = self.registry.candidates(role, exclude_family=None, limit=6)
+        if (
+            not profiles
+            and role == "verifier"
+            and exclude_family
+            and self.verification_policy == "same_model_secondary_verification"
+        ):
             profiles = self.registry.candidates(role, exclude_family=None, limit=6)
         if not profiles:
             raise ReviewExecutionUnavailable(f"no_healthy_{role}_model_available")
@@ -107,6 +118,7 @@ class ModelRunner:
                         "round_index": round_index,
                         "retry_index": retry_index,
                         "model_id": profile.model_id,
+                        "provider": profile.provider,
                     })
                     result = self.adapter.chat_completions(request)
                     payload_dict = self.response_adapter.message_json(result.raw_response)
@@ -141,7 +153,7 @@ class ModelRunner:
                         continue
                     errors.append(f"{profile.model_id}: request_config: output_length: {exc}")
                     break
-                except QiniuApiError as exc:
+                except ModelProviderError as exc:
                     error = str(exc)[:2000]
                     if self._is_request_configuration_error(exc):
                         self._record_call(
@@ -181,7 +193,7 @@ class ModelRunner:
                             profile.model_id, error, category="quota", retryable=False,
                         )
                         raise ProviderAccountQuotaUnavailable(
-                            f"qiniu_account_rate_limited: {error}",
+                            f"{profile.provider}_account_rate_limited: {error}",
                             provider_state=provider_state,
                         ) from exc
                     if exc.minute_rate_limit:
@@ -251,14 +263,22 @@ class ModelRunner:
                 "Return strict JSON with verdict, findings, scope_decisions, patches, confidence, "
                 "abstain_reason, and quality_flags. Cover every routed scope exactly once. before_value is local-only. "
                 "Use only operation_contract. set_table_grid must use TableGridRepairProposal with complete cells, "
-                "source_cell_ids, missing_text, visual_evidence_refs, and repair_reason. Charts must use compact "
-                "upsert_chart_spec, never a prose reconstruction. operation_contract="
+                "source_cell_ids, missing_text, visual_evidence_refs, and repair_reason. Charts must use canonical "
+                "upsert_chart_spec with chart_type and series[].points[{category,value,display_value,evidence_refs}]. "
+                "Do not use type, x_categories, data, or values aliases. If current chart_spec is null and the "
+                "figure has visible values, propose the ChartSpec instead of confirming unchanged. operation_contract="
                 + str(operation_contract)
             )
         else:
+            independence = (
+                "Use a fresh secondary pass and actively challenge the reviewer; this local provider uses the "
+                "same model with isolated verifier context."
+                if self.verification_policy == "same_model_secondary_verification"
+                else "Act as an independent model-family verifier."
+            )
             instruction = (
                 "Return strict JSON with verdict, disagreements, confidence, and exactly one "
-                "transaction_decision per supplied transaction_id."
+                f"transaction_decision per supplied transaction_id. {independence}"
             )
         content: list[dict[str, Any]] = [{"type": "text", "text": f"{instruction}\n\n{context}"}]
         content.extend({"type": "image_url", "image_url": {"url": image}} for image in images)
@@ -272,13 +292,20 @@ class ModelRunner:
             response_format={"type": "json_object"} if profile.structured_output and profile.supports_json_mode else None,
             reasoning_effort=reasoning_effort,
             thinking=thinking,
-            timeout_seconds=self.settings.qiniu_default_timeout_seconds,
+            timeout_seconds=(
+                self.settings.nuextract_timeout_seconds
+                if profile.provider == "local_nuextract"
+                else self.settings.qiniu_default_timeout_seconds
+            ),
             metadata={
                 "task_type": task.task_type,
                 "role": role,
                 "round_index": round_index,
                 "review_kind": task.review_plan.review_kind if task.review_plan else None,
+                "provider": profile.provider,
+                "verification_policy": self.verification_policy,
             },
+            output_template=self._output_template(task, role, context),
             messages=[
                 {
                     "role": "system",
@@ -309,7 +336,7 @@ class ModelRunner:
         return max(profile.min_output_tokens, min(profile.max_output_tokens, base + complexity))
 
     @staticmethod
-    def _is_request_configuration_error(exc: QiniuApiError) -> bool:
+    def _is_request_configuration_error(exc: ModelProviderError) -> bool:
         message = str(exc).lower()
         return exc.status_code in {400, 422} and any(
             marker in message
@@ -324,6 +351,7 @@ class ModelRunner:
             "reason_codes": task.reason_codes,
             "image_count": len(images),
             "context_characters": len(context),
+            "provider": task.provider,
         }
 
     def _record_call(
@@ -351,6 +379,7 @@ class ModelRunner:
             round_index=round_index,
             model_id=profile.model_id,
             model_family=profile.family,
+            provider=profile.provider,
             status=status,
             request_summary=self._summary(task, images, context),
             response_payload=payload,
@@ -370,6 +399,7 @@ class ModelRunner:
                 "round_index": round_index,
                 "retry_index": retry_index,
                 "model_id": profile.model_id,
+                "provider": profile.provider,
                 "status": status,
                 "failure_category": category,
                 "latency_ms": call.latency_ms,
@@ -379,3 +409,52 @@ class ModelRunner:
     def _emit(self, payload: dict[str, Any]) -> None:
         if self.telemetry:
             self.telemetry(payload)
+
+    @staticmethod
+    def _output_template(task: VlmReviewTask, role: str, context: str) -> dict[str, Any]:
+        target_types = list(dict.fromkeys([task.target_type, *(item.target_type for item in task.scope)]))
+        target_ids = list(dict.fromkeys([task.target_id, *(item.target_id for item in task.scope)]))
+        if role == "verifier":
+            transaction_ids = list(dict.fromkeys(re.findall(r"transaction-[A-Za-z0-9_-]+", context)))
+            return {
+                "verdict": ["accept", "reject", "abstain"],
+                "disagreements": ["verbatim-string"],
+                "confidence": "number",
+                "transaction_decisions": [
+                    {
+                        "transaction_id": transaction_ids or "verbatim-string",
+                        "verdict": ["accept", "reject", "abstain"],
+                        "disagreements": ["verbatim-string"],
+                        "confidence": "number",
+                    }
+                ],
+            }
+        operations = task.review_plan.allowed_operations if task.review_plan else ["confirm"]
+        return {
+            "verdict": ["confirm", "propose_patch", "abstain"],
+            "findings": ["verbatim-string"],
+            "scope_decisions": [
+                {
+                    "target_type": target_types,
+                    "target_id": target_ids,
+                    "decision": ["confirm", "propose_patch", "abstain"],
+                    "rationale": "verbatim-string",
+                    "confidence": "number",
+                }
+            ],
+            "patches": [
+                {
+                    "target_type": target_types,
+                    "target_id": target_ids,
+                    "operation": operations,
+                    "field_path": "verbatim-string",
+                    "proposed_value": "verbatim-json-value",
+                    "evidence_refs": ["verbatim-string"],
+                    "rationale": "verbatim-string",
+                    "confidence": "number",
+                }
+            ],
+            "confidence": "number",
+            "abstain_reason": "verbatim-string",
+            "quality_flags": ["verbatim-string"],
+        }

@@ -1,0 +1,56 @@
+[
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.energy-source",
+    "description": "按能源来源分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-5.dimension.energy-source",
+    "hierarchical": false,
+    "labels": {
+      "en": "Energy source",
+      "zh": "能源来源"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.energy-flow",
+    "description": "按能源流向分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-5.dimension.energy-flow",
+    "hierarchical": false,
+    "labels": {
+      "en": "Energy flow",
+      "zh": "能源流向"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.energy-carrier",
+    "description": "按能源载体分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-5.dimension.energy-carrier",
+    "hierarchical": false,
+    "labels": {
+      "en": "Energy carrier",
+      "zh": "能源载体"
+    },
+    "value_type": "enum"
+  },
+  {
+    "description": "按高气候影响行业分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector",
+    "hierarchical": true,
+    "labels": {
+      "en": "High climate impact sector",
+      "zh": "高气候影响行业"
+    },
+    "value_type": "string"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.revenue-scope",
+    "description": "按净收入范围分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-5.dimension.revenue-scope",
+    "hierarchical": false,
+    "labels": {
+      "en": "Revenue scope",
+      "zh": "净收入范围"
+    },
+    "value_type": "enum"
+  }
+]

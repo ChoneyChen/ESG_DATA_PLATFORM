@@ -53,8 +53,6 @@ def validate_package(
     run_kind_by_type = {
         "ocr-run": "ocr",
         "document-ir-revision": "ir",
-        "evidence-inventory": "evd",
-        "targeted-recall-run": "trg",
     }
     run_kind = run_kind_by_type.get(expected_type)
     if run_kind is None:

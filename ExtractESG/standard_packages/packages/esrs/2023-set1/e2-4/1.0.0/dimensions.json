@@ -1,0 +1,99 @@
+[
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+    "description": "Air, water or soil receiving the pollution.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.pollution-medium",
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "value_type": "enum"
+  },
+  {
+    "description": "Pollutant name as disclosed, with later normalization outside this package.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.pollutant",
+    "labels": {
+      "en": "Pollutant",
+      "zh": "污染物"
+    },
+    "value_type": "string"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.water-risk-class",
+    "description": "Water-risk or high-water-stress area classification.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.water-risk-class",
+    "labels": {
+      "en": "Water risk class",
+      "zh": "水风险类别"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-flow",
+    "description": "Generated-and-used, generated or used disclosure form.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.microplastic-flow",
+    "labels": {
+      "en": "Microplastic flow",
+      "zh": "微塑料流"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-exit-pathway",
+    "description": "How microplastics leave the facility under AR 20.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+    "labels": {
+      "en": "Microplastic exit pathway",
+      "zh": "微塑料离开设施路径"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-intentionality",
+    "description": "Intentional or unintentional generation or use.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+    "labels": {
+      "en": "Microplastic intentionality",
+      "zh": "微塑料有意性"
+    },
+    "value_type": "enum"
+  },
+  {
+    "description": "Local air quality index and original classification.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.air-quality-index",
+    "labels": {
+      "en": "Air quality index",
+      "zh": "空气质量指数"
+    },
+    "value_type": "string"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.degree-urbanisation",
+    "description": "DEGURBA classification.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.degree-urbanisation",
+    "labels": {
+      "en": "Degree of urbanisation",
+      "zh": "城市化程度"
+    },
+    "value_type": "enum"
+  },
+  {
+    "description": "Pollutant or performance parameter used in a BAT comparison.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.bat-parameter",
+    "labels": {
+      "en": "BAT parameter",
+      "zh": "BAT参数"
+    },
+    "value_type": "string"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.schedule-derogation-type",
+    "description": "Compliance schedule or Article 15(4) IED derogation.",
+    "dimension_id": "esrs.2023-set1.e2-4.dimension.schedule-derogation-type",
+    "labels": {
+      "en": "Schedule or derogation type",
+      "zh": "合规计划或豁免类型"
+    },
+    "value_type": "enum"
+  }
+]

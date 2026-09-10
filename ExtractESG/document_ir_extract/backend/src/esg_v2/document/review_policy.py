@@ -29,6 +29,33 @@ class ReviewPolicyEngine:
         document: DocumentIR,
         task: VlmReviewTask,
     ) -> DeterministicReviewProposal | None:
+        if task.target_type == "spread":
+            spread = next((item for item in document.spreads if item.spread_id == task.target_id), None)
+            if spread is not None:
+                confirmed_pages = {
+                    page_index
+                    for item in document.spreads
+                    if item.spread_id != spread.spread_id and item.status == "confirmed"
+                    for page_index in item.page_indices
+                }
+                overlap = sorted(set(spread.page_indices) & confirmed_pages)
+                if overlap:
+                    reason = (
+                        "The candidate overlaps a page already committed to a confirmed horizontal spread; "
+                        f"spread membership is unique and pages {overlap} cannot be reviewed as a second pair."
+                    )
+                    return DeterministicReviewProposal(
+                        proposal=AtomicPatchProposal(
+                            target_type="spread",
+                            target_id=spread.spread_id,
+                            operation="reject_spread",
+                            proposed_value={"reading_direction": "left_to_right"},
+                            evidence_refs=list(task.input_refs),
+                            rationale=reason,
+                            confidence=1.0,
+                        ),
+                        reason=reason,
+                    )
         if not task.review_plan or task.review_plan.review_kind != "table_candidate_classification":
             return None
         table_ids = [

@@ -1,0 +1,9 @@
+.local/
+targeted_extract_output/*
+!targeted_extract_output/.gitkeep
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.DS_Store

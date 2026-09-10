@@ -18,10 +18,13 @@ from esg_v2.document.contracts import (
     LocalPdfForensics,
     PageIR,
     SourceTrace,
+    SpreadIR,
     TableIR,
+    VlmReviewTask,
 )
 from esg_v2.document.patch_guard import DocumentPatchApplier, PatchGuard
 from esg_v2.document.quality_router import OcrQualityRouter
+from esg_v2.document.review_policy import ReviewPolicyEngine
 from esg_v2.document.spread_builder import HorizontalSpreadBuilder
 from esg_v2.document.validator import DocumentIrValidator
 from esg_v2.utils.hashing import sha256_file
@@ -38,7 +41,8 @@ def _spread_document(tmp_path: Path) -> DocumentIR:
         image = Image.new("RGB", (200, 100), "white")
         for y in range(12, 90):
             for x in (range(190, 200) if index == 0 else range(0, 10)):
-                image.putpixel((x, y), (90, 90, 90))
+                shade = 25 if y % 9 in {0, 1} else 90
+                image.putpixel((x, y), (shade, shade, shade))
         image.save(image_path)
         page_images.append(image_path)
         artifact_id = f"artifact-page-image-p{index + 1:04d}"
@@ -175,6 +179,54 @@ def test_horizontal_spread_builder_creates_composite_and_single_pair_review(tmp_
     assert spread.content_dependency is True
     assert spread.requires_detailed_review is True
     assert all(task.target_type == "spread" for task in routed.review_tasks)
+
+
+def test_same_color_background_does_not_create_spread_candidate(tmp_path: Path) -> None:
+    document = _spread_document(tmp_path)
+    for page in document.pages:
+        Image.new("RGB", (200, 100), (224, 224, 224)).save(page.page_image_path)
+
+    document = HorizontalSpreadBuilder().build(document, tmp_path)
+
+    assert document.spreads == []
+
+
+def test_candidate_overlapping_confirmed_spread_is_rejected_before_model_call(tmp_path: Path) -> None:
+    document = _spread_document(tmp_path)
+    trace = SourceTrace(parser="test")
+    document.spreads = [
+        SpreadIR(
+            spread_id="spread-p0001-p0002",
+            page_ids=["page-0001", "page-0002"],
+            page_indices=[0, 1],
+            status="confirmed",
+            composite_artifact_id="artifact-confirmed",
+            source_trace=trace,
+        ),
+        SpreadIR(
+            spread_id="spread-p0002-p0003",
+            page_ids=["page-0002", "page-0003"],
+            page_indices=[1, 2],
+            status="candidate",
+            composite_artifact_id="artifact-candidate",
+            source_trace=trace,
+        ),
+    ]
+    task = VlmReviewTask(
+        task_id="review-overlap",
+        task_type="horizontal_spread_review",
+        target_type="spread",
+        target_id="spread-p0002-p0003",
+        page_index=1,
+        prompt_intent="review spread",
+        input_refs=["artifact-candidate"],
+    )
+
+    result = ReviewPolicyEngine().deterministic_proposal(document, task)
+
+    assert result is not None
+    assert result.proposal.operation == "reject_spread"
+    assert "membership is unique" in result.reason
 
 
 def test_visual_only_spread_is_locally_resolved_without_model_task(tmp_path: Path) -> None:

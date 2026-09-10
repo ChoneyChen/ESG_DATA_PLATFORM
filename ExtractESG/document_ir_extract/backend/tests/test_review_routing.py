@@ -389,7 +389,8 @@ def test_agent_confirm_is_guarded_verified_and_auto_resolved(tmp_path: Path) -> 
     assert document.review_tasks[0].status == "auto_resolved"
     assert document.final_decisions[0].outcome == "auto_confirmed"
     assert document.atomic_patches[0].status == "accepted"
-    assert [call.role for call in document.model_calls] == ["reviewer", "verifier"]
+    assert [call.role for call in document.model_calls] == ["reviewer"]
+    assert document.guard_results[0].requires_independent_verifier is False
 
 
 def test_agent_correction_applies_only_after_independent_acceptance(tmp_path: Path) -> None:
@@ -802,7 +803,7 @@ def test_accepted_transaction_closes_only_its_covered_conflict(tmp_path: Path) -
     assert result.blocks[1].text == "second"
 
 
-def test_child_patch_coverage_includes_its_parent_page(tmp_path: Path) -> None:
+def test_child_patch_does_not_implicitly_confirm_its_parent_page(tmp_path: Path) -> None:
     document = _document(tmp_path)
     patch = AtomicPatch(
         patch_id="patch-000001",
@@ -817,7 +818,6 @@ def test_child_patch_coverage_includes_its_parent_page(tmp_path: Path) -> None:
 
     assert TransactionCoordinator.covered_targets(document, [patch]) == {
         "block-1",
-        "page-1",
     }
 
 
@@ -866,6 +866,61 @@ def test_non_contract_table_rejection_is_normalized_to_retirement_patch(tmp_path
             "confidence": 0.97,
         },
         task=task,
+    )
+
+    assert normalized["verdict"] == "propose_patch"
+    assert normalized["patches"][0]["operation"] == "retire_table_candidate"
+    assert normalized["patches"][0]["proposed_value"] == {"disposition": "non_table_visual"}
+
+
+def test_explicit_non_table_visual_abstention_becomes_retirement_patch(tmp_path: Path) -> None:
+    document = _document(tmp_path)
+    table = TableIR(
+        table_id="table-1",
+        page_index=0,
+        page_indices=[0],
+        order=0,
+        row_count=1,
+        column_count=1,
+        cells=[],
+        bbox=BoundingBox(x0=1, y0=1, x1=80, y1=80, unit="points"),
+        quality_flags=["local_only_table_candidate"],
+        source_trace=SourceTrace(parser="pdfplumber"),
+    )
+    document.tables = [table]
+    document.pages[0].table_ids = [table.table_id]
+    task = document.review_tasks[0]
+    task.target_type = "table"
+    task.target_id = table.table_id
+    task.scope = [
+        ReviewScopeItem(
+            target_type="table",
+            target_id=table.table_id,
+            reason_codes=["local_only_table_candidate"],
+        )
+    ]
+    _compile_changed_task(document)
+
+    normalized = ReviewResponseAdapter().normalize_reviewer(
+        document,
+        {
+            "verdict": "abstain",
+            "findings": ["This is a treemap visualization, not a table."],
+            "scope_decisions": [
+                {
+                    "target_type": "table",
+                    "target_id": table.table_id,
+                    "decision": "abstain",
+                    "rationale": "The region is non-tabular chart content.",
+                    "confidence": 0.96,
+                }
+            ],
+            "patches": [],
+            "confidence": 0.96,
+            "abstain_reason": "Treemap visualization rather than a table.",
+        },
+        task,
+        alias_normalizer=ReviewResponseAdapter.normalize_legacy_aliases,
     )
 
     assert normalized["verdict"] == "propose_patch"

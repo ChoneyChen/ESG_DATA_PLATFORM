@@ -4,6 +4,7 @@ import base64
 import io
 import mimetypes
 from pathlib import Path
+from urllib.parse import unquote, urlparse
 
 from PIL import Image
 
@@ -43,3 +44,23 @@ class QiniuVisionInputResolver:
             mime = mimetypes.guess_type(str(path))[0] or "image/png"
             encoded = base64.b64encode(path.read_bytes()).decode("ascii")
             return f"data:{mime};base64,{encoded}"
+
+
+class LocalVisionInputResolver:
+    """Keeps local visual artifacts as paths for the MLX worker."""
+
+    IMAGE_SUFFIXES = QiniuVisionInputResolver.IMAGE_SUFFIXES
+
+    def resolve(self, refs: list[str], *, limit: int = 3) -> list[str]:
+        images: list[str] = []
+        for ref in refs:
+            value = ref
+            if ref.startswith("file://"):
+                value = unquote(urlparse(ref).path)
+            path = Path(value).expanduser()
+            if path.exists() and path.suffix.lower() in self.IMAGE_SUFFIXES:
+                images.append(str(path.resolve()))
+                continue
+            if ref.startswith(("http://", "https://")):
+                images.append(ref)
+        return list(dict.fromkeys(images))[:limit]

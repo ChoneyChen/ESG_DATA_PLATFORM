@@ -17,6 +17,7 @@ class CloudChatRequest(BaseModel):
     extra_body: dict[str, Any] = Field(default_factory=dict)
     timeout_seconds: float | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
+    output_template: dict[str, Any] | None = None
 
 
 class CloudChatResult(BaseModel):

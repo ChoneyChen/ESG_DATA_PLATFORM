@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from esg_v2.document.convergence_engine import ConvergenceEngine
 from esg_v2.document.contracts import DocumentIR
 from esg_v2.storage.package_layout import package_dir, read_jsonl, resolve_package_path
 from esg_v2.storage.package_validator import PackageValidationResult, validate_package
@@ -44,6 +45,7 @@ class DocumentIrPackageReader:
             "document-ir-v0.9",
             "document-ir-v0.10",
             "document-ir-v0.11",
+            "document-ir-v0.12",
         }:
             required_entrypoints.add("spreads")
         if self.manifest.get("schema_version") in {
@@ -52,6 +54,7 @@ class DocumentIrPackageReader:
             "document-ir-v0.9",
             "document-ir-v0.10",
             "document-ir-v0.11",
+            "document-ir-v0.12",
         }:
             required_entrypoints.add("logical_tables")
         return validate_package(
@@ -241,17 +244,7 @@ class DocumentIrPackageReader:
             "resolved": [],
         }
         for task in self.review_tasks():
-            status = str(task.get("status") or "pending")
-            blocking = bool(task.get("blocking"))
-            if status == "human_required":
-                group = "human_required"
-            elif status in {"pending", "queued", "running", "deferred", "failed", "skipped"}:
-                if not bool(task.get("retryable", True)):
-                    group = "system_blocked"
-                else:
-                    group = "blocking_deferred" if blocking else "optional_deferred"
-            else:
-                group = "resolved"
+            group = self._review_group(task)
             bundle = self.review_task_bundle(str(task["task_id"]))
             bundle["guidance"] = self._review_guidance(bundle)
             bundle["visual_context"] = self._review_visual_context(task, bundle)
@@ -261,6 +254,49 @@ class DocumentIrPackageReader:
             "counts": {key: len(value) for key, value in groups.items()},
             "groups": groups,
         }
+
+    def unresolved_review_worklist(self) -> dict[str, Any]:
+        """Return compact current work without loading resolved visual/audit bundles."""
+
+        entries: list[dict[str, Any]] = []
+        counts = {
+            "human_required": 0,
+            "system_blocked": 0,
+            "blocking_deferred": 0,
+            "optional_deferred": 0,
+        }
+        for task in self.review_tasks():
+            group = self._review_group(task)
+            if group == "resolved":
+                continue
+            bundle = self.review_task_bundle(str(task["task_id"]))
+            entries.append(
+                {
+                    "group": group,
+                    "bundle": {
+                        "task": bundle.get("task") or task,
+                        "guidance": self._review_guidance(bundle),
+                    },
+                }
+            )
+            counts[group] += 1
+        return {
+            "schema_version": "document-ir-review-worklist-v1",
+            "counts": counts,
+            "entries": entries,
+        }
+
+    @staticmethod
+    def _review_group(task: dict[str, Any]) -> str:
+        status = str(task.get("status") or "pending")
+        blocking = bool(task.get("blocking"))
+        if status == "human_required":
+            return "human_required"
+        if status in {"pending", "queued", "running", "deferred", "failed", "skipped"}:
+            if not bool(task.get("retryable", True)):
+                return "system_blocked"
+            return "blocking_deferred" if blocking else "optional_deferred"
+        return "resolved"
 
     def review_collection(self, name: str) -> list[dict[str, Any]]:
         if not self.is_package_v1:
@@ -445,6 +481,17 @@ class DocumentIrPackageReader:
         failure_class = str(task.get("failure_class") or result.get("failure_class") or "none")
         failure_owner = str(task.get("failure_owner") or result.get("failure_owner") or "none")
         retryable = bool(task.get("retryable", True))
+        stored_failure_class = failure_class
+        if failure_class == "model_service" and terminal_reason:
+            derived_failure = ConvergenceEngine.reason_failure(terminal_reason)
+            if derived_failure["failure_class"] != "model_service":
+                failure_class = derived_failure["failure_class"]
+                failure_owner = derived_failure["failure_owner"]
+                retryable = derived_failure["retryable"]
+        adapter_contract_mismatch = any(
+            bool((check.get("details") or {}).get("adapter_contract_mismatch"))
+            for check in failed_checks
+        )
         if status == "human_required":
             failure_category = "semantic_decision"
         elif failure_class != "none":
@@ -496,11 +543,21 @@ class DocumentIrPackageReader:
             if not retryable and failure_class == "evidence_missing":
                 action = "不要重复调用模型。先补齐缺失的页图、拼接图或区域截图，再新建修复 revision。"
             elif not retryable and failure_class == "system_contract":
-                action = "不要重复调用模型。先修复本地契约、作用域或原子应用错误，再重新路由该任务。"
+                action = (
+                    "不要重复调用模型。模型已经给出可识别的图表别名；应由本地 ChartSpecNormalizer "
+                    "转换后重新执行 Guard。"
+                    if adapter_contract_mismatch
+                    else "不要重复调用模型。先修复本地契约、作用域或原子应用错误，再重新路由该任务。"
+                )
             elif not retryable and failure_class == "repeated_failure":
                 action = (
                     "同一任务、同一目标和同一操作语义的 Guard 失败已连续出现；"
                     "继续点击重试不会解决。请查看具体失败条件后改变提案策略。"
+                )
+            elif failure_class == "model_protocol":
+                action = (
+                    "模型已经返回内容，但 JSON 或 Schema 尚未进入正式审核合同。系统应先执行无损"
+                    "适配器修复，再继续 Schema、Guard 和 Verifier；不要把它当成模型服务宕机。"
                 )
             elif terminal_reason.startswith("qiniu_account_rate_limited"):
                 retry_after = int(float(provider_state.get("retry_after_seconds") or 0))
@@ -572,6 +629,7 @@ class DocumentIrPackageReader:
             "why_human": why_human,
             "failure_category": failure_category,
             "failure_class": failure_class,
+            "stored_failure_class": stored_failure_class,
             "failure_owner": failure_owner,
             "failure_fingerprint": task.get("failure_fingerprint"),
             "retryable": retryable,

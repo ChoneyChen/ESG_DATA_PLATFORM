@@ -1,0 +1,1198 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 35"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "自身运营的能源消费总量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Total energy consumption from own operations",
+      "zh": "自身运营的能源消费总量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_01",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.total-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 32",
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "化石能源消费总量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Total energy consumption from fossil sources",
+      "zh": "化石能源消费总量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37(a)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_02",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "核能消费量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Energy consumption from nuclear sources",
+      "zh": "核能消费量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_03",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.nuclear-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 34"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "核能占能源消费总量的比例",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Share of nuclear sources in total energy consumption",
+      "zh": "核能占能源消费总量的比例"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 34",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_04",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.nuclear-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-share"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生能源消费总量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Total energy consumption from renewable sources",
+      "zh": "可再生能源消费总量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37(c)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_05",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Fuel consumption from renewable sources",
+      "zh": "可再生燃料消费量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37(c)(i)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_06",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-fuel"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "外购或购入的可再生电力、热力、蒸汽和冷却能源",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Purchased or acquired renewable electricity, heat, steam and cooling",
+      "zh": "外购或购入的可再生电力、热力、蒸汽和冷却能源"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37(c)(ii)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_07",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.purchased-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "自产非燃料可再生能源",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Self-generated non-fuel renewable energy",
+      "zh": "自产非燃料可再生能源"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "37(c)(iii)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_08",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.self-generated-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 34"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生能源占能源消费总量的比例",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Share of renewable sources in total energy consumption",
+      "zh": "可再生能源占能源消费总量的比例"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 34",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_09",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-share"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "煤炭及煤炭制品的燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Fuel consumption from coal and coal products",
+      "zh": "煤炭及煤炭制品的燃料消费量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp10",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "38(a)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_10",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.coal-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "原油及石油产品的燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Fuel consumption from crude oil and petroleum products",
+      "zh": "原油及石油产品的燃料消费量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp11",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "38(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_11",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.petroleum-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "天然气燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Fuel consumption from natural gas",
+      "zh": "天然气燃料消费量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp12",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "38(c)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_12",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.natural-gas-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "其他化石能源燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Fuel consumption from other fossil sources",
+      "zh": "其他化石能源燃料消费量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp13",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "38(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_13",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.other-fossil-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "外购或购入的化石电力、热力、蒸汽和冷却能源",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Purchased or acquired electricity, heat, steam and cooling from fossil sources",
+      "zh": "外购或购入的化石电力、热力、蒸汽和冷却能源"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp14",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "38(e)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_14",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.purchased-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 34"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "化石能源占能源消费总量的比例",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Share of fossil sources in total energy consumption",
+      "zh": "化石能源占能源消费总量的比例"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp15",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 34",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_15",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-share"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "非可再生能源生产量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Non-renewable energy production",
+      "zh": "非可再生能源生产量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp16",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "39",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_16",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-production"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.non-renewable-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生能源生产量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Renewable energy production",
+      "zh": "可再生能源生产量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp17",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "39",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_17",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-production"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 36"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "以高气候影响行业的能源消费量除以相应净收入形成能源强度；法规计量语义为 MWh/货币单位。",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Energy intensity in high climate impact sectors",
+      "zh": "高气候影响行业的能源强度"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp18",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy intensity (MWh per monetary unit)",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector"
+    ],
+    "paragraph": "40",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E1-5_18",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-intensity"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ]
+    ],
+    "value_family": "energy_intensity"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "高气候影响行业能源消费总量",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Total energy consumption in high climate impact sectors",
+      "zh": "高气候影响行业能源消费总量"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp19",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector"
+    ],
+    "paragraph": "41",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_19",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "用于确定能源强度的高气候影响行业清单",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "High climate impact sectors used to determine energy intensity",
+      "zh": "用于确定能源强度的高气候影响行业清单"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp20",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Table/list",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector"
+    ],
+    "paragraph": "42",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E1-5_20",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-intensity"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "能源强度所用净收入的对账说明",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Reconciliation of net revenue used for energy intensity",
+      "zh": "能源强度所用净收入的对账说明"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp21",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "43",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E1-5_21",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.reconciliation"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-intensity"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "高气候影响行业活动的净收入",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Net revenue from activities in high climate impact sectors",
+      "zh": "高气候影响行业活动的净收入"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp22",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 38(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.revenue-scope"
+    ],
+    "source_datapoint_id": "E1-5_22",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ]
+    ],
+    "value_family": "monetary"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "其他净收入",
+    "disclosure_requirement": "E1-5",
+    "excluded_concept_ids": [],
+    "labels": {
+      "en": "Other net revenue",
+      "zh": "其他净收入"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp23",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 38(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.revenue-scope"
+    ],
+    "source_datapoint_id": "E1-5_23",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.reconciliation"
+      ]
+    ],
+    "value_family": "monetary"
+  }
+]

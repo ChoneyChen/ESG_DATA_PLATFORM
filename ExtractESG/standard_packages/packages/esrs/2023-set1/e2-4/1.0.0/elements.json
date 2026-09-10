@@ -1,0 +1,4540 @@
+[
+  {
+    "binding": {
+      "record_type": "reporting_task",
+      "storage": "attribute",
+      "target": "breakdown_dimension"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "Table 表示维度结构而非强制版式 site/source_type/sector/geography 等逐项成行",
+    "element_code": "breakdown_dimension",
+    "element_id": "esrs.2023-set1.e2-4.dp01.element.breakdown_dimension",
+    "labels": {
+      "en": "Disclosure breakdown dimension",
+      "zh": "披露分解维度"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp01",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.dimension-code",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": "extractesg.core.unit-dimension.dimension-set"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "reporting_task",
+      "storage": "attribute",
+      "target": "reporting_entity_level"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "AR 22 主体层级披露时为 TRUE",
+    "element_code": "reporting_entity_level",
+    "element_id": "esrs.2023-set1.e2-4.dp01.element.reporting_entity_level",
+    "labels": {
+      "en": "Reporting undertaking level",
+      "zh": "报告主体层级"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp01",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "extractesg.core.codeset.boolean-unknown",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "boolean",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "reporting_task",
+      "storage": "attribute",
+      "target": "local_air_quality_index"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 23(a) may consider 保留指数名称、期间和原值",
+    "element_code": "local_air_quality_index",
+    "element_id": "esrs.2023-set1.e2-4.dp01.element.local_air_quality_index",
+    "labels": {
+      "en": "Local air quality index",
+      "zh": "当地空气质量指数"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp01",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "context",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.index"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "reporting_task",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.degree-urbanisation"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 23(b) may consider 保留报告原始分类",
+    "element_code": "degurba_class",
+    "element_id": "esrs.2023-set1.e2-4.dp01.element.degurba_class",
+    "labels": {
+      "en": "Degree of urbanisation",
+      "zh": "城市化程度分类"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp01",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "context",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.degree-urbanisation",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "不得混填介质 固定为 air",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.pollution_medium",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.air-pollution"],
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "air",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollutant"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "应对应 E-PRTR Annex II 相关污染物；GHG 排除 每个污染物独立记录",
+    "element_code": "pollutant",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.pollutant",
+    "value_concept_root_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "labels": {
+      "en": "Pollutant",
+      "zh": "污染物"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "保留原始精度 >=0；0 必须有明确零披露证据",
+    "element_code": "emission_amount",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.emission_amount",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.emission-amount"],
+    "labels": {
+      "en": "Emission amount",
+      "zh": "排放量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "unit_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "AR 21 例如 t/kg/g/mg",
+    "element_code": "mass_unit",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.mass_unit",
+    "labels": {
+      "en": "Mass unit",
+      "zh": "质量单位"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "unit",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "string"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "不得用 0000 表示缺失 起止日期或报告年度",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.reporting_period",
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "仅填写报告明确声明的报告主体、组织核算边界或全局统计范围；表格列头中的子公司、业务单元、地点、分部、分项或汇总标签不是报告边界",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.reporting_boundary",
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "consolidation_scope"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "paragraph 29 financial_control / operational_control / both / unclear",
+    "element_code": "consolidation_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.consolidation_scope",
+    "labels": {
+      "en": "Control/consolidation scope",
+      "zh": "控制口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": true,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.consolidation-scope",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "threshold_basis"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "paragraph 29 记录是否仅纳入超过适用阈值的设施",
+    "element_code": "threshold_basis",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.threshold_basis",
+    "labels": {
+      "en": "E-PRTR threshold basis",
+      "zh": "E-PRTR 阈值口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": true,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.threshold-status",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "additional_breakdown"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "与该数值直接对应的分解标签，保留原文；包括 site/source_type/sector/geography、子公司、业务单元、地点、分部、组成项、分项及小计/汇总",
+    "element_code": "additional_breakdown",
+    "element_id": "esrs.2023-set1.e2-4.dp02.element.additional_breakdown",
+    "labels": {
+      "en": "Additional breakdown",
+      "zh": "附加分解维度"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.dimension-code",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "不得混填介质 固定为 water",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.pollution_medium",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.water-pollution"],
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "water",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollutant"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "应对应 E-PRTR Annex II 相关污染物；GHG 排除 每个污染物独立记录",
+    "element_code": "pollutant",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.pollutant",
+    "value_concept_root_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "labels": {
+      "en": "Pollutant",
+      "zh": "污染物"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "保留原始精度 >=0；0 必须有明确零披露证据",
+    "element_code": "emission_amount",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.emission_amount",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.emission-amount"],
+    "labels": {
+      "en": "Emission amount",
+      "zh": "排放量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "unit_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "AR 21 例如 t/kg/g/mg",
+    "element_code": "mass_unit",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.mass_unit",
+    "labels": {
+      "en": "Mass unit",
+      "zh": "质量单位"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "unit",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "string"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "不得用 0000 表示缺失 起止日期或报告年度",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.reporting_period",
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "仅填写报告明确声明的报告主体、组织核算边界或全局统计范围；表格列头中的子公司、业务单元、地点、分部、分项或汇总标签不是报告边界",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.reporting_boundary",
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "consolidation_scope"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "paragraph 29 financial_control / operational_control / both / unclear",
+    "element_code": "consolidation_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.consolidation_scope",
+    "labels": {
+      "en": "Control/consolidation scope",
+      "zh": "控制口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": true,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.consolidation-scope",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "threshold_basis"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "paragraph 29 记录是否仅纳入超过适用阈值的设施",
+    "element_code": "threshold_basis",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.threshold_basis",
+    "labels": {
+      "en": "E-PRTR threshold basis",
+      "zh": "E-PRTR 阈值口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": true,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.threshold-status",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "additional_breakdown"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "与该数值直接对应的分解标签，保留原文；包括 site/source_type/sector/geography、子公司、业务单元、地点、分部、组成项、分项及小计/汇总",
+    "element_code": "additional_breakdown",
+    "element_id": "esrs.2023-set1.e2-4.dp03.element.additional_breakdown",
+    "labels": {
+      "en": "Additional breakdown",
+      "zh": "附加分解维度"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.dimension-code",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "不得混填介质 固定为 soil",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.pollution_medium",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.soil-pollution"],
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "soil",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollutant"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "应对应 E-PRTR Annex II 相关污染物；GHG 排除 每个污染物独立记录",
+    "element_code": "pollutant",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.pollutant",
+    "value_concept_root_ids": ["esrs.2023-set1.e2-4.concept.pollutant"],
+    "labels": {
+      "en": "Pollutant",
+      "zh": "污染物"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "保留原始精度 >=0；0 必须有明确零披露证据",
+    "element_code": "emission_amount",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.emission_amount",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.emission-amount"],
+    "labels": {
+      "en": "Emission amount",
+      "zh": "排放量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "unit_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "AR 21 例如 t/kg/g/mg",
+    "element_code": "mass_unit",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.mass_unit",
+    "labels": {
+      "en": "Mass unit",
+      "zh": "质量单位"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "unit",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "string"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "不得用 0000 表示缺失 起止日期或报告年度",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.reporting_period",
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "仅填写报告明确声明的报告主体、组织核算边界或全局统计范围；表格列头中的子公司、业务单元、地点、分部、分项或汇总标签不是报告边界",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.reporting_boundary",
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "consolidation_scope"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "paragraph 29 financial_control / operational_control / both / unclear",
+    "element_code": "consolidation_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.consolidation_scope",
+    "labels": {
+      "en": "Control/consolidation scope",
+      "zh": "控制口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": true,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.consolidation-scope",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "threshold_basis"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "paragraph 29 记录是否仅纳入超过适用阈值的设施",
+    "element_code": "threshold_basis",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.threshold_basis",
+    "labels": {
+      "en": "E-PRTR threshold basis",
+      "zh": "E-PRTR 阈值口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": true,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.threshold-status",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "additional_breakdown"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "与该数值直接对应的分解标签，保留原文；包括 site/source_type/sector/geography、子公司、业务单元、地点、分部、组成项、分项及小计/汇总",
+    "element_code": "additional_breakdown",
+    "element_id": "esrs.2023-set1.e2-4.dp04.element.additional_breakdown",
+    "labels": {
+      "en": "Additional breakdown",
+      "zh": "附加分解维度"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.dimension-code",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "05/06/07 是替代数据点，不代表算术关系 固定为 generated_and_used",
+    "element_code": "microplastic_flow",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.microplastic_flow",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.generated-and-used"],
+    "labels": {
+      "en": "Microplastics flow",
+      "zh": "微塑料流类型"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-flow",
+      "fallback_types": [],
+      "fixed_value": "generated_and_used",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "只记录报告口径 >=0",
+    "element_code": "amount",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.amount",
+    "labels": {
+      "en": "Amount of microplastics",
+      "zh": "微塑料量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "unit_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "保留原始单位 例如 t/kg/g/mg",
+    "element_code": "mass_unit",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.mass_unit",
+    "labels": {
+      "en": "Mass unit",
+      "zh": "质量单位"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "unit",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "string"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "同报告披露",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.reporting_period",
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "paragraph 29 同报告披露",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.reporting_boundary",
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 20 emissions/products/part_of_products/services",
+    "element_code": "exit_pathway",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.exit_pathway",
+    "labels": {
+      "en": "Pathway leaving facilities",
+      "zh": "离开设施的路径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-exit-pathway",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "AR 20 intentional/unintentional/mixed/unknown",
+    "element_code": "intentionality",
+    "element_id": "esrs.2023-set1.e2-4.dp05.element.intentionality",
+    "labels": {
+      "en": "Intentionality",
+      "zh": "产生或添加方式"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-intentionality",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "05/06/07 是替代数据点，不代表算术关系 固定为 generated",
+    "element_code": "microplastic_flow",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.microplastic_flow",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.generated"],
+    "labels": {
+      "en": "Microplastics flow",
+      "zh": "微塑料流类型"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-flow",
+      "fallback_types": [],
+      "fixed_value": "generated",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "只记录报告口径 >=0",
+    "element_code": "amount",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.amount",
+    "labels": {
+      "en": "Amount of microplastics",
+      "zh": "微塑料量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "unit_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "保留原始单位 例如 t/kg/g/mg",
+    "element_code": "mass_unit",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.mass_unit",
+    "labels": {
+      "en": "Mass unit",
+      "zh": "质量单位"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "unit",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "string"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "同报告披露",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.reporting_period",
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "paragraph 29 同报告披露",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.reporting_boundary",
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 20 emissions/products/part_of_products/services",
+    "element_code": "exit_pathway",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.exit_pathway",
+    "labels": {
+      "en": "Pathway leaving facilities",
+      "zh": "离开设施的路径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-exit-pathway",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "AR 20 intentional/unintentional/mixed/unknown",
+    "element_code": "intentionality",
+    "element_id": "esrs.2023-set1.e2-4.dp06.element.intentionality",
+    "labels": {
+      "en": "Intentionality",
+      "zh": "产生或添加方式"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-intentionality",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "05/06/07 是替代数据点，不代表算术关系 固定为 used",
+    "element_code": "microplastic_flow",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.microplastic_flow",
+    "concept_ids": ["esrs.2023-set1.e2-4.concept.used"],
+    "labels": {
+      "en": "Microplastics flow",
+      "zh": "微塑料流类型"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-flow",
+      "fallback_types": [],
+      "fixed_value": "used",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "只记录报告口径 >=0",
+    "element_code": "amount",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.amount",
+    "labels": {
+      "en": "Amount of microplastics",
+      "zh": "微塑料量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "unit_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "保留原始单位 例如 t/kg/g/mg",
+    "element_code": "mass_unit",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.mass_unit",
+    "labels": {
+      "en": "Mass unit",
+      "zh": "质量单位"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "unit",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "string"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "identifier",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "同报告披露",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.reporting_period",
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "paragraph 29 同报告披露",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.reporting_boundary",
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "scope",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 20 emissions/products/part_of_products/services",
+    "element_code": "exit_pathway",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.exit_pathway",
+    "labels": {
+      "en": "Pathway leaving facilities",
+      "zh": "离开设施的路径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-exit-pathway",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "AR 20 intentional/unintentional/mixed/unknown",
+    "element_code": "intentionality",
+    "element_id": "esrs.2023-set1.e2-4.dp07.element.intentionality",
+    "labels": {
+      "en": "Intentionality",
+      "zh": "产生或添加方式"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-intentionality",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "保留完整核心语义",
+    "element_code": "narrative",
+    "element_id": "esrs.2023-set1.e2-4.dp08.element.narrative",
+    "labels": {
+      "en": "Changes-over-time narrative",
+      "zh": "变化描述原文"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "narrative",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "至少识别当前和比较期间",
+    "element_code": "comparison_period",
+    "element_id": "esrs.2023-set1.e2-4.dp08.element.comparison_period",
+    "labels": {
+      "en": "Comparison period",
+      "zh": "比较期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "year"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "change_direction"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "不得以摘要替代原文 increase/decrease/stable/mixed/unclear",
+    "element_code": "change_direction",
+    "element_id": "esrs.2023-set1.e2-4.dp08.element.change_direction",
+    "labels": {
+      "en": "Direction of change",
+      "zh": "变化方向"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "attribute",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.change-direction",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "air/water/soil",
+    "element_code": "affected_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp08.element.affected_medium",
+    "labels": {
+      "en": "Affected medium",
+      "zh": "涉及污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollutant"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "如原文明确则记录",
+    "element_code": "pollutant",
+    "element_id": "esrs.2023-set1.e2-4.dp08.element.pollutant",
+    "labels": {
+      "en": "Pollutant",
+      "zh": "涉及污染物"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "保留方法、对象和适用范围",
+    "element_code": "methodology_narrative",
+    "element_id": "esrs.2023-set1.e2-4.dp09.element.methodology_narrative",
+    "labels": {
+      "en": "Measurement methodology narrative",
+      "zh": "测量方法原文"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "narrative",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "method_code"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "direct_continuous 到 estimation 按 AR 26 优先顺序编码",
+    "element_code": "method_code",
+    "element_id": "esrs.2023-set1.e2-4.dp09.element.method_code",
+    "labels": {
+      "en": "Quantification method",
+      "zh": "量化方法代码"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.method-priority",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "monitoring_system"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 26(a) 如 AMS 等",
+    "element_code": "monitoring_system",
+    "element_id": "esrs.2023-set1.e2-4.dp09.element.monitoring_system",
+    "labels": {
+      "en": "Continuous monitoring system",
+      "zh": "连续监测系统"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "bref_or_benchmark"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 27(a) 记录名称和版本",
+    "element_code": "bref_or_benchmark",
+    "element_id": "esrs.2023-set1.e2-4.dp09.element.bref_or_benchmark",
+    "labels": {
+      "en": "BREF or other benchmark",
+      "zh": "BREF 或其他基准"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "ams_calibration"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 27(b) 是否以及如何开展",
+    "element_code": "ams_calibration",
+    "element_id": "esrs.2023-set1.e2-4.dp09.element.ams_calibration",
+    "labels": {
+      "en": "AMS calibration tests",
+      "zh": "AMS 校准测试"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "independent_lab_verification"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "AR 27(b) 周期测量如何被验证",
+    "element_code": "independent_lab_verification",
+    "element_id": "esrs.2023-set1.e2-4.dp09.element.independent_lab_verification",
+    "labels": {
+      "en": "Independent laboratory verification",
+      "zh": "独立实验室验证"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "流程步骤可分项记录",
+    "element_code": "process_narrative",
+    "element_id": "esrs.2023-set1.e2-4.dp10.element.process_narrative",
+    "labels": {
+      "en": "Data collection process narrative",
+      "zh": "数据收集流程原文"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "narrative",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "data_types_needed"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "paragraph 30(c) 不得只写“环境数据”",
+    "element_code": "data_types_needed",
+    "element_id": "esrs.2023-set1.e2-4.dp10.element.data_types_needed",
+    "labels": {
+      "en": "Types of data needed",
+      "zh": "所需数据类型"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "process",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "information_sources"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "paragraph 30(c) 系统、台账、监测设备、实验室等",
+    "element_code": "information_sources",
+    "element_id": "esrs.2023-set1.e2-4.dp10.element.information_sources",
+    "labels": {
+      "en": "Information sources",
+      "zh": "信息来源"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "process",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "process_step"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "按实际顺序记录",
+    "element_code": "process_step",
+    "element_id": "esrs.2023-set1.e2-4.dp10.element.process_step",
+    "labels": {
+      "en": "Process step",
+      "zh": "流程步骤"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "process",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "system_or_owner"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "原文明确时记录",
+    "element_code": "system_or_owner",
+    "element_id": "esrs.2023-set1.e2-4.dp10.element.system_or_owner",
+    "labels": {
+      "en": "System or process owner",
+      "zh": "系统或责任主体"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "process",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "直接披露优先 0<=value<=100",
+    "element_code": "percentage",
+    "element_id": "esrs.2023-set1.e2-4.dp11.element.percentage",
+    "labels": {
+      "en": "Percentage of emissions",
+      "zh": "排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": 100,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "固定为 water",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp11.element.pollution_medium",
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "water",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "water_risk 与 high_water_stress 分开 固定为 water_risk",
+    "element_code": "water_risk_class",
+    "element_id": "esrs.2023-set1.e2-4.dp11.element.water_risk_class",
+    "labels": {
+      "en": "Water risk class",
+      "zh": "水风险类别"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.water-risk-class",
+      "fallback_types": [],
+      "fixed_value": "water_risk",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "numerator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >=0",
+    "element_code": "numerator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp11.element.numerator_mass",
+    "labels": {
+      "en": "Emissions in relevant areas (numerator)",
+      "zh": "风险地区排放量（分子）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "denominator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >0",
+    "element_code": "denominator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp11.element.denominator_mass",
+    "labels": {
+      "en": "Total emissions (denominator)",
+      "zh": "总排放量（分母）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "matching_scope"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "同期间、单位、边界、介质；污染物维度按披露粒度匹配",
+    "element_code": "matching_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp11.element.matching_scope",
+    "labels": {
+      "en": "Derivation matching scope",
+      "zh": "计算匹配口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_guard",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "直接披露优先 0<=value<=100",
+    "element_code": "percentage",
+    "element_id": "esrs.2023-set1.e2-4.dp12.element.percentage",
+    "labels": {
+      "en": "Percentage of emissions",
+      "zh": "排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": 100,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "固定为 water",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp12.element.pollution_medium",
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "water",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "water_risk 与 high_water_stress 分开 固定为 high_water_stress",
+    "element_code": "water_risk_class",
+    "element_id": "esrs.2023-set1.e2-4.dp12.element.water_risk_class",
+    "labels": {
+      "en": "Water risk class",
+      "zh": "水风险类别"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.water-risk-class",
+      "fallback_types": [],
+      "fixed_value": "high_water_stress",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "numerator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >=0",
+    "element_code": "numerator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp12.element.numerator_mass",
+    "labels": {
+      "en": "Emissions in relevant areas (numerator)",
+      "zh": "风险地区排放量（分子）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "denominator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >0",
+    "element_code": "denominator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp12.element.denominator_mass",
+    "labels": {
+      "en": "Total emissions (denominator)",
+      "zh": "总排放量（分母）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "matching_scope"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "同期间、单位、边界、介质；污染物维度按披露粒度匹配",
+    "element_code": "matching_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp12.element.matching_scope",
+    "labels": {
+      "en": "Derivation matching scope",
+      "zh": "计算匹配口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_guard",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "直接披露优先 0<=value<=100",
+    "element_code": "percentage",
+    "element_id": "esrs.2023-set1.e2-4.dp13.element.percentage",
+    "labels": {
+      "en": "Percentage of emissions",
+      "zh": "排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": 100,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "固定为 soil",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp13.element.pollution_medium",
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "soil",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "water_risk 与 high_water_stress 分开 固定为 water_risk",
+    "element_code": "water_risk_class",
+    "element_id": "esrs.2023-set1.e2-4.dp13.element.water_risk_class",
+    "labels": {
+      "en": "Water risk class",
+      "zh": "水风险类别"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.water-risk-class",
+      "fallback_types": [],
+      "fixed_value": "water_risk",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "numerator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >=0",
+    "element_code": "numerator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp13.element.numerator_mass",
+    "labels": {
+      "en": "Emissions in relevant areas (numerator)",
+      "zh": "风险地区排放量（分子）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "denominator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >0",
+    "element_code": "denominator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp13.element.denominator_mass",
+    "labels": {
+      "en": "Total emissions (denominator)",
+      "zh": "总排放量（分母）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "matching_scope"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "同期间、单位、边界、介质；污染物维度按披露粒度匹配",
+    "element_code": "matching_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp13.element.matching_scope",
+    "labels": {
+      "en": "Derivation matching scope",
+      "zh": "计算匹配口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_guard",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "直接披露优先 0<=value<=100",
+    "element_code": "percentage",
+    "element_id": "esrs.2023-set1.e2-4.dp14.element.percentage",
+    "labels": {
+      "en": "Percentage of emissions",
+      "zh": "排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": 100,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "固定为 soil",
+    "element_code": "pollution_medium",
+    "element_id": "esrs.2023-set1.e2-4.dp14.element.pollution_medium",
+    "labels": {
+      "en": "Pollution medium",
+      "zh": "污染介质"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+      "fallback_types": [],
+      "fixed_value": "soil",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "water_risk 与 high_water_stress 分开 固定为 high_water_stress",
+    "element_code": "water_risk_class",
+    "element_id": "esrs.2023-set1.e2-4.dp14.element.water_risk_class",
+    "labels": {
+      "en": "Water risk class",
+      "zh": "水风险类别"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.water-risk-class",
+      "fallback_types": [],
+      "fixed_value": "high_water_stress",
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "numerator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >=0",
+    "element_code": "numerator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp14.element.numerator_mass",
+    "labels": {
+      "en": "Emissions in relevant areas (numerator)",
+      "zh": "风险地区排放量（分子）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": 0,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "denominator_mass"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "仅派生时需要 >0",
+    "element_code": "denominator_mass",
+    "element_id": "esrs.2023-set1.e2-4.dp14.element.denominator_mass",
+    "labels": {
+      "en": "Total emissions (denominator)",
+      "zh": "总排放量（分母）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_input",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": "extractesg.core.unit-dimension.mass"
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "matching_scope"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "同期间、单位、边界、介质；污染物维度按披露粒度匹配",
+    "element_code": "matching_scope",
+    "element_id": "esrs.2023-set1.e2-4.dp14.element.matching_scope",
+    "labels": {
+      "en": "Derivation matching scope",
+      "zh": "计算匹配口径"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "derivation_guard",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "method_code"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "标明相对于直接测量的优先级",
+    "element_code": "method_code",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.method_code",
+    "labels": {
+      "en": "Method selected",
+      "zh": "采用的方法"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.method-priority",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "不得以笼统“数据限制”代替原文",
+    "element_code": "inferior_method_reason",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.inferior_method_reason",
+    "labels": {
+      "en": "Reason for inferior methodology",
+      "zh": "选择较低优先级方法的原因"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "narrative",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "estimate_basis_standard"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "使用估算时适用",
+    "element_code": "estimate_basis_standard",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.estimate_basis_standard",
+    "labels": {
+      "en": "Standard used as basis of estimate",
+      "zh": "估算依据标准"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "estimate_basis_sector_study"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "使用估算时适用",
+    "element_code": "estimate_basis_sector_study",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.estimate_basis_sector_study",
+    "labels": {
+      "en": "Sectoral study used as basis",
+      "zh": "估算依据行业研究"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "estimate_basis_sources"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "使用估算时适用",
+    "element_code": "estimate_basis_sources",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.estimate_basis_sources",
+    "labels": {
+      "en": "Other sources used as basis",
+      "zh": "估算依据其他来源"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "method",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "uncertainty_degree"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "使用估算时适用",
+    "element_code": "uncertainty_degree",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.uncertainty_degree",
+    "labels": {
+      "en": "Possible degree of uncertainty",
+      "zh": "可能的不确定性程度"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "uncertainty",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "estimate_range"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "下限<=上限并保留单位",
+    "element_code": "estimate_range",
+    "element_id": "esrs.2023-set1.e2-4.dp15.element.estimate_range",
+    "labels": {
+      "en": "Range of estimates reflecting measurement uncertainty",
+      "zh": "反映测量不确定性的估算范围"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "uncertainty",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "extractesg.core.dimension.facility"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "一项设施一行",
+    "element_code": "facility_name",
+    "element_id": "esrs.2023-set1.e2-4.dp16.element.facility_name",
+    "labels": {
+      "en": "Installation/facility name",
+      "zh": "设施名称"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp16",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "entity",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "ied_applicable"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "TRUE/FALSE/unknown",
+    "element_code": "ied_applicable",
+    "element_id": "esrs.2023-set1.e2-4.dp16.element.ied_applicable",
+    "labels": {
+      "en": "IED applicability",
+      "zh": "IED 适用"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp16",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "applicability",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "extractesg.core.codeset.boolean-unknown",
+      "fallback_types": [
+        "enum"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "boolean",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "bref_reference"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "名称和版本",
+    "element_code": "bref_reference",
+    "element_id": "esrs.2023-set1.e2-4.dp16.element.bref_reference",
+    "labels": {
+      "en": "BREF reference",
+      "zh": "BREF 参考文件"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp16",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "bat_conclusion_reference"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "名称和版本",
+    "element_code": "bat_conclusion_reference",
+    "element_id": "esrs.2023-set1.e2-4.dp16.element.bat_conclusion_reference",
+    "labels": {
+      "en": "EU BAT Conclusion reference",
+      "zh": "EU BAT Conclusion 依据"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp16",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "extractesg.core.dimension.facility"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "原文可识别时",
+    "element_code": "facility_name",
+    "element_id": "esrs.2023-set1.e2-4.dp17.element.facility_name",
+    "labels": {
+      "en": "Facility name",
+      "zh": "设施名称"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "entity",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "incident_status"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "occurred/explicit_zero/not_disclosed/unclear",
+    "element_code": "incident_status",
+    "element_id": "esrs.2023-set1.e2-4.dp17.element.incident_status",
+    "labels": {
+      "en": "Non-compliance incident status",
+      "zh": "违规事件状态"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "status",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.incident-status",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "发生时逐项记录",
+    "element_code": "incident_or_action",
+    "element_id": "esrs.2023-set1.e2-4.dp17.element.incident_or_action",
+    "labels": {
+      "en": "Incident or enforcement action",
+      "zh": "违规事件或执法行动"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "null_allowed": true,
+    "requirement_level": "conditional",
+    "semantic_role": "narrative",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "permit_condition"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "permit_condition",
+    "element_id": "esrs.2023-set1.e2-4.dp17.element.permit_condition",
+    "labels": {
+      "en": "Related permit condition",
+      "zh": "相关许可条件"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "competent_authority"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "competent_authority",
+    "element_id": "esrs.2023-set1.e2-4.dp17.element.competent_authority",
+    "labels": {
+      "en": "Competent authority",
+      "zh": "主管机关"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "extractesg.core.dimension.facility"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "facility_name",
+    "element_id": "esrs.2023-set1.e2-4.dp18.element.facility_name",
+    "labels": {
+      "en": "Facility name",
+      "zh": "设施名称"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "entity",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.bat-parameter"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "parameter_or_pollutant",
+    "element_id": "esrs.2023-set1.e2-4.dp18.element.parameter_or_pollutant",
+    "labels": {
+      "en": "Performance parameter or pollutant",
+      "zh": "绩效参数或污染物"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "结构化数值放量化事实表",
+    "element_code": "actual_performance",
+    "element_id": "esrs.2023-set1.e2-4.dp18.element.actual_performance",
+    "labels": {
+      "en": "Actual performance",
+      "zh": "实际绩效值"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "benchmark_value_or_range"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "区间保留下限和上限",
+    "element_code": "benchmark_value_or_range",
+    "element_id": "esrs.2023-set1.e2-4.dp18.element.benchmark_value_or_range",
+    "labels": {
+      "en": "BAT-AEL value or range",
+      "zh": "BAT-AEL 值或区间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "benchmark",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "comparison_result"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "meets/better/worse/mixed/unclear",
+    "element_code": "comparison_result",
+    "element_id": "esrs.2023-set1.e2-4.dp18.element.comparison_result",
+    "labels": {
+      "en": "Comparison result",
+      "zh": "比较结论"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "assessment",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.bat-comparison-result",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "bref_or_conclusion_reference"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "名称和版本",
+    "element_code": "bref_or_conclusion_reference",
+    "element_id": "esrs.2023-set1.e2-4.dp18.element.bref_or_conclusion_reference",
+    "labels": {
+      "en": "BREF/BAT reference",
+      "zh": "BREF/BAT 依据"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "extractesg.core.dimension.facility"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "facility_name",
+    "element_id": "esrs.2023-set1.e2-4.dp19.element.facility_name",
+    "labels": {
+      "en": "Facility name",
+      "zh": "设施名称"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "entity",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.bat-parameter"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "parameter_or_pollutant",
+    "element_id": "esrs.2023-set1.e2-4.dp19.element.parameter_or_pollutant",
+    "labels": {
+      "en": "Performance parameter or pollutant",
+      "zh": "绩效参数或污染物"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "core_field",
+      "target": "value_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "结构化数值放量化事实表",
+    "element_code": "actual_performance",
+    "element_id": "esrs.2023-set1.e2-4.dp19.element.actual_performance",
+    "labels": {
+      "en": "Actual performance",
+      "zh": "实际绩效值"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "value",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "benchmark_value_or_range"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "区间保留下限和上限",
+    "element_code": "benchmark_value_or_range",
+    "element_id": "esrs.2023-set1.e2-4.dp19.element.benchmark_value_or_range",
+    "labels": {
+      "en": "BAT-AEPL value or range",
+      "zh": "BAT-AEPL 值或区间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "benchmark",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "decimal_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "comparison_result"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "meets/better/worse/mixed/unclear",
+    "element_code": "comparison_result",
+    "element_id": "esrs.2023-set1.e2-4.dp19.element.comparison_result",
+    "labels": {
+      "en": "Comparison result",
+      "zh": "比较结论"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "assessment",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.bat-comparison-result",
+      "fallback_types": [
+        "text"
+      ],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "quantitative_observation",
+      "storage": "attribute",
+      "target": "bref_or_conclusion_reference"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "名称和版本",
+    "element_code": "bref_or_conclusion_reference",
+    "element_id": "esrs.2023-set1.e2-4.dp19.element.bref_or_conclusion_reference",
+    "labels": {
+      "en": "BREF/BAT reference",
+      "zh": "BREF/BAT 依据"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "extractesg.core.dimension.facility"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "facility_name",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.facility_name",
+    "labels": {
+      "en": "Facility name",
+      "zh": "设施名称"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "entity",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.e2-4.dimension.schedule-derogation-type"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "description": "compliance_schedule/derogation",
+    "element_code": "item_type",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.item_type",
+    "labels": {
+      "en": "Item type",
+      "zh": "事项类型"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "dimension",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": "esrs.2023-set1.e2-4.codeset.schedule-derogation-type",
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "enum",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "item_description",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.item_description",
+    "labels": {
+      "en": "Schedule or derogation description",
+      "zh": "计划或豁免内容"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "narrative",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "competent_authority"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "competent_authority",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.competent_authority",
+    "labels": {
+      "en": "Granting competent authority",
+      "zh": "授予主管机关"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "decision_reference"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "decision_reference",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.decision_reference",
+    "labels": {
+      "en": "Decision/reference number",
+      "zh": "决定或许可编号"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": true,
+    "requirement_level": "optional",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "effective_period",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.effective_period",
+    "labels": {
+      "en": "Effective period",
+      "zh": "有效期间"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "period",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "date_range",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "attribute",
+      "target": "bat_ael_link"
+    },
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "description": "",
+    "element_code": "bat_ael_link",
+    "element_id": "esrs.2023-set1.e2-4.dp20.element.bat_ael_link",
+    "labels": {
+      "en": "Related BAT-AEL",
+      "zh": "关联 BAT-AEL"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "regulatory",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "value_contract": {
+      "code_set_id": null,
+      "fallback_types": [],
+      "fixed_value": null,
+      "maximum": null,
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  }
+]

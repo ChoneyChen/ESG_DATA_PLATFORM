@@ -1,0 +1,841 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "structure",
+    "description": "用于声明量化披露采用的分解维度；Table 表示多维结构，不要求报告版式必须是表格。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Pollution of air, water and soil [multiple dimensions: at site level or by type of source, by sector or by geographical area]",
+      "zh": "空气、水和土壤污染披露维度结构"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "28(a)",
+    "reporting_requirement": "按报告实际出现的维度逐项登记，不把所有维度塞进一个文本单元格。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    ],
+    "source_datapoint_id": "E2-4_01",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [["esrs.2023-set1.e2-4.concept.pollution"]],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "披露 E-PRTR 附件 II 所列污染物排入空气的量；排除按 ESRS E1 披露的温室气体。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Emissions to air by pollutant",
+      "zh": "按污染物划分的空气排放量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/mass",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e2-4.dimension.air-quality-index",
+      "esrs.2023-set1.e2-4.dimension.degree-urbanisation"
+    ],
+    "paragraph": "28(a)",
+    "reporting_requirement": "每个污染物、期间和维度组合形成一条量化事实，保留原始质量单位。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "source_datapoint_id": "E2-4_02",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "excluded_concept_ids": ["esrs.2023-set1.e2-4.concept.greenhouse-gas"],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.air-pollution"],
+      ["esrs.2023-set1.e2-4.concept.emission-amount"],
+      ["esrs.2023-set1.e2-4.concept.pollutant"]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "披露 E-PRTR 附件 II 所列污染物排入水体的量。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Emissions to water by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+      "zh": "按污染物划分的水体排放量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/mass",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "paragraph": "28(a)",
+    "reporting_requirement": "同一污染物在不同地点或水风险类别下分别成行。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "source_datapoint_id": "E2-4_03",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.water-pollution"],
+      ["esrs.2023-set1.e2-4.concept.emission-amount"],
+      ["esrs.2023-set1.e2-4.concept.pollutant"]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "披露 E-PRTR 附件 II 所列污染物排入土壤的量。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Emissions to soil by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+      "zh": "按污染物划分的土壤排放量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/mass",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "paragraph": "28(a)",
+    "reporting_requirement": "同一污染物在不同地点或水风险类别下分别成行。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "source_datapoint_id": "E2-4_04",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.soil-pollution"],
+      ["esrs.2023-set1.e2-4.concept.emission-amount"],
+      ["esrs.2023-set1.e2-4.concept.pollutant"]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "IG 3 将 05、06、07 标为相互替代数据点；AR 20 还要求关注离开设施的排放、产品、产品组成或服务。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Microplastics generated and used",
+      "zh": "产生和使用的微塑料量（合并披露形式）"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "mass",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+      "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "28(b)",
+    "reporting_requirement": "仅记录报告直接披露的合并口径；不得默认把 06 与 07 相加。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    ],
+    "source_datapoint_id": "E2-4_05",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "subject_concept_groups": [["esrs.2023-set1.e2-4.concept.microplastics"]],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "微塑料可能在生产中有意或无意产生；范围按 AR 20 判断。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Microplastics generated",
+      "zh": "产生的微塑料量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "mass",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+      "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "28(b)",
+    "reporting_requirement": "记录 generated 原始值和口径，不推断 used。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    ],
+    "source_datapoint_id": "E2-4_06",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "subject_concept_groups": [["esrs.2023-set1.e2-4.concept.microplastics"]],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "微塑料使用包括生产过程使用或采购且按 AR 20 离开设施的相关量。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Microplastics used",
+      "zh": "使用的微塑料量"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "mass",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+      "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "28(b)",
+    "reporting_requirement": "记录 used 原始值和口径，不推断 generated。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    ],
+    "source_datapoint_id": "E2-4_07",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "subject_concept_groups": [["esrs.2023-set1.e2-4.concept.microplastics"]],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "企业应将量化披露置于背景中并描述随时间的变化。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Description of changes over time (pollution of air, water and soil)",
+      "zh": "空气、水和土壤污染随时间变化描述"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "30(a)",
+    "reporting_requirement": "保留原文；可另提取方向、比较期间和涉及污染物作为结构化要素。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_08",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.pollution"],
+      ["esrs.2023-set1.e2-4.concept.change-over-time"]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 26-27"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "AR 26 给出方法优先顺序；AR 27 要求考虑 BREF/基准、AMS 校准和独立实验室验证。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Description of measurement methodologies (pollution of air, water and soil)",
+      "zh": "空气、水和土壤污染测量方法描述"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "paragraph": "30(b)",
+    "reporting_requirement": "方法按优先级代码登记，同时保留完整原文和适用污染介质。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_09",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.pollution"],
+      ["esrs.2023-set1.e2-4.concept.measurement-method"]
+    ],
+    "value_family": "narrative_methodology"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 27"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "应描述收集污染核算与报告数据的流程，包括所需数据类型和信息来源。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Description of process(es) to collect data for pollution-related accounting and reporting",
+      "zh": "污染相关核算与报告的数据收集流程"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "30(c)",
+    "reporting_requirement": "流程、数据类型、来源分别填列，不压缩成仅有“已披露”。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_10",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.pollution"],
+      ["esrs.2023-set1.e2-4.concept.data-collection-process"]
+    ],
+    "value_family": "narrative_process"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to water occurring in areas at water risk",
+      "zh": "水风险地区水污染物排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "reporting_requirement": "优先记录报告直接披露值；计算时分子分母必须同期间、同边界、同口径。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_11",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": ["esrs.2023-set1.e2-4.concept.reporting-period"],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.water-pollution"],
+      ["esrs.2023-set1.e2-4.concept.water-risk"],
+      ["esrs.2023-set1.e2-4.concept.percentage"]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息；高水压力属于水风险的特定类别。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to water occurring in areas of high-water stress",
+      "zh": "高水压力地区水污染物排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "reporting_requirement": "不得与一般 water risk 占比混填。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_12",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": ["esrs.2023-set1.e2-4.concept.reporting-period"],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.water-pollution"],
+      ["esrs.2023-set1.e2-4.concept.water-stress"],
+      ["esrs.2023-set1.e2-4.concept.percentage"]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to soil occurring in areas at water risk",
+      "zh": "水风险地区土壤污染物排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "reporting_requirement": "分子必须是位于水风险地区的土壤污染排放量。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_13",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": ["esrs.2023-set1.e2-4.concept.reporting-period"],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.soil-pollution"],
+      ["esrs.2023-set1.e2-4.concept.water-risk"],
+      ["esrs.2023-set1.e2-4.concept.percentage"]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to soil occurring in areas of high-water stress",
+      "zh": "高水压力地区土壤污染物排放占比"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "reporting_requirement": "需保留地点与高水压力分类依据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_14",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "context_concept_ids": ["esrs.2023-set1.e2-4.concept.reporting-period"],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.soil-pollution"],
+      ["esrs.2023-set1.e2-4.concept.water-stress"],
+      ["esrs.2023-set1.e2-4.concept.percentage"]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "仅在采用低于直接测量的量化方法时适用；使用估算还应披露依据、可能不确定性程度和估算范围。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Disclosure of reasons for choosing inferior methodology to quantify emissions",
+      "zh": "选择低于直接测量优先级方法的原因"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "31",
+    "reporting_requirement": "不要只填原因；估算依据和不确定性要拆分记录。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_15",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.measurement-method"],
+      ["esrs.2023-set1.e2-4.concept.method-choice-reason"]
+    ],
+    "value_family": "narrative_methodology"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "在企业活动适用 IED 和相关 BREF 时，可披露附加信息。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Disclosure of list of installations operated that fall under IED and EU BAT Conclusions",
+      "zh": "适用 IED 和 EU BAT Conclusions 的运营设施清单"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp16",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "AR 25(a)",
+    "reporting_requirement": "一项设施一条记录；明确设施名称和适用依据。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility"
+    ],
+    "source_datapoint_id": "E2-4_16",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.ied"],
+      ["esrs.2023-set1.e2-4.concept.bref"],
+      ["esrs.2023-set1.e2-4.concept.installation"]
+    ],
+    "value_family": "narrative_list"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "适用 IED/BREF 时可披露；明确零事件也是有效披露。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Disclosure of list of any non-compliance incidents or enforcement actions necessary to ensure compliance in case of breaches of permit conditions",
+      "zh": "许可条件违规事件或执法行动清单"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "AR 25(b)",
+    "reporting_requirement": "事件和执法行动分项记录，不以空白代表零。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility"
+    ],
+    "source_datapoint_id": "E2-4_17",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [[
+      "esrs.2023-set1.e2-4.concept.non-compliance",
+      "esrs.2023-set1.e2-4.concept.enforcement-action"
+    ]],
+    "value_family": "narrative_list"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "mixed",
+    "description": "适用 IED/BREF 时可披露。官方类型为 narrative，但实际比较通常包含结构化数值。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Disclosure of actual performance and comparison of environmental performance against emission levels associated with best available techniques (BAT-AEL) as described in EU-BAT conclusions",
+      "zh": "实际环境绩效与 BAT-AEL 比较"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "paragraph": "AR 25(c)",
+    "reporting_requirement": "叙述放定性表；实际值和 BAT-AEL 区间同时放量化事实表。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility",
+      "esrs.2023-set1.e2-4.dimension.bat-parameter"
+    ],
+    "source_datapoint_id": "E2-4_18",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.bat-ael"],
+      ["esrs.2023-set1.e2-4.concept.environmental-performance"]
+    ],
+    "value_family": "mixed_bat_comparison"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "mixed",
+    "description": "仅在 BAT-AEPL 适用于相应行业和设施时。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Disclosure of actual performance against environmental performance levels associated with best available techniques (BAT-AEPLs) applicable to sector and installation",
+      "zh": "实际环境绩效与 BAT-AEPL 比较"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment"
+    ],
+    "paragraph": "AR 25(d)",
+    "reporting_requirement": "保留适用性、实际值、基准值或区间及比较结论。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility",
+      "esrs.2023-set1.e2-4.dimension.bat-parameter"
+    ],
+    "source_datapoint_id": "E2-4_19",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.bat-aepl"],
+      ["esrs.2023-set1.e2-4.concept.environmental-performance"]
+    ],
+    "value_family": "mixed_bat_comparison"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "适用 IED/BREF 时可披露的附加信息。",
+    "disclosure_requirement": "E2-4",
+    "labels": {
+      "en": "Disclosure of list of any compliance schedules or derogations granted by competent authorities according to Article 15(4) IED that are associated with implementation of BAT-AELs",
+      "zh": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "AR 25(e)",
+    "reporting_requirement": "每个计划或豁免单独成行并记录主管机关和期限。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility"
+    ],
+    "source_datapoint_id": "E2-4_20",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      ["esrs.2023-set1.e2-4.concept.bat-ael"],
+      [
+        "esrs.2023-set1.e2-4.concept.compliance-schedule",
+        "esrs.2023-set1.e2-4.concept.derogation"
+      ]
+    ],
+    "value_family": "narrative_list"
+  }
+]

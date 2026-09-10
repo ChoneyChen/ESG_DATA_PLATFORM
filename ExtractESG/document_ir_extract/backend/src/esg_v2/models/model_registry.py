@@ -18,6 +18,7 @@ class ModelProfile:
     roles: tuple[str, ...]
     vision: bool
     structured_output: bool
+    provider: str = "qiniu"
     reviewer_rank: int = 0
     verifier_rank: int = 0
     thinking_control: str = "reasoning_effort"
@@ -212,6 +213,7 @@ class ModelHealthRegistry:
 
 
 class QiniuModelRegistry:
+    verification_policy = "different_model_family"
     RETIRED_MODELS = {
         "qwen2.5-vl-72b-instruct",
         "doubao-1.5-vision-pro",

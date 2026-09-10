@@ -3,20 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ESG Evidence Hub · Document IR Console</title>
-    <link rel="stylesheet" href="./src/styles.css?v=document-ir-v011-targeted-nav-20260809" />
+    <title>ESG Evidence Hub · Pipeline Workbench</title>
+    <link rel="stylesheet" href="./src/styles.css?v=cross-standard-batch-v1-20260903" />
   </head>
   <body>
-    <main class="shell">
-      <nav class="app-nav" aria-label="主功能">
-        <a class="active" href="./index.html">文档解析 · Document IR</a>
-        <a href="./targeted.html">按表抽取 · Targeted Recall</a>
-      </nav>
+    <div class="app-frame">
+      <aside class="app-sidebar">
+        <div class="app-brand">
+          <span class="brand-mark">EI</span>
+          <div><strong>ESG Evidence Hub</strong><span>Pipeline Workbench</span></div>
+        </div>
+        <nav class="app-navigation" aria-label="主导航">
+          <button type="button" class="nav-item active" data-app-view-target="report-assets"><span>01</span>报告资产</button>
+          <button type="button" class="nav-item" data-app-view-target="ocr"><span>02</span>OCR 任务</button>
+          <button type="button" class="nav-item" data-app-view-target="document-ir"><span>03</span>Document IR</button>
+          <button type="button" class="nav-item" data-app-view-target="ir-review"><span>04</span>IR 复核检查</button>
+          <button type="button" class="nav-item" data-app-view-target="targeted"><span>05</span>定向抽取</button>
+          <button type="button" class="nav-item" data-app-view-target="results"><span>06</span>抽取结果</button>
+          <button type="button" class="nav-item" data-app-view-target="pipeline-plan"><span>07</span>链路控制</button>
+        </nav>
+        <div class="sidebar-note">三条处理链路共享一个串行任务队列。产物仍按各自不可变合同独立保存。</div>
+      </aside>
+      <main class="shell">
       <header class="hero">
         <div>
-          <p class="eyebrow">ESG Evidence Hub v2</p>
-          <h1>Document Intelligence 工作台</h1>
-          <p class="lede">从 PaddleOCR 原始结果，到页图、坐标、结构、表格图、视觉复核与 IR 准入，逐层查看每一个中间过程。</p>
+          <p class="eyebrow" id="view-eyebrow">Report library</p>
+          <h1 id="view-title">报告资产</h1>
+          <p class="lede" id="view-description">管理专用 PDF 目录，并查看 OCR 与 IR 处理状态。</p>
         </div>
         <div class="hero-actions">
           <label class="compact-field">Backend URL<input id="backend-url" type="url" value="http://127.0.0.1:18080" /></label>
@@ -25,12 +38,33 @@
         </div>
       </header>
 
-      <section class="pipeline-card">
+      <section class="card report-library" data-app-view="report-assets">
+        <div class="section-heading">
+          <div><p class="eyebrow">Dedicated PDF directory</p><h2>报告原文件库</h2></div>
+          <div class="button-row">
+            <button id="report-assets-refresh" class="secondary" type="button">刷新目录</button>
+            <button id="report-assets-open-folder" class="secondary" type="button">目录位置</button>
+          </div>
+        </div>
+        <div id="report-assets-summary" class="storage-summary"></div>
+        <form id="report-asset-upload" class="asset-upload-row">
+          <label>添加 PDF 到专用目录<input id="report-asset-file" type="file" accept="application/pdf,.pdf" /></label>
+          <button type="submit">上传到报告库</button>
+          <span id="report-asset-message" class="muted">目录由后端直接管理，不复制 OCR/IR 产物。</span>
+        </form>
+        <div class="asset-toolbar">
+          <label class="asset-search">搜索 PDF<input id="report-asset-search" type="search" placeholder="文件名或 SHA-256" /></label>
+          <label>OCR 状态<select id="report-asset-filter"><option value="all">全部</option><option value="unprocessed">未处理</option><option value="processed">已处理</option></select></label>
+        </div>
+        <div id="report-asset-list" class="report-asset-list"><div class="empty-state">正在读取 /pdf…</div></div>
+      </section>
+
+      <section class="pipeline-card" data-app-view="tasks" data-component-view="document-ir">
         <div class="section-heading"><div><p class="eyebrow">Live pipeline</p><h2>Document IR 构建链路</h2></div><span id="pipeline-state" class="muted">等待任务</span></div>
         <div id="pipeline-stages" class="pipeline-stages"></div>
       </section>
 
-      <section id="runtime-telemetry" class="card runtime-card">
+      <section id="runtime-telemetry" class="card runtime-card" data-app-view="system">
         <div class="section-heading">
           <div><p class="eyebrow">Live telemetry</p><h2>运行计时与模型调用</h2></div>
           <span id="runtime-updated" class="muted">等待 Document IR 任务</span>
@@ -42,59 +76,152 @@
         </div>
       </section>
 
-      <section class="card model-strip-card">
+      <section class="card model-strip-card" data-app-view="system">
         <div class="section-heading">
-          <div><p class="eyebrow">Agent runtime</p><h2>七牛模型注册表与健康状态</h2></div>
+          <div><p class="eyebrow">Agent runtime</p><h2>视觉复核 Provider 与模型健康状态</h2></div>
           <button id="refresh-models" class="secondary" type="button">刷新模型状态</button>
         </div>
         <div id="model-status" class="model-status"><span class="muted">尚未读取模型目录。</span></div>
       </section>
 
-      <section class="two-column setup-grid">
-        <form id="ocr-form" class="card">
+      <section class="card document-catalog-card" data-app-view="assets">
+        <div class="section-heading">
+          <div><p class="eyebrow">Document catalog</p><h2>PDF 与 Document IR 归类</h2></div>
+          <span id="document-catalog-summary" class="muted">等待读取文档目录</span>
+        </div>
+        <div id="document-catalog" class="document-catalog"></div>
+      </section>
+
+      <section class="asset-workspace" data-app-view="assets">
+        <section class="card asset-browser-card">
+          <div class="section-heading asset-heading">
+            <div><p class="eyebrow">Storage inventory</p><h2>OCR 与 Document IR 产物库</h2></div>
+            <div class="button-row">
+              <button id="cleanup-incomplete" class="secondary" type="button">清理失败/中断记录</button>
+              <button id="refresh-storage" class="secondary" type="button">刷新资产</button>
+            </div>
+          </div>
+          <div id="storage-summary" class="storage-summary"></div>
+          <div class="asset-toolbar">
+            <label class="asset-search">搜索报告或 Run ID<input id="storage-search" type="search" placeholder="文件名、document_id、OCR/IR run_id" /></label>
+            <label>状态筛选<select id="storage-filter"><option value="all">全部产物</option><option value="ready">可用于下游</option><option value="incomplete">失败或不完整</option><option value="ocr_only">只有 OCR</option></select></label>
+            <label class="checkbox-line management-toggle"><input id="storage-management-mode" type="checkbox" /> 开启清理管理</label>
+          </div>
+          <div id="storage-inventory" class="storage-inventory"><div class="empty-state compact-empty">等待读取本地资产。</div></div>
+          <div id="storage-selection-bar" class="storage-selection-bar hidden">
+            <span id="storage-selection-summary">尚未选择清理对象</span>
+            <label class="checkbox-line"><input id="storage-cascade" type="checkbox" /> 级联包含依赖产物</label>
+            <button id="plan-storage-deletion" class="danger" type="button">检查并清除所选</button>
+          </div>
+        </section>
+
+        <aside class="card asset-detail-card">
+          <div class="section-heading"><div><p class="eyebrow">Package detail</p><h2 id="asset-detail-title">选择一个产物</h2></div><span id="asset-detail-status" class="asset-status">未选择</span></div>
+          <div id="asset-detail-meta" class="asset-detail-meta"><p class="muted">点击 OCR 或 IR 行可查看包状态、文件分类与体积。</p></div>
+          <div id="asset-detail-actions" class="button-row"></div>
+          <div id="asset-detail-files" class="artifacts tall"></div>
+          <pre id="asset-detail-preview" class="preview">点击 JSON、JSONL 或 Markdown 文件在此预览。</pre>
+        </aside>
+      </section>
+
+      <section class="card" data-app-view="assets">
+        <div class="section-heading">
+          <div><p class="eyebrow">Semantic index assets</p><h2>本地语义索引缓存</h2></div>
+          <button id="semantic-index-refresh" class="secondary" type="button">刷新索引</button>
+        </div>
+        <p class="muted">索引按 Document IR 与嵌入模型独立保存。清除定向抽取任务只删除该次结果，不会删除这里的缓存。</p>
+        <div id="semantic-index-summary" class="storage-summary"></div>
+        <div id="semantic-index-list" class="report-asset-list"><div class="empty-state">正在读取本地语义索引…</div></div>
+      </section>
+
+      <dialog id="deletion-dialog" class="deletion-dialog">
+        <form method="dialog" class="dialog-shell">
+          <div class="section-heading">
+            <div><p class="eyebrow">Dependency-aware cleanup</p><h2>清理影响确认</h2></div>
+            <button id="close-deletion-dialog" class="icon-button secondary" value="cancel" aria-label="关闭">×</button>
+          </div>
+          <div id="deletion-plan-content" class="deletion-plan-content"></div>
+          <div class="dialog-actions">
+            <button value="cancel" class="secondary">取消</button>
+            <button id="execute-storage-deletion" value="noop" class="danger" type="button" disabled>执行清理</button>
+          </div>
+        </form>
+      </dialog>
+
+      <section class="two-column setup-grid" data-app-view="tasks">
+        <form id="ocr-form" class="card" data-component-view="ocr">
           <div class="step-label">Step 1 · Primary parser</div>
           <h2>PDF → PaddleOCR-VL</h2>
-          <label>PaddleOCR-VL Token<input id="token" type="password" placeholder="留空则使用后端环境变量；不会写入产物" /></label>
-          <label>本地 PDF<input id="pdf-file" type="file" accept="application/pdf,.pdf" /></label>
+          <label>OCR 执行方式<select id="ocr-provider"><option value="local_first">本地优先，API 回退（推荐）</option><option value="local_paddleocr">仅本地 PaddleOCR-VL</option><option value="paddle_api">仅 PaddleOCR-VL API</option></select></label>
+          <div id="ocr-provider-status" class="agent-note">正在检查本地 OCR 环境…</div>
+          <label id="ocr-token-field">PaddleOCR-VL API Token<input id="token" type="password" placeholder="仅 API 或回退时使用；不会写入产物" /></label>
+          <label id="ocr-fallback-field" class="checkbox-line"><input id="allow-api-fallback" type="checkbox" checked /> 本地不可用或执行失败时允许回退 API</label>
+          <label>报告资产<select id="ocr-asset-select"><option value="">选择 /pdf 中的 PDF</option></select></label>
+          <label>临时加入资产库<input id="pdf-file" type="file" accept="application/pdf,.pdf" /></label>
           <label>或 PDF URL<input id="file-url" type="url" placeholder="https://..." /></label>
-          <label>Model<input id="model" value="PaddleOCR-VL-1.6" /></label>
+          <label>API Model（本地模式使用后端配置的本地权重）<input id="model" value="PaddleOCR-VL-1.6" /></label>
           <div class="checks">
             <label><input id="use-orientation" type="checkbox" /> 方向分类</label>
             <label><input id="use-unwarping" type="checkbox" /> 文档矫正</label>
             <label><input id="use-chart" type="checkbox" /> 图表识别</label>
           </div>
-          <button type="submit">开始 OCR</button>
-          <p class="hint">v2 从上游 PDF artifact 开始，不承担爬虫、Kodo 文件登记或公司主数据。</p>
+          <button type="submit">加入 OCR 任务</button>
+          <p class="hint">本地与 API 共用同一份 ocr-package-v1 输出合同；切换 Provider 不改变后续 Document IR。</p>
         </form>
 
-        <form id="ir-form" class="card">
+        <form id="ir-form" class="card" data-component-view="document-ir">
           <div class="step-label">Step 2 · Platform document model</div>
           <h2>OCR Output → Document IR</h2>
-          <label>OCR Run ID<input id="ocr-run-id" placeholder="ocr-xxxxxxxxxxxx" /></label>
-          <label>原 PDF 本机路径（可选）<input id="pdf-path" placeholder="上传任务通常可自动推断" /></label>
-          <div class="field-row">
-            <label>渲染 DPI<input id="render-dpi" type="number" min="72" max="300" value="144" /></label>
-            <label>父 IR 版本<select id="parent-ir-run"><option value="">新建独立 revision</option></select></label>
-          </div>
-          <label>七牛 API Key（仅开启 VLM 时）<input id="qiniu-key" type="password" placeholder="留空则使用后端环境变量" /></label>
-          <label class="checkbox-line"><input id="execute-vlm" type="checkbox" /> 执行质量路由产生的七牛 VLM 复核任务</label>
-          <p class="agent-note">自动闭环：主审模型提出局部候选 → 本地 Patch Guard → 不同模型家族独立复核 → 最多两次反馈返修（三轮主审）。API 故障进入自动待处理，不直接转人工。</p>
-          <button type="submit">构建 Document IR</button>
+          <section class="workflow-input-step">
+            <div class="selector-step-heading">
+              <div><span>01</span><div><strong>选择 OCR 解析结果</strong><small>本页独立读取全部 OCR Package，不依赖 OCR 页面当前选中了什么。</small></div></div>
+              <button id="ir-source-refresh" class="secondary" type="button">刷新列表</button>
+            </div>
+            <div class="selector-toolbar">
+              <label>搜索报告或 Run ID<input id="ir-source-search" type="search" placeholder="例如：中国银行、2024、ocr-…" /></label>
+              <label>显示范围<select id="ir-source-filter"><option value="usable">可构建 IR</option><option value="local">本地 OCR</option><option value="api">API OCR</option><option value="incomplete">失败或处理中</option><option value="all">全部 OCR</option></select></label>
+              <span id="ir-source-summary" class="selector-count">等待读取 OCR 包</span>
+            </div>
+            <div id="ir-selected-source" class="selected-input-summary empty-state">尚未选择 OCR 解析结果。</div>
+            <div id="ir-source-picker" class="input-choice-grid"><div class="empty-state">正在读取 OCR 包…</div></div>
+            <details class="advanced-input">
+              <summary>高级输入：手动指定 OCR Run ID</summary>
+              <label>OCR Run ID<input id="ocr-run-id" placeholder="ocr-xxxxxxxxxxxx" /></label>
+            </details>
+          </section>
+          <section class="workflow-config-step">
+            <div class="selector-step-heading"><div><span>02</span><div><strong>配置 Document IR 构建</strong><small>选中的 OCR Package 会作为唯一输入版本写入 IR manifest。</small></div></div></div>
+            <label>原 PDF 本机路径（可选）<input id="pdf-path" placeholder="报告资产任务通常可自动推断" /></label>
+            <div class="field-row">
+              <label>报告显示名（可选）<input id="document-label" placeholder="默认采用所选 OCR 的原报告名" /></label>
+              <label>上游文档 ID（可选）<input id="external-document-id" placeholder="仅透传，不由本链路生成" /></label>
+            </div>
+            <div class="field-row">
+              <label>渲染 DPI<input id="render-dpi" type="number" min="72" max="300" value="144" /></label>
+              <label>父 IR 版本<select id="parent-ir-run"><option value="">新建独立 IR 分支（r1）</option></select></label>
+            </div>
+            <label>视觉复核 Provider<select id="review-provider"><option value="local_nuextract">本地 NuExtract3（MLX）</option><option value="qiniu">七牛云 VLM</option></select></label>
+            <label id="qiniu-key-field">七牛 API Key（仅七牛模式）<input id="qiniu-key" type="password" placeholder="留空则使用后端环境变量" /></label>
+            <label class="checkbox-line"><input id="execute-vlm" type="checkbox" /> 执行质量路由产生的视觉模型复核任务</label>
+            <p id="review-provider-note" class="agent-note"></p>
+          </section>
+          <button type="submit">加入 Document IR 任务</button>
           <p class="hint">模型复核只生成候选修正；分歧必须进入 Conflict/Patch，不直接覆盖 OCR。</p>
         </form>
       </section>
 
-      <section class="two-column">
-        <section class="card run-card">
+      <section class="two-column" data-app-view="tasks">
+        <section class="card run-card" data-component-view="ocr">
           <div class="section-heading"><div><div class="step-label">OCR runs</div><h2>OCR 运行与原始产物</h2></div><select id="ocr-history"><option value="">选择 OCR Run</option></select></div>
           <div id="current-run" class="run-id">尚未启动</div>
           <pre id="logs" class="logs"></pre>
+          <details open><summary>PDF 画布预检与 OCR 输入</summary><pre id="ocr-preflight" class="json"></pre></details>
           <details><summary>OCR Manifest</summary><pre id="manifest" class="json"></pre></details>
           <details open><summary>ocr_output 文件</summary><div id="artifacts" class="artifacts"></div></details>
           <details><summary>Markdown 预览</summary><pre id="markdown-preview" class="preview">点击任意 content/pages/page-0001.md。</pre></details>
         </section>
 
-        <section class="card run-card">
+        <section class="card run-card" data-component-view="document-ir">
           <div class="section-heading"><div><div class="step-label">IR runs</div><h2>Document IR 运行与版本</h2></div><select id="ir-history"><option value="">选择 IR Run</option></select></div>
           <div id="current-ir-run" class="run-id">尚未启动</div>
           <pre id="ir-logs" class="logs"></pre>
@@ -103,12 +230,128 @@
         </section>
       </section>
 
+      <section class="targeted-launch-layout" data-app-view="targeted">
+        <section class="card">
+          <div class="section-heading"><div><p class="eyebrow">Targeted recall</p><h2>标准任务与输入</h2></div><span id="tx-connection" class="status-pill">检查后端</span></div>
+          <div class="backend-connection-row"><label>定向抽取后端<input id="tx-backend-url" type="url" value="http://127.0.0.1:18180" /></label><button id="tx-reconnect" class="secondary" type="button">保存并重连</button></div>
+          <div id="tx-health-grid" class="target-health-grid"></div>
+          <section class="workflow-input-step targeted-input-step">
+            <div class="selector-step-heading"><div><span>01</span><div><strong>选择 Document IR</strong><small>直接从全部不可变 IR Revision 中选择，不依赖 Document IR 页面当前状态。</small></div></div></div>
+            <div class="selector-toolbar">
+              <label>搜索报告或 IR Run ID<input id="tx-ir-search" type="search" placeholder="例如：中国平安、2025、ir-…" /></label>
+              <label>准入状态<select id="tx-ir-filter"><option value="ready">Evidence 可用</option><option value="all">显示全部 IR</option><option value="unready">仅显示未准入</option></select></label>
+              <span id="tx-ir-count" class="selector-count">等待读取 IR</span>
+            </div>
+            <select id="tx-ir-select" class="hidden" aria-hidden="true"><option value="">未选择</option></select>
+            <div id="tx-ir-selected" class="selected-input-summary empty-state">尚未选择可抽取的 Document IR。</div>
+            <div id="tx-ir-picker" class="input-choice-grid compact-choice-grid"><div class="empty-state">正在读取 IR Revision…</div></div>
+          </section>
+          <section class="workflow-input-step targeted-input-step">
+            <div class="selector-step-heading"><div><span>02</span><div><strong>选择标准要求包</strong><small>切换标准卡片编辑各自指标；跨标准勾选会持续保留，入队时按标准包拆成独立结果合同。</small></div></div><span id="tx-standard-count" class="selector-count">等待读取标准包</span></div>
+            <label class="standard-select-fallback">当前编辑的标准包<select id="tx-standard-select"></select></label>
+            <div id="tx-standard-picker" class="standard-package-picker"><div class="empty-state">正在读取标准目录…</div></div>
+            <div id="tx-standard-detail" class="selected-input-summary empty-state">尚未选择标准包。</div>
+          </section>
+          <div class="section-heading compact-heading"><div><span class="selection-step-number">03</span><h3>选择跨标准指标任务</h3></div><div class="button-row"><button id="tx-select-all" class="text-button" type="button">当前标准全选</button><button id="tx-select-none" class="text-button" type="button">清空当前</button><button id="tx-clear-batch" class="text-button" type="button">清空全部</button></div></div>
+          <div id="tx-batch-selection-summary" class="batch-selection-summary empty-state">尚未从任何标准包选择指标。</div>
+          <div class="metric-selector-toolbar"><label>搜索指标<input id="tx-metric-search" type="search" placeholder="指标编号、中文名或数据类型" /></label><strong id="tx-metric-count">已选 0 / 0</strong></div>
+          <div id="tx-metric-list" class="metric-picker empty-state">等待标准包。</div>
+          <section class="workflow-config-step targeted-model-step">
+            <div class="selector-step-heading"><div><span>04</span><div><strong>选择语义填充能力</strong><small>本地与云端共享同一输出合同；输入规模按各自能力独立配置。</small></div></div></div>
+            <div class="targeted-model-grid">
+              <label>模型通道<select id="tx-semantic-provider"><option value="local_nuextract">本地 NuExtract3</option><option value="qiniu_vlm">七牛云视觉语言模型</option></select></label>
+              <label>模型 ID<input id="tx-semantic-model" type="text" placeholder="由通道提供默认模型" /></label>
+              <label>检索证据对象 Top N<input id="tx-retrieval-object-top-n" type="number" min="1" max="5" step="1" value="3" inputmode="numeric" required /><small>可输入 1–5；默认 3。每个对象分别送模。</small></label>
+              <label id="tx-qiniu-key-field">七牛 API Key<input id="tx-qiniu-key" type="password" autocomplete="off" placeholder="仅注入本次任务；留空使用后端环境变量" /></label>
+            </div>
+            <div id="tx-provider-profile" class="provider-profile-note">正在读取模型能力配置。</div>
+            <div class="checks targeted-options">
+              <label><input id="tx-semantic-search" type="checkbox" checked /> Qwen3 语义检索</label>
+              <label><input id="tx-semantic-fill" type="checkbox" checked /> 模型直接多行语义填表</label>
+              <label><input id="tx-visual-fallback" type="checkbox" checked /> 表格/图表 crop 作为一等证据</label>
+            </div>
+          </section>
+          <button id="tx-add-task" type="button" disabled>请先选择指标</button>
+          <p id="tx-launch-message" class="hint">每个已选标准包生成一个独立任务，并按当前卡片顺序原子加入统一串行队列。</p>
+        </section>
+        <section class="card">
+          <p class="eyebrow">Pipeline contract</p><h2>定向抽取处理管路</h2>
+          <div id="tx-pipeline-stages" class="pipeline-stages targeted-stages"></div>
+          <div class="agent-note">Document IR 与标准包只读固定版本；完整证据区域、模型逐量多行输出、来源校验和 Core records 全部保留。模型负责语义填表，Guard 只拦截确定的合同与溯源错误。</div>
+        </section>
+      </section>
+
+      <section class="results-workspace" data-app-view="results">
+        <aside class="card result-job-browser">
+          <div class="section-heading"><div><p class="eyebrow">Targeted runs</p><h2>抽取任务结果</h2></div><button id="tx-refresh-jobs" class="secondary" type="button">刷新</button></div>
+          <div id="tx-job-list" class="job-list"><div class="empty-state">正在核对任务索引与结果目录…</div></div>
+        </aside>
+        <section class="card result-detail-card">
+          <div class="section-heading"><div><p class="eyebrow">Result bundle</p><h2 id="tx-job-title">选择一个任务</h2></div><div class="button-row"><button id="tx-resume-job" class="secondary hidden" type="button">加入断点续跑</button><button id="tx-cancel-job" class="danger hidden" type="button">终止任务</button><button id="tx-delete-job" class="danger hidden" type="button">清除本次结果</button></div></div>
+          <div id="tx-result-document" class="result-document-banner hidden"></div>
+          <div id="tx-job-summary" class="job-summary empty-state">选择任务后查看成果、证据和中间文件。</div>
+          <div class="tabs" id="tx-result-tabs">
+            <button class="tab active" data-tx-tab="inspection" type="button">成果检查</button>
+            <button class="tab" data-tx-tab="outcomes" type="button">运行结论</button>
+            <button class="tab" data-tx-tab="events" type="button">运行事件</button>
+            <button class="tab" data-tx-tab="artifacts" type="button">中间文件</button>
+          </div>
+          <div id="tx-tab-inspection" class="tab-panel active">
+            <div id="tx-inspection-summary" class="inspection-kpis"></div>
+            <div id="tx-model-execution-banner" class="model-execution-banner"></div>
+            <div id="tx-integrity-banner" class="integrity-banner"></div>
+            <div id="tx-result-downloads" class="result-downloads"></div>
+            <div class="asset-toolbar result-filter-toolbar"><label class="asset-search">搜索指标、数值或证据<input id="tx-result-search" type="search" /></label><label>结论<select id="tx-result-filter"><option value="all">全部</option><option value="found">已找到</option><option value="partial">部分找到</option><option value="not_found">未找到</option><option value="ambiguous">不确定</option></select></label><label>审核<select id="tx-review-filter"><option value="all">全部</option><option value="auto_verified">自动通过</option><option value="human_required">需人工判断</option><option value="pending">待处理</option></select></label></div>
+            <section class="result-hierarchy-block">
+              <div class="result-level-heading">
+                <div><p class="eyebrow">Metric tasks</p><h3>本次指标任务</h3></div>
+                <span>一项标准指标一行；点击后在下方查看该指标的全部抽取事实</span>
+              </div>
+              <div id="tx-result-table" class="machine-result-table-wrap"></div>
+            </section>
+            <section id="tx-result-detail" class="metric-inspection-detail"></section>
+          </div>
+          <div id="tx-tab-outcomes" class="tab-panel"></div>
+          <div id="tx-tab-events" class="tab-panel"></div>
+          <div id="tx-tab-artifacts" class="tab-panel artifact-layout">
+            <div id="tx-artifact-list" class="artifacts tall"></div>
+            <div><div class="section-heading"><h3 id="tx-preview-title">选择文件</h3><a id="tx-download-artifact" class="text-button hidden" href="#">下载</a></div><pre id="tx-artifact-preview" class="preview tall">点击 JSON、JSONL、CSV 或 Markdown。</pre></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="card review-worklist-card" data-app-view="reviews">
+        <div class="section-heading">
+          <div><p class="eyebrow">Review worklist</p><h2>未完成复核任务</h2></div>
+          <button id="review-worklist-refresh" class="secondary" type="button">刷新任务表</button>
+        </div>
+        <p class="muted">只汇总每条 IR 分支最新 revision 的当前待办；旧父版本不重复进入工作表。点击任务可直接打开对应报告、IR 版本和复核证据。</p>
+        <div id="review-worklist-summary" class="review-worklist-summary"></div>
+        <div class="asset-toolbar review-worklist-toolbar">
+          <label class="asset-search">搜索报告或任务<input id="review-worklist-search" type="search" placeholder="报告名称、年份、Task ID、Target ID" /></label>
+          <label>任务归属<select id="review-worklist-group"><option value="all">全部未完成</option><option value="human_required">人工内容判断</option><option value="system_blocked">链路修复阻塞</option><option value="blocking_deferred">自动修复待处理</option><option value="optional_deferred">非阻塞增强</option></select></label>
+          <label>Evidence 影响<select id="review-worklist-impact"><option value="all">全部</option><option value="blocking">仅阻塞准入</option><option value="optional">仅非阻塞</option></select></label>
+        </div>
+        <div class="review-worklist-table-wrap">
+          <table class="data-table review-worklist-table">
+            <thead><tr><th>报告与 IR 版本</th><th>待复核问题</th><th>对象位置</th><th>任务状态</th><th>自动处理进度</th><th>操作</th></tr></thead>
+            <tbody id="review-worklist-body"><tr><td colspan="6"><div class="empty-state">正在读取最新 IR 复核任务…</div></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ir-empty-review" class="card app-empty-view" data-app-view="reviews">
+        <p class="eyebrow">Review center</p><h2>尚未选择 IR Revision</h2>
+        <p class="muted">请从上方未完成任务表直接选择一项；详细复核中心始终绑定一个明确的不可变 IR revision。</p>
+      </section>
+
       <section id="ir-workbench" class="workbench hidden">
-        <section class="card overview-card">
+        <section class="card overview-card" data-app-view="inspector">
           <div class="section-heading">
             <div><p class="eyebrow">Immutable snapshot</p><h2>IR 概览与准入门槛</h2></div>
             <div id="readiness-badge" class="readiness">BUILDING</div>
           </div>
+          <div id="document-identity" class="document-identity"></div>
           <div id="metric-grid" class="metric-grid"></div>
           <div class="two-column overview-lower">
             <div><h3>覆盖率与验证</h3><div id="validation-view" class="validation-view"></div></div>
@@ -116,7 +359,7 @@
           </div>
         </section>
 
-        <section class="card explorer-card">
+        <section class="card explorer-card" data-app-view="inspector">
           <div class="section-heading">
             <div><p class="eyebrow">Page / layout / coordinate</p><h2>页面与版面浏览器</h2></div>
             <select id="page-select"></select>
@@ -131,7 +374,7 @@
           </div>
         </section>
 
-        <section class="two-column">
+        <section class="two-column" data-app-view="inspector">
           <section class="card">
             <div class="section-heading"><div><p class="eyebrow">Table graph</p><h2>表格结构与跨页关系</h2></div><select id="table-select"></select></div>
             <div id="table-meta" class="meta-strip"></div>
@@ -145,7 +388,7 @@
           </section>
         </section>
 
-        <section class="card spread-routing-card">
+        <section class="card spread-routing-card" data-app-view="inspector">
           <div class="section-heading">
             <div><p class="eyebrow">Horizontal spread preflight</p><h2>左右跨页本地分流</h2></div>
             <span class="muted">纯视觉连续保留关系但不调用模型；信息跨缝与不确定项进入详细复核</span>
@@ -154,7 +397,7 @@
           <div id="spread-routing-list" class="spread-routing-list"></div>
         </section>
 
-        <section class="card review-cockpit">
+        <section class="card review-cockpit" data-app-view="reviews">
           <div class="section-heading"><div><p class="eyebrow">Agent review loop</p><h2>分层自动复核与人工内容判断</h2></div><span class="muted">服务或协议问题由系统处理；只有可读证据仍存在语义分歧时才交给人</span></div>
           <div id="review-retry-outcome" class="review-retry-outcome hidden"></div>
           <div id="review-summary" class="review-summary"></div>
@@ -167,8 +410,8 @@
               <button type="button" class="review-tab" data-review-group="resolved">已解决</button>
             </div>
             <div class="button-row">
-              <button id="retry-blocking-reviews" type="button" class="secondary">重试全部阻塞待处理</button>
-              <button id="run-optional-reviews" type="button" class="secondary">运行全部非阻塞增强</button>
+              <button id="retry-blocking-reviews" type="button" class="secondary">将阻塞复核加入任务</button>
+              <button id="run-optional-reviews" type="button" class="secondary">将非阻塞增强加入任务</button>
             </div>
           </div>
           <div class="review-workbench-grid">
@@ -196,10 +439,10 @@
           </details>
           <div class="operator-grid">
             <form id="human-decision-form" class="operator-panel">
-              <div><p class="eyebrow">Human evidence</p><h3>人工依据会写入不可变子版本</h3></div>
+              <div><p class="eyebrow">Human evidence</p><h3>人工依据可选，填写后会写入不可变子版本</h3></div>
               <label>待裁决 Patch<select id="human-patch"><option value="">选择 human_required patch</option></select></label>
               <label>操作人<input id="human-operator" value="local-operator" /></label>
-              <label>判断依据<textarea id="human-notes" rows="3" placeholder="写清看到了什么、原页如何支持你的判断；保留当前 IR 时必填"></textarea></label>
+              <label>判断依据（可选）<textarea id="human-notes" rows="3" placeholder="可补充你看到的证据；不填写也可直接完成裁决"></textarea></label>
               <div class="button-row"><button type="button" id="accept-patch">接受补丁并建子版本</button><button type="button" id="reject-patch" class="danger">拒绝补丁并建子版本</button></div>
             </form>
             <form id="repair-form" class="operator-panel">
@@ -207,18 +450,37 @@
               <label>Target IDs<input id="repair-targets" placeholder="table-p0005-0001, block-p0005-0001" /></label>
               <label>Reason code<input id="repair-reason" value="downstream_document_ir_mismatch" /></label>
               <label>发起人<input id="repair-requester" value="local-operator" /></label>
-              <label class="checkbox-line"><input id="repair-execute-vlm" type="checkbox" checked /> 立即执行七牛 Agent 复核</label>
-              <button type="submit">发起定向返修</button>
+              <label class="checkbox-line"><input id="repair-execute-vlm" type="checkbox" checked /> 立即使用当前 Provider 执行 Agent 复核</label>
+              <button type="submit">将定向返修加入任务</button>
             </form>
           </div>
         </section>
 
-        <section class="two-column">
+        <section class="two-column" data-app-view="inspector">
           <section class="card"><p class="eyebrow">Artifact inventory</p><h2>document_ir_output 全部文件</h2><div id="ir-artifacts" class="artifacts tall"></div></section>
           <section class="card"><p class="eyebrow">Artifact preview</p><h2>中间文件内容</h2><pre id="json-preview" class="preview tall">点击任意 JSON / Markdown 文件。</pre></section>
         </section>
       </section>
-    </main>
-    <script type="module" src="./src/main.js?v=document-ir-v011-20260805"></script>
+
+      <section id="platform-task-dock" class="platform-task-dock collapsed" aria-label="统一任务工作台">
+        <header class="task-dock-header">
+          <button id="task-dock-toggle" type="button" class="task-dock-toggle"><span class="live-dot"></span><strong>统一任务工作台</strong><span id="task-dock-summary">0 运行 · 0 排队</span></button>
+          <div class="task-dock-tabs"><button type="button" class="active" data-dock-tab="queue">任务队列</button><button type="button" data-dock-tab="events">任务日志</button><button type="button" data-dock-tab="system">系统状态</button></div>
+        </header>
+        <div class="task-dock-body">
+          <section id="dock-tab-queue" class="dock-panel active">
+            <div class="queue-toolbar"><span>排队任务可拖动排序；清除历史只移除终态队列记录，不删除任何业务产物。</span><div class="button-row"><button id="pipeline-clear-history" class="secondary" type="button">清除历史任务</button><button id="pipeline-refresh" class="secondary" type="button">刷新</button></div></div>
+            <div id="pipeline-task-list" class="pipeline-task-list"></div>
+          </section>
+          <section id="dock-tab-events" class="dock-panel"><div id="pipeline-task-events" class="event-stream"><div class="empty-state">选择任务后显示日志。</div></div></section>
+          <section id="dock-tab-system" class="dock-panel"><div id="pipeline-system-status" class="system-status-grid"></div></section>
+        </div>
+      </section>
+      </main>
+    </div>
+    <script type="module" src="./src/main.js?v=pipeline-plan-20260906"></script>
+    <script type="module" src="./src/targeted.js?v=semantic-context-20260906"></script>
+    <script type="module" src="./src/pipeline.js?v=pipeline-plan-20260906"></script>
+    <script type="module" src="./src/platform.js?v=queue-history-cleanup-v1-20260902"></script>
   </body>
 </html>

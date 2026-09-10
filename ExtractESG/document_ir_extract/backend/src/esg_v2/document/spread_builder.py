@@ -13,6 +13,7 @@ from esg_v2.document.contracts import (
     StructureEdge,
 )
 from esg_v2.storage.package_layout import DocumentIrPackageLayout
+from esg_v2.document.spread_pair_analysis import SpreadPairAnalyzer
 from esg_v2.utils.hashing import sha256_file
 
 
@@ -38,9 +39,9 @@ class HorizontalSpreadBuilder:
     MIN_HEIGHT_RATIO = 0.012
     MIN_ALIGNMENT = 0.22
     MIN_CANDIDATE_SCORE = 0.60
-    MIN_ACTIVE_SEAM_ROWS = 0.03
-    MIN_ACTIVE_SEAM_OVERLAP = 0.45
-    MAX_SEAM_DARKNESS_DIFFERENCE = 0.12
+    MIN_STRUCTURED_SEAM_ROWS = 0.025
+    MIN_STRUCTURED_SEAM_OVERLAP = 0.20
+    MAX_STRUCTURED_COLOR_DIFFERENCE = 0.24
     VISUAL_LABELS = {"table", "image", "figure", "chart", "diagram", "seal"}
 
     def build(self, document: DocumentIR, output_dir: Path) -> DocumentIR:
@@ -126,15 +127,23 @@ class HorizontalSpreadBuilder:
         repeated_edge_signal = len(left_objects) >= 2 or len(right_objects) >= 2
         if not visual_signal and not repeated_edge_signal:
             return None
-        pixel_metrics = self._visual_seam_metrics(
+        member_ids = self._member_entity_ids(document, left_page, right_page)
+        pair_analysis = SpreadPairAnalyzer().analyze_members(
+            document,
+            [left_page.page_index, right_page.page_index],
+            member_ids,
+        )
+        if not pair_analysis.matched_pairs:
+            return None
+        pixel_metrics = self.visual_seam_metrics(
             left_page.page_image_path,
             right_page.page_image_path,
         )
         if (
             pixel_metrics is None
-            or pixel_metrics["active_row_ratio"] < self.MIN_ACTIVE_SEAM_ROWS
-            or pixel_metrics["active_row_overlap"] < self.MIN_ACTIVE_SEAM_OVERLAP
-            or pixel_metrics["darkness_difference"] > self.MAX_SEAM_DARKNESS_DIFFERENCE
+            or pixel_metrics["structured_row_ratio"] < self.MIN_STRUCTURED_SEAM_ROWS
+            or pixel_metrics["structured_row_overlap"] < self.MIN_STRUCTURED_SEAM_OVERLAP
+            or pixel_metrics["structured_color_difference"] > self.MAX_STRUCTURED_COLOR_DIFFERENCE
         ):
             return None
 
@@ -176,13 +185,11 @@ class HorizontalSpreadBuilder:
             reasons.append("printed_page_pair_consistent")
         if visual_signal:
             reasons.append("cross_seam_visual_structure")
-        reasons.append("pixel_seam_continuity")
-
-        member_ids = self._member_entity_ids(
-            document,
-            left_page,
-            right_page,
-        )
+        reasons.append("structured_pixel_seam_continuity")
+        if pair_analysis.content_pairs:
+            reasons.append("geometrically_matched_content_pair")
+        elif pair_analysis.visual_pairs:
+            reasons.append("geometrically_matched_visual_pair")
         artifact_ids = [
             artifact.artifact_id,
             *(
@@ -278,7 +285,7 @@ class HorizontalSpreadBuilder:
         return left_value % 2 == 0 and right_value == left_value + 1
 
     @staticmethod
-    def _visual_seam_metrics(
+    def visual_seam_metrics(
         left_path: str | None,
         right_path: str | None,
     ) -> dict[str, float] | None:
@@ -288,45 +295,55 @@ class HorizontalSpreadBuilder:
             from PIL import Image  # type: ignore
 
             with Image.open(left_path) as source:
-                left = source.convert("L")
+                left = source.convert("RGB")
                 strip_width = max(3, int(left.width * 0.02))
                 left = left.crop((left.width - strip_width, 0, left.width, left.height))
-                left = left.resize((8, 256))
+                left = left.resize((12, 256))
             with Image.open(right_path) as source:
-                right = source.convert("L")
+                right = source.convert("RGB")
                 strip_width = max(3, int(right.width * 0.02))
                 right = right.crop((0, 0, strip_width, right.height))
-                right = right.resize((8, 256))
+                right = right.resize((12, 256))
         except Exception:
             return None
         left_pixels = left.load()
         right_pixels = right.load()
-        left_darkness = [
-            sum(255 - left_pixels[x, y] for x in range(8)) / 8
-            for y in range(256)
+        body_rows = range(13, 243)
+
+        def row_features(pixels, y):
+            values = [pixels[x, y] for x in range(12)]
+            means = tuple(sum(value[channel] for value in values) / 12 for channel in range(3))
+            spans = tuple(max(value[channel] for value in values) - min(value[channel] for value in values) for channel in range(3))
+            previous = [pixels[x, max(0, y - 1)] for x in range(12)]
+            previous_means = tuple(sum(value[channel] for value in previous) / 12 for channel in range(3))
+            vertical_change = sum(abs(first - second) for first, second in zip(means, previous_means)) / 3
+            structured = max(spans) >= 16 or vertical_change >= 11
+            return means, structured
+
+        left_rows = [row_features(left_pixels, y) for y in body_rows]
+        right_rows = [row_features(right_pixels, y) for y in body_rows]
+        both_structured = sum(first[1] and second[1] for first, second in zip(left_rows, right_rows))
+        either_structured = sum(first[1] or second[1] for first, second in zip(left_rows, right_rows))
+        structured_differences = [
+            sum(abs(a - b) for a, b in zip(first[0], second[0])) / (3 * 255)
+            for first, second in zip(left_rows, right_rows)
+            if first[1] and second[1]
         ]
-        right_darkness = [
-            sum(255 - right_pixels[x, y] for x in range(8)) / 8
-            for y in range(256)
-        ]
-        left_active = [value > 6 for value in left_darkness]
-        right_active = [value > 6 for value in right_darkness]
-        both_active = sum(
-            first and second
-            for first, second in zip(left_active, right_active)
+        shared_flat = sum(
+            not first[1]
+            and not second[1]
+            and sum(abs(a - b) for a, b in zip(first[0], second[0])) / 3 <= 12
+            for first, second in zip(left_rows, right_rows)
         )
-        either_active = sum(
-            first or second
-            for first, second in zip(left_active, right_active)
-        )
-        darkness_difference = sum(
-            abs(first - second)
-            for first, second in zip(left_darkness, right_darkness)
-        ) / (256 * 255)
+        row_count = len(left_rows)
         return {
-            "active_row_ratio": round(both_active / 256, 4),
-            "active_row_overlap": round(both_active / max(1, either_active), 4),
-            "darkness_difference": round(darkness_difference, 4),
+            "structured_row_ratio": round(both_structured / row_count, 4),
+            "structured_row_overlap": round(both_structured / max(1, either_structured), 4),
+            "structured_color_difference": round(
+                sum(structured_differences) / max(1, len(structured_differences)),
+                4,
+            ),
+            "shared_flat_row_ratio": round(shared_flat / row_count, 4),
         }
 
     @staticmethod

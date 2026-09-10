@@ -1,0 +1,21 @@
+{
+  "name": "extract-esg-result-database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "PostgreSQL schema prototype for final ESG disclosures extracted from reports.",
+  "scripts": {
+    "db:init": "./scripts/run-node.sh scripts/db.mjs init",
+    "db:demo": "./scripts/run-node.sh scripts/db.mjs demo",
+    "db:status": "./scripts/run-node.sh scripts/db.mjs status",
+    "db:verify": "./scripts/run-node.sh scripts/verify.mjs",
+    "db:reset": "./scripts/run-node.sh scripts/db.mjs reset"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@11.9.0"
+}

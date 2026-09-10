@@ -1,0 +1,592 @@
+[
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "power and fuel"
+      ],
+      "zh": [
+        "能耗"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.energy",
+    "description": "ESRS 语义概念：能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Energy",
+      "zh": "能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "energy use"
+      ],
+      "zh": [
+        "能源消耗"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.energy-consumption",
+    "description": "ESRS 语义概念：能源消费。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Energy consumption",
+      "zh": "能源消费"
+    },
+    "related_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy-production"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "energy generated"
+      ],
+      "zh": [
+        "能源产量"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.energy-production",
+    "description": "ESRS 语义概念：能源生产。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Energy production",
+      "zh": "能源生产"
+    },
+    "related_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy-consumption"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "total energy consumption"
+      ],
+      "zh": [
+        "能源消费总量"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.total-energy",
+    "description": "ESRS 语义概念：能源总量。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Total energy",
+      "zh": "能源总量"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "fossil sources"
+      ],
+      "zh": [
+        "化石来源能源"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.fossil-energy",
+    "description": "ESRS 语义概念：化石能源。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.nuclear-energy",
+      "esrs.2023-set1.e1-5.concept.renewable-energy"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Fossil energy",
+      "zh": "化石能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "nuclear sources"
+      ],
+      "zh": [
+        "核能源"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.nuclear-energy",
+    "description": "ESRS 语义概念：核能。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.fossil-energy",
+      "esrs.2023-set1.e1-5.concept.renewable-energy"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Nuclear energy",
+      "zh": "核能"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "renewable sources"
+      ],
+      "zh": [
+        "绿色能源"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.renewable-energy",
+    "description": "ESRS 语义概念：可再生能源。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.fossil-energy",
+      "esrs.2023-set1.e1-5.concept.nuclear-energy"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Renewable energy",
+      "zh": "可再生能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "non renewable energy"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.non-renewable-energy",
+    "description": "ESRS 语义概念：非可再生能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Non-renewable energy",
+      "zh": "非可再生能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "renewable fuels"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.renewable-energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.renewable-fuel",
+    "description": "ESRS 语义概念：可再生燃料。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Renewable fuel",
+      "zh": "可再生燃料"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "acquired energy"
+      ],
+      "zh": [
+        "购入能源"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.purchased-energy",
+    "description": "ESRS 语义概念：外购能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Purchased energy",
+      "zh": "外购能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "self generated energy"
+      ],
+      "zh": [
+        "自发能源"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.self-generated-energy",
+    "description": "ESRS 语义概念：自产能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Self-generated energy",
+      "zh": "自产能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "coal and coal products"
+      ],
+      "zh": [
+        "煤炭及煤炭制品"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.fossil-energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.coal-energy",
+    "description": "ESRS 语义概念：煤炭能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Coal energy",
+      "zh": "煤炭能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "crude oil and petroleum products"
+      ],
+      "zh": [
+        "原油及石油产品"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.fossil-energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.petroleum-energy",
+    "description": "ESRS 语义概念：石油能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Petroleum energy",
+      "zh": "石油能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "natural gas fuel"
+      ],
+      "zh": [
+        "天然气燃料"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.fossil-energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.natural-gas-energy",
+    "description": "ESRS 语义概念：天然气能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Natural gas energy",
+      "zh": "天然气能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "other fossil sources"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.fossil-energy"
+    ],
+    "concept_id": "esrs.2023-set1.e1-5.concept.other-fossil-energy",
+    "description": "ESRS 语义概念：其他化石能源。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Other fossil energy",
+      "zh": "其他化石能源"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "share of energy consumption"
+      ],
+      "zh": [
+        "能源比例"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.energy-share",
+    "description": "ESRS 语义概念：能源占比。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Energy share",
+      "zh": "能源占比"
+    },
+    "related_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.energy-consumption"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "energy consumption intensity"
+      ],
+      "zh": [
+        "能耗强度"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.energy-intensity",
+    "description": "ESRS 语义概念：能源强度。",
+    "excluded_concept_ids": [],
+    "formulas": [
+      "energy consumption / net revenue"
+    ],
+    "labels": {
+      "en": "Energy intensity",
+      "zh": "能源强度"
+    },
+    "related_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.net-revenue"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [
+      "HCI sector"
+    ],
+    "aliases": {
+      "en": [
+        "high climate impact sectors"
+      ],
+      "zh": [
+        "高气候影响部门"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.high-climate-impact-sector",
+    "description": "ESRS 语义概念：高气候影响行业。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "High climate impact sector",
+      "zh": "高气候影响行业"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "revenue used for intensity"
+      ],
+      "zh": [
+        "营业净收入"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.net-revenue",
+    "description": "ESRS 语义概念：净收入。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Net revenue",
+      "zh": "净收入"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "reconciliation to financial statements"
+      ],
+      "zh": [
+        "衔接说明"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.reconciliation",
+    "description": "ESRS 语义概念：对账。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Reconciliation",
+      "zh": "对账"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "reporting year"
+      ],
+      "zh": [
+        "报告年度"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.reporting-period",
+    "description": "ESRS 语义概念：报告期。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "organisational boundary"
+      ],
+      "zh": [
+        "报告范围"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-5.concept.reporting-boundary",
+    "description": "ESRS 语义概念：报告边界。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ]
+  }
+]

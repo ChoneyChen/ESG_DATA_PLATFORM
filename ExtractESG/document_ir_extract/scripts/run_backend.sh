@@ -29,8 +29,14 @@ if [ ! -d ".venv" ]; then
 fi
 
 source .venv/bin/activate
-python -m pip install -U pip
-python -m pip install -e .
+if [ "${ESG_SKIP_DEPENDENCY_INSTALL:-0}" != "1" ]; then
+  python -m pip install -U pip
+  python -m pip install -e .
+fi
 
 export PYTHONPATH="$ROOT/backend/src"
-uvicorn esg_v2.api.main:app --host 127.0.0.1 --port 18080 --reload
+UVICORN_ARGS=(esg_v2.api.main:app --host 127.0.0.1 --port 18080)
+if [ "${ESG_V2_DEV_RELOAD:-0}" = "1" ]; then
+  UVICORN_ARGS+=(--reload)
+fi
+exec uvicorn "${UVICORN_ARGS[@]}"

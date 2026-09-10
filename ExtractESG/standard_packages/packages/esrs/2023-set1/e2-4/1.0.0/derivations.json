@@ -1,0 +1,178 @@
+[
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator",
+        "value": 0
+      },
+      {
+        "operator": "eq",
+        "path": "pollution_medium",
+        "value": "water"
+      },
+      {
+        "operator": "eq",
+        "path": "water_risk_class",
+        "value": "water_risk"
+      }
+    ],
+    "operands": [
+      {
+        "description": "water emissions in water risk areas",
+        "operand_id": "water_emissions_in_water_risk_areas",
+        "role": "numerator"
+      },
+      {
+        "description": "total water emissions",
+        "operand_id": "total_water_emissions",
+        "role": "denominator"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "extractesg.core.dimension.geography"
+    ],
+    "rule_id": "esrs.2023-set1.e2-4.derivation.dp11-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e2-4.dp11",
+    "unit_policy": "compatible-mass-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator",
+        "value": 0
+      },
+      {
+        "operator": "eq",
+        "path": "pollution_medium",
+        "value": "water"
+      },
+      {
+        "operator": "eq",
+        "path": "water_risk_class",
+        "value": "high_water_stress"
+      }
+    ],
+    "operands": [
+      {
+        "description": "water emissions in high water stress areas",
+        "operand_id": "water_emissions_in_high_water_stress_areas",
+        "role": "numerator"
+      },
+      {
+        "description": "total water emissions",
+        "operand_id": "total_water_emissions",
+        "role": "denominator"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "extractesg.core.dimension.geography"
+    ],
+    "rule_id": "esrs.2023-set1.e2-4.derivation.dp12-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e2-4.dp12",
+    "unit_policy": "compatible-mass-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator",
+        "value": 0
+      },
+      {
+        "operator": "eq",
+        "path": "pollution_medium",
+        "value": "soil"
+      },
+      {
+        "operator": "eq",
+        "path": "water_risk_class",
+        "value": "water_risk"
+      }
+    ],
+    "operands": [
+      {
+        "description": "soil emissions in water risk areas",
+        "operand_id": "soil_emissions_in_water_risk_areas",
+        "role": "numerator"
+      },
+      {
+        "description": "total soil emissions",
+        "operand_id": "total_soil_emissions",
+        "role": "denominator"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "extractesg.core.dimension.geography"
+    ],
+    "rule_id": "esrs.2023-set1.e2-4.derivation.dp13-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e2-4.dp13",
+    "unit_policy": "compatible-mass-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator",
+        "value": 0
+      },
+      {
+        "operator": "eq",
+        "path": "pollution_medium",
+        "value": "soil"
+      },
+      {
+        "operator": "eq",
+        "path": "water_risk_class",
+        "value": "high_water_stress"
+      }
+    ],
+    "operands": [
+      {
+        "description": "soil emissions in high water stress areas",
+        "operand_id": "soil_emissions_in_high_water_stress_areas",
+        "role": "numerator"
+      },
+      {
+        "description": "total soil emissions",
+        "operand_id": "total_soil_emissions",
+        "role": "denominator"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "extractesg.core.dimension.geography"
+    ],
+    "rule_id": "esrs.2023-set1.e2-4.derivation.dp14-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e2-4.dp14",
+    "unit_policy": "compatible-mass-units"
+  }
+]

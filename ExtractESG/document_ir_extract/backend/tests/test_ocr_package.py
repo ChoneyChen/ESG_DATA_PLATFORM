@@ -11,9 +11,15 @@ from esg_v2.document.artifact_loader import OcrArtifactLoader
 from esg_v2.contracts import OcrJobState, OcrRunRequest
 from esg_v2.ocr.client import PaddleOcrVlClient
 from esg_v2.ocr.output_writer import OcrOutputWriter
+from esg_v2.ocr.pdf_preflight import PdfCanvasPreflight
 from esg_v2.storage.package_layout import create_package_root
 from esg_v2.storage.package_validator import validate_package
 from esg_v2.workflows.ocr_workflow import OcrWorkflow
+from esg_v2.config import Settings
+from esg_v2.utils.hashing import sha256_file
+
+from pypdf import PdfReader, PdfWriter
+from pypdf.generic import RectangleObject
 
 
 class DownloadClient:
@@ -182,3 +188,154 @@ def test_ocr_request_snapshot_sanitizes_signed_source_urls() -> None:
         result_json_url="https://provider.test/result.json?authorization=temporary-secret",
     )
     assert state.result_json_url == "https://provider.test/result.json"
+
+
+def _write_canvas_pdf(path: Path, pages: list[tuple[float, float, int]]) -> None:
+    writer = PdfWriter()
+    for width, height, rotation in pages:
+        page = writer.add_blank_page(width=width, height=height)
+        if rotation:
+            page.rotate(rotation)
+    with path.open("wb") as handle:
+        writer.write(handle)
+
+
+def test_pdf_canvas_preflight_keeps_standard_pdf_as_original_input(tmp_path: Path) -> None:
+    source = tmp_path / "standard.pdf"
+    provider = tmp_path / "provider.pdf"
+    _write_canvas_pdf(source, [(595, 842, 0), (595, 842, 0)])
+
+    prepared = PdfCanvasPreflight(max_canvas_points=1200).prepare(source, provider)
+
+    assert prepared.transformed is False
+    assert prepared.provider_path == source.resolve()
+    assert prepared.report["status"] == "passthrough"
+    assert prepared.report["pages"][0]["source_to_provider"]["uniform_scale"] == 1.0
+    assert not provider.exists()
+
+
+def test_pdf_canvas_preflight_normalizes_large_mixed_and_rotated_pages_without_cropping(tmp_path: Path) -> None:
+    source = tmp_path / "mixed.pdf"
+    provider = tmp_path / "provider.pdf"
+    _write_canvas_pdf(source, [(1920, 1080, 0), (600, 800, 0), (792, 612, 90)])
+
+    prepared = PdfCanvasPreflight(max_canvas_points=1200).prepare(source, provider)
+    provider_reader = PdfReader(provider)
+
+    assert prepared.transformed is True
+    assert prepared.source_sha256 == sha256_file(source)
+    assert prepared.provider_sha256 == sha256_file(provider)
+    assert prepared.source_sha256 != prepared.provider_sha256
+    assert prepared.report["reasons"] == [
+        "oversized_page_canvas",
+        "mixed_page_canvas_sizes",
+        "rotated_page_canvas",
+    ]
+    assert len(provider_reader.pages) == 3
+    assert max(float(provider_reader.pages[0].cropbox.width), float(provider_reader.pages[0].cropbox.height)) == 1200
+    assert prepared.report["pages"][0]["source_to_provider"] == {
+        "uniform_scale": 0.625,
+        "rotation_transferred_to_content": False,
+        "provider_to_source_scale_x": 1.6,
+        "provider_to_source_scale_y": 1.6,
+        "preserves_aspect_ratio": True,
+        "cropped": False,
+    }
+    assert prepared.report["pages"][2]["provider_canvas"]["rotation_degrees"] == 0
+    assert prepared.report["pages"][2]["source_to_provider"]["rotation_transferred_to_content"] is True
+
+
+def test_pdf_canvas_preflight_rejects_encrypted_pdf_before_cloud_submission(tmp_path: Path) -> None:
+    source = tmp_path / "encrypted.pdf"
+    writer = PdfWriter()
+    writer.add_blank_page(width=595, height=842)
+    writer.encrypt("secret")
+    with source.open("wb") as handle:
+        writer.write(handle)
+
+    with pytest.raises(ValueError, match="Encrypted PDF"):
+        PdfCanvasPreflight().prepare(source, tmp_path / "provider.pdf")
+
+
+def test_pdf_canvas_preflight_canonicalizes_nonzero_and_mismatched_page_boxes(tmp_path: Path) -> None:
+    source = tmp_path / "offset-box.pdf"
+    provider = tmp_path / "provider.pdf"
+    writer = PdfWriter()
+    page = writer.add_blank_page(width=800, height=1000)
+    page.cropbox = RectangleObject((100, 150, 700, 950))
+    with source.open("wb") as handle:
+        writer.write(handle)
+
+    prepared = PdfCanvasPreflight(max_canvas_points=1200).prepare(source, provider)
+    provider_page = PdfReader(provider).pages[0]
+
+    assert prepared.report["reasons"] == [
+        "nonzero_page_box_origin",
+        "noncanonical_page_boxes",
+    ]
+    assert [float(value) for value in provider_page.mediabox] == [0.0, 0.0, 600.0, 800.0]
+    assert [float(value) for value in provider_page.cropbox] == [0.0, 0.0, 600.0, 800.0]
+    assert prepared.report["pages"][0]["source_to_provider"]["cropped"] is False
+
+
+def test_ocr_workflow_submits_normalized_provider_pdf_but_keeps_original_source_identity(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    source = tmp_path / "large-canvas.pdf"
+    _write_canvas_pdf(source, [(1920, 1080, 0), (600, 800, 0)])
+    captured: dict[str, object] = {}
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            captured["client"] = kwargs
+
+        def submit(self, **kwargs):
+            captured["submitted_file"] = kwargs["file_path"]
+            return {"data": {"jobId": "job-normalized"}}
+
+        def get_job(self, job_id: str):
+            return {
+                "data": {
+                    "jobId": job_id,
+                    "state": "done",
+                    "extractProgress": {"extractedPages": 2},
+                    "resultUrl": {"jsonUrl": "https://provider.test/result.json"},
+                }
+            }
+
+        def download_text(self, url: str) -> str:
+            pages = [
+                {"markdown": {"text": f"page {index + 1}", "images": {}}, "outputImages": {}}
+                for index in range(2)
+            ]
+            return json.dumps({"result": {"layoutParsingResults": pages}}) + "\n"
+
+        def download_bytes(self, url: str) -> bytes:
+            raise AssertionError("No images are expected in this fixture")
+
+    monkeypatch.setattr("esg_v2.ocr.providers.PaddleOcrVlClient", FakeClient)
+    settings = Settings(
+        output_root=tmp_path / "ocr-output",
+        document_ir_output_root=tmp_path / "ir-output",
+        upload_root=tmp_path / "uploads",
+        paddle_token="token",
+        ocr_provider_max_canvas_points=1200,
+    )
+    run_id = "ocr-20260823T040101Z-000000000001"
+
+    result = OcrWorkflow(settings).run(
+        OcrRunRequest(file_path=str(source), ocr_provider="paddle_api"),
+        run_id=run_id,
+    )
+    manifest = json.loads(result.manifest_path.read_text(encoding="utf-8"))
+
+    assert Path(str(captured["submitted_file"])).name == "provider-input.pdf"
+    assert manifest["source"]["sha256"] == sha256_file(source)
+    assert manifest["provider_input"]["sha256"] != manifest["source"]["sha256"]
+    assert manifest["pdf_preflight"]["transformed"] is True
+    assert manifest["entrypoints"]["source_preflight"] == "source/preflight.json"
+    assert manifest["entrypoints"]["provider_input"] == "source/provider-input.pdf"
+    assert manifest["ocr_provider"] == "paddle_api"
+    assert manifest["provider_route"]["requested"] == "paddle_api"
+    assert result.page_count == 2

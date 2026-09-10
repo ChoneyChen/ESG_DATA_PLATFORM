@@ -5,7 +5,7 @@ import json
 import re
 from typing import Any
 
-from esg_v2.document.contracts import DocumentIR, GuardResult, PatchTransactionIR, TableIR
+from esg_v2.document.contracts import AtomicPatch, DocumentIR, GuardResult, PatchTransactionIR, TableIR
 from esg_v2.document.patch_guard import PatchGuard
 
 
@@ -25,17 +25,26 @@ class ConvergenceEngine:
         evidence_failure = any(
             marker in code
             for code in codes
-            for marker in ("evidence_resolves", "figure_structure_evidence", "crop_artifact")
+            for marker in (
+                "evidence_resolves",
+                "figure_structure_evidence",
+                "chart_spec_evidence",
+                "crop_artifact",
+            )
         )
         system_failure = any(
             marker in code
             for code in codes
             for marker in ("atomic_batch_application", "before_matches")
         )
-        if evidence_failure:
-            failure_class, owner, retryable = "evidence_missing", "evidence", False
-        elif system_failure:
+        adapter_contract_failure = any(
+            bool((check.details or {}).get("adapter_contract_mismatch"))
+            for check in failed
+        )
+        if system_failure or adapter_contract_failure:
             failure_class, owner, retryable = "system_contract", "system", False
+        elif evidence_failure:
+            failure_class, owner, retryable = "evidence_missing", "evidence", False
         else:
             failure_class, owner, retryable = "model_protocol", "model", True
         transaction = next(
@@ -113,6 +122,12 @@ class ConvergenceEngine:
             feedback.append(
                 "Use set_caption for visible captions or bind_block_to_figure for existing canonical blocks; do not guess a bbox."
             )
+        if any(code.endswith("chart_spec_schema") for code in codes):
+            feedback.append(
+                "Use canonical ChartSpec only: chart_type, categories, series[].name, "
+                "series[].unit, series[].points[{category,value,display_value,evidence_refs}], "
+                "and visual_evidence_refs. Do not return type, x_categories, data, or values aliases."
+            )
         return list(dict.fromkeys(feedback))
 
     @staticmethod
@@ -127,6 +142,31 @@ class ConvergenceEngine:
         ]
         payload = json.dumps([failure_class, *sorted(set(normalized))], ensure_ascii=False, separators=(",", ":"))
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:20]
+
+    @classmethod
+    def terminal_repeated_failure_fingerprint(
+        cls,
+        task_id: str,
+        transactions: list[PatchTransactionIR],
+        patches: list[AtomicPatch],
+        feedback: list[str],
+    ) -> str:
+        return cls.failure_fingerprint(
+            "repeated_failure",
+            [
+                f"task:{task_id}",
+                "targets:" + ",".join(sorted({
+                    target_id
+                    for transaction in transactions
+                    for target_id in transaction.target_ids
+                })),
+                "operations:" + ",".join(sorted({
+                    f"{patch.target_id}:{patch.operation}"
+                    for patch in patches
+                })),
+                *feedback,
+            ],
+        )
 
     @staticmethod
     def dominant_transaction_failure(transactions: list[PatchTransactionIR]) -> dict[str, Any]:
@@ -143,12 +183,29 @@ class ConvergenceEngine:
 
     @staticmethod
     def reason_failure(reason: str) -> dict[str, Any]:
-        if "rate_limit" in reason:
+        normalized = reason.casefold()
+        if "rate_limit" in normalized:
             return {"failure_class": "rate_limit", "failure_owner": "service", "retryable": True}
         if reason == "no_visual_input_available":
             return {"failure_class": "evidence_missing", "failure_owner": "evidence", "retryable": False}
-        if "budget_deferred" in reason or "outside_targeted_review_scope" in reason:
+        if "budget_deferred" in normalized or "outside_targeted_review_scope" in normalized:
             return {"failure_class": "scheduler_deferred", "failure_owner": "service", "retryable": True}
-        if "request_config" in reason or "thinking_budget" in reason:
+        if (
+            "request_config" in normalized
+            or "thinking_budget" in normalized
+            or "agent_review_internal_error" in normalized
+        ):
             return {"failure_class": "system_contract", "failure_owner": "system", "retryable": False}
+        if any(
+            marker in normalized
+            for marker in (
+                "invalid_response",
+                "not valid json",
+                "response json must be",
+                "validation error",
+                "validationerror",
+                "model output stopped",
+            )
+        ):
+            return {"failure_class": "model_protocol", "failure_owner": "model", "retryable": True}
         return {"failure_class": "model_service", "failure_owner": "service", "retryable": True}

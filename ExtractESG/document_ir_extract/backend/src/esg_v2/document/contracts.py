@@ -21,6 +21,7 @@ SchemaVersion = Literal[
     "document-ir-v0.9",
     "document-ir-v0.10",
     "document-ir-v0.11",
+    "document-ir-v0.12",
 ]
 ReadinessStatus = Literal[
     "building",
@@ -548,7 +549,7 @@ class VlmReviewTask(BaseModel):
     target_id: str
     page_index: int
     bbox: BoundingBox | None = None
-    provider: str = "qiniu"
+    provider: Literal["qiniu", "local_nuextract"] = "qiniu"
     model_name: str | None = None
     status: ReviewTaskStatus = "pending"
     priority: Literal["critical", "high", "normal", "low"] = "normal"
@@ -700,6 +701,7 @@ class ReviewerResult(BaseModel):
     task_id: str
     model_id: str
     model_family: str
+    provider: Literal["qiniu", "local_nuextract"] = "qiniu"
     attempt: int
     verdict: StoredReviewVerdict
     findings: list[str] = Field(default_factory=list)
@@ -720,6 +722,7 @@ class AgentModelCall(BaseModel):
     round_index: int
     model_id: str
     model_family: str
+    provider: Literal["qiniu", "local_nuextract"] = "qiniu"
     status: Literal["succeeded", "failed", "invalid_response"]
     request_summary: dict[str, Any] = Field(default_factory=dict)
     response_payload: dict[str, Any] | None = None
@@ -810,6 +813,12 @@ class VerifierResult(BaseModel):
     task_id: str
     model_id: str
     model_family: str
+    provider: Literal["qiniu", "local_nuextract"] = "qiniu"
+    verification_policy: Literal[
+        "different_model_family",
+        "same_model_secondary_verification",
+    ] = "different_model_family"
+    independent_model_family: bool = True
     reviewer_result_id: str
     transaction_ids: list[str] = Field(default_factory=list)
     transaction_decisions: list[VerifierTransactionDecision] = Field(default_factory=list)
@@ -1020,12 +1029,19 @@ class ValidationReport(BaseModel):
 class DocumentIRMetadata(BaseModel):
     run_id: str
     ocr_run_id: str
+    document_id: str | None = Field(
+        default=None,
+        pattern=r"^(?:doc-sha256-[0-9a-f]{64}|doc-legacy-[0-9a-f]{24})$",
+    )
+    document_label: str | None = Field(default=None, max_length=240)
+    external_document_id: str | None = Field(default=None, max_length=256)
+    lineage_id: str | None = Field(default=None, pattern=r"^irl-[0-9a-f]{24}$")
     ir_revision: int = 1
     parent_ir_run_id: str | None = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     parser_adapter: str = "PaddleOCRVLApiAdapter"
     fusion_adapter: str = "ParserFusion-v0.2"
-    pipeline_version: str = "document-pipeline-v0.11.1"
+    pipeline_version: str = "document-pipeline-v0.12.1"
     source_pdf_path: str | None = None
     source_pdf_sha256: str | None = None
     ocr_manifest_path: str | None = None
@@ -1035,7 +1051,7 @@ class DocumentIRMetadata(BaseModel):
 
 
 class DocumentIR(BaseModel):
-    schema_version: SchemaVersion = "document-ir-v0.11"
+    schema_version: SchemaVersion = "document-ir-v0.12"
     metadata: DocumentIRMetadata
     readiness: ReadinessStatus = "building"
     artifacts: list[ArtifactRef] = Field(default_factory=list)
@@ -1070,8 +1086,11 @@ class DocumentIrBuildRequest(BaseModel):
     pdf_path: str | None = None
     run_id: str | None = None
     parent_ir_run_id: str | None = None
+    document_label: str | None = Field(default=None, max_length=240)
+    external_document_id: str | None = Field(default=None, max_length=256)
     render_dpi: int = Field(default=144, ge=72, le=300)
     execute_vlm_reviews: bool = False
+    review_provider: Literal["qiniu", "local_nuextract"] = "qiniu"
     qiniu_api_key: str | None = None
     review_target_ids: list[str] = Field(default_factory=list)
     max_auto_review_rounds: int = Field(default=3, ge=1, le=3)
@@ -1087,6 +1106,7 @@ class DocumentIrRepairRequest(BaseModel):
     requested_by: str
     notes: str | None = None
     execute_vlm_reviews: bool = True
+    review_provider: Literal["qiniu", "local_nuextract"] = "qiniu"
     qiniu_api_key: str | None = None
 
 
@@ -1096,6 +1116,7 @@ class ReviewRetryRequest(BaseModel):
     max_auto_review_rounds: int = Field(default=3, ge=1, le=3)
     requested_by: str
     notes: str | None = None
+    review_provider: Literal["qiniu", "local_nuextract"] = "qiniu"
     qiniu_api_key: str | None = None
 
 
@@ -1105,6 +1126,7 @@ class PatchDecisionRequest(BaseModel):
         "reject",
         "keep_current",
         "accept_current_nonmaterial",
+        "continue_limited",
         "confirm_spread",
         "reject_spread",
     ]
@@ -1115,7 +1137,7 @@ class PatchDecisionRequest(BaseModel):
 class DocumentIrJobState(BaseModel):
     run_id: str
     ocr_run_id: str
-    status: Literal["queued", "running", "done", "failed"]
+    status: Literal["queued", "running", "done", "failed", "cancelled", "interrupted"]
     message: str
     output_dir: Path
     error: str | None = None
@@ -1145,3 +1167,4 @@ class DocumentIrBuildResult(BaseModel):
     spread_count: int
     review_task_count: int
     readiness: ReadinessStatus
+    retention: dict[str, Any] = Field(default_factory=dict)

@@ -110,7 +110,7 @@ class RunTelemetryTracker:
         self._increment(calls["by_model"], model_id)
         calls["current_call"] = {
             key: payload.get(key)
-            for key in ("task_id", "role", "round_index", "retry_index", "model_id")
+            for key in ("task_id", "role", "round_index", "retry_index", "model_id", "provider")
         }
         calls["current_call"]["started_at"] = utc_now()
 

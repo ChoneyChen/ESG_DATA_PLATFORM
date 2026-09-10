@@ -2,6 +2,7 @@ fastapi>=0.111
 pdfplumber>=0.11
 Pillow>=10.3
 pypdfium2>=5.12.1,<6
+pypdf>=6,<7
 pydantic>=2.7
 python-multipart>=0.0.9
 requests>=2.32

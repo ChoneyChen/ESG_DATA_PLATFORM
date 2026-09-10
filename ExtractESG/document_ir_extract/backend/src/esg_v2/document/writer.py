@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from esg_v2.document.contracts import DocumentIR
+from esg_v2.document.identity import ensure_metadata_identity
 from esg_v2.storage.package_layout import (
     DocumentIrPackageLayout,
     relative_path,
@@ -21,6 +22,7 @@ class DocumentIrWriter:
         self.layout = DocumentIrPackageLayout(output_dir)
 
     def write(self, document: DocumentIR) -> dict[str, Path]:
+        ensure_metadata_identity(document.metadata)
         portable = document.model_copy(deep=True)
         self._make_portable(portable)
         paths = self._write_semantic_content(portable)
@@ -405,6 +407,10 @@ class DocumentIrWriter:
             "package_schema_version": "document-ir-package-v1",
             "run_id": document.metadata.run_id,
             "ocr_run_id": document.metadata.ocr_run_id,
+            "document_id": document.metadata.document_id,
+            "document_label": document.metadata.document_label,
+            "external_document_id": document.metadata.external_document_id,
+            "lineage_id": document.metadata.lineage_id,
             "ir_revision": document.metadata.ir_revision,
             "parent_ir_run_id": document.metadata.parent_ir_run_id,
             "schema_version": document.schema_version,
@@ -412,9 +418,12 @@ class DocumentIrWriter:
             "identifier_contract": document.metadata.source_artifacts.get("identifier_contract"),
             "readiness": document.readiness,
             "can_build_evidence": document.validation_report.checks.get("can_build_evidence", False),
+            "can_build_limited_evidence": document.validation_report.checks.get("can_build_limited_evidence", False),
+            "evidence_policy": document.quality_report.get("evidence_policy", {}),
             "source": {
                 "pdf_sha256": document.metadata.source_pdf_sha256,
                 "ocr_run_id": document.metadata.ocr_run_id,
+                "display_name": document.metadata.document_label,
             },
             "entrypoints": entrypoints,
             "counts": counts,

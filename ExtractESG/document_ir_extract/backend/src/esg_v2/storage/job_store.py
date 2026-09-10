@@ -73,6 +73,31 @@ class JobStore(Generic[StateT]):
             states.update(self._states)
         return sorted(states.values(), key=lambda item: item.run_id, reverse=True)
 
+    def discard(self, run_id: str) -> None:
+        """Forget a removed job without performing filesystem deletion."""
+
+        with self._lock:
+            self._states.pop(run_id, None)
+
+    def recover_interrupted(self) -> list[str]:
+        """Mark process-local running states left by a backend restart as interrupted."""
+
+        recovered: list[str] = []
+        for state in self.list():
+            if getattr(state, "status", None) != "running":
+                continue
+            state.status = "interrupted"
+            state.message = "Job interrupted by backend restart"
+            if hasattr(state, "updated_at"):
+                from datetime import datetime, timezone
+
+                state.updated_at = datetime.now(timezone.utc).isoformat()
+                if hasattr(state, "finished_at"):
+                    state.finished_at = state.updated_at
+            self.put(state)
+            recovered.append(state.run_id)
+        return recovered
+
     def _write_state(self, state: StateT) -> None:
         path = package_dir(self.state_root, state.run_id) / "state.json"
         path.parent.mkdir(parents=True, exist_ok=True)

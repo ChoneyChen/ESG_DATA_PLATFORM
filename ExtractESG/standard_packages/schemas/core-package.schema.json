@@ -1,0 +1,340 @@
+{
+  "$defs": {
+    "CodeSetDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Code Set Id",
+          "type": "string"
+        },
+        "extensible": {
+          "default": false,
+          "title": "Extensible",
+          "type": "boolean"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/CodeValue"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code_set_id",
+        "values"
+      ],
+      "title": "CodeSetDefinition",
+      "type": "object"
+    },
+    "CodeValue": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Code",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "labels"
+      ],
+      "title": "CodeValue",
+      "type": "object"
+    },
+    "DimensionDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Set Id"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "dimension_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Dimension Id",
+          "type": "string"
+        },
+        "hierarchical": {
+          "default": false,
+          "title": "Hierarchical",
+          "type": "boolean"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        },
+        "value_type": {
+          "$ref": "#/$defs/ValueType"
+        }
+      },
+      "required": [
+        "dimension_id",
+        "value_type",
+        "labels",
+        "description"
+      ],
+      "title": "DimensionDefinition",
+      "type": "object"
+    },
+    "FieldDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "code_set_id": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Set Id"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "field_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Field Id",
+          "type": "string"
+        },
+        "nullable": {
+          "default": false,
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "value_type": {
+          "$ref": "#/$defs/ValueType"
+        }
+      },
+      "required": [
+        "field_id",
+        "value_type",
+        "required",
+        "description"
+      ],
+      "title": "FieldDefinition",
+      "type": "object"
+    },
+    "RecordClass": {
+      "enum": [
+        "reporting_task",
+        "quantitative_observation",
+        "qualitative_assertion",
+        "attribute_value",
+        "dimension_value",
+        "evidence_reference"
+      ],
+      "title": "RecordClass",
+      "type": "string"
+    },
+    "RecordTypeDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/FieldDefinition"
+          },
+          "title": "Fields",
+          "type": "array"
+        },
+        "primary_key": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Primary Key",
+          "type": "string"
+        },
+        "record_type": {
+          "$ref": "#/$defs/RecordClass"
+        }
+      },
+      "required": [
+        "record_type",
+        "primary_key",
+        "description",
+        "fields"
+      ],
+      "title": "RecordTypeDefinition",
+      "type": "object"
+    },
+    "UnitDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "object"
+        },
+        "scale_to_si": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale To Si"
+        },
+        "symbol": {
+          "title": "Symbol",
+          "type": "string"
+        },
+        "unit_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Unit Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit_id",
+        "symbol",
+        "dimension",
+        "labels"
+      ],
+      "title": "UnitDefinition",
+      "type": "object"
+    },
+    "ValueType": {
+      "enum": [
+        "string",
+        "text",
+        "integer",
+        "decimal",
+        "boolean",
+        "date",
+        "year",
+        "date_range",
+        "decimal_range",
+        "enum",
+        "identifier",
+        "uri",
+        "hash"
+      ],
+      "title": "ValueType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "common_code_sets": {
+      "items": {
+        "$ref": "#/$defs/CodeSetDefinition"
+      },
+      "title": "Common Code Sets",
+      "type": "array"
+    },
+    "common_dimensions": {
+      "items": {
+        "$ref": "#/$defs/DimensionDefinition"
+      },
+      "title": "Common Dimensions",
+      "type": "array"
+    },
+    "common_units": {
+      "items": {
+        "$ref": "#/$defs/UnitDefinition"
+      },
+      "title": "Common Units",
+      "type": "array"
+    },
+    "core_schema_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Core Schema Id",
+      "type": "string"
+    },
+    "core_schema_version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Core Schema Version",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "1.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "record_types": {
+      "items": {
+        "$ref": "#/$defs/RecordTypeDefinition"
+      },
+      "title": "Record Types",
+      "type": "array"
+    }
+  },
+  "required": [
+    "format_version",
+    "core_schema_id",
+    "core_schema_version",
+    "record_types",
+    "common_code_sets",
+    "common_dimensions",
+    "common_units"
+  ],
+  "title": "CoreSchemaPackage",
+  "type": "object"
+}

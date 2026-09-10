@@ -8,6 +8,7 @@ import pytest
 from esg_v2.config import Settings
 from esg_v2.document.contracts import (
     AtomicPatch,
+    AtomicPatchProposal,
     BlockIR,
     BoundingBox,
     CellIR,
@@ -31,6 +32,7 @@ from esg_v2.document.operation_registry import OperationRegistry
 from esg_v2.document.patch_guard import PatchGuard
 from esg_v2.document.review_context import ReviewContextCompiler
 from esg_v2.document.review_plan_compiler import ReviewPlanCompiler, ReviewPlanContractError
+from esg_v2.document.review_orchestrator import AgentReviewOrchestrator
 from esg_v2.document.review_response_adapter import ReviewResponseAdapter
 from esg_v2.document.review_scheduler import ReviewScheduler
 from esg_v2.document.transaction_coordinator import TransactionCoordinator
@@ -156,6 +158,54 @@ def test_page_16_17_spread_plan_and_repairs_share_one_transaction() -> None:
     transactions = TransactionCoordinator().plan(document, task, reviewer, patches, {spread.spread_id, right.table_id})
     assert len(transactions) == 1
     assert set(transactions[0].patch_ids) == {"patch-grid", "patch-confirm", "patch-link"}
+
+
+def test_spread_confirmation_compiles_required_link_for_page_targeted_repair() -> None:
+    document = _document()
+    left = _table("table-left", 0, 10, 2)
+    right = _table("table-right", 1, 10, 1)
+    left.bbox = BoundingBox(x0=500, y0=200, x1=1000, y1=1100, unit="points")
+    right.bbox = BoundingBox(x0=0, y0=210, x1=600, y1=1110, unit="points")
+    spread = SpreadIR(
+        spread_id="spread-page16-page17",
+        page_ids=["page-1", "page-2"],
+        page_indices=[0, 1],
+        composite_artifact_id="artifact-spread-page16-page17",
+        member_entity_ids=[left.table_id, right.table_id],
+        source_trace=_trace(),
+    )
+    document.tables = [left, right]
+    document.spreads = [spread]
+    task = VlmReviewTask(
+        task_id="repair-page-16",
+        task_type="low_confidence_region_review",
+        target_type="page",
+        target_id="page-1",
+        page_index=0,
+        prompt_intent="repair the confirmed horizontal spread",
+        scope=[
+            ReviewScopeItem(target_type="spread", target_id=spread.spread_id),
+            ReviewScopeItem(target_type="page", target_id="page-1"),
+        ],
+    )
+    proposals = AgentReviewOrchestrator._complete_spread_transaction(
+        document,
+        task,
+        [
+            AtomicPatchProposal(
+                target_type="spread",
+                target_id=spread.spread_id,
+                operation="confirm_spread",
+                proposed_value={"reading_direction": "left_to_right"},
+            )
+        ],
+        confidence=0.97,
+    )
+    links = [item for item in proposals if item.operation == "link_horizontal_continuation"]
+    assert len(links) == 1
+    assert links[0].proposed_value["links"] == [
+        {"source_id": left.table_id, "target_id": right.table_id, "confidence": 0.97}
+    ]
 
 
 def test_page_24_table_feedback_names_missing_source_cells_and_text() -> None:

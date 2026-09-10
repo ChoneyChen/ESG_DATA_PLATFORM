@@ -1,0 +1,76 @@
+[
+  {
+    "assertion": "evidence_required",
+    "message": "Every reported result record must reference reproducible evidence.",
+    "parameters": {
+      "when_value_origin": "reported"
+    },
+    "rule_id": "esrs.2023-set1.e2-4.validation.reported-result-requires-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.e2-4"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derived numerator and denominator must use the same period, boundary, medium, pollutant granularity and compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant_granularity",
+        "unit_dimension"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e2-4.validation.dp11-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e2-4.dp11"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derived numerator and denominator must use the same period, boundary, medium, pollutant granularity and compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant_granularity",
+        "unit_dimension"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e2-4.validation.dp12-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e2-4.dp12"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derived numerator and denominator must use the same period, boundary, medium, pollutant granularity and compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant_granularity",
+        "unit_dimension"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e2-4.validation.dp13-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e2-4.dp13"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derived numerator and denominator must use the same period, boundary, medium, pollutant granularity and compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant_granularity",
+        "unit_dimension"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e2-4.validation.dp14-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e2-4.dp14"
+  }
+]

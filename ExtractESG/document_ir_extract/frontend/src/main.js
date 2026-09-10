@@ -1,7 +1,14 @@
+import {
+  ocrProviderName,
+  reportIdentity,
+  runDate,
+  searchableText,
+} from "./selection.js?v=input-selectors-v3-20260829";
+
 const $ = (selector) => document.querySelector(selector);
 
 const pipelineDefinitions = [
-  ["01", "PaddleOCR 主解析", "Markdown + Raw JSONL"],
+  ["01", "PaddleOCR 主解析", "Local-first / API fallback → same package"],
   ["02", "页图与本地取证", "Render + PDF cross-check"],
   ["03", "Layout 转换", "Raw objects + coordinates"],
   ["04", "确定性融合", "Dedupe + local observations"],
@@ -10,7 +17,7 @@ const pipelineDefinitions = [
   ["07", "分层质量路由", "Typed question · scoped risks"],
   ["08", "分类与修复 Agent", "Classify · correct · abstain"],
   ["09", "Patch Guard", "Atomic candidate + invariants"],
-  ["10", "独立 Verifier", "Different model family"],
+  ["10", "Verifier 二次核验", "云端异族 / 本地隔离复核"],
   ["11", "验证与版本冻结", "Readiness gate"],
 ];
 
@@ -28,10 +35,52 @@ let runtimeClockTimer = null;
 let lastRuntimeState = null;
 let backendContextUrl = "";
 let reviewRetryInFlight = false;
+let storageInventory = {available: false, summary: {}, documents: []};
+let selectedStorageTargets = new Map();
+let selectedAssetKey = null;
+let currentDeletionPlan = null;
+let currentDeletionTargets = [];
+let activeAppView = "report-assets";
+let irSourceOcrRuns = [];
+let irSourceIrRuns = [];
+let selectedIrSourceRunId = localStorage.getItem("esg-v2-ir-source-run-id") || "";
+let reviewWorklistEntries = [];
+let reviewWorklistLatestRunCount = 0;
+let reviewWorklistFailedRunCount = 0;
+let reviewWorklistRequestId = 0;
+let openingReviewWorkItemKey = null;
+
+const appViewDefinitions = {
+  "report-assets": ["Report library", "报告资产", "管理专用 PDF 目录，并查看 OCR、IR 修订、文件体积与依赖关系。"],
+  ocr: ["Primary parsing", "OCR 任务", "从报告资产选择 PDF，配置本地或 API Provider，然后加入统一任务队列。"],
+  "document-ir": ["Document model", "Document IR 任务", "从不可变 OCR 包构建结构化 Document IR revision。"],
+  "ir-review": ["Review and inspection", "IR 复核检查中心", "检查页面、坐标、表格、跨页、质量准入与 Agent 复核决策。"],
+  targeted: ["Targeted recall", "定向抽取任务", "选择 evidence-ready IR、标准要求包和指标，并加入统一任务队列。"],
+  results: ["Result bundles", "抽取结果", "检查 Core records、证据、Guard、检索、模型决定与全部中间文件。"],
+  "pipeline-plan": ["Pipeline control", "07 · 链路控制", "选择报告文件夹、模型和多个标准指标，持久化计划并依次排队到最终成果。"],
+};
+
+const appViewAliases = {
+  tasks: "document-ir",
+  assets: "report-assets",
+  inspector: "ir-review",
+  reviews: "ir-review",
+  system: "report-assets",
+};
+
+const appViewSources = {
+  "report-assets": ["assets", "report-assets"],
+  ocr: ["tasks", "ocr"],
+  "document-ir": ["tasks", "document-ir"],
+  "ir-review": ["inspector", "reviews", "ir-review"],
+  targeted: ["targeted"],
+  results: ["results"],
+  "pipeline-plan": ["pipeline-plan"],
+};
 
 const artifactGroupLabels = {
   manifest: "00 · Package 入口",
-  source: "01 · 输入请求",
+  source: "01 · 原始输入与画布预检",
   provider: "02 · OCR供应商原始响应",
   content: "03 · 可读内容",
   observations: "04 · 解析观察",
@@ -52,6 +101,67 @@ function endpoint(path) {
   return `${backendUrl()}${path}`;
 }
 
+function selectedReviewProvider() {
+  return $("#review-provider").value || "local_nuextract";
+}
+
+function selectedOcrProvider() {
+  return $("#ocr-provider").value || "local_first";
+}
+
+function syncOcrProviderControls() {
+  const provider = selectedOcrProvider();
+  const localFirst = provider === "local_first";
+  const apiOnly = provider === "paddle_api";
+  $("#allow-api-fallback").disabled = !localFirst;
+  $("#ocr-fallback-field").classList.toggle("muted", !localFirst);
+  $("#ocr-token-field").classList.toggle("muted", provider === "local_paddleocr");
+  $("#token").disabled = provider === "local_paddleocr";
+  if (apiOnly) $("#allow-api-fallback").checked = false;
+}
+
+async function refreshOcrProviderStatus() {
+  const payload = await fetchJson("/api/ocr/providers/status", null);
+  const root = $("#ocr-provider-status");
+  if (!payload) {
+    root.textContent = "OCR Provider 状态暂不可用。";
+    root.className = "agent-note error";
+    return;
+  }
+  const local = payload.providers?.local_paddleocr || {};
+  const api = payload.providers?.paddle_api || {};
+  const reasonLabels = {
+    runtime_python_missing: "本地运行环境不存在",
+    runtime_import_failed: "本地运行库导入失败",
+    runtime_probe_invalid: "本地运行环境探测异常",
+    vlm_server_executable_missing: "MLX-VLM Server 未安装",
+    model_weights_missing: "模型权重尚未完整下载",
+    mlx_model_probe_failed: "本地模型完整性或处理器检查失败",
+    mlx_model_unsupported: "当前 MLX-VLM 不支持该模型结构",
+    model_weights_unreadable: "模型权重无法读取",
+    api_token_missing: "后端未配置 API Token",
+  };
+  const missingPipelineModels = Object.entries(local.details?.required_pipeline_models || {})
+    .filter(([, ready]) => !ready)
+    .map(([name]) => name);
+  const localText = local.available
+    ? `本地 OCR ${local.status === "ready" ? "已就绪" : `核心模型已就绪，首次运行将下载 ${missingPipelineModels.join("、") || "流水线依赖"}`} · Paddle ${local.details?.runtime_versions?.paddle || "?"} · MLX ${local.details?.runtime_versions?.mlx_vlm || "?"} · 权重 ${formatBytes(local.details?.model_size_bytes || 0)} · tensors ${local.details?.model_tensor_count || 0}`
+    : `本地 OCR 未就绪：${(local.reason_codes || []).map((code) => reasonLabels[code] || code).join("、") || "未知原因"}`;
+  const apiText = api.available ? "后端 API Token 已配置" : "API 可在本页临时填写 Token";
+  root.textContent = `${localText}；${apiText}。当前默认：${payload.default_provider || "local_first"}`;
+  root.className = `agent-note ${local.available ? "" : "warning"}`.trim();
+}
+
+function syncReviewProviderControls() {
+  const provider = selectedReviewProvider();
+  const isQiniu = provider === "qiniu";
+  $("#qiniu-key").disabled = !isQiniu;
+  $("#qiniu-key-field").classList.toggle("muted", !isQiniu);
+  $("#review-provider-note").textContent = isQiniu
+    ? "七牛模式：主审候选 → 本地 Patch Guard → 不同模型家族独立复核 → 有界反馈返修。受网络、RPM 与 TPD 限额约束。"
+    : "本地模式：NuExtract3 主审候选 → 同一 Patch Guard → 隔离上下文的 NuExtract3 二次核验 → 有界反馈返修。无需 API Key；IR 输出合同与七牛模式完全一致。";
+}
+
 function syncBackendContext() {
   const next = backendUrl();
   if (next === backendContextUrl) return false;
@@ -65,16 +175,27 @@ function syncBackendContext() {
   irArtifacts = [];
   currentManifest = null;
   reviewState = {};
+  reviewWorklistEntries = [];
+  reviewWorklistLatestRunCount = 0;
+  reviewWorklistFailedRunCount = 0;
+  reviewWorklistRequestId += 1;
+  openingReviewWorkItemKey = null;
+  storageInventory = {available: false, summary: {}, documents: []};
+  selectedStorageTargets.clear();
+  selectedAssetKey = null;
+  currentDeletionPlan = null;
   activeReviewGroup = "human_required";
   selectedReviewTaskId = null;
   setReviewRetryInFlight(false);
   $("#current-run").textContent = "尚未启动";
   $("#current-ir-run").textContent = "尚未启动";
   $("#logs").textContent = "";
+  setJson($("#ocr-preflight"), null);
   $("#ir-logs").textContent = "";
   $("#artifacts").replaceChildren();
   $("#ir-artifacts").replaceChildren();
-  $("#ir-workbench").classList.add("hidden");
+  setIrWorkspaceAvailable(false);
+  renderStorageInventory(storageInventory);
   renderRuntimeTelemetry(null);
   renderPipeline();
   return true;
@@ -93,9 +214,50 @@ function resetIrView() {
   $("#current-ir-run").textContent = "尚未启动";
   $("#ir-logs").textContent = "";
   $("#ir-artifacts").replaceChildren();
-  $("#ir-workbench").classList.add("hidden");
+  setIrWorkspaceAvailable(false);
   renderRuntimeTelemetry(null);
   renderPipeline();
+}
+
+function resetOcrView() {
+  clearTimeout(pollTimer);
+  activeRunId = null;
+  $("#current-run").textContent = "尚未启动";
+  $("#logs").textContent = "";
+  setJson($("#ocr-preflight"), null);
+  setJson($("#manifest"), null);
+  $("#artifacts").replaceChildren();
+  $("#markdown-preview").textContent = "点击任意 content/pages/page-0001.md。";
+}
+
+function setIrWorkspaceAvailable(available) {
+  $("#ir-workbench").classList.toggle("hidden", !available);
+  $("#ir-empty-review").classList.toggle("hidden", available);
+}
+
+function switchAppView(view, {scroll = true} = {}) {
+  const requested = appViewAliases[view] || view;
+  const selected = appViewDefinitions[requested] ? requested : "report-assets";
+  const definition = appViewDefinitions[selected];
+  const sources = appViewSources[selected] || [selected];
+  activeAppView = selected;
+  document.querySelectorAll("[data-app-view]").forEach((node) => {
+    node.classList.toggle("view-hidden", !sources.includes(node.dataset.appView));
+  });
+  document.querySelectorAll("[data-component-view]").forEach((node) => {
+    const componentViews = node.dataset.componentView.split(/\s+/);
+    node.classList.toggle("component-hidden", !componentViews.includes(selected));
+  });
+  document.querySelectorAll("[data-app-view-target]").forEach((node) => {
+    node.classList.toggle("active", node.dataset.appViewTarget === selected);
+  });
+  $("#view-eyebrow").textContent = definition[0];
+  $("#view-title").textContent = definition[1];
+  $("#view-description").textContent = definition[2];
+  localStorage.setItem("esg-v2-active-view", selected);
+  window.dispatchEvent(new CustomEvent("esg:viewchange", {detail: {view: selected}}));
+  if (selected === "ir-review") refreshReviewWorklist();
+  if (scroll) window.scrollTo({top: 0, behavior: "smooth"});
 }
 
 function durationSeconds(startedAt, finishedAt = null) {
@@ -140,7 +302,7 @@ function renderRuntimeTelemetry(state) {
       [formatDuration(totalSeconds), "总耗时"],
       [formatDuration(stageSeconds), "当前阶段耗时"],
       [calls.logical_started || 0, "逻辑模型调用"],
-      [calls.actual_attempts || 0, "真实 HTTP 请求"],
+      [calls.actual_attempts || 0, "实际模型请求"],
       [calls.retries || 0, "同模型重试"],
       [calls.succeeded || 0, "成功响应"],
       [calls.invalid_response || 0, "协议无效响应"],
@@ -156,7 +318,7 @@ function renderRuntimeTelemetry(state) {
     currentRoot.append(
       documentNode("strong", "", stage.name ? `${stage.index}/${stage.total} · ${stage.name}` : "等待阶段更新"),
       documentNode("span", "", current
-        ? `${current.task_id} · ${current.role} · round ${current.round_index} · retry ${current.retry_index} · ${current.model_id}`
+        ? `${current.task_id} · ${current.role} · ${current.provider || "model"} · round ${current.round_index} · retry ${current.retry_index} · ${current.model_id}`
         : live.status === "running" ? "当前处于本地处理或两次模型请求之间。" : `运行已${live.status === "done" ? "完成" : "结束"}。`),
     );
     $("#runtime-updated").textContent = `${live.status} · 更新 ${new Date(live.updated_at).toLocaleTimeString("zh-CN", {hour12: false})}`;
@@ -251,37 +413,51 @@ async function checkHealth() {
 
 async function refreshModelStatus() {
   const requestBackend = backendUrl();
-  const payload = await fetchJson("/api/models/status", {});
+  const payload = await fetchJson(`/api/models/status?provider=${encodeURIComponent(selectedReviewProvider())}`, {});
   if (requestBackend !== backendUrl()) return;
   const root = $("#model-status"); root.replaceChildren();
-  if (payload.catalog_error) root.appendChild(documentNode("div", "model-health error", `模型目录暂不可用：${payload.catalog_error}`));
-  const providerBlock = payload.provider_rate_limit?.account_block;
-  if (providerBlock) {
-    root.appendChild(documentNode(
-      "div",
-      "model-health error",
-      `七牛账号 TPD 熔断中 · 约 ${formatDuration(providerBlock.retry_after_seconds || 0)} 后恢复；自动重试会在发起前被拦截`,
-    ));
-  }
-  (payload.approved_vision_models || []).forEach((modelId) => {
-    const health = (payload.health || []).find((item) => item.model_id === modelId);
-    const card = documentNode("div", `model-health ${health?.last_status || "unknown"}`);
-    card.append(
-      documentNode("strong", "", modelId),
-      documentNode(
-        "span",
-        "",
-        health
-          ? `${health.last_status} · 成功 ${health.successes} · 网络 ${health.transport_failures || 0} · RPM ${health.rpm_failures || 0} · 协议 ${health.protocol_failures || 0} · TPD ${health.quota_failures || 0}`
-          : "approved · 当前进程尚未调用",
-      ),
-    );
-    root.appendChild(card);
-  });
-  (payload.retired_models_still_listed || []).forEach((modelId) => {
-    const card = documentNode("div", "model-health retired");
-    card.append(documentNode("strong", "", modelId), documentNode("span", "", "七牛目录仍列出，但系统已禁用"));
-    root.appendChild(card);
+  const providers = payload.providers || {};
+  Object.entries(providers).forEach(([providerName, provider]) => {
+    const title = providerName === "local_nuextract" ? "本地 NuExtract3" : "七牛云 VLM";
+    const verification = provider.independent_model_family
+      ? "不同模型家族独立复核"
+      : "同模型隔离上下文二次复核";
+    root.appendChild(documentNode("div", "model-health provider-heading", `${title} · ${verification}`));
+    if (provider.catalog_error) {
+      root.appendChild(documentNode("div", "model-health error", `模型目录暂不可用：${provider.catalog_error}`));
+    }
+    const providerBlock = provider.provider_rate_limit?.account_block;
+    if (providerBlock) {
+      root.appendChild(documentNode(
+        "div",
+        "model-health error",
+        `七牛账号 TPD 熔断中 · 约 ${formatDuration(providerBlock.retry_after_seconds || 0)} 后恢复；七牛重试会在发起前被拦截`,
+      ));
+    }
+    (provider.approved_vision_models || []).forEach((modelId) => {
+      const health = (provider.health || []).find((item) => item.model_id === modelId);
+      const card = documentNode("div", `model-health ${health?.last_status || "unknown"}`);
+      card.append(
+        documentNode("strong", "", modelId),
+        documentNode(
+          "span",
+          "",
+          health
+            ? `${health.last_status} · 成功 ${health.successes} · 运行 ${health.transport_failures || 0} · 协议 ${health.protocol_failures || 0}`
+            : providerName === "local_nuextract" ? "本地运行时与权重就绪 · 尚未调用" : "approved · 当前进程尚未调用",
+        ),
+      );
+      root.appendChild(card);
+    });
+    if (providerName === "local_nuextract" && !(provider.approved_vision_models || []).length) {
+      const reason = provider.probe?.error || "未找到本地运行时或模型权重";
+      root.appendChild(documentNode("div", "model-health error", `NuExtract3 不可用：${reason}`));
+    }
+    (provider.retired_models_still_listed || []).forEach((modelId) => {
+      const card = documentNode("div", "model-health retired");
+      card.append(documentNode("strong", "", modelId), documentNode("span", "", "七牛目录仍列出，但系统已禁用"));
+      root.appendChild(card);
+    });
   });
   if (!root.children.length) root.appendChild(documentNode("span", "muted", "未发现已批准且可用的视觉模型。"));
 }
@@ -290,31 +466,836 @@ async function refreshHistories() {
   syncBackendContext();
   const requestBackend = backendUrl();
   await checkHealth();
-  const [ocrRuns, irRuns] = await Promise.all([
+  const [ocrRuns, irRuns, documents, inventory] = await Promise.all([
     fetchJson("/api/ocr/jobs", []),
     fetchJson("/api/document-ir/jobs", []),
+    fetchJson("/api/document-ir/documents", []),
+    fetchJson("/api/storage/inventory", {available: false, summary: {}, documents: []}),
   ]);
   if (requestBackend !== backendUrl()) return;
-  populateHistory($("#ocr-history"), ocrRuns, "选择 OCR Run", "run_id", (item) => `${item.run_id} · ${item.status}`);
-  populateHistory($("#ir-history"), irRuns, "选择 IR Run", "run_id", (item) => `${item.run_id} · ${item.summary?.readiness || item.status}`);
+  populateDocumentHistory($("#ocr-history"), ocrRuns, "选择 OCR Run", "ocr");
+  populateDocumentHistory($("#ir-history"), irRuns, "选择 IR Run", "ir");
+  irSourceOcrRuns = ocrRuns;
+  irSourceIrRuns = irRuns;
+  renderIrSourcePicker();
+  if (activeAppView === "ir-review") await refreshReviewWorklist(irRuns);
+  renderDocumentCatalog(documents);
+  storageInventory = inventory || {available: false, summary: {}, documents: []};
+  renderStorageInventory(storageInventory);
+  if (activeRunId && !ocrRuns.some((item) => item.run_id === activeRunId)) {
+    resetOcrView();
+  }
   if (activeIrRunId && !irRuns.some((item) => item.run_id === activeIrRunId)) {
     resetIrView();
   }
-  if (!activeIrRunId && irRuns.length) {
-    const latest = [...irRuns].sort((a, b) => Number(b.summary?.ir_revision || 0) - Number(a.summary?.ir_revision || 0))[0];
-    await loadIrRun(latest.run_id);
+}
+
+function populateDocumentHistory(select, items, placeholder, kind) {
+  const selected = select.value;
+  select.replaceChildren(new Option(placeholder, ""));
+  const groups = new Map();
+  [...items].sort(compareRunRecency).forEach((item) => {
+    const documentId = item.summary?.document_id || `unclassified-${item.run_id}`;
+    if (!groups.has(documentId)) groups.set(documentId, []);
+    groups.get(documentId).push(item);
+  });
+  groups.forEach((runs, documentId) => {
+    const label = runs[0]?.summary?.document_label || "未命名 PDF";
+    const group = document.createElement("optgroup");
+    group.label = `${label} · ${shortIdentity(documentId)}`;
+    runs.forEach((item) => {
+      const summary = item.summary || {};
+      const runSuffix = String(item.run_id).slice(-12);
+      const text = kind === "ocr"
+        ? `OCR · ${runTimestamp(item.run_id)} · ${summary.ocr_provider === "local_paddleocr" ? "本地" : summary.ocr_provider === "paddle_api" ? "API" : summary.model || item.status} · ${runSuffix}`
+        : `分支 ${shortIdentity(summary.lineage_id)} · r${summary.ir_revision || 1} · ${summary.readiness || item.status} · ${runSuffix}`;
+      group.appendChild(new Option(text, item.run_id));
+    });
+    select.appendChild(group);
+  });
+  if ([...select.options].some((option) => option.value === selected)) select.value = selected;
+}
+
+function ocrRunIsUsable(run) {
+  return run?.status === "done" && Boolean(run?.manifest_path);
+}
+
+function ocrStatusName(status) {
+  return {
+    done: "OCR 已完成",
+    running: "正在处理",
+    queued: "等待执行",
+    failed: "处理失败",
+    cancelled: "已取消",
+    interrupted: "已中断",
+  }[status] || status || "状态未知";
+}
+
+function selectIrSource(runId, {persist = true} = {}) {
+  const run = irSourceOcrRuns.find((item) => item.run_id === runId);
+  selectedIrSourceRunId = runId || "";
+  $("#ocr-run-id").value = selectedIrSourceRunId;
+  if (persist) localStorage.setItem("esg-v2-ir-source-run-id", selectedIrSourceRunId);
+  if (run?.summary?.document_label) $("#document-label").value = run.summary.document_label;
+  renderIrSourcePicker();
+  if (selectedIrSourceRunId) loadRevisionOptions(selectedIrSourceRunId);
+}
+
+function renderIrSourcePicker() {
+  const root = $("#ir-source-picker");
+  const selectedRoot = $("#ir-selected-source");
+  if (!root || !selectedRoot) return;
+  if ($("#ocr-run-id").value !== selectedIrSourceRunId) {
+    $("#ocr-run-id").value = selectedIrSourceRunId;
+  }
+
+  const query = $("#ir-source-search").value.trim().toLocaleLowerCase("zh-CN");
+  const filter = $("#ir-source-filter").value;
+  const usableCount = irSourceOcrRuns.filter(ocrRunIsUsable).length;
+  const visible = [...irSourceOcrRuns].sort(compareRunRecency).filter((run) => {
+    const provider = run.summary?.ocr_provider || run.progress_detail?.provider || "";
+    const matchesFilter = filter === "all"
+      || (filter === "usable" && ocrRunIsUsable(run))
+      || (filter === "local" && provider === "local_paddleocr" && ocrRunIsUsable(run))
+      || (filter === "api" && provider === "paddle_api" && ocrRunIsUsable(run))
+      || (filter === "incomplete" && !ocrRunIsUsable(run));
+    const haystack = searchableText(
+      run.run_id,
+      run.status,
+      provider,
+      run.summary?.document_label,
+      run.summary?.document_id,
+      run.summary?.source_pdf_sha256,
+    );
+    return matchesFilter && (!query || haystack.includes(query));
+  });
+  $("#ir-source-summary").textContent = `${visible.length} 条匹配 · ${usableCount} 个可构建`;
+
+  selectedRoot.replaceChildren();
+  const selected = irSourceOcrRuns.find((item) => item.run_id === selectedIrSourceRunId);
+  if (!selected && selectedIrSourceRunId) {
+    selectedRoot.className = "selected-input-summary manual";
+    selectedRoot.append(
+      documentNode("strong", "", "手动指定 OCR Run"),
+      documentNode("span", "", "该 Run 未出现在当前目录中，提交时仍由后端执行存在性与包合同校验。"),
+      documentNode("code", "", selectedIrSourceRunId),
+    );
+  } else if (!selected) {
+    selectedRoot.className = "selected-input-summary empty-state";
+    selectedRoot.textContent = "尚未选择 OCR 解析结果。请从下方报告卡片中选择。";
+  } else {
+    const identity = reportIdentity(selected.summary?.document_label, selected.run_id);
+    const irCount = irSourceIrRuns.filter((item) => item.ocr_run_id === selected.run_id).length;
+    selectedRoot.className = "selected-input-summary selected";
+    const title = documentNode("div", "selected-input-title");
+    const reportName = documentNode("strong", "", identity.displayName);
+    reportName.title = identity.displayName;
+    title.append(
+      documentNode("span", "year-badge", identity.year),
+      reportName,
+      documentNode("span", "status-pill success", "已选输入"),
+    );
+    const facts = documentNode("div", "selected-input-facts");
+    [
+      [`${selected.page_count || selected.summary?.page_count || 0} 页`, "页数"],
+      [ocrProviderName(selected), "OCR Provider"],
+      [`${irCount} 个`, "已有 IR"],
+      [runDate(selected.run_id, selected.summary?.written_at), "OCR 时间"],
+    ].forEach(([value, label]) => {
+      const item = documentNode("span");
+      item.append(documentNode("strong", "", value), documentNode("small", "", label));
+      facts.appendChild(item);
+    });
+    selectedRoot.append(title, facts, documentNode("code", "", selected.run_id));
+  }
+
+  root.replaceChildren();
+  visible.forEach((run) => {
+    const identity = reportIdentity(run.summary?.document_label, run.run_id);
+    const usable = ocrRunIsUsable(run);
+    const irRuns = irSourceIrRuns.filter((item) => item.ocr_run_id === run.run_id);
+    const card = documentNode("button", `input-choice-card ${run.run_id === selectedIrSourceRunId ? "selected" : ""} ${usable ? "" : "unavailable"}`.trim());
+    card.type = "button";
+    card.disabled = !usable;
+    card.title = usable ? `选择 ${run.run_id}` : `${ocrStatusName(run.status)}，暂不能构建 IR`;
+    const head = documentNode("div", "input-choice-head");
+    const name = documentNode("div", "input-choice-name");
+    const reportName = documentNode("strong", "", identity.displayName);
+    reportName.title = identity.displayName;
+    name.append(documentNode("span", "year-badge", identity.year), reportName);
+    head.append(name, documentNode("span", `status-pill ${usable ? "success" : run.status}`, ocrStatusName(run.status)));
+    const facts = documentNode("div", "input-choice-facts");
+    facts.append(
+      documentNode("span", "", `${run.page_count || run.summary?.page_count || 0} 页`),
+      documentNode("span", "", ocrProviderName(run)),
+      documentNode("span", "", `已有 IR ${irRuns.length}`),
+      documentNode("span", "", runDate(run.run_id, run.summary?.written_at)),
+    );
+    card.append(head, facts, documentNode("code", "", run.run_id));
+    if (usable) card.addEventListener("click", () => selectIrSource(run.run_id));
+    root.appendChild(card);
+  });
+  if (!visible.length) root.appendChild(documentNode("div", "empty-state", "没有符合搜索和筛选条件的 OCR Package。"));
+}
+
+function compareRunRecency(a, b) {
+  const aTime = String(a.summary?.written_at || a.updated_at || a.run_id || "");
+  const bTime = String(b.summary?.written_at || b.updated_at || b.run_id || "");
+  return bTime.localeCompare(aTime);
+}
+
+function latestReviewRuns(irRuns) {
+  const latestByLineage = new Map();
+  (irRuns || []).filter((run) => run.status === "done" && run.manifest_path).forEach((run) => {
+    const lineage = run.summary?.lineage_id || run.run_id;
+    const current = latestByLineage.get(lineage);
+    const revision = Number(run.summary?.ir_revision || 0);
+    const currentRevision = Number(current?.summary?.ir_revision || 0);
+    if (!current || revision > currentRevision || (revision === currentRevision && compareRunRecency(run, current) < 0)) {
+      latestByLineage.set(lineage, run);
+    }
+  });
+  return [...latestByLineage.values()].sort(compareRunRecency);
+}
+
+function reviewGroupLabel(group) {
+  return {
+    human_required: "人工内容判断",
+    system_blocked: "链路修复阻塞",
+    blocking_deferred: "自动修复待处理",
+    optional_deferred: "非阻塞增强",
+    resolved: "已解决审计记录",
+  }[group] || group || "状态未知";
+}
+
+function reviewTargetTypeLabel(targetType) {
+  return {
+    page: "页面",
+    table: "表格",
+    figure: "图片/图表",
+    spread: "左右跨页",
+    block: "文字块",
+    cell: "表格单元格",
+    logical_table: "逻辑表格",
+  }[targetType] || targetType || "结构对象";
+}
+
+async function refreshReviewWorklist(irRuns = irSourceIrRuns) {
+  const body = $("#review-worklist-body");
+  if (!body) return;
+  const requestId = ++reviewWorklistRequestId;
+  const requestBackend = backendUrl();
+  body.innerHTML = '<tr><td colspan="6"><div class="empty-state">正在读取最新 IR 分支的复核任务…</div></td></tr>';
+  const catalog = await fetchJson("/api/document-ir/review-worklist", null);
+  if (requestId !== reviewWorklistRequestId || requestBackend !== backendUrl()) return;
+  if (catalog?.schema_version === "document-ir-review-worklist-catalog-v1") {
+    reviewWorklistLatestRunCount = Number(catalog.latest_run_count || 0);
+    reviewWorklistFailedRunCount = (catalog.failed_run_ids || []).length;
+    reviewWorklistEntries = sortReviewWorklistEntries(catalog.entries || []);
+    renderReviewWorklist();
+    return;
+  }
+
+  // Compatibility path for an older backend that has not exposed the compact catalog yet.
+  const latestRuns = latestReviewRuns(irRuns);
+  reviewWorklistLatestRunCount = latestRuns.length;
+  reviewWorklistFailedRunCount = 0;
+  if (!latestRuns.length) {
+    reviewWorklistEntries = [];
+    renderReviewWorklist();
+    return;
+  }
+  const results = await Promise.all(latestRuns.map(async (run) => ({
+    run,
+    inbox: await fetchJson(`/api/document-ir/jobs/${encodeURIComponent(run.run_id)}/human-review/inbox`, null),
+  })));
+  if (requestId !== reviewWorklistRequestId || requestBackend !== backendUrl()) return;
+  const entries = [];
+  ["human_required", "system_blocked", "blocking_deferred", "optional_deferred"].forEach((group) => {
+    results.forEach(({run, inbox}) => {
+      if (!inbox) return;
+      (inbox.groups?.[group] || []).forEach((bundle) => {
+        if (bundle?.task?.task_id) entries.push({run, group, bundle});
+      });
+    });
+  });
+  reviewWorklistFailedRunCount = results.filter((item) => !item.inbox).length;
+  reviewWorklistEntries = sortReviewWorklistEntries(entries);
+  renderReviewWorklist();
+}
+
+function sortReviewWorklistEntries(entries) {
+  const priority = {human_required: 0, system_blocked: 1, blocking_deferred: 2, optional_deferred: 3};
+  return [...entries].sort((a, b) =>
+    (priority[a.group] ?? 9) - (priority[b.group] ?? 9)
+      || Number(Boolean(b.bundle.task.blocking)) - Number(Boolean(a.bundle.task.blocking))
+      || compareRunRecency(a.run, b.run)
+      || String(a.bundle.task.task_id).localeCompare(String(b.bundle.task.task_id))
+  );
+}
+
+function renderReviewWorklist() {
+  const body = $("#review-worklist-body");
+  const summary = $("#review-worklist-summary");
+  if (!body || !summary) return;
+  const counts = reviewWorklistEntries.reduce((result, item) => {
+    result[item.group] = (result[item.group] || 0) + 1;
+    return result;
+  }, {});
+  const reportCount = new Set(reviewWorklistEntries.map((item) => item.run.summary?.document_id || item.run.run_id)).size;
+  const summaryValues = [
+    [reviewWorklistEntries.length, "未完成任务"],
+    [reportCount, "涉及报告"],
+    [counts.human_required || 0, "需人工判断"],
+    [(counts.system_blocked || 0) + (counts.blocking_deferred || 0), "阻塞待处理"],
+    [counts.optional_deferred || 0, "非阻塞增强"],
+  ];
+  summary.replaceChildren();
+  summaryValues.forEach(([value, label]) => {
+    const item = documentNode("div", "review-worklist-stat");
+    item.append(documentNode("strong", "", String(value)), documentNode("span", "", label));
+    summary.appendChild(item);
+  });
+  if (reviewWorklistFailedRunCount) {
+    const warning = documentNode("div", "review-worklist-warning", `${reviewWorklistFailedRunCount} 个最新 IR 的复核目录读取失败，请刷新或检查包完整性。`);
+    summary.appendChild(warning);
+  }
+
+  const query = $("#review-worklist-search").value.trim().toLocaleLowerCase("zh-CN");
+  const groupFilter = $("#review-worklist-group").value;
+  const impactFilter = $("#review-worklist-impact").value;
+  const visible = reviewWorklistEntries.filter((entry) => {
+    const task = entry.bundle.task || {};
+    const guidance = entry.bundle.guidance || {};
+    const matchesGroup = groupFilter === "all" || entry.group === groupFilter;
+    const matchesImpact = impactFilter === "all"
+      || (impactFilter === "blocking" && task.blocking)
+      || (impactFilter === "optional" && !task.blocking);
+    const haystack = searchableText(
+      entry.run.run_id,
+      entry.run.summary?.document_label,
+      entry.run.summary?.document_id,
+      entry.run.summary?.readiness,
+      task.task_id,
+      task.target_id,
+      task.target_type,
+      task.status,
+      guidance.title,
+      guidance.question,
+      guidance.review_kind,
+    );
+    return matchesGroup && matchesImpact && (!query || haystack.includes(query));
+  });
+
+  body.replaceChildren();
+  if (!reviewWorklistLatestRunCount) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 6;
+    cell.appendChild(documentNode("div", "empty-state", "还没有可读取的 Document IR revision。"));
+    row.appendChild(cell);
+    body.appendChild(row);
+    return;
+  }
+  if (!visible.length) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 6;
+    cell.appendChild(documentNode("div", "empty-state", reviewWorklistEntries.length
+      ? "没有符合当前搜索和筛选条件的未完成任务。"
+      : "各条最新 IR 分支当前没有未完成复核任务。"));
+    row.appendChild(cell);
+    body.appendChild(row);
+    return;
+  }
+
+  visible.forEach((entry) => {
+    const {run, group, bundle} = entry;
+    const task = bundle.task || {};
+    const guidance = bundle.guidance || {};
+    const identity = reportIdentity(run.summary?.document_label, run.run_id);
+    const row = document.createElement("tr");
+    const workItemKey = `${run.run_id}:${task.task_id}`;
+    const isOpening = openingReviewWorkItemKey === workItemKey;
+    if (activeIrRunId === run.run_id && selectedReviewTaskId === task.task_id) row.classList.add("selected");
+    if (isOpening) row.classList.add("opening");
+
+    const report = document.createElement("td");
+    const reportName = documentNode("strong", "", identity.displayName);
+    reportName.title = identity.displayName;
+    report.append(
+      reportName,
+      documentNode("small", "", `${identity.year} · Revision r${run.summary?.ir_revision || 1} · ${run.summary?.readiness || "状态未知"}`),
+      documentNode("code", "", run.run_id),
+    );
+
+    const question = document.createElement("td");
+    question.append(
+      documentNode("strong", "", guidance.title || task.task_id),
+      documentNode("small", "", guidance.question || (task.reason_codes || []).join("；") || "查看复核计划"),
+    );
+
+    const target = document.createElement("td");
+    const pageIndex = Number(task.page_index);
+    const pageLabel = Number.isInteger(pageIndex) && pageIndex >= 0 ? `PDF 第 ${pageIndex + 1} 页` : "页码未记录";
+    target.append(
+      documentNode("strong", "", `${reviewTargetTypeLabel(task.target_type)} · ${pageLabel}`),
+      documentNode("small", "", task.target_id || "未记录 Target ID"),
+      documentNode("code", "", task.task_id),
+    );
+
+    const status = document.createElement("td");
+    status.append(
+      documentNode("span", `status-pill review-group-${group}`, reviewGroupLabel(group)),
+      documentNode("small", "", task.blocking ? "阻塞 Evidence 准入" : "不阻塞 Evidence 准入"),
+    );
+
+    const progress = document.createElement("td");
+    progress.append(
+      documentNode("strong", "", `阶段：${guidance.resume_stage || task.resume_stage || "reviewer_pending"}`),
+      documentNode("small", "", `执行 ${guidance.execution_count ?? task.execution_count ?? 0} · Reviewer ${guidance.reviewer_call_count ?? task.reviewer_call_count ?? 0} · Verifier ${guidance.verifier_call_count ?? task.verifier_call_count ?? 0}`),
+    );
+
+    const action = document.createElement("td");
+    const open = documentNode("button", "secondary review-worklist-open", isOpening ? "正在打开…" : "打开复核");
+    open.type = "button";
+    open.disabled = isOpening;
+    open.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openReviewWorkItem(entry);
+    });
+    action.appendChild(open);
+    row.append(report, question, target, status, progress, action);
+    row.tabIndex = 0;
+    row.title = `打开 ${task.task_id}`;
+    row.addEventListener("click", () => openReviewWorkItem(entry));
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openReviewWorkItem(entry);
+      }
+    });
+    body.appendChild(row);
+  });
+}
+
+async function openReviewWorkItem(entry) {
+  const taskId = entry.bundle.task.task_id;
+  const workItemKey = `${entry.run.run_id}:${taskId}`;
+  if (openingReviewWorkItemKey) return;
+  openingReviewWorkItemKey = workItemKey;
+  renderReviewWorklist();
+  try {
+    selectedReviewTaskId = taskId;
+    await loadIrRun(entry.run.run_id);
+    if (!irDocument) {
+      alert("该 Document IR 无法读取，请检查 Package 完整性。");
+      return;
+    }
+    selectedReviewTaskId = taskId;
+    renderReviewInbox(entry.group);
+    document.querySelector(".review-cockpit")?.scrollIntoView({behavior: "smooth", block: "start"});
+  } finally {
+    openingReviewWorkItemKey = null;
+    renderReviewWorklist();
   }
 }
 
-function populateHistory(select, items, placeholder, key, labeler) {
-  const selected = select.value;
-  select.replaceChildren(new Option(placeholder, ""));
-  const ordered = [...items].sort((a, b) => {
-    const revisionDelta = Number(b.summary?.ir_revision || 0) - Number(a.summary?.ir_revision || 0);
-    return revisionDelta || String(b[key]).localeCompare(String(a[key]));
+function shortIdentity(value) {
+  const text = String(value || "unknown");
+  return text.length > 16 ? `${text.slice(0, 7)}…${text.slice(-8)}` : text;
+}
+
+function runTimestamp(runId) {
+  const match = String(runId || "").match(/-(\d{8})T(\d{6})Z-/);
+  return match ? `${match[1].slice(0, 4)}-${match[1].slice(4, 6)}-${match[1].slice(6)} ${match[2].slice(0, 2)}:${match[2].slice(2, 4)}` : String(runId || "");
+}
+
+function renderDocumentCatalog(documents) {
+  const root = $("#document-catalog");
+  root.replaceChildren();
+  $("#document-catalog-summary").textContent = `${documents.length} 份唯一 PDF · ${documents.reduce((sum, item) => sum + item.ocr_run_count, 0)} 次 OCR · ${documents.reduce((sum, item) => sum + item.ir_run_count, 0)} 个 IR 包`;
+  documents.forEach((item) => {
+    const card = documentNode("button", "document-catalog-item");
+    card.type = "button";
+    card.title = item.document_id;
+    card.append(
+      documentNode("strong", "", item.document_label || "未命名 PDF"),
+      documentNode("span", "", `${shortIdentity(item.document_id)} · OCR ${item.ocr_run_count} · IR ${item.ir_run_count} · 分支 ${item.lineage_count}`),
+      documentNode("span", `catalog-readiness ${item.latest_readiness || "ocr-only"}`, item.latest_readiness || "仅 OCR"),
+    );
+    if (item.latest_ir_run_id) card.addEventListener("click", async () => {
+      await loadIrRun(item.latest_ir_run_id);
+      switchAppView("ir-review");
+    });
+    else if (item.ocr_run_ids?.[0]) card.addEventListener("click", async () => {
+      await loadOcrRun(item.ocr_run_ids[0]);
+      switchAppView("ocr");
+    });
+    root.appendChild(card);
   });
-  ordered.forEach((item) => select.add(new Option(labeler(item), item[key])));
-  if ([...select.options].some((option) => option.value === selected)) select.value = selected;
+  if (!documents.length) root.appendChild(documentNode("div", "empty-state", "还没有 OCR 或 Document IR 产物。"));
+}
+
+function renderStorageInventory(inventory) {
+  const summary = inventory?.summary || {};
+  const metrics = [
+    [summary.document_count || 0, "唯一报告"],
+    [summary.ocr_run_count || 0, "OCR Runs"],
+    [summary.ir_run_count || 0, "IR Revisions"],
+    [summary.incomplete_count || 0, "失败/不完整"],
+    [summary.file_count || 0, "本地文件"],
+    [formatBytes(summary.size_bytes || 0), "占用空间"],
+  ];
+  const summaryRoot = $("#storage-summary");
+  summaryRoot.replaceChildren();
+  metrics.forEach(([value, label]) => {
+    const node = documentNode("div", "storage-metric");
+    node.append(documentNode("strong", "", String(value)), documentNode("span", "", label));
+    summaryRoot.appendChild(node);
+  });
+
+  const root = $("#storage-inventory");
+  root.replaceChildren();
+  root.classList.toggle("storage-management", $("#storage-management-mode").checked);
+  const available = inventory?.available !== false;
+  $("#cleanup-incomplete").disabled = !available;
+  $("#storage-management-mode").disabled = !available;
+  if (!available) {
+    root.appendChild(documentNode("div", "deletion-message warning", "当前运行的后端尚未提供资产库存 API。请重启 Document IR 后端以加载新版本；现有 OCR/IR 产物没有受到影响。"));
+    updateStorageSelectionBar();
+    return;
+  }
+  const query = $("#storage-search").value.trim().toLowerCase();
+  const filter = $("#storage-filter").value;
+  const documents = (inventory?.documents || []).filter((document) => storageDocumentMatches(document, query, filter));
+  documents.forEach((document, index) => root.appendChild(renderStorageDocument(document, index === 0 || Boolean(query))));
+  if (!documents.length) {
+    root.appendChild(documentNode("div", "empty-state compact-empty", query || filter !== "all" ? "没有匹配的本地产物。" : "当前没有 OCR 或 Document IR 产物。"));
+  }
+  reconcileStorageSelection(inventory);
+}
+
+function storageDocumentMatches(document, query, filter) {
+  if (filter === "ready" && !allDocumentRuns(document).some((item) => item.kind === "ir" && item.can_build_evidence)) return false;
+  if (filter === "incomplete" && !(document.incomplete_count > 0)) return false;
+  if (filter === "ocr_only" && document.ir_run_count > 0) return false;
+  if (!query) return true;
+  const searchable = [
+    document.document_id,
+    document.document_label,
+    document.source_pdf_sha256,
+    ...allDocumentRuns(document).flatMap((item) => [item.run_id, item.lineage_id, item.readiness, item.status]),
+  ].join(" ").toLowerCase();
+  return searchable.includes(query);
+}
+
+function allDocumentRuns(document) {
+  return [
+    ...(document.ocr_runs || []),
+    ...(document.ocr_runs || []).flatMap((ocr) => ocr.ir_runs || []),
+    ...(document.unlinked_ir_runs || []),
+  ];
+}
+
+function renderStorageDocument(documentItem, open) {
+  const details = documentNode("details", "storage-document");
+  details.open = open;
+  const summary = document.createElement("summary");
+  const main = documentNode("div", "document-summary-main");
+  main.append(
+    documentNode("strong", "", documentItem.document_label || "未命名 PDF"),
+    documentNode("span", "", `${shortIdentity(documentItem.document_id)} · ${documentItem.source_pdf_sha256 ? `SHA ${documentItem.source_pdf_sha256.slice(0, 12)}…` : "无原始 SHA"}`),
+  );
+  const stats = documentNode("div", "document-summary-stats");
+  [
+    `OCR ${documentItem.ocr_run_count}`,
+    `IR ${documentItem.ir_run_count}`,
+    `${documentItem.file_count} files`,
+    formatBytes(documentItem.size_bytes),
+    documentItem.incomplete_count ? `异常 ${documentItem.incomplete_count}` : "结构完整",
+  ].forEach((value) => stats.appendChild(documentNode("span", "chip", value)));
+  summary.append(main, stats);
+  const body = documentNode("div", "storage-document-body");
+  const documentActions = documentNode("div", "asset-run-actions document-actions");
+  const deleteDocument = documentNode("button", "danger management-action", "清理整份报告");
+  deleteDocument.type = "button";
+  deleteDocument.addEventListener("click", () => openDeletionPlan(
+    [{kind: "document", target_id: documentItem.document_id}],
+    true,
+  ));
+  documentActions.appendChild(deleteDocument);
+  body.appendChild(documentActions);
+  (documentItem.ocr_runs || []).forEach((ocr) => {
+    const group = documentNode("section", "storage-run-group");
+    group.appendChild(renderStorageRunRow(ocr));
+    const irRuns = [...(ocr.ir_runs || [])].sort((a, b) => {
+      const lineage = String(a.lineage_id || "").localeCompare(String(b.lineage_id || ""));
+      return lineage || Number(a.ir_revision || 0) - Number(b.ir_revision || 0);
+    });
+    irRuns.forEach((ir) => group.appendChild(renderStorageRunRow(ir)));
+    body.appendChild(group);
+  });
+  if ((documentItem.unlinked_ir_runs || []).length) {
+    const group = documentNode("section", "storage-run-group");
+    group.appendChild(documentNode("div", "orphan-label", "未链接到可用 OCR 包的 IR"));
+    documentItem.unlinked_ir_runs.forEach((ir) => group.appendChild(renderStorageRunRow(ir)));
+    body.appendChild(group);
+  }
+  details.append(summary, body);
+  return details;
+}
+
+function renderStorageRunRow(run) {
+  const key = storageTargetKey(run.kind, run.run_id);
+  const row = documentNode("article", `asset-run-row ${run.kind}${selectedAssetKey === key ? " selected" : ""}`);
+  row.dataset.assetKey = key;
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "asset-checkbox";
+  checkbox.checked = selectedStorageTargets.has(key);
+  checkbox.setAttribute("aria-label", `选择 ${run.run_id}`);
+  checkbox.addEventListener("click", (event) => event.stopPropagation());
+  checkbox.addEventListener("change", () => toggleStorageTarget(run, checkbox.checked));
+  const main = documentNode("div", "asset-run-main");
+  const badge = documentNode("span", `asset-kind ${run.kind}`, run.kind === "ocr" ? "OCR PACKAGE" : "DOCUMENT IR");
+  const status = run.kind === "ir" ? (run.readiness || run.status) : run.status;
+  const identity = run.kind === "ir"
+    ? `${run.run_id} · ${shortIdentity(run.lineage_id)} · r${run.ir_revision || "?"}`
+    : run.run_id;
+  main.append(
+    badge,
+    documentNode("strong", "", identity),
+    documentNode("span", "", `${status || "unknown"} · ${run.package_state} · ${run.file_count} files · ${formatBytes(run.size_bytes)}`),
+  );
+  if (run.kind === "ir" && run.retention_status === "current_best") {
+    main.appendChild(documentNode("span", "chip", "当前唯一保留版"));
+  }
+  const actions = documentNode("div", "asset-run-actions");
+  const inspect = documentNode("button", "secondary", "查看");
+  inspect.type = "button";
+  inspect.addEventListener("click", async (event) => {
+    event.stopPropagation();
+    await showStorageRun(run);
+  });
+  const remove = documentNode("button", "danger management-action", "清理");
+  remove.type = "button";
+  remove.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openDeletionPlan([{kind: run.kind, target_id: run.run_id}], $("#storage-cascade").checked);
+  });
+  actions.append(inspect, remove);
+  row.append(checkbox, main, actions);
+  row.addEventListener("click", () => showStorageRun(run));
+  return row;
+}
+
+async function showStorageRun(run) {
+  selectedAssetKey = storageTargetKey(run.kind, run.run_id);
+  document.querySelectorAll("[data-asset-key]").forEach((node) => {
+    node.classList.toggle("selected", node.dataset.assetKey === selectedAssetKey);
+  });
+  $("#asset-detail-title").textContent = run.kind === "ocr" ? "OCR 原始产物" : `Document IR r${run.ir_revision || "?"}`;
+  const status = run.kind === "ir" ? (run.readiness || run.status) : run.status;
+  const statusNode = $("#asset-detail-status");
+  statusNode.className = `asset-status ${status || "unknown"}`;
+  statusNode.textContent = status || "unknown";
+  const meta = $("#asset-detail-meta");
+  meta.replaceChildren();
+  [
+    ["Run ID", run.run_id],
+    ["报告", run.document_label || shortIdentity(run.document_id)],
+    ["包状态", run.package_state],
+    ["Manifest", run.manifest_health],
+    ["任务状态", run.state_health],
+    ["文件", `${run.file_count} 个 · ${formatBytes(run.size_bytes)}`],
+    ["最后活动", formatDateTime(run.updated_at)],
+    ...(run.kind === "ir" ? [
+      ["Lineage", run.lineage_id || "unknown"],
+      ["父修订", run.parent_ir_run_id || "root"],
+      ["子修订", (run.child_ir_run_ids || []).join(", ") || "无"],
+      ["Evidence 准入", run.can_build_evidence ? "允许" : "未允许"],
+      ["保留策略", run.retention_status === "current_best" ? "当前唯一保留版" : run.retention_status === "candidate" ? "质量候选，尚未晋升" : "尚未经过保留策略"],
+    ] : [
+      ["页数", String(run.page_count || 0)],
+      ["OCR Provider", run.ocr_provider === "local_paddleocr" ? "本地 PaddleOCR-VL" : run.ocr_provider === "paddle_api" ? "PaddleOCR-VL API" : "历史包未记录"],
+      ["Provider 路由", run.provider_route?.fallback_reason ? `回退：${run.provider_route.fallback_reason}` : run.provider_route?.requested || "历史包未记录"],
+      ["原 PDF 副本", run.has_upload ? "存在" : "无"],
+    ]),
+  ].forEach(([label, value]) => {
+    const item = documentNode("div", "asset-detail-row");
+    item.append(documentNode("span", "", label), documentNode("span", "", String(value || "-")));
+    meta.appendChild(item);
+  });
+  const actions = $("#asset-detail-actions");
+  actions.replaceChildren();
+  const open = documentNode("button", "", run.kind === "ocr" ? "载入任务页" : "打开 IR 检查器");
+  open.type = "button";
+  open.addEventListener("click", async () => {
+    if (run.kind === "ocr") {
+      await loadOcrRun(run.run_id);
+      switchAppView("tasks");
+    } else {
+      await loadIrRun(run.run_id);
+      switchAppView("inspector");
+    }
+  });
+  actions.appendChild(open);
+  if (run.kind === "ir") {
+    const reviews = documentNode("button", "secondary", "打开复核中心");
+    reviews.type = "button";
+    reviews.addEventListener("click", async () => {
+      await loadIrRun(run.run_id);
+      switchAppView("reviews");
+    });
+    actions.appendChild(reviews);
+  }
+  const plan = documentNode("button", "secondary", "检查清理影响");
+  plan.type = "button";
+  plan.addEventListener("click", () => openDeletionPlan(
+    [{kind: run.kind, target_id: run.run_id}],
+    $("#storage-cascade").checked,
+  ));
+  actions.appendChild(plan);
+  $("#asset-detail-files").replaceChildren(documentNode("span", "muted", "正在读取文件列表…"));
+  $("#asset-detail-preview").textContent = "点击 JSON、JSONL 或 Markdown 文件在此预览。";
+  const path = run.kind === "ocr"
+    ? `/api/ocr/jobs/${encodeURIComponent(run.run_id)}/artifacts`
+    : `/api/document-ir/jobs/${encodeURIComponent(run.run_id)}/artifacts`;
+  const artifacts = await fetchJson(path, {files: []});
+  if (selectedAssetKey !== storageTargetKey(run.kind, run.run_id)) return;
+  renderArtifactLinks($("#asset-detail-files"), artifacts.files || [], run.kind, $("#asset-detail-preview"));
+}
+
+function toggleStorageTarget(run, selected) {
+  const key = storageTargetKey(run.kind, run.run_id);
+  if (selected) selectedStorageTargets.set(key, {kind: run.kind, target_id: run.run_id});
+  else selectedStorageTargets.delete(key);
+  updateStorageSelectionBar();
+}
+
+function reconcileStorageSelection(inventory) {
+  const known = new Set((inventory?.documents || []).flatMap(allDocumentRuns).map((run) => storageTargetKey(run.kind, run.run_id)));
+  [...selectedStorageTargets.keys()].forEach((key) => {
+    if (!known.has(key)) selectedStorageTargets.delete(key);
+  });
+  if (selectedAssetKey && !known.has(selectedAssetKey)) clearAssetDetail();
+  updateStorageSelectionBar();
+}
+
+function storageTargetKey(kind, targetId) {
+  return `${kind}:${targetId}`;
+}
+
+function updateStorageSelectionBar() {
+  const bar = $("#storage-selection-bar");
+  const count = selectedStorageTargets.size;
+  bar.classList.toggle("hidden", !$("#storage-management-mode").checked || !count);
+  $("#storage-selection-summary").textContent = count ? `已选择 ${count} 个 Run` : "尚未选择清理对象";
+}
+
+function clearAssetDetail() {
+  selectedAssetKey = null;
+  $("#asset-detail-title").textContent = "选择一个产物";
+  $("#asset-detail-status").className = "asset-status";
+  $("#asset-detail-status").textContent = "未选择";
+  $("#asset-detail-meta").innerHTML = '<p class="muted">点击 OCR 或 IR 行可查看包状态、文件分类与体积。</p>';
+  $("#asset-detail-actions").replaceChildren();
+  $("#asset-detail-files").replaceChildren();
+  $("#asset-detail-preview").textContent = "点击 JSON、JSONL 或 Markdown 文件在此预览。";
+}
+
+async function openDeletionPlan(targets, cascade = false) {
+  if (!targets.length) return alert("请先选择要清理的产物。");
+  currentDeletionTargets = targets;
+  $("#deletion-plan-content").replaceChildren(documentNode("span", "muted", "正在编译依赖与影响范围…"));
+  $("#execute-storage-deletion").disabled = true;
+  const dialog = $("#deletion-dialog");
+  if (!dialog.open) dialog.showModal();
+  try {
+    currentDeletionPlan = await postJson("/api/storage/deletion-plans", {targets, cascade});
+    renderDeletionPlan(currentDeletionPlan, cascade);
+  } catch (error) {
+    currentDeletionPlan = null;
+    $("#deletion-plan-content").replaceChildren(documentNode("div", "deletion-message blocker", `删除预检失败：${error.message}`));
+  }
+}
+
+function renderDeletionPlan(plan, cascade) {
+  const root = $("#deletion-plan-content");
+  root.replaceChildren();
+  const summary = documentNode("div", "deletion-plan-summary");
+  [
+    [plan.selected_runs?.length || 0, "Run 数量"],
+    [plan.file_count || 0, "文件数量"],
+    [formatBytes(plan.size_bytes || 0), "释放空间"],
+  ].forEach(([value, label]) => {
+    const node = documentNode("div", "storage-metric");
+    node.append(documentNode("strong", "", String(value)), documentNode("span", "", label));
+    summary.appendChild(node);
+  });
+  root.appendChild(summary);
+  (plan.blockers || []).forEach((item) => root.appendChild(documentNode("div", "deletion-message blocker", `${item.code} · ${item.message}`)));
+  (plan.warnings || []).forEach((item) => root.appendChild(documentNode("div", "deletion-message warning", `${item.code} · ${item.message}`)));
+  if (!plan.can_execute && !cascade && (plan.blockers || []).some((item) => ["ocr_has_ir_dependencies", "ir_has_child_revisions", "document_requires_cascade"].includes(item.code))) {
+    const replan = documentNode("button", "secondary", "开启级联并重新检查");
+    replan.type = "button";
+    replan.addEventListener("click", () => {
+      $("#storage-cascade").checked = true;
+      openDeletionPlan(currentDeletionTargets, true);
+    });
+    root.appendChild(replan);
+  }
+  const list = documentNode("div", "deletion-run-list");
+  (plan.selected_runs || []).forEach((item) => list.appendChild(documentNode("code", "", `${item.kind.toUpperCase()} · ${item.run_id} · ${item.status}`)));
+  root.appendChild(list);
+  root.appendChild(documentNode("span", "muted", `计划有效至 ${formatDateTime(plan.expires_at)}；后端重启或存储变化后必须重新检查。`));
+  updateDeletionExecuteState();
+}
+
+function updateDeletionExecuteState() {
+  $("#execute-storage-deletion").disabled = !currentDeletionPlan?.can_execute;
+}
+
+async function executeStorageDeletion() {
+  if (!currentDeletionPlan?.can_execute) return;
+  const button = $("#execute-storage-deletion");
+  if (!window.confirm(`确认清理计划中的 ${currentDeletionPlan.selected_runs?.length || 0} 个 Run 吗？`)) return;
+  button.disabled = true;
+  try {
+    const result = await postJson(
+      `/api/storage/deletion-plans/${encodeURIComponent(currentDeletionPlan.plan_id)}/execute`,
+      {},
+    );
+    const deleted = new Set((result.deleted_runs || []).map((item) => storageTargetKey(item.kind, item.run_id)));
+    if (activeRunId && deleted.has(storageTargetKey("ocr", activeRunId))) resetOcrView();
+    if (activeIrRunId && deleted.has(storageTargetKey("ir", activeIrRunId))) resetIrView();
+    selectedStorageTargets.clear();
+    clearAssetDetail();
+    currentDeletionPlan = null;
+    $("#deletion-dialog").close();
+    await refreshHistories();
+  } catch (error) {
+    alert(`清理失败：${error.message}`);
+    updateDeletionExecuteState();
+  }
+}
+
+function formatDateTime(value) {
+  const parsed = Date.parse(value || "");
+  return Number.isFinite(parsed) ? new Date(parsed).toLocaleString("zh-CN", {hour12: false}) : "-";
+}
+
+function ocrRunStatusText(state) {
+  const current = Number(state?.progress_current || 0);
+  const total = Number(state?.progress_total || 0);
+  const progress = total ? ` · ${current}/${total} 页` : "";
+  const detail = state?.progress_detail || {};
+  const waiting = Number(detail.noProgressSeconds || 0);
+  const heartbeat = detail.state === "heartbeat" && waiting
+    ? ` · 当前页已处理 ${formatDuration(waiting)}`
+    : "";
+  return `${state.run_id} · ${state.status}${progress}${heartbeat}`;
 }
 
 $("#ocr-form").addEventListener("submit", async (event) => {
@@ -322,28 +1303,47 @@ $("#ocr-form").addEventListener("submit", async (event) => {
   const button = event.currentTarget.querySelector("button[type=submit]");
   const file = $("#pdf-file").files[0];
   const fileUrl = $("#file-url").value.trim();
-  if (Boolean(file) === Boolean(fileUrl)) return alert("本地 PDF 和 PDF URL 必须二选一。 ");
+  let assetId = $("#ocr-asset-select").value;
+  if (file && fileUrl) return alert("临时 PDF 和 PDF URL 不能同时提供。 ");
+  if (file && assetId) return alert("已选择报告资产时无需再上传临时 PDF，请保留一种来源。 ");
+  if (!file && Boolean(assetId) === Boolean(fileUrl)) return alert("报告资产和 PDF URL 必须二选一。 ");
+  if (fileUrl && selectedOcrProvider() === "local_paddleocr") return alert("仅本地 OCR 需要上传 PDF；URL 只能交给 API 获取。 ");
+  if (fileUrl && selectedOcrProvider() === "local_first" && !$("#allow-api-fallback").checked) return alert("URL 输入在本地优先模式下必须允许 API 回退；要完全本地请上传 PDF。 ");
   button.disabled = true;
-  const data = new FormData();
-  if (file) data.append("file", file);
-  if (fileUrl) data.append("file_url", fileUrl);
-  if ($("#token").value.trim()) data.append("token", $("#token").value.trim());
-  data.append("model", $("#model").value.trim() || "PaddleOCR-VL-1.6");
-  data.append("useDocOrientationClassify", $("#use-orientation").checked);
-  data.append("useDocUnwarping", $("#use-unwarping").checked);
-  data.append("useChartRecognition", $("#use-chart").checked);
   try {
-    const response = await fetch(endpoint("/api/ocr/jobs"), {method: "POST", body: data});
-    if (!response.ok) throw new Error(await response.text());
-    const state = await response.json();
-    activeRunId = state.run_id;
-    $("#ocr-run-id").value = activeRunId;
-    $("#current-run").textContent = `${activeRunId} · ${state.status}`;
-    renderLogs($("#logs"), [state.message]);
+    if (file) {
+      const upload = new FormData();
+      upload.append("file", file);
+      const uploadResponse = await fetch(endpoint("/api/report-assets"), {method: "POST", body: upload});
+      if (!uploadResponse.ok) throw new Error(await uploadResponse.text());
+      const asset = await uploadResponse.json();
+      assetId = asset.asset_id;
+      window.dispatchEvent(new CustomEvent("esg:assets-changed", {detail: {assetId}}));
+    }
+    const task = await postJson("/api/pipeline/tasks/ocr", {
+      asset_id: fileUrl ? null : assetId,
+      file_url: fileUrl || null,
+      token: $("#token").value.trim() || null,
+      model: $("#model").value.trim() || "PaddleOCR-VL-1.6",
+      ocr_provider: selectedOcrProvider(),
+      allow_api_fallback: $("#allow-api-fallback").checked,
+      optional_payload: {
+        useDocOrientationClassify: $("#use-orientation").checked,
+        useDocUnwarping: $("#use-unwarping").checked,
+        useChartRecognition: $("#use-chart").checked,
+      },
+    });
+    activeRunId = task.native_job_id;
+    $("#current-run").textContent = `${activeRunId} · 已加入统一队列`;
+    renderLogs($("#logs"), [`统一任务 ${task.task_id} 已排队。`]);
     renderPipeline(0);
+    window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
     pollOcrState();
   } catch (error) {
-    renderLogs($("#logs"), [`启动失败: ${error.message}`]);
+    renderLogs($("#logs"), [`加入任务失败: ${error.message}`]);
+  } finally {
+    // The queue, rather than the form, owns task lifetime. Re-enable as soon
+    // as the enqueue request finishes so another report can be queued.
     button.disabled = false;
   }
 });
@@ -358,26 +1358,27 @@ $("#ir-form").addEventListener("submit", async (event) => {
     ocr_run_id: ocrRunId,
     pdf_path: $("#pdf-path").value.trim() || null,
     parent_ir_run_id: $("#parent-ir-run").value || null,
+    document_label: $("#document-label").value.trim() || null,
+    external_document_id: $("#external-document-id").value.trim() || null,
     render_dpi: Number($("#render-dpi").value || 144),
     execute_vlm_reviews: $("#execute-vlm").checked,
+    review_provider: selectedReviewProvider(),
     qiniu_api_key: $("#qiniu-key").value.trim() || null,
   };
   try {
-    const response = await fetch(endpoint("/api/document-ir/jobs"), {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload),
+    const task = await postJson("/api/pipeline/tasks/document-ir", {
+      operation: "build",
+      build_request: payload,
     });
-    if (!response.ok) throw new Error(await response.text());
-    const state = await response.json();
-    activeIrRunId = state.run_id;
-    $("#current-ir-run").textContent = `${activeIrRunId} · ${state.status}`;
-    renderLogs($("#ir-logs"), [state.message]);
-    renderRuntimeTelemetry(state);
+    activeIrRunId = task.native_job_id;
+    $("#current-ir-run").textContent = `${activeIrRunId} · 已加入统一队列`;
+    renderLogs($("#ir-logs"), [`统一任务 ${task.task_id} 已排队。`]);
+    window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
     renderPipeline(1);
     pollIrState();
   } catch (error) {
-    renderLogs($("#ir-logs"), [`启动失败: ${error.message}`]);
+    renderLogs($("#ir-logs"), [`加入任务失败: ${error.message}`]);
+  } finally {
     button.disabled = false;
   }
 });
@@ -391,18 +1392,18 @@ async function pollOcrState() {
   if (requestBackend !== backendUrl() || runId !== activeRunId) return;
   if (!state) return;
   renderLogs($("#logs"), state.logs || []);
-  $("#current-run").textContent = `${state.run_id} · ${state.status}`;
+  $("#current-run").textContent = ocrRunStatusText(state);
   if (state.status === "done") {
     $("#ocr-form button[type=submit]").disabled = false;
-    $("#ocr-run-id").value = state.run_id;
     renderPipeline(1);
     await loadOcrRun(state.run_id);
     await refreshHistories();
     return;
   }
-  if (state.status === "failed") {
+  if (["failed", "cancelled", "interrupted"].includes(state.status)) {
     $("#ocr-form button[type=submit]").disabled = false;
     renderLogs($("#logs"), [...(state.logs || []), `失败: ${state.error || state.message}`]);
+    await loadOcrRun(state.run_id);
     return;
   }
   pollTimer = setTimeout(pollOcrState, 1800);
@@ -430,7 +1431,7 @@ async function pollIrState() {
     await refreshHistories();
     return;
   }
-  if (state.status === "failed") {
+  if (["failed", "cancelled", "interrupted"].includes(state.status)) {
     $("#ir-form button[type=submit]").disabled = false;
     setReviewRetryInFlight(false);
     renderLogs($("#ir-logs"), [...(state.logs || []), `失败: ${state.error || state.message}`]);
@@ -443,7 +1444,6 @@ async function loadOcrRun(runId) {
   const requestBackend = backendUrl();
   activeRunId = runId;
   $("#ocr-history").value = runId;
-  $("#ocr-run-id").value = runId;
   const [state, manifest, artifacts] = await Promise.all([
     fetchJson(`/api/ocr/jobs/${encodeURIComponent(runId)}`),
     fetchJson(`/api/ocr/jobs/${encodeURIComponent(runId)}/manifest`),
@@ -451,10 +1451,16 @@ async function loadOcrRun(runId) {
   ]);
   if (requestBackend !== backendUrl()) return;
   if (state) {
-    $("#current-run").textContent = `${state.run_id} · ${state.status}`;
+    $("#current-run").textContent = ocrRunStatusText(state);
     renderLogs($("#logs"), state.logs || []);
   }
   setJson($("#manifest"), manifest);
+  const preflightArtifact = (artifacts.files || []).find((item) => item.path === "source/preflight.json");
+  const preflight = preflightArtifact
+    ? await fetchJson(preflightArtifact.url, state?.summary?.pdf_preflight || manifest?.pdf_preflight || {})
+    : (state?.summary?.pdf_preflight || manifest?.pdf_preflight || {});
+  if (requestBackend !== backendUrl()) return;
+  setJson($("#ocr-preflight"), preflight);
   if (typeof manifest?.source === "string" && !manifest.source.startsWith("http")) {
     $("#pdf-path").value = manifest.source;
   } else if (manifest?.package_schema_version === "ocr-package-v1") {
@@ -470,8 +1476,8 @@ async function loadRevisionOptions(ocrRunId) {
   const revisions = await fetchJson(`/api/document-ir/revisions/${encodeURIComponent(ocrRunId)}`, []);
   if (requestBackend !== backendUrl()) return;
   const select = $("#parent-ir-run");
-  select.replaceChildren(new Option("新建独立 revision", ""));
-  revisions.forEach((item) => select.add(new Option(`r${item.ir_revision} · ${item.run_id} · ${item.readiness}`, item.run_id)));
+  select.replaceChildren(new Option("新建独立 IR 分支（r1）", ""));
+  revisions.forEach((item) => select.add(new Option(`延续 ${shortIdentity(item.lineage_id)} · r${item.ir_revision} · ${item.readiness}`, item.run_id)));
 }
 
 async function loadIrRun(runId) {
@@ -498,7 +1504,6 @@ async function loadIrRun(runId) {
     $("#current-ir-run").textContent = `${state.run_id} · ${state.status}`;
     renderLogs($("#ir-logs"), state.logs || []);
     renderRuntimeTelemetry(state);
-    setReviewRetryInFlight(["queued", "running"].includes(state.status));
   }
   currentManifest = manifest;
   irDocument = document;
@@ -509,11 +1514,11 @@ async function loadIrRun(runId) {
   renderReviewRetryOutcome(quality?.review_retry_result || manifest?.review_retry_result || state?.summary?.review_retry_result);
   renderPipeline(pipelineDefinitions.length - 1, manifest?.readiness);
   if (!document) {
-    $("#ir-workbench").classList.add("hidden");
+    setIrWorkspaceAvailable(false);
     return;
   }
-  $("#ir-workbench").classList.remove("hidden");
-  renderOverview(manifest, validation, document);
+  setIrWorkspaceAvailable(true);
+  renderOverview(manifest, validation, document, state?.summary || {});
   renderPageOptions(document.pages || []);
   renderTableOptions(document.tables || []);
   renderFigures(document.figures || []);
@@ -525,14 +1530,21 @@ async function loadIrRun(runId) {
   renderReviewInbox(activeReviewGroup);
   populateHumanPatches(patches);
   renderArtifactLinks($("#ir-artifacts"), irArtifacts, "ir");
-  await renderRevisions(manifest?.ocr_run_id);
+  await renderRevisions(manifest?.document_id || state?.summary?.document_id, manifest?.ocr_run_id);
 }
 
-function renderOverview(manifest, validation, document) {
+function renderOverview(manifest, validation, document, summary = {}) {
   const readiness = manifest?.readiness || document.readiness || "unknown";
   const badge = $("#readiness-badge");
   badge.className = `readiness ${readiness}`;
   badge.textContent = `${readiness.toUpperCase()} · r${manifest?.ir_revision || 1}`;
+  const identity = $("#document-identity");
+  identity.replaceChildren(
+    documentNode("strong", "", manifest?.document_label || document.metadata?.document_label || summary.document_label || "未命名 PDF"),
+    documentNode("span", "", `Document ${shortIdentity(manifest?.document_id || document.metadata?.document_id || summary.document_id)}`),
+    documentNode("span", "", `Lineage ${shortIdentity(manifest?.lineage_id || document.metadata?.lineage_id || summary.lineage_id)} · r${manifest?.ir_revision || 1}`),
+    documentNode("span", "", `OCR ${shortIdentity(manifest?.ocr_run_id)}`),
+  );
   const metrics = [
     [manifest?.page_count ?? document.pages?.length ?? 0, "Pages"],
     [manifest?.layout_object_count ?? document.layout_objects?.length ?? 0, "Raw layout"],
@@ -890,8 +1902,8 @@ function setReviewRetryInFlight(running) {
   const blocking = $("#retry-blocking-reviews");
   const optional = $("#run-optional-reviews");
   [blocking, optional].forEach((button) => { if (button) button.disabled = reviewRetryInFlight; });
-  if (blocking) blocking.textContent = reviewRetryInFlight ? "自动复核运行中…" : "重试全部阻塞待处理";
-  if (optional) optional.textContent = reviewRetryInFlight ? "请等待当前任务" : "运行全部非阻塞增强";
+  if (blocking) blocking.textContent = reviewRetryInFlight ? "正在提交…" : "将阻塞复核加入任务";
+  if (optional) optional.textContent = reviewRetryInFlight ? "正在提交…" : "将非阻塞增强加入任务";
 }
 
 function firstAvailableReviewGroup(inbox) {
@@ -902,14 +1914,7 @@ function firstAvailableReviewGroup(inbox) {
 
 function renderReviewInbox(groupName) {
   activeReviewGroup = groupName;
-  const labels = {
-    human_required: "人工内容判断",
-    system_blocked: "链路修复阻塞",
-    blocking_deferred: "自动修复待处理",
-    optional_deferred: "非阻塞增强",
-    resolved: "已解决审计记录",
-  };
-  $("#review-queue-title").textContent = labels[groupName] || groupName;
+  $("#review-queue-title").textContent = reviewGroupLabel(groupName);
   document.querySelectorAll("[data-review-group]").forEach((button) => {
     button.classList.toggle("active", button.dataset.reviewGroup === groupName);
   });
@@ -999,6 +2004,12 @@ function renderReviewGuidance(bundle) {
       if (Object.keys(conflictText).length) {
         lines.push(`必须保留或明确映射：${Object.entries(conflictText).map(([id, text]) => `${id}=${text}`).join("；")}`);
       }
+      if ((details.recognized_aliases || []).length) {
+        lines.push(`检测到可确定转换的字段别名：${details.recognized_aliases.join("、")}`);
+      }
+      if (details.adapter_contract_mismatch) {
+        lines.push("应由本地 Adapter 归一化后重新执行 Guard，不应继续原样调用模型。");
+      }
       if (details.recommended_operation) lines.push(`建议操作：${details.recommended_operation}`);
       root.appendChild(documentNode("div", "review-finding error", lines.join("\n")));
     });
@@ -1009,10 +2020,28 @@ function renderReviewGuidance(bundle) {
     disagreements.forEach((item) => root.appendChild(documentNode("div", "review-finding warning", String(item))));
   }
   if (guidance.failure_class && guidance.failure_class !== "none") {
+    const ownerLabel = {
+      model: "模型候选",
+      system: "本地链路/合同",
+      evidence: "证据输入",
+      service: "模型服务",
+      none: "无",
+    }[guidance.failure_owner] || guidance.failure_owner || "unknown";
+    const classLabel = {
+      repeated_failure: "同语义候选连续未通过 Guard",
+      system_contract: "本地合同或应用错误",
+      evidence_missing: "证据缺失",
+      model_protocol: "模型输出协议不合规",
+      model_service: "模型服务故障",
+      rate_limit: "服务额度限制",
+      verifier_disagreement: "Verifier 分歧",
+      semantic_ambiguity: "内容语义存在歧义",
+      scheduler_deferred: "调度延期",
+    }[guidance.failure_class] || guidance.failure_class;
     root.appendChild(documentNode(
       "div",
       `failure-owner ${guidance.retryable ? "retryable" : "blocked"}`,
-      `失败归属：${guidance.failure_owner || "unknown"} · ${guidance.failure_class} · ${guidance.retryable ? "允许自动重试" : "禁止原样重试"}${guidance.failure_fingerprint ? ` · ${guidance.failure_fingerprint}` : ""}`,
+      `失败归属：${ownerLabel} (${guidance.failure_owner || "unknown"}) · ${classLabel} (${guidance.failure_class}) · ${guidance.retryable ? "允许自动重试" : "禁止原样重试"}${guidance.failure_fingerprint ? ` · ${guidance.failure_fingerprint}` : ""}`,
     ));
   }
   const transactionSummary = guidance.transaction_summary || {};
@@ -1105,6 +2134,13 @@ function renderReviewActions(task, bundle) {
   locate.type = "button";
   locate.addEventListener("click", () => syncReviewToExplorers(task));
   root.appendChild(locate);
+  if (task.blocking && !["auto_resolved", "reviewed", "done"].includes(task.status)) {
+    const limited = documentNode("button", "secondary", "隔离问题页面，继续其余页面抽取");
+    limited.type = "button";
+    limited.addEventListener("click", () => resolveHumanTask(task, "continue_limited"));
+    root.appendChild(limited);
+    root.appendChild(documentNode("div", "decision-note", "创建受限子版本；不接受失败补丁，也不将未解决任务标为通过。排除范围和缺漏会保留。全局完整性错误仍不可绕过。"));
+  }
 
   if (guidance.can_retry_automation) {
     const retry = documentNode(
@@ -1254,6 +2290,7 @@ function showReviewTask(task) {
     root.appendChild(documentNode("div", "muted", "该任务没有待裁决补丁，可在上方操作区确认保留当前 IR。"));
   }
   renderCandidateDiff(task.task_id);
+  renderReviewWorklist();
 }
 
 function timelineCard(title, meta, payload, status = "") {
@@ -1341,18 +2378,19 @@ function safeHumanPatchIds() {
 async function resolveHumanTask(task, action = "keep_current") {
   if (!activeIrRunId) return;
   const notes = $("#human-notes").value.trim();
-  if (!notes) return alert("请先在“人工依据”中写清楚：你看到了什么，以及为什么作出这个判断。");
   const actionText = {
     keep_current: "保留当前 IR",
     confirm_spread: "确认两页左右拼接",
     reject_spread: "确认两页相互独立",
+    continue_limited: "隔离未解决问题涉及的页面，让其余可用页面继续抽取（不会标记复核通过）",
   }[action] || action;
-  if (!window.confirm(`${actionText}，并将任务 ${task.task_id} 标记为人工已解决吗？`)) return;
+  if (action === "continue_limited" && !notes) return alert("请在人工备注中说明受限继续的原因。");
+  if (!window.confirm(`${actionText}，并为任务 ${task.task_id} 创建新修订吗？`)) return;
   try {
     const manifest = await postJson(`/api/document-ir/jobs/${encodeURIComponent(activeIrRunId)}/review-tasks/${encodeURIComponent(task.task_id)}/decision`, {
       action,
       decided_by: $("#human-operator").value.trim() || "local-operator",
-      notes,
+      notes: notes || null,
     });
     await refreshHistories();
     await loadIrRun(manifest.run_id);
@@ -1386,24 +2424,31 @@ async function startReviewRetry(taskIds = [], includeOptional = false) {
   if (reviewRetryInFlight) return;
   setReviewRetryInFlight(true);
   try {
-    const state = await postJson(`/api/document-ir/jobs/${encodeURIComponent(activeIrRunId)}/reviews/retry`, {
-      task_ids: taskIds,
-      include_optional: includeOptional,
-      max_auto_review_rounds: 3,
-      requested_by: $("#human-operator").value.trim() || "local-operator",
-      notes: $("#human-notes").value.trim() || null,
-      qiniu_api_key: $("#qiniu-key").value.trim() || null,
+    const parentRunId = activeIrRunId;
+    const task = await postJson("/api/pipeline/tasks/document-ir", {
+      operation: "review_retry",
+      parent_run_id: parentRunId,
+      review_retry_request: {
+        task_ids: taskIds,
+        include_optional: includeOptional,
+        max_auto_review_rounds: 3,
+        requested_by: $("#human-operator").value.trim() || "local-operator",
+        notes: $("#human-notes").value.trim() || null,
+        review_provider: selectedReviewProvider(),
+        qiniu_api_key: $("#qiniu-key").value.trim() || null,
+      },
     });
-    activeIrRunId = state.run_id;
-    $("#current-ir-run").textContent = `${state.run_id} · ${state.status}`;
-    renderLogs($("#ir-logs"), [state.message]);
-    renderRuntimeTelemetry(state);
+    activeIrRunId = task.native_job_id;
+    $("#current-ir-run").textContent = `${activeIrRunId} · 已加入统一队列`;
+    renderLogs($("#ir-logs"), [`统一任务 ${task.task_id} 已排队。`]);
+    window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
     pollIrState();
   } catch (error) {
-    setReviewRetryInFlight(false);
     const retryAfter = error.detail?.provider_state?.retry_after_seconds;
     const suffix = retryAfter ? `\n预计 ${formatDuration(Number(retryAfter))} 后可再次尝试，或更换独立额度的 API Key。` : "";
     alert(`自动审核重试未启动：${error.message}${suffix}`);
+  } finally {
+    setReviewRetryInFlight(false);
   }
 }
 
@@ -1460,13 +2505,20 @@ function operationLabel(operation) {
   }[operation] || operation;
 }
 
-async function renderRevisions(ocrRunId) {
+async function renderRevisions(documentId, ocrRunId) {
   const root = $("#revision-list"); root.replaceChildren();
-  if (!ocrRunId) return;
+  if (!documentId && !ocrRunId) return;
   const requestBackend = backendUrl();
-  const revisions = await fetchJson(`/api/document-ir/revisions/${encodeURIComponent(ocrRunId)}`, []);
+  const revisions = documentId
+    ? await fetchJson(`/api/document-ir/documents/${encodeURIComponent(documentId)}/revisions`, [])
+    : await fetchJson(`/api/document-ir/revisions/${encodeURIComponent(ocrRunId)}`, []);
   if (requestBackend !== backendUrl()) return;
+  let lastLineage = null;
   revisions.forEach((item) => {
+    if (item.lineage_id !== lastLineage) {
+      root.appendChild(documentNode("span", "revision-lineage", `分支 ${shortIdentity(item.lineage_id)}`));
+      lastLineage = item.lineage_id;
+    }
     const chip = documentNode("button", "revision", `r${item.ir_revision} · ${item.readiness}`);
     chip.type = "button";
     chip.title = item.run_id;
@@ -1476,7 +2528,7 @@ async function renderRevisions(ocrRunId) {
   await loadRevisionOptions(ocrRunId);
 }
 
-function renderArtifactLinks(root, files, kind) {
+function renderArtifactLinks(root, files, kind, previewTarget = null) {
   root.replaceChildren();
   const groups = new Map();
   files.forEach((item) => {
@@ -1491,13 +2543,13 @@ function renderArtifactLinks(root, files, kind) {
     section.open = ["manifest", "canonical", "provider", "content"].includes(group);
     section.appendChild(documentNode("summary", "", `${artifactGroupLabels[group] || artifactGroupLabels.other} · ${items.length} files`));
     const list = documentNode("div", "artifact-group-files");
-    items.forEach((item) => list.appendChild(artifactLink(item, kind)));
+    items.forEach((item) => list.appendChild(artifactLink(item, kind, previewTarget)));
     section.appendChild(list);
     root.appendChild(section);
   });
 }
 
-function artifactLink(item, kind) {
+function artifactLink(item, kind, previewTarget = null) {
     const link = documentNode("a", `artifact-link ${kind}`, `${item.path} · ${formatBytes(item.size)}`);
     link.href = endpoint(item.url);
     link.target = "_blank";
@@ -1509,7 +2561,8 @@ function artifactLink(item, kind) {
         if (item.path.endsWith(".json")) {
           try { rendered = JSON.stringify(JSON.parse(text), null, 2); } catch { /* keep text */ }
         }
-        if (kind === "ocr" && item.path.endsWith(".md")) $("#markdown-preview").textContent = rendered;
+        if (previewTarget) previewTarget.textContent = rendered;
+        else if (kind === "ocr" && item.path.endsWith(".md")) $("#markdown-preview").textContent = rendered;
         else $("#json-preview").textContent = rendered;
       });
     }
@@ -1552,20 +2605,76 @@ function documentNode(tag, className = "", text = "") {
 }
 
 function formatBytes(value) {
-  if (!Number.isFinite(value)) return "?";
-  if (value < 1024) return `${value} B`;
-  if (value < 1024 ** 2) return `${(value / 1024).toFixed(1)} KB`;
-  return `${(value / 1024 ** 2).toFixed(1)} MB`;
+  const bytes = Number(value);
+  if (!Number.isFinite(bytes)) return "?";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KB`;
+  if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(1)} MB`;
+  return `${(bytes / 1024 ** 3).toFixed(2)} GB`;
 }
 
 $("#page-select").addEventListener("change", (event) => renderPage(Number(event.target.value)));
 $("#table-select").addEventListener("change", (event) => renderTable(event.target.value));
 $("#ocr-history").addEventListener("change", (event) => event.target.value && loadOcrRun(event.target.value));
 $("#ir-history").addEventListener("change", (event) => event.target.value && loadIrRun(event.target.value));
-$("#ocr-run-id").addEventListener("change", (event) => event.target.value.trim() && loadRevisionOptions(event.target.value.trim()));
-$("#backend-url").addEventListener("change", () => { localStorage.setItem("esg-v2-backend-url", backendUrl()); refreshHistories(); });
-$("#refresh-all").addEventListener("click", refreshHistories);
+$("#ocr-run-id").addEventListener("change", (event) => {
+  const runId = event.target.value.trim();
+  const known = irSourceOcrRuns.some((item) => item.run_id === runId);
+  if (known) selectIrSource(runId);
+  else {
+    selectedIrSourceRunId = runId;
+    if (runId) loadRevisionOptions(runId);
+    renderIrSourcePicker();
+  }
+});
+$("#ir-source-search").addEventListener("input", renderIrSourcePicker);
+$("#ir-source-filter").addEventListener("change", renderIrSourcePicker);
+$("#ir-source-refresh").addEventListener("click", refreshHistories);
+$("#backend-url").addEventListener("change", () => {
+  localStorage.setItem("esg-v2-backend-url", backendUrl());
+  refreshHistories();
+  refreshOcrProviderStatus();
+});
+$("#refresh-all").addEventListener("click", () => {
+  refreshHistories();
+  refreshOcrProviderStatus();
+});
 $("#refresh-models").addEventListener("click", refreshModelStatus);
+$("#ocr-provider").addEventListener("change", () => {
+  syncOcrProviderControls();
+  refreshOcrProviderStatus();
+});
+$("#refresh-storage").addEventListener("click", refreshHistories);
+$("#storage-search").addEventListener("input", () => renderStorageInventory(storageInventory));
+$("#storage-filter").addEventListener("change", () => renderStorageInventory(storageInventory));
+$("#storage-management-mode").addEventListener("change", (event) => {
+  if (!event.target.checked) selectedStorageTargets.clear();
+  renderStorageInventory(storageInventory);
+});
+$("#plan-storage-deletion").addEventListener("click", () => openDeletionPlan(
+  [...selectedStorageTargets.values()],
+  $("#storage-cascade").checked,
+));
+$("#cleanup-incomplete").addEventListener("click", () => openDeletionPlan(
+  [{kind: "incomplete", target_id: "all"}],
+  false,
+));
+$("#execute-storage-deletion").addEventListener("click", executeStorageDeletion);
+$("#deletion-dialog").addEventListener("close", () => {
+  currentDeletionPlan = null;
+  currentDeletionTargets = [];
+});
+document.querySelectorAll("[data-app-view-target]").forEach((button) => {
+  button.addEventListener("click", () => switchAppView(button.dataset.appViewTarget));
+});
+$("#review-provider").addEventListener("change", () => {
+  syncReviewProviderControls();
+  refreshModelStatus();
+});
+$("#review-worklist-refresh").addEventListener("click", () => refreshReviewWorklist());
+$("#review-worklist-search").addEventListener("input", renderReviewWorklist);
+$("#review-worklist-group").addEventListener("change", renderReviewWorklist);
+$("#review-worklist-impact").addEventListener("change", renderReviewWorklist);
 $("#accept-patch").addEventListener("click", () => decideHumanPatch("accept"));
 $("#reject-patch").addEventListener("click", () => decideHumanPatch("reject"));
 $("#review-tabs").addEventListener("click", (event) => {
@@ -1582,18 +2691,24 @@ $("#repair-form").addEventListener("submit", async (event) => {
   const button = event.currentTarget.querySelector("button[type=submit]");
   button.disabled = true;
   try {
-    const state = await postJson(`/api/document-ir/jobs/${encodeURIComponent(activeIrRunId)}/repair`, {
-      parent_ir_run_id: activeIrRunId,
-      target_ids: targetIds,
-      reason_code: $("#repair-reason").value.trim() || "downstream_document_ir_mismatch",
-      requested_by: $("#repair-requester").value.trim() || "local-operator",
-      notes: $("#human-notes").value.trim() || null,
-      execute_vlm_reviews: $("#repair-execute-vlm").checked,
-      qiniu_api_key: $("#qiniu-key").value.trim() || null,
+    const parentRunId = activeIrRunId;
+    const task = await postJson("/api/pipeline/tasks/document-ir", {
+      operation: "repair",
+      repair_request: {
+        parent_ir_run_id: parentRunId,
+        target_ids: targetIds,
+        reason_code: $("#repair-reason").value.trim() || "downstream_document_ir_mismatch",
+        requested_by: $("#repair-requester").value.trim() || "local-operator",
+        notes: $("#human-notes").value.trim() || null,
+        execute_vlm_reviews: $("#repair-execute-vlm").checked,
+        review_provider: selectedReviewProvider(),
+        qiniu_api_key: $("#qiniu-key").value.trim() || null,
+      },
     });
-    activeIrRunId = state.run_id;
-    $("#current-ir-run").textContent = `${state.run_id} · ${state.status}`;
-    renderLogs($("#ir-logs"), [state.message]);
+    activeIrRunId = task.native_job_id;
+    $("#current-ir-run").textContent = `${activeIrRunId} · 已加入统一队列`;
+    renderLogs($("#ir-logs"), [`统一任务 ${task.task_id} 已排队。`]);
+    window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
     pollIrState();
   } catch (error) {
     alert(`返修启动失败：${error.message}`);
@@ -1604,6 +2719,10 @@ $("#repair-form").addEventListener("submit", async (event) => {
 
 const storedBackend = localStorage.getItem("esg-v2-backend-url");
 if (storedBackend) $("#backend-url").value = storedBackend;
+syncReviewProviderControls();
+syncOcrProviderControls();
+switchAppView(localStorage.getItem("esg-v2-active-view") || "report-assets", {scroll: false});
 renderPipeline();
 refreshHistories();
 refreshModelStatus();
+refreshOcrProviderStatus();

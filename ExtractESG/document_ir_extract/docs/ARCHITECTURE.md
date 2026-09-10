@@ -7,18 +7,20 @@ an upstream system and does not own crawling, Kodo indexing, company/year/indust
 master data, or the global report registry. Local uploads, paths, and URLs are
 development input conveniences only.
 
-The current implementation includes a hardened downstream Targeted Recall path: an
-admitted, versioned `Document IR` produces an immutable deterministic `Evidence Inventory`,
-then a standard task workbook is compiled into executable disclosure contracts and assessed
-with local grouped retrieval and an independent deterministic verifier. It does not yet
-implement PDF-first Full Harvest, publication-grade normalization, model-assisted fact
-verification, human fact review, or publication.
+The current implementation ends at an immutable, validated `Document IR` revision.
+Downstream processing and its intermediate packages are outside this codebase.
 
 ## Active Pipeline
 
 ```text
 PDF artifact
-  -> PaddleOCR-VL API adapter
+  -> PdfCanvasPreflight
+       -> pypdf page-box / rotation / catalog inspection
+       -> pypdfium2 all-page renderability validation
+       -> optional per-page provider-safe rewrite
+  -> OcrProviderRouter (local_first by default)
+       -> LocalPaddleOCRVLAdapter (Paddle pipeline + MLX-VLM server)
+       -> PaddleOCRVLApiAdapter (explicit or controlled fallback)
   -> immutable ocr_output (raw JSONL + Markdown + images)
   -> PageRenderer supervisor
        -> isolated pypdfium2 worker process
@@ -62,43 +64,16 @@ PDF artifact
   -> LogicalTableBuilder
   -> DocumentIrValidator
   -> immutable document_ir_output revision
-  -> Evidence admission gate (`can_build_evidence=true`)
-  -> EvidenceInventoryBuilder
-       -> block/list/footnote/figure atoms
-       -> physical and logical table cell/row/region atoms
-       -> source node, page, section, bbox and content hash
-  -> TemplateAdapterRegistry
-       -> workbook-specific parser/export adapter
-       -> generic versioned RequirementExecutionSpec v2
-       -> conditional, specialized or explicit generic-local compilation strategy
-       -> required semantic slots and multiplicity policy
-  -> DisclosureCatalog
-       -> physical/logical table, paragraph and figure groups
-       -> deterministic number, period, unit, statement and index features
-  -> LocalEvidenceIndex
-       -> exact substring lane
-       -> SQLite FTS5/BM25 lane
-       -> SQLite trigram lane
-       -> optional local embedding lane
-  -> HybridLocalRetriever
-       -> concept, dimension, topic and combined lanes
-       -> RRF + disclosure-group structural reranking
-       -> explicit candidate-limit trace
-  -> RequirementVerifier
-       -> per-candidate slot coverage and fact instances
-       -> cross-tab intersection and index-evidence guards
-  -> TargetedAssessor
-       -> compare all returned groups
-       -> apply multiplicity and conditional applicability policies
-       -> abstain when required slots or search coverage are incomplete
-  -> TargetedGuard (grounding, exact quote, slot completeness, facts, zero cloud)
-  -> immutable targeted_fill_output package
+  -> DocumentIrRetentionManager
+       -> per-OCR quality promotion
+       -> queued-consumer rebasing
+       -> rollback-capable superseded-package pruning
 ```
 
 This is not a strictly linear system. The main dependency direction is forward,
-but review creates correction proposals and later Evidence/extraction/verification
-may create a `DocumentIrRepairRequest`. Repair never mutates an existing snapshot;
-it produces a new revision and downstream consumers must pin the revision they read.
+but review creates correction proposals and operators may create a scoped
+`DocumentIrRepairRequest`. Repair never mutates an existing snapshot; it produces a
+new revision and every consumer must pin the revision it reads.
 
 ## Cohesion And Coupling
 
@@ -128,25 +103,22 @@ Each module owns one reason to change:
 | `review_orchestrator.py` | bounded reviewer/guard/verifier/repair workflow, independent patch transactions and failure fingerprints | unrestricted agent autonomy |
 | `patch_guard.py` | patch scope, schema, geometry, table and evidence invariants | visual judgment |
 | `revision_service.py` | human decisions, targeted repair and immutable children | in-place mutation |
-| `parser_fusion.py` | OCR/local observations and accepted-decision reconciliation | Evidence or facts |
-| `validator.py` | readiness and Evidence-entry gate | human judgment |
+| `parser_fusion.py` | OCR/local observations and accepted-decision reconciliation | downstream semantics |
+| `validator.py` | Document IR readiness gate | human judgment |
 | `versioning.py` | immutable revision lineage | report registry |
 | `writer.py` / `reader.py` | Package v1 materialization, sharding, portable hydration, legacy reads | business database writes |
 | `storage/package_layout.py` | safe paths, run IDs, package layout, atomic root reservation | document semantics |
 | `storage/package_validator.py` | entrypoint, file-set, size and SHA-256 verification | semantic readiness judgment |
-| `evidence/` | deterministic Evidence Atom construction, package IO and local FTS index | standard interpretation or publication |
-| `standards/` | RequirementExecutionSpec v2, versioned rule packs, generic fallback and task compilation | report retrieval |
-| `templates/` | workbook detection, blue-column ingestion and allowed-cell export | extraction decisions |
-| `targeted/catalog.py` | group Evidence Atoms into report disclosure units | requirement interpretation |
-| `targeted/features.py` | deterministic number, period, unit-family, statement and index parsing | retrieval or final decisions |
-| `targeted/retrieval.py` | role-separated local recall and disclosure-group reranking | final disclosure judgment |
-| `targeted/verification.py` | per-group slot coverage, cross-dimension checks and FactInstance proposals | workbook IO |
-| `targeted/assessment.py` | applicability, multiplicity, convergence and bounded deterministic answers | cloud prompting or workbook IO |
-| `targeted/package.py` | immutable result/audit package and canonical JSONL | report registry |
-| `targeted/workflow.py` | stage orchestration and explicit local-semantic fallback | OCR/IR mutation |
 
 These are Python module boundaries in a modular monolith. They are not separate
 microservices. Worker deployment can be split later without changing contracts.
+
+Local MLX-VLM traffic is a protected loopback transport. The worker preserves any
+system proxy needed by other services but writes `NO_PROXY/no_proxy` for
+`127.0.0.1`, `localhost`, and `::1`; a real OpenAI-SDK model-list request must reach
+the managed server before Paddle CV workers start. This matters on macOS, where
+`httpx` can discover system proxy settings even when no proxy environment variable
+is visible to the process.
 
 ## Coordinate Contract
 
@@ -192,13 +164,14 @@ direct raw object path instead of relying on an indirect Block lookup.
 
 ## Review And Correction Contract
 
-Qiniu remains the VLM/LLM provider for routed model tasks. It is not the primary
-OCR parser. Deterministic preflight first closes non-material visual-only Spread
+Routed visual review uses a provider-neutral boundary. The supported providers are
+Qiniu multimodal models and the local `numind/NuExtract3-mlx-4bits` MLX runtime.
+Neither provider is the primary OCR parser. Deterministic preflight first closes non-material visual-only Spread
 relationships; the default completeness scheduler then admits all remaining
 blocking work and unresolved optional review groups in the same run. Queue caps
 remain available only for explicitly bounded operating modes.
 
-Review output cannot overwrite parser output. The active `document-ir-v0.11`
+Review output cannot overwrite parser output. The active `document-ir-v0.12`
 contract persists:
 
 - `ReviewPlan`: one typed question, risk statement, evidence checklist, allowed
@@ -211,7 +184,8 @@ contract persists:
   failure ownership, retryability and stable fingerprint;
 - `GuardResult`: deterministic checks before any model proposal may be considered;
 - `CandidateRevision`: target snapshots and machine-readable before/after diff;
-- `VerifierResult`: independent judgment from a different model family;
+- `VerifierResult`: a second-pass judgment plus explicit verification policy and
+  model-family-independence flag;
 - `FinalReviewDecision`: auto-confirm, auto-correct, defer, reject, or human boundary;
 - `ConflictGroup`: remaining source or semantic disagreement.
 - `RetiredEntityIR`: full snapshot and evidence trail for a secondary parser
@@ -235,7 +209,7 @@ deterministic candidate screening
   -> minimum structure/text proposal when correction is needed
   -> local Patch Guard
   -> TransactionCoordinator
-  -> independent different-family verifier
+  -> verifier (Qiniu different family / local isolated same-model pass)
   -> ConvergenceEngine feedback and bounded automatic repair
   -> human only for material semantic ambiguity
 ```
@@ -273,12 +247,15 @@ canonical protocol. The compatibility boundary also normalizes unambiguous
 non-contract responses such as `reject_as_nontable` into a typed retirement
 proposal. It never treats an unparseable model response as a semantic decision.
 
-The model may never perform an in-place update. A correction is applied only when
-the Guard passes and the independent verifier accepts it. A rejected/abstained or
+The model may never perform an in-place update. A content or structural correction
+is applied only when the Guard passes and the configured verifier accepts it. A
+pure `confirm` transaction makes no semantic content change; after the local Guard
+confirms scope, evidence and required-target coverage, it closes without a redundant
+second model call. A rejected/abstained or
 Guard-failed candidate gets at most two feedback-guided reviewer repairs. Cloud,
 model-format, task-budget, or repeatedly Guard-invalid output becomes `deferred`,
 not `human_required`. Optional unresolved visual enrichment does not block
-Evidence admission. A blocking semantic disagreement after a Guard-passing
+Document IR admission. A blocking semantic disagreement after a Guard-passing
 proposal reaches an independent verifier is the primary automatic human boundary.
 Reviewer abstention may also reach a person only after the bounded evidence-guided
 attempts are exhausted. Repair rounds exclude the preceding reviewer's model
@@ -287,12 +264,23 @@ non-answer is not treated as independent evidence. Repeated Guard fingerprints a
 recorded during the bounded run, but become non-retryable only after all three
 rounds are exhausted.
 
+A verifier rejection is valid only when it names a concrete evidence disagreement.
+An empty `reject` or `abstain` is a model-protocol error retried inside the runner;
+it is never promoted into a human semantic disagreement.
+
 One reviewer response may contain several unrelated repairs. They are partitioned
 into `PatchTransactionIR` groups by local commit scope. Cells remain with their
 physical table. A horizontal spread's classification, cross-seam link and repairs
 to the participating physical table segments form one atomic composition
 transaction, because the link Guard must evaluate the repaired grids rather than
 the unmodified parent snapshot. Unrelated figure or block repairs remain isolated.
+A semantic `confirm_spread` is not itself a complete transaction when local geometry
+finds one unambiguous cross-seam entity pair. After response adaptation, the local
+transaction compiler deterministically appends the required
+`link_horizontal_continuation` proposal before Guard execution. This applies equally
+to spread-targeted tasks and page-targeted repair tasks whose formal scope contains the
+spread, so a correct model confirmation cannot become an unrecoverable local-contract
+blocker merely because the Adapter normalized its verdict to `propose_patch`.
 A malformed figure patch therefore cannot discard an otherwise valid table repair
 from the same response, while a spread cannot partially commit an invalid logical
 composition. Failures are classified as
@@ -304,6 +292,45 @@ the task ID, actual target set, target-operation semantics and failed Guard chec
 Only the same task repeating the same semantic failure becomes
 `repeated_failure`; identical generic Guard messages on unrelated pages cannot
 poison one another.
+
+Chart output has a deterministic adapter boundary before protocol validation.
+`ChartSpecNormalizer` accepts only known structural aliases such as `type`,
+`x_categories`, object-valued categories, and `series[].data/values`, then emits the
+single canonical `ChartSpec` shape with `series[].points`. Explicit values,
+percentages, units, grouping labels, totals, stacking hints, and page/crop evidence
+are preserved. Unsupported or data-poor shapes remain unchanged and fail closed at
+the Guard; the normalizer does not infer unseen chart semantics.
+
+Object-valued `categories` may also contain complete series objects shaped as
+`{name, unit, points}`. The adapter moves those objects into canonical `series`, maps
+unknown visual chart labels such as quadrant diagrams to `chart_type=other`, and
+preserves the source label in notes. Ambiguous figure-binding patches and empty
+captions are discarded as malformed optional proposals before AtomicPatch creation;
+they cannot crash the Guard or become system-owned repair blockers.
+
+HTML table materialization is occupancy-aware. When malformed OCR HTML declares a
+`colspan` that crosses columns already reserved by an earlier `rowspan`, the parser
+retains the cell text and clamps only that conflicting span to the contiguous free
+grid. The repair receives `html_col_span_clamped_around_rowspan`; raw OCR HTML remains
+unchanged in observations.
+
+The Guard validates ChartSpec structure and visual-evidence resolution independently.
+A schema error therefore cannot erase an otherwise valid crop reference. Recognized
+aliases that somehow reach the Guard are classified as a local adapter contract
+failure, not as a semantic model failure. Terminal repeated-failure fingerprints are
+compiled from the task ID, actual target set, target-operation semantics, and Guard
+feedback, so unrelated charts never share a terminal retry block.
+
+Before semantic normalization, `ModelJsonObjectDecoder` provides one deliberately
+narrow syntax-recovery rule. If an object inside an array is missing only its closing
+brace and the next sibling object has already begun, the decoder inserts that single
+container delimiter and reruns the standard JSON parser. It never rewrites keys,
+strings, numbers, units, or evidence references. Recovered payloads carry an adapter
+quality flag and still pass Pydantic validation, Patch Guard, independent verification,
+and transactional application. Every other malformed shape fails closed. JSON/protocol
+failures are owned by `model_protocol · model`; runtime transport failures remain
+`model_service · service`, while internal application exceptions are
+`system_contract · system`.
 
 Independent verification does not require one paid call per transaction. One
 Verifier call returns exactly one decision per transaction ID; accepted
@@ -375,8 +402,10 @@ view so they cannot disagree about the coverage denominator.
 
 A spread is a logical reading context, not a new physical PDF page. Detection
 runs after table/figure regions exist and before quality routing. A candidate
-requires opposite binding-edge contact, vertical alignment, a structural signal,
-and non-empty pixel continuity at the seam. Printed-page parity is supporting
+requires opposite binding-edge contact, vertical alignment, a geometrically matched
+same-type entity pair, and structured RGB variation that continues across the seam.
+Uniform or near-uniform color on both pages is background continuity, not content
+continuity. Printed-page parity is supporting
 evidence when available, not the only signal.
 
 ```text
@@ -385,6 +414,7 @@ physical page N + physical page N+1
   -> artifacts/spreads/spread-pNNNN-pMMMM.png
   -> SpreadIR(status=candidate)
   -> local SpreadPreflightClassifier
+     -> standalone_pages: terminal local rejection; no model task
      -> visual_continuity: terminal local relationship; no model task
      -> content_crossing: detailed review with composite + both source pages
      -> uncertain: detailed visual classification
@@ -393,12 +423,14 @@ physical page N + physical page N+1
 ```
 
 The preflight decision is deliberately about information dependency, not visual
-beauty. It inspects the canonical seam members already produced by layout parsing:
-tables or informative objects on both sides mean `content_crossing`; figures on
-both sides without cross-seam text/table semantics mean `visual_continuity`; mixed
-or insufficient evidence stays `uncertain`. The decision, confidence, signals and
-resolution source are persisted on `SpreadIR`. A visual-only spread remains
-queryable with its composite artifact but is terminal for review scheduling.
+beauty. `SpreadPairAnalyzer` normalizes bboxes by physical page height and matches
+only vertically compatible same-type entities. A matched table, informative block
+or data figure may become `content_crossing`; a matched photo or illustration becomes
+`visual_continuity`. Matching table segments with repeated headers and the same column
+contract are treated as ordinary vertical continuation. Missing matched entities or
+a flat/background-only seam becomes `standalone_pages`. The decision, confidence,
+signals and resolution source are persisted on `SpreadIR`. A visual-only spread
+remains queryable with its composite artifact but is terminal for review scheduling.
 
 Local preflight runs inside quality routing, after all candidate scopes have been
 collected. Only spreads with `requires_detailed_review=true` may absorb member-page
@@ -451,7 +483,9 @@ optional task, rather than a default task for every detected double-page design.
 Up to three bounded reviewer rounds attempt the decision, with different-family
 verification for every accepted correction. Guard prevents a physical page
 from joining two confirmed spreads and validates that horizontal links join
-same-type entities on opposite member pages. Human fallback shows the composite
+geometrically matched same-type entities on opposite member pages. A later candidate
+that overlaps a page already committed to a confirmed spread is rejected locally
+before any model call. Human fallback shows the composite
 and both source pages and offers only `confirm_spread` or `reject_spread`; an
 unclear case remains open.
 
@@ -493,7 +527,8 @@ transaction regardless of transport batching.
 
 An optional enhancement has two honest resolution paths. It may run through the
 same Reviewer, Guard and Verifier chain, or an operator may create an immutable
-child revision with `accept_current_nonmaterial` plus a written reason. The latter
+child revision with `accept_current_nonmaterial`. An operator note is optional and,
+when supplied, remains in the audit record. The latter
 sets the related conflict disposition to `accepted_nonmaterial_difference`; it
 does not promote a candidate spread, chart structure or visual relation to a
 verified canonical fact. Blocking tasks can never use this action.
@@ -501,8 +536,8 @@ verified canonical fact. Blocking tasks can never use this action.
 Human patch decisions preserve the same invariant: only a Guard-passing patch may
 be accepted. Rejecting a patch rejects that proposal but does not prove that the
 current IR is correct, so it does not close the task. Closure without an accepted
-patch requires an explicit `keep_current` decision with a written evidence note;
-otherwise the operator starts a targeted repair revision.
+patch requires an explicit `keep_current` click; the evidence note is optional.
+Otherwise the operator starts a targeted repair revision.
 
 Table correction has deterministic compiler operations. For example,
 `insert_table_row` accepts only an insertion index and one complete non-overlapping
@@ -539,6 +574,23 @@ only. The model router intersects a local approved profile list with Qiniu
 `minimax/minimax-m3`, and `moonshotai/kimi-k3`; only IDs returned by the live
 catalog are eligible.
 
+Local NuExtract3 receives local page, crop and spread paths directly. A provider
+factory supplies the adapter, registry, visual resolver, health policy and verifier
+policy to the same `ModelRunner`; orchestration above that boundary is unchanged.
+The MLX adapter uses a backend-owned persistent subprocess so model weights are loaded
+once per backend lifetime rather than once per review task. The worker translates
+NuExtract's template-constrained response into the same OpenAI-compatible envelope
+consumed by `ReviewResponseAdapter`. Both providers therefore produce the same
+`ReviewerPayload`, `AtomicPatch`, `GuardResult`, `VerifierResult`, transaction and
+immutable package locations.
+
+Qiniu uses `different_model_family` verification. A single local NuExtract3 instance
+cannot honestly provide model-family independence, so it uses
+`same_model_secondary_verification`: a fresh verifier prompt and isolated context run
+through the same Guard and transaction checks. `VerifierResult`, `AgentModelCall` and
+`quality_report.review_provider` persist this distinction. A second local model can be
+added later at the provider registry boundary without changing the review kernel.
+
 Health state is split into transport, protocol and quota categories. Two
 consecutive transport failures open a 15-minute transport circuit; three
 consecutive malformed/invalid responses open a 5-minute protocol circuit.
@@ -555,15 +607,15 @@ stored there. Full calls remain in the immutable revision review ledger.
 Every snapshot has one status:
 
 - `ready`: structural checks pass and no unresolved review remains;
-- `ready_with_warnings`: usable by Evidence with explicit non-blocking warnings;
+- `ready_with_warnings`: usable by downstream consumers with explicit non-blocking warnings;
 - `auto_review_pending`: one or more retryable required tasks await automation;
 - `repair_required`: a structural error, non-retryable system failure, or
   system-blocked conflict requires chain repair rather than semantic judgment;
 - `review_required`: a bounded evidence-backed semantic disagreement needs a person;
 - `failed`: page coverage or another blocking invariant failed.
 
-`validation_report.json` exposes `can_build_evidence`. Evidence Inventory must not
-consume a snapshot when this value is false.
+`validation_report.json` exposes `can_build_evidence` as a stable Document IR quality
+gate. A consumer must not accept a snapshot when this value is false.
 
 The gate validates more than page counts and review status. It deterministically
 checks global and internal ID uniqueness, reciprocal entity references, contiguous
@@ -583,18 +635,31 @@ The parser remains behind a replaceable adapter boundary:
 
 ```text
 DocumentParserAdapter
-  -> PaddleOCRVLApiAdapter now
-  -> LocalPaddleOCRVLAdapter later
+  -> OcrProviderRouter
+       -> LocalPaddleOCRVLAdapter
+       -> PaddleOCRVLApiAdapter
 ```
 
-Moving to local PaddleOCR-VL changes the adapter deployment, not `Document IR` or
-downstream Evidence contracts.
+Both adapters emit the same canonical `layoutParsingResults` envelope and use the
+same `OcrOutputWriter`. Provider selection is recorded in `ocr_provider` and
+`provider_route`; it never changes `Document IR` or downstream consumer contracts.
+`local_first` attempts the local adapter first. API fallback requires both an explicit
+task allowance and a configured request/environment token; `local_paddleocr` never
+calls the cloud.
+
+The isolated local worker emits structured page progress plus a liveness heartbeat
+while Paddle is blocked inside a slow page. A provider-side watchdog measures completed
+page progress rather than stdout activity: the default ten-minute no-progress threshold
+terminates a stalled local attempt and lets the existing `local_first` router decide
+whether API fallback is permitted. This watchdog is separate from the two-hour whole-job
+deadline. Both local and API providers publish the same progress contract to native job
+state and the unified task dock.
 
 ## Backend Independence
 
 The backend remains usable without the frontend:
 
-- CLI: `esg-v2 ocr --file ...`
+- CLI: `esg-v2 ocr --file ... --provider local_first|local_paddleocr|paddle_api`
 - CLI: `esg-v2 ir --ocr-run-id ... --pdf ... --render-dpi 144`
 - API: `POST /api/ocr/jobs`
 - API: `POST /api/document-ir/jobs`
@@ -640,8 +705,10 @@ frontend, local filesystem location, Kodo key prefix, and deployment topology.
   executes package validation against the manifest, entrypoints, file set,
   sizes, and hashes before declaring the write successful. Semantic artifact IDs
   remain separate from physical package-file integrity records.
-- A completed package is immutable. Corrections create a new Document IR revision
-  with `parent_ir_run_id`; old packages are never edited in place.
+- A completed package is immutable while it exists. Corrections create a new Document
+  IR revision with `parent_ir_run_id`; packages are never edited in place. After a
+  self-contained successor is validated and promoted, the best-only retention policy
+  may transactionally remove superseded package roots and their local job state.
 - A workflow atomically reserves a previously nonexistent run directory before
   writing. Reusing an existing run ID fails instead of overwriting any file.
 - Runtime job-state creation is exclusive as well. API submissions that reuse a
@@ -653,12 +720,37 @@ Run IDs are globally unique and sortable:
 ```text
 ocr-YYYYMMDDTHHMMSSZ-<12 lowercase hex>
 ir-YYYYMMDDTHHMMSSZ-<12 lowercase hex>
-evd-YYYYMMDDTHHMMSSZ-<12 lowercase hex>
-trg-YYYYMMDDTHHMMSSZ-<12 lowercase hex>
 ```
 
 The manifest, rather than parsing the run ID, carries the source OCR run, revision,
 parent revision, schema, pipeline, and readiness semantics.
+
+Run identity is deliberately separate from document identity and revision lineage:
+
+```text
+document_id = doc-sha256-<full 64-character PDF SHA-256>
+lineage_id  = irl-<24 lowercase hex derived from the root IR run>
+```
+
+- `document_id` is content-addressed. Renaming, moving, or OCR-processing the exact
+  same PDF again does not change it. Two files with the same human filename but
+  different bytes cannot collide.
+- `ocr_run_id` identifies one OCR provider attempt, not a report.
+- A parentless IR build starts a new `lineage_id` at `ir_revision=1`, even when the
+  same OCR run or same PDF already has another IR build. This prevents independent
+  rebuilds from appearing as false descendants.
+- Targeted repair, review retry, and human decisions preserve the parent's
+  `lineage_id` and allocate the next revision within that lineage. The explicit
+  `parent_ir_run_id` remains the authoritative ancestry edge.
+- `document_label` is a non-authoritative display label. `external_document_id` is
+  an optional pass-through reference to an upstream report registry; this subsystem
+  does not infer issuer, reporting year, jurisdiction, or report type from filenames.
+
+Before page rendering, the workflow compares the local PDF SHA-256 with the immutable
+OCR source hash when that hash is available and rejects mismatches. The derived catalog
+API groups OCR attempts and retained IR revisions by `document_id` without creating a
+mutable second source of truth. Existing packages remain immutable; missing v0.11
+identity fields are derived at read time from source hashes and parent chains.
 
 New writes reject non-conforming run IDs and unsafe package directory names.
 Historical pre-v1 names remain readable through compatibility readers, but they
@@ -671,6 +763,8 @@ ocr_output/<ocr_run_id>/
   manifest.json
   source/
     request.json
+    preflight.json
+    provider-input.pdf              # present only after normalization
   provider/
     submit-response.json
     poll-events.jsonl
@@ -688,7 +782,10 @@ ocr_output/<ocr_run_id>/
     files.json
 ```
 
-`provider/result.jsonl` remains the exact PaddleOCR-VL response. Per-page
+For API runs, `provider/result.jsonl` remains the exact PaddleOCR-VL response. For
+local runs it is a lossless adapter envelope with the same `prunedResult`, `markdown`
+and `outputImages` fields, while provider-owned source images remain under
+`provider/local-resources/`. Per-page
 observations and portable Markdown are derived views. `artifacts/index.json`
 maps provider image references to stable local artifact IDs and relative paths.
 `source/request.json` replaces a local upload path with `runtime-upload://...`,
@@ -697,6 +794,29 @@ observations are sanitized; exact provider files stay unchanged for audit.
 The Paddle client uses a dedicated HTTP session and ignores environment/system
 proxy discovery by default. Deployments that require an explicit proxy may opt
 in with `PADDLEOCR_VL_TRUST_ENV_PROXY=true`.
+
+### PDF canvas preflight and provider input
+
+The original PDF is the immutable identity and provenance artifact. Before a
+local file is submitted, `PdfCanvasPreflight` inspects every page's MediaBox,
+CropBox, rotation, box origin and displayed dimensions, checks document-level
+incremental updates and AcroForm state, and renders every page through
+`pypdfium2`. This is an input adapter, not a new parser.
+
+When provider-risk features are present, the adapter writes a provider-only PDF.
+Each page is independently normalized: rotation is transferred to page content,
+the displayed canvas is uniformly scaled to the configured maximum edge, and a
+fresh PDF structure is written. The operation never crops, stretches, merges or
+reorders pages. Mixed page sizes remain mixed in the same order; only the scale
+needed by each page changes.
+
+`source/preflight.json` records the complete page transform and its inverse.
+The OCR manifest continues to use the original PDF hash, so `document_id` is
+stable across passthrough and normalized OCR attempts. Downstream Document IR
+renders the original PDF. Existing coordinate conversion maps provider page
+coordinates by the provider/source page-size ratio into canonical original-PDF
+points, preserving evidence replay. A failed provider job still exposes the
+preflight, submission payload response, poll history and provider job ID.
 
 ### Document IR Package v1
 
@@ -756,8 +876,8 @@ The package has two deliberately different primary files:
 - `canonical/document.json` is the semantic document root. It contains document
   metadata, section hierarchy, collection references, and stable object indexes.
 
-Canonical page/table/logical-table/figure shards are the authoritative semantic data used by
-Evidence Inventory. `exports/document-ir.snapshot.json` is a compatibility and
+Canonical page/table/logical-table/figure shards are the authoritative semantic data for
+Document IR consumers. `exports/document-ir.snapshot.json` is a compatibility and
 debug export that can be regenerated and must not become a second source of truth.
 Parser observations, retired candidate snapshots, review ledgers, and quality
 reports remain in the same
@@ -770,50 +890,119 @@ IDs, structure-edge IDs, or table-edge IDs do not match their declared grammar.
 The package reader can still open historical flat runs and relocates old page
 images when a child revision is created.
 
-Evidence Inventory may start only when the manifest resolves a successful
-`quality/validation-report.json` with `can_build_evidence=true`. It reads canonical
-collections through the manifest and stores `ir_run_id`, `ir_revision`, and
-`source_node_ids`; it must not scan package directories or depend on local paths.
-
-### Evidence Inventory Package v1
-
-`EvidenceAtom` is retrieval-oriented but not ESG-classified. Each atom stores exact
-source text, normalized search text, page/section location, optional bbox, physical
-and logical table coordinates, source node IDs, quality flags, source trace and a
-content hash. The builder never calls a model and never mutates Document IR.
-
-### Targeted Recall Package v2
-
-The task workbook is compiled into generic `RequirementExecutionSpec v2` records before
-retrieval. Every contract declares its disclosure type, concept, required slots, aliases,
-unit families, period/scope policy and multiplicity. A matching specialized rule is used
-when available. Unknown same-format requirements receive an explicit `generic_local_rule`
-and a preflight warning instead of silent hard-coded failure. The extraction core therefore
-contains no ESRS row IDs; another workbook shape adds an adapter and another standard adds
-a versioned rule pack.
-
-Evidence Atoms are first grouped into `DisclosureGroup` objects. A table and all of its
-cell/row atoms are assessed as one unit, preventing isolated cells from being mistaken for
-complete disclosures. Local feature tools identify numeric tokens, years, unit families,
-statement types, explicit-zero claims and index-like sections. Retrieval is high recall;
-`RequirementVerifier` is the separate precision boundary. It records every candidate's
-slot coverage, reasons and proposed `FactInstance` values. Cross-tab requirements must show
-their dimensions in a real intersection, not merely in unrelated rows.
-
-`local_strict` is always available and uses exact, BM25 and trigram lanes.
-`local_semantic` may add a local embedding backend; failure to load it is a recorded
-fallback to `local_strict`, never a cloud escalation. Embeddings only increase recall.
-The final answer still requires deterministic applicability/table checks and exact Evidence
-quotes. `single_best`, `all_instances`, `group_by_dimension`, and `table_bundle` policies
-control whether one or several complete groups are preserved. If the candidate limit is
-reached, the system may abstain but cannot claim `not_found`. The five terminal states are
-`found`, `not_found`, `not_applicable`, `uncertain`, and `system_failed`; silence never proves
-a conditional absence.
-
-The package stores `catalog/disclosures.jsonl`, `assessment/verifications.jsonl`, and
-`quality/search-coverage.jsonl` in addition to canonical answers and selected packets.
-XLSX export preserves the template and updates only adapter-authorized cells.
-`audit/cloud-calls.jsonl` must remain empty under the current zero-cloud policy, and
-Targeted Guard rejects export otherwise.
-
 No API token is written to any package artifact.
+
+### Local artifact inventory and dependency-aware cleanup
+
+OCR Package v1 and Document IR Package v1 remain immutable while they exist. The
+storage management layer is separate from `OcrWorkflow`, `DocumentIrWorkflow`, and
+the read-only `DocumentIrCatalog`. It derives an inventory from package manifests,
+local job state, and upload copies; it is not a mutable report registry and never
+becomes a second source of document truth.
+
+The ownership tree is:
+
+```text
+document_id
+  ocr_run_id
+    ocr_output/<ocr_run_id>/
+    .local/jobs/ocr/<ocr_run_id>/
+    .local/uploads/<ocr_run_id>/
+    ir_run_id
+      document_ir_output/<ir_run_id>/
+      .local/jobs/document-ir/<ir_run_id>/
+      child ir_run_id ...
+```
+
+`GET /api/storage/inventory` exposes this tree with package/state health,
+readiness, file counts, byte size, ancestry, and cleanup eligibility. Deletion is a
+two-phase operation: `POST /api/storage/deletion-plans` compiles the dependency
+closure and impact preview; `POST /api/storage/deletion-plans/{plan_id}/execute`
+rechecks the same fingerprint before moving owned directories into a cleanup-local
+trash transaction. The UI requires one explicit confirmation click but no typed
+phrase. Failed moves are rolled back; successful transactions write an
+audit event outside the deleted package and purge temporary trash.
+
+Running jobs are protected. An OCR run with surviving IR consumers and an IR revision
+with surviving children are blocked unless cascade is explicitly enabled. Independent
+downstream extraction services are not silently inspected or mutated, so plans that
+delete IR carry `downstream_dependencies_unverified` until a dependency provider is
+connected.
+
+Best-only IR retention is a separate automatic path from operator cleanup. It runs only
+after the new package writer and integrity validation complete. Candidate quality is
+ordered by Evidence readiness, blocking/error issues, unresolved blocking and optional
+reviews, readiness state, human closure and revision recency. A winning package is
+self-contained, so its superseded parent package and job state can be moved into a
+transaction-local trash root and purged without rewriting the winner. Queued repair,
+review-retry and targeted-extraction payloads are rebased first. A revision referenced
+by a running task is protected and recorded for deferred cleanup. The current pointer
+and append-only cleanup audit live outside immutable packages under
+`.local/storage-cleanup/`.
+
+The frontend mirrors this responsibility split through six business views: report
+assets, OCR task creation, Document IR task creation, IR review/inspection, targeted
+extraction, and extraction results. The report asset view is the primary cleanup
+surface; raw package viewers remain read-only.
+
+## Unified local pipeline control plane
+
+The local product shell has one frontend but does not merge workflow ownership. The
+Document backend owns a small control plane composed of `PipelineQueueStore`,
+`PipelineScheduler`, `RuntimeSecretVault`, and provider-neutral task hooks. OCR,
+Document IR build/repair/review-retry, and targeted extraction run as isolated child
+processes under one persistent FIFO queue. Only queued tasks are reorderable. Cancelling
+a running task terminates its process group before the next task can start.
+The single-worker invariant limits execution concurrency only. Producers can enqueue
+additional OCR, IR, review/repair, and targeted tasks while another task is running;
+form submission locks are request-scoped and never mirror task lifetime.
+
+SQLite stores task order, lifecycle, progress, worker PID and events. Runtime API keys
+remain in memory or deployment environment variables and are never written into the
+queue database. Backend restart marks an active task `interrupted`; native OCR/IR/targeted
+job state receives the same terminal meaning. Business artifacts remain in their
+existing immutable package roots, so the scheduler is replaceable without changing any
+OCR, Document IR, Evidence Inventory or Result Bundle contract.
+
+`ReportAssetCatalog` is similarly separate from document semantics. It indexes PDFs in
+the dedicated workspace `/pdf` directory by SHA-256 and derives successful OCR history
+from immutable OCR manifests. The catalog never contains extracted text or facts.
+
+The unified frontend is a presentation composition of six views: report assets, OCR,
+Document IR, IR review/inspection, targeted extraction, and extraction results. The
+bottom task dock is the only global runtime surface. The targeted backend remains an
+independent service and can still be used through its own API/CLI.
+
+Workflow input selection is version-aware and view-scoped. The Document IR view reads
+the complete OCR package catalog and explicitly selects one immutable OCR run; browsing
+an OCR result elsewhere never mutates that selection. The targeted extraction view
+independently reads the complete Document IR revision catalog and accepts only an
+explicitly selected Evidence-ready revision. Both selectors expose the report label,
+year, page count, provider or schema, revision/readiness, timestamp and full run ID.
+The standard-package and metric selectors are separate inputs. Metric selections are
+keyed by `package_id@package_version` and survive switching among package cards. A
+cross-standard submission is compiled into one queue task per selected package through
+the atomic batch enqueue API. Those tasks share the selected IR and execution profile,
+but each native targeted job still owns exactly one immutable standard-package snapshot
+and one Result Bundle. The frontend never merges elements or digests from different
+standard packages into one extraction contract. These selectors are presentation
+adapters over catalog APIs: they do not rewrite OCR/IR artifacts or create hidden state
+in another business view.
+
+The IR review view begins with a read-only unresolved-task worklist. It selects the
+retained latest revision independently for each available lineage, then lists only unresolved
+`human_required`, non-retryable system-blocked, retryable blocking, and optional tasks.
+Superseded parent packages are removed after promotion and therefore cannot duplicate
+the current operator worklist. Selecting a row pins its IR
+run and Review Task, then opens the existing evidence, Guard, Verifier, patch and human
+decision cockpit; the worklist never creates a second review state or mutates a package.
+`GET /api/document-ir/review-worklist` performs this latest-lineage projection in the
+Document backend and returns compact task, target, status and progress metadata only.
+Full IR objects, evidence crops and audit trails remain lazily loaded after the operator
+opens one row, avoiding one full-package request per report during catalog refresh.
+
+The normal Document backend launcher does not enable Uvicorn source reload. A source
+reload replaces the process that owns the persistent scheduler and therefore converts
+its active task to `interrupted`; it can also invalidate queued work during development
+startup recovery. `ESG_V2_DEV_RELOAD=1` is an explicit development-only opt-in and must
+not be used while real OCR, IR review or extraction tasks are in flight.

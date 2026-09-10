@@ -1,0 +1,90 @@
+[
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.ghg-scope",
+    "description": "按温室气体范围分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.ghg-scope",
+    "hierarchical": false,
+    "labels": {
+      "en": "GHG scope",
+      "zh": "温室气体范围"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.scope2-method",
+    "description": "按范围2核算方法分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.scope2-method",
+    "hierarchical": false,
+    "labels": {
+      "en": "Scope 2 method",
+      "zh": "范围2核算方法"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.scope3-classification",
+    "description": "按范围3分类体系分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.scope3-classification",
+    "hierarchical": false,
+    "labels": {
+      "en": "Scope 3 classification",
+      "zh": "范围3分类体系"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.scope3-category",
+    "description": "按范围3类别分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.scope3-category",
+    "hierarchical": true,
+    "labels": {
+      "en": "Scope 3 category",
+      "zh": "范围3类别"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.control-boundary",
+    "description": "按控制边界分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.control-boundary",
+    "hierarchical": false,
+    "labels": {
+      "en": "Control boundary",
+      "zh": "控制边界"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.contractual-instrument-type",
+    "description": "按合同工具类型分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.contractual-instrument-type",
+    "hierarchical": false,
+    "labels": {
+      "en": "Contractual instrument type",
+      "zh": "合同工具类型"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.value-chain-stage",
+    "description": "按价值链阶段分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.value-chain-stage",
+    "hierarchical": false,
+    "labels": {
+      "en": "Value-chain stage",
+      "zh": "价值链阶段"
+    },
+    "value_type": "enum"
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.revenue-scope",
+    "description": "按净收入范围分解并保留报告原值。",
+    "dimension_id": "esrs.2023-set1.e1-6.dimension.revenue-scope",
+    "hierarchical": false,
+    "labels": {
+      "en": "Revenue scope",
+      "zh": "净收入范围"
+    },
+    "value_type": "enum"
+  }
+]

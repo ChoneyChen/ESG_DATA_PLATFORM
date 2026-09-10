@@ -22,6 +22,7 @@ class ParsedHtmlTable:
     column_count: int
     cells: list[ParsedTableCell]
     image_sources: list[str]
+    quality_flags: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -127,6 +128,7 @@ def parse_html_table(markup: str) -> ParsedHtmlTable | None:
     max_row = 0
     max_col = 0
     image_sources: list[str] = []
+    quality_flags: list[str] = []
     has_explicit_headers = any(cell.is_header for row in parser.rows for cell in row)
 
     for row_index, raw_row in enumerate(parser.rows):
@@ -135,30 +137,62 @@ def parse_html_table(markup: str) -> ParsedHtmlTable | None:
             while (row_index, col_index) in occupied:
                 col_index += 1
             text = _normalize_cell_text("".join(raw_cell.text_parts))
+            col_span = _available_col_span(
+                occupied,
+                row_index=row_index,
+                col_index=col_index,
+                row_span=raw_cell.row_span,
+                requested_col_span=raw_cell.col_span,
+            )
+            if col_span != raw_cell.col_span:
+                quality_flags.append("html_col_span_clamped_around_rowspan")
             cell = ParsedTableCell(
                 row_index=row_index,
                 col_index=col_index,
                 text=text,
                 row_span=raw_cell.row_span,
-                col_span=raw_cell.col_span,
+                col_span=col_span,
                 is_header=raw_cell.is_header or (not has_explicit_headers and row_index == 0),
                 image_sources=list(dict.fromkeys(raw_cell.image_sources)),
             )
             cells.append(cell)
             image_sources.extend(cell.image_sources)
             for span_row in range(row_index, row_index + raw_cell.row_span):
-                for span_col in range(col_index, col_index + raw_cell.col_span):
+                for span_col in range(col_index, col_index + col_span):
                     occupied.add((span_row, span_col))
             max_row = max(max_row, row_index + raw_cell.row_span)
-            max_col = max(max_col, col_index + raw_cell.col_span)
-            col_index += raw_cell.col_span
+            max_col = max(max_col, col_index + col_span)
+            col_index += col_span
 
     return ParsedHtmlTable(
         row_count=max_row,
         column_count=max_col,
         cells=cells,
         image_sources=list(dict.fromkeys(image_sources)),
+        quality_flags=list(dict.fromkeys(quality_flags)),
     )
+
+
+def _available_col_span(
+    occupied: set[tuple[int, int]],
+    *,
+    row_index: int,
+    col_index: int,
+    row_span: int,
+    requested_col_span: int,
+) -> int:
+    """Keep a malformed colspan from crossing cells reserved by an earlier rowspan."""
+
+    width = 0
+    for offset in range(requested_col_span):
+        candidate_col = col_index + offset
+        if any(
+            (candidate_row, candidate_col) in occupied
+            for candidate_row in range(row_index, row_index + row_span)
+        ):
+            break
+        width += 1
+    return max(1, width)
 
 
 def _normalize_cell_text(text: str) -> str:

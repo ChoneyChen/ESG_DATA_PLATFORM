@@ -251,6 +251,7 @@ class DocumentIrValidator:
         else:
             readiness = "ready"
         can_build_evidence = readiness in {"ready", "ready_with_warnings"}
+        evidence_policy = self._evidence_policy(document, issues, can_build_evidence)
         report = ValidationReport(
             readiness=readiness,
             checks={
@@ -277,6 +278,7 @@ class DocumentIrValidator:
                     and not human_conflicts
                 ),
                 "can_build_evidence": can_build_evidence,
+                "can_build_limited_evidence": evidence_policy["mode"] == "limited",
             },
             metrics={
                 "page_count": page_count,
@@ -321,11 +323,49 @@ class DocumentIrValidator:
         document.readiness = readiness
         document.quality_report["readiness"] = readiness
         document.quality_report["can_build_evidence"] = can_build_evidence
+        document.quality_report["evidence_policy"] = evidence_policy
         document.quality_report["validation_issue_counts"] = {
             severity: sum(1 for issue in issues if issue.severity == severity)
             for severity in ("info", "warning", "error", "blocking")
         }
         return document
+
+    @classmethod
+    def _evidence_policy(cls, document, issues, ready):
+        from esg_v2.document.patch_guard import PatchGuard
+        local_codes = {"table_geometry_incomplete", "logical_table_alignment_review_required",
+                       "required_auto_review_pending", "review_chain_repair_required", "genuine_human_review_required"}
+        global_failure = any(i.severity == "blocking" or (i.severity == "error" and i.code not in local_codes) for i in issues)
+        targets, excluded_pages, unlocated = set(), set(), []
+        for task in document.review_tasks:
+            if task.blocking and task.status not in cls.RESOLVED_TASK_STATUSES:
+                targets.add(task.target_id)
+                targets.update(s.target_id for s in task.scope if s.blocking)
+                if task.review_plan:
+                    targets.update(task.review_plan.required_decision_target_ids)
+        targets.update(c.target_id for c in document.conflict_groups if c.blocking and c.status in {"open", "human_required"})
+        targets.update(t.table_id for t in document.tables if not t.bbox)
+        for table in document.logical_tables:
+            if table.status == "review_required":
+                targets.update(table.source_table_ids)
+                excluded_pages.update(table.page_indices)
+        for target_id in targets:
+            target = PatchGuard._target(document, target_id)
+            page = getattr(target, "page_index", None)
+            if page is None and hasattr(target, "table_id"):
+                page = getattr(PatchGuard._target(document, target.table_id), "page_index", None)
+            if isinstance(page, int):
+                excluded_pages.add(page)
+            elif getattr(target, "page_indices", None):
+                excluded_pages.update(target.page_indices)
+            else:
+                unlocated.append(target_id)
+        available_pages = {p.page_index for p in document.pages} - excluded_pages
+        mode = "full" if ready else "limited" if available_pages and not global_failure and not unlocated else "blocked"
+        return {"schema_version": "evidence-availability-v1", "mode": mode,
+                "excluded_target_ids": sorted(targets), "excluded_page_indices": sorted(excluded_pages),
+                "available_page_count": len(available_pages), "unlocated_target_ids": sorted(unlocated),
+                "reason": "Unresolved local objects and their pages are excluded; original review states and patches are unchanged."}
 
     @staticmethod
     def _section_semantic_metrics(document: DocumentIR) -> dict[str, float | int]:

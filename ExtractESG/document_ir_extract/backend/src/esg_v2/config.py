@@ -5,15 +5,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 
-V2_ROOT = Path(__file__).resolve().parents[3]
-OCR_OUTPUT_ROOT = V2_ROOT / "ocr_output"
-DOCUMENT_IR_OUTPUT_ROOT = V2_ROOT / "document_ir_output"
-EVIDENCE_OUTPUT_ROOT = V2_ROOT / "evidence_output"
-TARGETED_OUTPUT_ROOT = V2_ROOT / "targeted_fill_output"
-UPLOAD_ROOT = V2_ROOT / ".local" / "uploads"
-OCR_JOB_STATE_ROOT = V2_ROOT / ".local" / "jobs" / "ocr"
-DOCUMENT_IR_JOB_STATE_ROOT = V2_ROOT / ".local" / "jobs" / "document-ir"
-TARGETED_JOB_STATE_ROOT = V2_ROOT / ".local" / "jobs" / "targeted-recall"
+DOCUMENT_IR_APP_ROOT = Path(__file__).resolve().parents[3]
+OCR_OUTPUT_ROOT = DOCUMENT_IR_APP_ROOT / "ocr_output"
+DOCUMENT_IR_OUTPUT_ROOT = DOCUMENT_IR_APP_ROOT / "document_ir_output"
+UPLOAD_ROOT = DOCUMENT_IR_APP_ROOT / ".local" / "uploads"
+OCR_JOB_STATE_ROOT = DOCUMENT_IR_APP_ROOT / ".local" / "jobs" / "ocr"
+DOCUMENT_IR_JOB_STATE_ROOT = DOCUMENT_IR_APP_ROOT / ".local" / "jobs" / "document-ir"
+WORKSPACE_ROOT = DOCUMENT_IR_APP_ROOT.parents[2]
+PLATFORM_RUNTIME_ROOT = WORKSPACE_ROOT / ".local" / "platform-runtime"
+REPORT_ASSET_ROOT = WORKSPACE_ROOT / "pdf"
+TARGETED_APP_ROOT = DOCUMENT_IR_APP_ROOT.parent / "targeted_table_extract"
 
 
 def env_bool(name: str, default: bool) -> bool:
@@ -45,12 +46,67 @@ def load_env_file(path: str | Path | None) -> None:
 
 
 def load_default_env_files() -> None:
-    load_env_file(V2_ROOT / ".env")
-    load_env_file(V2_ROOT / ".env.local")
+    load_env_file(DOCUMENT_IR_APP_ROOT / ".env")
+    load_env_file(DOCUMENT_IR_APP_ROOT / ".env.local")
+
+
+def default_storage_cleanup_root() -> Path:
+    explicit = os.getenv("ESG_V2_STORAGE_CLEANUP_DIR")
+    if explicit:
+        return Path(explicit)
+    state_root = Path(
+        os.getenv("ESG_V2_DOCUMENT_IR_JOB_STATE_DIR", str(DOCUMENT_IR_JOB_STATE_ROOT))
+    )
+    return state_root.parent.parent / "storage-cleanup"
 
 
 @dataclass(frozen=True)
 class Settings:
+    report_asset_root: Path = field(
+        default_factory=lambda: Path(
+            os.getenv("ESG_REPORT_ASSET_DIR", str(REPORT_ASSET_ROOT))
+        ).expanduser()
+    )
+    pipeline_queue_db: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "ESG_PIPELINE_QUEUE_DB",
+                str(PLATFORM_RUNTIME_ROOT / "pipeline-queue.sqlite3"),
+            )
+        ).expanduser()
+    )
+    pipeline_task_root: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "ESG_PIPELINE_TASK_DIR",
+                str(PLATFORM_RUNTIME_ROOT / "tasks"),
+            )
+        ).expanduser()
+    )
+    targeted_app_root: Path = field(
+        default_factory=lambda: Path(
+            os.getenv("ESG_TARGETED_APP_ROOT", str(TARGETED_APP_ROOT))
+        ).expanduser()
+    )
+    targeted_runtime_python: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "ESG_TARGETED_RUNTIME_PYTHON",
+                str(Path.home() / "Desktop" / "model" / ".runtime" / "venv" / "bin" / "python"),
+            )
+        ).expanduser()
+    )
+    targeted_backend_url: str = field(
+        default_factory=lambda: os.getenv(
+            "ESG_TARGETED_BACKEND_URL", "http://127.0.0.1:18180"
+        ).rstrip("/")
+    )
+    pipeline_poll_interval_seconds: float = field(
+        default_factory=lambda: float(os.getenv("ESG_PIPELINE_POLL_INTERVAL", "0.5"))
+    )
+    default_ocr_provider: str = field(
+        default_factory=lambda: os.getenv("ESG_V2_OCR_PROVIDER", "local_first")
+    )
     paddle_job_url: str = field(
         default_factory=lambda: os.getenv(
             "PADDLEOCR_VL_JOB_URL",
@@ -63,12 +119,6 @@ class Settings:
     document_ir_output_root: Path = field(
         default_factory=lambda: Path(os.getenv("ESG_V2_DOCUMENT_IR_OUTPUT_DIR", str(DOCUMENT_IR_OUTPUT_ROOT)))
     )
-    evidence_output_root: Path = field(
-        default_factory=lambda: Path(os.getenv("ESG_V2_EVIDENCE_OUTPUT_DIR", str(EVIDENCE_OUTPUT_ROOT)))
-    )
-    targeted_output_root: Path = field(
-        default_factory=lambda: Path(os.getenv("ESG_V2_TARGETED_OUTPUT_DIR", str(TARGETED_OUTPUT_ROOT)))
-    )
     upload_root: Path = field(default_factory=lambda: Path(os.getenv("ESG_V2_UPLOAD_DIR", str(UPLOAD_ROOT))))
     ocr_job_state_root: Path = field(
         default_factory=lambda: Path(os.getenv("ESG_V2_OCR_JOB_STATE_DIR", str(OCR_JOB_STATE_ROOT)))
@@ -78,10 +128,9 @@ class Settings:
             os.getenv("ESG_V2_DOCUMENT_IR_JOB_STATE_DIR", str(DOCUMENT_IR_JOB_STATE_ROOT))
         )
     )
-    targeted_job_state_root: Path = field(
-        default_factory=lambda: Path(
-            os.getenv("ESG_V2_TARGETED_JOB_STATE_DIR", str(TARGETED_JOB_STATE_ROOT))
-        )
+    storage_cleanup_root: Path = field(default_factory=default_storage_cleanup_root)
+    document_ir_best_only_retention: bool = field(
+        default_factory=lambda: env_bool("ESG_V2_DOCUMENT_IR_BEST_ONLY", True)
     )
     poll_interval_seconds: float = field(
         default_factory=lambda: float(os.getenv("PADDLEOCR_VL_POLL_INTERVAL", "5"))
@@ -91,6 +140,68 @@ class Settings:
     )
     paddle_trust_environment_proxy: bool = field(
         default_factory=lambda: env_bool("PADDLEOCR_VL_TRUST_ENV_PROXY", False)
+    )
+    local_paddleocr_runtime_python: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "LOCAL_PADDLEOCR_RUNTIME_PYTHON",
+                str(Path.home() / "Desktop" / "model" / ".runtime" / "paddleocr-vl" / "bin" / "python"),
+            )
+        ).expanduser()
+    )
+    local_paddleocr_model_path: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "LOCAL_PADDLEOCR_MODEL_PATH",
+                str(Path.home() / "Desktop" / "model" / "PaddleOCR-VL-1.6"),
+            )
+        ).expanduser()
+    )
+    local_paddleocr_pipeline_cache: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "LOCAL_PADDLEOCR_PIPELINE_CACHE",
+                str(Path.home() / "Desktop" / "model" / ".cache" / "paddlex"),
+            )
+        ).expanduser()
+    )
+    local_paddleocr_pipeline_version: str = field(
+        default_factory=lambda: os.getenv("LOCAL_PADDLEOCR_PIPELINE_VERSION", "v1.6")
+    )
+    local_paddleocr_vlm_backend: str = field(
+        default_factory=lambda: os.getenv("LOCAL_PADDLEOCR_VLM_BACKEND", "mlx-vlm-server")
+    )
+    local_paddleocr_vlm_server_url: str = field(
+        default_factory=lambda: os.getenv("LOCAL_PADDLEOCR_VLM_SERVER_URL", "http://127.0.0.1:8111/")
+    )
+    local_paddleocr_autostart_vlm_server: bool = field(
+        default_factory=lambda: env_bool("LOCAL_PADDLEOCR_AUTOSTART_VLM_SERVER", True)
+    )
+    local_paddleocr_server_start_timeout_seconds: float = field(
+        default_factory=lambda: float(os.getenv("LOCAL_PADDLEOCR_SERVER_START_TIMEOUT_SECONDS", "60"))
+    )
+    local_paddleocr_job_timeout_seconds: float = field(
+        default_factory=lambda: float(os.getenv("LOCAL_PADDLEOCR_JOB_TIMEOUT_SECONDS", "7200"))
+    )
+    local_paddleocr_stall_timeout_seconds: float = field(
+        default_factory=lambda: float(os.getenv("LOCAL_PADDLEOCR_STALL_TIMEOUT_SECONDS", "600"))
+    )
+    local_paddleocr_heartbeat_seconds: float = field(
+        default_factory=lambda: float(os.getenv("LOCAL_PADDLEOCR_HEARTBEAT_SECONDS", "15"))
+    )
+    ocr_pdf_canvas_normalization_enabled: bool = field(
+        default_factory=lambda: env_bool("ESG_V2_OCR_PDF_CANVAS_NORMALIZATION", True)
+    )
+    ocr_provider_max_canvas_points: float = field(
+        default_factory=lambda: float(os.getenv("ESG_V2_OCR_PROVIDER_MAX_CANVAS_POINTS", "1200"))
+    )
+    ocr_provider_max_local_file_bytes: int = field(
+        default_factory=lambda: int(
+            os.getenv("ESG_V2_OCR_PROVIDER_MAX_LOCAL_FILE_BYTES", str(100 * 1024 * 1024))
+        )
+    )
+    ocr_provider_max_pdf_pages: int = field(
+        default_factory=lambda: int(os.getenv("ESG_V2_OCR_PROVIDER_MAX_PDF_PAGES", "1000"))
     )
     qiniu_api_key: str | None = field(default_factory=lambda: os.getenv("QINIU_API_KEY"))
     qiniu_base_url: str = field(
@@ -112,6 +223,28 @@ class Settings:
         default_factory=lambda: float(os.getenv("QINIU_TPD_RESET_GRACE_SECONDS", "300"))
     )
     qiniu_vlm_model: str | None = field(default_factory=lambda: os.getenv("QINIU_VLM_MODEL"))
+    default_review_provider: str = field(
+        default_factory=lambda: os.getenv("ESG_V2_REVIEW_PROVIDER", "qiniu")
+    )
+    nuextract_model_path: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "NUEXTRACT_MODEL_PATH",
+                str(Path.home() / "Desktop" / "model" / "NuExtract3-mlx-4bits"),
+            )
+        ).expanduser()
+    )
+    nuextract_runtime_python: Path = field(
+        default_factory=lambda: Path(
+            os.getenv(
+                "NUEXTRACT_RUNTIME_PYTHON",
+                str(Path.home() / "Desktop" / "model" / ".runtime" / "venv" / "bin" / "python"),
+            )
+        ).expanduser()
+    )
+    nuextract_timeout_seconds: float = field(
+        default_factory=lambda: float(os.getenv("NUEXTRACT_TIMEOUT_SECONDS", "900"))
+    )
     max_vlm_reviews_per_ir_run: int = field(
         default_factory=lambda: int(os.getenv("ESG_V2_MAX_VLM_REVIEWS_PER_IR_RUN", "0"))
     )

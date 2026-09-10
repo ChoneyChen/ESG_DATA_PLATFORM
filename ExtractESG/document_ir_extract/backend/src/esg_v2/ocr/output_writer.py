@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from esg_v2.ocr.client import PaddleOcrVlClient
+from esg_v2.ocr.resources import OcrResourceReader
 from esg_v2.storage.package_layout import (
     OcrPackageLayout,
     page_stem,
@@ -52,6 +52,9 @@ class OcrOutputWriter:
     def write_submit_response(self, payload: Any) -> Path:
         return write_json(self.layout.submit_response, payload)
 
+    def write_preflight(self, payload: Any) -> Path:
+        return write_json(self.layout.source_preflight, sanitize_payload(payload))
+
     def append_poll_event(self, payload: Any) -> Path:
         path = self.layout.poll_events
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -67,8 +70,13 @@ class OcrOutputWriter:
         self,
         *,
         jsonl_text: str,
-        client: PaddleOcrVlClient,
+        resource_reader: OcrResourceReader | None = None,
+        client: Any | None = None,
     ) -> tuple[list[Path], list[Path], list[dict[str, Any]], int]:
+        # ``client`` remains as a compatibility alias for old callers and packages.
+        reader = resource_reader or client
+        if reader is None:
+            raise ValueError("An OCR resource reader is required")
         markdown_files: list[Path] = []
         downloaded_files: list[Path] = []
         artifact_rows: list[dict[str, Any]] = []
@@ -110,7 +118,7 @@ class OcrOutputWriter:
                     suffix = self._safe_image_suffix(provider_path)
                     local_path = self.layout.page_image_dir(page_index) / f"image-{image_sequence:04d}{suffix}"
                     local_path.parent.mkdir(parents=True, exist_ok=True)
-                    local_path.write_bytes(client.download_bytes(image_url))
+                    local_path.write_bytes(self._read_resource(reader, image_url))
                     portable_ref = Path(os.path.relpath(local_path, markdown_path.parent)).as_posix()
                     markdown = markdown.replace(str(provider_path), portable_ref)
                     downloaded_files.append(local_path)
@@ -136,7 +144,7 @@ class OcrOutputWriter:
                     else:
                         local_path = self.output_images_dir / f"{page_id}-{layout_sequence:04d}{suffix}"
                     local_path.parent.mkdir(parents=True, exist_ok=True)
-                    local_path.write_bytes(client.download_bytes(image_url))
+                    local_path.write_bytes(self._read_resource(reader, image_url))
                     downloaded_files.append(local_path)
                     artifact_rows.append(
                         self._artifact_row(
@@ -179,19 +187,24 @@ class OcrOutputWriter:
             display_name = source.get("display_name")
             if isinstance(display_name, str):
                 source["display_name"] = Path(display_name).name
+        entrypoints = {
+            "source_request": relative_path(self.output_dir, self.layout.source_request),
+            "provider_submit_response": relative_path(self.output_dir, self.layout.submit_response),
+            "provider_poll_events": relative_path(self.output_dir, self.layout.poll_events),
+            "provider_result": relative_path(self.output_dir, self.layout.provider_result),
+            "page_index": "observations/pages/index.json",
+            "artifacts": relative_path(self.output_dir, self.layout.artifact_index),
+            "integrity": relative_path(self.output_dir, self.layout.file_index),
+        }
+        if self.layout.source_preflight.exists():
+            entrypoints["source_preflight"] = relative_path(self.output_dir, self.layout.source_preflight)
+        if self.layout.provider_input.exists():
+            entrypoints["provider_input"] = relative_path(self.output_dir, self.layout.provider_input)
         payload = {
             "package_type": "ocr-run",
             "package_schema_version": "ocr-package-v1",
             **safe_manifest,
-            "entrypoints": {
-                "source_request": relative_path(self.output_dir, self.layout.source_request),
-                "provider_submit_response": relative_path(self.output_dir, self.layout.submit_response),
-                "provider_poll_events": relative_path(self.output_dir, self.layout.poll_events),
-                "provider_result": relative_path(self.output_dir, self.layout.provider_result),
-                "page_index": "observations/pages/index.json",
-                "artifacts": relative_path(self.output_dir, self.layout.artifact_index),
-                "integrity": relative_path(self.output_dir, self.layout.file_index),
-            },
+            "entrypoints": entrypoints,
             "written_at": datetime.now(timezone.utc).isoformat(),
         }
         write_json(self.layout.manifest, payload)
@@ -236,3 +249,11 @@ class OcrOutputWriter:
     def _safe_image_suffix(value: str) -> str:
         suffix = Path(value.split("?", 1)[0]).suffix.lower()
         return suffix if suffix in {".jpg", ".jpeg", ".png", ".webp"} else ".jpg"
+
+    @staticmethod
+    def _read_resource(reader: Any, reference: str) -> bytes:
+        if hasattr(reader, "read_bytes"):
+            return reader.read_bytes(reference)
+        if hasattr(reader, "download_bytes"):
+            return reader.download_bytes(reference)
+        raise TypeError("OCR resource reader must implement read_bytes(reference)")

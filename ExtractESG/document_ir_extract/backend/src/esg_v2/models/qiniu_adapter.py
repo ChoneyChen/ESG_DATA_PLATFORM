@@ -11,9 +11,10 @@ import requests
 
 from esg_v2.config import Settings, get_settings
 from esg_v2.models.contracts import CloudChatRequest, CloudChatResult, CloudModelInfo
+from esg_v2.models.provider_error import ModelProviderError
 
 
-class QiniuApiError(RuntimeError):
+class QiniuApiError(ModelProviderError):
     def __init__(
         self,
         message: str,
@@ -22,10 +23,13 @@ class QiniuApiError(RuntimeError):
         headers: dict[str, str] | None = None,
         request_id: str | None = None,
     ):
-        super().__init__(message)
-        self.status_code = status_code
+        super().__init__(
+            message,
+            status_code=status_code,
+            request_id=request_id,
+            retryable=True,
+        )
         self.headers = {str(key).lower(): str(value) for key, value in (headers or {}).items()}
-        self.request_id = request_id
 
     @property
     def retryable(self) -> bool:
@@ -78,6 +82,8 @@ class QiniuModelAdapter:
     This adapter is deliberately model-agnostic. ESG semantics, routing, and
     evidence rules must live in workflow code, not in this HTTP client.
     """
+
+    provider_name = "qiniu"
 
     def __init__(self, settings: Settings | None = None, *, api_key: str | None = None):
         self.settings = settings or get_settings()

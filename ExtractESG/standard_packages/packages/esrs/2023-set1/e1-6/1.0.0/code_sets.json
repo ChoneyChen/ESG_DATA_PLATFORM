@@ -1,0 +1,329 @@
+[
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.ghg-scope",
+    "extensible": false,
+    "values": [
+      {
+        "code": "scope1",
+        "labels": {
+          "en": "Scope 1",
+          "zh": "范围1"
+        }
+      },
+      {
+        "code": "scope2",
+        "labels": {
+          "en": "Scope 2",
+          "zh": "范围2"
+        }
+      },
+      {
+        "code": "scope3",
+        "labels": {
+          "en": "Scope 3",
+          "zh": "范围3"
+        }
+      },
+      {
+        "code": "total",
+        "labels": {
+          "en": "Total",
+          "zh": "合计"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.scope2-method",
+    "extensible": false,
+    "values": [
+      {
+        "code": "location_based",
+        "labels": {
+          "en": "Location-based",
+          "zh": "基于位置法"
+        }
+      },
+      {
+        "code": "market_based",
+        "labels": {
+          "en": "Market-based",
+          "zh": "基于市场法"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.scope3-classification",
+    "extensible": false,
+    "values": [
+      {
+        "code": "ghg_protocol",
+        "labels": {
+          "en": "GHG Protocol",
+          "zh": "温室气体核算体系"
+        }
+      },
+      {
+        "code": "iso_14064_1",
+        "labels": {
+          "en": "ISO 14064-1",
+          "zh": "ISO 14064-1"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.scope3-category",
+    "extensible": true,
+    "values": [
+      {
+        "code": "category_01",
+        "labels": {
+          "en": "Purchased goods and services",
+          "zh": "购入商品和服务"
+        }
+      },
+      {
+        "code": "category_02",
+        "labels": {
+          "en": "Capital goods",
+          "zh": "资本品"
+        }
+      },
+      {
+        "code": "category_03",
+        "labels": {
+          "en": "Fuel- and energy-related activities",
+          "zh": "燃料和能源相关活动"
+        }
+      },
+      {
+        "code": "category_04",
+        "labels": {
+          "en": "Upstream transportation and distribution",
+          "zh": "上游运输和配送"
+        }
+      },
+      {
+        "code": "category_05",
+        "labels": {
+          "en": "Waste generated in operations",
+          "zh": "运营中产生的废弃物"
+        }
+      },
+      {
+        "code": "category_06",
+        "labels": {
+          "en": "Business travel",
+          "zh": "商务旅行"
+        }
+      },
+      {
+        "code": "category_07",
+        "labels": {
+          "en": "Employee commuting",
+          "zh": "员工通勤"
+        }
+      },
+      {
+        "code": "category_08",
+        "labels": {
+          "en": "Upstream leased assets",
+          "zh": "上游租赁资产"
+        }
+      },
+      {
+        "code": "category_09",
+        "labels": {
+          "en": "Downstream transportation and distribution",
+          "zh": "下游运输和配送"
+        }
+      },
+      {
+        "code": "category_10",
+        "labels": {
+          "en": "Processing of sold products",
+          "zh": "售出产品的加工"
+        }
+      },
+      {
+        "code": "category_11",
+        "labels": {
+          "en": "Use of sold products",
+          "zh": "售出产品的使用"
+        }
+      },
+      {
+        "code": "category_12",
+        "labels": {
+          "en": "End-of-life treatment of sold products",
+          "zh": "售出产品的报废处理"
+        }
+      },
+      {
+        "code": "category_13",
+        "labels": {
+          "en": "Downstream leased assets",
+          "zh": "下游租赁资产"
+        }
+      },
+      {
+        "code": "category_14",
+        "labels": {
+          "en": "Franchises",
+          "zh": "特许经营"
+        }
+      },
+      {
+        "code": "category_15",
+        "labels": {
+          "en": "Investments",
+          "zh": "投资"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.control-boundary",
+    "extensible": true,
+    "values": [
+      {
+        "code": "consolidated_group",
+        "labels": {
+          "en": "Consolidated accounting group",
+          "zh": "合并财务报表集团"
+        }
+      },
+      {
+        "code": "operational_control",
+        "labels": {
+          "en": "Operational control",
+          "zh": "运营控制"
+        }
+      },
+      {
+        "code": "financial_control",
+        "labels": {
+          "en": "Financial control",
+          "zh": "财务控制"
+        }
+      },
+      {
+        "code": "equity_share",
+        "labels": {
+          "en": "Equity share",
+          "zh": "权益比例"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.contractual-instrument-type",
+    "extensible": true,
+    "values": [
+      {
+        "code": "supplier_specific_contract",
+        "labels": {
+          "en": "Supplier-specific contract",
+          "zh": "供应商特定合同"
+        }
+      },
+      {
+        "code": "energy_attribute_certificate",
+        "labels": {
+          "en": "Energy attribute certificate",
+          "zh": "能源属性证书"
+        }
+      },
+      {
+        "code": "power_purchase_agreement",
+        "labels": {
+          "en": "Power purchase agreement",
+          "zh": "购电协议"
+        }
+      },
+      {
+        "code": "residual_mix",
+        "labels": {
+          "en": "Residual mix",
+          "zh": "剩余组合"
+        }
+      },
+      {
+        "code": "other",
+        "labels": {
+          "en": "Other",
+          "zh": "其他"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.value-chain-stage",
+    "extensible": false,
+    "values": [
+      {
+        "code": "upstream",
+        "labels": {
+          "en": "Upstream",
+          "zh": "上游"
+        }
+      },
+      {
+        "code": "own_operations",
+        "labels": {
+          "en": "Own operations",
+          "zh": "自身运营"
+        }
+      },
+      {
+        "code": "downstream",
+        "labels": {
+          "en": "Downstream",
+          "zh": "下游"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.biogenic-status",
+    "extensible": false,
+    "values": [
+      {
+        "code": "biogenic_co2_excluded",
+        "labels": {
+          "en": "Biogenic CO2 excluded from scope and disclosed separately",
+          "zh": "从范围排放中排除并单独披露的生物源二氧化碳"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-6.codeset.revenue-scope",
+    "extensible": false,
+    "values": [
+      {
+        "code": "total",
+        "labels": {
+          "en": "Total net revenue",
+          "zh": "净收入总额"
+        }
+      },
+      {
+        "code": "intensity_denominator",
+        "labels": {
+          "en": "Net revenue used for intensity",
+          "zh": "强度计算所用净收入"
+        }
+      },
+      {
+        "code": "other",
+        "labels": {
+          "en": "Other net revenue",
+          "zh": "其他净收入"
+        }
+      }
+    ]
+  }
+]

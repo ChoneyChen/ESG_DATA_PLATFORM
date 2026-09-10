@@ -1,0 +1,89 @@
+{
+  "schema_version": "targeted-result-bundle-v1",
+  "result_schema_version": "targeted-extraction-result-v1",
+  "core_schema": {
+    "id": "extractesg.core",
+    "version_source": "input/standard-package.json#/core/core_schema_version",
+    "record_contract_source": "input/standard-package.json#/core/record_types"
+  },
+  "compatibility": {
+    "rule": "Readers must dispatch on schema_version and ignore newly added optional manifest fields within the same major version.",
+    "immutable_outputs": true,
+    "frontend_writeback_allowed": false
+  },
+  "identifiers": {
+    "job_id": {
+      "pattern": "^tx-[0-9]{8}T[0-9]{6}Z-[a-f0-9]{10}$",
+      "stability": "unique_per_execution",
+      "example": "tx-20260825T120000Z-0123456789"
+    },
+    "task_id": {
+      "pattern": "^task-[a-f0-9]{24}$",
+      "stability": "document_id + ir_revision + package_id + package_version + metric_id"
+    },
+    "observation_id": {
+      "pattern": "^obs-[a-f0-9]{24}$",
+      "stability": "task_id + semantic_group_ref + sequence"
+    },
+    "assertion_id": {
+      "pattern": "^assert-[a-f0-9]{24}$",
+      "stability": "task_id + semantic_group_ref + sequence"
+    },
+    "attribute_id": {
+      "pattern": "^attr-[a-f0-9]{24}$",
+      "stability": "parent_record_id + element_id + sequence"
+    },
+    "dimension_value_id": {
+      "pattern": "^dim-[a-f0-9]{24}$",
+      "stability": "parent_record_id + element_id + sequence"
+    },
+    "evidence_set_id": {
+      "pattern": "^evset-[a-f0-9]{24}$",
+      "stability": "supported_fact_id"
+    },
+    "evidence_id": {
+      "pattern": "^evidence-[a-f0-9]{24}$",
+      "stability": "supported_fact_id + span_id + sequence"
+    },
+    "metric_id": {
+      "pattern": "^[a-z0-9][a-z0-9._-]+$",
+      "stability": "owned_by_versioned_standard_package"
+    }
+  },
+  "layout": {
+    "manifest": "manifest.json",
+    "input": [
+      "input/request.json",
+      "input/ir-manifest.json",
+      "input/standard-package.json"
+    ],
+    "audit_directories": ["inventory", "retrieval", "packets", "decisions", "guards", "checkpoints"],
+    "core_records": {
+      "reporting_task": "results/reporting-tasks.jsonl",
+      "quantitative_observation": "results/quantitative-observations.jsonl",
+      "qualitative_assertion": "results/qualitative-assertions.jsonl",
+      "attribute_value": "results/attribute-values.jsonl",
+      "dimension_value": "results/dimension-values.jsonl",
+      "evidence_reference": "results/evidence-references.jsonl"
+    },
+    "exports": {
+      "workbook": "exports/machine-fill.xlsx",
+      "task_csv": "exports/task-summary.csv",
+      "result_package": "exports/extraction-result.json"
+    }
+  },
+  "relations": [
+    {"from": "quantitative_observation.task_id", "to": "reporting_task.task_id", "cardinality": "many-to-one"},
+    {"from": "qualitative_assertion.task_id", "to": "reporting_task.task_id", "cardinality": "many-to-one"},
+    {"from": "attribute_value.parent_record_id", "to": "reporting_task|quantitative_observation|qualitative_assertion", "cardinality": "many-to-one"},
+    {"from": "dimension_value.parent_record_id", "to": "reporting_task|quantitative_observation|qualitative_assertion", "cardinality": "many-to-one"},
+    {"from": "evidence_reference.source_record_id", "to": "quantitative_observation|qualitative_assertion", "cardinality": "many-to-one"},
+    {"from": "evidence_reference.evidence_set_id", "to": "fact.evidence_set_id", "cardinality": "many-to-one"}
+  ],
+  "status_enums": {
+    "decision_status": ["found", "partial", "not_found", "ambiguous"],
+    "found_status": ["reported", "explicit_zero", "partial", "not_found_after_complete_search", "uncertain", "not_applicable", "not_assessed"],
+    "review_status": ["pending", "auto_verified", "human_required", "approved", "rejected"],
+    "job_status": ["queued", "running", "completed", "partial", "failed", "cancelled", "interrupted"]
+  }
+}

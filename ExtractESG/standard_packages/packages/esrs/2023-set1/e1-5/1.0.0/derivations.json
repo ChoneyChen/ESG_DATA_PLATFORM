@@ -1,0 +1,245 @@
+[
+  {
+    "execution_stage": "data_processing",
+    "guards": [],
+    "operands": [
+      {
+        "description": "fossil",
+        "operand_id": "dp02",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp02"
+      },
+      {
+        "description": "nuclear",
+        "operand_id": "dp03",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp03"
+      },
+      {
+        "description": "renewable",
+        "operand_id": "dp05",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp05"
+      }
+    ],
+    "operation": "sum",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp01-sum",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp01",
+    "unit_policy": "compatible-energy-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [],
+    "operands": [
+      {
+        "description": "coal",
+        "operand_id": "dp10",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp10"
+      },
+      {
+        "description": "petroleum",
+        "operand_id": "dp11",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp11"
+      },
+      {
+        "description": "gas",
+        "operand_id": "dp12",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp12"
+      },
+      {
+        "description": "other",
+        "operand_id": "dp13",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp13"
+      },
+      {
+        "description": "purchased",
+        "operand_id": "dp14",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp14"
+      }
+    ],
+    "operation": "sum",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp02-sum",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp02",
+    "unit_policy": "compatible-energy-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [],
+    "operands": [
+      {
+        "description": "fuel",
+        "operand_id": "dp06",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp06"
+      },
+      {
+        "description": "purchased",
+        "operand_id": "dp07",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp07"
+      },
+      {
+        "description": "self-generated",
+        "operand_id": "dp08",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp08"
+      }
+    ],
+    "operation": "sum",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp05-sum",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp05",
+    "unit_policy": "compatible-energy-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator.value_numeric",
+        "value": 0
+      }
+    ],
+    "operands": [
+      {
+        "description": "nuclear",
+        "operand_id": "dp03",
+        "role": "numerator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp03"
+      },
+      {
+        "description": "total",
+        "operand_id": "dp01",
+        "role": "denominator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp01"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp04-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp04",
+    "unit_policy": "percentage-of-compatible-energy"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator.value_numeric",
+        "value": 0
+      }
+    ],
+    "operands": [
+      {
+        "description": "renewable",
+        "operand_id": "dp05",
+        "role": "numerator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp05"
+      },
+      {
+        "description": "total",
+        "operand_id": "dp01",
+        "role": "denominator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp01"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp09-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp09",
+    "unit_policy": "percentage-of-compatible-energy"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator.value_numeric",
+        "value": 0
+      }
+    ],
+    "operands": [
+      {
+        "description": "fossil",
+        "operand_id": "dp02",
+        "role": "numerator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp02"
+      },
+      {
+        "description": "total",
+        "operand_id": "dp01",
+        "role": "denominator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp01"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp15-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp15",
+    "unit_policy": "percentage-of-compatible-energy"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator.value_numeric",
+        "value": 0
+      }
+    ],
+    "operands": [
+      {
+        "description": "energy",
+        "operand_id": "dp19",
+        "role": "numerator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp19"
+      },
+      {
+        "description": "revenue",
+        "operand_id": "dp22",
+        "role": "denominator",
+        "source_metric_id": "esrs.2023-set1.e1-5.dp22"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "rule_id": "esrs.2023-set1.e1-5.derivation.dp18-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-5.dp18",
+    "unit_policy": "energy-per-monetary-unit"
+  }
+]
