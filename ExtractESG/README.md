@@ -12,8 +12,6 @@
 | `esg_database/` | PostgreSQL/PGlite 结果数据库雏形与迁移脚本 |
 | `scripts/` | 本地统一工作台启动脚本 |
 
-原有 `infor_match/` 已退役并从仓库移除，不属于当前 ExtractESG 架构，也不再维护。
-
 ## 数据流
 
 ```text
