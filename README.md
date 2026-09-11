@@ -353,6 +353,8 @@ Document/OCR API 文档：`http://127.0.0.1:18080/docs`。主要接口为 `/api/
 定向抽取 API 文档：`http://127.0.0.1:18180/api/docs`。主要接口为 `/api/ir-runs`、`/api/standards`、`/api/standards/diagnostics`、`/api/result-catalog`、`/api/semantic-indexes`、`/api/jobs` 以及 inspection/artifacts/download。前端常显全部有效标准包；结果空态同时展示任务索引与 Result Bundle 目录的真实计数。若任务 SQLite 丢失但完整终态 Result Bundle 仍在，后端启动时会自动重建任务索引。
 
 前端是静态 HTML/CSS/JavaScript，无构建步骤。CLI、API 和统一队列调用相同后端工作流，不依赖前端。
+一键启动器为每次浏览器打开附加启动标识，防止 Safari 仅聚焦旧标签页而继续运行升级前的 DOM/ES module；
+标识不改变同源 `localStorage` 中的任务选择和界面设置。
 
 ## 12. 本机模型与配置
 

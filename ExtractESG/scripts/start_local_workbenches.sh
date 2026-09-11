@@ -162,7 +162,12 @@ print "抽取填表后端：    $TARGET_BACKEND_URL"
 print "日志：              $RUNTIME_ROOT"
 
 if [[ "${ESG_PLATFORM_NO_BROWSER:-0}" != "1" ]]; then
-  open "$PLATFORM_FRONTEND_URL" >/dev/null 2>&1 || true
+  # `open` may only focus an already-open Safari tab when the URL is unchanged,
+  # leaving an old DOM and cached ES modules alive after an upgrade.  A launch
+  # token forces a real navigation while keeping application state in
+  # localStorage on the same origin.
+  launch_token="$(date -u +%Y%m%dT%H%M%SZ)"
+  open "${PLATFORM_FRONTEND_URL%/}/?launch=${launch_token}" >/dev/null 2>&1 || true
 fi
 
 if [[ "${ESG_PLATFORM_EXIT_AFTER_READY:-0}" == "1" ]]; then
