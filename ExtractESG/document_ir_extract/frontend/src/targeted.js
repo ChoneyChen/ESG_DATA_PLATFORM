@@ -56,17 +56,26 @@ function docBase() {
   return ($("#backend-url")?.value || "http://127.0.0.1:18080").replace(/\/$/, "");
 }
 
-async function txRequest(path, options = {}) {
-  const response = await fetch(`${targetedState.backend}${path}`, options);
-  if (!response.ok) {
-    let detail = `${response.status} ${response.statusText}`;
-    try {
-      const payload = await response.json();
-      detail = typeof payload.detail === "string" ? payload.detail : JSON.stringify(payload.detail || payload);
-    } catch (_) {}
-    throw new Error(detail);
+async function txRequest(path, options = {}, timeoutMs = 0) {
+  const controller = timeoutMs ? new AbortController() : null;
+  const timeout = controller ? window.setTimeout(() => controller.abort(), timeoutMs) : null;
+  try {
+    const response = await fetch(`${targetedState.backend}${path}`, controller ? {...options, signal: controller.signal} : options);
+    if (!response.ok) {
+      let detail = `${response.status} ${response.statusText}`;
+      try {
+        const payload = await response.json();
+        detail = typeof payload.detail === "string" ? payload.detail : JSON.stringify(payload.detail || payload);
+      } catch (_) {}
+      throw new Error(detail);
+    }
+    return response.json();
+  } catch (error) {
+    if (error.name === "AbortError") throw new Error(`连接 ${targetedState.backend} 超时`);
+    throw error;
+  } finally {
+    if (timeout !== null) window.clearTimeout(timeout);
   }
-  return response.json();
 }
 
 async function docRequest(path, options = {}) {
@@ -161,26 +170,47 @@ function evidenceLocationSummary(metric) {
   return [...new Set(evidence.map((item) => `PDF 第 ${item.pdf_page_number} 页${item.printed_page_label ? `（报告页 ${item.printed_page_label}）` : ""}`))].join("；");
 }
 
-async function connectTargeted() {
-  targetedState.backend = ($("#tx-backend-url")?.value || targetedState.backend).replace(/\/$/, "");
-  localStorage.setItem("esg-targeted-backend-url", targetedState.backend);
+async function loadTargetedBootstrap() {
+  return Promise.all([
+    txRequest("/api/health", {}, 2500),
+    txRequest("/api/config", {}, 2500),
+    txRequest("/api/ir-runs", {}, 2500),
+    txRequest("/api/standards", {}, 2500),
+    txRequest("/api/standards/diagnostics", {}, 2500).catch((error) => ({error: error.message})),
+    txRequest("/api/result-catalog", {}, 2500).catch((error) => ({error: error.message})),
+  ]);
+}
+
+async function connectTargeted({allowDiscovery = false} = {}) {
+  const requestedBackend = ($("#tx-backend-url")?.value || targetedState.backend).replace(/\/$/, "");
+  targetedState.backend = requestedBackend;
   const pill = $("#tx-connection");
   pill.textContent = "连接中";
   try {
-    const [health, config, irRuns, standards, standardCatalog, resultCatalog] = await Promise.all([
-      txRequest("/api/health"),
-      txRequest("/api/config"),
-      txRequest("/api/ir-runs"),
-      txRequest("/api/standards"),
-      txRequest("/api/standards/diagnostics").catch((error) => ({error: error.message})),
-      txRequest("/api/result-catalog").catch((error) => ({error: error.message})),
-    ]);
+    let discovered = false;
+    let bootstrap;
+    try {
+      bootstrap = await loadTargetedBootstrap();
+    } catch (initialError) {
+      if (!allowDiscovery) throw initialError;
+      const status = await docRequest("/api/pipeline/status");
+      const candidate = status.services?.targeted_backend?.url?.replace(/\/$/, "");
+      if (!status.services?.targeted_backend?.available || !candidate || candidate === requestedBackend) {
+        throw initialError;
+      }
+      targetedState.backend = candidate;
+      bootstrap = await loadTargetedBootstrap();
+      discovered = true;
+    }
+    const [health, config, irRuns, standards, standardCatalog, resultCatalog] = bootstrap;
+    localStorage.setItem("esg-targeted-backend-url", targetedState.backend);
+    $("#tx-backend-url").value = targetedState.backend;
     targetedState.config = config;
     targetedState.irRuns = irRuns;
     targetedState.standards = standards;
     targetedState.standardCatalog = standardCatalog;
     targetedState.resultCatalog = resultCatalog;
-    pill.textContent = "后端已连接";
+    pill.textContent = discovered ? "后端已连接 · 地址已自动恢复" : "后端已连接";
     pill.className = "status-pill success";
     renderTargetHealth(health);
     renderTargetProviderConfig();
@@ -845,35 +875,6 @@ function factQualitySummary(metric, fact) {
   return metric.guard_accepted === true ? "Guard 通过" : metric.guard_accepted === false ? "Guard 未通过" : "Guard 未执行";
 }
 
-function factsSortedForDisplay(metric, facts) {
-  const columns = orderedElementColumns(metric);
-  const subjectColumn = columns.find((column) => ["subject", "category", "dimension"].includes(elementSemanticRole(column)) && (column.fixed_value === null || column.fixed_value === undefined));
-  const periodColumn = columns.find((column) => elementSemanticRole(column) === "period");
-  const sortYear = (fact) => {
-    const raw = periodColumn ? factElementDisplayValue(fact, periodColumn) : displayMachineValue(fact.reporting_period_raw ?? fact.reporting_year);
-    const years = String(raw || "").match(/(?:19|20)\d{2}/g) || [];
-    return years.length ? Math.max(...years.map(Number)) : Number.NEGATIVE_INFINITY;
-  };
-  return facts.map((fact, index) => ({fact, index})).sort((left, right) => {
-    const leftSubject = subjectColumn ? factElementDisplayValue(left.fact, subjectColumn).trim() : "";
-    const rightSubject = subjectColumn ? factElementDisplayValue(right.fact, subjectColumn).trim() : "";
-    if (leftSubject && !rightSubject) return -1;
-    if (!leftSubject && rightSubject) return 1;
-    const subjectOrder = leftSubject.localeCompare(rightSubject, "zh-CN", {numeric: true, sensitivity: "base"});
-    if (subjectOrder) return subjectOrder;
-    const yearOrder = sortYear(right.fact) - sortYear(left.fact);
-    return Number.isFinite(yearOrder) && yearOrder ? yearOrder : left.index - right.index;
-  }).map(({fact}) => fact);
-}
-
-function metricSortDescription(metric) {
-  const columns = orderedElementColumns(metric);
-  const subjectColumn = columns.find((column) => ["subject", "category", "dimension"].includes(elementSemanticRole(column)) && (column.fixed_value === null || column.fixed_value === undefined));
-  return subjectColumn
-    ? `展示排序：${elementDisplayLabel(subjectColumn)}升序 → 报告期从新到旧`
-    : "展示排序：报告期从新到旧";
-}
-
 function renderMetricFactTable(metric, facts) {
   const columns = orderedElementColumns(metric);
   const trailingColumnCount = 3;
@@ -1086,7 +1087,7 @@ async function deleteTargetJob() {
 
 function bindTargetedEvents() {
   $("#tx-backend-url").value = targetedState.backend;
-  $("#tx-reconnect").addEventListener("click", connectTargeted);
+  $("#tx-reconnect").addEventListener("click", () => connectTargeted({allowDiscovery: false}));
   $("#tx-pipeline-stages").innerHTML = targetedStages.map(([index, title, text]) => `<article class="stage"><span class="stage-index">${index}</span><strong>${title}</strong><small>${text}</small></article>`).join("");
   $("#tx-ir-search").addEventListener("input", renderTargetIrPicker);
   $("#tx-ir-filter").addEventListener("change", renderTargetIrPicker);
@@ -1143,13 +1144,13 @@ function bindTargetedEvents() {
     document.querySelectorAll("#tx-result-tabs ~ .tab-panel").forEach((panel) => panel.classList.toggle("active", panel.id === `tx-tab-${button.dataset.txTab}`));
   }));
   window.addEventListener("esg:viewchange", (event) => {
-    if (event.detail?.view === "targeted") connectTargeted();
+    if (event.detail?.view === "targeted") connectTargeted({allowDiscovery: true});
     if (event.detail?.view === "results") refreshTargetJobs();
   });
 }
 
 bindTargetedEvents();
-connectTargeted();
+connectTargeted({allowDiscovery: true});
 setInterval(() => {
   if (targetedState.activeJob && ["queued", "running"].includes(targetedState.activeJob.status)) refreshTargetJobs();
 }, 2500);

@@ -499,6 +499,10 @@ Document/OCR 后端默认不开启 Uvicorn 热重载，避免开发期间修改�
 定向抽取、抽取结果、07 链路控制。页面底部是全局任务工作台，集中显示队列、日志和系统状态。
 
 07 计划 API 为 `GET/POST /api/pipeline/plans` 和 `POST /api/pipeline/plans/{id}/{pause|resume|cancel}`。
+标准选择通过同一 Document 后端的 `GET /api/pipeline/standards` 及其包详情接口读取；
+后端再使用自身配置的定向抽取服务地址，避免浏览器残留旧端口时把标准区域显示为空白。
+05 页面仍直接调用定向抽取服务以执行任务，但初始化失败会在短超时后从
+`GET /api/pipeline/status` 自动恢复当前服务地址；只有连接成功的地址才写入浏览器存储。
 支持文件夹 PDF 导入、资产多选、跨标准指标多选、模型和 Top N 配置、成功 OCR/IR 复用。
 计划保存在同一 SQLite 的 `pipeline_plans` 表，只派发现有队列任务，不直接运行模型。
 子步骤按 OCR → IR → 各标准包抽取推进；派发键唯一，后端重启可恢复；一个报告失败不阻止其他报告。

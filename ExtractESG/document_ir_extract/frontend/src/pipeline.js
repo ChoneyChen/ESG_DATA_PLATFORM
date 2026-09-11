@@ -1,13 +1,12 @@
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 const base = () => ($("#backend-url")?.value || "http://127.0.0.1:18080").replace(/\/$/, "");
-const targetBase = () => (localStorage.getItem("esg-targeted-backend-url") || "http://127.0.0.1:18180").replace(/\/$/, "");
 let packages = [], assets = [], loaded = false;
 const selectedAssets = new Set(), selectedMetrics = new Set();
 const stateLabels = {active:"执行中",pending:"待执行",running:"执行中",queued:"排队中",completed:"已完成",failed:"失败",paused:"已暂停后续步骤",cancelled:"已取消",interrupted:"已中断",needs_attention:"部分步骤需处理",waiting_review:"等待 IR 复核"};
 
-async function request(path, options = {}, target = false) {
-  const response = await fetch(`${target ? targetBase() : base()}${path}`, options);
+async function request(path, options = {}) {
+  const response = await fetch(`${base()}${path}`, options);
   const payload = await response.json();
   if (!response.ok) throw new Error(typeof payload.detail === "string" ? payload.detail : JSON.stringify(payload.detail || payload));
   return payload;
@@ -44,10 +43,19 @@ style.textContent = ".plan-choice-list{max-height:360px;overflow:auto;margin:12p
 document.head.appendChild(style);
 
 async function loadChoices() {
-  const [catalog, standards] = await Promise.all([request("/api/report-assets"), request("/api/standards", {}, true)]);
+  const catalog = await request("/api/report-assets");
   assets = catalog.assets || [];
-  packages = await Promise.all(standards.map((s) => request(`/api/standards/${encodeURIComponent(s.package_id)}/${encodeURIComponent(s.package_version)}`, {}, true)));
   $("#plan-assets").innerHTML = assets.map((a) => `<label><input type="checkbox" data-plan-asset="${esc(a.asset_id)}" ${selectedAssets.has(a.asset_id)?"checked":""} />${esc(a.file_name)} · OCR ${esc(a.ocr_status)}</label>`).join("") || "请先导入 PDF。";
+  let standards;
+  try {
+    standards = await request("/api/pipeline/standards");
+    packages = await Promise.all(standards.map((s) => request(`/api/pipeline/standards/${encodeURIComponent(s.package_id)}/${encodeURIComponent(s.package_version)}`)));
+  } catch (error) {
+    packages = [];
+    loaded = false;
+    $("#plan-standards").innerHTML = `<p class="error-text">标准要求包加载失败：${esc(error.message)}。请确认定向抽取后端在线后点击“刷新”。</p>`;
+    throw error;
+  }
   $("#plan-standards").innerHTML = packages.map((p) => `<details open><summary>${esc(p.manifest.standard.disclosure_requirement)} · ${esc(p.manifest.package_version)}</summary>${p.metrics.map((m) => `<label><input type="checkbox" data-plan-metric="${esc(m.metric_id)}" ${selectedMetrics.has(m.metric_id)?"checked":""} />${esc(m.source_datapoint_id)} · ${esc(m.labels.zh || m.labels.en)}</label>`).join("")}</details>`).join("");
   panel.querySelectorAll("[data-plan-asset]").forEach((input) => input.onchange = () => input.checked ? selectedAssets.add(input.dataset.planAsset) : selectedAssets.delete(input.dataset.planAsset));
   panel.querySelectorAll("[data-plan-metric]").forEach((input) => input.onchange = () => input.checked ? selectedMetrics.add(input.dataset.planMetric) : selectedMetrics.delete(input.dataset.planMetric));

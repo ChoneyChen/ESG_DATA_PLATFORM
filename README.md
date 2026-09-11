@@ -348,7 +348,7 @@ packages/<framework>/<version>/<module>/<package_version>/
 
 统一前端有七个页面：报告资产、OCR 任务、Document IR、IR 复核检查、定向抽取、抽取结果、07 链路控制。底部任务工作台提供串行队列、拖动排序、终止、历史清理、日志和系统健康。
 
-Document/OCR API 文档：`http://127.0.0.1:18080/docs`。主要接口为 `/api/report-assets`、`/api/pipeline/tasks`、`/api/pipeline/tasks/targeted-extraction/batch`、`/api/ocr/*`、`/api/document-ir/*`、`/api/storage/*` 和 `/api/models/status`。批量定向抽取接口要求各包共享 IR 与执行配置、每包至少一个指标且 package/version 不重复，并在一个 SQLite 事务中按前端顺序入队。
+Document/OCR API 文档：`http://127.0.0.1:18080/docs`。主要接口为 `/api/report-assets`、`/api/pipeline/tasks`、`/api/pipeline/tasks/targeted-extraction/batch`、`/api/pipeline/standards`、`/api/ocr/*`、`/api/document-ir/*`、`/api/storage/*` 和 `/api/models/status`。批量定向抽取接口要求各包共享 IR 与执行配置、每包至少一个指标且 package/version 不重复，并在一个 SQLite 事务中按前端顺序入队。07 通过统一后端读取标准目录；05 的独立定向服务地址只在连接成功后保存，失效时按统一后端状态自动恢复。
 
 定向抽取 API 文档：`http://127.0.0.1:18180/api/docs`。主要接口为 `/api/ir-runs`、`/api/standards`、`/api/standards/diagnostics`、`/api/result-catalog`、`/api/semantic-indexes`、`/api/jobs` 以及 inspection/artifacts/download。前端常显全部有效标准包；结果空态同时展示任务索引与 Result Bundle 目录的真实计数。若任务 SQLite 丢失但完整终态 Result Bundle 仍在，后端启动时会自动重建任务索引。
 
@@ -388,7 +388,7 @@ cd ExtractESG/targeted_table_extract/backend
 PYTHONDONTWRITEBYTECODE=1 "$HOME/Desktop/model/.runtime/venv/bin/python" -m pytest -q -p no:cacheprovider
 ```
 
-当前本轮回归为定向抽取 113 项、Document IR 186 项、标准包合同 23 项。测试使用夹具/假模型，不自行启动真实业务任务。
+当前本轮回归为定向抽取 113 项、Document IR 187 项、标准包合同 23 项。测试使用夹具/假模型，不自行启动真实业务任务。
 另以 `targeted_table_extract/scripts/replay_e2_baseline.py` 只读重放四个污染物历史结果包的八次已接受模型输出，字段值和证据引用未变；历史事实数保持越秀每包 12、紫金每包 106（空气 82、水体 24）。这不等于重新调用模型后的效果保证。
 
 ## 15. E1-5 与 E1-6 构造状态

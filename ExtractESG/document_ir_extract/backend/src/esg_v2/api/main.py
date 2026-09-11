@@ -335,6 +335,38 @@ def _cancel_plan_child(task_id):
 pipeline_plans = PipelinePlanCoordinator(pipeline_store, _dispatch_plan_step, _plan_ir_manifest, _cancel_plan_child)
 
 
+def _targeted_catalog_request(path: str) -> object:
+    """Read the targeted catalog through the backend-configured service URL.
+
+    The pipeline UI intentionally talks to one backend only.  Keeping this hop
+    here prevents stale browser-local targeted URLs from hiding standards in
+    the full-pipeline planner.
+    """
+    try:
+        with requests.Session() as session:
+            session.trust_env = False
+            response = session.get(f"{settings.targeted_backend_url}{path}", timeout=10)
+            response.raise_for_status()
+            return response.json()
+    except requests.HTTPError as exc:
+        status_code = exc.response.status_code if exc.response is not None else 502
+        if status_code == 404:
+            raise HTTPException(404, "标准包不存在或已退役") from exc
+        raise HTTPException(502, "定向抽取后端未能返回标准目录") from exc
+    except (requests.RequestException, ValueError) as exc:
+        raise HTTPException(503, "无法连接定向抽取后端，标准目录暂不可用") from exc
+
+
+@app.get("/api/pipeline/standards")
+def list_pipeline_standards():
+    return _targeted_catalog_request("/api/standards")
+
+
+@app.get("/api/pipeline/standards/{package_id}/{package_version}")
+def get_pipeline_standard(package_id: str, package_version: str):
+    return _targeted_catalog_request(f"/api/standards/{package_id}/{package_version}")
+
+
 @app.get("/api/pipeline/plans")
 def list_pipeline_plans():
     return pipeline_plans.list()
@@ -345,18 +377,19 @@ def create_pipeline_plan(request: PipelinePlanRequest = Body(...)):
     # Validate the complete batch before any worker or child task is created.
     if (request.semantic_provider == "qiniu_vlm" or request.review_provider == "qiniu") and not (request.qiniu_api_key or settings.qiniu_api_key):
         raise HTTPException(400, "七牛云计划需要 API Key 或后端 QINIU_API_KEY")
-    with requests.Session() as session:
-        session.trust_env = False
-        for standard in request.standards:
-            try:
-                response = session.get(f"{settings.targeted_backend_url}/api/standards/{standard.package_id}/{standard.package_version}", timeout=10)
-                response.raise_for_status()
-                package = response.json()
-            except (requests.RequestException, ValueError) as exc:
-                raise HTTPException(400, f"标准包不可用：{standard.package_id}@{standard.package_version}") from exc
-            valid_ids = {m["metric_id"] for m in package.get("metrics", [])}
-            if not set(standard.metric_ids) <= valid_ids:
-                raise HTTPException(400, "计划包含标准包之外的指标")
+    for standard in request.standards:
+        try:
+            package = _targeted_catalog_request(
+                f"/api/standards/{standard.package_id}/{standard.package_version}"
+            )
+        except HTTPException as exc:
+            raise HTTPException(
+                400,
+                f"标准包不可用：{standard.package_id}@{standard.package_version}",
+            ) from exc
+        valid_ids = {m["metric_id"] for m in package.get("metrics", [])}
+        if not set(standard.metric_ids) <= valid_ids:
+            raise HTTPException(400, "计划包含标准包之外的指标")
     documents = []
     for asset_id in request.asset_ids:
         try:
