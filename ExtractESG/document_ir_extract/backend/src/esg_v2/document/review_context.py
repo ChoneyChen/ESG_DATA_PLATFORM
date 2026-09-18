@@ -226,9 +226,8 @@ class ReviewContextCompiler:
             rules.append("Use compact upsert_chart_spec for charts; use upsert_figure_structure only for non-chart diagrams.")
         if review_kind == "page_text_coverage":
             rules.extend([
-                "First identify the exact missing region on the page; confirm existing objects that already match.",
-                "Use the target bounding box to select a figure. An icon, annual chart, and composition chart are separate targets.",
-                "Represent annual trends and one-year category breakdowns as separate chart patches with explicit years.",
-                "Keep baseline years, data-source notes, absolute values, intensity, and percentage changes in their respective roles.",
+                "Identify the exact missing text region on the page; confirm text already represented.",
+                "Repair page and block text only. Existing table and figure structures are context for this task and have separate object reviews.",
+                "Keep data-source notes, baseline years, absolute values, intensity, and percentage changes in their visible text roles.",
             ])
         return rules

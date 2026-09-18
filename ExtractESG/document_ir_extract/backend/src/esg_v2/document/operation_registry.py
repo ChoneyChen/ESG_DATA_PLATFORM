@@ -101,10 +101,8 @@ class OperationRegistry:
             "upsert_chart_spec", "upsert_figure_structure", "bind_block_to_figure", "set_bbox",
         ),
         "page_text_coverage": (
-            "confirm", "replace_block_text", "replace_cell_text", "correct_ocr_text",
-            "set_bbox", "add_visual_text_block", "bind_block_to_figure", "set_table_grid",
-            "insert_table_row", "set_caption", "set_figure_legend_text",
-            "upsert_chart_spec", "upsert_figure_structure",
+            "confirm", "replace_block_text", "correct_ocr_text",
+            "set_bbox", "add_visual_text_block",
         ),
         "generic_document_ir_review": (
             "confirm", "replace_block_text", "set_bbox", "add_quality_flags",

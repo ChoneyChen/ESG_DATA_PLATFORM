@@ -82,7 +82,8 @@ class ReviewPlanCompiler:
 
         mutable_context_targets: list[str] = []
         if definition[0] == "page_text_coverage":
-            mutable_context_targets = list(context_targets)
+            block_ids = {block.block_id for block in document.blocks}
+            mutable_context_targets = [target_id for target_id in context_targets if target_id in block_ids]
         elif definition[0] in {"figure_binding", "figure_semantic_structure"}:
             block_ids = {block.block_id for block in document.blocks}
             mutable_context_targets = [target_id for target_id in context_targets if target_id in block_ids]
@@ -141,7 +142,11 @@ class ReviewPlanCompiler:
                     operation for operation in allowed_operations
                     if operation != "upsert_figure_structure"
                 ]
-            elif figure is not None and figure.visual_type not in {"unknown", "chart", "composite"}:
+            elif (
+                figure is not None
+                and figure.visual_type not in {"unknown", "chart", "composite"}
+                and "page_text_coverage_support" not in reasons
+            ):
                 allowed_operations = [
                     operation for operation in allowed_operations
                     if operation != "upsert_chart_spec"
@@ -273,7 +278,11 @@ class ReviewPlanCompiler:
                 "review_verify_repair",
                 [],
             )
-        if reasons & self.FIGURE_BINDING_REASONS and not reasons & self.PAGE_TEXT_REASONS:
+        if (
+            reasons & self.FIGURE_BINDING_REASONS
+            and not reasons & self.PAGE_TEXT_REASONS
+            and not reasons & self.FIGURE_STRUCTURE_REASONS
+        ):
             figure = self._task_figure(document, task)
             return (
                 "figure_binding",
@@ -302,7 +311,7 @@ class ReviewPlanCompiler:
                 "page_text_coverage",
                 "页面中可见的重要文字、数字和图内文本，是否都已经进入 Document IR？",
                 "原生 PDF 文字与 OCR 可见文字覆盖异常。",
-                ["核对标题、正文、数字、年份、代码和脚注。", "使用局部可定位修订，不整页重写。"],
+                ["核对标题、正文、数字、年份、代码和脚注。", "只修页面文字；图表结构由对应的对象复核任务处理。"],
                 "review_verify_repair",
                 [
                     *(block.block_id for block in document.blocks if block.page_index == task.page_index),

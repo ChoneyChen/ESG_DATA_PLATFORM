@@ -238,7 +238,7 @@ class ModelRunner:
                             guidance = "Return the same visual decision as one valid JSON object."
                             if (
                                 role == "reviewer" and task.review_plan
-                                and task.review_plan.review_kind in {"page_text_coverage", "figure_semantic_structure"}
+                                and task.review_plan.review_kind == "figure_semantic_structure"
                             ):
                                 guidance += (
                                     " Keep each chart series as an object inside series[]. "
@@ -431,6 +431,9 @@ class ModelRunner:
     def _output_template(task: VlmReviewTask, role: str, context: str) -> dict[str, Any]:
         target_types = list(dict.fromkeys([task.target_type, *(item.target_type for item in task.scope)]))
         target_ids = list(dict.fromkeys([task.target_id, *(item.target_id for item in task.scope)]))
+        if task.review_plan and task.review_plan.review_kind == "page_text_coverage":
+            target_types = list(dict.fromkeys([*target_types, "block"]))
+            target_ids = list(dict.fromkeys([*target_ids, *task.review_plan.mutable_target_ids]))
         if role == "verifier":
             transaction_ids = list(dict.fromkeys(re.findall(r"transaction-[A-Za-z0-9_-]+", context)))
             return {

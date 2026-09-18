@@ -218,9 +218,19 @@ class OcrQualityRouter:
                 and "image_binding_unresolved" in figure.quality_flags
             ):
                 reasons.append("material_visual_binding_unresolved")
-            else:
-                suppressed_optional_visuals += 1
+            page_coverage_routed = any(
+                scope.target_type == "page"
+                for scope in scopes_by_page.get(figure.page_index, [])
+            )
+            if (
+                page_coverage_routed
+                and figure.visual_type in {"diagram", "composite", "unknown"}
+                and area_ratio >= 0.08
+                and "image_binding_unresolved" in figure.quality_flags
+            ):
+                reasons.append("page_text_coverage_support")
             if not reasons:
+                suppressed_optional_visuals += 1
                 continue
             refs = self._target_visual_refs(figure.crop_artifact_id, figure.page_index, document, artifacts)
             add_scope(
