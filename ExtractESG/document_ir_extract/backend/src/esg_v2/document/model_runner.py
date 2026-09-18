@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 from typing import Any, Callable, TypeVar
 
@@ -87,16 +88,17 @@ class ModelRunner:
         for profile in profiles:
             output_tokens = self.output_budget(task, role, context, profile)
             attempts = profile.transient_retries + 1
+            attempt_context = context
             for retry_index in range(attempts):
                 try:
                     request = self.build_request(
-                        task, profile, role, round_index, images, context,
+                        task, profile, role, round_index, images, attempt_context,
                         output_tokens=output_tokens,
                     )
                 except ModelRequestConfigurationError as exc:
                     self._record_call(
                         document, task, role, round_index, profile,
-                        status="invalid_response", images=images, context=context,
+                        status="invalid_response", images=images, context=attempt_context,
                         error=str(exc), category="request_config", retry_index=retry_index,
                     )
                     errors.append(f"{profile.model_id}: request_config: {exc}")
@@ -135,7 +137,7 @@ class ModelRunner:
                     ModelHealthRegistry.record_success(profile.model_id, result.latency_ms)
                     self._record_call(
                         document, task, role, round_index, profile,
-                        status="succeeded", images=images, context=context,
+                        status="succeeded", images=images, context=attempt_context,
                         result=result, payload=payload_dict, retry_index=retry_index,
                         http_attempted=True,
                     )
@@ -143,7 +145,7 @@ class ModelRunner:
                 except ModelOutputTruncated as exc:
                     self._record_call(
                         document, task, role, round_index, profile,
-                        status="invalid_response", images=images, context=context,
+                        status="invalid_response", images=images, context=attempt_context,
                         result=result, error=str(exc), category="request_config", retry_index=retry_index,
                         http_attempted=True,
                     )
@@ -158,7 +160,7 @@ class ModelRunner:
                     if self._is_request_configuration_error(exc):
                         self._record_call(
                             document, task, role, round_index, profile,
-                            status="invalid_response", images=images, context=context,
+                            status="invalid_response", images=images, context=attempt_context,
                             error=error, category="request_config", retry_index=retry_index,
                             http_attempted=True,
                         )
@@ -177,7 +179,7 @@ class ModelRunner:
                     )
                     self._record_call(
                         document, task, role, round_index, profile,
-                        status="failed", images=images, context=context,
+                        status="failed", images=images, context=attempt_context,
                         error=error, category=category, retry_index=retry_index,
                         http_attempted=True,
                     )
@@ -226,11 +228,26 @@ class ModelRunner:
                     error = str(exc)[:2000]
                     self._record_call(
                         document, task, role, round_index, profile,
-                        status="invalid_response", images=images, context=context,
+                        status="invalid_response", images=images, context=attempt_context,
                         result=result, error=error, category="protocol", retry_index=retry_index,
                         http_attempted=True,
                     )
                     if retry_index + 1 < attempts:
+                        try:
+                            corrected = json.loads(context)
+                            guidance = "Return the same visual decision as one valid JSON object."
+                            if (
+                                role == "reviewer" and task.review_plan
+                                and task.review_plan.review_kind in {"page_text_coverage", "figure_semantic_structure"}
+                            ):
+                                guidance += (
+                                    " Keep each chart series as an object inside series[]. "
+                                    "Place visual_evidence_refs beside series, not inside it."
+                                )
+                            corrected["protocol_feedback"] = f"{guidance} Previous error: {error[:400]}"
+                            attempt_context = json.dumps(corrected, ensure_ascii=False, separators=(",", ":"))
+                        except (ValueError, TypeError):
+                            attempt_context = context
                         continue
                     ModelHealthRegistry.record_failure(
                         profile.model_id, f"invalid_response:{type(exc).__name__}", category="protocol",

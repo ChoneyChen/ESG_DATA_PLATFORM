@@ -329,6 +329,17 @@ class DocumentIrRevisionService:
         self._stage(telemetry, log, 1, 3, "Loading parent and selecting unresolved review tasks")
         document, output_dir = self._child(parent_run_id, "review-retry", requested_run_id=run_id)
         unresolved_statuses = {"pending", "queued", "deferred", "failed", "skipped"}
+        # Older immutable revisions retain the retryability decision made by a
+        # previous transaction compiler. Re-evaluate this known compiler failure
+        # in the child revision before selecting work to resume.
+        for task in document.review_tasks:
+            if (
+                task.status in unresolved_statuses
+                and task.failure_class == "system_contract"
+                and (task.result or {}).get("reason")
+                == "required_review_targets_incomplete_after_guard_confirmation"
+            ):
+                task.retryable = True
         unresolved = [
             task
             for task in document.review_tasks

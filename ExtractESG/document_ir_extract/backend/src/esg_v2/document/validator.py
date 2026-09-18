@@ -148,7 +148,13 @@ class DocumentIrValidator:
         if block_count and blocks_with_geometry < block_count:
             issues.append(self._issue("block_geometry_incomplete", "warning", f"Geometry is present for {blocks_with_geometry}/{block_count} blocks."))
         if document.tables and tables_with_geometry < len(document.tables):
-            issues.append(self._issue("table_geometry_incomplete", "error", f"Geometry is present for {tables_with_geometry}/{len(document.tables)} tables."))
+            for table in document.tables:
+                if table.bbox is None:
+                    issues.append(self._issue(
+                        "table_geometry_incomplete", "error",
+                        f"Table {table.table_id} on PDF page {table.page_index + 1} has no reliable geometry.",
+                        target_id=table.table_id, page_index=table.page_index,
+                    ))
         if table_cells and cells_with_geometry < len(table_cells):
             issues.append(
                 self._issue(
@@ -1243,5 +1249,8 @@ class DocumentIrValidator:
         return round(numerator / denominator, 4) if denominator else 1.0
 
     @staticmethod
-    def _issue(code, severity, message):
-        return ValidationIssue(code=code, severity=severity, message=message)
+    def _issue(code, severity, message, *, target_id=None, page_index=None):
+        return ValidationIssue(
+            code=code, severity=severity, message=message,
+            target_id=target_id, page_index=page_index,
+        )

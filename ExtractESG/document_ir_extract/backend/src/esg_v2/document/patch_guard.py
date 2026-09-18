@@ -618,19 +618,31 @@ class PatchGuard:
             payload = patch.proposed_value if isinstance(patch.proposed_value, dict) else {}
             disposition = payload.get("disposition")
             local_only = isinstance(target, TableIR) and "local_only_table_candidate" in target.quality_flags
+            source_block = next(
+                (block for block in document.blocks if isinstance(target, TableIR) and block.block_id == target.block_id),
+                None,
+            )
+            preserved_fallback_text = bool(
+                isinstance(target, TableIR)
+                and target.row_count == 1
+                and target.bbox is None
+                and source_block is not None
+                and source_block.text.strip()
+                and "markdown_fallback_without_layout_geometry" in source_block.quality_flags
+            )
             checks.extend(
                 [
                     self._check(
                         f"{patch.patch_id}:retirement_disposition",
-                        disposition in {"non_table_visual", "decoration", "duplicate_fragment"},
+                        disposition in {"non_table_visual", "decoration", "duplicate_fragment", "ordinary_text"},
                         "blocking",
                         "Retirement disposition is explicit and supported.",
                     ),
                     self._check(
                         f"{patch.patch_id}:local_only_retirement",
-                        local_only,
+                        local_only or preserved_fallback_text,
                         "blocking",
-                        "Only a local-only secondary parser candidate may be retired automatically.",
+                        "Only a local-only candidate or a single-row Markdown fallback with preserved source text may be retired automatically.",
                     ),
                 ]
             )

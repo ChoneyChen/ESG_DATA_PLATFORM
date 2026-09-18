@@ -157,11 +157,11 @@ class PipelinePlanCoordinator:
             finally:
                 dispatch_key.reset(token)
         step.update(task_id=task.task_id, run_id=task.native_job_id, status=task.status.value, error=task.error)
-        if task.status.value == "completed":
-            completions = [e for e in self.store.events(task.task_id) if e.get("stage") == "completed" and e.get("detail")]
+        if task.status.value in {"completed", "partial"}:
+            completions = [e for e in self.store.events(task.task_id) if e.get("stage") in {"completed", "partial"} and e.get("detail")]
             if completions:
                 step["result"] = completions[-1]["detail"]
-        if task.status.value in {"failed", "cancelled", "interrupted"}:
+        if task.status.value in {"failed", "cancelled", "interrupted", "partial"}:
             document.update(status="failed", error=f"{name}: {task.error or task.status.value}")
         else:
             document["status"] = "running"

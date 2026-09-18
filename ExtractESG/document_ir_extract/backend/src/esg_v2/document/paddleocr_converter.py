@@ -572,14 +572,29 @@ class PaddleOcrDocumentConverter:
                 yield {"type": "table_markdown", "text": html_table, "markdown": html_table}
                 continue
             if self._is_table_line(line):
-                item = flush_paragraph()
-                if item:
-                    yield item
                 table_lines = [line]
                 i += 1
                 while i < len(lines) and self._is_table_line(lines[i]):
                     table_lines.append(lines[i].rstrip())
                     i += 1
+                column_counts = [len(self._split_table_row(row)) for row in table_lines]
+                has_separator = any(
+                    self._is_separator_row(self._split_table_row(row))
+                    for row in table_lines
+                )
+                ambiguous_text_row = (
+                    len(table_lines) == 1
+                    and column_counts[0] >= 3
+                    and not re.search(r"\d", table_lines[0])
+                )
+                if ambiguous_text_row or (
+                    not has_separator and len(set(column_counts)) != 1
+                ):
+                    buffer.extend(table_lines)
+                    continue
+                item = flush_paragraph()
+                if item:
+                    yield item
                 markdown_table = "\n".join(table_lines).strip()
                 yield {"type": "table_markdown", "text": markdown_table, "markdown": markdown_table}
                 continue

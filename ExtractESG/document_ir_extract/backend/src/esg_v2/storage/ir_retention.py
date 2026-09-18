@@ -189,8 +189,18 @@ class DocumentIrRetentionManager:
             isinstance(item, dict) and item.get("severity") == "error" for item in issues
         )
         readiness = str(manifest.get("readiness") or validation.get("readiness") or "failed")
+        evidence_policy = manifest.get("evidence_policy") or {}
+        limited_evidence = bool(
+            manifest.get("can_build_limited_evidence")
+            and evidence_policy.get("mode") == "limited"
+        )
         quality = {
             "can_build_evidence": bool(manifest.get("can_build_evidence", False)),
+            "can_build_limited_evidence": limited_evidence,
+            "available_page_count": (
+                int(evidence_policy.get("available_page_count") or 0)
+                if limited_evidence else 0
+            ),
             "readiness": readiness,
             "blocking_issue_count": blocking_issues,
             "error_issue_count": error_issues,
@@ -214,6 +224,8 @@ class DocumentIrRetentionManager:
         quality = profile["quality"]
         return (
             int(quality["can_build_evidence"]),
+            int(quality["can_build_limited_evidence"]),
+            int(quality["available_page_count"]),
             -int(quality["blocking_issue_count"]),
             -int(quality["error_issue_count"]),
             -int(quality["blocking_unresolved_count"]),

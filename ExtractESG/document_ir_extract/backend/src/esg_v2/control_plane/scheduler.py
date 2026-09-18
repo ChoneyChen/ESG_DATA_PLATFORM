@@ -227,11 +227,29 @@ class PipelineScheduler:
             self.hooks.cancelled(latest)
             return
         if return_code != 0:
-            error = tail[-1] if tail else f"Worker exited with code {return_code}"
+            error = str((result or {}).get("error") or (tail[-1] if tail else f"Worker exited with code {return_code}"))
             self._finish_failed(task, error)
             return
         if result is None:
             self._finish_failed(task, "Worker completed without a structured result event")
+            return
+        native_status = str(result.get("status") or "")
+        if task.task_type.value == "targeted_extraction" and native_status == "partial":
+            self.store.update(
+                task.task_id,
+                status=PipelineTaskStatus.PARTIAL,
+                stage="partial",
+                message="Extraction produced partial results; review unresolved metrics",
+                progress_current=max(latest.progress_current, latest.progress_total),
+                worker_pid=None,
+                finished_at=utc_now(),
+                error=None,
+            )
+            self.store.add_event(task.task_id, "partial", "warning", "Task produced partial results", {
+                "native_status": native_status,
+                "result_counts": (result.get("summary") or {}).get("record_counts", {}),
+            })
+            self.hooks.completed(self.store.get(task.task_id), result)
             return
         self.store.update(
             task.task_id,

@@ -82,18 +82,24 @@ def _terminal_state(
     failure: dict[str, Any] | None,
 ) -> tuple[JobStatus, str, int, int, str | None]:
     if summary is not None:
+        recorded_status = summary.get("execution_status")
         outcomes = summary.get("outcomes") or []
         completed = all(
             item.get("guard_accepted") is True and item.get("status") != "ambiguous"
             for item in outcomes
         )
         total = max(0, int(summary.get("task_count") or len(outcomes)))
+        status = (
+            JobStatus(recorded_status)
+            if recorded_status in {item.value for item in JobStatus}
+            else JobStatus.COMPLETED if completed else JobStatus.PARTIAL
+        )
         return (
-            JobStatus.COMPLETED if completed else JobStatus.PARTIAL,
-            "finished",
+            status,
+            "failed" if status == JobStatus.FAILED else "finished",
             total,
             total,
-            None,
+            "No metric produced an accepted semantic result." if status == JobStatus.FAILED else None,
         )
     error = str((failure or {}).get("error") or "Recovered failed result bundle")
     total = len(request.metric_ids)

@@ -3,7 +3,7 @@ const esc = (v) => String(v ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt
 const base = () => ($("#backend-url")?.value || "http://127.0.0.1:18080").replace(/\/$/, "");
 let packages = [], assets = [], loaded = false;
 const selectedAssets = new Set(), selectedMetrics = new Set();
-const stateLabels = {active:"执行中",pending:"待执行",running:"执行中",queued:"排队中",completed:"已完成",failed:"失败",paused:"已暂停后续步骤",cancelled:"已取消",interrupted:"已中断",needs_attention:"部分步骤需处理",waiting_review:"等待 IR 复核"};
+const stateLabels = {active:"执行中",pending:"待执行",running:"执行中",queued:"排队中",completed:"已完成",partial:"部分完成",failed:"失败",paused:"已暂停后续步骤",cancelled:"已取消",interrupted:"已中断",needs_attention:"部分步骤需处理",waiting_review:"等待 IR 复核"};
 
 async function request(path, options = {}) {
   const response = await fetch(`${base()}${path}`, options);

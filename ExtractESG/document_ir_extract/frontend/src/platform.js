@@ -45,6 +45,7 @@ function taskStatusLabel(status) {
     queued: "排队中",
     running: "运行中",
     completed: "已完成",
+    partial: "部分完成",
     failed: "失败",
     cancelled: "已取消",
     interrupted: "已中断",

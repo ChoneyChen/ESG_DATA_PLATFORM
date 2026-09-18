@@ -291,7 +291,7 @@ class QiniuVlmModel:
                 accepted_format = candidate_format
                 break
             except ModelRunFailure as exc:
-                if exc.category != "request_config" or index == len(unique_formats) - 1:
+                if not self._response_format_rejected(exc) or index == len(unique_formats) - 1:
                     raise
                 fallback_errors.append(str(exc))
         assert response is not None
@@ -324,6 +324,13 @@ class QiniuVlmModel:
             "response_format_fallback_errors": fallback_errors,
             "timings": {"request_seconds": round(elapsed, 4)},
         }
+
+    @staticmethod
+    def _response_format_rejected(error: ModelRunFailure) -> bool:
+        if error.category != "request_config" or error.telemetry.get("http_status") not in {400, 422}:
+            return False
+        detail = f"{error.telemetry.get('provider_error_code', '')} {error}".casefold()
+        return "response_format" in detail or "json_schema" in detail
 
     def _image_data_url(self, path: str) -> str:
         source = Path(path)
@@ -368,16 +375,21 @@ class QiniuVlmModel:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             body = exc.read().decode("utf-8", errors="replace")
+            try:
+                provider_error = json.loads(body).get("error") or {}
+            except (ValueError, TypeError, AttributeError):
+                provider_error = {}
+            error_code = str(provider_error.get("code") or "") if isinstance(provider_error, dict) else ""
             category = (
-                "request_config"
-                if 400 <= exc.code < 500 and exc.code != 429
-                else "service"
+                "provider_account_blocked"
+                if exc.code == 403 and error_code == "account_billing_suspended"
+                else "request_config" if 400 <= exc.code < 500 and exc.code != 429 else "service"
             )
             raise ModelRunFailure(
                 f"Qiniu HTTP {exc.code}: {body[:1000]}",
                 category=category,
                 raw_output=body,
-                telemetry={"http_status": exc.code},
+                telemetry={"http_status": exc.code, "provider_error_code": error_code},
             ) from exc
         except (TimeoutError, socket.timeout) as exc:
             raise ModelRunFailure("Qiniu request timed out", category="timeout") from exc

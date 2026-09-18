@@ -50,7 +50,7 @@ OPERATION_SPECS = (
     _spec("merge_blocks", "block", "high", "{block_ids,text?}", "Merge blocks only when they are one visible reading unit."),
     _spec("split_block", "block", "high", "{segments}", "Split a block only at visible semantic boundaries."),
     _spec("add_quality_flags", "page spread block table figure cell", "low", "list[string]", "Add diagnostic flags; do not use them as a substitute for a repair."),
-    _spec("retire_table_candidate", "table", "medium", "{disposition}", "Retire only a false-positive table candidate."),
+    _spec("retire_table_candidate", "table", "medium", "{disposition: ordinary_text|duplicate_fragment|non_table_visual|decoration}", "Retire only a false-positive table candidate; ordinary_text keeps the source block visible."),
     _spec("add_visual_text_block", "page figure", "medium", "{text,bbox,visual_role?}", "Add only visible text absent from existing blocks and cells."),
     _spec("set_figure_legend_text", "figure", "medium", "list[string]", "Transcribe visible legend labels exactly."),
     _spec("upsert_figure_structure", "figure", "high", "figure structure object", "Model a non-chart visual using bounded visible nodes and relations."),
@@ -86,11 +86,11 @@ class OperationRegistry:
         ),
         "table_candidate_classification": (
             "confirm", "retire_table_candidate", "replace_cell_text", "set_table_grid",
-            "insert_table_row",
+            "insert_table_row", "set_bbox",
         ),
         "table_structure_reconstruction": (
             "confirm", "replace_cell_text", "set_table_grid", "insert_table_row",
-            "retire_table_candidate",
+            "retire_table_candidate", "set_bbox",
         ),
         "figure_binding": (
             "confirm", "set_bbox", "set_visual_type", "set_caption",

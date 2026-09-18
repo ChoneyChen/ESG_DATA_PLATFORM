@@ -597,17 +597,25 @@ class AgentReviewOrchestrator:
                     self._resolve_task(document, task, reviewer_result, None)
                     self._resolve_superseded_optional_tasks(document, task.task_id)
                     return
+                missing_targets = sorted(required_targets - resolved_required_targets)
+                if local_round < max_rounds:
+                    feedback = [
+                        "The confirmed targets have already been accepted. Address only the "
+                        f"remaining required targets: {missing_targets}. "
+                        "For a confirmed spread, include its horizontal continuation link."
+                    ]
+                    continue
                 self._defer(
                     document,
                     task,
                     "required_review_targets_incomplete_after_guard_confirmation",
                     errors=[
                         "Guard-confirmed transactions did not cover required targets: "
-                        f"{sorted(required_targets - resolved_required_targets)}."
+                        f"{missing_targets}."
                     ],
                     failure_class="system_contract",
                     failure_owner="system",
-                    retryable=False,
+                    retryable=True,
                 )
                 return
 
@@ -1875,6 +1883,18 @@ class AgentReviewOrchestrator:
         reviewer: ReviewerResult,
         verifier: VerifierResult | None,
     ) -> None:
+        if task.target_type == "table" and "table_geometry_missing" in task.reason_codes:
+            unresolved_table = next(
+                (item for item in document.tables if item.table_id == task.target_id and item.bbox is None),
+                None,
+            )
+            if unresolved_table is not None:
+                self._defer(
+                    document, task, "table_geometry_still_unresolved_after_review",
+                    errors=[f"{task.target_id} still has no page geometry after the accepted review."],
+                    failure_class="system_contract", failure_owner="system", retryable=True,
+                )
+                return
         accepted = [
             patch
             for patch in document.atomic_patches

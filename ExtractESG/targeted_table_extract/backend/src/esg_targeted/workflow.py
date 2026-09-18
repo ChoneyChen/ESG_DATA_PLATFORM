@@ -607,6 +607,16 @@ class TargetedExtractionWorkflow:
                 contract_validation,
                 model_executions,
             )
+            accepted_count = sum(
+                item["guard_accepted"] and item["status"] != "ambiguous"
+                for item in outcomes
+            )
+            final_status = (
+                JobStatus.COMPLETED if accepted_count == len(outcomes)
+                else JobStatus.FAILED if accepted_count == 0 and request.semantic_fill and not model_executions
+                else JobStatus.PARTIAL
+            )
+            summary["execution_status"] = final_status.value
             exports = ResultExporter().export(
                 output_dir=self.artifact_store.job_dir(job_id),
                 records=dict(records),
@@ -615,15 +625,14 @@ class TargetedExtractionWorkflow:
             )
             summary["exports"] = exports
             self.artifact_store.write_json(job_id, "manifest.json", summary)
-            final_status = (
-                JobStatus.COMPLETED
-                if all(item["guard_accepted"] and item["status"] != "ambiguous" for item in outcomes)
-                else JobStatus.PARTIAL
-            )
             self.job_store.update(
                 job_id,
                 status=final_status,
-                stage="finished",
+                stage="failed" if final_status == JobStatus.FAILED else "finished",
+                error=(
+                    "No metric produced an accepted semantic result; inspect model attempts and provider status."
+                    if final_status == JobStatus.FAILED else None
+                ),
                 progress_current=len(metrics),
                 progress_total=len(metrics),
                 summary=summary,
@@ -640,10 +649,15 @@ class TargetedExtractionWorkflow:
             self.job_store.add_event(job_id, "cancelled", "warning", "Extraction cancelled")
         except Exception as exc:
             error = f"{type(exc).__name__}: {exc}"
+            failure = {"error": error, "traceback": traceback.format_exc()}
+            if isinstance(exc, ModelRunFailure):
+                failure["failure_category"] = exc.category
+                failure["provider_error_code"] = exc.telemetry.get("provider_error_code")
+                failure["http_status"] = exc.telemetry.get("http_status")
             self.artifact_store.write_json(
                 job_id,
                 "failure.json",
-                {"error": error, "traceback": traceback.format_exc()},
+                failure,
             )
             self.job_store.update(job_id, status=JobStatus.FAILED, stage="failed", error=error)
             self.job_store.add_event(job_id, "failed", "error", error)
@@ -1065,6 +1079,15 @@ class TargetedExtractionWorkflow:
                 elapsed = round(time.perf_counter() - started_at, 3)
                 if exc.category == "cancelled":
                     raise CancelledError() from exc
+                if exc.category == "provider_account_blocked":
+                    self.job_store.add_event(
+                        job_id,
+                        "provider_account_blocked",
+                        "error",
+                        "The selected model provider rejected the account before inference",
+                        {"metric_id": metric_id, **exc.telemetry},
+                    )
+                    raise
                 last_failure_category = exc.category
                 retry_strategy = self._failure_retry_strategy(exc.category)
                 feedback = self._failure_feedback(exc.category, str(exc))
@@ -1365,6 +1388,7 @@ class TargetedExtractionWorkflow:
             "runtime": "runtime_retry_same_evidence",
             "request_budget": "stop_local_contract",
             "request_config": "stop_local_contract",
+            "provider_account_blocked": "stop_local_contract",
         }.get(category, "bounded_retry")
 
     @staticmethod
@@ -1476,9 +1500,8 @@ class TargetedExtractionWorkflow:
                 "actual_models": actual_models,
                 "provider_match": (
                     not request.semantic_fill
-                    or not actual_providers
                     or actual_providers == [request.semantic_provider]
-                ),
+                ) if actual_providers or not request.semantic_fill else None,
             },
             "task_count": len(outcomes),
             "task_status_counts": dict(

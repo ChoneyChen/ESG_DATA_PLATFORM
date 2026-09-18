@@ -58,6 +58,8 @@ class ReviewContextCompiler:
             targets.update(plan.context_target_ids)
         spread = next((item for item in document.spreads if item.spread_id == task.target_id), None)
         figure_mode = bool(plan and plan.review_kind in {"figure_binding", "figure_semantic_structure"})
+        page_coverage_mode = bool(plan and plan.review_kind == "page_text_coverage")
+        scoped_targets = {task.target_id, *(scope.target_id for scope in task.scope)}
         page_indices = spread.page_indices if spread else [task.page_index]
         pages = [
             value for value in (
@@ -82,6 +84,19 @@ class ReviewContextCompiler:
                 exclude={"source_trace", "graph_edges", "observations", "markdown", "review_task_ids"},
             )
             raw["target_type"] = PatchGuard._target_type(item)
+            if page_coverage_mode and item_id not in scoped_targets:
+                raw = {
+                    key: raw.get(key)
+                    for key in (
+                        "block_id", "table_id", "figure_id", "target_type", "page_index",
+                        "bbox", "caption", "visual_type", "row_count", "column_count",
+                    )
+                    if key in raw
+                }
+                if hasattr(item, "text"):
+                    raw["text_preview"] = str(item.text)[:160]
+                result["targets"].append(raw)
+                continue
             if isinstance(item, FigureIR):
                 raw = {
                     key: raw.get(key)
@@ -209,4 +224,11 @@ class ReviewContextCompiler:
             rules.append("Every complete grid must map source_cell_ids and list missing visible text and evidence.")
         if review_kind == "figure_semantic_structure":
             rules.append("Use compact upsert_chart_spec for charts; use upsert_figure_structure only for non-chart diagrams.")
+        if review_kind == "page_text_coverage":
+            rules.extend([
+                "First identify the exact missing region on the page; confirm existing objects that already match.",
+                "Use the target bounding box to select a figure. An icon, annual chart, and composition chart are separate targets.",
+                "Represent annual trends and one-year category breakdowns as separate chart patches with explicit years.",
+                "Keep baseline years, data-source notes, absolute values, intensity, and percentage changes in their respective roles.",
+            ])
         return rules

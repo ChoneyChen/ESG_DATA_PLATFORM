@@ -198,6 +198,7 @@ class PipelineQueueStore:
 
         terminal_statuses = (
             PipelineTaskStatus.COMPLETED.value,
+            PipelineTaskStatus.PARTIAL.value,
             PipelineTaskStatus.FAILED.value,
             PipelineTaskStatus.CANCELLED.value,
             PipelineTaskStatus.INTERRUPTED.value,
@@ -288,6 +289,7 @@ class PipelineQueueStore:
         task = self.get(task_id)
         if task.status in {
             PipelineTaskStatus.COMPLETED,
+            PipelineTaskStatus.PARTIAL,
             PipelineTaskStatus.FAILED,
             PipelineTaskStatus.CANCELLED,
             PipelineTaskStatus.INTERRUPTED,

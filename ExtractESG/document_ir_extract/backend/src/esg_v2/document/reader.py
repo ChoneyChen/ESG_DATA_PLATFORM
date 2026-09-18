@@ -249,10 +249,15 @@ class DocumentIrPackageReader:
             bundle["guidance"] = self._review_guidance(bundle)
             bundle["visual_context"] = self._review_visual_context(task, bundle)
             groups[group].append(bundle)
+        validation_issues = self._unresolved_validation_issues()
         return {
             "schema_version": "document-ir-human-review-inbox-v1",
-            "counts": {key: len(value) for key, value in groups.items()},
+            "counts": {
+                **{key: len(value) for key, value in groups.items()},
+                "validation_blocked": len(validation_issues),
+            },
             "groups": groups,
+            "validation_issues": validation_issues,
         }
 
     def unresolved_review_worklist(self) -> dict[str, Any]:
@@ -280,11 +285,46 @@ class DocumentIrPackageReader:
                 }
             )
             counts[group] += 1
+        validation_issues = self._unresolved_validation_issues()
+        counts["validation_blocked"] = len(validation_issues)
         return {
             "schema_version": "document-ir-review-worklist-v1",
             "counts": counts,
             "entries": entries,
+            "validation_issues": validation_issues,
         }
+
+    def _unresolved_validation_issues(self) -> list[dict[str, Any]]:
+        report = self.read_json("validation_report", "quality/validation-report.json")
+        open_task_targets = {
+            task.get("target_id")
+            for task in self.review_tasks()
+            if self._review_group(task) != "resolved"
+        }
+        result: list[dict[str, Any]] = []
+        for issue in report.get("issues") or []:
+            if issue.get("severity") not in {"error", "blocking"}:
+                continue
+            if issue.get("code") == "table_geometry_incomplete" and not issue.get("target_id"):
+                for row in self.list_tables():
+                    table = self.table(str(row["table_id"]))
+                    if table.get("bbox") or table.get("table_id") in open_task_targets:
+                        continue
+                    result.append({
+                        "code": "table_geometry_incomplete",
+                        "severity": "error",
+                        "message": "表格缺少可靠页面坐标；请先核对它是否为独立表格。",
+                        "target_id": table.get("table_id"),
+                        "page_index": table.get("page_index"),
+                        "action": "repair",
+                    })
+                continue
+            if not issue.get("target_id") and open_task_targets:
+                continue
+            if issue.get("target_id") in open_task_targets:
+                continue
+            result.append({**issue, "action": "repair" if issue.get("target_id") else "inspect"})
+        return result
 
     @staticmethod
     def _review_group(task: dict[str, Any]) -> str:
@@ -293,10 +333,20 @@ class DocumentIrPackageReader:
         if status == "human_required":
             return "human_required"
         if status in {"pending", "queued", "running", "deferred", "failed", "skipped"}:
-            if not bool(task.get("retryable", True)):
+            if not DocumentIrPackageReader._can_retry(task):
                 return "system_blocked"
             return "blocking_deferred" if blocking else "optional_deferred"
         return "resolved"
+
+    @staticmethod
+    def _can_retry(task: dict[str, Any]) -> bool:
+        if bool(task.get("retryable", True)):
+            return True
+        return (
+            task.get("failure_class") == "system_contract"
+            and (task.get("result") or {}).get("reason")
+            == "required_review_targets_incomplete_after_guard_confirmation"
+        )
 
     def review_collection(self, name: str) -> list[dict[str, Any]]:
         if not self.is_package_v1:
@@ -480,7 +530,7 @@ class DocumentIrPackageReader:
         provider_state = result.get("provider_state") if isinstance(result.get("provider_state"), dict) else {}
         failure_class = str(task.get("failure_class") or result.get("failure_class") or "none")
         failure_owner = str(task.get("failure_owner") or result.get("failure_owner") or "none")
-        retryable = bool(task.get("retryable", True))
+        retryable = DocumentIrPackageReader._can_retry(task)
         stored_failure_class = failure_class
         if failure_class == "model_service" and terminal_reason:
             derived_failure = ConvergenceEngine.reason_failure(terminal_reason)

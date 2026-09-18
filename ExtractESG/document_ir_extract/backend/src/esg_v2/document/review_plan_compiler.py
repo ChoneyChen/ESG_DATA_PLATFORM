@@ -33,7 +33,10 @@ class ReviewPlanCompiler:
         "low_ocr_text_coverage",
         "low_ocr_text_coverage_on_data_visual",
     }
-    TABLE_CLASSIFICATION_REASONS = {"local_only_table_candidate", "blank_visual_encoding_cells"}
+    TABLE_CLASSIFICATION_REASONS = {
+        "local_only_table_candidate", "blank_visual_encoding_cells",
+        "markdown_fallback_without_layout_geometry",
+    }
     FIGURE_BINDING_REASONS = {"material_visual_binding_unresolved"}
     FIGURE_STRUCTURE_REASONS = {
         "material_chart_structure",
@@ -59,6 +62,17 @@ class ReviewPlanCompiler:
 
         reasons = set(task.reason_codes)
         reasons.update(reason for scope in task.scope for reason in scope.reason_codes)
+        if task.target_type == "table" and "table_geometry_missing" in reasons:
+            table = next((item for item in document.tables if item.table_id == task.target_id), None)
+            source_block = next(
+                (item for item in document.blocks if table is not None and item.block_id == table.block_id),
+                None,
+            )
+            if (
+                table is not None and table.row_count == 1 and source_block is not None
+                and "markdown_fallback_without_layout_geometry" in source_block.quality_flags
+            ):
+                reasons.add("markdown_fallback_without_layout_geometry")
         target_types = {scope.target_type for scope in task.scope} or {task.target_type}
         definition = self._definition(document, task, reasons, target_types)
         context_targets = self._unique([
@@ -95,6 +109,28 @@ class ReviewPlanCompiler:
             task.max_attempts = 3
 
         allowed_operations = OperationRegistry.for_review_kind(definition[0])
+        if task.target_type == "table" and "retire_table_candidate" in allowed_operations:
+            table = next((item for item in document.tables if item.table_id == task.target_id), None)
+            source_block = next(
+                (item for item in document.blocks if table is not None and item.block_id == table.block_id),
+                None,
+            )
+            can_retire = bool(
+                table is not None and (
+                    "local_only_table_candidate" in table.quality_flags
+                    or (
+                        table.row_count == 1 and table.bbox is None
+                        and source_block is not None
+                        and source_block.text.strip()
+                        and "markdown_fallback_without_layout_geometry" in source_block.quality_flags
+                    )
+                )
+            )
+            if not can_retire:
+                allowed_operations = [
+                    operation for operation in allowed_operations
+                    if operation != "retire_table_candidate"
+                ]
         if definition[0] == "figure_semantic_structure":
             figure = self._task_figure(document, task)
             chart_task = "material_chart_structure" in reasons or (
@@ -218,9 +254,9 @@ class ReviewPlanCompiler:
         if "table" in target_types and reasons & self.TABLE_CLASSIFICATION_REASONS:
             return (
                 "table_candidate_classification",
-                "这个区域究竟是真表格、信息图/图表、重复碎片，还是纯装饰？",
-                "稀疏网格可能是传统解析器产生的假表格。",
-                ["先分类再重建。", "非表格候选必须退役。", "真实表格须保留全部可见文字和数字。"],
+                "这个候选是否为独立表格？若只是原表的一行或普通文字，请指出其可见归属。",
+                "Markdown fallback 可能将行内竖线文本误建为缺少坐标的独立表格。",
+                ["先核对候选文字与页面位置。", "假表格须保留可见文字后再退役。", "真实表格需要可靠定位及完整结构。"],
                 "classify_then_reconstruct",
                 [],
             )

@@ -719,6 +719,18 @@ async function refreshReviewWorklist(irRuns = irSourceIrRuns) {
       });
     });
   });
+  results.forEach(({run, inbox}) => {
+    (inbox?.validation_issues || []).forEach((issue) => {
+      const taskId = `validation:${issue.code}:${issue.target_id || issue.page_index || "report"}`;
+      entries.push({
+        run, group: "system_blocked", validation_issue: issue,
+        bundle: {
+          task: {task_id: taskId, target_id: issue.target_id, target_type: issue.target_id?.startsWith("table") ? "table" : "page", page_index: issue.page_index, blocking: true, status: "validation_issue"},
+          guidance: {title: issue.target_id ? `验证问题 · ${issue.target_id}` : "报告验证问题", question: issue.message, resume_stage: "validation", can_retry_automation: false},
+        },
+      });
+    });
+  });
   reviewWorklistFailedRunCount = results.filter((item) => !item.inbox).length;
   reviewWorklistEntries = sortReviewWorklistEntries(entries);
   renderReviewWorklist();
@@ -886,6 +898,18 @@ async function openReviewWorkItem(entry) {
   openingReviewWorkItemKey = workItemKey;
   renderReviewWorklist();
   try {
+    if (entry.validation_issue) {
+      await loadIrRun(entry.run.run_id);
+      const issue = entry.validation_issue;
+      if (issue.target_id) $("#repair-targets").value = issue.target_id;
+      if (issue.code) $("#repair-reason").value = issue.code;
+      if (Number.isInteger(issue.page_index) && issue.page_index >= 0) {
+        $("#page-select").value = String(issue.page_index);
+        renderPage(issue.page_index);
+      }
+      $("#validation-view").scrollIntoView({behavior: "smooth", block: "start"});
+      return;
+    }
     selectedReviewTaskId = taskId;
     await loadIrRun(entry.run.run_id);
     if (!irDocument) {
@@ -1566,6 +1590,13 @@ function renderOverview(manifest, validation, document, summary = {}) {
 
 function renderValidation(validation) {
   const root = $("#validation-view"); root.replaceChildren();
+  const evidencePolicy = currentManifest?.evidence_policy || {};
+  if (evidencePolicy.mode === "limited") {
+    root.appendChild(documentNode(
+      "div", "issue warning",
+      `证据受限：可用 ${evidencePolicy.available_page_count || 0} 页；排除 PDF 页码 ${(evidencePolicy.excluded_page_indices || []).map((index) => Number(index) + 1).join("、") || "未记录"}。排除范围不能当作未披露。`,
+    ));
+  }
   const coverageLabels = {
     page_image_coverage: "页图覆盖率", layout_geometry_coverage: "Layout 坐标覆盖率",
     block_geometry_coverage: "Block 坐标覆盖率", table_geometry_coverage: "表格坐标覆盖率",
@@ -1582,6 +1613,21 @@ function renderValidation(validation) {
   });
   (validation.issues || []).forEach((issue) => {
     root.appendChild(documentNode("div", `issue ${issue.severity}`, `${issue.severity.toUpperCase()} · ${issue.code}: ${issue.message}`));
+  });
+  const missingTables = (irDocument?.tables || []).filter((table) => !table.bbox);
+  missingTables.forEach((table) => {
+    const row = documentNode("div", "issue error");
+    const locate = documentNode("button", "secondary", `定位并准备修复 ${table.table_id} · PDF 第 ${Number(table.page_index) + 1} 页`);
+    locate.type = "button";
+    locate.addEventListener("click", () => {
+      $("#repair-targets").value = table.table_id;
+      $("#repair-reason").value = "table_geometry_missing";
+      $("#page-select").value = String(table.page_index);
+      renderPage(Number(table.page_index));
+      $("#repair-targets").scrollIntoView({block: "center", behavior: "smooth"});
+    });
+    row.appendChild(locate);
+    root.appendChild(row);
   });
 }
 
@@ -1849,6 +1895,7 @@ function renderReviewSummary(state) {
   const values = [
     [counts.human_required || 0, "人工内容判断"],
     [counts.system_blocked || 0, "需修链路后再跑"],
+    [counts.validation_blocked || 0, "验证问题待修复"],
     [counts.blocking_deferred || 0, "自动修复待处理"],
     [counts.optional_deferred || 0, "非阻塞增强"],
     [counts.resolved || 0, "已解决任务"],
