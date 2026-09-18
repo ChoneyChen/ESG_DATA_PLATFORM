@@ -342,9 +342,10 @@ class DocumentIrPackageReader:
     def _can_retry(task: dict[str, Any]) -> bool:
         if bool(task.get("retryable", True)):
             return True
+        result = task.get("result") or {}
         return (
-            task.get("failure_class") == "system_contract"
-            and (task.get("result") or {}).get("reason")
+            (task.get("failure_class") or result.get("failure_class")) == "system_contract"
+            and result.get("reason")
             == "required_review_targets_incomplete_after_guard_confirmation"
         )
 
@@ -590,7 +591,12 @@ class DocumentIrPackageReader:
                 "也可明确接受当前非关键状态，但这不等于确认候选关系真实存在。"
             )
         elif status in {"deferred", "failed", "skipped", "pending", "queued"}:
-            if not retryable and failure_class == "evidence_missing":
+            if (
+                retryable and failure_class == "system_contract"
+                and terminal_reason == "required_review_targets_incomplete_after_guard_confirmation"
+            ):
+                action = "这是旧版跨页任务的已修复合同缺口。可直接为此项创建重跑子版本；父版本不会被改写。"
+            elif not retryable and failure_class == "evidence_missing":
                 action = "不要重复调用模型。先补齐缺失的页图、拼接图或区域截图，再新建修复 revision。"
             elif not retryable and failure_class == "system_contract":
                 action = (

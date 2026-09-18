@@ -25,6 +25,7 @@ def test_unresolved_review_worklist_skips_resolved_and_classifies_current_work()
 
     reader.review_task_bundle = bundle  # type: ignore[method-assign]
     reader._review_guidance = lambda value: {"title": value["task"]["task_id"]}  # type: ignore[method-assign,index]
+    reader._unresolved_validation_issues = lambda: []  # type: ignore[method-assign]
 
     result = reader.unresolved_review_worklist()
 
@@ -34,6 +35,7 @@ def test_unresolved_review_worklist_skips_resolved_and_classifies_current_work()
         "system_blocked": 1,
         "blocking_deferred": 1,
         "optional_deferred": 1,
+        "validation_blocked": 0,
     }
     assert [item["group"] for item in result["entries"]] == [
         "human_required",
@@ -42,6 +44,22 @@ def test_unresolved_review_worklist_skips_resolved_and_classifies_current_work()
         "optional_deferred",
     ]
     assert loaded == ["review-human", "review-system", "review-blocking", "review-optional"]
+
+
+def test_legacy_cross_page_contract_failure_is_retryable_without_rewriting_parent() -> None:
+    task = {
+        "task_id": "review-legacy-spread",
+        "status": "deferred",
+        "blocking": True,
+        "retryable": False,
+        "result": {
+            "failure_class": "system_contract",
+            "reason": "required_review_targets_incomplete_after_guard_confirmation",
+        },
+    }
+
+    assert DocumentIrPackageReader._can_retry(task)
+    assert DocumentIrPackageReader._review_group(task) == "blocking_deferred"
 
 
 def test_catalog_returns_only_highest_latest_revision_per_lineage(tmp_path: Path) -> None:

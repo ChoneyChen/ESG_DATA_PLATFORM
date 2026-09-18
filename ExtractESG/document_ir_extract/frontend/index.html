@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ESG Evidence Hub · Pipeline Workbench</title>
-    <link rel="stylesheet" href="./src/styles.css?v=cross-standard-batch-v1-20260903" />
+    <link rel="stylesheet" href="./src/styles.css?v=ir-review-retry-20260919c" />
   </head>
   <body>
     <div class="app-frame">
@@ -332,6 +332,11 @@
           <label>任务归属<select id="review-worklist-group"><option value="all">全部未完成</option><option value="human_required">人工内容判断</option><option value="system_blocked">链路修复阻塞</option><option value="blocking_deferred">自动修复待处理</option><option value="optional_deferred">非阻塞增强</option></select></label>
           <label>Evidence 影响<select id="review-worklist-impact"><option value="all">全部</option><option value="blocking">仅阻塞准入</option><option value="optional">仅非阻塞</option></select></label>
         </div>
+        <div class="review-retry-config">
+          <label>重跑模型通道<select id="review-retry-provider"><option value="local_nuextract">本地 NuExtract3（MLX）</option><option value="qiniu">七牛云 VLM</option></select></label>
+          <label id="review-retry-qiniu-key-field" class="hidden">七牛 API Key（留空使用后端环境变量）<input id="review-retry-qiniu-key" type="password" autocomplete="off" placeholder="仅用于本次重跑" /></label>
+          <span class="muted">每次只重跑所选行；父 IR 保持不变，结果写入新 revision。</span>
+        </div>
         <div class="review-worklist-table-wrap">
           <table class="data-table review-worklist-table">
             <thead><tr><th>报告与 IR 版本</th><th>待复核问题</th><th>对象位置</th><th>任务状态</th><th>自动处理进度</th><th>操作</th></tr></thead>
@@ -478,7 +483,7 @@
       </section>
       </main>
     </div>
-    <script type="module" src="./src/main.js?v=pipeline-plan-20260906"></script>
+    <script type="module" src="./src/main.js?v=ir-review-retry-20260919c"></script>
     <script type="module" src="./src/targeted.js?v=standard-visibility-20260911"></script>
     <script type="module" src="./src/pipeline.js?v=standard-visibility-20260911"></script>
     <script type="module" src="./src/platform.js?v=queue-history-cleanup-v1-20260902"></script>

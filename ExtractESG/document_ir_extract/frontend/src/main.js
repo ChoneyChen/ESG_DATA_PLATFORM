@@ -35,6 +35,7 @@ let runtimeClockTimer = null;
 let lastRuntimeState = null;
 let backendContextUrl = "";
 let reviewRetryInFlight = false;
+const queuedReviewRetries = new Map();
 let storageInventory = {available: false, summary: {}, documents: []};
 let selectedStorageTargets = new Map();
 let selectedAssetKey = null;
@@ -103,6 +104,14 @@ function endpoint(path) {
 
 function selectedReviewProvider() {
   return $("#review-provider").value || "local_nuextract";
+}
+
+function selectedReviewRetryProvider() {
+  return $("#review-retry-provider").value || "local_nuextract";
+}
+
+function syncReviewRetryProviderControls() {
+  $("#review-retry-qiniu-key-field").classList.toggle("hidden", selectedReviewRetryProvider() !== "qiniu");
 }
 
 function selectedOcrProvider() {
@@ -746,6 +755,23 @@ function sortReviewWorklistEntries(entries) {
   );
 }
 
+function canRetryReviewTask(task, guidance = {}) {
+  const unresolved = ["pending", "queued", "deferred", "failed", "skipped"].includes(task?.status);
+  if (!unresolved) return false;
+  if (guidance.can_retry_automation) return true;
+  // Old immutable IR packages retain a pre-fix system-contract decision.
+  // The current retry service re-evaluates exactly this compiler failure in its child revision.
+  return (task?.failure_class || task?.result?.failure_class) === "system_contract"
+    && task?.result?.reason === "required_review_targets_incomplete_after_guard_confirmation";
+}
+
+function releaseQueuedReviewRetries(runId) {
+  for (const [key, childRunId] of queuedReviewRetries) {
+    if (childRunId === runId) queuedReviewRetries.delete(key);
+  }
+  renderReviewWorklist();
+}
+
 function renderReviewWorklist() {
   const body = $("#review-worklist-body");
   const summary = $("#review-worklist-summary");
@@ -869,6 +895,18 @@ function renderReviewWorklist() {
     );
 
     const action = document.createElement("td");
+    const canRetry = canRetryReviewTask(task, guidance);
+    const queued = queuedReviewRetries.has(workItemKey);
+    if (canRetry) {
+      const retry = documentNode("button", "review-worklist-retry", queued ? "已加入任务" : "重跑此项");
+      retry.type = "button";
+      retry.disabled = queued || reviewRetryInFlight;
+      retry.addEventListener("click", (event) => {
+        event.stopPropagation();
+        startReviewRetry([task.task_id], !task.blocking, run.run_id);
+      });
+      action.appendChild(retry);
+    }
     const open = documentNode("button", "secondary review-worklist-open", isOpening ? "正在打开…" : "打开复核");
     open.type = "button";
     open.disabled = isOpening;
@@ -1451,6 +1489,7 @@ async function pollIrState() {
   if (state.status === "done") {
     $("#ir-form button[type=submit]").disabled = false;
     setReviewRetryInFlight(false);
+    releaseQueuedReviewRetries(runId);
     await loadIrRun(state.run_id);
     await refreshHistories();
     return;
@@ -1458,6 +1497,7 @@ async function pollIrState() {
   if (["failed", "cancelled", "interrupted"].includes(state.status)) {
     $("#ir-form button[type=submit]").disabled = false;
     setReviewRetryInFlight(false);
+    releaseQueuedReviewRetries(runId);
     renderLogs($("#ir-logs"), [...(state.logs || []), `失败: ${state.error || state.message}`]);
     return;
   }
@@ -1951,6 +1991,7 @@ function setReviewRetryInFlight(running) {
   [blocking, optional].forEach((button) => { if (button) button.disabled = reviewRetryInFlight; });
   if (blocking) blocking.textContent = reviewRetryInFlight ? "正在提交…" : "将阻塞复核加入任务";
   if (optional) optional.textContent = reviewRetryInFlight ? "正在提交…" : "将非阻塞增强加入任务";
+  renderReviewWorklist();
 }
 
 function firstAvailableReviewGroup(inbox) {
@@ -1981,7 +2022,7 @@ function renderReviewInbox(groupName) {
     card.dataset.reviewTaskId = task.task_id;
     card.append(
       documentNode("strong", "", guidance.title || task.task_id),
-      documentNode("span", "review-status-line", `${guidance.retryable === false ? "链路修复后再运行" : reviewStatusLabel(task.status)} · ${guidance.retryable === false ? "不可原样重试" : "可自动重试"} · ${task.blocking ? "影响 Evidence 准入" : "不阻塞"} · ${task.task_id}`),
+      documentNode("span", "review-status-line", `${canRetryReviewTask(task, guidance) ? "可重新运行" : guidance.retryable === false ? "需要链路修复" : reviewStatusLabel(task.status)} · ${task.blocking ? "影响 Evidence 准入" : "不阻塞"} · ${task.task_id}`),
       documentNode("span", "review-card-question", guidance.question || (guidance.diagnosis || task.reason_codes || []).join("；")),
     );
     card.addEventListener("click", () => showReviewTask(task));
@@ -2067,6 +2108,7 @@ function renderReviewGuidance(bundle) {
     disagreements.forEach((item) => root.appendChild(documentNode("div", "review-finding warning", String(item))));
   }
   if (guidance.failure_class && guidance.failure_class !== "none") {
+    const canRetry = canRetryReviewTask(task, guidance);
     const ownerLabel = {
       model: "模型候选",
       system: "本地链路/合同",
@@ -2087,8 +2129,8 @@ function renderReviewGuidance(bundle) {
     }[guidance.failure_class] || guidance.failure_class;
     root.appendChild(documentNode(
       "div",
-      `failure-owner ${guidance.retryable ? "retryable" : "blocked"}`,
-      `失败归属：${ownerLabel} (${guidance.failure_owner || "unknown"}) · ${classLabel} (${guidance.failure_class}) · ${guidance.retryable ? "允许自动重试" : "禁止原样重试"}${guidance.failure_fingerprint ? ` · ${guidance.failure_fingerprint}` : ""}`,
+      `failure-owner ${canRetry ? "retryable" : "blocked"}`,
+      `失败归属：${ownerLabel} (${guidance.failure_owner || "unknown"}) · ${classLabel} (${guidance.failure_class}) · ${canRetry ? "允许创建子版本重跑" : "禁止原样重试"}${guidance.failure_fingerprint ? ` · ${guidance.failure_fingerprint}` : ""}`,
     ));
   }
   const transactionSummary = guidance.transaction_summary || {};
@@ -2189,7 +2231,7 @@ function renderReviewActions(task, bundle) {
     root.appendChild(documentNode("div", "decision-note", "创建受限子版本；不接受失败补丁，也不将未解决任务标为通过。排除范围和缺漏会保留。全局完整性错误仍不可绕过。"));
   }
 
-  if (guidance.can_retry_automation) {
+  if (canRetryReviewTask(task, guidance)) {
     const retry = documentNode(
       "button",
       "",
@@ -2464,14 +2506,13 @@ async function resolveOptionalTask(task) {
   }
 }
 
-async function startReviewRetry(taskIds = [], includeOptional = false) {
-  if (!activeIrRunId) return;
+async function startReviewRetry(taskIds = [], includeOptional = false, parentRunId = activeIrRunId) {
+  if (!parentRunId) return;
   const blockingCount = reviewState.inbox?.counts?.blocking_deferred || 0;
   if (!taskIds.length && !blockingCount && !includeOptional) return alert("当前没有阻塞待处理任务。");
   if (reviewRetryInFlight) return;
   setReviewRetryInFlight(true);
   try {
-    const parentRunId = activeIrRunId;
     const task = await postJson("/api/pipeline/tasks/document-ir", {
       operation: "review_retry",
       parent_run_id: parentRunId,
@@ -2481,11 +2522,13 @@ async function startReviewRetry(taskIds = [], includeOptional = false) {
         max_auto_review_rounds: 3,
         requested_by: $("#human-operator").value.trim() || "local-operator",
         notes: $("#human-notes").value.trim() || null,
-        review_provider: selectedReviewProvider(),
-        qiniu_api_key: $("#qiniu-key").value.trim() || null,
+        review_provider: selectedReviewRetryProvider(),
+        qiniu_api_key: $("#review-retry-qiniu-key").value.trim() || null,
       },
     });
     activeIrRunId = task.native_job_id;
+    taskIds.forEach((taskId) => queuedReviewRetries.set(`${parentRunId}:${taskId}`, task.native_job_id));
+    renderReviewWorklist();
     $("#current-ir-run").textContent = `${activeIrRunId} · 已加入统一队列`;
     renderLogs($("#ir-logs"), [`统一任务 ${task.task_id} 已排队。`]);
     window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
@@ -2722,6 +2765,7 @@ $("#review-worklist-refresh").addEventListener("click", () => refreshReviewWorkl
 $("#review-worklist-search").addEventListener("input", renderReviewWorklist);
 $("#review-worklist-group").addEventListener("change", renderReviewWorklist);
 $("#review-worklist-impact").addEventListener("change", renderReviewWorklist);
+$("#review-retry-provider").addEventListener("change", syncReviewRetryProviderControls);
 $("#accept-patch").addEventListener("click", () => decideHumanPatch("accept"));
 $("#reject-patch").addEventListener("click", () => decideHumanPatch("reject"));
 $("#review-tabs").addEventListener("click", (event) => {
@@ -2767,6 +2811,7 @@ $("#repair-form").addEventListener("submit", async (event) => {
 const storedBackend = localStorage.getItem("esg-v2-backend-url");
 if (storedBackend) $("#backend-url").value = storedBackend;
 syncReviewProviderControls();
+syncReviewRetryProviderControls();
 syncOcrProviderControls();
 switchAppView(localStorage.getItem("esg-v2-active-view") || "report-assets", {scroll: false});
 renderPipeline();

@@ -209,6 +209,9 @@ input:disabled { cursor: not-allowed; opacity: .55; background: #eef1ee; }
 .review-worklist-stat span { margin-top: 2px; color: var(--muted); font-size: 10px; }
 .review-worklist-warning { grid-column: 1 / -1; padding: 9px 11px; border: 1px solid #e3bd72; border-radius: 9px; color: #705018; background: #fff9ec; font-size: 10px; }
 .review-worklist-toolbar { grid-template-columns: minmax(280px, 1fr) 190px 180px; }
+.review-retry-config { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin: 3px 0 13px; }
+.review-retry-config label { min-width: 215px; margin: 0; }
+.review-retry-config > span { padding-bottom: 10px; font-size: 10px; }
 .review-worklist-table-wrap { max-height: 520px; overflow: auto; margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; }
 .review-worklist-table { min-width: 1080px; }
 .review-worklist-table td:nth-child(1) { width: 22%; }
@@ -220,6 +223,10 @@ input:disabled { cursor: not-allowed; opacity: .55; background: #eef1ee; }
 .review-worklist-table code { display: block; margin-top: 5px; overflow-wrap: anywhere; color: #65736c; font: 8px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .review-worklist-table td small { margin-top: 4px; line-height: 1.45; }
 .review-worklist-open { white-space: nowrap; padding: 7px 9px; font-size: 9px; }
+.review-worklist-table td:last-child { min-width: 145px; }
+.review-worklist-table td:last-child button { display: block; width: 100%; margin: 3px 0; white-space: nowrap; padding: 7px 9px; font-size: 9px; }
+.review-worklist-table th:last-child, .review-worklist-table td:last-child { position: sticky; right: 0; z-index: 1; background: #fff; box-shadow: -8px 0 12px rgba(23, 34, 29, .06); }
+.review-worklist-table th:last-child { z-index: 2; background: #f4f8f5; }
 .status-pill.review-group-human_required { color: #8a2d27; background: #ffe8e5; }
 .status-pill.review-group-system_blocked { color: #7b3e1f; background: #ffeadc; }
 .status-pill.review-group-blocking_deferred { color: #705018; background: #fff1c9; }
