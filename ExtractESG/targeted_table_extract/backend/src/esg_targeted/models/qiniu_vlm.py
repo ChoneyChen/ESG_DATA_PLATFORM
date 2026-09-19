@@ -174,35 +174,52 @@ class QiniuVlmModel:
                     "type": "string",
                     "enum": ["found", "partial", "not_found", "ambiguous"],
                 },
-                "rows": {
+                "row_groups": {
                     "type": "array",
                     "maxItems": int(packet.budget.get("max_output_rows", 80)),
                     "items": {
                         "type": "object",
                         "additionalProperties": False,
                         "properties": {
-                            "target_cell": (
-                                {
-                                    "anyOf": [
-                                        {"type": "string", "enum": target_cell_ids},
-                                        {"type": "null"},
-                                    ]
-                                }
-                                if target_cell_ids
-                                else {"type": "null"}
-                            ),
                             "group": group_schema,
-                            "fields": {
+                            "shared_fields": {
                                 "type": "object",
                                 "additionalProperties": False,
                                 "properties": fields,
                                 "required": list(fields),
                             },
+                            "values": {
+                                "type": "array",
+                                "maxItems": int(packet.budget.get("max_output_rows", 80)),
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": False,
+                                    "properties": {
+                                        "target_cell": (
+                                            {
+                                                "anyOf": [
+                                                    {"type": "string", "enum": target_cell_ids},
+                                                    {"type": "null"},
+                                                ]
+                                            }
+                                            if target_cell_ids
+                                            else {"type": "null"}
+                                        ),
+                                        "fields": {
+                                            "type": "object",
+                                            "additionalProperties": False,
+                                            "properties": fields,
+                                            "required": list(fields),
+                                        },
+                                    },
+                                    "required": ["target_cell", "fields"],
+                                },
+                            },
                             "metric_match": {"type": "string", "enum": ["match", "uncertain", "different"]},
                             "interpretation_note": {"type": ["string", "null"]},
                             "context_refs": {"type": "array", "items": {"type": "string"}},
                         },
-                        "required": ["target_cell", "group", "fields", "metric_match", "interpretation_note", "context_refs"],
+                        "required": ["group", "shared_fields", "values", "metric_match", "interpretation_note", "context_refs"],
                     },
                 },
                 "uncertainty_code": {
@@ -225,7 +242,7 @@ class QiniuVlmModel:
                 },
                 "missing_context": {"type": "array", "items": {"type": "string"}},
             },
-            "required": ["task_id", "status", "rows", "uncertainty_code", "skipped_targets", "missing_context"],
+            "required": ["task_id", "status", "row_groups", "uncertainty_code", "skipped_targets", "missing_context"],
         }
         return {
             "type": "json_schema",

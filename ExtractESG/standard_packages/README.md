@@ -26,7 +26,8 @@ Compiled Standard Package      后端可直接加载的单文件机器契约
 - `esrs.2023-set1.e1-5@1.1.0`：增加能源载体层级、互斥语义、报告实体与指标聚合角色；
 - `esrs.2023-set1.e1-6@1.1.0`：增加 Scope/繁简/公式别名、Scope 1 专用概念、报告实体与指标聚合角色；
 - `esrs.2023-set1.e1-5@1.2.0`：当前能源运行时版本；
-- `esrs.2023-set1.e1-6@1.3.0`：当前 GHG 运行时版本，结构清单成员改为可独立举证的定性事实；
+- `esrs.2023-set1.e1-6@1.3.0`：历史 GHG 版本，结构清单成员改为可独立举证的定性事实；
+- `esrs.2023-set1.e1-6@1.4.0`：当前 GHG 运行时版本，逐指标补充事实粒度、语义判别轴、易混淆指标族、证据形态和抽取/派生策略；
 - `module format 1.1`：平台级语义概念、别名、缩写、公式、上下位和排除关系；
 - 确定性编译器、JSON Schema 和本地契约测试。
 
@@ -40,7 +41,7 @@ standard_packages/
 ├── core/{1.0.0,1.1.0}/core.json
 ├── packages/esrs/2023-set1/e2-4/1.0.0/
 ├── packages/esrs/2023-set1/e1-5/{1.0.0,1.1.0,1.2.0}/
-├── packages/esrs/2023-set1/e1-6/{1.0.0,1.1.0,1.2.0,1.3.0}/
+├── packages/esrs/2023-set1/e1-6/{1.0.0,1.1.0,1.2.0,1.3.0,1.4.0}/
 │   ├── manifest.json
 │   ├── metrics.json
 │   ├── elements.json
@@ -53,7 +54,7 @@ standard_packages/
 │   └── sources.json
 ├── dist/esrs.2023-set1.e2-4/1.0.0/package.json
 ├── dist/esrs.2023-set1.e1-5/1.2.0/package.json
-├── dist/esrs.2023-set1.e1-6/1.3.0/package.json
+├── dist/esrs.2023-set1.e1-6/1.4.0/package.json
 ├── dist/.retired/<package_id>/<old_version>/package.json
 ├── schemas/
 ├── scripts/build_e1_packages.py
@@ -108,6 +109,11 @@ E1-6 `1.1.0` 源包包含 35 个指标、211 个元素、35 个概念、10 个�
 biogenic CO2、contractual instruments 和 Scope 3 categories，并声明 GHG Protocol/ISO 替代组和
 适用的 phase-in 条件。
 
+E1-6 `1.4.0` 仍有 35 个指标，并将运行时事实合同补齐到 223 个元素。每个指标可以声明
+`fact_grain`、`measurement_kind`、`required_semantic_discriminators`、`confusable_metric_ids`、
+`evidence_form`、`extraction_strategy` 和 `identity_axes`。这些是标准含义与结果身份元数据，不是
+Top N、模型名称或提示词脚本。09/10 等互斥方法指标可由通用抽取器据此联合检查，不需要条款号分支。
+
 两个包的十个源 JSON 由 `scripts/build_e1_packages.py` 确定性构建；生成脚本是可审查的
 内容维护器，运行时仍只读取 `dist/.../package.json`。
 
@@ -130,7 +136,7 @@ pytest
 ```
 
 E1 编译时把 `--core` 换为 `core/1.1.0/core.json`，当前任务选择对应的
-`packages/esrs/2023-set1/e1-5/1.2.0` 或 `e1-6/1.3.0`；旧源包与
+`packages/esrs/2023-set1/e1-5/1.2.0` 或 `e1-6/1.4.0`；旧源包与
 `dist/.retired` 中的编译产物仅用于复现旧任务。
 
 编译过程不写时间戳，也不依赖文件遍历顺序。相同 Core 和模块源文件必须产生字节完全

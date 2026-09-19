@@ -53,6 +53,21 @@ class ResultInspectionService:
         for metric in metrics:
             for fact in metric.facts:
                 fact.organization = organization["facts"].get(fact.fact_id, {})
+                if (
+                    metric.display_readiness_status == "needs_semantic_completion"
+                    and not fact.organization.get("identity_complete", False)
+                ):
+                    fact.quality_issues.append(
+                        InspectionIssue(
+                            code="semantic_identity_incomplete",
+                            severity="warning",
+                            message=(
+                                "多行事实缺少可区分的期间、实体、类别或其他类型化维度；"
+                                "保留原始来源坐标，等待语义身份补全。"
+                            ),
+                            record_id=fact.fact_id,
+                        )
+                    )
             metric.logical_measurement_count = len({f.organization.get("logical_measurement_id", f.fact_id) for f in metric.facts})
         issues = self._integrity_issues(job, manifest, package, records)
 
@@ -223,6 +238,22 @@ class ResultInspectionService:
                     uncertainty_reason=outcome.get("uncertainty_reason"),
                     contract_validation_status=outcome.get(
                         "contract_validation_status"
+                    ),
+                    source_validation_status=outcome.get(
+                        "source_validation_status",
+                        "passed" if outcome.get("guard_accepted") else "not_run",
+                    ),
+                    semantic_decision_status=outcome.get(
+                        "semantic_decision_status",
+                        "unresolved" if outcome.get("status") in {"partial", "ambiguous"}
+                        else "decided" if outcome.get("status") in {"found", "not_found"}
+                        else "not_run",
+                    ),
+                    display_readiness_status=outcome.get(
+                        "display_readiness_status",
+                        "needs_semantic_completion"
+                        if facts and any(fact.quality_issues for fact in facts)
+                        else "ready" if facts else "not_applicable",
                     ),
                     contract_error=outcome.get("contract_error"),
                     result_counts=outcome.get("result_counts", {}),

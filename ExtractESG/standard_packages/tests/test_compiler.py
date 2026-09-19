@@ -18,6 +18,7 @@ CORE_1_1 = ROOT / "core/1.1.0/core.json"
 E1_5_MODULE = ROOT / "packages/esrs/2023-set1/e1-5/1.0.0"
 E1_6_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.0.0"
 E1_6_130_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.3.0"
+E1_6_140_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.4.0"
 E1_5_COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e1-5/1.0.0/package.json"
 E1_6_COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e1-6/1.0.0/package.json"
 
@@ -293,6 +294,20 @@ def test_e1_6_1_3_structure_members_are_evidenced_assertions() -> None:
         assert (
             f"esrs.2023-set1.e1-6.{datapoint}", "statement"
         ) in elements
+
+
+def test_e1_6_1_4_declares_fact_grain_confusables_and_derivation_identity() -> None:
+    package = StandardPackageCompiler().compile(
+        core_path=CORE_1_1, module_dir=E1_6_140_MODULE
+    )
+    dp09 = next(item for item in package.metrics if item.source_datapoint_id == "E1-6_09")
+    dp12 = next(item for item in package.metrics if item.source_datapoint_id == "E1-6_12")
+    derivation = next(item for item in package.derivations if item.target_metric_id.endswith("dp12"))
+    assert dp09.fact_grain == "one_source_value_cell_per_period_entity"
+    assert "esrs.2023-set1.e1-6.dp10" in dp09.confusable_metric_ids
+    assert dp12.extraction_strategy == "reported_or_derived"
+    assert "reporting_period_raw" in derivation.required_match_fields
+    assert "esrs.2023-set1.e1-6.dimension.reporting-entity" in derivation.required_match_fields
 
 
 def test_new_structure_package_rejects_repeated_task_dimension(tmp_path: Path) -> None:

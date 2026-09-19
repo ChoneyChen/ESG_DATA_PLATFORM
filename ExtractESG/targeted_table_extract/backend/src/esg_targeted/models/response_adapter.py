@@ -95,8 +95,11 @@ class DirectFillResponseAdapter:
         actions: list[str],
     ) -> dict[str, Any]:
         rows = payload.get("rows")
-        if not isinstance(rows, list):
-            raise ModelResponseError("rows must be an array")
+        row_groups = payload.get("row_groups")
+        if isinstance(row_groups, list):
+            rows = cls._flatten_row_groups(row_groups, actions)
+        elif not isinstance(rows, list):
+            raise ModelResponseError("row_groups or legacy rows must be an array")
 
         elements = {
             item.get("element_code"): item
@@ -147,6 +150,7 @@ class DirectFillResponseAdapter:
                     f"row {row_index} contains unknown standard field: "
                     f"{', '.join(unknown_fields)}"
                 )
+            raw_row["_span_aliases"] = packet.alias_map.get("spans", {})
             target_contract = cls._resolve_target_cell(
                 raw_row,
                 fields,
@@ -154,6 +158,7 @@ class DirectFillResponseAdapter:
                 primary_fields,
                 row_index=row_index,
                 allow_unlisted_visual=visual_used,
+                actions=actions,
             )
             group_alias = raw_row.get("group")
             if target_contract is not None:
@@ -319,17 +324,35 @@ class DirectFillResponseAdapter:
         *,
         row_index: int,
         allow_unlisted_visual: bool,
+        actions: list[str],
     ):
         if not contracts:
             return None
         by_alias = {item.alias: item for item in contracts if item.alias}
         supplied = row.get("target_cell")
         if supplied is not None:
-            if not isinstance(supplied, str) or supplied not in by_alias:
-                raise ModelResponseError(
-                    f"row {row_index} contains unknown target_cell: {supplied!r}"
+            if isinstance(supplied, str) and supplied in by_alias:
+                return by_alias[supplied]
+            # Some structured extractors copy the visible value or S alias into
+            # target_cell. Resolve only a unique, same-group physical cell.
+            span_aliases = row.get("_span_aliases") or {}
+            group_alias = row.get("group")
+            equivalent = [
+                item
+                for item in contracts
+                if (group_alias is None or item.group_alias == group_alias)
+                and isinstance(supplied, str)
+                and (
+                    values_equivalent(supplied, item.value_forms)
+                    or span_aliases.get(supplied) == item.span_id
                 )
-            return by_alias[supplied]
+            ]
+            if len(equivalent) == 1:
+                actions.append("resolve_target_cell_from_unique_visible_value_or_span")
+                return equivalent[0]
+            raise ModelResponseError(
+                f"row {row_index} contains unknown target_cell: {supplied!r}"
+            )
 
         group_alias = row.get("group")
         primary_values = [
@@ -355,6 +378,52 @@ class DirectFillResponseAdapter:
             "model response violates target-cell contract: "
             f"row {row_index} requires a supplied target_cell ({reason})"
         )
+
+    @staticmethod
+    def _flatten_row_groups(
+        row_groups: list[Any], actions: list[str]
+    ) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for group_index, row_group in enumerate(row_groups, 1):
+            if not isinstance(row_group, dict):
+                raise ModelResponseError(f"row_group {group_index} must be an object")
+            shared_fields = row_group.get("shared_fields") or {}
+            values = row_group.get("values")
+            if not isinstance(shared_fields, dict):
+                raise ModelResponseError(
+                    f"row_group {group_index} shared_fields must be an object"
+                )
+            if not isinstance(values, list):
+                raise ModelResponseError(
+                    f"row_group {group_index} values must be an array"
+                )
+            for value_index, value in enumerate(values, 1):
+                if not isinstance(value, dict) or not isinstance(value.get("fields"), dict):
+                    raise ModelResponseError(
+                        f"row_group {group_index} value {value_index} requires fields"
+                    )
+                fields = dict(shared_fields)
+                for field_name, field_value in value["fields"].items():
+                    shared = fields.get(field_name)
+                    if shared is not None and field_value is not None and shared != field_value:
+                        raise ModelResponseError(
+                            f"row_group {group_index} value {value_index} conflicts "
+                            f"with shared field {field_name}"
+                        )
+                    if field_value is not None:
+                        fields[field_name] = field_value
+                rows.append(
+                    {
+                        "target_cell": value.get("target_cell"),
+                        "group": row_group.get("group"),
+                        "fields": fields,
+                        "metric_match": row_group.get("metric_match", "match"),
+                        "interpretation_note": row_group.get("interpretation_note"),
+                        "context_refs": row_group.get("context_refs") or [],
+                    }
+                )
+        actions.append("expand_physical_row_groups")
+        return rows
 
     @classmethod
     def _fill_structural_fields(
@@ -722,9 +791,10 @@ def _salvage_complete_direct_fill_rows(raw_output: str) -> dict[str, Any] | None
 
     cleaned = _strip_fence(raw_output.strip())
     cleaned = TRAILING_SPECIAL_TOKEN_RE.sub("", cleaned).rstrip()
-    match = re.search(r'"rows"\s*:\s*\[', cleaned)
+    match = re.search(r'"(row_groups|rows)"\s*:\s*\[', cleaned)
     if match is None:
         return None
+    collection_name = match.group(1)
     cursor = match.end()
     rows: list[dict[str, Any]] = []
     decoder = json.JSONDecoder(parse_float=str, parse_int=str)
@@ -751,7 +821,7 @@ def _salvage_complete_direct_fill_rows(raw_output: str) -> dict[str, Any] | None
     return {
         "task_id": _extract_json_string_field(cleaned, "task_id"),
         "status": "partial",
-        "rows": rows,
+        collection_name: rows,
         "uncertainty_code": "insufficient_evidence",
     }
 

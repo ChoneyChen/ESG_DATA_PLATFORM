@@ -105,9 +105,11 @@ function statusLabel(value) {
     queued: "排队中", running: "运行中", completed: "已完成", partial: "部分完成",
     failed: "失败", cancelled: "已取消", interrupted: "已中断", found: "已找到",
     not_found: "未找到", ambiguous: "不确定", pending: "处理中", reported: "直接披露",
-    not_found_after_complete_search: "完整检索后未找到", auto_verified: "来源与合同已核对",
+    not_found_after_complete_search: "完整检索后未找到", auto_verified: "历史自动通过",
     human_required: "需人工判断", system_contract_failed: "结果合同失败",
-    passed: "通过", warning: "警告",
+    passed: "通过", warning: "警告", decided: "模型已裁决", unresolved: "语义未收敛",
+    ready: "展示身份完整", needs_semantic_completion: "语义身份待补全",
+    not_applicable: "不适用", not_run: "未执行",
   }[value] || value || "未产生";
 }
 
@@ -892,7 +894,17 @@ function metricQualityClass(metric) {
 function factQualitySummary(metric, fact) {
   const issues = fact?.quality_issues || [];
   if (issues.length) return issues.map((item) => item.message).join("；");
-  return metric.guard_accepted === true ? "Guard 通过" : metric.guard_accepted === false ? "Guard 未通过" : "Guard 未执行";
+  if (metric.display_readiness_status === "needs_semantic_completion") return "语义身份待补全";
+  return metric.guard_accepted === true ? "来源绑定通过" : metric.guard_accepted === false ? "来源绑定未通过" : "来源绑定未执行";
+}
+
+function metricVerificationSummary(metric) {
+  return [
+    `来源 ${statusLabel(metric.source_validation_status)}`,
+    `合同 ${statusLabel(metric.contract_validation_status || "not_run")}`,
+    `语义 ${statusLabel(metric.semantic_decision_status)}`,
+    `展示 ${statusLabel(metric.display_readiness_status)}`,
+  ].join(" · ");
 }
 
 function renderMetricFactTable(metric, facts) {
@@ -969,7 +981,7 @@ function renderTargetMetricTable() {
       <td><span class="status-pill ${esc(metric.status)}">${esc(blocked ? "服务商账户阻塞" : statusLabel(metric.status))}</span></td>
       <td class="metric-count"><strong>${factCount}</strong><small>行事实</small></td>
       <td class="metric-count"><strong>${evidenceCount}</strong><small>条引用</small></td>
-      <td><strong>${guard}</strong></td>
+      <td><strong>${guard}</strong><small>${esc(metricVerificationSummary(metric))}</small></td>
       <td>${esc(blocked ? "无模型输出" : statusLabel(metric.review_status))}</td>
       <td><span class="metric-open-hint">查看 ${factCount} 行 →</span></td>
     </tr>`;

@@ -19,7 +19,7 @@ from esg_targeted.ids import stable_id
 
 
 class CoreResultMaterializer:
-    materializer_version = "core-result-materializer-v2"
+    materializer_version = "core-result-materializer-v3"
 
     def materialize(
         self,
@@ -43,7 +43,11 @@ class CoreResultMaterializer:
         attributes: list[dict[str, Any]] = []
         dimensions: list[dict[str, Any]] = []
         evidence: list[dict[str, Any]] = []
-        review_status = "auto_verified" if guard.accepted else "human_required"
+        # Grounding proves source/shape consistency only.  It does not constitute
+        # business approval of the model's ESG interpretation.  Keep model-created
+        # records pending and expose the independent validation stages on the
+        # TaskOutcome instead of overloading one optimistic review label.
+        review_status = "pending" if guard.accepted else "human_required"
         has_matched_group = any(
             group.metric_match == "match" for group in decision.fact_groups
         )
@@ -156,11 +160,14 @@ class CoreResultMaterializer:
                     )
                 )
 
-            if "qualitative_assertion" in record_types and any(
+            has_explicit_statement = any(
                 item["element"].binding.record_type.value == "qualitative_assertion"
+                and item["element"].binding.storage.value == "core_field"
+                and item["element"].binding.target == "statement_raw"
                 and item["assignment"] is not None
                 for item in resolved
-            ):
+            )
+            if "qualitative_assertion" in record_types and has_explicit_statement:
                 assertion_id = stable_id(
                     "assert", packet.task_id, group.group_ref_id, group_index
                 )
@@ -174,8 +181,6 @@ class CoreResultMaterializer:
                     review_status,
                 )
                 self._apply_core_fields(assertion, resolved, "qualitative_assertion")
-                if not assertion["statement_raw"] and evidence_span_ids:
-                    assertion["statement_raw"] = spans[evidence_span_ids[0]].text
                 qualitative.append(assertion)
                 parent_evidence_sets[assertion_id] = evidence_set_id
                 evidence.extend(
@@ -296,7 +301,27 @@ class CoreResultMaterializer:
                 )
 
         has_unmapped = any(g.metric_match != "match" for g in decision.fact_groups)
-        effective_status = "partial" if has_unmapped else decision.status
+        incomplete_qualitative_groups = sum(
+            group.metric_match == "match"
+            and any(
+                elements_by_id[item.element_id].binding.record_type.value
+                == "qualitative_assertion"
+                for item in group.assignments
+            )
+            and not any(
+                elements_by_id[item.element_id].binding.record_type.value
+                == "qualitative_assertion"
+                and elements_by_id[item.element_id].binding.storage.value == "core_field"
+                and elements_by_id[item.element_id].binding.target == "statement_raw"
+                for item in group.assignments
+            )
+            for group in decision.fact_groups
+        )
+        effective_status = (
+            "partial"
+            if has_unmapped or incomplete_qualitative_groups
+            else decision.status
+        )
         found_status = {
             "found": "reported",
             "partial": "partial",
@@ -312,6 +337,28 @@ class CoreResultMaterializer:
         uncertainty = None if decision.uncertainty_code == "none" else decision.uncertainty_code
         if has_unmapped:
             uncertainty = "Reported measurements retained; metric scope/method remains unconfirmed or different."
+        elif incomplete_qualitative_groups:
+            uncertainty = (
+                "Qualitative rows lacked an explicit evidence-grounded statement or list "
+                "member and were not converted from numeric/period evidence."
+            )
+        display_readiness = self._display_readiness(
+            quantitative=quantitative,
+            qualitative=qualitative,
+            dimensions=dimensions,
+            fixed_element_ids={
+                element_id
+                for element_id in package.elements_by_metric[metric.metric_id]
+                if elements_by_id[element_id].value_contract.fixed_value is not None
+            },
+        )
+        semantic_status = (
+            "unresolved"
+            if effective_status in {"partial", "ambiguous"}
+            else "decided"
+            if decision.status in {"found", "not_found"}
+            else "not_run"
+        )
         task_record = {
             "task_id": packet.task_id,
             "report_id": packet.spans[0].document_id if packet.spans else packet.task_id,
@@ -348,6 +395,9 @@ class CoreResultMaterializer:
                 "evidence_reference": len(evidence),
             },
             uncertainty_reason=uncertainty,
+            source_validation_status="passed" if guard.accepted else "failed",
+            semantic_decision_status=semantic_status,
+            display_readiness_status=display_readiness,
         )
         return MaterializedTaskResult(
             outcome=outcome,
@@ -358,6 +408,50 @@ class CoreResultMaterializer:
             dimension_values=dimensions,
             evidence_references=evidence,
         )
+
+    @staticmethod
+    def _display_readiness(
+        *, quantitative, qualitative, dimensions, fixed_element_ids=None
+    ) -> str:
+        facts = [*quantitative, *qualitative]
+        if not facts:
+            return "not_applicable"
+        if len(facts) == 1:
+            return "ready"
+        fixed_element_ids = set(fixed_element_ids or ())
+        dimensions_by_parent: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for item in dimensions:
+            dimensions_by_parent[item["parent_record_id"]].append(item)
+
+        identities = []
+        for fact in facts:
+            fact_id = fact.get("observation_id") or fact.get("assertion_id")
+            typed_dimensions = tuple(sorted(
+                (
+                    item.get("element_id"),
+                    str(item.get("value_code") or item.get("value_raw") or "").strip(),
+                )
+                for item in dimensions_by_parent.get(fact_id, [])
+                if item.get("element_id") not in fixed_element_ids
+                if item.get("value_code") or str(item.get("value_raw") or "").strip()
+            ))
+            identities.append((
+                str(fact.get("reporting_period_raw") or fact.get("reporting_year") or "").strip(),
+                str(fact.get("reporting_boundary") or "").strip(),
+                typed_dimensions,
+            ))
+        periods = [identity[0] for identity in identities]
+        distinct_periods = len(set(periods)) == len(periods) and all(periods)
+        # This is a display warning, not a semantic veto.  A package-fixed scope
+        # does not distinguish sibling rows.  Repeated identities are allowed,
+        # however, because two source columns may be equivalent unit
+        # presentations of one measurement (for example GWh and TJ).  The
+        # organizer links those losslessly after materialization.
+        sufficiently_identified = all(
+            period and (typed_dimensions or boundary or distinct_periods)
+            for period, boundary, typed_dimensions in identities
+        )
+        return "ready" if sufficiently_identified else "needs_semantic_completion"
 
     @staticmethod
     def _resolve_value(source: Any, value_raw: str | None = None) -> dict[str, Any]:

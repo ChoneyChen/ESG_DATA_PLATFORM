@@ -10,7 +10,11 @@ from esg_targeted.contracts import (
 )
 from esg_targeted.evidence.harvester import LiteralHarvester
 from esg_targeted.evidence.units import canonical_unit_id
-from esg_targeted.retrieval.fact_pattern import contains_term, evaluate_fact_pattern
+from esg_targeted.retrieval.fact_pattern import (
+    candidate_types_compatible,
+    contains_term,
+    evaluate_fact_pattern,
+)
 from esg_targeted.retrieval.hybrid import HybridRetriever
 from esg_targeted.retrieval.sufficiency import EvidenceSufficiencyGate
 from esg_targeted.standards.catalog import StandardPackageCatalog
@@ -201,6 +205,15 @@ def test_literal_harvester_recognises_energy_ghg_currency_and_intensity_units() 
     assert any(value == "0.42" and unit == "tCO2e/百万元" for value, unit, _ in quantities)
     assert any(value == "2.3" and unit == "亿元" for value, unit, _ in quantities)
     assert not any(value == "45" and unit == "%" for value, unit, _ in quantities)
+
+
+def test_split_zero_and_percent_unit_is_a_compatible_percentage_group() -> None:
+    inventory = _inventory([
+        _span("0", "cell-zero", group_id="row:percentage", span_type="table_cell"),
+        _span("%", "cell-percent", group_id="row:percentage", span_type="table_cell"),
+    ])
+
+    assert candidate_types_compatible(["percentage"], inventory.candidates)
 
 
 def test_retrieval_normalizes_traditional_scope_and_latex_ghg_units() -> None:

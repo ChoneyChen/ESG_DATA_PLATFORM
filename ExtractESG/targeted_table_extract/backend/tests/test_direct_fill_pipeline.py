@@ -16,7 +16,7 @@ def test_output_contract_is_compiled_from_standard_package_elements(tmp_path) ->
     packet = regions[0]
     context = json.loads(packet.model_context)
     expected = {item["code"] for item in context["elements"]}
-    fields = DirectFillTemplateCompiler().compile(packet)["rows"][0]["fields"]
+    fields = DirectFillTemplateCompiler().compile(packet)["row_groups"][0]["shared_fields"]
     assert set(fields) == expected
     assert "pollution_medium" not in fields  # fixed by the standard package
 
@@ -32,10 +32,10 @@ def test_qiniu_schema_allows_multiple_rows_and_direct_scalar_fields(tmp_path) ->
     )
     response_format = model._decision_response_format(packet)
     schema = response_format["json_schema"]["schema"]
-    assert schema["properties"]["rows"]["maxItems"] > 1
-    amount = schema["properties"]["rows"]["items"]["properties"]["fields"][
-        "properties"
-    ]["emission_amount"]
+    assert schema["properties"]["row_groups"]["maxItems"] > 1
+    amount = schema["properties"]["row_groups"]["items"]["properties"]["values"][
+        "items"
+    ]["properties"]["fields"]["properties"]["emission_amount"]
     assert {item["type"] for item in amount["anyOf"]} == {
         "null",
         "string",
@@ -64,7 +64,8 @@ def test_prompt_explicitly_delegates_semantics_and_visual_reading_to_model(tmp_p
     _, _, regions, _, _ = build_pipeline(tmp_path)
     instructions = DirectFillTemplateCompiler.instructions()
     assert "directly fill" in instructions
-    assert "ONE APPLICABLE NUMERIC VALUE CELL OR DATA POINT = ONE OUTPUT ROW" in instructions
+    assert "ONE APPLICABLE NUMERIC VALUE CELL OR DATA POINT = ONE values ITEM" in instructions
+    assert "PHYSICAL SOURCE ROW" in instructions
     assert "DIRECT scalar" in instructions
     assert "local adapter binds provenance" in instructions
     assert "NOT reporting_boundary" in instructions

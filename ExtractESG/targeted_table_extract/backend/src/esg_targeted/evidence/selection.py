@@ -105,7 +105,8 @@ class EvidenceSelectionCompiler:
                     scoped_rankings.append((ranked_object, scope))
                     semantic_review_used = True
                     break
-        selected_scopes = scoped_rankings[: self.max_retrieved_objects]
+        effective_object_limit = self._effective_object_limit(metric)
+        selected_scopes = scoped_rankings[:effective_object_limit]
         selected_object_keys = [
             (ranked.kind, ranked.object_id) for ranked, _ in selected_scopes
         ]
@@ -208,7 +209,8 @@ class EvidenceSelectionCompiler:
                 "span_count": len(selected),
                 "candidate_count": len(candidates),
                 "visual_artifact_count": len(images),
-                "retrieval_object_limit": self.max_retrieved_objects,
+                "retrieval_object_limit": effective_object_limit,
+                "configured_retrieval_object_limit": self.max_retrieved_objects,
                 "selected_retrieval_object_count": len(selected_object_keys),
                 "selection_unit": "independent_evidence_object",
                 "semantic_model_review_fallback": semantic_review_used,
@@ -259,7 +261,8 @@ class EvidenceSelectionCompiler:
                 "selected_candidate_count": len(candidates),
                 "visual_artifact_count": len(images),
                 "selection_truncated": truncated,
-                "retrieval_object_limit": self.max_retrieved_objects,
+                "retrieval_object_limit": effective_object_limit,
+                "configured_retrieval_object_limit": self.max_retrieved_objects,
                 "selected_retrieval_object_count": len(selected_object_keys),
                 "semantic_model_review_fallback": semantic_review_used,
                 "retrieval_object_limit_reached": object_limit_reached,
@@ -298,6 +301,23 @@ class EvidenceSelectionCompiler:
                 result.append(path)
         return result[: self.max_visual_artifacts]
 
+    def _effective_object_limit(self, metric: MetricDefinition) -> int:
+        """Use Top N as a ceiling while matching evidence breadth to fact shape."""
+
+        if metric.value_family == "percentage":
+            desired = 3
+        elif metric.data_class.value in {"qualitative", "narrative"}:
+            desired = 3
+        elif metric.data_class.value == "structure":
+            desired = 2
+        elif metric.data_class.value == "mixed":
+            desired = 2
+        else:
+            # Preserve the proven pollution/quantity evidence breadth until
+            # primary-object ranking has its own golden baseline.
+            desired = self.max_retrieved_objects
+        return max(1, min(self.max_retrieved_objects, desired))
+
     @staticmethod
     def _span_rank(span_type: str) -> int:
         return {
@@ -320,6 +340,13 @@ class EvidenceSelectionCompiler:
             "data_class": metric.data_class.value,
             "value_family": metric.value_family,
             "cardinality": metric.cardinality.model_dump(mode="json"),
+            "fact_grain": metric.fact_grain,
+            "measurement_kind": metric.measurement_kind,
+            "required_semantic_discriminators": metric.required_semantic_discriminators,
+            "confusable_metric_ids": metric.confusable_metric_ids,
+            "evidence_form": metric.evidence_form,
+            "extraction_strategy": metric.extraction_strategy,
+            "identity_axes": metric.identity_axes,
         }
 
     @staticmethod

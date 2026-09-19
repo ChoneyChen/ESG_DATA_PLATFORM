@@ -293,6 +293,11 @@ class TaskOutcome(StrictModel):
     attempts: int
     result_counts: dict[str, int]
     uncertainty_reason: str | None = None
+    source_validation_status: Literal["passed", "failed", "not_run"] = "not_run"
+    semantic_decision_status: Literal["decided", "unresolved", "not_run"] = "not_run"
+    display_readiness_status: Literal[
+        "ready", "needs_semantic_completion", "not_applicable"
+    ] = "not_applicable"
     contract_validation_status: Literal["passed", "failed"] | None = None
     contract_error: str | None = None
 

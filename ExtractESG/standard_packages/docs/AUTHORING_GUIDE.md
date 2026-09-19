@@ -64,6 +64,18 @@ Schema 契约并发布新格式版本。
 - `context_concept_ids`：期间、范围、方法等辅助语义，不作为主体概念；
 - `excluded_concept_ids`：标准明确排除或容易混淆的概念。
 
+需要多行事实或存在相近指标族时，建议再声明：
+
+- `fact_grain`：一条结果代表源行、源单元格、清单成员还是整段断言；
+- `measurement_kind`：数量、比例、强度、定性结构等测量类别；
+- `required_semantic_discriminators`：期间、实体、范围、方法、类别等必须由结果区分的语义轴；
+- `confusable_metric_ids`：可能命中同一证据、需要联合检查的兄弟指标；
+- `evidence_form`：期望的表格行、文本说明、脚注/方法上下文等证据形态；
+- `extraction_strategy`：`reported`、`derived` 或 `reported_or_derived`；
+- `identity_axes`：后台排序、组织和重复判定所需的事实身份轴。
+
+这些字段表达结果语义，不得写入 Top N、provider、prompt 文本或报告专属规则。
+
 这里表达的是标准语义关系，不是 BM25 权重、查询模板或模型执行配置。
 
 不得在 metric 中预设“报告一定有值”，也不得用空事实记录表示未披露。

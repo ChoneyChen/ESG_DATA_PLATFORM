@@ -39,6 +39,7 @@ from esg_targeted.models.protocols import SemanticFillModel
 from esg_targeted.models.qiniu_vlm import QiniuVlmModel
 from esg_targeted.results.exporter import ResultExporter
 from esg_targeted.results.deduplicator import ExactFactDeduplicator
+from esg_targeted.results.semantic_conflicts import SemanticConflictAuditor
 from esg_targeted.results.materializer import CoreResultMaterializer
 from esg_targeted.results.spec import (
     RECORD_LAYOUT,
@@ -694,6 +695,45 @@ class TargetedExtractionWorkflow:
                 outcomes.append(outcome)
                 self.job_store.update(job_id, progress_current=index)
 
+            semantic_conflicts = SemanticConflictAuditor().audit(records, package)
+            if semantic_conflicts:
+                conflicted_metrics = {
+                    metric_id
+                    for conflict in semantic_conflicts
+                    for metric_id in conflict["metric_ids"]
+                }
+                for outcome in outcomes:
+                    if outcome.get("metric_id") not in conflicted_metrics:
+                        continue
+                    outcome.update(
+                        status="partial" if outcome.get("status") == "found" else outcome.get("status"),
+                        review_status="human_required",
+                        semantic_decision_status="unresolved",
+                        display_readiness_status="needs_semantic_completion",
+                        uncertainty_reason=(
+                            "Sibling metrics assigned the same physical source cell to "
+                            "incompatible fixed dimensions; joint model re-adjudication is required."
+                        ),
+                    )
+                for task in records.get("reporting_tasks", []):
+                    if task.get("metric_id") in conflicted_metrics:
+                        task.update(
+                            task_status="partial",
+                            found_status="partial",
+                            review_status="human_required",
+                            uncertainty_reason=(
+                                "Cross-metric semantic conflict requires joint re-adjudication."
+                            ),
+                        )
+                self.artifact_store.write_json(
+                    job_id,
+                    "semantic-conflicts.json",
+                    {
+                        "schema_version": "semantic-conflicts-v1",
+                        "conflict_count": len(semantic_conflicts),
+                        "conflicts": semantic_conflicts,
+                    },
+                )
             contract_validation = contract_validator.validate(records)
             summary = self._summary(
                 job_id,
@@ -705,10 +745,17 @@ class TargetedExtractionWorkflow:
                 contract_validation,
                 model_executions,
             )
+            summary["semantic_conflicts"] = {
+                "count": len(semantic_conflicts),
+                "artifact": "semantic-conflicts.json" if semantic_conflicts else None,
+            }
             accepted_count = sum(
                 item["guard_accepted"]
-                and item["status"] != "ambiguous"
+                and item["status"] in {"found", "not_found"}
                 and item.get("contract_validation_status") == "passed"
+                and item.get("semantic_decision_status") != "unresolved"
+                and item.get("display_readiness_status")
+                != "needs_semantic_completion"
                 for item in outcomes
             )
             has_contract_failures = any(

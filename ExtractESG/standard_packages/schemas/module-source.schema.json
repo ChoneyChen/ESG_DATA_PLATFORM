@@ -210,6 +210,15 @@
           "title": "Required Match Dimensions",
           "type": "array"
         },
+        "required_match_fields": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Required Match Fields",
+          "type": "array"
+        },
         "rule_id": {
           "minLength": 3,
           "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
@@ -535,6 +544,15 @@
         "cardinality": {
           "$ref": "#/$defs/Cardinality"
         },
+        "confusable_metric_ids": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Confusable Metric Ids",
+          "type": "array"
+        },
         "context_concept_ids": {
           "items": {
             "minLength": 3,
@@ -555,6 +573,15 @@
           "title": "Disclosure Requirement",
           "type": "string"
         },
+        "evidence_form": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Evidence Form",
+          "type": "array"
+        },
         "excluded_concept_ids": {
           "items": {
             "minLength": 3,
@@ -564,12 +591,59 @@
           "title": "Excluded Concept Ids",
           "type": "array"
         },
+        "extraction_strategy": {
+          "default": "reported",
+          "enum": [
+            "reported",
+            "derived",
+            "reported_or_derived"
+          ],
+          "title": "Extraction Strategy",
+          "type": "string"
+        },
+        "fact_grain": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fact Grain"
+        },
+        "identity_axes": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Identity Axes",
+          "type": "array"
+        },
         "labels": {
           "additionalProperties": {
             "type": "string"
           },
           "title": "Labels",
           "type": "object"
+        },
+        "measurement_kind": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measurement Kind"
         },
         "metric_id": {
           "minLength": 3,
@@ -608,6 +682,15 @@
             "type": "string"
           },
           "title": "Required Dimension Ids",
+          "type": "array"
+        },
+        "required_semantic_discriminators": {
+          "items": {
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "type": "string"
+          },
+          "title": "Required Semantic Discriminators",
           "type": "array"
         },
         "source_datapoint_id": {

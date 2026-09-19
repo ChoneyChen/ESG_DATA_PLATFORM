@@ -200,6 +200,7 @@ class EvidenceObjectRanker:
         object_text = "\n".join(item.context_text for item in spans)
         navigation_like = any(contains_term(object_text, term) for term in NAVIGATION_TERMS)
         quantitative = query.data_class in {"quantitative", "mixed"}
+        qualitative = query.data_class in {"qualitative", "narrative", "structure"}
 
         reasons = ["span_scores_aggregated"]
         score = hit_signal
@@ -217,6 +218,12 @@ class EvidenceObjectRanker:
         if key[0] in {"table", "figure"}:
             score += 0.006
             reasons.append("structured_object")
+        if qualitative and key[0] in {"block", "group"}:
+            score += 0.025
+            reasons.append("bounded_text_preferred_for_qualitative")
+        if qualitative and key[0] == "table" and primary_literals >= 20:
+            score -= 0.035
+            reasons.append("numeric_table_deprioritized_for_qualitative")
         if quantitative and fillable_groups == 0:
             score -= 0.065
             reasons.append("no_fillable_quantity")

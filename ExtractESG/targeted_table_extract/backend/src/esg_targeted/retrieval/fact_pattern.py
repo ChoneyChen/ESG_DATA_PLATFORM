@@ -144,6 +144,13 @@ def candidate_types_compatible(
     if "number" in expected_types and "number" in actual:
         if "unit" in actual or any(candidate.unit_raw for candidate in candidate_list):
             return True
+    if "percentage" in expected_types and "number" in actual:
+        if any(
+            candidate.candidate_type == "unit"
+            and str(candidate.unit_raw or candidate.raw_value).strip() in {"%", "％", "百分比"}
+            for candidate in candidate_list
+        ):
+            return True
     return bool(expected_types & actual)
 
 
@@ -161,6 +168,10 @@ def candidate_allowed_in_packet(candidate_type: str, query: MetricQuery) -> bool
         }
     allowed = {*expected, "date", "date_range", "year", "unit"}
     if "quantity" in expected:
+        allowed.add("number")
+    if "percentage" in expected:
+        # Structured tables commonly split `0` and `%` into adjacent cells.  The
+        # group-level FactPattern recombines them without inventing a percentage.
         allowed.add("number")
     return candidate_type in allowed
 

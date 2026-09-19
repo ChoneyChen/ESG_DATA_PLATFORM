@@ -311,6 +311,13 @@ class MetricDefinition(StrictModel):
     subject_concept_groups: list[list[StableId]] = Field(default_factory=list)
     context_concept_ids: list[StableId] = Field(default_factory=list)
     excluded_concept_ids: list[StableId] = Field(default_factory=list)
+    fact_grain: StableId | None = None
+    measurement_kind: StableId | None = None
+    required_semantic_discriminators: list[StableId] = Field(default_factory=list)
+    confusable_metric_ids: list[StableId] = Field(default_factory=list)
+    evidence_form: list[StableId] = Field(default_factory=list)
+    extraction_strategy: Literal["reported", "derived", "reported_or_derived"] = "reported"
+    identity_axes: list[StableId] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def check_dimensions_and_origins(self) -> "MetricDefinition":
@@ -407,6 +414,7 @@ class DerivationRule(StrictModel):
     operation: Literal["ratio", "sum"]
     operands: list[DerivationOperand]
     required_match_dimensions: list[StableId]
+    required_match_fields: list[StableId] = Field(default_factory=list)
     unit_policy: StableId
     guards: list[Predicate]
     execution_stage: Literal["data_processing"]

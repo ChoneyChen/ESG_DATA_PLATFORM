@@ -19,9 +19,66 @@ from tests.test_inventory_and_guard import build_pipeline, complete_row
 def test_template_group_is_a_scalar_alias(tmp_path) -> None:
     _, _, regions, _, _ = build_pipeline(tmp_path)
     packet = regions[0]
-    group = DirectFillTemplateCompiler().compile(packet)["rows"][0]["group"]
+    group = DirectFillTemplateCompiler().compile(packet)["row_groups"][0]["group"]
     assert isinstance(group, str)
     assert group in packet.alias_map["groups"]
+
+
+def test_row_group_classification_expands_to_distinct_cell_facts(tmp_path) -> None:
+    _, _, regions, _, _ = build_pipeline(tmp_path)
+    packet = next(item for item in regions if json.loads(item.model_context)["region"]["target_value_cells"])
+    context = json.loads(packet.model_context)
+    first = context["region"]["target_value_cells"][0]
+    second = {**first, "id": "T2", "cell_id": f"{first['cell_id']}-sibling"}
+    context["region"]["target_value_cells"] = [first, second]
+    packet = packet.model_copy(update={
+        "model_context": json.dumps(context, ensure_ascii=False, separators=(",", ":")),
+        "alias_map": {
+            **packet.alias_map,
+            "target_cells": {**packet.alias_map.get("target_cells", {}), "T2": second["cell_id"]},
+        },
+    }, deep=True)
+    fields = {item["code"]: None for item in context["elements"]}
+    payload = {
+        "task_id": packet.task_id,
+        "status": "found",
+        "row_groups": [{
+            "group": first["group"],
+            "metric_match": "match",
+            "interpretation_note": "同一物理行，按列展开。",
+            "context_refs": [],
+            "shared_fields": fields,
+            "values": [
+                {"target_cell": first["id"], "fields": {**fields, "emission_amount": first["visible_value"]}},
+                {"target_cell": second["id"], "fields": {**fields, "emission_amount": second["visible_value"]}},
+            ],
+        }],
+        "uncertainty_code": "none",
+        "skipped_targets": [],
+        "missing_context": [],
+    }
+    decision, _, actions = DirectFillResponseAdapter().parse_with_diagnostics(
+        json.dumps(payload, ensure_ascii=False), packet=packet
+    )
+    assert len(decision.fact_groups) == 2
+    assert len({group.group_ref_id for group in decision.fact_groups}) == 2
+    assert "expand_physical_row_groups" in actions
+
+
+def test_target_cell_visible_value_is_losslessly_resolved_to_unique_t_alias(tmp_path) -> None:
+    _, _, regions, _, _ = build_pipeline(tmp_path)
+    packet = next(item for item in regions if json.loads(item.model_context)["region"]["target_value_cells"])
+    context = json.loads(packet.model_context)
+    target = context["region"]["target_value_cells"][0]
+    fields = {item["code"]: None for item in context["elements"]}
+    fields["emission_amount"] = target["visible_value"]
+    row = {"target_cell": target["visible_value"], "group": target["group"], "fields": fields}
+    decision, _, actions = DirectFillResponseAdapter().parse_with_diagnostics(
+        json.dumps({"task_id": packet.task_id, "status": "found", "rows": [row], "uncertainty_code": "none"}, ensure_ascii=False),
+        packet=packet,
+    )
+    assert len(decision.fact_groups) == 1
+    assert "resolve_target_cell_from_unique_visible_value_or_span" in actions
 
 
 def test_typed_entity_is_not_duplicated_into_legacy_breakdown() -> None:

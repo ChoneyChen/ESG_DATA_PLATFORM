@@ -14,10 +14,13 @@ IG3_URL = (
     "EFRAG%20IG%203%20List%20of%20ESRS%20Data%20Points%20%281%29%20%281%29.xlsx"
 )
 E1_5_PACKAGE_VERSION = "1.2.0"
-E1_6_PACKAGE_VERSION = "1.3.0"
+E1_6_PACKAGE_VERSION = "1.4.0"
 
 # Semantic definitions are standard data, not runtime rules or lexical gates.
 SEMANTIC_DEFINITIONS = {
+    "E1-6_01": "范围1、范围2、范围3及温室气体总量披露的结构。识别报告实际采用的行主题、期间列、实体列、单位和总计层级；输出结构成员或说明，不把表内所有数字复制成结构事实。",
+    "E1-6_02": "企业说明温室气体盘查采用的组织边界，包括财务控制、运营控制或其他明确方法。每种实际采用的方法形成可独立举证的断言；不能把表中公司名称、合计列或数值当作边界方法。",
+    "E1-6_03": "企业对温室气体排放采用的分解维度，例如国家、经营分部、经济活动、子公司、设施或排放源。输出实际披露的分解轴，不输出这些轴下的每个数值单元格。",
     "E1-6_04": "企业按照 GHG Protocol 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 GHG Protocol 口径时才匹配本指标，不能仅凭出现范围3类别推定分类体系。",
     "E1-6_05": "企业按照 ISO 14064-1 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 ISO 14064-1 口径时才匹配本指标，不能把普通 GHG Protocol 类别表改贴为 ISO 分类。",
     "E1-6_06": "企业对范围3排放所作的价值链阶段分解。上游和下游等实际披露阶段分别形成独立清单事实并保留证据；合计、标题和注释不是价值链阶段。",
@@ -25,6 +28,31 @@ SEMANTIC_DEFINITIONS = {
     "E1-6_08": "范围1温室气体排放中受受监管排放交易体系覆盖的比例；分母应为范围1排放。碳价情景、碳敞口、另一公司的 ETS 项目或一般排放限制比例不能仅因出现百分号而等同此指标。结合报告对交易机制和覆盖口径的说明判断。",
     "E1-6_09": "基于位置法核算的范围2温室气体绝对排放量。位置法依据能源消费所在地电网的平均排放因子；方法可能写在表注、核算政策或另一页。‘间接排放/范围2’本身没有声明方法；未说明时方法未知，不能同时认作位置法和市场法。与另一方法数值相同只有在报告确实声明两种方法时才可分别归属。",
     "E1-6_10": "基于市场法核算的范围2温室气体绝对排放量。市场法体现能源采购合同工具、供应商/产品特定排放属性及适用的剩余组合；方法可由报告核算说明支持，不要求逐字标签。仅披露用电、绿电比例或电网平均因子并不能独自证明市场法。方法未明的范围2测量应保留待确认，明确为位置法的不能贴上市方法标签。",
+    "E1-6_11": "按重大范围3类别披露的温室气体绝对排放量。每个类别、期间和实体单元格形成独立事实；总计、合计、小计、标题及注释不作为类别成员。相同数值出现在成员实体与合计列时仍是不同事实。",
+    "E1-6_12": "采用位置法范围2口径的温室气体总量，即范围1、位置法范围2及范围3的合计。优先提取报告明确披露的该总量；未直接披露时仅在数据处理阶段按相同期间、实体和边界派生。不能把单独的范围2位置法排放误当作总量。",
+    "E1-6_13": "采用市场法范围2口径的温室气体总量，即范围1、市场法范围2及范围3的合计。优先提取明确披露值；缺少市场法范围2时不得借用位置法数值或形成派生总量。",
+    "E1-6_14": "报告边界、核算方法、数据来源或排放因子的实际变更及其可比性影响。每个变更形成可读、可举证的陈述；年份、百分比或排放量本身不是变更说明。",
+    "E1-6_15": "温室气体核算采用的方法、关键假设、排放因子来源和计算工具。分别保留有语义的原文陈述；ISO、GHG Protocol、IPCC、电网因子或供应商参数只有在证据明确适用于本报告时才写入。",
+    "E1-6_16": "本报告期与上一个报告日期之间对排放具有显著影响的事件或变化。目录、披露索引和仅指向其他页码的导航信息不是事件证据。",
+    "E1-6_17": "从范围1排放中排除并单独披露的生物源二氧化碳绝对量。必须有明确的生物源或生物质 CO2 语义；普通范围1、其他温室气体或污染物排放不能替代。",
+    "E1-6_18": "与合同工具相关的范围2排放比例。分子、分母或文字说明必须明确连接范围2排放与合同工具；绿电或绿证的存在本身不等于该排放比例。",
+    "E1-6_19": "企业实际使用的合同工具类型清单，例如购电协议、能源属性证书或供应商特定工具。每类工具为独立清单成员；比例和范围2排放量不是工具类型。",
+    "E1-6_20": "基于市场法范围2排放中与捆绑合同工具相关的比例。需同时支持市场法、范围2、捆绑工具和比例语义；不能用一般绿电比例替代。",
+    "E1-6_21": "范围2排放中关联捆绑能源属性声明的比例。必须区分捆绑属性声明、非捆绑证书及一般合同工具。",
+    "E1-6_22": "范围2排放中关联非捆绑能源属性声明的比例。必须有非捆绑属性或证书的明确证据，不能从绿证名称推断比例。",
+    "E1-6_23": "合同工具的类型和组合方式说明。输出可读的工具组合陈述，不把范围2表中的数字、年份或单位转成定性断言。",
+    "E1-6_24": "从范围2排放中排除并单独披露的生物源二氧化碳绝对量。没有明确生物源语义时应为未找到，不能复制普通范围2排放。",
+    "E1-6_25": "使用供应商或其他价值链伙伴一手数据计算的范围3排放比例。需明确连接一手数据、范围3计算及比例口径。",
+    "E1-6_26": "企业排除某一范围3类别的具体理由。每条事实必须包含被排除类别及可读理由；类别排放数值或总计不是排除理由。",
+    "E1-6_27": "纳入温室气体盘查的范围3类别清单。每个类别形成独立列表事实并保留证据；总计、年份、单位和类别排放数字不是清单成员。",
+    "E1-6_28": "从范围3排放中排除并单独披露的生物源二氧化碳绝对量。没有明确生物源证据时不得从范围3类别表复制数值。",
+    "E1-6_29": "范围3盘查边界、计算方法、关键假设、数据来源和工具。输出实际方法陈述并分别举证，不能以类别数字或单位代替。",
+    "E1-6_30": "以采用位置法范围2的温室气体总量为分子、净收入为分母的排放强度。报告使用工业增加值、产量、面积或能源量作分母的强度不是本指标；派生时必须匹配期间、实体、边界和货币量级。",
+    "E1-6_31": "以采用市场法范围2的温室气体总量为分子、净收入为分母的排放强度。没有市场法总量或净收入分母时不得借用位置法或其他强度。",
+    "E1-6_32": "用于温室气体强度计算的净收入与财务报表净收入之间的对账说明。需有明确的对账关系、差异或一致性陈述；整张经济绩效表不是对账说明。",
+    "E1-6_33": "财务报表口径的净收入总额。只提取直接表示净收入或营业收入总额的期间/实体值；利润、资产、产量、资源量及其他经济指标不属于本指标。",
+    "E1-6_34": "企业实际用于温室气体强度分母的净收入。必须由强度计算说明或对账表明确支持；工业增加值、利润或一般营业收入不能在缺少关联证据时自动采用。",
+    "E1-6_35": "净收入对账中的其他净收入或调整项。只提取明确标记为对账其他项的货币值；利润、资产、产量和资源量不得纳入。",
     "E1-5_02": "企业自身运营消耗的化石来源能源总量，包括适用的煤炭、石油、天然气和其他化石来源及化石来源购入能源。载体分项或直接能源子总计不自动等同完整化石能源总量；区分总量、子总计、组成项、消费和生产，以及数量、变化率、比例和强度。",
     "E1-5_05": "企业自身运营消耗的可再生来源能源总量，包括可再生燃料及适用的外购、自发自用可再生能源；发电量不必然等于消费量。百分比、装机功率、能源强度、增长/减少量不是能源消费绝对总量。",
     "E1-5_12": "企业自身运营消耗的天然气能源量。结合直接行主体、载体层级和表头判断；‘其他直接能源’、煤或石油不是天然气。保留不同实体、期间的原值和原单位；同一测量可能同时以 GWh 和 TJ 等单位展示，不应相加。",
@@ -191,7 +219,7 @@ def dimension(package_id: str, slug: str, zh: str, en: str, *, codeset=None, val
 def metric(package_id: str, row: dict) -> dict:
     number = row["dp"]
     concept_groups = [[cid(package_id, item)] for item in row["concepts"]]
-    return {
+    result = {
         "metric_id": f"{package_id}.dp{number}",
         "source_datapoint_id": f"{row['dr']}_{number}",
         "disclosure_requirement": row["dr"],
@@ -219,6 +247,18 @@ def metric(package_id: str, row: dict) -> dict:
         "context_concept_ids": [cid(package_id, item) for item in row.get("contexts", [])],
         "excluded_concept_ids": [cid(package_id, item) for item in row.get("excluded", [])],
     }
+    for field in (
+        "fact_grain",
+        "measurement_kind",
+        "required_semantic_discriminators",
+        "confusable_metric_ids",
+        "evidence_form",
+        "extraction_strategy",
+        "identity_axes",
+    ):
+        if field in row:
+            result[field] = row[field]
+    return result
 
 
 def element(package_id: str, dp: str, code: str, zh: str, en: str, *, role: str,
@@ -448,8 +488,9 @@ def validation_rules(package_id: str, percentage_dps: list[str], derived_dps: li
     return rules
 
 
-def derivation(package_id: str, target: str, operation: str, operands: list[tuple[str, str]], *, unit_policy: str) -> dict:
-    return {
+def derivation(package_id: str, target: str, operation: str, operands: list[tuple[str, str]], *, unit_policy: str,
+               required_match_fields: list[str] | None = None) -> dict:
+    result = {
         "rule_id": f"{package_id}.derivation.dp{target}-{operation}",
         "target_metric_id": f"{package_id}.dp{target}",
         "operation": operation,
@@ -469,6 +510,9 @@ def derivation(package_id: str, target: str, operation: str, operands: list[tupl
         "reported_value_priority": True,
         "source_refs": [source_id(package_id, "eu-2023-2772")],
     }
+    if required_match_fields:
+        result["required_match_fields"] = required_match_fields
+    return result
 
 
 def build_e1_5() -> None:
@@ -725,8 +769,8 @@ def build_e1_6() -> None:
         ("09", "49(a), 52(a)", ["AR 45", "AR 47"], "Gross location-based Scope 2 GHG emissions", "基于位置法的范围2温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["gross-ghg-emissions", "scope2-emissions", "location-based"], "ghg"),
         ("10", "49(b), 52(b)", ["AR 45", "AR 47"], "Gross market-based Scope 2 GHG emissions", "基于市场法的范围2温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["gross-ghg-emissions", "scope2-emissions", "market-based"], "ghg"),
         ("11", "51", ["AR 46"], "Gross Scope 3 GHG emissions by significant category", "按重大类别划分的范围3温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["gross-ghg-emissions", "scope3-emissions", "scope3-category"], "ghg"),
-        ("12", "44, 52(a)", ["AR 47"], "Total GHG emissions using location-based Scope 2", "采用位置法范围2的温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["total-ghg-emissions", "location-based"], "ghg"),
-        ("13", "44, 52(b)", ["AR 47"], "Total GHG emissions using market-based Scope 2", "采用市场法范围2的温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["total-ghg-emissions", "market-based"], "ghg"),
+        ("12", "44, 52(a)", ["AR 47"], "Total GHG emissions using location-based Scope 2", "范围1＋位置法范围2＋范围3温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["total-ghg-emissions", "location-based"], "ghg"),
+        ("13", "44, 52(b)", ["AR 47"], "Total GHG emissions using market-based Scope 2", "范围1＋市场法范围2＋范围3温室气体排放总量", "GHG emissions/tCO2e", "quantitative", "quantitative_ghg", ["total-ghg-emissions", "market-based"], "ghg"),
         ("14", "47", [], "Changes in reporting boundary, methods, data or emission factors", "报告边界、方法、数据或排放因子的变更及可比性", "Narrative", "qualitative", "narrative", ["comparability-change", "ghg-emissions"], "narrative"),
         ("15", "AR 39(b)", ["AR 39"], "Methods, assumptions, emission factors and calculation tools", "温室气体方法、假设、排放因子和计算工具", "Narrative", "qualitative", "narrative", ["methodology", "emission-factor", "calculation-tool"], "narrative"),
         ("16", "AR 42(c)", ["AR 42"], "Significant events and changes between reporting dates", "报告日期之间的重大事件和变化", "Narrative", "qualitative", "narrative", ["comparability-change", "reporting-period"], "narrative"),
@@ -758,6 +802,11 @@ def build_e1_6() -> None:
         "24": ("scope2", None), "25": ("scope3", None), "28": ("scope3", None),
         "30": ("total", "location_based"), "31": ("total", "market_based"),
     }
+    confusable_families = [
+        {"09", "10"}, {"12", "13"}, {"17", "24", "28"},
+        {"20", "21", "22"}, {"26", "27"}, {"30", "31"},
+        {"33", "34", "35"},
+    ]
     metrics = []
     elements = []
     phase_in = {"04", "05", "06", "11", "12", "13", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"}
@@ -788,6 +837,45 @@ def build_e1_6() -> None:
             "obligation": obligation, "required_dimensions": required_dims, "optional_dimensions": optional_dims,
             "contexts": ["reporting-period", "reporting-boundary"],
             "origins": ["reported", "derived"] if dp in {"12", "13", "30", "31"} else ["reported"],
+            "fact_grain": (
+                "one_source_value_cell_per_period_entity"
+                if data_class == "quantitative"
+                else "one_evidenced_claim_or_list_member"
+            ),
+            "measurement_kind": family,
+            "required_semantic_discriminators": [
+                item for item in (
+                    "reporting_period",
+                    "reporting_entity" if data_class == "quantitative" else None,
+                    "ghg_scope" if scope_method else None,
+                    "scope_2_method" if scope_method and scope_method[1] else None,
+                    "scope3_category" if dp in {"04", "05", "11", "26", "27"} else None,
+                    "revenue_scope" if dp in {"33", "34", "35"} else None,
+                ) if item
+            ],
+            "confusable_metric_ids": sorted(
+                f"{package_id}.dp{member}"
+                for family_members in confusable_families if dp in family_members
+                for member in family_members if member != dp
+            ),
+            "evidence_form": (
+                ["structured_table_row", "linked_method_context"]
+                if data_class == "quantitative"
+                else ["bounded_text_or_list_member", "linked_method_context"]
+            ),
+            "extraction_strategy": (
+                "reported_or_derived" if dp in {"12", "13", "30", "31"} else "reported"
+            ),
+            "identity_axes": [
+                item for item in (
+                    "source_row_topic", "reporting_period",
+                    "reporting_entity" if data_class == "quantitative" else None,
+                    "entity_aggregation_role" if data_class == "quantitative" else None,
+                    "ghg_scope" if scope_method else None,
+                    "scope_2_method" if scope_method and scope_method[1] else None,
+                    "scope3_category" if dp in {"04", "05", "11", "26", "27"} else None,
+                ) if item
+            ],
         }
         metrics.append(metric(package_id, row))
         if kind in {"structure", "control_structure", "scope3_protocol", "scope3_iso", "value_chain"}:
@@ -1084,10 +1172,10 @@ def build_e1_6() -> None:
         },
     ]
     derivations = [
-        derivation(package_id, "12", "sum", [("07", "scope1"), ("09", "scope2 location"), ("11", "scope3")], unit_policy="compatible-ghg-units"),
-        derivation(package_id, "13", "sum", [("07", "scope1"), ("10", "scope2 market"), ("11", "scope3")], unit_policy="compatible-ghg-units"),
-        derivation(package_id, "30", "ratio", [("12", "location total"), ("34", "revenue")], unit_policy="ghg-per-monetary-unit"),
-        derivation(package_id, "31", "ratio", [("13", "market total"), ("34", "revenue")], unit_policy="ghg-per-monetary-unit"),
+        derivation(package_id, "12", "sum", [("07", "scope1"), ("09", "scope2 location"), ("11", "scope3")], unit_policy="compatible-ghg-units", required_match_fields=["reporting_period_raw", "reporting_boundary", dim("reporting-entity")]),
+        derivation(package_id, "13", "sum", [("07", "scope1"), ("10", "scope2 market"), ("11", "scope3")], unit_policy="compatible-ghg-units", required_match_fields=["reporting_period_raw", "reporting_boundary", dim("reporting-entity")]),
+        derivation(package_id, "30", "ratio", [("12", "location total"), ("34", "revenue")], unit_policy="ghg-per-monetary-unit", required_match_fields=["reporting_period_raw", "reporting_boundary", dim("reporting-entity")]),
+        derivation(package_id, "31", "ratio", [("13", "market total"), ("34", "revenue")], unit_policy="ghg-per-monetary-unit", required_match_fields=["reporting_period_raw", "reporting_boundary", dim("reporting-entity")]),
     ]
     package_dir = ROOT / f"packages/esrs/2023-set1/e1-6/{E1_6_PACKAGE_VERSION}"
     payloads = {

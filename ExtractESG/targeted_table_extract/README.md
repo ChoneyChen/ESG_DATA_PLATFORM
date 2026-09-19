@@ -40,7 +40,7 @@ Local Evidence Sufficiency Gate
                              本地 NuExtract3          七牛云 VLM
                                       \                    /
                                                 v
-                                  直接多行语义填表 JSON
+                                  物理行优先语义填表 JSON
                                                 |
                                                 v
                                 宽松 Grounding / Contract Guard
@@ -82,8 +82,10 @@ Inventory 从 Document IR 读取正文、句子、表格行、表格单元格、
 
 `Evidence Region` 是实际送模材料。一个 region 只属于一张表、一个图或一个文本区域；大表只按连续
 行组和输出容量切分。每个 region 明确携带标准字段合同、原始证据、候选字面量、视觉来源和最大
-输出行数，每次模型调用最多发送一张对应 crop。一个独立数量对应一行，多个污染物、年份、公司、
-矿区、分项、总计或组成项对应多行。全部 region 完成后只做一次确定性完全重复事实合并。
+输出行数，每次模型调用最多发送一张对应 crop。模型先对物理源行作一次适用性判断，再在 `values`
+中展开该行的多个实体/期间单元格；多个污染物、年份、公司、矿区、分项、总计或组成项仍形成独立
+事实。全部 region 完成后只合并“同一物理语义组 + 同一 element/value”的重叠区域重复，不会因为
+两个实体恰好披露相同数值而丢失其中一行。
 
 ### 4. 模型直接填表
 
@@ -91,8 +93,9 @@ Inventory 从 Document IR 读取正文、句子、表格行、表格单元格、
 脚注与边界说明；`L` 引用可追溯，不是额外数量任务。能源/GHG 量型的强语义数值对象和相邻行
 不再被词面资格检查裁掉；污染物质量/介质选择保持已验证路径。
 
-每行增加 `metric_match=match|uncertain|different`，以及按需的 `interpretation_note/context_refs`。
-只有模型认定 match 的有据行才按固定标准标签物化；其他已观察测量保留在决定和检查页。
+每个 `row_group` 增加 `metric_match=match|uncertain|different`，以及按需的
+`interpretation_note/context_refs`；公共行字段在 `shared_fields`，各实体/期间值在 `values`。只有模型
+认定 match 的有据行才按固定标准标签物化；其他已观察测量保留在决定和检查页。
 `skipped_targets` 表达主动跳过的数字，`missing_context` 表达缺少的说明。正常停止不触发
 “覆盖所有数字”的催补，仅真实输出截断继续写。不新增语义 Guard，不把未知方法的 Scope 2
 直接同时标成位置法和市场法。
@@ -135,6 +138,12 @@ Guard 只阻止确定性工程错误：未知任务、未知字段、未知行�
 标准包明确基数合同的输出。这样既让模型承担语义和视觉工作，也守住可追溯结果不能凭空生成的底线。
 模型把合法的单一 group 写成 `['G2']` 时，适配器只做无损单元素解包；多元素数组仍按合同错误保留。
 相同错误输出连续重复时直接停止无效重试，使用原文比较，不增加输出哈希链。
+
+Grounding 通过只代表来源与形状正确，不代表 ESG 语义已经人工确认。新结果分别记录
+`source_validation_status`、`contract_validation_status`、`semantic_decision_status` 和
+`display_readiness_status`，审核状态保持 `pending`；`auto_verified` 仅用于兼容旧 bundle。后台会审计
+同一物理单元格是否被互斥的包固定维度同时使用（例如位置法与市场法），发现时保留原决定并标为待
+联合复判，不新增一层业务语义 Guard。
 
 ## 启动
 
@@ -206,6 +215,7 @@ targeted_extract_output/<job_id>/
 │   └── <metric_id>.regions.json         # 实际送模的连贯区域
 ├── decisions/<metric_id>.json           # 原始输出、适配结果、遥测与接受决定
 ├── guards/<metric_id>.json
+├── semantic-conflicts.json               # 仅发现跨指标固定语义冲突时存在
 ├── checkpoints/<metric_id>.json
 ├── results/                              # 六类权威 Core records
 └── exports/
@@ -231,7 +241,9 @@ checkpoint 标为可复用。单指标的主键或关联合同失败会写入 `c
 统一前端“抽取结果”页按当前报告和指标展示一条事实一行、一个标准 element 一列；列顺序、主维度
 和排序提示由 element `semantic_role` 动态生成，不再假定所有模块都是污染物表。未披露字段为空。
 页面同时展示证据页码与摘录、模型 provider/model、region、图片数、输入输出规模、重试、Guard 警告
-和召回依据。该页面来自只读 `GET /api/jobs/{job_id}/inspection` ViewModel，不修改权威结果。
+和召回依据，并区分来源、合同、语义与展示四阶段状态。只有固定包常量、没有报告期/实体等非固定身份
+的多事实会提示“语义身份待补全”；同一身份下的兼容 GWh/TJ 替代展示不会被该提示阻塞。该页面来自
+只读 `GET /api/jobs/{job_id}/inspection` ViewModel，不修改权威结果。
 
 `GET /api/result-catalog` 同时报告任务 SQLite 记录数、Result Bundle 目录数、孤立目录和缺失目录。
 后端启动时会用同时具有 `input/request.json` 与 `manifest.json`/`failure.json` 的终态 Result Bundle

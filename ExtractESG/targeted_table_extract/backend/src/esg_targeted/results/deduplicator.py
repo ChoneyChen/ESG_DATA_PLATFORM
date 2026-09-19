@@ -19,9 +19,9 @@ class FactDeduplicationResult:
 class ExactFactDeduplicator:
     """Remove only complete semantic duplicates after every region has run.
 
-    Provenance IDs and region/group IDs deliberately do not participate in the
-    signature. Field identity and exact visible values do, so equal numbers from
-    different pollutants, periods or boundaries are never collapsed.
+    The physical semantic group participates in the signature.  The same cell
+    encountered in overlapping regions still merges because its immutable cell or
+    row id is stable, while equal-valued sibling entity/period cells stay distinct.
     """
 
     def merge(self, groups: list[SemanticFactGroup]) -> FactDeduplicationResult:
@@ -56,7 +56,10 @@ class ExactFactDeduplicator:
 
     @staticmethod
     def _signature(group: SemanticFactGroup) -> tuple[tuple[str, str], ...]:
-        return (("__metric_match", group.metric_match),) + tuple(
+        return (
+            ("__metric_match", group.metric_match),
+            ("__semantic_group", group.group_ref_id),
+        ) + tuple(
             sorted(
                 (
                     assignment.element_id,

@@ -28,15 +28,22 @@ def _group(group_id: str, pollutant: str, amount: str, confidence: float):
     )
 
 
-def test_exact_fact_deduplication_ignores_region_provenance_ids() -> None:
-    lower = _group("region-a", "二氧化硫", "0.52", 0.8)
-    better = _group("region-b", "二氧化硫", "0.52", 0.95)
+def test_exact_fact_deduplication_merges_same_physical_semantic_group() -> None:
+    lower = _group("cell-a", "二氧化硫", "0.52", 0.8)
+    better = _group("cell-a", "二氧化硫", "0.52", 0.95)
     result = ExactFactDeduplicator().merge([lower, better])
 
     assert result.input_count == 2
     assert result.output_count == 1
     assert result.removed_count == 1
-    assert result.groups[0].group_ref_id == "region-b"
+    assert result.groups[0].group_ref_id == "cell-a"
+
+
+def test_equal_payload_from_distinct_physical_cells_is_not_merged() -> None:
+    member = _group("cell-member", "二氧化硫", "0.52", 0.9)
+    total = _group("cell-total", "二氧化硫", "0.52", 0.9)
+    result = ExactFactDeduplicator().merge([member, total])
+    assert result.output_count == 2
 
 
 def test_equal_numbers_with_different_dimensions_are_not_merged() -> None:

@@ -14,6 +14,7 @@ from esg_targeted.contracts import (
 )
 from esg_targeted.results.materializer import CoreResultMaterializer
 from esg_targeted.results.organization import FactOrganizer
+from esg_targeted.results.semantic_conflicts import SemanticConflictAuditor
 from esg_targeted.results.validation import ResultContractValidator
 from esg_targeted.standards.catalog import StandardPackageCatalog
 from tests.helpers import standard_dist_root
@@ -69,13 +70,49 @@ def test_organization_links_units_preserves_identity_and_every_raw_record():
     assert view == FactOrganizer().organize(ordered, package)[1]
 
 
+def test_display_readiness_does_not_reject_alternative_unit_presentations():
+    facts = [
+        {"observation_id":"a", "reporting_period_raw":"2024年"},
+        {"observation_id":"b", "reporting_period_raw":"2024年"},
+    ]
+    dimensions = [
+        {"parent_record_id":fid, "element_id":"entity", "value_raw":"紫金矿业"}
+        for fid in ("a", "b")
+    ]
+
+    assert CoreResultMaterializer._display_readiness(
+        quantitative=facts,
+        qualitative=[],
+        dimensions=dimensions,
+        fixed_element_ids={"fixed-scope"},
+    ) == "ready"
+
+
+def test_display_readiness_ignores_package_fixed_scope_as_row_identity():
+    facts = [
+        {"observation_id":"a", "reporting_period_raw":"2024年"},
+        {"observation_id":"b", "reporting_period_raw":"2024年"},
+    ]
+    dimensions = [
+        {"parent_record_id":fid, "element_id":"fixed-scope", "value_code":"scope1"}
+        for fid in ("a", "b")
+    ]
+
+    assert CoreResultMaterializer._display_readiness(
+        quantitative=facts,
+        qualitative=[],
+        dimensions=dimensions,
+        fixed_element_ids={"fixed-scope"},
+    ) == "needs_semantic_completion"
+
+
 def test_retired_versions_remain_loadable_but_not_selectable():
     catalog = StandardPackageCatalog(standard_dist_root())
     assert catalog.load("esrs.2023-set1.e1-6", "1.0.0").manifest.package_version == "1.0.0"
-    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"1.3.0"}
+    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"1.4.0"}
 
 
-def _scope3_structure_decision(packet, category_element_id):
+def _scope3_structure_decision(packet, category_element_id, statement_element_id=None):
     source_spans = packet.spans[:2]
     groups = []
     for index, (span, category) in enumerate(
@@ -93,7 +130,18 @@ def _scope3_structure_decision(packet, category_element_id):
                         value_raw=category,
                         source_mode="span",
                         confidence=0.95,
-                    )
+                    ),
+                    *(
+                        [SemanticAssignment(
+                            element_id=statement_element_id,
+                            source_ref_id=span.span_id,
+                            evidence_span_ids=[span.span_id],
+                            value_raw=category,
+                            source_mode="span",
+                            confidence=0.95,
+                        )]
+                        if statement_element_id else []
+                    ),
                 ],
             )
         )
@@ -161,17 +209,23 @@ def test_legacy_task_dimensions_have_unique_ids_and_single_fixed_value(tmp_path)
     )
 
 
-def test_e1_6_v1_3_materializes_each_scope3_member_as_evidenced_assertion(tmp_path):
+def test_e1_6_v1_4_materializes_each_scope3_member_as_evidenced_assertion(tmp_path):
     _, packet, _, _, _ = build_pipeline(tmp_path)
     package = StandardPackageCatalog(standard_dist_root()).load(
-        "esrs.2023-set1.e1-6", "1.3.0"
+        "esrs.2023-set1.e1-6", "1.4.0"
     )
     metric = next(item for item in package.metrics if item.source_datapoint_id == "E1-6_04")
     category = next(
         item for item in package.elements
         if item.metric_id == metric.metric_id and item.element_code == "scope3_category"
     )
-    decision = _scope3_structure_decision(packet, category.element_id)
+    statement = next(
+        item for item in package.elements
+        if item.metric_id == metric.metric_id and item.element_code == "statement"
+    )
+    decision = _scope3_structure_decision(
+        packet, category.element_id, statement.element_id
+    )
     result = CoreResultMaterializer().materialize(
         package=package,
         metric=metric,
@@ -197,3 +251,58 @@ def test_e1_6_v1_3_materializes_each_scope3_member_as_evidenced_assertion(tmp_pa
     } == {item["assertion_id"] for item in result.qualitative_assertions}
     assert len(result.evidence_references) >= 2
     ResultContractValidator(package.core).validate(records)
+
+
+def test_qualitative_period_without_statement_is_not_materialized_as_assertion(tmp_path):
+    _, packet, _, _, _ = build_pipeline(tmp_path)
+    package = StandardPackageCatalog(standard_dist_root()).load(
+        "esrs.2023-set1.e1-6", "1.4.0"
+    )
+    metric = next(item for item in package.metrics if item.source_datapoint_id == "E1-6_14")
+    period = next(
+        item for item in package.elements
+        if item.metric_id == metric.metric_id and item.element_code == "reporting_period"
+    )
+    span = packet.spans[0]
+    decision = SemanticDecision(
+        task_id=packet.task_id,
+        status="found",
+        fact_groups=[SemanticFactGroup(
+            group_ref_id=span.context_group_id,
+            assignments=[SemanticAssignment(
+                element_id=period.element_id,
+                source_ref_id=span.span_id,
+                evidence_span_ids=[span.span_id],
+                value_raw=span.text,
+                source_mode="span",
+            )],
+        )],
+    )
+    result = CoreResultMaterializer().materialize(
+        package=package, metric=metric, packet=packet, decision=decision,
+        guard=_accepted_guard(packet, decision), attempts=1,
+    )
+    assert result.qualitative_assertions == []
+    assert result.outcome.status == "partial"
+    assert result.outcome.semantic_decision_status == "unresolved"
+
+
+def test_same_source_cannot_silently_be_both_location_and_market_based():
+    package = StandardPackageCatalog(standard_dist_root()).load(
+        "esrs.2023-set1.e1-6", "1.4.0"
+    )
+    observations = [
+        {"observation_id": "obs-location", "metric_id": "esrs.2023-set1.e1-6.dp09", "value_raw": "100", "unit_raw": "tCO2e"},
+        {"observation_id": "obs-market", "metric_id": "esrs.2023-set1.e1-6.dp10", "value_raw": "100", "unit_raw": "tCO2e"},
+    ]
+    evidence = [
+        {"source_record_id": fact["observation_id"], "evidence_role": "primary", "document_id": "doc", "ir_run_id": "ir", "ir_revision": 1, "pdf_page_index": 5, "ir_object_id": "cell-scope2"}
+        for fact in observations
+    ]
+    conflicts = SemanticConflictAuditor().audit(
+        {"quantitative_observations": observations, "evidence_references": evidence},
+        package,
+    )
+    assert len(conflicts) == 1
+    assert conflicts[0]["requires_joint_readjudication"] is True
+    assert conflicts[0]["incompatible_dimensions"]["esrs.2023-set1.e1-6.dimension.scope2-method"] == ["location_based", "market_based"]

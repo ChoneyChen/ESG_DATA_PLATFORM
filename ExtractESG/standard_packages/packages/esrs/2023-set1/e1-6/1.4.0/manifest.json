@@ -1,0 +1,33 @@
+{
+  "core_schema_id": "extractesg.core",
+  "core_schema_version": "1.1.0",
+  "default_language": "en",
+  "files": {
+    "code_sets": "code_sets.json",
+    "concepts": "concepts.json",
+    "derivations": "derivations.json",
+    "dimensions": "dimensions.json",
+    "elements": "elements.json",
+    "metrics": "metrics.json",
+    "relations": "relations.json",
+    "sources": "sources.json",
+    "validation_rules": "validation_rules.json"
+  },
+  "format_version": "1.1",
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "1.4.0",
+  "standard": {
+    "disclosure_requirement": "E1-6",
+    "effective_from": "2023-12-22",
+    "effective_to": null,
+    "framework_id": "esrs",
+    "framework_version": "2023-12-22",
+    "jurisdiction": "European Union",
+    "module_id": "esrs.e1-6"
+  },
+  "status": "draft",
+  "supported_languages": [
+    "en",
+    "zh"
+  ]
+}

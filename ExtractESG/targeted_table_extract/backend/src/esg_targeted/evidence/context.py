@@ -5,7 +5,7 @@ import json
 import re
 
 from esg_targeted.contracts import EvidenceInventory, EvidencePacket
-from esg_targeted.retrieval.fact_pattern import normalize_match_text
+from esg_targeted.retrieval.fact_pattern import contains_term, normalize_match_text
 
 
 METHOD = re.compile(
@@ -44,9 +44,15 @@ class EvidenceContextCompiler:
             # Count concepts, not every redundant synonym; generic report
             # boundary vocabulary must not outrank the metric's method note.
             topic = sum(any(term in normalized for term in group) for group in term_groups)
+            conflict = any(
+                contains_term(text, term)
+                for term in packet.query.intent.must_not_terms
+            )
             distance = min(abs(span.page_index - p) for p in pages)
             method = bool(METHOD.search(text))
             note = bool(NOTE.search(text))
+            if conflict and topic == 0:
+                continue
             if not ((distance <= 2 and (note or method)) or (method and topic)):
                 continue
             # Geographic proximity is a candidate-link signal, not a semantic

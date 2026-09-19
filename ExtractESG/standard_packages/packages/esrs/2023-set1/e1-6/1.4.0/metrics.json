@@ -1,0 +1,2461 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 39"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "structure",
+    "description": "范围1、范围2、范围3及温室气体总量披露的结构。识别报告实际采用的行主题、期间列、实体列、单位和总计层级；输出结构成员或说明，不把表内所有数字复制成结构事实。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Gross Scope 1, 2, 3 and total GHG emissions table",
+      "zh": "范围1、2、3及温室气体排放总量的披露结构"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "44",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_01",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "structure",
+    "description": "企业说明温室气体盘查采用的组织边界，包括财务控制、运营控制或其他明确方法。每种实际采用的方法形成可独立举证的断言；不能把表中公司名称、合计列或数值当作边界方法。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Financial control and operational control boundary table",
+      "zh": "财务控制与运营控制边界表"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "50",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_02",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.control-boundary"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 41"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "structure",
+    "description": "企业对温室气体排放采用的分解维度，例如国家、经营分部、经济活动、子公司、设施或排放源。输出实际披露的分解轴，不输出这些轴下的每个数值单元格。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "GHG emissions disaggregation",
+      "zh": "温室气体排放分解维度"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 41",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_03",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.disaggregation"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "structure",
+    "description": "企业按照 GHG Protocol 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 GHG Protocol 口径时才匹配本指标，不能仅凭出现范围3类别推定分类体系。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "scope3_category"
+    ],
+    "labels": {
+      "en": "Scope 3 categories using the GHG Protocol",
+      "zh": "采用《温室气体核算体系》的范围3类别结构"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp04",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 46(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "scope3_category"
+    ],
+    "source_datapoint_id": "E1-6_04",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-protocol"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 50"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "structure",
+    "description": "企业按照 ISO 14064-1 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 ISO 14064-1 口径时才匹配本指标，不能把普通 GHG Protocol 类别表改贴为 ISO 分类。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "scope3_category"
+    ],
+    "labels": {
+      "en": "Scope 3 categories using ISO 14064-1",
+      "zh": "采用 ISO 14064-1 的范围3类别结构"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp05",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 50",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "scope3_category"
+    ],
+    "source_datapoint_id": "E1-6_05",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.iso-14064"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 52"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "structure",
+    "description": "企业对范围3排放所作的价值链阶段分解。上游和下游等实际披露阶段分别形成独立清单事实并保留证据；合计、标题和注释不是价值链阶段。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Scope 3 value-chain disaggregation",
+      "zh": "范围3价值链分解结构"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp06",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 52",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_06",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.value-chain"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 43"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "企业在报告期间因拥有或控制的排放源产生的范围1温室气体绝对排放量，以报告原有二氧化碳当量单位披露。直接排放、范围一、范畴一可表达同一范围；不要求出现‘总量’字样。范围1与2合计、强度、减排量、抵消或目标不属于此测量。逐一保留报告的实体和期间。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Gross Scope 1 GHG emissions",
+      "zh": "范围1温室气体排放总量"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "48(a)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_07",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope1-ghg-emissions"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 44"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "范围1温室气体排放中受受监管排放交易体系覆盖的比例；分母应为范围1排放。碳价情景、碳敞口、另一公司的 ETS 项目或一般排放限制比例不能仅因出现百分号而等同此指标。结合报告对交易机制和覆盖口径的说明判断。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Percentage of Scope 1 GHG emissions from regulated emission trading schemes",
+      "zh": "受监管排放交易体系覆盖的范围1排放比例"
+    },
+    "measurement_kind": "percentage",
+    "metric_id": "esrs.2023-set1.e1-6.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "48(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_08",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope1-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.emissions-trading-scheme"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45",
+      "AR 47"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp10"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "基于位置法核算的范围2温室气体绝对排放量。位置法依据能源消费所在地电网的平均排放因子；方法可能写在表注、核算政策或另一页。‘间接排放/范围2’本身没有声明方法；未说明时方法未知，不能同时认作位置法和市场法。与另一方法数值相同只有在报告确实声明两种方法时才可分别归属。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Gross location-based Scope 2 GHG emissions",
+      "zh": "基于位置法的范围2温室气体排放总量"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "49(a), 52(a)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_09",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.location-based"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45",
+      "AR 47"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp09"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "基于市场法核算的范围2温室气体绝对排放量。市场法体现能源采购合同工具、供应商/产品特定排放属性及适用的剩余组合；方法可由报告核算说明支持，不要求逐字标签。仅披露用电、绿电比例或电网平均因子并不能独自证明市场法。方法未明的范围2测量应保留待确认，明确为位置法的不能贴上市方法标签。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Gross market-based Scope 2 GHG emissions",
+      "zh": "基于市场法的范围2温室气体排放总量"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp10",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "49(b), 52(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_10",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.market-based"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "按重大范围3类别披露的温室气体绝对排放量。每个类别、期间和实体单元格形成独立事实；总计、合计、小计、标题及注释不作为类别成员。相同数值出现在成员实体与合计列时仍是不同事实。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope3_category"
+    ],
+    "labels": {
+      "en": "Gross Scope 3 GHG emissions by significant category",
+      "zh": "按重大类别划分的范围3温室气体排放总量"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp11",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity",
+      "esrs.2023-set1.e1-6.dimension.scope3-category"
+    ],
+    "paragraph": "51",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope3_category"
+    ],
+    "source_datapoint_id": "E1-6_11",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-category"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 47"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp13"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "采用位置法范围2口径的温室气体总量，即范围1、位置法范围2及范围3的合计。优先提取报告明确披露的该总量；未直接披露时仅在数据处理阶段按相同期间、实体和边界派生。不能把单独的范围2位置法排放误当作总量。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported_or_derived",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Total GHG emissions using location-based Scope 2",
+      "zh": "范围1＋位置法范围2＋范围3温室气体排放总量"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp12",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "44, 52(a)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_12",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.total-ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.location-based"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 47"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp12"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "采用市场法范围2口径的温室气体总量，即范围1、市场法范围2及范围3的合计。优先提取明确披露值；缺少市场法范围2时不得借用位置法数值或形成派生总量。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported_or_derived",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Total GHG emissions using market-based Scope 2",
+      "zh": "范围1＋市场法范围2＋范围3温室气体排放总量"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp13",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "44, 52(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_13",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.total-ghg-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.market-based"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "报告边界、核算方法、数据来源或排放因子的实际变更及其可比性影响。每个变更形成可读、可举证的陈述；年份、百分比或排放量本身不是变更说明。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Changes in reporting boundary, methods, data or emission factors",
+      "zh": "报告边界、方法、数据或排放因子的变更及可比性"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp14",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "47",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_14",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.comparability-change"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-emissions"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 39"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "温室气体核算采用的方法、关键假设、排放因子来源和计算工具。分别保留有语义的原文陈述；ISO、GHG Protocol、IPCC、电网因子或供应商参数只有在证据明确适用于本报告时才写入。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Methods, assumptions, emission factors and calculation tools",
+      "zh": "温室气体方法、假设、排放因子和计算工具"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp15",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 39(b)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_15",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.methodology"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.emission-factor"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.calculation-tool"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 42"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "本报告期与上一个报告日期之间对排放具有显著影响的事件或变化。目录、披露索引和仅指向其他页码的导航信息不是事件证据。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Significant events and changes between reporting dates",
+      "zh": "报告日期之间的重大事件和变化"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp16",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 42(c)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_16",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.comparability-change"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.reporting-period"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 43"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp24",
+      "esrs.2023-set1.e1-6.dp28"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "从范围1排放中排除并单独披露的生物源二氧化碳绝对量。必须有明确的生物源或生物质 CO2 语义；普通范围1、其他温室气体或污染物排放不能替代。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Biogenic CO2 emissions excluded from Scope 1",
+      "zh": "范围1中单独披露的生物源二氧化碳排放"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp17",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 43(c)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_17",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.biogenic-co2"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope1-emissions"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "与合同工具相关的范围2排放比例。分子、分母或文字说明必须明确连接范围2排放与合同工具；绿电或绿证的存在本身不等于该排放比例。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Share of Scope 2 emissions linked to contractual instruments",
+      "zh": "与合同工具相关的范围2排放比例"
+    },
+    "measurement_kind": "percentage",
+    "metric_id": "esrs.2023-set1.e1-6.dp18",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 45(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_18",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.contractual-instrument"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "企业实际使用的合同工具类型清单，例如购电协议、能源属性证书或供应商特定工具。每类工具为独立清单成员；比例和范围2排放量不是工具类型。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Types of contractual instruments",
+      "zh": "合同工具类型"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp19",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "List/text",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 45(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_19",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.contractual-instrument"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp21",
+      "esrs.2023-set1.e1-6.dp22"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "基于市场法范围2排放中与捆绑合同工具相关的比例。需同时支持市场法、范围2、捆绑工具和比例语义；不能用一般绿电比例替代。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Share of market-based Scope 2 emissions linked to bundled instruments",
+      "zh": "基于市场法且关联捆绑工具的范围2排放比例"
+    },
+    "measurement_kind": "percentage",
+    "metric_id": "esrs.2023-set1.e1-6.dp20",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 45(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_20",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.market-based"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.bundled-instrument"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp20",
+      "esrs.2023-set1.e1-6.dp22"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "范围2排放中关联捆绑能源属性声明的比例。必须区分捆绑属性声明、非捆绑证书及一般合同工具。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Share linked to bundled energy attribute claims",
+      "zh": "关联捆绑能源属性声明的比例"
+    },
+    "measurement_kind": "percentage",
+    "metric_id": "esrs.2023-set1.e1-6.dp21",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 45(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_21",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.bundled-attribute-claim"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp20",
+      "esrs.2023-set1.e1-6.dp21"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "范围2排放中关联非捆绑能源属性声明的比例。必须有非捆绑属性或证书的明确证据，不能从绿证名称推断比例。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Share linked to unbundled energy attribute claims",
+      "zh": "关联非捆绑能源属性声明的比例"
+    },
+    "measurement_kind": "percentage",
+    "metric_id": "esrs.2023-set1.e1-6.dp22",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 45(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_22",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.unbundled-attribute-claim"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "合同工具的类型和组合方式说明。输出可读的工具组合陈述，不把范围2表中的数字、年份或单位转成定性断言。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Types and mix of contractual instruments",
+      "zh": "合同工具的类型与组合说明"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp23",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 45(d)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_23",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.contractual-instrument"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 45"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp17",
+      "esrs.2023-set1.e1-6.dp28"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "从范围2排放中排除并单独披露的生物源二氧化碳绝对量。没有明确生物源语义时应为未找到，不能复制普通范围2排放。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Biogenic CO2 emissions excluded from Scope 2",
+      "zh": "范围2中单独披露的生物源二氧化碳排放"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp24",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 45(e)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_24",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.biogenic-co2"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope2-emissions"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "使用供应商或其他价值链伙伴一手数据计算的范围3排放比例。需明确连接一手数据、范围3计算及比例口径。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Percentage of Scope 3 emissions calculated using primary data",
+      "zh": "使用从供应商或价值链伙伴取得的一手数据计算的范围3排放比例"
+    },
+    "measurement_kind": "percentage",
+    "metric_id": "esrs.2023-set1.e1-6.dp25",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 46(g)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_25",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.primary-data"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp27"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "企业排除某一范围3类别的具体理由。每条事实必须包含被排除类别及可读理由；类别排放数值或总计不是排除理由。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "scope3_category"
+    ],
+    "labels": {
+      "en": "Reasons for excluding a Scope 3 category",
+      "zh": "排除范围3类别的理由"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp26",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.scope3-category"
+    ],
+    "paragraph": "AR 46(i)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "scope3_category"
+    ],
+    "source_datapoint_id": "E1-6_26",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.excluded-category"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp26"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "纳入温室气体盘查的范围3类别清单。每个类别形成独立列表事实并保留证据；总计、年份、单位和类别排放数字不是清单成员。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "scope3_category"
+    ],
+    "labels": {
+      "en": "Scope 3 categories included in the inventory",
+      "zh": "纳入盘查的范围3类别清单"
+    },
+    "measurement_kind": "structure",
+    "metric_id": "esrs.2023-set1.e1-6.dp27",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "List",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.scope3-category"
+    ],
+    "paragraph": "AR 46(i)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "scope3_category"
+    ],
+    "source_datapoint_id": "E1-6_27",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-category"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp17",
+      "esrs.2023-set1.e1-6.dp24"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "从范围3排放中排除并单独披露的生物源二氧化碳绝对量。没有明确生物源证据时不得从范围3类别表复制数值。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "labels": {
+      "en": "Biogenic CO2 emissions excluded from Scope 3",
+      "zh": "范围3中单独披露的生物源二氧化碳排放"
+    },
+    "measurement_kind": "quantitative_ghg",
+    "metric_id": "esrs.2023-set1.e1-6.dp28",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "GHG emissions/tCO2e",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 46(j)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.aggregation-role"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope"
+    ],
+    "source_datapoint_id": "E1-6_28",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.biogenic-co2"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ]
+    ],
+    "value_family": "quantitative_ghg"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 46"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "范围3盘查边界、计算方法、关键假设、数据来源和工具。输出实际方法陈述并分别举证，不能以类别数字或单位代替。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Scope 3 boundaries, methods, assumptions and tools",
+      "zh": "范围3边界、方法、假设与工具"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp29",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 46(h)",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_29",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.scope3-emissions"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.methodology"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.control-boundary"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 53"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp31"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "以采用位置法范围2的温室气体总量为分子、净收入为分母的排放强度。报告使用工业增加值、产量、面积或能源量作分母的强度不是本指标；派生时必须匹配期间、实体、边界和货币量级。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported_or_derived",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Location-based GHG intensity",
+      "zh": "基于位置法的温室气体排放强度"
+    },
+    "measurement_kind": "ghg_intensity",
+    "metric_id": "esrs.2023-set1.e1-6.dp30",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "GHG intensity (tCO2e per monetary unit)",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "53",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_30",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-intensity"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.location-based"
+      ]
+    ],
+    "value_family": "ghg_intensity"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 53"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp30"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "以采用市场法范围2的温室气体总量为分子、净收入为分母的排放强度。没有市场法总量或净收入分母时不得借用位置法或其他强度。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported_or_derived",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Market-based GHG intensity",
+      "zh": "基于市场法的温室气体排放强度"
+    },
+    "measurement_kind": "ghg_intensity",
+    "metric_id": "esrs.2023-set1.e1-6.dp31",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "GHG intensity (tCO2e per monetary unit)",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "53",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-6.dimension.ghg-scope",
+      "esrs.2023-set1.e1-6.dimension.scope2-method"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "source_datapoint_id": "E1-6_31",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-intensity"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.market-based"
+      ]
+    ],
+    "value_family": "ghg_intensity"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 55"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "用于温室气体强度计算的净收入与财务报表净收入之间的对账说明。需有明确的对账关系、差异或一致性陈述；整张经济绩效表不是对账说明。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "bounded_text_or_list_member",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_evidenced_claim_or_list_member",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "labels": {
+      "en": "Reconciliation of net revenue used for GHG intensity",
+      "zh": "温室气体强度所用净收入的对账说明"
+    },
+    "measurement_kind": "narrative",
+    "metric_id": "esrs.2023-set1.e1-6.dp32",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "55",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period"
+    ],
+    "source_datapoint_id": "E1-6_32",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.reconciliation"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-intensity"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 55"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp34",
+      "esrs.2023-set1.e1-6.dp35"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "财务报表口径的净收入总额。只提取直接表示净收入或营业收入总额的期间/实体值；利润、资产、产量、资源量及其他经济指标不属于本指标。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role"
+    ],
+    "labels": {
+      "en": "Total net revenue",
+      "zh": "净收入总额"
+    },
+    "measurement_kind": "monetary",
+    "metric_id": "esrs.2023-set1.e1-6.dp33",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 55",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "revenue_scope"
+    ],
+    "source_datapoint_id": "E1-6_33",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.net-revenue"
+      ]
+    ],
+    "value_family": "monetary"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 55"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp33",
+      "esrs.2023-set1.e1-6.dp35"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "企业实际用于温室气体强度分母的净收入。必须由强度计算说明或对账表明确支持；工业增加值、利润或一般营业收入不能在缺少关联证据时自动采用。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role"
+    ],
+    "labels": {
+      "en": "Net revenue used to calculate GHG intensity",
+      "zh": "用于计算温室气体强度的净收入"
+    },
+    "measurement_kind": "monetary",
+    "metric_id": "esrs.2023-set1.e1-6.dp34",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 55",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "revenue_scope"
+    ],
+    "source_datapoint_id": "E1-6_34",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.ghg-intensity"
+      ]
+    ],
+    "value_family": "monetary"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 55"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "confusable_metric_ids": [
+      "esrs.2023-set1.e1-6.dp33",
+      "esrs.2023-set1.e1-6.dp34"
+    ],
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.reporting-period",
+      "esrs.2023-set1.e1-6.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "净收入对账中的其他净收入或调整项。只提取明确标记为对账其他项的货币值；利润、资产、产量和资源量不得纳入。",
+    "disclosure_requirement": "E1-6",
+    "evidence_form": [
+      "structured_table_row",
+      "linked_method_context"
+    ],
+    "excluded_concept_ids": [],
+    "extraction_strategy": "reported",
+    "fact_grain": "one_source_value_cell_per_period_entity",
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role"
+    ],
+    "labels": {
+      "en": "Other net revenue",
+      "zh": "其他净收入"
+    },
+    "measurement_kind": "monetary",
+    "metric_id": "esrs.2023-set1.e1-6.dp35",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 55",
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "required_semantic_discriminators": [
+      "reporting_period",
+      "reporting_entity",
+      "revenue_scope"
+    ],
+    "source_datapoint_id": "E1-6_35",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-6.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-6.concept.reconciliation"
+      ]
+    ],
+    "value_family": "monetary"
+  }
+]

@@ -72,30 +72,41 @@ Region 是唯一允许按模型容量切分的层。一个 region 只能对应�
 {
   "task_id": "task-...",
   "status": "found",
-  "rows": [
+  "row_groups": [
     {
       "group": "G1",
-      "fields": {
+      "metric_match": "match",
+      "interpretation_note": null,
+      "context_refs": [],
+      "shared_fields": {
         "pollutant": "二氧化硫",
-        "emission_amount": 0.52,
         "mass_unit": "千克",
-        "reporting_period": "2024",
         "additional_breakdown": "越秀服务"
-      }
+      },
+      "values": [
+        {
+          "target_cell": "T1",
+          "fields": {
+            "emission_amount": 0.52,
+            "reporting_period": "2024"
+          }
+        }
+      ]
     }
   ],
   "uncertainty_code": "none"
 }
 ```
 
-`fields` 的键完全来自当前标准包。模型可以输出任意数量的合规行，但一个独立数量必须是一行。
-字段没有明示证据时为 `null`，不得推断、计算、换算或借用其他行的数据。
+`shared_fields` 与 `values[].fields` 的键完全来自当前标准包。模型先对物理源行判断一次
+`metric_match`，再展开该行各个适用的实体/期间值。字段没有明示证据时为 `null`，不得推断、计算、
+换算或借用其他行的数据。定性事实必须给出可读 statement 或清单成员，不能把期间或纯数字回填为断言。
 
 模型只返回标准字段的直接标量或 `null`，不负责生成来源 ID。Adapter 在当前 G 组内自动绑定来源：
 `candidate` 是本地 literal，`span` 是 IR 可见字符串，`visual` 是本次实际发送图片的视觉读取。
 `target_value_cells` 非空时，主值必须来自该清单；组合量允许拆成数值和单位两个字段，但不能借用邻列。
-全部 region 完成并通过 Guard 后，Results 层只按“相同 element 集合 + 相同可见值”合并完全重复
-事实；来源 ID 不参与重复签名，不跨行拼字段。
+全部 region 完成并通过 Guard 后，Results 层只按“相同物理语义组 + 相同 element 集合 + 相同可见值”
+合并重叠 region 的完全重复事实；不同物理单元格即使同值也不会被折叠，不跨行拼字段。
 
 ## 5. Guard：放权与底线
 
@@ -140,6 +151,10 @@ finish reason、模型加载/prefill/generation 耗时、原始输出、适配�
 固定值是请求口径，不能证明报告口径。模型的 `metric_match` 将待确认或其他口径测量保留在
 审计决定中；Materializer 只将 match 行投影到标准记录。这不是额外的语义 Guard。
 正常结束不再以 worklist 未填完触发催补；真实 length 截断仍可续写。
+
+验证状态分为来源、结果合同、模型语义决定和展示就绪度。Grounding 通过的新事实仍是 `pending`，
+不能显示成“自动验证了 ESG 语义”。跨指标审计只处理一个窄而确定的矛盾：同一物理源单元格被互斥
+包固定维度同时使用。它保留模型决定并要求联合复判，不删除事实、不扩大 Guard。
 
 `FactOrganizer` 是后端唯一的行/列展示顺序来源。原始六类记录不删除；相同语义身份下的重复披露
 及精度区间兼容的替代单位展示用 `logical_measurement_id` 关联，证据集合保留。身份缺失时不

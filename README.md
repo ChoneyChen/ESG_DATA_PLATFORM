@@ -47,7 +47,7 @@ Git 仓库：
 请先完整阅读仓库根目录 README.md，
 再检查当前 git 状态和与任务相关的真实代码。CrawlESG 是保护区。
 不要自行运行真实 OCR/VLM/抽取业务任务；修改后由我测试。
-ESRS E1-5 已发布 draft `1.2.0`，E1-6 已发布 draft `1.3.0`；E1-6 的结构清单成员现以可独立举证的定性事实表达；
+ESRS E1-5 已发布 draft `1.2.0`，E1-6 已发布 draft `1.4.0`；E1-6 已补齐事实粒度、混淆指标族和展示身份合同；
 下一步继续做模型结果业务验证。不得为新指标硬编码专用抽取链路。
 ```
 
@@ -260,7 +260,7 @@ document_ir_output/<ir_run_id>/
 6. Sufficiency 记录检索充分性；只有完整扫描且没有可送模证据时才产生本地 `not_found`，词面组合不完整的强结构化命中交给模型判断；
 7. 选择 Top 1–5 个独立证据对象，默认 Top 3；
 8. 每张表、图或文本区域分别编译 Evidence Region，每次视觉调用最多一张对应 crop；
-9. NuExtract3 或七牛 VLM 按动态字段合同直接输出一量一行、多量多行；
+9. NuExtract3 或七牛 VLM 先按物理源行作 `match/uncertain/different` 判断，再在该行内展开适用的实体/期间值；
 10. Guard 只拦截未知字段、伪造来源、跨对象混配、类型/基数违反等确定性错误；
 11. 去除完全重复事实，物化六类 Core Records；
 12. 写 checkpoint、JSONL、JSON、XLSX、CSV 和遥测。
@@ -298,7 +298,7 @@ targeted_extract_output/<job_id>/
 └── exports/{extraction-result.json,machine-fill.xlsx,task-summary.csv}
 ```
 
-当前目录合同是 `targeted-result-bundle-v1`，结果合同是 `targeted-extraction-result-v1`。Core 随任务快照固定：E2-4 使用 `extractesg.core@1.0.0`，E1-5/E1-6 使用向后兼容的 `extractesg.core@1.1.0`；E1-5 当前运行时包为 `1.2.0`，E1-6 为 `1.3.0`。
+当前目录合同是 `targeted-result-bundle-v1`，结果合同是 `targeted-extraction-result-v1`。Core 随任务快照固定：E2-4 使用 `extractesg.core@1.0.0`，E1-5/E1-6 使用向后兼容的 `extractesg.core@1.1.0`；E1-5 当前运行时包为 `1.2.0`，E1-6 为 `1.4.0`。
 
 ## 10. Standard Packages
 
@@ -337,6 +337,9 @@ packages/<framework>/<version>/<module>/<package_version>/
 
 - E1-5/E1-6 发布 `1.2.0`（元素/概念数量与 1.1.0 相同），补充量型、Scope 2 方法及总量/分项语义。新包原子发布并验证成功后，旧编译目录移至 `dist/.retired/<package>/<version>`，不再出现在新任务目录。源包、历史结果、排队快照保留；历史版本可恢复、可加载。禁止同版本覆盖不同内容。
 - E1-6 发布 `1.3.0`：E1-6_02/04/05/06 的清单成员绑定到 `qualitative_assertion`，每个成员拥有独立事实身份和证据；总计/表头不再作为类别成员。结果物化按父记录与 element 统一计数，task 固定值只生成一次。每个指标在写入可复用 checkpoint 前单独通过结果合同；单指标合同失败会隔离为 `system_contract_failed`，其余指标仍可形成 partial 成果。旧 checkpoint 可由保存的 packet、决定和 Guard 结果无模型重物化。
+- E1-6 发布 `1.4.0`：35 项逐项声明事实粒度、measurement kind、必须区分的语义轴、易混淆指标族、证据形态和 reported/derived 策略。09/10、12/13、26/27、30/31、33/34/35 等家族不再只靠相似标题区分；派生合同额外要求期间、边界和报告实体一致。旧 `1.3.0` 编译产物已自动退役，源包与历史结果仍保留。
+- 模型输出升级为物理行优先的 `row_groups`：先判断整行适用性，再展开该行各实体/期间单元格；原始可见 target 值在唯一可解析时可无损回绑到目标 cell。定性事实必须给出可读 statement 或清单成员，期间/纯数字不得被回填成断言。
+- 结果阶段把来源验证、合同验证、模型语义决定和展示就绪度拆开；Grounding 通过的新结果保持 `pending`，历史 `auto_verified` 仅作兼容显示。相同物理单元格若被互斥的固定方法重复使用，会写入跨指标冲突审计并进入待联合复判，不通过新增 ESG 语义 Guard 删除模型输出。
 - 模型输入增加独立小预算 `linked_context` 方法/脚注；按概念而非重复别名计分，兼容 location-based/location based。模型输出增加 `metric_match`、按需简短解释、`context_refs`、`skipped_targets` 和 `missing_context`。未映射的有据测量保留在决定及检查视图，不被固定标准标签强行物化。
 - 删除模型正常停止后的目标数字覆盖催补，仅真实输出截断续写；不新增语义 Guard。原值作为主证据，完全重复事实归并保留多处证据。
 - 后端 `FactOrganizer` 统一 API、JSONL、JSON、XLSX/事实 CSV 的顺序，输出逻辑测量与原始单位展示关联，不删除原始记录、不新增换算事实、不把替代单位相加。前端已移除独立事实/列排序。
@@ -391,12 +394,12 @@ cd ExtractESG/targeted_table_extract/backend
 PYTHONDONTWRITEBYTECODE=1 "$HOME/Desktop/model/.runtime/venv/bin/python" -m pytest -q -p no:cacheprovider
 ```
 
-当前本轮回归为定向抽取 113 项、Document IR 187 项、标准包合同 23 项。测试使用夹具/假模型，不自行启动真实业务任务。
-另以 `targeted_table_extract/scripts/replay_e2_baseline.py` 只读重放四个污染物历史结果包的八次已接受模型输出，字段值和证据引用未变；历史事实数保持越秀每包 12、紫金每包 106（空气 82、水体 24）。这不等于重新调用模型后的效果保证。
+当前本轮回归为定向抽取 125 项、标准包合同 26 项；Document IR 的既有回归未在本轮重复执行。测试使用夹具/假模型，不自行启动真实业务任务。
+污染物保护采用只读历史回放。本机当前仍保留的两份紫金 E2-4 bundle 均保持 106 条 observation（空气 82、水体 24），三次已接受输出及字段/证据引用未变；两份原固定越秀 bundle 已不在输出目录，因此完整四包脚本会明确报告缺失，不能把缺失样本宣称为已回归。这不等于重新调用模型后的效果保证。
 
 ## 15. E1-5 与 E1-6 构造状态
 
-E1-5、E1-6 的 `1.0.0` 已完成首轮紫金/越秀真实任务并暴露检索假阴性、复杂能源表语义混入和 region 标量合同问题；`1.1.0` 是历史工程升级版本，E1-5 当前为 `1.2.0`，E1-6 当前为 `1.3.0`，均仍处于 `draft`，尚未获得业务批准。
+E1-5、E1-6 的 `1.0.0` 已完成首轮紫金/越秀真实任务并暴露检索假阴性、复杂能源表语义混入和 region 标量合同问题；`1.1.0` 是历史工程升级版本，E1-5 当前为 `1.2.0`，E1-6 当前为 `1.4.0`，均仍处于 `draft`，尚未获得业务批准。
 
 参考底稿是用户提供、未提交到仓库的 `EFRAG IG 3 List of ESRS Data Points` 工作簿。
 
@@ -426,13 +429,13 @@ E1-5_18 按法规正文建模为 `MWh/货币单位` 的能源强度，而不是�
 单位保留完整的 `kWh/m²`、`tCO2e/GWh`；CO2e 不作为普通污染物质量。若多层表头出现“单位列下是实体名”的结构矛盾，只标记 `header_alignment_uncertain`，不改 IR；模型用完整 crop 判读年份/实体，适配器不以不可靠表头覆盖其视觉结果。
 只读证据回放已确认越秀范围一主表 6 个、紫金范围一主表 8 个目标单元格进入送模材料。紫金附录存在重复披露，E1-5 宽表仍保留部分待模型判断的数量；送模数量不得直接解释为最终事实数量。
 
-下一步由用户用 E1-5 `1.2.0`、E1-6 `1.3.0` 复跑紫金/越秀重点指标。验证顺序仍为 Query/FactPattern、Evidence Selection、实际模型输入、多行输出、单位/期间/实体和证据绑定；发现问题时优先修概念、模型上下文或通用合同，禁止加入 `E1-5_xx`、`E1-6_xx` 条款号分支。
+下一步由用户用 E1-5 `1.2.0`、E1-6 `1.4.0` 复跑紫金/越秀重点指标。验证顺序仍为 Query/FactPattern、Evidence Selection、实际模型输入、物理行裁决、单位/期间/实体和证据绑定；发现问题时优先修概念、模型上下文或通用合同，禁止加入 `E1-5_xx`、`E1-6_xx` 条款号分支。
 
 直接披露与计算继续解耦。报告直接给出的总量、占比或强度照常抽取；未披露时不在语义填表阶段临时计算。`derivations.json` 声明计算关系，执行计算属于后续数据处理模块。
 
 ## 16. 已知缺口
 
-1. E1-5、E1-6 已完成首轮真实报告诊断，当前分别为 `1.2.0` 与 `1.3.0`，但尚未通过复跑验收与业务批准；
+1. E1-5、E1-6 已完成首轮真实报告诊断，当前分别为 `1.2.0` 与 `1.4.0`，但尚未通过复跑验收与业务批准；
 2. E2-4 只有 02/03/04 经过多轮真实结果优化；
 3. 本地 OCR 长报告性能仍需用户逐份验证，API fallback 继续保留；
 4. 三份 retained IR 尚未 evidence-ready；

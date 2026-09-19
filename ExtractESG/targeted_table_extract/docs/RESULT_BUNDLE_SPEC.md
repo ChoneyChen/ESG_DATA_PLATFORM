@@ -177,10 +177,13 @@ observation 或 assertion。Guard 未通过的模型 assignment 不允许进入�
 | 决策 | `partial` | 仅满足部分标准元素，保留明确缺口 |
 | 决策 | `not_found` | 完整检索后未发现支持信息，不等于数值 0 |
 | 决策 | `ambiguous` | 候选冲突、范围/期间歧义或模型输出无效 |
-| 审核 | `auto_verified` | 通过确定性 Grounding Guard |
+| 审核 | `pending` | 来源/合同可以通过，但业务语义仍是模型决定，等待业务确认 |
+| 审核 | `auto_verified` | 旧 Result Bundle 的兼容状态；不得解释为 ESG 语义已验证 |
 | 审核 | `human_required` | 自动链路未能形成可发布结论 |
 
-作业只有所有指标 Guard 通过且无 ambiguous 时为 `completed`，否则可以是 `partial`。
+任务结果另行记录 `source_validation_status`、`contract_validation_status`、
+`semantic_decision_status` 和 `display_readiness_status`。作业只有所有指标来源与合同通过、模型决定已
+完成且展示身份可用时为 `completed`；确定性跨指标冲突或身份缺失进入 `partial`，不会删除已找到事实。
 `partial` 作业中已通过的事实仍可查看，但 publication 模块必须按记录审核状态决定是否接收。
 `interrupted` 表示原 worker 已消失但 job 可从 checkpoint 恢复，不等于抽取结论失败。
 
