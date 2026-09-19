@@ -766,8 +766,20 @@ def queue_targeted_extraction_resume(
     if str(record.get("status")) not in {"interrupted", "failed", "cancelled", "partial"}:
         raise HTTPException(status_code=409, detail="Targeted extraction job is not resumable")
     payload = record.get("request") if isinstance(record.get("request"), dict) else {}
+    outcomes = ((record.get("summary") or {}).get("outcomes") or [])
+    contract_recovery = (
+        "ResultContractError" in str(record.get("error") or "")
+        or "duplicates dimension_value_id" in str(record.get("error") or "")
+        or any(
+            item.get("contract_validation_status") == "failed"
+            for item in outcomes
+            if isinstance(item, dict)
+        )
+    )
     secret = request.qiniu_api_key if request is not None else None
     if (
+        not contract_recovery
+        and
         payload.get("semantic_fill", True)
         and payload.get("semantic_provider") == "qiniu_vlm"
         and not secret
@@ -780,7 +792,11 @@ def queue_targeted_extraction_resume(
     return _queue_task(
         task_type=PipelineTaskType.TARGETED_EXTRACTION,
         operation="resume",
-        title=f"定向抽取续跑 · {job_id}",
+        title=(
+            f"定向抽取结果重建 · {job_id}"
+            if contract_recovery
+            else f"定向抽取续跑 · {job_id}"
+        ),
         payload=payload,
         native_job_id=job_id,
         secrets={"QINIU_API_KEY": secret},

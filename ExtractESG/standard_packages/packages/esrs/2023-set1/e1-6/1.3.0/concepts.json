@@ -1,0 +1,959 @@
+[
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "greenhouse gas emissions"
+      ],
+      "zh": [
+        "温室气体排放量",
+        "溫室氣體排放",
+        "溫室氣體排放量"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.ghg-emissions",
+    "description": "ESRS 语义概念：温室气体排放。",
+    "excluded_concept_ids": [],
+    "formulas": [
+      "CO2e",
+      "CO₂e",
+      "CO_{{2}}e"
+    ],
+    "labels": {
+      "en": "GHG emissions",
+      "zh": "温室气体排放"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "gross greenhouse gas emissions"
+      ],
+      "zh": [
+        "温室气体总排放"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.ghg-emissions"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.gross-ghg-emissions",
+    "description": "ESRS 语义概念：温室气体排放总量。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.carbon-removal",
+      "esrs.2023-set1.e1-6.concept.carbon-credit",
+      "esrs.2023-set1.e1-6.concept.avoided-emission"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Gross GHG emissions",
+      "zh": "温室气体排放总量"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "scope1",
+        "scope I",
+        "direct GHG emissions"
+      ],
+      "zh": [
+        "范围1",
+        "范围一",
+        "范畴1",
+        "范畴一",
+        "範圍1",
+        "範圍一",
+        "範疇1",
+        "範疇一",
+        "直接温室气体排放",
+        "直接溫室氣體排放"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.ghg-emissions"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.scope1-emissions",
+    "description": "ESRS 语义概念：范围1排放。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.scope2-emissions",
+      "esrs.2023-set1.e1-6.concept.scope3-emissions"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Scope 1 emissions",
+      "zh": "范围1排放"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "gross scope 1 GHG emissions",
+        "scope one greenhouse gas emissions"
+      ],
+      "zh": [
+        "范围1 温室气体排放量",
+        "范围一温室气体排放",
+        "范畴一温室气体排放",
+        "範圍1 溫室氣體排放量",
+        "范围一GHG排放",
+        "范围1 GHG排放",
+        "直接温室气体排放量"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.scope1-emissions"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.scope1-ghg-emissions",
+    "description": "ESRS 语义概念：范围1温室气体排放。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Scope 1 GHG emissions",
+      "zh": "范围1温室气体排放"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "scope2",
+        "scope II",
+        "energy indirect GHG emissions"
+      ],
+      "zh": [
+        "范围2",
+        "范围二",
+        "范畴2",
+        "范畴二",
+        "範圍2",
+        "範圍二",
+        "购入能源间接排放"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.ghg-emissions"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.scope2-emissions",
+    "description": "ESRS 语义概念：范围2排放。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.scope1-emissions",
+      "esrs.2023-set1.e1-6.concept.scope3-emissions"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Scope 2 emissions",
+      "zh": "范围2排放"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "scope3",
+        "scope III",
+        "other indirect GHG emissions"
+      ],
+      "zh": [
+        "范围3",
+        "范围三",
+        "范畴3",
+        "范畴三",
+        "範圍3",
+        "範圍三",
+        "其他间接温室气体排放"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.ghg-emissions"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.scope3-emissions",
+    "description": "ESRS 语义概念：范围3排放。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.scope1-emissions",
+      "esrs.2023-set1.e1-6.concept.scope2-emissions"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Scope 3 emissions",
+      "zh": "范围3排放"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "total scope 1 2 and 3 emissions"
+      ],
+      "zh": [
+        "范围1、2、3排放总和"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.ghg-emissions"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.total-ghg-emissions",
+    "description": "ESRS 语义概念：温室气体排放合计。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Total GHG emissions",
+      "zh": "温室气体排放合计"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "location based method"
+      ],
+      "zh": [
+        "位置法"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.location-based",
+    "description": "ESRS 语义概念：基于位置法。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.market-based"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Location-based",
+      "zh": "基于位置法"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "market based method"
+      ],
+      "zh": [
+        "市场法"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.market-based",
+    "description": "ESRS 语义概念：基于市场法。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.location-based"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Market-based",
+      "zh": "基于市场法"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "greenhouse gas intensity"
+      ],
+      "zh": [
+        "碳排放强度"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.ghg-intensity",
+    "description": "ESRS 语义概念：温室气体排放强度。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.emissions-trading-scheme"
+    ],
+    "formulas": [
+      "total GHG emissions / net revenue"
+    ],
+    "labels": {
+      "en": "GHG intensity",
+      "zh": "温室气体排放强度"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "regulated ETS",
+        "regulated emission trading scheme",
+        "emissions trading system"
+      ],
+      "zh": [
+        "碳交易体系",
+        "排放权交易体系",
+        "碳排放权交易市场",
+        "碳市场覆盖"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.emissions-trading-scheme",
+    "description": "ESRS 语义概念：排放交易体系。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.ghg-intensity"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Emission trading scheme",
+      "zh": "排放交易体系"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "biogenic carbon dioxide"
+      ],
+      "zh": [
+        "生物质二氧化碳"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.biogenic-co2",
+    "description": "ESRS 语义概念：生物源二氧化碳。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Biogenic CO2",
+      "zh": "生物源二氧化碳"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "contractual instruments"
+      ],
+      "zh": [
+        "能源合同工具"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.contractual-instrument",
+    "description": "ESRS 语义概念：合同工具。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Contractual instrument",
+      "zh": "合同工具"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "bundled instruments"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.contractual-instrument"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.bundled-instrument",
+    "description": "ESRS 语义概念：捆绑合同工具。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Bundled contractual instrument",
+      "zh": "捆绑合同工具"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "bundled energy attribute claims"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.contractual-instrument"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.bundled-attribute-claim",
+    "description": "ESRS 语义概念：捆绑能源属性声明。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Bundled energy attribute claim",
+      "zh": "捆绑能源属性声明"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "unbundled energy attribute claims"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.contractual-instrument"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.unbundled-attribute-claim",
+    "description": "ESRS 语义概念：非捆绑能源属性声明。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Unbundled energy attribute claim",
+      "zh": "非捆绑能源属性声明"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "supplier-specific data"
+      ],
+      "zh": [
+        "供应商或价值链伙伴数据"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.primary-data",
+    "description": "ESRS 语义概念：一手数据。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Primary data",
+      "zh": "一手数据"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "calculation methodology and assumptions"
+      ],
+      "zh": [
+        "计算方法和假设"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.methodology",
+    "description": "ESRS 语义概念：核算方法。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Methodology",
+      "zh": "核算方法"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "emissions factor"
+      ],
+      "zh": [
+        "排放系数"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.emission-factor",
+    "description": "ESRS 语义概念：排放因子。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Emission factor",
+      "zh": "排放因子"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "calculation tools"
+      ],
+      "zh": [
+        "核算工具"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.calculation-tool",
+    "description": "ESRS 语义概念：计算工具。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Calculation tool",
+      "zh": "计算工具"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "methodology boundary or data change"
+      ],
+      "zh": [
+        "基准年或边界变更"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.comparability-change",
+    "description": "ESRS 语义概念：可比性变更。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Comparability change",
+      "zh": "可比性变更"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "financial or operational control"
+      ],
+      "zh": [
+        "组织边界"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.control-boundary",
+    "description": "ESRS 语义概念：控制边界。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Control boundary",
+      "zh": "控制边界"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "GHG disaggregation"
+      ],
+      "zh": [
+        "排放分拆"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.disaggregation",
+    "description": "ESRS 语义概念：分解。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Disaggregation",
+      "zh": "分解"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "Greenhouse Gas Protocol"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.ghg-protocol",
+    "description": "ESRS 语义概念：温室气体核算体系。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "GHG Protocol",
+      "zh": "温室气体核算体系"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "ISO 14064 Part 1"
+      ],
+      "zh": [
+        "温室气体 ISO 标准"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.iso-14064",
+    "description": "ESRS 语义概念：ISO 14064-1 标准。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "ISO 14064-1",
+      "zh": "ISO 14064-1 标准"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "upstream and downstream value chain"
+      ],
+      "zh": [
+        "上游和下游价值链"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.value-chain",
+    "description": "ESRS 语义概念：价值链。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Value chain",
+      "zh": "价值链"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "scope 3 categories"
+      ],
+      "zh": [
+        "范围三类别"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.scope3-category",
+    "description": "ESRS 语义概念：范围3类别。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Scope 3 category",
+      "zh": "范围3类别"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "excluded scope 3 categories"
+      ],
+      "zh": [
+        "未纳入范围三类别"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.scope3-category"
+    ],
+    "concept_id": "esrs.2023-set1.e1-6.concept.excluded-category",
+    "description": "ESRS 语义概念：排除的范围3类别。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Excluded Scope 3 category",
+      "zh": "排除的范围3类别"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "revenue denominator"
+      ],
+      "zh": [
+        "营业净收入"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.net-revenue",
+    "description": "ESRS 语义概念：净收入。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Net revenue",
+      "zh": "净收入"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "reconciliation to financial statements"
+      ],
+      "zh": [
+        "与财务报表衔接"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.reconciliation",
+    "description": "ESRS 语义概念：对账。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Reconciliation",
+      "zh": "对账"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "reporting year"
+      ],
+      "zh": [
+        "报告年度"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.reporting-period",
+    "description": "ESRS 语义概念：报告期。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Reporting period",
+      "zh": "报告期"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "organisational boundary"
+      ],
+      "zh": [
+        "报告范围"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.reporting-boundary",
+    "description": "ESRS 语义概念：报告边界。",
+    "excluded_concept_ids": [],
+    "formulas": [],
+    "labels": {
+      "en": "Reporting boundary",
+      "zh": "报告边界"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "GHG removal"
+      ],
+      "zh": [
+        "温室气体移除"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.carbon-removal",
+    "description": "ESRS 语义概念：碳移除。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Carbon removal",
+      "zh": "碳移除"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "carbon offset"
+      ],
+      "zh": [
+        "碳抵消"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.carbon-credit",
+    "description": "ESRS 语义概念：碳信用。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Carbon credit",
+      "zh": "碳信用"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  },
+  {
+    "abbreviations": [],
+    "aliases": {
+      "en": [
+        "avoided GHG emissions"
+      ],
+      "zh": [
+        "减排量"
+      ]
+    },
+    "applicable_context_concept_ids": [],
+    "broader_concept_ids": [],
+    "concept_id": "esrs.2023-set1.e1-6.concept.avoided-emission",
+    "description": "ESRS 语义概念：避免排放。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e1-6.concept.gross-ghg-emissions"
+    ],
+    "formulas": [],
+    "labels": {
+      "en": "Avoided emission",
+      "zh": "避免排放"
+    },
+    "related_concept_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ]
+  }
+]

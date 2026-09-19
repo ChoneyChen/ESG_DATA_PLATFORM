@@ -321,6 +321,24 @@ class StandardPackageCompiler:
         if metrics_without_elements:
             raise PackageIntegrityError(f"metrics without elements: {metrics_without_elements}")
 
+        # New packages must represent evidence-derived list members as facts.
+        # A repeated reporting-task dimension has no independent evidence owner
+        # and was the source of unstable member identity in earlier packages.
+        if self._semantic_version_tuple(manifest.package_version) >= (1, 3, 0):
+            metric_by_id = {item.metric_id: item for item in module.metrics}
+            for element in module.elements:
+                metric = metric_by_id[element.metric_id]
+                if (
+                    metric.data_class.value == "structure"
+                    and element.binding.record_type is RecordClass.TASK
+                    and element.binding.storage is BindingStorage.DIMENSION
+                    and element.cardinality.maximum is None
+                ):
+                    raise PackageIntegrityError(
+                        "structure list members must bind to quantitative_observation "
+                        f"or qualitative_assertion, not reporting_task: {element.element_id}"
+                    )
+
         for relation in module.relations:
             refs = [
                 *relation.source_metric_ids,
@@ -362,6 +380,11 @@ class StandardPackageCompiler:
         if path == core_path:
             return "core/core.json"
         return f"module/{path.relative_to(module_dir).as_posix()}"
+
+    @staticmethod
+    def _semantic_version_tuple(value: str) -> tuple[int, int, int]:
+        major, minor, patch = value.split(".")
+        return int(major), int(minor), int(patch)
 
     @staticmethod
     def _assert_unique(label: str, values: Iterable[object]) -> None:

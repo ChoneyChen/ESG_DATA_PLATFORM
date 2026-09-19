@@ -106,7 +106,8 @@ function statusLabel(value) {
     failed: "失败", cancelled: "已取消", interrupted: "已中断", found: "已找到",
     not_found: "未找到", ambiguous: "不确定", pending: "处理中", reported: "直接披露",
     not_found_after_complete_search: "完整检索后未找到", auto_verified: "来源与合同已核对",
-    human_required: "需人工判断", passed: "通过", warning: "警告",
+    human_required: "需人工判断", system_contract_failed: "结果合同失败",
+    passed: "通过", warning: "警告",
   }[value] || value || "未产生";
 }
 
@@ -715,6 +716,9 @@ function renderTargetJobDetail() {
       || String(attempt.error || "").includes("account_billing_suspended")
     )
   );
+  const repairableContractFailure = (targetedState.inspection?.metrics || []).some(
+    (metric) => metric.contract_validation_status === "failed"
+  ) || /ResultContractError|duplicates dimension_value_id/.test(String(job.error || ""));
   const report = jobDocumentIdentity(job, targetedState.inspection);
   const modelCalls = targetedState.events.filter((event) => event.stage === "model_call" && (event.detail?.phase === "started" || String(event.message).endsWith("started"))).length;
   $("#tx-job-title").textContent = report.displayName;
@@ -735,6 +739,9 @@ function renderTargetJobDetail() {
     ...(evidencePolicy.mode === "limited" ? [["证据范围", `受限：可用 ${evidencePolicy.available_page_count || 0} 页，排除 ${(evidencePolicy.excluded_page_indices || []).length} 页；排除页不代表未披露`]] : []),
   ];
   $("#tx-job-summary").innerHTML = `${cells.map(([label, value]) => `<div><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join("")}${job.error ? `<p class="error">${esc(job.error)}</p>` : ""}`;
+  $("#tx-resume-job").textContent = repairableContractFailure
+    ? "修复后重建结果（不调用模型）"
+    : "加入断点续跑";
   $("#tx-resume-job").classList.toggle("hidden", !["interrupted", "failed", "cancelled", "partial"].includes(job.status));
   $("#tx-cancel-job").classList.toggle("hidden", !["queued", "running"].includes(job.status));
   $("#tx-delete-job").classList.toggle("hidden", ["queued", "running"].includes(job.status));
@@ -876,6 +883,7 @@ function metricEvidenceCount(metric) {
 }
 
 function metricQualityClass(metric) {
+  if (metric.contract_validation_status === "failed") return "quality-error";
   if (metric.guard_accepted === false) return "quality-error";
   if ((metric.facts || []).some((fact) => (fact.quality_issues || []).length)) return "quality-warning";
   return "quality-ok";
@@ -952,7 +960,9 @@ function renderTargetMetricTable() {
     const factCount = metric.facts?.length || 0;
     const evidenceCount = metricEvidenceCount(metric);
     const blocked = metricProviderAccountBlocked(metric);
-    const guard = blocked ? "未执行" : metric.guard_accepted === true ? "通过" : metric.guard_accepted === false ? "未通过" : "未执行";
+    const guard = metric.contract_validation_status === "failed"
+      ? "结果合同失败"
+      : blocked ? "未执行" : metric.guard_accepted === true ? "通过" : metric.guard_accepted === false ? "未通过" : "未执行";
     return `<tr class="metric-task-row ${selected ? "selected" : ""} ${metricQualityClass(metric)}" tabindex="0" data-tx-metric="${esc(metric.metric_id)}">
       <td class="metric-task-id"><strong>${esc(metric.source_datapoint_id)}</strong><code>${esc(metric.metric_id)}</code></td>
       <td><strong>${esc(metricName(metric))}</strong><small>${esc(metric.description || "")}</small></td>
@@ -991,6 +1001,7 @@ function renderTargetMetricDetail() {
   const budget = metric.retrieval?.packet_budget || {};
   const attempts = metric.decision?.attempts || [];
   const accountBlocked = metricProviderAccountBlocked(metric);
+  const contractFailed = metric.contract_validation_status === "failed";
   const providers = [...new Set(attempts.map((item) => item.provider).filter(Boolean))];
   const models = [...new Set(attempts.map((item) => item.model_id).filter(Boolean))];
   const regionCount = Math.max(0, ...attempts.map((item) => Number(item.region_count || item.region_index || 0)));
@@ -1004,7 +1015,7 @@ function renderTargetMetricDetail() {
     ${renderMetricFactTable(metric, displayedFacts)}
     ${(metric.unmapped_measurements || []).length ? `<details open><summary>归属待确认 / 其他口径：${metric.unmapped_measurements.length} 条（保留原量，不贴标准标签）</summary><pre class="json compact-json">${esc(JSON.stringify(metric.unmapped_measurements, null, 2))}</pre></details>` : ""}
     <h4>当前事实行证据${selectedFact ? ` · ${esc(selectedFact.fact_id)}` : ""}</h4><div class="evidence-list">${evidence.map((item) => `<blockquote><p>${esc(item.excerpt)}</p><footer>PDF 第 ${item.pdf_page_number} 页${item.printed_page_label ? ` · 报告页 ${esc(item.printed_page_label)}` : ""} · ${esc(item.section_title || item.ir_object_id)} · ${esc(item.evidence_id)}</footer></blockquote>`).join("") || '<p class="muted">当前指标没有可选择的事实行或该行没有接受的证据记录。</p>'}</div>
-    <div class="diagnostic-grid"><section><h4>确定性来源与合同 Guard</h4><div class="guard-summary ${metric.guard_accepted ? "passed" : "failed"}"><strong>${accountBlocked ? "服务商拒绝请求；未获得模型输出" : metric.guard_accepted === true ? "已接纳模型填表" : metric.guard_accepted === false ? "存在确定性合同错误" : "Guard 未执行"}</strong><span>${esc(accountBlocked ? "七牛账户计费状态异常。账户恢复后重新运行该任务；本次结果不能用于判断条款是否披露。" : metric.guard?.feedback || "无反馈；缺失字段允许为空。")}</span></div><pre class="json compact-json">${esc(JSON.stringify(metric.guard?.issues || [], null, 2))}</pre></section><section><h4>模型实际执行</h4><dl class="compact-facts"><div><dt>Provider</dt><dd>${esc(providers.join(" / ") || (accountBlocked ? "七牛云（请求被拒绝）" : "未调用模型"))}</dd></div><div><dt>模型</dt><dd>${esc(models.join(" / ") || "未记录")}</dd></div><div><dt>Evidence Regions</dt><dd>${regionCount || (attempts.length ? 1 : 0)}</dd></div><div><dt>本地充分性</dt><dd>${esc(sufficiency.status || "未产生")}</dd></div><div><dt>扫描证明</dt><dd>${esc((sufficiency.reason_codes || []).join(" / ") || "未产生")}</dd></div><div><dt>完整选择</dt><dd>${metric.retrieval?.packet_span_count || 0} spans · ${metric.retrieval?.packet_candidate_count || 0} candidates · ${metric.retrieval?.packet_image_count || 0} crops</dd></div><div><dt>模型调用/合并记录</dt><dd>${attempts.length}</dd></div></dl></section></div>
+    <div class="diagnostic-grid"><section><h4>确定性来源与结果合同</h4><div class="guard-summary ${contractFailed || !metric.guard_accepted ? "failed" : "passed"}"><strong>${contractFailed ? "模型结果已保留，但结果物化合同失败" : accountBlocked ? "服务商拒绝请求；未获得模型输出" : metric.guard_accepted === true ? "来源 Guard 与结果合同均通过" : metric.guard_accepted === false ? "存在确定性来源合同错误" : "Guard 未执行"}</strong><span>${esc(contractFailed ? metric.contract_error || "该指标记录已隔离，未污染其他指标成果。" : accountBlocked ? "七牛账户计费状态异常。账户恢复后重新运行该任务；本次结果不能用于判断条款是否披露。" : metric.guard?.feedback || "无反馈；缺失字段允许为空。")}</span></div><pre class="json compact-json">${esc(JSON.stringify(metric.guard?.issues || [], null, 2))}</pre></section><section><h4>模型实际执行</h4><dl class="compact-facts"><div><dt>Provider</dt><dd>${esc(providers.join(" / ") || (accountBlocked ? "七牛云（请求被拒绝）" : "未调用模型"))}</dd></div><div><dt>模型</dt><dd>${esc(models.join(" / ") || "未记录")}</dd></div><div><dt>Evidence Regions</dt><dd>${regionCount || (attempts.length ? 1 : 0)}</dd></div><div><dt>本地充分性</dt><dd>${esc(sufficiency.status || "未产生")}</dd></div><div><dt>扫描证明</dt><dd>${esc((sufficiency.reason_codes || []).join(" / ") || "未产生")}</dd></div><div><dt>完整选择</dt><dd>${metric.retrieval?.packet_span_count || 0} spans · ${metric.retrieval?.packet_candidate_count || 0} candidates · ${metric.retrieval?.packet_image_count || 0} crops</dd></div><div><dt>模型调用/合并记录</dt><dd>${attempts.length}</dd></div></dl></section></div>
     <h4>Region / 模型调用明细</h4><div class="model-attempt-list">${attempts.map((item) => `<article><strong>${esc(item.provider || item.route || "本地步骤")} · ${esc(item.model_id || "无模型")}</strong><span>${item.region_index ? `Region ${item.region_index}/${item.region_count || "?"} · ` : ""}${Number(item.input_group_count || 0)} groups · ${Number(item.input_span_count || 0)} spans · ${Number(item.input_candidate_count || 0)} candidates · ${Number(item.image_count || 0)} images → ${Number(item.output_row_count || 0)} rows</span><small>${Number(item.input_chars || 0)} chars · prompt ${Number(item.prompt_tokens || 0)} tokens · output ${Number(item.generation_tokens || 0)} tokens · ${Number(item.elapsed_seconds || 0).toFixed(2)}s${item.finish_reason ? ` · ${esc(item.finish_reason)}` : ""}</small></article>`).join("") || '<p class="muted">本指标未调用语义模型。</p>'}</div>
     <h4>召回片段（非对象 Top N）· 前 ${hits.length}</h4><div class="retrieval-hits">${hits.map((hit, index) => `<article><span>#${index + 1}</span><div><strong>${hit.page_index == null ? "页码未记录" : `PDF 第 ${hit.page_index + 1} 页`}${hit.section_title ? ` · ${esc(hit.section_title)}` : ""}</strong><p>${esc(hit.text || "历史产物未保留该命中文本")}</p><small>final ${Number(hit.final_score || 0).toFixed(4)} · topic ${Math.round(Number(hit.topic_coverage || 0) * 100)}% · ${esc((hit.reasons || []).join(" / "))}</small></div></article>`).join("") || '<p class="muted">没有可展示的召回命中。</p>'}</div>
     <details><summary>完整 Guard、检索和模型决定 JSON</summary><pre class="json compact-json">${esc(JSON.stringify({guard: metric.guard, retrieval: metric.retrieval, decision: metric.decision}, null, 2))}</pre></details>`;

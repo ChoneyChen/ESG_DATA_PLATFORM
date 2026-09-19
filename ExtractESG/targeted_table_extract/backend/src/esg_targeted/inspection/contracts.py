@@ -110,6 +110,8 @@ class InspectionMetric(StrictModel):
     guard_accepted: bool | None = None
     attempts: int
     uncertainty_reason: str | None = None
+    contract_validation_status: Literal["passed", "failed"] | None = None
+    contract_error: str | None = None
     result_counts: dict[str, int]
     element_columns: list[InspectionElementColumn] = Field(default_factory=list)
     facts: list[InspectionFact]

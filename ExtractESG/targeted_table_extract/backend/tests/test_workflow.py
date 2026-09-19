@@ -5,6 +5,7 @@ import json
 from types import SimpleNamespace
 
 import numpy as np
+import pytest
 from openpyxl import load_workbook
 
 from esg_targeted.config import Settings
@@ -23,9 +24,65 @@ from esg_targeted.models.nuextract import NuExtractMlxModel
 from esg_targeted.storage.artifacts import ArtifactStore
 from esg_targeted.storage.job_store import JobStore
 from esg_targeted.workflow import TargetedExtractionWorkflow
+from esg_targeted.results.validation import ResultContractError
 
 from tests.helpers import build_ir_fixture, standard_dist_root
 from tests.test_inventory_and_guard import build_pipeline, without_target_cells
+
+
+def test_keyed_record_merge_is_idempotent_but_rejects_payload_collision():
+    records = {"reporting_tasks": []}
+    record_index = {
+        collection: {}
+        for collection in (
+            "reporting_tasks",
+            "quantitative_observations",
+            "qualitative_assertions",
+            "attribute_values",
+            "dimension_values",
+            "evidence_references",
+        )
+    }
+    first = {"reporting_tasks": [{"task_id": "task-1", "task_status": "completed"}]}
+    TargetedExtractionWorkflow._merge_records(
+        records, record_index, first, "metric-1"
+    )
+    TargetedExtractionWorkflow._merge_records(
+        records, record_index, first, "metric-1"
+    )
+    assert len(records["reporting_tasks"]) == 1
+
+    with pytest.raises(ResultContractError, match="aggregate collision"):
+        TargetedExtractionWorkflow._merge_records(
+            records,
+            record_index,
+            {
+                "reporting_tasks": [
+                    {"task_id": "task-1", "task_status": "partial"}
+                ]
+            },
+            "metric-2",
+        )
+
+
+def test_checkpoint_recovery_does_not_replace_an_explicit_ambiguous_rerun():
+    ambiguous = {
+        "schema_version": "targeted-checkpoint-v2",
+        "reusable": False,
+        "outcome": {"guard_accepted": False, "status": "ambiguous"},
+    }
+    assert not TargetedExtractionWorkflow._checkpoint_requires_rematerialization(
+        ambiguous,
+        contract_recovery_job=False,
+        package_source_digest="package-digest",
+        materializer_version="materializer-v2",
+    )
+    assert TargetedExtractionWorkflow._checkpoint_requires_rematerialization(
+        ambiguous,
+        contract_recovery_job=True,
+        package_source_digest="package-digest",
+        materializer_version="materializer-v2",
+    )
 
 
 class FakeEmbeddingProvider:

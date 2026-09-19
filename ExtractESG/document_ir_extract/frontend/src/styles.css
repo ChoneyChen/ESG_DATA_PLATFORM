@@ -415,6 +415,7 @@ input:disabled { cursor: not-allowed; opacity: .55; background: #eef1ee; }
 .status-pill.success, .status-pill.completed, .status-pill.found { color: var(--green); border-color: #9ac9b3; background: var(--green-soft); }
 .status-pill.neutral, .status-pill.cancelled, .status-pill.interrupted, .status-pill.not_found { color: var(--muted); background: #f3f5f2; }
 .status-pill.running, .status-pill.queued, .status-pill.partial, .status-pill.ambiguous { color: var(--blue); border-color: #9fbcd6; background: #edf4fa; }
+.status-pill.system_contract_failed { color: var(--red); border-color: #e3a5a0; background: #fff0ef; }
 .status-pill.failed, .status-pill.error { color: var(--red); border-color: #e2aaa5; background: #fff0ef; }
 
 .report-library { margin-bottom: 18px; }

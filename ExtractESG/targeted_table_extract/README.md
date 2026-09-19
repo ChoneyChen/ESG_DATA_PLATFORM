@@ -217,6 +217,11 @@ targeted_extract_output/<job_id>/
 `packets/<metric>.json` 用于完整审计，`packets/<metric>.regions.json` 才是模型实际看到的材料清单。
 模型失败原文会保留在 `decisions/`，但未通过确定性来源合同的数据不会进入 `results/`。
 
+每个指标物化后会立即单独执行 Result Contract 校验，只有通过的记录才能进入汇总结果并把
+checkpoint 标为可复用。单指标的主键或关联合同失败会写入 `contract-errors/`，该指标标记为
+`system_contract_failed`，其他指标仍可形成 `partial` 成果。checkpoint 保存标准包 digest、物化器版本
+和校验状态；旧 checkpoint 恢复时优先复用保存的 packet、模型决定和 Guard 结果重新物化，不重新调用模型。
+
 ## 成果检查
 
 统一前端允许同时选择 E1-5、E1-6、E2-4 中的细分指标。跨卡片选择只是一份批量任务计划；

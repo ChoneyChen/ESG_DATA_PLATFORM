@@ -293,6 +293,8 @@ class TaskOutcome(StrictModel):
     attempts: int
     result_counts: dict[str, int]
     uncertainty_reason: str | None = None
+    contract_validation_status: Literal["passed", "failed"] | None = None
+    contract_error: str | None = None
 
 
 class MaterializedTaskResult(StrictModel):

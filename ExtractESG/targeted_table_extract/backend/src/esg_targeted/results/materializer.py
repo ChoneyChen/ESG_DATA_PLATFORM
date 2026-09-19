@@ -19,6 +19,8 @@ from esg_targeted.ids import stable_id
 
 
 class CoreResultMaterializer:
+    materializer_version = "core-result-materializer-v2"
+
     def materialize(
         self,
         *,
@@ -42,6 +44,13 @@ class CoreResultMaterializer:
         dimensions: list[dict[str, Any]] = []
         evidence: list[dict[str, Any]] = []
         review_status = "auto_verified" if guard.accepted else "human_required"
+        has_matched_group = any(
+            group.metric_match == "match" for group in decision.fact_groups
+        )
+        # Sequence is scoped to the actual parent and element.  A reporting-task
+        # element can be emitted by several model fact groups, so resetting an
+        # enumerate() inside each group would create duplicate primary keys.
+        occurrence_counts: dict[tuple[str, str], int] = defaultdict(int)
 
         for group_index, group in enumerate(decision.fact_groups, 1):
             if group.metric_match != "match":
@@ -65,6 +74,10 @@ class CoreResultMaterializer:
             for element_id in package.elements_by_metric[metric.metric_id]:
                 element = elements_by_id[element_id]
                 if element.value_contract.fixed_value is None:
+                    continue
+                # Task-scoped constants describe the task once.  Observation-
+                # and assertion-scoped constants still belong to each fact.
+                if element.binding.record_type.value == "reporting_task":
                     continue
                 resolved.append(
                     {
@@ -181,7 +194,7 @@ class CoreResultMaterializer:
                 "quantitative_observation": observation_id,
                 "qualitative_assertion": assertion_id,
             }
-            for sequence, item in enumerate(resolved, 1):
+            for item in resolved:
                 element = item["element"]
                 binding = element.binding
                 if binding.storage.value == "core_field":
@@ -190,10 +203,16 @@ class CoreResultMaterializer:
                 if parent_id is None:
                     continue
                 assignment = item["assignment"]
-                element_evidence_ids = (
-                    assignment.evidence_span_ids if assignment is not None else evidence_span_ids
-                )
                 evidence_set_id = parent_evidence_sets.get(parent_id)
+                counter_key = (parent_id, element.element_id)
+                occurrence_counts[counter_key] += 1
+                sequence = occurrence_counts[counter_key]
+                identity_token = self._occurrence_identity(
+                    parent_type=binding.record_type.value,
+                    group_ref_id=group.group_ref_id,
+                    assignment=assignment,
+                    sequence=sequence,
+                )
                 if binding.storage.value == "attribute":
                     attributes.append(
                         self._attribute_record(
@@ -205,6 +224,7 @@ class CoreResultMaterializer:
                             sequence,
                             evidence_set_id,
                             review_status,
+                            identity_token,
                         )
                     )
                 elif binding.storage.value == "dimension":
@@ -219,8 +239,61 @@ class CoreResultMaterializer:
                             sequence,
                             evidence_set_id,
                             review_status,
+                            identity_token,
                         )
                     )
+
+        # Materialize fixed reporting-task elements exactly once after all model
+        # groups.  They are request-scope metadata, not one value per row.
+        for element_id in package.elements_by_metric[metric.metric_id]:
+            element = elements_by_id[element_id]
+            binding = element.binding
+            if (
+                not has_matched_group
+                or
+                element.value_contract.fixed_value is None
+                or binding.record_type.value != "reporting_task"
+                or binding.storage.value == "core_field"
+            ):
+                continue
+            value = {
+                "raw": str(element.value_contract.fixed_value),
+                "normalized": element.value_contract.fixed_value,
+                "candidate": None,
+                "span": None,
+            }
+            counter_key = (packet.task_id, element.element_id)
+            occurrence_counts[counter_key] += 1
+            sequence = occurrence_counts[counter_key]
+            if binding.storage.value == "attribute":
+                attributes.append(
+                    self._attribute_record(
+                        packet,
+                        metric,
+                        element,
+                        value,
+                        packet.task_id,
+                        sequence,
+                        None,
+                        review_status,
+                        "task-fixed",
+                    )
+                )
+            elif binding.storage.value == "dimension":
+                dimensions.append(
+                    self._dimension_record(
+                        packet,
+                        metric,
+                        element,
+                        value,
+                        code_sets,
+                        packet.task_id,
+                        sequence,
+                        None,
+                        review_status,
+                        "task-fixed",
+                    )
+                )
 
         has_unmapped = any(g.metric_match != "match" for g in decision.fact_groups)
         effective_status = "partial" if has_unmapped else decision.status
@@ -418,12 +491,15 @@ class CoreResultMaterializer:
         sequence,
         evidence_set_id,
         review_status,
+        identity_token,
     ) -> dict[str, Any]:
         value_type, field, typed_value = self._typed_attribute_value(
             element.value_contract.primary_type.value, value["normalized"]
         )
         record = {
-            "attribute_id": stable_id("attr", parent_id, element.element_id, sequence),
+            "attribute_id": stable_id(
+                "attr", parent_id, element.element_id, identity_token
+            ),
             "parent_record_type": element.binding.record_type.value,
             "parent_record_id": parent_id,
             "metric_id": metric.metric_id,
@@ -453,6 +529,7 @@ class CoreResultMaterializer:
         sequence,
         evidence_set_id,
         review_status,
+        identity_token,
     ) -> dict[str, Any]:
         raw = str(value["raw"] or "")
         code = None
@@ -462,7 +539,9 @@ class CoreResultMaterializer:
         elif code_set_id in code_sets:
             code = self._match_code(raw, code_sets[code_set_id])
         return {
-            "dimension_value_id": stable_id("dim", parent_id, element.element_id, sequence),
+            "dimension_value_id": stable_id(
+                "dim", parent_id, element.element_id, identity_token
+            ),
             "parent_record_type": element.binding.record_type.value,
             "parent_record_id": parent_id,
             "metric_id": metric.metric_id,
@@ -476,6 +555,19 @@ class CoreResultMaterializer:
             "evidence_set_id": evidence_set_id,
             "review_status": review_status,
         }
+
+    @staticmethod
+    def _occurrence_identity(
+        *,
+        parent_type: str,
+        group_ref_id: str,
+        assignment: Any,
+        sequence: int,
+    ) -> str:
+        if parent_type == "reporting_task":
+            source_ref_id = assignment.source_ref_id if assignment is not None else "fixed"
+            return f"{group_ref_id}:{source_ref_id}:{sequence}"
+        return str(sequence)
 
     @staticmethod
     def _typed_attribute_value(primary_type: str, value: Any) -> tuple[str, str, Any]:

@@ -14,6 +14,7 @@ from esg_standard_packages.contracts import CompiledStandardPackage
 
 from esg_targeted.config import Settings
 from esg_targeted.contracts import (
+    EvidencePacket,
     ExtractionRequest,
     GuardIssue,
     GuardResult,
@@ -39,8 +40,12 @@ from esg_targeted.models.qiniu_vlm import QiniuVlmModel
 from esg_targeted.results.exporter import ResultExporter
 from esg_targeted.results.deduplicator import ExactFactDeduplicator
 from esg_targeted.results.materializer import CoreResultMaterializer
-from esg_targeted.results.spec import RESULT_BUNDLE_LAYOUT_VERSION, RESULT_SCHEMA_VERSION
-from esg_targeted.results.validation import ResultContractValidator
+from esg_targeted.results.spec import (
+    RECORD_LAYOUT,
+    RESULT_BUNDLE_LAYOUT_VERSION,
+    RESULT_SCHEMA_VERSION,
+)
+from esg_targeted.results.validation import ResultContractError, ResultContractValidator
 from esg_targeted.retrieval.embeddings import (
     CachedEmbeddingIndex,
     EmbeddingProvider,
@@ -60,6 +65,8 @@ class CancelledError(RuntimeError):
 
 
 class TargetedExtractionWorkflow:
+    checkpoint_schema_version = "targeted-checkpoint-v3"
+
     def __init__(
         self,
         settings: Settings,
@@ -147,6 +154,16 @@ class TargetedExtractionWorkflow:
 
     def run(self, job_id: str) -> None:
         request = self.job_store.get(job_id).request
+        previous_failure = (
+            self.artifact_store.read_json(job_id, "failure.json")
+            if self.artifact_store.exists(job_id, "failure.json")
+            else {}
+        )
+        contract_recovery_job = (
+            "ResultContractError" in str(previous_failure.get("error") or "")
+            or "duplicates dimension_value_id"
+            in str(previous_failure.get("error") or "")
+        )
         embedding_provider = None
         semantic_model = None
         try:
@@ -308,10 +325,14 @@ class TargetedExtractionWorkflow:
             sufficiency_gate = EvidenceSufficiencyGate()
             guard_engine = GroundingGuard()
             materializer = CoreResultMaterializer()
+            contract_validator = ResultContractValidator(package.core)
             visual_planner = VisualEscalationPlanner()
             semantic_model = self._build_semantic_model(request) if request.semantic_fill else None
             model_label = self._model_label(semantic_model)
             records: dict[str, list[dict]] = defaultdict(list)
+            record_index: dict[str, dict[str, dict]] = {
+                collection: {} for collection in RECORD_LAYOUT
+            }
             outcomes = []
             model_executions: list[dict[str, str]] = []
 
@@ -324,19 +345,117 @@ class TargetedExtractionWorkflow:
                     checkpoint = self.artifact_store.read_json(job_id, checkpoint_path)
                     if (
                         checkpoint.get("metric_id") == metric.metric_id
-                        and self._checkpoint_reusable(checkpoint)
-                    ):
-                        outcomes.append(checkpoint["outcome"])
-                        for key, rows in checkpoint["records"].items():
-                            records[key].extend(rows)
-                        self.job_store.update(job_id, progress_current=index)
-                        self.job_store.add_event(
-                            job_id,
-                            "checkpoint_resume",
-                            "info",
-                            f"Reused completed checkpoint for {metric.source_datapoint_id}",
-                            {"metric_id": metric.metric_id},
+                        and self._checkpoint_reusable(
+                            checkpoint,
+                            package_source_digest=package.compilation.source_digest,
+                            materializer_version=materializer.materializer_version,
                         )
+                    ):
+                        try:
+                            contract_validator.validate(checkpoint["records"])
+                            self._merge_records(
+                                records,
+                                record_index,
+                                checkpoint["records"],
+                                metric.metric_id,
+                            )
+                        except ResultContractError as exc:
+                            self.job_store.add_event(
+                                job_id,
+                                "checkpoint_rejected",
+                                "warning",
+                                f"Checkpoint contract failed for {metric.source_datapoint_id}; rebuilding from preserved decision",
+                                {"metric_id": metric.metric_id, "error": str(exc)},
+                            )
+                        else:
+                            outcomes.append(checkpoint["outcome"])
+                            self.job_store.update(job_id, progress_current=index)
+                            self.job_store.add_event(
+                                job_id,
+                                "checkpoint_resume",
+                                "info",
+                                f"Reused contract-validated checkpoint for {metric.source_datapoint_id}",
+                                {"metric_id": metric.metric_id},
+                            )
+                            continue
+
+                    should_rematerialize = self._checkpoint_requires_rematerialization(
+                        checkpoint,
+                        contract_recovery_job=contract_recovery_job,
+                        package_source_digest=package.compilation.source_digest,
+                        materializer_version=materializer.materializer_version,
+                    )
+                    recovered = (
+                        self._rematerialize_preserved_decision(
+                            job_id=job_id,
+                            metric=metric,
+                            metric_slug=metric_slug,
+                            package=package,
+                            materializer=materializer,
+                        )
+                        if should_rematerialize
+                        else None
+                    )
+                    if recovered is not None:
+                        recovered_result, recovered_packet_id = recovered
+                        outcome = self._commit_metric_result(
+                            job_id=job_id,
+                            checkpoint_path=checkpoint_path,
+                            metric=metric,
+                            package=package,
+                            result=recovered_result,
+                            packet_id=recovered_packet_id,
+                            records=records,
+                            record_index=record_index,
+                            validator=contract_validator,
+                            limited_evidence=(
+                                ir.manifest.get("evidence_policy", {}).get("mode")
+                                == "limited"
+                            ),
+                            recovery_mode="rematerialize_preserved_decision",
+                        )
+                        outcomes.append(outcome)
+                        self.job_store.update(job_id, progress_current=index)
+                        continue
+                    if should_rematerialize:
+                        # A preserved semantic result must not trigger an implicit
+                        # second model call merely because reconstruction failed.
+                        failed_outcome = dict(checkpoint.get("outcome") or {})
+                        failed_outcome.update(
+                            {
+                                "task_id": failed_outcome.get("task_id")
+                                or checkpoint.get("task_id"),
+                                "metric_id": metric.metric_id,
+                                "status": "system_contract_failed",
+                                "found_status": "uncertain",
+                                "review_status": "human_required",
+                                "guard_accepted": bool(
+                                    failed_outcome.get("guard_accepted")
+                                ),
+                                "attempts": int(
+                                    failed_outcome.get("attempts") or 0
+                                ),
+                                "result_counts": {
+                                    "reporting_task": 0,
+                                    "quantitative_observation": 0,
+                                    "qualitative_assertion": 0,
+                                    "attribute_value": 0,
+                                    "dimension_value": 0,
+                                    "evidence_reference": 0,
+                                },
+                                "uncertainty_reason": (
+                                    "Preserved checkpoint could not be rematerialized; "
+                                    "no model call was made."
+                                ),
+                                "contract_validation_status": "failed",
+                                "contract_error": (
+                                    "Preserved packet, accepted decision, or Guard "
+                                    "artifact is missing or invalid."
+                                ),
+                            }
+                        )
+                        outcomes.append(failed_outcome)
+                        self.job_store.update(job_id, progress_current=index)
                         continue
 
                 self._stage(
@@ -558,45 +677,24 @@ class TargetedExtractionWorkflow:
                     guard=guard_result,
                     attempts=attempts,
                 )
-                if ir.manifest.get("evidence_policy", {}).get("mode") == "limited":
-                    note = "Extraction excludes unresolved IR pages; document-wide completeness is not established."
-                    result.outcome.status = "partial"
-                    result.outcome.found_status = "partial"
-                    result.outcome.uncertainty_reason = note
-                    for task_record in result.reporting_tasks:
-                        task_record.update(task_status="partial", found_status="partial", uncertainty_reason=note)
-                outcome = result.outcome.model_dump(mode="json")
-                outcomes.append(outcome)
-                checkpoint_records = {}
-                for key in (
-                    "reporting_tasks",
-                    "quantitative_observations",
-                    "qualitative_assertions",
-                    "attribute_values",
-                    "dimension_values",
-                    "evidence_references",
-                ):
-                    rows = getattr(result, key)
-                    records[key].extend(rows)
-                    checkpoint_records[key] = rows
-                self.artifact_store.write_json(
-                    job_id,
-                    checkpoint_path,
-                    {
-                        "schema_version": "targeted-checkpoint-v2",
-                        "metric_id": metric.metric_id,
-                        "task_id": task_id,
-                        "packet_id": packet.packet_id,
-                        "reusable": bool(
-                            outcome["guard_accepted"] and outcome["status"] != "ambiguous"
-                        ),
-                        "outcome": outcome,
-                        "records": checkpoint_records,
-                    },
+                outcome = self._commit_metric_result(
+                    job_id=job_id,
+                    checkpoint_path=checkpoint_path,
+                    metric=metric,
+                    package=package,
+                    result=result,
+                    packet_id=packet.packet_id,
+                    records=records,
+                    record_index=record_index,
+                    validator=contract_validator,
+                    limited_evidence=(
+                        ir.manifest.get("evidence_policy", {}).get("mode") == "limited"
+                    ),
                 )
+                outcomes.append(outcome)
                 self.job_store.update(job_id, progress_current=index)
 
-            contract_validation = ResultContractValidator(package.core).validate(records)
+            contract_validation = contract_validator.validate(records)
             summary = self._summary(
                 job_id,
                 request,
@@ -608,12 +706,28 @@ class TargetedExtractionWorkflow:
                 model_executions,
             )
             accepted_count = sum(
-                item["guard_accepted"] and item["status"] != "ambiguous"
+                item["guard_accepted"]
+                and item["status"] != "ambiguous"
+                and item.get("contract_validation_status") == "passed"
                 for item in outcomes
+            )
+            has_contract_failures = any(
+                item.get("contract_validation_status") == "failed"
+                for item in outcomes
+            )
+            had_semantic_attempt = any(
+                int(item.get("attempts") or 0) > 0 for item in outcomes
             )
             final_status = (
                 JobStatus.COMPLETED if accepted_count == len(outcomes)
-                else JobStatus.FAILED if accepted_count == 0 and request.semantic_fill and not model_executions
+                else JobStatus.FAILED
+                if (
+                    accepted_count == 0
+                    and request.semantic_fill
+                    and not model_executions
+                    and not had_semantic_attempt
+                    and not has_contract_failures
+                )
                 else JobStatus.PARTIAL
             )
             summary["execution_status"] = final_status.value
@@ -1412,13 +1526,240 @@ class TargetedExtractionWorkflow:
 
         return probe
 
+    def _commit_metric_result(
+        self,
+        *,
+        job_id: str,
+        checkpoint_path: str,
+        metric,
+        package: CompiledStandardPackage,
+        result,
+        packet_id: str,
+        records: dict[str, list[dict]],
+        record_index: dict[str, dict[str, dict]],
+        validator: ResultContractValidator,
+        limited_evidence: bool,
+        recovery_mode: str | None = None,
+    ) -> dict:
+        if limited_evidence:
+            note = (
+                "Extraction excludes unresolved IR pages; document-wide completeness "
+                "is not established."
+            )
+            result.outcome.status = "partial"
+            result.outcome.found_status = "partial"
+            result.outcome.uncertainty_reason = note
+            for task_record in result.reporting_tasks:
+                task_record.update(
+                    task_status="partial",
+                    found_status="partial",
+                    uncertainty_reason=note,
+                )
+
+        checkpoint_records = {
+            collection: list(getattr(result, collection))
+            for collection in RECORD_LAYOUT
+        }
+        contract_error = None
+        contract_validation = None
+        try:
+            contract_validation = validator.validate(checkpoint_records)
+            self._merge_records(
+                records,
+                record_index,
+                checkpoint_records,
+                metric.metric_id,
+            )
+        except ResultContractError as exc:
+            contract_error = str(exc)
+            result.outcome.status = "system_contract_failed"
+            result.outcome.found_status = "uncertain"
+            result.outcome.review_status = "human_required"
+            result.outcome.contract_validation_status = "failed"
+            result.outcome.contract_error = contract_error
+            result.outcome.uncertainty_reason = (
+                "Result materialization failed its deterministic contract; preserved "
+                "model evidence was quarantined."
+            )
+            result.outcome.result_counts = {
+                "reporting_task": 0,
+                "quantitative_observation": 0,
+                "qualitative_assertion": 0,
+                "attribute_value": 0,
+                "dimension_value": 0,
+                "evidence_reference": 0,
+            }
+            self.artifact_store.write_json(
+                job_id,
+                f"contract-errors/{safe_filename(metric.metric_id)}.json",
+                {
+                    "metric_id": metric.metric_id,
+                    "error_type": "ResultContractError",
+                    "error": contract_error,
+                    "quarantined_records": checkpoint_records,
+                },
+            )
+            self.job_store.add_event(
+                job_id,
+                "metric_contract_failed",
+                "error",
+                f"Quarantined invalid materialization for {metric.source_datapoint_id}",
+                {"metric_id": metric.metric_id, "error": contract_error},
+            )
+        else:
+            result.outcome.contract_validation_status = "passed"
+            result.outcome.contract_error = None
+
+        outcome = result.outcome.model_dump(mode="json")
+        self.artifact_store.write_json(
+            job_id,
+            checkpoint_path,
+            {
+                "schema_version": self.checkpoint_schema_version,
+                "metric_id": metric.metric_id,
+                "task_id": result.outcome.task_id,
+                "packet_id": packet_id,
+                "package_source_digest": package.compilation.source_digest,
+                "materializer_version": CoreResultMaterializer.materializer_version,
+                "contract_validation": contract_validation
+                or {"status": "failed", "error": contract_error},
+                "recovery_mode": recovery_mode,
+                "reusable": bool(
+                    contract_error is None
+                    and outcome["guard_accepted"]
+                    and outcome["status"] != "ambiguous"
+                ),
+                "outcome": outcome,
+                "records": checkpoint_records,
+            },
+        )
+        return outcome
+
+    def _rematerialize_preserved_decision(
+        self,
+        *,
+        job_id: str,
+        metric,
+        metric_slug: str,
+        package: CompiledStandardPackage,
+        materializer: CoreResultMaterializer,
+    ):
+        required = {
+            "packet": f"packets/{metric_slug}.json",
+            "decision": f"decisions/{metric_slug}.json",
+            "guard": f"guards/{metric_slug}.json",
+        }
+        if not all(self.artifact_store.exists(job_id, path) for path in required.values()):
+            return None
+        try:
+            packet = EvidencePacket.model_validate(
+                self.artifact_store.read_json(job_id, required["packet"])
+            )
+            decision_payload = self.artifact_store.read_json(job_id, required["decision"])
+            decision = SemanticDecision.model_validate(
+                decision_payload["accepted_decision"]
+            )
+            guard = GuardResult.model_validate(
+                self.artifact_store.read_json(job_id, required["guard"])
+            )
+            attempts = 0
+            checkpoint_path = f"checkpoints/{metric_slug}.json"
+            if self.artifact_store.exists(job_id, checkpoint_path):
+                old_checkpoint = self.artifact_store.read_json(job_id, checkpoint_path)
+                attempts = int((old_checkpoint.get("outcome") or {}).get("attempts") or 0)
+            result = materializer.materialize(
+                package=package,
+                metric=metric,
+                packet=packet,
+                decision=decision,
+                guard=guard,
+                attempts=attempts,
+            )
+        except Exception as exc:
+            self.job_store.add_event(
+                job_id,
+                "checkpoint_rematerialization_skipped",
+                "warning",
+                f"Could not rebuild {metric.source_datapoint_id} from preserved artifacts",
+                {"metric_id": metric.metric_id, "error": str(exc)},
+            )
+            return None
+        self.job_store.add_event(
+            job_id,
+            "checkpoint_rematerialized",
+            "info",
+            f"Rebuilt {metric.source_datapoint_id} without a model call",
+            {"metric_id": metric.metric_id, "packet_id": packet.packet_id},
+        )
+        return result, packet.packet_id
+
     @staticmethod
-    def _checkpoint_reusable(checkpoint: dict) -> bool:
-        if "reusable" in checkpoint:
-            return bool(checkpoint["reusable"])
-        outcome = checkpoint.get("outcome", {})
+    def _merge_records(
+        records: dict[str, list[dict]],
+        record_index: dict[str, dict[str, dict]],
+        incoming: dict[str, list[dict]],
+        metric_id: str,
+    ) -> None:
+        pending: list[tuple[str, str, dict]] = []
+        for collection, layout in RECORD_LAYOUT.items():
+            primary_key = layout["primary_key"]
+            for row in incoming.get(collection, []):
+                record_id = row.get(primary_key)
+                existing = record_index[collection].get(record_id)
+                if existing is None:
+                    pending.append((collection, record_id, row))
+                elif existing != row:
+                    raise ResultContractError(
+                        f"aggregate collision for {collection}.{primary_key}={record_id} "
+                        f"while merging metric {metric_id}; existing and incoming payloads differ"
+                    )
+        for collection, record_id, row in pending:
+            record_index[collection][record_id] = row
+            records[collection].append(row)
+
+    @classmethod
+    def _checkpoint_requires_rematerialization(
+        cls,
+        checkpoint: dict,
+        *,
+        contract_recovery_job: bool,
+        package_source_digest: str,
+        materializer_version: str,
+    ) -> bool:
+        if contract_recovery_job:
+            return True
+        validation = checkpoint.get("contract_validation") or {}
+        if validation.get("status") == "failed":
+            return True
+        outcome = checkpoint.get("outcome") or {}
+        was_semantically_accepted = bool(
+            outcome.get("guard_accepted")
+            and outcome.get("status") != "ambiguous"
+            and checkpoint.get("reusable", True)
+        )
+        if not was_semantically_accepted:
+            return False
+        if checkpoint.get("schema_version") != cls.checkpoint_schema_version:
+            return True
         return bool(
-            outcome.get("guard_accepted") and outcome.get("status") != "ambiguous"
+            checkpoint.get("package_source_digest") != package_source_digest
+            or checkpoint.get("materializer_version") != materializer_version
+        )
+
+    @classmethod
+    def _checkpoint_reusable(
+        cls,
+        checkpoint: dict,
+        *,
+        package_source_digest: str,
+        materializer_version: str,
+    ) -> bool:
+        return bool(
+            checkpoint.get("schema_version") == cls.checkpoint_schema_version
+            and checkpoint.get("package_source_digest") == package_source_digest
+            and checkpoint.get("materializer_version") == materializer_version
+            and (checkpoint.get("contract_validation") or {}).get("status") == "passed"
+            and checkpoint.get("reusable")
         )
 
     @staticmethod

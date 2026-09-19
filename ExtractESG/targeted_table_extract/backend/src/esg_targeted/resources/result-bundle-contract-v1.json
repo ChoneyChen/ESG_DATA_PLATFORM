@@ -57,7 +57,7 @@
       "input/ir-manifest.json",
       "input/standard-package.json"
     ],
-    "audit_directories": ["inventory", "retrieval", "packets", "decisions", "guards", "checkpoints"],
+    "audit_directories": ["inventory", "retrieval", "packets", "decisions", "guards", "checkpoints", "contract-errors"],
     "core_records": {
       "reporting_task": "results/reporting-tasks.jsonl",
       "quantitative_observation": "results/quantitative-observations.jsonl",

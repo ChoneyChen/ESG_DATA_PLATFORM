@@ -17,6 +17,7 @@ COMPILED = ROOT / "dist/esrs.2023-set1.e2-4/1.0.0/package.json"
 CORE_1_1 = ROOT / "core/1.1.0/core.json"
 E1_5_MODULE = ROOT / "packages/esrs/2023-set1/e1-5/1.0.0"
 E1_6_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.0.0"
+E1_6_130_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.3.0"
 E1_5_COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e1-5/1.0.0/package.json"
 E1_6_COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e1-6/1.0.0/package.json"
 
@@ -271,6 +272,49 @@ def test_e1_6_scope_methods_phase_in_and_alternatives_are_machine_readable() -> 
     assert phase_in.activation_predicate.path == (
         "report_context.e1_6_scope3_total_phase_in_exempt"
     )
+
+
+def test_e1_6_1_3_structure_members_are_evidenced_assertions() -> None:
+    package = StandardPackageCompiler().compile(
+        core_path=CORE_1_1, module_dir=E1_6_130_MODULE
+    )
+    elements = {
+        (item.metric_id, item.element_code): item for item in package.elements
+    }
+
+    for datapoint, member_code in [
+        ("dp04", "scope3_category"),
+        ("dp05", "scope3_category"),
+        ("dp06", "value_chain_stage"),
+    ]:
+        member = elements[(f"esrs.2023-set1.e1-6.{datapoint}", member_code)]
+        assert member.binding.record_type.value == "qualitative_assertion"
+        assert member.cardinality.maximum == 1
+        assert (
+            f"esrs.2023-set1.e1-6.{datapoint}", "statement"
+        ) in elements
+
+
+def test_new_structure_package_rejects_repeated_task_dimension(tmp_path: Path) -> None:
+    module_copy = tmp_path / "e1-6-1.3.0"
+    shutil.copytree(E1_6_130_MODULE, module_copy)
+    elements_path = module_copy / "elements.json"
+    elements = json.loads(elements_path.read_text(encoding="utf-8"))
+    member = next(
+        item for item in elements
+        if item["metric_id"].endswith("dp04")
+        and item["element_code"] == "scope3_category"
+    )
+    member["binding"]["record_type"] = "reporting_task"
+    member["cardinality"]["maximum"] = None
+    elements_path.write_text(
+        json.dumps(elements, ensure_ascii=False), encoding="utf-8"
+    )
+
+    with pytest.raises(PackageIntegrityError, match="structure list members"):
+        StandardPackageCompiler().compile(
+            core_path=CORE_1_1, module_dir=module_copy
+        )
 
 
 def test_e1_derivations_reference_source_metrics_and_support_sum() -> None:

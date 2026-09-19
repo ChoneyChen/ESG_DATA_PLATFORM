@@ -221,6 +221,10 @@ class ResultInspectionService:
                     guard_accepted=outcome.get("guard_accepted"),
                     attempts=int(outcome.get("attempts", 0)),
                     uncertainty_reason=outcome.get("uncertainty_reason"),
+                    contract_validation_status=outcome.get(
+                        "contract_validation_status"
+                    ),
+                    contract_error=outcome.get("contract_error"),
                     result_counts=outcome.get("result_counts", {}),
                     element_columns=self._element_columns(metric_elements),
                     facts=facts,

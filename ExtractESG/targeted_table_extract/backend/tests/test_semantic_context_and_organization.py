@@ -6,8 +6,15 @@ from esg_targeted.evidence.regions import EvidenceRegionCompiler
 from esg_targeted.evidence.target_cells import target_cell_contracts
 from esg_targeted.models.response_adapter import DirectFillResponseAdapter
 from esg_targeted.grounding.guard import GroundingGuard
+from esg_targeted.contracts import (
+    GuardResult,
+    SemanticAssignment,
+    SemanticDecision,
+    SemanticFactGroup,
+)
 from esg_targeted.results.materializer import CoreResultMaterializer
 from esg_targeted.results.organization import FactOrganizer
+from esg_targeted.results.validation import ResultContractValidator
 from esg_targeted.standards.catalog import StandardPackageCatalog
 from tests.helpers import standard_dist_root
 from tests.test_inventory_and_guard import build_pipeline, complete_row
@@ -65,4 +72,128 @@ def test_organization_links_units_preserves_identity_and_every_raw_record():
 def test_retired_versions_remain_loadable_but_not_selectable():
     catalog = StandardPackageCatalog(standard_dist_root())
     assert catalog.load("esrs.2023-set1.e1-6", "1.0.0").manifest.package_version == "1.0.0"
-    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"1.2.0"}
+    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"1.3.0"}
+
+
+def _scope3_structure_decision(packet, category_element_id):
+    source_spans = packet.spans[:2]
+    groups = []
+    for index, (span, category) in enumerate(
+        zip(source_spans, ["类别1：外购商品与服务", "类别3：燃料和能源相关活动"]),
+        1,
+    ):
+        groups.append(
+            SemanticFactGroup(
+                group_ref_id=f"scope3-row-{index}",
+                assignments=[
+                    SemanticAssignment(
+                        element_id=category_element_id,
+                        source_ref_id=span.span_id,
+                        evidence_span_ids=[span.span_id],
+                        value_raw=category,
+                        source_mode="span",
+                        confidence=0.95,
+                    )
+                ],
+            )
+        )
+    return SemanticDecision(
+        task_id=packet.task_id,
+        status="found",
+        fact_groups=groups,
+        selected_evidence_span_ids=[item.span_id for item in source_spans],
+        uncertainty_code="none",
+    )
+
+
+def _accepted_guard(packet, decision):
+    return GuardResult(
+        task_id=packet.task_id,
+        accepted=True,
+        recoverable=False,
+        issues=[],
+        accepted_group_count=len(decision.fact_groups),
+        accepted_assignment_count=sum(len(item.assignments) for item in decision.fact_groups),
+        feedback="accepted fixture",
+    )
+
+
+def test_legacy_task_dimensions_have_unique_ids_and_single_fixed_value(tmp_path):
+    _, packet, _, _, _ = build_pipeline(tmp_path)
+    package = StandardPackageCatalog(standard_dist_root()).load(
+        "esrs.2023-set1.e1-6", "1.2.0"
+    )
+    metric = next(item for item in package.metrics if item.source_datapoint_id == "E1-6_04")
+    category = next(
+        item for item in package.elements
+        if item.metric_id == metric.metric_id and item.element_code == "scope3_category"
+    )
+    decision = _scope3_structure_decision(packet, category.element_id)
+    result = CoreResultMaterializer().materialize(
+        package=package,
+        metric=metric,
+        packet=packet,
+        decision=decision,
+        guard=_accepted_guard(packet, decision),
+        attempts=1,
+    )
+
+    categories = [
+        item for item in result.dimension_values
+        if item["element_id"].endswith("element.scope3_category")
+    ]
+    classifications = [
+        item for item in result.dimension_values
+        if item["element_id"].endswith("element.scope3_classification")
+    ]
+    assert [item["sequence"] for item in categories] == [1, 2]
+    assert len({item["dimension_value_id"] for item in categories}) == 2
+    assert len(classifications) == 1
+    ResultContractValidator(package.core).validate(
+        {
+            "reporting_tasks": result.reporting_tasks,
+            "quantitative_observations": result.quantitative_observations,
+            "qualitative_assertions": result.qualitative_assertions,
+            "attribute_values": result.attribute_values,
+            "dimension_values": result.dimension_values,
+            "evidence_references": result.evidence_references,
+        }
+    )
+
+
+def test_e1_6_v1_3_materializes_each_scope3_member_as_evidenced_assertion(tmp_path):
+    _, packet, _, _, _ = build_pipeline(tmp_path)
+    package = StandardPackageCatalog(standard_dist_root()).load(
+        "esrs.2023-set1.e1-6", "1.3.0"
+    )
+    metric = next(item for item in package.metrics if item.source_datapoint_id == "E1-6_04")
+    category = next(
+        item for item in package.elements
+        if item.metric_id == metric.metric_id and item.element_code == "scope3_category"
+    )
+    decision = _scope3_structure_decision(packet, category.element_id)
+    result = CoreResultMaterializer().materialize(
+        package=package,
+        metric=metric,
+        packet=packet,
+        decision=decision,
+        guard=_accepted_guard(packet, decision),
+        attempts=1,
+    )
+    records = {
+        "reporting_tasks": result.reporting_tasks,
+        "quantitative_observations": result.quantitative_observations,
+        "qualitative_assertions": result.qualitative_assertions,
+        "attribute_values": result.attribute_values,
+        "dimension_values": result.dimension_values,
+        "evidence_references": result.evidence_references,
+    }
+
+    assert len(result.qualitative_assertions) == 2
+    assert all(item["statement_raw"] for item in result.qualitative_assertions)
+    assert {
+        item["parent_record_id"] for item in result.dimension_values
+        if item["element_id"].endswith("element.scope3_category")
+    } == {item["assertion_id"] for item in result.qualitative_assertions}
+    assert len(result.evidence_references) >= 2
+    ResultContractValidator(package.core).validate(records)

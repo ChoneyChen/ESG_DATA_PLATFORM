@@ -25,7 +25,8 @@ Compiled Standard Package      后端可直接加载的单文件机器契约
 - `esrs.2023-set1.e1-6@1.0.0`：ESRS E1-6 模块源包，状态为 `draft`；
 - `esrs.2023-set1.e1-5@1.1.0`：增加能源载体层级、互斥语义、报告实体与指标聚合角色；
 - `esrs.2023-set1.e1-6@1.1.0`：增加 Scope/繁简/公式别名、Scope 1 专用概念、报告实体与指标聚合角色；
-- `esrs.2023-set1.{e1-5,e1-6}@1.2.0`：当前运行时版本，强化主量型、能源分项与 Scope 2 核算方法语义；
+- `esrs.2023-set1.e1-5@1.2.0`：当前能源运行时版本；
+- `esrs.2023-set1.e1-6@1.3.0`：当前 GHG 运行时版本，结构清单成员改为可独立举证的定性事实；
 - `module format 1.1`：平台级语义概念、别名、缩写、公式、上下位和排除关系；
 - 确定性编译器、JSON Schema 和本地契约测试。
 
@@ -38,7 +39,8 @@ Compiled Standard Package      后端可直接加载的单文件机器契约
 standard_packages/
 ├── core/{1.0.0,1.1.0}/core.json
 ├── packages/esrs/2023-set1/e2-4/1.0.0/
-├── packages/esrs/2023-set1/{e1-5,e1-6}/{1.0.0,1.1.0,1.2.0}/
+├── packages/esrs/2023-set1/e1-5/{1.0.0,1.1.0,1.2.0}/
+├── packages/esrs/2023-set1/e1-6/{1.0.0,1.1.0,1.2.0,1.3.0}/
 │   ├── manifest.json
 │   ├── metrics.json
 │   ├── elements.json
@@ -50,7 +52,8 @@ standard_packages/
 │   ├── validation_rules.json
 │   └── sources.json
 ├── dist/esrs.2023-set1.e2-4/1.0.0/package.json
-├── dist/esrs.2023-set1.{e1-5,e1-6}/1.2.0/package.json
+├── dist/esrs.2023-set1.e1-5/1.2.0/package.json
+├── dist/esrs.2023-set1.e1-6/1.3.0/package.json
 ├── dist/.retired/<package_id>/<old_version>/package.json
 ├── schemas/
 ├── scripts/build_e1_packages.py
@@ -127,7 +130,7 @@ pytest
 ```
 
 E1 编译时把 `--core` 换为 `core/1.1.0/core.json`，当前任务选择对应的
-`packages/esrs/2023-set1/e1-5/1.2.0` 或 `e1-6/1.2.0`；`1.0.0/1.1.0` 源包与
+`packages/esrs/2023-set1/e1-5/1.2.0` 或 `e1-6/1.3.0`；旧源包与
 `dist/.retired` 中的编译产物仅用于复现旧任务。
 
 编译过程不写时间戳，也不依赖文件遍历顺序。相同 Core 和模块源文件必须产生字节完全

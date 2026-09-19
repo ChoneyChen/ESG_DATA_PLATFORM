@@ -13,10 +13,14 @@ IG3_URL = (
     "https://www.efrag.org/sites/default/files/media/document/2025-06/"
     "EFRAG%20IG%203%20List%20of%20ESRS%20Data%20Points%20%281%29%20%281%29.xlsx"
 )
-PACKAGE_VERSION = "1.2.0"
+E1_5_PACKAGE_VERSION = "1.2.0"
+E1_6_PACKAGE_VERSION = "1.3.0"
 
 # Semantic definitions are standard data, not runtime rules or lexical gates.
 SEMANTIC_DEFINITIONS = {
+    "E1-6_04": "企业按照 GHG Protocol 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 GHG Protocol 口径时才匹配本指标，不能仅凭出现范围3类别推定分类体系。",
+    "E1-6_05": "企业按照 ISO 14064-1 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 ISO 14064-1 口径时才匹配本指标，不能把普通 GHG Protocol 类别表改贴为 ISO 分类。",
+    "E1-6_06": "企业对范围3排放所作的价值链阶段分解。上游和下游等实际披露阶段分别形成独立清单事实并保留证据；合计、标题和注释不是价值链阶段。",
     "E1-6_07": "企业在报告期间因拥有或控制的排放源产生的范围1温室气体绝对排放量，以报告原有二氧化碳当量单位披露。直接排放、范围一、范畴一可表达同一范围；不要求出现‘总量’字样。范围1与2合计、强度、减排量、抵消或目标不属于此测量。逐一保留报告的实体和期间。",
     "E1-6_08": "范围1温室气体排放中受受监管排放交易体系覆盖的比例；分母应为范围1排放。碳价情景、碳敞口、另一公司的 ETS 项目或一般排放限制比例不能仅因出现百分号而等同此指标。结合报告对交易机制和覆盖口径的说明判断。",
     "E1-6_09": "基于位置法核算的范围2温室气体绝对排放量。位置法依据能源消费所在地电网的平均排放因子；方法可能写在表注、核算政策或另一页。‘间接排放/范围2’本身没有声明方法；未说明时方法未知，不能同时认作位置法和市场法。与另一方法数值相同只有在报告确实声明两种方法时才可分别归属。",
@@ -378,11 +382,11 @@ def sources(package_id: str, dr: str, law_locator: str, ig_locator: str) -> list
     ]
 
 
-def manifest(package_id: str, module: str, dr: str) -> dict:
+def manifest(package_id: str, module: str, dr: str, package_version: str) -> dict:
     return {
         "format_version": "1.1",
         "package_id": package_id,
-        "package_version": PACKAGE_VERSION,
+        "package_version": package_version,
         "status": "draft",
         "standard": {
             "framework_id": "esrs",
@@ -694,9 +698,9 @@ def build_e1_5() -> None:
         derivation(package_id, "15", "ratio", [("02", "fossil"), ("01", "total")], unit_policy="percentage-of-compatible-energy"),
         derivation(package_id, "18", "ratio", [("19", "energy"), ("22", "revenue")], unit_policy="energy-per-monetary-unit"),
     ]
-    package_dir = ROOT / f"packages/esrs/2023-set1/e1-5/{PACKAGE_VERSION}"
+    package_dir = ROOT / f"packages/esrs/2023-set1/e1-5/{E1_5_PACKAGE_VERSION}"
     payloads = {
-        "manifest": manifest(package_id, "esrs.e1-5", dr), "metrics": metrics, "elements": elements,
+        "manifest": manifest(package_id, "esrs.e1-5", dr, E1_5_PACKAGE_VERSION), "metrics": metrics, "elements": elements,
         "concepts": concepts, "relations": relations, "code_sets": code_sets, "dimensions": dimensions,
         "derivations": derivations, "validation_rules": validation_rules(package_id, ["04", "09", "15"], ["01", "02", "04", "05", "09", "15", "18"]),
         "sources": sources(package_id, dr, "ESRS E1 paragraphs 35–43 and AR 32–38", "ESRS E1 worksheet rows 84–106 (E1-5_01 through E1-5_23)"),
@@ -788,25 +792,95 @@ def build_e1_6() -> None:
         metrics.append(metric(package_id, row))
         if kind in {"structure", "control_structure", "scope3_protocol", "scope3_iso", "value_chain"}:
             if kind == "control_structure":
-                elements.append(element(package_id, dp, "control_boundary", "控制边界", "Control boundary", role="dimension",
-                                        record="reporting_task", storage="dimension", target=dim("control-boundary"),
-                                        primary="enum", fallback=["text"], codeset=f"{package_id}.codeset.control-boundary",
-                                        repeated=True, concepts=["control-boundary"], value_roots=["control-boundary"]))
+                elements.extend(
+                    qualitative_elements(
+                        package_id,
+                        dp,
+                        extras=[
+                            element(
+                                package_id,
+                                dp,
+                                "control_boundary",
+                                "控制边界",
+                                "Control boundary",
+                                role="subject",
+                                record="qualitative_assertion",
+                                storage="dimension",
+                                target=dim("control-boundary"),
+                                primary="enum",
+                                fallback=["text"],
+                                codeset=f"{package_id}.codeset.control-boundary",
+                                concepts=["control-boundary"],
+                                value_roots=["control-boundary"],
+                            )
+                        ],
+                    )
+                )
             elif kind in {"scope3_protocol", "scope3_iso"}:
                 classification = "ghg_protocol" if kind == "scope3_protocol" else "iso_14064_1"
                 classification_concept = "ghg-protocol" if kind == "scope3_protocol" else "iso-14064"
-                elements.append(fixed_dimension(package_id, dp, "scope3_classification", "范围3分类体系", "Scope 3 classification",
-                                                dimension_slug="scope3-classification", code_set_slug="scope3-classification",
-                                                fixed=classification, concept_slug=classification_concept, record="reporting_task"))
-                elements.append(element(package_id, dp, "scope3_category", "范围3类别", "Scope 3 category", role="dimension",
-                                        record="reporting_task", storage="dimension", target=dim("scope3-category"),
-                                        primary="enum", fallback=["text"], codeset=f"{package_id}.codeset.scope3-category",
-                                        repeated=True, concepts=["scope3-category"], value_roots=["scope3-category"]))
+                elements.extend(
+                    qualitative_elements(
+                        package_id,
+                        dp,
+                        extras=[
+                            fixed_dimension(
+                                package_id,
+                                dp,
+                                "scope3_classification",
+                                "范围3分类体系",
+                                "Scope 3 classification",
+                                dimension_slug="scope3-classification",
+                                code_set_slug="scope3-classification",
+                                fixed=classification,
+                                concept_slug=classification_concept,
+                                record="qualitative_assertion",
+                            ),
+                            element(
+                                package_id,
+                                dp,
+                                "scope3_category",
+                                "范围3类别",
+                                "Scope 3 category",
+                                role="subject",
+                                record="qualitative_assertion",
+                                storage="dimension",
+                                target=dim("scope3-category"),
+                                primary="enum",
+                                fallback=["text"],
+                                codeset=f"{package_id}.codeset.scope3-category",
+                                concepts=["scope3-category"],
+                                value_roots=["scope3-category"],
+                                description="一个实际披露的范围3类别成员；总计、合计、小计、表头和注释不得作为类别值。",
+                            ),
+                        ],
+                    )
+                )
             elif kind == "value_chain":
-                elements.append(element(package_id, dp, "value_chain_stage", "价值链阶段", "Value-chain stage", role="dimension",
-                                        record="reporting_task", storage="dimension", target=dim("value-chain-stage"),
-                                        primary="enum", fallback=["text"], codeset=f"{package_id}.codeset.value-chain-stage",
-                                        repeated=True, concepts=["value-chain"]))
+                elements.extend(
+                    qualitative_elements(
+                        package_id,
+                        dp,
+                        extras=[
+                            element(
+                                package_id,
+                                dp,
+                                "value_chain_stage",
+                                "价值链阶段",
+                                "Value-chain stage",
+                                role="subject",
+                                record="qualitative_assertion",
+                                storage="dimension",
+                                target=dim("value-chain-stage"),
+                                primary="enum",
+                                fallback=["text"],
+                                codeset=f"{package_id}.codeset.value-chain-stage",
+                                concepts=["value-chain"],
+                                description="一个实际披露的价值链阶段成员；合计、表头和注释不得作为阶段值。",
+                            )
+                        ],
+                    )
+                )
             else:
                 elements.append(element(package_id, dp, "disaggregation_basis", "分解依据", "Disaggregation basis", role="dimension",
                                         record="reporting_task", storage="attribute", target="disaggregation_basis",
@@ -1015,9 +1089,9 @@ def build_e1_6() -> None:
         derivation(package_id, "30", "ratio", [("12", "location total"), ("34", "revenue")], unit_policy="ghg-per-monetary-unit"),
         derivation(package_id, "31", "ratio", [("13", "market total"), ("34", "revenue")], unit_policy="ghg-per-monetary-unit"),
     ]
-    package_dir = ROOT / f"packages/esrs/2023-set1/e1-6/{PACKAGE_VERSION}"
+    package_dir = ROOT / f"packages/esrs/2023-set1/e1-6/{E1_6_PACKAGE_VERSION}"
     payloads = {
-        "manifest": manifest(package_id, "esrs.e1-6", dr), "metrics": metrics, "elements": elements,
+        "manifest": manifest(package_id, "esrs.e1-6", dr, E1_6_PACKAGE_VERSION), "metrics": metrics, "elements": elements,
         "concepts": concepts, "relations": relations, "code_sets": code_sets, "dimensions": dimensions,
         "derivations": derivations,
         "validation_rules": validation_rules(package_id, ["08", "18", "20", "21", "22", "25"], ["12", "13", "30", "31"]),
