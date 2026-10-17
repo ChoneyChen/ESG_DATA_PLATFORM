@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -25,6 +26,55 @@ from test_review_routing import _document, _orchestrator
 
 
 PARENT_RUN_ID = "ir-20260718T020202Z-000000000001"
+
+
+def test_child_visual_rebuild_cannot_change_parent_revision_assets(tmp_path: Path) -> None:
+    settings = _settings(tmp_path)
+    document = _document(tmp_path)
+    document.metadata.run_id = PARENT_RUN_ID
+    parent_dir = settings.document_ir_output_root / PARENT_RUN_ID
+    page_image = parent_dir / "artifacts" / "page-images" / "page-0001.png"
+    page_image.parent.mkdir(parents=True)
+    shutil.copy2(document.pages[0].page_image_path, page_image)
+    document.pages[0].page_image_path = str(page_image)
+    DocumentIrWriter(parent_dir).write(document)
+    originals = {path.relative_to(parent_dir): path.read_bytes()
+        for category in ("page-images", "crops", "spreads")
+        for path in (parent_dir / "artifacts" / category).rglob("*") if path.is_file()}
+    assert originals
+    _, child_dir = DocumentIrRevisionService(settings)._child(PARENT_RUN_ID, "local")
+    for relative, original in originals.items():
+        child = child_dir / relative
+        assert child.read_bytes() == original
+        assert child.stat().st_ino != (parent_dir / relative).stat().st_ino
+        child.write_bytes(b"rebuilt child visual")
+        assert (parent_dir / relative).read_bytes() == original
+    DocumentIrPackageReader(parent_dir, ocr_output_root=settings.output_root).validate_integrity().require_valid()
+
+
+def test_legacy_visual_copy_uses_the_same_independent_asset_helper(tmp_path: Path, monkeypatch) -> None:
+    import esg_v2.document.revision_service as revisions
+
+    parent, child = tmp_path / "parent", tmp_path / "child"
+    (parent / "page_images").mkdir(parents=True)
+    (parent / "crops").mkdir()
+    (parent / "page_images" / "original.png").write_bytes(b"parent page")
+    (parent / "crops" / "table-1.png").write_bytes(b"parent crop")
+    document = SimpleNamespace(pages=[SimpleNamespace(page_index=2, page_image_path="original.png")],
+                               tables=[SimpleNamespace(table_id="table-1")])
+    copied = []
+    copy = revisions.copy_on_write
+    def tracked_copy(source, target):
+        copied.append((source, target))
+        return copy(source, target)
+    monkeypatch.setattr(revisions, "copy_on_write", tracked_copy)
+    DocumentIrRevisionService._copy_legacy_visual_artifacts(document, parent, child)
+    assert len(copied) == 2
+    for original, target in copied:
+        content = original.read_bytes()
+        assert target.read_bytes() == content
+        target.write_bytes(b"changed child")
+        assert original.read_bytes() == content
 
 
 def _settings(tmp_path: Path) -> Settings:

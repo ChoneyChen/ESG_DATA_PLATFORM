@@ -1,0 +1,3275 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 35"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "自身运营的能源消费总量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Total energy consumption from own operations",
+      "zh": "自身运营的能源消费总量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [
+        "能源节约量",
+        "能源生产量",
+        "能源强度",
+        "装机容量"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "不能以能源节约量、能源生产量、能源强度、装机容量替代本条款所定义的测量或说明。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "自身运营的能源消费总量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_01",
+        "E1",
+        " E1-5",
+        37,
+        "AR 35",
+        "Total energy consumption related to own operations",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "a7051f1e9e22dd61a92ee0d270c3483c73bd3ca9dddfa72c269797eaec47430f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 84,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_01",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.total-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 32",
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "企业自身运营消耗的化石来源能源总量，包括适用的煤炭、石油、天然气和其他化石来源及化石来源购入能源。载体分项或直接能源子总计不自动等同完整化石能源总量；区分总量、子总计、组成项、消费和生产，以及数量、变化率、比例和强度。",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Total energy consumption from fossil sources",
+      "zh": "化石能源消费总量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [
+        "企业自身运营消耗的化石来源能源总量，包括适用的煤炭、石油、天然气和其他化石来源及化石来源购入能源。载体分项或直接能源子总计不自动等同完整化石能源总量；区分总量、子总计、组成项、消费和生产，以及数量、变化率、比例和强度。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "化石能源消费总量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_02",
+        "E1",
+        " E1-5",
+        "37 a",
+        "AR 33, AR 32",
+        "Total energy consumption from fossil sources",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "1f29c67165277ff4488f2ba4c5a8809c5ff88077d848527e5abbaed68aa26003",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 85,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_02",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "核能消费量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Energy consumption from nuclear sources",
+      "zh": "核能消费量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "核能消费量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_03",
+        "E1",
+        " E1-5",
+        "37 b",
+        null,
+        "Total energy consumption from nuclear sources",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "b19bd95f25bb872fc66b95f2490fdec02b4d2f4c530137774ac39022e1b2b9f3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 86,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_03",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.nuclear-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 34"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "核能占能源消费总量的比例",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow"
+    ],
+    "labels": {
+      "en": "Share of nuclear sources in total energy consumption",
+      "zh": "核能占能源消费总量的比例"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "核能占能源消费总量的比例",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 34",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_04",
+        "E1",
+        " E1-5",
+        "AR 34",
+        null,
+        "Percentage of energy consumption from nuclear sources in total energy consumption",
+        "percent",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "426c4501928ef114c0ca50d70dd1618d71cd130426a04f4e27ea6dc9cd4e1928",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 87,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_04",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.nuclear-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-share"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "企业自身运营消耗的可再生来源能源总量，包括可再生燃料及适用的外购、自发自用可再生能源；发电量不必然等于消费量。百分比、装机功率、能源强度、增长/减少量不是能源消费绝对总量。",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Total energy consumption from renewable sources",
+      "zh": "可再生能源消费总量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [
+        "可再生发电量",
+        "可再生能源占比",
+        "装机容量",
+        "能源节约量"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "不能以可再生发电量、可再生能源占比、装机容量、能源节约量替代本条款所定义的测量或说明。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [
+        "企业自身运营消耗的可再生来源能源总量，包括可再生燃料及适用的外购、自发自用可再生能源；发电量不必然等于消费量。百分比、装机功率、能源强度、增长/减少量不是能源消费绝对总量。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "可再生能源消费总量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_05",
+        "E1",
+        " E1-5",
+        "37 c",
+        null,
+        "Total energy consumption from renewable sources",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "4f0ca02c853df6bd491fe7e74a0bcd7098dc518f647c327462a7175ec9ff00bc",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 88,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_05",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.renewable-consumption",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Fuel consumption from renewable sources",
+      "zh": "可再生燃料消费量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "可再生燃料消费量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37(c)(i)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_06",
+        "E1",
+        " E1-5",
+        "37 c i",
+        null,
+        "Fuel consumption from renewable sources",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "54a6b5d37a6b3e16d9fd5a765f49077ed2d5d9a5c8bb42f99881dffdfa4a06bc",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 89,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_06",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-fuel"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "外购或购入的可再生电力、热力、蒸汽和冷却能源",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.renewable-consumption",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Purchased or acquired renewable electricity, heat, steam and cooling",
+      "zh": "外购或购入的可再生电力、热力、蒸汽和冷却能源"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "外购或购入的可再生电力、热力、蒸汽和冷却能源",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37(c)(ii)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_07",
+        "E1",
+        " E1-5",
+        "37 c ii",
+        null,
+        "Consumption of purchased or acquired electricity, heat, steam, and cooling from renewable sources",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "8d42f2ea66a58d55287e7f3ea7a0402a63d0489f3c69fd8f47f668b67d61e693",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 90,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_07",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.purchased-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "自产非燃料可再生能源",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.renewable-consumption",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Self-generated non-fuel renewable energy",
+      "zh": "自产非燃料可再生能源"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "自产非燃料可再生能源",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "37(c)(iii)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_08",
+        "E1",
+        " E1-5",
+        "37 c iii",
+        null,
+        "Consumption of self-generated non-fuel renewable energy",
+        "energy",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "56a66fcf139d8cf5e7add9c4792cb9c6b0a2b62e17159f8cdb41dd3ca6b9d2e5",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 91,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_08",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.self-generated-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 34"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生能源占能源消费总量的比例",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow"
+    ],
+    "labels": {
+      "en": "Share of renewable sources in total energy consumption",
+      "zh": "可再生能源占能源消费总量的比例"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [
+        "可再生能源绝对消费量",
+        "能源消费降幅",
+        "可再生发电占比"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "不能以可再生能源绝对消费量、能源消费降幅、可再生发电占比替代本条款所定义的测量或说明。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "可再生能源占能源消费总量的比例",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 34",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_09",
+        "E1",
+        " E1-5",
+        "AR 34",
+        null,
+        "Percentage of renewable sources in total energy consumption",
+        "percent",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "e6d2e3d05115298ec4553484247d65dff0908ba7d87cd145ba40d39c1c4966bb",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 92,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_09",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-share"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "煤炭及煤炭制品的燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.fossil-carriers",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Fuel consumption from coal and coal products",
+      "zh": "煤炭及煤炭制品的燃料消费量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "煤炭及煤炭制品的燃料消费量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp10",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "38(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_10",
+        "E1",
+        " E1-5",
+        "38 a",
+        "AR 33",
+        "Fuel consumption from coal and coal products",
+        "energy",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "2b656c163a94ad9799c6d2207e7a11a1952e96699c36fd4e1bb8cbfe3b831aeb",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 93,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_10",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.coal-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "原油及石油产品的燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.fossil-carriers",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Fuel consumption from crude oil and petroleum products",
+      "zh": "原油及石油产品的燃料消费量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "原油及石油产品的燃料消费量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp11",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "38(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_11",
+        "E1",
+        " E1-5",
+        "38 b",
+        "AR 33",
+        "Fuel consumption from crude oil and petroleum products",
+        "energy",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "6c48cf495a6c502c8f90f6b4446e6e81aaf0414a4f406a0a980d2a017a987d47",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 94,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_11",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.petroleum-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "企业自身运营消耗的天然气能源量。结合直接行主体、载体层级和表头判断；‘其他直接能源’、煤或石油不是天然气。保留不同实体、期间的原值和原单位；同一测量可能同时以 GWh 和 TJ 等单位展示，不应相加。",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.fossil-carriers",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Fuel consumption from natural gas",
+      "zh": "天然气燃料消费量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [
+        "企业自身运营消耗的天然气能源量。结合直接行主体、载体层级和表头判断；‘其他直接能源’、煤或石油不是天然气。保留不同实体、期间的原值和原单位；同一测量可能同时以 GWh 和 TJ 等单位展示，不应相加。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "天然气燃料消费量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp12",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "38(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_12",
+        "E1",
+        " E1-5",
+        "38 c",
+        "AR 33",
+        "Fuel consumption from natural gas",
+        "energy",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "a288a2633ae2694a4a7b1f92f98f4dd52aee2e9697951d3df194ff6359046e02",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 95,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_12",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.natural-gas-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "其他化石能源燃料消费量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.fossil-carriers",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Fuel consumption from other fossil sources",
+      "zh": "其他化石能源燃料消费量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "其他化石能源燃料消费量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp13",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "38(d)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_13",
+        "E1",
+        " E1-5",
+        "38 d",
+        "AR 33",
+        "Fuel consumption from other fossil sources",
+        "energy",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "6743168aba9550bad48d4e981d4a1548f45d053b6f2c5a93207e8ddad2d587c3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 96,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_13",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.other-fossil-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "外购或购入的化石电力、热力、蒸汽和冷却能源",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.fossil-carriers",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Purchased or acquired electricity, heat, steam and cooling from fossil sources",
+      "zh": "外购或购入的化石电力、热力、蒸汽和冷却能源"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "外购或购入的化石电力、热力、蒸汽和冷却能源",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp14",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "38(e)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_14",
+        "E1",
+        " E1-5",
+        "38 e",
+        "AR 33",
+        "Consumption of purchased or acquired electricity, heat, steam, or cooling from fossil sources",
+        "energy",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "b5a19ed91376ddcf9561330a84ed2841d8731ec0a280e7e6994106087b5f0c4d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 97,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role",
+      "esrs.2023-set1.e1-5.dimension.energy-carrier"
+    ],
+    "source_datapoint_id": "E1-5_14",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.purchased-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 34"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "化石能源占能源消费总量的比例",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-mix",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow"
+    ],
+    "labels": {
+      "en": "Share of fossil sources in total energy consumption",
+      "zh": "化石能源占能源消费总量的比例"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "化石能源占能源消费总量的比例",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp15",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Percentage",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 34",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_15",
+        "E1",
+        " E1-5",
+        "AR 34",
+        null,
+        "Percentage of fossil sources in total energy consumption",
+        "percent",
+        "Conditional",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "aa2c0b6e7e04ac834c528d6f953cbf59973164cedc15aa38533e057dd496358f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 98,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow"
+    ],
+    "source_datapoint_id": "E1-5_15",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.fossil-energy"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-share"
+      ]
+    ],
+    "value_family": "percentage"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "非可再生能源生产量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-production",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Non-renewable energy production",
+      "zh": "非可再生能源生产量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "非可再生能源生产量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp16",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "39",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_16",
+        "E1",
+        " E1-5",
+        39,
+        null,
+        "Non-renewable energy production",
+        "energy",
+        "Conditional",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "6d45c6cf0c7083d88494a1672038acb4937346b37aa1894c958c162e67bf635e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 99,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_16",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-production"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.non-renewable-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "可再生能源生产量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-production",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Renewable energy production",
+      "zh": "可再生能源生产量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.megawatt-hour",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "可再生能源生产量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp17",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "39",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "energy",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_17",
+        "E1",
+        " E1-5",
+        39,
+        null,
+        "Renewable energy production",
+        "energy",
+        "Conditional",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "55ee7eb909405642eba9c19738bd83b477a6cc8e39406a3c606141dfdaf42c75",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 100,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_17",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-production"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.renewable-energy"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [
+      "AR 36"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "以高气候影响行业的能源消费量除以相应净收入形成能源强度；法规计量语义为 MWh/货币单位。",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-intensity",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_flow",
+      "high_climate_impact_sector"
+    ],
+    "labels": {
+      "en": "Energy intensity in high climate impact sectors",
+      "zh": "高气候影响行业的能源强度"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_flow",
+        "high_climate_impact_sector"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "分子、分母、量级、期间和运营范围完全匹配；额外强度不能默认套用净收入分母。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_flow",
+        "high_climate_impact_sector"
+      ],
+      "interpretation_guidance": [
+        "以高气候影响行业的能源消费量除以相应净收入形成能源强度；法规计量语义为 MWh/货币单位。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "高气候影响行业的能源强度",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": "强度须有分子、分母、分母量级及范围；原表类型保存在provenance，不按百分比自动归一化。",
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy-intensity",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp18",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy intensity (MWh per monetary unit)",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity",
+      "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector"
+    ],
+    "paragraph": "40",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_18",
+        "E1",
+        " E1-5",
+        40,
+        "AR 36",
+        "Energy intensity from activities in high climate impact sectors (total energy consumption per net revenue)",
+        "percent",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "2aac224f76b29dfb68ddc53c23c2624fb7ae13758f84c25c7e98af2f2ca6e6e7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 101,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E1-5_18",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-intensity"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ]
+    ],
+    "value_family": "energy_intensity"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "高气候影响行业能源消费总量",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-intensity",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "labels": {
+      "en": "Total energy consumption in high climate impact sectors",
+      "zh": "高气候影响行业能源消费总量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "分子、分母、量级、期间和运营范围完全匹配；额外强度不能默认套用净收入分母。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "preserve",
+      "positive_definition": "高气候影响行业能源消费总量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": "强度须有分子、分母、分母量级及范围；原表类型保存在provenance，不按百分比自动归一化。",
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.energy-intensity",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp19",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Energy/MWh",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity",
+      "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector"
+    ],
+    "paragraph": "41",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Intensity",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_19",
+        "E1",
+        " E1-5",
+        41,
+        null,
+        "Total energy consumption from activities in high climate impact sectors",
+        "Intensity",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "299b8c801c2832c04d5d04c90862a984648b5d75f64bb8e9e142944da2513fbd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 102,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.energy-source",
+      "esrs.2023-set1.e1-5.dimension.energy-flow",
+      "esrs.2023-set1.e1-5.dimension.aggregation-role"
+    ],
+    "source_datapoint_id": "E1-5_19",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.energy-consumption"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ]
+    ],
+    "value_family": "quantitative_energy"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "用于确定能源强度的高气候影响行业清单",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-intensity",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "high_climate_impact_sector"
+    ],
+    "labels": {
+      "en": "High climate impact sectors used to determine energy intensity",
+      "zh": "用于确定能源强度的高气候影响行业清单"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "high_climate_impact_sector"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "high_climate_impact_sector"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "preserve",
+      "positive_definition": "用于确定能源强度的高气候影响行业清单",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp20",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Table/list",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.high-climate-impact-sector"
+    ],
+    "paragraph": "42",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_20",
+        "E1",
+        " E1-5",
+        42,
+        null,
+        "High climate impact sectors used to determine energy intensity",
+        "semi-narrative",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "163cee6245f3e3a95e089f312f8a13b4aab3fd865320e0558884ddcffcb517f6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 103,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E1-5_20",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-intensity"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "qualitative",
+    "description": "能源强度所用净收入的对账说明",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-revenue",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Reconciliation of net revenue used for energy intensity",
+      "zh": "能源强度所用净收入的对账说明"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "preserve",
+      "positive_definition": "能源强度所用净收入的对账说明",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp21",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "43",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_21",
+        "E1",
+        " E1-5",
+        43,
+        "AR 38",
+        "Disclosure of reconciliation to relevant line item or notes in financial statements of net revenue from activities in high climate impact sectors ",
+        "narrative",
+        "Conditional",
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "6e1b71d79a033a64d55af8db487333c06d9a1208a93dbc31a096da493768fb2d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 104,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E1-5_21",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.reconciliation"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.energy-intensity"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "高气候影响行业活动的净收入",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-revenue",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "revenue_scope"
+    ],
+    "labels": {
+      "en": "Net revenue from activities in high climate impact sectors",
+      "zh": "高气候影响行业活动的净收入"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "revenue_scope"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "同币种、同量级及同财务口径；不进行隐式汇率换算。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "revenue_scope"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "preserve",
+      "positive_definition": "高气候影响行业活动的净收入",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.currency",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp22",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 38(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "monetary",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_22",
+        "E1",
+        " E1-5",
+        "AR 38 b",
+        null,
+        "Net revenue from activities in high climate impact sectors",
+        "monetary",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "9b124915955faa8ad5632e7d408d72ffbd34a3505837a0e0de4a7383d952cf98",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 105,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.revenue-scope"
+    ],
+    "source_datapoint_id": "E1-5_22",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.high-climate-impact-sector"
+      ]
+    ],
+    "value_family": "monetary"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e1-5.concept.reporting-period",
+      "esrs.2023-set1.e1-5.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "其他净收入",
+    "disclosure_requirement": "E1-5",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e1-5.topic.energy-revenue",
+    "excluded_concept_ids": [],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "revenue_scope"
+    ],
+    "labels": {
+      "en": "Other net revenue",
+      "zh": "其他净收入"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "revenue_scope"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "同币种、同量级及同财务口径；不进行隐式汇率换算。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "revenue_scope"
+      ],
+      "interpretation_guidance": [],
+      "normalization": "preserve",
+      "positive_definition": "其他净收入",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.currency",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e1-5.dp23",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "Monetary",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e1-5.dimension.reporting-entity"
+    ],
+    "paragraph": "AR 38(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "monetary",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1-5_23",
+        "E1",
+        " E1-5",
+        "AR 38 b",
+        null,
+        "Net revenue from activities other than in high climate impact sectors",
+        "monetary",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "89a649a41abfdc24e6dda3429e8fb850f98df8acaeec2e3b3dd2f1b31c3f8c15",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 106,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个期间、边界和维度组合形成独立事实；保留报告原值、单位和可复现证据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-5.dimension.revenue-scope"
+    ],
+    "source_datapoint_id": "E1-5_23",
+    "source_refs": [
+      "esrs.2023-set1.e1-5.source.eu-2023-2772",
+      "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-5.concept.net-revenue"
+      ],
+      [
+        "esrs.2023-set1.e1-5.concept.reconciliation"
+      ]
+    ],
+    "value_family": "monetary"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "description": "当前资源与未来资源独立。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.mdr-a.relation.family01",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.mdr-a.dp09",
+      "esrs.2023-set1.mdr-a.dp10"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.mdr-a.dp11",
+      "esrs.2023-set1.mdr-a.dp12"
+    ]
+  },
+  {
+    "description": "资本支出与运营支出独立。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.mdr-a.relation.family02",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.mdr-a.dp09",
+      "esrs.2023-set1.mdr-a.dp11"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.mdr-a.dp10",
+      "esrs.2023-set1.mdr-a.dp12"
+    ]
+  },
+  {
+    "description": "资源关联明确行动及范围，不跨行动拼接。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.mdr-a.relation.family03",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.mdr-a.dp01",
+      "esrs.2023-set1.mdr-a.dp02",
+      "esrs.2023-set1.mdr-a.dp06",
+      "esrs.2023-set1.mdr-a.dp07"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.mdr-a.dp09",
+      "esrs.2023-set1.mdr-a.dp10",
+      "esrs.2023-set1.mdr-a.dp11",
+      "esrs.2023-set1.mdr-a.dp12"
+    ]
+  }
+]

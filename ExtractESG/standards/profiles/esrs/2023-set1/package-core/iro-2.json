@@ -1,0 +1,14 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "IRO-2包内核心条款",
+  "profile_id": "esrs.2023-set1.iro-2.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "保留披露位置、遵循要求、气候不重大判断及重要信息选择方法。",
+  "source_datapoint_ids": [
+    "IRO-2_01",
+    "IRO-2_02",
+    "IRO-2_03",
+    "IRO-2_13"
+  ]
+}

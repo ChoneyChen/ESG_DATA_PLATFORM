@@ -1,0 +1,13 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "GOV-3包内核心条款",
+  "profile_id": "esrs.2023-set1.gov-3.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "识别可持续激励是否存在、考核对象与挂钩比例；气候子主题独立。",
+  "source_datapoint_ids": [
+    "GOV-3_01",
+    "GOV-3_03",
+    "GOV-3_05"
+  ]
+}

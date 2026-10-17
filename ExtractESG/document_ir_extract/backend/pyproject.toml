@@ -1,6 +1,6 @@
 [project]
 name = "esg-v2"
-version = "0.2.0"
+version = "0.4.0"
 description = "OCR-first ESG PDF extraction backend"
 requires-python = ">=3.11"
 dependencies = [
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["httpx>=0.28", "pytest>=8.2"]
+dev = ["httpx>=0.28", "pytest>=8.2", "jsonschema>=4.23,<5"]
 
 [project.scripts]
 esg-v2 = "esg_v2.cli:main"

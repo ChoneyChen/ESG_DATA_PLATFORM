@@ -1635,3 +1635,17 @@ def test_tiny_sparse_local_candidate_is_retired_before_any_model_call(tmp_path: 
     assert result.retired_entities[0].disposition == "decoration"
     assert result.atomic_patches[0].operation == "retire_table_candidate"
     assert result.atomic_patches[0].status == "accepted"
+
+
+def test_required_only_review_executes_blocking_task_and_preserves_optional_pending(tmp_path):
+    ModelHealthRegistry.reset()
+    document=_document(tmp_path)
+    original=document.review_tasks[0]
+    optional=original.model_copy(deep=True,update={"task_id":"optional-task", "blocking":False})
+    document.review_tasks.append(optional)
+    orchestrator=_orchestrator(tmp_path,"confirm")
+    reviewed=orchestrator.execute(document,max_auto_review_rounds=1,include_optional_reviews=False)
+    assert reviewed.review_tasks[0].execution_count > 0
+    assert reviewed.review_tasks[1].execution_count == 0
+    assert reviewed.review_tasks[1].status == "pending"
+    assert reviewed.quality_report["review_scheduler"]["scheduled_optional_count"] == 0

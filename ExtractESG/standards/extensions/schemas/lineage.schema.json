@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "ReviewedOperandLineage": {
+      "additionalProperties": false,
+      "description": "Immutable published input reference; review IDs must be checked by DB.",
+      "properties": {
+        "canonical_unit": {
+          "minLength": 1,
+          "title": "Canonical Unit",
+          "type": "string"
+        },
+        "context_id": {
+          "format": "uuid",
+          "title": "Context Id",
+          "type": "string"
+        },
+        "context_revision": {
+          "minimum": 1,
+          "title": "Context Revision",
+          "type": "integer"
+        },
+        "fact_review_decision_id": {
+          "format": "uuid",
+          "title": "Fact Review Decision Id",
+          "type": "string"
+        },
+        "mapping_review_decision_id": {
+          "format": "uuid",
+          "title": "Mapping Review Decision Id",
+          "type": "string"
+        },
+        "metric_definition_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Metric Definition Version",
+          "type": "string"
+        },
+        "metric_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "normalization_rule_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Normalization Rule Digest",
+          "type": "string"
+        },
+        "normalization_rule_version": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Normalization Rule Version",
+          "type": "string"
+        },
+        "numeric_value": {
+          "pattern": "^[+-]?\\d+(?:\\.\\d+)?$",
+          "title": "Numeric Value",
+          "type": "string"
+        },
+        "observation_id": {
+          "format": "uuid",
+          "title": "Observation Id",
+          "type": "string"
+        },
+        "operand_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Operand Id",
+          "type": "string"
+        },
+        "reviewed_axes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Reviewed Axes",
+          "type": "object"
+        },
+        "source_datapoint_id": {
+          "minLength": 1,
+          "title": "Source Datapoint Id",
+          "type": "string"
+        },
+        "standard_metric_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Standard Metric Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operand_id",
+        "observation_id",
+        "metric_id",
+        "standard_metric_id",
+        "metric_definition_version",
+        "source_datapoint_id",
+        "context_id",
+        "context_revision",
+        "fact_review_decision_id",
+        "mapping_review_decision_id",
+        "numeric_value",
+        "canonical_unit",
+        "normalization_rule_version",
+        "normalization_rule_digest",
+        "reviewed_axes"
+      ],
+      "title": "ReviewedOperandLineage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "arithmetic": {
+      "const": "exact_decimal_sum",
+      "default": "exact_decimal_sum",
+      "title": "Arithmetic",
+      "type": "string"
+    },
+    "canonical_unit": {
+      "minLength": 1,
+      "title": "Canonical Unit",
+      "type": "string"
+    },
+    "definition_version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Definition Version",
+      "type": "string"
+    },
+    "extension_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Extension Id",
+      "type": "string"
+    },
+    "input_dataset_version": {
+      "minimum": 0,
+      "title": "Input Dataset Version",
+      "type": "integer"
+    },
+    "operands": {
+      "items": {
+        "$ref": "#/$defs/ReviewedOperandLineage"
+      },
+      "minItems": 2,
+      "title": "Operands",
+      "type": "array"
+    },
+    "output_numeric_value": {
+      "pattern": "^[+-]?\\d+(?:\\.\\d+)?$",
+      "title": "Output Numeric Value",
+      "type": "string"
+    },
+    "release_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Release Digest",
+      "type": "string"
+    },
+    "rule_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Rule Digest",
+      "type": "string"
+    },
+    "rule_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Rule Id",
+      "type": "string"
+    },
+    "rule_version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Rule Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "project-extension-lineage-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "value_origin": {
+      "const": "derived",
+      "default": "derived",
+      "title": "Value Origin",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "extension_id",
+    "definition_version",
+    "release_digest",
+    "rule_id",
+    "rule_version",
+    "rule_digest",
+    "input_dataset_version",
+    "operands",
+    "output_numeric_value",
+    "canonical_unit"
+  ],
+  "title": "DerivedExtensionLineage",
+  "type": "object"
+}

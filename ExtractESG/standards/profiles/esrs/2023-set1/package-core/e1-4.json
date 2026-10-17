@@ -1,0 +1,17 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "E1-4包内核心条款",
+  "profile_id": "esrs.2023-set1.e1-4.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "保留分范围、分方法的目标及科学依据，不用合计目标替代分项。",
+  "source_datapoint_ids": [
+    "E1-4_01",
+    "E1-4_03",
+    "E1-4_06",
+    "E1-4_09",
+    "E1-4_12",
+    "E1-4_15",
+    "E1-4_22"
+  ]
+}

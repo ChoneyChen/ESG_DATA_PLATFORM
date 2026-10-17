@@ -1,0 +1,416 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity。绩效及效果指标定义。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "disclosure_requirement": "MDR-M",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.mdr-m.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "measured_metric_ref"
+    ],
+    "labels": {
+      "en": "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity",
+      "zh": "绩效及效果指标定义"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "measured_metric_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "measured_metric_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-m.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-m.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-m.dimension.measured-metric-ref"
+    ],
+    "paragraph": "75",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-M_01",
+        "ESRS 2",
+        "MDR-M",
+        75,
+        null,
+        "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity ",
+        "narrative",
+        null,
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "c4d0b6562f2ebe0ae92469b710ac1d723b37c8ab1ad02230f7523c0741e3008b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 21,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-m.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "measured_metric_ref"
+    ],
+    "source_datapoint_id": "MDR-M_01",
+    "source_refs": [
+      "esrs.2023-set1.mdr-m.source.law",
+      "esrs.2023-set1.mdr-m.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-m.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of methodologies and significant assumptions behind metric。指标方法与重大假设。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "disclosure_requirement": "MDR-M",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.mdr-m.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "measured_metric_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of methodologies and significant assumptions behind metric",
+      "zh": "指标方法与重大假设"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "measured_metric_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "measured_metric_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-m.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-m.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-m.dimension.measured-metric-ref"
+    ],
+    "paragraph": "77 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-M_02",
+        "ESRS 2",
+        "MDR-M",
+        "77 a",
+        null,
+        "Disclosure of methodologies and significant assumptions behind metric ",
+        "narrative",
+        null,
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "395c3236baa795d5ac21c918169f592ad00fa92841874d7b0631c3fb145b2ff4",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 22,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-m.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "measured_metric_ref"
+    ],
+    "source_datapoint_id": "MDR-M_02",
+    "source_refs": [
+      "esrs.2023-set1.mdr-m.source.law",
+      "esrs.2023-set1.mdr-m.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-m.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Type of external body other than assurance provider that provides validation。指标外部验证机构。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "disclosure_requirement": "MDR-M",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.mdr-m.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "measured_metric_ref"
+    ],
+    "labels": {
+      "en": "Type of external body other than assurance provider that provides validation",
+      "zh": "指标外部验证机构"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "measured_metric_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "measured_metric_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-m.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-m.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-m.dimension.measured-metric-ref"
+    ],
+    "paragraph": "77 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-M_03",
+        "ESRS 2",
+        "MDR-M",
+        "77 b",
+        null,
+        "Type of external body other than assurance provider that provides validation ",
+        "narrative",
+        null,
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "1da235cab0321af2a92d156b05bd523eaaadd3b138b37f195c5be88180f0734d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 23,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-m.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "measured_metric_ref"
+    ],
+    "source_datapoint_id": "MDR-M_03",
+    "source_refs": [
+      "esrs.2023-set1.mdr-m.source.law",
+      "esrs.2023-set1.mdr-m.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-m.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

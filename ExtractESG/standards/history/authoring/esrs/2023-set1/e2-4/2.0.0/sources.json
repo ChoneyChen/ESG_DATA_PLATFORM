@@ -1,0 +1,44 @@
+[
+  {
+    "authority": "authoritative_law",
+    "locator": "ESRS E2 paragraphs 26-31 and Appendix A AR 20-27",
+    "notes": "Primary legal source for the package.",
+    "source_id": "esrs.2023-set1.e2-4.source.eu-2023-2772",
+    "title": "Commission Delegated Regulation (EU) 2023/2772",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2772",
+    "version_or_date": "2023-12-22"
+  },
+  {
+    "authority": "official_reproduction",
+    "locator": "ESRS E2-4",
+    "source_id": "esrs.2023-set1.e2-4.source.efrag-knowledge-hub",
+    "title": "EFRAG Knowledge Hub - ESRS E2 Pollution",
+    "url": "https://knowledgehub.efrag.org/eng/interactive/esrs-set-1/esrs-e2-pollution/2025-11-10-quick-fix/11",
+    "version_or_date": "2025-11-10 quick-fix context"
+  },
+  {
+    "authority": "non_authoritative_implementation_guidance",
+    "locator": "ESRS E2-4 datapoints",
+    "notes": "Used to enumerate separable datapoints; not treated as law or as a materiality checklist.",
+    "source_id": "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+    "title": "EFRAG IG 3 List of ESRS Data Points",
+    "url": "https://www.efrag.org/sites/default/files/media/document/2025-06/EFRAG%20IG%203%20List%20of%20ESRS%20Data%20Points%20%281%29%20%281%29.xlsx",
+    "version_or_date": "2025-06"
+  },
+  {
+    "authority": "non_authoritative_implementation_guidance",
+    "locator": "Datapoint types, conditional and alternative interpretation",
+    "source_id": "esrs.2023-set1.e2-4.source.efrag-ig3-note",
+    "title": "EFRAG IG 3 List of ESRS Data Points - Explanatory Note",
+    "url": "https://www.efrag.org/sites/default/files/sites/webpublishing/SiteAssets/EFRAG%20IG%203%20List%20of%20ESRS%20Data%20Points%20-%20Explanatory%20Note.pdf",
+    "version_or_date": "2024-05"
+  },
+  {
+    "authority": "official_explanation",
+    "locator": "Scope considerations for paragraph 28(b) and AR 20",
+    "source_id": "esrs.2023-set1.e2-4.source.efrag-qa-microplastics",
+    "title": "EFRAG Q&A - Microplastics",
+    "url": "https://knowledgehub.efrag.org/eng/qa-table/554",
+    "version_or_date": "Q&A 441/713"
+  }
+]

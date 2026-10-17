@@ -1,0 +1,148 @@
+/* 16 项基础指标看板 */
+.f16-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.f16-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.f16-counts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.f16-status {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.f16-status.ok { background: #e3f4ec; color: #1d6b4f; }
+.f16-status.review { background: #fff4dc; color: #8a5a00; }
+.f16-status.conflict { background: #fde8e3; color: #a7452d; }
+.f16-status.none { background: #eef1ef; color: #5f726b; }
+
+.f16-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.f16-table th {
+  text-align: left;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.f16-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.f16-table td button {
+  margin: 0;
+}
+
+.f16-group td {
+  background: #f4f7f5;
+  font-weight: 700;
+  color: #315c4d;
+  padding-top: 12px;
+}
+
+.f16-row {
+  cursor: pointer;
+}
+
+.f16-row:hover td {
+  background: #fafcfb;
+}
+
+.f16-code {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.f16-summary {
+  max-width: 420px;
+  overflow-wrap: anywhere;
+}
+
+.f16-expanded td {
+  background: #fbfdfc;
+  padding: 12px 16px;
+  vertical-align: top;
+}
+
+.f16-definition {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+
+.f16-member h4 {
+  margin: 8px 0 4px;
+}
+
+.f16-sources {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+.f16-sources li {
+  padding: 3px 0;
+}
+
+.f16-caption {
+  display: inline-block;
+  min-width: 64px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.f16-value {
+  font-weight: 700;
+}
+
+.f16-source {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.f16-reasons {
+  display: block;
+  margin-left: 64px;
+  color: #a7452d;
+  font-size: 12px;
+}
+
+.f16-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.f16-flags span {
+  background: #fff4dc;
+  color: #7a5200;
+  border-radius: 6px;
+  padding: 1px 8px;
+  font-size: 12px;
+}

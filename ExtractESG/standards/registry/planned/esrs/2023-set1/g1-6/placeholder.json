@@ -1,0 +1,30 @@
+{
+  "core_analysis_state": "pending_full_module_analysis",
+  "core_source_datapoint_ids": [
+    "G1-6_01"
+  ],
+  "disclosure_requirement": "G1-6",
+  "executable": false,
+  "major_source_datapoint_ids": [
+    "G1-6_01"
+  ],
+  "next_steps": [
+    "逐条语义分析与核心条款选择",
+    "类型/身份/证据/比较合同",
+    "离线与真实报告验收"
+  ],
+  "package_id": "esrs.2023-set1.g1-6",
+  "package_version": null,
+  "runtime_path": null,
+  "source_datapoint_ids": [
+    "G1-6_01",
+    "G1-6_02",
+    "G1-6_03",
+    "G1-6_04",
+    "G1-6_05"
+  ],
+  "source_digest": null,
+  "source_directory": null,
+  "source_sheet": "ESRS G1",
+  "state": "planned"
+}

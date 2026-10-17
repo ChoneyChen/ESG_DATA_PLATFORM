@@ -1,0 +1,87 @@
+[
+  {
+    "description": "移除储存与价值链外碳信用分开。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.e1-7.relation.family01",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-7.dp05"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-7.dp10",
+      "esrs.2023-set1.e1-7.dp11"
+    ]
+  },
+  {
+    "description": "已核销与计划核销分开。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.e1-7.relation.family02",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-7.dp10"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-7.dp11"
+    ]
+  },
+  {
+    "description": "移除计算方法关联项目和活动。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.e1-7.relation.family03",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-7.dp08"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-7.dp05",
+      "esrs.2023-set1.e1-7.dp06",
+      "esrs.2023-set1.e1-7.dp07"
+    ]
+  },
+  {
+    "description": "碳信用的质量与完整性解释。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.e1-7.relation.family04",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-7.dp12",
+      "esrs.2023-set1.e1-7.dp25"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-7.dp10",
+      "esrs.2023-set1.e1-7.dp11"
+    ]
+  }
+]

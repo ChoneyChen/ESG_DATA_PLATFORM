@@ -1,0 +1,194 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp01",
+    "description": "Description of process in relation to impacts on climate change。气候影响识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Description of process in relation to impacts on climate change",
+      "zh": "气候影响识别流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp02",
+    "description": "Description of process in relation to climate-related physical risks in own operations and along value chain。物理气候风险识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Description of process in relation to climate-related physical risks in own operations and along value chain",
+      "zh": "物理气候风险识别流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp03",
+    "description": "Climate-related hazards have been identified over short-, medium- and long-term time horizons。气候灾害识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Climate-related hazards have been identified over short-, medium- and long-term time horizons",
+      "zh": "气候灾害识别"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp04",
+    "description": "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards。资产活动的灾害暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards",
+      "zh": "资产活动的灾害暴露筛查"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp05",
+    "description": "Short-, medium- and long-term time horizons have been defined。物理风险时间范围定义。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Short-, medium- and long-term time horizons have been defined",
+      "zh": "物理风险时间范围定义"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp06",
+    "description": "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed。物理风险暴露和敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed",
+      "zh": "物理风险暴露和敏感性评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp07",
+    "description": "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios。高排放情景用于物理风险评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios",
+      "zh": "高排放情景用于物理风险评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp08",
+    "description": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term。物理风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term",
+      "zh": "物理风险识别中的情景分析"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp09",
+    "description": "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain。转型风险与机会识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain",
+      "zh": "转型风险与机会识别流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp10",
+    "description": "Transition events have been identified over short-, medium- and long-term time horizons。转型事件识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Transition events have been identified over short-, medium- and long-term time horizons",
+      "zh": "转型事件识别"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp11",
+    "description": "Undertaking has screened whether assets and business activities may be exposed to transition events。资产活动的转型事件暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Undertaking has screened whether assets and business activities may be exposed to transition events",
+      "zh": "资产活动的转型事件暴露筛查"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp12",
+    "description": "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed。转型事件暴露与敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed",
+      "zh": "转型事件暴露与敏感性评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp13",
+    "description": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis。情景分析用于转型暴露评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis",
+      "zh": "情景分析用于转型暴露评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp14",
+    "description": "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified。与气候中和转型不兼容的资产活动。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified",
+      "zh": "与气候中和转型不兼容的资产活动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp15",
+    "description": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term。转型风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term",
+      "zh": "转型风险识别中的情景分析"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-iro-1.concept.dp16",
+    "description": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements。气候情景与财务假设一致性。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "labels": {
+      "en": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements",
+      "zh": "气候情景与财务假设一致性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ]
+  }
+]

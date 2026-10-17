@@ -1,0 +1,29 @@
+[
+  {
+    "description": "生态阈值及法定性质按对应污染目标关联。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.e2-3.relation.family01",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-3.dp05",
+      "esrs.2023-set1.e2-3.dp06",
+      "esrs.2023-set1.e2-3.dp07",
+      "esrs.2023-set1.e2-3.dp08",
+      "esrs.2023-set1.e2-3.dp09"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-3.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-3.dp01",
+      "esrs.2023-set1.e2-3.dp02",
+      "esrs.2023-set1.e2-3.dp03",
+      "esrs.2023-set1.e2-3.dp04"
+    ]
+  }
+]

@@ -1,0 +1,814 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Basis for preparation of sustainability statement。可持续声明编制基础。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "disclosure_requirement": "BP-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.bp-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Basis for preparation of sustainability statement",
+      "zh": "可持续声明编制基础"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.bp-1.dp01",
+    "obligation_class": "mandatory",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "5 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "BP-1_01",
+        "ESRS 2",
+        "BP-1",
+        "5 a",
+        null,
+        "Basis for preparation of sustainability statement",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "cdf067c93a9b95eeea2b4ec9c34886be91c57c28bd4ec9d3bb8b65b9a3535ed4",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 3,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "BP-1_01",
+    "source_refs": [
+      "esrs.2023-set1.bp-1.source.law",
+      "esrs.2023-set1.bp-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.bp-1.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Scope of consolidation of consolidated sustainability statement is same as for financial statements。可持续声明与财务报表合并范围一致性。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "disclosure_requirement": "BP-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.bp-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Scope of consolidation of consolidated sustainability statement is same as for financial statements",
+      "zh": "可持续声明与财务报表合并范围一致性"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.bp-1.dp02",
+    "obligation_class": "conditional",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "5 b i",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "BP-1_02",
+        "ESRS 2",
+        "BP-1",
+        "5 b i",
+        null,
+        "Scope of consolidation of consolidated sustainability statement is same as for financial statements",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "ab8336109abb41a766c4405396203a0477720f1a5b6fefbc8f30dd8def1252bd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 4,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "BP-1_02",
+    "source_refs": [
+      "esrs.2023-set1.bp-1.source.law",
+      "esrs.2023-set1.bp-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.bp-1.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting。纳入合并但豁免独立披露的子公司。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "disclosure_requirement": "BP-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.bp-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting",
+      "zh": "纳入合并但豁免独立披露的子公司"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.bp-1.dp03",
+    "obligation_class": "conditional",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "5 b ii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "BP-1_03",
+        "ESRS 2",
+        "BP-1",
+        "5 b ii",
+        null,
+        "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "da3a143aaa0f1c56016c75f307d0310bf96b993b5dd111446eece82b627af2dc",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 5,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "BP-1_03",
+    "source_refs": [
+      "esrs.2023-set1.bp-1.source.law",
+      "esrs.2023-set1.bp-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.bp-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of extent to which sustainability statement covers upstream and downstream value chain。上下游价值链披露覆盖。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "disclosure_requirement": "BP-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.bp-1.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Disclosure of extent to which sustainability statement covers upstream and downstream value chain",
+      "zh": "上下游价值链披露覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.bp-1.dp04",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "5 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "BP-1_04",
+        "ESRS 2",
+        "BP-1",
+        "5 c",
+        "AR 1",
+        "Disclosure of extent to which sustainability statement covers upstream and downstream value chain ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "8c473e0a38135180c3766579bbf54c2e6bb5f3c91f02e048eddd34e006595e46",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 6,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "BP-1_04",
+    "source_refs": [
+      "esrs.2023-set1.bp-1.source.law",
+      "esrs.2023-set1.bp-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.bp-1.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Option to omit specific piece of information corresponding to intellectual property, know-how or results of innovation has been used。是否省略知识产权创新信息。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "disclosure_requirement": "BP-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.bp-1.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Option to omit specific piece of information corresponding to intellectual property, know-how or results of innovation has been used",
+      "zh": "是否省略知识产权创新信息"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.bp-1.dp05",
+    "obligation_class": "mandatory",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "5 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "BP-1_05",
+        "ESRS 2",
+        "BP-1",
+        "5 d",
+        null,
+        "Option to omit specific piece of information corresponding to intellectual property, know-how or results of innovation has been used",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "c0c6fbdcf258f08d562eee58743123ca0076c9c6b3bd1d5552182d522c3c3d65",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 7,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "BP-1_05",
+    "source_refs": [
+      "esrs.2023-set1.bp-1.source.law",
+      "esrs.2023-set1.bp-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.bp-1.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Option allowed by Member State to omit disclosure of impending developments or matters in course of negotiation has been used。是否省略即将发生事项或谈判信息。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "disclosure_requirement": "BP-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.bp-1.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Option allowed by Member State to omit disclosure of impending developments or matters in course of negotiation has been used",
+      "zh": "是否省略即将发生事项或谈判信息"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.bp-1.dp06",
+    "obligation_class": "mandatory",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "5 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "BP-1_06",
+        "ESRS 2",
+        "BP-1",
+        "5 e",
+        null,
+        "Option allowed by Member State to omit disclosure of impending developments or matters in course of negotiation has been used",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "510938454d084b05be8827929f0c777897ea9ad71340575dc1506cfedd8ced97",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 8,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.bp-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "BP-1_06",
+    "source_refs": [
+      "esrs.2023-set1.bp-1.source.law",
+      "esrs.2023-set1.bp-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.bp-1.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

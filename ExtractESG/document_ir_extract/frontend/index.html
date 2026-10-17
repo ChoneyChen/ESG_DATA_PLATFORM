@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ESG Evidence Hub · Pipeline Workbench</title>
-    <link rel="stylesheet" href="./src/styles.css?v=ir-review-retry-20260919c" />
+    <link rel="stylesheet" href="./src/styles.css?v=report-sessions-20261002" />
+    <link rel="stylesheet" href="./src/processing.css?v=report-processing-v1" />
   </head>
   <body>
     <div class="app-frame">
@@ -14,15 +15,14 @@
           <div><strong>ESG Evidence Hub</strong><span>Pipeline Workbench</span></div>
         </div>
         <nav class="app-navigation" aria-label="主导航">
-          <button type="button" class="nav-item active" data-app-view-target="report-assets"><span>01</span>报告资产</button>
-          <button type="button" class="nav-item" data-app-view-target="ocr"><span>02</span>OCR 任务</button>
-          <button type="button" class="nav-item" data-app-view-target="document-ir"><span>03</span>Document IR</button>
-          <button type="button" class="nav-item" data-app-view-target="ir-review"><span>04</span>IR 复核检查</button>
-          <button type="button" class="nav-item" data-app-view-target="targeted"><span>05</span>定向抽取</button>
-          <button type="button" class="nav-item" data-app-view-target="results"><span>06</span>抽取结果</button>
-          <button type="button" class="nav-item" data-app-view-target="pipeline-plan"><span>07</span>链路控制</button>
+          <button type="button" class="nav-item active" data-app-view-target="report-assets"><span>01</span>报告库</button>
+          <button type="button" class="nav-item" data-app-view-target="report-processing"><span>02</span>报告处理</button>
+          <button type="button" class="nav-item" data-app-view-target="extract-tasks"><span>02</span>提取任务</button>
+          <button type="button" class="nav-item" data-app-view-target="results"><span>03</span>结果工作台</button>
+          <button type="button" class="nav-item" data-app-view-target="pending"><span>04</span>待处理</button>
+          <button type="button" class="nav-item" data-app-view-target="settings"><span>05</span>系统设置</button>
         </nav>
-        <div class="sidebar-note">三条处理链路共享一个串行任务队列。产物仍按各自不可变合同独立保存。</div>
+        <div class="sidebar-note">以报告为任务入口，跨标准共享理解。事实、覆盖与证据可追溯，重任务串行执行。</div>
       </aside>
       <main class="shell">
       <header class="hero">
@@ -32,11 +32,29 @@
           <p class="lede" id="view-description">管理专用 PDF 目录，并查看 OCR 与 IR 处理状态。</p>
         </div>
         <div class="hero-actions">
-          <label class="compact-field">Backend URL<input id="backend-url" type="url" value="http://127.0.0.1:18080" /></label>
           <button id="refresh-all" class="secondary" type="button">刷新运行记录</button>
           <div class="status-pill" id="health">Backend: checking...</div>
         </div>
       </header>
+
+      <section id="report-processing-page" class="view-hidden" data-app-view="report-processing">
+        <section class="card">
+          <div class="section-heading"><div><h2>处理报告</h2><p class="hint">一次操作连续完成文档识别、结构与证据构建。处理完成后再选择条款提取。</p></div><button id="processing-refresh" type="button" class="secondary">刷新报告与处理记录</button></div>
+          <form id="processing-form">
+            <div class="form-grid"><label>报告 PDF<select id="processing-asset"><option value="">请选择报告</option></select></label><label>处理方式<select id="processing-mode"><option value="auto">自动处理 · 优先复用兼容成果</option><option value="rebuild_ir">基于兼容识别成果重建结构</option><option value="reprocess">重新识别并构建 · 保留历史版本</option></select></label></div>
+            <details class="advanced-input"><summary>处理配置</summary><div class="form-grid">
+              <label>文档识别<select id="processing-ocr"><option value="local_paddleocr">本地识别</option><option value="local_first">本地优先</option><option value="paddle_api">云识别</option></select></label>
+              <label class="checkbox-line"><input id="processing-cloud" type="checkbox" /> 允许本次报告使用云 OCR</label>
+              <label class="checkbox-line"><input id="processing-reviews" type="checkbox" /> 构建时执行额外证据复核</label>
+              <label>证据复核<select id="processing-review-provider"><option value="local_qwen">本地 Qwen</option><option value="local_nuextract">本地 NuExtract</option><option value="qiniu">七牛云 · 发送相关证据</option></select></label>
+              <label class="checkbox-line"><input id="processing-limited" type="checkbox" checked /> 保留可靠局部证据，并明确其使用限制</label>
+            </div></details>
+            <button id="processing-submit" type="submit">处理报告</button>
+          </form><p id="processing-message" class="hint" role="status"></p>
+        </section>
+        <section class="card"><div class="section-heading"><h2>处理记录</h2><label class="checkbox-line"><input id="processing-show-archived" type="checkbox" /> 显示归档与丢弃记录</label><label>搜索<input id="processing-search" type="search" placeholder="企业、报告名称、报告期" /></label></div><div id="processing-list" class="processing-list"><p class="hint">进入报告处理后读取记录。</p></div></section>
+        <section id="processing-detail" class="card hidden" aria-label="报告处理详情"></section>
+      </section>
 
       <section class="card report-library" data-app-view="report-assets">
         <div class="section-heading">
@@ -52,9 +70,10 @@
           <button type="submit">上传到报告库</button>
           <span id="report-asset-message" class="muted">目录由后端直接管理，不复制 OCR/IR 产物。</span>
         </form>
+        <label class="folder-import">批量导入文件夹中的 PDF<input id="report-folder-import" type="file" webkitdirectory multiple /><small>加入报告库，源文件保留；相同文件名不会覆盖。</small></label>
         <div class="asset-toolbar">
           <label class="asset-search">搜索 PDF<input id="report-asset-search" type="search" placeholder="文件名或 SHA-256" /></label>
-          <label>OCR 状态<select id="report-asset-filter"><option value="all">全部</option><option value="unprocessed">未处理</option><option value="processed">已处理</option></select></label>
+          <label>报告处理状态<select id="report-asset-filter"><option value="all">全部</option><option value="unprocessed">待处理或检查</option><option value="processed">证据可用（含有限范围）</option></select></label>
         </div>
         <div id="report-asset-list" class="report-asset-list"><div class="empty-state">正在读取 /pdf…</div></div>
       </section>
@@ -124,12 +143,12 @@
         </aside>
       </section>
 
-      <section class="card" data-app-view="assets">
+      <section class="card" data-app-view="settings-cache">
         <div class="section-heading">
           <div><p class="eyebrow">Semantic index assets</p><h2>本地语义索引缓存</h2></div>
           <button id="semantic-index-refresh" class="secondary" type="button">刷新索引</button>
         </div>
-        <p class="muted">索引按 Document IR 与嵌入模型独立保存。清除定向抽取任务只删除该次结果，不会删除这里的缓存。</p>
+        <p class="muted">索引按证据版本与嵌入模型独立保存。归档任务保留成果和来源；缓存清理需单独检查引用。</p>
         <div id="semantic-index-summary" class="storage-summary"></div>
         <div id="semantic-index-list" class="report-asset-list"><div class="empty-state">正在读取本地语义索引…</div></div>
       </section>
@@ -154,7 +173,6 @@
           <h2>PDF → PaddleOCR-VL</h2>
           <label>OCR 执行方式<select id="ocr-provider"><option value="local_first">本地优先，API 回退（推荐）</option><option value="local_paddleocr">仅本地 PaddleOCR-VL</option><option value="paddle_api">仅 PaddleOCR-VL API</option></select></label>
           <div id="ocr-provider-status" class="agent-note">正在检查本地 OCR 环境…</div>
-          <label id="ocr-token-field">PaddleOCR-VL API Token<input id="token" type="password" placeholder="仅 API 或回退时使用；不会写入产物" /></label>
           <label id="ocr-fallback-field" class="checkbox-line"><input id="allow-api-fallback" type="checkbox" checked /> 本地不可用或执行失败时允许回退 API</label>
           <label>报告资产<select id="ocr-asset-select"><option value="">选择 /pdf 中的 PDF</option></select></label>
           <label>临时加入资产库<input id="pdf-file" type="file" accept="application/pdf,.pdf" /></label>
@@ -200,8 +218,7 @@
               <label>渲染 DPI<input id="render-dpi" type="number" min="72" max="300" value="144" /></label>
               <label>父 IR 版本<select id="parent-ir-run"><option value="">新建独立 IR 分支（r1）</option></select></label>
             </div>
-            <label>视觉复核 Provider<select id="review-provider"><option value="local_nuextract">本地 NuExtract3（MLX）</option><option value="qiniu">七牛云 VLM</option></select></label>
-            <label id="qiniu-key-field">七牛 API Key（仅七牛模式）<input id="qiniu-key" type="password" placeholder="留空则使用后端环境变量" /></label>
+            <label>视觉复核 Provider<select id="review-provider"><option value="local_nuextract">本地 NuExtract3（MLX）</option><option value="local_qwen">本地 Qwen3.5（通用视觉语义）</option><option value="qiniu">七牛云 VLM</option></select></label>
             <label class="checkbox-line"><input id="execute-vlm" type="checkbox" /> 执行质量路由产生的视觉模型复核任务</label>
             <p id="review-provider-note" class="agent-note"></p>
           </section>
@@ -230,55 +247,18 @@
         </section>
       </section>
 
-      <section class="targeted-launch-layout" data-app-view="targeted">
-        <section class="card">
-          <div class="section-heading"><div><p class="eyebrow">Targeted recall</p><h2>标准任务与输入</h2></div><span id="tx-connection" class="status-pill">检查后端</span></div>
-          <div class="backend-connection-row"><label>定向抽取后端<input id="tx-backend-url" type="url" value="http://127.0.0.1:18180" /></label><button id="tx-reconnect" class="secondary" type="button">保存并重连</button></div>
-          <div id="tx-health-grid" class="target-health-grid"></div>
-          <section class="workflow-input-step targeted-input-step">
-            <div class="selector-step-heading"><div><span>01</span><div><strong>选择 Document IR</strong><small>直接从全部不可变 IR Revision 中选择，不依赖 Document IR 页面当前状态。</small></div></div></div>
-            <div class="selector-toolbar">
-              <label>搜索报告或 IR Run ID<input id="tx-ir-search" type="search" placeholder="例如：中国平安、2025、ir-…" /></label>
-              <label>准入状态<select id="tx-ir-filter"><option value="ready">Evidence 可用</option><option value="all">显示全部 IR</option><option value="unready">仅显示未准入</option></select></label>
-              <span id="tx-ir-count" class="selector-count">等待读取 IR</span>
-            </div>
-            <select id="tx-ir-select" class="hidden" aria-hidden="true"><option value="">未选择</option></select>
-            <div id="tx-ir-selected" class="selected-input-summary empty-state">尚未选择可抽取的 Document IR。</div>
-            <div id="tx-ir-picker" class="input-choice-grid compact-choice-grid"><div class="empty-state">正在读取 IR Revision…</div></div>
-          </section>
-          <section class="workflow-input-step targeted-input-step">
-            <div class="selector-step-heading"><div><span>02</span><div><strong>选择标准要求包</strong><small>切换标准卡片编辑各自指标；跨标准勾选会持续保留，入队时按标准包拆成独立结果合同。</small></div></div><span id="tx-standard-count" class="selector-count">等待读取标准包</span></div>
-            <label class="standard-select-fallback">当前编辑的标准包<select id="tx-standard-select"></select></label>
-            <div id="tx-standard-picker" class="standard-package-picker"><div class="empty-state">正在读取标准目录…</div></div>
-            <div id="tx-standard-detail" class="selected-input-summary empty-state">尚未选择标准包。</div>
-          </section>
-          <div class="section-heading compact-heading"><div><span class="selection-step-number">03</span><h3>选择跨标准指标任务</h3></div><div class="button-row"><button id="tx-select-all" class="text-button" type="button">当前标准全选</button><button id="tx-select-none" class="text-button" type="button">清空当前</button><button id="tx-clear-batch" class="text-button" type="button">清空全部</button></div></div>
-          <div id="tx-batch-selection-summary" class="batch-selection-summary empty-state">尚未从任何标准包选择指标。</div>
-          <div class="metric-selector-toolbar"><label>搜索指标<input id="tx-metric-search" type="search" placeholder="指标编号、中文名或数据类型" /></label><strong id="tx-metric-count">已选 0 / 0</strong></div>
-          <div id="tx-metric-list" class="metric-picker empty-state">等待标准包。</div>
-          <section class="workflow-config-step targeted-model-step">
-            <div class="selector-step-heading"><div><span>04</span><div><strong>选择语义填充能力</strong><small>本地与云端共享同一输出合同；输入规模按各自能力独立配置。</small></div></div></div>
-            <div class="targeted-model-grid">
-              <label>模型通道<select id="tx-semantic-provider"><option value="local_nuextract">本地 NuExtract3</option><option value="qiniu_vlm">七牛云视觉语言模型</option></select></label>
-              <label>模型 ID<input id="tx-semantic-model" type="text" placeholder="由通道提供默认模型" /></label>
-              <label>检索证据对象 Top N<input id="tx-retrieval-object-top-n" type="number" min="1" max="5" step="1" value="3" inputmode="numeric" required /><small>可输入 1–5；默认 3。每个对象分别送模。</small></label>
-              <label id="tx-qiniu-key-field">七牛 API Key<input id="tx-qiniu-key" type="password" autocomplete="off" placeholder="仅注入本次任务；留空使用后端环境变量" /></label>
-            </div>
-            <div id="tx-provider-profile" class="provider-profile-note">正在读取模型能力配置。</div>
-            <div class="checks targeted-options">
-              <label><input id="tx-semantic-search" type="checkbox" checked /> Qwen3 语义检索</label>
-              <label><input id="tx-semantic-fill" type="checkbox" checked /> 模型直接多行语义填表</label>
-              <label><input id="tx-visual-fallback" type="checkbox" checked /> 表格/图表 crop 作为一等证据</label>
-            </div>
-          </section>
-          <button id="tx-add-task" type="button" disabled>请先选择指标</button>
-          <p id="tx-launch-message" class="hint">每个已选标准包生成一个独立任务，并按当前卡片顺序原子加入统一串行队列。</p>
-        </section>
-        <section class="card">
-          <p class="eyebrow">Pipeline contract</p><h2>定向抽取处理管路</h2>
-          <div id="tx-pipeline-stages" class="pipeline-stages targeted-stages"></div>
-          <div class="agent-note">Document IR 与标准包只读固定版本；完整证据区域、模型逐量多行输出、来源校验和 Core records 全部保留。模型负责语义填表，Guard 只拦截确定的合同与溯源错误。</div>
-        </section>
+      <section class="card settings-panel" data-app-view="settings">
+        <div class="section-heading"><div><p class="eyebrow">Connections and authorization</p><h2>连接与临时凭据</h2></div><span id="tx-connection" class="status-pill">尚未检查</span></div>
+        <div class="form-grid">
+          <label>文档与控制面后端<input id="backend-url" type="url" value="http://127.0.0.1:18080" /></label>
+          <label>提取后端<input id="tx-backend-url" type="url" value="http://127.0.0.1:18180" /></label>
+          <label>本页七牛 API Key<input id="settings-qiniu-key" type="password" autocomplete="off" placeholder="留空由后端读取环境配置" /></label>
+          <label>本页 OCR API Token<input id="settings-ocr-token" type="password" autocomplete="off" placeholder="仅授权云端解析时使用" /></label>
+        </div>
+        <p id="settings-secret-status" class="hint">凭据只保存在本页内存。关闭或刷新页面后清空；角色与云授权在创建任务时明确选择。</p>
+        <div class="button-row"><button id="tx-reconnect" class="secondary" type="button">检查连接</button><button id="settings-clear-secrets" class="secondary" type="button">清空临时凭据</button></div>
+        <div id="tx-health-grid" class="target-health-grid"></div>
+        <details class="technical-details"><summary>文档解析与证据诊断</summary><div class="button-row"><button type="button" class="secondary" data-app-view-target="ocr">OCR 工具</button><button type="button" class="secondary" data-app-view-target="document-ir">文档构建工具</button><button type="button" class="secondary" data-app-view-target="report-detail">文档与证据详情</button></div></details>
       </section>
 
       <section class="results-workspace" data-app-view="results">
@@ -290,8 +270,9 @@
           <div class="section-heading"><div><p class="eyebrow">Result bundle</p><h2 id="tx-job-title">选择一个任务</h2></div><div class="button-row"><button id="tx-resume-job" class="secondary hidden" type="button">加入断点续跑</button><button id="tx-cancel-job" class="danger hidden" type="button">终止任务</button><button id="tx-delete-job" class="danger hidden" type="button">清除本次结果</button></div></div>
           <div id="tx-result-document" class="result-document-banner hidden"></div>
           <div id="tx-job-summary" class="job-summary empty-state">选择任务后查看成果、证据和中间文件。</div>
+          <div id="tx-agent-progress" class="agent-progress"></div>
           <div class="tabs" id="tx-result-tabs">
-            <button class="tab active" data-tx-tab="inspection" type="button">成果检查</button>
+            <button class="tab active" data-tx-tab="inspection" type="button">事实、覆盖与证据</button>
             <button class="tab" data-tx-tab="outcomes" type="button">运行结论</button>
             <button class="tab" data-tx-tab="events" type="button">运行事件</button>
             <button class="tab" data-tx-tab="artifacts" type="button">中间文件</button>
@@ -301,6 +282,8 @@
             <div id="tx-model-execution-banner" class="model-execution-banner"></div>
             <div id="tx-integrity-banner" class="integrity-banner"></div>
             <div id="tx-result-downloads" class="result-downloads"></div>
+            <div class="result-perspectives" role="tablist" aria-label="结果视角"><button type="button" class="secondary active" data-result-perspective="facts" role="tab">报告事实</button><button type="button" class="secondary" data-result-perspective="coverage" role="tab">标准覆盖</button><button type="button" class="secondary" data-result-perspective="evidence" role="tab">证据</button></div>
+            <p class="hint">结果包已生成的内容可检查与导出；尚未入库或批准的事实会保留草稿状态。</p>
             <div class="asset-toolbar result-filter-toolbar"><label class="asset-search">搜索指标、数值或证据<input id="tx-result-search" type="search" /></label><label>结论<select id="tx-result-filter"><option value="all">全部</option><option value="found">已找到</option><option value="partial">部分找到</option><option value="not_found">未找到</option><option value="ambiguous">不确定</option></select></label><label>审核<select id="tx-review-filter"><option value="all">全部</option><option value="human_required">需人工判断</option><option value="pending">待业务确认</option><option value="auto_verified">历史自动通过</option></select></label></div>
             <section class="result-hierarchy-block">
               <div class="result-level-heading">
@@ -333,8 +316,7 @@
           <label>Evidence 影响<select id="review-worklist-impact"><option value="all">全部</option><option value="blocking">仅阻塞准入</option><option value="optional">仅非阻塞</option></select></label>
         </div>
         <div class="review-retry-config">
-          <label>重跑模型通道<select id="review-retry-provider"><option value="local_nuextract">本地 NuExtract3（MLX）</option><option value="qiniu">七牛云 VLM</option></select></label>
-          <label id="review-retry-qiniu-key-field" class="hidden">七牛 API Key（留空使用后端环境变量）<input id="review-retry-qiniu-key" type="password" autocomplete="off" placeholder="仅用于本次重跑" /></label>
+          <label>重跑模型通道<select id="review-retry-provider"><option value="local_nuextract">本地 NuExtract3（MLX）</option><option value="local_qwen">本地 Qwen3.5（通用视觉语义）</option><option value="qiniu">七牛云 VLM</option></select></label>
           <span class="muted">每次只重跑所选行；父 IR 保持不变，结果写入新 revision。</span>
         </div>
         <div class="review-worklist-table-wrap">
@@ -474,7 +456,7 @@
         </header>
         <div class="task-dock-body">
           <section id="dock-tab-queue" class="dock-panel active">
-            <div class="queue-toolbar"><span>排队任务可拖动排序；清除历史只移除终态队列记录，不删除任何业务产物。</span><div class="button-row"><button id="pipeline-clear-history" class="secondary" type="button">清除历史任务</button><button id="pipeline-refresh" class="secondary" type="button">刷新</button></div></div>
+            <div class="queue-toolbar"><span>排队任务可拖动排序；归档历史保留来源、成果和依赖记录，可在归档与回收区恢复。</span><div class="button-row"><button id="pipeline-clear-history" class="secondary" type="button">归档历史任务</button><button id="pipeline-refresh" class="secondary" type="button">刷新</button></div></div>
             <div id="pipeline-task-list" class="pipeline-task-list"></div>
           </section>
           <section id="dock-tab-events" class="dock-panel"><div id="pipeline-task-events" class="event-stream"><div class="empty-state">选择任务后显示日志。</div></div></section>
@@ -483,9 +465,10 @@
       </section>
       </main>
     </div>
-    <script type="module" src="./src/main.js?v=ir-review-retry-20260919c"></script>
-    <script type="module" src="./src/targeted.js?v=standard-visibility-20260911"></script>
-    <script type="module" src="./src/pipeline.js?v=standard-visibility-20260911"></script>
-    <script type="module" src="./src/platform.js?v=queue-history-cleanup-v1-20260902"></script>
+    <script type="module" src="./src/main.js?v=report-sessions-20261002"></script>
+    <script type="module" src="./src/targeted.js?v=report-sessions-20261002"></script>
+    <script type="module" src="./src/sessions.js?v=report-sessions-20261002"></script>
+    <script type="module" src="./src/platform.js?v=report-sessions-20261002"></script>
+    <script type="module" src="./src/processing.js?v=report-processing-v1"></script>
   </body>
 </html>

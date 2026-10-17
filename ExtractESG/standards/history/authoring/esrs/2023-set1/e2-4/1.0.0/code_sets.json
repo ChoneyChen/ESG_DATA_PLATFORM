@@ -1,0 +1,534 @@
+[
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.pollution-medium",
+    "extensible": false,
+    "values": [
+      {
+        "code": "air",
+        "labels": {
+          "en": "air",
+          "zh": "空气"
+        }
+      },
+      {
+        "code": "water",
+        "labels": {
+          "en": "water",
+          "zh": "水体"
+        }
+      },
+      {
+        "code": "soil",
+        "labels": {
+          "en": "soil",
+          "zh": "土壤"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.water-risk-class",
+    "extensible": false,
+    "values": [
+      {
+        "code": "water_risk",
+        "labels": {
+          "en": "water_risk",
+          "zh": "水风险地区"
+        }
+      },
+      {
+        "code": "high_water_stress",
+        "labels": {
+          "en": "high_water_stress",
+          "zh": "高水压力地区"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.method-priority",
+    "extensible": false,
+    "values": [
+      {
+        "code": "direct_continuous_measurement",
+        "labels": {
+          "en": "direct_continuous_measurement",
+          "zh": "直接测量/连续监测（最高优先）"
+        }
+      },
+      {
+        "code": "periodic_measurement",
+        "labels": {
+          "en": "periodic_measurement",
+          "zh": "周期测量"
+        }
+      },
+      {
+        "code": "site_specific_calculation",
+        "labels": {
+          "en": "site_specific_calculation",
+          "zh": "基于场地特定数据计算"
+        }
+      },
+      {
+        "code": "published_factor_calculation",
+        "labels": {
+          "en": "published_factor_calculation",
+          "zh": "基于公开排放因子计算"
+        }
+      },
+      {
+        "code": "estimation",
+        "labels": {
+          "en": "estimation",
+          "zh": "估算（最低优先）"
+        }
+      },
+      {
+        "code": "unknown",
+        "labels": {
+          "en": "unknown",
+          "zh": "报告未说明"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.change-direction",
+    "extensible": false,
+    "values": [
+      {
+        "code": "increase",
+        "labels": {
+          "en": "increase",
+          "zh": "上升"
+        }
+      },
+      {
+        "code": "decrease",
+        "labels": {
+          "en": "decrease",
+          "zh": "下降"
+        }
+      },
+      {
+        "code": "stable",
+        "labels": {
+          "en": "stable",
+          "zh": "稳定"
+        }
+      },
+      {
+        "code": "mixed",
+        "labels": {
+          "en": "mixed",
+          "zh": "不同项目方向不一"
+        }
+      },
+      {
+        "code": "unclear",
+        "labels": {
+          "en": "unclear",
+          "zh": "无法判断"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.consolidation-scope",
+    "extensible": false,
+    "values": [
+      {
+        "code": "financial_control",
+        "labels": {
+          "en": "financial_control",
+          "zh": "财务控制设施"
+        }
+      },
+      {
+        "code": "operational_control",
+        "labels": {
+          "en": "operational_control",
+          "zh": "运营控制设施"
+        }
+      },
+      {
+        "code": "both",
+        "labels": {
+          "en": "both",
+          "zh": "财务控制与运营控制"
+        }
+      },
+      {
+        "code": "unclear",
+        "labels": {
+          "en": "unclear",
+          "zh": "报告未明确"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.threshold-status",
+    "extensible": false,
+    "values": [
+      {
+        "code": "exceeded_only",
+        "labels": {
+          "en": "exceeded_only",
+          "zh": "仅纳入超过适用 E-PRTR 阈值的设施"
+        }
+      },
+      {
+        "code": "not_limited",
+        "labels": {
+          "en": "not_limited",
+          "zh": "披露口径不限于超过阈值设施"
+        }
+      },
+      {
+        "code": "unclear",
+        "labels": {
+          "en": "unclear",
+          "zh": "报告未明确"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-flow",
+    "extensible": false,
+    "values": [
+      {
+        "code": "generated_and_used",
+        "labels": {
+          "en": "generated_and_used",
+          "zh": "产生和使用合并披露形式"
+        }
+      },
+      {
+        "code": "generated",
+        "labels": {
+          "en": "generated",
+          "zh": "产生"
+        }
+      },
+      {
+        "code": "used",
+        "labels": {
+          "en": "used",
+          "zh": "使用"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-exit-pathway",
+    "extensible": false,
+    "values": [
+      {
+        "code": "emissions",
+        "labels": {
+          "en": "emissions",
+          "zh": "作为排放离开设施"
+        }
+      },
+      {
+        "code": "products",
+        "labels": {
+          "en": "products",
+          "zh": "作为产品离开设施"
+        }
+      },
+      {
+        "code": "part_of_products",
+        "labels": {
+          "en": "part_of_products",
+          "zh": "作为产品组成部分离开设施"
+        }
+      },
+      {
+        "code": "services",
+        "labels": {
+          "en": "services",
+          "zh": "作为服务的一部分离开设施"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.microplastic-intentionality",
+    "extensible": false,
+    "values": [
+      {
+        "code": "intentional",
+        "labels": {
+          "en": "intentional",
+          "zh": "有意生产或添加"
+        }
+      },
+      {
+        "code": "unintentional",
+        "labels": {
+          "en": "unintentional",
+          "zh": "磨损等无意产生"
+        }
+      },
+      {
+        "code": "mixed",
+        "labels": {
+          "en": "mixed",
+          "zh": "两者均有"
+        }
+      },
+      {
+        "code": "unknown",
+        "labels": {
+          "en": "unknown",
+          "zh": "未说明"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.incident-status",
+    "extensible": false,
+    "values": [
+      {
+        "code": "occurred",
+        "labels": {
+          "en": "occurred",
+          "zh": "发生违规或执法行动"
+        }
+      },
+      {
+        "code": "explicit_zero",
+        "labels": {
+          "en": "explicit_zero",
+          "zh": "明确披露无事件"
+        }
+      },
+      {
+        "code": "not_disclosed",
+        "labels": {
+          "en": "not_disclosed",
+          "zh": "未披露"
+        }
+      },
+      {
+        "code": "unclear",
+        "labels": {
+          "en": "unclear",
+          "zh": "无法判断"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.bat-comparison-result",
+    "extensible": false,
+    "values": [
+      {
+        "code": "meets",
+        "labels": {
+          "en": "meets",
+          "zh": "符合基准"
+        }
+      },
+      {
+        "code": "better",
+        "labels": {
+          "en": "better",
+          "zh": "优于基准"
+        }
+      },
+      {
+        "code": "worse",
+        "labels": {
+          "en": "worse",
+          "zh": "劣于或超出基准"
+        }
+      },
+      {
+        "code": "mixed",
+        "labels": {
+          "en": "mixed",
+          "zh": "不同项目结果不一"
+        }
+      },
+      {
+        "code": "unclear",
+        "labels": {
+          "en": "unclear",
+          "zh": "无法判断"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.schedule-derogation-type",
+    "extensible": false,
+    "values": [
+      {
+        "code": "compliance_schedule",
+        "labels": {
+          "en": "compliance_schedule",
+          "zh": "合规计划"
+        }
+      },
+      {
+        "code": "derogation",
+        "labels": {
+          "en": "derogation",
+          "zh": "Article 15(4) IED 豁免"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.degree-urbanisation",
+    "extensible": false,
+    "values": [
+      {
+        "code": "city",
+        "labels": {
+          "en": "city",
+          "zh": "城市"
+        }
+      },
+      {
+        "code": "town_or_suburb",
+        "labels": {
+          "en": "town_or_suburb",
+          "zh": "城镇或郊区"
+        }
+      },
+      {
+        "code": "rural",
+        "labels": {
+          "en": "rural",
+          "zh": "农村"
+        }
+      },
+      {
+        "code": "unknown",
+        "labels": {
+          "en": "unknown",
+          "zh": "未知"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e2-4.codeset.dimension-code",
+    "extensible": false,
+    "values": [
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.air-quality-index",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.air-quality-index",
+          "zh": "esrs.2023-set1.e2-4.dimension.air-quality-index"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.bat-parameter",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.bat-parameter",
+          "zh": "esrs.2023-set1.e2-4.dimension.bat-parameter"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.degree-urbanisation",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.degree-urbanisation",
+          "zh": "esrs.2023-set1.e2-4.dimension.degree-urbanisation"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+          "zh": "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.microplastic-flow",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.microplastic-flow",
+          "zh": "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+          "zh": "esrs.2023-set1.e2-4.dimension.microplastic-intentionality"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.pollutant",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.pollutant",
+          "zh": "esrs.2023-set1.e2-4.dimension.pollutant"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.pollution-medium",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.pollution-medium",
+          "zh": "esrs.2023-set1.e2-4.dimension.pollution-medium"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.schedule-derogation-type",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.schedule-derogation-type",
+          "zh": "esrs.2023-set1.e2-4.dimension.schedule-derogation-type"
+        }
+      },
+      {
+        "code": "esrs.2023-set1.e2-4.dimension.water-risk-class",
+        "labels": {
+          "en": "esrs.2023-set1.e2-4.dimension.water-risk-class",
+          "zh": "esrs.2023-set1.e2-4.dimension.water-risk-class"
+        }
+      },
+      {
+        "code": "extractesg.core.dimension.business-segment",
+        "labels": {
+          "en": "extractesg.core.dimension.business-segment",
+          "zh": "extractesg.core.dimension.business-segment"
+        }
+      },
+      {
+        "code": "extractesg.core.dimension.facility",
+        "labels": {
+          "en": "extractesg.core.dimension.facility",
+          "zh": "extractesg.core.dimension.facility"
+        }
+      },
+      {
+        "code": "extractesg.core.dimension.geography",
+        "labels": {
+          "en": "extractesg.core.dimension.geography",
+          "zh": "extractesg.core.dimension.geography"
+        }
+      },
+      {
+        "code": "extractesg.core.dimension.site",
+        "labels": {
+          "en": "extractesg.core.dimension.site",
+          "zh": "extractesg.core.dimension.site"
+        }
+      },
+      {
+        "code": "extractesg.core.dimension.source-type",
+        "labels": {
+          "en": "extractesg.core.dimension.source-type",
+          "zh": "extractesg.core.dimension.source-type"
+        }
+      }
+    ]
+  }
+]

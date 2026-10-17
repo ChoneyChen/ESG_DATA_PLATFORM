@@ -11,8 +11,15 @@
 2. `ocr_output + 原 PDF -> validated/versioned Document IR`。
 
 Document IR 链路不负责报告爬取、Kodo 文件索引、公司/年份/行业主数据或全局报告登记。
-本地上传、路径和 URL 只是开发输入方式。当前系统到不可变 Document IR 为止，
-不包含任何下游处理实现。
+本地上传、路径和 URL 只是开发输入方式。本模块的生产职责到不可变 Document IR 为止；
+项目已经另有 `targeted_table_extract` 下游及 07 控制面，不能把模块职责终点表述为整个系统没有下游。
+
+2026-10-02 系统升级：基础 IR 默认不调用全报告可选 VLM 复核；对象能力可用性 v2 保留同页可靠对象。OCR/IR/repair/retry 的 API 与 CLI 均提交统一队列，报告 Session 使用输入 pin 和显式证据转换，逻辑表/跨页视图已由下游消费。
+需求与改造前审计见 [系统重塑方案](../docs/SYSTEM_RESHAPING_PLAN.md)，当前实现与验收见 [升级实施报告](../docs/UPGRADE_IMPLEMENTATION_REPORT.md)。
+
+报告普通入口 `POST /api/report-sessions` 接收 PDF/已有 IR、多个标准选择、角色和预算；`preview` 先给出冻结标准、复用输入和已知限制。PDF 先进入必要 OCR/基础 IR，再建立一个原生跨标准 Session。内部 prepare 与投影仍有独立产物，页面以一个报告任务组织。
+
+`StageOutcome` 分别记录执行状态与成果状态：finished 不等于 usable，partial 可继续消费且保留范围/缺口。合法动作由后端提供 method、endpoint、payload、scope 和调用成本。密钥/签名来源仅保存在内存 Vault，服务重启后由用户重新提供。
 
 ## 当前真实链路
 
@@ -51,7 +58,7 @@ PDF
   -> typed quality routing (one risk -> one review question)
   -> deterministic candidate screening
   -> blocking-first provider-neutral review queue
-  -> selected provider: local NuExtract3 MLX or Qiniu VLM
+  -> selected provider: local NuExtract3 MLX / local Qwen3.5 / Qiniu VLM
   -> Qiniu-only pacing (RPM backoff / TPD run circuit)
   -> resume Guard-passing Verifier checkpoints before new Reviewer work
   -> classify object type before structure reconstruction
@@ -235,20 +242,15 @@ Document IR 使用四层互不混淆的标识：
   `ir-YYYYMMDDTHHMMSSZ-<12 hex>`；修复、复审或人工裁决继承父分支并递增
   `ir_revision`。
 
-### 最佳 IR 单版本保留
+### 最佳 IR 与固定输入保留
 
-每个 `ocr_run_id` 最终只保留一个质量最好的 Document IR 包。修复、模型复审和人工
-裁决仍先写入一个完整、不可变、自包含的新 Revision；只有新包写入成功并通过合同校验
-后，`DocumentIrRetentionManager` 才比较 Evidence 准入、阻断/错误数量、未完成复核、
-readiness、人工闭环数量和 revision。新包晋升为最佳版本后，上一版本的 IR Package 与
-本地任务状态会通过可回滚事务自动清理。
+`DocumentIrRetentionManager` 按质量选出每个 OCR 的最佳 IR，但不会静默更换排队任务的 Run ID。排队/运行/历史任务和 ReportSession 对旧 revision 的引用通过 SQLite pin 与 Session marker 保护，删除被引用包返回冲突；最佳版本仅用于新的用户选择。
 
-当前保留包已经包含从父版本继承的 Canonical 数据、页面/局部图、模型调用、Guard、
-Verifier、Patch 和人工决策记录，因此删除父包不会删除已进入当前包的复核依据。排队中
-的 IR 修复、复核重试和定向抽取任务会先自动改指向新的保留 Run ID；仍被运行中任务
-读取的版本暂缓清理。保留状态和清理审计位于 `.local/storage-cleanup/ir-retention/` 与
-`ir-retention-audit.jsonl`，不写回不可变 IR 包。诊断时可设置
-`ESG_V2_DOCUMENT_IR_BEST_ONLY=0` 暂停该策略。
+修复、模型复审与人工裁决写入不可变、自包含子 revision。采用新证据需要显式 `evidence-transition`：校验同一文档和原有限消费授权，只失效受影响指标及其计算依赖，保留无关检查点和原证据引用。父子来源审计不会被清理策略破坏。
+
+页面、crop、spread 复制采用文件系统 copy-on-write clone，可用时共享物理数据块，失败安全回退独立复制。子版本重新写图不会修改父包；路径合同仍保持自包含。修复请求支持多个 target/scopes，同一轮可以合并目标；整包结构重建/验证的对象增量优化仍属后续性能工作。
+
+保留审计位于 `.local/storage-cleanup/ir-retention/`。诊断可设置 `ESG_V2_DOCUMENT_IR_BEST_ONLY=0`，不改变输入固定规则。
 
 `document_label` 只用于前端显示，默认取原 PDF 文件名，不参与相等性判断。
 `external_document_id` 是可选的上游文档索引透传字段；本模块不承担公司主数据、
@@ -509,14 +511,11 @@ Document/OCR 后端默认不开启 Uvicorn 热重载，避免开发期间修改�
 运行或排队的持久化任务错误标记为 `interrupted`。只有明确设置
 `ESG_V2_DEV_RELOAD=1` 时才启用开发热重载；运行真实 OCR/IR 任务时不要开启该变量。
 
-统一前端分为七个业务页面：报告资产、OCR 任务、Document IR 任务、IR 复核检查、
-定向抽取、抽取结果、07 链路控制。页面底部是全局任务工作台，集中显示队列、日志和系统状态。
+统一前端采用报告库、提取任务、结果工作台、待处理和系统设置五个业务入口；OCR、IR、复核等技术细节作为高级视图保留。底部全局任务工作台集中显示队列、日志和健康。
 
-07 计划 API 为 `GET/POST /api/pipeline/plans` 和 `POST /api/pipeline/plans/{id}/{pause|resume|cancel}`。
-标准选择通过同一 Document 后端的 `GET /api/pipeline/standards` 及其包详情接口读取；
-后端再使用自身配置的定向抽取服务地址，避免浏览器残留旧端口时把标准区域显示为空白。
-05 页面仍直接调用定向抽取服务以执行任务，但初始化失败会在短超时后从
-`GET /api/pipeline/status` 自动恢复当前服务地址；只有连接成功的地址才写入浏览器存储。
+主线 API 为 `/api/report-sessions/preview`、创建/list/detail/facts、resume/cancel/evidence-transition。标准目录通过 Document 后端读取。原 `/api/pipeline/plans` 和 batch 接口保留兼容，普通页面不再各自构造一套请求。
+PDF/已有 IR 统一使用 `sessions.js`；API、状态、动作、订阅和密钥分别由共同服务管理。密钥不写浏览器持久化存储。
+
 支持文件夹 PDF 导入、资产多选、跨标准指标多选、模型和 Top N 配置、成功 OCR/IR 复用。
 计划保存在同一 SQLite 的 `pipeline_plans` 表，只派发现有队列任务，不直接运行模型。
 子步骤按 OCR → IR → 各标准包抽取推进；派发键唯一，后端重启可恢复；一个报告失败不阻止其他报告。
@@ -552,7 +551,7 @@ OCR/IR 业务内容。OCR 页面默认从该目录选择，并明确标识未处
 - 页图、Paddle layout 坐标框和对象详情；
 - 物理表格单元格、Table Graph 与跨页 LogicalTableIR；
 - 图片/图表区域截图；
-- 七牛云与本地 NuExtract3 的并列 Provider 选择及独立健康状态；
+- 七牛云、本地 NuExtract3 与本地 Qwen3.5 的 Provider 选择及健康状态；当前不是自动角色路由；
 - 复合 Review Task、每一轮模型调用、Reviewer 结果和模型健康状态；
 - Atomic Patch、修正前后 diff、本地 Guard、独立 Verifier 和最终决策；
 - 将“人工内容判断”“自动修复待处理”“非阻塞增强”“已解决”分开的审核收件箱；
@@ -611,12 +610,13 @@ POST /api/pipeline/tasks/targeted-extraction/{job_id}/resume
 GET/POST/DELETE /api/report-assets
 ```
 
-原 OCR、Document IR、定向抽取 API 和 CLI 保留，供独立后端集成与迁移使用；统一前端
-只走新的队列入口，避免三条重模型链路在本机并发。
+原 OCR、Document IR、定向抽取 API 和 CLI 保留，供独立后端集成与迁移使用；统一前端主要走队列入口。
+旧直接 IR 创建/返修/重试 API 仍在服务内线程执行，不能声称所有入口已受同一 Worker/执行槽保护。
+07 当前会把 partial 步骤视为报告失败，即使原生结果可局部消费；下一版按 StageOutcome 推进并仅恢复真实缺口。
 
 ## 密钥
 
-前端可以选择本地 NuExtract3 或七牛，并临时填写 PaddleOCR 和七牛 API Key。
+前端可以选择本地 NuExtract3、本地 Qwen3.5 或七牛，并临时填写 PaddleOCR 和七牛 API Key。
 本地模式不需要 API Key；密钥只随请求发送，不写入产物。
 也可以放到被 Git 忽略的 `document_ir_extract/.env.local`：
 
@@ -683,6 +683,17 @@ PDF 输入阈值全部可配置。默认把供应商输入的最长页边控制�
 因此后续完全关闭七牛只需选择 `local_nuextract` 或设置
 `ESG_V2_REVIEW_PROVIDER=local_nuextract`，不需要改 Document IR 或下游消费者。
 
+也可选择 `local_qwen`，使用本机 `~/Desktop/model/Qwen3.5-9B-4bit`；路径、运行时和单次
+时限分别由 `QWEN_VLM_MODEL_PATH`、`QWEN_VLM_RUNTIME_PYTHON`、
+`QWEN_VLM_TIMEOUT_SECONDS` 配置。它与 NuExtract、七牛使用同一 ReviewPlan、AtomicPatch、
+Guard、Verifier 和不可变 revision 合同，默认关闭 thinking，不替换 PaddleOCR 主解析器。
+本地 worker 池在切换 NuExtract/Qwen 时先释放旧进程，避免同时驻留两份 MLX 权重。
+单本地模型二次复核仍明确记录 `same_model_secondary_verification`，不冒充跨家族独立核验。
+
+动态 AtomicPatch 的 `proposed_value` 是 JSON，不是 NuExtract 官方字段类型。此类请求通过
+普通 content 模式和正式 JSON Schema 表达；固定结构的 NuExtract verifier 保留原生类型模板。
+本地 worker 的真实 `length` 终止也会传递到现有输出截断处理，不再一律伪装成正常 `stop`。
+
 ## 测试
 
 ```bash
@@ -713,4 +724,7 @@ Document IR 任务失败并留下明确原因，不会再拖死 FastAPI 后端�
 
 ## 当前边界
 
-本模块当前终止于 Document IR。所有下游流程将在新方案确定后另行建设。
+本模块的生产职责终止于 Document IR，不反向接收下游对事实的改写。
+项目已有 `targeted_table_extract` 下游及报告 Session 统一队列，可串联 OCR、IR 与多标准投影；旧接口也只是队列适配。
+报告事实 Agent、Provider 分工和跨模块审核边界见
+[报告事实 Agent 文档](../targeted_table_extract/docs/REPORT_FACT_AGENT.md)。

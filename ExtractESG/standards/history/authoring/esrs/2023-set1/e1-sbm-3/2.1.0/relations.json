@@ -1,0 +1,26 @@
+[
+  {
+    "description": "韧性结果必须关联分析范围、方法、日期及时间范围。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.e1-sbm-3.relation.family01",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-sbm-3.dp02",
+      "esrs.2023-set1.e1-sbm-3.dp03",
+      "esrs.2023-set1.e1-sbm-3.dp04",
+      "esrs.2023-set1.e1-sbm-3.dp05"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-sbm-3.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-sbm-3.dp06",
+      "esrs.2023-set1.e1-sbm-3.dp07"
+    ]
+  }
+]

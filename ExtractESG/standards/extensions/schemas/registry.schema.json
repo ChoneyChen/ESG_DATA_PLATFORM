@@ -1,0 +1,83 @@
+{
+  "$defs": {
+    "ExtensionRegistration": {
+      "additionalProperties": false,
+      "properties": {
+        "definition_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Definition Digest",
+          "type": "string"
+        },
+        "definition_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Definition Version",
+          "type": "string"
+        },
+        "extension_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Extension Id",
+          "type": "string"
+        },
+        "parent_package_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Parent Package Id",
+          "type": "string"
+        },
+        "parent_package_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Parent Package Version",
+          "type": "string"
+        },
+        "parent_source_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Parent Source Digest",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "release_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Release Digest",
+          "type": "string"
+        }
+      },
+      "required": [
+        "extension_id",
+        "definition_version",
+        "parent_package_id",
+        "parent_package_version",
+        "parent_source_digest",
+        "definition_digest",
+        "release_digest",
+        "path"
+      ],
+      "title": "ExtensionRegistration",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "registrations": {
+      "items": {
+        "$ref": "#/$defs/ExtensionRegistration"
+      },
+      "title": "Registrations",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "project-extension-registry-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version"
+  ],
+  "title": "ExtensionRegistry",
+  "type": "object"
+}

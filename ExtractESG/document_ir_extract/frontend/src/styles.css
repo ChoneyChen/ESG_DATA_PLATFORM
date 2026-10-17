@@ -440,6 +440,7 @@ input:disabled { cursor: not-allowed; opacity: .55; background: #eef1ee; }
 .target-health-grid, .inspection-kpis, .job-summary, .system-status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin: 15px 0; }
 .inspection-kpis { grid-template-columns: repeat(5, minmax(100px, 1fr)); }
 .job-summary { grid-template-columns: repeat(5, minmax(120px, 1fr)); }
+.job-summary > .task-error-summary { grid-column: 1 / -1; min-width: 0; }
 .target-health-grid article, .inspection-kpis article, .job-summary > div, .system-status-grid article { padding: 11px; border: 1px solid var(--line); border-radius: 10px; background: #f8faf7; }
 .target-health-grid strong, .target-health-grid span, .inspection-kpis strong, .inspection-kpis span, .job-summary strong, .job-summary span, .system-status-grid strong, .system-status-grid span, .system-status-grid small { display: block; }
 .target-health-grid strong, .inspection-kpis strong { font-size: 18px; }
@@ -787,6 +788,14 @@ input:disabled { cursor: not-allowed; opacity: .55; background: #eef1ee; }
   .selector-toolbar { grid-template-columns: minmax(240px, 1fr) 170px; }
   .selector-count { grid-column: 1 / -1; justify-self: start; }
 }
+.agent-progress-card { margin: 16px 0; padding: 16px; border: 1px solid var(--line, #ddd); border-radius: 12px; background: var(--surface, #fff); }
+.agent-progress-card h3 { margin: 0 0 12px; font-size: 15px; }
+.agent-progress-metrics { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 13px; }
+.agent-progress-card p { font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.agent-step-list { max-height: 380px; overflow: auto; }
+.agent-step-list article { padding: 10px 0; border-bottom: 1px solid var(--line, #ddd); }
+.agent-step-list strong, .agent-step-list small, .event-row small { display: block; overflow-wrap: anywhere; }
+.agent-step-list small { margin-top: 4px; }
 @media (max-width: 760px) {
   .app-frame { display: block; }
   .app-sidebar { position: sticky; z-index: 20; top: 0; width: 100%; height: auto; padding: 8px 10px; flex-direction: row; align-items: center; overflow-x: auto; }
@@ -830,3 +839,47 @@ input:disabled { cursor: not-allowed; opacity: .55; background: #eef1ee; }
   .pipeline-task { grid-template-columns: 16px minmax(0, 1fr); }
   .pipeline-task-stage, .pipeline-task > .button-row { grid-column: 2; }
 }
+
+/* Report product: common creator, dual state and three result perspectives. */
+.api-error-notice { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 0 20px; padding:14px 18px; border:1px solid #dfb2a3; border-radius:12px; color:#773d29; background:#fff1ea; }
+.form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 20px; margin:18px 0; }
+.form-grid .checkbox-line { align-self:end; min-height:42px; }
+.report-session-creator { max-width:1150px; }
+.session-standard-selector { display:grid; gap:12px; margin:16px 0 22px; }
+.session-standard-selector > details { padding:14px 18px; border:1px solid var(--line); border-radius:12px; }
+.session-standard-selector > details > summary { cursor:pointer; padding:2px 0 12px; }
+.session-metric { display:flex; align-items:flex-start; gap:10px; padding:7px 0; margin:0; font-size:13px; }
+.session-metric > input { width:auto; flex:0 0 auto; margin-top:3px; }
+.session-metric strong { color:var(--muted); font-size:11px; }
+.session-list, #session-pending-list, #session-result-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+.session-card { border:1px solid var(--line); border-radius:12px; padding:18px; background:#f8faf7; }
+.session-card .section-heading { gap:12px; align-items:flex-start; }
+.session-card .section-heading strong { overflow-wrap:anywhere; }
+.session-detail { margin-top:24px; }
+.report-progress { display:flex; flex-wrap:wrap; gap:9px; margin:18px 0; }
+.report-progress span { padding:8px 12px; background:#eef4ed; border-radius:8px; color:#315444; font-size:12px; }
+.session-stages { border-left:3px solid #b2c7b3; padding-left:16px; }
+.session-stage { display:grid; gap:8px; margin:12px 0; padding:14px; border:1px solid var(--border, #d7e0da); border-radius:10px; }
+.session-stage.running { border-color:#408962; background:#f1f8f3; }
+.session-stage.failed, .session-stage.interrupted { border-color:#cba181; }
+.business-progress { display:grid; gap:6px; }
+.business-progress small, .execution-timing, .execution-budget { color:var(--muted, #58675f); font-size:12px; line-height:1.6; }
+.business-progress .progress { height:6px; background:#e2eae4; border-radius:4px; overflow:hidden; }
+.business-progress .progress span { display:block; height:100%; background:#408962; }
+.execution-timing { display:flex; flex-wrap:wrap; gap:8px 16px; }
+.session-preview { margin-top:20px; border:1px solid #aac4ac; border-radius:12px; padding:20px; background:#f4f8f2; }
+.preview-plan-section { padding:12px 0; border-bottom:1px solid #d8e3d4; }
+.preview-plan-section > pre { white-space:pre-wrap; overflow-wrap:anywhere; font:12px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; max-height:240px; overflow:auto; margin:8px 0 0; }
+.available-action { display:flex; flex-direction:column; gap:6px; margin:8px 0; max-width:100%; }
+.available-action small { color:var(--muted); font-size:11px; white-space:pre-wrap; }
+.technical-details { margin:12px 0; font-size:12px; color:var(--muted); }
+.technical-details > summary { cursor:pointer; font-weight:600; margin:8px 0; }
+.technical-details pre { white-space:pre-wrap; overflow-wrap:anywhere; max-height:480px; overflow:auto; }
+.result-perspectives { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 8px; }
+.result-perspectives .active { background:#edf4e9; color:#244b31; border-color:#88a88c; }
+.report-facts-table { min-width:980px; }
+.report-facts-table td { max-width:300px; overflow-wrap:anywhere; }
+.session-report-results { margin-top:20px; overflow:auto; }
+@media(max-width:760px) { .form-grid { grid-template-columns:1fr; } .session-list, #session-pending-list, #session-result-list { grid-template-columns:1fr; } .api-error-notice { align-items:flex-start; } }
+.report-session-creator .empty-state, .session-workspace .empty-state, .session-pending .empty-state, .session-results .empty-state { min-height:120px; padding:20px; text-align:center; }
+.report-session-creator, .session-workspace, .session-pending, .session-results, .settings-panel { margin-bottom:18px; }

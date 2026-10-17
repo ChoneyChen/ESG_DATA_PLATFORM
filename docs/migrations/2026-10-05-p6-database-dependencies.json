@@ -1,0 +1,152 @@
+{
+  "schema_version": "dependency-layout-migration-v1",
+  "state": "verified",
+  "from": "ExtractESG/esg_database/node_modules",
+  "to": "database/node_modules",
+  "compatibility_link": {
+    "path": "ExtractESG/esg_database/node_modules",
+    "target": "../../database/node_modules"
+  },
+  "before_metadata": [
+    {
+      "name": ".modules.yaml",
+      "sha256": "f81dd7cb7f4f7a3723492ff60d9e901051f50043c44c9dea84608f6631a74b5f",
+      "before_image": "docs/migrations/2026-10-05-p6-dependency-metadata/.modules.yaml",
+      "after_sha256": "f81dd7cb7f4f7a3723492ff60d9e901051f50043c44c9dea84608f6631a74b5f"
+    },
+    {
+      "name": ".package-map.json",
+      "sha256": "56a226827181dd1d66f784e6cff5cd547dae2b7a05faedea4e25bae70667905b",
+      "before_image": "docs/migrations/2026-10-05-p6-dependency-metadata/.package-map.json",
+      "after_sha256": "56a226827181dd1d66f784e6cff5cd547dae2b7a05faedea4e25bae70667905b"
+    },
+    {
+      "name": ".pnpm-workspace-state-v1.json",
+      "sha256": "1803da6cc1cb247211b00e41b0eb259e57d5c4a3ad4dd17eff29d82955316c5f",
+      "before_image": "docs/migrations/2026-10-05-p6-dependency-metadata/.pnpm-workspace-state-v1.json",
+      "after_sha256": "1803da6cc1cb247211b00e41b0eb259e57d5c4a3ad4dd17eff29d82955316c5f"
+    }
+  ],
+  "package_entry_checksums": [
+    {
+      "path": ".pnpm/pg-cloudflare@1.4.1/node_modules/pg-cloudflare/package.json",
+      "sha256": "93b30ce3bed1ce3b836aa344c8afdaab74a42c03720e8d5baa801b6ae84ca3e7"
+    },
+    {
+      "path": ".pnpm/pg-connection-string@2.14.1/node_modules/pg-connection-string/package.json",
+      "sha256": "53d453c5a426e69a11ff479e0d8a293505faa1833e6eb3ff7ceefdaac569e3ea"
+    },
+    {
+      "path": ".pnpm/pg-int8@1.0.1/node_modules/pg-int8/package.json",
+      "sha256": "147155887a41bb6f69ff98b3dde827b7e6a8214c3a71938da4babf8e12adff2e"
+    },
+    {
+      "path": ".pnpm/pg-pool@3.14.0_pg@8.23.1/node_modules/pg/package.json",
+      "sha256": "b1e53333a3d0c2c47c49a5cb919d221135dc03145df740925b899bc2baacc435"
+    },
+    {
+      "path": ".pnpm/pg-pool@3.14.0_pg@8.23.1/node_modules/pg-pool/package.json",
+      "sha256": "0a9924def9e06f791b09a44eaefb227f323a39199887f6ce17b44cb5a9193134"
+    },
+    {
+      "path": ".pnpm/pg-protocol@1.16.1/node_modules/pg-protocol/package.json",
+      "sha256": "a4a4e23027b26c72be7729d045d0100ad9329959db0449c535fa7b2ba2e717c6"
+    },
+    {
+      "path": ".pnpm/pg-types@2.2.0/node_modules/pg-int8/package.json",
+      "sha256": "147155887a41bb6f69ff98b3dde827b7e6a8214c3a71938da4babf8e12adff2e"
+    },
+    {
+      "path": ".pnpm/pg-types@2.2.0/node_modules/pg-types/package.json",
+      "sha256": "3ec0293cb38cc8d9475e3eb32ac5f19d195bf9fccc8b19a0714e6ecd6e7c2cf0"
+    },
+    {
+      "path": ".pnpm/pg-types@2.2.0/node_modules/postgres-array/package.json",
+      "sha256": "dcd6a505fcbc032b409ee2838ab2c776dea3a9cfe02b736364b6cb82a946665f"
+    },
+    {
+      "path": ".pnpm/pg-types@2.2.0/node_modules/postgres-bytea/package.json",
+      "sha256": "9125568c5fb51a65b8f11adb0080c2775b99ee82822d73bff8b56b2a9d47d7aa"
+    },
+    {
+      "path": ".pnpm/pg-types@2.2.0/node_modules/postgres-date/package.json",
+      "sha256": "03f9edefa96697072075e02df045cc61ed4ca2f8dfffb1ff87f4070bc3404151"
+    },
+    {
+      "path": ".pnpm/pg-types@2.2.0/node_modules/postgres-interval/package.json",
+      "sha256": "cc3056db105e66c9128cb8a387cda782d5f1ae9281be90de0b8d26a90af89c57"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pg/package.json",
+      "sha256": "b1e53333a3d0c2c47c49a5cb919d221135dc03145df740925b899bc2baacc435"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pg-cloudflare/package.json",
+      "sha256": "93b30ce3bed1ce3b836aa344c8afdaab74a42c03720e8d5baa801b6ae84ca3e7"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pg-connection-string/package.json",
+      "sha256": "53d453c5a426e69a11ff479e0d8a293505faa1833e6eb3ff7ceefdaac569e3ea"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pg-pool/package.json",
+      "sha256": "0a9924def9e06f791b09a44eaefb227f323a39199887f6ce17b44cb5a9193134"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pg-protocol/package.json",
+      "sha256": "a4a4e23027b26c72be7729d045d0100ad9329959db0449c535fa7b2ba2e717c6"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pg-types/package.json",
+      "sha256": "3ec0293cb38cc8d9475e3eb32ac5f19d195bf9fccc8b19a0714e6ecd6e7c2cf0"
+    },
+    {
+      "path": ".pnpm/pg@8.23.1/node_modules/pgpass/package.json",
+      "sha256": "d75240eb4fe759c10db9f903838275348676a8bdc1f329e20a833713cd7c99bd"
+    },
+    {
+      "path": ".pnpm/pgpass@1.0.5/node_modules/pgpass/package.json",
+      "sha256": "d75240eb4fe759c10db9f903838275348676a8bdc1f329e20a833713cd7c99bd"
+    },
+    {
+      "path": ".pnpm/pgpass@1.0.5/node_modules/split2/package.json",
+      "sha256": "87b734c3087c8d9ed5d76d1bff00db30f960831ba8705dd18d73b180d08d2140"
+    },
+    {
+      "path": ".pnpm/postgres-array@2.0.0/node_modules/postgres-array/package.json",
+      "sha256": "dcd6a505fcbc032b409ee2838ab2c776dea3a9cfe02b736364b6cb82a946665f"
+    },
+    {
+      "path": ".pnpm/postgres-bytea@1.0.1/node_modules/postgres-bytea/package.json",
+      "sha256": "9125568c5fb51a65b8f11adb0080c2775b99ee82822d73bff8b56b2a9d47d7aa"
+    },
+    {
+      "path": ".pnpm/postgres-date@1.0.7/node_modules/postgres-date/package.json",
+      "sha256": "03f9edefa96697072075e02df045cc61ed4ca2f8dfffb1ff87f4070bc3404151"
+    },
+    {
+      "path": ".pnpm/postgres-interval@1.2.0/node_modules/postgres-interval/package.json",
+      "sha256": "cc3056db105e66c9128cb8a387cda782d5f1ae9281be90de0b8d26a90af89c57"
+    },
+    {
+      "path": ".pnpm/postgres-interval@1.2.0/node_modules/xtend/package.json",
+      "sha256": "b02ffef8cda96c5c3ee00a00390e63f608362c2ddfb3ed754e181d013a45d48a"
+    },
+    {
+      "path": ".pnpm/split2@4.2.0/node_modules/split2/package.json",
+      "sha256": "87b734c3087c8d9ed5d76d1bff00db30f960831ba8705dd18d73b180d08d2140"
+    },
+    {
+      "path": ".pnpm/xtend@4.0.2/node_modules/xtend/package.json",
+      "sha256": "b02ffef8cda96c5c3ee00a00390e63f608362c2ddfb3ed754e181d013a45d48a"
+    }
+  ],
+  "rollback_policy": "Retain original package/lock and metadata; after verifying canonical package entries, reverse directory move and alias; no runtime database files are in this directory.",
+  "verification": {
+    "package_entries_checked": 28,
+    "canonical_install_frozen_lockfile": "passed",
+    "postgres_driver_version": "8.23.1",
+    "actual_database_connection_attempted": false,
+    "errors": []
+  }
+}

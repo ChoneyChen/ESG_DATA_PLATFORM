@@ -13,4 +13,5 @@ if [[ ! -x "$PYTHON" ]]; then
 fi
 
 cd "$ROOT/backend"
+export PYTHONPATH="$ROOT/backend/src:$ROOT/../standard_packages/src:$ROOT/../shared_runtime/src${PYTHONPATH:+:$PYTHONPATH}"
 exec "$PYTHON" -m uvicorn esg_targeted.api.main:app --host "$HOST" --port "$PORT"

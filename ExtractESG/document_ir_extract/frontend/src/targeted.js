@@ -1,25 +1,16 @@
-import {
-  readinessName,
-  reportIdentity,
-  runDate,
-  searchableText,
-} from "./selection.js?v=input-selectors-v3-20260829";
+import {publishTask, readTask} from "./task-store.js";
+import {reportFactsTable, evidenceTable, stageSummaryView, gapSummary} from "./results.js";
+import {disclosureProgress, agentProgress, providerLabel} from "./disclosure.js?v=report-fact-agent-20261001";
+import {reportIdentity} from "./selection.js?v=input-selectors-v3-20260829";
+import {docRequest, targetedRequest, serviceBase} from "./api.js";
+import {subscribe, unsubscribe} from "./subscriptions.js";
+import {statusLabel, taskRevision} from "./status.js";
+import {progressView, stageLabel, historicalActiveCall, taskErrorView} from "./progress.js";
+import {getSecret} from "./roles.js";
 function metricSortDescription(metric) {
   return `后端统一组织：${metric.logical_measurement_count ?? metric.facts.length} 个逻辑测量；保留全部原始展示及证据`;
 }
 const $ = (selector) => document.querySelector(selector);
-
-function savedTargetMetricSelections() {
-  try {
-    const payload = JSON.parse(localStorage.getItem("esg-targeted-metric-selections") || "{}");
-    return new Map(Object.entries(payload).map(([key, values]) => [
-      key,
-      new Set(Array.isArray(values) ? values.filter((value) => typeof value === "string") : []),
-    ]));
-  } catch (_) {
-    return new Map();
-  }
-}
 
 const targetedState = {
   backend: localStorage.getItem("esg-targeted-backend-url") || "http://127.0.0.1:18180",
@@ -29,7 +20,7 @@ const targetedState = {
   standardCatalog: null,
   standard: null,
   standardDetails: new Map(),
-  metricSelections: savedTargetMetricSelections(),
+
   jobs: [],
   resultCatalog: null,
   activeJob: null,
@@ -42,55 +33,11 @@ const targetedState = {
   selectedIrRunId: localStorage.getItem("esg-targeted-ir-run-id") || "",
 };
 
-const targetedStages = [
-  ["01", "输入准入", "固定 IR revision 与标准包 digest"],
-  ["02", "原始证据清单", "Block、Cell、Header、Literal 与 crop"],
-  ["03", "对象级混合检索", "BM25 + Qwen3 Embedding + FactPattern；任务可选 Top 1–5"],
-  ["04", "单对象证据区域", "表格、图表、文本区域分别调用；每次最多一张 crop"],
-  ["05", "模型直接填表", "标准包动态字段合同；一个量一行、多个量多行"],
-  ["06", "来源与合同校验", "字段、证据、同组坐标、类型与去重"],
-  ["07", "成果包", "Core records + XLSX/CSV/JSON"],
-];
-
-function docBase() {
-  return ($("#backend-url")?.value || "http://127.0.0.1:18080").replace(/\/$/, "");
-}
-
-async function txRequest(path, options = {}, timeoutMs = 0) {
-  const controller = timeoutMs ? new AbortController() : null;
-  const timeout = controller ? window.setTimeout(() => controller.abort(), timeoutMs) : null;
-  try {
-    const response = await fetch(`${targetedState.backend}${path}`, controller ? {...options, signal: controller.signal} : options);
-    if (!response.ok) {
-      let detail = `${response.status} ${response.statusText}`;
-      try {
-        const payload = await response.json();
-        detail = typeof payload.detail === "string" ? payload.detail : JSON.stringify(payload.detail || payload);
-      } catch (_) {}
-      throw new Error(detail);
-    }
-    return response.json();
-  } catch (error) {
-    if (error.name === "AbortError") throw new Error(`连接 ${targetedState.backend} 超时`);
-    throw error;
-  } finally {
-    if (timeout !== null) window.clearTimeout(timeout);
-  }
-}
-
-async function docRequest(path, options = {}) {
-  const response = await fetch(`${docBase()}${path}`, options);
-  if (!response.ok) {
-    let detail = `${response.status} ${response.statusText}`;
-    try {
-      const payload = await response.json();
-      detail = typeof payload.detail === "string" ? payload.detail : JSON.stringify(payload.detail || payload);
-    } catch (_) {}
-    throw new Error(detail);
-  }
-  return response.json();
-}
-
+const txRequest = (path, options = {}, timeoutMs) => targetedRequest(path, options, timeoutMs);
+const docBase = () => serviceBase("document");
+let resultPerspective = "facts";
+let resultViewActive = false;
+let activeAuditTab = "inspection";
 function esc(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -98,19 +45,6 @@ function esc(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
-}
-
-function statusLabel(value) {
-  return {
-    queued: "排队中", running: "运行中", completed: "已完成", partial: "部分完成",
-    failed: "失败", cancelled: "已取消", interrupted: "已中断", found: "已找到",
-    not_found: "未找到", ambiguous: "不确定", pending: "处理中", reported: "直接披露",
-    not_found_after_complete_search: "完整检索后未找到", auto_verified: "历史自动通过",
-    human_required: "需人工判断", system_contract_failed: "结果合同失败",
-    passed: "通过", warning: "警告", decided: "模型已裁决", unresolved: "语义未收敛",
-    ready: "展示身份完整", needs_semantic_completion: "语义身份待补全",
-    not_applicable: "不适用", not_run: "未执行",
-  }[value] || value || "未产生";
 }
 
 function formatBytes(bytes = 0) {
@@ -122,7 +56,7 @@ function formatBytes(bytes = 0) {
 function elapsedSeconds(job) {
   const start = Date.parse(job?.created_at || "");
   const end = ["queued", "running"].includes(job?.status) ? Date.now() : Date.parse(job?.updated_at || "");
-  return Number.isFinite(start) && Number.isFinite(end) ? Math.max(0, Math.round((end - start) / 1000)) : 0;
+  return Number.isFinite(start) && Number.isFinite(end) ? Math.max(0, Math.round((end - start) / 1000)) : null;
 }
 
 function metricName(metric) {
@@ -154,7 +88,9 @@ function jobDocumentIdentity(job, inspection = null) {
 }
 
 function factSummary(metric, limit = 140) {
-  if (!metric.facts?.length) return metric.uncertainty_reason || (metric.status === "not_found" ? "完整检索后未发现可写入事实" : "尚未产生事实记录");
+  if (!metric.facts?.length && metric.processing_status === "not_executed") return "本项未执行；不能判断报告是否披露。";
+  if (!metric.facts?.length && ["processing", "unfinished"].includes(metric.processing_status)) return `本项已进入处理，尚未形成检查点；执行${statusLabel(metric.execution_status)}。`;
+  if (!metric.facts?.length) return metric.uncertainty_reason || (metric.search_resolution_status && metric.search_resolution_status !== "not_applicable" ? statusLabel(metric.search_resolution_status) : metric.status === "not_found" ? "未找到（历史结果未记录检索充分性）" : "尚未产生事实记录");
   const text = metric.facts.map((fact) => fact.display_value || fact.statement_summary || fact.statement_raw || "").filter(Boolean).join("；");
   return text.length > limit ? `${text.slice(0, limit)}…` : text;
 }
@@ -174,14 +110,13 @@ function evidenceLocationSummary(metric) {
 }
 
 async function loadTargetedBootstrap() {
-  return Promise.all([
-    txRequest("/api/health", {}, 2500),
-    txRequest("/api/config", {}, 2500),
-    txRequest("/api/ir-runs", {}, 2500),
-    txRequest("/api/standards", {}, 2500),
-    txRequest("/api/standards/diagnostics", {}, 2500).catch((error) => ({error: error.message})),
-    txRequest("/api/result-catalog", {}, 2500).catch((error) => ({error: error.message})),
+  const names = ['health', 'config', 'irRuns', 'standards', 'standardCatalog', 'resultCatalog', 'compatibility'];
+  const outcomes = await Promise.allSettled([
+    txRequest("/api/health"), txRequest("/api/config"), txRequest("/api/ir-runs"),
+    txRequest("/api/standards"), txRequest("/api/standards/diagnostics"), txRequest("/api/result-catalog"),
+    docRequest('/api/pipeline/compatibility'),
   ]);
+  return Object.fromEntries(names.map((name, index) => [name, outcomes[index]]));
 }
 
 async function connectTargeted({allowDiscovery = false} = {}) {
@@ -189,11 +124,12 @@ async function connectTargeted({allowDiscovery = false} = {}) {
   targetedState.backend = requestedBackend;
   const pill = $("#tx-connection");
   pill.textContent = "连接中";
+  let bootstrap;
   try {
     let discovered = false;
-    let bootstrap;
     try {
       bootstrap = await loadTargetedBootstrap();
+      if (bootstrap.health.status === 'rejected') throw bootstrap.health.reason;
     } catch (initialError) {
       if (!allowDiscovery) throw initialError;
       const status = await docRequest("/api/pipeline/status");
@@ -202,28 +138,39 @@ async function connectTargeted({allowDiscovery = false} = {}) {
         throw initialError;
       }
       targetedState.backend = candidate;
+      $("#tx-backend-url").value = candidate;
       bootstrap = await loadTargetedBootstrap();
+      if (bootstrap.health.status === 'rejected') throw bootstrap.health.reason;
       discovered = true;
     }
-    const [health, config, irRuns, standards, standardCatalog, resultCatalog] = bootstrap;
+    const health = bootstrap.health.value;
     localStorage.setItem("esg-targeted-backend-url", targetedState.backend);
     $("#tx-backend-url").value = targetedState.backend;
-    targetedState.config = config;
-    targetedState.irRuns = irRuns;
-    targetedState.standards = standards;
-    targetedState.standardCatalog = standardCatalog;
-    targetedState.resultCatalog = resultCatalog;
-    pill.textContent = discovered ? "后端已连接 · 地址已自动恢复" : "后端已连接";
-    pill.className = "status-pill success";
+    for (const key of ['config', 'irRuns', 'standards', 'standardCatalog', 'resultCatalog']) {
+      if (bootstrap[key].status === 'fulfilled') targetedState[key] = bootstrap[key].value;
+    }
+    const compatibility = bootstrap.compatibility.status === 'fulfilled' ? bootstrap.compatibility.value : null;
+    const buildMatches = health.compatibility?.build_fingerprint &&
+      health.compatibility.build_fingerprint === compatibility?.targeted?.build_fingerprint;
+    const ready = compatibility?.ready && health.compatibility?.readiness?.ready && buildMatches;
+    pill.textContent = ready ? (discovered ? "后端已就绪 · 地址已自动恢复" : "后端已就绪") : "服务已连接 · 版本或合同未就绪";
+    pill.className = `status-pill ${ready ? 'success' : 'warning'}`;
     renderTargetHealth(health);
-    renderTargetProviderConfig();
-    renderTargetInputs();
-    await refreshSemanticIndexes();
+    const names = {config: '运行配置', irRuns: '已有证据', standards: '标准目录', standardCatalog: '包校验诊断', resultCatalog: '成果目录', compatibility: '版本握手'};
+    const errors = Object.entries(names).filter(([key]) => bootstrap[key].status === 'rejected')
+      .map(([key, label]) => `${label}读取失败：${bootstrap[key].reason.message}`);
+    if (!ready) errors.unshift(`兼容诊断：${compatibility?.blockers?.join('；') || '服务缺少当前构建与合同握手，不能创建新任务'}`);
+    if (errors.length) $("#tx-health-grid").insertAdjacentHTML('beforeend', `<div class="empty-state warning">${errors.map(esc).join('。')}。已成功读取的目录与历史成果保留。</div>`);
+    if (document.body.dataset.activeView === "settings") await refreshSemanticIndexes();
     await refreshTargetJobs();
   } catch (error) {
+    if (bootstrap) for (const key of ['config', 'irRuns', 'standards', 'standardCatalog', 'resultCatalog']) {
+      if (bootstrap[key].status === 'fulfilled') targetedState[key] = bootstrap[key].value;
+    }
     pill.textContent = "后端未连接";
     pill.className = "status-pill error";
     $("#tx-health-grid").innerHTML = `<div class="empty-state error">请确认定向抽取后端 18180 已启动：${esc(error.message)}</div>`;
+    await refreshTargetJobs();  // A health failure must not erase readable history.
   }
 }
 
@@ -262,7 +209,7 @@ function renderSemanticIndexes() {
     if (!window.confirm(`确认删除语义索引 ${button.dataset.inventoryId} 吗？下次抽取会重新构建。`)) return;
     try {
       await txRequest(`/api/semantic-indexes/${encodeURIComponent(button.dataset.inventoryId)}`, {method: "DELETE"});
-      await refreshSemanticIndexes();
+      if (document.body.dataset.activeView === "settings") await refreshSemanticIndexes();
     } catch (error) {
       window.alert(`索引删除失败：${error.message}`);
     }
@@ -276,386 +223,28 @@ function renderTargetHealth(health) {
     [health.catalog?.indexed_result_job_count || 0, "结果任务"],
     [health.models?.embedding?.available ? "就绪" : "缺失", "Qwen3 Embedding"],
     [health.models?.nuextract?.available ? "就绪" : "缺失", "NuExtract3"],
+    [health.models?.local_qwen?.available ? "权重可用" : "缺失", "Qwen3.5 视觉语义"],
     [health.models?.qiniu_vlm?.configured ? "已配置" : "未配置", "七牛云 VLM"],
   ];
   $("#tx-health-grid").innerHTML = cards.map(([value, label]) => `<article><strong>${esc(value)}</strong><span>${label}</span></article>`).join("");
 }
 
-function selectedProviderConfig() {
-  const providerId = $("#tx-semantic-provider")?.value || "local_nuextract";
-  return (targetedState.config?.semantic_providers || []).find((item) => item.id === providerId) || {
-    id: providerId,
-    label: providerId === "qiniu_vlm" ? "七牛云视觉语言模型" : "本地 NuExtract3",
-    profile: providerId === "qiniu_vlm" ? "direct_multi_row_semantic_fill_single_visual_object" : "direct_multi_row_semantic_fill",
-    default_model: providerId === "qiniu_vlm" ? "qwen3.5-397b-a17b" : "NuExtract3-mlx-4bits",
-  };
-}
-
-function renderTargetProviderConfig() {
-  const select = $("#tx-semantic-provider");
-  const modelInput = $("#tx-semantic-model");
-  if (!select || !modelInput) return;
-  const providers = targetedState.config?.semantic_providers || [];
-  const savedProvider = localStorage.getItem("esg-targeted-semantic-provider") || "local_nuextract";
-  if (providers.length) {
-    select.innerHTML = providers.map((item) =>
-      `<option value="${esc(item.id)}">${esc(item.label)}${item.id === "qiniu_vlm" && item.configured === false ? "（未配置密钥）" : ""}</option>`
-    ).join("");
-  }
-  if ([...select.options].some((option) => option.value === savedProvider)) select.value = savedProvider;
-  const provider = selectedProviderConfig();
-  const topNControl = $("#tx-retrieval-object-top-n");
-  if (topNControl) {
-    const configuredDefault = Number(targetedState.config?.retrieval_objects?.default_top_n || 3);
-    const savedTopN = Number(localStorage.getItem("esg-targeted-retrieval-object-top-n") || configuredDefault);
-    topNControl.value = String(Math.min(5, Math.max(1, savedTopN)));
-  }
-  const savedCloudModel = localStorage.getItem("esg-targeted-qiniu-model") || "";
-  modelInput.value = provider.id === "qiniu_vlm" ? (savedCloudModel || provider.default_model || "") : (provider.default_model || "NuExtract3-mlx-4bits");
-  modelInput.readOnly = provider.id !== "qiniu_vlm";
-  modelInput.classList.toggle("readonly", modelInput.readOnly);
-  $("#tx-qiniu-key").disabled = provider.id !== "qiniu_vlm";
-  $("#tx-qiniu-key-field").classList.toggle("muted", provider.id !== "qiniu_vlm");
-  const cloud = provider.id === "qiniu_vlm";
-  $("#tx-provider-profile").innerHTML = cloud
-    ? `<strong>云端单对象直接填表</strong><span>按 Top N 选取独立证据对象；每次只发送一张表、一个图或一个文本区域及最多 ${esc(targetedState.config?.cloud_packet?.max_images || 1)} 张对应 crop，最后统一合并完全重复行。</span>`
-    : "<strong>本地单对象分区填表</strong><span>按 Top N 选取独立证据对象；每次只处理一张表、一个图或一个文本区域。大表仅按连续行分区，全部调用完成后统一合并完全重复行。</span>";
-}
-
-function renderTargetInputs() {
-  const selectedIr = targetedState.irRuns.find(
-    (run) => run.run_id === targetedState.selectedIrRunId && run.can_build_evidence
-  );
-  if (!selectedIr) {
-    targetedState.selectedIrRunId = "";
-    localStorage.removeItem("esg-targeted-ir-run-id");
-  }
-  $("#tx-ir-select").innerHTML = '<option value="">未选择</option>' + targetedState.irRuns.map((run) =>
-    `<option value="${esc(run.run_id)}">${esc(run.document_label || run.run_id)} · r${run.ir_revision}</option>`
-  ).join("");
-  $("#tx-ir-select").value = targetedState.selectedIrRunId;
-  renderTargetIrPicker();
-
-  const selectedStandard = localStorage.getItem("esg-targeted-standard-package") || "";
-  $("#tx-standard-select").innerHTML = targetedState.standards.map((item) =>
-    `<option value="${esc(`${item.package_id}@${item.package_version}`)}">${esc(item.disclosure_requirement || item.package_id)} · v${esc(item.package_version)} · ${item.metric_count} 个指标</option>`
-  ).join("") || '<option value="">没有编译标准包</option>';
-  if ([...$("#tx-standard-select").options].some((option) => option.value === selectedStandard)) {
-    $("#tx-standard-select").value = selectedStandard;
-  }
-  const availableStandardKeys = new Set(
-    targetedState.standards.map((item) => `${item.package_id}@${item.package_version}`)
-  );
-  for (const key of targetedState.metricSelections.keys()) {
-    if (!availableStandardKeys.has(key)) targetedState.metricSelections.delete(key);
-  }
-  persistTargetMetricSelections();
-  renderTargetStandardPicker();
-  renderTargetBatchSelection();
-  loadTargetStandard();
-}
-
-function standardKey(item) {
-  return `${item.package_id}@${item.package_version}`;
-}
-
-function activeStandardKey() {
-  return $("#tx-standard-select")?.value || "";
-}
-
-function selectedMetricsFor(key) {
-  if (!targetedState.metricSelections.has(key)) {
-    targetedState.metricSelections.set(key, new Set());
-  }
-  return targetedState.metricSelections.get(key);
-}
-
-function persistTargetMetricSelections() {
-  const available = new Set(targetedState.standards.map(standardKey));
-  const payload = {};
-  for (const [key, values] of targetedState.metricSelections.entries()) {
-    if (available.has(key) && values.size) payload[key] = [...values];
-  }
-  localStorage.setItem("esg-targeted-metric-selections", JSON.stringify(payload));
-}
-
-function renderTargetStandardPicker() {
-  const root = $("#tx-standard-picker");
-  if (!root) return;
-  const selected = $("#tx-standard-select").value;
-  const diagnostics = targetedState.standardCatalog || {};
-  const invalidCount = Number(diagnostics.invalid_package_count || 0);
-  $("#tx-standard-count").textContent = `${targetedState.standards.length} 个有效包${invalidCount ? ` · ${invalidCount} 个校验失败` : ""}`;
-  root.innerHTML = targetedState.standards.map((item) => {
-    const value = standardKey(item);
-    const selectedCount = selectedMetricsFor(value).size;
-    return `<button type="button" class="standard-package-card ${value === selected ? "selected" : ""} ${selectedCount ? "included" : ""}" data-tx-standard="${esc(value)}" aria-pressed="${value === selected}">
-      <div><strong>${esc(item.disclosure_requirement || item.package_id)}</strong><span class="standard-selection-count">已选 ${selectedCount} / ${Number(item.metric_count || 0)}</span></div>
-      <span>v${esc(item.package_version)} · ${Number(item.metric_count || 0)} 个指标 · ${Number(item.element_count || 0)} Elements</span>
-      <code>${esc(item.package_id)}</code>
-    </button>`;
-  }).join("") || `<div class="empty-state error">没有通过校验的编译标准包${diagnostics.error ? `：${esc(diagnostics.error)}` : "。"}</div>`;
-  document.querySelectorAll("[data-tx-standard]").forEach((button) => button.addEventListener("click", () => {
-    $("#tx-standard-select").value = button.dataset.txStandard;
-    loadTargetStandard();
-  }));
-}
-
-function renderTargetBatchSelection() {
-  const root = $("#tx-batch-selection-summary");
-  const button = $("#tx-add-task");
-  if (!root || !button) return;
-  const selectedPackages = targetedState.standards.map((item) => ({
-    item,
-    key: standardKey(item),
-    count: selectedMetricsFor(standardKey(item)).size,
-  })).filter((entry) => entry.count > 0);
-  const metricCount = selectedPackages.reduce((sum, entry) => sum + entry.count, 0);
-  if (!selectedPackages.length) {
-    root.className = "batch-selection-summary empty-state";
-    root.textContent = "尚未从任何标准包选择指标。切换上方卡片后逐项勾选，选择会跨卡片保留。";
-    button.textContent = "请先选择指标";
-    button.disabled = true;
-    return;
-  }
-  root.className = "batch-selection-summary";
-  root.innerHTML = `<strong>将创建 ${selectedPackages.length} 个任务 · 共 ${metricCount} 个指标</strong>${selectedPackages.map(({item, key, count}) =>
-    `<button type="button" data-tx-summary-standard="${esc(key)}">${esc(item.disclosure_requirement || item.package_id)} · ${count}</button>`
-  ).join("")}`;
-  document.querySelectorAll("[data-tx-summary-standard]").forEach((item) => item.addEventListener("click", () => {
-    $("#tx-standard-select").value = item.dataset.txSummaryStandard;
-    loadTargetStandard();
-  }));
-  button.textContent = `加入 ${selectedPackages.length} 个定向抽取任务`;
-  button.disabled = false;
-}
-
-function selectTargetIr(runId) {
-  const run = targetedState.irRuns.find((item) => item.run_id === runId);
-  if (!run?.can_build_evidence) return;
-  targetedState.selectedIrRunId = runId;
-  localStorage.setItem("esg-targeted-ir-run-id", runId);
-  $("#tx-ir-select").value = runId;
-  renderTargetIrPicker();
-}
-
-function renderTargetIrPicker() {
-  const root = $("#tx-ir-picker");
-  const selectedRoot = $("#tx-ir-selected");
-  if (!root || !selectedRoot) return;
-  const query = $("#tx-ir-search").value.trim().toLocaleLowerCase("zh-CN");
-  const filter = $("#tx-ir-filter").value;
-  const readyCount = targetedState.irRuns.filter((run) => run.can_build_evidence).length;
-  const visible = [...targetedState.irRuns].sort((a, b) =>
-    Number(b.manifest_mtime || 0) - Number(a.manifest_mtime || 0)
-  ).filter((run) => {
-    const matchesFilter = filter === "all"
-      || (filter === "ready" && run.can_build_evidence)
-      || (filter === "unready" && !run.can_build_evidence);
-    const haystack = searchableText(
-      run.run_id,
-      run.document_label,
-      run.document_id,
-      run.readiness,
-      run.schema_version,
-      run.ir_revision,
-    );
-    return matchesFilter && (!query || haystack.includes(query));
-  });
-  $("#tx-ir-count").textContent = `${visible.length} 条匹配 · ${readyCount} 个可抽取`;
-
-  const selected = targetedState.irRuns.find((run) => run.run_id === targetedState.selectedIrRunId);
-  if (!selected) {
-    selectedRoot.className = "selected-input-summary empty-state";
-    selectedRoot.textContent = "尚未选择可抽取的 Document IR。请从下方报告卡片中选择。";
-  } else {
-    const identity = reportIdentity(selected.document_label, selected.run_id);
-    selectedRoot.className = "selected-input-summary selected";
-    selectedRoot.innerHTML = `<div class="selected-input-title"><span class="year-badge">${esc(identity.year)}</span><strong title="${esc(identity.displayName)}">${esc(identity.displayName)}</strong><span class="status-pill success">已选输入</span></div>
-      <div class="selected-input-facts"><span><strong>r${selected.ir_revision}</strong><small>IR Revision</small></span><span><strong>${selected.page_count} 页</strong><small>报告页数</small></span><span><strong>${esc(readinessName(selected.readiness))}</strong><small>准入状态</small></span><span><strong>${esc(selected.schema_version)}</strong><small>Schema</small></span></div>
-      <code>${esc(selected.run_id)}</code>`;
-  }
-
-  root.innerHTML = visible.map((run) => {
-    const identity = reportIdentity(run.document_label, run.run_id);
-    const available = run.can_build_evidence;
-    return `<button class="input-choice-card ${run.run_id === targetedState.selectedIrRunId ? "selected" : ""} ${available ? "" : "unavailable"}" data-tx-ir-run="${esc(run.run_id)}" type="button" ${available ? "" : "disabled"} title="${available ? "选择该 IR" : "该 IR 尚未通过 Evidence 准入"}">
-      <div class="input-choice-head"><div class="input-choice-name"><span class="year-badge">${esc(identity.year)}</span><strong title="${esc(identity.displayName)}">${esc(identity.displayName)}</strong></div><span class="status-pill ${available ? "success" : "neutral"}">${esc(readinessName(run.readiness))}</span></div>
-      <div class="input-choice-facts"><span>Revision r${run.ir_revision}</span><span>${run.page_count} 页</span><span>${esc(run.schema_version)}</span><span>${esc(runDate(run.run_id, run.manifest_mtime))}</span></div>
-      <code>${esc(run.run_id)}</code>${available ? "" : '<small class="choice-block-reason">需先完成 IR 修复/复核，当前不可加入抽取任务</small>'}
-    </button>`;
-  }).join("") || '<div class="empty-state">没有符合搜索和准入筛选的 Document IR。</div>';
-  document.querySelectorAll("[data-tx-ir-run]").forEach((button) => {
-    if (!button.disabled) button.addEventListener("click", () => selectTargetIr(button.dataset.txIrRun));
-  });
-}
-
-async function loadTargetStandard() {
-  const value = $("#tx-standard-select").value;
-  renderTargetStandardPicker();
-  if (!value) {
-    targetedState.standard = null;
-    $("#tx-standard-detail").className = "selected-input-summary empty-state";
-    $("#tx-standard-detail").textContent = "没有可选择的有效标准包。";
-    $("#tx-metric-list").className = "metric-picker empty-state";
-    $("#tx-metric-list").textContent = "等待有效标准包。";
-    $("#tx-metric-count").textContent = "已选 0 / 0";
-    return;
-  }
-  const split = value.lastIndexOf("@");
-  try {
-    const standard = targetedState.standardDetails.get(value)
-      || await txRequest(`/api/standards/${encodeURIComponent(value.slice(0, split))}/${encodeURIComponent(value.slice(split + 1))}`);
-    if ($("#tx-standard-select").value !== value) return;
-    targetedState.standardDetails.set(value, standard);
-    targetedState.standard = standard;
-    localStorage.setItem("esg-targeted-standard-package", value);
-    const catalog = targetedState.standards.find((item) => `${item.package_id}@${item.package_version}` === value) || {};
-    const validMetricIds = new Set(standard.metrics.map((metric) => metric.metric_id));
-    const selectedMetricIds = new Set(
-      [...selectedMetricsFor(value)].filter((metricId) => validMetricIds.has(metricId))
-    );
-    targetedState.metricSelections.set(value, selectedMetricIds);
-    persistTargetMetricSelections();
-    renderTargetStandardPicker();
-    renderTargetBatchSelection();
-    $("#tx-standard-detail").className = "selected-input-summary selected standard-summary";
-    const digest = String(targetedState.standard.compilation?.source_digest || catalog.source_digest || "unknown");
-    $("#tx-standard-detail").innerHTML = `<div class="selected-input-title"><strong>${esc(catalog.disclosure_requirement || catalog.package_id || value)}</strong><span class="status-pill neutral">${esc(catalog.status || "unknown")}</span></div><div class="selected-input-facts"><span><strong id="tx-active-standard-selected-count">${selectedMetricIds.size} / ${targetedState.standard.metrics.length}</strong><small>已选指标</small></span><span><strong>${catalog.element_count || targetedState.standard.elements?.length || 0}</strong><small>Elements</small></span><span><strong>${catalog.concept_count || targetedState.standard.concepts?.length || 0}</strong><small>语义概念</small></span><span><strong>v${esc(catalog.package_version || value.slice(split + 1))}</strong><small>版本</small></span><span><strong>${esc(digest.slice(0, 12))}…</strong><small>Digest</small></span></div><code>${esc(catalog.package_id || value.slice(0, split))}</code>`;
-    $("#tx-metric-list").className = "metric-picker";
-    $("#tx-metric-list").innerHTML = targetedState.standard.metrics.map((metric) =>
-      `<label class="metric-item" data-metric-search="${esc(searchableText(metric.metric_id, metric.source_datapoint_id, metric.labels?.zh, metric.labels?.en, metric.data_class))}"><input type="checkbox" ${selectedMetricIds.has(metric.metric_id) ? "checked" : ""} value="${esc(metric.metric_id)}" /><span><strong>${esc(metric.source_datapoint_id)}</strong>${esc(metric.labels?.zh || metric.labels?.en || metric.metric_id)}</span><small>${esc(metric.data_class)}</small></label>`
-    ).join("");
-    filterTargetMetrics();
-    updateMetricSelectionCount();
-  } catch (error) {
-    $("#tx-metric-list").className = "metric-picker empty-state";
-    $("#tx-metric-list").textContent = `标准包读取失败：${error.message}`;
-    $("#tx-metric-count").textContent = "已选 0 / 0";
-  }
-}
-
-function filterTargetMetrics() {
-  const query = $("#tx-metric-search").value.trim().toLocaleLowerCase("zh-CN");
-  document.querySelectorAll("#tx-metric-list .metric-item").forEach((item) => {
-    item.classList.toggle("hidden", Boolean(query) && !item.dataset.metricSearch.includes(query));
-  });
-}
-
-function updateMetricSelectionCount() {
-  const all = [...document.querySelectorAll("#tx-metric-list input[type=checkbox]")];
-  const selectedIds = all.filter((input) => input.checked).map((input) => input.value);
-  const key = activeStandardKey();
-  if (key) targetedState.metricSelections.set(key, new Set(selectedIds));
-  persistTargetMetricSelections();
-  $("#tx-metric-count").textContent = `当前标准已选 ${selectedIds.length} / ${all.length}`;
-  if ($("#tx-active-standard-selected-count")) {
-    $("#tx-active-standard-selected-count").textContent = `${selectedIds.length} / ${all.length}`;
-  }
-  renderTargetStandardPicker();
-  renderTargetBatchSelection();
-}
-
-async function addTargetedTask() {
-  updateMetricSelectionCount();
-  const selections = targetedState.standards.map((item) => ({
-    item,
-    key: standardKey(item),
-    metricIds: [...selectedMetricsFor(standardKey(item))],
-  })).filter((entry) => entry.metricIds.length > 0);
-  if (!$("#tx-ir-select").value || !selections.length) {
-    $("#tx-launch-message").textContent = "请选择 IR，并从至少一个标准包勾选指标。";
-    return;
-  }
-  const button = $("#tx-add-task");
-  const requestedProvider = $("#tx-semantic-provider").value;
-  const requestedModel = requestedProvider === "qiniu_vlm"
-    ? ($("#tx-semantic-model").value.trim() || null)
-    : null;
-  const topNControl = $("#tx-retrieval-object-top-n");
-  const retrievalObjectTopN = Number(topNControl.value);
-  if (!Number.isInteger(retrievalObjectTopN) || retrievalObjectTopN < 1 || retrievalObjectTopN > 5) {
-    $("#tx-launch-message").textContent = "检索证据对象 Top N 必须在 1–5 之间。";
-    topNControl.reportValidity();
-    return;
-  }
-  button.disabled = true;
-  try {
-    const sharedRequest = {
-      ir_run_id: $("#tx-ir-select").value,
-      semantic_search: $("#tx-semantic-search").checked,
-      semantic_fill: $("#tx-semantic-fill").checked,
-      semantic_provider: requestedProvider,
-      semantic_model: requestedModel,
-      retrieval_object_top_n: retrievalObjectTopN,
-      qiniu_api_key: requestedProvider === "qiniu_vlm"
-        ? ($("#tx-qiniu-key").value.trim() || $("#qiniu-key")?.value.trim() || null)
-        : null,
-      visual_fallback: $("#tx-visual-fallback").checked,
-      force_unready_ir: false,
-    };
-    const requests = selections.map(({item, metricIds}) => ({
-      ...sharedRequest,
-      package_id: item.package_id,
-      package_version: item.package_version,
-      metric_ids: metricIds,
-    }));
-    const tasks = await docRequest("/api/pipeline/tasks/targeted-extraction/batch", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({requests}),
-    });
-    if (!Array.isArray(tasks) || tasks.length !== requests.length) {
-      throw new Error(`批量入队返回 ${Array.isArray(tasks) ? tasks.length : 0} 个任务，预期 ${requests.length} 个。`);
-    }
-    for (let index = 0; index < tasks.length; index += 1) {
-      const task = tasks[index];
-      const request = requests[index];
-      const returnedMetrics = task.payload?.metric_ids || [];
-      if (task.payload?.semantic_provider !== requestedProvider) {
-        throw new Error(`队列返回的模型通道不一致：请求 ${requestedProvider}，实际 ${task.payload?.semantic_provider || "缺失"}。`);
-      }
-      if (Number(task.payload?.retrieval_object_top_n) !== retrievalObjectTopN) {
-        throw new Error(`队列返回的 Top N 不一致：请求 ${retrievalObjectTopN}，实际 ${task.payload?.retrieval_object_top_n || "缺失"}。`);
-      }
-      if (task.payload?.package_id !== request.package_id
-          || task.payload?.package_version !== request.package_version
-          || returnedMetrics.length !== request.metric_ids.length
-          || request.metric_ids.some((metricId) => !returnedMetrics.includes(metricId))) {
-        throw new Error(`队列返回的标准或指标集合不一致：${request.package_id}@${request.package_version}。`);
-      }
-      if (requestedProvider === "qiniu_vlm" && requestedModel && task.payload?.semantic_model !== requestedModel) {
-        throw new Error(`队列返回的七牛模型不一致：请求 ${requestedModel}，实际 ${task.payload?.semantic_model || "默认模型"}。`);
-      }
-    }
-    localStorage.setItem("esg-targeted-retrieval-object-top-n", String(retrievalObjectTopN));
-    const acceptedProvider = requestedProvider === "qiniu_vlm"
-      ? `七牛云 · ${tasks[0].payload.semantic_model || "后端默认模型"}`
-      : "本地 NuExtract3";
-    const metricCount = requests.reduce((sum, request) => sum + request.metric_ids.length, 0);
-    $("#tx-launch-message").textContent = `已原子加入 ${tasks.length} 个任务、共 ${metricCount} 个指标 · ${acceptedProvider}`;
-    window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskIds: tasks.map((task) => task.task_id)}}));
-  } catch (error) {
-    $("#tx-launch-message").textContent = `批量加入任务失败：${error.message}`;
-  } finally {
-    renderTargetBatchSelection();
-  }
-}
-
-async function refreshTargetJobs() {
+async function refreshTargetJobs(signal) {
+  signal = signal instanceof AbortSignal ? signal : undefined;
   try {
     const [jobs, resultCatalog] = await Promise.all([
-      txRequest("/api/jobs?limit=500"),
-      txRequest("/api/result-catalog").catch((error) => ({error: error.message})),
+      txRequest("/api/jobs?limit=500", {signal}),
+      txRequest("/api/result-catalog", {signal}).catch((error) => ({error: error.message})),
     ]);
     targetedState.jobs = jobs;
     targetedState.resultCatalog = resultCatalog;
     renderTargetJobs();
     if (targetedState.activeJob) {
       const updated = targetedState.jobs.find((item) => item.job_id === targetedState.activeJob.job_id);
-      if (updated) await selectTargetJob(updated.job_id, false);
+      if (updated && taskRevision(updated) !== taskRevision(readTask(`job:${updated.job_id}`))) await selectTargetJob(updated.job_id, false, signal);
     }
   } catch (error) {
+    if (signal?.aborted) return;
     $("#tx-job-list").innerHTML = `<div class="empty-state error">定向抽取任务读取失败：${esc(error.message)}</div>`;
   }
 }
@@ -672,15 +261,14 @@ function renderTargetJobs() {
     warnings.push(`<div class="empty-state result-catalog-empty warning"><strong>${Number(catalog.missing_artifact_count)} 条任务记录缺少结果目录</strong><span>任务索引仍在，但对应中间文件或成果已被移动或清除。</span><code>${esc(catalog.output_root || "")}</code></div>`);
   }
   const cards = targetedState.jobs.map((job) => {
-    const progress = job.progress_total ? Math.round(job.progress_current / job.progress_total * 100) : 0;
-    const provider = job.request.semantic_provider === "qiniu_vlm" ? `七牛云 · ${job.request.semantic_model || "默认模型"}` : "本地 NuExtract3";
+    const provider = providerLabel(job.request.semantic_provider, job.request.semantic_model);
     const report = jobDocumentIdentity(job);
     return `<button class="job-card ${targetedState.activeJob?.job_id === job.job_id ? "active" : ""}" data-tx-job="${esc(job.job_id)}" type="button">
       <div class="job-card-head"><div class="job-card-report"><span class="year-badge">${esc(report.year)}</span><strong title="${esc(report.displayName)}">${esc(report.displayName)}</strong></div><span class="status-pill ${esc(job.status)}">${statusLabel(job.status)}</span></div>
-      <p>${esc(job.request.package_id)} · ${job.request.metric_ids.length || "全部"} 指标</p>
-      <small>${esc(provider)} · Top ${esc(job.request.retrieval_object_top_n || 3)} 对象 · ${esc(job.stage)} · ${job.progress_current}/${job.progress_total}</small>
-      <code class="job-card-run">${esc(job.job_id)} · IR ${report.revision === null ? "?" : `r${report.revision}`}</code>
-      <div class="progress"><span style="width:${progress}%"></span></div>
+      <p>${esc(targetedState.standards.find((item) => item.package_id === job.request.package_id)?.disclosure_requirement || job.request.package_id.split(".").at(-1).toUpperCase())} · ${job.request.metric_ids.length || "全部"} 指标</p>
+      <small>${esc(provider)}</small>
+      <span class="muted">文档证据版本 ${report.revision === null ? "未记录" : `r${report.revision}`}</span>
+      ${progressView(job)}
     </button>`;
   }).join("");
   if (!cards && !warnings.length) {
@@ -692,17 +280,17 @@ function renderTargetJobs() {
   document.querySelectorAll("[data-tx-job]").forEach((button) => button.addEventListener("click", () => selectTargetJob(button.dataset.txJob)));
 }
 
-async function selectTargetJob(jobId, rerender = true) {
-  const [job, inspection, events, artifacts] = await Promise.all([
-    txRequest(`/api/jobs/${encodeURIComponent(jobId)}`),
-    txRequest(`/api/jobs/${encodeURIComponent(jobId)}/inspection`).catch((error) => ({availability: "unavailable", message: error.message, metrics: [], overview: {}})),
-    txRequest(`/api/jobs/${encodeURIComponent(jobId)}/events`),
-    txRequest(`/api/jobs/${encodeURIComponent(jobId)}/artifacts`),
+async function selectTargetJob(jobId, rerender = true, signal) {
+  const [job, inspection] = await Promise.all([
+    txRequest(`/api/jobs/${encodeURIComponent(jobId)}`, {signal}),
+    txRequest(`/api/jobs/${encodeURIComponent(jobId)}/inspection`, {signal}).catch((error) => ({availability: "unavailable", message: error.message, metrics: [], overview: {}})),
   ]);
   targetedState.activeJob = job;
+  publishTask(`job:${jobId}`, job);
   targetedState.inspection = inspection;
-  targetedState.events = events;
-  targetedState.artifacts = artifacts;
+  targetedState.events = [];
+  targetedState.artifacts = [];
+  await loadTargetAudit(activeAuditTab, signal);
   if (rerender) renderTargetJobs();
   renderTargetJobDetail();
 }
@@ -712,9 +300,12 @@ function renderTargetJobDetail() {
   const summary = job.summary || {};
   const execution = targetedState.inspection?.model_execution || summary.model_execution || {};
   const evidencePolicy = targetedState.inspection?.document?.evidence_policy || summary.document?.evidence_policy || {};
-  const accountBlocked = (targetedState.inspection?.metrics || []).some((metric) =>
+  const accountBlocked = summary.failure_category === "provider_account_blocked"
+    || targetedState.inspection?.agent?.current_call?.failure_category === "provider_account_blocked"
+    || (targetedState.inspection?.metrics || []).some((metric) =>
     (metric.decision?.attempts || []).some((attempt) =>
       attempt.provider_error_code === "account_billing_suspended"
+      || attempt.failure_category === "provider_account_blocked"
       || String(attempt.error || "").includes("account_billing_suspended")
     )
   );
@@ -726,27 +317,41 @@ function renderTargetJobDetail() {
   $("#tx-job-title").textContent = report.displayName;
   const documentRoot = $("#tx-result-document");
   documentRoot.className = "result-document-banner";
-  documentRoot.innerHTML = `<div class="result-document-primary"><span class="year-badge">${esc(report.year)}</span><div><small>当前成果对应报告</small><h3>${esc(report.displayName)}</h3><p>所有指标、事实和证据均来自该报告固定的 Document IR Revision。</p></div></div><div class="result-document-identifiers"><span><small>Document ID</small><code>${esc(report.documentId)}</code></span><span><small>Document IR</small><code>${esc(report.runId)}${report.revision === null ? "" : ` · r${report.revision}`}</code></span></div>`;
+  documentRoot.innerHTML = `<div class="result-document-primary"><span class="year-badge">${esc(report.year)}</span><div><small>当前成果对应报告</small><h3>${esc(report.displayName)}</h3><p>所有指标、事实和证据均来自该报告固定的 Document IR Revision。</p></div></div><details class="result-document-identifiers technical-details"><summary>文档技术身份</summary><span><small>Document ID</small><code>${esc(report.documentId)}</code></span><span><small>Document IR</small><code>${esc(report.runId)}${report.revision === null ? "" : ` · r${report.revision}`}</code></span></details>`;
   $("#tx-job-summary").className = "job-summary";
+  const legacyElapsed = elapsedSeconds(job);
+  const elapsedCell = Number.isFinite(job.timing?.wall_elapsed_seconds)
+    ? ["执行墙钟", `${Math.round(job.timing.wall_elapsed_seconds)} 秒`]
+    : ["任务记录跨度", legacyElapsed === null ? "未记录" : `${legacyElapsed} 秒`, "按创建与最后更新时间计算，含排队；执行与未观测时间分解未记录"];
   const cells = [
-    ["状态", statusLabel(job.status)], ["阶段", job.stage], ["进度", `${job.progress_current}/${job.progress_total}`],
-    ["已用时间", `${elapsedSeconds(job)} 秒`], ["模型调用", summary.model_call_count ?? modelCalls],
+    ["状态", statusLabel(job.status)], ["阶段", stageLabel(job.stage)], ["条款处理", job.progress?.total ? `${job.progress.current} / ${job.progress.total} 已处理条款` : "当前没有可计算的工作总量"],
+    elapsedCell, ["模型调用", summary.model_call_count ?? (targetedState.events.length ? modelCalls : "未记录")],
     ["Guard 通过", summary.guard_accepted_count ?? "处理中"], ["IR Revision", report.revision === null ? "未记录" : `r${report.revision}`],
     ["任务 ID", job.job_id], ["IR Schema", report.schemaVersion],
     ["标准包", `${job.request.package_id}@${job.request.package_version}`],
     ["语义检索", job.request.semantic_search ? "Qwen3 + BM25" : "仅 BM25"],
-    ["证据对象上限", `Top ${job.request.retrieval_object_top_n || 3}`],
-    ["请求模型", job.request.semantic_fill ? (job.request.semantic_provider === "qiniu_vlm" ? `七牛云 · ${job.request.semantic_model || "默认模型"}` : "本地 NuExtract3") : "关闭"],
-    ["实际执行", (execution.actual_models || []).join("；") || (accountBlocked ? "七牛账户计费状态拒绝请求；未获得模型输出" : job.status === "completed" || job.status === "partial" ? "未记录有效模型响应" : "处理中")],
+    ["检索候选预算", `Top ${job.request.retrieval_object_top_n || 3}`],
+    ["提取路径", job.request.extraction_mode === "per_metric" ? "逐指标兼容" : "源表语义 Agent / 成熟路径"],
+    ...(job.request.extraction_mode !== "per_metric" ? [["每主题初始共享预算", job.request.shared_object_budget ?? 3], ["每主题 Agent 步骤预算", job.request.agent_max_steps ?? 8]] : []),
+    ["请求模型", job.request.semantic_fill ? providerLabel(job.request.semantic_provider, job.request.semantic_model) : "关闭"],
+    ["实际执行", (execution.actual_models || []).join("；") || (accountBlocked ? "七牛账户拒绝请求；未获得模型输出" : ["completed", "partial", "failed", "cancelled", "interrupted"].includes(job.status) ? "任务已结束，未记录有效模型响应" : "处理中")],
     ...(evidencePolicy.mode === "limited" ? [["证据范围", `受限：可用 ${evidencePolicy.available_page_count || 0} 页，排除 ${(evidencePolicy.excluded_page_indices || []).length} 页；排除页不代表未披露`]] : []),
   ];
-  $("#tx-job-summary").innerHTML = `${cells.map(([label, value]) => `<div><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join("")}${job.error ? `<p class="error">${esc(job.error)}</p>` : ""}`;
+  $("#tx-job-summary").innerHTML = `${cells.slice(0, 5).map(([label, value, hint]) => `<div><span>${esc(label)}</span><strong>${esc(value)}</strong>${hint ? `<small>${esc(hint)}</small>` : ""}</div>`).join("")}<details class="technical-details"><summary>运行配置与审计</summary>${cells.slice(5).map(([label, value]) => `<div><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join("")}</details>${taskErrorView(job)}`;
+  const agent = targetedState.inspection?.agent || summary.agent;
+  const historicalCall = historicalActiveCall(job, agent?.current_call);
+  const auditAgent = historicalCall ? {...agent, state: job.status, current_call: null} : agent;
+  const historicalAudit = historicalCall ? `<p>历史调用记录，任务已停止。原始调用阶段只作为技术记录保留。</p><details class="technical-details"><summary>原始调用记录</summary><pre>${esc(JSON.stringify(agent, null, 2))}</pre></details>` : "";
+  $("#tx-agent-progress").innerHTML = `<details class="technical-details"><summary>模型动作与调用审计</summary>${historicalAudit}${agentProgress(auditAgent, job.request)}</details>`;
   $("#tx-resume-job").textContent = repairableContractFailure
     ? "修复后重建结果（不调用模型）"
     : "加入断点续跑";
   $("#tx-resume-job").classList.toggle("hidden", !["interrupted", "failed", "cancelled", "partial"].includes(job.status));
   $("#tx-cancel-job").classList.toggle("hidden", !["queued", "running"].includes(job.status));
-  $("#tx-delete-job").classList.toggle("hidden", ["queued", "running"].includes(job.status));
+  const lifecycleActions = job.lifecycle?.available_actions || [];
+  const primaryLifecycleAction = lifecycleActions.find((action) => ["archive", "open_parent"].includes(action.action));
+  $("#tx-delete-job").textContent = primaryLifecycleAction?.label || "归档记录";
+  $("#tx-delete-job").classList.toggle("hidden", !primaryLifecycleAction);
   renderTargetInspection();
   renderTargetOutcomes();
   renderTargetEvents();
@@ -755,7 +360,7 @@ function renderTargetJobDetail() {
 
 function renderTargetInspection() {
   const inspection = targetedState.inspection;
-  if (!inspection || inspection.availability !== "ready") {
+  if (!inspection || (!["ready", "partial"].includes(inspection.availability) && !inspection.metrics?.length && !inspection.report_facts?.length)) {
     $("#tx-inspection-summary").innerHTML = `<div class="empty-state">${esc(inspection?.message || "任务完成后生成成果检查。")}</div>`;
     $("#tx-model-execution-banner").innerHTML = "";
     $("#tx-integrity-banner").innerHTML = "";
@@ -774,11 +379,9 @@ function renderTargetInspection() {
     [Math.max(0, (overview.human_review_count || 0) - accountBlockedCount), "需人工判断", "仅异常或歧义"],
     ...(accountBlockedCount ? [[accountBlockedCount, "服务商阻塞", "账户恢复后重跑"]] : []),
   ];
-  $("#tx-inspection-summary").innerHTML = cards.map(([value, label, note]) => `<article><strong>${value || 0}</strong><span>${label}</span><small>${note}</small></article>`).join("");
+  $("#tx-inspection-summary").innerHTML = `${inspection.availability !== "ready" ? `<p class="hint">${esc(inspection.message)}</p>` : ""}${stageSummaryView(inspection.stage_summary, overview)}${cards.map(([value, label, note]) => `<article><strong>${value || 0}</strong><span>${label}</span><small>${note}</small></article>`).join("")}${gapSummary(inspection.gaps)}`;
   const execution = inspection.model_execution || {};
-  const requested = execution.requested_provider === "qiniu_vlm"
-    ? `七牛云 · ${execution.requested_model || "默认模型"}`
-    : "本地 NuExtract3";
+  const requested = providerLabel(execution.requested_provider || targetedState.activeJob.request.semantic_provider, execution.requested_model);
   const actual = (execution.actual_models || []).join("；") || (
     accountBlockedCount ? "请求被七牛账户计费状态拒绝；无有效模型响应" : "本任务没有有效模型响应或旧成果未记录"
   );
@@ -789,9 +392,12 @@ function renderTargetInspection() {
   $("#tx-integrity-banner").className = `integrity-banner ${esc(inspection.integrity_status)}`;
   $("#tx-integrity-banner").innerHTML = issues.length
     ? `<strong>成果合同 ${statusLabel(inspection.integrity_status)}</strong><span>${issues.map((item) => esc(item.message)).join("；")}</span>`
-    : "<strong>输出合同校验通过</strong><span>记录数量、主键及事实 → 任务 → 证据关联完整；本页只读。</span>";
-  const downloadLabels = {workbook: "下载机器表", fact_csv: "下载事实 CSV", task_csv: "下载任务 CSV", result_package: "下载完整 JSON"};
+    : (overview.quantitative_fact_count || overview.qualitative_fact_count)
+      ? `<strong>${inspection.availability === "ready" ? "成果" : "阶段 Core"}合同校验通过</strong><span>已核对 ${(overview.quantitative_fact_count || 0) + (overview.qualitative_fact_count || 0)} 条 Core 事实及其关联；来源候选仍独立确认。</span>`
+      : "<strong>无 Core 事实记录可验证</strong><span>任务结构检查不表示来源候选已通过业务核验。</span>";
+  const downloadLabels = {workbook: "下载机器表", fact_csv: "下载事实 CSV", task_csv: "下载任务 CSV", result_package: "下载成果 JSON", source_facts: "下载共享源事实", metric_source_mappings: "下载指标映射", disclosure_views: "下载来源展示引用", stage_snapshot: "下载阶段快照"};
   $("#tx-result-downloads").innerHTML = Object.entries(inspection.downloads || {}).map(([key, path]) => `<a class="button-link" href="${targetedState.backend}/api/jobs/${encodeURIComponent(targetedState.activeJob.job_id)}/download?path=${encodeURIComponent(path)}">${esc(downloadLabels[key] || key)}</a>`).join("");
+  $("#tx-result-downloads").insertAdjacentHTML("beforeend", disclosureProgress(inspection.disclosure_plan, path => `${targetedState.backend}/api/jobs/${encodeURIComponent(targetedState.activeJob.job_id)}/download?path=${encodeURIComponent(path)}`));
   renderTargetMetricTable();
 }
 
@@ -899,12 +505,15 @@ function factQualitySummary(metric, fact) {
 }
 
 function metricVerificationSummary(metric) {
-  return [
+  const stages = [
     `来源 ${statusLabel(metric.source_validation_status)}`,
     `合同 ${statusLabel(metric.contract_validation_status || "not_run")}`,
     `语义 ${statusLabel(metric.semantic_decision_status)}`,
     `展示 ${statusLabel(metric.display_readiness_status)}`,
-  ].join(" · ");
+  ];
+  if (metric.search_resolution_status && metric.search_resolution_status !== "not_applicable") stages.push(`检索 ${statusLabel(metric.search_resolution_status)}`);
+  if (metric.dependency_status && metric.dependency_status !== "not_applicable") stages.push(`派生依赖 ${metric.dependency_status === "blocked" ? "阻塞" : "就绪"}`);
+  return stages.join(" · ");
 }
 
 function renderMetricFactTable(metric, facts) {
@@ -944,11 +553,27 @@ function renderMetricFactTable(metric, facts) {
 function metricProviderAccountBlocked(metric) {
   return (metric.decision?.attempts || []).some((item) =>
     item.provider_error_code === "account_billing_suspended"
+    || item.failure_category === "provider_account_blocked"
     || String(item.error || "").includes("account_billing_suspended")
   );
 }
 
 function renderTargetMetricTable() {
+  const heading = $(".result-level-heading h3");
+  const note = $(".result-level-heading > span");
+  heading.textContent = resultPerspective === "facts" ? "报告事实" : resultPerspective === "evidence" ? "证据引用" : "标准覆盖";
+  note.textContent = resultPerspective === "coverage" ? "每项标准要求分别显示覆盖状态；点击查看具体事实。" : "按后端原始顺序展示，未知身份保留为空。";
+  if (resultPerspective !== "coverage") {
+    const inspection = targetedState.inspection || {};
+    const legacyFacts = (inspection.metrics || []).flatMap((metric) => metric.facts || []);
+    const neutralFacts = inspection.report_facts?.length ? inspection.report_facts : inspection.source_facts?.length ? inspection.source_facts : null;
+    const facts = neutralFacts || legacyFacts;
+    const query = $("#tx-result-search").value.trim();
+    const evidence = inspection.evidence_references?.length ? inspection.evidence_references : facts.flatMap((fact) => fact.evidence || fact.evidence_references || fact.physical_sources || []);
+    $("#tx-result-table").innerHTML = resultPerspective === "facts" ? reportFactsTable(facts, {query, legacy: !neutralFacts}) : evidenceTable(evidence, query);
+    $("#tx-result-detail").innerHTML = "";
+    return;
+  }
   const query = $("#tx-result-search").value.trim().toLowerCase();
   const filter = $("#tx-result-filter").value;
   const reviewFilter = $("#tx-review-filter").value;
@@ -974,7 +599,7 @@ function renderTargetMetricTable() {
     const blocked = metricProviderAccountBlocked(metric);
     const guard = metric.contract_validation_status === "failed"
       ? "结果合同失败"
-      : blocked ? "未执行" : metric.guard_accepted === true ? "通过" : metric.guard_accepted === false ? "未通过" : "未执行";
+      : blocked ? "未执行" : metric.guard_accepted === true ? factCount ? "通过" : "任务结构通过（0 事实）" : metric.guard_accepted === false ? "未通过" : "未执行";
     return `<tr class="metric-task-row ${selected ? "selected" : ""} ${metricQualityClass(metric)}" tabindex="0" data-tx-metric="${esc(metric.metric_id)}">
       <td class="metric-task-id"><strong>${esc(metric.source_datapoint_id)}</strong><code>${esc(metric.metric_id)}</code></td>
       <td><strong>${esc(metricName(metric))}</strong><small>${esc(metric.description || "")}</small></td>
@@ -1014,8 +639,8 @@ function renderTargetMetricDetail() {
   const attempts = metric.decision?.attempts || [];
   const accountBlocked = metricProviderAccountBlocked(metric);
   const contractFailed = metric.contract_validation_status === "failed";
-  const providers = [...new Set(attempts.map((item) => item.provider).filter(Boolean))];
-  const models = [...new Set(attempts.map((item) => item.model_id).filter(Boolean))];
+  const providers = [...new Set(attempts.map((item) => item.provider || item.source_provider).filter(Boolean))];
+  const models = [...new Set(attempts.map((item) => item.model_id || item.source_model_id).filter(Boolean))];
   const regionCount = Math.max(0, ...attempts.map((item) => Number(item.region_count || item.region_index || 0)));
   const hits = metric.retrieval?.top_hits || [];
   if (!facts.some((fact) => fact.fact_id === targetedState.selectedFactId)) targetedState.selectedFactId = facts[0]?.fact_id || null;
@@ -1027,10 +652,11 @@ function renderTargetMetricDetail() {
     ${renderMetricFactTable(metric, displayedFacts)}
     ${(metric.unmapped_measurements || []).length ? `<details open><summary>归属待确认 / 其他口径：${metric.unmapped_measurements.length} 条（保留原量，不贴标准标签）</summary><pre class="json compact-json">${esc(JSON.stringify(metric.unmapped_measurements, null, 2))}</pre></details>` : ""}
     <h4>当前事实行证据${selectedFact ? ` · ${esc(selectedFact.fact_id)}` : ""}</h4><div class="evidence-list">${evidence.map((item) => `<blockquote><p>${esc(item.excerpt)}</p><footer>PDF 第 ${item.pdf_page_number} 页${item.printed_page_label ? ` · 报告页 ${esc(item.printed_page_label)}` : ""} · ${esc(item.section_title || item.ir_object_id)} · ${esc(item.evidence_id)}</footer></blockquote>`).join("") || '<p class="muted">当前指标没有可选择的事实行或该行没有接受的证据记录。</p>'}</div>
-    <div class="diagnostic-grid"><section><h4>确定性来源与结果合同</h4><div class="guard-summary ${contractFailed || !metric.guard_accepted ? "failed" : "passed"}"><strong>${contractFailed ? "模型结果已保留，但结果物化合同失败" : accountBlocked ? "服务商拒绝请求；未获得模型输出" : metric.guard_accepted === true ? "来源 Guard 与结果合同均通过" : metric.guard_accepted === false ? "存在确定性来源合同错误" : "Guard 未执行"}</strong><span>${esc(contractFailed ? metric.contract_error || "该指标记录已隔离，未污染其他指标成果。" : accountBlocked ? "七牛账户计费状态异常。账户恢复后重新运行该任务；本次结果不能用于判断条款是否披露。" : metric.guard?.feedback || "无反馈；缺失字段允许为空。")}</span></div><pre class="json compact-json">${esc(JSON.stringify(metric.guard?.issues || [], null, 2))}</pre></section><section><h4>模型实际执行</h4><dl class="compact-facts"><div><dt>Provider</dt><dd>${esc(providers.join(" / ") || (accountBlocked ? "七牛云（请求被拒绝）" : "未调用模型"))}</dd></div><div><dt>模型</dt><dd>${esc(models.join(" / ") || "未记录")}</dd></div><div><dt>Evidence Regions</dt><dd>${regionCount || (attempts.length ? 1 : 0)}</dd></div><div><dt>本地充分性</dt><dd>${esc(sufficiency.status || "未产生")}</dd></div><div><dt>扫描证明</dt><dd>${esc((sufficiency.reason_codes || []).join(" / ") || "未产生")}</dd></div><div><dt>完整选择</dt><dd>${metric.retrieval?.packet_span_count || 0} spans · ${metric.retrieval?.packet_candidate_count || 0} candidates · ${metric.retrieval?.packet_image_count || 0} crops</dd></div><div><dt>模型调用/合并记录</dt><dd>${attempts.length}</dd></div></dl></section></div>
+    <div class="diagnostic-grid"><section><h4>确定性来源与结果合同</h4><div class="guard-summary ${contractFailed || !metric.guard_accepted ? "failed" : "passed"}"><strong>${contractFailed ? "模型结果已保留，但结果物化合同失败" : accountBlocked ? "服务商拒绝请求；未获得模型输出" : metric.guard_accepted === true ? facts.length ? "来源 Guard 与结果合同均通过" : "任务结构检查通过；无业务事实记录" : metric.guard_accepted === false ? "存在确定性来源合同错误" : "Guard 未执行"}</strong><span>${esc(contractFailed ? metric.contract_error || "该指标记录已隔离，未污染其他指标成果。" : accountBlocked ? "七牛账户计费状态异常。账户恢复后重新运行该任务；本次结果不能用于判断条款是否披露。" : (facts.length ? metric.guard?.feedback || "无来源反馈。" : "本项没有可验证的业务事实；来源候选与标准覆盖须分别确认。"))}</span></div><pre class="json compact-json">${esc(JSON.stringify(metric.guard?.issues || [], null, 2))}</pre></section><section><h4>模型实际执行</h4><dl class="compact-facts"><div><dt>Provider</dt><dd>${esc(providers.join(" / ") || (accountBlocked ? "七牛云（请求被拒绝）" : "未调用模型"))}</dd></div><div><dt>模型</dt><dd>${esc(models.join(" / ") || "未记录")}</dd></div><div><dt>Evidence Regions</dt><dd>${regionCount || (attempts.length ? 1 : 0)}</dd></div><div><dt>本地充分性</dt><dd>${esc(sufficiency.status || "未产生")}</dd></div><div><dt>扫描证明</dt><dd>${esc((sufficiency.reason_codes || []).join(" / ") || "未产生")}</dd></div><div><dt>完整选择</dt><dd>${metric.retrieval?.packet_span_count || 0} spans · ${metric.retrieval?.packet_candidate_count || 0} candidates · ${metric.retrieval?.packet_image_count || 0} crops</dd></div><div><dt>模型调用/合并记录</dt><dd>${attempts.length}</dd></div></dl></section></div>
     <h4>Region / 模型调用明细</h4><div class="model-attempt-list">${attempts.map((item) => `<article><strong>${esc(item.provider || item.route || "本地步骤")} · ${esc(item.model_id || "无模型")}</strong><span>${item.region_index ? `Region ${item.region_index}/${item.region_count || "?"} · ` : ""}${Number(item.input_group_count || 0)} groups · ${Number(item.input_span_count || 0)} spans · ${Number(item.input_candidate_count || 0)} candidates · ${Number(item.image_count || 0)} images → ${Number(item.output_row_count || 0)} rows</span><small>${Number(item.input_chars || 0)} chars · prompt ${Number(item.prompt_tokens || 0)} tokens · output ${Number(item.generation_tokens || 0)} tokens · ${Number(item.elapsed_seconds || 0).toFixed(2)}s${item.finish_reason ? ` · ${esc(item.finish_reason)}` : ""}</small></article>`).join("") || '<p class="muted">本指标未调用语义模型。</p>'}</div>
     <h4>召回片段（非对象 Top N）· 前 ${hits.length}</h4><div class="retrieval-hits">${hits.map((hit, index) => `<article><span>#${index + 1}</span><div><strong>${hit.page_index == null ? "页码未记录" : `PDF 第 ${hit.page_index + 1} 页`}${hit.section_title ? ` · ${esc(hit.section_title)}` : ""}</strong><p>${esc(hit.text || "历史产物未保留该命中文本")}</p><small>final ${Number(hit.final_score || 0).toFixed(4)} · topic ${Math.round(Number(hit.topic_coverage || 0) * 100)}% · ${esc((hit.reasons || []).join(" / "))}</small></div></article>`).join("") || '<p class="muted">没有可展示的召回命中。</p>'}</div>
-    <details><summary>完整 Guard、检索和模型决定 JSON</summary><pre class="json compact-json">${esc(JSON.stringify({guard: metric.guard, retrieval: metric.retrieval, decision: metric.decision}, null, 2))}</pre></details>`;
+    ${metric.dependency_blocks?.length ? `<section class="error-callout"><h4>派生依赖阻塞</h4><p>直接披露事实保留原有状态；缺少可计算操作数不表示本项未披露。</p><ul>${metric.dependency_blocks.map((block) => `<li><strong>${esc(block.code)}</strong> · ${esc(block.reason)}${block.missing_fields?.length ? `（缺少 ${esc(block.missing_fields.join(" / "))}）` : ""}</li>`).join("")}</ul></section>` : ""}
+    <details><summary>完整 Guard、检索和模型决定 JSON</summary><pre class="json compact-json">${esc(JSON.stringify({guard: metric.guard, retrieval: metric.retrieval, decision: metric.decision, dependency_status: metric.dependency_status, dependency_blocks: metric.dependency_blocks}, null, 2))}</pre></details>`;
   document.querySelectorAll("[data-tx-fact-row]").forEach((row) => {
     const selectFact = () => {
       targetedState.selectedFactId = row.dataset.txFactRow;
@@ -1051,8 +677,21 @@ function renderTargetOutcomes() {
   $("#tx-tab-outcomes").innerHTML = `<table class="data-table"><thead><tr><th>指标</th><th>状态</th><th>Guard</th><th>尝试</th><th>事实</th></tr></thead><tbody>${metrics.map((item) => `<tr><td>${esc(item.source_datapoint_id)}</td><td>${metricProviderAccountBlocked(item) ? "服务商账户阻塞" : statusLabel(item.status)}</td><td>${metricProviderAccountBlocked(item) ? "未执行" : item.guard_accepted === true ? "通过" : item.guard_accepted === false ? "未通过" : "未执行"}</td><td>${item.attempts}</td><td>${item.facts.length}</td></tr>`).join("")}</tbody></table>`;
 }
 
+async function loadTargetAudit(name, signal) {
+  const job = targetedState.activeJob;
+  if (!job || !["events", "artifacts"].includes(name)) return;
+  const items = await txRequest(`/api/jobs/${encodeURIComponent(job.job_id)}/${name}`, {signal});
+  if (targetedState.activeJob?.job_id !== job.job_id) return;
+  targetedState[name] = items;
+  name === "events" ? renderTargetEvents() : renderTargetArtifacts();
+}
+
 function renderTargetEvents() {
-  $("#tx-tab-events").innerHTML = targetedState.events.map((event) => `<article class="event-row ${esc(event.level)}"><time>${new Date(event.created_at).toLocaleTimeString("zh-CN", {hour12: false})}</time><strong>${esc(event.stage)}</strong><span>${esc(event.message)}</span></article>`).join("") || '<div class="empty-state">没有事件。</div>';
+  $("#tx-tab-events").innerHTML = targetedState.events.map((event) => {
+    const detail = event.detail || {};
+    const identity = [detail.tool && `工具 ${detail.tool}`, detail.object_id && `对象 ${detail.object_id}`, detail.metric_id && `指标 ${detail.metric_id}`].filter(Boolean).join(" · ");
+    return `<article class="event-row ${esc(event.level)}"><time>${new Date(event.created_at).toLocaleTimeString("zh-CN", {hour12: false})}</time><strong>${esc(event.stage)}</strong><span>${esc(event.message)}${identity ? `<small>${esc(identity)}</small>` : ""}</span></article>`;
+  }).join("") || '<div class="empty-state">没有事件。</div>';
 }
 
 function renderTargetArtifacts() {
@@ -1070,9 +709,9 @@ async function previewTargetArtifact(path) {
     $("#tx-artifact-preview").textContent = "二进制文件请使用下载。";
     return;
   }
-  const response = await fetch(`${targetedState.backend}/api/jobs/${encodeURIComponent(targetedState.activeJob.job_id)}/artifact?path=${encodeURIComponent(path)}`);
-  const contentType = response.headers.get("content-type") || "";
-  $("#tx-artifact-preview").textContent = contentType.includes("application/json") ? JSON.stringify(await response.json(), null, 2) : await response.text();
+  const raw = await txRequest(`/api/jobs/${encodeURIComponent(targetedState.activeJob.job_id)}/artifact?path=${encodeURIComponent(path)}`, {responseType: "text"});
+  try { $("#tx-artifact-preview").textContent = JSON.stringify(JSON.parse(raw), null, 2); }
+  catch (_) { $("#tx-artifact-preview").textContent = raw; }
 }
 
 async function resumeTargetJob() {
@@ -1080,7 +719,7 @@ async function resumeTargetJob() {
   if (!job) return;
   try {
     const cloudKey = job.request.semantic_provider === "qiniu_vlm"
-      ? ($("#tx-qiniu-key")?.value.trim() || $("#qiniu-key")?.value.trim() || null)
+      ? getSecret("qiniu_api_key")
       : null;
     const task = await docRequest(`/api/pipeline/tasks/targeted-extraction/${encodeURIComponent(job.job_id)}/resume`, {
       method: "POST",
@@ -1113,9 +752,18 @@ async function cancelTargetJob() {
 
 async function deleteTargetJob() {
   const job = targetedState.activeJob;
-  if (!job || !window.confirm(`永久清除 ${job.job_id} 的定向抽取中间文件和成果吗？`)) return;
+  const action = job?.lifecycle?.available_actions?.find((item) => ["archive", "open_parent"].includes(item.action));
+  if (!job || !action) return;
+  if (action.action === "open_parent") {
+    window.dispatchEvent(new CustomEvent("esg:select-session", {detail: {sessionId: job.request.report_session_id}}));
+    window.dispatchEvent(new CustomEvent("esg:navigate", {detail: {view: "extract-tasks"}}));
+    return;
+  }
+  const reason = window.prompt("归档后从日常列表隐藏，已有成果与来源引用保留。请填写原因。", "整理已结束的提取记录");
+  if (!reason?.trim()) return;
   try {
-    await txRequest(`/api/jobs/${encodeURIComponent(job.job_id)}`, {method: "DELETE"});
+    await txRequest(action.endpoint, {method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({reason:reason.trim(), expected_revision:job.lifecycle.revision})});
     targetedState.activeJob = null;
     targetedState.inspection = null;
     $("#tx-job-title").textContent = "选择一个任务";
@@ -1123,58 +771,22 @@ async function deleteTargetJob() {
     $("#tx-result-document").innerHTML = "";
     $("#tx-job-summary").className = "job-summary empty-state";
     $("#tx-job-summary").textContent = "选择任务后查看成果、证据和中间文件。";
+    $("#tx-agent-progress").innerHTML = "";
     await refreshTargetJobs();
   } catch (error) {
-    window.alert(`清除失败：${error.message}`);
+    window.alert(`归档失败：${error.message}`);
   }
 }
 
 function bindTargetedEvents() {
   $("#tx-backend-url").value = targetedState.backend;
   $("#tx-reconnect").addEventListener("click", () => connectTargeted({allowDiscovery: false}));
-  $("#tx-pipeline-stages").innerHTML = targetedStages.map(([index, title, text]) => `<article class="stage"><span class="stage-index">${index}</span><strong>${title}</strong><small>${text}</small></article>`).join("");
-  $("#tx-ir-search").addEventListener("input", renderTargetIrPicker);
-  $("#tx-ir-filter").addEventListener("change", renderTargetIrPicker);
-  $("#tx-standard-select").addEventListener("change", loadTargetStandard);
-  $("#tx-metric-search").addEventListener("input", filterTargetMetrics);
-  $("#tx-metric-list").addEventListener("change", updateMetricSelectionCount);
-  $("#tx-semantic-provider").addEventListener("change", () => {
-    localStorage.setItem("esg-targeted-semantic-provider", $("#tx-semantic-provider").value);
-    renderTargetProviderConfig();
-  });
-  $("#tx-semantic-model").addEventListener("input", () => {
-    if ($("#tx-semantic-provider").value === "qiniu_vlm") {
-      localStorage.setItem("esg-targeted-qiniu-model", $("#tx-semantic-model").value.trim());
-    }
-  });
-  $("#tx-retrieval-object-top-n").addEventListener("input", () => {
-    const control = $("#tx-retrieval-object-top-n");
-    const value = Number(control.value);
-    control.setCustomValidity(
-      Number.isInteger(value) && value >= 1 && value <= 5
-        ? ""
-        : "请输入 1–5 之间的整数。"
-    );
-    if (!control.validationMessage) {
-      localStorage.setItem("esg-targeted-retrieval-object-top-n", String(value));
-    }
-  });
-  $("#tx-select-all").addEventListener("click", () => {
-    document.querySelectorAll("#tx-metric-list input").forEach((item) => { item.checked = true; });
-    updateMetricSelectionCount();
-  });
-  $("#tx-select-none").addEventListener("click", () => {
-    document.querySelectorAll("#tx-metric-list input").forEach((item) => { item.checked = false; });
-    updateMetricSelectionCount();
-  });
-  $("#tx-clear-batch").addEventListener("click", () => {
-    targetedState.standards.forEach((item) => {
-      targetedState.metricSelections.set(standardKey(item), new Set());
-    });
-    document.querySelectorAll("#tx-metric-list input").forEach((item) => { item.checked = false; });
-    updateMetricSelectionCount();
-  });
-  $("#tx-add-task").addEventListener("click", addTargetedTask);
+  document.querySelectorAll("[data-result-perspective]").forEach((button) => button.addEventListener("click", () => {
+    resultPerspective = button.dataset.resultPerspective;
+    document.querySelectorAll("[data-result-perspective]").forEach((item) => { item.classList.toggle("active", item === button); item.setAttribute("aria-selected", String(item === button)); });
+    renderTargetMetricTable();
+  }));
+  window.addEventListener("esg:open-result", (event) => selectTargetJob(event.detail.jobId).catch((error) => { $("#tx-job-list").innerHTML = `<div class="empty-state error">${esc(error.message)}</div>`; }));
   $("#tx-refresh-jobs").addEventListener("click", refreshTargetJobs);
   $("#tx-result-search").addEventListener("input", renderTargetMetricTable);
   $("#tx-result-filter").addEventListener("change", renderTargetMetricTable);
@@ -1183,18 +795,26 @@ function bindTargetedEvents() {
   $("#tx-cancel-job").addEventListener("click", cancelTargetJob);
   $("#tx-delete-job").addEventListener("click", deleteTargetJob);
   $("#semantic-index-refresh")?.addEventListener("click", refreshSemanticIndexes);
-  document.querySelectorAll("[data-tx-tab]").forEach((button) => button.addEventListener("click", () => {
+  document.querySelectorAll("[data-tx-tab]").forEach((button) => button.addEventListener("click", async () => {
+    activeAuditTab = button.dataset.txTab;
+    await loadTargetAudit(activeAuditTab).catch((error) => { $(`#tx-tab-${activeAuditTab}`).innerHTML = `<div class="empty-state error">${esc(error.message)}</div>`; });
     document.querySelectorAll("[data-tx-tab]").forEach((item) => item.classList.toggle("active", item === button));
     document.querySelectorAll("#tx-result-tabs ~ .tab-panel").forEach((panel) => panel.classList.toggle("active", panel.id === `tx-tab-${button.dataset.txTab}`));
   }));
   window.addEventListener("esg:viewchange", (event) => {
-    if (event.detail?.view === "targeted") connectTargeted({allowDiscovery: true});
-    if (event.detail?.view === "results") refreshTargetJobs();
+    resultViewActive = event.detail?.view === "results";
+    unsubscribe("targeted-results");
+    if (resultViewActive) {
+      connectTargeted({allowDiscovery: true});
+      subscribe("targeted-results", refreshTargetJobs, {interval: () => targetedState.jobs.some((job) => ["queued", "running"].includes(job.status)) ? 2500 : 15000, immediate: false});
+    }
+    if (event.detail?.view === "settings") connectTargeted({allowDiscovery: true});
   });
 }
 
 bindTargetedEvents();
-connectTargeted({allowDiscovery: true});
-setInterval(() => {
-  if (targetedState.activeJob && ["queued", "running"].includes(targetedState.activeJob.status)) refreshTargetJobs();
-}, 2500);
+resultViewActive = document.body.dataset.activeView === "results";
+if (resultViewActive) {
+  connectTargeted({allowDiscovery: true});
+  subscribe("targeted-results", refreshTargetJobs, {interval: () => targetedState.jobs.some((job) => ["queued", "running"].includes(job.status)) ? 2500 : 15000, immediate: false});
+}

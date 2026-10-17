@@ -1,3 +1,9 @@
+import {docRequest, serviceBase} from "./api.js";
+import {subscribe} from "./subscriptions.js";
+import {statusLabel} from "./status.js";
+import {progressView, timingView, stageLabel} from "./progress.js";
+import {watchExecutionEvents} from "./event-stream.js";
+import {renderAvailableActions} from "./actions.js";
 const $ = (selector) => document.querySelector(selector);
 
 const platformState = {
@@ -5,25 +11,10 @@ const platformState = {
   tasks: [],
   selectedTaskId: null,
   draggedTaskId: null,
-  taskTimer: null,
 };
 
-function backendBase() {
-  return ($("#backend-url")?.value || "http://127.0.0.1:18080").replace(/\/$/, "");
-}
-
-async function request(path, options = {}) {
-  const response = await fetch(`${backendBase()}${path}`, options);
-  if (!response.ok) {
-    let detail = `${response.status} ${response.statusText}`;
-    try {
-      const payload = await response.json();
-      detail = typeof payload.detail === "string" ? payload.detail : JSON.stringify(payload.detail || payload);
-    } catch (_) {}
-    throw new Error(detail);
-  }
-  return response.json();
-}
+const backendBase = () => serviceBase("document");
+const request = docRequest;
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -40,17 +31,7 @@ function bytes(value = 0) {
   return `${(value / 1024 ** 2).toFixed(1)} MB`;
 }
 
-function taskStatusLabel(status) {
-  return {
-    queued: "排队中",
-    running: "运行中",
-    completed: "已完成",
-    partial: "部分完成",
-    failed: "失败",
-    cancelled: "已取消",
-    interrupted: "已中断",
-  }[status] || status;
-}
+const taskStatusLabel = statusLabel;
 
 function taskTypeLabel(type, operation) {
   if (type === "ocr") return "OCR";
@@ -75,8 +56,8 @@ async function refreshAssets(preselect = null) {
 function renderAssetSummary(payload) {
   const metrics = [
     [payload.asset_count || 0, "PDF 文件"],
-    [payload.unprocessed_count || 0, "未 OCR"],
-    [payload.processed_count || 0, "已 OCR"],
+    [platformState.assets.filter(asset => ["ready", "ready_with_limits"].includes(asset.processing_status)).length, "证据可用（含有限范围）"],
+    [platformState.assets.filter(asset => !["ready", "ready_with_limits"].includes(asset.processing_status)).length, "待处理或复核"],
     [platformState.assets.reduce((sum, item) => sum + Number(item.size_bytes || 0), 0), "目录体积", true],
   ];
   $("#report-assets-summary").innerHTML = metrics.map(([value, label, isBytes]) =>
@@ -99,34 +80,41 @@ function renderAssetList() {
   const query = $("#report-asset-search").value.trim().toLowerCase();
   const filter = $("#report-asset-filter").value;
   const items = platformState.assets.filter((asset) => {
-    if (filter !== "all" && asset.ocr_status !== filter) return false;
-    return !query || `${asset.file_name} ${asset.sha256}`.toLowerCase().includes(query);
+    if (filter === "processed" && !["ready", "ready_with_limits"].includes(asset.processing_status)) return false;
+    if (filter === "unprocessed" && ["ready", "ready_with_limits"].includes(asset.processing_status)) return false;
+    return !query || `${asset.file_name} ${asset.sha256} ${asset.report_metadata?.publisher_name || ''} ${asset.report_metadata?.reporting_year || ''}`.toLowerCase().includes(query);
   });
   $("#report-asset-list").innerHTML = items.map((asset) => {
     const active = asset.pipeline_tasks || [];
     return `<article class="report-asset-row">
-      <div class="report-asset-main"><strong>${escapeHtml(asset.file_name)}</strong><span>${bytes(asset.size_bytes)} · SHA ${escapeHtml(asset.sha256.slice(0, 12))}…</span></div>
-      <div class="report-asset-state"><span class="status-pill ${asset.ocr_status === "processed" ? "success" : "neutral"}">${asset.ocr_status === "processed" ? `已 OCR · ${asset.ocr_run_count}` : "未处理"}</span>${active.map((item) => `<span class="status-pill running">${taskStatusLabel(item.status)}</span>`).join("")}</div>
-      <div class="button-row"><a class="secondary button-link" target="_blank" href="${backendBase()}/api/report-assets/${encodeURIComponent(asset.asset_id)}/file">查看 PDF</a><button class="secondary asset-use" data-asset-id="${escapeHtml(asset.asset_id)}" type="button">用于 OCR</button><button class="danger asset-delete" data-asset-id="${escapeHtml(asset.asset_id)}" data-file-name="${escapeHtml(asset.file_name)}" type="button">删除</button></div>
+      <div class="report-asset-main"><strong>${escapeHtml(asset.report_metadata?.title || asset.file_name)}</strong><span>${escapeHtml(asset.report_metadata?.publisher_name || '发布者待登记')} · ${escapeHtml(asset.report_metadata?.reporting_year || '报告期待登记')} · ${bytes(asset.size_bytes)}</span>${asset.report_metadata?.title ? `<small>${escapeHtml(asset.file_name)}</small>` : ''}</div>
+      <div class="report-asset-state"><span class="status-pill ${asset.processing_status === "ready" ? "success" : "neutral"}">${escapeHtml({ready:"证据可用", ready_with_limits:"部分证据可用", ocr_only:"已识别，待构建证据", needs_attention:"证据待检查", unprocessed:"待处理", queued:"处理已排队", running:"正在处理", interrupted:"处理中断", failed:"处理失败", cancelled:"已取消处理"}[asset.processing_status] || (asset.ocr_status === "processed" ? "有历史识别，需检查兼容性" : "待处理"))}</span>${active.map((item) => `<span class="status-pill running">${taskStatusLabel(item.status)}</span>`).join("")}</div>
+      <div class="button-row"><a class="secondary button-link" target="_blank" href="${backendBase()}/api/report-assets/${encodeURIComponent(asset.asset_id)}/file">查看 PDF</a><button class="secondary asset-process" data-asset-id="${escapeHtml(asset.asset_id)}" type="button">处理报告</button><button class="secondary asset-use" data-asset-id="${escapeHtml(asset.asset_id)}" type="button">提取此报告</button><button class="secondary asset-detail" data-asset-id="${escapeHtml(asset.asset_id)}" type="button">文档与证据</button><button class="danger asset-delete" data-asset-id="${escapeHtml(asset.asset_id)}" data-file-name="${escapeHtml(asset.file_name)}" type="button">归档</button></div>
     </article>`;
   }).join("") || '<div class="empty-state">没有匹配的 PDF。</div>';
+  document.querySelectorAll(".asset-process").forEach((button) => button.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("esg:navigate", {detail: {view: "report-processing"}}));
+    window.dispatchEvent(new CustomEvent("esg:process-report", {detail: {assetId: button.dataset.assetId}}));
+  }));
   document.querySelectorAll(".asset-use").forEach((button) => button.addEventListener("click", () => {
     populateOcrAssetSelect(button.dataset.assetId);
-    document.querySelector('[data-app-view-target="ocr"]')?.click();
+    window.dispatchEvent(new CustomEvent("esg:select-report", {detail: {assetId: button.dataset.assetId}}));
+    window.dispatchEvent(new CustomEvent("esg:navigate", {detail: {view: "extract-tasks"}}));
   }));
+  document.querySelectorAll(".asset-detail").forEach((button) => button.addEventListener("click", () => window.dispatchEvent(new CustomEvent("esg:navigate", {detail: {view: "report-detail", assetId: button.dataset.assetId}}))));
   document.querySelectorAll(".asset-delete").forEach((button) => button.addEventListener("click", () => deleteAsset(button)));
 }
 
 async function deleteAsset(button) {
   const fileName = button.dataset.fileName;
-  if (!window.confirm(`确认删除 PDF 原文件“${fileName}”吗？既有 OCR/IR 不会被删除。`)) return;
+  if (!window.confirm(`归档报告“${fileName}”吗？原文件、证据与成果保留，可在归档与回收区恢复。`)) return;
   try {
-    await request(`/api/report-assets/${encodeURIComponent(button.dataset.assetId)}`, {
-      method: "DELETE",
+    await request(`/api/report-assets/${encodeURIComponent(button.dataset.assetId)}/archive`, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({reason: "用户从报告库归档报告"}),
     });
     await refreshAssets();
   } catch (error) {
-    window.alert(`删除失败：${error.message}`);
+    window.alert(`归档失败：${error.message}`);
   }
 }
 
@@ -139,9 +127,8 @@ async function uploadAsset(event) {
   const message = $("#report-asset-message");
   message.textContent = "上传中…";
   try {
-    const response = await fetch(`${backendBase()}/api/report-assets`, {method: "POST", body: data});
-    if (!response.ok) throw new Error(await response.text());
-    const asset = await response.json();
+    const asset = await request("/api/report-assets", {method: "POST", body: data});
+    window.dispatchEvent(new CustomEvent("esg:assets-changed", {detail: {assetId: asset.asset_id}}));
     message.textContent = `已加入 ${asset.file_name}`;
     $("#report-asset-file").value = "";
     await refreshAssets(asset.asset_id);
@@ -150,16 +137,37 @@ async function uploadAsset(event) {
   }
 }
 
+async function importFolder(event) {
+  const files = [...event.target.files].filter((file) => file.name.toLowerCase().endsWith(".pdf"));
+  const failures = [];
+  let imported = 0;
+  for (const file of files) {
+    const body = new FormData(); body.append("file", file);
+    try { await request("/api/report-assets", {method: "POST", body}); imported++; }
+    catch (error) { failures.push(`${file.name}：${error.message}`); }
+    $("#report-asset-message").textContent = `已导入 ${imported}/${files.length} 份报告。`;
+  }
+  await refreshAssets();
+  $("#report-asset-message").textContent = `已导入 ${imported} 份报告。${failures.join("；")}`;
+  window.dispatchEvent(new CustomEvent("esg:assets-changed"));
+  event.target.value = "";
+}
+
 async function refreshTasks() {
   try {
-    const [tasks, status] = await Promise.all([
+    const [tasksResult, statusResult] = await Promise.allSettled([
       request("/api/pipeline/tasks?limit=300"),
       request("/api/pipeline/status"),
     ]);
-    platformState.tasks = tasks;
+    if (tasksResult.status === "rejected") throw tasksResult.reason;
+    platformState.tasks = tasksResult.value;
     renderTasks();
-    renderTaskDockSummary(status.counts || {});
-    renderSystemStatus(status);
+    if (statusResult.status === "fulfilled") {
+      renderTaskDockSummary(statusResult.value.counts || {});
+      renderSystemStatus(statusResult.value);
+    } else {
+      $("#task-dock-summary").textContent = "任务可读取；服务诊断暂不可用";
+    }
     if (platformState.selectedTaskId) await loadTaskEvents(platformState.selectedTaskId);
   } catch (error) {
     $("#pipeline-task-list").innerHTML = `<div class="empty-state error">任务队列读取失败：${escapeHtml(error.message)}</div>`;
@@ -175,19 +183,23 @@ function renderTasks() {
   const active = platformState.tasks.filter((item) => ["running", "queued"].includes(item.status));
   const history = platformState.tasks.filter((item) => !["running", "queued"].includes(item.status)).slice(0, 20);
   const render = (task) => {
-    const progress = task.progress_total ? Math.round(task.progress_current / task.progress_total * 100) : 0;
     const draggable = task.status === "queued";
     return `<article class="pipeline-task ${task.status} ${task.task_id === platformState.selectedTaskId ? "selected" : ""}" data-task-id="${escapeHtml(task.task_id)}" draggable="${draggable}">
       <span class="drag-handle" title="拖动排队顺序">${draggable ? "⋮⋮" : ""}</span>
-      <div class="pipeline-task-main"><strong>${escapeHtml(task.title)}</strong><span>${taskTypeLabel(task.task_type, task.operation)} · ${escapeHtml(task.native_job_id || task.task_id)}</span><small>${escapeHtml(task.message || task.stage || "等待执行")}</small><div class="progress"><span style="width:${progress}%"></span></div></div>
-      <div class="pipeline-task-stage"><span class="status-pill ${task.status}">${taskStatusLabel(task.status)}</span><small>${escapeHtml(task.message || task.stage)}</small></div>
-      <div class="button-row">${["queued", "running"].includes(task.status) ? `<button class="danger pipeline-cancel" data-task-id="${escapeHtml(task.task_id)}" type="button">${task.status === "running" ? "终止" : "取消"}</button>` : ""}</div>
+      <div class="pipeline-task-main"><strong>${escapeHtml(task.title)}</strong><span>${taskTypeLabel(task.task_type, task.operation)}</span>${progressView(task)}${timingView(task.timing)}${task.error_detail ? `<small class="error-text">${escapeHtml(task.error_detail.message)}</small>` : ""}</div>
+      <div class="pipeline-task-stage"><span class="status-pill ${task.status}">${taskStatusLabel(task.status)}</span><small>${escapeHtml(stageLabel(task.stage))}</small></div>
+      <div class="button-row">${["queued", "running"].includes(task.status) ? `<button class="danger pipeline-cancel" data-task-id="${escapeHtml(task.task_id)}" type="button">${task.status === "running" ? "终止" : "取消"}</button>` : (task.available_actions || []).some(a => a.action === "archive") ? `<button class="secondary pipeline-archive" data-task-id="${escapeHtml(task.task_id)}" type="button">归档记录</button>` : ""}<div data-queue-reference-actions="${escapeHtml(task.task_id)}"></div></div>
     </article>`;
   };
   $("#pipeline-task-list").innerHTML = [
     ...active.map(render),
     ...(history.length ? ['<div class="queue-history-label">最近完成</div>', ...history.map(render)] : []),
-  ].join("") || '<div class="empty-state">队列为空。三个处理页面提交的任务都会出现在这里。</div>';
+  ].join("") || '<div class="empty-state">队列为空。报告提取与文档工具提交的任务会出现在这里。</div>';
+  document.querySelectorAll('[data-queue-reference-actions]').forEach(root => {
+    const task = platformState.tasks.find(task => task.task_id === root.dataset.queueReferenceActions);
+    renderAvailableActions(root, (task.available_actions || []).filter(action => action.action.endsWith('-references')),
+      {onComplete: refreshTasks, onError: error => window.alert(error.message)});
+  });
   document.querySelectorAll(".pipeline-task").forEach((node) => {
     node.addEventListener("click", (event) => {
       if (event.target.closest("button")) return;
@@ -213,6 +225,14 @@ function renderTasks() {
     await request(`/api/pipeline/tasks/${encodeURIComponent(button.dataset.taskId)}/cancel`, {method: "POST"});
     await refreshTasks();
   }));
+  document.querySelectorAll(".pipeline-archive").forEach(button => button.addEventListener("click", async () => {
+    const task = platformState.tasks.find(t => t.task_id === button.dataset.taskId);
+    try {
+      await request(`/api/pipeline/tasks/${encodeURIComponent(button.dataset.taskId)}/archive`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({reason:"用户归档历史任务",expected_revision:task.revision})});
+      window.dispatchEvent(new CustomEvent("esg:lifecycle-changed"));
+      await refreshTasks();
+    } catch (error) { window.alert(`归档失败：${error.message}`); }
+  }));
 }
 
 async function moveQueuedTask(sourceId, targetId) {
@@ -235,7 +255,7 @@ async function clearTaskHistory() {
     (item) => !["running", "queued"].includes(item.status)
   ).length;
   if (!historyCount) return;
-  if (!window.confirm(`确认清除 ${historyCount} 条历史任务记录吗？OCR、Document IR、抽取结果和语义索引都将保留。`)) return;
+  if (!window.confirm(`归档全部已结束的队列记录吗？当前载入 ${historyCount} 条；依赖日志、证据与成果保留，可在归档区恢复。`)) return;
   try {
     const result = await request("/api/pipeline/tasks/history", {method: "DELETE"});
     if ((result.task_ids || []).includes(platformState.selectedTaskId)) {
@@ -243,6 +263,8 @@ async function clearTaskHistory() {
       $("#pipeline-task-events").innerHTML = '<div class="empty-state">选择任务后显示日志。</div>';
     }
     await refreshTasks();
+    window.dispatchEvent(new CustomEvent("esg:lifecycle-changed"));
+    $("#task-dock-summary").textContent = `已归档 ${result.archived_count || 0} 条记录；成果和依赖保留`;
   } catch (error) {
     window.alert(`历史任务清除失败：${error.message}`);
   }
@@ -252,7 +274,7 @@ async function loadTaskEvents(taskId) {
   try {
     const events = await request(`/api/pipeline/tasks/${encodeURIComponent(taskId)}/events`);
     $("#pipeline-task-events").innerHTML = events.map((event) =>
-      `<article class="event-row ${escapeHtml(event.level)}"><time>${new Date(event.created_at).toLocaleTimeString("zh-CN", {hour12: false})}</time><strong>${escapeHtml(event.stage)}</strong><span>${escapeHtml(event.message)}</span></article>`
+      `<article class="event-row ${escapeHtml(event.level)}"><time>${new Date(event.created_at).toLocaleTimeString("zh-CN", {hour12: false})}</time><strong>${escapeHtml(event.stage_label || stageLabel(event.stage))}</strong><span>${escapeHtml(event.event_type === "raw_log" ? "原始日志：" + event.message : /[\u4e00-\u9fff]/.test(event.message) ? event.message : event.stage_label || stageLabel(event.stage))}</span>${event.event_type !== "raw_log" && !/[\u4e00-\u9fff]/.test(event.message) ? `<details><summary>技术详情</summary>${escapeHtml(event.message)}</details>` : ""}</article>`
     ).join("") || '<div class="empty-state">该任务尚无日志。</div>';
   } catch (error) {
     $("#pipeline-task-events").innerHTML = `<div class="empty-state error">${escapeHtml(error.message)}</div>`;
@@ -274,6 +296,7 @@ function selectDockTab(name) {
 }
 
 function bindPlatformEvents() {
+  $("#report-folder-import").addEventListener("change", importFolder);
   $("#report-asset-upload").addEventListener("submit", uploadAsset);
   $("#report-assets-refresh").addEventListener("click", () => refreshAssets());
   $("#report-asset-search").addEventListener("input", renderAssetList);
@@ -293,7 +316,7 @@ function bindPlatformEvents() {
   $("#pipeline-clear-history").addEventListener("click", clearTaskHistory);
   window.addEventListener("esg:queue-changed", async (event) => {
     platformState.selectedTaskId = event.detail?.taskId || platformState.selectedTaskId;
-    $("#platform-task-dock").classList.remove("collapsed");
+    if (event.detail?.taskId) $("#platform-task-dock").classList.remove("collapsed");
     await refreshTasks();
   });
   window.addEventListener("esg:assets-changed", (event) => refreshAssets(event.detail?.assetId));
@@ -307,6 +330,10 @@ bindPlatformEvents();
 if (localStorage.getItem("esg-task-dock-collapsed") === "false") $("#platform-task-dock").classList.remove("collapsed");
 refreshAssets();
 refreshTasks();
-platformState.taskTimer = setInterval(() => {
-  if (!platformState.draggedTaskId) refreshTasks();
-}, 2500);
+let eventsConnected = false, refreshTimer = null;
+watchExecutionEvents(event => {
+  if (event.event_type === "raw_log") return;
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => { if (!platformState.draggedTaskId) refreshTasks(); }, 150);
+}, connected => { eventsConnected = connected; });
+subscribe("platform-queue", () => { if (!platformState.draggedTaskId) return refreshTasks(); }, {interval: () => eventsConnected ? 15000 : 2500, immediate: false});

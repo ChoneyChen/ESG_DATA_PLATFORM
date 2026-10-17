@@ -1,0 +1,10 @@
+{
+  "schema_version": "import-contract-allowlist-v1",
+  "releases": [
+    {
+      "contract_id": "esrs-platform-major.dictionary-1.0.0",
+      "artifact_ref": "import-contracts/releases/esrs-platform-major.dictionary-1.0.0.json",
+      "sha256": "0aafaf9a13748ba1f6cba10ec41d3d5151eaa58380f509743ad72bf1bdb7e765"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "actor_ref": {
+      "minLength": 1,
+      "title": "Actor Ref",
+      "type": "string"
+    },
+    "approval_id": {
+      "minLength": 1,
+      "title": "Approval Id",
+      "type": "string"
+    },
+    "decided_at": {
+      "format": "date-time",
+      "title": "Decided At",
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "approved",
+        "rejected"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "definition_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Definition Digest",
+      "type": "string"
+    },
+    "proposal_id": {
+      "minLength": 1,
+      "title": "Proposal Id",
+      "type": "string"
+    },
+    "reason": {
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "project-extension-approval-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "approval_id",
+    "proposal_id",
+    "definition_digest",
+    "decision",
+    "actor_ref",
+    "reason",
+    "decided_at"
+  ],
+  "title": "ExtensionApproval",
+  "type": "object"
+}

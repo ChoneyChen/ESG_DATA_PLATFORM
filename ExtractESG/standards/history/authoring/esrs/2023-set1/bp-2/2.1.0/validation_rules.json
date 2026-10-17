@@ -1,0 +1,1122 @@
+[
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp01-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp01"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp01.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp01-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp01"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp01.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp01-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp01"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp01.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp01-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp01"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp02-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp02"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp02.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp02-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp02"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp02.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp02-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp02"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp02.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp02-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp02"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp03-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp03"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp03.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp03-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp03"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp03.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp03-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp03"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp03.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp03-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp03"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp04-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp04"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp04.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp04-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp04"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp04.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp04-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp04"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp04.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp04-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp04"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp05-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp05"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp05.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp05-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp05"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp05.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp05-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp05"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp05.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp05-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp05"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp06-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp06"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp06.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp06-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp06"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp06.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp06-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp06"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp06.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp06-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp06"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp07-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp07"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp07.element.reporting_period_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp07-reporting-period-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp07"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp07.element.reporting_entity_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp07-reporting-entity-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp07"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp07.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp07-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp07"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp07.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp07-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp07"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp08-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp08"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp08.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp08-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp08"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp08.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp08-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp08"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp08.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp08-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp08"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp09-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp09"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp09.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp09-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp09"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp09.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp09-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp09"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp09.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp09-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp09"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp10-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp10"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp10.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp10-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp10"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp10.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp10-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp10"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp10.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp10-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp10"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp11-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp11"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp11.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp11-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp11"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp11.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp11-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp11"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp11.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp11-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp11"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp12-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp12"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露数值。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp12.element.value"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp12-value",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp12"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp12.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp12-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp12"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp12.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp12-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp12"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp13-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp13"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp13.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp13-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp13"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp13.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp13-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp13"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp13.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp13-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp13"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp14-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp14"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp14.element.reporting_period_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp14-reporting-period-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp14"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp14.element.reporting_entity_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp14-reporting-entity-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp14"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp14.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp14-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp14"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp14.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp14-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp14"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp15-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp15"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp15.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp15-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp15"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp15.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp15-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp15"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp15.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp15-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp15"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp16-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp16"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp16.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp16-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp16"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp16.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp16-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp16"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp16.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp16-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp16"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp17-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp17"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp17.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp17-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp17"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp17.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp17-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp17"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp17.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp17-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp17"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp18-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp18"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp18.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp18-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp18"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp18.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp18-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp18"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp18.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp18-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp18"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp19-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp19"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp19.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp19-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp19"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp19.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp19-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp19"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp19.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp19-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp19"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp20-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp20"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp20.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp20-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp20"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp20.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp20-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp20"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp20.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp20-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp20"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp21-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp21"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp21.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp21-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp21"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp21.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp21-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp21"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp21.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp21-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp21"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp22-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp22"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp22.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp22-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp22"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp22.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp22-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp22"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp22.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp22-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp22"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp23-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp23"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp23.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp23-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp23"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp23.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp23-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp23"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp23.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp23-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp23"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp24-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp24"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp24.element.reporting_period_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp24-reporting-period-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp24"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp24.element.reporting_entity_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp24-reporting-entity-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp24"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp24.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp24-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp24"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp24.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp24-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp24"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp25-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp25"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp25.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp25-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp25"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp25.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp25-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp25"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp25.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp25-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp25"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp26-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp26"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp26.element.statement"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp26-statement",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp26"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp26.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp26-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp26"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp26.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp26-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp26"
+  },
+  {
+    "assertion": "evidence_required",
+    "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+    "parameters": {
+      "when_value_origin": "any"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp27-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp27"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp27.element.reporting_period_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp27-reporting-period-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp27"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp27.element.reporting_entity_numeric"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp27-reporting-entity-numeric",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp27"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要实际披露期间。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp27.element.reporting_period"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp27-reporting-period",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp27"
+  },
+  {
+    "assertion": "required_element",
+    "message": "已形成的对应类型事实需要披露主体。",
+    "parameters": {
+      "element_id": "esrs.2023-set1.bp-2.dp27.element.reporting_entity"
+    },
+    "rule_id": "esrs.2023-set1.bp-2.rule.dp27-reporting-entity",
+    "severity": "error",
+    "target": "esrs.2023-set1.bp-2.dp27"
+  }
+]

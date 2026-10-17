@@ -1,0 +1,9 @@
+{
+  "null_identifiers": {"matches": [{"source_id": null, "metric_id": "metric.a", "columns": null, "match": "uncertain", "reason": "Method unknown"}], "coverage": [{"metric_id": "metric.a", "status": "reviewed", "reason": "Object assessed"}, {"metric_id": "metric.b", "status": "reviewed", "reason": "Object assessed"}]},
+  "narrative_fake_column": {"matches": [{"source_id": "R1", "metric_id": "metric.a", "columns": ["fields.category"], "match": "different", "reason": "The report discusses a different boundary"}, {"source_id": "R2", "metric_id": "metric.b", "columns": ["c2024"], "match": "match", "reason": "Supported by the annual value"}], "coverage": [{"metric_id": "metric.a", "status": "reviewed", "reason": "Assessed"}, {"metric_id": "metric.b", "status": "reviewed", "reason": "Assessed"}]},
+  "unknown_reference": {"rows": [{"group": "G999", "kind": "quantitative"}, {"group": "G1", "kind": "quantitative", "target_cells": ["T1", "T999"]}]},
+  "invalid_action": {"actions": [{"tool": "extract_everything", "object_id": "object-1"}]},
+  "legacy_flat_action": {"actions": [{"tool": "search_report", "query": "accounting method", "object_id": null, "metric_id": "metric.a", "context_kind": null, "gap_kind": null, "group_ids": null, "cell_ids": null}]},
+  "truncated_mapping": "{\"matches\":[{\"source_id\":\"R1\",\"metric_id\":",
+  "negative_object": {"matches": [], "coverage": [{"metric_id": "metric.a", "status": "reviewed", "reason": "This object has a different scope"}, {"metric_id": "metric.b", "status": "reviewed", "reason": "This object contains no applicable value"}]}
+}

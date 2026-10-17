@@ -1,0 +1,14 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "E1.SBM-3包内核心条款",
+  "profile_id": "esrs.2023-set1.e1-sbm-3.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "以风险类型、分析范围、结果和调整能力理解业务韧性。",
+  "source_datapoint_ids": [
+    "E1.SBM-3_01",
+    "E1.SBM-3_02",
+    "E1.SBM-3_06",
+    "E1.SBM-3_07"
+  ]
+}

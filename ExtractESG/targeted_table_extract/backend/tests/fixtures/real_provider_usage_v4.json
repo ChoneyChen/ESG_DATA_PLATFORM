@@ -1,0 +1,1070 @@
+{
+  "schema_version": "real-provider-usage-fixture/1",
+  "scope": "Read-only telemetry numeric metadata from full17 v4 failure; replay is hypothetical new accounting, not a rewrite of real usage",
+  "native_session_id": "report-7acbbdbe913773eeba5ac940779057ef",
+  "ledger_sha256": "6e301c6238acf8df589f44ec279a1f47fd047d3142f6693528fcf15c6c1bdb1e",
+  "calls": [
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0001-agent_plan.json",
+      "source_sha256": "8a70e8a6eb20171408d927e76e37ba3c3b32a6f12aa1117d179330b78e769174",
+      "tool": "agent_plan",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 3983,
+        "input_tokens": 3983,
+        "generation_tokens": 50,
+        "output_tokens": null,
+        "output_token_budget": 1600,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 3983,
+      "ledger_output_charged": 50,
+      "output_reservation": 1600
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0002-source_understanding.json",
+      "source_sha256": "e62054394f9cbee5df1011ff185a85959c1535f33bf63f4772b931ac8f2ac58f",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12194,
+        "input_tokens": 10295,
+        "generation_tokens": 1672,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 10295,
+      "ledger_output_charged": 1672,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0003-source_understanding.json",
+      "source_sha256": "1435e60c7c58f0675c5c4fcd922c4df8a87290cb156e46dca4d8b010e401b295",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 9953,
+        "input_tokens": 8054,
+        "generation_tokens": 250,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 8054,
+      "ledger_output_charged": 250,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0004-metric_mapping.json",
+      "source_sha256": "27a404bd914cf1ad3b70227afd0d91689d9b516ba66a070a0b4e0716e7193ba0",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 6250,
+        "input_tokens": 6250,
+        "generation_tokens": 460,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6250,
+      "ledger_output_charged": 460,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0005-source_understanding.json",
+      "source_sha256": "dbb6d9267022098664f9ab052139cc5378b7642e35ab74b70904c19a19232772",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 12234,
+        "input_tokens": 10335,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 29623,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0006-source_understanding.json",
+      "source_sha256": "10bb92cfc41420a7f95946e55c011c9351be6d3598a7ae72160e16792b898d48",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 10262,
+        "input_tokens": 8363,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 24673,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0007-source_understanding.json",
+      "source_sha256": "6467251ce7cc7d52e6a55eaadd8d32bb3a9da968ad192c5869320aa479f7dc4b",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 9689,
+        "input_tokens": 7790,
+        "generation_tokens": 380,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 7790,
+      "ledger_output_charged": 380,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0008-source_understanding.json",
+      "source_sha256": "62a21ea7b982e805b4961ca3b1b92218de3bdbf74f4523bd86ebf97281a2497f",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 8712,
+        "input_tokens": 6813,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 20850,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0009-source_understanding.json",
+      "source_sha256": "89d63c4fc78b9bd55b4ef537fd796a5c28677ddd7e9da9798d352c0e4ed0342d",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 9965,
+        "input_tokens": 8066,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 24122,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0010-source_understanding.json",
+      "source_sha256": "9c5fe73dd21075d0fd5e1225a3b5d239d3a436c1227a757a9084821ae860155e",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 8747,
+        "input_tokens": 6848,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 21000,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0011-source_understanding.json",
+      "source_sha256": "d75b5c6873e2e66985aaf704ed99f10d9f82ff2e058f9871d45f99991e1f5edf",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 9403,
+        "input_tokens": 7504,
+        "generation_tokens": 477,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 7504,
+      "ledger_output_charged": 477,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0012-source_understanding.json",
+      "source_sha256": "3fb4869ba2153b56af5069bfb52610db982be43ad9f5180f84c2e60300a59878",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 11897,
+        "input_tokens": 9998,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 28792,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0013-source_understanding.json",
+      "source_sha256": "b1f99c41d21bd567d49fb4cf1eca83e453a079233b13768553fd0d05514c9b68",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 11107,
+        "input_tokens": 9208,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 27089,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0014-source_understanding.json",
+      "source_sha256": "7441fcdbcc907add8163cead6e9bca6bbf16489c1fb7da572567c3f5038dc782",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10103,
+        "input_tokens": 8204,
+        "generation_tokens": 557,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 8204,
+      "ledger_output_charged": 557,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0015-source_understanding.json",
+      "source_sha256": "23a1129a7c0431eeb9dbedcf9169cf1857595182bf1becc08bb51f17b803dd6d",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 9097,
+        "input_tokens": 7198,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 22074,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0016-source_understanding.json",
+      "source_sha256": "5176ca160071fdf063739f3682fe1d4a4c940460d14c589b3b0c5ca634a01e0b",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 8287,
+        "input_tokens": 6388,
+        "generation_tokens": 172,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6388,
+      "ledger_output_charged": 172,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0017-source_understanding.json",
+      "source_sha256": "da7c096590d1ea03ba975c71f30f6a5f5af32eb5459487e535b11ed34ad53425",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 8995,
+        "input_tokens": 7096,
+        "generation_tokens": 158,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 7096,
+      "ledger_output_charged": 158,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0018-source_understanding.json",
+      "source_sha256": "efd7cb786857f576255a37de23da588fb766aa60c37e889ef9f12eb4eb879e4c",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 8901,
+        "input_tokens": 7002,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 21040,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0019-source_understanding.json",
+      "source_sha256": "f30b7e01ba98800ec714c6fd7a112801d3ff124175360761202b28ee2ad5bf39",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 8494,
+        "input_tokens": 6595,
+        "generation_tokens": 237,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6595,
+      "ledger_output_charged": 237,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0020-source_understanding.json",
+      "source_sha256": "c15ce2d25802b59a8fc54bf9607617edf497412e64caa1d551ae1fce256e9f60",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 8592,
+        "input_tokens": 6693,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 20268,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0021-source_understanding.json",
+      "source_sha256": "6643ce8710d7c19e18bc2b08f48fcd20b4894b5626322b76ff8ce6920e4aec3a",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 8385,
+        "input_tokens": 6486,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 19825,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0022-source_understanding.json",
+      "source_sha256": "6b457cc5fd6e96e64e0e8a48a5282258149bd342a889c58ed3abd9649bf72c8a",
+      "tool": "source_understanding",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": 8392,
+        "input_tokens": 6493,
+        "generation_tokens": 4096,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "length",
+        "failure_category": "generation_incomplete"
+      },
+      "ledger_input_charged": 19879,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0023-source_understanding.json",
+      "source_sha256": "e1beb237f45669b072e06d6021b89a28637957ec651913c34a47690b33d594c7",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10621,
+        "input_tokens": 8722,
+        "generation_tokens": 451,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 8722,
+      "ledger_output_charged": 451,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0024-metric_mapping.json",
+      "source_sha256": "d2e3488cca7b4e04d41ac03e71d06e6934eb4778b64876df31f47c10cb093d1d",
+      "tool": "metric_mapping",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": null,
+        "input_tokens": null,
+        "generation_tokens": null,
+        "output_tokens": null,
+        "output_token_budget": null,
+        "finish_reason": null,
+        "failure_category": "request_config"
+      },
+      "ledger_input_charged": 21558,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0025-agent_plan.json",
+      "source_sha256": "be056e84b85a66a09b36ecd8aad512e0c4387ae5e2dab15bbf57ca34f2833901",
+      "tool": "agent_plan",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 7163,
+        "input_tokens": 7163,
+        "generation_tokens": 82,
+        "output_tokens": null,
+        "output_token_budget": 1600,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 7163,
+      "ledger_output_charged": 82,
+      "output_reservation": 1600
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0026-agent_plan.json",
+      "source_sha256": "5dfea021a4107d0b557170822ebe2b6c8357f798c06fa5569746701454ecb4f5",
+      "tool": "agent_plan",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 7783,
+        "input_tokens": 7783,
+        "generation_tokens": 155,
+        "output_tokens": null,
+        "output_token_budget": 1600,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 7783,
+      "ledger_output_charged": 155,
+      "output_reservation": 1600
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0027-metric_mapping.json",
+      "source_sha256": "6f30f5c59c498e903d4f6e14076ba53c985a37a3fb73f1ff8996cfeda9dd7e74",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 6250,
+        "input_tokens": 6250,
+        "generation_tokens": 460,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6250,
+      "ledger_output_charged": 460,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0028-metric_mapping.json",
+      "source_sha256": "5a64729edf02e9e843bde47ad6d4c02800a15198ada28a89e5ff3460eb719724",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 6250,
+        "input_tokens": 6250,
+        "generation_tokens": 460,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6250,
+      "ledger_output_charged": 460,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0029-agent_plan.json",
+      "source_sha256": "d29d657eb50b61698133c883dd594dade5f122987f59ea12cb9de471738cfebc",
+      "tool": "agent_plan",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 7730,
+        "input_tokens": 7730,
+        "generation_tokens": 94,
+        "output_tokens": null,
+        "output_token_budget": 1600,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 7730,
+      "ledger_output_charged": 94,
+      "output_reservation": 1600
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0030-metric_mapping.json",
+      "source_sha256": "9dd421b92e0e7d006a230f03903897384fdc100540e92f23d8baa9dedce4e6af",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 6250,
+        "input_tokens": 6250,
+        "generation_tokens": 460,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6250,
+      "ledger_output_charged": 460,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0031-metric_mapping.json",
+      "source_sha256": "67fab9e7d229c6408b82d80d10720bb0a955ec5b529fb6e5d71e1044338fb612",
+      "tool": "metric_mapping",
+      "phase": "failed",
+      "telemetry": {
+        "prompt_tokens": null,
+        "input_tokens": null,
+        "generation_tokens": null,
+        "output_tokens": null,
+        "output_token_budget": null,
+        "finish_reason": null,
+        "failure_category": "request_config"
+      },
+      "ledger_input_charged": 21558,
+      "ledger_output_charged": 4096,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0032-agent_plan.json",
+      "source_sha256": "5d9ca271fd135259017568f8684865843d955491872b8bfc06be090980e1b110",
+      "tool": "agent_plan",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 8072,
+        "input_tokens": 8072,
+        "generation_tokens": 94,
+        "output_tokens": null,
+        "output_token_budget": 1600,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 8072,
+      "ledger_output_charged": 94,
+      "output_reservation": 1600
+    },
+    {
+      "source": "tx-20261006T200439Z-49a348a2dc/agent/calls/0033-metric_mapping.json",
+      "source_sha256": "0c70528777f182d4caa003e55e93f03eabc008787a59838efe697d3410fc9f3d",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 6250,
+        "input_tokens": 6250,
+        "generation_tokens": 460,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 6250,
+      "ledger_output_charged": 460,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0001-agent_plan.json",
+      "source_sha256": "bfa64f41b1379d1eb5701429f36b13efee6dbdc110cb8ce104e2d72b0d0af693",
+      "tool": "agent_plan",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 4328,
+        "input_tokens": 4328,
+        "generation_tokens": 121,
+        "output_tokens": null,
+        "output_token_budget": 1600,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 4328,
+      "ledger_output_charged": 121,
+      "output_reservation": 1600
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0002-source_understanding.json",
+      "source_sha256": "4bcd64aa1b401074743a6ec5779d46195e118957bd778f571a8c517a30deacf9",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11004,
+        "input_tokens": 9951,
+        "generation_tokens": 329,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9951,
+      "ledger_output_charged": 329,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0003-source_understanding.json",
+      "source_sha256": "c8d1587750e5c19c06164bfdd56ce8628056e5804f9b6988fed337ef176dd502",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10913,
+        "input_tokens": 9860,
+        "generation_tokens": 339,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9860,
+      "ledger_output_charged": 339,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0004-source_understanding.json",
+      "source_sha256": "a4a262fcfbb4e6291b74dcb1f1f17ad033f3d60c689ad1b8c2c15a4ebb5f4f4f",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11315,
+        "input_tokens": 10262,
+        "generation_tokens": 362,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 10262,
+      "ledger_output_charged": 362,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0005-source_understanding.json",
+      "source_sha256": "362a7151cfd5896abc65c04930bccc899de3178811bdb0b5d5fc76dd2d050223",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10972,
+        "input_tokens": 9919,
+        "generation_tokens": 365,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9919,
+      "ledger_output_charged": 365,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0006-source_understanding.json",
+      "source_sha256": "8f336fa83c8c254c89d4a63c55bdcb9c78426e6957e82b4ea0bde77a56a74434",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10960,
+        "input_tokens": 9907,
+        "generation_tokens": 776,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9907,
+      "ledger_output_charged": 776,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0007-source_understanding.json",
+      "source_sha256": "9e14717ea4d2ca678e2b0f43d8bc59ed1f46bfa5c8d1ce67b25782e18e258af3",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10994,
+        "input_tokens": 9941,
+        "generation_tokens": 1210,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9941,
+      "ledger_output_charged": 1210,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0008-source_understanding.json",
+      "source_sha256": "ff4bec4fbdedeb798adb1a0b633e4033c2e96b6f0aaf07efa5978778018a3385",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11004,
+        "input_tokens": 9951,
+        "generation_tokens": 400,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9951,
+      "ledger_output_charged": 400,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0009-source_understanding.json",
+      "source_sha256": "fbc6b61b94bda5ae39e364db96fa359be08f0edd96843f9d6193746615815a36",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11986,
+        "input_tokens": 10933,
+        "generation_tokens": 1222,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 10933,
+      "ledger_output_charged": 1222,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0010-source_understanding.json",
+      "source_sha256": "6b6f8e7c325507d18240eff365a97225f271858da2148ee55825cbb66051c2ac",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10939,
+        "input_tokens": 9886,
+        "generation_tokens": 633,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9886,
+      "ledger_output_charged": 633,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0011-source_understanding.json",
+      "source_sha256": "7ef3af72d118bccca3e8a9d80293b53f57fb2f3ceed691a3868edf987fd37306",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11201,
+        "input_tokens": 10148,
+        "generation_tokens": 1436,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 10148,
+      "ledger_output_charged": 1436,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0012-source_understanding.json",
+      "source_sha256": "d0e6116afaddf664309dde8737dd0d3e3a3c8c3b2f3934435ec010292470f76b",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 9855,
+        "input_tokens": 8802,
+        "generation_tokens": 771,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 8802,
+      "ledger_output_charged": 771,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0013-source_understanding.json",
+      "source_sha256": "9666d830f6ff059c1c76d871fa2435fa5a2168fa300f647bb78e69851ea6d996",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10605,
+        "input_tokens": 9924,
+        "generation_tokens": 1434,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9924,
+      "ledger_output_charged": 1434,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0014-source_understanding.json",
+      "source_sha256": "ab1fa1ef829e59bd76f77915810cd92c781e1b4c342e3992a34ef5f54a4b597f",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11167,
+        "input_tokens": 10486,
+        "generation_tokens": 1336,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 10486,
+      "ledger_output_charged": 1336,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0015-source_understanding.json",
+      "source_sha256": "cc6672772c3d90d6da139126ded1122ae700725046bf1a6e5be5199c84788fee",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10551,
+        "input_tokens": 9870,
+        "generation_tokens": 1438,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9870,
+      "ledger_output_charged": 1438,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0016-source_understanding.json",
+      "source_sha256": "194a54d5b7f833c52aa57ad005ed93858655904f3e9cdaead10ecbb370421d35",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11254,
+        "input_tokens": 10573,
+        "generation_tokens": 1902,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 10573,
+      "ledger_output_charged": 1902,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0017-source_understanding.json",
+      "source_sha256": "e86b75f5d5a1ff3a75e4357197d0308ab3dd6eb83af949f213449fc15625ad1e",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10528,
+        "input_tokens": 9847,
+        "generation_tokens": 790,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9847,
+      "ledger_output_charged": 790,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0018-source_understanding.json",
+      "source_sha256": "75e55b50f82051f45cac06c283d53d176f6a7ee3a0c06f12cafec6c8902db22b",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 10481,
+        "input_tokens": 9800,
+        "generation_tokens": 1420,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9800,
+      "ledger_output_charged": 1420,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0019-source_understanding.json",
+      "source_sha256": "b7b594de1ac54f5896aa4db6afcaccbda0ace7d78685fad23932e249b78af4e4",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 9295,
+        "input_tokens": 8614,
+        "generation_tokens": 683,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 8614,
+      "ledger_output_charged": 683,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0020-metric_mapping.json",
+      "source_sha256": "4da4193b9fbb32d91bd246240c79e62d3b8c5dfcb41e698b14842057ad2b3064",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12621,
+        "input_tokens": 12621,
+        "generation_tokens": 348,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 12621,
+      "ledger_output_charged": 348,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0021-metric_mapping.json",
+      "source_sha256": "b39d559087a0e1f007dadc343d36d8bf0ddc9c816c0fd94e4791bd768c501435",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12251,
+        "input_tokens": 12251,
+        "generation_tokens": 237,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 12251,
+      "ledger_output_charged": 237,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0022-metric_mapping.json",
+      "source_sha256": "c56e0ffac5ae35a25599001da30219bdebf2c1377a5bc19bc623dc82a6d537b5",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12546,
+        "input_tokens": 12546,
+        "generation_tokens": 329,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 12546,
+      "ledger_output_charged": 329,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0023-metric_mapping.json",
+      "source_sha256": "5149824f48e4661459b604e9c7987e342932d54b6af8b9ee04237bc7f2173541",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12802,
+        "input_tokens": 12802,
+        "generation_tokens": 261,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 12802,
+      "ledger_output_charged": 261,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0024-metric_mapping.json",
+      "source_sha256": "7c3968d565cef564693734d7438c631713d15ea9915a4ffc2a9722916db5375d",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12654,
+        "input_tokens": 12654,
+        "generation_tokens": 303,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 12654,
+      "ledger_output_charged": 303,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0025-metric_mapping.json",
+      "source_sha256": "e70ab8928c73cebc8438c2a12c152a3c8d438d0114c5d9672c2de96adeb94059",
+      "tool": "metric_mapping",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 12307,
+        "input_tokens": 12307,
+        "generation_tokens": 306,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 12307,
+      "ledger_output_charged": 306,
+      "output_reservation": 4096
+    },
+    {
+      "source": "tx-20261006T200439Z-97e46789d6/agent/calls/0026-source_understanding.json",
+      "source_sha256": "6660ab9e406b4892ceeb9447a647c74fb0d452533dfaa3659d8a553b1e4a3916",
+      "tool": "source_understanding",
+      "phase": "completed",
+      "telemetry": {
+        "prompt_tokens": 11557,
+        "input_tokens": 9658,
+        "generation_tokens": 968,
+        "output_tokens": null,
+        "output_token_budget": 4096,
+        "finish_reason": "stop",
+        "failure_category": null
+      },
+      "ledger_input_charged": 9658,
+      "ledger_output_charged": 968,
+      "output_reservation": 4096
+    }
+  ]
+}

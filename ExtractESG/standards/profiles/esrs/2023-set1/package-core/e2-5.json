@@ -1,0 +1,14 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "E2-5包内核心条款",
+  "profile_id": "esrs.2023-set1.e2-5.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "区分关注与高度关注物质，及生产输入与离开设施的流量。",
+  "source_datapoint_ids": [
+    "E2-5_02",
+    "E2-5_03",
+    "E2-5_08",
+    "E2-5_09"
+  ]
+}

@@ -1,0 +1,445 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 8"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities。污染影响风险机会识别流程。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "disclosure_requirement": "E2.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e2-iro-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities",
+      "zh": "污染影响风险机会识别流程"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e2-iro-1.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e2-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e2-iro-1.dimension.scenario"
+    ],
+    "paragraph": "11 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2.IRO-1_01",
+        "E2",
+        " E2.IRO-1 ",
+        "11 a",
+        "AR 1- AR 8",
+        "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "3b7b1fa2d2e9f9feae378fbb20a87f90b8478d05a17bf2a4ad0650d8e57ef875",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 3,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E2.IRO-1_01",
+    "source_refs": [
+      "esrs.2023-set1.e2-iro-1.source.law",
+      "esrs.2023-set1.e2-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-iro-1.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and how consultations have been conducted (pollution)。污染相关利益方咨询。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "disclosure_requirement": "E2.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-iro-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how consultations have been conducted (pollution)",
+      "zh": "污染相关利益方咨询"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e2-iro-1.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e2-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e2-iro-1.dimension.scenario"
+    ],
+    "paragraph": "11 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2.IRO-1_02",
+        "E2",
+        " E2.IRO-1 ",
+        "11 b",
+        null,
+        "Disclosure of whether and how consultations have been conducted (pollution) ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "c0f468c4e1187a16d338f949a608f3d1eda3a3943189488e3fa848b7c0a3278c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 4,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E2.IRO-1_02",
+    "source_refs": [
+      "esrs.2023-set1.e2-iro-1.source.law",
+      "esrs.2023-set1.e2-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-iro-1.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "disclosure_requirement": "E2.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e2-iro-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of results of materiality assessment (pollution)",
+      "zh": "污染重要性评估结果"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e2-iro-1.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e2-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e2-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 9",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2.IRO-1_03",
+        "E2",
+        " E2.IRO-1 ",
+        "AR 9",
+        null,
+        "Disclosure of results of materiality assessment (pollution) ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "d8d38dab8106c21696d6ba47fbef3a79229f50ff153e53c45c0d5615851874e6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 5,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E2.IRO-1_03",
+    "source_refs": [
+      "esrs.2023-set1.e2-iro-1.source.law",
+      "esrs.2023-set1.e2-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-iro-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

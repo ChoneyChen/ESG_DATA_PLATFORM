@@ -1,0 +1,111 @@
+[
+  {
+    "activation_predicate": null,
+    "description": "The Scope 3 category table can use the GHG Protocol or ISO 14064-1 classification.",
+    "member_metric_ids": [
+      "esrs.2023-set1.e1-6.dp04",
+      "esrs.2023-set1.e1-6.dp05"
+    ],
+    "policy": "one-or-more-permitted-alternatives",
+    "relation_id": "esrs.2023-set1.e1-6.relation.scope3-classification-alternative",
+    "relation_type": "alternative_group",
+    "source_metric_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_ids": []
+  },
+  {
+    "activation_predicate": {
+      "operator": "eq",
+      "path": "report_context.e1_6_scope3_total_phase_in_exempt",
+      "value": false
+    },
+    "description": "Scope 3, total emissions and related intensity disclosures are activated unless the applicable first-year phase-in exemption is used.",
+    "member_metric_ids": [],
+    "policy": "activate-unless-phase-in-exempt",
+    "relation_id": "esrs.2023-set1.e1-6.relation.phase-in-under-750",
+    "relation_type": "conditional_activation",
+    "source_metric_ids": [],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-6.dp04",
+      "esrs.2023-set1.e1-6.dp05",
+      "esrs.2023-set1.e1-6.dp06",
+      "esrs.2023-set1.e1-6.dp11",
+      "esrs.2023-set1.e1-6.dp12",
+      "esrs.2023-set1.e1-6.dp13",
+      "esrs.2023-set1.e1-6.dp25",
+      "esrs.2023-set1.e1-6.dp26",
+      "esrs.2023-set1.e1-6.dp27",
+      "esrs.2023-set1.e1-6.dp28",
+      "esrs.2023-set1.e1-6.dp29",
+      "esrs.2023-set1.e1-6.dp30",
+      "esrs.2023-set1.e1-6.dp31",
+      "esrs.2023-set1.e1-6.dp32",
+      "esrs.2023-set1.e1-6.dp33",
+      "esrs.2023-set1.e1-6.dp34",
+      "esrs.2023-set1.e1-6.dp35"
+    ]
+  },
+  {
+    "activation_predicate": null,
+    "description": "Methods, changes, biogenic emissions, instruments and Scope 3 inventory context explain gross emissions.",
+    "member_metric_ids": [],
+    "policy": "retain-linked-context",
+    "relation_id": "esrs.2023-set1.e1-6.relation.ghg-method-context",
+    "relation_type": "contextualizes",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-6.dp14",
+      "esrs.2023-set1.e1-6.dp15",
+      "esrs.2023-set1.e1-6.dp16",
+      "esrs.2023-set1.e1-6.dp17",
+      "esrs.2023-set1.e1-6.dp18",
+      "esrs.2023-set1.e1-6.dp19",
+      "esrs.2023-set1.e1-6.dp20",
+      "esrs.2023-set1.e1-6.dp21",
+      "esrs.2023-set1.e1-6.dp22",
+      "esrs.2023-set1.e1-6.dp23",
+      "esrs.2023-set1.e1-6.dp24",
+      "esrs.2023-set1.e1-6.dp25",
+      "esrs.2023-set1.e1-6.dp26",
+      "esrs.2023-set1.e1-6.dp27",
+      "esrs.2023-set1.e1-6.dp28",
+      "esrs.2023-set1.e1-6.dp29"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-6.dp07",
+      "esrs.2023-set1.e1-6.dp09",
+      "esrs.2023-set1.e1-6.dp10",
+      "esrs.2023-set1.e1-6.dp11",
+      "esrs.2023-set1.e1-6.dp12",
+      "esrs.2023-set1.e1-6.dp13"
+    ]
+  },
+  {
+    "activation_predicate": null,
+    "description": "Revenue reconciliation and denominators explain both GHG intensity methods.",
+    "member_metric_ids": [],
+    "policy": "retain-linked-context",
+    "relation_id": "esrs.2023-set1.e1-6.relation.intensity-context",
+    "relation_type": "contextualizes",
+    "source_metric_ids": [
+      "esrs.2023-set1.e1-6.dp32",
+      "esrs.2023-set1.e1-6.dp33",
+      "esrs.2023-set1.e1-6.dp34",
+      "esrs.2023-set1.e1-6.dp35"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e1-6.dp30",
+      "esrs.2023-set1.e1-6.dp31"
+    ]
+  }
+]

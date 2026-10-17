@@ -1,0 +1,46 @@
+[
+  {
+    "description": "不确定性说明关联被测指标。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.bp-2.relation.family01",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.bp-2.dp08",
+      "esrs.2023-set1.bp-2.dp09"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.bp-2.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.bp-2.dp07"
+    ]
+  },
+  {
+    "description": "重述差额与更正需要变更原因及版本。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.bp-2.relation.family02",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.bp-2.dp10",
+      "esrs.2023-set1.bp-2.dp13",
+      "esrs.2023-set1.bp-2.dp15"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.bp-2.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.bp-2.dp12",
+      "esrs.2023-set1.bp-2.dp14"
+    ]
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp01",
+    "description": "Disclosure of GHG removals and storage resulting from projects developed in own operations or contributed to in upstream and downstream value chain。运营和价值链中的温室气体移除与储存项目。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Disclosure of GHG removals and storage resulting from projects developed in own operations or contributed to in upstream and downstream value chain",
+      "zh": "运营和价值链中的温室气体移除与储存项目"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp02",
+    "description": "Disclosure of GHG emission reductions or removals from climate change mitigation projects outside value chain financed or to be financed through any purchase of carbon credits。价值链外碳信用项目。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Disclosure of GHG emission reductions or removals from climate change mitigation projects outside value chain financed or to be financed through any purchase of carbon credits",
+      "zh": "价值链外碳信用项目"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp03",
+    "description": "Removals and carbon credits are used。移除和碳信用使用情况。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Removals and carbon credits are used",
+      "zh": "移除和碳信用使用情况"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp04",
+    "description": "GHG Removals and storage Activity by undertaking scope (breakdown by own operations and value chain) and by removal and storage activity。移除储存活动的披露结构。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "GHG Removals and storage Activity by undertaking scope (breakdown by own operations and value chain) and by removal and storage activity",
+      "zh": "移除储存活动的披露结构"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp05",
+    "description": "Total GHG removals and storage。温室气体移除与储存量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Total GHG removals and storage",
+      "zh": "温室气体移除与储存量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp06",
+    "description": "GHG emissions associated with removal activity。移除活动相关排放。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "GHG emissions associated with removal activity",
+      "zh": "移除活动相关排放"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp07",
+    "description": "Reversals。移除的逆转量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Reversals",
+      "zh": "移除的逆转量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp08",
+    "description": "Disclosure of calculation assumptions, methodologies and frameworks applied (GHG removals and storage)。移除与储存的计算方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Disclosure of calculation assumptions, methodologies and frameworks applied (GHG removals and storage)",
+      "zh": "移除与储存的计算方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp09",
+    "description": "Removal activity has been converted into carbon credits and sold on to other parties on voluntary market。移除是否转为碳信用并售出。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Removal activity has been converted into carbon credits and sold on to other parties on voluntary market",
+      "zh": "移除是否转为碳信用并售出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp10",
+    "description": "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled。已核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled",
+      "zh": "已核销的价值链外碳信用量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp11",
+    "description": "Total amount of carbon credits outside value chain planned to be cancelled in future。计划核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Total amount of carbon credits outside value chain planned to be cancelled in future",
+      "zh": "计划核销的价值链外碳信用量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp12",
+    "description": "Disclosure of extent of use and quality criteria used for carbon credits。碳信用使用程度与质量标准。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Disclosure of extent of use and quality criteria used for carbon credits",
+      "zh": "碳信用使用程度与质量标准"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp13",
+    "description": "Percentage of reduction projects。减排项目比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Percentage of reduction projects",
+      "zh": "减排项目比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp14",
+    "description": "Percentage of removal projects。移除项目比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Percentage of removal projects",
+      "zh": "移除项目比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp15",
+    "description": "Type of carbon credits from removal projects。移除项目碳信用类型。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Type of carbon credits from removal projects",
+      "zh": "移除项目碳信用类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp16",
+    "description": "Percentage for recognised quality standard。认可质量标准对应比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Percentage for recognised quality standard",
+      "zh": "认可质量标准对应比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp17",
+    "description": "Percentage issued from projects in European Union。欧盟境内项目签发比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Percentage issued from projects in European Union",
+      "zh": "欧盟境内项目签发比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp18",
+    "description": "Percentage that qualifies as corresponding adjustment。符合相应调整的比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Percentage that qualifies as corresponding adjustment",
+      "zh": "符合相应调整的比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp19",
+    "description": "Date when carbon credits outside value chain are planned to be cancelled。碳信用计划核销年份。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Date when carbon credits outside value chain are planned to be cancelled",
+      "zh": "碳信用计划核销年份"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp20",
+    "description": "Explanation of scope, methodologies and frameworks applied and how residual GHG emissions are intended to be neutralised。残余排放中和的范围与方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Explanation of scope, methodologies and frameworks applied and how residual GHG emissions are intended to be neutralised",
+      "zh": "残余排放中和的范围与方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp21",
+    "description": "Public claims of GHG neutrality that involve use of carbon credits have been made。使用碳信用的温室气体中和声明。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Public claims of GHG neutrality that involve use of carbon credits have been made",
+      "zh": "使用碳信用的温室气体中和声明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp22",
+    "description": "Public claims of GHG neutrality that involve use of carbon credits are accompanied by GHG emission reduction targets。中和声明是否伴随减排目标。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Public claims of GHG neutrality that involve use of carbon credits are accompanied by GHG emission reduction targets",
+      "zh": "中和声明是否伴随减排目标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp23",
+    "description": "Claims of GHG neutrality and reliance on carbon credits neither impede nor reduce achievement of GHG emission reduction targets or net zero target。中和及碳信用是否妨碍减排目标。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Claims of GHG neutrality and reliance on carbon credits neither impede nor reduce achievement of GHG emission reduction targets or net zero target",
+      "zh": "中和及碳信用是否妨碍减排目标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp24",
+    "description": "Explanation of whether and how public claims of GHG neutrality that involve use of carbon credits are accompanied by GHG emission reduction targets and how claims of GHG neutrality and reliance on carbon credits neither impede nor reduce achievement of GHG emission reduction targets or net zero target。中和声明与减排目标关系说明。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Explanation of whether and how public claims of GHG neutrality that involve use of carbon credits are accompanied by GHG emission reduction targets and how claims of GHG neutrality and reliance on carbon credits neither impede nor reduce achievement of GHG emission reduction targets or net zero target",
+      "zh": "中和声明与减排目标关系说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-7.concept.dp25",
+    "description": "Explanation of credibility and integrity of carbon credits used。碳信用可信度与完整性。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "labels": {
+      "en": "Explanation of credibility and integrity of carbon credits used",
+      "zh": "碳信用可信度与完整性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-7.source.law",
+      "esrs.2023-set1.e1-7.source.ig3"
+    ]
+  }
+]

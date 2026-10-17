@@ -3,7 +3,7 @@
 项目级现状、跨模块关系和新对话交接见仓库根目录 [`../../README.md`](../../README.md)。
 本文只维护定向抽取的详细运行和产物说明。
 
-本模块位于 Document IR 下游，只读消费一个 `can_build_evidence=true` 的 Document IR revision，
+本模块位于 Document IR 下游，只读消费一个完整 evidence-ready 或显式带 limited policy 的 Document IR revision，
 并按照已编译的标准要求包，把报告中的直接披露转成可追溯、多行、机器可用的 Core records。
 
 它不生产或修改 OCR、PDF 与 Document IR，也不把前端表格当成权威数据。标准包定义“填什么”，
@@ -15,7 +15,33 @@
 - 定向抽取后端：`http://127.0.0.1:18180/`
 - API 文档：`http://127.0.0.1:18180/api/docs`
 
-## 唯一现行链路
+## v2 报告事实 Agent
+
+2026-10-08当前代际为 `report-fact-agent-v8` / `report-semantics-v7`；现代2.0/2.1报告主题统一由中立来源读取后独立映射，长正文保留原span逐窗续读，部分返回数值继续留在阅读前沿。下文早期直接填表说明保留兼容历史含义，不能用来判断当前报告模式的路由。当前实现与限制见 [本阶段记录](../../docs/PERSISTENT_DELIVERY_SPAN_20261008.md)，业务操作验收由用户执行。
+
+归档后的未引用中间缓存可使用原生服务的 `GET /api/report-sessions/{native_session_id}/intermediates/plan` 核对，`POST .../execute` 按固定计划回收，`POST .../restore` 恢复。核对要求read/admin权限，执行及恢复要求admin权限；请求固定计划标识、预期修订及理由，操作员由服务端凭据解析。只回收允许列表内、不在来源引用闭包的缓存，保留完整SQL来源guard；文件移到 `.lifecycle/intermediates` 并保存可恢复日志。缓存未恢复时不允许恢复父记录继续提取。此接口不等同于删除来源或重跑旧任务。
+
+现状（2026-10-03 协议与阶段成果修复后）：报告级 `ReportSession` 固定 IR revision，汇集跨标准要求并创建各包独立投影 job。
+同一 Session 按源对象、证据内容、解释版本及 provider/model 共享标准无关理解；各包保留各自标准快照、映射和 Core 合同。
+新请求使用 `roles.semantic_brain`（默认本地 Qwen）负责导航、理解与映射，`roles.specialist`（默认 NuExtract）承担成熟直接填表；七牛须显式授权。
+旧单包请求未传 `roles` 时继续使用原 `semantic_provider`。本地重模型分阶段释放；Qwen 和 NuExtract 共享运行时而各自保留 Provider 协议。
+需求与验收范围见 [系统重塑方案](../docs/SYSTEM_RESHAPING_PLAN.md)。
+
+标准包格式 `2.0` 声明披露主题、指标角色及类型化关系。自动模式合并候选对象目录，让模型依据定义和具体缺口选择阅读、改写查询补查、单独重新映射或结束。共享理解的目标是正确、连贯地理解报告事实，不以减少调用数量代替质量。
+
+理解与映射使用两个小合同。理解输出 `rows / columns / cell_overrides`，区分定量、原文断言和结构上下文；字段使用已定义身份轴及开放 `extensions`，跨行身份与断言片段必须引用真实证据。映射输出 `matches / coverage`，独立判断适用指标及方法列；真实断言的 `columns=[]`，负对象裁决无需伪造 source_id。Pydantic 接收类型直接生成 Provider JSON Schema，工具动作按 tool 区分字段；非法引用局部隔离，合法兄弟结果保留。后端直接投影到 SemanticAssignment，保留明确 source_fact_id/Core 绑定。
+
+理解按连续物理行、输入和输出预算切分；结构行完成后不会制造事实或无限重读。可靠 IR 单元格保留精确 raw 值，模型英语摘要或不同数值不能覆盖它；不可靠网格只有实际给图、作用域相符且 bbox 可靠时可视觉纠正。期间/实体/单位缺证据时保留 unknown 与质量问题，不从文件名、标准固定值或邻列猜补。LogicalTable 继承表头及跨页阅读上下文，证据仍指向物理页和 cell。
+
+`extraction_mode=auto` 对 v2 多项主题、或有明确事实粒度的现代指标启用 Agent；同族只选一项也可启用。`per_metric` 保留兼容对照。初始共享预算提示 `shared_object_budget=1..8`（默认 3）、每指标候选 `retrieval_object_top_n=1..5`、每主题工具动作 `agent_max_steps=1..24`（默认 8）分别显示。shared budget 是导航提示，实际阅读受动作预算约束。工具包括 `inspect_object / read_object_context / map_object / search_report / request_local_repair / finish`。局部 repair 只保存有界证据缺口，由控制面排队修复并显式接纳新版 IR，不持抽取执行槽等待。依赖自动补齐仅用于已声明策略；内部操作数及其证据保存在独立 archive，不扩大用户输出选择。直接披露优先，派生保留公式版本、操作数身份和明确依赖关系。
+
+E2-4_02/03/04 是三个单项成熟主题，沿用介质检索和直接填表路线。旧包及旧结果保持可读。Agent 的调用、理解、映射和主题状态保存在 `agent/`；逐指标投影在 `disclosures/`。最终导出 `results/source-facts.json`、`metric-source-mappings.json`、`disclosure-views.json`，完整 JSON 带这些可选集合。展示引用不会生成额外 Core 事实。
+
+没有最终 Bundle 时，检查 API 读取有效 checkpoint 和源候选，返回 `stage_summary`、局部 gaps、质量与证据。已处理、处理中、已进入未完成、未执行分别计数，未执行不表示未披露，来源候选不自动批准为 Core。派生另有 `dependency_status/dependency_blocks`：来源、映射、身份、单位或证据不足显示具体阻塞原因，已直接披露的有效事实保持原有结论。
+
+报告创建器统一读取设置中的角色和预算；结果/待处理页面展示真实调用阶段、工具、覆盖及具体缺口。高级 IR 复核视图仍支持本地 NuExtract、Qwen 与七牛。E1 v2 保留源行主题，后端组织期间、实体及口径，前端读取返回顺序。完整设计、PDF/OCR/IR 审核取舍与验收边界见 [REPORT_FACT_AGENT.md](docs/REPORT_FACT_AGENT.md)。真实业务验收由用户发起。
+
+## 兼容直接填表路径
 
 ```text
 Evidence-ready Document IR + Compiled Standard Package
@@ -69,7 +95,9 @@ Inventory 从 Document IR 读取正文、句子、表格行、表格单元格、
 归一化只解决排版差异，不决定业务适用性。重复的完全相同语义组会在查询编译时去重，标准并未要求
 报告逐字出现的“总量/Gross”等词不得被追加成额外硬门槛。
 
-任务级 `Top N`（1–5，默认 3）限制的是按最终检索得分选出的独立证据对象，不是零散 span 数量。
+任务级 `Top N`（1–5，默认 3）限制的是独立证据对象总数，不是零散 span 数量。选择器先在该总预算内
+组合主测量、方法上下文和对账上下文等标准包声明的证据角色，再以最终检索得分补足；不是把一个按
+数字密度排序的列表机械截断。每个入选对象保存角色和候选强度，供检查页解释为什么进入模型材料。
 一个对象可以是一张表、一个图或一个文本区域；命中一张表后仍保留其相关表头和连续行结构。
 概念下位词会按标准包声明的适用上下文过滤，例如空气污染不会扩展 COD/BOD 水污染别名。
 互斥介质的专属下位概念还会进入负向合同，因此只写 `COD` 而未重复写“废水”的表格行也不会进入
@@ -82,10 +110,11 @@ Inventory 从 Document IR 读取正文、句子、表格行、表格单元格、
 
 `Evidence Region` 是实际送模材料。一个 region 只属于一张表、一个图或一个文本区域；大表只按连续
 行组和输出容量切分。每个 region 明确携带标准字段合同、原始证据、候选字面量、视觉来源和最大
-输出行数，每次模型调用最多发送一张对应 crop。模型先对物理源行作一次适用性判断，再在 `values`
-中展开该行的多个实体/期间单元格；多个污染物、年份、公司、矿区、分项、总计或组成项仍形成独立
-事实。全部 region 完成后只合并“同一物理语义组 + 同一 element/value”的重叠区域重复，不会因为
-两个实体恰好披露相同数值而丢失其中一行。
+输出行数，每次模型调用最多发送一张对应 crop。定量指标先对物理源行作一次适用性判断，再在
+`values` 中展开该行的多个实体/期间单元格；行级字段与单元格级 value/period/entity 字段互斥。定性
+指标使用独立 `assertions`，不再伪装成数值单元格。多个污染物、年份、公司、矿区、分项、总计或组成
+项仍形成独立事实。全部 region 完成后只合并“同一物理语义组 + 同一 element/value”的重叠区域重复，
+不会因为两个实体恰好披露相同数值而丢失其中一行。
 
 ### 4. 模型直接填表
 
@@ -96,7 +125,8 @@ Inventory 从 Document IR 读取正文、句子、表格行、表格单元格、
 每个 `row_group` 增加 `metric_match=match|uncertain|different`，以及按需的
 `interpretation_note/context_refs`；公共行字段在 `shared_fields`，各实体/期间值在 `values`。只有模型
 认定 match 的有据行才按固定标准标签物化；其他已观察测量保留在决定和检查页。
-`skipped_targets` 表达主动跳过的数字，`missing_context` 表达缺少的说明。正常停止不触发
+易混淆指标还会收到同族兄弟指标的定义和固定范围，用模型语义比较防止同一位置法单元格同时进入
+市场法；这不是关键词门槛或新增 Guard。`skipped_targets` 表达主动跳过的数字，`missing_context` 表达缺少的说明。正常停止不触发
 “覆盖所有数字”的催补，仅真实输出截断继续写。不新增语义 Guard，不把未知方法的 Scope 2
 直接同时标成位置法和市场法。
 
@@ -137,13 +167,26 @@ Guard 只阻止确定性工程错误：未知任务、未知字段、未知行�
 不是可见子串、`V` 未绑定本次图片、跨表/跨行错误混配、定量行没有且仅有一个主值，以及违反
 标准包明确基数合同的输出。这样既让模型承担语义和视觉工作，也守住可追溯结果不能凭空生成的底线。
 模型把合法的单一 group 写成 `['G2']` 时，适配器只做无损单元素解包；多元素数组仍按合同错误保留。
-相同错误输出连续重复时直接停止无效重试，使用原文比较，不增加输出哈希链。
+相同错误输出连续重复时直接停止无效重试；连续两次返回 found/partial 但没有任何匹配 assignment 也
+会停止。比较结构化内容本身，不增加输出哈希链；格式纠错只针对结构字段，不重做模型语义判断。
+
+`not_found` 另行保存检索充分性：只有完整扫描且不存在可送审对象时才是
+`not_found_after_complete_search`；Top N 有界送审无命中为 `not_found_after_bounded_search`；截断或充分性
+不明为 `retrieval_uncertain`。后二者保持 partial/uncertain，不能伪装成完整搜索后的确定未披露。
 
 Grounding 通过只代表来源与形状正确，不代表 ESG 语义已经人工确认。新结果分别记录
 `source_validation_status`、`contract_validation_status`、`semantic_decision_status` 和
 `display_readiness_status`，审核状态保持 `pending`；`auto_verified` 仅用于兼容旧 bundle。后台会审计
 同一物理单元格是否被互斥的包固定维度同时使用（例如位置法与市场法），发现时保留原决定并标为待
-联合复判，不新增一层业务语义 Guard。
+联合复判。具有同一 `metric_family` 的冲突项会把兄弟指标定义、固定范围、同源事实和证据摘录合并为
+一次族级模型调用；模型返回每个来源适用的指标集合，后端只按集合分发/隔离结果。复判原文写入独立
+审计产物，原始逐指标决定不改写；模型不支持或仍不确定时继续进入人工复核，不新增业务语义 Guard。
+
+所有指标完成后检查标准包声明的 `data_processing` 派生规则；只有目标指标同时声明 `depends_on` 与
+`derivation_policy=reported_then_derived_when_dependencies_complete` 才实际执行。报告期、报告边界、报告
+实体、所需维度和单位必须全部显式一致，直接披露目标值优先。派生事实使用 `value_origin=derived` 并
+继承操作数 evidence 为 supporting evidence；身份缺失、单位不兼容或重复来源不能唯一解释时只写审计
+原因。旧 E2-4/E1-5 包未声明新版执行策略，因此不会因本轮 E1-6 改动自动产生新事实。
 
 ## 启动
 
@@ -174,6 +217,16 @@ cd ExtractESG/targeted_table_extract
 
 - `~/Desktop/model/NuExtract3-mlx-4bits`
 - `~/Desktop/model/Qwen3-Embedding-0.6B-8bit`
+- `~/Desktop/model/Qwen3.5-9B-4bit`（`local_qwen`，`QWEN_VLM_MODEL_PATH` 可覆盖）
+
+新的有界 Agent 模型接口为 `generate_structured(context, instructions, template,
+image_path, max_tokens)`：每次只处理一个明确的小问题。NuExtract 将字段合同编译为其原生
+`verbatim-string/string/number/enum` 类型模板；Qwen 使用普通聊天及正式 JSON Schema，默认关闭
+thinking；七牛使用 JSON Schema，并保留服务商明确拒绝格式时的兼容降级。三个 Provider 返回
+同一 `(raw_output, telemetry)`，不共享供应商私有 prompt 协议。本地调用可上报加载、prefill、
+生成 token 进度；执行进程外的 watchdog 负责原生计算不返回时的硬终止。Schema 的来源与接收合同相同；本地 Qwen 由生成后校验约束，云端是否接受 Provider Schema 记录在 telemetry。长度截断是 `generation_incomplete`，拆小任务并保留成功块，不把巨量输出交给格式修复。
+
+已有 E2-4 兼容 `decide` 路径及其提示词保持不变；新小任务接口不会偷偷重写历史产物或增加语义 Guard。
 
 七牛 API Key 只通过控制面的内存 Secret Vault 注入 worker，不写入任务请求、SQLite、日志、文档
 或 Result Bundle。
@@ -187,11 +240,31 @@ $HOME/Desktop/model/.runtime/venv/bin/esg-targeted catalog
 $HOME/Desktop/model/.runtime/venv/bin/esg-targeted run \
   --ir-run-id <IR_RUN_ID> \
   --package-id esrs.2023-set1.e2-4 \
-  --package-version 1.0.0 \
+  --package-version 2.0.0 \
   --metric esrs.2023-set1.e2-4.dp02
 ```
 
-CLI、API 与统一队列调用同一个 `TargetedExtractionWorkflow`，不依赖浏览器。
+CLI 与 API 默认提交统一流水线队列，不依赖浏览器。`TargetedExtractionWorkflow` 由队列隔离 worker 调用。
+目标后端与 Document/OCR 控制面必须同时可用；队列不可用时明确报错，不启动第二条独立重任务派发器。
+
+### 进程监督、截止时间与恢复
+
+统一队列在隔离 worker 中执行真实抽取，不把 MLX 放进 HTTP 服务线程。每个任务由独立轻量 watchdog
+监督；`supervised_model_call` 在进入完整模型调用前登记硬截止时间，因此即使 native prefill/eval
+不返回 token，取消与截止仍能生效。截止保留已有 checkpoint，并记录 `interrupted` 和实际调用原因；
+不是指标“未披露”，也不是 ESG 语义 Guard。
+
+后端重启不会把仍活着的同一 worker 清空或重复启动。任务使用 PID 与进程出生时间确认所有者；
+活任务继续接管观察，死亡任务才进入可恢复中断。仍存活的 worker 未结束时不允许续跑或删除其产物。
+队列执行输出写入持久 `worker.log`，不依赖 Web 服务线程承载计算。原来的前台启动器关闭
+仍会停止其拥有的 Web 服务；在重新启动平台前，不要手动重跑尚存活的抽取 worker。
+
+统一队列的 OCR/IR/抽取 worker 共享
+`workspace/.local/platform-runtime/model-execution.lock` 的 OS `flock`。队列锁文件描述符由 worker
+继承，父服务退出不会提前释放执行槽。监督层遇到忙槽时明确显示 `execution_slot_conflict`、保留
+checkpoint。路径可统一通过 `ESG_EXECUTION_SLOT_PATH` 覆盖；watchdog 不继承执行槽。
+升级前未持锁的旧 worker 也不会被忽略：新抽取入场前只读检查已有任务登记的 PID，遇到仍活着的
+旧任务会显示其 job/task ID 和 PID，并保留新任务供稍后续跑；不会扫描全系统或自动杀掉旧进程。
 
 ## 单次任务产物
 
@@ -215,8 +288,16 @@ targeted_extract_output/<job_id>/
 │   └── <metric_id>.regions.json         # 实际送模的连贯区域
 ├── decisions/<metric_id>.json           # 原始输出、适配结果、遥测与接受决定
 ├── guards/<metric_id>.json
+├── family-adjudication.json              # 发生并执行族级联合复判时存在
 ├── semantic-conflicts.json               # 仅发现跨指标固定语义冲突时存在
+├── derivations.json                       # 包声明派生规则时存在
 ├── checkpoints/<metric_id>.json
+├── agent/
+│   ├── state.json                        # 工具动作、调用数、当前模型阶段
+│   ├── calls/<attempt>-<tool>.json       # 实际输入、小合同、原输出及错误
+│   ├── sources/<object>.json            # 与主题无关的报告行列语义
+│   ├── mappings/<topic>-<object>.json
+│   └── topics/<topic>.json
 ├── results/                              # 六类权威 Core records
 └── exports/
     ├── extraction-result.json
@@ -224,18 +305,18 @@ targeted_extract_output/<job_id>/
     └── task-summary.csv
 ```
 
-`packets/<metric>.json` 用于完整审计，`packets/<metric>.regions.json` 才是模型实际看到的材料清单。
-模型失败原文会保留在 `decisions/`，但未通过确定性来源合同的数据不会进入 `results/`。
+`packets/<metric>.json` 用于来源审计；兼容路径实际输入见 `packets/<metric>.regions.json`，
+Agent 实际模型输入见 `agent/calls/`。模型失败原文保留在相应调用产物中；来源合同未通过的事实不进入 Core。
 
 每个指标物化后会立即单独执行 Result Contract 校验，只有通过的记录才能进入汇总结果并把
 checkpoint 标为可复用。单指标的主键或关联合同失败会写入 `contract-errors/`，该指标标记为
 `system_contract_failed`，其他指标仍可形成 `partial` 成果。checkpoint 保存标准包 digest、物化器版本
-和校验状态；旧 checkpoint 恢复时优先复用保存的 packet、模型决定和 Guard 结果重新物化，不重新调用模型。
+和校验状态；新 Agent 还保存语义链路版本，不能自动信任旧联合抽取的语义。用户显式合同重建只复用保存的决定、不调用模型；它不纠正业务语义。历史 Bundle 不重写。
 
 ## 成果检查
 
-统一前端允许同时选择 E1-5、E1-6、E2-4 中的细分指标。跨卡片选择只是一份批量任务计划；
-控制面会按标准包创建独立的定向抽取 job，因此每个 Result Bundle 仍只绑定一个 package version
+统一前端允许同时选择 E1-5、E1-6、E2-4 中的细分指标。跨卡片要求归属一个报告 Session；
+控制面按标准包创建独立投影 job，跨包共享中性源理解，因此每个 Result Bundle 仍只绑定一个 package version
 和 digest，不会把不同标准的 elements、校验规则或 Core snapshot 混写在一起。
 
 统一前端“抽取结果”页按当前报告和指标展示一条事实一行、一个标准 element 一列；列顺序、主维度
@@ -258,8 +339,10 @@ checkpoint 标为可复用。单指标的主键或关联合同失败会写入 `c
 
 ## 当前范围与验证
 
-当前已实现本地/云端并列的直接多行语义填表、视觉 crop 一等来源、宽松确定性 Guard、断点、审计、
-导出和统一前端。暂不包含 publication 正式数据库、人工编辑写回、Kodo 和跨服务器分布式队列。
+当前已有报告 Session、中性 SourceFact、角色路由、逻辑表阅读、真实动态 query embedding、局部 gap/repair、断点恢复及内部依赖计算。
+完整报告身份由标准 identity_axes 与实际源事实字段共同判断；固定标准常量不能补造报告身份。不同物理来源的同值/换算单位仅为待确认关系，显式确认关系或完整身份下的同一物理来源才能合并展示，所有原始 Core records 保留。
+网页、XLSX、CSV 使用同一后端组织合同；派生记录与中性来源显式关联，供报告 Session 事实读取和数据库幂等导入使用。正式批准、publication、人工编辑写回、Kodo 与跨服务器分布式队列不在本模块范围。
+本轮回归使用假模型与固定 IR，尚未执行真实报告模型验收，不能据此宣称实际业务抽取质量已通过。
 
 无模型回归测试：
 

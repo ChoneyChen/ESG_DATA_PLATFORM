@@ -50,6 +50,92 @@ def test_uncertain_grounded_measurement_is_retained_but_not_relabelled(tmp_path)
     assert decision.fact_groups[0].interpretation_note
 
 
+def test_local_not_found_keeps_task_source_identity_and_search_resolution(tmp_path):
+    _, packet, _, package, metric = build_pipeline(tmp_path)
+    packet = packet.model_copy(
+        update={
+            "spans": [],
+            "candidates": [],
+            "retrieval_hits": [],
+            "allowed_group_ids": [],
+            "source_document_id": "document-fixture",
+            "source_ir_run_id": "ir-run-fixture",
+            "source_ir_revision": 7,
+            "budget": {
+                **packet.budget,
+                "retrieval_sufficiency": {
+                    "status": "complete",
+                    "auto_not_found_allowed": True,
+                },
+            },
+        },
+        deep=True,
+    )
+    decision = SemanticDecision(
+        task_id=packet.task_id,
+        status="not_found",
+        fact_groups=[],
+        selected_evidence_span_ids=[],
+        uncertainty_code="none",
+    )
+    result = CoreResultMaterializer().materialize(
+        package=package,
+        metric=metric,
+        packet=packet,
+        decision=decision,
+        guard=_accepted_guard(packet, decision),
+        attempts=0,
+    )
+
+    task = result.reporting_tasks[0]
+    assert task["document_id"] == "document-fixture"
+    assert task["ir_run_id"] == "ir-run-fixture"
+    assert task["ir_revision"] == 7
+    assert result.outcome.status == "not_found"
+    assert (
+        result.outcome.search_resolution_status
+        == "not_found_after_complete_search"
+    )
+
+
+def test_bounded_not_found_is_not_promoted_to_complete_search(tmp_path):
+    _, packet, _, package, metric = build_pipeline(tmp_path)
+    packet = packet.model_copy(
+        update={
+            "budget": {
+                **packet.budget,
+                "retrieval_sufficiency": {
+                    "status": "bounded",
+                    "auto_not_found_allowed": False,
+                },
+            }
+        },
+        deep=True,
+    )
+    decision = SemanticDecision(
+        task_id=packet.task_id,
+        status="not_found",
+        fact_groups=[],
+        selected_evidence_span_ids=[],
+        uncertainty_code="none",
+    )
+    result = CoreResultMaterializer().materialize(
+        package=package,
+        metric=metric,
+        packet=packet,
+        decision=decision,
+        guard=_accepted_guard(packet, decision),
+        attempts=1,
+    )
+
+    assert result.outcome.status == "partial"
+    assert result.outcome.found_status == "uncertain"
+    assert (
+        result.outcome.search_resolution_status
+        == "not_found_after_bounded_search"
+    )
+
+
 def test_organization_links_units_preserves_identity_and_every_raw_record():
     package = StandardPackageCatalog(standard_dist_root()).load("esrs.2023-set1.e1-5", "1.2.0")
     metric = "esrs.2023-set1.e1-5.dp12"
@@ -64,8 +150,13 @@ def test_organization_links_units_preserves_identity_and_every_raw_record():
     ordered, view = FactOrganizer().organize(records, package)
     assert records == before
     assert len(ordered["quantitative_observations"]) == 4
-    assert view["logical_measurement_count"] == 3
-    assert view["facts"]["a"]["logical_measurement_id"] == view["facts"]["b"]["logical_measurement_id"]
+    assert view["logical_measurement_count"] == 4
+    assert view["facts"]["a"]["logical_measurement_id"] != view["facts"]["b"]["logical_measurement_id"]
+    assert view["facts"]["a"]["possible_relations"] == [{"fact_id": "b", "relation": "alternative_unit_presentation", "status": "needs_confirmation"}]
+    _, confirmed = FactOrganizer().organize(records, package, relations=[{
+        "left_fact_id": "a", "right_fact_id": "b", "relation": "alternative_unit_presentation", "status": "confirmed"}])
+    assert confirmed["logical_measurement_count"] == 3
+    assert confirmed["facts"]["a"]["logical_measurement_id"] == confirmed["facts"]["b"]["logical_measurement_id"]
     assert view["facts"]["c"]["logical_measurement_id"] != view["facts"]["b"]["logical_measurement_id"]
     assert view == FactOrganizer().organize(ordered, package)[1]
 
@@ -109,7 +200,10 @@ def test_display_readiness_ignores_package_fixed_scope_as_row_identity():
 def test_retired_versions_remain_loadable_but_not_selectable():
     catalog = StandardPackageCatalog(standard_dist_root())
     assert catalog.load("esrs.2023-set1.e1-6", "1.0.0").manifest.package_version == "1.0.0"
-    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"1.4.0"}
+    assert catalog.load("esrs.2023-set1.e1-6", "1.5.0").manifest.package_version == "1.5.0"
+    assert catalog.load("esrs.2023-set1.e1-6", "2.0.0").manifest.package_version == "2.0.0"
+    assert catalog.load("esrs.2023-set1.e1-6", "2.1.1").manifest.package_version == "2.1.1"
+    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"2.1.2"}
 
 
 def _scope3_structure_decision(packet, category_element_id, statement_element_id=None):

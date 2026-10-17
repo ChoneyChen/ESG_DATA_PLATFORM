@@ -1,0 +1,2354 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 10"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of process in relation to impacts on climate change。气候影响识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Description of process in relation to impacts on climate change",
+      "zh": "气候影响识别流程"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "20 a, AR 9",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_01",
+        "E1",
+        " E1.IRO-1 ",
+        "20 a, AR 9",
+        "AR 10",
+        "Description of process in relation to impacts on climate change ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "d7ecc7fe78f65d79827af0a4b26e09d3d48f415581866d473dc1cbb31db5096a",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 29,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_01",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of process in relation to climate-related physical risks in own operations and along value chain。物理气候风险识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Description of process in relation to climate-related physical risks in own operations and along value chain",
+      "zh": "物理气候风险识别流程"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "20 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_02",
+        "E1",
+        " E1.IRO-1 ",
+        "20 b",
+        "AR 13-AR 14",
+        "Description of process in relation to climate-related physical risks in own operations and along value chain ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "91be898136152fa34282db389491eb0f818002a69b2b4e57aa8e41754e9e48ef",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 30,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_02",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Climate-related hazards have been identified over short-, medium- and long-term time horizons。气候灾害识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Climate-related hazards have been identified over short-, medium- and long-term time horizons",
+      "zh": "气候灾害识别"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 11 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_03",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 11 a",
+        "AR 13-AR 14",
+        "Climate-related hazards have been identified over short-, medium- and long-term time horizons",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "aa1bf59ea0e8aa1d26577166aa156b025218ed4d8386a93773e770a7295e2ca8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 31,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_03",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards。资产活动的灾害暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards",
+      "zh": "资产活动的灾害暴露筛查"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 11 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_04",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 11 a",
+        "AR 13-AR 14",
+        "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "95ccef62f84438fcd0e6f8730cde3188c9a4c0fc7a50c37c25ac938ee830e768",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 32,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_04",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Short-, medium- and long-term time horizons have been defined。物理风险时间范围定义。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Short-, medium- and long-term time horizons have been defined",
+      "zh": "物理风险时间范围定义"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 11 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_05",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 11 b",
+        "AR 13-AR 14",
+        "Short-, medium- and long-term time horizons have been defined",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "ba56109a886df9481204ebca11f891139fe239d8c1d5210eb7b491bc555d8b23",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 33,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_05",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed。物理风险暴露和敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed",
+      "zh": "物理风险暴露和敏感性评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 11 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_06",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 11 c",
+        "AR 13-AR 14",
+        "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "c736786cfe01123a85ca6255ad855d4ceb4879d098a44f7dc65b9d97c6134cdf",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 34,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_06",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios。高排放情景用于物理风险评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios",
+      "zh": "高排放情景用于物理风险评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 11 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_07",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 11 d",
+        "AR 13-AR 14",
+        "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "0277d2c1e13b6eba511797d5b2243657623fe787d4f20e12c9996b0d411ba43f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 35,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_07",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term。物理风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term",
+      "zh": "物理风险识别中的情景分析"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "21",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_08",
+        "E1",
+        " E1.IRO-1 ",
+        21,
+        "AR 13-AR 14",
+        "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "a7e37f196681e44647baaf131213fdbce2ca7514025a1416d1fed29477aba021",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 36,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_08",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain。转型风险与机会识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain",
+      "zh": "转型风险与机会识别流程"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "20 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_09",
+        "E1",
+        " E1.IRO-1 ",
+        "20 c",
+        "AR 13-AR 14",
+        "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "9fae2ff2172f2ad3f6aa66ee63b693269f7e8a48147967d350c04a146dc82098",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 37,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_09",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Transition events have been identified over short-, medium- and long-term time horizons。转型事件识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Transition events have been identified over short-, medium- and long-term time horizons",
+      "zh": "转型事件识别"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp10",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 12 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_10",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 12 a",
+        "AR 13-AR 14",
+        "Transition events have been identified over short-, medium- and long-term time horizons",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "a5a5d35b19370cb8d55137ead9f3df05ac12f6f4822bf79e7dcc5af336051d50",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 38,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_10",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Undertaking has screened whether assets and business activities may be exposed to transition events。资产活动的转型事件暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp11",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Undertaking has screened whether assets and business activities may be exposed to transition events",
+      "zh": "资产活动的转型事件暴露筛查"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp11",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 12 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_11",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 12 a",
+        "AR 13-AR 14",
+        "Undertaking has screened whether assets and business activities may be exposed to transition events",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "36372a87c8febc01e8a2c09e38e03c6092da9456ce98f8c460daaab554149632",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 39,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_11",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp11"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed。转型事件暴露与敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp12",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed",
+      "zh": "转型事件暴露与敏感性评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp12",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 12 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_12",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 12 b",
+        "AR 13-AR 14",
+        "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "47ebf8bdde6a0818ff22245781b70c565b4c502eda1f1d0c7c34086bf820ed56",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 40,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_12",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp12"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis。情景分析用于转型暴露评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp13",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis",
+      "zh": "情景分析用于转型暴露评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp13",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 12 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_13",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 12 c",
+        "AR 13-AR 14",
+        "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "67b6920ce4e63a562d713335c4b6e98b96839c4ca456ef9eeff00bd8769a4515",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 41,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_13",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp13"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified。与气候中和转型不兼容的资产活动。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp14",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified",
+      "zh": "与气候中和转型不兼容的资产活动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp14",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 12 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_14",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 12 d",
+        "AR 13-AR 14",
+        "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "7ff31205854f0522d7b5c72cab1ad558b4d95f55383e66d5a047dac24d3468f4",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 42,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_14",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp14"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term。转型风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp15",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term",
+      "zh": "转型风险识别中的情景分析"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp15",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "21",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_15",
+        "E1",
+        " E1.IRO-1 ",
+        21,
+        "AR 13-AR 14",
+        "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "7553e86958130831261d67d76ce581a50fd7715fd57717044a3d9520e6a3791b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 43,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_15",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp15"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13-AR 14"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements。气候情景与财务假设一致性。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "disclosure_requirement": "E1.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e1-iro-1.topic.dp16",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements",
+      "zh": "气候情景与财务假设一致性"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e1-iro-1.dp16",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e1-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e1-iro-1.dimension.scenario"
+    ],
+    "paragraph": "AR 15",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E1.IRO-1_16",
+        "E1",
+        " E1.IRO-1 ",
+        "AR 15",
+        "AR 13-AR 14",
+        "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "eab549a82133e8cc633dc31cb2f84cfcb511227bafd06b2c0f45e1205ab41a1d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 44,
+      "source_sheet": "ESRS E1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e1-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E1.IRO-1_16",
+    "source_refs": [
+      "esrs.2023-set1.e1-iro-1.source.law",
+      "esrs.2023-set1.e1-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e1-iro-1.concept.dp16"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

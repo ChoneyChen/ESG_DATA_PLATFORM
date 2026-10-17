@@ -1,472 +1,296 @@
-# ESG Data Platform：当前项目手册与开发交接
+# ESG Data Platform：当前项目手册
 
-> 本文件是整个仓库唯一的项目级事实入口，面向项目成员和新的对话。
-> 内容以 2026-09-19 的实际代码、配置和目录为准。若历史聊天、旧方案或演示材料与本文件冲突，以代码合同和本文件为准。
+完整交接快照：[2026-10-16项目介绍、当前状态与后续规划](docs/PROJECT_HANDOFF_20261016.md)。供接手者独立阅读；后续当前事实仍在本手册维护。
 
-## 1. 新对话从这里开始
+本文件是项目级唯一当前事实入口，更新于 **2026-10-17**。模块使用、合同和日期化验收分别链接到对应材料；历史规划保留原文，不当作已经完成的能力。项目已建设 P0–P7 对应的工程链路，**真实报告端到端质量验收尚未通过**，尚无全行业准确率或生产部署结论。最新真实运行结果见 [2026-10-16的16项提取审计与升级规划](docs/FOUNDATION16_RUN_AUDIT_AND_UPGRADE_PLAN_20261016.md)；前轮工程修整及联合部署见 [2026-10-14实施记录](docs/EXTRACTION_ROOT_CAUSE_UPGRADE_20261014.md)，之前的阶段记录见 [P4–P7联合记录](docs/WORKBENCH_P4_P7_IMPLEMENTATION.md)。
 
-工作区根目录（仓库外一层）：
+**16 项快速链路（2026-10-17，已实施并真实运行）：**foundation16 路线把 PDF 到 16 项基础指标的流程收敛为：文本层选页 → 版面模型定位区域 → 数字版页面按区域直读 PDF 文字层并重建表格，只有文字层不可用的页走本地视觉识别 → 不复核的稀疏 IR → 每张候选表一次本地 Qwen 调用 → 确定性绑定与跨来源归并 → 按标准包写成果包。三份从未处理过的报告冷启动 4–8 分钟完成（OCR 占大部分，16 项提取 40–60 秒）；同一报告重新提取约 12 秒（复用已有回答，0 次新调用）。9 份报告金标准 159/159 正确、0 误报；未确定项如实保留为待复核、冲突或未找到。16 个原编号和 5 个标准包不变。实施内容、证据与未完成项见 [2026-10-17实施记录](docs/FOUNDATION16_FAST_ROUTE_20261017.md)，本轮变化见[更新日志](docs/CHANGELOG.md)，当前服务、模型与实测数据见[系统状态](docs/SYSTEM_STATE_20261017.md)。
 
-```text
-..
-```
+**最新真实运行审计（2026-10-16，仅停止、研究与规划）：**紫金2025最新任务已按用户要求取消，worker/watchdog退出、模型槽释放，已有成果保留。固定IR提取运行约79分36秒，仅保存14个Core值、7个来源及绑定，身份与来源出口仍有问题，不能将7/16处理记录当准确完成。每包独立预算及直接表格路由已实际生效，但同表跨条款重复推理、实际引用协议、冗长输出、部分成果和进度连接仍需修整。完整保留当前16个原编号，规划改为有界覆盖、同源一次理解、程序绑定原值和逐片段交付；**本次没有实施该规划或重跑模型**。
 
-Git 仓库：
+**最新提取修整（2026-10-14）：**各标准包使用完整独立模型额度及账本，报告只汇总；包内理解、抽取和修复共同计数，包间不扣减。基于标准测量合同及固定来源能力选择成熟表格提取或来源Agent，保留原编号、科学量纲、真实脚注及不确定身份。模型输入按准备后的实际token准入，单调用采用活跃期限，错误和前端分别表达每包模型预算与报告总时间。提取后端255项、报告编排后端106项、前端205项检查通过；四服务同版本部署，原任务、95条历史来源事实和已发布观测保留。真实模型没有重跑，固定IR已有错误网格仍需明确修订。
 
-```text
-.
-```
+**当前验收分工（2026-10-08用户最新指令）：业务操作验收由用户亲自执行；代理只做基础冒烟及必要的独立代码检查，不再发起真实报告提取、审核、发布或完整界面操作验收。中国石油最近失败任务已归档，其输出不再用作后续测试输入；具体清理状态及保留引用见当前阶段记录。**
 
-当前 ExtractESG 主线：
+**本轮工程迭代已收尾：**四服务已联合部署，6项基础HTTP冒烟通过；失败任务6个未引用缓存已可恢复回收，保留来源引用。整轮已建设内容、最终运行状态和全部未完成项见 [总交接](docs/ITERATION_HANDOFF_20261008.md)。P7真实业务验收、后续标准包和生产上线仍未完成。
 
-```text
-./ExtractESG
-```
+**当前工作台增量（2026-10-10）：**明确访问密钥说明；报告、处理、提取和队列直接提供记录管理、批量整理与来源回收入口；新增持久批量自动生产，按冻结的报告顺序衔接OCR、IR、所选条款提取和候选交付，保留人工审核与正式发布。具体使用、权限、恢复和本地模型边界见 [数据生产工作台](docs/PRODUCTION_WORKBENCH_20261010.md)。历史完整源码回滚不再作为推进前置条件。
 
-新对话开始开发前应先执行以下只读动作：
+**读取故障修复（2026-10-12）：**准备阶段未生成IR时的会话列表／详情500已修复，自动生产报告目录改用真实返回合同；错误响应保留接口和诊断编号。已重新联合部署，并通过同源读取冒烟，原任务未重跑。因果、修复与验证边界见 [读取500修复记录](docs/READ_FAILURE_INCIDENT_20261012.md)。
 
-1. 完整阅读本文件。
-2. 根据任务读取对应模块 README 和架构/合同文档。
-3. 检查 `git status --short`，保留用户已有改动，不得重置工作树。
-4. 检查真实配置、接口和现有产物，不根据旧聊天记忆猜测。
-5. 修改链路后只运行单元、合同或假模型测试；真实 OCR、Document IR、VLM 和定向抽取业务测试由用户亲自发起，除非用户明确授权代理测试。
+**本周主线：**先可靠跑通PDF→OCR→DocumentIR→所选主要指标→可审核事实。报告中心按PDF及其OCR/证据版本的继承关系管理；新任务先选报告，再决定自动连续处理或使用该报告的固定证据，处理状态通过全局悬浮窗查看。默认集中处理所选指标，归档和复杂管理扩展不作为前置条件。部署在模型槽空闲时切换，保留已有任务。原阶段安排见 [本周核心提取主线](docs/CORE_EXTRACTION_WEEK_20261012.md)，已实施的执行与预算口径见上述2026-10-14记录，最新真实运行结论与待实施方案见2026-10-16审计。
 
-必须继续遵守的项目约束：
+## 1. 项目目标与当前状态
 
-- `CrawlESG/` 是受保护的独立模块，本阶段不修改它的代码、数据或文档。
-- 已退役的 `ExtractESG/infor_match/` 不属于当前平台，仓库中不再保留或维护。
-- 报告爬取、Kodo 文件索引、公司/年份/行业主数据不属于 Document IR 模块职责。
-- OCR、Document IR、定向抽取三个重负载任务通过统一单 Worker 队列串行运行，不能并发抢占本机统一内存。
-- 前端只负责选择、展示和操作，不得成为业务事实来源。
-- 密钥只能进入 `.env.local` 或进程内 Secret Vault，不得写入代码、日志、任务 SQLite、输出包或文档。
-- GitHub 推送必须使用已约定代理；未经用户明确要求，不自行推送。
+平台从可持续发展报告中提取用户明确选择的指标，将原始披露、标准映射、审核与规范观测分别保存，最终提供可追溯、可复现的数据展示和横向比较。第一阶段优先确保主要指标的准确性、身份和比较口径，按成熟程度扩展范围。
 
-推荐给新对话的开场语：
+一条事实的身份包含主体、期间、边界、测量方法、必要维度、原值和来源，不能简化为“公司＋年份＋指标”。同值不证明同一事实；一条来源映射到多个条款不会增加来源事实数量。未知主体、方法或期间保留为缺口，不能根据文件名、当前标准或用户的目标指标补造。
 
-```text
-请先完整阅读仓库根目录 README.md，
-再检查当前 git 状态和与任务相关的真实代码。CrawlESG 是保护区。
-不要自行运行真实 OCR/VLM/抽取业务任务；修改后由我测试。
-ESRS E1-5 已发布 draft `1.2.0`，E1-6 已发布 draft `1.4.0`；E1-6 已补齐事实粒度、混淆指标族和展示身份合同；
-下一步继续做模型结果业务验证。不得为新指标硬编码专用抽取链路。
-```
+| 阶段 | 当前工程实现 | 验收边界 |
+|---|---|---|
+| P0：合同与标准适配 | 服务联合指纹、目录和能力握手；显式原编号、活动/历史/占位版本；不兼容时阻止创建重任务 | 目录就绪表示结构可执行，不代表真实提取已批准 |
+| P1：报告处理 | 独立报告登记、连续 OCR→DocumentIR、严格复用、不可变证据版本、取消/恢复及选择固定 IR | 当前证据是否仍完整需要读时检查；历史完成状态不能替代当前完整性 |
+| P2：生命周期 | 归档、来源依赖检查、可恢复回收、恢复、保留期后显式清理；父任务统一拥有其投影 | 依赖库未知或不可访问时拒绝清理；归档保持来源引用 |
+| P3：进度与资源 | 中文业务阶段、真实计数、未知进度、时间分类、持久事件续读、计划预算和子进程监督 | 工程进度、事实质量与发布完成分别表达 |
+| P4：独立操作台 | ConsoleESG 报告中心、处理、定向范围、证据核对、审核、发布及运行诊断 | 已接真实 DTO；真实业务闭环由联合验收记录确认 |
+| P5：公开数据产品 | 独立 PlatESG 网站；公开冻结数据与内部审核接口分离，趋势/比较/证据/导出 | 合成展示只验证产品功能，不是企业披露准确率 |
+| P6：结构修整 | 标准作者源、发布版本、registry、领域源码和数据库代码实际迁移；旧路径兼容同一实体 | 历史 PDF/OCR/IR/Bundle/运行库未迁移，见摘要和回滚记录 |
+| P7：业务验收 | 中国石油原 PDF 第2/90/91页独立金标准、历史保护、离线结构及合同验证 | 新真实任务、逐项质量与审核发布闭环仍需完成，不以测试数量代替 |
 
-## 2. 项目定位与当前边界
+正式发布、冻结数据版本、独立审核 HTTP/UI 和服务端操作员角色已在本地实现。服务器部署、生产账户登录/SSO、真实 PostgreSQL 服务器连接验证、规模化质量评测仍待建设或验收。
 
-目标是把 ESG/可持续发展 PDF 转换为可追溯、可复核、可按标准提取的机器数据。当前已经真实落地的是：
+当前标准系统有 **41个活动结构草稿包、512条**：E1–E3共25包、ESRS 2共12包、MDR共4包。E1-5、E1-6、E2-4活动内容为 `2.1.2`，其余38包为 `2.1.1`。显式发布索引共98个版本身份，其中57个历史版本可固定读取；58个后续披露包已登记为不可执行占位。新版本将正向定义、阅读指导、易混概念和排除条件分开，旧发布文件不改写。
 
-1. 本地 PDF 资产管理；
-2. OCR-first 文档解析；
-3. Document IR 构建、质量路由、视觉复核和版本保留；
-4. 标准要求包 Core Schema、E2-4/E1-5/E1-6 模块包及编译器；
-5. 按标准任务表的定向检索、视觉/文本语义填表、Guard 和结果包；
-6. 统一前端和串行任务控制面；
-7. 一个尚未接入正式发布流程的 PostgreSQL/PGlite 结果数据库雏形。
+用户指定的主要清单完整保留 **49个原编号**，E1–E3的16项当前配置就绪，其他33项等待相应包建设。**核心条款属于标准包，主要条款属于平台范围；主要条款必须是相应包的核心条款，包内其他核心不会自动成为平台输出。** 这里的16项来自当前49原编号清单，不能替换为旧研究提出的16项MVP。
 
-当前没有完成：
+## 2. 开发与新对话规则
 
-- Kodo/服务器生产部署；
-- 分布式队列和多机 Worker；
-- 全报告 Full Harvest 全量抽取；
-- 正式 publication 入库、发布版本和权限治理；
-- E1-5、E1-6 的完整真实报告业务验收与业务批准；
-- 完整标准全集及跨标准映射；
-- 大规模金标准评测。
+先读本文件及相关模块手册，检查真实源码、配置和产物。保留已有工作树改动，不重置、不覆盖用户工作。需求文件中的原计划与用户当前指令分开理解，以用户当前授权和真实合同判断工作范围。
 
-## 3. 当前目录与职责
+- `CrawlESG/` 是独立保护区，不修改其代码、数据或文档；报告爬取、Kodo索引和行业主数据不属于 DocumentIR 职责。
+- OCR、IR和定向抽取共用唯一重任务队列及一个执行槽。普通 API/CLI 提交同一队列；父处理计划负责协调，不占另一个重任务 Worker。
+- 真实 OCR、VLM、模型提取及云费用任务由用户发起，或在用户明确授权的验收范围内执行；离线测试采用假阶段、假模型及隔离库。本轮实际业务验收由统一协调者执行。
+- 前端消费后端合同，不推断完成、发布、未披露或来源替代。来源修订与重新执行均使用明确动作。
+- 密钥只进入受控环境配置和进程/页面内存，不保存到URL、浏览器持久存储、任务SQLite、日志、输出包或文档。
+- 修改 canonical 源码，兼容路径仅用于读取同一实体。不可编辑 `standards/releases` 覆盖既有版本。
+- 未经用户要求不提交或推送；推送须使用约定代理。已退役的 `infor_match` 和旧工作区 `v2/` 不重新引入。
+
+## 3. 实际目录与唯一维护入口
 
 ```text
-ESG Database/
-├── .local/
-│   └── platform-runtime/          # 统一队列 SQLite、任务隔离目录、启动日志
-├── pdf/                           # 当前本地报告资产目录及 report-catalog.json
-├── Reference/
-│   └── 2606.23050v1.pdf           # Unlimited OCR Works 外部论文，仅作技术参考
-└── ESG_DATA_PLATFORM/
-    ├── README.md                  # 本文件，项目级唯一事实入口
-    ├── CrawlESG/                  # 独立爬取模块；保护区
+ESG Database/                         # 工作区，仓库外一层
+├── pdf/                              # 原PDF及资产目录，运行数据
+├── .local/platform-runtime/          # 唯一队列、执行锁、启动与验收材料
+└── ESG_DATA_PLATFORM/                # 仓库
+    ├── README.md                     # 唯一项目当前手册
+    ├── docs/                         # 当前说明、迁移及日期化审计入口
+    ├── CrawlESG/                     # 保护区
+    ├── ConsoleESG/                   # 独立React操作台
+    ├── PlatESG/
+    │   ├── catalog/                  # 平台指标字典与范围合同
+    │   ├── backend/                  # 公开读取/内部审核及数据库适配
+    │   └── frontend/                 # 独立公开数据产品
+    ├── database/                     # PostgreSQL SQL、导入、审核、发布唯一代码
     └── ExtractESG/
-        ├── README.md              # ExtractESG 中文入口与模块导航
-        ├── scripts/
-        │   └── start_local_workbenches.sh
-        ├── document_ir_extract/   # OCR、Document IR、统一前端、控制面后端
-        ├── targeted_table_extract/# 定向抽取独立后端
-        ├── standard_packages/     # Core Schema、标准模块源包与编译产物
-        └── esg_database/          # 结果数据库 SQL 雏形
+        ├── standards/                # 标准系统唯一目录
+        │   ├── catalog/              # 完整原表目录
+        │   ├── authoring/             # 当前活动作者源
+        │   ├── schemas/              # Core及包格式合同
+        │   ├── registry/             # 活动、历史发布索引、未来占位
+        │   ├── profiles/             # 包内核心及平台主要范围
+        │   ├── releases/             # 固定内容版本，禁止手改
+        │   └── history/              # 作者快照、原构建器及原件
+        ├── control_plane/src/        # 队列、计划、处理协调、事件与恢复
+        ├── document_processing/src/  # PDF/OCR/IR、模型适配、资产与生命周期
+        ├── extraction/src/           # 检索、来源事实、映射、Session与结果
+        ├── contracts/src/            # 共享处理/提取类型
+        ├── shared_runtime/src/       # 进度、生命周期与根路径定位
+        ├── document_ir_extract/      # Document API宿主、兼容入口及原运行目录
+        ├── targeted_table_extract/   # Targeted API宿主、兼容入口及原运行目录
+        ├── standard_packages -> standards
+        └── esg_database/             # 数据库源码兼容链接及原默认运行库
 ```
 
-原来的工作区根目录 `v2/` 已完整迁移进 `ExtractESG/document_ir_extract/` 并清理。任何新代码、文档和启动配置都不得重新引用旧 `v2/` 路径。
+API组装实体及Python包入口暂留原宿主，import名称仍为 `esg_v2`、`esg_targeted`。对应业务目录和共享合同已经真实移动，旧 import/filesystem 路径通过相对符号链接指向唯一源码，不维护第二份实现。子进程与历史任务的固定路径继续可读。
 
-## 4. 本机运行拓扑
+数据库依赖实体位于 `database/node_modules`，旧依赖路径兼容同一实体。源码根和运行根由明确布局合同分别定位，不能移动代码后用脆弱的 `parents[n]` 推断数据位置。实际批次、前后摘要、原件和回滚条件见 [结构迁移记录](docs/STRUCTURE_MIGRATION.md)。
 
-| 服务 | 地址 | 代码位置 | 职责 |
-|---|---|---|---|
-| 统一前端 | `http://127.0.0.1:18081` | `document_ir_extract/frontend` | 七个业务页面和底部任务工作台 |
-| Document/OCR 后端 | `http://127.0.0.1:18080` | `document_ir_extract/backend` | PDF 资产、OCR、IR、复核、产物、统一队列 |
-| 定向抽取后端 | `http://127.0.0.1:18180` | `targeted_table_extract/backend` | IR/标准目录、定向抽取、检查与下载 |
-| 本地 PaddleOCR-VL 的 MLX VLM 服务 | `http://127.0.0.1:8111` | 桌面模型运行时 | 本地 OCR 流水线的视觉语言后端 |
+## 4. 本机入口与启动
 
-统一启动器：
-
-```text
-$HOME/Desktop/启动ESG统一工作台.command
-```
-
-它调用 `ExtractESG/scripts/start_local_workbenches.sh`，启动三个 Web 服务，等待健康检查后打开 `18081`。关闭启动器终端或按 `Ctrl-C` 会停止该窗口创建的服务；已经存在并通过健康检查的服务会被复用。
-
-统一队列数据库：
-
-```text
-../.local/platform-runtime/pipeline-queue.sqlite3
-```
-
-队列只有一个 Worker。任务包括 OCR、IR 构建、IR 复核/返修、定向抽取和断点续跑。排队任务可以排序和取消，终态队列历史可以单独清除；清除队列历史不删除业务产物。
-
-## 5. 端到端数据流
-
-```text
-本地 PDF 资产
-  ↓
-OCR Provider Router
-  ├─ local_paddleocr
-  ├─ paddle_api
-  └─ local_first（本地失败时按配置回退 API）
-  ↓
-不可变 OCR Package
-  ↓
-Document IR 11 阶段构建
-  ↓
-不可变 Document IR Revision
-  ↓
-readiness / can_build_evidence 准入
-  ↓
-已编译 Standard Package
-  ↓
-Evidence Inventory + 混合检索 + Evidence Regions
-  ↓
-local NuExtract3 或 Qiniu VLM 直接语义填表
-  ↓
-Grounding / Contract Guard
-  ↓
-六类 Core Records + JSONL/XLSX/CSV
-  ↓
-未来 publication / 正式数据库（尚未接通）
-```
-
-PDF 原文件、OCR、Document IR、定向抽取结果分别有独立不可变或版本化合同。下游只能引用上游 ID 和相对产物路径，不能反向修改上游包。
-
-## 6. 报告资产与身份
-
-当前本地 PDF 目录默认是仓库外一层的 `../pdf`。`report-catalog.json` 是工作台对该目录生成的资产目录，记录文件名、大小、SHA-256 和关联 OCR run；它不是项目级公司/年份/行业主数据库，也不是 CrawlESG/Kodo 索引。
-
-身份规则：
-
-- PDF 真身份：完整文件 SHA-256；
-- `document_id`：`doc-sha256-<完整SHA-256>`；
-- OCR run：`ocr-YYYYMMDDTHHMMSSZ-<12hex>`；
-- IR run：`ir-YYYYMMDDTHHMMSSZ-<12hex>`；
-- 同一 PDF 可以有多个 OCR run；
-- IR 使用 `lineage_id + ir_revision + parent_ir_run_id` 表示分支与修订；
-- retention 只保留每个 OCR/IR 分支当前质量最好的 revision。
-
-## 7. OCR 链路
-
-代码入口：`document_ir_extract/backend/src/esg_v2/workflows/ocr_workflow.py` 和 `esg_v2/ocr/`。
-
-请求支持三种路由：
-
-| 值 | 含义 |
-|---|---|
-| `local_first` | 默认；优先本地 PaddleOCR-VL，允许时失败回退 PaddleOCR-VL API |
-| `local_paddleocr` | 强制本地，不把失败伪装成成功 |
-| `paddle_api` | 强制使用 PaddleOCR-VL API |
-
-两种 Provider 必须输出同一个 `ocr-package-v1`，因此下游 Document IR 不关心来源是本地还是 API。
-
-真实过程是：PDF 预检与逐页等比画布规范化 → Provider 调用 → 页数覆盖校验 → 保存原始 JSONL、逐页 Markdown、layout 图、提取图片和 Provider 事件 → manifest 与 SHA-256 完整性清单。
-
-```text
-ocr_output/<ocr_run_id>/
-├── manifest.json
-├── source/{request.json,preflight.json,provider-input.pdf?}
-├── provider/{submit-response.json,poll-events.jsonl,result.jsonl}
-├── content/pages/*.md
-├── observations/pages/
-├── artifacts/{images,layouts,index.json}
-└── integrity/files.json
-```
-
-OCR Package 是解析器原始事实与中间资产，不等于 Document IR，也不能直接作为 ESG 事实发布。
-
-## 8. Document IR 链路
-
-唯一运行根是 `ExtractESG/document_ir_extract`。当前语义合同为 `document-ir-v0.12`，目录合同为 `document-ir-package-v1`。
-
-### 8.1 十一个阶段
-
-1. 读取并验证不可变 OCR Package；
-2. 以指定 DPI 渲染全部 PDF 页面；
-3. 使用本地 PDF 工具完成文本、坐标、页图和表格取证；
-4. 将 PaddleOCR 原始 layout 转为 IR candidate；
-5. 融合本地取证，去重并重建阅读顺序、章节、标题和脚注；
-6. 构造 Table Graph、Logical Table 与跨页表链接；
-7. 构造 figure/table/page crop 等视觉区域；
-8. 检测真正的信息型左右跨页，生成 spread/composite evidence；
-9. 路由质量风险，并按选择调用本地 NuExtract3 或七牛 VLM；
-10. 对接受的 Atomic Patch 执行事务化重建与复核收敛；
-11. 运行 readiness 校验，写不可变包并执行最佳版本 retention。
-
-### 8.2 主要对象与目录
-
-IR 对象包括 page、section、block、table/cell、logical_table、figure、spread、structure_edge、review_task、atomic_patch 和 guard_result。
-
-```text
-document_ir_output/<ir_run_id>/
-├── manifest.json
-├── canonical/{document.json,pages,tables,logical-tables,figures,spreads,relations,coordinates}
-├── observations/{paddle-layout,local-pdf}
-├── artifacts/{page-images,crops}
-├── review/{tasks,calls,results,patches,conflicts,decisions,candidates}
-├── quality/
-├── exports/
-└── integrity/files.json
-```
-
-`manifest.json` 是入口目录；`canonical/` 是下游权威结构；`observations/` 保存未融合来源观察；`review/` 保存模型调用、补丁、Guard、Verifier 和决定。
-
-### 8.3 复核与准入
-
-视觉复核支持本地 `numind/NuExtract3-mlx-4bits` 和七牛 OpenAI-compatible 多模态接口。模型不能直接覆盖 OCR/IR，只能提出受 `ReviewPlanCompiler + OperationRegistry` 限制的候选操作，经 Adapter、Patch Guard、事务协调器和收敛引擎后才能应用。
-
-| readiness | 含义 |
-|---|---|
-| `ready_with_warnings` | `can_build_evidence=true`，可进入定向抽取 |
-| `auto_review_pending` | 仍有可自动处理的阻塞项，暂不可进入抽取 |
-| `repair_required` | 需要修本地合同/证据/路由或定向返修 |
-
-## 9. 定向抽取链路
-
-代码根是 `ExtractESG/targeted_table_extract`。它只读消费一个 `can_build_evidence=true` 的固定 IR revision 和一个已编译 Standard Package，不修改 PDF、OCR、IR 或标准包。
-
-统一前端允许在 E1-5、E1-6、E2-4 之间切换并同时保留各包的细分指标选择。一次批量提交按标准包原子创建多个相邻队列任务；它们共享同一个 IR 与模型配置，但每个后端 job 仍只消费一个 Standard Package，并分别固定 version、digest 和 Result Bundle。跨标准多选不改变“一任务一标准合同”的底层事实边界。
-
-### 9.1 当前执行过程
-
-1. 固定并快照 IR、标准包和请求；
-2. 从 block、sentence、table row/cell、figure 和 page fallback 建 Evidence Inventory；
-3. Literal Harvester 用本地正则、Decimal、单位表和结构定位识别数字、量、百分比、年份、日期、单位和文本候选；
-4. Query Compiler 从指标、elements、concept aliases、上下位关系、排除概念和固定维度编译查询；
-5. BM25、FactPattern、Qwen3 Embedding 和 RRF 形成混合检索；
-6. Sufficiency 记录检索充分性；只有完整扫描且没有可送模证据时才产生本地 `not_found`，词面组合不完整的强结构化命中交给模型判断；
-7. 选择 Top 1–5 个独立证据对象，默认 Top 3；
-8. 每张表、图或文本区域分别编译 Evidence Region，每次视觉调用最多一张对应 crop；
-9. NuExtract3 或七牛 VLM 先按物理源行作 `match/uncertain/different` 判断，再在该行内展开适用的实体/期间值；
-10. Guard 只拦截未知字段、伪造来源、跨对象混配、类型/基数违反等确定性错误；
-11. 去除完全重复事实，物化六类 Core Records；
-12. 写 checkpoint、JSONL、JSON、XLSX、CSV 和遥测。
-
-检索不是单纯关键词匹配。FactPattern 与 Embedding 负责候选排序。能源/GHG 主量型允许强语义命中的数字对象和相邻行送模，不再以字面排除词决定业务归属；已验证的污染物质量/介质选择保持原路径。模型结合指标定义、完整表头与独立预算的方法脚注判断适用性。
-
-模型看到的是单个指标、动态 element 合同、一个连贯 Evidence Region、候选短 ID、原文和最多一张 crop，而不是整份 IR。`C` 表示候选字面量，`S` 表示可验证原文 span，`V` 表示从本次 crop 视觉直读。
-
-### 9.2 六类权威结果
-
-| 集合 | 含义 |
-|---|---|
-| `reporting_tasks` | 一份报告中一个标准 metric 的执行与找到状态 |
-| `quantitative_observations` | 一个数值、单位、期间、边界和维度组合一行 |
-| `qualitative_assertions` | 可由证据独立支持的定性陈述 |
-| `attribute_values` | 标准包定义、但不属于 Core 固定列的类型化属性 |
-| `dimension_values` | 污染物、场地、板块、Scope、能源来源等开放维度 |
-| `evidence_references` | PDF 页、印刷页码、IR 对象、bbox、摘录和哈希 |
-
-权威来源是 `results/*.jsonl`；网页、XLSX 和 CSV 是派生视图。
-
-```text
-targeted_extract_output/<job_id>/
-├── manifest.json
-├── failure.json?
-├── input/
-├── inventory/
-├── retrieval/
-├── packets/
-├── decisions/
-├── guards/
-├── checkpoints/
-├── model-inputs/
-├── results/*.jsonl
-└── exports/{extraction-result.json,machine-fill.xlsx,task-summary.csv}
-```
-
-当前目录合同是 `targeted-result-bundle-v1`，结果合同是 `targeted-extraction-result-v1`。Core 随任务快照固定：E2-4 使用 `extractesg.core@1.0.0`，E1-5/E1-6 使用向后兼容的 `extractesg.core@1.1.0`；E1-5 当前运行时包为 `1.2.0`，E1-6 为 `1.4.0`。
-
-## 10. Standard Packages
-
-代码根是 `ExtractESG/standard_packages`。它分为 Core Schema、标准模块源包和编译运行时包。Core 不是 ESRS 标准，也不是抽取脚本；它定义所有模块共同遵守的机器输出结构。模块包定义“找什么”，通用抽取链路负责“怎样找和怎样填”。
-
-```text
-packages/<framework>/<version>/<module>/<package_version>/
-├── manifest.json
-├── metrics.json
-├── elements.json
-├── concepts.json
-├── dimensions.json
-├── code_sets.json
-├── relations.json
-├── derivations.json
-├── validation_rules.json
-└── sources.json
-```
-
-编译产物为 `standard_packages/dist/<package_id>/<package_version>/package.json`。不得为新指标复制专用 Python 链路，差异优先表达在标准包数据中。
-
-当前 `esrs.2023-set1.e2-4@1.0.0` 是 draft，包含 20 个 datapoint、127 个 elements、36 个 concepts、10 个 dimensions、3 个关系、4 个派生规则和 5 个校验规则。E2-4_02/03/04 是当前实测最充分的三个指标，其余不能宣称达到同等成熟度。
-
-当前新增的两个包也保持 `draft`：
-
-- `esrs.2023-set1.e1-5@1.0.0`：23 个 datapoint、167 个 elements、22 个 concepts、5 个 dimensions、3 个关系、7 个派生规则和 11 个校验规则；
-- `esrs.2023-set1.e1-6@1.0.0`：35 个 datapoint、182 个 elements、34 个 concepts、8 个 dimensions、4 个关系、4 个派生规则和 11 个校验规则。
-- `esrs.2023-set1.e1-5@1.1.0`：23 个 datapoint、203 个 elements、27 个 concepts、7 个 dimensions；增加能源载体层级、报告实体和指标聚合角色；
-- `esrs.2023-set1.e1-6@1.1.0`：35 个 datapoint、211 个 elements、35 个 concepts、10 个 dimensions；增加 Scope 写法、繁简与 CO2e 公式别名、报告实体和指标聚合角色。
-
-`extractesg.core@1.1.0` 没有增加领域记录或固定业务列，只补充跨模块通用的能源、GHG、货币、能源强度、GHG 强度单位及货币/量级代码集。E1 源包由 `standard_packages/scripts/build_e1_packages.py` 确定性生成，编译产物仍以十个 JSON 源文件和聚合 digest 为准。
-
-同一 metric 找到多个污染物、年份、地点、板块或口径时，应产生多条 observation。前端列来自标准包 elements，不应全局硬编码成污染物表。
-
-### 10.1 2026-09-06 工程更新与验收边界
-
-- E1-5/E1-6 发布 `1.2.0`（元素/概念数量与 1.1.0 相同），补充量型、Scope 2 方法及总量/分项语义。新包原子发布并验证成功后，旧编译目录移至 `dist/.retired/<package>/<version>`，不再出现在新任务目录。源包、历史结果、排队快照保留；历史版本可恢复、可加载。禁止同版本覆盖不同内容。
-- E1-6 发布 `1.3.0`：E1-6_02/04/05/06 的清单成员绑定到 `qualitative_assertion`，每个成员拥有独立事实身份和证据；总计/表头不再作为类别成员。结果物化按父记录与 element 统一计数，task 固定值只生成一次。每个指标在写入可复用 checkpoint 前单独通过结果合同；单指标合同失败会隔离为 `system_contract_failed`，其余指标仍可形成 partial 成果。旧 checkpoint 可由保存的 packet、决定和 Guard 结果无模型重物化。
-- E1-6 发布 `1.4.0`：35 项逐项声明事实粒度、measurement kind、必须区分的语义轴、易混淆指标族、证据形态和 reported/derived 策略。09/10、12/13、26/27、30/31、33/34/35 等家族不再只靠相似标题区分；派生合同额外要求期间、边界和报告实体一致。旧 `1.3.0` 编译产物已自动退役，源包与历史结果仍保留。
-- 模型输出升级为物理行优先的 `row_groups`：先判断整行适用性，再展开该行各实体/期间单元格；原始可见 target 值在唯一可解析时可无损回绑到目标 cell。定性事实必须给出可读 statement 或清单成员，期间/纯数字不得被回填成断言。
-- 结果阶段把来源验证、合同验证、模型语义决定和展示就绪度拆开；Grounding 通过的新结果保持 `pending`，历史 `auto_verified` 仅作兼容显示。相同物理单元格若被互斥的固定方法重复使用，会写入跨指标冲突审计并进入待联合复判，不通过新增 ESG 语义 Guard 删除模型输出。
-- 模型输入增加独立小预算 `linked_context` 方法/脚注；按概念而非重复别名计分，兼容 location-based/location based。模型输出增加 `metric_match`、按需简短解释、`context_refs`、`skipped_targets` 和 `missing_context`。未映射的有据测量保留在决定及检查视图，不被固定标准标签强行物化。
-- 删除模型正常停止后的目标数字覆盖催补，仅真实输出截断续写；不新增语义 Guard。原值作为主证据，完全重复事实归并保留多处证据。
-- 后端 `FactOrganizer` 统一 API、JSONL、JSON、XLSX/事实 CSV 的顺序，输出逻辑测量与原始单位展示关联，不删除原始记录、不新增换算事实、不把替代单位相加。前端已移除独立事实/列排序。
-- IR 整体 readiness 不伪装为通过。局部问题可产生 `can_build_limited_evidence` 与明确排除页面清单；抽取只用其余页面、结果标为 partial。全局完整性错误仍阻止消费。04 页面可创建“隔离问题页面继续”的子修订，不接受失败补丁。修正跨页事务把子对象操作误视为整页确认的覆盖关系。
-- 07 使用同一 SQLite/单 Worker 队列，配置 PDF 资产/文件夹导入、OCR/IR/抽取模型、Top N、跨包细分指标；成功产物可复用，按依赖推进，支持暂停后续步骤、取消、重启恢复和手动重试失败步骤。派发键避免队列/计划检查点间的重复任务；密钥只在内存，重启依赖环境凭证。计划引用的队列记录不会被普通“清除历史”删除。
-
-本轮验证仅为单元/合同/假模型测试及历史证据离线回放；没有运行真实 OCR、IR 或模型抽取，也没有改写旧结果。Top N 仍是用户配置的对象数（07 默认 2，旧任务默认不改）；自动扩大到 5 的自适应策略、Scope 2 联合一次抽取和完整 LogicalTable 原生对象消费仍是后续项，不宣称已实现。E2-4_04 的真实黄金结果样本仍需用户补齐；不得以代码测试替代三项污染物真实质量回归。
-
-## 11. 统一前端与独立 API
-
-统一前端有七个页面：报告资产、OCR 任务、Document IR、IR 复核检查、定向抽取、抽取结果、07 链路控制。底部任务工作台提供串行队列、拖动排序、终止、历史清理、日志和系统健康。
-
-Document/OCR API 文档：`http://127.0.0.1:18080/docs`。主要接口为 `/api/report-assets`、`/api/pipeline/tasks`、`/api/pipeline/tasks/targeted-extraction/batch`、`/api/pipeline/standards`、`/api/ocr/*`、`/api/document-ir/*`、`/api/storage/*` 和 `/api/models/status`。批量定向抽取接口要求各包共享 IR 与执行配置、每包至少一个指标且 package/version 不重复，并在一个 SQLite 事务中按前端顺序入队。07 通过统一后端读取标准目录；05 的独立定向服务地址只在连接成功后保存，失效时按统一后端状态自动恢复。
-
-定向抽取 API 文档：`http://127.0.0.1:18180/api/docs`。主要接口为 `/api/ir-runs`、`/api/standards`、`/api/standards/diagnostics`、`/api/result-catalog`、`/api/semantic-indexes`、`/api/jobs` 以及 inspection/artifacts/download。前端常显全部有效标准包；结果空态同时展示任务索引与 Result Bundle 目录的真实计数。若任务 SQLite 丢失但完整终态 Result Bundle 仍在，后端启动时会自动重建任务索引。
-
-前端是静态 HTML/CSS/JavaScript，无构建步骤。CLI、API 和统一队列调用相同后端工作流，不依赖前端。
-一键启动器为每次浏览器打开附加启动标识，防止 Safari 仅聚焦旧标签页而继续运行升级前的 DOM/ES module；
-标识不改变同源 `localStorage` 中的任务选择和界面设置。
-
-## 12. 本机模型与配置
-
-| 模型 | 默认路径 | 用途 |
+| 入口 | 默认地址 | 职责 |
 |---|---|---|
-| PaddleOCR-VL 1.6 | `~/Desktop/model/PaddleOCR-VL-1.6` | 本地 OCR |
-| NuExtract3 MLX 4-bit | `~/Desktop/model/NuExtract3-mlx-4bits` | IR 复核、定向填表 |
-| Qwen3 Embedding 0.6B 8-bit | `~/Desktop/model/Qwen3-Embedding-0.6B-8bit` | 语义索引与查询 |
+| 公开数据网站 | `http://127.0.0.1:8765/` | 已发布企业、指标、趋势、比较与来源 |
+| ConsoleESG正式静态入口 | `http://127.0.0.1:18081/` | 报告准备、提取、证据、审核、发布和运行操作 |
+| Document API | `http://127.0.0.1:18080/docs` | 资产、连续处理、平台Session、统一队列 |
+| Targeted API | `http://127.0.0.1:18180/api/docs` | 固定IR、原生Session、投影、事实与结果 |
+| PlatESG API | `http://127.0.0.1:8765/docs` | 公开 `/v1` 与受控 `/internal/v1` |
+| Console开发服务 | `http://127.0.0.1:5180/` | 独立Vite开发入口 |
+| PlatESG开发服务 | `http://127.0.0.1:5178/` | 产品Vite开发入口 |
+| 旧技术工作台 | `http://127.0.0.1:18081/legacy/` | 历史兼容与高级技术视图 |
 
-运行时位于 `~/Desktop/model/.runtime/paddleocr-vl/bin/python` 和 `~/Desktop/model/.runtime/venv/bin/python`。
+Console正式入口通过同源 `/document`、`/targeted`、`/publication` 代理访问三个业务服务。公开产品不加载操作台凭据或审核/队列数据。旧五入口不是当前主操作界面。
 
-Document/OCR 密钥和配置放在被 Git 忽略的 `document_ir_extract/.env.local`，模板见 `.env.example`。密钥不得写入本文件。定向抽取默认使用本地 NuExtract3、开启语义搜索和视觉，Top N=3；七牛模型和预算可由环境变量覆盖。本地与云端按各自能力使用不同预算，不做伪公平比较。
+工作台启动器为 `ExtractESG/scripts/start_local_workbenches.sh`，桌面兼容入口为 `$HOME/Desktop/启动ESG统一工作台.command`。启动器构建Console、检查联合版本，启动或复用 Document、Targeted和18081静态服务。它不会强杀未知端口进程；不兼容旧服务须先由其拥有者停止再统一启动。
 
-## 13. 当前资产快照
+PlatESG使用独立 `PlatESG/scripts/run.sh`，读取显式数据库配置，提供产品构建和API。具体依赖安装、构建、操作台代理和平台启动见 [Console手册](ConsoleESG/README.md) 与 [PlatESG手册](PlatESG/README.md)。不要仅启动工作台三服务后假设8765平台已就绪。
 
-截至 2026-09-04，`targeted_extract_output` 与定向抽取任务 SQLite 各有 12 个终态任务，包含越秀、紫金的 E1-5、E1-6、E2-4 本地/云端对照结果。Result Bundle 是当前结果检查的权威来源；SQLite 索引丢失时可由完整终态 Bundle 重建。
+各服务在启动时冻结联合源码指纹；磁盘源码变更会产生重启要求。不兼容时保留只读历史，创建、恢复等业务提交被阻止。版本握手包含代码、合同、标准、字典、范围和启动配置，不以“端口能通”判断业务就绪。
 
-| 报告 | readiness | 可进入抽取 |
-|---|---|---|
-| 腾讯控股、宁德时代、中国移动、紫金矿业、中国银行、越秀地产 | `ready_with_warnings` | 是 |
-| 中国石化、中国石油 | `repair_required` | 否 |
-| 隆基 | `auto_review_pending` | 否 |
+队列默认位于 `../.local/platform-runtime/pipeline-queue.sqlite3`。它是重负载任务唯一控制面；数据库适配器/发布处理器不承担OCR或模型重任务。关闭启动器只停止其本次创建的进程，不删业务产物。
 
-这些是业务状态，不是包损坏。
+## 5. 报告身份与连续处理
 
-## 14. 测试规则
+报告资产管理先明确PDF字节身份，再登记业务身份：标题、发布者、报告期间、语言和报告类型。PDF SHA-256、报告登记身份、测量主体分别保存；集团、上市公司和子公司不根据名称相似而合并。登记字段带修订号，更新时检查预期修订。
 
-```bash
-cd ExtractESG/document_ir_extract/backend
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
+同一PDF可产生多个OCR和IR版本。`document_id`以完整SHA形成；OCR/IR run各有独立身份，IR使用lineage、revision和parent保持修订关系。报告可明确选择某个完整的IR，不从“最新路径”自动换证据。
 
-cd ExtractESG/targeted_table_extract/backend
-PYTHONDONTWRITEBYTECODE=1 "$HOME/Desktop/model/.runtime/venv/bin/python" -m pytest -q -p no:cacheprovider
+Console的报告中心提供原文、处理/证据、提取、审核与发布页签。连续报告处理独立于标准包，用户一次操作即可完成OCR后构建DocumentIR：
+
+| 模式 | 行为 |
+|---|---|
+| 自动处理 | 仅复用来源、配置、引擎及完整性均兼容的OCR/IR；缺失阶段提交同一队列 |
+| 重建IR | 复用严格兼容的OCR，产生新IR版本 |
+| 重新处理 | 重新执行OCR，再生成新IR版本 |
+
+提交键幂等；同键但请求内容不同会冲突。阶段任务及原生身份先持久保留，重启恢复沿已有阶段继续，不能因检查点缺口重复创建原生任务。取消中的父状态等待正在运行的子任务退出，不能提前宣称资源已释放。
+
+OCR输出为 `ocr-package-v1`，保留Provider原始记录、逐页内容、图像、manifest及文件完整性。OCR解析结果还不是可发布ESG事实。
+
+DocumentIR将OCR与本地PDF取证融合为正文、表格/单元格、逻辑表、章节、图、跨页和坐标结构，保留观察、复核、补丁与证据来源。当前语义合同为 `document-ir-v0.12`，目录合同为 `document-ir-package-v1`。基础构建默认不执行全报告可选VLM增强，复核/返修使用显式动作及新revision。
+
+下游同时检查全局证据完整性和对象能力。有限消费只能使用获准对象/能力并显示partial；结构损坏、来源或摘要变化不能靠limited授权绕过。历史处理状态与当前证据可用性分别呈现：历史ready记录后来损坏时仍保留历史状态，但不能继续提供开始提取动作。
+
+## 6. 标准、核心条款与主要范围
+
+每个披露小号一个标准包，例如E1-5、E1-6、E2-4；包内条款保持用户原序号。语义角色 `anchor/detail/context/derived/presentation`、包内核心和平台主要优先级分别表达，不能把这些层次混为一项标记。
+
+当前主要范围的完整49原编号由 `standards/profiles/esrs/2023-set1/platform-major.json` 和平台字典绑定；E1–E3当前可执行16项如下：
+
+| 部分 | 当前主要原编号 |
+|---|---|
+| E1 | `E1-5_01`、`E1-5_05`、`E1-5_09`、`E1-6_07`、`E1-6_09`、`E1-6_10`、`E1-6_11` |
+| E2 | `E2-4_02`、`E2-4_03`、`E2-4_09`、`E2-5_02` |
+| E3 | `E3-4_01`、`E3-4_02`、`E3-4_03`、`E3-4_11`、`E3-4_12` |
+
+后续E4、E5、S1–S4及G1的33个原编号保留在相同主要清单中，等待包建设，不能因不可执行而从目录中消失。ESRS 2/MDR作为明确共享包保留引用接口；只解析实际所选指标声明的共同要求，不无条件扫描所有通用条款。
+
+执行计划分别列出所选输出、身份/方法上下文、公式操作数、内部依赖和排除项。选主要范围只将所选条款计入输出和覆盖分母；必要上下文读取不自动成为额外平台指标。用户手动改范围后解除原主要配置快照，重新预览并冻结实际选择。
+
+当前作者源唯一入口是 `standards/authoring`。正式构建：
+
+```sh
+python -m esg_standard_packages build
 ```
 
-当前本轮回归为定向抽取 125 项、标准包合同 26 项；Document IR 的既有回归未在本轮重复执行。测试使用夹具/假模型，不自行启动真实业务任务。
-污染物保护采用只读历史回放。本机当前仍保留的两份紫金 E2-4 bundle 均保持 106 条 observation（空气 82、水体 24），三次已接受输出及字段/证据引用未变；两份原固定越秀 bundle 已不在输出目录，因此完整四包脚本会明确报告缺失，不能把缺失样本宣称为已回归。这不等于重新调用模型后的效果保证。
+它从活动registry登记作者源编译，验证目录覆盖和98个固定发布身份。`--publish`显式创建新内容版本并登记；已有同身份不能覆盖、改路径或改源摘要。旧生成器仅为同一构建入口的薄适配，原语义实现保存在history。未登记目录不会被数字更大的版本自动激活。
 
-## 15. E1-5 与 E1-6 构造状态
+活动包仍为draft。原表目录保存1,184行、1,126独立原编号及58共用MDR引用；它是全集目录，不表示所有条款已经成熟可执行。作者规范、引用与版本合同见 [标准系统手册](ExtractESG/standards/README.md)。
 
-E1-5、E1-6 的 `1.0.0` 已完成首轮紫金/越秀真实任务并暴露检索假阴性、复杂能源表语义混入和 region 标量合同问题；`1.1.0` 是历史工程升级版本，E1-5 当前为 `1.2.0`，E1-6 当前为 `1.4.0`，均仍处于 `draft`，尚未获得业务批准。
+## 7. 定向提取、证据与阶段成果
 
-参考底稿是用户提供、未提交到仓库的 `EFRAG IG 3 List of ESRS Data Points` 工作簿。
+用户选择明确报告/PDF或固定IR、条款范围、模型角色、云授权和预算。后端预览返回实际计划；改变这些输入必须重新预览。报告级Session协调多包投影，共享中性来源理解，每个包保留独立任务、Core及Bundle。
 
-该表只作为 datapoint 清单和来源线索；语义、条件、公式和 AR 已回到 Commission Delegated Regulation (EU) 2023/2772 正文核对。非权威 IG 3 与法规冲突时以法规为准。
+```text
+已登记报告 / 固定IR
+  → 后端范围及依赖预览
+  → 唯一队列：必要OCR → DocumentIR → ReportSession
+  → 证据检索与来源解释 → 所选条款映射 → 明确缺口补查
+  → 原值/证据/身份校验 → Core与阶段Bundle
+  → 候选交付与持久回执
+  → 事实、映射、口径审核 → 发布条件检查
+  → 规范观测及冻结数据版本 → PlatESG展示、比较与导出
+```
 
-### 15.1 E1-5 — 能源消耗与能源结构
+模型负责证据语义、下一步动作和映射；程序负责来源引用、结构类型、授权、预算、持久化及确定性计算。现代报告按 `ExecutionStrategyCompiler` 冻结执行策略：重复定量维度合同且所选固定IR含真实数字表格单元格时，复用成熟直接表格提取及已选specialist；正文、标量及缺少表结构的来源使用 `report-fact-agent-v9` 中立读取与独立映射。路线按合同与实际来源能力确定，不按包名特判或失败后偷换。默认可由Qwen承担理解与提取，用户也可选择混合角色或授权云模型；embedding用于检索，原始OCR仍使用实际注册的OCR适配器。所有Provider及实际模型身份进入冻结请求，不静默替换。
 
-`E1-5_01` 至 `E1-5_23` 共 23 项已经逐项建模，覆盖总能源消耗、化石/核能/可再生来源、各类燃料和购入能源、能源生产、高气候影响行业能源强度及净收入 reconciliation。
+来源事实保留报告原值、原单位、正文/单元格证据及必要身份。结构行、正文数量、年度表头与分区分别处理；重复披露和事实关系显式保存。标准映射不会重写原披露，也不能把范围1＋2合计填到范围1、范围2地点法或市场法。
 
-模块至少需要表达：主值、原始值、能源单位、期间、边界、能源来源类别、载体（燃料/电/热/蒸汽/冷却）、消费/生产、购入/自发、化石燃料类型、高气候影响行业、强度的分子分母、货币和 evidence。
+派生计算只执行包声明、策略启用且身份/单位一致的规则，直接披露优先；操作数和规则版本可追溯。未知口径、阻塞依赖或不兼容单位记录原因，不制造数值。
 
-E1-5_18 按法规正文建模为 `MWh/货币单位` 的能源强度，而不是沿用 IG 3 表格中的 `percent` 标签。化石能源明细、高气候影响行业和能源生产通过结构化条件关系激活；总量、占比和强度只在 `data_processing` 阶段声明派生，直接披露值优先。
+checkpoint、来源事实、有效映射、Core和partial Bundle增量保存。执行状态、候选质量、标准覆盖与正式发布分别表达，检查点存在不等于标准成果有效。技术失败不自动变成未披露；未选择、未提取、无证据、明确不适用及审核排除分别保存。
 
-### 15.2 E1-6 — Scope 1、2、3 与温室气体总量
+Result Bundle为 `targeted-result-bundle-v1`，Core包括 `report_tasks`、`quantitative_facts`、`qualitative_facts`、`fact_attributes`、`dimension_values`、`evidence` 六类记录。结果JSONL/Bundle是机器合同，页面、XLSX和CSV是相同事实的派生视图。旧Bundle不为新展示被静默重写。
 
-`E1-6_01` 至 `E1-6_35` 共 35 项已经逐项建模，覆盖 Scope 1、location/market-based Scope 2、Scope 3、GHG 总量、生物源 CO2、ETS、contractual instruments、primary data、GHG intensity、边界变化、方法、假设和排放因子。
+## 8. 数据库、交付与正式发布
 
-模块至少需要表达：`ghg_scope`、`scope_2_method`、`scope_3_category`、tCO2e、期间、边界、控制法、价值链范围、可扩展分解维度、生物源 CO2、ETS/合同工具/primary data 比例、强度分子分母、方法和 evidence。
+正式语言选用 **PostgreSQL SQL**。本地开发和隔离测试使用PGlite；生产连接适配使用官方 `pg` 驱动，固定依赖8.23.1。生产适配的代码建设不能替代真实服务器、事务、备份恢复和权限验证。
 
-包内概念关系明确区别 avoided emissions、carbon credits/offsets、removals 与 gross GHG emissions，并把 Scope 1/2/3、location/market-based 互斥关系编译为负向合同。GHG Protocol 与 ISO 14064-1 结构使用替代组；适用的 Scope 3、总量、强度及对账数据点带有小于 750 名员工首年 phase-in 条件。
+`database`拥有 `esg` / `esg_api` 合同，PlatESG拥有 `plat` 实体、交付审计及覆盖决定，迁移分别登记。原事实、审核、规范观测、发布版本与冻结来源分别保存。高频身份使用明确类型化列，长尾扩展使用JSONB，披露数值使用精确numeric；API/JSON中精确值为字符串，只有绘图坐标使用浏览器Number。
 
-### 15.3 已完成与下一步
+中立来源快照单独保存所有已读取表行和附加属性，包括没有标准映射的行。审核后的补充属性由服务端从固定来源解析，随口径和发布来源冻结；当前复杂原始对象保留在来源层，属性单位未解析时保持null，不能借主指标单位。来源事实支持按固定报告游标完整分页。具体SQL层次、字段证据、精度及公开边界见 [科学存储链路](docs/SCIENTIFIC_DATA_STORAGE.md)。历史冻结字典通过独立import-only登记导入，不暗中重绑定当前标准或加入当前平台字典。
 
-已完成 IG 3/法规核对、Core 1.1 通用量纲、两个十文件源包、确定性编译、JSON Schema、包驱动查询测试、通用单位识别、语义角色驱动的结构字段绑定/结果检查/前端列与排序，以及 E2-4 无模型回归。
+当前基础字典为1.2.0，运行选择1.3.0在49原编号外加入一个已登记的范围1＋2合计延伸1.0.1，父包E1-6 2.1.2。合计直接披露与单独审核的派生合计分别保存。必要主体、期间、边界齐全时允许展示；原文未说明的范围二方法、毛排放、GWP等保持未知，并影响比较准入。登记定义不表示已有真实公开观测。
 
-本轮采用模型优先优化：繁简/Scope/CO2e 归一化、重复查询组去重、强结构化证据的有界送模后备、模型语义提示和报告实体字段、单 group 数组无损解包、相同错误输出停止重试。未新增 ESG 语义 Guard 或输出哈希链。
-单位保留完整的 `kWh/m²`、`tCO2e/GWh`；CO2e 不作为普通污染物质量。若多层表头出现“单位列下是实体名”的结构矛盾，只标记 `header_alignment_uncertain`，不改 IR；模型用完整 crop 判读年份/实体，适配器不以不可靠表头覆盖其视觉结果。
-只读证据回放已确认越秀范围一主表 6 个、紫金范围一主表 8 个目标单元格进入送模材料。紫金附录存在重复披露，E1-5 宽表仍保留部分待模型判断的数量；送模数量不得直接解释为最终事实数量。
+一条规范观测至少固定主体、指标定义版本、期间、边界、必要方法/维度、实际或目标属性及修订。不同Scope2方法、集团/子公司、人头/FTE、取水/耗水、报告合计/分项独立保存。可展示的披露不一定符合当前比较合同。
 
-下一步由用户用 E1-5 `1.2.0`、E1-6 `1.4.0` 复跑紫金/越秀重点指标。验证顺序仍为 Query/FactPattern、Evidence Selection、实际模型输入、物理行裁决、单位/期间/实体和证据绑定；发现问题时优先修概念、模型上下文或通用合同，禁止加入 `E1-5_xx`、`E1-6_xx` 条款号分支。
+Console交付要求明确登记报告修订、主体关联及固定PDF/IR/Bundle来源，校验来源字节和成果快照，发送内部交付接口并保存幂等回执。网络超时若可能已提交，显示不确定状态，按同一回执核对/重试，不能换ID重复导入。交付只形成候选，不批准真实事实。
 
-直接披露与计算继续解耦。报告直接给出的总量、占比或强度照常抽取；未披露时不在语义填表阶段临时计算。`derivations.json` 声明计算关系，执行计算属于后续数据处理模块。
+事实审核、映射审核、测量口径、发布和比较准入分别管理。批准决定与outbox在同一事务，发布处理器可幂等重试，通过门槛后形成规范观测和冻结版本。旧approved事实视图不作为正式产品读取入口。
 
-## 16. 已知缺口
+`PLATESG_AUTO_PUBLISH=0` 表示人工暂停发布：启动和重启均不自动消费待发布事实事件，具备发布角色的操作员显式处理。字典初始化可建立空观测的字典发布版本，不能把它误读为事实事件已发布。设为1时自动处理器仍逐项执行相同发布条件。
 
-1. E1-5、E1-6 已完成首轮真实报告诊断，当前分别为 `1.2.0` 与 `1.4.0`，但尚未通过复跑验收与业务批准；
-2. E2-4 只有 02/03/04 经过多轮真实结果优化；
-3. 本地 OCR 长报告性能仍需用户逐份验证，API fallback 继续保留；
-4. 三份 retained IR 尚未 evidence-ready；
-5. 视觉/语义模型仍可能漏列、串列或错误扩展维度，需要证据核对和回归样本；
-6. `esg_database` 尚未自动消费定向抽取 JSONL；
-7. Kodo、服务器、分布式 Worker、publication、权限和全量抽取未部署；
-8. 当前没有全行业准确率结论。
-9. GWh/TJ 替代单位的“多个原始展示 → 一个逻辑测量”分组尚未实施；本轮仍保留原始披露，不做单位换算或跨展示汇总。
+默认运行库与活动平台库分别配置：
 
-## 17. 文档治理
-
-| 文档 | 唯一职责 |
+| 运行位置 | 含义 |
 |---|---|
-| 本文件 | 项目总览、状态、新对话交接、跨模块计划 |
-| `document_ir_extract/README.md` | OCR/IR 详细使用 |
-| `document_ir_extract/docs/ARCHITECTURE.md` | IR 内部合同与架构 |
-| `targeted_table_extract/README.md` | 定向抽取使用与结果阅读 |
-| `targeted_table_extract/docs/ARCHITECTURE.md` | 定向抽取组件边界 |
-| `targeted_table_extract/docs/RESULT_BUNDLE_SPEC.md` | Result Bundle 合同 |
-| `standard_packages/README.md` | 标准包总体说明 |
-| `standard_packages/docs/AUTHORING_GUIDE.md` | 模块包制作规范 |
-| `esg_database/README.md` | 数据库雏形边界 |
-| `CrawlESG/**` | 独立爬取模块文档；保护区 |
+| `ExtractESG/esg_database/.local/pglite` | 原CLI默认库，源码迁移后保持原位置 |
+| `PlatESG/.local/data` | 平台默认本地库 |
+| `PLATESG_DATA_DIR` | 平台显式本地数据根，例如隔离demo-data |
+| `PLATESG_DATABASE_URL` | 受控PostgreSQL服务器连接 |
 
-不再维护逐轮 `CONSTRUCTION_PROGRESS.md`。重要现状更新本文件；精确行为更新对应模块 README/合同；历史由 Git 记录承担。
+平台当前演示数据有明确合成标识，不把演示库当真实企业披露。数据库连接、允许Bundle根目录、导入及审核操作见 [数据库手册](database/README.md) 和 [PlatESG手册](PlatESG/README.md)。
 
-## 18. Git 与产物规则
+## 9. 公开产品与内部工作台
 
-- OCR、IR、定向结果、密钥、本地数据库、模型、日志和语义索引不提交；
-- 标准源包、编译包、schema、迁移和测试应提交；
-- 修改前后运行 `git diff --check`；
-- 不重置或覆盖用户现有改动；
-- GitHub 推送走代理；
-- 已退役的 `infor_match` 不得重新引入；若未来恢复相关能力，应按当前定向抽取合同重新设计。
+PlatESG首页是独立产品网站，提供企业、指标定义、年度趋势、比较集合、证据和固定版本CSV/JSON导出。候选、队列、标准编译诊断、报错和当前审核信息属于Console，不进入公开产品页面。
+
+公开 `/v1` 只返回固定发布版本的科学字段，游标和导出固定版本；覆盖显示“已发布／此版本暂无数据”，不能把后者推断为未披露或不适用。当前人工覆盖决定位于内部审计，尚未建设其公开发布快照。
+
+原PDF访问受来源版本、登记集合、允许根目录及实际字节SHA限制。公开链接使用来源ID，不暴露本地路径、内部候选身份、审核人或运行SHA；冻结版本不匹配、文件变化或无法确认时拒绝返回，不能回退到同名文件。没有本地来源的合成报告不生成PDF链接。
+
+内部 `/internal/v1` 使用服务端token→操作员身份/角色映射，角色有 `read`、`review`、`publish`、`admin`。请求自填操作员字段不能决定审计身份。当前支持受控多操作员配置，**尚无生产账户登录与SSO**；默认本地reviewer不是正式多人身份治理的最终方案。Console凭据仅保留页面内存，公开前端不接收它。
+
+比较接口按指标合同重新检查期间、单位、边界、方法和必要维度，返回可比较集合及排除原因；多个合法集合要明确选择，不能任取最大集合或第一企业。当前小规模实现使用完整发布快照筛选，后续性能优化需保留相同版本与比较合同。
+
+## 10. 生命周期、真实进度与资源
+
+归档改变可见性，保留PDF/OCR/IR及结果引用；恢复需检查原身份和来源。丢弃、释放来源引用和物理清理是明确独立动作，父Session/计划管理其所有投影，子投影不能单独破坏父任务来源。
+
+清理先建立影响计划，检查队列固定、处理/提取历史、候选、审核与正式来源，再由服务端重新核查和保留审计。来源guard与导入串行保护，未知库或不可用服务产生明确阻塞，不能把连接失败视为无引用。若存在额外未核查旧库，拒绝来源清理；当前已知存储覆盖可验证不等于遍历所有用户外部库。
+
+可恢复回收默认保留7天。恢复核对摘要、原路径冲突和原manifest；保留期结束后仍需重新引用核查，永久清理只在明确操作后执行并留tombstone。归档可用不能被写成“所有旧数据均可删除”。
+
+进度来自真实业务单位：OCR页、IR已完成阶段、所选条款/已处理条款及事实计数。没有可靠总量时显示未知进度，不靠日志行、模型调用预算或定时器生成百分比。队列SSE持久事件可按游标续读，前端断连时轮询回退；读取状态不会推进业务时间。
+
+时间明确区分排队、墙钟跨度、观察到的活动、未观察以及睡眠/时钟调整。活动时间只代表观察口径，不能等同所有模型计算时间。显式报告总执行时限覆盖该流程；各包另有完整独立的调用、输入、输出及修复额度，不均分、不共享扣减，恢复保留本包已记录成本。单模型调用按活跃期限监督，并另设墙钟保护；准备后的实际输入用于token准入和生成，估算及历史未分类用量明确标注。
+
+## 11. 验证依据与未完成边界
+
+测试与现场证据按日期和范围记录，不把历次测试数量相加或把工程通过写成提取准确率：
+
+| 记录 | 结论范围 |
+|---|---|
+| [P0–P3实施审计](ExtractESG/docs/WORKBENCH_P0_P3_IMPLEMENTATION.md) | 2026-10-05相应批次765项工程测试及旧工作台只读验收；对应当时指纹，不是P4–P7最终总量 |
+| [结构迁移记录](docs/STRUCTURE_MIGRATION.md) | 两批1,400个源码文件、144兼容入口及407历史实物有效；当前历史回滚仍缺37份原字节，严格旧校验未通过 |
+| [中国石油独立金标准](docs/CHINA_OIL_GOLD_AUDIT.md) | 原PDF第2/90/91页，30个原始年度单元格及15个可映射污染物单元格；未评价新模型准确率或正式发布 |
+| [P4–P7工程验证](docs/WORKBENCH_P4_P7_IMPLEMENTATION.md) | 945e阶段冻结：Document507、Targeted520、标准116、数据库及服务94、Plat API69、Console138、产品80通过；后续更新仅独立夹具检查/基础冒烟，操作验收由用户执行；各套独立计数，均不当作真实提取准确率 |
+| P4–P7真实业务验收 | 96页OCR完成；新typed IR处理为ready_with_limits，8必需复核均deferred。完整16原主要条款＋1延伸已运行并失败：4/17处理、294来源候选、0Core；报告版本累计299条来源已中立存档，仍未批准；最新失败任务归档，停止用其输出测试。失败实物及通用机制修复见[联合记录](docs/WORKBENCH_P4_P7_IMPLEMENTATION.md)，审核发布闭环仍未完成 |
+
+根目录只读核验工具：
+
+```sh
+python scripts/verify_structure_migration.py
+python scripts/verify_business_gold.py
+```
+
+Python模块测试需使用对应既有环境和 `PYTHONPATH`；源码迁移保持原import入口。数据库及前端测试采用隔离数据库/HTTP夹具，具体命令见各模块README，不能默认测试会安全打开任意现场库。
+
+以下仍需明确完成：
+
+1. 由用户新建并操作真实主要指标任务：原文召回、年度/主体/边界/方法、标准映射、身份缺口、成本与恢复均须逐项核对。
+2. 由用户操作同一真实报告从候选交付、事实/映射/口径审核、人工暂停/显式发布，到产品固定版本和证据回查的完整闭环。
+3. 真实PostgreSQL服务器、生产账户/SSO、迁移权限、备份恢复、服务部署与实际负载测试。
+4. 后续33个主要原编号对应包逐批成熟，以及全集目录其余条款的真实业务验收；占位不能直接用于模型执行。
+5. 人工覆盖决定的公开冻结快照、公开修订说明及大规模增量查询/发布优化。
+
+Kodo生产接入、多机分布式Worker、全报告Full Harvest和全行业准确率不因本轮建设自动完成。
+
+## 12. 历史记录与文档治理
+
+2026-10-03修复曾记录634项工程测试；2026-10-04主要平台建设及2026-10-05 P0–P3又有各自验收。它们保留为历史记录，不能继续占据当前能力章节。原根手册551行已原样存入 [重整前原件](docs/migrations/2026-10-05-root-README-pre-consolidation.md)，摘要见 [重整清单](docs/migrations/2026-10-05-root-README-consolidation.json)。
+
+中国石油旧任务 `tx-20261002T182823Z-f5b3169b0c` 保持中断、无最终Bundle、261个待核来源候选和历史检查点的真实状态；原固定IR及E1-6标准版本仍可解析。旧候选不能因新链路上线变成已批准数据，后续任务不改写旧原物。
+
+| 材料 | 职责 |
+|---|---|
+| [文档总入口](docs/README.md) | 当前模块、日期化审计、原要求和历史计划导航 |
+| [更新要求](更新要求.md) | 用户需求与原升级安排，保留原文 |
+| [系统重塑计划](ExtractESG/docs/SYSTEM_RESHAPING_PLAN.md) | 历史架构审计与工作包依据 |
+| [平台优先计划](ExtractESG/docs/ESRS_PRIORITY_PLATFORM_PLAN.md)、[原表目录](ExtractESG/docs/ESRS_DATAPOINT_CATALOG.md) | 用户主要选择及标准全集依据 |
+| [旧升级实施](ExtractESG/docs/UPGRADE_IMPLEMENTATION_REPORT.md)、[真实测试后修复](ExtractESG/docs/POST_TEST_REPAIR_IMPLEMENTATION_REPORT.md) | 对应日期实现、旧错误因果与验收边界 |
+| [标准建设记录](ExtractESG/docs/ESRS_STANDARD_PACKAGE_BUILD.md)、[平台实施](ExtractESG/docs/PRIORITY_PLATFORM_IMPLEMENTATION.md) | 制包及数据库/平台批次事实 |
+| [Document手册](ExtractESG/document_ir_extract/README.md)、[Targeted手册](ExtractESG/targeted_table_extract/README.md) | 兼容宿主、内部流程与成果合同 |
+| [标准手册](ExtractESG/standards/README.md)、[数据库手册](database/README.md) | 当前唯一作者源、版本和SQL模块 |
+| [Console手册](ConsoleESG/README.md)、[PlatESG手册](PlatESG/README.md) | 当前操作台及公开产品 |
+
+当前状态只维护一套项目手册，精确行为维护于对应模块合同；日期化记录保留当时结论，不静默改写。OCR/IR/Bundle、密钥、模型、真实报告数据、本地数据库、日志及索引不提交；标准作者源、编译发布、schema、迁移、测试和审计清单按项目规则维护。清理临时材料先确认本轮所有权、建立inventory及可恢复原件，不为目录整齐删除用户需求或历史证据。

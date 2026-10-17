@@ -14,4 +14,4 @@ if [ -z "$PYTHON_BIN" ]; then
   exit 1
 fi
 
-exec "$PYTHON_BIN" -m http.server 18081 --bind 127.0.0.1 --directory "$ROOT/frontend"
+exec "$PYTHON_BIN" "$ROOT/../scripts/serve_workbench_frontend.py"

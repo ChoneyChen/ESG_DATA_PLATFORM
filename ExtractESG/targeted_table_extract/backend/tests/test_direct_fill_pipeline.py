@@ -16,9 +16,32 @@ def test_output_contract_is_compiled_from_standard_package_elements(tmp_path) ->
     packet = regions[0]
     context = json.loads(packet.model_context)
     expected = {item["code"] for item in context["elements"]}
-    fields = DirectFillTemplateCompiler().compile(packet)["row_groups"][0]["shared_fields"]
-    assert set(fields) == expected
-    assert "pollution_medium" not in fields  # fixed by the standard package
+    row_group = DirectFillTemplateCompiler().compile(packet)["row_groups"][0]
+    shared = set(row_group["shared_fields"])
+    cell = set(row_group["values"][0]["fields"])
+    assert shared | cell == expected
+    assert shared.isdisjoint(cell)
+    assert {"emission_amount", "reporting_period"} <= cell
+    assert "pollution_medium" not in shared | cell  # fixed by the standard package
+
+
+def test_qualitative_metrics_use_assertions_not_numeric_values(tmp_path) -> None:
+    _, _, regions, _, _ = build_pipeline(tmp_path)
+    packet = regions[0]
+    context = json.loads(packet.model_context)
+    context["metric"]["data_class"] = "qualitative"
+    packet = packet.model_copy(
+        update={
+            "model_context": json.dumps(
+                context, ensure_ascii=False, separators=(",", ":")
+            )
+        }
+    )
+
+    template = DirectFillTemplateCompiler().compile(packet)
+
+    assert "assertions" in template
+    assert "row_groups" not in template
 
 
 def test_qiniu_schema_allows_multiple_rows_and_direct_scalar_fields(tmp_path) -> None:
@@ -43,6 +66,32 @@ def test_qiniu_schema_allows_multiple_rows_and_direct_scalar_fields(tmp_path) ->
         "boolean",
     }
     assert all("properties" not in item for item in amount["anyOf"])
+
+
+def test_qiniu_qualitative_schema_requires_assertions_only(tmp_path) -> None:
+    _, _, regions, _, _ = build_pipeline(tmp_path)
+    packet = regions[0]
+    context = json.loads(packet.model_context)
+    context["metric"]["data_class"] = "qualitative"
+    packet = packet.model_copy(
+        update={
+            "model_context": json.dumps(
+                context, ensure_ascii=False, separators=(",", ":")
+            )
+        }
+    )
+    model = QiniuVlmModel(
+        api_key="test",
+        base_url="https://example.invalid/v1",
+        model_id="test-vlm",
+        requester=lambda *_: {},
+    )
+
+    schema = model._decision_response_format(packet)["json_schema"]["schema"]
+
+    assert "assertions" in schema["properties"]
+    assert "row_groups" not in schema["properties"]
+    assert "assertions" in schema["required"]
 
 
 def test_region_packets_are_the_only_model_bounded_layer(tmp_path) -> None:

@@ -1,0 +1,85 @@
+[
+  {
+    "description": "关注物质与高度关注物质分别披露，不合并计数。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.e2-5.relation.family01",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-5.dp02",
+      "esrs.2023-set1.e2-5.dp03",
+      "esrs.2023-set1.e2-5.dp04",
+      "esrs.2023-set1.e2-5.dp05",
+      "esrs.2023-set1.e2-5.dp06",
+      "esrs.2023-set1.e2-5.dp07"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-5.dp08",
+      "esrs.2023-set1.e2-5.dp09",
+      "esrs.2023-set1.e2-5.dp10",
+      "esrs.2023-set1.e2-5.dp11",
+      "esrs.2023-set1.e2-5.dp12",
+      "esrs.2023-set1.e2-5.dp13"
+    ]
+  },
+  {
+    "description": "生成使用采购与离开设施的流量独立。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.e2-5.relation.family02",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-5.dp02",
+      "esrs.2023-set1.e2-5.dp08"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-5.dp03",
+      "esrs.2023-set1.e2-5.dp09"
+    ]
+  },
+  {
+    "description": "危害类别结构只引用已有物质量事实。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "reuse_source_facts",
+    "relation_id": "esrs.2023-set1.e2-5.relation.family03",
+    "relation_type": "presentation_of",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-5.dp02",
+      "esrs.2023-set1.e2-5.dp03",
+      "esrs.2023-set1.e2-5.dp04",
+      "esrs.2023-set1.e2-5.dp05",
+      "esrs.2023-set1.e2-5.dp06",
+      "esrs.2023-set1.e2-5.dp07",
+      "esrs.2023-set1.e2-5.dp08",
+      "esrs.2023-set1.e2-5.dp09",
+      "esrs.2023-set1.e2-5.dp10",
+      "esrs.2023-set1.e2-5.dp11",
+      "esrs.2023-set1.e2-5.dp12",
+      "esrs.2023-set1.e2-5.dp13"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-5.dp01"
+    ]
+  }
+]

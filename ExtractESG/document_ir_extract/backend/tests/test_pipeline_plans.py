@@ -44,7 +44,11 @@ def test_plan_dependencies_restart_and_multi_standard_completion(tmp_path):
     state = engine.list()[0]
     assert state["status"] == "completed"
     assert "secret-not-persisted" not in json.dumps(state)
-    assert store.clear_history() == []  # A plan's dependency journal is retained.
+    assert set(store.clear_history()) == {'pt-1', 'pt-2', 'pt-3', 'pt-4'}
+    assert store.list() == []
+    assert store.get('pt-1').archived_at  # The dependency journal remains readable.
+    engine.tick()
+    assert calls == ["ocr", "ir", "targeted:e1-5", "targeted:e1-6"]
 
 
 def test_enqueue_checkpoint_gap_does_not_duplicate_work(tmp_path):
@@ -55,6 +59,20 @@ def test_enqueue_checkpoint_gap_does_not_duplicate_work(tmp_path):
     engine.save(state)
     engine.tick()
     assert calls == ["ocr"]
+
+
+def test_plan_cancel_waits_for_running_child_exit_and_never_dispatches_next(tmp_path):
+    store,engine,plan,calls=setup_plan(tmp_path)
+    engine.tick()
+    store.update('pt-1',status=PipelineTaskStatus.RUNNING)
+    pending=engine.action(plan['plan_id'],'cancel')
+    assert pending['status']=='cancelling'
+    assert store.get('pt-1').cancel_requested
+    engine.tick()
+    assert engine.list()[0]['status']=='cancelling' and calls==['ocr']
+    store.update('pt-1',status=PipelineTaskStatus.CANCELLED)
+    engine.tick()
+    assert engine.list()[0]['status']=='cancelled' and calls==['ocr']
 
 
 def test_one_document_failure_does_not_block_another_and_pause_stops_dispatch(tmp_path):

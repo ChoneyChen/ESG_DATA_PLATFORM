@@ -1,0 +1,338 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp01",
+    "description": "Description of significant groups of products and (or) services offered。主要产品服务。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of significant groups of products and (or) services offered",
+      "zh": "主要产品服务"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp02",
+    "description": "Description of significant markets and (or) customer groups served。主要市场客户群。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of significant markets and (or) customer groups served",
+      "zh": "主要市场客户群"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp03",
+    "description": "Total number of employees (head count)。员工人头总数。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Total number of employees (head count)",
+      "zh": "员工人头总数"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp04",
+    "description": "Number of employees (head count)。员工人头细分。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Number of employees (head count)",
+      "zh": "员工人头细分"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp05",
+    "description": "Description of products and services that are banned in certain markets。特定市场禁售产品服务。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of products and services that are banned in certain markets",
+      "zh": "特定市场禁售产品服务"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp06",
+    "description": "Total revenue。收入总额。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Total revenue",
+      "zh": "收入总额"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp07",
+    "description": "Revenue by significant ESRS Sectors。重要ESRS行业收入分解。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue by significant ESRS Sectors",
+      "zh": "重要ESRS行业收入分解"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp08",
+    "description": "List of additional significant ESRS sectors in which significant activities are developed or in which undertaking is or may be connected to material impacts。额外重要ESRS行业。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "List of additional significant ESRS sectors in which significant activities are developed or in which undertaking is or may be connected to material impacts",
+      "zh": "额外重要ESRS行业"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp09",
+    "description": "Undertaking is active in fossil fuel (coal, oil and gas) sector。化石燃料行业活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Undertaking is active in fossil fuel (coal, oil and gas) sector",
+      "zh": "化石燃料行业活动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp10",
+    "description": "Revenue from fossil fuel (coal, oil and gas) sector。化石燃料行业收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from fossil fuel (coal, oil and gas) sector",
+      "zh": "化石燃料行业收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp11",
+    "description": "Revenue from coal。煤炭收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from coal",
+      "zh": "煤炭收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp12",
+    "description": "Revenue from oil。石油收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from oil",
+      "zh": "石油收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp13",
+    "description": "Revenue from gas。天然气收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from gas",
+      "zh": "天然气收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp14",
+    "description": "Revenue from Taxonomy-aligned economic activities related to fossil gas。分类法对齐的化石气活动收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from Taxonomy-aligned economic activities related to fossil gas",
+      "zh": "分类法对齐的化石气活动收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp15",
+    "description": "Undertaking is active in chemicals production。化学品生产活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Undertaking is active in chemicals production",
+      "zh": "化学品生产活动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp16",
+    "description": "Revenue from chemicals production。化学品生产收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from chemicals production",
+      "zh": "化学品生产收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp17",
+    "description": "Undertaking is active in controversial weapons。争议武器活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Undertaking is active in controversial weapons",
+      "zh": "争议武器活动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp18",
+    "description": "Revenue from controversial weapons。争议武器收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from controversial weapons",
+      "zh": "争议武器收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp19",
+    "description": "Undertaking is active in cultivation and production of tobacco。烟草种植生产活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Undertaking is active in cultivation and production of tobacco",
+      "zh": "烟草种植生产活动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp20",
+    "description": "Revenue from cultivation and production of tobacco。烟草种植生产收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Revenue from cultivation and production of tobacco",
+      "zh": "烟草种植生产收入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp21",
+    "description": "Description of sustainability-related goals in terms of significant groups of products and services, customer categories, geographical areas and relationships with stakeholders。产品客户地域可持续目标。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of sustainability-related goals in terms of significant groups of products and services, customer categories, geographical areas and relationships with stakeholders",
+      "zh": "产品客户地域可持续目标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp22",
+    "description": "Disclosure of assessment of current significant products and (or) services, and significant markets and customer groups, in relation to sustainability-related goals。产品市场与可持续目标评估。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Disclosure of assessment of current significant products and (or) services, and significant markets and customer groups, in relation to sustainability-related goals",
+      "zh": "产品市场与可持续目标评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp23",
+    "description": "Disclosure of elements of strategy that relate to or impact sustainability matters。战略与可持续事项关系。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Disclosure of elements of strategy that relate to or impact sustainability matters",
+      "zh": "战略与可持续事项关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp24",
+    "description": "List of ESRS sectors that are significant for undertaking。重要ESRS行业清单。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "List of ESRS sectors that are significant for undertaking",
+      "zh": "重要ESRS行业清单"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp25",
+    "description": "Description of business model and value chain。商业模式与价值链。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of business model and value chain",
+      "zh": "商业模式与价值链"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp26",
+    "description": "Description of inputs and approach to gathering, developing and securing inputs。投入及获取方式。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of inputs and approach to gathering, developing and securing inputs",
+      "zh": "投入及获取方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp27",
+    "description": "Description of outputs and outcomes in terms of current and expected benefits for customers, investors and other stakeholders。产出结果及利益。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of outputs and outcomes in terms of current and expected benefits for customers, investors and other stakeholders",
+      "zh": "产出结果及利益"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-1.concept.dp28",
+    "description": "Description of main features of upstream and downstream value chain and undertakings position in value chain。上下游价值链与企业位置。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "labels": {
+      "en": "Description of main features of upstream and downstream value chain and undertakings position in value chain",
+      "zh": "上下游价值链与企业位置"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-1.source.law",
+      "esrs.2023-set1.sbm-1.source.ig3"
+    ]
+  }
+]

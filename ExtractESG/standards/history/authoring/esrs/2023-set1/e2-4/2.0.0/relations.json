@@ -1,0 +1,211 @@
+[
+  {
+    "description": "IG 3 marks the combined, generated and used datapoints as alternatives; the relation is not an addition formula.",
+    "member_metric_ids": [
+      "esrs.2023-set1.e2-4.dp05",
+      "esrs.2023-set1.e2-4.dp06",
+      "esrs.2023-set1.e2-4.dp07"
+    ],
+    "policy": "esrs.2023-set1.e2-4.policy.report-applicable-alternative-without-arithmetic",
+    "relation_id": "esrs.2023-set1.e2-4.relation.microplastics-alternative-group",
+    "relation_type": "alternative_group",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-note"
+    ]
+  },
+  {
+    "activation_predicate": {
+      "operator": "in",
+      "path": "esrs.2023-set1.e2-4.dp09.element.method_code",
+      "value": [
+        "periodic_measurement",
+        "site_specific_calculation",
+        "published_factor_calculation",
+        "estimation"
+      ]
+    },
+    "description": "The reason disclosure is applicable when a method below direct measurement is used.",
+    "policy": "esrs.2023-set1.e2-4.policy.activate-when-inferior-method-reported",
+    "relation_id": "esrs.2023-set1.e2-4.relation.inferior-method-reason-activation",
+    "relation_type": "conditional_activation",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp09"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp15"
+    ]
+  },
+  {
+    "activation_predicate": {
+      "operator": "eq",
+      "path": "report_context.ied_or_bref_applicable",
+      "value": true
+    },
+    "description": "AR 25 supplementary datapoints are considered when IED and relevant BREF or BAT conclusions apply.",
+    "policy": "esrs.2023-set1.e2-4.policy.activate-ied-bref-supplementary-datapoints",
+    "relation_id": "esrs.2023-set1.e2-4.relation.ied-bref-conditional-group",
+    "relation_type": "conditional_activation",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp16",
+      "esrs.2023-set1.e2-4.dp17",
+      "esrs.2023-set1.e2-4.dp18",
+      "esrs.2023-set1.e2-4.dp19",
+      "esrs.2023-set1.e2-4.dp20"
+    ]
+  },
+  {
+    "relation_id": "esrs.2023-set1.e2-4.relation.v2-01",
+    "relation_type": "presentation_of",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp02",
+      "esrs.2023-set1.e2-4.dp03",
+      "esrs.2023-set1.e2-4.dp04"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp01"
+    ],
+    "policy": "semantic_evidence_link",
+    "description": "披露结构投影；引用源事实，不将数值再次伪装成结构断言。",
+    "identity_axes": [
+      "period",
+      "reporting_entity",
+      "reporting_boundary",
+      "aggregation_role"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ]
+  },
+  {
+    "relation_id": "esrs.2023-set1.e2-4.relation.v2-02",
+    "relation_type": "decomposes",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp05"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp06",
+      "esrs.2023-set1.e2-4.dp07"
+    ],
+    "policy": "semantic_evidence_link",
+    "description": "成员分解；总量与组成项分别保留，不重复汇总。",
+    "identity_axes": [
+      "period",
+      "reporting_entity",
+      "reporting_boundary",
+      "aggregation_role"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ]
+  },
+  {
+    "relation_id": "esrs.2023-set1.e2-4.relation.v2-03",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp08",
+      "esrs.2023-set1.e2-4.dp09",
+      "esrs.2023-set1.e2-4.dp10",
+      "esrs.2023-set1.e2-4.dp15"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp02",
+      "esrs.2023-set1.e2-4.dp03",
+      "esrs.2023-set1.e2-4.dp04"
+    ],
+    "policy": "semantic_evidence_link",
+    "description": "方法或对账证据关联；说明不能替代测量数值。",
+    "identity_axes": [
+      "period",
+      "reporting_entity",
+      "reporting_boundary",
+      "aggregation_role"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ]
+  },
+  {
+    "relation_id": "esrs.2023-set1.e2-4.relation.v2-04",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp03"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp11",
+      "esrs.2023-set1.e2-4.dp12"
+    ],
+    "policy": "semantic_evidence_link",
+    "description": "独立延伸披露；主指标缺失不表示该分支缺失，不能复制主量。",
+    "identity_axes": [
+      "period",
+      "reporting_entity",
+      "reporting_boundary",
+      "aggregation_role"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ]
+  },
+  {
+    "relation_id": "esrs.2023-set1.e2-4.relation.v2-05",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp04"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp13",
+      "esrs.2023-set1.e2-4.dp14"
+    ],
+    "policy": "semantic_evidence_link",
+    "description": "独立延伸披露；主指标缺失不表示该分支缺失，不能复制主量。",
+    "identity_axes": [
+      "period",
+      "reporting_entity",
+      "reporting_boundary",
+      "aggregation_role"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ]
+  },
+  {
+    "relation_id": "esrs.2023-set1.e2-4.relation.v2-06",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.e2-4.dp02",
+      "esrs.2023-set1.e2-4.dp03",
+      "esrs.2023-set1.e2-4.dp04"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.e2-4.dp16",
+      "esrs.2023-set1.e2-4.dp17",
+      "esrs.2023-set1.e2-4.dp18",
+      "esrs.2023-set1.e2-4.dp19",
+      "esrs.2023-set1.e2-4.dp20"
+    ],
+    "policy": "semantic_evidence_link",
+    "description": "独立延伸披露；主指标缺失不表示该分支缺失，不能复制主量。",
+    "identity_axes": [
+      "period",
+      "reporting_entity",
+      "reporting_boundary",
+      "aggregation_role"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ]
+  }
+]

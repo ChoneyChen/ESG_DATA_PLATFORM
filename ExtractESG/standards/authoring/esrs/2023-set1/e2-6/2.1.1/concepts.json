@@ -1,0 +1,134 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp01",
+    "description": "Disclosure of quantitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响金额。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Disclosure of quantitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts",
+      "zh": "污染相关预期财务影响金额"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp02",
+    "description": "Percentage of net revenue made with products and services that are or that contain substances of concern。含关注物质产品服务的收入比例。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Percentage of net revenue made with products and services that are or that contain substances of concern",
+      "zh": "含关注物质产品服务的收入比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp03",
+    "description": "Percentage of net revenue made with products and services that are or that contain substances of very high concern。含高度关注物质产品服务的收入比例。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Percentage of net revenue made with products and services that are or that contain substances of very high concern",
+      "zh": "含高度关注物质产品服务的收入比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp04",
+    "description": "Operating expenditures (OpEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的运营支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Operating expenditures (OpEx) in conjunction with major incidents and deposits (pollution)",
+      "zh": "重大污染事故和沉积的运营支出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp05",
+    "description": "Capital expenditures (CapEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的资本支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Capital expenditures (CapEx) in conjunction with major incidents and deposits (pollution)",
+      "zh": "重大污染事故和沉积的资本支出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp06",
+    "description": "Provisions for environmental protection and remediation costs (pollution)。环境保护和修复准备金。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Provisions for environmental protection and remediation costs (pollution)",
+      "zh": "环境保护和修复准备金"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp07",
+    "description": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts",
+      "zh": "污染相关预期财务影响说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp08",
+    "description": "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)。污染财务影响的对象与时间范围。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)",
+      "zh": "污染财务影响的对象与时间范围"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp09",
+    "description": "Disclosure of critical assumptions used to quantify anticipated financial effects, sources and level of uncertainty of assumptions (pollution)。污染财务影响的假设来源与不确定性。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Disclosure of critical assumptions used to quantify anticipated financial effects, sources and level of uncertainty of assumptions (pollution)",
+      "zh": "污染财务影响的假设来源与不确定性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp10",
+    "description": "Description of material incidents and deposits whereby pollution had negative impacts on environment and (or) is expected to have negative effects on financial cash flows, financial position and financial performance。重大污染事故和沉积说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Description of material incidents and deposits whereby pollution had negative impacts on environment and (or) is expected to have negative effects on financial cash flows, financial position and financial performance",
+      "zh": "重大污染事故和沉积说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-6.concept.dp11",
+    "description": "Disclosure of assessment of related products and services at risk and explanation how time horizon is defined, financial amounts are estimated, and which critical assumptions are made (pollution)。风险产品服务的财务估计方法。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "labels": {
+      "en": "Disclosure of assessment of related products and services at risk and explanation how time horizon is defined, financial amounts are estimated, and which critical assumptions are made (pollution)",
+      "zh": "风险产品服务的财务估计方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-6.source.law",
+      "esrs.2023-set1.e2-6.source.ig3"
+    ]
+  }
+]

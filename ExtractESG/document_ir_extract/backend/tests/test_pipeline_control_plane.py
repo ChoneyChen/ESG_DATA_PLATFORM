@@ -76,7 +76,7 @@ def test_queue_create_many_is_atomic_and_keeps_package_order(tmp_path: Path) -> 
     duplicate[1]["task_id"] = "pt-duplicate"
     try:
         store.create_many(duplicate)
-    except sqlite3.IntegrityError:
+    except (sqlite3.IntegrityError, ValueError):
         pass
     else:
         raise AssertionError("duplicate batch should fail atomically")
@@ -127,14 +127,16 @@ def test_report_asset_catalog_tracks_successful_ocr_by_hash(tmp_path: Path) -> N
     assert tracked["ocr_runs"][0]["run_id"] == run_root.name
 
 
-def test_report_asset_delete_requires_no_typed_filename(tmp_path: Path) -> None:
+def test_report_asset_legacy_delete_cannot_pretend_to_delete(tmp_path: Path) -> None:
     catalog = ReportAssetCatalog(tmp_path / "pdf", tmp_path / "ocr")
     asset = catalog.add("报告.pdf", io.BytesIO(b"%PDF-1.4\nfixture"))
 
-    result = catalog.delete(asset["asset_id"])
+    import pytest
+    with pytest.raises(ValueError,match="LibraryDeletionService"):
+        catalog.delete(asset["asset_id"])
 
-    assert result["deleted"] is True
-    assert not (tmp_path / "pdf" / "报告.pdf").exists()
+    assert (tmp_path / "pdf" / "报告.pdf").exists()
+    assert catalog.refresh()["assets"]
 
 
 class _FakeHooks(PipelineTaskHooks):
@@ -160,11 +162,13 @@ def _wait_for_status(
     task_id: str,
     statuses: set[PipelineTaskStatus],
     timeout: float = 5,
+    *,
+    require_worker_pid: bool = False,
 ):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         task = store.get(task_id)
-        if task.status in statuses:
+        if task.status in statuses and (not require_worker_pid or task.worker_pid):
             return task
         time.sleep(0.02)
     raise AssertionError(f"Task {task_id} did not enter {statuses}")
@@ -184,7 +188,11 @@ def test_scheduler_runs_one_isolated_worker_and_terminates_process_group(tmp_pat
     scheduler = PipelineScheduler(store, RuntimeSecretVault(), _FakeHooks(), poll_interval_seconds=0.02)
     scheduler.start()
     try:
-        running = _wait_for_status(store, first.task_id, {PipelineTaskStatus.RUNNING})
+        # Claiming reserves the queue slot as RUNNING with stage=starting;
+        # the process identity is published only after Popen succeeds.
+        running = _wait_for_status(
+            store, first.task_id, {PipelineTaskStatus.RUNNING}, require_worker_pid=True
+        )
         assert running.worker_pid
         store.request_cancel(first.task_id)
         scheduler.wake()
@@ -216,6 +224,154 @@ def test_scheduler_shutdown_marks_active_task_interrupted(tmp_path: Path) -> Non
     assert interrupted.status == PipelineTaskStatus.INTERRUPTED
     assert interrupted.worker_pid is None
     assert hooks.interrupted_ids == [task.task_id]
+
+
+def test_restart_reconnects_live_worker_without_clearing_ownership(tmp_path: Path) -> None:
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    _create_task(store, "pt-live")
+    store.claim_next()
+    store.update("pt-live", worker_pid=os.getpid())
+    assert store.recover_interrupted() == []
+    assert store.get("pt-live").worker_pid == os.getpid()
+    assert store.get("pt-live").status == PipelineTaskStatus.RUNNING
+
+
+def test_restart_recovers_explicit_worker_result_without_http_probe(tmp_path: Path) -> None:
+    class Hooks(_FakeHooks):
+        def __init__(self):
+            super().__init__()
+            self.results = []
+
+        def completed(self, task, result):
+            self.results.append(result)
+
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    _create_task(store, "pt-finished-offline")
+    store.claim_next()
+    result = {"manifest_path": str(tmp_path / "ocr-manifest.json"), "page_count": 5}
+    log = tmp_path / "tasks" / "pt-finished-offline" / "worker.log"
+    log.parent.mkdir(parents=True)
+    log.write_text("diagnostic only\nESG_PIPELINE_EVENT " + json.dumps({"kind": "result", "payload": result}) + "\n", encoding="utf-8")
+    hooks = Hooks()
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), hooks, poll_interval_seconds=0.1)
+    scheduler.start()
+    try:
+        assert store.get("pt-finished-offline").status == PipelineTaskStatus.COMPLETED
+        assert hooks.results == [result]
+        assert hooks.interrupted_ids == []
+    finally:
+        scheduler.stop()
+
+
+def test_worker_log_does_not_infer_success_from_nonterminal_targeted_status(tmp_path: Path) -> None:
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    task = store.create(task_id="pt-running", task_type=PipelineTaskType.TARGETED_EXTRACTION,
+                        operation="run", title="not finished", payload={}, native_job_id="tx-running")
+    log = tmp_path / "tasks" / task.task_id / "worker.log"
+    log.parent.mkdir(parents=True)
+    log.write_text("ESG_PIPELINE_EVENT " + json.dumps({"kind": "result", "payload": {"status": "running"}}) + "\n", encoding="utf-8")
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), _FakeHooks())
+    assert scheduler._read_worker_result(task) is None
+
+
+def test_worker_log_does_not_reuse_terminal_result_from_previous_attempt(tmp_path: Path) -> None:
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    task = store.create(task_id="pt-resumed", task_type=PipelineTaskType.TARGETED_EXTRACTION,
+                        operation="run", title="resumed", payload={}, native_job_id="tx-resumed")
+    log = tmp_path / "tasks" / task.task_id / "worker.log"
+    log.parent.mkdir(parents=True)
+    log.write_text("ESG_PIPELINE_EVENT " + json.dumps({"kind": "result", "payload": {"status": "completed"}}) + "\n", encoding="utf-8")
+    store.add_event(task.task_id, "running", "info", "New attempt started", {"worker_log_offset": log.stat().st_size})
+    with log.open("a", encoding="utf-8") as output:
+        output.write("Second attempt failed before producing a result\n")
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), _FakeHooks())
+    assert scheduler._read_worker_result(task) is None
+
+
+def test_repeated_probe_does_not_append_identical_progress_events(tmp_path: Path) -> None:
+    class Hooks(_FakeHooks):
+        def probe(self, task):
+            return {"stage": "fake-read", "message": "Reading one table", "progress_current": 0, "progress_total": 1}
+
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    store.create(task_id="pt-probe", task_type=PipelineTaskType.OCR, operation="ocr", title="probe", payload={"delay": 2.2}, native_job_id="ocr-probe")
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), Hooks(), poll_interval_seconds=0.1)
+    scheduler.start()
+    try:
+        _wait_for_status(store, "pt-probe", {PipelineTaskStatus.COMPLETED})
+        probes = [event for event in store.events('pt-probe') if event['stage'] == 'fake-read'
+            and event.get('detail', {}).get('changes', {}).get('progress_json')
+            and json.loads(event['detail']['changes']['progress_json'])['status'] == 'running']
+        assert len(probes) == 1
+        # A measured page count remains valid even if the producer emits an
+        # unregistered phase; the task type must not invent its phase label.
+        assert probes[0]['message'] == '执行阶段待识别'
+        progress = json.loads(probes[0]['detail']['changes']['progress_json'])
+        assert (progress['stage_code'], progress['unit'], progress['current'], progress['total']) == ('fake-read', 'pages', 0, 1)
+    finally:
+        scheduler.stop()
+
+
+def test_reconnected_worker_terminal_state_is_synchronized(tmp_path: Path) -> None:
+    class Hooks(_FakeHooks):
+        def probe(self, task):
+            return {"status": "partial", "stage": "finished", "message": "Partial extraction", "progress_current": 1, "progress_total": 2, "summary": {"record_counts": {"observation": 3}}}
+
+    process = __import__("subprocess").Popen([sys.executable, "-c", "import time; time.sleep(0.25)"], start_new_session=True)
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    _create_task(store, "pt-existing")
+    store.claim_next()
+    store.update("pt-existing", worker_pid=process.pid)
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), Hooks(), poll_interval_seconds=0.1)
+    scheduler.start()
+    try:
+        process.wait(timeout=3)
+        result = _wait_for_status(store, "pt-existing", {PipelineTaskStatus.PARTIAL})
+        assert result.worker_pid is None
+        assert result.progress_current == 1
+        assert any("no model restart" in event["message"] for event in store.events("pt-existing"))
+    finally:
+        scheduler.stop()
+        if process.poll() is None:
+            process.kill()
+            process.wait()
+
+
+def test_restart_honors_a_finished_native_job_before_interrupting(tmp_path: Path) -> None:
+    class Hooks(_FakeHooks):
+        def probe(self, task):
+            return {"status": "completed", "stage": "finished", "progress_current": 2, "progress_total": 2, "summary": {"record_counts": {"observation": 2}}}
+
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    _create_task(store, "pt-finished-offline")
+    store.claim_next()  # Simulate lost API ownership with no remaining process.
+    hooks = Hooks()
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), hooks, poll_interval_seconds=0.1)
+    scheduler.start()
+    try:
+        assert store.get("pt-finished-offline").status == PipelineTaskStatus.COMPLETED
+        assert hooks.interrupted_ids == []
+    finally:
+        scheduler.stop()
+
+
+def test_scheduler_leaves_task_queued_while_shared_slot_is_busy(tmp_path: Path) -> None:
+    from esg_v2.control_plane.execution_slot import ExecutionSlot
+
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    _create_task(store, "pt-slot-busy")
+    slot = ExecutionSlot(tmp_path / "model-execution.lock").acquire()
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), _FakeHooks(), poll_interval_seconds=0.1)
+    scheduler.start()
+    try:
+        time.sleep(0.2)
+        assert store.get("pt-slot-busy").status == PipelineTaskStatus.QUEUED
+        assert store.get("pt-slot-busy").worker_pid is None
+        slot.close()
+        _wait_for_status(store, "pt-slot-busy", {PipelineTaskStatus.COMPLETED})
+    finally:
+        slot.close()
+        scheduler.stop()
 
 
 def test_targeted_cloud_secret_is_not_persisted_and_restart_requires_environment(
@@ -328,6 +484,8 @@ def test_targeted_cloud_provider_survives_queue_to_worker_command(tmp_path: Path
         semantic_provider="qiniu_vlm",
         semantic_model="qwen-cloud-vlm",
         retrieval_object_top_n=5,
+        extraction_mode="per_metric",
+        shared_object_budget=6,
         qiniu_api_key="runtime-only",
     )
     store = PipelineQueueStore(tmp_path / "queue.sqlite3")
@@ -354,5 +512,8 @@ def test_targeted_cloud_provider_survives_queue_to_worker_command(tmp_path: Path
     assert command.argv[provider_index + 1] == "qiniu_vlm"
     assert command.argv[model_index + 1] == "qwen-cloud-vlm"
     assert command.argv[object_top_n_index + 1] == "5"
+    assert command.argv[command.argv.index("--extraction-mode") + 1] == "per_metric"
+    assert command.argv[command.argv.index("--shared-object-budget") + 1] == "6"
     assert command.environment["QINIU_API_KEY"] == "runtime-only"
+    assert "--worker" in command.argv
     assert "runtime-only" not in json.dumps(task.payload)

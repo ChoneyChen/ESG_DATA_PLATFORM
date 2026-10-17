@@ -7,6 +7,7 @@ WORKSPACE_ROOT="$(cd "$EXTRACTESG_ROOT/../.." && pwd)"
 DOCUMENT_ROOT="${ESG_DOCUMENT_IR_APP_ROOT:-$EXTRACTESG_ROOT/document_ir_extract}"
 TARGETED_ROOT="${ESG_TARGETED_APP_ROOT:-$EXTRACTESG_ROOT/targeted_table_extract}"
 RUNTIME_ROOT="${ESG_PLATFORM_RUNTIME_ROOT:-$WORKSPACE_ROOT/.local/platform-runtime}"
+export ESG_EXTENSION_ROOT="${ESG_EXTENSION_ROOT:-$EXTRACTESG_ROOT/.local/extensions}"
 
 DOC_BACKEND_URL="${ESG_DOCUMENT_BACKEND_URL:-http://127.0.0.1:18080}"
 PLATFORM_FRONTEND_URL="${ESG_PLATFORM_FRONTEND_URL:-http://127.0.0.1:18081}"
@@ -22,24 +23,29 @@ mkdir -p "$RUNTIME_ROOT"
 LOGS[doc_backend]="$RUNTIME_ROOT/document-backend.log"
 LOGS[platform_frontend]="$RUNTIME_ROOT/platform-frontend.log"
 LOGS[targeted_backend]="$RUNTIME_ROOT/targeted-backend.log"
+RELEASE_PYTHON="${ESG_RELEASE_PYTHON:-$DOCUMENT_ROOT/backend/.venv/bin/python}"
+[[ -x "$RELEASE_PYTHON" ]] || RELEASE_PYTHON="${ESG_MODEL_PYTHON:-$HOME/Desktop/model/.runtime/venv/bin/python}"
+[[ -x "$RELEASE_PYTHON" ]] || RELEASE_PYTHON="$(command -v python3)"
+"$RELEASE_PYTHON" "$SCRIPT_DIR/bootstrap_extension_runtime.py" --root "$ESG_EXTENSION_ROOT" || exit 1
+typeset -A READINESS_ERRORS
 
 service_ready() {
+  local url identity diagnostic
   case "$1" in
     doc_backend)
-      curl --silent --fail --max-time 2 "$DOC_BACKEND_URL/health" 2>/dev/null \
-        | grep -q '"service":"esg-v2-backend"'
+      url="$DOC_BACKEND_URL/health/compatibility"; identity="document-backend"
       ;;
     platform_frontend)
-      curl --silent --fail --max-time 2 "$PLATFORM_FRONTEND_URL/" 2>/dev/null \
-        | grep -q 'Pipeline Workbench'
+      url="$PLATFORM_FRONTEND_URL/api/compatibility"; identity="workbench-frontend"
       ;;
     targeted_backend)
-      curl --silent --fail --max-time 2 "$TARGET_BACKEND_URL/api/health" 2>/dev/null \
-        | grep -q '"service":"targeted-table-extraction"' \
-        && curl --silent --fail --max-time 2 "$TARGET_BACKEND_URL/api/config" 2>/dev/null \
-        | grep -q '"semantic_providers"'
+      url="$TARGET_BACKEND_URL/api/compatibility"; identity="targeted-backend"
       ;;
   esac
+  diagnostic="$("$RELEASE_PYTHON" "$SCRIPT_DIR/workbench_release.py" --root "$EXTRACTESG_ROOT" --url "$url" --service "$identity" 2>&1)"
+  local result=$?
+  READINESS_ERRORS[$1]="$diagnostic"
+  return $result
 }
 
 service_port() {
@@ -101,7 +107,7 @@ start_service() {
   fi
   if /usr/sbin/lsof -tiTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; then
     /usr/sbin/lsof -nP -iTCP:"$port" -sTCP:LISTEN 2>/dev/null || true
-    fail "$label 无法启动：端口 $port 被其他应用占用。"
+    fail "$label 无法启动：端口 $port 的服务未通过版本与业务检查。${READINESS_ERRORS[$service]}。请先关闭原启动窗口或停止旧服务，再重新启动；已有任务与成果保留。"
   fi
 
   : >"${LOGS[$service]}"
@@ -133,6 +139,7 @@ wait_for_service() {
     (( elapsed += 1 ))
   done
   print -u2 "\n等待 $label 超时，最近日志："
+  print -u2 "${READINESS_ERRORS[$service]:-版本检查未完成}"
   tail -50 "${LOGS[$service]}" 2>/dev/null || true
   return 1
 }
@@ -140,10 +147,20 @@ wait_for_service() {
 [[ -d "$DOCUMENT_ROOT" ]] || fail "找不到 Document IR 应用：$DOCUMENT_ROOT"
 [[ -d "$TARGETED_ROOT" ]] || fail "找不到抽取填表应用：$TARGETED_ROOT"
 
+# Build the independent operator app before any service captures the release.
+CONSOLE_ROOT="$EXTRACTESG_ROOT/../ConsoleESG"
+[[ -f "$CONSOLE_ROOT/package.json" ]] || fail "找不到独立工作台 ConsoleESG"
+command -v npm >/dev/null 2>&1 || fail "独立工作台需要 Node.js/npm"
+if [[ ! -d "$CONSOLE_ROOT/node_modules" ]]; then
+  [[ "${ESG_SKIP_DEPENDENCY_INSTALL:-0}" != "1" ]] || fail "ConsoleESG 依赖尚未安装，请先在该目录运行 npm ci"
+  npm --prefix "$CONSOLE_ROOT" ci --no-audit --no-fund || fail "工作台依赖安装失败"
+fi
+npm --prefix "$CONSOLE_ROOT" run build || fail "独立工作台构建失败；既有服务和业务成果保留"
+
 trap cleanup EXIT
 trap 'print "\n正在停止本启动器创建的服务…"; cleanup; exit 0' INT TERM HUP
 
-print "\nESG Evidence Hub 统一工作台"
+print "\nConsoleESG 数据生产工作台"
 print "Document IR：$DOCUMENT_ROOT"
 print "抽取填表：  $TARGETED_ROOT\n"
 
@@ -164,8 +181,7 @@ print "日志：              $RUNTIME_ROOT"
 if [[ "${ESG_PLATFORM_NO_BROWSER:-0}" != "1" ]]; then
   # `open` may only focus an already-open Safari tab when the URL is unchanged,
   # leaving an old DOM and cached ES modules alive after an upgrade.  A launch
-  # token forces a real navigation while keeping application state in
-  # localStorage on the same origin.
+  # token forces a real navigation. Operator credentials stay in page memory.
   launch_token="$(date -u +%Y%m%dT%H%M%SZ)"
   open "${PLATFORM_FRONTEND_URL%/}/?launch=${launch_token}" >/dev/null 2>&1 || true
 fi

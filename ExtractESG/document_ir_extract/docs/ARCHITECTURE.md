@@ -10,6 +10,10 @@ development input conveniences only.
 The current implementation ends at an immutable, validated `Document IR` revision.
 Downstream processing and its intermediate packages are outside this codebase.
 
+## Report orchestration boundary
+
+The module also owns the shared SQLite execution control plane and the report-session facade. Ordinary OCR/IR/repair/retry and extraction API/CLI calls enqueue isolated workers. Basic IR does not run optional full-report VLM reviews by default. Object capability availability, immutable input pins and explicit evidence transitions govern partial consumption. Physical IR remains separate from downstream SourceFact and standard projections. See [implementation report](../../docs/UPGRADE_IMPLEMENTATION_REPORT.md).
+
 ## Active Pipeline
 
 ```text
@@ -588,8 +592,17 @@ Qiniu uses `different_model_family` verification. A single local NuExtract3 inst
 cannot honestly provide model-family independence, so it uses
 `same_model_secondary_verification`: a fresh verifier prompt and isolated context run
 through the same Guard and transaction checks. `VerifierResult`, `AgentModelCall` and
-`quality_report.review_provider` persist this distinction. A second local model can be
-added later at the provider registry boundary without changing the review kernel.
+`quality_report.review_provider` persist this distinction. The registry now also exposes
+`local_qwen` using the installed Qwen3.5-9B-4bit VLM. It uses ordinary chat prompts with
+JSON Schema rather than NuExtract-specific template tokens. Provider switches stop the
+previous local worker before loading the next model. Both local choices still use
+honest same-model secondary verification; adding a provider does not change the
+review kernel, OCR parser, patch Guard, or immutable package contract.
+
+AtomicPatch's dynamic JSON value cannot be described by the invented NuExtract leaf
+type `verbatim-json-value`. These local patch requests use content mode plus a formal
+JSON Schema; fixed NuExtract verifier templates keep native field types. Worker output
+propagates actual output-budget truncation instead of unconditionally reporting stop.
 
 Health state is split into transport, protocol and quota categories. Two
 consecutive transport failures open a 15-minute transport circuit; three
@@ -956,11 +969,20 @@ a running task terminates its process group before the next task can start.
 The single-worker invariant limits execution concurrency only. Producers can enqueue
 additional OCR, IR, review/repair, and targeted tasks while another task is running;
 form submission locks are request-scoped and never mirror task lifetime.
+The queue acquires the shared local `model-execution.lock` non-blockingly before
+claiming a task and passes its flock file descriptor into the isolated worker.
+Standalone targeted API/CLI jobs acquire or adopt the same slot; closing the
+scheduling parent's descriptor does not unlock the worker's inherited descriptor.
+Worker output is a durable task `worker.log`, not an API-owned stdout PIPE.
+Direct OCR/IR API execution outside the unified queue is a separate admission boundary.
 
 SQLite stores task order, lifecycle, progress, worker PID and events. Runtime API keys
 remain in memory or deployment environment variables and are never written into the
-queue database. Backend restart marks an active task `interrupted`; native OCR/IR/targeted
-job state receives the same terminal meaning. Business artifacts remain in their
+queue database. Backend restart reconnects an active worker with a matching process
+birth identity instead of clearing its PID and launching duplicate work. A disappeared
+worker becomes `interrupted`; native OCR/IR/targeted job state receives the same terminal
+meaning. Reconnected targeted workers report their native terminal status through the
+probe adapter, and unchanged progress snapshots do not append duplicate events. Business artifacts remain in their
 existing immutable package roots, so the scheduler is replaceable without changing any
 OCR, Document IR, Evidence Inventory or Result Bundle contract.
 

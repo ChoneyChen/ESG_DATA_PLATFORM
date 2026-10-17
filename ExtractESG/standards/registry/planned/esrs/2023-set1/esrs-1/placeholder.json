@@ -1,0 +1,7 @@
+{
+  "executable": false,
+  "framework_id": "esrs",
+  "module_id": "esrs-1",
+  "reason": "原表没有ESRS 1独立数据点页；通用原则不伪造数据点。",
+  "state": "principles_reserved"
+}

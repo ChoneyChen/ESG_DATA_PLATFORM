@@ -1,0 +1,2308 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Number of executive members。执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Number of executive members",
+      "zh": "执行成员数量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.count",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "compatible_unit_only",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.count",
+      "value_role": "actual"
+    },
+    "measurement_kind": "count",
+    "metric_id": "esrs.2023-set1.gov-1.dp01",
+    "obligation_class": "mandatory",
+    "official_data_type": "Integer",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Integer",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_01",
+        "ESRS 2",
+        "GOV-1",
+        "21 a",
+        null,
+        "Number of executive members",
+        "Integer",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "2d10e89e0bfce546e3bc2cdf9839155aa74d13fb63898e324041284fca3d0f6f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 36,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_01",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp01"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Number of non-executive members。非执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Number of non-executive members",
+      "zh": "非执行成员数量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.count",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "compatible_unit_only",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.count",
+      "value_role": "actual"
+    },
+    "measurement_kind": "count",
+    "metric_id": "esrs.2023-set1.gov-1.dp02",
+    "obligation_class": "mandatory",
+    "official_data_type": "Integer",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Integer",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_02",
+        "ESRS 2",
+        "GOV-1",
+        "21 a",
+        null,
+        "Number of non-executive members",
+        "Integer",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1c017e7cd4345696a4a6d20e2e38bedcd17f6d5a5e6310f5800660c92bc2a6fe",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 37,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_02",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp02"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about representation of employees and other workers。员工劳动者代表。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Information about representation of employees and other workers",
+      "zh": "员工劳动者代表"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp03",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_03",
+        "ESRS 2",
+        "GOV-1",
+        "21 b",
+        null,
+        "Information about representation of employees and other workers ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "2acde877c01be25442beabdf0f36c707afbae6a45cadcbbdb53c9d9317f5ed39",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 38,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_03",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 5"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about member's experience relevant to sectors, products and geographic locations of undertaking。治理成员行业与地域经验。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Information about member's experience relevant to sectors, products and geographic locations of undertaking",
+      "zh": "治理成员行业与地域经验"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp04",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_04",
+        "ESRS 2",
+        "GOV-1",
+        "21 c",
+        "AR 5",
+        "Information about member's experience relevant to sectors, products and geographic locations of undertaking ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "27b033727cce3c63ab1731cf6fb4093ead2606c6de9ca9fa3e012fc3946f5ce9",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 39,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_04",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity。治理成员性别等多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity",
+      "zh": "治理成员性别等多样性比例"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.gov-1.dp05",
+    "obligation_class": "mandatory",
+    "official_data_type": "Percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_05",
+        "ESRS 2",
+        "GOV-1",
+        "21 d",
+        null,
+        "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity",
+        "Percent",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "0dbbf4180fe391b32921b3e8bcde832c8d6b4260f308e1072a3753d094f36ccc",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 40,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_05",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp05"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Board's gender diversity ratio",
+      "zh": "董事会性别多样性比例"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.gov-1.dp06",
+    "obligation_class": "mandatory",
+    "official_data_type": "Percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 d ",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_06",
+        "ESRS 2",
+        "GOV-1",
+        "21 d ",
+        null,
+        "Board's gender diversity ratio",
+        "Percent",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "17c7a49312d471f8e1c044ff6fb61f9fd2ea2dd3f9bc70e10f22648c7b427e6d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 41,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_06",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp06"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Percentage of independent board members。独立董事比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Percentage of independent board members",
+      "zh": "独立董事比例"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.gov-1.dp07",
+    "obligation_class": "mandatory",
+    "official_data_type": "Percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "21 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_07",
+        "ESRS 2",
+        "GOV-1",
+        "21 e",
+        null,
+        "Percentage of independent board members",
+        "Percent",
+        null,
+        null,
+        "SFDR",
+        null,
+        null
+      ],
+      "row_sha256": "474c5915a63fe81f1e97add685e0bab42f32a63df83574e94e666d63f7d481c1",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 42,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_07",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp07"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about identity of administrative, management and supervisory bodies or individual(s) within body responsible for oversight of impacts, risks and opportunities。可持续监督责任机构和人员。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Information about identity of administrative, management and supervisory bodies or individual(s) within body responsible for oversight of impacts, risks and opportunities",
+      "zh": "可持续监督责任机构和人员"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp08",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_08",
+        "ESRS 2",
+        "GOV-1",
+        "22 a",
+        null,
+        "Information about identity of administrative, management and supervisory bodies or individual(s) within body responsible for oversight of impacts, risks and opportunities ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "317adaba43cd751dc54ddb5372b57df8e0e1c11eb02f5139d5e01a47a4d6cfe9",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 43,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_08",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how body's or individuals within body responsibilities for impacts, risks and opportunities are reflected in undertaking's terms of reference, board mandates and other related policies。可持续监督责任的职责文件。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Disclosure of how body's or individuals within body responsibilities for impacts, risks and opportunities are reflected in undertaking's terms of reference, board mandates and other related policies",
+      "zh": "可持续监督责任的职责文件"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp09",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_09",
+        "ESRS 2",
+        "GOV-1",
+        "22 b",
+        "AR 3",
+        "Disclosure of how body's or individuals within body responsibilities for impacts, risks and opportunities are reflected in undertaking's terms of reference, board mandates and other related policies ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "6d8ecf4074feb9f70483a8da0e49a37dc754d8dbd80b2689d4e07b1b909df25a",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 44,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_09",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 4"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of management's role in governance processes, controls and procedures used to monitor, manage and oversee impacts, risks and opportunities。管理层监督职责。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of management's role in governance processes, controls and procedures used to monitor, manage and oversee impacts, risks and opportunities",
+      "zh": "管理层监督职责"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp10",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_10",
+        "ESRS 2",
+        "GOV-1",
+        "22 c",
+        "AR 4",
+        "Description of management's role in governance processes, controls and procedures used to monitor, manage and oversee impacts, risks and opportunities ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "5792c9339a4ba0e724fa9838e77d896a5322a5b795551ed8e8aaf5966f241f58",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 45,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_10",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to。治理机构对授权管理职责的监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp11",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to",
+      "zh": "治理机构对授权管理职责的监督"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp11",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 c i",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_11",
+        "ESRS 2",
+        "GOV-1",
+        "22 c i",
+        null,
+        "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "4912e229bc0b0fce77654dc5cce7d53141c6353b25090d393fa04f75159a56b8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 46,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_11",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp11"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about reporting lines to administrative, management and supervisory bodies。向治理机构的报告线。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp12",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Information about reporting lines to administrative, management and supervisory bodies",
+      "zh": "向治理机构的报告线"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp12",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 c ii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_12",
+        "ESRS 2",
+        "GOV-1",
+        "22 c ii",
+        null,
+        "Information about reporting lines to administrative, management and supervisory bodies ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "5a6d45206948d8e990729aed9cade25cd1fac65302e05b2226a3f82d6970b177",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 47,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_12",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp12"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how dedicated controls and procedures are integrated with other internal functions。专门控制与内部职能整合。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp13",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Disclosure of how dedicated controls and procedures are integrated with other internal functions",
+      "zh": "专门控制与内部职能整合"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp13",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 c iii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_13",
+        "ESRS 2",
+        "GOV-1",
+        "22 c iii",
+        null,
+        "Disclosure of how dedicated controls and procedures are integrated with other internal functions ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "e1c3e4a16f79bf3637a0967f5a9acb7ac14ecde6a611ac6aecea401a307cea0e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 48,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_13",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp13"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored。目标设定和进展监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp14",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored",
+      "zh": "目标设定和进展监督"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp14",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "22 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_14",
+        "ESRS 2",
+        "GOV-1",
+        "22 d",
+        null,
+        "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "3d8add664047c6880d6df30b8781ee2f2fa55436eb2bdebf84bfefcd80a1d316",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 49,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_14",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp14"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 5"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how administrative, management and supervisory bodies determine whether appropriate skills and expertise are available or will be developed to oversee sustainability matters。可持续技能可用性及培养。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp15",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Disclosure of how administrative, management and supervisory bodies determine whether appropriate skills and expertise are available or will be developed to oversee sustainability matters",
+      "zh": "可持续技能可用性及培养"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp15",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "23",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_15",
+        "ESRS 2",
+        "GOV-1",
+        "23",
+        "AR 5",
+        "Disclosure of how administrative, management and supervisory bodies determine whether appropriate skills and expertise are available or will be developed to oversee sustainability matters ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "c720a369a596ebc9e55991fb1ff75f5a94e6c4219119e77c585c4c800f65bb04",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 50,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_15",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp15"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about sustainability-related expertise that bodies either directly possess or can leverage。治理机构可持续专业能力。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp16",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Information about sustainability-related expertise that bodies either directly possess or can leverage",
+      "zh": "治理机构可持续专业能力"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp16",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "23 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_16",
+        "ESRS 2",
+        "GOV-1",
+        "23 a",
+        null,
+        "Information about sustainability-related expertise that bodies either directly possess or can leverage ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "2fedc8c168edc0622cdb1165f2f6008ef76a59a47dd37eaa0a5b40334f469007",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 51,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_16",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp16"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how sustainability-related skills and expertise relate to material impacts, risks and opportunities。能力与重要事项关联。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "disclosure_requirement": "GOV-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-1.topic.dp17",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Disclosure of how sustainability-related skills and expertise relate to material impacts, risks and opportunities",
+      "zh": "能力与重要事项关联"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-1.dp17",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.sustainability-topic"
+    ],
+    "paragraph": "23 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-1_17",
+        "ESRS 2",
+        "GOV-1",
+        "23 b",
+        null,
+        "Disclosure of how sustainability-related skills and expertise relate to material impacts, risks and opportunities ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "571d3d0f9f1d41fda6b5bbbf070b12929eaed282de458f8ef4298e18e00af225",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 52,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-1_17",
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law",
+      "esrs.2023-set1.gov-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-1.concept.dp17"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

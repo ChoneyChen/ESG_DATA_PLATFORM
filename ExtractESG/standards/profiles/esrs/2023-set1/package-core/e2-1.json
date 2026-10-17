@@ -1,0 +1,13 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "E2-1包内核心条款",
+  "profile_id": "esrs.2023-set1.e2-1.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "区分污染介质防控、物质替代和事故管理。",
+  "source_datapoint_ids": [
+    "E2-1_01",
+    "E2-1_02",
+    "E2-1_03"
+  ]
+}

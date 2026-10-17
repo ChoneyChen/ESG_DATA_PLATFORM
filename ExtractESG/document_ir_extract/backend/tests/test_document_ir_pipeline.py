@@ -219,6 +219,8 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     ir_root = tmp_path / "document_ir_output"
     upload_root = tmp_path / "uploads"
     _write_ocr_run(ocr_root, "ocr-layout", pdf_path)
+    monkeypatch.setenv("ESG_PIPELINE_QUEUE_DB", str(tmp_path / "queue.sqlite3"))
+    monkeypatch.setenv("ESG_PIPELINE_TASK_DIR", str(tmp_path / "pipeline_tasks"))
     monkeypatch.setenv("ESG_V2_OCR_OUTPUT_DIR", str(ocr_root))
     monkeypatch.setenv("ESG_V2_DOCUMENT_IR_OUTPUT_DIR", str(ir_root))
     monkeypatch.setenv("ESG_V2_UPLOAD_DIR", str(upload_root))
@@ -235,12 +237,16 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     )
     assert response.status_code == 200
     run_id = response.json()["run_id"]
-    for _ in range(100):
-        state = client.get(f"/api/document-ir/jobs/{run_id}").json()
-        if state["status"] in {"done", "failed"}:
-            break
-        time.sleep(0.05)
-    assert state["status"] == "done", state
+    assert response.json()["status"] == "queued"
+    queued_task = next(t for t in api_main.pipeline_store.list() if t.native_job_id == run_id)
+    # Build only the synthetic PDF/layout fixture. The API itself may not execute
+    # the workflow or start a second thread outside the unified queue.
+    result = DocumentIrWorkflow(api_main.settings).run(DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path)), run_id=run_id)
+    manifest = json.loads(result.manifest_path.read_text(encoding="utf-8"))
+    api_main.pipeline_store.update(queued_task.task_id, status="partial")
+    api_main.pipeline_hooks.completed(api_main.pipeline_store.get(queued_task.task_id), {**result.model_dump(mode="json"), "manifest": manifest})
+    state = client.get(f"/api/document-ir/jobs/{run_id}").json()
+    assert state["status"] == "partial", state
     assert client.get(f"/api/document-ir/jobs/{run_id}/manifest").status_code == 200
     assert client.get(f"/api/document-ir/jobs/{run_id}/validation-report").json()["readiness"] == "auto_review_pending"
     assert len(client.get(f"/api/document-ir/jobs/{run_id}/pages").json()) == 2
@@ -274,24 +280,15 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
         assert client.get(f"/api/document-ir/jobs/{run_id}/{artifact_endpoint}").status_code == 200
     assert client.get(f"/api/document-ir/jobs/{run_id}/reviews/{tasks[0]['task_id']}").status_code == 200
 
-    queued: dict[str, object] = {}
-
-    class NoopThread:
-        def __init__(self, *, target, args, daemon):
-            queued.update({"target": target, "args": args, "daemon": daemon})
-
-        def start(self):
-            queued["started"] = True
-
-    monkeypatch.setattr(api_main.threading, "Thread", NoopThread)
     retry = client.post(
         f"/api/document-ir/jobs/{run_id}/reviews/retry",
         json={"task_ids": [tasks[0]["task_id"]], "requested_by": "api-test"},
     )
     assert retry.status_code == 200
     assert retry.json()["status"] == "queued"
-    assert queued["started"] is True
-    assert queued["args"][1] == run_id
+    retry_task = next(t for t in api_main.pipeline_store.list() if t.native_job_id == retry.json()["run_id"])
+    assert retry_task.operation == "review_retry"
+    assert retry_task.payload["parent_run_id"] == run_id
 
     duplicate = client.post(
         "/api/document-ir/jobs",
@@ -443,3 +440,26 @@ def test_validator_blocks_corrupted_references_grids_and_artifacts(tmp_path: Pat
     assert document.validation_report.metrics["dangling_reference_count"] >= 1
     assert document.validation_report.metrics["invalid_table_grid_count"] >= 1
     assert document.validation_report.metrics["artifact_integrity_error_count"] == 1
+
+
+@pytest.mark.parametrize("required,optional", [(True,False),(True,True),(False,False)])
+def test_build_dispatches_required_reviews_independently_of_optional_flag(tmp_path, monkeypatch, required, optional):
+    pdf_path=tmp_path / "report.pdf"
+    _write_pdf(pdf_path)
+    ocr_root=tmp_path / "ocr"
+    _write_ocr_run(ocr_root,"ocr-layout",pdf_path)
+    calls=[]
+    class CapturingOrchestrator:
+        def __init__(self,*args,**kwargs): pass
+        def execute(self,document,**kwargs):
+            calls.append(kwargs)
+            return document
+    monkeypatch.setattr("esg_v2.workflows.ir_workflow.AgentReviewOrchestrator",CapturingOrchestrator)
+    settings=Settings(output_root=ocr_root,document_ir_output_root=tmp_path / "ir",upload_root=tmp_path / "upload")
+    result=DocumentIrWorkflow(settings).run(DocumentIrBuildRequest(ocr_run_id="ocr-layout",pdf_path=str(pdf_path),
+        execute_required_reviews=required,execute_vlm_reviews=optional,review_provider="local_qwen"),
+        run_id="ir-20260718T010101Z-000000000009")
+    document=json.loads(result.document_ir_path.read_text())
+    assert len(calls)==int(required or optional)
+    if calls: assert calls[0]["include_optional_reviews"] is optional
+    assert document["quality_report"]["review_execution_policy"]["execute_optional_reviews"] is optional

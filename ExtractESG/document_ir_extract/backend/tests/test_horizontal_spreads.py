@@ -268,6 +268,7 @@ def test_visual_only_spread_is_locally_resolved_without_model_task(tmp_path: Pat
 def test_spread_guard_confirms_pair_and_links_opposite_page_tables(tmp_path: Path) -> None:
     document = HorizontalSpreadBuilder().build(_spread_document(tmp_path), tmp_path)
     spread = document.spreads[0]
+    left, right = document.tables
     patches = [
         AtomicPatch(
             patch_id="patch-000001",
@@ -299,11 +300,14 @@ def test_spread_guard_confirms_pair_and_links_opposite_page_tables(tmp_path: Pat
         ),
     ]
 
+    outside_scope = PatchGuard().evaluate(document, "review-000001", patches, allowed_target_ids={spread.spread_id})
+    assert outside_scope.passed is False
+    assert any(check.code.endswith("referenced_write_scope") and not check.passed for check in outside_scope.checks)
     guard = PatchGuard().evaluate(
         document,
         "review-000001",
         patches,
-        allowed_target_ids={spread.spread_id},
+        allowed_target_ids={spread.spread_id, left.table_id, right.table_id},
         required_target_ids={spread.spread_id},
         allowed_operations={"confirm_spread", "link_horizontal_continuation"},
         required_any_operations={"confirm_spread", "reject_spread"},
@@ -385,7 +389,7 @@ def test_horizontal_last_column_continuation_requires_row_alignment_and_builds_l
         document,
         "review-000001",
         base_patches,
-        allowed_target_ids={spread.spread_id, right.table_id},
+        allowed_target_ids={spread.spread_id, left.table_id, right.table_id},
         required_target_ids={spread.spread_id},
         allowed_operations={"confirm_spread", "link_horizontal_continuation", "set_table_grid"},
         required_any_operations={"confirm_spread", "reject_spread"},
@@ -418,7 +422,7 @@ def test_horizontal_last_column_continuation_requires_row_alignment_and_builds_l
         document,
         "review-000001",
         repaired_patches,
-        allowed_target_ids={spread.spread_id, right.table_id},
+        allowed_target_ids={spread.spread_id, left.table_id, right.table_id},
         required_target_ids={spread.spread_id},
         allowed_operations={"confirm_spread", "link_horizontal_continuation", "set_table_grid"},
         required_any_operations={"confirm_spread", "reject_spread"},

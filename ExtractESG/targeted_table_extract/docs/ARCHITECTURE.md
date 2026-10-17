@@ -5,11 +5,17 @@
 定向抽取只读消费两个版本化输入：一个可构建证据的 Document IR revision，以及一个已编译的标准
 要求包。它不修改 OCR、PDF、Document IR、标准包源文件和 publication 数据库。
 
-标准包是字段和语义的唯一来源：指标 ID、名称、说明、数据类型、元素、固定值、基数、绑定、概念
+标准包是所选要求及其投影字段的语义来源；报告 SourceFact 的原始身份来自证据而非标准固定值。指标 ID、名称、说明、数据类型、元素、固定值、基数、绑定、概念
 别名与排除关系均从包内编译。抽取引擎拥有检索权重、预算、模型路由、重试、Guard 和物化策略，
 这些运行参数不写回标准包。
 
+报告级 ReportSession 统筹多包投影；同一中性来源理解跨包缓存，独立 Bundle 保留标准快照和真实 Core 绑定。默认 API/CLI 通过 Document 控制面唯一队列执行。当前跨模块实施见 [升级实施报告](../../docs/UPGRADE_IMPLEMENTATION_REPORT.md)。
+
 ## 2. 高内聚组件
+
+包格式 `2.0` 的主题编排由 `evidence.disclosure.DisclosureSession` 负责：模型导航、物理对象理解复用、有界补查及可恢复产物。`models.report_semantics` 分别定义导航、行列理解和指标映射的小合同，`models.source_facts` 将中性来源理解直接投影到 SemanticAssignment 与 Core，不另设 ESG 语义 Guard。完整边界见 [REPORT_FACT_AGENT.md](REPORT_FACT_AGENT.md)。
+
+编排合并候选目录，模型选择下一步。理解按物理行分块，后端展开 IR 原值；独立映射读取紧凑语义卡和列身份，不重抄数字。映射失败可只修格式或调用 map_object；不存在共享失败后逐指标整表重抽。旧包、显式 per_metric 和 E2-4 三个介质主指标保持以下直接路径。
 
 | 组件 | 唯一职责 | 不负责 |
 |---|---|---|
@@ -20,11 +26,11 @@
 | `retrieval` | BM25、Embedding、RRF、FactPattern 与充分性 | 生成业务事实 |
 | `evidence.selection` | 保留命中对象的完整可审计证据 | 按模型窗口丢弃表格 |
 | `evidence.regions` | 形成连贯、受预算约束的实际模型输入 | 预先填写结果字段 |
-| `models` | 让 NuExtract3 或七牛 VLM 直接输出多行语义填表决定 | 创建标准字段 |
+| `models` | NuExtract3 / 本地 Qwen3.5 / 七牛；分别编译协议，让模型解释、映射、导航或直接填表 | 创建标准字段或静默切换付费 Provider |
 | `grounding` | 校验合同、来源和结构一致性 | 重做 ESG 语义判断 |
 | `results` | 按标准 binding 物化 Core records 和导出 | 修改模型决定 |
 | `inspection` | 从不可变产物派生前端只读 ViewModel | 建立第二份权威事实 |
-| `storage` | job、事件、心跳、checkpoint 和产物路径 | 调度其他重任务 |
+| `storage` | job、事件、checkpoint、隔离 worker 与独立截止监督 | 判断 ESG 适用性或替代统一跨模块队列 |
 
 ## 3. 三层证据合同
 
@@ -66,7 +72,7 @@ Region 是唯一允许按模型容量切分的层。一个 region 只能对应�
 
 ## 4. 模型输出合同
 
-模型直接输出：
+定量指标直接输出：
 
 ```json
 {
@@ -98,9 +104,32 @@ Region 是唯一允许按模型容量切分的层。一个 region 只能对应�
 }
 ```
 
-`shared_fields` 与 `values[].fields` 的键完全来自当前标准包。模型先对物理源行判断一次
+`shared_fields` 与 `values[].fields` 的键完全来自当前标准包且互不重叠。模型先对物理源行判断一次
 `metric_match`，再展开该行各个适用的实体/期间值。字段没有明示证据时为 `null`，不得推断、计算、
-换算或借用其他行的数据。定性事实必须给出可读 statement 或清单成员，不能把期间或纯数字回填为断言。
+换算或借用其他行的数据。
+
+定性/结构清单指标改用独立合同：
+
+```json
+{
+  "task_id": "task-...",
+  "status": "found",
+  "assertions": [
+    {
+      "group": "G1",
+      "metric_match": "match",
+      "context_refs": [],
+      "fields": {
+        "statement": "报告采用运营控制法核算温室气体排放",
+        "reporting_period": "2024"
+      }
+    }
+  ],
+  "uncertainty_code": "none"
+}
+```
+
+每条 assertion 必须是可独立举证的可读 statement 或清单成员，不能把期间或纯数字回填为断言。
 
 模型只返回标准字段的直接标量或 `null`，不负责生成来源 ID。Adapter 在当前 G 组内自动绑定来源：
 `candidate` 是本地 literal，`span` 是 IR 可见字符串，`visual` 是本次实际发送图片的视觉读取。
@@ -132,8 +161,8 @@ Guard 不对这些语义决定二次打分。它只把以下确定性缺陷作�
 
 ## 6. Provider 与收敛
 
-本地和云端共享动态字段合同、Response Adapter、Normalizer、Guard 和 Materializer；上下文与输出
-预算按 provider 能力独立配置。表格或图表有 crop 时两条通道均可视觉优先。
+NuExtract、本地 Qwen 与七牛共享内部字段合同、Response Adapter、Normalizer、Guard 和 Materializer；上下文与输出
+预算按 provider 能力独立配置，输入协议分别编译。表格或图表有 crop 时均可视觉读取。
 
 每个 region 独立执行和校验。语法/Schema 错误使用紧凑反馈重试；服务故障按服务策略重试；Guard
 只反馈确切合同缺陷。多个 region 的通过结果合并、无损去重：存在事实时，其他 region 的
@@ -154,10 +183,12 @@ finish reason、模型加载/prefill/generation 耗时、原始输出、适配�
 
 验证状态分为来源、结果合同、模型语义决定和展示就绪度。Grounding 通过的新事实仍是 `pending`，
 不能显示成“自动验证了 ESG 语义”。跨指标审计只处理一个窄而确定的矛盾：同一物理源单元格被互斥
-包固定维度同时使用。它保留模型决定并要求联合复判，不删除事实、不扩大 Guard。
+包固定维度同时使用。现代 Agent 的冲突返回同一 metric_mapping 工具重新裁决；成熟 direct 兼容路径保留必要 family 联合复判。只更新实际裁决成功的对象/指标，uncertain 不变成 completed，原决定和审计保留。
+
+随后执行已声明启用的 data_processing 规则。未选依赖自动作为内部证据读取，与用户输出分区；公式只使用身份完整且单位兼容的操作数，直接披露优先。派生保留公式版本、操作数ID及其证据，旧包仅审计。
 
 `FactOrganizer` 是后端唯一的行/列展示顺序来源。原始六类记录不删除；相同语义身份下的重复披露
-及精度区间兼容的替代单位展示用 `logical_measurement_id` 关联，证据集合保留。身份缺失时不
+及替代单位展示只有在显式关系确认后才用 `logical_measurement_id` 关联；数值/精度兼容本身只产生候选关系，证据集合保留。身份缺失时不
 贸然跨来源合并。输出 `results/fact-organization.json`、JSON organization、XLSX 和 machine-fill.csv；
 检查 API 对历史包也能即时计算相同视图，不改写旧包。前端不再独立做业务排序。
 

@@ -1,0 +1,23 @@
+.processing-list { display: grid; gap: 10px; }
+.processing-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px; border: 1px solid var(--border, #dae1eb); border-radius: 10px; }
+.processing-row p { margin: 5px 0 0; }
+.processing-stage-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0; }
+.processing-stage { padding: 14px; border: 1px solid var(--border, #dae1eb); border-radius: 10px; }
+.processing-stage[data-status="completed"], .processing-stage[data-status="reused"] { border-color: #639788; background: #f1f8f5; }
+.processing-stage[data-status="running"] { border-color: #5784c1; background: #eff5fd; }
+.processing-stage[data-status="blocked"], .processing-stage[data-status="failed"] { border-color: #c39282; }
+.processing-stage p { margin: 6px 0 0; }
+.processing-detail-grid { display: grid; grid-template-columns: 110px minmax(300px, 1.4fr) minmax(280px, 1fr); gap: 16px; align-items: start; }
+.processing-pages { display: grid; gap: 8px; max-height: 680px; overflow: auto; }
+.processing-pages button { width: 100%; }
+.processing-pdf { width: 100%; height: 680px; border: 1px solid var(--border, #dae1eb); border-radius: 8px; }
+.processing-evidence { max-height: 680px; overflow: auto; }
+.processing-object { padding: 10px 0; border-bottom: 1px solid var(--border, #dae1eb); }
+.processing-object p { white-space: pre-wrap; margin: 5px 0; }
+.processing-object table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.processing-object td, .processing-object th { padding: 4px; border: 1px solid #dce4ee; }
+.processing-metadata { margin-top: 22px; border-top: 1px solid var(--border, #dae1eb); padding-top: 18px; }
+.processing-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.processing-badge { font-size: 12px; padding: 4px 8px; border-radius: 6px; background: #eaf0f7; }
+@media (max-width: 1100px) { .processing-detail-grid { grid-template-columns: 80px minmax(0, 1fr); } .processing-evidence { grid-column: 1 / -1; max-height: 450px; } }
+@media (max-width: 700px) { .processing-stage-list { grid-template-columns: 1fr; } .processing-row { align-items: flex-start; flex-direction: column; } .processing-pdf { height: 480px; } }

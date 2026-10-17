@@ -1,0 +1,1108 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of key contents of policy。政策关键内容。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Description of key contents of policy",
+      "zh": "政策关键内容"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "65 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_01",
+        "ESRS 2",
+        "MDR-P",
+        "65 a",
+        "AR 21",
+        "Description of key contents of policy ",
+        "narrative",
+        null,
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "971d38132906c3579970a5e2d18341718d05289f50a507e4264363c3dd38f4f6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 3,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_01",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of scope of policy or of its exclusions。政策适用范围和排除。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Description of scope of policy or of its exclusions",
+      "zh": "政策适用范围和排除"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "65 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_02",
+        "ESRS 2",
+        "MDR-P",
+        "65 b",
+        null,
+        "Description of scope of policy or of its exclusions ",
+        "narrative",
+        null,
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "37ca5edd2acc51dc69d7bd90e180626969a6e977498b703edc0be704b9e9ddb2",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 4,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_02",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of most senior level in organisation that is accountable for implementation of policy。政策实施最高责任层级。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Description of most senior level in organisation that is accountable for implementation of policy",
+      "zh": "政策实施最高责任层级"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "65 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_03",
+        "ESRS 2",
+        "MDR-P",
+        "65 c",
+        null,
+        "Description of most senior level in organisation that is accountable for implementation of policy ",
+        "narrative",
+        null,
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "d51b7e492ccca9f919ea1bdc5a9739354bf0af9d0c2fd4a2bf5466bbe23af5bf",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 5,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_03",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of third-party standards or initiatives that are respected through implementation of policy。政策尊重的第三方标准倡议。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of third-party standards or initiatives that are respected through implementation of policy",
+      "zh": "政策尊重的第三方标准倡议"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp04",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "65 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_04",
+        "ESRS 2",
+        "MDR-P",
+        "65 d",
+        null,
+        "Disclosure of third-party standards or initiatives that are respected through implementation of policy ",
+        "narrative",
+        "Conditional",
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "7bd698a2c20decc1231912789a7bd7c0cc97d3ee95547fac1703f44f92d947f3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 6,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_04",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of consideration given to interests of key stakeholders in setting policy。政策制定的利益方考虑。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Description of consideration given to interests of key stakeholders in setting policy",
+      "zh": "政策制定的利益方考虑"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp05",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "65 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_05",
+        "ESRS 2",
+        "MDR-P",
+        "65 e",
+        null,
+        "Description of consideration given to interests of key stakeholders in setting policy ",
+        "narrative",
+        "Conditional",
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "dfad0c9348166a0bda3f879f6a6a386ba10dd532a7f1e195bbf56b2d476a4f6c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 7,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_05",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Explanation of whether and how policy is made available to potentially affected stakeholders and stakeholders who need to help implement it。政策对利益方的可获得性。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Explanation of whether and how policy is made available to potentially affected stakeholders and stakeholders who need to help implement it",
+      "zh": "政策对利益方的可获得性"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp06",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "65 f",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": " ",
+      "may": " ",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_06",
+        "ESRS 2",
+        "MDR-P",
+        "65 f",
+        null,
+        "Explanation of whether and how policy is made available to potentially affected stakeholders and stakeholders who need to help implement it ",
+        "narrative",
+        "Conditional",
+        " ",
+        " ",
+        null
+      ],
+      "row_sha256": "e3dd623ed8a23b2c81c4b5ca25973dd433baea108d5c8deedbf8fbe2727bc520",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 8,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_06",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of reasons for not having adopted policies。未采纳政策的原因。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of reasons for not having adopted policies",
+      "zh": "未采纳政策的原因"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp07",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "62",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_07",
+        "ESRS 2",
+        "MDR-P",
+        62,
+        null,
+        "Disclosure of reasons for not having adopted policies",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "a07a316d3d126dcbdeed9fe113b4274446dff09c4c695e912315bf5bd93ffdb1",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 39,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_07",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of timeframe in which the undertakings aims to adopt policies。计划采纳政策的时间。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "disclosure_requirement": "MDR-P",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.mdr-p.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of timeframe in which the undertakings aims to adopt policies",
+      "zh": "计划采纳政策的时间"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.mdr-p.dp08",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.sustainability-topic",
+      "esrs.2023-set1.mdr-p.dimension.policy-ref"
+    ],
+    "paragraph": "62",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "MDR-P_08",
+        "ESRS 2",
+        "MDR-P",
+        62,
+        null,
+        "Disclosure of timeframe in which the undertakings aims to adopt policies",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        null
+      ],
+      "row_sha256": "2596d170b14246eae96d4f7d4f661dcc35ab2a5055b13bacd28cfadf47bd6532",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]"
+      ],
+      "source_row": 40,
+      "source_sheet": "ESRS 2 MDR",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.mdr-p.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "MDR-P_08",
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law",
+      "esrs.2023-set1.mdr-p.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.mdr-p.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

@@ -1,0 +1,20 @@
+import {afterEach,describe,expect,it,vi} from 'vitest';
+import {cleanup,fireEvent,render,screen} from '@testing-library/react';
+import {extractionInput,initialExtractionInput,readableEvidence,reportEvidenceVersions,type ExtractionInputChoice} from './extraction-input';
+import {ExtractionReportInput} from './components/ExtractionReportInput';
+const a={asset_id:'pdf-a',sha256:'a'.repeat(64),file_name:'A.pdf'},b={asset_id:'pdf-b',sha256:'b'.repeat(64),file_name:'B.pdf'};
+const irA={run_id:'ir-a',ocr_run_id:'ocr-a',document_label:'same title',can_build_full_evidence:true,source_pdf_sha256:a.sha256};
+const irB={...irA,run_id:'ir-b',ocr_run_id:'ocr-b',source_pdf_sha256:b.sha256};
+const library={items:[{...a,ocr_versions:[{run_id:'ocr-a',ir_versions:[irA]}]},{...b,ocr_versions:[{run_id:'ocr-b',ir_versions:[irB]}]}]};
+const fixed:ExtractionInputChoice={mode:'single',assetId:a.asset_id,assetIds:[],evidence:'fixed',irId:irA.run_id};
+afterEach(cleanup);
+describe('报告先于证据版本，输入互斥',()=>{
+ it('固定版本只属于明确关联的报告，相同标题不会混入',()=>{expect(reportEvidenceVersions(a,library,[irA,irB]).map(row=>row.run_id)).toEqual(['ir-a']);});
+ it('IR明确声明冲突的PDF指纹时不可选择',()=>{expect(reportEvidenceVersions(a,library,[{...irA,source_pdf_sha256:b.sha256}])).toEqual([]);});
+ it('自动准备提交PDF，固定版本只提交IR；跨报告固定版本拒绝',()=>{expect(extractionInput({...fixed,evidence:'auto'},[a,b],library,[irA,irB],true)).toEqual({kind:'pdf',asset_id:'pdf-a'});expect(extractionInput(fixed,[a,b],library,[irA,irB],true)).toEqual({kind:'document_ir',ir_run_id:'ir-a'});expect(()=>extractionInput({...fixed,assetId:'pdf-b'},[a,b],library,[irA,irB],true)).toThrow('不属于当前报告');});
+ it('批量选择始终独立准备PDF，历史证据不要求原PDF仍存在',()=>{expect(extractionInput({...fixed,mode:'batch',assetIds:['pdf-a','pdf-b']},[a,b],library,[irA,irB],true,'pdf-b')).toEqual({kind:'pdf',asset_id:'pdf-b'});expect(extractionInput({...fixed,mode:'history',assetId:''},[],undefined,[irA],true)).toEqual({kind:'document_ir',ir_run_id:'ir-a'});});
+ it('有限能力还需有限policy与用户允许，不能把旧OR布尔当完整',()=>{const limited={can_build_evidence:true,can_build_full_evidence:false,can_build_limited_evidence:true,evidence_policy_mode:'limited'};expect(readableEvidence(limited,true)).toBe(true);expect(readableEvidence(limited,false)).toBe(false);expect(readableEvidence({...limited,evidence_policy_mode:undefined},true)).toBe(false);expect(readableEvidence({can_build_evidence:true},true)).toBe(false);});
+ it('深链接明确保留固定IR及历史模式，不自动换成其他版本',()=>{expect(initialExtractionInput(new URLSearchParams('asset=pdf-a&ir=ir-a'))).toMatchObject({mode:'single',evidence:'fixed',irId:'ir-a'});expect(initialExtractionInput(new URLSearchParams('ir=ir-a'))).toMatchObject({mode:'history',evidence:'fixed',assetId:''});});
+ it('选报告后才展示证据设置，换报告清除原固定版本',()=>{const onChange=vi.fn();render(<ExtractionReportInput choice={fixed} onChange={onChange} assets={[a,b]} library={library} catalog={[irA,irB]} limited/>);expect(screen.getByLabelText('这份报告的结构证据版本').querySelector('option[value="ir-b"]')).toBeNull();fireEvent.change(screen.getByLabelText('报告'),{target:{value:'pdf-b'}});expect(onChange).toHaveBeenCalledWith({...fixed,assetId:'pdf-b',evidence:'auto',irId:''});expect(screen.queryByLabelText('提取执行顺序')).toBeNull();});
+ it('未选择报告时只显示报告选择，PDF自动处理顺序清楚',()=>{render(<ExtractionReportInput choice={{...fixed,assetId:'',evidence:'auto',irId:''}} onChange={()=>{}} assets={[a,b]} library={library} catalog={[irA,irB]} limited/>);expect(screen.queryByText('这份报告的证据怎么准备？')).toBeNull();expect(screen.getByLabelText('提取执行顺序').textContent).toContain('页面识别（OCR）');});
+});

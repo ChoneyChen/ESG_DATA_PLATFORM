@@ -168,7 +168,7 @@ def test_worse_candidate_does_not_delete_current_best(tmp_path: Path) -> None:
     assert (tmp_path / "ir" / CHILD_RUN_ID).is_dir()
 
 
-def test_queued_consumers_are_rebased_before_parent_is_pruned(tmp_path: Path) -> None:
+def test_queued_consumers_pin_original_revision_without_silent_rebase(tmp_path: Path) -> None:
     queue = PipelineQueueStore(tmp_path / "queue.sqlite3")
     targeted = queue.create(
         task_id="pt-20260830T000003Z-dddddddddddd",
@@ -207,10 +207,11 @@ def test_queued_consumers_are_rebased_before_parent_is_pruned(tmp_path: Path) ->
 
     result = _manager(tmp_path, queue_db=queue.path).reconcile(CHILD_RUN_ID)
 
-    assert set(result["rebased_task_ids"]) == {targeted.task_id, repair.task_id}
-    assert queue.get(targeted.task_id).payload["ir_run_id"] == CHILD_RUN_ID
-    assert queue.get(repair.task_id).payload["parent_ir_run_id"] == CHILD_RUN_ID
-    assert not (tmp_path / "ir" / PARENT_RUN_ID).exists()
+    assert result["rebased_task_ids"] == []
+    assert result["protected_run_ids"] == [PARENT_RUN_ID]
+    assert queue.get(targeted.task_id).payload["ir_run_id"] == PARENT_RUN_ID
+    assert queue.get(repair.task_id).payload["parent_ir_run_id"] == PARENT_RUN_ID
+    assert (tmp_path / "ir" / PARENT_RUN_ID).exists()
 
 
 def test_running_consumer_protects_referenced_revision(tmp_path: Path) -> None:

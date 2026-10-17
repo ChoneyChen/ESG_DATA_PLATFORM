@@ -1,0 +1,174 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp01",
+    "description": "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern。关注物质按危害类别分解的披露结构。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern",
+      "zh": "关注物质按危害类别分解的披露结构"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "substances of concern input"
+      ],
+      "zh": [
+        "关注物质投入量"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp02",
+    "description": "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Total amount of substances of concern that are generated or used during production or that are procured",
+      "zh": "生产生成使用或采购的关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp03",
+    "description": "Total amount of substances of concern that leave facilities as emissions, as products, or as part of products or services。离开设施的关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Total amount of substances of concern that leave facilities as emissions, as products, or as part of products or services",
+      "zh": "离开设施的关注物质总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp04",
+    "description": "Amount of substances of concern that leave facilities as emissions by main hazard classes of substances of concern。作为排放离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of concern that leave facilities as emissions by main hazard classes of substances of concern",
+      "zh": "作为排放离开设施的关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp05",
+    "description": "Amount of substances of concern that leave facilities as products by main hazard classes of substances of concern。作为产品离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of concern that leave facilities as products by main hazard classes of substances of concern",
+      "zh": "作为产品离开设施的关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp06",
+    "description": "Amount of substances of concern that leave facilities as part of products by main hazard classes of substances of concern。作为产品组成离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of concern that leave facilities as part of products by main hazard classes of substances of concern",
+      "zh": "作为产品组成离开设施的关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp07",
+    "description": "Amount of substances of concern that leave facilities as services by main hazard classes of substances of concern。通过服务离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of concern that leave facilities as services by main hazard classes of substances of concern",
+      "zh": "通过服务离开设施的关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "substances of very high concern input"
+      ],
+      "zh": [
+        "高度关注物质投入量"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp08",
+    "description": "Total amount of substances of very high concern that are generated or used during production or that are procured by main hazard classes of substances of concern。生产生成使用或采购的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Total amount of substances of very high concern that are generated or used during production or that are procured by main hazard classes of substances of concern",
+      "zh": "生产生成使用或采购的高度关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp09",
+    "description": "Total amount of substances of very high concern that leave facilities as emissions, as products, or as part of products or services by main hazard classes of substances of concern。离开设施的高度关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Total amount of substances of very high concern that leave facilities as emissions, as products, or as part of products or services by main hazard classes of substances of concern",
+      "zh": "离开设施的高度关注物质总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp10",
+    "description": "Amount of substances of very high concern that leave facilities as emissions by main hazard classes of substances of concern。作为排放离开设施的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of very high concern that leave facilities as emissions by main hazard classes of substances of concern",
+      "zh": "作为排放离开设施的高度关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp11",
+    "description": "Amount of substances of very high concern that leave facilities as products by main hazard classes of substances of concern。作为产品离开设施的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of very high concern that leave facilities as products by main hazard classes of substances of concern",
+      "zh": "作为产品离开设施的高度关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp12",
+    "description": "Amount of substances of very high concern that leave facilities as part of products by main hazard classes of substances of concern。作为产品组成离开设施的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of very high concern that leave facilities as part of products by main hazard classes of substances of concern",
+      "zh": "作为产品组成离开设施的高度关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-5.concept.dp13",
+    "description": "Amount of substances of very high concern that leave facilities as services by main hazard classes of substances of concern。通过服务离开设施的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+    "labels": {
+      "en": "Amount of substances of very high concern that leave facilities as services by main hazard classes of substances of concern",
+      "zh": "通过服务离开设施的高度关注物质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-5.source.law",
+      "esrs.2023-set1.e2-5.source.ig3"
+    ]
+  }
+]

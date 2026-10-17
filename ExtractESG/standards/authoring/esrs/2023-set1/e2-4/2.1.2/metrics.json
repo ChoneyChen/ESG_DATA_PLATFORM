@@ -1,0 +1,2727 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "structure",
+    "description": "用于声明量化披露采用的分解维度；Table 表示多维结构，不要求报告版式必须是表格。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "presentation",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.pollution-structure",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "degurba_class"
+    ],
+    "labels": {
+      "en": "Pollution of air, water and soil [multiple dimensions: at site level or by type of source, by sector or by geographical area]",
+      "zh": "空气、水和土壤污染披露维度结构"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "degurba_class"
+      ],
+      "comparison_mode": "structure_only",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "degurba_class"
+      ],
+      "interpretation_guidance": [
+        "用于声明量化披露采用的分解维度；Table 表示多维结构，不要求报告版式必须是表格。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "空气、水和土壤污染披露维度结构",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": null,
+      "value_role": "structure"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "28(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Table",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_01",
+        "E2",
+        " E2-4 ",
+        "28 a",
+        "AR 21 - 22",
+        "Pollution of air, water and soil [multiple dimensions: at site level or  by type of source, by sector or by geographical area",
+        "Table",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "a4ba62b977023385aace14c6d415502f64424f03944db02af04fd0dcd6314c72",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 31,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "按报告实际出现的维度逐项登记，不把所有维度塞进一个文本单元格。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium"
+    ],
+    "source_datapoint_id": "E2-4_01",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.pollution"
+      ]
+    ],
+    "value_family": "structure"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "披露 E-PRTR 附件 II 所列污染物排入空气的量；排除按 ESRS E1 披露的温室气体。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.air-emissions",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.greenhouse-gas"
+    ],
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "pollutant"
+    ],
+    "labels": {
+      "en": "Emissions to air by pollutant",
+      "zh": "按污染物划分的空气排放量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.tonne",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [
+        "温室气体排放量",
+        "水体污染物排放量",
+        "污染物浓度",
+        "污染物削减量"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "不能以温室气体排放量、水体污染物排放量、污染物浓度、污染物削减量替代本条款所定义的测量或说明。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ],
+      "interpretation_guidance": [
+        "披露 E-PRTR 附件 II 所列污染物排入空气的量；排除按 ESRS E1 披露的温室气体。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "按污染物划分的空气排放量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": "extractesg.core.unit-dimension.mass",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/mass",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e2-4.dimension.air-quality-index",
+      "esrs.2023-set1.e2-4.dimension.degree-urbanisation"
+    ],
+    "paragraph": "28(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Table/mass",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_02",
+        "E2",
+        " E2-4 ",
+        "28 a",
+        "AR 21 - 22",
+        "Emissions to air by pollutant ",
+        "Table/mass",
+        null,
+        null,
+        "SFDR",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "3841533ee4a6c7c1da108688fb5b1cff4837cbf6da9e6f041571ec7572962f3f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 32,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个污染物、期间和维度组合形成一条量化事实，保留原始质量单位。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "source_datapoint_id": "E2-4_02",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.air-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.emission-amount"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.pollutant"
+      ]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "披露 E-PRTR 附件 II 所列污染物排入水体的量。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.water-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "pollutant"
+    ],
+    "labels": {
+      "en": "Emissions to water by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+      "zh": "按污染物划分的水体排放量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.tonne",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [
+        "空气污染物排放量",
+        "耗水量",
+        "取水量",
+        "排水体积",
+        "污染物浓度"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "不能以空气污染物排放量、耗水量、取水量、排水体积、污染物浓度替代本条款所定义的测量或说明。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ],
+      "interpretation_guidance": [
+        "披露 E-PRTR 附件 II 所列污染物排入水体的量。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "按污染物划分的水体排放量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": "extractesg.core.unit-dimension.mass",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/mass",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "paragraph": "28(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Table/mass",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_03",
+        "E2",
+        " E2-4 ",
+        "28 a",
+        "AR 21 - 22",
+        "Emissions to water by pollutant  [+ by sectors/Geographical Area/Type of source/Site location]",
+        "Table/mass",
+        null,
+        null,
+        "SFDR",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "92c073e52bea5a9a43c90e08ded6bc2f89bdeb7edcd2f3479fb5bb1a775e04dd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 33,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "同一污染物在不同地点或水风险类别下分别成行。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "source_datapoint_id": "E2-4_03",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.water-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.emission-amount"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.pollutant"
+      ]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 21-22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "披露 E-PRTR 附件 II 所列污染物排入土壤的量。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.soil-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "pollutant"
+    ],
+    "labels": {
+      "en": "Emissions to soil by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+      "zh": "按污染物划分的土壤排放量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.tonne",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ],
+      "interpretation_guidance": [
+        "披露 E-PRTR 附件 II 所列污染物排入土壤的量。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "按污染物划分的土壤排放量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": "extractesg.core.unit-dimension.mass",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/mass",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.source-type",
+      "extractesg.core.dimension.business-segment",
+      "extractesg.core.dimension.geography",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "paragraph": "28(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Table/mass",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_04",
+        "E2",
+        " E2-4 ",
+        "28 a",
+        "AR 21 - 22",
+        "Emissions to soil by pollutant  [+ by sectors/Geographical Area/Type of source/Site location]",
+        "Table/mass",
+        null,
+        null,
+        "SFDR",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "418089c5220804c04b334410a277fe865a4e0bead71a229aea98ef3e306908cc",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 34,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "同一污染物在不同地点或水风险类别下分别成行。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "source_datapoint_id": "E2-4_04",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.soil-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.emission-amount"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.pollutant"
+      ]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "IG 3 将 05、06、07 标为相互替代数据点；AR 20 还要求关注离开设施的排放、产品、产品组成或服务。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.microplastics",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "microplastic_flow",
+      "exit_pathway",
+      "intentionality"
+    ],
+    "labels": {
+      "en": "Microplastics generated and used",
+      "zh": "产生和使用的微塑料量（合并披露形式）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.tonne",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
+      ],
+      "interpretation_guidance": [
+        "IG 3 将 05、06、07 标为相互替代数据点；AR 20 还要求关注离开设施的排放、产品、产品组成或服务。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "产生和使用的微塑料量（合并披露形式）",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.mass",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp05",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "mass",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+      "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "28(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Alternative",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "mass",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_05",
+        "E2",
+        " E2-4 ",
+        "28 b",
+        "AR 20",
+        "Microplastics generated and used",
+        "mass",
+        "Alternative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1f7fd590b79b1b80aad92224bcebeeb6f9eacd98a5691ec6f7646a22fdcbcf12",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 35,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅记录报告直接披露的合并口径；不得默认把 06 与 07 相加。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    ],
+    "source_datapoint_id": "E2-4_05",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.microplastics"
+      ]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "微塑料可能在生产中有意或无意产生；范围按 AR 20 判断。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.microplastics",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "microplastic_flow",
+      "exit_pathway",
+      "intentionality"
+    ],
+    "labels": {
+      "en": "Microplastics generated",
+      "zh": "产生的微塑料量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.tonne",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
+      ],
+      "interpretation_guidance": [
+        "微塑料可能在生产中有意或无意产生；范围按 AR 20 判断。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "产生的微塑料量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.mass",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp06",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "mass",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+      "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "28(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Alternative",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "mass",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_06",
+        "E2",
+        " E2-4 ",
+        "28 b",
+        "AR 20",
+        "Microplastics generated",
+        "mass",
+        "Alternative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "b109d710063032a99bcf960a59ad3d1a58413930644e566564e4ea34b4acf03c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 36,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "记录 generated 原始值和口径，不推断 used。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    ],
+    "source_datapoint_id": "E2-4_06",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.microplastics"
+      ]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period",
+      "esrs.2023-set1.e2-4.concept.reporting-boundary"
+    ],
+    "data_class": "quantitative",
+    "description": "微塑料使用包括生产过程使用或采购且按 AR 20 离开设施的相关量。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.microplastics",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "microplastic_flow",
+      "exit_pathway",
+      "intentionality"
+    ],
+    "labels": {
+      "en": "Microplastics used",
+      "zh": "使用的微塑料量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.tonne",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
+      ],
+      "interpretation_guidance": [
+        "微塑料使用包括生产过程使用或采购且按 AR 20 离开设施的相关量。"
+      ],
+      "normalization": "compatible_unit_only",
+      "positive_definition": "使用的微塑料量",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.mass",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp07",
+    "obligation_class": "alternative_if_material",
+    "official_data_type": "mass",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-exit-pathway",
+      "esrs.2023-set1.e2-4.dimension.microplastic-intentionality",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "28(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Alternative",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "mass",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_07",
+        "E2",
+        " E2-4 ",
+        "28 b",
+        "AR 20",
+        "Microplastics used",
+        "mass",
+        "Alternative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "840737a0021f77d28ff174d1608b9b34cd360cc9f7e871347e3556684fef6ef8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 37,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "记录 used 原始值和口径，不推断 generated。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.microplastic-flow"
+    ],
+    "source_datapoint_id": "E2-4_07",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+      "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.microplastics"
+      ]
+    ],
+    "value_family": "quantitative_mass"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "企业应将量化披露置于背景中并描述随时间的变化。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.pollution-methodology",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "affected_medium",
+      "pollutant"
+    ],
+    "labels": {
+      "en": "Description of changes over time (pollution of air, water and soil)",
+      "zh": "空气、水和土壤污染随时间变化描述"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "affected_medium",
+        "pollutant"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "affected_medium",
+        "pollutant"
+      ],
+      "interpretation_guidance": [
+        "企业应将量化披露置于背景中并描述随时间的变化。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "空气、水和土壤污染随时间变化描述",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "30(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_08",
+        "E2",
+        " E2-4 ",
+        "30 a",
+        null,
+        "Description of changes over time (pollution of air, water and soil) ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "5438afc767b83d2a3a663c5aad1e9401df1d41cabe7b31374a24717ae382a64f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 38,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "保留原文；可另提取方向、比较期间和涉及污染物作为结构化要素。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_08",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.change-over-time"
+      ]
+    ],
+    "value_family": "narrative"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 26-27"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "AR 26 给出方法优先顺序；AR 27 要求考虑 BREF/基准、AMS 校准和独立实验室验证。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.pollution-methodology",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Description of measurement methodologies (pollution of air, water and soil)",
+      "zh": "空气、水和土壤污染测量方法描述"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [
+        "污染物排放数值本身",
+        "监测设施数量",
+        "无具体测量说明的认证名称"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "不能以污染物排放数值本身、监测设施数量、无具体测量说明的认证名称替代本条款所定义的测量或说明。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "interpretation_guidance": [
+        "AR 26 给出方法优先顺序；AR 27 要求考虑 BREF/基准、AMS 校准和独立实验室验证。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "空气、水和土壤污染测量方法描述",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "paragraph": "30(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_09",
+        "E2",
+        " E2-4 ",
+        "30 b ",
+        "AR 26-AR 27",
+        "Description of measurement methodologies (pollution of air, water and soil) ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "47b14268008f17f0db58fa442c71070bcd852c0bd212d79d617d005c544d706a",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 39,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "方法按优先级代码登记，同时保留完整原文和适用污染介质。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_09",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.measurement-method"
+      ]
+    ],
+    "value_family": "narrative_methodology"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 27"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "应描述收集污染核算与报告数据的流程，包括所需数据类型和信息来源。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.pollution-methodology",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Description of process(es) to collect data for pollution-related accounting and reporting",
+      "zh": "污染相关核算与报告的数据收集流程"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "interpretation_guidance": [
+        "应描述收集污染核算与报告数据的流程，包括所需数据类型和信息来源。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "污染相关核算与报告的数据收集流程",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp10",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "30(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_10",
+        "E2",
+        " E2-4 ",
+        "30 c",
+        "AR 27",
+        "Description of process(es) to collect data for pollution-related accounting and reporting ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1aad622161eb888ea2c906b6c97135b52235ada86b9c378737a56737270b6e82",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 40,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "流程、数据类型、来源分别填列，不压缩成仅有“已披露”。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_10",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.data-collection-process"
+      ]
+    ],
+    "value_family": "narrative_process"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period"
+    ],
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.water-risk-slices",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "water_risk_class"
+    ],
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to water occurring in areas at water risk",
+      "zh": "水风险地区水污染物排放占比"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "interpretation_guidance": [
+        "AR 23(c) 的可选背景信息。"
+      ],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "水风险地区水污染物排放占比",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp11",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_11",
+        "E2",
+        " E2-4 ",
+        "AR 23 c",
+        null,
+        "Percentage of total emissions of pollutants to water occurring in areas at water risk",
+        "percent",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "153345f5641042530ed86a6181e5d4d1e87b1e4a87691848e196f87db157c605",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 41,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "优先记录报告直接披露值；计算时分子分母必须同期间、同边界、同口径。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_11",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.water-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.water-risk"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.percentage"
+      ]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period"
+    ],
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息；高水压力属于水风险的特定类别。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.water-risk-slices",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "water_risk_class"
+    ],
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to water occurring in areas of high-water stress",
+      "zh": "高水压力地区水污染物排放占比"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "interpretation_guidance": [
+        "AR 23(c) 的可选背景信息；高水压力属于水风险的特定类别。"
+      ],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "高水压力地区水污染物排放占比",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp12",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_12",
+        "E2",
+        " E2-4 ",
+        "AR 23 c",
+        null,
+        "Percentage of total emissions of pollutants to water occurring in areas of high-water stress",
+        "percent",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1a8c15d12439ccf07398877e7e5dccab121be9782b5e3535dd0d85f0469429ba",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 42,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "不得与一般 water risk 占比混填。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_12",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.water-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.water-stress"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.percentage"
+      ]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period"
+    ],
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.water-risk-slices",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "water_risk_class"
+    ],
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to soil occurring in areas at water risk",
+      "zh": "水风险地区土壤污染物排放占比"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "interpretation_guidance": [
+        "AR 23(c) 的可选背景信息。"
+      ],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "水风险地区土壤污染物排放占比",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp13",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_13",
+        "E2",
+        " E2-4 ",
+        "AR 23 c",
+        null,
+        "Percentage of total emissions of pollutants to soil occurring in areas at water risk",
+        "percent",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "26a095b865cd14d787944fcba9a4c7bfdf49f1cb9a158236ac004f6eb6a6d2db",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 43,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "分子必须是位于水风险地区的土壤污染排放量。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_13",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.soil-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.water-risk"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.percentage"
+      ]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "context_concept_ids": [
+      "esrs.2023-set1.e2-4.concept.reporting-period"
+    ],
+    "data_class": "quantitative",
+    "description": "AR 23(c) 的可选背景信息。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.water-risk-slices",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "water_risk_class"
+    ],
+    "labels": {
+      "en": "Percentage of total emissions of pollutants to soil occurring in areas of high-water stress",
+      "zh": "高水压力地区土壤污染物排放占比"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "water_risk_class"
+      ],
+      "interpretation_guidance": [
+        "AR 23(c) 的可选背景信息。"
+      ],
+      "normalization": "percent_to_ratio",
+      "positive_definition": "高水压力地区土壤污染物排放占比",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp14",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "percent",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant",
+      "extractesg.core.dimension.site",
+      "extractesg.core.dimension.geography"
+    ],
+    "paragraph": "AR 23(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "percent",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_14",
+        "E2",
+        " E2-4 ",
+        "AR 23 c",
+        null,
+        "Percentage of total emissions of pollutants to soil occurring in areas of high-water stress",
+        "percent",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "eb947461923394fd5f270258671f190eac18d1263fbd217bb8c2e3665448f6f2",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 44,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "需保留地点与高水压力分类依据。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollution-medium",
+      "esrs.2023-set1.e2-4.dimension.water-risk-class"
+    ],
+    "source_datapoint_id": "E2-4_14",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.soil-pollution"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.water-stress"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.percentage"
+      ]
+    ],
+    "value_family": "quantitative_percent"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "仅在采用低于直接测量的量化方法时适用；使用估算还应披露依据、可能不确定性程度和估算范围。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.pollution-methodology",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of reasons for choosing inferior methodology to quantify emissions",
+      "zh": "选择低于直接测量优先级方法的原因"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "interpretation_guidance": [
+        "仅在采用低于直接测量的量化方法时适用；使用估算还应披露依据、可能不确定性程度和估算范围。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "选择低于直接测量优先级方法的原因",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp15",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "31",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_15",
+        "E2",
+        " E2-4 ",
+        31,
+        null,
+        "Disclosure of reasons for choosing inferior methodology to quantify emissions ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "be9da068ba8af11d49a73bea414da7389a4bed53558167ee671f5bc3c80e9b3f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 45,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "不要只填原因；估算依据和不确定性要拆分记录。",
+    "required_dimension_ids": [],
+    "source_datapoint_id": "E2-4_15",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.measurement-method"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.method-choice-reason"
+      ]
+    ],
+    "value_family": "narrative_methodology"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "在企业活动适用 IED 和相关 BREF 时，可披露附加信息。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.industrial-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name"
+    ],
+    "labels": {
+      "en": "Disclosure of list of installations operated that fall under IED and EU BAT Conclusions",
+      "zh": "适用 IED 和 EU BAT Conclusions 的运营设施清单"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name"
+      ],
+      "interpretation_guidance": [
+        "在企业活动适用 IED 和相关 BREF 时，可披露附加信息。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "适用 IED 和 EU BAT Conclusions 的运营设施清单",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp16",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.site"
+    ],
+    "paragraph": "AR 25(a)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_16",
+        "E2",
+        " E2-4 ",
+        "AR 25a",
+        null,
+        "Disclosure of list of installations operated that fall under IED and EU BAT Conclusions ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "af8e5e90132686574b6a8cb8f4abdb080d0c2d85496a35365ccd03024caa3a52",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 46,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "一项设施一条记录；明确设施名称和适用依据。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility"
+    ],
+    "source_datapoint_id": "E2-4_16",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.ied"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.bref"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.installation"
+      ]
+    ],
+    "value_family": "narrative_list"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "适用 IED/BREF 时可披露；明确零事件也是有效披露。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.industrial-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name"
+    ],
+    "labels": {
+      "en": "Disclosure of list of any non-compliance incidents or enforcement actions necessary to ensure compliance in case of breaches of permit conditions",
+      "zh": "许可条件违规事件或执法行动清单"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name"
+      ],
+      "interpretation_guidance": [
+        "适用 IED/BREF 时可披露；明确零事件也是有效披露。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "许可条件违规事件或执法行动清单",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp17",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "AR 25(b)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_17",
+        "E2",
+        " E2-4 ",
+        "AR 25b",
+        null,
+        "Disclosure of list of any non-compliance incidents or enforcement actions necessary to ensure compliance in case of breaches of permit conditions ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "757cbcfe0323952299fe6034274a9a41b6b8193232d9945e761dca8a5e86f398",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 47,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "事件和执法行动分项记录，不以空白代表零。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility"
+    ],
+    "source_datapoint_id": "E2-4_17",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.non-compliance",
+        "esrs.2023-set1.e2-4.concept.enforcement-action"
+      ]
+    ],
+    "value_family": "narrative_list"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "mixed",
+    "description": "适用 IED/BREF 时可披露。官方类型为 narrative，但实际比较通常包含结构化数值。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.industrial-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name",
+      "parameter_or_pollutant"
+    ],
+    "labels": {
+      "en": "Disclosure of actual performance and comparison of environmental performance against emission levels associated with best available techniques (BAT-AEL) as described in EU-BAT conclusions",
+      "zh": "实际环境绩效与 BAT-AEL 比较"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name",
+        "parameter_or_pollutant"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name",
+        "parameter_or_pollutant"
+      ],
+      "interpretation_guidance": [
+        "适用 IED/BREF 时可披露。官方类型为 narrative，但实际比较通常包含结构化数值。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "实际环境绩效与 BAT-AEL 比较",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp18",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e2-4.dimension.pollutant"
+    ],
+    "paragraph": "AR 25(c)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_18",
+        "E2",
+        " E2-4 ",
+        "AR 25c",
+        null,
+        "Disclosure of actual performance and comparison of environmental performance against emission levels associated with best available techniques (BAT-AEL) as described in EU-BAT conclusions ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "0b489bde8f7a5e31dadccd0ecc738fa261d8fa3b8078478bc4eb53a0d28fde00",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 48,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "叙述放定性表；实际值和 BAT-AEL 区间同时放量化事实表。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility",
+      "esrs.2023-set1.e2-4.dimension.bat-parameter"
+    ],
+    "source_datapoint_id": "E2-4_18",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.bat-ael"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.environmental-performance"
+      ]
+    ],
+    "value_family": "mixed_bat_comparison"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "mixed",
+    "description": "仅在 BAT-AEPL 适用于相应行业和设施时。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.industrial-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name",
+      "parameter_or_pollutant"
+    ],
+    "labels": {
+      "en": "Disclosure of actual performance against environmental performance levels associated with best available techniques (BAT-AEPLs) applicable to sector and installation",
+      "zh": "实际环境绩效与 BAT-AEPL 比较"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name",
+        "parameter_or_pollutant"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name",
+        "parameter_or_pollutant"
+      ],
+      "interpretation_guidance": [
+        "仅在 BAT-AEPL 适用于相应行业和设施时。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "实际环境绩效与 BAT-AEPL 比较",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp19",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "extractesg.core.dimension.business-segment"
+    ],
+    "paragraph": "AR 25(d)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_19",
+        "E2",
+        " E2-4 ",
+        "AR 25d",
+        null,
+        "Disclosure of actual performance against environmental performance levels associated with best available techniques (BAT-AEPLs) applicable to sector and installation ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "896d2dda68e51fb2f544f29a3258668738e7b14afbd26bc35ea55ddd507adc26",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 49,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "保留适用性、实际值、基准值或区间及比较结论。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility",
+      "esrs.2023-set1.e2-4.dimension.bat-parameter"
+    ],
+    "source_datapoint_id": "E2-4_19",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.bat-aepl"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.environmental-performance"
+      ]
+    ],
+    "value_family": "mixed_bat_comparison"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "适用 IED/BREF 时可披露的附加信息。",
+    "disclosure_requirement": "E2-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e2-4.topic.industrial-emissions",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name",
+      "item_type"
+    ],
+    "labels": {
+      "en": "Disclosure of list of any compliance schedules or derogations granted by competent authorities according to Article 15(4) IED that are associated with implementation of BAT-AELs",
+      "zh": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name",
+        "item_type"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "distinguish_from": [],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "facility_name",
+        "item_type"
+      ],
+      "interpretation_guidance": [
+        "适用 IED/BREF 时可披露的附加信息。"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "metric_id": "esrs.2023-set1.e2-4.dp20",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [],
+    "paragraph": "AR 25(e)",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E2-4_20",
+        "E2",
+        " E2-4 ",
+        "AR 25e",
+        null,
+        "Disclosure of list of any compliance schedules or derogations granted by competent authorities according to Article 15(4) IED that are associated with implementation of BAT-AELs ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "c52e3dbc657e9f5608d4880eeed82655b23f0c6914463a1331814efc221729b1",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 50,
+      "source_sheet": "ESRS E2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "每个计划或豁免单独成行并记录主管机关和期限。",
+    "required_dimension_ids": [
+      "extractesg.core.dimension.facility"
+    ],
+    "source_datapoint_id": "E2-4_20",
+    "source_refs": [
+      "esrs.2023-set1.e2-4.source.eu-2023-2772",
+      "esrs.2023-set1.e2-4.source.efrag-ig3-2025"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e2-4.concept.bat-ael"
+      ],
+      [
+        "esrs.2023-set1.e2-4.concept.compliance-schedule",
+        "esrs.2023-set1.e2-4.concept.derogation"
+      ]
+    ],
+    "value_family": "narrative_list"
+  }
+]

@@ -1,0 +1,1504 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and  how target relates to management of material impacts, risks and opportunities related to areas at water risk。目标与水风险地区关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and  how target relates to management of material impacts, risks and opportunities related to areas at water risk",
+      "zh": "目标与水风险地区关系"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "23 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_01",
+        "E3",
+        "E3-3",
+        "23 a",
+        null,
+        "Disclosure of whether and  how target relates to management of material impacts, risks and opportunities related to areas at water risk ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "7b5495c905e002b5e7c975237b7cb266a3a5b1e905143cd1a53ba6f9d8c28a26",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 25,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_01",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and  how target relates to responsible management of marine resources impacts, risks and opportunities。目标与海洋资源责任管理关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and  how target relates to responsible management of marine resources impacts, risks and opportunities",
+      "zh": "目标与海洋资源责任管理关系"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "23 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_02",
+        "E3",
+        "E3-3",
+        "23 b",
+        null,
+        "Disclosure of whether and  how target relates to responsible management of marine resources impacts, risks and opportunities ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1bca6cd7d47eacbcf3f2d6c0cfde37a246b627c63dd3a1b4ac5872257067e158",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 26,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_02",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and how target relates to reduction of water consumption。目标与耗水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how target relates to reduction of water consumption",
+      "zh": "目标与耗水减少关系"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "23 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_03",
+        "E3",
+        "E3-3",
+        "23 c",
+        null,
+        "Disclosure of whether and how target relates to reduction of water consumption ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "702f74f68d107e0202bf3489016393d00660ef0bcff93ba52d46be2732809287",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 27,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_03",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "(Local) ecological threshold and entity-specific allocation were taken into consideration when setting water and marine resources target。水目标是否考虑生态阈值。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "(Local) ecological threshold and entity-specific allocation were taken into consideration when setting water and marine resources target",
+      "zh": "水目标是否考虑生态阈值"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp04",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "24",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_04",
+        "E3",
+        "E3-3",
+        24,
+        "AR 22",
+        "(Local) ecological threshold and entity-specific allocation were taken into consideration when setting water and marine resources target",
+        "semi-narrative",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "9cddb85b6836e50a9de1b6a1503ac9f52d9518acb4a3875e1b927aef89b0ed8b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 28,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_04",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)。水生态阈值及识别方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)",
+      "zh": "水生态阈值及识别方法"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": "ESRS E3第24(a)/(b)段描述生态阈值及企业分配方法；原表narrative/monetary不能解释为货币金额。",
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp05",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative/monetary",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "24 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative/monetary",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_05",
+        "E3",
+        "E3-3",
+        "24 a",
+        "AR 22",
+        "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources) ",
+        "narrative/monetary",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "6be5a232b4442bf61ffaf6b38b81e751853bb924ac65224deb67afa87a21e3e7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 29,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_05",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how ecological entity-specific threshold was determined (water and marine resources)。企业水阈值分配方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of how ecological entity-specific threshold was determined (water and marine resources)",
+      "zh": "企业水阈值分配方法"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": "ESRS E3第24(a)/(b)段描述生态阈值及企业分配方法；原表narrative/monetary不能解释为货币金额。",
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp06",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative/monetary",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "24 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative/monetary",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_06",
+        "E3",
+        "E3-3",
+        "24 b",
+        "AR 22",
+        "Disclosure of how ecological entity-specific threshold was determined (water and marine resources) ",
+        "narrative/monetary",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "ac57f62eb08c19f02782a5a27b19f5a8d15bcffa3b0b100dbff4ffe555b8dd7d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 30,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_06",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 22"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (water and marine resources)。水阈值责任分配。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (water and marine resources)",
+      "zh": "水阈值责任分配"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp07",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "24 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_07",
+        "E3",
+        "E3-3",
+        "24 c",
+        "AR 22",
+        "Disclosure of how responsibility for respecting identified ecological threshold is allocated (water and marine resources) ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "5e6b2ffa45bc59244a7c69279906877979d6395286eac698c3b1cf42304cba74",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 31,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_07",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Adopted and presented water and marine resources-related target is mandatory (based on legislation)。水及海洋资源目标的法定性质。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Adopted and presented water and marine resources-related target is mandatory (based on legislation)",
+      "zh": "水及海洋资源目标的法定性质"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "25",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_08",
+        "E3",
+        "E3-3",
+        25,
+        null,
+        "Adopted and presented water and marine resources-related target is mandatory (based on legislation)",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "7327728d716fff0da80971a37ebf56034cdcff01440049e2dd3079457064a65f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 32,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_08",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 24, AR26"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Target relates to reduction of water withdrawals。目标与取水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Target relates to reduction of water withdrawals",
+      "zh": "目标与取水减少关系"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp09",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "AR 23 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_09",
+        "E3",
+        "E3-3",
+        "AR 23 a",
+        "AR 24, AR26",
+        "Target relates to reduction of water withdrawals",
+        "semi-narrative",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "a66b197d5e329cf804cae29628c372d516ae9ae1c6bed17633e0435e72024d09",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 33,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_09",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 25, AR26"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Target relates to reduction of water discharges。目标与排水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "disclosure_requirement": "E3-3",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e3-3.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Target relates to reduction of water discharges",
+      "zh": "目标与排水减少关系"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "geography",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e3-3.dp10",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.target-ref",
+      "esrs.2023-set1.e3-3.dimension.geography",
+      "esrs.2023-set1.e3-3.dimension.target-year"
+    ],
+    "paragraph": "AR 23 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E3-3_10",
+        "E3",
+        "E3-3",
+        "AR 23 b",
+        "AR 25, AR26",
+        "Target relates to reduction of water discharges",
+        "semi-narrative",
+        null,
+        "V",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "9c1ac27105c7da78a911cfdfc6a0261d88b02d89d5ab32b8f1e5d0705c558611",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null,
+        null
+      ],
+      "source_row": 34,
+      "source_sheet": "ESRS E3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e3-3.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "source_datapoint_id": "E3-3_10",
+    "source_refs": [
+      "esrs.2023-set1.e3-3.source.law",
+      "esrs.2023-set1.e3-3.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e3-3.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

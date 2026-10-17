@@ -1,0 +1,170 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp01",
+    "description": "Disclosure of key action。关键行动。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Disclosure of key action",
+      "zh": "关键行动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp02",
+    "description": "Description of scope of key action。关键行动范围。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Description of scope of key action",
+      "zh": "关键行动范围"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp03",
+    "description": "Time horizon under which key action is to be completed。关键行动完成时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Time horizon under which key action is to be completed",
+      "zh": "关键行动完成时间"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp04",
+    "description": "Description of key action taken, and its results, to provide for and cooperate in or support provision of remedy for those harmed by actual material impacts。重大实际影响的补救行动与结果。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Description of key action taken, and its results, to provide for and cooperate in or support provision of remedy for those harmed by actual material impacts",
+      "zh": "重大实际影响的补救行动与结果"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp05",
+    "description": "Disclosure of quantitative and qualitative information regarding progress of actions or action plans disclosed in prior periods。先前行动计划进展。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Disclosure of quantitative and qualitative information regarding progress of actions or action plans disclosed in prior periods",
+      "zh": "先前行动计划进展"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp06",
+    "description": "Disclosure of the type of current and future financial and other resources allocated to the action plan (Capex and Opex)。当前未来行动的资源类型。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Disclosure of the type of current and future financial and other resources allocated to the action plan (Capex and Opex)",
+      "zh": "当前未来行动的资源类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp07",
+    "description": "Explanation of how current financial resources relate to most relevant amounts presented in financial statements。当前资源与财务报表关联。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Explanation of how current financial resources relate to most relevant amounts presented in financial statements",
+      "zh": "当前资源与财务报表关联"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp08",
+    "description": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources。行动资源按时间和类型分解。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources",
+      "zh": "行动资源按时间和类型分解"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp09",
+    "description": "Current financial resources allocated to action plan (Capex)。当前行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Current financial resources allocated to action plan (Capex)",
+      "zh": "当前行动资本支出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp10",
+    "description": "Current financial resources allocated to action plan (Opex)。当前行动运营支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Current financial resources allocated to action plan (Opex)",
+      "zh": "当前行动运营支出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp11",
+    "description": "Future financial resources allocated to action plan (Capex)。未来行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Future financial resources allocated to action plan (Capex)",
+      "zh": "未来行动资本支出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp12",
+    "description": "Future financial resources allocated to action plan (Opex)。未来行动运营支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Future financial resources allocated to action plan (Opex)",
+      "zh": "未来行动运营支出"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp13",
+    "description": "Disclosure of reasons for not having adopted actions。未采纳行动的原因。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Disclosure of reasons for not having adopted actions",
+      "zh": "未采纳行动的原因"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-a.concept.dp14",
+    "description": "Disclosure of timeframe in which the undertakings aims to adopt actions。计划采纳行动的时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "labels": {
+      "en": "Disclosure of timeframe in which the undertakings aims to adopt actions",
+      "zh": "计划采纳行动的时间"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-a.source.law",
+      "esrs.2023-set1.mdr-a.source.ig3"
+    ]
+  }
+]

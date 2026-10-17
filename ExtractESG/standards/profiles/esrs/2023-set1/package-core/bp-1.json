@@ -1,0 +1,13 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "BP-1包内核心条款",
+  "profile_id": "esrs.2023-set1.bp-1.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "报告编制基础、合并边界与价值链覆盖是各主题身份前提。",
+  "source_datapoint_ids": [
+    "BP-1_01",
+    "BP-1_02",
+    "BP-1_04"
+  ]
+}

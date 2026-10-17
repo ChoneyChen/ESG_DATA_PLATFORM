@@ -1,0 +1,158 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp01",
+    "description": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement。其他欧盟法规数据点位置清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement",
+      "zh": "其他欧盟法规数据点位置清单"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp02",
+    "description": "Disclosure of list of ESRS Disclosure Requirements complied with in preparing sustainability statement following outcome of materiality assessment。遵循的ESRS披露要求清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Disclosure of list of ESRS Disclosure Requirements complied with in preparing sustainability statement following outcome of materiality assessment",
+      "zh": "遵循的ESRS披露要求清单"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp03",
+    "description": "Explanation of negative materiality assessment for ESRS E1 Climate change。气候不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS E1 Climate change",
+      "zh": "气候不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp04",
+    "description": "Explanation of negative materiality assessment for ESRS E2 Pollution。污染不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS E2 Pollution",
+      "zh": "污染不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp05",
+    "description": "Explanation of negative materiality assessment for ESRS E3 Water and marine resources。水与海洋不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS E3 Water and marine resources",
+      "zh": "水与海洋不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp06",
+    "description": "Explanation of negative materiality assessment for ESRS E4 Biodiversity and ecosystems。生物多样性不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS E4 Biodiversity and ecosystems",
+      "zh": "生物多样性不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp07",
+    "description": "Explanation of negative materiality assessment for ESRS E5 Circular economy。循环经济不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS E5 Circular economy",
+      "zh": "循环经济不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp08",
+    "description": "Explanation of negative materiality assessment for ESRS S1 Own workforce。自有劳动力不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS S1 Own workforce",
+      "zh": "自有劳动力不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp09",
+    "description": "Explanation of negative materiality assessment for ESRS S2 Workers in value chain。价值链劳动者不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS S2 Workers in value chain",
+      "zh": "价值链劳动者不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp10",
+    "description": "Explanation of negative materiality assessment for ESRS S3 Affected communities。社区不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS S3 Affected communities",
+      "zh": "社区不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp11",
+    "description": "Explanation of negative materiality assessment for ESRS S4 Consumers and end-users。消费者不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS S4 Consumers and end-users",
+      "zh": "消费者不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp12",
+    "description": "Explanation of negative materiality assessment for ESRS G1 Business conduct。商业行为不重大判断说明。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of negative materiality assessment for ESRS G1 Business conduct",
+      "zh": "商业行为不重大判断说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.iro-2.concept.dp13",
+    "description": "Explanation of how material information to be disclosed in relation to material impacts, risks and opportunities has been determined。重要披露信息确定方法。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "labels": {
+      "en": "Explanation of how material information to be disclosed in relation to material impacts, risks and opportunities has been determined",
+      "zh": "重要披露信息确定方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.iro-2.source.law",
+      "esrs.2023-set1.iro-2.source.ig3"
+    ]
+  }
+]

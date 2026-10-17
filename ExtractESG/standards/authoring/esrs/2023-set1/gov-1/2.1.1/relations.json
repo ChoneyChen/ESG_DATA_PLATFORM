@@ -1,0 +1,23 @@
+[
+  {
+    "description": "多样性与独立性不同，不共享计数定义。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.gov-1.relation.family01",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.gov-1.dp05",
+      "esrs.2023-set1.gov-1.dp06"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.gov-1.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.gov-1.dp07"
+    ]
+  }
+]

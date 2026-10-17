@@ -1,0 +1,56 @@
+[
+  {
+    "description": "由报告证据识别的披露主体；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e3-5.dimension.reporting-entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的风险类型；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e3-5.dimension.risk-type",
+    "labels": {
+      "en": "risk type",
+      "zh": "风险类型"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的情景；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e3-5.dimension.scenario",
+    "labels": {
+      "en": "scenario",
+      "zh": "情景"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的预期时间范围；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e3-5.dimension.forecast-horizon",
+    "labels": {
+      "en": "forecast horizon",
+      "zh": "预期时间范围"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的财务项目；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e3-5.dimension.financial-item",
+    "labels": {
+      "en": "financial item",
+      "zh": "财务项目"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的币种；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e3-5.dimension.currency",
+    "labels": {
+      "en": "currency",
+      "zh": "币种"
+    },
+    "value_type": "string"
+  }
+]

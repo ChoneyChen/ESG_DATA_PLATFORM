@@ -1,0 +1,15 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "GOV-1包内核心条款",
+  "profile_id": "esrs.2023-set1.gov-1.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "优先治理多样性、独立性、责任及目标监督。",
+  "source_datapoint_ids": [
+    "GOV-1_06",
+    "GOV-1_07",
+    "GOV-1_08",
+    "GOV-1_10",
+    "GOV-1_14"
+  ]
+}

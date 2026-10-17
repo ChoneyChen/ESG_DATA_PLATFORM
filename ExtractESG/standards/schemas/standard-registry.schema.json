@@ -1,0 +1,352 @@
+{
+  "$defs": {
+    "FrameworkPlaceholder": {
+      "additionalProperties": false,
+      "properties": {
+        "executable": {
+          "const": false,
+          "title": "Executable",
+          "type": "boolean"
+        },
+        "framework_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Framework Id",
+          "type": "string"
+        },
+        "next_step": {
+          "title": "Next Step",
+          "type": "string"
+        },
+        "state": {
+          "const": "awaiting_source_catalog",
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "framework_id",
+        "state",
+        "executable",
+        "next_step"
+      ],
+      "title": "FrameworkPlaceholder",
+      "type": "object"
+    },
+    "ModuleRegistration": {
+      "additionalProperties": false,
+      "properties": {
+        "core_analysis_state": {
+          "enum": [
+            "authored_draft",
+            "pending_full_module_analysis"
+          ],
+          "title": "Core Analysis State",
+          "type": "string"
+        },
+        "core_source_datapoint_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Core Source Datapoint Ids",
+          "type": "array"
+        },
+        "disclosure_requirement": {
+          "title": "Disclosure Requirement",
+          "type": "string"
+        },
+        "executable": {
+          "title": "Executable",
+          "type": "boolean"
+        },
+        "major_source_datapoint_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Major Source Datapoint Ids",
+          "type": "array"
+        },
+        "next_steps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Next Steps",
+          "type": "array"
+        },
+        "package_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Package Id",
+          "type": "string"
+        },
+        "package_version": {
+          "anyOf": [
+            {
+              "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Package Version"
+        },
+        "runtime_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Runtime Path"
+        },
+        "source_datapoint_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Datapoint Ids",
+          "type": "array"
+        },
+        "source_digest": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Digest"
+        },
+        "source_directory": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Directory"
+        },
+        "source_sheet": {
+          "title": "Source Sheet",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "compiled_draft",
+            "planned"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "package_id",
+        "disclosure_requirement",
+        "source_sheet",
+        "state",
+        "executable",
+        "source_datapoint_ids",
+        "core_source_datapoint_ids",
+        "core_analysis_state",
+        "major_source_datapoint_ids",
+        "source_directory",
+        "package_version",
+        "source_digest",
+        "runtime_path",
+        "next_steps"
+      ],
+      "title": "ModuleRegistration",
+      "type": "object"
+    },
+    "PrinciplePlaceholder": {
+      "additionalProperties": false,
+      "properties": {
+        "executable": {
+          "const": false,
+          "title": "Executable",
+          "type": "boolean"
+        },
+        "framework_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Framework Id",
+          "type": "string"
+        },
+        "module_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Module Id",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "state": {
+          "const": "principles_reserved",
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "framework_id",
+        "module_id",
+        "state",
+        "executable",
+        "reason"
+      ],
+      "title": "PrinciplePlaceholder",
+      "type": "object"
+    },
+    "SharedRequirementReference": {
+      "additionalProperties": false,
+      "properties": {
+        "original_disclosure_requirement": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Original Disclosure Requirement"
+        },
+        "purpose": {
+          "enum": [
+            "adopted_policy",
+            "absent_policy",
+            "adopted_action",
+            "absent_action",
+            "adopted_target",
+            "absent_target"
+          ],
+          "title": "Purpose",
+          "type": "string"
+        },
+        "source_datapoint_id": {
+          "title": "Source Datapoint Id",
+          "type": "string"
+        },
+        "source_row": {
+          "minimum": 1,
+          "title": "Source Row",
+          "type": "integer"
+        },
+        "source_sheet": {
+          "title": "Source Sheet",
+          "type": "string"
+        },
+        "target_package_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Target Package Id",
+          "type": "string"
+        },
+        "target_package_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Target Package Version",
+          "type": "string"
+        },
+        "target_source_datapoint_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Target Source Datapoint Ids",
+          "type": "array"
+        },
+        "topic_binding": {
+          "title": "Topic Binding",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_datapoint_id",
+        "source_sheet",
+        "source_row",
+        "original_disclosure_requirement",
+        "target_package_id",
+        "target_package_version",
+        "target_source_datapoint_ids",
+        "topic_binding",
+        "purpose"
+      ],
+      "title": "SharedRequirementReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "catalog_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Catalog Id",
+      "type": "string"
+    },
+    "format_version": {
+      "const": "1.0",
+      "title": "Format Version",
+      "type": "string"
+    },
+    "modules": {
+      "items": {
+        "$ref": "#/$defs/ModuleRegistration"
+      },
+      "title": "Modules",
+      "type": "array"
+    },
+    "other_frameworks": {
+      "items": {
+        "$ref": "#/$defs/FrameworkPlaceholder"
+      },
+      "title": "Other Frameworks",
+      "type": "array"
+    },
+    "principles": {
+      "items": {
+        "$ref": "#/$defs/PrinciplePlaceholder"
+      },
+      "title": "Principles",
+      "type": "array"
+    },
+    "shared_requirement_references": {
+      "items": {
+        "$ref": "#/$defs/SharedRequirementReference"
+      },
+      "title": "Shared Requirement References",
+      "type": "array"
+    },
+    "source_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "topic_shared_requirements": {
+      "items": {
+        "$ref": "#/$defs/SharedRequirementReference"
+      },
+      "title": "Topic Shared Requirements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "format_version",
+    "catalog_id",
+    "source_sha256",
+    "modules",
+    "shared_requirement_references",
+    "topic_shared_requirements",
+    "other_frameworks",
+    "principles"
+  ],
+  "title": "StandardRegistry",
+  "type": "object"
+}

@@ -286,7 +286,7 @@ def test_existing_visual_block_can_be_bound_to_figure_without_duplication() -> N
         document,
         "task-1",
         [patch],
-        allowed_target_ids={"block-1"},
+        allowed_target_ids={"block-1", "figure-1"},
         required_target_ids={"figure-1"},
         allowed_operations={"bind_block_to_figure"},
     )

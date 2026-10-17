@@ -1,0 +1,62 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.gov-5.concept.dp01",
+    "description": "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting。可持续披露风险管理内控范围与组成。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "labels": {
+      "en": "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting",
+      "zh": "可持续披露风险管理内控范围与组成"
+    },
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.gov-5.concept.dp02",
+    "description": "Description of risk assessment approach followed。可持续披露风险评估方法。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "labels": {
+      "en": "Description of risk assessment approach followed",
+      "zh": "可持续披露风险评估方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.gov-5.concept.dp03",
+    "description": "Description of main risks identified and their mitigation strategies。主要披露风险与缓解策略。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "labels": {
+      "en": "Description of main risks identified and their mitigation strategies",
+      "zh": "主要披露风险与缓解策略"
+    },
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.gov-5.concept.dp04",
+    "description": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes。披露风控内控结果融入职能。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "labels": {
+      "en": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes",
+      "zh": "披露风控内控结果融入职能"
+    },
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.gov-5.concept.dp05",
+    "description": "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies。治理机构的定期风控内控报告。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "labels": {
+      "en": "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies",
+      "zh": "治理机构的定期风控内控报告"
+    },
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ]
+  }
+]

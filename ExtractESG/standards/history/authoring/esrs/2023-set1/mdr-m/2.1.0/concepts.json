@@ -1,0 +1,38 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.mdr-m.concept.dp01",
+    "description": "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity。绩效及效果指标定义。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "labels": {
+      "en": "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity",
+      "zh": "绩效及效果指标定义"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-m.source.law",
+      "esrs.2023-set1.mdr-m.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-m.concept.dp02",
+    "description": "Disclosure of methodologies and significant assumptions behind metric。指标方法与重大假设。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "labels": {
+      "en": "Disclosure of methodologies and significant assumptions behind metric",
+      "zh": "指标方法与重大假设"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-m.source.law",
+      "esrs.2023-set1.mdr-m.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.mdr-m.concept.dp03",
+    "description": "Type of external body other than assurance provider that provides validation。指标外部验证机构。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
+    "labels": {
+      "en": "Type of external body other than assurance provider that provides validation",
+      "zh": "指标外部验证机构"
+    },
+    "source_refs": [
+      "esrs.2023-set1.mdr-m.source.law",
+      "esrs.2023-set1.mdr-m.source.ig3"
+    ]
+  }
+]

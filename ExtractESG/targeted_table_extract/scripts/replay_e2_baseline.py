@@ -35,9 +35,10 @@ def _signature(decision):
     )
 
 
-def replay(root: Path) -> list[dict]:
+def replay(root: Path, jobs: list[str] | None = None) -> list[dict]:
     reports = []
-    for job, expected_count in BASELINE_COUNTS.items():
+    for job in jobs if jobs is not None else BASELINE_COUNTS:
+        expected_count = BASELINE_COUNTS[job]
         bundle = root / job
         observation_count = len((bundle / "results/quantitative-observations.jsonl").read_text().splitlines())
         if observation_count != expected_count:
@@ -75,5 +76,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bundle-root", type=Path,
                         default=Path(__file__).resolve().parents[1] / "targeted_extract_output")
+    parser.add_argument("--job", action="append", choices=list(BASELINE_COUNTS),
+                        help="Replay explicitly selected available bundles; omitted means full golden set")
     args = parser.parse_args()
-    print(json.dumps(replay(args.bundle_root), ensure_ascii=False, indent=2))
+    print(json.dumps(replay(args.bundle_root, args.job), ensure_ascii=False, indent=2))

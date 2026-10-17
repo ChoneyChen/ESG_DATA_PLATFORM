@@ -1,0 +1,38 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e2-iro-1.concept.dp01",
+    "description": "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities。污染影响风险机会识别流程。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "labels": {
+      "en": "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities",
+      "zh": "污染影响风险机会识别流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-iro-1.source.law",
+      "esrs.2023-set1.e2-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-iro-1.concept.dp02",
+    "description": "Disclosure of whether and how consultations have been conducted (pollution)。污染相关利益方咨询。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "labels": {
+      "en": "Disclosure of whether and how consultations have been conducted (pollution)",
+      "zh": "污染相关利益方咨询"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-iro-1.source.law",
+      "esrs.2023-set1.e2-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e2-iro-1.concept.dp03",
+    "description": "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "labels": {
+      "en": "Disclosure of results of materiality assessment (pollution)",
+      "zh": "污染重要性评估结果"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e2-iro-1.source.law",
+      "esrs.2023-set1.e2-iro-1.source.ig3"
+    ]
+  }
+]

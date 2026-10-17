@@ -1,0 +1,37 @@
+{
+  "rule_version": "esg-units-1.1.0",
+  "schema_version": "esg-unit-conversions-v1",
+  "scope": "Current 16 E1-E3 platform-major entries; qualitative methodology has no numerical unit conversion.",
+  "alias_matching": "Remove whitespace and match explicitly listed aliases with case preserved, because SI prefixes M/m can change scale; never infer a missing or unknown source unit from an approved canonical unit.",
+  "decimal_policy": {
+    "finite_conversion": "Exact PostgreSQL numeric multiplication by the declared decimal multiplier.",
+    "non_terminating_conversion": "PostgreSQL numeric rational division with a numerator carrying at least 40 decimal places; preserve the original reported value and unit.",
+    "minimum_rational_decimal_places": 40,
+    "bounds": "Apply each metric definition's value_constraints; the ratio unit does not itself imply [0,1]."
+  },
+  "conversions": [
+    {"canonical_unit":"MWh","aliases":["MWh","兆瓦时"],"multiplier":"1","divisor":"1"},
+    {"canonical_unit":"MWh","aliases":["kWh","千瓦时"],"multiplier":"0.001","divisor":"1"},
+    {"canonical_unit":"MWh","aliases":["GWh","吉瓦时"],"multiplier":"1000","divisor":"1"},
+    {"canonical_unit":"MWh","aliases":["万千瓦时","10^4 kWh","10⁴ kWh"],"multiplier":"10","divisor":"1"},
+    {"canonical_unit":"MWh","aliases":["亿千瓦时","10^8 kWh","10⁸ kWh"],"multiplier":"100000","divisor":"1"},
+    {"canonical_unit":"MWh","aliases":["GJ","吉焦","吉焦耳"],"multiplier":"1.0000000000000000000000000000000000000000","divisor":"3.6","arithmetic":"rational_decimal_40"},
+    {"canonical_unit":"tCO2e","aliases":["tCO2e","tCO₂e","tCO2eq","tonne CO2e","tonnes CO2e","吨CO2e","吨CO₂e","吨二氧化碳当量"],"multiplier":"1","divisor":"1"},
+    {"canonical_unit":"tCO2e","aliases":["kgCO2e","kgCO₂e","千克CO2e","千克二氧化碳当量"],"multiplier":"0.001","divisor":"1"},
+    {"canonical_unit":"tCO2e","aliases":["ktCO2e","ktCO₂e","千吨CO2e","千吨二氧化碳当量"],"multiplier":"1000","divisor":"1"},
+    {"canonical_unit":"tCO2e","aliases":["万吨CO2e","万吨CO₂e","万tCO2e","万吨二氧化碳当量"],"multiplier":"10000","divisor":"1"},
+    {"canonical_unit":"tCO2e","aliases":["MtCO2e","MtCO₂e","百万吨CO2e","百万吨二氧化碳当量"],"multiplier":"1000000","divisor":"1"},
+    {"canonical_unit":"tonne","aliases":["tonne","tonnes","t","吨"],"multiplier":"1","divisor":"1"},
+    {"canonical_unit":"tonne","aliases":["kg","千克","公斤"],"multiplier":"0.001","divisor":"1"},
+    {"canonical_unit":"tonne","aliases":["千吨","千公吨"],"multiplier":"1000","divisor":"1"},
+    {"canonical_unit":"tonne","aliases":["万吨","万公吨"],"multiplier":"10000","divisor":"1"},
+    {"canonical_unit":"tonne","aliases":["百万吨","百万公吨"],"multiplier":"1000000","divisor":"1"},
+    {"canonical_unit":"m3","aliases":["m3","m³","立方米"],"multiplier":"1","divisor":"1"},
+    {"canonical_unit":"m3","aliases":["千立方米","千m3","千m³"],"multiplier":"1000","divisor":"1"},
+    {"canonical_unit":"m3","aliases":["万立方米","万m3","万m³"],"multiplier":"10000","divisor":"1"},
+    {"canonical_unit":"m3","aliases":["百万立方米","百万m3","百万m³"],"multiplier":"1000000","divisor":"1"},
+    {"canonical_unit":"m3","aliases":["litre","liter","litres","liters","l","升"],"multiplier":"0.001","divisor":"1"},
+    {"canonical_unit":"ratio","aliases":["ratio","比例"],"multiplier":"1","divisor":"1"},
+    {"canonical_unit":"ratio","aliases":["percent","percentage","%","％","百分比"],"multiplier":"0.01","divisor":"1"}
+  ]
+}

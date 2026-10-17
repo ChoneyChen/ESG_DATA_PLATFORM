@@ -1,0 +1,47 @@
+[
+  {
+    "description": "由报告证据识别的披露主体；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e1-7.dimension.reporting-entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的项目对象；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e1-7.dimension.project-ref",
+    "labels": {
+      "en": "project ref",
+      "zh": "项目对象"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的价值链边界；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e1-7.dimension.value-chain-boundary",
+    "labels": {
+      "en": "value chain boundary",
+      "zh": "价值链边界"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的移除活动；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e1-7.dimension.removal-activity",
+    "labels": {
+      "en": "removal activity",
+      "zh": "移除活动"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的碳信用状态；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e1-7.dimension.credit-status",
+    "labels": {
+      "en": "credit status",
+      "zh": "碳信用状态"
+    },
+    "value_type": "string"
+  }
+]

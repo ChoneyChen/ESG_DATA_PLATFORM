@@ -1,0 +1,20 @@
+[
+  {
+    "description": "由报告证据识别的披露主体；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.gov-4.dimension.reporting-entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的可持续主题；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.gov-4.dimension.sustainability-topic",
+    "labels": {
+      "en": "sustainability topic",
+      "zh": "可持续主题"
+    },
+    "value_type": "string"
+  }
+]

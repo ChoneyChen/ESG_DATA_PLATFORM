@@ -1,0 +1,566 @@
+{
+  "schema_version": "p6-original-recovery-supplement-v1",
+  "migration_receipt_sha256": {
+    "docs/migrations/2026-10-05-p6-standards-database.json": "18fad4ce6f419cd4dc13a7accb15d4ce334215e93a488af9113734664cad8ed6",
+    "docs/migrations/2026-10-05-p6-python-domains.json": "634186a5d1094123a1490a9f1e393c63fb77f14ea297e0763526c07a223b3135"
+  },
+  "historical_receipts_modified": false,
+  "source_restored": false,
+  "exact_originals_preserved": [
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/chart_spec_normalizer.py"
+      ],
+      "sha256": "21d79b3b29f2385a6275780641249c09098dfa941b666c43486fbf8be278f639",
+      "git_blob": "d4ac7d9a7b17dc290dac14413b4029d7ad76a980",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/chart_spec_normalizer.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/21d79b3b29f2385a6275780641249c09098dfa941b666c43486fbf8be278f639"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/convergence_engine.py"
+      ],
+      "sha256": "b6b5889c08f8ffb70e7856065cd549791ec1b74d524bc1a80f4b2d38345ba569",
+      "git_blob": "b5f24176faa91901d20c32d9d02a5558ee025408",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/convergence_engine.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/b6b5889c08f8ffb70e7856065cd549791ec1b74d524bc1a80f4b2d38345ba569"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/operation_registry.py"
+      ],
+      "sha256": "c1524baf33af7d6f228bcae4ebd28438945cc7de79841806c31878e4bad1104a",
+      "git_blob": "b3f5dc275d7850132db7475bafd9fb3fccc52737",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/operation_registry.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/c1524baf33af7d6f228bcae4ebd28438945cc7de79841806c31878e4bad1104a"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/paddleocr_converter.py"
+      ],
+      "sha256": "bae0544a0047338e2aa01872fecc1007ea6bf6e8cf70ac68c4e2fae6302dce20",
+      "git_blob": "15067464d9bb9e71c9afb30b1c60c4e11d0e7347",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/paddleocr_converter.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/bae0544a0047338e2aa01872fecc1007ea6bf6e8cf70ac68c4e2fae6302dce20"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/patch_guard.py"
+      ],
+      "sha256": "4b5c956cd51f683e4932eae66f92a8618db8891faf17c830c19d9993e4350d2d",
+      "git_blob": "0524789c1f035c53fd923ce1dd52afe93a1af26e",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/patch_guard.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/4b5c956cd51f683e4932eae66f92a8618db8891faf17c830c19d9993e4350d2d"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/reader.py"
+      ],
+      "sha256": "cb73190d666575934b32ff700f27a347f23265477674965b92cd768b928ca8cb",
+      "git_blob": "fb0398aea09968eaa24e1d566a083836dfbb9b94",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/reader.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/cb73190d666575934b32ff700f27a347f23265477674965b92cd768b928ca8cb"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_context.py"
+      ],
+      "sha256": "7415cdcae57e4aa2a8e48fc773ae151b2c7221198c78ee216e00097310bbbede",
+      "git_blob": "d22271b1e879aed8f64ecef9435feb9377b3b2ef",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_context.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/7415cdcae57e4aa2a8e48fc773ae151b2c7221198c78ee216e00097310bbbede"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_orchestrator.py"
+      ],
+      "sha256": "a3e92df170ff4a198d558b04fa1f4232509e0ddfc2ad7247df60c38e99def191",
+      "git_blob": "e81e942bea0a9bb5869f8bb7c365b515dbd8f71d",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_orchestrator.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/a3e92df170ff4a198d558b04fa1f4232509e0ddfc2ad7247df60c38e99def191"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_plan_compiler.py"
+      ],
+      "sha256": "868593064641443f96db08ad02edabda41fc2abe2eaad96e673b593b4a9f17a4",
+      "git_blob": "7761765deec92b3fb45fff8a6fa35a09dc100dc8",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_plan_compiler.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/868593064641443f96db08ad02edabda41fc2abe2eaad96e673b593b4a9f17a4"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_response_adapter.py"
+      ],
+      "sha256": "7cb41e407ab729362b7fade2615f3c09d533746836897ca210fd06875bde31b1",
+      "git_blob": "20781b34020d932484cb4de4b979e930b75f9567",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/review_response_adapter.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/7cb41e407ab729362b7fade2615f3c09d533746836897ca210fd06875bde31b1"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/document/transaction_coordinator.py"
+      ],
+      "sha256": "642060b20c4c000a4a26f73379e8d920c88be63d3d10b249d0ea7126b3a802a1",
+      "git_blob": "7267094f99ab1e5b334b638327ee8b0131afa8cf",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/transaction_coordinator.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/642060b20c4c000a4a26f73379e8d920c88be63d3d10b249d0ea7126b3a802a1"
+    },
+    {
+      "old_paths": [
+        "ExtractESG/document_ir_extract/backend/src/esg_v2/workflows/ir_workflow.py"
+      ],
+      "sha256": "d0ae823c48b7636e67b76c96ba44a2833bf20c20b557f98cddd0ee0b6c90154f",
+      "git_blob": "99c8b1178dbd1d2ce9a5a8b7406b48cb4c87db77",
+      "provenance": {
+        "commit": "7ac84087f5c7fbc8e485f0f07056b844f16cda8c",
+        "path": "ExtractESG/document_ir_extract/backend/src/esg_v2/workflows/ir_workflow.py"
+      },
+      "blob_path_relative_to_runtime": "backups/release-source-blobs/d0ae823c48b7636e67b76c96ba44a2833bf20c20b557f98cddd0ee0b6c90154f"
+    }
+  ],
+  "missing_exact_originals": [
+    {
+      "old_path": "ExtractESG/standard_packages/docs/AUTHORING_GUIDE.md",
+      "canonical_path": "ExtractESG/standards/docs/AUTHORING_GUIDE.md",
+      "expected_sha256": "6e229bafd1ef26f75ed737d0c6eef393a9bcca3550bf1bed0d16686c40e19b37",
+      "expected_size": 12747,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "6e229bafd1ef26f75ed737d0c6eef393a9bcca3550bf1bed0d16686c40e19b37",
+      "current_sha256": "f8f5e7c1214cb468aaa502da24471a6caec6462162d57f987db56d1ec7909a3f",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/standard_packages/schemas/compiled-package.schema.json",
+      "canonical_path": "ExtractESG/standards/schemas/compiled-package.schema.json",
+      "expected_sha256": "9f8fd0ce38887730e5d3fe785d431088c67987d3fa0aeffb30310383706e2046",
+      "expected_size": 60626,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "9f8fd0ce38887730e5d3fe785d431088c67987d3fa0aeffb30310383706e2046",
+      "current_sha256": "830b101ad2c026233e13142e4c07297a80f27c6a4e4e452918f29f0a304786b7",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/standard_packages/schemas/module-source.schema.json",
+      "canonical_path": "ExtractESG/standards/schemas/module-source.schema.json",
+      "expected_sha256": "c410124adbc6405bb2f336fb73b06ac9ce83e6a215157164b02f219430842595",
+      "expected_size": 53823,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "c410124adbc6405bb2f336fb73b06ac9ce83e6a215157164b02f219430842595",
+      "current_sha256": "49549375301a4277a5d394c3a31f4414286a99ac1a7f8fbaeac2500896e4e645",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/standard_packages/src/esg_standard_packages/compiler.py",
+      "canonical_path": "ExtractESG/standards/src/esg_standard_packages/compiler.py",
+      "expected_sha256": "ba5125a4a255b902bbf674f8eac1aea249af1f2405c64136292764017b09e039",
+      "expected_size": 25999,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "ba5125a4a255b902bbf674f8eac1aea249af1f2405c64136292764017b09e039",
+      "current_sha256": "2c271b1979fcfcdd3ca379e5993d289c438776bb7e38de6ea26bed9c9338dd62",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/standard_packages/src/esg_standard_packages/contracts.py",
+      "canonical_path": "ExtractESG/standards/src/esg_standard_packages/contracts.py",
+      "expected_sha256": "b0a7b271c6b6ed704e716edbd45732062f9092eed07dfae0d22aefb399547122",
+      "expected_size": 21591,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "b0a7b271c6b6ed704e716edbd45732062f9092eed07dfae0d22aefb399547122",
+      "current_sha256": "f7ff6843d3ab7d75528ddc80e56607566597593d7014e1317f884c3a5788f6f6",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/standard_packages/tests/test_workbench_release.py",
+      "canonical_path": "ExtractESG/standards/tests/test_workbench_release.py",
+      "expected_sha256": "3d17be773db5c01353f9238304d7142bc39ed72511c5bc8c6d65f21b0362f285",
+      "expected_size": 3502,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "3d17be773db5c01353f9238304d7142bc39ed72511c5bc8c6d65f21b0362f285",
+      "current_sha256": "72fa703f3beafc5d0b056750d940954d378886a3790fdeed12fd2dc9972dd155",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/esg_database/scripts/import-bundle.mjs",
+      "canonical_path": "database/scripts/import-bundle.mjs",
+      "expected_sha256": "b0a37a0a45f1102ed30deb66c88f3524a0e0b6e4174cf645a9cfb96150b18973",
+      "expected_size": 28806,
+      "batch": "p6-standards-database",
+      "recorded_before_image": null,
+      "migration_after_sha256": "b0a37a0a45f1102ed30deb66c88f3524a0e0b6e4174cf645a9cfb96150b18973",
+      "current_sha256": "0219b48a97f65ed4d900ec6f0d7a4762702c7735fcbd658505967cde897071a8",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/document_ir_extract/backend/src/esg_v2/control_plane/plans.py",
+      "canonical_path": "ExtractESG/control_plane/src/esg_v2/control_plane/plans.py",
+      "expected_sha256": "c46ed5e188e3096e6b11249fdc7f6b889ec29dc1d2d9e451434671503f0d9522",
+      "expected_size": 19725,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "c46ed5e188e3096e6b11249fdc7f6b889ec29dc1d2d9e451434671503f0d9522",
+      "current_sha256": "97e747df2b2f13e4160913ed4f40ab2bf2bfdf7a139844c92ba2426d1aec557f",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/contracts.py",
+      "canonical_path": "ExtractESG/document_processing/src/esg_v2/document/contracts.py",
+      "expected_sha256": "fc41119449546d0fe2c9ee107baf64705ef9db35ee1c90779d3c9c7c16bea638",
+      "expected_size": 38800,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "fc41119449546d0fe2c9ee107baf64705ef9db35ee1c90779d3c9c7c16bea638",
+      "current_sha256": "3e8705ca51b6910137d6b061fb52592bce19de4b0438197ebb7ae772db1b0565",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/model_runner.py",
+      "canonical_path": "ExtractESG/document_processing/src/esg_v2/document/model_runner.py",
+      "expected_sha256": "a33fe56fe6a5aae073088aafcfdd4f888e734471d9cc5bebe2a0db1022e286c8",
+      "expected_size": 23121,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "a33fe56fe6a5aae073088aafcfdd4f888e734471d9cc5bebe2a0db1022e286c8",
+      "current_sha256": "174d44ed924b1021c14b174347d1f01eafcd7e7744727f4aabda9faa1fe5c2a5",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/document_ir_extract/backend/src/esg_v2/document/validator.py",
+      "canonical_path": "ExtractESG/document_processing/src/esg_v2/document/validator.py",
+      "expected_sha256": "157d1646bf464976b7bd7b02b08a27c97d308d381f78e9cb18c3cece4058af83",
+      "expected_size": 69618,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "157d1646bf464976b7bd7b02b08a27c97d308d381f78e9cb18c3cece4058af83",
+      "current_sha256": "7434ca1cf35b5296999b99402873edeeadb010350c377219965f8129933ad9a2",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/document_ir_extract/backend/src/esg_v2/models/local_nuextract_adapter.py",
+      "canonical_path": "ExtractESG/document_processing/src/esg_v2/models/local_nuextract_adapter.py",
+      "expected_sha256": "63c8a6d3de910e025b00775900294681aef6c77d6b31bc71b7f1f1fb5e95fe5c",
+      "expected_size": 10432,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "63c8a6d3de910e025b00775900294681aef6c77d6b31bc71b7f1f1fb5e95fe5c",
+      "current_sha256": "01959617d4dfb15d09b69ff82b390f8f080758271a1f421ef1a5ef721ae8743d",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/document_ir_extract/backend/src/esg_v2/models/local_nuextract_worker.py",
+      "canonical_path": "ExtractESG/document_processing/src/esg_v2/models/local_nuextract_worker.py",
+      "expected_sha256": "46630ad123a035f546ceef8594be01131fe3df5d9ac640b19cf0d99f2e9ffb4a",
+      "expected_size": 8585,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "46630ad123a035f546ceef8594be01131fe3df5d9ac640b19cf0d99f2e9ffb4a",
+      "current_sha256": "d405963b27e445775287c2cbcfbed8b8c5a88c7502f289bf6567d4f55a41ec42",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/cli.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/cli.py",
+      "expected_sha256": "ef445daf52d364431f4c2b7163571b5585024f151a6f2c0047ae92d7999a480d",
+      "expected_size": 8966,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "ef445daf52d364431f4c2b7163571b5585024f151a6f2c0047ae92d7999a480d",
+      "current_sha256": "175716a56383dea49f8e4f3da53a6ed5c0f0207d40ad6a7bea6d38c8eabe566c",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/contracts.py",
+      "canonical_path": "ExtractESG/contracts/src/esg_targeted/contracts.py",
+      "expected_sha256": "e71378e8f074c9c7a4454cbacc5c5a06d095014ad2a4f97ce322d122789c1eb9",
+      "expected_size": 19583,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "e71378e8f074c9c7a4454cbacc5c5a06d095014ad2a4f97ce322d122789c1eb9",
+      "current_sha256": "e0e188fab6304d8fe3cf14312136e0cec6cb108ba6ef71171a2ed648c8839c9f",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/evidence/disclosure.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/evidence/disclosure.py",
+      "expected_sha256": "fd95a4a048cf299e8ce74c1cbba55f6b5ac280e60d14999a965cfea469e306a4",
+      "expected_size": 85325,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "fd95a4a048cf299e8ce74c1cbba55f6b5ac280e60d14999a965cfea469e306a4",
+      "current_sha256": "fbf28c60ed016c4fe8175f37cf713f5277b47f6f49543172c9e8cfbf70ca131b",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/evidence/harvester.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/evidence/harvester.py",
+      "expected_sha256": "0328caf88fb25442854541f52db08c332c2ea94960cf65e32a9167fbdf1fbfc5",
+      "expected_size": 11383,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "0328caf88fb25442854541f52db08c332c2ea94960cf65e32a9167fbdf1fbfc5",
+      "current_sha256": "77223f66328bbccee83abf06d3fcc00714850588097aaae3163a0a8f873e1700",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/evidence/inventory.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/evidence/inventory.py",
+      "expected_sha256": "3f5588f38992f3811f5bdd42b483f8c7a4e7759d66c780057c586d242d6376c9",
+      "expected_size": 40143,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "3f5588f38992f3811f5bdd42b483f8c7a4e7759d66c780057c586d242d6376c9",
+      "current_sha256": "7be541542aff0f84bb008ef1bf5bc24b8ab5f4fa6decf79bf14c9db6802e24e8",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/evidence/regions.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/evidence/regions.py",
+      "expected_sha256": "55b163007644ecf378a521cb61a4d12bb1ad8f766366dcea8a688aafbe550df5",
+      "expected_size": 47971,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "55b163007644ecf378a521cb61a4d12bb1ad8f766366dcea8a688aafbe550df5",
+      "current_sha256": "154f7fca49e8cb0e06d3c81944fe773a94d7ea005ffd3b354a4dad81bcd4701f",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/evidence/source_reading.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/evidence/source_reading.py",
+      "expected_sha256": "22691a474977928db7bdf53d46c6ef375a56fe91a9e6c41ad928b6eeccdb6da1",
+      "expected_size": 15490,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "22691a474977928db7bdf53d46c6ef375a56fe91a9e6c41ad928b6eeccdb6da1",
+      "current_sha256": "01b0a1976372b9d5f00d0c4f62789c9aae6d8237dff3c833e522b22151a11a02",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/grounding/guard.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/grounding/guard.py",
+      "expected_sha256": "f8bde230fcfc40bc7c63baaa12fddee7f83ba90cb7049c4a2959d89ed2353a15",
+      "expected_size": 28211,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "f8bde230fcfc40bc7c63baaa12fddee7f83ba90cb7049c4a2959d89ed2353a15",
+      "current_sha256": "1a63534a5902008f31e89a64aa0f69065968e97f1e3ffc2f6e2af187e6b36116",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/inspection/contracts.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/inspection/contracts.py",
+      "expected_sha256": "87b7ea881f5ece153835b6fc896c4ffe799bf1fdaec58a99cd09eaae2d4100de",
+      "expected_size": 5877,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "87b7ea881f5ece153835b6fc896c4ffe799bf1fdaec58a99cd09eaae2d4100de",
+      "current_sha256": "1102b8d5cb45632f97e6d2d471b3b5af0a74909d04114795faf25b056f54d20b",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/inspection/service.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/inspection/service.py",
+      "expected_sha256": "2d2b0682a86c70e9929ee1d294e9e8e75fd86e583be950245de13d413509c889",
+      "expected_size": 38815,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "2d2b0682a86c70e9929ee1d294e9e8e75fd86e583be950245de13d413509c889",
+      "current_sha256": "068198029b6a33ef42f308f3dbb70327f1fa6419551af84986e6b9195025e932",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/ir/loader.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/ir/loader.py",
+      "expected_sha256": "391a756aefdc053bd9cd485543ffe06946e1630bc72830c0dd653bbbd7ddd736",
+      "expected_size": 7022,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "391a756aefdc053bd9cd485543ffe06946e1630bc72830c0dd653bbbd7ddd736",
+      "current_sha256": "bbf3b135cedddb6d3463d47499ecb823d4b3c1e9b57a540d54ffbc89325b96fd",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/models/budgeted.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/models/budgeted.py",
+      "expected_sha256": "5ad71375e590878dccde71e89a106ddec73524450d7cbd485f2a962c380b2f3a",
+      "expected_size": 7852,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "5ad71375e590878dccde71e89a106ddec73524450d7cbd485f2a962c380b2f3a",
+      "current_sha256": "3ed65fa924a923928fc6ac6eb36fcb5db4f63241cca2b8f4d8a673c354b7f4b6",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/models/mlx_runtime.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/models/mlx_runtime.py",
+      "expected_sha256": "c53bb23244386d663f84694443190780c7771b6ef159923227c7c41e6ca3c3f4",
+      "expected_size": 6687,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "c53bb23244386d663f84694443190780c7771b6ef159923227c7c41e6ca3c3f4",
+      "current_sha256": "0b06d99d65e58adbeb2244c3ddcbdd50abed90b70e419d86b250718b8d771a29",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/models/qwen.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/models/qwen.py",
+      "expected_sha256": "b17612420f80a6d0e399cbcd8db1e8959ade1b2092a7240e1d136e93ce85e663",
+      "expected_size": 2823,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "b17612420f80a6d0e399cbcd8db1e8959ade1b2092a7240e1d136e93ce85e663",
+      "current_sha256": "fc5efb01c4488b1c2bad3561c6b5ac47f594f4767f3a0fda74be127f80162c6e",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/models/report_semantics.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/models/report_semantics.py",
+      "expected_sha256": "f5e380ecbd5e22e28c936ccf783769b0d0fcd7a8b4eba3d0a5cba3ad78bb30d2",
+      "expected_size": 42364,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "f5e380ecbd5e22e28c936ccf783769b0d0fcd7a8b4eba3d0a5cba3ad78bb30d2",
+      "current_sha256": "5f80bceb6e8ebf0aa61e1441b3599db205886f3fffc334c3f332bc5b73b3f68e",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/models/response_adapter.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/models/response_adapter.py",
+      "expected_sha256": "b61c98472e52ece3b3ea464e72c52e83abafaef1cf6cc55b1ebbcfa930bf255c",
+      "expected_size": 38935,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "b61c98472e52ece3b3ea464e72c52e83abafaef1cf6cc55b1ebbcfa930bf255c",
+      "current_sha256": "e759c3b9c76cebf05c6637c6287ce1e9a2a3eef952d208d82174ca168a642a55",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/report_facts.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/report_facts.py",
+      "expected_sha256": "bdcc8e13012fabccf76cb192d2197206cd6cb511dfa8c84c977277342cfb5694",
+      "expected_size": 15539,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "bdcc8e13012fabccf76cb192d2197206cd6cb511dfa8c84c977277342cfb5694",
+      "current_sha256": "6757b704eff1021ca684d6d6adb3fe81e6fd4975e4b75504374b6587d8ccd51f",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/report_session.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/report_session.py",
+      "expected_sha256": "28c2cbadb81b286591bcf6c8397b22d3c938ff52b97b1ac4382cb1f275e09412",
+      "expected_size": 46970,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "28c2cbadb81b286591bcf6c8397b22d3c938ff52b97b1ac4382cb1f275e09412",
+      "current_sha256": "9271ec9cfca5e02614d6bea182d854a5089738c812f7945b67e9c3a4c85181c4",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/results/exporter.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/results/exporter.py",
+      "expected_sha256": "b93b09579fd79e6eee1ec670cebf94b8b5582832ef7e4d5bd0fd49e6c365719c",
+      "expected_size": 12316,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "b93b09579fd79e6eee1ec670cebf94b8b5582832ef7e4d5bd0fd49e6c365719c",
+      "current_sha256": "38a774a0df392b0593f384482e6f7f1c88acd9dc599d32fd89872c7c6eed8162",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/results/organization.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/results/organization.py",
+      "expected_sha256": "c16fccbe8ea3522a4f7b4e1bbb9d8b1aac7cd5bf7e78ebb9dc87cfffcf678e0d",
+      "expected_size": 15057,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "c16fccbe8ea3522a4f7b4e1bbb9d8b1aac7cd5bf7e78ebb9dc87cfffcf678e0d",
+      "current_sha256": "d3545dd2bae5ed44e41fcd86899a6b54390236a52fef93fbb7a6177dd6929f6c",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/results/stages.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/results/stages.py",
+      "expected_sha256": "f6620fb88c35c1d25cb91e3324d8e01950ec52ca23a3c375e634ccba8c2da58e",
+      "expected_size": 20493,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "f6620fb88c35c1d25cb91e3324d8e01950ec52ca23a3c375e634ccba8c2da58e",
+      "current_sha256": "d7770638095a498f48240524fca126cf4f37cc3d463597a33d87f0a5db0f3c63",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/runtime_budget.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/runtime_budget.py",
+      "expected_sha256": "b6a0240d48723edfb762dc666db7071e514bee1274a469267061790f611a4d6a",
+      "expected_size": 8118,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "b6a0240d48723edfb762dc666db7071e514bee1274a469267061790f611a4d6a",
+      "current_sha256": "cdd1280f4cd010bb35cd211492b71fe775644cb2921cf3fef5738fec6d5eda03",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/storage/execution_supervisor.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/storage/execution_supervisor.py",
+      "expected_sha256": "635d5499b3139c9571d16c2935ba3b022266afda318a00433ddc8f8e1b2f3dc8",
+      "expected_size": 12678,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "635d5499b3139c9571d16c2935ba3b022266afda318a00433ddc8f8e1b2f3dc8",
+      "current_sha256": "653b723b7fed5486daee0e2e614737ce9cef5e86372ee3491bcc71d024dd068a",
+      "status": "exact_original_not_found_in_searched_material"
+    },
+    {
+      "old_path": "ExtractESG/targeted_table_extract/backend/src/esg_targeted/workflow.py",
+      "canonical_path": "ExtractESG/extraction/src/esg_targeted/workflow.py",
+      "expected_sha256": "93f5da8adce17066cbf863080fdc7e541ca5f7d2933586bbb225549789456076",
+      "expected_size": 116274,
+      "batch": "p6-python-domains",
+      "recorded_before_image": null,
+      "migration_after_sha256": "93f5da8adce17066cbf863080fdc7e541ca5f7d2933586bbb225549789456076",
+      "current_sha256": "5d76cc7d513f3bf65a56926f03e5cc44d7dac8aa6975c65b2596f807d52d0150",
+      "status": "exact_original_not_found_in_searched_material"
+    }
+  ],
+  "full_historical_rollback_proven": false,
+  "evidence_scope": "Existing Git byte-exact originals preserved now, not retroactively recorded as migration-time backups."
+}

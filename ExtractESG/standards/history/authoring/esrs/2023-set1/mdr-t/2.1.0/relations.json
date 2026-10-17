@@ -1,0 +1,56 @@
+[
+  {
+    "description": "目标值和进展需要同目标对象的性质、范围、基准和期间。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "context_only",
+    "relation_id": "esrs.2023-set1.mdr-t.relation.family01",
+    "relation_type": "explains",
+    "source_metric_ids": [
+      "esrs.2023-set1.mdr-t.dp03",
+      "esrs.2023-set1.mdr-t.dp04",
+      "esrs.2023-set1.mdr-t.dp05",
+      "esrs.2023-set1.mdr-t.dp06",
+      "esrs.2023-set1.mdr-t.dp07",
+      "esrs.2023-set1.mdr-t.dp09",
+      "esrs.2023-set1.mdr-t.dp10"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.mdr-t.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.mdr-t.dp02",
+      "esrs.2023-set1.mdr-t.dp13"
+    ]
+  },
+  {
+    "description": "目标与尚未设定目标时的追踪分支独立。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.mdr-t.relation.family02",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.mdr-t.dp02",
+      "esrs.2023-set1.mdr-t.dp05",
+      "esrs.2023-set1.mdr-t.dp13"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.mdr-t.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.mdr-t.dp14",
+      "esrs.2023-set1.mdr-t.dp15",
+      "esrs.2023-set1.mdr-t.dp16",
+      "esrs.2023-set1.mdr-t.dp17",
+      "esrs.2023-set1.mdr-t.dp18",
+      "esrs.2023-set1.mdr-t.dp19"
+    ]
+  }
+]

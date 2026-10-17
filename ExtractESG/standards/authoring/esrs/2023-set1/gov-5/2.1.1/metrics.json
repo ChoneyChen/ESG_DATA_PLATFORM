@@ -1,0 +1,687 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 11"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting。可持续披露风险管理内控范围与组成。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "disclosure_requirement": "GOV-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-5.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting",
+      "zh": "可持续披露风险管理内控范围与组成"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-5.dp01",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.sustainability-topic"
+    ],
+    "paragraph": "36 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-5_01",
+        "ESRS 2",
+        "GOV-5",
+        "36 a",
+        "AR 11",
+        "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "dad91e46826830a86161acac7e8562e49e537f64c76de69ec19988d488c5e435",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 64,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-5_01",
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-5.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 11"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of risk assessment approach followed。可持续披露风险评估方法。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "disclosure_requirement": "GOV-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-5.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of risk assessment approach followed",
+      "zh": "可持续披露风险评估方法"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-5.dp02",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.sustainability-topic"
+    ],
+    "paragraph": "36 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-5_02",
+        "ESRS 2",
+        "GOV-5",
+        "36 b",
+        "AR 11",
+        "Description of risk assessment approach followed ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "d276c9095276b15eae00bbf76d1b4f637907969f02b83fb0be4a2f73c5f9a668",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 65,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-5_02",
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-5.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 11"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of main risks identified and their mitigation strategies。主要披露风险与缓解策略。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "disclosure_requirement": "GOV-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.gov-5.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of main risks identified and their mitigation strategies",
+      "zh": "主要披露风险与缓解策略"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-5.dp03",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.sustainability-topic"
+    ],
+    "paragraph": "36 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-5_03",
+        "ESRS 2",
+        "GOV-5",
+        "36 c",
+        "AR 11",
+        "Description of main risks identified and their mitigation strategies ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "6f0176a8d4bb89456667b29112c41608e14b0303ba44ebd7384f95c28d419717",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 66,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-5_03",
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-5.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 11"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes。披露风控内控结果融入职能。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "disclosure_requirement": "GOV-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-5.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes",
+      "zh": "披露风控内控结果融入职能"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-5.dp04",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.sustainability-topic"
+    ],
+    "paragraph": "36 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-5_04",
+        "ESRS 2",
+        "GOV-5",
+        "36 d",
+        "AR 11",
+        "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "d3f02ab43ffc92aa0e86d11c5a61549786e230172f5943270b423f7fad7ff09f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 67,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-5_04",
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-5.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 11"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies。治理机构的定期风控内控报告。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "disclosure_requirement": "GOV-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.gov-5.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "labels": {
+      "en": "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies",
+      "zh": "治理机构的定期风控内控报告"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "sustainability_topic"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.gov-5.dp05",
+    "obligation_class": "mandatory",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.sustainability-topic"
+    ],
+    "paragraph": "36 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "GOV-5_05",
+        "ESRS 2",
+        "GOV-5",
+        "36 e",
+        "AR 11",
+        "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies ",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "f766fc49e9c5e2bc5dc28e966c58c10f510b7f7b88c2c81aea1140869f237790",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "DPs to be disclosed in case of phased-in [Appendix C - ESRS 1]\nUndertaking less than 750 employees",
+        "Appendix C - ESRS 1\n[DPs subject to phased-in]\n"
+      ],
+      "source_row": 68,
+      "source_sheet": "ESRS 2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.gov-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "source_datapoint_id": "GOV-5_05",
+    "source_refs": [
+      "esrs.2023-set1.gov-5.source.law",
+      "esrs.2023-set1.gov-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.gov-5.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

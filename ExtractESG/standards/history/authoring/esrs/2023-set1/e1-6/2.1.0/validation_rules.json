@@ -1,0 +1,144 @@
+[
+  {
+    "assertion": "evidence_required",
+    "message": "Every reported result record must reference reproducible evidence.",
+    "parameters": {
+      "when_value_origin": "reported"
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.reported-result-requires-evidence",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6"
+  },
+  {
+    "assertion": "numeric_range",
+    "message": "Percentage must be between 0 and 100 unless the source evidence is explicitly a range.",
+    "parameters": {
+      "element_id": "esrs.2023-set1.e1-6.dp08.element.percentage",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp08-percentage-range",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp08.element.percentage"
+  },
+  {
+    "assertion": "numeric_range",
+    "message": "Percentage must be between 0 and 100 unless the source evidence is explicitly a range.",
+    "parameters": {
+      "element_id": "esrs.2023-set1.e1-6.dp18.element.percentage",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp18-percentage-range",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp18.element.percentage"
+  },
+  {
+    "assertion": "numeric_range",
+    "message": "Percentage must be between 0 and 100 unless the source evidence is explicitly a range.",
+    "parameters": {
+      "element_id": "esrs.2023-set1.e1-6.dp20.element.percentage",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp20-percentage-range",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp20.element.percentage"
+  },
+  {
+    "assertion": "numeric_range",
+    "message": "Percentage must be between 0 and 100 unless the source evidence is explicitly a range.",
+    "parameters": {
+      "element_id": "esrs.2023-set1.e1-6.dp21.element.percentage",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp21-percentage-range",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp21.element.percentage"
+  },
+  {
+    "assertion": "numeric_range",
+    "message": "Percentage must be between 0 and 100 unless the source evidence is explicitly a range.",
+    "parameters": {
+      "element_id": "esrs.2023-set1.e1-6.dp22.element.percentage",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp22-percentage-range",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp22.element.percentage"
+  },
+  {
+    "assertion": "numeric_range",
+    "message": "Percentage must be between 0 and 100 unless the source evidence is explicitly a range.",
+    "parameters": {
+      "element_id": "esrs.2023-set1.e1-6.dp25.element.percentage",
+      "maximum": 100,
+      "minimum": 0
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp25-percentage-range",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp25.element.percentage"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derivation operands must share period, reporting boundary and applicable dimensions, with compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "unit_dimension",
+        "dimension_values"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp12-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp12"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derivation operands must share period, reporting boundary and applicable dimensions, with compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "unit_dimension",
+        "dimension_values"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp13-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp13"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derivation operands must share period, reporting boundary and applicable dimensions, with compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "unit_dimension",
+        "dimension_values"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp30-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp30"
+  },
+  {
+    "assertion": "matching_context",
+    "message": "Derivation operands must share period, reporting boundary and applicable dimensions, with compatible units.",
+    "parameters": {
+      "fields": [
+        "reporting_period",
+        "reporting_boundary",
+        "unit_dimension",
+        "dimension_values"
+      ]
+    },
+    "rule_id": "esrs.2023-set1.e1-6.validation.dp31-matching-context",
+    "severity": "error",
+    "target": "esrs.2023-set1.e1-6.dp31"
+  }
+]

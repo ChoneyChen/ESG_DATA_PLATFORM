@@ -1,0 +1,488 @@
+{
+  "$defs": {
+    "ComparisonContract": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_values": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Allowed Values",
+          "type": "object"
+        },
+        "missing_or_unknown_policy": {
+          "const": "display_only",
+          "default": "display_only",
+          "title": "Missing Or Unknown Policy",
+          "type": "string"
+        },
+        "required_axes": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Required Axes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "required_axes"
+      ],
+      "title": "ComparisonContract",
+      "type": "object"
+    },
+    "ExtensionDerivationRule": {
+      "additionalProperties": false,
+      "properties": {
+        "arithmetic": {
+          "const": "exact_decimal_sum",
+          "title": "Arithmetic",
+          "type": "string"
+        },
+        "operands": {
+          "items": {
+            "$ref": "#/$defs/OperandSelector"
+          },
+          "minItems": 2,
+          "title": "Operands",
+          "type": "array"
+        },
+        "operation": {
+          "const": "sum",
+          "title": "Operation",
+          "type": "string"
+        },
+        "output_review_status": {
+          "const": "pending",
+          "default": "pending",
+          "title": "Output Review Status",
+          "type": "string"
+        },
+        "require_approved_operands": {
+          "const": true,
+          "default": true,
+          "title": "Require Approved Operands",
+          "type": "boolean"
+        },
+        "require_explicit_match_values": {
+          "const": true,
+          "default": true,
+          "title": "Require Explicit Match Values",
+          "type": "boolean"
+        },
+        "require_point_values": {
+          "const": true,
+          "default": true,
+          "title": "Require Point Values",
+          "type": "boolean"
+        },
+        "rule_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_version": {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "title": "Rule Version",
+          "type": "string"
+        },
+        "shared_match_axes": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Shared Match Axes",
+          "type": "array"
+        },
+        "target_axis_projections": {
+          "items": {
+            "$ref": "#/$defs/TargetAxisProjection"
+          },
+          "minItems": 1,
+          "title": "Target Axis Projections",
+          "type": "array"
+        },
+        "unit_policy": {
+          "const": "reviewed_versioned_conversion_to_target_unit",
+          "title": "Unit Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "rule_version",
+        "operation",
+        "operands",
+        "shared_match_axes",
+        "target_axis_projections",
+        "unit_policy",
+        "arithmetic"
+      ],
+      "title": "ExtensionDerivationRule",
+      "type": "object"
+    },
+    "NumericConstraints": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "anyOf": [
+            {
+              "pattern": "^[+-]?\\d+(?:\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "pattern": "^[+-]?\\d+(?:\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        }
+      },
+      "title": "NumericConstraints",
+      "type": "object"
+    },
+    "OperandSelector": {
+      "additionalProperties": false,
+      "properties": {
+        "operand_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Operand Id",
+          "type": "string"
+        },
+        "required_axes": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "minProperties": 1,
+          "title": "Required Axes",
+          "type": "object"
+        },
+        "source_datapoint_id": {
+          "minLength": 1,
+          "title": "Source Datapoint Id",
+          "type": "string"
+        },
+        "source_metric_id": {
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+          "title": "Source Metric Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operand_id",
+        "source_datapoint_id",
+        "source_metric_id",
+        "required_axes"
+      ],
+      "title": "OperandSelector",
+      "type": "object"
+    },
+    "OriginalClauseLink": {
+      "additionalProperties": false,
+      "properties": {
+        "relationship": {
+          "enum": [
+            "aggregate_component",
+            "calculation_operand",
+            "context"
+          ],
+          "title": "Relationship",
+          "type": "string"
+        },
+        "source_datapoint_id": {
+          "minLength": 1,
+          "title": "Source Datapoint Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_datapoint_id",
+        "relationship"
+      ],
+      "title": "OriginalClauseLink",
+      "type": "object"
+    },
+    "TargetAxisProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "fixed_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fixed Value"
+        },
+        "from_operand_id": {
+          "anyOf": [
+            {
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "From Operand Id"
+        },
+        "source_axis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Axis"
+        },
+        "target_axis": {
+          "minLength": 1,
+          "title": "Target Axis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_axis"
+      ],
+      "title": "TargetAxisProjection",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allowed_value_origins": {
+      "items": {
+        "enum": [
+          "reported",
+          "derived"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Allowed Value Origins",
+      "type": "array"
+    },
+    "canonical_unit": {
+      "minLength": 1,
+      "title": "Canonical Unit",
+      "type": "string"
+    },
+    "canonical_unit_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Canonical Unit Id",
+      "type": "string"
+    },
+    "clause_kind": {
+      "const": "project_extension",
+      "default": "project_extension",
+      "title": "Clause Kind",
+      "type": "string"
+    },
+    "comparison_contract": {
+      "$ref": "#/$defs/ComparisonContract"
+    },
+    "context_unknown_policy": {
+      "const": "preserve_missing_no_imputation",
+      "title": "Context Unknown Policy",
+      "type": "string"
+    },
+    "core_selection_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Core Selection Reason"
+    },
+    "definition_version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Definition Version",
+      "type": "string"
+    },
+    "derivation_rules": {
+      "items": {
+        "$ref": "#/$defs/ExtensionDerivationRule"
+      },
+      "title": "Derivation Rules",
+      "type": "array"
+    },
+    "description": {
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "exclusions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Exclusions",
+      "type": "array"
+    },
+    "extension_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Extension Id",
+      "type": "string"
+    },
+    "identity_axes": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Identity Axes",
+      "type": "array"
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Labels",
+      "type": "object"
+    },
+    "original_clause_links": {
+      "items": {
+        "$ref": "#/$defs/OriginalClauseLink"
+      },
+      "minItems": 1,
+      "title": "Original Clause Links",
+      "type": "array"
+    },
+    "output_policy": {
+      "const": "explicit_selection_only",
+      "default": "explicit_selection_only",
+      "title": "Output Policy",
+      "type": "string"
+    },
+    "package_core": {
+      "default": false,
+      "title": "Package Core",
+      "type": "boolean"
+    },
+    "parent_package_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Parent Package Id",
+      "type": "string"
+    },
+    "parent_package_version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Parent Package Version",
+      "type": "string"
+    },
+    "parent_source_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Parent Source Digest",
+      "type": "string"
+    },
+    "rationale": {
+      "minLength": 1,
+      "title": "Rationale",
+      "type": "string"
+    },
+    "reported_calculated_reconciliation": {
+      "const": "retain_both_review_conflict",
+      "default": "retain_both_review_conflict",
+      "title": "Reported Calculated Reconciliation",
+      "type": "string"
+    },
+    "reported_context_axes": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Reported Context Axes",
+      "type": "array"
+    },
+    "reported_required_axes": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "minProperties": 1,
+      "title": "Reported Required Axes",
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "project-extension-definition-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "unit_dimension": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Unit Dimension",
+      "type": "string"
+    },
+    "value_constraints": {
+      "$ref": "#/$defs/NumericConstraints"
+    },
+    "value_type": {
+      "const": "numeric",
+      "title": "Value Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "extension_id",
+    "definition_version",
+    "parent_package_id",
+    "parent_package_version",
+    "parent_source_digest",
+    "original_clause_links",
+    "labels",
+    "description",
+    "rationale",
+    "value_type",
+    "canonical_unit",
+    "canonical_unit_id",
+    "unit_dimension",
+    "allowed_value_origins",
+    "identity_axes",
+    "reported_required_axes",
+    "reported_context_axes",
+    "context_unknown_policy",
+    "comparison_contract",
+    "exclusions"
+  ],
+  "title": "ExtensionDefinition",
+  "type": "object"
+}

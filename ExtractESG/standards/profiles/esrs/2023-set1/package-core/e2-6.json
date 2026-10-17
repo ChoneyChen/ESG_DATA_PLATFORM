@@ -1,0 +1,16 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "E2-6包内核心条款",
+  "profile_id": "esrs.2023-set1.e2-6.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "将预期财务影响、受影响收入、事故支出及准备金区分。",
+  "source_datapoint_ids": [
+    "E2-6_01",
+    "E2-6_02",
+    "E2-6_03",
+    "E2-6_04",
+    "E2-6_05",
+    "E2-6_06"
+  ]
+}

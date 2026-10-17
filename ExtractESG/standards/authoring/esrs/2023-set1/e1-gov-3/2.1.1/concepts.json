@@ -1,0 +1,38 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e1-gov-3.concept.dp01",
+    "description": "Disclosure of whether and how climate-related considerations are factored into remuneration of members of administrative, management and supervisory bodies。气候因素纳入管理层薪酬。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
+    "labels": {
+      "en": "Disclosure of whether and how climate-related considerations are factored into remuneration of members of administrative, management and supervisory bodies",
+      "zh": "气候因素纳入管理层薪酬"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-gov-3.source.law",
+      "esrs.2023-set1.e1-gov-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-gov-3.concept.dp02",
+    "description": "Percentage of remuneration recognised that is linked to climate related considerations。与气候因素挂钩的薪酬比例。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
+    "labels": {
+      "en": "Percentage of remuneration recognised that is linked to climate related considerations",
+      "zh": "与气候因素挂钩的薪酬比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-gov-3.source.law",
+      "esrs.2023-set1.e1-gov-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e1-gov-3.concept.dp03",
+    "description": "Explanation of climate-related considerations that are factored into remuneration of members of administrative, management and supervisory bodies。薪酬中的气候因素说明。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
+    "labels": {
+      "en": "Explanation of climate-related considerations that are factored into remuneration of members of administrative, management and supervisory bodies",
+      "zh": "薪酬中的气候因素说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e1-gov-3.source.law",
+      "esrs.2023-set1.e1-gov-3.source.ig3"
+    ]
+  }
+]

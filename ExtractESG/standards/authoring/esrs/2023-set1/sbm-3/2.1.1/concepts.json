@@ -1,0 +1,146 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp01",
+    "description": "Description of material impacts resulting from materiality assessment。重要影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Description of material impacts resulting from materiality assessment",
+      "zh": "重要影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp02",
+    "description": "Description of material risks and opportunities resulting from materiality assessment。重要风险和机会。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Description of material risks and opportunities resulting from materiality assessment",
+      "zh": "重要风险和机会"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp03",
+    "description": "Disclosure of current and anticipated effects of material impacts, risks and opportunities on business model, value chain, strategy and decision-making, and how undertaking has responded or plans to respond to these effects。重要事项对业务价值链战略的影响及回应。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of current and anticipated effects of material impacts, risks and opportunities on business model, value chain, strategy and decision-making, and how undertaking has responded or plans to respond to these effects",
+      "zh": "重要事项对业务价值链战略的影响及回应"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp04",
+    "description": "Disclosure of how material negative and positive impacts affect (or are likely to affect) people or environment。对人和环境的影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of how material negative and positive impacts affect (or are likely to affect) people or environment",
+      "zh": "对人和环境的影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp05",
+    "description": "Disclosure of whether and how material impacts originate from or are connected to strategy and business model。影响与战略业务来源关系。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of whether and how material impacts originate from or are connected to strategy and business model",
+      "zh": "影响与战略业务来源关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp06",
+    "description": "Disclosure of reasonably expected time horizons of material impacts。影响的预期时间。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of reasonably expected time horizons of material impacts",
+      "zh": "影响的预期时间"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp07",
+    "description": "Description of nature of activities or business relationships through which undertaking is involved with material impacts。涉及影响的活动和商业关系。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Description of nature of activities or business relationships through which undertaking is involved with material impacts",
+      "zh": "涉及影响的活动和商业关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp08",
+    "description": "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements。当前财务影响及资产负债调整风险。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements",
+      "zh": "当前财务影响及资产负债调整风险"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp09",
+    "description": "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term。短中长期预期财务影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term",
+      "zh": "短中长期预期财务影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp10",
+    "description": "Information about resilience of strategy and business model regarding capacity to address material impacts and risks and to take advantage of material opportunities。战略商业模式韧性。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Information about resilience of strategy and business model regarding capacity to address material impacts and risks and to take advantage of material opportunities",
+      "zh": "战略商业模式韧性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp11",
+    "description": "Disclosure of changes to material impacts, risks and opportunities compared to previous reporting period。重要事项跨期变更。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of changes to material impacts, risks and opportunities compared to previous reporting period",
+      "zh": "重要事项跨期变更"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.sbm-3.concept.dp12",
+    "description": "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures。标准覆盖与企业特有事项区分。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "labels": {
+      "en": "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures",
+      "zh": "标准覆盖与企业特有事项区分"
+    },
+    "source_refs": [
+      "esrs.2023-set1.sbm-3.source.law",
+      "esrs.2023-set1.sbm-3.source.ig3"
+    ]
+  }
+]

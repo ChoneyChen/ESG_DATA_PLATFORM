@@ -5,15 +5,27 @@ from types import SimpleNamespace
 
 import pytest
 
+from esg_targeted.standards.catalog import StandardPackageCatalog
 from esg_targeted.models.response_adapter import (
     DirectFillResponseAdapter,
     ModelResponseError,
     PERIOD_HEADER_RE,
     decode_first_json_object,
 )
+
+
+@pytest.mark.parametrize('raw', [
+    '{"rows":[],"rows":[{"group":"G1"}]}',
+    '{"rows":[{"field_refs":{"period":["S1"],"period":["S2"]}}]}',
+    '{"rows":[{"fields":{"value":"1","value":"2"}}',
+])
+def test_model_json_duplicate_keys_never_silently_replace_evidence(raw):
+    with pytest.raises(ValueError, match='duplicate model JSON property'):
+        decode_first_json_object(raw)
 from esg_targeted.models.template import DirectFillTemplateCompiler
 
 from tests.test_inventory_and_guard import build_pipeline, complete_row
+from tests.helpers import standard_dist_root
 
 
 def test_template_group_is_a_scalar_alias(tmp_path) -> None:
@@ -63,6 +75,119 @@ def test_row_group_classification_expands_to_distinct_cell_facts(tmp_path) -> No
     assert len(decision.fact_groups) == 2
     assert len({group.group_ref_id for group in decision.fact_groups}) == 2
     assert "expand_physical_row_groups" in actions
+
+
+def test_old_shared_cell_value_is_dropped_in_favour_of_each_cell(tmp_path) -> None:
+    _, _, regions, _, _ = build_pipeline(tmp_path)
+    packet = next(item for item in regions if json.loads(item.model_context)["region"]["target_value_cells"])
+    context = json.loads(packet.model_context)
+    target = context["region"]["target_value_cells"][0]
+    fields = {item["code"]: None for item in context["elements"]}
+    payload = {
+        "task_id": packet.task_id,
+        "status": "found",
+        "row_groups": [{
+            "group": target["group"],
+            "metric_match": "match",
+            "interpretation_note": None,
+            "context_refs": [],
+            "shared_fields": {**fields, "emission_amount": "999"},
+            "values": [{
+                "target_cell": target["id"],
+                "fields": {**fields, "emission_amount": target["visible_value"]},
+            }],
+        }],
+        "uncertainty_code": "none",
+        "skipped_targets": [],
+        "missing_context": [],
+    }
+
+    decision, _, actions = DirectFillResponseAdapter().parse_with_diagnostics(
+        json.dumps(payload, ensure_ascii=False), packet=packet
+    )
+
+    amount = next(
+        item
+        for item in decision.fact_groups[0].assignments
+        if item.element_id.endswith("element.emission_amount")
+    )
+    assert amount.value_raw == target["visible_value"]
+    assert "drop_cell_fields_from_shared_fields" in actions
+
+
+def test_qualitative_assertion_does_not_require_numeric_target_cell(tmp_path) -> None:
+    _, _, regions, _, _ = build_pipeline(tmp_path)
+    packet = regions[0]
+    package = StandardPackageCatalog(standard_dist_root()).load(
+        "esrs.2023-set1.e1-6", "1.5.0"
+    )
+    metric = next(
+        item for item in package.metrics if item.source_datapoint_id == "E1-6_15"
+    )
+    elements = [
+        item
+        for item in package.elements
+        if item.metric_id == metric.metric_id
+    ]
+    context = json.loads(packet.model_context)
+    context["metric"] = metric.model_dump(mode="json")
+    context["elements"] = [
+        {
+            "code": item.element_code,
+            "semantic_role": item.semantic_role,
+        }
+        for item in elements
+        if item.value_contract.fixed_value is None
+    ]
+    packet = packet.model_copy(
+        update={
+            "metric": metric.model_dump(mode="json"),
+            "elements": [item.model_dump(mode="json") for item in elements],
+            "model_context": json.dumps(
+                context, ensure_ascii=False, separators=(",", ":")
+            ),
+        },
+        deep=True,
+    )
+    group_alias = next(iter(packet.alias_map["groups"]))
+    group_id = packet.alias_map["groups"][group_alias]
+    statement = next(
+        span.text for span in packet.spans if span.context_group_id == group_id
+    )
+    fields = {
+        item.element_code: None
+        for item in elements
+        if item.value_contract.fixed_value is None
+    }
+    fields["statement"] = statement
+
+    decision, _, actions = DirectFillResponseAdapter().parse_with_diagnostics(
+        json.dumps(
+            {
+                "task_id": packet.task_id,
+                "status": "found",
+                "assertions": [
+                    {
+                        "group": group_alias,
+                        "metric_match": "match",
+                        "context_refs": [],
+                        "fields": fields,
+                    }
+                ],
+                "uncertainty_code": "none",
+            },
+            ensure_ascii=False,
+        ),
+        packet=packet,
+    )
+
+    assert len(decision.fact_groups) == 1
+    assert next(
+        item.value_raw
+        for item in decision.fact_groups[0].assignments
+        if item.element_id.endswith("element.statement")
+    ) == statement
+    assert "expand_qualitative_assertions" in actions
 
 
 def test_target_cell_visible_value_is_losslessly_resolved_to_unique_t_alias(tmp_path) -> None:

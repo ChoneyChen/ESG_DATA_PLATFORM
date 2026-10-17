@@ -1,0 +1,248 @@
+[
+  {
+    "aliases": {
+      "en": [
+        "water consumption"
+      ],
+      "zh": [
+        "耗水量",
+        "消耗水量"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp01",
+    "description": "Total water consumption。耗水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e3-4.concept.dp03",
+      "esrs.2023-set1.e3-4.concept.dp04",
+      "esrs.2023-set1.e3-4.concept.dp05",
+      "esrs.2023-set1.e3-4.concept.dp11",
+      "esrs.2023-set1.e3-4.concept.dp12"
+    ],
+    "labels": {
+      "en": "Total water consumption",
+      "zh": "耗水总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "water consumption in water-risk areas"
+      ],
+      "zh": [
+        "水风险地区耗水"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp02",
+    "description": "Total water consumption in areas at water risk, including areas of high-water stress。水风险地区耗水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "labels": {
+      "en": "Total water consumption in areas at water risk, including areas of high-water stress",
+      "zh": "水风险地区耗水量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "recycled and reused water"
+      ],
+      "zh": [
+        "循环用水",
+        "重复使用水"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp03",
+    "description": "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e3-4.concept.dp01",
+      "esrs.2023-set1.e3-4.concept.dp04",
+      "esrs.2023-set1.e3-4.concept.dp05",
+      "esrs.2023-set1.e3-4.concept.dp11",
+      "esrs.2023-set1.e3-4.concept.dp12"
+    ],
+    "labels": {
+      "en": "Total water recycled and reused",
+      "zh": "循环利用和重复使用水量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "water stored"
+      ],
+      "zh": [
+        "蓄水量"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp04",
+    "description": "Total water stored。储水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e3-4.concept.dp01",
+      "esrs.2023-set1.e3-4.concept.dp03",
+      "esrs.2023-set1.e3-4.concept.dp05",
+      "esrs.2023-set1.e3-4.concept.dp11",
+      "esrs.2023-set1.e3-4.concept.dp12"
+    ],
+    "labels": {
+      "en": "Total water stored",
+      "zh": "储水总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "water storage change"
+      ],
+      "zh": [
+        "储水增减"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp05",
+    "description": "Changes in water storage。储水变化量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e3-4.concept.dp01",
+      "esrs.2023-set1.e3-4.concept.dp03",
+      "esrs.2023-set1.e3-4.concept.dp04",
+      "esrs.2023-set1.e3-4.concept.dp11",
+      "esrs.2023-set1.e3-4.concept.dp12"
+    ],
+    "labels": {
+      "en": "Changes in water storage",
+      "zh": "储水变化量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp06",
+    "description": "Disclosure of contextual information regarding warter consumption。耗水方法与背景信息。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "labels": {
+      "en": "Disclosure of contextual information regarding warter consumption",
+      "zh": "耗水方法与背景信息"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp07",
+    "description": "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates。水量测量方法所占比例。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "labels": {
+      "en": "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates",
+      "zh": "水量测量方法所占比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp08",
+    "description": "Water intensity ratio。按净收入计算的耗水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "labels": {
+      "en": "Water intensity ratio",
+      "zh": "按净收入计算的耗水强度"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp09",
+    "description": "Water consumption - sectors/SEGMENTS [table]。耗水按行业板块分解。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "labels": {
+      "en": "Water consumption - sectors/SEGMENTS [table]",
+      "zh": "耗水按行业板块分解"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp10",
+    "description": "Additional water intensity ratio。其他口径的水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "labels": {
+      "en": "Additional water intensity ratio",
+      "zh": "其他口径的水强度"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "water withdrawal"
+      ],
+      "zh": [
+        "取水量",
+        "新鲜水取用量"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp11",
+    "description": "Total water withdrawals。取水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e3-4.concept.dp01",
+      "esrs.2023-set1.e3-4.concept.dp03",
+      "esrs.2023-set1.e3-4.concept.dp04",
+      "esrs.2023-set1.e3-4.concept.dp05",
+      "esrs.2023-set1.e3-4.concept.dp12"
+    ],
+    "labels": {
+      "en": "Total water withdrawals",
+      "zh": "取水总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  },
+  {
+    "aliases": {
+      "en": [
+        "water discharge"
+      ],
+      "zh": [
+        "排水量",
+        "水排放量"
+      ]
+    },
+    "concept_id": "esrs.2023-set1.e3-4.concept.dp12",
+    "description": "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "excluded_concept_ids": [
+      "esrs.2023-set1.e3-4.concept.dp01",
+      "esrs.2023-set1.e3-4.concept.dp03",
+      "esrs.2023-set1.e3-4.concept.dp04",
+      "esrs.2023-set1.e3-4.concept.dp05",
+      "esrs.2023-set1.e3-4.concept.dp11"
+    ],
+    "labels": {
+      "en": "Total water discharges",
+      "zh": "排水总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ]
+  }
+]

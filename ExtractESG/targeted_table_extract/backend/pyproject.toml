@@ -1,6 +1,6 @@
 [project]
 name = "extractesg-targeted-table"
-version = "0.4.2"
+version = "0.6.0"
 description = "Evidence-grounded targeted ESG extraction from Document IR and compiled standard packages."
 requires-python = ">=3.11"
 dependencies = [

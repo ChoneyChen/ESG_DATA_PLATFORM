@@ -1,0 +1,28 @@
+[
+  {
+    "description": "已采纳政策与未采纳分支分开。",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "policy": "independent_disclosure",
+    "relation_id": "esrs.2023-set1.mdr-p.relation.family01",
+    "relation_type": "separate_disclosure",
+    "source_metric_ids": [
+      "esrs.2023-set1.mdr-p.dp01",
+      "esrs.2023-set1.mdr-p.dp02",
+      "esrs.2023-set1.mdr-p.dp03",
+      "esrs.2023-set1.mdr-p.dp04",
+      "esrs.2023-set1.mdr-p.dp05",
+      "esrs.2023-set1.mdr-p.dp06"
+    ],
+    "source_refs": [
+      "esrs.2023-set1.mdr-p.source.law"
+    ],
+    "target_metric_ids": [
+      "esrs.2023-set1.mdr-p.dp07",
+      "esrs.2023-set1.mdr-p.dp08"
+    ]
+  }
+]

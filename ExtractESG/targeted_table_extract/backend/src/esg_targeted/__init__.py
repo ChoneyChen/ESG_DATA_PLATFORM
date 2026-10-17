@@ -1,3 +1,3 @@
 """Targeted, evidence-grounded ESG extraction."""
 
-__version__ = "0.4.2"
+__version__ = "0.6.0"

@@ -11,6 +11,7 @@ from openpyxl import load_workbook
 from esg_targeted.config import Settings
 from esg_targeted.contracts import (
     ExtractionRequest,
+    JobStatus,
     ModelRunResult,
     SemanticAssignment,
     SemanticDecision,
@@ -370,7 +371,13 @@ def _run(tmp_path, model, *, pollutant_rows=None):
 def test_workflow_writes_all_audit_layers(tmp_path) -> None:
     jobs, artifacts = _run(tmp_path, NotFoundModel())
     record = jobs.get("job-fixture")
-    assert record.status.value == "completed"
+    assert record.status.value == "partial"
+    outcome = artifacts.read_json("job-fixture", "manifest.json")["outcomes"][0]
+    assert outcome["found_status"] == "uncertain"
+    assert outcome["search_resolution_status"] in {
+        "not_found_after_bounded_search",
+        "retrieval_uncertain",
+    }
     paths = {item["path"] for item in artifacts.list("job-fixture")}
     assert {
         "inventory/spans.jsonl",
@@ -468,6 +475,19 @@ def test_result_bundle_contract_and_read_only_inspection(tmp_path) -> None:
     assert machine_row["additional_breakdown"] is None
     assert machine_row["evidence_pdf_pages"] == "[1]"
     workbook.close()
+
+
+def test_inspection_reports_external_interruption_without_rewriting_agent_state(tmp_path) -> None:
+    jobs, artifacts = _run(tmp_path, FoundModel())
+    state = {"version": "report-fact-agent-v1", "state": "running", "model_calls": 1,
+             "current_call": {"tool": "source_understanding", "phase": "prefill"}}
+    artifacts.write_json("job-fixture", "agent/state.json", state)
+    jobs.update("job-fixture", status=JobStatus.INTERRUPTED, error="External hard deadline")
+    inspection = ResultInspectionService(artifacts).build(jobs.get("job-fixture"))
+    assert inspection.agent["state"] == "interrupted"
+    assert inspection.agent["current_call"]["phase"] == "interrupted"
+    assert inspection.agent["current_call"]["error"] == "External hard deadline"
+    assert artifacts.read_json("job-fixture", "agent/state.json") == state
 
 
 def test_result_inspection_preserves_multiple_facts_for_one_metric(tmp_path) -> None:

@@ -1,0 +1,27 @@
+{
+  "core_analysis_state": "pending_full_module_analysis",
+  "core_source_datapoint_ids": [],
+  "disclosure_requirement": "S3-5",
+  "executable": false,
+  "major_source_datapoint_ids": [],
+  "next_steps": [
+    "逐条语义分析与核心条款选择",
+    "类型/身份/证据/比较合同",
+    "离线与真实报告验收"
+  ],
+  "package_id": "esrs.2023-set1.s3-5",
+  "package_version": null,
+  "runtime_path": null,
+  "source_datapoint_ids": [
+    "S3-5_01",
+    "S3-5_02",
+    "S3-5_03",
+    "S3-5_04",
+    "S3-5_05",
+    "S3-5_06"
+  ],
+  "source_digest": null,
+  "source_directory": null,
+  "source_sheet": "ESRS S3",
+  "state": "planned"
+}

@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "definition_version": {
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Definition Version",
+      "type": "string"
+    },
+    "derivation_rule_ids": {
+      "items": {
+        "minLength": 3,
+        "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+        "type": "string"
+      },
+      "title": "Derivation Rule Ids",
+      "type": "array"
+    },
+    "extension_id": {
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "Extension Id",
+      "type": "string"
+    },
+    "release_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Release Digest",
+      "type": "string"
+    },
+    "selection_kind": {
+      "default": "custom_extension",
+      "enum": [
+        "custom_extension",
+        "package_core_extension",
+        "platform_major_extension"
+      ],
+      "title": "Selection Kind",
+      "type": "string"
+    },
+    "value_origins": {
+      "items": {
+        "enum": [
+          "reported",
+          "derived"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Value Origins",
+      "type": "array"
+    }
+  },
+  "required": [
+    "extension_id",
+    "definition_version",
+    "release_digest",
+    "value_origins"
+  ],
+  "title": "ExtensionSelection",
+  "type": "object"
+}

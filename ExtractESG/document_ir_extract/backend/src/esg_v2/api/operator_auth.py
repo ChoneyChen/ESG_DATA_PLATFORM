@@ -1,0 +1,30 @@
+"""Resolve the workbench principal without persisting or exposing its credential."""
+import os
+
+import requests
+from fastapi import HTTPException
+
+
+def authorize_operator(authorization, role, *, publication_url=None):
+    if not isinstance(authorization, str) or not authorization.startswith("Bearer ") or not authorization[7:].strip():
+        raise HTTPException(401, "请先连接工作台访问密钥")
+    base = (publication_url or os.getenv("ESG_PUBLICATION_API_URL", "http://127.0.0.1:8765")).rstrip("/")
+    try:
+        with requests.Session() as session:
+            session.trust_env = False
+            response = session.get(base + "/internal/v1/me", headers={"Authorization": authorization},
+                                   timeout=15, allow_redirects=False)
+        if response.status_code in {401, 403}:
+            raise HTTPException(response.status_code, "工作台权限验证失败，请重新连接")
+        if response.status_code != 200:
+            raise HTTPException(503, "操作员权限服务暂不可用，已保存的生产计划保留")
+        principal = response.json()
+    except (requests.RequestException, ValueError) as exc:
+        raise HTTPException(503, "操作员权限服务暂不可用，已保存的生产计划保留") from exc
+    if (not isinstance(principal, dict) or not isinstance(principal.get("operator_ref"), str)
+            or not principal["operator_ref"].strip() or not isinstance(principal.get("roles"), list)
+            or any(not isinstance(r, str) for r in principal["roles"])):
+        raise HTTPException(503, "操作员权限响应无效，未执行生产操作")
+    if role not in principal["roles"] and "admin" not in principal["roles"]:
+        raise HTTPException(403, "当前操作员没有此生产操作所需的权限")
+    return principal

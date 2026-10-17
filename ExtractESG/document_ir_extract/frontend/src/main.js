@@ -1,3 +1,8 @@
+import {docRequest, postDocument, serviceBase, installApiFeedback} from "./api.js";
+import {subscribe, unsubscribe} from "./subscriptions.js";
+import {getSecret, initializeSecrets} from "./roles.js";
+import {stageLabel, irStageLabels} from "./progress.js";
+import {initLifecycle} from "./lifecycle.js";
 import {
   ocrProviderName,
   reportIdentity,
@@ -7,19 +12,7 @@ import {
 
 const $ = (selector) => document.querySelector(selector);
 
-const pipelineDefinitions = [
-  ["01", "PaddleOCR 主解析", "Local-first / API fallback → same package"],
-  ["02", "页图与本地取证", "Render + PDF cross-check"],
-  ["03", "Layout 转换", "Raw objects + coordinates"],
-  ["04", "确定性融合", "Dedupe + local observations"],
-  ["05", "结构与视觉区域", "Sections + tables + crops"],
-  ["06", "左右跨页建模", "Seam detection + composite"],
-  ["07", "分层质量路由", "Typed question · scoped risks"],
-  ["08", "分类与修复 Agent", "Classify · correct · abstain"],
-  ["09", "Patch Guard", "Atomic candidate + invariants"],
-  ["10", "Verifier 二次核验", "云端异族 / 本地隔离复核"],
-  ["11", "验证与版本冻结", "Readiness gate"],
-];
+const pipelineDefinitions = irStageLabels;
 
 let activeRunId = null;
 let activeIrRunId = null;
@@ -29,9 +22,7 @@ let currentManifest = null;
 let reviewState = {};
 let activeReviewGroup = "human_required";
 let selectedReviewTaskId = null;
-let pollTimer = null;
-let irPollTimer = null;
-let runtimeClockTimer = null;
+
 let lastRuntimeState = null;
 let backendContextUrl = "";
 let reviewRetryInFlight = false;
@@ -52,31 +43,21 @@ let reviewWorklistRequestId = 0;
 let openingReviewWorkItemKey = null;
 
 const appViewDefinitions = {
-  "report-assets": ["Report library", "报告资产", "管理专用 PDF 目录，并查看 OCR、IR 修订、文件体积与依赖关系。"],
-  ocr: ["Primary parsing", "OCR 任务", "从报告资产选择 PDF，配置本地或 API Provider，然后加入统一任务队列。"],
-  "document-ir": ["Document model", "Document IR 任务", "从不可变 OCR 包构建结构化 Document IR revision。"],
-  "ir-review": ["Review and inspection", "IR 复核检查中心", "检查页面、坐标、表格、跨页、质量准入与 Agent 复核决策。"],
-  targeted: ["Targeted recall", "定向抽取任务", "选择 evidence-ready IR、标准要求包和指标，并加入统一任务队列。"],
-  results: ["Result bundles", "抽取结果", "检查 Core records、证据、Guard、检索、模型决定与全部中间文件。"],
-  "pipeline-plan": ["Pipeline control", "07 · 链路控制", "选择报告文件夹、模型和多个标准指标，持久化计划并依次排队到最终成果。"],
+  "report-assets": ["Report library", "报告库", "选择报告，查看原件与文档证据历史，或创建跨标准提取任务。"],
+  "report-processing": ["Report processing", "报告处理", "一次完成文档识别、结构与证据构建；检查处理状态、页面与固定证据版本。"],
+  "extract-tasks": ["Report extraction", "提取任务", "选择报告和标准要求，确认语义主脑、完整度与云授权，预览实际执行计划。"],
+  results: ["Report facts", "结果工作台", "从报告事实、标准覆盖和证据三个视角检查同一份成果。"],
+  pending: ["Action center", "待处理", "查看未完成任务、证据缺口与可执行动作；已形成的有效事实继续保留。"],
+  settings: ["System settings", "系统设置", "管理连接、临时凭据、模型健康、缓存与技术诊断。"],
+  "report-detail": ["Document evidence", "报告文档与证据", "查看报告解析历史、页面、逻辑表与证据版本。"],
+  ocr: ["Advanced document tools", "文档解析工具", "选择原件加入串行队列，使用与报告任务一致的文档执行服务。"],
+  "document-ir": ["Advanced document tools", "文档构建工具", "固定已有解析产物，构建可追溯的文档证据版本。"],
 };
-
-const appViewAliases = {
-  tasks: "document-ir",
-  assets: "report-assets",
-  inspector: "ir-review",
-  reviews: "ir-review",
-  system: "report-assets",
-};
-
+const appViewAliases = {tasks: "extract-tasks", assets: "report-assets", inspector: "report-detail", reviews: "pending", system: "settings", "ir-review": "pending", targeted: "extract-tasks", "pipeline-plan": "extract-tasks", "01": "report-assets", "02": "report-assets", "03": "report-assets", "04": "pending", "05": "extract-tasks", "06": "results", "07": "extract-tasks"};
 const appViewSources = {
-  "report-assets": ["assets", "report-assets"],
-  ocr: ["tasks", "ocr"],
-  "document-ir": ["tasks", "document-ir"],
-  "ir-review": ["inspector", "reviews", "ir-review"],
-  targeted: ["targeted"],
-  results: ["results"],
-  "pipeline-plan": ["pipeline-plan"],
+  "report-assets": ["report-assets"], "report-processing": ["report-processing"], "extract-tasks": ["extract-tasks"], results: ["results"],
+  pending: ["pending", "reviews", "ir-review"], settings: ["settings", "system", "settings-cache"],
+  "report-detail": ["assets", "inspector"], ocr: ["tasks", "ocr"], "document-ir": ["tasks", "document-ir"],
 };
 
 const artifactGroupLabels = {
@@ -95,7 +76,7 @@ const artifactGroupLabels = {
 };
 
 function backendUrl() {
-  return $("#backend-url").value.replace(/\/$/, "");
+  return serviceBase("document");
 }
 
 function endpoint(path) {
@@ -111,7 +92,7 @@ function selectedReviewRetryProvider() {
 }
 
 function syncReviewRetryProviderControls() {
-  $("#review-retry-qiniu-key-field").classList.toggle("hidden", selectedReviewRetryProvider() !== "qiniu");
+  // Review credentials are supplied once in system settings.
 }
 
 function selectedOcrProvider() {
@@ -124,8 +105,7 @@ function syncOcrProviderControls() {
   const apiOnly = provider === "paddle_api";
   $("#allow-api-fallback").disabled = !localFirst;
   $("#ocr-fallback-field").classList.toggle("muted", !localFirst);
-  $("#ocr-token-field").classList.toggle("muted", provider === "local_paddleocr");
-  $("#token").disabled = provider === "local_paddleocr";
+
   if (apiOnly) $("#allow-api-fallback").checked = false;
 }
 
@@ -164,20 +144,21 @@ async function refreshOcrProviderStatus() {
 function syncReviewProviderControls() {
   const provider = selectedReviewProvider();
   const isQiniu = provider === "qiniu";
-  $("#qiniu-key").disabled = !isQiniu;
-  $("#qiniu-key-field").classList.toggle("muted", !isQiniu);
+
   $("#review-provider-note").textContent = isQiniu
     ? "七牛模式：主审候选 → 本地 Patch Guard → 不同模型家族独立复核 → 有界反馈返修。受网络、RPM 与 TPD 限额约束。"
-    : "本地模式：NuExtract3 主审候选 → 同一 Patch Guard → 隔离上下文的 NuExtract3 二次核验 → 有界反馈返修。无需 API Key；IR 输出合同与七牛模式完全一致。";
+    : provider === "local_qwen"
+      ? "本地 Qwen3.5：通用视觉语义复核 → 现有 Patch Guard → 隔离上下文二次核验。无需 API Key；模型读取报告证据，沿用现有 IR 修复合同，实际能力仍需业务验收。"
+      : "本地模式：NuExtract3 主审候选 → 同一 Patch Guard → 隔离上下文的 NuExtract3 二次核验 → 有界反馈返修。无需 API Key；IR 输出合同与七牛模式完全一致。";
 }
 
 function syncBackendContext() {
   const next = backendUrl();
   if (next === backendContextUrl) return false;
   backendContextUrl = next;
-  clearTimeout(pollTimer);
-  clearTimeout(irPollTimer);
-  clearInterval(runtimeClockTimer);
+  unsubscribe("document-ocr");
+  unsubscribe("document-ir");
+  unsubscribe("runtime-clock");
   activeRunId = null;
   activeIrRunId = null;
   irDocument = null;
@@ -211,7 +192,7 @@ function syncBackendContext() {
 }
 
 function resetIrView() {
-  clearTimeout(irPollTimer);
+  unsubscribe("document-ir");
   activeIrRunId = null;
   irDocument = null;
   irArtifacts = [];
@@ -229,7 +210,7 @@ function resetIrView() {
 }
 
 function resetOcrView() {
-  clearTimeout(pollTimer);
+  unsubscribe("document-ocr");
   activeRunId = null;
   $("#current-run").textContent = "尚未启动";
   $("#logs").textContent = "";
@@ -250,6 +231,7 @@ function switchAppView(view, {scroll = true} = {}) {
   const definition = appViewDefinitions[selected];
   const sources = appViewSources[selected] || [selected];
   activeAppView = selected;
+  document.body.dataset.activeView = selected;
   document.querySelectorAll("[data-app-view]").forEach((node) => {
     node.classList.toggle("view-hidden", !sources.includes(node.dataset.appView));
   });
@@ -258,14 +240,17 @@ function switchAppView(view, {scroll = true} = {}) {
     node.classList.toggle("component-hidden", !componentViews.includes(selected));
   });
   document.querySelectorAll("[data-app-view-target]").forEach((node) => {
-    node.classList.toggle("active", node.dataset.appViewTarget === selected);
+    node.classList.toggle("active", node.dataset.appViewTarget === (["report-detail", "ocr", "document-ir"].includes(selected) ? "report-assets" : selected));
   });
   $("#view-eyebrow").textContent = definition[0];
   $("#view-title").textContent = definition[1];
   $("#view-description").textContent = definition[2];
   localStorage.setItem("esg-v2-active-view", selected);
   window.dispatchEvent(new CustomEvent("esg:viewchange", {detail: {view: selected}}));
-  if (selected === "ir-review") refreshReviewWorklist();
+  if (selected === "pending") refreshReviewWorklist().catch(() => {});
+  if (selected === "settings") { refreshModelStatus().catch(() => {}); refreshOcrProviderStatus().catch(() => {}); }
+  syncDocumentSubscriptions();
+  if (location.hash.slice(1) !== selected) history.replaceState(null, "", `#${selected}`);
   if (scroll) window.scrollTo({top: 0, behavior: "smooth"});
 }
 
@@ -286,7 +271,7 @@ function formatDuration(seconds) {
 
 function renderRuntimeTelemetry(state) {
   lastRuntimeState = state;
-  clearInterval(runtimeClockTimer);
+  unsubscribe("runtime-clock");
   const telemetry = state?.telemetry;
   const metricsRoot = $("#runtime-metrics");
   const stagesRoot = $("#runtime-stages");
@@ -325,55 +310,36 @@ function renderRuntimeTelemetry(state) {
     const current = calls.current_call;
     currentRoot.replaceChildren();
     currentRoot.append(
-      documentNode("strong", "", stage.name ? `${stage.index}/${stage.total} · ${stage.name}` : "等待阶段更新"),
+      documentNode("strong", "", stage.name ? `${stage.index}/${stage.total} · ${stageLabel(`ir.${state.operation || "build"}.stage.${stage.index}`)}` : "等待阶段更新"),
       documentNode("span", "", current
         ? `${current.task_id} · ${current.role} · ${current.provider || "model"} · round ${current.round_index} · retry ${current.retry_index} · ${current.model_id}`
         : live.status === "running" ? "当前处于本地处理或两次模型请求之间。" : `运行已${live.status === "done" ? "完成" : "结束"}。`),
     );
-    $("#runtime-updated").textContent = `${live.status} · 更新 ${new Date(live.updated_at).toLocaleTimeString("zh-CN", {hour12: false})}`;
+    $("#runtime-updated").textContent = `${{running:"执行中", done:"执行完成", failed:"执行失败", cancelled:"已取消", interrupted:"执行中断"}[live.status] || "状态待确认"} · 更新 ${new Date(live.updated_at).toLocaleTimeString("zh-CN", {hour12: false})}`;
   };
 
   (telemetry.stages || []).forEach((stage) => {
     const node = documentNode("div", `runtime-stage ${stage.status || ""}`);
     node.append(
-      documentNode("strong", "", `${stage.index}. ${stage.name}`),
+      documentNode("strong", "", `${stage.index}. ${stageLabel(`ir.${state.operation || "build"}.stage.${stage.index}`)}`),
       documentNode("span", "", formatDuration(durationSeconds(stage.started_at, stage.finished_at))),
     );
     stagesRoot.appendChild(node);
   });
   render();
-  if (state.status === "running") runtimeClockTimer = setInterval(render, 1000);
+  if (state.status === "running" && activeAppView === "settings") subscribe("runtime-clock", render, {interval: 1000, immediate: false});
 }
 
 async function fetchJson(path, fallback = null) {
-  try {
-    const response = await fetch(endpoint(path));
-    if (!response.ok) return fallback;
-    return await response.json();
-  } catch {
-    return fallback;
-  }
-}
-
-async function postJson(path, payload) {
-  const response = await fetch(endpoint(path), {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(payload),
-  });
-  const text = await response.text();
-  let body = null;
-  try { body = text ? JSON.parse(text) : null; } catch { body = null; }
-  if (!response.ok) {
-    const detail = body?.detail;
-    const message = typeof detail === "string" ? detail : detail?.message || text || `HTTP ${response.status}`;
-    const error = new Error(message);
-    error.detail = detail;
-    error.status = response.status;
+  try { return await docRequest(path); }
+  catch (error) {
+    // Missing optional historical artifacts may use their explicit fallback.
+    const optionalArtifact = /\/(?:quality-report|validation-report|model-calls|reviewer-results|guard-results|verifier-results|final-decisions|candidate-revisions|atomic-patches|conflict-groups|review-tasks|artifacts|human-review\/inbox)(?:\?|$)/.test(path);
+    if (error.status === 404 && optionalArtifact && fallback !== null) return fallback;
     throw error;
   }
-  return body;
 }
+const postJson = postDocument;
 
 function setJson(element, payload) {
   element.textContent = payload == null ? "" : JSON.stringify(payload, null, 2);
@@ -384,40 +350,36 @@ function renderLogs(element, lines = []) {
   element.scrollTop = element.scrollHeight;
 }
 
-function renderPipeline(progress = -1, finalState = null) {
+function renderPipeline(telemetry = null, finalState = null) {
   const root = $("#pipeline-stages");
   root.replaceChildren();
-  pipelineDefinitions.forEach(([number, title, description], index) => {
+  const recorded = telemetry?.stages || [];
+  const stages = recorded.length ? recorded : pipelineDefinitions.map((title, index) => ({index: index + 1, label: title, status: "pending"}));
+  stages.forEach((stage) => {
     const item = document.createElement("div");
     item.className = "pipeline-stage";
-    if (index < progress) item.classList.add("done");
-    if (index === progress) item.classList.add("active");
-    if (finalState && index === pipelineDefinitions.length - 1) {
-      item.classList.remove("active", "done");
-      item.classList.add(["ready", "ready_with_warnings"].includes(finalState) ? "done" : "warning");
-    }
-    const no = document.createElement("div"); no.className = "number"; no.textContent = number;
-    const strong = document.createElement("strong"); strong.textContent = title;
-    const span = document.createElement("span"); span.textContent = description;
+    if (["done", "completed"].includes(stage.status)) item.classList.add("done");
+    if (stage.status === "running") item.classList.add("active");
+    if (["failed", "interrupted"].includes(stage.status)) item.classList.add("warning");
+    const no = document.createElement("div"); no.className = "number"; no.textContent = String(stage.index).padStart(2, "0");
+    const strong = document.createElement("strong"); strong.textContent = stage.label || stageLabel(`ir.${telemetry?.operation || "build"}.stage.${stage.index}`);
+    const span = document.createElement("span"); span.textContent = {done:"已完成", completed:"已完成", running:"执行中", pending:"待执行", failed:"失败", interrupted:"中断"}[stage.status] || "未记录阶段状态";
     item.append(no, strong, span);
     root.appendChild(item);
   });
-  $("#pipeline-state").textContent = finalState ? `IR ${finalState.toUpperCase()}` : progress >= 0 ? `正在执行第 ${progress + 1} 层` : "等待任务";
-}
-
-function progressFromLogs(logs) {
-  const last = [...logs].reverse().find((line) => /^\d+\/(?:10|11)\b/.test(line));
-  if (!last) return activeRunId ? 0 : -1;
-  const step = Number(last.split("/")[0]);
-  return Math.min(pipelineDefinitions.length - 1, Math.max(1, step));
+  const readiness = {ready:"证据可用", ready_with_warnings:"证据可用，存在提醒", limited:"部分证据可用", blocked:"证据暂不可用", needs_review:"证据待复核"};
+  $("#pipeline-state").textContent = finalState ? readiness[finalState] || "请查看证据准入详情" : telemetry?.current_stage ? stageLabel(`ir.${telemetry.operation || "build"}.stage.${telemetry.current_stage.index}`) : "等待结构化阶段记录";
 }
 
 async function checkHealth() {
-  const payload = await fetchJson("/health");
+  const checks = await Promise.allSettled([fetchJson("/health"), fetchJson("/api/pipeline/compatibility")]);
+  const payload = checks[0].status === "fulfilled" ? checks[0].value : null;
+  const compatibility = checks[1].status === "fulfilled" ? checks[1].value : null;
   const health = $("#health");
-  health.classList.toggle("online", Boolean(payload));
-  health.classList.toggle("offline", !payload);
-  health.textContent = payload ? `Backend: online (${payload.service})` : "Backend: offline";
+  health.classList.toggle("online", Boolean(payload) && compatibility?.ready === true);
+  health.classList.toggle("offline", !payload || compatibility?.ready !== true);
+  health.textContent = !payload ? "服务连接失败" : compatibility?.ready ? "服务与标准已就绪" : "服务已连接，业务未就绪";
+  health.title = compatibility?.blockers?.join("；") || (compatibility ? "" : "兼容诊断不可用");
 }
 
 async function refreshModelStatus() {
@@ -427,7 +389,7 @@ async function refreshModelStatus() {
   const root = $("#model-status"); root.replaceChildren();
   const providers = payload.providers || {};
   Object.entries(providers).forEach(([providerName, provider]) => {
-    const title = providerName === "local_nuextract" ? "本地 NuExtract3" : "七牛云 VLM";
+    const title = providerName === "local_qwen" ? "本地 Qwen3.5" : providerName === "local_nuextract" ? "本地 NuExtract3" : "七牛云 VLM";
     const verification = provider.independent_model_family
       ? "不同模型家族独立复核"
       : "同模型隔离上下文二次复核";
@@ -453,14 +415,14 @@ async function refreshModelStatus() {
           "",
           health
             ? `${health.last_status} · 成功 ${health.successes} · 运行 ${health.transport_failures || 0} · 协议 ${health.protocol_failures || 0}`
-            : providerName === "local_nuextract" ? "本地运行时与权重就绪 · 尚未调用" : "approved · 当前进程尚未调用",
+            : providerName.startsWith("local_") ? "本地运行时与权重就绪 · 尚未调用" : "approved · 当前进程尚未调用",
         ),
       );
       root.appendChild(card);
     });
-    if (providerName === "local_nuextract" && !(provider.approved_vision_models || []).length) {
+    if (providerName.startsWith("local_") && !(provider.approved_vision_models || []).length) {
       const reason = provider.probe?.error || "未找到本地运行时或模型权重";
-      root.appendChild(documentNode("div", "model-health error", `NuExtract3 不可用：${reason}`));
+      root.appendChild(documentNode("div", "model-health error", `${title} 不可用：${reason}`));
     }
     (provider.retired_models_still_listed || []).forEach((modelId) => {
       const card = documentNode("div", "model-health retired");
@@ -487,7 +449,7 @@ async function refreshHistories() {
   irSourceOcrRuns = ocrRuns;
   irSourceIrRuns = irRuns;
   renderIrSourcePicker();
-  if (activeAppView === "ir-review") await refreshReviewWorklist(irRuns);
+  if (activeAppView === "pending") await refreshReviewWorklist(irRuns);
   renderDocumentCatalog(documents);
   storageInventory = inventory || {available: false, summary: {}, documents: []};
   renderStorageInventory(storageInventory);
@@ -988,7 +950,7 @@ function renderDocumentCatalog(documents) {
     );
     if (item.latest_ir_run_id) card.addEventListener("click", async () => {
       await loadIrRun(item.latest_ir_run_id);
-      switchAppView("ir-review");
+      switchAppView("report-detail");
     });
     else if (item.ocr_run_ids?.[0]) card.addEventListener("click", async () => {
       await loadOcrRun(item.ocr_run_ids[0]);
@@ -1196,7 +1158,7 @@ async function showStorageRun(run) {
   open.addEventListener("click", async () => {
     if (run.kind === "ocr") {
       await loadOcrRun(run.run_id);
-      switchAppView("tasks");
+      switchAppView("ocr");
     } else {
       await loadIrRun(run.run_id);
       switchAppView("inspector");
@@ -1322,7 +1284,7 @@ function updateDeletionExecuteState() {
 async function executeStorageDeletion() {
   if (!currentDeletionPlan?.can_execute) return;
   const button = $("#execute-storage-deletion");
-  if (!window.confirm(`确认清理计划中的 ${currentDeletionPlan.selected_runs?.length || 0} 个 Run 吗？`)) return;
+  if (!window.confirm(`将计划中的 ${currentDeletionPlan.selected_runs?.length || 0} 个版本移入可恢复回收区吗？保留期内可恢复，空间在到期且引用检查通过后才可释放。`)) return;
   button.disabled = true;
   try {
     const result = await postJson(
@@ -1376,16 +1338,14 @@ $("#ocr-form").addEventListener("submit", async (event) => {
     if (file) {
       const upload = new FormData();
       upload.append("file", file);
-      const uploadResponse = await fetch(endpoint("/api/report-assets"), {method: "POST", body: upload});
-      if (!uploadResponse.ok) throw new Error(await uploadResponse.text());
-      const asset = await uploadResponse.json();
+      const asset = await docRequest("/api/report-assets", {method: "POST", body: upload});
       assetId = asset.asset_id;
       window.dispatchEvent(new CustomEvent("esg:assets-changed", {detail: {assetId}}));
     }
     const task = await postJson("/api/pipeline/tasks/ocr", {
       asset_id: fileUrl ? null : assetId,
       file_url: fileUrl || null,
-      token: $("#token").value.trim() || null,
+      token: getSecret("ocr_token"),
       model: $("#model").value.trim() || "PaddleOCR-VL-1.6",
       ocr_provider: selectedOcrProvider(),
       allow_api_fallback: $("#allow-api-fallback").checked,
@@ -1398,7 +1358,7 @@ $("#ocr-form").addEventListener("submit", async (event) => {
     activeRunId = task.native_job_id;
     $("#current-run").textContent = `${activeRunId} · 已加入统一队列`;
     renderLogs($("#logs"), [`统一任务 ${task.task_id} 已排队。`]);
-    renderPipeline(0);
+    renderPipeline();
     window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
     pollOcrState();
   } catch (error) {
@@ -1425,7 +1385,7 @@ $("#ir-form").addEventListener("submit", async (event) => {
     render_dpi: Number($("#render-dpi").value || 144),
     execute_vlm_reviews: $("#execute-vlm").checked,
     review_provider: selectedReviewProvider(),
-    qiniu_api_key: $("#qiniu-key").value.trim() || null,
+    qiniu_api_key: getSecret("qiniu_api_key"),
   };
   try {
     const task = await postJson("/api/pipeline/tasks/document-ir", {
@@ -1436,7 +1396,7 @@ $("#ir-form").addEventListener("submit", async (event) => {
     $("#current-ir-run").textContent = `${activeIrRunId} · 已加入统一队列`;
     renderLogs($("#ir-logs"), [`统一任务 ${task.task_id} 已排队。`]);
     window.dispatchEvent(new CustomEvent("esg:queue-changed", {detail: {taskId: task.task_id}}));
-    renderPipeline(1);
+    renderPipeline();
     pollIrState();
   } catch (error) {
     renderLogs($("#ir-logs"), [`加入任务失败: ${error.message}`]);
@@ -1445,19 +1405,19 @@ $("#ir-form").addEventListener("submit", async (event) => {
   }
 });
 
-async function pollOcrState() {
-  clearTimeout(pollTimer);
+async function pollOcrState(signal) {
   if (!activeRunId) return;
   const runId = activeRunId;
   const requestBackend = backendUrl();
-  const state = await fetchJson(`/api/ocr/jobs/${encodeURIComponent(runId)}`);
+  const state = await docRequest(`/api/ocr/jobs/${encodeURIComponent(runId)}`, {signal});
   if (requestBackend !== backendUrl() || runId !== activeRunId) return;
   if (!state) return;
   renderLogs($("#logs"), state.logs || []);
   $("#current-run").textContent = ocrRunStatusText(state);
   if (state.status === "done") {
     $("#ocr-form button[type=submit]").disabled = false;
-    renderPipeline(1);
+    renderPipeline();
+    unsubscribe("document-ocr");
     await loadOcrRun(state.run_id);
     await refreshHistories();
     return;
@@ -1465,31 +1425,32 @@ async function pollOcrState() {
   if (["failed", "cancelled", "interrupted"].includes(state.status)) {
     $("#ocr-form button[type=submit]").disabled = false;
     renderLogs($("#logs"), [...(state.logs || []), `失败: ${state.error || state.message}`]);
+    unsubscribe("document-ocr");
     await loadOcrRun(state.run_id);
     return;
   }
-  pollTimer = setTimeout(pollOcrState, 1800);
+  syncDocumentSubscriptions();
 }
 
-async function pollIrState() {
-  clearTimeout(irPollTimer);
+async function pollIrState(signal) {
   if (!activeIrRunId) return;
   const runId = activeIrRunId;
   const requestBackend = backendUrl();
-  const state = await fetchJson(`/api/document-ir/jobs/${encodeURIComponent(runId)}`);
+  const state = await docRequest(`/api/document-ir/jobs/${encodeURIComponent(runId)}`, {signal});
   if (requestBackend !== backendUrl() || runId !== activeIrRunId) return;
   if (!state) {
-    irPollTimer = setTimeout(pollIrState, 1200);
+    syncDocumentSubscriptions();
     return;
   }
   renderLogs($("#ir-logs"), state.logs || []);
   $("#current-ir-run").textContent = `${state.run_id} · ${state.status}`;
-  renderPipeline(progressFromLogs(state.logs || []));
+  renderPipeline(state.telemetry);
   renderRuntimeTelemetry(state);
   if (state.status === "done") {
     $("#ir-form button[type=submit]").disabled = false;
     setReviewRetryInFlight(false);
     releaseQueuedReviewRetries(runId);
+    unsubscribe("document-ir");
     await loadIrRun(state.run_id);
     await refreshHistories();
     return;
@@ -1499,9 +1460,18 @@ async function pollIrState() {
     setReviewRetryInFlight(false);
     releaseQueuedReviewRetries(runId);
     renderLogs($("#ir-logs"), [...(state.logs || []), `失败: ${state.error || state.message}`]);
+    unsubscribe("document-ir");
     return;
   }
-  irPollTimer = setTimeout(pollIrState, 900);
+  syncDocumentSubscriptions();
+}
+
+function syncDocumentSubscriptions() {
+  unsubscribe("document-ocr");
+  unsubscribe("document-ir");
+  unsubscribe("runtime-clock");
+  if (activeAppView === "ocr" && activeRunId) subscribe("document-ocr", pollOcrState, {interval: 1800, immediate: false});
+  if (["document-ir", "pending", "settings"].includes(activeAppView) && activeIrRunId) subscribe("document-ir", pollIrState, {interval: 1800, immediate: false});
 }
 
 async function loadOcrRun(runId) {
@@ -1576,7 +1546,7 @@ async function loadIrRun(runId) {
   setJson($("#ir-manifest"), manifest);
   setJson($("#quality-report"), quality);
   renderReviewRetryOutcome(quality?.review_retry_result || manifest?.review_retry_result || state?.summary?.review_retry_result);
-  renderPipeline(pipelineDefinitions.length - 1, manifest?.readiness);
+  renderPipeline(lastRuntimeState?.telemetry, manifest?.readiness);
   if (!document) {
     setIrWorkspaceAvailable(false);
     return;
@@ -2523,7 +2493,7 @@ async function startReviewRetry(taskIds = [], includeOptional = false, parentRun
         requested_by: $("#human-operator").value.trim() || "local-operator",
         notes: $("#human-notes").value.trim() || null,
         review_provider: selectedReviewRetryProvider(),
-        qiniu_api_key: $("#review-retry-qiniu-key").value.trim() || null,
+        qiniu_api_key: getSecret("qiniu_api_key"),
       },
     });
     activeIrRunId = task.native_job_id;
@@ -2646,7 +2616,7 @@ function artifactLink(item, kind, previewTarget = null) {
     if (/\.(json|jsonl|md|txt)$/i.test(item.path)) {
       link.addEventListener("click", async (event) => {
         event.preventDefault();
-        const text = await (await fetch(link.href)).text();
+        const text = await docRequest(link.href, {responseType: "text"});
         let rendered = text;
         if (item.path.endsWith(".json")) {
           try { rendered = JSON.stringify(JSON.parse(text), null, 2); } catch { /* keep text */ }
@@ -2793,7 +2763,7 @@ $("#repair-form").addEventListener("submit", async (event) => {
         notes: $("#human-notes").value.trim() || null,
         execute_vlm_reviews: $("#repair-execute-vlm").checked,
         review_provider: selectedReviewProvider(),
-        qiniu_api_key: $("#qiniu-key").value.trim() || null,
+        qiniu_api_key: getSecret("qiniu_api_key"),
       },
     });
     activeIrRunId = task.native_job_id;
@@ -2813,8 +2783,23 @@ if (storedBackend) $("#backend-url").value = storedBackend;
 syncReviewProviderControls();
 syncReviewRetryProviderControls();
 syncOcrProviderControls();
-switchAppView(localStorage.getItem("esg-v2-active-view") || "report-assets", {scroll: false});
+installApiFeedback();
+initializeSecrets();
+initLifecycle();
+window.addEventListener("esg:navigate", (event) => switchAppView(event.detail?.view || "report-assets"));
+window.addEventListener("esg:inspect-ir", async (event) => {
+  const runId = event.detail?.irRunId;
+  if (!runId) return;
+  try {
+    await loadIrRun(runId);
+    switchAppView(event.detail?.view || "report-detail");
+  } catch (error) {
+    window.alert(`证据版本读取失败：${error.message}`);
+  }
+});
+window.addEventListener("hashchange", () => switchAppView(location.hash.slice(1), {scroll: false}));
+switchAppView(location.hash.slice(1) || localStorage.getItem("esg-v2-active-view") || "report-assets", {scroll: false});
 renderPipeline();
-refreshHistories();
-refreshModelStatus();
-refreshOcrProviderStatus();
+refreshHistories().catch(() => {});
+refreshModelStatus().catch(() => {});
+refreshOcrProviderStatus().catch(() => {});

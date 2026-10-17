@@ -1,0 +1,6 @@
+fastapi==0.141.1
+pydantic==2.13.4
+uvicorn==0.52.4
+# Test dependency, not required by the server:
+httpx==0.28.1
+pytest>=8,<10

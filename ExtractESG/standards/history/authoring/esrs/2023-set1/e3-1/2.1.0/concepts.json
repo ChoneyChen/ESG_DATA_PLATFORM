@@ -1,0 +1,146 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp01",
+    "description": "Disclosure of whether and how policy adresses water management。水管理政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of whether and how policy adresses water management",
+      "zh": "水管理政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp02",
+    "description": "Disclosure of whether and how policy adresses the use and sourcing of water and marine resources in own operations。水及海洋资源使用采购政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of whether and how policy adresses the use and sourcing of water and marine resources in own operations",
+      "zh": "水及海洋资源使用采购政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp03",
+    "description": "Disclosure of whether and  how policy adresses water treatment。水处理政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of whether and  how policy adresses water treatment",
+      "zh": "水处理政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp04",
+    "description": "Disclosure of whether and how policy adresses prevention and abatment of water pollution。水污染预防减缓政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of whether and how policy adresses prevention and abatment of water pollution",
+      "zh": "水污染预防减缓政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp05",
+    "description": "Disclosure of whether and how policy adresses product and service design in view of addressing water-related issues and preservation of marine resources。产品服务设计的水与海洋保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of whether and how policy adresses product and service design in view of addressing water-related issues and preservation of marine resources",
+      "zh": "产品服务设计的水与海洋保护政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp06",
+    "description": "Disclosure of whether and how policy adresses commitment to reduce material water consumption in areas at water risk。水风险地区耗水减量承诺。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of whether and how policy adresses commitment to reduce material water consumption in areas at water risk",
+      "zh": "水风险地区耗水减量承诺"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp07",
+    "description": "Disclosure of reasons for not having adopted policies in areas of high-water stress。高水压力地区未采纳政策的原因。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of reasons for not having adopted policies in areas of high-water stress",
+      "zh": "高水压力地区未采纳政策的原因"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp08",
+    "description": "Disclosure of timeframe in which policies in areas of high-water stress will be adopted。高水压力地区政策采纳时间。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Disclosure of timeframe in which policies in areas of high-water stress will be adopted",
+      "zh": "高水压力地区政策采纳时间"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp09",
+    "description": "Policies or practices related to sustainable oceans and seas have been adopted。可持续海洋政策实践。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "Policies or practices related to sustainable oceans and seas have been adopted",
+      "zh": "可持续海洋政策实践"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp10",
+    "description": "The policly contributes to good ecological and chemical quality of surface water bodies and good chemical quality and quantity of groundwater bodies, in order to protect human health, water supply, natural ecosystems and biodiversity, the good environmental status of marine waters and the protection of the resource base upon which marine related activities depend;。水生态化学状态及海洋资源保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "The policly contributes to good ecological and chemical quality of surface water bodies and good chemical quality and quantity of groundwater bodies, in order to protect human health, water supply, natural ecosystems and biodiversity, the good environmental status of marine waters and the protection of the resource base upon which marine related activities depend;",
+      "zh": "水生态化学状态及海洋资源保护政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp11",
+    "description": "The policy minimise material impacts and risks and implement mitigation measures that aim to maintain the value and functionality of priority services and to increase resource efficiency on own operations。资源效率与优先生态服务保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "The policy minimise material impacts and risks and implement mitigation measures that aim to maintain the value and functionality of priority services and to increase resource efficiency on own operations",
+      "zh": "资源效率与优先生态服务保护政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e3-1.concept.dp12",
+    "description": "The policy avoid impacts on affected communities.。社区影响规避政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "labels": {
+      "en": "The policy avoid impacts on affected communities.",
+      "zh": "社区影响规避政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e3-1.source.law",
+      "esrs.2023-set1.e3-1.source.ig3"
+    ]
+  }
+]

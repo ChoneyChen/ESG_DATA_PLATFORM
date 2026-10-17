@@ -1,0 +1,56 @@
+[
+  {
+    "description": "由报告证据识别的披露主体；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e2-5.dimension.reporting-entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的物质；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e2-5.dimension.substance",
+    "labels": {
+      "en": "substance",
+      "zh": "物质"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的危害类别；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e2-5.dimension.hazard-class",
+    "labels": {
+      "en": "hazard class",
+      "zh": "危害类别"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的关注分类；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e2-5.dimension.concern-class",
+    "labels": {
+      "en": "concern class",
+      "zh": "关注分类"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的物质流向；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e2-5.dimension.material-flow",
+    "labels": {
+      "en": "material flow",
+      "zh": "物质流向"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的合计或成员身份；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.e2-5.dimension.aggregation-role",
+    "labels": {
+      "en": "aggregation role",
+      "zh": "合计或成员身份"
+    },
+    "value_type": "string"
+  }
+]

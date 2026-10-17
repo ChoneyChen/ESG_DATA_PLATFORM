@@ -12,6 +12,15 @@ IR_ROOT = "ir-20260827T020101Z-000000000001"
 IR_CHILD = "ir-20260827T020201Z-000000000002"
 
 
+class _UnreferencedGuard:
+    def check(self, scope):
+        return {"verified":True,"blockers":[],"dependencies":[]}
+    def reserve(self, scope, reason):
+        return "fixture-reservation"
+    def update_reservation(self, identity, state, reason):
+        return {"state":state}
+
+
 def _write_json(path: Path, payload: dict[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -25,6 +34,7 @@ def _service(tmp_path: Path) -> StorageInventoryService:
         ir_state_root=tmp_path / ".local/jobs/document-ir",
         upload_root=tmp_path / ".local/uploads",
         cleanup_root=tmp_path / ".local/storage-cleanup",
+        reference_guard=_UnreferencedGuard(),
     )
 
 
@@ -127,6 +137,11 @@ def test_cascade_plan_moves_complete_chain_and_keeps_cleanup_audit(tmp_path: Pat
     assert not (tmp_path / "document_ir_output" / IR_CHILD).exists()
     assert not (tmp_path / ".local/uploads" / OCR_RUN).exists()
     assert (tmp_path / ".local/storage-cleanup/cleanup-audit.jsonl").exists()
+    assert result["operation"] == "quarantine" and result["recoverable"] is True
+    receipt = service.trash.get(result["cleanup_id"])
+    assert receipt["state"] == "quarantined"
+    service.trash.restore(result["cleanup_id"],reason="恢复测试处理成果")
+    assert (tmp_path / "ocr_output" / OCR_RUN / "manifest.json").exists()
 
 
 def test_incomplete_cleanup_excludes_running_jobs(tmp_path: Path) -> None:

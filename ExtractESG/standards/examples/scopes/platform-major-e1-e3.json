@@ -1,0 +1,1120 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "catalog_source_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
+  "context": [
+    {
+      "metric_ids": [],
+      "package_id": "esrs.2023-set1.e1-5",
+      "purpose": "semantic_context_only"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e1-6.dp02",
+        "esrs.2023-set1.e1-6.dp14",
+        "esrs.2023-set1.e1-6.dp15",
+        "esrs.2023-set1.e1-6.dp16",
+        "esrs.2023-set1.e1-6.dp29"
+      ],
+      "package_id": "esrs.2023-set1.e1-6",
+      "purpose": "semantic_context_only"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e2-4.dp08",
+        "esrs.2023-set1.e2-4.dp10",
+        "esrs.2023-set1.e2-4.dp15"
+      ],
+      "package_id": "esrs.2023-set1.e2-4",
+      "purpose": "semantic_context_only"
+    },
+    {
+      "metric_ids": [],
+      "package_id": "esrs.2023-set1.e2-5",
+      "purpose": "semantic_context_only"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e3-4.dp06",
+        "esrs.2023-set1.e3-4.dp07"
+      ],
+      "package_id": "esrs.2023-set1.e3-4",
+      "purpose": "semantic_context_only"
+    }
+  ],
+  "excluded_by_explicit_filter": [
+    "E4.IRO-1_14",
+    "E4.SBM-3_04",
+    "E4-5_01",
+    "E4-5_02",
+    "E5-4_02",
+    "E5-4_05",
+    "E5-5_07",
+    "E5-5_11",
+    "E5-5_15",
+    "S1-6_02",
+    "S1-6_12",
+    "S1-9_02",
+    "S1-13_03",
+    "S1-14_02",
+    "S1-14_05",
+    "S1-16_01",
+    "S2-1_05",
+    "S2-3_02",
+    "S2-3_06",
+    "S2-4_11",
+    "S3-1_01",
+    "S3-3_11",
+    "S3-4_02",
+    "S3-4_11",
+    "S4-1_01",
+    "S4-3_02",
+    "S4-3_13",
+    "S4-4_11",
+    "G1-1_03",
+    "G1-4_01",
+    "G1-4_02",
+    "G1-4_04",
+    "G1-6_01"
+  ],
+  "explicit_topic_filter": [
+    "E1",
+    "E2",
+    "E3"
+  ],
+  "note": "session_standards可填入现有ReportSession请求；上下文只提供定义/口径，不自动成为输出或覆盖分母。",
+  "output_count": 16,
+  "profile_id": "esrs.2023-set1.platform-major",
+  "profile_version": "1.0.0",
+  "routes": [
+    {
+      "context_metric_ids": [],
+      "context_requirement_references": [
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_02",
+            "E1-5_03",
+            "E1-5_04",
+            "E1-5_05",
+            "E1-5_06",
+            "E1-5_07",
+            "E1-5_08",
+            "E1-5_09",
+            "E1-5_10",
+            "E1-5_11",
+            "E1-5_12",
+            "E1-5_13",
+            "E1-5_14",
+            "E1-5_15",
+            "E1-5_16",
+            "E1-5_17",
+            "E1-5_18",
+            "E1-5_19",
+            "E1-5_20",
+            "E1-5_21",
+            "E1-5_22",
+            "E1-5_23"
+          ],
+          "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-1.dp01",
+            "esrs.2023-set1.bp-1.dp02",
+            "esrs.2023-set1.bp-1.dp04"
+          ],
+          "output_policy": "context_only",
+          "purpose": "report_identity",
+          "reference_id": "esrs.2023-set1.e1-5.context.report_identity-bp-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_05",
+            "E1-5_09"
+          ],
+          "source_digest": "b4e568138b61202d8993cf192e15c13757dcff2e44056effe29cc41ce9130e26",
+          "target_package_id": "esrs.2023-set1.bp-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-1_01",
+            "BP-1_02",
+            "BP-1_04"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_02",
+            "E1-5_03",
+            "E1-5_04",
+            "E1-5_05",
+            "E1-5_06",
+            "E1-5_07",
+            "E1-5_08",
+            "E1-5_09",
+            "E1-5_10",
+            "E1-5_11",
+            "E1-5_12",
+            "E1-5_13",
+            "E1-5_14",
+            "E1-5_15",
+            "E1-5_16",
+            "E1-5_17",
+            "E1-5_18",
+            "E1-5_19",
+            "E1-5_22",
+            "E1-5_23"
+          ],
+          "description": "共用指标定义、方法与重大假设；必须关联被测指标和可持续主题。",
+          "metric_ids": [
+            "esrs.2023-set1.mdr-m.dp01",
+            "esrs.2023-set1.mdr-m.dp02"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e1-5.context.measurement_method-mdr-m",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_05",
+            "E1-5_09"
+          ],
+          "source_digest": "4bea6d2ef4a799b2c0e720c63bc2616437623aecacd4569c33f86a4d77871e1a",
+          "target_package_id": "esrs.2023-set1.mdr-m",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "MDR-M_01",
+            "MDR-M_02"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_02",
+            "E1-5_03",
+            "E1-5_04",
+            "E1-5_05",
+            "E1-5_06",
+            "E1-5_07",
+            "E1-5_08",
+            "E1-5_09",
+            "E1-5_10",
+            "E1-5_11",
+            "E1-5_12",
+            "E1-5_13",
+            "E1-5_14",
+            "E1-5_15",
+            "E1-5_16",
+            "E1-5_17",
+            "E1-5_18",
+            "E1-5_19",
+            "E1-5_22",
+            "E1-5_23"
+          ],
+          "description": "只使用明确适用于所选指标的不确定性、方法、变更和重述说明。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-2.dp07",
+            "esrs.2023-set1.bp-2.dp08",
+            "esrs.2023-set1.bp-2.dp09",
+            "esrs.2023-set1.bp-2.dp10",
+            "esrs.2023-set1.bp-2.dp14"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e1-5.context.measurement_method-bp-2",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_05",
+            "E1-5_09"
+          ],
+          "source_digest": "902f6272cc09d1ff91a798fc26c89b9cff957a0c88975be0e8d51675e2d4b02e",
+          "target_package_id": "esrs.2023-set1.bp-2",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-2_07",
+            "BP-2_08",
+            "BP-2_09",
+            "BP-2_10",
+            "BP-2_14"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_02",
+            "E1-5_03",
+            "E1-5_04",
+            "E1-5_05",
+            "E1-5_06",
+            "E1-5_07",
+            "E1-5_08",
+            "E1-5_09",
+            "E1-5_10",
+            "E1-5_11",
+            "E1-5_12",
+            "E1-5_13",
+            "E1-5_14",
+            "E1-5_15",
+            "E1-5_16",
+            "E1-5_17",
+            "E1-5_18",
+            "E1-5_19",
+            "E1-5_20",
+            "E1-5_21",
+            "E1-5_22",
+            "E1-5_23"
+          ],
+          "description": "收入与行业仅作为背景。收入总额不能自动成为净收入强度分母。",
+          "metric_ids": [
+            "esrs.2023-set1.sbm-1.dp06",
+            "esrs.2023-set1.sbm-1.dp24"
+          ],
+          "output_policy": "context_only",
+          "purpose": "business_context",
+          "reference_id": "esrs.2023-set1.e1-5.context.business_context-sbm-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-5_01",
+            "E1-5_05",
+            "E1-5_09"
+          ],
+          "source_digest": "b4ba196f7a4bc20f97b886aefc63efd173ba2a34309d1ad31add6141b971ab7b",
+          "target_package_id": "esrs.2023-set1.sbm-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "SBM-1_06",
+            "SBM-1_24"
+          ]
+        }
+      ],
+      "execution_metric_ids": [
+        "esrs.2023-set1.e1-5.dp01",
+        "esrs.2023-set1.e1-5.dp02",
+        "esrs.2023-set1.e1-5.dp03",
+        "esrs.2023-set1.e1-5.dp05",
+        "esrs.2023-set1.e1-5.dp06",
+        "esrs.2023-set1.e1-5.dp07",
+        "esrs.2023-set1.e1-5.dp08",
+        "esrs.2023-set1.e1-5.dp09",
+        "esrs.2023-set1.e1-5.dp10",
+        "esrs.2023-set1.e1-5.dp11",
+        "esrs.2023-set1.e1-5.dp12",
+        "esrs.2023-set1.e1-5.dp13",
+        "esrs.2023-set1.e1-5.dp14"
+      ],
+      "internal_dependency_metric_ids": [
+        "esrs.2023-set1.e1-5.dp02",
+        "esrs.2023-set1.e1-5.dp03",
+        "esrs.2023-set1.e1-5.dp06",
+        "esrs.2023-set1.e1-5.dp07",
+        "esrs.2023-set1.e1-5.dp08",
+        "esrs.2023-set1.e1-5.dp10",
+        "esrs.2023-set1.e1-5.dp11",
+        "esrs.2023-set1.e1-5.dp12",
+        "esrs.2023-set1.e1-5.dp13",
+        "esrs.2023-set1.e1-5.dp14"
+      ],
+      "output_metric_ids": [
+        "esrs.2023-set1.e1-5.dp01",
+        "esrs.2023-set1.e1-5.dp05",
+        "esrs.2023-set1.e1-5.dp09"
+      ],
+      "package_id": "esrs.2023-set1.e1-5",
+      "package_version": "2.1.1",
+      "shared_requirement_references": [],
+      "source_datapoint_ids": [
+        "E1-5_01",
+        "E1-5_05",
+        "E1-5_09"
+      ],
+      "source_digest": "61db5273129416c02ff7e28abaf898787f1d28e3cd257816f7dfe73f0c1e68ff"
+    },
+    {
+      "context_metric_ids": [
+        "esrs.2023-set1.e1-6.dp02",
+        "esrs.2023-set1.e1-6.dp14",
+        "esrs.2023-set1.e1-6.dp15",
+        "esrs.2023-set1.e1-6.dp16",
+        "esrs.2023-set1.e1-6.dp29"
+      ],
+      "context_requirement_references": [
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-6_01",
+            "E1-6_02",
+            "E1-6_03",
+            "E1-6_04",
+            "E1-6_05",
+            "E1-6_06",
+            "E1-6_07",
+            "E1-6_08",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_13",
+            "E1-6_14",
+            "E1-6_15",
+            "E1-6_16",
+            "E1-6_17",
+            "E1-6_18",
+            "E1-6_19",
+            "E1-6_20",
+            "E1-6_21",
+            "E1-6_22",
+            "E1-6_23",
+            "E1-6_24",
+            "E1-6_25",
+            "E1-6_26",
+            "E1-6_27",
+            "E1-6_28",
+            "E1-6_29",
+            "E1-6_30",
+            "E1-6_31",
+            "E1-6_32",
+            "E1-6_33",
+            "E1-6_34",
+            "E1-6_35"
+          ],
+          "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-1.dp01",
+            "esrs.2023-set1.bp-1.dp02",
+            "esrs.2023-set1.bp-1.dp04"
+          ],
+          "output_policy": "context_only",
+          "purpose": "report_identity",
+          "reference_id": "esrs.2023-set1.e1-6.context.report_identity-bp-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-6_07",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11"
+          ],
+          "source_digest": "b4e568138b61202d8993cf192e15c13757dcff2e44056effe29cc41ce9130e26",
+          "target_package_id": "esrs.2023-set1.bp-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-1_01",
+            "BP-1_02",
+            "BP-1_04"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-6_07",
+            "E1-6_08",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_13",
+            "E1-6_17",
+            "E1-6_18",
+            "E1-6_20",
+            "E1-6_21",
+            "E1-6_22",
+            "E1-6_24",
+            "E1-6_25",
+            "E1-6_28",
+            "E1-6_30",
+            "E1-6_31",
+            "E1-6_33",
+            "E1-6_34",
+            "E1-6_35"
+          ],
+          "description": "共用指标定义、方法与重大假设；必须关联被测指标和可持续主题。",
+          "metric_ids": [
+            "esrs.2023-set1.mdr-m.dp01",
+            "esrs.2023-set1.mdr-m.dp02"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e1-6.context.measurement_method-mdr-m",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-6_07",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11"
+          ],
+          "source_digest": "4bea6d2ef4a799b2c0e720c63bc2616437623aecacd4569c33f86a4d77871e1a",
+          "target_package_id": "esrs.2023-set1.mdr-m",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "MDR-M_01",
+            "MDR-M_02"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-6_07",
+            "E1-6_08",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_13",
+            "E1-6_17",
+            "E1-6_18",
+            "E1-6_20",
+            "E1-6_21",
+            "E1-6_22",
+            "E1-6_24",
+            "E1-6_25",
+            "E1-6_28",
+            "E1-6_30",
+            "E1-6_31",
+            "E1-6_33",
+            "E1-6_34",
+            "E1-6_35"
+          ],
+          "description": "只使用明确适用于所选指标的不确定性、方法、变更和重述说明。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-2.dp07",
+            "esrs.2023-set1.bp-2.dp08",
+            "esrs.2023-set1.bp-2.dp09",
+            "esrs.2023-set1.bp-2.dp10",
+            "esrs.2023-set1.bp-2.dp14"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e1-6.context.measurement_method-bp-2",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-6_07",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11"
+          ],
+          "source_digest": "902f6272cc09d1ff91a798fc26c89b9cff957a0c88975be0e8d51675e2d4b02e",
+          "target_package_id": "esrs.2023-set1.bp-2",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-2_07",
+            "BP-2_08",
+            "BP-2_09",
+            "BP-2_10",
+            "BP-2_14"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E1-6_01",
+            "E1-6_02",
+            "E1-6_03",
+            "E1-6_04",
+            "E1-6_05",
+            "E1-6_06",
+            "E1-6_07",
+            "E1-6_08",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_13",
+            "E1-6_14",
+            "E1-6_15",
+            "E1-6_16",
+            "E1-6_17",
+            "E1-6_18",
+            "E1-6_19",
+            "E1-6_20",
+            "E1-6_21",
+            "E1-6_22",
+            "E1-6_23",
+            "E1-6_24",
+            "E1-6_25",
+            "E1-6_26",
+            "E1-6_27",
+            "E1-6_28",
+            "E1-6_29",
+            "E1-6_30",
+            "E1-6_31",
+            "E1-6_32",
+            "E1-6_33",
+            "E1-6_34",
+            "E1-6_35"
+          ],
+          "description": "收入与行业仅作为背景。收入总额不能自动成为净收入强度分母。",
+          "metric_ids": [
+            "esrs.2023-set1.sbm-1.dp06",
+            "esrs.2023-set1.sbm-1.dp24"
+          ],
+          "output_policy": "context_only",
+          "purpose": "business_context",
+          "reference_id": "esrs.2023-set1.e1-6.context.business_context-sbm-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E1-6_07",
+            "E1-6_09",
+            "E1-6_10",
+            "E1-6_11"
+          ],
+          "source_digest": "b4ba196f7a4bc20f97b886aefc63efd173ba2a34309d1ad31add6141b971ab7b",
+          "target_package_id": "esrs.2023-set1.sbm-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "SBM-1_06",
+            "SBM-1_24"
+          ]
+        }
+      ],
+      "execution_metric_ids": [
+        "esrs.2023-set1.e1-6.dp07",
+        "esrs.2023-set1.e1-6.dp09",
+        "esrs.2023-set1.e1-6.dp10",
+        "esrs.2023-set1.e1-6.dp11"
+      ],
+      "internal_dependency_metric_ids": [],
+      "output_metric_ids": [
+        "esrs.2023-set1.e1-6.dp07",
+        "esrs.2023-set1.e1-6.dp09",
+        "esrs.2023-set1.e1-6.dp10",
+        "esrs.2023-set1.e1-6.dp11"
+      ],
+      "package_id": "esrs.2023-set1.e1-6",
+      "package_version": "2.1.1",
+      "shared_requirement_references": [],
+      "source_datapoint_ids": [
+        "E1-6_07",
+        "E1-6_09",
+        "E1-6_10",
+        "E1-6_11"
+      ],
+      "source_digest": "a49cb85ee3dbf12fe9a5b3ea74cb0cc73a984acab1989c11d9200564aa39caf7"
+    },
+    {
+      "context_metric_ids": [
+        "esrs.2023-set1.e2-4.dp08",
+        "esrs.2023-set1.e2-4.dp10",
+        "esrs.2023-set1.e2-4.dp15"
+      ],
+      "context_requirement_references": [
+        {
+          "applies_to_source_datapoint_ids": [
+            "E2-4_01",
+            "E2-4_02",
+            "E2-4_03",
+            "E2-4_04",
+            "E2-4_05",
+            "E2-4_06",
+            "E2-4_07",
+            "E2-4_08",
+            "E2-4_09",
+            "E2-4_10",
+            "E2-4_11",
+            "E2-4_12",
+            "E2-4_13",
+            "E2-4_14",
+            "E2-4_15",
+            "E2-4_16",
+            "E2-4_17",
+            "E2-4_18",
+            "E2-4_19",
+            "E2-4_20"
+          ],
+          "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-1.dp01",
+            "esrs.2023-set1.bp-1.dp02",
+            "esrs.2023-set1.bp-1.dp04"
+          ],
+          "output_policy": "context_only",
+          "purpose": "report_identity",
+          "reference_id": "esrs.2023-set1.e2-4.context.report_identity-bp-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E2-4_02",
+            "E2-4_03",
+            "E2-4_09"
+          ],
+          "source_digest": "b4e568138b61202d8993cf192e15c13757dcff2e44056effe29cc41ce9130e26",
+          "target_package_id": "esrs.2023-set1.bp-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-1_01",
+            "BP-1_02",
+            "BP-1_04"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E2-4_02",
+            "E2-4_03",
+            "E2-4_04",
+            "E2-4_05",
+            "E2-4_06",
+            "E2-4_07",
+            "E2-4_11",
+            "E2-4_12",
+            "E2-4_13",
+            "E2-4_14",
+            "E2-4_18",
+            "E2-4_19"
+          ],
+          "description": "共用指标定义、方法与重大假设；必须关联被测指标和可持续主题。",
+          "metric_ids": [
+            "esrs.2023-set1.mdr-m.dp01",
+            "esrs.2023-set1.mdr-m.dp02"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e2-4.context.measurement_method-mdr-m",
+          "selected_applicable_source_datapoint_ids": [
+            "E2-4_02",
+            "E2-4_03"
+          ],
+          "source_digest": "4bea6d2ef4a799b2c0e720c63bc2616437623aecacd4569c33f86a4d77871e1a",
+          "target_package_id": "esrs.2023-set1.mdr-m",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "MDR-M_01",
+            "MDR-M_02"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E2-4_02",
+            "E2-4_03",
+            "E2-4_04",
+            "E2-4_05",
+            "E2-4_06",
+            "E2-4_07",
+            "E2-4_11",
+            "E2-4_12",
+            "E2-4_13",
+            "E2-4_14",
+            "E2-4_18",
+            "E2-4_19"
+          ],
+          "description": "只使用明确适用于所选指标的不确定性、方法、变更和重述说明。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-2.dp07",
+            "esrs.2023-set1.bp-2.dp08",
+            "esrs.2023-set1.bp-2.dp09",
+            "esrs.2023-set1.bp-2.dp10",
+            "esrs.2023-set1.bp-2.dp14"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e2-4.context.measurement_method-bp-2",
+          "selected_applicable_source_datapoint_ids": [
+            "E2-4_02",
+            "E2-4_03"
+          ],
+          "source_digest": "902f6272cc09d1ff91a798fc26c89b9cff957a0c88975be0e8d51675e2d4b02e",
+          "target_package_id": "esrs.2023-set1.bp-2",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-2_07",
+            "BP-2_08",
+            "BP-2_09",
+            "BP-2_10",
+            "BP-2_14"
+          ]
+        }
+      ],
+      "execution_metric_ids": [
+        "esrs.2023-set1.e2-4.dp02",
+        "esrs.2023-set1.e2-4.dp03",
+        "esrs.2023-set1.e2-4.dp09"
+      ],
+      "internal_dependency_metric_ids": [],
+      "output_metric_ids": [
+        "esrs.2023-set1.e2-4.dp02",
+        "esrs.2023-set1.e2-4.dp03",
+        "esrs.2023-set1.e2-4.dp09"
+      ],
+      "package_id": "esrs.2023-set1.e2-4",
+      "package_version": "2.1.1",
+      "shared_requirement_references": [],
+      "source_datapoint_ids": [
+        "E2-4_02",
+        "E2-4_03",
+        "E2-4_09"
+      ],
+      "source_digest": "1a39694c699f05d8d53655dbf4e88aa74b0bfc5737b20d88d1afee962f194e3d"
+    },
+    {
+      "context_metric_ids": [],
+      "context_requirement_references": [
+        {
+          "applies_to_source_datapoint_ids": [
+            "E2-5_01",
+            "E2-5_02",
+            "E2-5_03",
+            "E2-5_04",
+            "E2-5_05",
+            "E2-5_06",
+            "E2-5_07",
+            "E2-5_08",
+            "E2-5_09",
+            "E2-5_10",
+            "E2-5_11",
+            "E2-5_12",
+            "E2-5_13"
+          ],
+          "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-1.dp01",
+            "esrs.2023-set1.bp-1.dp02",
+            "esrs.2023-set1.bp-1.dp04"
+          ],
+          "output_policy": "context_only",
+          "purpose": "report_identity",
+          "reference_id": "esrs.2023-set1.e2-5.context.report_identity-bp-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E2-5_02"
+          ],
+          "source_digest": "b4e568138b61202d8993cf192e15c13757dcff2e44056effe29cc41ce9130e26",
+          "target_package_id": "esrs.2023-set1.bp-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-1_01",
+            "BP-1_02",
+            "BP-1_04"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E2-5_02",
+            "E2-5_03",
+            "E2-5_04",
+            "E2-5_05",
+            "E2-5_06",
+            "E2-5_07",
+            "E2-5_08",
+            "E2-5_09",
+            "E2-5_10",
+            "E2-5_11",
+            "E2-5_12",
+            "E2-5_13"
+          ],
+          "description": "共用指标定义、方法与重大假设；必须关联被测指标和可持续主题。",
+          "metric_ids": [
+            "esrs.2023-set1.mdr-m.dp01",
+            "esrs.2023-set1.mdr-m.dp02"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e2-5.context.measurement_method-mdr-m",
+          "selected_applicable_source_datapoint_ids": [
+            "E2-5_02"
+          ],
+          "source_digest": "4bea6d2ef4a799b2c0e720c63bc2616437623aecacd4569c33f86a4d77871e1a",
+          "target_package_id": "esrs.2023-set1.mdr-m",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "MDR-M_01",
+            "MDR-M_02"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E2-5_02",
+            "E2-5_03",
+            "E2-5_04",
+            "E2-5_05",
+            "E2-5_06",
+            "E2-5_07",
+            "E2-5_08",
+            "E2-5_09",
+            "E2-5_10",
+            "E2-5_11",
+            "E2-5_12",
+            "E2-5_13"
+          ],
+          "description": "只使用明确适用于所选指标的不确定性、方法、变更和重述说明。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-2.dp07",
+            "esrs.2023-set1.bp-2.dp08",
+            "esrs.2023-set1.bp-2.dp09",
+            "esrs.2023-set1.bp-2.dp10",
+            "esrs.2023-set1.bp-2.dp14"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e2-5.context.measurement_method-bp-2",
+          "selected_applicable_source_datapoint_ids": [
+            "E2-5_02"
+          ],
+          "source_digest": "902f6272cc09d1ff91a798fc26c89b9cff957a0c88975be0e8d51675e2d4b02e",
+          "target_package_id": "esrs.2023-set1.bp-2",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-2_07",
+            "BP-2_08",
+            "BP-2_09",
+            "BP-2_10",
+            "BP-2_14"
+          ]
+        }
+      ],
+      "execution_metric_ids": [
+        "esrs.2023-set1.e2-5.dp02"
+      ],
+      "internal_dependency_metric_ids": [],
+      "output_metric_ids": [
+        "esrs.2023-set1.e2-5.dp02"
+      ],
+      "package_id": "esrs.2023-set1.e2-5",
+      "package_version": "2.1.1",
+      "shared_requirement_references": [],
+      "source_datapoint_ids": [
+        "E2-5_02"
+      ],
+      "source_digest": "d5dd80a7d3052d1cbc29fc31e283af7f7cf036b91665227b7dea14af04fbfdf4"
+    },
+    {
+      "context_metric_ids": [
+        "esrs.2023-set1.e3-4.dp06",
+        "esrs.2023-set1.e3-4.dp07"
+      ],
+      "context_requirement_references": [
+        {
+          "applies_to_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_04",
+            "E3-4_05",
+            "E3-4_06",
+            "E3-4_07",
+            "E3-4_08",
+            "E3-4_09",
+            "E3-4_10",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-1.dp01",
+            "esrs.2023-set1.bp-1.dp02",
+            "esrs.2023-set1.bp-1.dp04"
+          ],
+          "output_policy": "context_only",
+          "purpose": "report_identity",
+          "reference_id": "esrs.2023-set1.e3-4.context.report_identity-bp-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "source_digest": "b4e568138b61202d8993cf192e15c13757dcff2e44056effe29cc41ce9130e26",
+          "target_package_id": "esrs.2023-set1.bp-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-1_01",
+            "BP-1_02",
+            "BP-1_04"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_04",
+            "E3-4_05",
+            "E3-4_07",
+            "E3-4_08",
+            "E3-4_09",
+            "E3-4_10",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "description": "共用指标定义、方法与重大假设；必须关联被测指标和可持续主题。",
+          "metric_ids": [
+            "esrs.2023-set1.mdr-m.dp01",
+            "esrs.2023-set1.mdr-m.dp02"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e3-4.context.measurement_method-mdr-m",
+          "selected_applicable_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "source_digest": "4bea6d2ef4a799b2c0e720c63bc2616437623aecacd4569c33f86a4d77871e1a",
+          "target_package_id": "esrs.2023-set1.mdr-m",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "MDR-M_01",
+            "MDR-M_02"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_04",
+            "E3-4_05",
+            "E3-4_07",
+            "E3-4_08",
+            "E3-4_09",
+            "E3-4_10",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "description": "只使用明确适用于所选指标的不确定性、方法、变更和重述说明。",
+          "metric_ids": [
+            "esrs.2023-set1.bp-2.dp07",
+            "esrs.2023-set1.bp-2.dp08",
+            "esrs.2023-set1.bp-2.dp09",
+            "esrs.2023-set1.bp-2.dp10",
+            "esrs.2023-set1.bp-2.dp14"
+          ],
+          "output_policy": "context_only",
+          "purpose": "measurement_method",
+          "reference_id": "esrs.2023-set1.e3-4.context.measurement_method-bp-2",
+          "selected_applicable_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "source_digest": "902f6272cc09d1ff91a798fc26c89b9cff957a0c88975be0e8d51675e2d4b02e",
+          "target_package_id": "esrs.2023-set1.bp-2",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "BP-2_07",
+            "BP-2_08",
+            "BP-2_09",
+            "BP-2_10",
+            "BP-2_14"
+          ]
+        },
+        {
+          "applies_to_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_04",
+            "E3-4_05",
+            "E3-4_06",
+            "E3-4_07",
+            "E3-4_08",
+            "E3-4_09",
+            "E3-4_10",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "description": "收入与行业仅作为背景。收入总额不能自动成为净收入强度分母。",
+          "metric_ids": [
+            "esrs.2023-set1.sbm-1.dp06",
+            "esrs.2023-set1.sbm-1.dp24"
+          ],
+          "output_policy": "context_only",
+          "purpose": "business_context",
+          "reference_id": "esrs.2023-set1.e3-4.context.business_context-sbm-1",
+          "selected_applicable_source_datapoint_ids": [
+            "E3-4_01",
+            "E3-4_02",
+            "E3-4_03",
+            "E3-4_11",
+            "E3-4_12"
+          ],
+          "source_digest": "b4ba196f7a4bc20f97b886aefc63efd173ba2a34309d1ad31add6141b971ab7b",
+          "target_package_id": "esrs.2023-set1.sbm-1",
+          "target_package_version": "2.1.1",
+          "target_source_datapoint_ids": [
+            "SBM-1_06",
+            "SBM-1_24"
+          ]
+        }
+      ],
+      "execution_metric_ids": [
+        "esrs.2023-set1.e3-4.dp01",
+        "esrs.2023-set1.e3-4.dp02",
+        "esrs.2023-set1.e3-4.dp03",
+        "esrs.2023-set1.e3-4.dp11",
+        "esrs.2023-set1.e3-4.dp12"
+      ],
+      "internal_dependency_metric_ids": [],
+      "output_metric_ids": [
+        "esrs.2023-set1.e3-4.dp01",
+        "esrs.2023-set1.e3-4.dp02",
+        "esrs.2023-set1.e3-4.dp03",
+        "esrs.2023-set1.e3-4.dp11",
+        "esrs.2023-set1.e3-4.dp12"
+      ],
+      "package_id": "esrs.2023-set1.e3-4",
+      "package_version": "2.1.1",
+      "shared_requirement_references": [],
+      "source_datapoint_ids": [
+        "E3-4_01",
+        "E3-4_02",
+        "E3-4_03",
+        "E3-4_11",
+        "E3-4_12"
+      ],
+      "source_digest": "9bcf5787197fb29c9bf23e66e95ecd7e2ebe28c7749e6aff670671be9417b221"
+    }
+  ],
+  "selection_kind": "platform_major",
+  "session_standards": [
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e1-5.dp01",
+        "esrs.2023-set1.e1-5.dp05",
+        "esrs.2023-set1.e1-5.dp09"
+      ],
+      "package_id": "esrs.2023-set1.e1-5",
+      "package_version": "2.1.1"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e1-6.dp07",
+        "esrs.2023-set1.e1-6.dp09",
+        "esrs.2023-set1.e1-6.dp10",
+        "esrs.2023-set1.e1-6.dp11"
+      ],
+      "package_id": "esrs.2023-set1.e1-6",
+      "package_version": "2.1.1"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e2-4.dp02",
+        "esrs.2023-set1.e2-4.dp03",
+        "esrs.2023-set1.e2-4.dp09"
+      ],
+      "package_id": "esrs.2023-set1.e2-4",
+      "package_version": "2.1.1"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e2-5.dp02"
+      ],
+      "package_id": "esrs.2023-set1.e2-5",
+      "package_version": "2.1.1"
+    },
+    {
+      "metric_ids": [
+        "esrs.2023-set1.e3-4.dp01",
+        "esrs.2023-set1.e3-4.dp02",
+        "esrs.2023-set1.e3-4.dp03",
+        "esrs.2023-set1.e3-4.dp11",
+        "esrs.2023-set1.e3-4.dp12"
+      ],
+      "package_id": "esrs.2023-set1.e3-4",
+      "package_version": "2.1.1"
+    }
+  ],
+  "source_datapoint_ids": [
+    "E1-5_01",
+    "E1-5_05",
+    "E1-5_09",
+    "E1-6_07",
+    "E1-6_09",
+    "E1-6_10",
+    "E1-6_11",
+    "E2-4_02",
+    "E2-4_03",
+    "E2-4_09",
+    "E2-5_02",
+    "E3-4_01",
+    "E3-4_02",
+    "E3-4_03",
+    "E3-4_11",
+    "E3-4_12"
+  ]
+}

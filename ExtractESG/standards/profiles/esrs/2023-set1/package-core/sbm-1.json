@@ -1,0 +1,16 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "SBM-1包内核心条款",
+  "profile_id": "esrs.2023-set1.sbm-1.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "产品市场、员工、收入、行业与商业模式形成企业背景。",
+  "source_datapoint_ids": [
+    "SBM-1_01",
+    "SBM-1_02",
+    "SBM-1_03",
+    "SBM-1_06",
+    "SBM-1_24",
+    "SBM-1_25"
+  ]
+}

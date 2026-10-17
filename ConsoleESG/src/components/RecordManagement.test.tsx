@@ -1,0 +1,16 @@
+import {afterEach,beforeEach,expect,it,vi} from 'vitest';
+import {cleanup,fireEvent,render,screen,waitFor} from '@testing-library/react';
+import {credentials,type Row} from '../api';
+import {WorkspaceProvider} from '../state';
+import {managementActions} from '../management-api';
+import {RecordManagement} from './RecordManagement';
+const action={action:'delete',label:'删除',method:'DELETE',endpoint:'/api/report-assets/pdf-test',preflight_endpoint:'/api/report-assets/pdf-test/deletion',payload:{expected_revision:0,identity_sha256:'a'.repeat(64)},calls_model:false,requires_confirmation:true};
+let calls:{url:string,method:string,body?:Row}[],reply:Row;
+beforeEach(()=>{calls=[];reply={deleted:true,status:'deleted'};credentials.set('synthetic','operator',['admin']);vi.stubGlobal('EventSource',class {addEventListener(){} close(){}});vi.stubGlobal('fetch',vi.fn((url:string,options:RequestInit={})=>{calls.push({url,method:options.method || 'GET',body:options.body?JSON.parse(String(options.body)):undefined});const value=options.method==='DELETE'?reply:{available_actions:[action],blockers:[]};return Promise.resolve(new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}}));}));});
+afterEach(()=>{cleanup();credentials.clear();vi.unstubAllGlobals();});
+const mount=()=>render(<WorkspaceProvider><RecordManagement record={{available_actions:[action],lifecycle:{revision:0}}} kind="asset" id="pdf-test"/></WorkspaceProvider>);
+it('不把归档伪装成删除',()=>{expect(managementActions([{action:'archive',endpoint:'/archive',method:'POST'}])).toEqual([]);expect(managementActions([{...action,method:'POST'}],'asset','pdf-test')[0].enabled).toBe(false);});
+it('一轮确认执行真实DELETE，保留身份且不填写原因',async()=>{mount();fireEvent.click(screen.getByRole('button',{name:'删除'}));await screen.findByRole('button',{name:'确认执行'});expect(screen.queryByLabelText('操作原因')).toBeNull();expect(calls.every(c=>c.method==='GET')).toBe(true);fireEvent.click(screen.getByRole('button',{name:'确认执行'}));await waitFor(()=>expect(calls.some(c=>c.method==='DELETE')).toBe(true));expect(calls.find(c=>c.method==='DELETE')?.body).toEqual(action.payload);expect(calls.some(c=>c.url.includes('archive'))).toBe(false);});
+it('旧的归档式成功响应不能冒充删除',async()=>{reply={operation:'archive',deleted:false};mount();fireEvent.click(screen.getByRole('button',{name:'删除'}));await screen.findByRole('button',{name:'确认执行'});fireEvent.click(screen.getByRole('button',{name:'确认执行'}));await screen.findByText(/服务未确认真正删除/);});
+it('活动任务删除显示待停止状态，避免冒充已经删除',async()=>{reply={deleted:false,status:'deletion_pending',message:'正在停止关联任务，退出后自动删除。'};mount();fireEvent.click(screen.getByRole('button',{name:'删除'}));await screen.findByRole('button',{name:'确认执行'});fireEvent.click(screen.getByRole('button',{name:'确认执行'}));await screen.findByText('正在停止关联任务，退出后自动删除。');expect(screen.queryByText(/服务未确认真正删除/)).toBeNull();});
+it('没有后端允许动作时不创建请求',()=>{render(<WorkspaceProvider><RecordManagement record={{available_actions:[]}} kind="asset" id="pdf-test"/></WorkspaceProvider>);expect(screen.getByRole('button',{name:'删除'}).hasAttribute('disabled')).toBe(true);expect(calls).toHaveLength(0);});

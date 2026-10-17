@@ -1,0 +1,14 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "label": "E1-6包内核心条款",
+  "profile_id": "esrs.2023-set1.e1-6.core",
+  "profile_version": "1.0.0",
+  "selection_kind": "package_core",
+  "selection_reason": "分开保存范围1、范围2两种方法及范围3；方法说明是必要支撑。",
+  "source_datapoint_ids": [
+    "E1-6_07",
+    "E1-6_09",
+    "E1-6_10",
+    "E1-6_11"
+  ]
+}

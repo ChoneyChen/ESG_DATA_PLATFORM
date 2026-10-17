@@ -1,0 +1,154 @@
+[
+  {
+    "execution_stage": "data_processing",
+    "guards": [],
+    "operands": [
+      {
+        "description": "scope1",
+        "operand_id": "dp07",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp07"
+      },
+      {
+        "description": "scope2 location",
+        "operand_id": "dp09",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp09"
+      },
+      {
+        "description": "scope3",
+        "operand_id": "dp11",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp11"
+      }
+    ],
+    "operation": "sum",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "required_match_fields": [
+      "reporting_period_raw",
+      "reporting_boundary",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "rule_id": "esrs.2023-set1.e1-6.derivation.dp12-sum",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-6.dp12",
+    "unit_policy": "compatible-ghg-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [],
+    "operands": [
+      {
+        "description": "scope1",
+        "operand_id": "dp07",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp07"
+      },
+      {
+        "description": "scope2 market",
+        "operand_id": "dp10",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp10"
+      },
+      {
+        "description": "scope3",
+        "operand_id": "dp11",
+        "role": "addend",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp11"
+      }
+    ],
+    "operation": "sum",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "required_match_fields": [
+      "reporting_period_raw",
+      "reporting_boundary",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "rule_id": "esrs.2023-set1.e1-6.derivation.dp13-sum",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-6.dp13",
+    "unit_policy": "compatible-ghg-units"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator.value_numeric",
+        "value": 0
+      }
+    ],
+    "operands": [
+      {
+        "description": "location total",
+        "operand_id": "dp12",
+        "role": "numerator",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp12"
+      },
+      {
+        "description": "revenue",
+        "operand_id": "dp34",
+        "role": "denominator",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp34"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "required_match_fields": [
+      "reporting_period_raw",
+      "reporting_boundary",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "rule_id": "esrs.2023-set1.e1-6.derivation.dp30-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-6.dp30",
+    "unit_policy": "ghg-per-monetary-unit"
+  },
+  {
+    "execution_stage": "data_processing",
+    "guards": [
+      {
+        "operator": "neq",
+        "path": "denominator.value_numeric",
+        "value": 0
+      }
+    ],
+    "operands": [
+      {
+        "description": "market total",
+        "operand_id": "dp13",
+        "role": "numerator",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp13"
+      },
+      {
+        "description": "revenue",
+        "operand_id": "dp34",
+        "role": "denominator",
+        "source_metric_id": "esrs.2023-set1.e1-6.dp34"
+      }
+    ],
+    "operation": "ratio",
+    "reported_value_priority": true,
+    "required_match_dimensions": [],
+    "required_match_fields": [
+      "reporting_period_raw",
+      "reporting_boundary",
+      "esrs.2023-set1.e1-6.dimension.reporting-entity"
+    ],
+    "rule_id": "esrs.2023-set1.e1-6.derivation.dp31-ratio",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772"
+    ],
+    "target_metric_id": "esrs.2023-set1.e1-6.dp31",
+    "unit_policy": "ghg-per-monetary-unit"
+  }
+]
