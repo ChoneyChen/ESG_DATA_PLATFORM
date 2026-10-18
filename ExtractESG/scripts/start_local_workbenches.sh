@@ -96,6 +96,28 @@ fail() {
   exit 1
 }
 
+is_our_service() {
+  local pid="$1" command
+  [[ -n "$pid" ]] || return 1
+  command="$(ps -o command= -p "$pid" 2>/dev/null || true)"
+  [[ -n "$command" ]] || return 1
+  # The workspace path is the surest identity; fall back to the three
+  # entrypoints in case a process was started through a relative path.
+  [[ "$command" == *"$WORKSPACE_ROOT"* ]] && return 0
+  [[ "$command" == *"esg_v2.api.main"* || "$command" == *"esg_targeted.api.main"* \
+    || "$command" == *"serve_workbench_frontend.py"* ]]
+}
+
+wait_for_port_free() {
+  local port="$1" timeout="$2" elapsed=0
+  while (( elapsed < timeout )); do
+    /usr/sbin/lsof -tiTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1 || return 0
+    sleep 1
+    (( elapsed += 1 ))
+  done
+  return 1
+}
+
 start_service() {
   local service="$1" port label
   port="$(service_port "$service")"
@@ -106,8 +128,19 @@ start_service() {
     return 0
   fi
   if /usr/sbin/lsof -tiTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; then
-    /usr/sbin/lsof -nP -iTCP:"$port" -sTCP:LISTEN 2>/dev/null || true
-    fail "$label 无法启动：端口 $port 的服务未通过版本与业务检查。${READINESS_ERRORS[$service]}。请先关闭原启动窗口或停止旧服务，再重新启动；已有任务与成果保留。"
+    local listener
+    listener="$(/usr/sbin/lsof -tiTCP:"$port" -sTCP:LISTEN 2>/dev/null | head -1)"
+    # A service started before the last source update fails readiness by
+    # design. It is still this workspace's own process, so the launcher can
+    # replace it; anything else on the port must be stopped by the operator.
+    if is_our_service "$listener" && [[ "${ESG_PLATFORM_RESTART_STALE:-1}" != "0" ]]; then
+      print "[更新] $label 是更新前的旧构建，正在停止并重建（${READINESS_ERRORS[$service]}）。"
+      stop_process_tree "$listener"
+      wait_for_port_free "$port" 20 || fail "$label 停止后端口 $port 仍被占用。"
+    else
+      /usr/sbin/lsof -nP -iTCP:"$port" -sTCP:LISTEN 2>/dev/null || true
+      fail "$label 无法启动：端口 $port 的服务未通过版本与业务检查。${READINESS_ERRORS[$service]}。请先关闭原启动窗口或停止旧服务，再重新启动；已有任务与成果保留。"
+    fi
   fi
 
   : >"${LOGS[$service]}"
@@ -162,7 +195,9 @@ trap 'print "\n正在停止本启动器创建的服务…"; cleanup; exit 0' INT
 
 print "\nConsoleESG 数据生产工作台"
 print "Document IR：$DOCUMENT_ROOT"
-print "抽取填表：  $TARGETED_ROOT\n"
+print "抽取填表：  $TARGETED_ROOT"
+print "读取链路：  文字层直读（版面区域 + 原生文字 + 表格重建）；仅文字层不可用的页走本机视觉识别"
+print "提取链路：  每张候选表一次本地模型调用 → 确定性绑定 → 跨页表续接与显式 Total 列\n"
 
 for service in $SERVICE_ORDER; do
   start_service "$service"
