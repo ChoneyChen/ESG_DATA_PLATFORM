@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {navigate, type Row} from '../api';
 import {useResource} from '../state';
 import {Notice, ResourceState, Section} from './ui';
+import {coverageText} from '../pipeline';
 import '../foundation.css';
 
 const STATUS_TONE: Record<string, string> = {
@@ -24,13 +25,8 @@ const SOURCE_KINDS: [string, string][] = [
 
 type Conclusion = Row & {code: string; status: string; group: string};
 
-/** How the covered pages were read: PDF text layer, on-device OCR of title regions, visual OCR. */
-export function readingText(reading: Row): string {
-  const parts = [`文字层直读 ${reading.text_layer_pages} 页`];
-  if (reading.on_device_ocr_pages) parts.push(`其中 ${reading.on_device_ocr_pages} 页标题经本机识别`);
-  parts.push(`视觉识别 ${reading.visual_ocr_pages} 页`);
-  return parts.join('，');
-}
+/** Re-exported so the board, the extraction preview and reports share one reading vocabulary. */
+export {readingText} from '../pipeline';
 
 function locate(irRunId: string, source: Row) {
   const object = source.cell_id || source.note_block_id || source.table_id || '';
@@ -181,8 +177,7 @@ export function Foundation16Board({sessionId}: {sessionId: string}) {
           <strong>{result.document_label}</strong>
           <p className="muted">
             报告期 {period.year ?? '待确认'}（依据：{period.evidence || period.basis}）
-            {coverage && <> · {coverage.mode === 'targeted' ? `定向识别 ${coverage.covered_pages}/${coverage.source_pages} 页` : `全文 ${coverage.covered_pages} 页`}</>}
-            {coverage?.reading && <>（{readingText(coverage.reading)}）</>}
+            {coverage && <> · {coverageText(coverage)}</>}
             {' '}· 模型调用 {result.model_calls} 次{result.reused_answers ? `（复用已有回答 ${result.reused_answers} 次）` : ''} · 输入 {result.input_tokens?.toLocaleString()} / 输出 {result.output_tokens?.toLocaleString()} token · 用时 {Math.round(result.elapsed_seconds)} 秒
           </p>
         </div>

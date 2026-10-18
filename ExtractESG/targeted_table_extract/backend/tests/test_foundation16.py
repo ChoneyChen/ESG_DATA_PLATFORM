@@ -6,7 +6,9 @@ from decimal import Decimal
 from esg_targeted.foundation.consolidate import consolidate
 from esg_targeted.foundation.guards import check
 from esg_targeted.foundation.kernel import bind, infer_unit, plan_table_tasks, scope2_method_from_text
-from esg_targeted.foundation.tables import build_table_view, entity_sum_role, table_context
+from esg_targeted.foundation.tables import (
+    build_table_view, composed_tables, entity_sum_role, explicit_total_column, table_context,
+)
 from esg_targeted.foundation.textnorm import fold
 
 
@@ -321,3 +323,41 @@ def test_footnote_marks_are_spelt_out_for_the_model_but_exponents_stay():
     assert prompt_label("替代水源 - 中水使用量 $ ^{{38}} $") == "替代水源 - 中水使用量 [note 38]"
     assert prompt_label("Water consumption (m³)") == "Water consumption (m³)"
     assert prompt_label("Water (m $ ^{3} $)") == "Water (m $ ^{3} $)"
+
+
+def test_facing_page_columns_are_appended_and_the_explicit_total_column_wins():
+    """A wide table split over a spread: left labels, right entity columns.
+
+    The right page repeats the period headers without row labels, and its
+    Total group is headed by one label over three year columns. The group
+    value is the Total column, not whichever entity column the model picked.
+    """
+    left = make_table([
+        ["Environmental KPIs", "Unit", "Ports", "", "", "Retail", "", ""],
+        ["", "", "2023", "2024", "2025", "2023", "2024", "2025"],
+        ["GHG emissions", "", "", "", "", "", "", ""],
+        ["Scope 1 GHG emissions", "tonne CO2 e", "363,356", "365,334", "356,545", "116,984", "87,581", "101,164"],
+    ], table_id="table-p0001-0001")
+    right = make_table([
+        ["", "Infrastructure", "", "", "Telecommunications", "(3)", "", "Total", ""],
+        ["2023", "2024", "2025", "2023", "2024", "2025", "2023", "2024", "2025"],
+        ["1,172,147", "1,244,603", "1,162,747", "619,800", "521,015", "339,096", "2,572,342", "2,538,397", "2,236,657"],
+    ], table_id="table-p0002-0001")
+    right.update(page_index=10, continuation_group_id="g", continuation_axis="horizontal",
+                 continues_from_table_id=left["table_id"])
+    left.update(page_index=9, continuation_group_id="g", continuation_axis="horizontal",
+                continues_to_table_id=right["table_id"])
+    view = build_table_view(composed_tables([left, right])[0], page())
+    assert view is not None and view.n_cols == 17
+    line = next(item for item in view.lines if "Scope 1" in item.label)
+    total_col = explicit_total_column(view, 4, line, 2025)
+    assert total_col is not None and line.values[total_col].text == "2,236,657"
+
+
+def test_a_footnote_marker_over_a_heading_does_not_end_the_header_band():
+    view = build_table_view(make_table([
+        ["", "Segment", "(3)", "Total", ""],
+        ["", "2023", "2024", "2025", "2025"],
+        ["Scope 1", "1", "2", "3", "4"],
+    ]), page())
+    assert view is not None and view.header_rows == [0, 1]

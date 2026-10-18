@@ -17,6 +17,15 @@ class DocumentIrValidator:
 
     RESOLVED_TASK_STATUSES = {"auto_resolved", "reviewed", "done"}
     AUTOMATION_PENDING_STATUSES = {"pending", "queued", "running", "deferred", "failed", "skipped"}
+    # How much of a page an open conflict takes out of extraction. A conflict
+    # type that only says "this page's text is less faithful than the native
+    # layer" lowers the page's own text trust but must not hide the tables and
+    # blocks located on it; only a defect that makes the whole page unreadable
+    # belongs in "page". New conflict types are classified here and default to
+    # the conservative "page" for page targets, "object" for object targets.
+    CONFLICT_EVIDENCE_SCOPE = {
+        "native_ocr_text_length_divergence": "page_text",
+    }
 
     def validate(self, document: DocumentIR, *, expected_page_count: int | None = None) -> DocumentIR:
         issues: list[ValidationIssue] = []
@@ -385,18 +394,36 @@ class DocumentIrValidator:
         global_failure = any(i.severity == "blocking" or (i.severity == "error" and i.code not in local_codes)
                              for i in issues)
         targets, excluded_pages, unlocated = set(), set(), []
+        page_ids = {p.page_id: p.page_index for p in document.pages}
         for task in document.review_tasks:
             if task.blocking and task.status not in cls.RESOLVED_TASK_STATUSES:
                 targets.add(task.target_id)
-                targets.update(s.target_id for s in task.scope if s.blocking)
+                # A page named only as the scope of a spread or object review keeps
+                # its own text and grid. Excluding the page would discard every
+                # block and table on it even though only the cross-seam layout is
+                # unresolved; only a page-level defect excludes a whole page.
+                targets.update(s.target_id for s in task.scope
+                               if s.blocking and s.target_id not in page_ids)
                 if task.review_plan:
-                    targets.update(task.review_plan.required_decision_target_ids)
-        targets.update(c.target_id for c in document.conflict_groups if c.blocking and c.status in {"open", "human_required"})
+                    targets.update(t for t in task.review_plan.required_decision_target_ids
+                                   if t not in page_ids or t == task.target_id)
+        # A conflict that only lowers the page's text fidelity keeps the page and
+        # everything located on it; it is recorded separately and never becomes a
+        # page-wide exclusion.
+        text_limited_pages: set[int] = set()
+        for conflict in document.conflict_groups:
+            if not (conflict.blocking and conflict.status in {"open", "human_required"}):
+                continue
+            scope = cls.CONFLICT_EVIDENCE_SCOPE.get(
+                conflict.conflict_type, "page" if conflict.target_id in page_ids else "object")
+            if scope == "page_text" and conflict.target_id in page_ids:
+                text_limited_pages.add(page_ids[conflict.target_id])
+                continue
+            targets.add(conflict.target_id)
         # Missing geometry limits image highlighting, not stable page/object
         # references or a logical grid. Explicit unresolved reviews still block.
         # Bad logical alignment does not invalidate its individually located member tables.
         targets.update(t.logical_table_id for t in document.logical_tables if t.status == "review_required")
-        page_ids = {p.page_id: p.page_index for p in document.pages}
         for target_id in targets:
             target = PatchGuard._target(document, target_id)
             if target_id in page_ids:
@@ -419,9 +446,10 @@ class DocumentIrValidator:
                 if isinstance(page, int):
                     pages = [page]
                 damaged = global_failure or object_id in targets or bool(set(pages) & excluded_pages)
+                text_limited = kind == "page" and bool(set(pages) & text_limited_pages)
                 located = kind == "page" or bool(getattr(obj, "bbox", None)) or kind in {"logical_table", "spread", "section"}
                 image = not global_failure and all(p not in excluded_pages for p in pages)
-                capabilities = {"page_image": image, "text": not damaged,
+                capabilities = {"page_image": image, "text": not damaged and not text_limited,
                                 "cell_grid": kind == "table" and not damaged,
                                 "header": not damaged, "source_location": located and not global_failure,
                                 "cell_geometry": False, "table_region": False}

@@ -106,6 +106,19 @@ class TableGraphBuilder:
                 or first.column_count != second.column_count
                 or max(similarity, repeated_title) < 0.62
             ):
+                if self._horizontal_continuation(first, second):
+                    group_counter += 1
+                    group_id = first.continuation_group_id or f"table-group-{group_counter:04d}-{first.table_id}"
+                    first.continuation_group_id = group_id
+                    second.continuation_group_id = group_id
+                    first.continuation_axis = "horizontal"
+                    second.continuation_axis = "horizontal"
+                    first.continues_to_table_id = second.table_id
+                    second.continues_from_table_id = first.table_id
+                    self._add_flag(first.quality_flags, "cross_page_table_linked")
+                    self._add_flag(first.quality_flags, "cross_page_columns_appended")
+                    self._add_flag(second.quality_flags, "cross_page_table_linked")
+                    self._add_flag(second.quality_flags, "cross_page_columns_appended")
                 continue
             group_counter += 1
             group_id = first.continuation_group_id or f"table-group-{group_counter:04d}-{first.table_id}"
@@ -117,6 +130,79 @@ class TableGraphBuilder:
             second.continues_from_table_id = first.table_id
             self._add_flag(first.quality_flags, "cross_page_table_linked")
             self._add_flag(second.quality_flags, "cross_page_table_linked")
+
+    @classmethod
+    def _horizontal_continuation(cls, first, second) -> bool:
+        """Two adjacent pages holding the two halves of one wide table.
+
+        A table wider than one page is often laid out across a spread: the
+        left page carries the row labels and the first entity columns, the
+        right page carries further entity columns with no row labels at all.
+        The right page's first column is then a period or a value, never a
+        label, and both pages repeat the same period headers over the same
+        vertical band. Column counts differ, so the vertical rule can never
+        see this pair; treat it as a horizontal continuation instead.
+        """
+        if first.column_count < 3 or second.column_count < 2:
+            return False
+        if min(first.row_count, second.row_count) < 6:
+            return False
+        if abs(first.row_count - second.row_count) > max(3, int(0.15 * first.row_count)):
+            return False
+        if cls._label_column_ratio(first) < 0.5 or cls._label_column_ratio(second) > 0.15:
+            return False
+        if not cls._vertical_overlap(first, second):
+            return False
+        first_years = cls._leading_years(first)
+        second_years = cls._leading_years(second)
+        # Both halves repeat the period headers over their entity columns. When
+        # neither carries a year the geometry and the label asymmetry still
+        # stand; when one does, the other must share at least two of them.
+        if not first_years or not second_years:
+            return True
+        return len(first_years & second_years) >= 2
+
+    @staticmethod
+    def _leading_years(table) -> set[str]:
+        """Period markers in the leading rows, whatever the header split says.
+
+        The IR's header_row_indices is often only the first row even though a
+        table's period row sits just below it, so read the leading band.
+        """
+        years = set()
+        for cell in table.cells:
+            if cell.row_index >= 3:
+                continue
+            for token in re.findall(r"(?:19|20)\d{2}", cell.text or ""):
+                years.add(token)
+        return years
+
+    @staticmethod
+    def _label_column_ratio(table) -> float:
+        """Share of data rows whose first column reads as text, not a number."""
+        rows = [row for row in range(table.row_count) if row not in table.header_row_indices]
+        if not rows:
+            return 0.0
+        first_col = {
+            cell.row_index: cell.text.strip()
+            for cell in table.cells
+            if cell.col_index == 0 and cell.col_span == 1 and cell.text.strip()
+        }
+        labelled = sum(
+            1 for row in rows
+            if first_col.get(row) and not re.fullmatch(r"[\s\-–—]*[\d.,%()]+[\s\-–—]*", first_col[row])
+        )
+        return labelled / len(rows)
+
+    @staticmethod
+    def _vertical_overlap(first, second) -> bool:
+        """The two halves sit in the same band of the two pages."""
+        a, b = first.bbox, second.bbox
+        if not a or not b:
+            return True  # no geometry: the other signals still stand
+        low, high = max(a.y0, b.y0), min(a.y1, b.y1)
+        shorter = min(a.y1 - a.y0, b.y1 - b.y0)
+        return shorter > 0 and (high - low) / shorter >= 0.6
 
     @staticmethod
     def _header_similarity(first, second):

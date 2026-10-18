@@ -31,16 +31,16 @@ const mount=(node:React.ReactNode)=>render(<WorkspaceProvider>{node}</WorkspaceP
 it('统一资产中心按PDF显示多个OCR及其结构版本，不加载聚合审核成果',async()=>{
  mount(<Reports/>);await screen.findByText('ocr-second');
  expect(screen.getByRole('heading',{name:'报告资产'})).toBeTruthy();
- const parent=screen.getByLabelText('合成报告.pdf 的 OCR 版本');
+ const parent=screen.getByLabelText('合成报告.pdf 的读取版本');
  expect(within(parent).getByText('ocr-synthetic')).toBeTruthy();expect(within(parent).getByText('ocr-second')).toBeTruthy();expect(within(parent).getByText('ir-synthetic')).toBeTruthy();
  expect(screen.queryByText('显示已归档')).toBeNull();expect(calls.some(c=>c.url.includes('/console/reports')||c.url.includes('/report-sessions'))).toBe(false);
  fireEvent.click(screen.getByRole('button',{name:'按此版本选择指标'}));expect(window.location.hash).toBe('#/extractions/new?asset=pdf-synthetic&ir=ir-synthetic');
 });
 it('缺少关联的OCR单独展示，不冒充任意PDF的子版本',async()=>{
  mount(<Reports/>);await screen.findByText('ocr-second');
- expect(screen.getByRole('heading',{name:'未关联原 PDF · 1 个 OCR 版本'})).toBeTruthy();
- expect(within(screen.getByLabelText('合成报告.pdf 的 OCR 版本')).queryByText('ocr-orphan')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'收起 合成报告.pdf 的 OCR 版本'}));
+ expect(screen.getByRole('heading',{name:'未关联原 PDF · 1 个页面读取版本'})).toBeTruthy();
+ expect(within(screen.getByLabelText('合成报告.pdf 的读取版本')).queryByText('ocr-orphan')).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'收起 合成报告.pdf 的读取版本'}));
  expect(screen.queryByText('ocr-second')).toBeNull();expect(screen.getByText('ocr-orphan')).toBeTruthy();
 });
 it('旧OCR列表入口打开同一个资产中心',async()=>{mount(<OcrLibrary/>);await screen.findByText('ocr-synthetic');expect(screen.getByRole('heading',{name:'报告资产'})).toBeTruthy();expect(calls.some(c=>c.url==='/document/api/report-library')).toBe(true);expect(calls.some(c=>c.url==='/document/api/ocr-library')).toBe(false);});
@@ -54,14 +54,14 @@ it('新资产接口返回500时显示错误，不偷偷换旧接口隐藏故障'
 });
 it('悬浮状态点击展开真实任务，不派发任务',async()=>{mount(<FloatingProcessingStatus/>);await waitFor(()=>expect(screen.getByRole('button',{name:'展开处理状态'}).textContent).toContain('1'));expect(screen.queryByRole('dialog')).toBeNull();fireEvent.click(screen.getByRole('button',{name:'展开处理状态'}));expect(screen.getByRole('dialog',{name:'处理状态'})).toBeTruthy();expect(screen.getByText('正在识别合成PDF')).toBeTruthy();expect(calls.every(c=>c.method==='GET')).toBe(true);});
 it('直接主要指标提取复用生产计划，保留原号及快照，仅提交一个父计划',async()=>{credentials.set('synthetic-token','operator',['admin']);await startLibraryProduction([asset],'processing_extraction',profile,catalog);const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing_extraction');expect(preview.processing.mode).toBe('auto');expect(preview.extraction.selection_snapshot).toEqual(snapshot);expect(preview.extraction.standards[0].metric_ids).toEqual(['original-metric']);expect(preview.extraction.completeness).toBe('balanced');expect(preview.processing.config.execute_optional_reviews).toBe(false);expect(preview.processing.config.execute_required_reviews).toBe(false);expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);expect(calls.some(c=>c.url.includes('archive'))).toBe(false);});
-it('已有OCR的识别新版本按钮明确要求重新识别，不被自动复用替代',async()=>{
+it('已有读取版本的重新读取按钮明确要求重新读取，不被自动复用替代',async()=>{
  credentials.set('synthetic-token','operator',['admin']);mount(<Reports/>);await screen.findByText('ocr-second');
- fireEvent.click(screen.getByRole('button',{name:'识别新版本'}));
+ fireEvent.click(screen.getByRole('button',{name:'重新读取页面'}));
  await waitFor(()=>expect(calls.some(c=>c.url==='/document/api/production-automations')).toBe(true));
  const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing');expect(preview.processing.mode).toBe('reprocess');expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);
 });
 it('显示后端真实的待删除状态，不把202当作已经删除',async()=>{
  const normal=globalThis.fetch;vi.stubGlobal('fetch',vi.fn((url:string,options:RequestInit={})=>url==='/document/api/report-library'?json({items:[{...asset,ocr_versions:[],ocr_count:0}],pending_deletions:[{kind:'pdf',identity:asset.asset_id,status:'deletion_pending'}],unlinked_ocr:[]}):normal(url,options)));
- mount(<Reports/>);await screen.findByText(/正在停止关联任务，退出后自动删除/);expect(screen.getByRole('button',{name:'识别并构建结构'})).toBeTruthy();expect(screen.queryByText('已删除')).toBeNull();expect(calls.every(c=>c.method==='GET')).toBe(true);
+ mount(<Reports/>);await screen.findByText(/正在停止关联任务，退出后自动删除/);expect(screen.getByRole('button',{name:'读取页面并构建证据'})).toBeTruthy();expect(screen.queryByText('已删除')).toBeNull();expect(calls.every(c=>c.method==='GET')).toBe(true);
 });
 it('未连接权限时不发任务',async()=>{await expect(startLibraryProduction([asset],'processing')).rejects.toThrow(/权限|连接/);expect(calls).toHaveLength(0);});

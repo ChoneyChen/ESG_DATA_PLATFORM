@@ -10,7 +10,7 @@ from esg_targeted.foundation.consolidate import NOT_FOUND_STATUSES, consolidate
 from esg_targeted.foundation.kernel import TableTask, bind, plan_table_tasks, run_task, task_digest
 from esg_targeted.foundation.period import detect_reporting_period
 from esg_targeted.foundation.retrieval import select_tables
-from esg_targeted.foundation.tables import build_table_view
+from esg_targeted.foundation.tables import build_table_view, composed_tables
 from esg_targeted.foundation.textlayer import PageText, load_native_text, reconcile_view
 from esg_targeted.foundation.text_pass import (
     TEXT_GROUPS, TextBlock, bind_text, page_scope2_methods, run_text_task, text_task_digest,
@@ -38,7 +38,7 @@ class FoundationEngine:
         started = time.perf_counter()
         self.ir = ir
         pages = {payload["page"]["page_index"]: payload for payload in ir.pages}
-        views = [v for v in (build_table_view(t, pages.get(t.get("page_index"))) for t in ir.tables) if v]
+        views = [v for v in (build_table_view(t, pages.get(t.get("page_index"))) for t in composed_tables(ir.tables)) if v]
         candidates = select_tables(views)
         native = load_native_text(ir.root)
         for candidate in candidates:

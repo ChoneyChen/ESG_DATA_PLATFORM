@@ -16,7 +16,7 @@ describe('按任务选择实际模型',()=>{
  it('自定义保留选择；未接通的Qwen OCR禁用，视觉复核可选且进入请求',()=>{
   const onChange=vi.fn();
   render(<ExtractionModelPlan value={{...defaultModelPlan,preset:'custom'}} onChange={onChange} onPreset={()=>{}} brain="local_qwen" fixedEvidence={false}/>);
-  const ocr=screen.getByLabelText('页面识别引擎');
+  const ocr=screen.getByLabelText('文字层不可用页的识别引擎');
   expect(within(ocr).getByRole('option',{name:'Qwen 页面识别 · 输出适配器待接入'}).hasAttribute('disabled')).toBe(true);
   fireEvent.change(screen.getByLabelText('结构视觉复核模型'),{target:{value:'local_nuextract'}});
   expect(onChange).toHaveBeenCalledWith(expect.objectContaining({review:'local_nuextract'}));

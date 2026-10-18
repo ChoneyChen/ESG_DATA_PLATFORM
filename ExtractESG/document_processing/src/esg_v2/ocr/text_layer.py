@@ -350,6 +350,51 @@ def _columns(lines: list[Line], size: float, min_gap: float) -> list[Column]:
     return columns
 
 
+def _split_repeated_periods(columns: list[Column], lines: list[Line]) -> list[Column]:
+    """Split a column that holds several period columns of one header.
+
+    A table whose header repeats a period per entity ("2023 2024 2025" over
+    Ports, then over Retail, ...) has those repeats as its only column
+    boundaries when rows share one baseline; an x projection then merges the
+    entity groups into a few wide columns and several figures land in one cell.
+    Each repeated period word marks a boundary, so a merged column splits at the
+    midpoints between its period anchors. A single period per year keeps the
+    projection's own columns.
+    """
+    positions: dict[str, list[float]] = {}
+    for line in lines:
+        years = [w for w in line.words if YEAR_RE.match(re.sub(r"\s+", "", w.text))]
+        figures = [w for w in line.words if is_value(w.text) and not YEAR_RE.match(re.sub(r"\s+", "", w.text))]
+        if len(years) < 2 or figures:
+            continue  # a period header repeats years; a data row does not
+        for word in years:
+            text = re.sub(r"\s+", "", word.text)
+            positions.setdefault(text.casefold(), []).append((word.x0 + word.x1) / 2)
+    anchors: list[float] = []
+    for midpoints in positions.values():
+        kept: list[float] = []
+        for x in sorted(midpoints):
+            if not kept or x - kept[-1] > 1.0:
+                kept.append(x)
+        if len(kept) >= 2:
+            anchors.extend(kept)
+    anchors.sort()
+    if len(anchors) < 2:
+        return columns
+    split: list[Column] = []
+    for column in columns:
+        inside = [x for x in anchors if column.x0 - 1.0 <= x <= column.x1 + 1.0]
+        if len(inside) < 2:
+            split.append(column)
+            continue
+        edges = [column.x0, *[(a + b) / 2 for a, b in zip(inside, inside[1:])], column.x1]
+        width = (column.x1 - column.x0) / len(edges[:-1])
+        for a, b in zip(edges, edges[1:]):
+            if b - a > 0.25 * width or len(edges) == 2:
+                split.append(Column(a, b, column.values))
+    return sorted(split, key=lambda c: c.x0)
+
+
 def _column_of(columns: list[Column], word: Word) -> int:
     best = max(range(len(columns)), key=lambda i: columns[i].overlap(word))
     if columns[best].overlap(word) > 0:
@@ -528,7 +573,7 @@ def table_grid(words: list[Word], rules: list[tuple[float, float, float]], box: 
     if data:
         left_edge = min(w.x0 for l in data for w in l.words)
         basis = basis + [l for l in lines if l not in data and not prose(l) and l.x1 <= left_edge - 0.6 * size]
-    columns = _columns(basis, size, 0.6 * size)
+    columns = _split_repeated_periods(_columns(basis, size, 0.6 * size), basis)
     if not columns:
         return [[(line.text, 1)] for line in lines]
     for index, column in enumerate(columns):

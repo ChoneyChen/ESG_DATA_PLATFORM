@@ -15,8 +15,9 @@ from esg_targeted.foundation.guards import (
 )
 from esg_targeted.foundation.quantities import unit_scale
 from esg_targeted.foundation.tables import (
-    DataLine, TableView, _is_unit_like, boundary_hint, entity_sum_role, is_number_text, number_text, parse_number,
-    period_years, render_table, structural_boundary, textual_subset_evidence, title_subset_evidence,
+    DataLine, TableView, _is_unit_like, boundary_hint, entity_sum_role, explicit_total_column, is_number_text,
+    number_text, parse_number, period_years, render_table, structural_boundary, textual_subset_evidence,
+    title_subset_evidence,
 )
 from esg_targeted.foundation.textnorm import fold
 
@@ -442,6 +443,13 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[li
         if role == "part":
             row_col, role = other, "sum"
             row_flags.append("column_switched_to_sum_of_parts")
+        if role is None:
+            # Entity columns may not add up (overlapping or nested boundaries),
+            # but an explicit Total column still marks the group figure.
+            total_col = explicit_total_column(view, col, line, period_year)
+            if total_col is not None:
+                row_col, role = total_col, "sum"
+                row_flags.append("column_switched_to_explicit_total")
         if role == "sum":
             row_boundary = "subset" if title_subset_evidence(view) else "group"
             row_flags += ["boundary_part_of_group"] if row_boundary == "subset" else []

@@ -28,6 +28,7 @@ UNIT_TOKEN_RE = re.compile(
     re.I,
 )
 NOTE_START_RE = re.compile(r"^\s*(?:注|註|备注|說明|说明|note|notes|source|\*|※|[¹²³⁴⁵⁶⁷⁸⁹]|\(?\d{1,2}[.、)）])", re.I)
+FOOTNOTE_MARK_RE = re.compile(r"^[\(（]\s*\d{1,2}\s*[\)）]$")
 SCOPE_TERMS = ("范围", "scope", "location", "market", "地点", "位置", "市场", "排放因子", "emission factor", "电网")
 
 
@@ -280,6 +281,130 @@ def _is_unit_like(text: str) -> bool:
             and not LABEL_WORD_RE.search(text))
 
 
+def composed_tables(tables: list[dict]) -> list[dict]:
+    """Fold each horizontal continuation group into one table dict.
+
+    A table wider than a page is laid out across a spread: the left page
+    holds the row labels and the leading entity columns, the right page holds
+    further entity columns and repeats the period headers. The IR links the
+    two, but a view built from either half alone reads a sub-entity's column
+    as if it were the total. Merging keeps every cell and its id, so evidence
+    still points at the page the value was printed on.
+    """
+    groups: dict[str, list[dict]] = {}
+    for table in tables:
+        group = table.get("continuation_group_id")
+        if group and table.get("continuation_axis") == "horizontal":
+            groups.setdefault(group, []).append(table)
+    merged: dict[str, dict] = {}
+    dropped: set[str] = set()
+    for members in groups.values():
+        if len(members) < 2:
+            continue
+        by_id = {t["table_id"]: t for t in members}
+        root = next((t for t in members if (t.get("continues_from_table_id") or "") not in by_id), None)
+        if root is None:
+            continue
+        chain, seen = [], set()
+        current = root
+        while current and current["table_id"] not in seen:
+            chain.append(current)
+            seen.add(current["table_id"])
+            current = by_id.get(current.get("continues_to_table_id") or "")
+        if len(chain) < 2:
+            continue
+        merged[root["table_id"]] = _compose_horizontal(chain)
+        dropped.update(t["table_id"] for t in chain[1:])
+    return [merged.get(t["table_id"], t) for t in tables if t["table_id"] not in dropped]
+
+
+def _compose_horizontal(chain: list[dict]) -> dict:
+    root = chain[0]
+    cells: list[dict] = [
+        {**cell, "row_index": int(cell["row_index"]), "col_index": int(cell["col_index"])}
+        for cell in root.get("cells") or []
+    ]
+    column_offset = int(root.get("column_count") or 0)
+    rows = int(root.get("row_count") or 0)
+    headers = set(root.get("header_row_indices") or [])
+    aligned = True
+    for table in chain[1:]:
+        shift, aligned_here = _row_shift(root, table)
+        aligned = aligned and aligned_here
+        for cell in table.get("cells") or []:
+            cells.append({
+                **cell,
+                "row_index": int(cell["row_index"]) + shift,
+                "col_index": int(cell["col_index"]) + column_offset,
+            })
+            if int(cell["row_index"]) in set(table.get("header_row_indices") or []):
+                headers.add(int(cell["row_index"]) + shift)
+        column_offset += int(table.get("column_count") or 0)
+        rows = max(rows, int(table.get("row_count") or 0) + shift)
+    flags = list(dict.fromkeys([
+        *(root.get("quality_flags") or []),
+        "horizontal_columns_appended",
+        *([] if aligned else ["horizontal_row_alignment_unresolved"]),
+    ]))
+    return {
+        **root,
+        "row_count": rows,
+        "column_count": column_offset,
+        "cells": cells,
+        "header_row_indices": sorted(headers),
+        "page_indices": sorted({int(t.get("page_index") or 0) for t in chain}),
+        "quality_flags": flags,
+    }
+
+
+def _derived_header_rows(table: dict) -> list[int]:
+    """Leading rows before the first row that carries a value.
+
+    The IR's header_row_indices is often only row 0 even though a table's
+    period row sits just below it, so derive the band the same way the view
+    does rather than trusting the stored list.
+    """
+    n_rows = int(table.get("row_count") or 0)
+    n_cols = int(table.get("column_count") or 0)
+    by_position = {
+        (int(cell["row_index"]), int(cell["col_index"])): cell.get("text") or ""
+        for cell in table.get("cells") or []
+    }
+    rows: list[int] = []
+    for r in range(min(n_rows, 4)):
+        texts = [by_position.get((r, c), "") for c in range(1, n_cols)]
+        if any(is_number_text(t) and not FOOTNOTE_MARK_RE.match(t) for t in texts):
+            break
+        rows.append(r)
+    return rows
+
+
+def _row_shift(root: dict, table: dict) -> tuple[int, bool]:
+    """Shift so the continuation's data band starts level with the root's.
+
+    Both halves usually share a header count, but a section title that only
+    the left page prints moves the right page's data up by a row. Align on
+    the first data row; report an unresolved alignment when the data bands
+    differ in size, rather than silently pairing the wrong rows.
+    """
+    def band(item: dict) -> tuple[list[int], list[int]]:
+        rows = range(int(item.get("row_count") or 0))
+        header = set(_derived_header_rows(item))
+        return ([r for r in rows if r in header], [r for r in rows if r not in header])
+
+    root_headers, root_data = band(root)
+    table_headers, table_data = band(table)
+    if root_data and table_data and len(root_data) == len(table_data):
+        shift = root_data[0] - table_data[0]
+        if abs(shift) <= 3:
+            return shift, True
+    # Header counts differ; fall back to the header band, which is what the
+    # period columns are keyed on.
+    if root_headers and table_headers:
+        return root_headers[0] - table_headers[0], False
+    return 0, False
+
+
 def build_table_view(table: dict, page_payload: dict | None) -> TableView | None:
     n_rows = int(table.get("row_count") or 0)
     n_cols = int(table.get("column_count") or 0)
@@ -294,7 +419,10 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     header_rows: list[int] = []
     for r in range(n_rows):
         texts = [text_at(r, c) for c in range(n_cols)]
-        has_value = any(is_number_text(t) for t in texts[1:])
+        # A bare "(3)" over a heading is a footnote mark, not a parenthesised
+        # negative; counting it as a value would end the header band before
+        # the period row and leave every column header empty.
+        has_value = any(is_number_text(t) and not FOOTNOTE_MARK_RE.match(t) for t in texts[1:])
         if has_value:
             break
         header_rows.append(r)
@@ -649,6 +777,58 @@ def entity_sum_role(view: TableView, col: int | None, line: DataLine) -> tuple[s
             return "sum", col
         return "part", relation.target
     return None, None
+
+
+def explicit_total_column(view: TableView, col: int | None, line: DataLine, period_year: int | None) -> int | None:
+    """The column under an explicit Total header for the same period, if any.
+
+    Entity columns need not add up to the group (their boundaries can overlap
+    or nest), so a row-wise sum check cannot find the total. When exactly one
+    same-period column is headed Total and the selected column is not, the
+    total column is the reporting-group figure and the selected one is a
+    part of it.
+    """
+    if col is None or period_year is None or not view.headers_aligned:
+        return None
+    if TOTAL_LABEL_RE.search(fold(" ".join(view.column_paths.get(col, [])))):
+        return None
+    candidates = [
+        c for c in view.value_cols
+        if c != col and TOTAL_LABEL_RE.search(fold(" ".join(view.column_paths.get(c, []))))
+    ]
+    resolved = []
+    for candidate in candidates:
+        period_col = total_column_group(view, candidate, period_year)
+        if period_col is not None and period_col != col and period_col in line.values:
+            resolved.append(period_col)
+    return resolved[0] if len(set(resolved)) == 1 else None
+
+
+def total_column_group(view: TableView, label_col: int, period_year: int) -> int | None:
+    """The column reporting a period inside an entity group headed Total.
+
+    An entity header ("Infrastructure", "Total") labels one cell, while the
+    period row beneath it repeats one year per value column, so the group
+    spans the label column and the period columns that follow it up to the
+    next entity label. The label column itself often holds the first year.
+    """
+    label_years = period_years(" ".join(view.column_paths.get(label_col, [])))
+    if period_year in label_years:
+        return label_col
+    following = [
+        col for col in view.value_cols
+        if col > label_col and col in view.column_paths and view.column_paths[col]
+        and not _is_unit_like(" ".join(view.column_paths[col]))
+    ]
+    block: list[int] = []
+    for col in following:
+        path_years = period_years(" ".join(view.column_paths[col]))
+        if not path_years:
+            break  # the next entity label starts a new group
+        block.append(col)
+        if period_year in path_years:
+            return col
+    return None
 
 
 LATEX_MARK_RE = re.compile(r"\s*\$\s*\^\s*\{+\s*\(?\s*([\dA-Za-z][\dA-Za-z,，、 ]{0,8}?)\s*\)?\s*\}+\s*\$")

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 
 from esg_v2.document.contracts import (
@@ -10,6 +11,18 @@ from esg_v2.document.contracts import (
     LogicalTableSegmentIR,
     SourceTrace,
 )
+
+VALUE_RE = re.compile(r"^[<>≤≥~约約]?\s*[\(（]?\s*[-−–+]?\s*(?:\d{1,3}(?:[,，\s]\d{3})+|\d+)(?:\.\d+)?\s*[\)）]?\s*[%％]?\s*[*#¹²³⁴⁵⁶⁷⁸⁹⁰]*$")
+FOOTNOTE_MARK_RE = re.compile(r"^[\(（]\s*\d{1,2}\s*[\)）]$")
+YEAR_RE = re.compile(r"^(?:FY\s?)?(?:19|20)\d{2}(?:\s*[/／-]\s*\d{2,4})?\s*(?:年|年度|财年|財年|E|A)?$", re.I)
+
+
+def _is_value(text: str | None) -> bool:
+    """A figure, not a period header or a footnote mark."""
+    raw = (text or "").strip()
+    if not raw or YEAR_RE.match(raw) or FOOTNOTE_MARK_RE.match(raw):
+        return False
+    return bool(VALUE_RE.match(raw))
 
 
 class LogicalTableBuilder:
@@ -115,12 +128,15 @@ class LogicalTableBuilder:
         mappings = []
         artifact_ids = []
         notes = []
+        horizontal_shift = cls._horizontal_row_shift(tables) if axis == "horizontal" else 0
+        if horizontal_shift is None:
+            horizontal_shift = 0  # unresolved; the group carries the review flag
         for index, table in enumerate(tables):
             segment = LogicalTableSegmentIR(
                 table_id=table.table_id,
                 page_index=table.page_index,
                 sequence=index,
-                row_offset=row_offset,
+                row_offset=horizontal_shift if axis == "horizontal" and index else row_offset,
                 column_offset=column_offset,
             )
             segments.append(segment)
@@ -128,7 +144,7 @@ class LogicalTableBuilder:
                 LogicalCellMappingIR(
                     source_table_id=table.table_id,
                     source_cell_id=cell.cell_id,
-                    logical_row_index=row_offset + cell.row_index,
+                    logical_row_index=segment.row_offset + cell.row_index,
                     logical_col_index=column_offset + cell.col_index,
                     row_span=cell.row_span,
                     col_span=cell.col_span,
@@ -146,7 +162,10 @@ class LogicalTableBuilder:
                 row_offset += table.row_count
 
         logical_rows = (
-            max((table.row_count for table in tables), default=0)
+            max(
+                (segment.row_offset + table.row_count for segment, table in zip(segments, tables)),
+                default=0,
+            )
             if axis == "horizontal"
             else sum(table.row_count for table in tables)
         )
@@ -171,8 +190,12 @@ class LogicalTableBuilder:
             flags.append("repeated_headers_preserved")
         elif composition_mode == "horizontal_continue_last_column":
             flags.append("horizontal_last_column_continuation")
-            if len({table.row_count for table in tables}) != 1:
-                flags.append("horizontal_row_alignment_unresolved")
+        if axis == "horizontal" and cls._horizontal_row_shift(tables) is None:
+            # Appended columns keep every cell whether or not the bands line
+            # up, so record the doubt without blocking evidence; a last-column
+            # continuation overlaps cells and does need a resolvable alignment.
+            flags.append("horizontal_row_alignment_unresolved")
+            if composition_mode == "horizontal_continue_last_column":
                 status = "review_required"
         cells = cls._logical_cells(
             tables=tables,
@@ -203,6 +226,56 @@ class LogicalTableBuilder:
                 notes=list(dict.fromkeys([*notes, "Derived from explicit physical TableIR continuation links."])),
             ),
         )
+
+    @classmethod
+    def _horizontal_row_shift(cls, tables: list) -> int | None:
+        """Rows to shift a continuation table down so its data starts level.
+
+        Facing pages of one wide table do not always carry the same number
+        of header or section rows: a left page may keep a section title the
+        right page omits. Align on the first data row instead of assuming
+        row 0, and refuse the alignment when the data bands disagree in size.
+        """
+        if len(tables) < 2:
+            return 0
+        bands = [cls._row_band(table) for table in tables]
+        length = {len(data) for _, data in bands}
+        if len(length) != 1:
+            return None
+        if not next(iter(length)):
+            # Header-only halves: they line up row for row by definition.
+            return 0 if len({len(headers) for headers, _ in bands}) == 1 else None
+        shifts = [bands[0][1][0] - data[0] for _, data in bands[1:]]
+        if len(set(shifts)) != 1 or abs(shifts[0]) > 3:
+            return None
+        return shifts[0]
+
+    @staticmethod
+    def _row_band(table) -> tuple[list[int], list[int]]:
+        """Header and data rows, deriving the header band when the IR under-reports it.
+
+        A period row often sits below the stored header_row_indices, so read
+        the leading rows until one carries a value, exactly as table view
+        construction does; otherwise two halves of one table look unequal
+        only because their header lists were recorded differently.
+        """
+        rows = range(table.row_count)
+        header = set(LogicalTableBuilder._leading_header_rows(table))
+        return ([r for r in rows if r in header], [r for r in rows if r not in header])
+
+    @staticmethod
+    def _leading_header_rows(table) -> list[int]:
+        by_position = {
+            (cell.row_index, cell.col_index): cell.text or ""
+            for cell in table.cells
+        }
+        rows: list[int] = []
+        for row in range(min(table.row_count, 4)):
+            values = [by_position.get((row, col), "") for col in range(1, table.column_count)]
+            if any(_is_value(text) for text in values):
+                break
+            rows.append(row)
+        return rows or list(table.header_row_indices or [0])
 
     @staticmethod
     def _composition_mode(axis: str, tables: list) -> str:

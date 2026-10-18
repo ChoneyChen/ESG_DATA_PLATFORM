@@ -64,6 +64,18 @@ class LocalPdfProcessor:
                             keep_blank_chars=False,
                             use_text_flow=True,
                         )
+                        # Only glyphs inside the visible page box belong to this
+                        # page. A PDF that lays a spread out in one content
+                        # stream (both facing pages present in one page's
+                        # literal space) otherwise contributes the neighbour's
+                        # text too, and the page's own OCR then looks far
+                        # shorter than "native" although nothing is missing.
+                        visible = [w for w in words if self._visible(w, page)]
+                        if len(visible) < len(words):
+                            flags.append("native_text_clipped_to_page_box")
+                            text = "\n".join(
+                                w.get("text", "") for w in visible).strip() or ""
+                            words = visible
                         native_blocks = []
                         for word in words:
                             if not word.get("text"):
@@ -130,6 +142,22 @@ class LocalPdfProcessor:
             pages=pages,
             errors=errors,
         )
+
+    @staticmethod
+    def _visible(word: dict, page) -> bool:
+        """A glyph whose centre lies inside the page's visible box.
+
+        Pages of a spread laid out in one content stream carry the neighbour's
+        glyphs at coordinates outside the page box; they are not this page's
+        text and must not count against its OCR coverage.
+        """
+        try:
+            x0, top, x1, bottom = (float(v) for v in page.bbox)
+            cx = (float(word["x0"]) + float(word["x1"])) / 2
+            cy = (float(word["top"]) + float(word["bottom"])) / 2
+        except (KeyError, TypeError, ValueError):
+            return True
+        return x0 - 1 <= cx <= x1 + 1 and top - 1 <= cy <= bottom + 1
 
     @staticmethod
     def _table_candidates(
