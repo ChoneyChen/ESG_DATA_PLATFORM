@@ -6,3 +6,42 @@
 /* Record controls remain reachable in both desktop tables and narrow screens. */
 .record-management{min-width:170px;max-width:420px}.record-management .button-row,.batch-management .button-row{flex-wrap:wrap;gap:8px}.record-management details>summary{cursor:pointer}.record-management .notice,.batch-management .notice{overflow-wrap:anywhere}.batch-management{margin:12px 0}.record-management form{display:grid;gap:10px}.record-management input,.record-management textarea{max-width:100%}
 @media(max-width:760px){.record-management{min-width:150px}.batch-management .button-row{align-items:stretch}.batch-management .button-row>button{flex:1 1 140px}}
+
+/* ---- 生产主线：侧栏与链路进度 ---- */
+.app-sidebar nav a{display:flex;align-items:center;gap:12px}
+.nav-index{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid #3d6b58;font-size:11px;color:#9fc6ae;flex:none}
+.app-sidebar nav a.active .nav-index{background:#a4d0a4;border-color:#a4d0a4;color:#173e34}
+.nav-body{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.nav-body strong{font-size:13px;font-weight:600}
+.nav-body small{font-size:10px;color:#87a795;font-weight:400}
+.app-sidebar nav a.active .nav-body small{color:#b8d6c3}
+.sidebar-tools{margin-top:14px;border-top:1px solid #2a5546;padding-top:10px}
+.sidebar-tools>summary{color:#8fb3a0;font-size:11px;letter-spacing:1px;padding:6px 13px}
+.sidebar-tools nav a{padding:8px 13px;font-size:12px;gap:10px}
+
+.step-spine{display:flex;align-items:stretch;gap:0;list-style:none;margin:0 0 22px;padding:0;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.step-spine li{flex:1;min-width:0;border-right:1px solid var(--line)}
+.step-spine li:last-child{border-right:0}
+.step-spine a{display:flex;align-items:center;gap:9px;padding:10px 13px;color:#6d8579;height:100%}
+.step-spine a:hover{background:#f3f8f3;text-decoration:none}
+.step-spine .step-index{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#eef2ee;color:#7a8f82;font-size:10px;font-weight:700;flex:none}
+.step-spine .step-body{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.step-spine strong{font-size:12px;color:#4d6a5c}
+.step-spine small{font-size:10px;color:#93a49a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-spine li.done .step-index{background:#e3f2e6;color:#3f7a55}
+.step-spine li.current{background:#f0f7f0;box-shadow:inset 0 -2px 0 var(--green)}
+.step-spine li.current .step-index{background:var(--green);color:#fff}
+.step-spine li.current strong{color:#1d5741}
+.step-spine .step-next{flex:0 0 auto;display:flex;align-items:center;padding:6px 12px;border-right:0;background:#fbfdfb}
+.step-spine .step-next button{font-size:12px;padding:7px 12px}
+@media(max-width:900px){.step-spine{overflow-x:auto}.step-spine li{flex:0 0 118px}.step-spine small{display:none}}
+
+/* Three settings that change the result sit side by side; everything else
+   lives in one collapsed advanced block. */
+.form-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.advanced-settings{margin:14px 0 4px;border-top:1px dashed #dfe8e1;padding-top:10px}
+.advanced-settings>summary{color:#5d7768;font-size:12px}
+.advanced-settings .task-model-table{margin-top:10px}
+.scope-summary{margin:0 0 18px}
+.scope-summary>summary{font-size:12px;color:#5d7768}
+@media(max-width:900px){.form-grid-3{grid-template-columns:1fr}}

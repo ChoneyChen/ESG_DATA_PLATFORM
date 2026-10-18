@@ -12,3 +12,41 @@
 .reading-plan details{margin-top:12px;border-top:1px dashed #dde8de;padding-top:10px}
 .reading-plan .field{margin-top:10px}
 .extraction-flow span{white-space:nowrap}
+
+/* ---- 报告资源表：一行一份报告，状态与下一步优先，版本链按需展开 ---- */
+.library-filters{display:flex;gap:6px;flex-wrap:wrap}
+.library-filters button{padding:7px 12px;font-size:12px}
+.library-filters button small{background:#fff;border-radius:9px;padding:0 6px;font-size:10px;color:#5b7566;margin-left:4px}
+.library-filters .selected{background:#eaf3ec;border-color:#b9d3bf;color:#2d5d45;font-weight:600}
+.asset-list{display:grid;gap:8px;margin-top:16px}
+.asset-row{border:1px solid #dde7e0;border-radius:10px;background:#fff;overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.asset-row:hover{border-color:#c4d8ca}
+.asset-row.expanded{border-color:#b7cfc0;box-shadow:0 2px 12px #1a3e3208}
+.asset-row.failed{border-left:3px solid #c4816a}
+.asset-row.ready{border-left:3px solid #6aa27c}
+.asset-row.running{border-left:3px solid #7c9cc4}
+.asset-row.review{border-left:3px solid #c8a86a}
+.asset-main{display:flex;align-items:center;gap:12px;padding:13px 16px;flex-wrap:wrap}
+.asset-main>input[type=checkbox]{margin:0}
+.asset-state{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:#eef2ef;color:#5f7568;white-space:nowrap}
+.asset-state.ready{background:#e3f4ec;color:#1d6b4f}
+.asset-state.failed{background:#f7e7e1;color:#a05a44}
+.asset-state.running{background:#e7eff9;color:#446b9a}
+.asset-state.review{background:#faf1df;color:#8a6a30}
+.asset-primary-action{display:flex;gap:8px}
+.asset-primary-action button{font-size:12px;padding:7px 13px}
+.asset-more{position:relative;margin:0}
+.asset-more>summary{list-style:none;cursor:pointer;padding:6px 10px;border:1px solid #dbe6de;border-radius:7px;color:#5d7768;font-weight:700;background:#fff}
+.asset-more>summary::-webkit-details-marker{display:none}
+.asset-more[open]>summary{background:#eef5ef}
+.asset-more .library-row-actions{padding:10px 0 2px;flex-direction:column;align-items:stretch;min-width:230px}
+.asset-more .library-row-actions button{font-size:12px;text-align:left}
+.asset-note{color:#a06a45 !important;font-size:10px !important}
+.asset-main .asset-parent-name small{color:#7d9185}
+@media(max-width:760px){
+ .asset-main{gap:8px;padding:12px}
+ .asset-primary-action{order:9;flex-basis:100%;justify-content:flex-end}
+ .asset-more{order:10}
+ .asset-state{margin-left:auto}
+ .library-toolbar input{min-width:100%}
+}

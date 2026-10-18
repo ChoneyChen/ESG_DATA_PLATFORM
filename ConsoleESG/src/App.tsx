@@ -13,8 +13,111 @@ import {Standards} from './pages/Standards';
 import {Review} from './pages/Review';
 import {Publication} from './pages/Publication';
 import {Runtime} from './pages/Runtime';
-const navigation=[['overview','工作概览','◈'],['reports','报告资产','▤'],['automation','自动生产','▷'],['processing','报告处理','◫'],['extractions','提取成果','⇢'],['standards','标准中心','▦'],['review','审核中心','✓'],['publication','发布中心','↗'],['runtime','系统运行','⚙']];
-export function parseRoute(hash:string){const [raw,search='']=hash.replace(/^#/,'').split('?');const parts=(raw || '/reports').split('/').filter(Boolean).map(decodeURIComponent);return {section:parts[0] || 'reports',id:parts[1],tab:parts[2],params:new URLSearchParams(search)};}
-export default function App(){const [hash,setHash]=useState(window.location.hash),[authPanel,setAuthPanel]=useState(false);const {refresh,connected,auth}=useWorkspace();const route=parseRoute(hash);useEffect(()=>{const fn=()=>setHash(window.location.hash);window.addEventListener('hashchange',fn);return()=>window.removeEventListener('hashchange',fn);},[]);useEffect(()=>{document.title=`${navigation.find(n=>n[0]===route.section)?.[1] || '数据工作台'} · ConsoleESG`;window.scrollTo({top:0});},[route.section,route.id]);let page;switch(route.section){case 'reports':page=route.id?<ReportDetail key={route.id} assetId={route.id} tab={route.tab}/>:<Reports params={route.params}/>;break;case 'ocr':page=<OcrLibrary key={`${route.id || ''}:${route.params.toString()}`} runId={route.id} params={route.params}/>;break;case 'processing':page=<Processing key={`${route.id || ''}:${route.params.toString()}`} processingId={route.id==='new'?undefined:route.id} newTask={route.id==='new'} params={route.params}/>;break;case 'automation':page=<Automation key={`${route.id || ''}:${route.params.toString()}`} automationId={route.id==='new'?undefined:route.id} newTask={route.id==='new'} params={route.params}/>;break;case 'extractions':page=<Extractions key={`${route.id || ''}:${route.tab || ''}:${route.params.toString()}`} sessionId={['new','standalone'].includes(route.id || '')?undefined:route.id} standaloneJobId={route.id==='standalone'?route.tab:undefined} newTask={route.id==='new'} params={route.params}/>;break;case 'standards':page=<Standards/>;break;case 'review':page=<Review mappingId={route.id} params={route.params}/>;break;case 'publication':page=<Publication params={route.params}/>;break;case 'runtime':page=<Runtime/>;break;case 'overview':page=<Reports/>;break;default:page=<Notice tone="error">找不到该工作台页面。<button onClick={()=>navigate('/overview')}>返回工作概览</button></Notice>;}
- return <div className="app-shell"><aside className="app-sidebar"><a className="brand" href="#/reports"><span className="brand-icon">E</span><span>Console<span className="brand-accent">ESG</span><small>数据生产工作台</small></span></a><nav aria-label="工作台业务导航">{navigation.filter(n=>['reports','extractions'].includes(n[0])).map(([key,title,icon])=><a className={route.section===key||key==='reports'&&route.section==='ocr'?'active':''} href={`#/${key}`} key={key} aria-current={route.section===key||key==='reports'&&route.section==='ocr'?'page':undefined}><span className="nav-icon">{icon}</span>{title}</a>)}<details className="sidebar-advanced" open={['automation','processing','standards','review','publication','runtime'].includes(route.section)}><summary>高级工作台</summary>{navigation.filter(n=>['automation','processing','standards','review','publication','runtime'].includes(n[0])).map(([key,title,icon])=><a className={route.section===key?'active':''} href={`#/${key}`} key={key}><span className="nav-icon">{icon}</span>{title}</a>)}</details></nav><div className="sidebar-footer"><p>报告 → 证据 → 条款<br/>审核 → 发布 → 产品</p><a href="http://127.0.0.1:8765/" target="_blank" rel="noreferrer">打开数据网站 ↗</a></div></aside><div className="app-content"><header className="topbar"><div><span className={`live-dot ${connected?'connected':''}`}/>{connected?'事件实时连接':'自动刷新与恢复'}</div><div className="button-row"><button className="ghost" onClick={refresh} aria-label="刷新工作台">刷新</button><button className="secondary" key={auth} onClick={()=>setAuthPanel(!authPanel)}>{credentials.token?`${credentials.operator || '操作员'} · 已启用权限`:'操作权限'}</button></div></header>{authPanel&&<OperatorConnection onClose={()=>setAuthPanel(false)}/>}<main id="main-content" className="workspace">{page}</main><FloatingProcessingStatus/><footer className="app-footer">ConsoleESG · 正式数据与未发布工作分开管理 · 来源与修订可追踪</footer></div></div>;
+import {StepSpine,stageOf} from './components/StepSpine';
+
+/**
+ * The sidebar follows the production line, not the backend's module list.
+ * Four destinations cover an operator's day: reports, reading, extraction and
+ * review/publishing. Everything that is a tool rather than a step (automation
+ * batches, standards, runtime, OCR artifacts) lives in one collapsed group so
+ * the default view never asks a choice before it is needed.
+ */
+const MAIN = [
+  ['reports', '报告', '▤', 'PDF、报告身份与版本'],
+  ['processing', '读取', '◫', '文字层直读与结构证据'],
+  ['extractions', '提取', '⇢', '条款成果、证据与缺口'],
+  ['review', '审核发布', '✓', '事实、映射、口径与正式发布'],
+] as const;
+
+const TOOLS = [
+  ['automation', '批量生产', '▷'],
+  ['standards', '标准中心', '▦'],
+  ['publication', '发布记录', '↗'],
+  ['runtime', '系统运行', '⚙'],
+] as const;
+
+export function parseRoute(hash: string) {
+  const [raw, search = ''] = hash.replace(/^#/, '').split('?');
+  const parts = (raw || '/reports').split('/').filter(Boolean).map(decodeURIComponent);
+  return {section: parts[0] || 'reports', id: parts[1], tab: parts[2], params: new URLSearchParams(search)};
+}
+
+function sectionTitle(section: string) {
+  return [...MAIN, ...TOOLS].find(item => item[0] === section)?.[1] || '数据工作台';
+}
+
+export default function App() {
+  const [hash, setHash] = useState(window.location.hash);
+  const [authPanel, setAuthPanel] = useState(false);
+  const {refresh, connected} = useWorkspace();
+  const route = parseRoute(hash);
+  useEffect(() => {
+    const fn = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', fn);
+    return () => window.removeEventListener('hashchange', fn);
+  }, []);
+  useEffect(() => {
+    document.title = `${sectionTitle(route.section)} · ConsoleESG`;
+    window.scrollTo({top: 0});
+  }, [route.section, route.id]);
+
+  let page;
+  switch (route.section) {
+    case 'reports': page = route.id ? <ReportDetail key={route.id} assetId={route.id} tab={route.tab}/> : <Reports params={route.params}/>; break;
+    case 'ocr': page = <OcrLibrary key={`${route.id || ''}:${route.params.toString()}`} runId={route.id} params={route.params}/>; break;
+    case 'processing': page = <Processing key={`${route.id || ''}:${route.params.toString()}`} processingId={route.id === 'new' ? undefined : route.id} newTask={route.id === 'new'} params={route.params}/>; break;
+    case 'automation': page = <Automation key={`${route.id || ''}:${route.params.toString()}`} automationId={route.id === 'new' ? undefined : route.id} newTask={route.id === 'new'} params={route.params}/>; break;
+    case 'extractions': page = <Extractions key={`${route.id || ''}:${route.tab || ''}:${route.params.toString()}`} sessionId={['new', 'standalone'].includes(route.id || '') ? undefined : route.id} standaloneJobId={route.id === 'standalone' ? route.tab : undefined} newTask={route.id === 'new'} params={route.params}/>; break;
+    case 'standards': page = <Standards/>; break;
+    case 'review': page = <Review mappingId={route.id} params={route.params}/>; break;
+    case 'publication': page = <Publication params={route.params}/>; break;
+    case 'runtime': page = <Runtime/>; break;
+    default: page = <Notice tone="error">找不到该工作台页面。<button onClick={() => navigate('/reports')}>返回报告</button></Notice>;
+  }
+
+  const active = (key: string) => route.section === key || (key === 'reports' && route.section === 'ocr');
+  return (
+    <div className="app-shell">
+      <aside className="app-sidebar">
+        <a className="brand" href="#/reports"><span className="brand-icon">E</span><span>Console<span className="brand-accent">ESG</span><small>数据生产工作台</small></span></a>
+        <nav aria-label="生产主线">
+          {MAIN.map(([key, title, icon, hint], index) => (
+            <a className={active(key) ? 'active' : ''} href={`#/${key}`} key={key} aria-current={active(key) ? 'page' : undefined}>
+              <span className="nav-index">{index + 1}</span>
+              <span className="nav-body"><strong>{title}</strong><small>{hint}</small></span>
+              <span className="nav-icon">{icon}</span>
+            </a>
+          ))}
+        </nav>
+        <details className="sidebar-tools" open={TOOLS.some(([key]) => key === route.section)}>
+          <summary>工具</summary>
+          <nav aria-label="工具">
+            {TOOLS.map(([key, title, icon]) => (
+              <a className={route.section === key ? 'active' : ''} href={`#/${key}`} key={key}><span className="nav-icon">{icon}</span>{title}</a>
+            ))}
+          </nav>
+        </details>
+        <div className="sidebar-footer">
+          <p>报告 → 读取 → 提取 → 审核 → 发布</p>
+          <a href="http://127.0.0.1:8765/" target="_blank" rel="noreferrer">打开数据网站 ↗</a>
+        </div>
+      </aside>
+      <div className="app-content">
+        <header className="topbar">
+          <div><span className={`live-dot ${connected ? 'connected' : ''}`}/>{connected ? '事件实时连接' : '自动刷新与恢复'}</div>
+          <div className="button-row">
+            <button className="ghost" onClick={refresh} aria-label="刷新工作台">刷新</button>
+            <button className="secondary" key={authPanel ? 'open' : 'closed'} onClick={() => setAuthPanel(!authPanel)}>{credentials.token ? `${credentials.operator || '操作员'} · 已启用权限` : '操作权限'}</button>
+          </div>
+        </header>
+        {authPanel && <OperatorConnection onClose={() => setAuthPanel(false)}/>}
+        <main id="main-content" className="workspace">
+          <StepSpine stage={stageOf(route.section)}/>
+          {page}
+        </main>
+        <FloatingProcessingStatus/>
+        <footer className="app-footer">ConsoleESG · 正式数据与未发布工作分开管理 · 来源与修订可追踪</footer>
+      </div>
+    </div>
+  );
 }

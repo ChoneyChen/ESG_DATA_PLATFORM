@@ -146,3 +146,51 @@
   padding: 1px 8px;
   font-size: 12px;
 }
+
+/* ---- 16 项看板：按条款分组，列可自适应 ---- */
+.f16-toolbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin:6px 0 10px}
+.f16-groups{display:flex;gap:6px;flex-wrap:wrap}
+.f16-groups button{background:#fff;border:1px solid #d9e4dc;color:#5f7768;font-size:12px;padding:7px 12px;border-radius:999px;font-weight:600}
+.f16-groups button small{font-size:10px;color:#8ca093;margin-left:3px}
+.f16-groups button[aria-selected=true]{background:#eaf3ec;border-color:#a9c8b3;color:#2d5d45}
+.f16-columns{margin:0;position:relative}
+.f16-columns>summary{border:1px solid #d9e4dc;border-radius:8px;padding:7px 12px;background:#fff;font-size:12px;color:#5f7768;font-weight:600}
+.f16-columns[open]>summary{margin-bottom:8px}
+.f16-columns .check{margin:6px 0;font-size:12px}
+.f16-groups-body{display:grid;gap:20px}
+.f16-group-block{border:1px solid #e1e9e3;border-radius:10px;background:#fff;overflow:hidden}
+.f16-group-title{display:flex;align-items:baseline;gap:10px;font-size:13px;color:#2f5a47;margin:0;padding:12px 16px;background:#f5f9f5;border-bottom:1px solid #e4ece5}
+.f16-group-title small{font-size:11px;color:#8ca093;font-weight:400}
+.f16-group-block .f16-table th{padding:9px 12px;background:#fbfdfb;border-bottom:1px solid #e6ede7;color:#7b8e81}
+.f16-group-block .f16-table td{padding:10px 12px;border-bottom:1px solid #edf1ee}
+.f16-row.open td{background:#f6faf7}
+.f16-row td:last-child{text-align:right;white-space:nowrap}
+.f16-label{font-weight:600;color:#244f3e;max-width:260px}
+.f16-value{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:650}
+.f16-unit,.f16-period,.f16-page{white-space:nowrap;color:#5d7568}
+.f16-row-text{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#6b8173}
+.f16-flagcell{display:flex;flex-wrap:wrap;gap:4px}
+.f16-flagcell span,.f16-flags span{background:#fff4dc;color:#7a5200;border-radius:5px;padding:1px 7px;font-size:10px}
+.f16-flags-{color:#9aa79f}
+.f16-drawer{padding:4px 2px 8px}
+.f16-drawer-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:10px;border-bottom:1px solid #e5ece7;margin-bottom:10px}
+.f16-drawer-head small{display:block;color:#8ba094;margin-top:3px;font-size:10px}
+.f16-members{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:11px}
+.f16-members th{text-align:left;padding:6px 9px;background:#f6f9f6;color:#7b8e81;font-weight:600;border-bottom:1px solid #e5ece6}
+.f16-members td{padding:6px 9px;border-bottom:1px solid #eef2ef;vertical-align:top}
+.f16-members .metric-value{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:650}
+@media(max-width:760px){.f16-group-title{padding:10px 12px}.f16-row-text{max-width:140px}.f16-label{max-width:170px}}
+.f16-grouping{display:flex;gap:0;border:1px solid #d9e4dc;border-radius:8px;overflow:hidden;background:#fff}
+.f16-grouping button{background:#fff;border:0;border-right:1px solid #e3ebe5;color:#6a8174;font-size:11px;padding:7px 11px;border-radius:0;font-weight:600}
+.f16-grouping button:last-child{border-right:0}
+.f16-grouping button.selected{background:#eaf3ec;color:#2d5d45}
+.f16-group-meta{margin-left:auto;font-size:10px;color:#8ba094;font-weight:400}
+/* On narrow screens the section heading and the count chips must stack
+   instead of fighting for one line. */
+@media(max-width:760px){
+ .panel .section-title{flex-wrap:wrap;align-items:flex-start}
+ .panel .section-title>h2,.panel .section-title>div:first-child{flex:1 1 100%}
+ .f16-actions{width:100%;justify-content:flex-start}
+ .f16-toolbar{gap:8px}
+ .f16-groups button{font-size:11px}
+}
