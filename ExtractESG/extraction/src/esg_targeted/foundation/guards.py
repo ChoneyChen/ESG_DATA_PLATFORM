@@ -270,6 +270,16 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
                     review = True
                 else:
                     return _reject("component_by_source_or_destination")
+    else:
+        # No bespoke branch for this code: fall back to its declared spec, so a
+        # datapoint outside the sixteen still gets concept and unit checks
+        # instead of passing unconditionally.
+        from esg_targeted.foundation.specs import evaluate_spec
+        declared = evaluate_spec(code, label, section, unit, dimension)
+        if declared is not None:
+            ok, reason = declared
+            if not ok:
+                return _reject(reason or "concept")
     return GuardResult(True, "review" if review else None, tuple(flags))
 
 

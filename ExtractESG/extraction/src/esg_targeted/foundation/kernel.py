@@ -10,8 +10,8 @@ from dataclasses import dataclass, field, asdict
 from esg_targeted.evidence.units import canonical_unit_id, normalize_unit_text
 from esg_targeted.foundation.catalog import BY_CODE, GROUP_BY_KEY, SCOPE2_UNSPECIFIED
 from esg_targeted.foundation.guards import (
-    GENERIC_TOTAL_RE, QUALIFIER_ONLY_RE, check as concept_check, is_method_text, is_pollution_method_text, pollutant_key,
-    row_is_subset,
+    GENERIC_TOTAL_RE, POLLUTANT_SPECIFIC_RE, QUALIFIER_ONLY_RE, check as concept_check, is_method_text,
+    is_pollution_method_text, pollutant_key, row_is_subset,
 )
 from esg_targeted.foundation.quantities import unit_scale
 from esg_targeted.foundation.tables import (
@@ -220,6 +220,10 @@ class Observation:
     proposed_code: str | None = None
     flags: list[str] = field(default_factory=list)
     rejected_by: str | None = None
+    # Free-form, additive evidence attributes (column header path, table title,
+    # section, boundary, unit source). Kept open so a future parser or model
+    # can carry more context without changing the contract.
+    attributes: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -366,6 +370,36 @@ def exact_label_items(task: TableTask, items: list[dict], payload: dict) -> list
     return extra
 
 
+def pollutant_row_items(task: TableTask, items: list[dict]) -> list[dict]:
+    """Propose labelled pollutant rows the call left unmapped.
+
+    A performance-data table may carry one pollutant per row. When the model
+    returns no mapping (or maps only one of them), the remaining rows still
+    name their pollutant and still hold a value in the current column; the
+    program can propose them and let the ordinary guards bind or reject. This
+    is the multi-member analogue of exact_label_items: it never invents a
+    value, it only points at a row the table printed.
+    """
+    targets = {item.get("row") for item in items}
+    codes = [code for code in task.codes if BY_CODE[code].group in ("air", "water_pollutants")]
+    if not codes:
+        return []
+    extra = []
+    for code in codes:
+        for line in task.lines:
+            if line.rid in targets:
+                continue
+            key = pollutant_key(line.label)
+            if key == "unnamed" or not POLLUTANT_SPECIFIC_RE.search(fold(line.label)):
+                continue
+            # The unit and period are still checked by bind(); here only the
+            # row's own label decides that it is a member of this group.
+            extra.append({"row": line.rid, "target": code, "note": None, "derived": "row_label_names_pollutant"})
+            targets.add(line.rid)
+            break
+    return extra
+
+
 def share_partner_items(task: TableTask, items: list[dict]) -> list[dict]:
     """Propose the share row printed beside a mapped quantity row ("X" and "X 占比")."""
     targets = {item.get("target") for item in items}
@@ -426,6 +460,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[li
     items = list(payload.get("items") or [])
     items += share_partner_items(task, items) + scope2_partner_items(task, items)
     items += exact_label_items(task, items, payload)
+    items += pollutant_row_items(task, items)
     # One page-level method note cannot disambiguate two different Scope 2 rows.
     scope2_rows = len({item.get("row") for item in items
                        if item.get("target") in ("E1-6_09", "E1-6_10", SCOPE2_UNSPECIFIED)})
@@ -546,6 +581,16 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[li
                 cell_id=cell.cell_id if cell else None, column=f"c{row_col}" if row_col is not None else None,
                 note_block_id=note.block_id if note else None,
                 proposed_code=proposed, flags=flags, rejected_by=rejected_by,
+                attributes={
+                    "column_header": " › ".join(view.column_paths.get(row_col, [])) if row_col is not None else None,
+                    "table_title": view.title,
+                    "table_caption": view.caption,
+                    "section": line.section,
+                    "unit_source": unit_source,
+                    "entity_basis": entity_basis,
+                    "period_label": current_year,
+                    "derived_from": item.get("derived"),
+                },
             ))
     # A note is a pollutant method statement when it says so, or when an accepted
     # pollutant row cites it (a footnote under "SO2 排放量³¹" need not repeat "SO2").

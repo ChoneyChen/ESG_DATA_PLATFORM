@@ -78,7 +78,8 @@ def _promote(code: str, candidates: list[dict], reporting_year: int | None) -> l
 
 def brief(obs: dict) -> dict:
     return {key: obs.get(key) for key in ("status", "value_raw", "unit_raw", "period", "table_id", "page_number",
-                                           "row_label", "cell_id", "column", "note_block_id", "flags")}
+                                           "row_label", "cell_id", "column", "note_block_id", "flags",
+                                           "rejected_by", "attributes")}
 
 
 def consolidate(records: list[dict], reporting_year: int | None) -> list[dict]:
@@ -121,6 +122,11 @@ def consolidate(records: list[dict], reporting_year: int | None) -> list[dict]:
         if not current:
             entry.update(status=NOT_FOUND_STATUSES[1] if candidates else NOT_FOUND_STATUSES[0],
                          candidates=[brief(o) for o in candidates[:8]])
+            # Surface why printed candidates were not used, so "not found"
+            # never hides a rejected combined-scope row or a prior-period row.
+            reasons = sorted({o.get("rejected_by") for o in candidates if o.get("rejected_by")})
+            if reasons:
+                entry["rejection_reasons"] = reasons
             conclusions.append(entry)
             continue
         groups: dict[str, list[dict]] = defaultdict(list)

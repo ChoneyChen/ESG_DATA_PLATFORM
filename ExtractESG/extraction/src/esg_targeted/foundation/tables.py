@@ -275,10 +275,27 @@ def header_text_at(header_rows, origin, covered, col: int) -> str:
 LABEL_WORD_RE = re.compile(r"(?:排放|消耗|使用|用量|总量|范围|範圍|能源|用水|取水|耗水|排水|废|廢|emission|consum|energy|water|waste|scope|total)", re.I)
 
 
-def _is_unit_like(text: str) -> bool:
-    compact = re.sub(r"[\s$\\{}_^]+", "", text or "")
-    return (bool(compact) and len(compact) <= 16 and not is_number_text(text) and bool(UNIT_TOKEN_RE.search(text))
-            and not LABEL_WORD_RE.search(text))
+INLINE_UNIT_RE = re.compile(r"[（(]\s*([^（）()]{1,16})\s*[)）]\s*$")
+
+
+def _is_unit_like(text: str | None) -> bool:
+    if not text:
+        return False
+    compact = re.sub(r"[\s$\\{}_^]+", "", text)
+    if not compact or len(compact) > 16 or is_number_text(text) or not UNIT_TOKEN_RE.search(text):
+        return False
+    if LABEL_WORD_RE.search(text):
+        return False
+    # "氮氧化物（NOx）排放量（万吨）" is a row label whose unit is in
+    # parentheses, not a unit cell. A unit column holds units alone; a cell
+    # that keeps a substantive name after its trailing unit belongs to a label
+    # column, otherwise every row loses its name to the unit column.
+    match = INLINE_UNIT_RE.search(text.strip())
+    if match and UNIT_TOKEN_RE.search(match.group(1)):
+        stem = text[:match.start()]
+        if len(re.sub(r"[^一-鿿]", "", stem)) >= 4:
+            return False
+    return True
 
 
 def composed_tables(tables: list[dict]) -> list[dict]:

@@ -129,7 +129,12 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
                 <td className="metric-value">{member.value_raw ?? '—'}</td>
                 <td>{member.unit_raw ?? '—'}</td>
                 <td>{member.period ?? '—'}</td>
-                <td>{member.source?.row_label || '—'}</td>
+                <td>
+                  {member.source?.row_label || '—'}
+                  {member.source?.attributes?.column_header && <small className="f16-attr">列：{member.source.attributes.column_header}</small>}
+                  {member.source?.attributes?.table_title && <small className="f16-attr">表：{member.source.attributes.table_title}</small>}
+                  {member.source?.attributes?.section && <small className="f16-attr">分区：{member.source.attributes.section}</small>}
+                </td>
                 <td className="f16-flagcell">{(member.flag_labels || []).map((f: string) => <span key={f}>{f}</span>)}</td>
               </tr>
             ))}
@@ -147,7 +152,11 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
       ))}
       {!members.length && !conclusion.statements?.length && (
         <>
-          <Notice>在所选表格与正文段落中没有符合本条款定义的披露。{conclusion.candidates?.length ? '以下近似披露因概念或口径不符被排除：' : ''}</Notice>
+          <Notice>
+            在所选表格与正文段落中没有符合本条款定义的披露。
+            {conclusion.rejection_reasons?.length ? `已排除的近似披露原因：${conclusion.rejection_reasons.join('；')}。` : ''}
+            {conclusion.candidates?.length ? '以下近似披露因概念或口径不符被排除：' : ''}
+          </Notice>
           <ul className="f16-sources">
             {conclusion.candidates?.map((s: Row, i: number) => <SourceLine key={i} source={s} irRunId={irRunId} caption="已排除"/>)}
           </ul>

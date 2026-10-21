@@ -361,3 +361,52 @@ def test_a_footnote_marker_over_a_heading_does_not_end_the_header_band():
         ["Scope 1", "1", "2", "3", "4"],
     ]), page())
     assert view is not None and view.header_rows == [0, 1]
+
+
+def test_a_label_column_ending_in_a_unit_is_not_a_unit_column():
+    """A row label may carry its unit in parentheses; that does not make the
+    column a unit column, which would leave the table with no row labels at
+    all and make every row unmappable."""
+    view = build_table_view(make_table([
+        ["业绩指标", "2023", "2024", "2025"],
+        ["氮氧化物（NOx）排放量（万吨）", "9.72", "9.51", "8.2"],
+        ["节水量（万立方米）", "854", "824", "804"],
+    ]), page())
+    assert view is not None
+    assert view.label_cols == [0] and view.unit_col is None
+    assert view.lines[0].label.startswith("氮氧化物")
+    assert view.lines[0].values[3].text == "8.2"
+
+
+def test_pollutant_rows_the_call_left_unmapped_are_proposed_by_label():
+    """A performance table lists one pollutant per row. When the model returns
+    no mapping, the program proposes the labelled rows and the ordinary guards
+    decide; it never invents a value."""
+    view = build_table_view(make_table([
+        ["业绩指标", "2024", "2025"],
+        ["氮氧化物（NOx）排放量（万吨）", "9.51", "8.2"],
+        ["节能量（万吨标准煤）", "78", "75"],
+    ]), page())
+    task = plan_table_tasks(view, ["air"])[0]
+    payload = {"current_col": "c2", "current_year": "2025", "current_scope": "whole_reporting_group",
+               "items": [], "method_notes": []}
+    observations, _ = bind(task, payload, 2025)
+    by_member = {o.member: o for o in observations}
+    assert "NOx" in by_member and by_member["NOx"].value_raw == "8.2"
+    assert "row_label_names_pollutant" in by_member["NOx"].flags
+    assert not any("节能量" in o.row_label for o in observations)
+
+
+def test_an_unseen_clause_is_judged_by_its_declared_spec_without_new_code():
+    from esg_targeted.foundation.specs import SPECS, ClauseSpec
+    SPECS["E1-5_03_test"] = ClauseSpec(
+        "E1-5_03_test", "能源强度",
+        require_terms=("能源强度", "energy intensity"),
+        exclude_terms=("总量", "total"),
+        dimension="ratio",
+    )
+    ok, reason = SPECS["E1-5_03_test"].evaluate("能源强度（兆瓦时/百万元）", None, "MWh/CNY m", "ratio")
+    assert ok and reason is None
+    rejected, reason = SPECS["E1-5_03_test"].evaluate("能源消耗总量（兆瓦时）", None, "MWh", "energy")
+    assert not rejected and reason == "label_not_this_concept"
+    del SPECS["E1-5_03_test"]
