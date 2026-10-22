@@ -6,6 +6,8 @@ remain normal, independently readable Result Bundles.
 """
 from __future__ import annotations
 
+import time
+
 import hashlib
 import json
 import os
@@ -277,8 +279,9 @@ class ReportSessionService:
                 extraction_mode="foundation16" if request.extraction_route == "foundation16" else "auto",
                 call_budget=ModelCallBudget.model_validate(budget.model_dump(include=set(ModelCallBudget.model_fields))))
             if request.extraction_route == "foundation16":
-                from esg_targeted.foundation.session import FOUNDATION_METRIC_IDS
-                outside = sorted(set(selected.metric_ids) - FOUNDATION_METRIC_IDS)
+                from esg_targeted.foundation.session import foundation_metric_ids
+                allowed = foundation_metric_ids(request.metric_profile)
+                outside = sorted(set(selected.metric_ids) - allowed)
                 if outside or extension_selections:
                     raise ValueError(f"foundation16 route covers only the 16 foundation datapoints; not supported: {outside}")
             package = self.standards.load(selected.package_id, selected.package_version)
@@ -350,14 +353,33 @@ class ReportSessionService:
             change(state)
             state.update(revision=state["revision"] + 1, updated_at=_now())
             connection.execute("UPDATE report_sessions SET state_json=? WHERE session_id=?", (json.dumps(state, ensure_ascii=False), session_id))
+        getattr(self, "_list_cache", {}).pop(session_id, None)
         return state
+
+    # Building one list row reads every projection's stage files. The UI polls
+    # this list, so a short cache keeps polling from re-reading unchanged work
+    # while still showing a running job within seconds.
+    LIST_TTL_SECONDS = 5.0
 
     def list(self, limit=100, *, include_archived=False):
         with self.jobs._connect() as connection:
             ids = [r[0] for r in connection.execute("SELECT session_id FROM report_sessions "
                 + ("" if include_archived else "WHERE COALESCE(json_extract(state_json,'$.lifecycle.state'),'active')='active' ")
                 + "ORDER BY rowid DESC LIMIT ?", (limit,))]
-        return [self.detail(session_id) for session_id in ids]
+        cache = getattr(self, "_list_cache", None)
+        if cache is None:
+            cache = self._list_cache = {}
+        now = time.monotonic()
+        rows = []
+        for session_id in ids:
+            cached = cache.get(session_id)
+            if cached and now - cached[0] < self.LIST_TTL_SECONDS:
+                rows.append(cached[1])
+                continue
+            value = self.detail(session_id)
+            cache[session_id] = (now, value)
+            rows.append(value)
+        return rows
 
     def detail(self, session_id):
         state = self._state(session_id)

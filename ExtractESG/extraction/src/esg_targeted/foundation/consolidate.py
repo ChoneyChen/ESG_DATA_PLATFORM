@@ -82,7 +82,8 @@ def brief(obs: dict) -> dict:
                                            "rejected_by", "attributes")}
 
 
-def consolidate(records: list[dict], reporting_year: int | None) -> list[dict]:
+def consolidate(records: list[dict], reporting_year: int | None,
+                metrics: tuple = METRICS) -> list[dict]:
     by_code: dict[str, list[dict]] = defaultdict(list)
     for record in records:
         for obs in record.get("observations") or []:
@@ -107,13 +108,14 @@ def consolidate(records: list[dict], reporting_year: int | None) -> list[dict]:
                 o["flags"] = [*o["flags"], flag]
     method_notes = [note for record in records for note in record.get("method_notes") or []]
     conclusions = []
-    for metric in METRICS:
+    for metric in metrics:
         candidates = by_code.get(metric.code, [])
         usable = [o for o in candidates if o["status"] in ("accepted", "review")] or _promote(
             metric.code, candidates, reporting_year)
         current = [o for o in usable if reporting_year is None or o.get("period_year") in (reporting_year, None)]
         entry = {"code": metric.code, "metric_id": metric.metric_id, "package_id": metric.package_id,
-                 "label": metric.label, "rejected_candidates": len([o for o in candidates if o["status"] == "rejected"])}
+                 "label": metric.label, "parent_code": metric.parent_code,
+                 "rejected_candidates": len([o for o in candidates if o["status"] == "rejected"])}
         if metric.kind == "narrative":
             unique = {n["block_id"]: n for n in method_notes}
             entry.update(status="found" if unique else "not_found_in_selected_sources", statements=list(unique.values()))
@@ -149,8 +151,12 @@ def consolidate(records: list[dict], reporting_year: int | None) -> list[dict]:
             if not full:
                 # Different segments differ by nature; none of them is the group value.
                 subset, others = [o for o in others if o is not primary], []
-            conflicting = [o for o in others if agreement(primary, o) is False]
-            alternative = [o for o in others if agreement(primary, o) is None]
+            # A different consolidation boundary is another valid view of the
+            # group, so it never counts as a conflicting value.
+            def other_boundary(item: dict) -> bool:
+                return "consolidation_boundary_differs" in (item.get("flags") or [])
+            conflicting = [o for o in others if not other_boundary(o) and agreement(primary, o) is False]
+            alternative = [o for o in others if other_boundary(o) or agreement(primary, o) is None]
             status = primary["status"]
             flags = list(primary["flags"])
             if conflicting:

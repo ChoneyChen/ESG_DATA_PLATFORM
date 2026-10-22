@@ -65,3 +65,6 @@
 .pipeline-call{margin:0;font-size:11px;color:#5d7a68;display:flex;gap:8px;align-items:center}
 .session-stop-reason{margin:4px 0 0;font-size:11px;color:#9a6a3c;background:#fbf3e6;border-left:2px solid #d9b47c;padding:4px 8px;border-radius:4px}
 .muted-chip{font-size:10px;color:#7b8a80;background:#f1f4f1;border:1px solid #dfe6df;border-radius:5px;padding:3px 7px;white-space:nowrap}
+.f16-parent{margin:2px 0 8px;font-size:11px;color:#7b8a80}
+.f16-sublist{margin:14px 0}
+.f16-sublist h4{font-size:12px;margin:0 0 8px}

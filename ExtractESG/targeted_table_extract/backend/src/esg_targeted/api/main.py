@@ -382,6 +382,39 @@ def extraction_platform_major(topics: str | None = None):
         raise HTTPException(409, str(exc)) from exc
 
 
+@app.get("/api/extraction-profiles/foundation")
+def extraction_foundation(profile: str = "base16"):
+    """A foundation metric set with its immutable package identities.
+
+    The set is data (catalog.PROFILES); this endpoint only resolves each
+    package's active version, so a new set needs no new route.
+    """
+    from esg_targeted.foundation.catalog import metrics_for
+    from esg_targeted.standards.catalog import StandardPackageCatalog
+    try:
+        metrics = metrics_for(profile)
+    except ValueError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    packages, _ = StandardPackageCatalog(settings.standard_dist_root).scan()
+    versions = {p.disclosure_requirement: p.package_version for p in packages}
+    digests = {p.package_id: getattr(p, "source_digest", None) for p in packages}
+    grouped: dict[str, list[str]] = {}
+    for metric in metrics:
+        grouped.setdefault(metric.package_id, []).append(metric.metric_id)
+    standards = []
+    for package_id, metric_ids in grouped.items():
+        requirement = package_id.rsplit(".", 1)[-1].upper()
+        if requirement not in versions:
+            raise HTTPException(409, f"标准包未加载：{package_id}")
+        standards.append({"package_id": package_id, "package_version": versions[requirement],
+                          "metric_ids": metric_ids})
+    return {"profile": profile, "metric_count": len(metrics), "standards": standards,
+            "package_digests": {item["package_id"]: digests.get(item["package_id"]) for item in standards},
+            "metrics": [{"code": m.code, "metric_id": m.metric_id, "package_id": m.package_id,
+                         "label": m.label, "kind": m.kind, "dimension": m.dimension,
+                         "parent_code": m.parent_code} for m in metrics]}
+
+
 @app.get("/api/semantic-indexes")
 def list_semantic_indexes() -> list[dict]:
     return semantic_index_assets.list()
@@ -538,9 +571,17 @@ def get_foundation16_result(session_id: str) -> dict:
     result["engine_version"] = result.get("engine_version") or ENGINE_VERSION
     result["stale_engine"] = result["engine_version"] != ENGINE_VERSION
     result["current_engine_version"] = ENGINE_VERSION
+    by_code = {item["code"]: item for item in result["conclusions"]}
     for conclusion in result["conclusions"]:
         metric = BY_CODE[conclusion["code"]]
-        conclusion.update(group=metric.group, group_label=GROUP_LABELS.get(metric.group, metric.group),
+        children = [item for item in result["conclusions"] if item.get("parent_code") == metric.code]
+        conclusion.update(parent_code=metric.parent_code,
+                          children=[{"code": item["code"], "label": item.get("label"),
+                                     "status": item["status"],
+                                     "values": [{"member": m.get("member"), "value_raw": m.get("value_raw"),
+                                                 "unit_raw": m.get("unit_raw")} for m in item.get("members") or []]}
+                                    for item in children],
+                          group=metric.group, group_label=GROUP_LABELS.get(metric.group, metric.group),
                           status_label=STATUS_LABELS.get(conclusion["status"], conclusion["status"]),
                           definition=metric.definition, definition_zh=DEFINITIONS_ZH.get(metric.code), kind=metric.kind)
         sources = list(conclusion.get("candidates") or [])

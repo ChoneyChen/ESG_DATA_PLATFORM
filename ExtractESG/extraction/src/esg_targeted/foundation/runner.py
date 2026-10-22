@@ -10,11 +10,11 @@ from esg_targeted.foundation.engine import FoundationEngine, read_calls
 
 
 def run(ir_root: Path, out_dir: Path, *, model_path: Path | None = None, dry_run: bool = False,
-        only_tables: list[str] | None = None, replay: Path | None = None, reuse: Path | None = None,
-        rerun: list[str] | None = None) -> dict:
+        profile: str = "base16", only_tables: list[str] | None = None, replay: Path | None = None,
+        reuse: Path | None = None, rerun: list[str] | None = None) -> dict:
     started = time.perf_counter()
     out_dir.mkdir(parents=True, exist_ok=True)
-    engine = FoundationEngine.from_path(ir_root, only_tables=only_tables)
+    engine = FoundationEngine.from_path(ir_root, profile=profile, only_tables=only_tables)
     (out_dir / "plan.json").write_text(json.dumps(engine.plan(), ensure_ascii=False, indent=2))
     if dry_run:
         return engine.plan()
@@ -72,14 +72,15 @@ def main() -> None:
     parser.add_argument("ir_root", type=Path)
     parser.add_argument("out_dir", type=Path)
     parser.add_argument("--model", type=Path)
+    parser.add_argument("--profile", default="base16", help="metric set: base16 | priority32")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--tables", nargs="*")
     parser.add_argument("--replay", type=Path, help="re-bind saved calls.jsonl payloads without model calls")
     parser.add_argument("--reuse", type=Path, help="run the model only for tasks without a saved ok call")
     parser.add_argument("--rerun", nargs="*", help="task ids to call again even when --reuse has them")
     args = parser.parse_args()
-    summary = run(args.ir_root, args.out_dir, model_path=args.model, dry_run=args.dry_run, only_tables=args.tables,
-                  replay=args.replay, reuse=args.reuse, rerun=args.rerun)
+    summary = run(args.ir_root, args.out_dir, model_path=args.model, dry_run=args.dry_run, profile=args.profile,
+                  only_tables=args.tables, replay=args.replay, reuse=args.reuse, rerun=args.rerun)
     print(render_markdown(summary) if not args.dry_run else json.dumps(summary, ensure_ascii=False, indent=2)[:3000])
 
 

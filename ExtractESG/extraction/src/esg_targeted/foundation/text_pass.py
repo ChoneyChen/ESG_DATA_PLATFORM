@@ -19,11 +19,16 @@ from esg_targeted.foundation.textnorm import fold
 from esg_targeted.evidence.units import canonical_unit_id
 
 TEXT_GROUPS = {
-    "energy": ("E1-5_01", "E1-5_05", "E1-5_09"),
-    "ghg": ("E1-6_07", "E1-6_09", "E1-6_10", "E1-6_11"),
+    "energy": ("E1-5_01", "E1-5_02", "E1-5_05", "E1-5_09"),
+    "ghg": ("E1-6_07", "E1-6_09", "E1-6_10", "E1-6_11", "E1-6_12"),
+    "ghg_intensity": ("E1-6_30",),
     "water": ("E3-4_01", "E3-4_02", "E3-4_03", "E3-4_11", "E3-4_12"),
     "pollution": ("E2-4_02", "E2-4_03", "E2-4_09"),
     "substances": ("E2-5_02",),
+    "waste": ("E5-5_07", "E5-5_15"),
+    "materials": ("E5-4_02",),
+    "workforce": ("S1-6_02", "S1-6_12", "S1-9_02", "S1-13_04", "S1-14_05", "S1-16_01", "S1-17_02"),
+    "governance": ("GOV-1_06", "G1-4_01", "G1-6_01"),
 }
 RETRIEVAL = {
     "E1-5_01": (g.ENERGY_TOTAL_RE,),
@@ -42,6 +47,22 @@ RETRIEVAL = {
     "E3-4_03": (g.RECYCLE_RE,),
     "E3-4_11": (g.WITHDRAWAL_RE,),
     "E3-4_12": (g.DISCHARGE_RE,),
+    "E1-5_02": (g.FOSSIL_FUEL_RE,),
+    "E1-6_12": (g.GHG_LABEL_RE,),
+    "E1-6_30": (g.INTENSITY_RE,),
+    "E5-5_07": (g.WASTE_RE,),
+    "E5-5_15": (g.HAZARDOUS_RE,),
+    "E5-4_02": (g.MATERIAL_RE,),
+    "S1-6_02": (g.EMPLOYEE_RE,),
+    "S1-6_12": (g.TURNOVER_RE,),
+    "S1-9_02": (g.TOPMGMT_RE,),
+    "S1-13_04": (g.TRAINING_RE,),
+    "S1-14_05": (g.SAFETY_RE,),
+    "S1-16_01": (g.PAYGAP_RE,),
+    "S1-17_02": (g.DISCRIM_RE,),
+    "GOV-1_06": (g.GENDER_RE,),
+    "G1-4_01": (g.CORRUPTION_RE,),
+    "G1-6_01": (g.PAYDAYS_RE,),
 }
 # A value statement prints a number with a unit of the datapoint's kind; a
 # paragraph with only years or counts cannot state one of these values.
@@ -51,14 +72,15 @@ _UNITS = {
     "water": r"立方米|m3|m³|吨|噸|升|ml\b|megalit|liter|litre|gallon",
     "pollution": r"吨|噸|t\b|kg|千克|公斤|mg|tonne",
     "substances": r"吨|噸|t\b|kg|千克|公斤|tonne|种|種|项|項",
+    "waste": r"吨|噸|t\b|kg|千克|公斤|tonne|万吨|萬噸",
+    "materials": r"吨|噸|t\b|kg|千克|公斤|tonne|万吨|萬噸",
+    "ghg_intensity": r"吨|tco|co2|二氧化碳|/|每",
+    "workforce": r"人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
+    "governance": r"%|％|件|起|天|日|人|名|位|days?",
 }
 QUANTITY_RE = {group: re.compile(r"\d[\d,，]*(?:\.\d+)?\s*(?:万|萬|亿|億|百万|百萬|千)?\s*(?:" + units + ")", re.I)
                for group, units in _UNITS.items()}
-GROUP_OF = {code: group for group, codes in (("energy", ("E1-5_01", "E1-5_05", "E1-5_09")),
-                                             ("ghg", ("E1-6_07", "E1-6_09", "E1-6_10", "E1-6_11")),
-                                             ("water", ("E3-4_01", "E3-4_02", "E3-4_03", "E3-4_11", "E3-4_12")),
-                                             ("pollution", ("E2-4_02", "E2-4_03")),
-                                             ("substances", ("E2-5_02",))) for code in codes}
+GROUP_OF = {code: group for group, codes in TEXT_GROUPS.items() for code in codes}
 METHOD_WORD_RE = re.compile(r"(?:监测|检测|在线|测量|测算|估算|计算|核算|排放因子|物料衡算|系数|monitor|measur|estimat|calculat|emission\s+factor|mass\s+balance)", re.I)
 MAX_BLOCK_CHARS = 360
 # Words that make the figure after them a bound or an estimate ("超过55亿度", "近90%").
@@ -103,8 +125,18 @@ def retrieve_blocks(pages: list[dict], codes: tuple[str, ...], *, reporting_year
                 score += 2
             scored.append((score, page_number, block["block_id"], text))
     scored.sort(key=lambda item: (-item[0], item[1]))
+    # One concept must not crowd another out of the small context: every target
+    # keeps its best matching paragraph, then the ranking fills the rest.
+    reserved, reserved_keys = [], set()
+    for code in codes:
+        for item in scored:
+            if any(p.search(fold(item[3])) for p in RETRIEVAL[code]):
+                reserved.append(item)
+                reserved_keys.add(item[3][:80])
+                break
+    ordered = reserved + [item for item in scored if item[3][:80] not in reserved_keys]
     chosen, seen = [], set()
-    for score, page_number, block_id, text in scored:
+    for score, page_number, block_id, text in ordered:
         key = text[:80]
         if key in seen:
             continue
@@ -214,7 +246,12 @@ def _value_clause(text: str, value: str, *, before: int = 40, after: int = 16) -
     hard = max(text.rfind(mark, low, index) for mark in "。；;")
     cuts = sorted({text.rfind(mark, max(low, hard + 1), index) for mark in "，,、"})
     cuts = [position for position in cuts if position >= 0]
-    start = (cuts[-2] if len(cuts) >= 2 else cuts[-1]) + 1 if cuts else index
+    if cuts:
+        start = (cuts[-2] if len(cuts) >= 2 else cuts[-1]) + 1
+    else:
+        # Infographic text has no punctuation: keep the label that precedes the
+        # number so the concept can be judged at all.
+        start = max(0, index - 24)
     end = min(len(text), index + len(value) + after)
     for mark in "。；;，,、":
         position = text.find(mark, index + len(value))

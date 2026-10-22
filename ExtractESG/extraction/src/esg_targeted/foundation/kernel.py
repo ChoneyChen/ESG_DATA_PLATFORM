@@ -100,12 +100,14 @@ class TableTask:
         return f"{self.view.table_id}#{self.chunk}"
 
 
-def plan_table_tasks(view: TableView, groups: list[str]) -> list[TableTask]:
+def plan_table_tasks(view: TableView, groups: list[str], allowed: set[str] | None = None) -> list[TableTask]:
     codes: list[str] = []
     for key in groups:
         for code in GROUP_BY_KEY[key].codes:
-            if code not in codes:
+            if code not in codes and (allowed is None or code in allowed):
                 codes.append(code)
+    if not codes:
+        return []
     lines = view.lines
     if len(lines) <= MAX_LINES_PER_CALL:
         return [TableTask(view, lines, codes, groups, 0)]
@@ -562,7 +564,9 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[li
                 flags.append("unit_missing")
                 if status == "accepted":
                     status = "review"
-            if metric.kind == "quantity" and dimension in ("count", "currency"):
+            # A count or currency unit is wrong only for a metric that is not
+            # itself declared in that dimension; head counts and fines use them.
+            if metric.kind == "quantity" and dimension in ("count", "currency") and metric.dimension != dimension:
                 flags.append(f"unit_is_{dimension}")
                 status, rejected_by = "rejected", rejected_by or f"unit_is_{dimension}"
             if metric.dimension == "volume" and dimension == "mass":

@@ -37,6 +37,7 @@ beforeEach(()=>{
   if(url==='/document/api/pipeline/extensions')data={items:releases};
   else if(url==='/document/api/pipeline/standards/catalog')data={packages};
   else if(url==='/document/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3')data=profile;
+  else if(url==='/document/api/pipeline/extraction-profiles/foundation?profile=base16')data={profile:'base16',metric_count:16,standards:profile.session_standards,package_digests:profile.selection_snapshot.package_digests,selection_snapshot:profile.selection_snapshot,metrics:profile.session_standards.flatMap(s=>s.metric_ids.map(id=>({code:id,metric_id:id,label:id})))};
   else if(url==='/document/api/report-assets')data={assets:[{asset_id:'fixture-pdf',file_name:'匿名测试报告.pdf'}]};
   else if(url==='/targeted/api/ir-runs')data={runs:[]};
   else if(url==='/document/api/pipeline/compatibility')data={ready:true};
@@ -111,7 +112,6 @@ describe('延伸选择绑定实际父包与批准收据',()=>{
  });
  it('实际提取创建页面将16原条款的父身份接到延伸选择，预览只提交16＋1且辅助摘要不泄入standards',async()=>{
   releases=[approved(),approved('1.0.1',newParent)];mounted(<Extractions newTask params={new URLSearchParams('asset=fixture-pdf')}/>);
-  fireEvent.click(await screen.findByRole('button',{name:'选择平台主要条款（E1–E3 16 项）'}));
   const reported=await screen.findAllByLabelText('提取报告直接披露');
   await waitFor(()=>expect((reported[0] as HTMLInputElement).disabled).toBe(true));
   expect((reported[1] as HTMLInputElement).disabled).toBe(false);fireEvent.click(reported[1]);

@@ -124,6 +124,9 @@ class ReportExtractionRequest(StrictModel):
     # "foundation16": one bounded table-understanding call per source table for
     # the platform foundation datapoints; "standard" keeps per-package agents.
     extraction_route: Literal["standard", "foundation16"] = "standard"
+    # Which foundation metric set this task runs. The link reads the set from
+    # the request, so adding a set never edits the engine.
+    metric_profile: Literal["base16", "priority32"] = "base16"
     completeness: Literal["quick", "balanced", "thorough"] = "balanced"
     budget: EvidenceBudget | None = None
     allow_limited_evidence: bool = True
@@ -160,6 +163,8 @@ class ReportExtractionRequest(StrictModel):
             value.pop("model_plan", None)
         if self.extraction_route == "standard":
             value.pop("extraction_route", None)
+        if self.metric_profile == "base16":
+            value.pop("metric_profile", None)
         return value
 
     def effective_budget(self) -> EvidenceBudget:

@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from esg_targeted.foundation.catalog import BY_CODE
 from esg_targeted.foundation.textnorm import fold
 
 TOTAL_RE = re.compile(r"(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\s+sources)", re.I)
@@ -69,8 +70,40 @@ REGULATORY_LIMIT_RE = _rx(
 )
 POLLUTANT_EXCLUDE_RE = _rx(r"浓度", r"concentration", r"mg\s*/", r"达标", r"compliance", r"去除", r"removal", r"减排", r"reduction", r"温室", r"ghg", r"二氧化碳(?!硫)", r"\bco\s*2\b", r"co₂", r"废水量", r"废水排放量", r"wastewater\s+(?:volume|discharge)")
 
+# ---- vocabulary for the extended priority set (concept families, not reports)
+FOSSIL_FUEL_RE = _rx(r"化石", r"煤炭", r"原煤", r"煤", r"石油", r"原油", r"汽油", r"柴油", r"燃料油", r"天然气", r"液化石油气",
+                     r"fossil", r"coal", r"petroleum", r"crude\s*oil", r"gasoline", r"diesel", r"natural\s+gas", r"lpg")
+HAZARDOUS_RE = _rx(r"有害", r"危险废物", r"危险废弃物", r"hazardous")
+WASTE_DEST_RE = _rx(r"处置", r"回收", r"填埋", r"焚烧", r"利用", r"dispos", r"divert", r"recycl", r"landfill", r"incinerat")
+MATERIAL_RE = _rx(r"原材料", r"物料", r"材料", r"资源投入", r"materials?", r"resource\s+inflow")
+EMPLOYEE_RE = _rx(r"员工", r"雇员", r"职工", r"从业人数", r"employee", r"staff")
+TURNOVER_RE = _rx(r"流失率", r"离职率", r"turnover")
+AVERAGE_RE = _rx(r"平均", r"average", r"mean")
+TRAINING_RE = _rx(r"培训", r"受训", r"training", r"trained")
+TOPIC_TRAINING_RE = _rx(r"商业道德", r"反腐败", r"合规", r"信息安全", r"网络安全", r"ehs", r"安全培训", r"领导力",
+                        r"管理层", r"新员工", r"供应商", r"ethics", r"compliance", r"leadership", r"contractor")
+WHOLE_WORKFORCE_RE = _rx(r"全员", r"全体员工", r"全部员工", r"员工人均", r"人均受训", r"all\s+employees",
+                         r"per\s+employee", r"workforce")
+CONSOLIDATION_BOUNDARY_RE = _rx(r"运营范围", r"运营边界", r"财务控制", r"operational\s+control",
+                                r"operational\s+boundary", r"financial\s+control")
+HOURS_RE = _rx(r"小时", r"学时", r"课时", r"时长", r"hours?")
+SAFETY_RE = _rx(r"工伤", r"事故", r"accident", r"injur", r"ltifr", r"trifr")
+PAYGAP_RE = _rx(r"薪酬差距", r"薪酬差异", r"男女薪酬", r"gender\s+pay\s+gap", r"pay\s+gap")
+REMUN_RATIO_RE = _rx(r"薪酬比", r"薪酬倍数", r"总薪酬比", r"remuneration\s+ratio", r"pay\s+ratio")
+DISCRIM_RE = _rx(r"歧视", r"骚扰", r"discrimination", r"harassment")
+GENDER_RE = _rx(r"性别", r"女性", r"男性", r"female", r"male", r"gender")
+TOPMGMT_RE = _rx(r"高管", r"高级管理", r"管理层", r"管理者", r"top\s+management", r"senior\s+management")
+BOARD_RE = _rx(r"董事会", r"女性董事", r"董事", r"治理机构", r"board", r"supervisory")
+CORRUPTION_RE = _rx(r"腐败", r"贿赂", r"corruption", r"bribery")
+CONVICTION_RE = _rx(r"定罪", r"判决", r"判定有罪", r"conviction", r"convicted")
+PAYDAYS_RE = _rx(r"付款", r"支付", r"账期", r"payment")
+DAYS_RE = _rx(r"天", r"日", r"days?")
+SCOPE1_RE = _rx(r"范围\s*[1一]", r"scope\s*1(?![0-9])", r"直接排放")
+SCOPE2_RE = _rx(r"范围\s*[2二]", r"scope\s*2(?![0-9])", r"间接排放")
+SCOPE3_RE = _rx(r"范围\s*[3三]", r"scope\s*3(?![0-9])", r"价值链排放")
+
 SUBSTANCE_RE = _rx(r"关注物质", r"高度关注", r"高关注", r"svhc", r"substances?\s+of\s+(?:very\s+high\s+)?concern", r"有毒有害物质", r"有害物质", r"危险化学品", r"hazardous\s+substance")
-WASTE_RE = _rx(r"废物", r"废弃物", r"waste")
+WASTE_RE = _rx(r"废物", r"废弃物", r"固废", r"垃圾", r"waste")
 
 CONSUMPTION_RE = _rx(r"耗水", r"(?:水|water)\S{0,4}消耗", r"消耗\S{0,4}水", r"水资源消耗", r"water\s+consum", r"consumption\s+of\s+water", r"consumed")
 RISK_AREA_RE = _rx(r"风险", r"缺水", r"水压力", r"水资源压力", r"高水", r"stress", r"scarc", r"risk")
@@ -130,7 +163,11 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
     subject = scope_text if GENERIC_TOTAL_RE.fullmatch(last.strip()) or QUALIFIER_ONLY_RE.match(last) else text
     component = bool(COMPONENT_PREFIX_RE.match(last))
     other_item = bool(re.search(r"(?:其他|其它|^other\b|others)", last, re.I))
-    if unit and INTENSITY_UNIT_RE.search(unit) and code != "E1-5_09":
+    # An intensity unit belongs only to a metric declared as an intensity; the
+    # rule follows the catalog rather than naming codes here.
+    declared = BY_CODE.get(code)
+    intensity_metric = bool(declared and (declared.dimension or "").endswith("intensity"))
+    if unit and INTENSITY_UNIT_RE.search(unit) and code != "E1-5_09" and not intensity_metric:
         return _reject("unit_is_intensity")
 
     if code == "E1-5_01":
@@ -286,6 +323,133 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
                     review = True
                 else:
                     return _reject("component_by_source_or_destination")
+    elif code == "E1-5_02":
+        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
+            return _reject("label_is_ratio_or_intensity")
+        if not FOSSIL_FUEL_RE.search(subject):
+            return _reject("label_not_fossil_energy")
+        if RECYCLE_RE.search(text) or CHANGE_RE.search(text):
+            return _reject("label_is_change_or_offset")
+        if dimension not in (None, "energy"):
+            return _reject(f"unit_dimension_{dimension}_not_energy")
+    elif code == "E1-6_12":
+        if INTENSITY_RE.search(text) or RATIO_WORD_RE.search(text) or CHANGE_RE.search(text):
+            return _reject("label_is_ratio_intensity_or_change")
+        scopes = sum(bool(item.search(text)) for item in (SCOPE1_RE, SCOPE2_RE, SCOPE3_RE))
+        if scopes == 1 and not TOTAL_RE.search(text):
+            return _reject("label_is_single_scope_not_total")
+        # The same total under another consolidation boundary (operational
+        # control vs financial control) is an alternative view, not a rival value.
+        if CONSOLIDATION_BOUNDARY_RE.search(text):
+            flags.append("consolidation_boundary_differs")
+            review = True
+        if dimension not in (None, "ghg-emissions"):
+            return _reject("unit_not_co2e")
+    elif code == "E1-6_30":
+        if not (INTENSITY_RE.search(text) or INTENSITY_UNIT_RE.search(unit or "")):
+            return _reject("label_not_intensity")
+        if dimension not in (None, "ghg-intensity"):
+            return _reject(f"unit_dimension_{dimension}_not_ghg_intensity")
+    elif code == "E5-5_07":
+        if not WASTE_RE.search(subject):
+            return _reject("label_not_waste")
+        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
+            return _reject("label_is_ratio_or_intensity")
+        if HAZARDOUS_RE.search(text) and not TOTAL_RE.search(text):
+            return _reject("label_is_hazardous_subset")
+        if WASTE_DEST_RE.search(text) and not re.search(r"产生|生成|generated|generation", text, re.I):
+            return _reject("label_is_treatment_route_not_generated")
+        if dimension not in (None, "mass"):
+            return _reject(f"unit_dimension_{dimension}_not_mass")
+    elif code == "E5-5_15":
+        if not (WASTE_RE.search(subject) and HAZARDOUS_RE.search(text)):
+            return _reject("label_not_hazardous_waste")
+        if re.search(r"无害|非有害|non-hazardous", text, re.I) and not re.search(r"有害|危险", text):
+            return _reject("label_is_non_hazardous_waste")
+        if WASTE_DEST_RE.search(text) and not re.search(r"产生|生成|generated|generation", text, re.I):
+            return _reject("label_is_treatment_route_not_generated")
+        if dimension not in (None, "mass"):
+            return _reject(f"unit_dimension_{dimension}_not_mass")
+    elif code == "E5-4_02":
+        immediate = text.split("，")[-1] if "，" in text else text
+        if WASTE_RE.search(immediate):
+            return _reject("label_is_waste_not_inflow")
+        if not MATERIAL_RE.search(subject):
+            return _reject("label_not_materials_used")
+        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
+            return _reject("label_is_ratio_or_intensity")
+        if dimension not in (None, "mass"):
+            return _reject(f"unit_dimension_{dimension}_not_mass")
+    elif code == "S1-6_02":
+        if re.search(r"非员工|非雇员|劳务派遣|外包|non-employee|contractor", text, re.I):
+            return _reject("label_is_non_employees")
+        if TURNOVER_RE.search(text) or re.search(r"入职率|hiring|new hires", text, re.I):
+            return _reject("label_is_turnover_or_hiring")
+        if AVERAGE_RE.search(text):
+            return _reject("label_is_average_not_period_end")
+        if not EMPLOYEE_RE.search(subject):
+            return _reject("label_not_employees")
+        if dimension not in (None, "count"):
+            return _reject(f"unit_dimension_{dimension}_not_count")
+    elif code == "S1-6_12":
+        if not TURNOVER_RE.search(subject):
+            return _reject("label_not_turnover_rate")
+        if dimension not in (None, "ratio"):
+            return _reject(f"unit_dimension_{dimension}_not_ratio")
+    elif code == "S1-9_02":
+        if not (GENDER_RE.search(text) and TOPMGMT_RE.search(text)):
+            return _reject("label_not_top_management_gender")
+        if BOARD_RE.search(text) and not TOPMGMT_RE.search(text):
+            return _reject("label_is_board_scope")
+        if dimension not in (None, "ratio"):
+            return _reject(f"unit_dimension_{dimension}_not_ratio")
+    elif code == "S1-13_04":
+        if not (TRAINING_RE.search(text) and HOURS_RE.search(text)):
+            return _reject("label_not_training_hours")
+        # Business-ethics, EHS or leadership training is a topic, not the
+        # workforce-wide average this clause asks for.
+        if TOPIC_TRAINING_RE.search(text) and not WHOLE_WORKFORCE_RE.search(text):
+            return _reject("label_is_topic_specific_training")
+        if re.search(r"总(?:培训)?(?:时长|小时|学时)", text) and not re.search(r"人均|每人|per\s+(?:employee|person)|average", text, re.I):
+            return _reject("label_is_total_hours_not_per_person")
+        if RATIO_WORD_RE.search(text):
+            return _reject("label_is_ratio")
+    elif code == "S1-14_05":
+        if not SAFETY_RE.search(subject):
+            return _reject("label_not_work_related_accident")
+        if dimension not in (None, "ratio"):
+            return _reject(f"unit_dimension_{dimension}_not_ratio")
+    elif code == "S1-16_01":
+        if not PAYGAP_RE.search(subject):
+            return _reject("label_not_gender_pay_gap")
+        if REMUN_RATIO_RE.search(text):
+            return _reject("label_is_remuneration_ratio")
+        if dimension not in (None, "ratio"):
+            return _reject(f"unit_dimension_{dimension}_not_ratio")
+    elif code == "S1-17_02":
+        if not DISCRIM_RE.search(subject):
+            return _reject("label_not_discrimination_incident")
+        if re.search(r"罚款|赔偿|罚金|fines?|penalt", text, re.I):
+            return _reject("label_is_fine_not_incident_count")
+        if dimension not in (None, "count"):
+            return _reject(f"unit_dimension_{dimension}_not_count")
+    elif code == "GOV-1_06":
+        if not (BOARD_RE.search(text) and GENDER_RE.search(text)):
+            return _reject("label_not_board_gender")
+        if dimension not in (None, "ratio"):
+            return _reject(f"unit_dimension_{dimension}_not_ratio")
+    elif code == "G1-4_01":
+        if not (CORRUPTION_RE.search(text) and CONVICTION_RE.search(text)):
+            return _reject("label_not_corruption_conviction")
+        if re.search(r"罚款|罚金|fines?|penalt", text, re.I) and not CONVICTION_RE.search(text):
+            return _reject("label_is_fine_not_conviction")
+        if dimension not in (None, "count"):
+            return _reject(f"unit_dimension_{dimension}_not_count")
+    elif code == "G1-6_01":
+        if not (PAYDAYS_RE.search(text) and DAYS_RE.search(text)):
+            return _reject("label_not_payment_days")
+        if re.search(r"标准账期|标准付款期限|standard\s+terms|on-time|按时付款", text, re.I):
+            return _reject("label_is_terms_or_share_not_average_days")
     else:
         # No bespoke branch for this code: fall back to its declared spec, so a
         # datapoint outside the sixteen still gets concept and unit checks
@@ -349,8 +513,11 @@ POLLUTANT_SPECIFIC_RE = re.compile(
     re.I,
 )
 POLLUTION_METHOD_RE = re.compile(
-    r"(?:污染物|废气|废水|大气|排放物|pollutant|air\s+emission|effluent|wastewater"
-    r"|排放量.{0,10}(?:公式|估算|测算))", re.I,
+    # "废水" alone is about water use; it counts only beside a discharge,
+    # concentration or monitoring statement.
+    r"(?:污染物|废气|大气污染物|排放物|pollutant|air\s+emission"
+    r"|(?:废水|污水|effluent|wastewater)[^。；]{0,12}(?:排放|浓度|监测|monitor)"
+    r"|排放量[^。；]{0,12}(?:公式|估算|测算|监测|核算))", re.I,
 )
 GHG_CONTEXT_RE = re.compile(r"(?:温室气体|二氧化碳|碳排放|greenhouse|(?<![a-z])co2|co₂|ghg|carbon)", re.I)
 

@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 from typing import Callable
 
+from esg_targeted.foundation.catalog import METRICS, metrics_for
 from esg_targeted.foundation.consolidate import NOT_FOUND_STATUSES, consolidate
 from esg_targeted.foundation.kernel import TableTask, bind, plan_table_tasks, run_task, task_digest
 from esg_targeted.foundation.period import detect_reporting_period
@@ -36,7 +37,14 @@ def needs_text_pass(conclusion: dict | None) -> bool:
 class FoundationEngine:
     """One compact model call per candidate table, then bounded text follow-up."""
 
-    def __init__(self, ir: LoadedDocumentIr, *, only_tables: list[str] | None = None) -> None:
+    # Class-level defaults keep engines built without __init__ (tests, replay)
+    # on the base set instead of failing on a missing attribute.
+    profile = "base16"
+    metrics = METRICS
+    selected_codes = tuple(metric.code for metric in METRICS)
+
+    def __init__(self, ir: LoadedDocumentIr, *, profile: str = "base16",
+                 only_tables: list[str] | None = None) -> None:
         started = time.perf_counter()
         self.ir = ir
         pages = {payload["page"]["page_index"]: payload for payload in ir.pages}
@@ -48,7 +56,13 @@ class FoundationEngine:
                 reconcile_view(candidate.view, PageText(native[candidate.view.page_index]))
         header_years = [y for c in candidates for y in c.view.header_years()]
         self.period = detect_reporting_period(ir.manifest, ir.pages, header_years=header_years)
-        self.tasks: list[TableTask] = [task for c in candidates for task in plan_table_tasks(c.view, sorted(c.groups))]
+        # The selected metric set is an input, not a constant of the link.
+        self.profile = profile
+        self.metrics = metrics_for(profile)
+        self.selected_codes = tuple(metric.code for metric in self.metrics)
+        allowed = set(self.selected_codes)
+        self.tasks: list[TableTask] = [task for c in candidates
+                                       for task in plan_table_tasks(c.view, sorted(c.groups), allowed)]
         if only_tables:
             self.tasks = [t for t in self.tasks if t.view.table_id in only_tables]
         self.prepare_seconds = round(time.perf_counter() - started, 2)
@@ -58,7 +72,9 @@ class FoundationEngine:
         return cls(DocumentIrLoader().load(ir_root), **kwargs)
 
     def plan(self) -> dict:
-        return {"engine_version": ENGINE_VERSION, "document_label": self.ir.manifest.get("document_label"),
+        return {"engine_version": ENGINE_VERSION, "metric_profile": self.profile,
+                "selected_metric_count": len(self.metrics),
+                "document_label": self.ir.manifest.get("document_label"),
                 "ir_run_id": self.ir.run_id, "ir_revision": self.ir.ir_revision, "document_id": self.ir.document_id,
                 "reporting_period": self.period.__dict__,
                 "tasks": [{"task_id": t.task_id, "table_id": t.view.table_id, "page_number": t.view.page_number,
@@ -114,8 +130,12 @@ class FoundationEngine:
             records.append(record)
             if on_record:
                 on_record(record)
-        interim = {c["code"]: c for c in consolidate(records, self.period.year)}
+        interim = {c["code"]: c for c in consolidate(records, self.period.year, self.metrics)}
+        allowed = set(self.selected_codes)
         for group, codes in TEXT_GROUPS.items():
+            codes = tuple(code for code in codes if code in allowed)
+            if not codes:
+                continue
             missing = tuple(c for c in codes if needs_text_pass(interim.get(c)))
             if not missing:
                 continue
@@ -175,7 +195,7 @@ class FoundationEngine:
             "input_tokens": sum(r.get("input_tokens") or 0 for r in fresh),
             "output_tokens": sum(r.get("output_tokens") or 0 for r in fresh),
             "failed_calls": [r["task_id"] for r in records if r["status"] not in ("ok", "no_candidates")],
-            "conclusions": consolidate(records, self.period.year),
+            "conclusions": consolidate(records, self.period.year, self.metrics),
         }
 
 

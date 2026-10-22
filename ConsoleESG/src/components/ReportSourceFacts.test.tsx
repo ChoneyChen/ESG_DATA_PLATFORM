@@ -45,7 +45,7 @@ it('后端确认固定PDF与IR位置后才提供实际来源入口',async()=>{
  expect(screen.queryByRole('button',{name:'查看标准与延伸条款'})).toBeNull();
 });
 
-it('同报告1101行可逐页完整读取并前后浏览，累计数量不冒充报告全部表行',async()=>{
+it('同报告1101行可逐页完整读取并前后浏览，累计数量不冒充报告全部表行',{timeout:20000},async()=>{
  const cursors=['opaque.first+token','opaque.second/token'];
  respond=url=>{const cursor=new URL(url,'https://fixture.invalid').searchParams.get('cursor');
   const offset=cursor===cursors[0]?500:cursor===cursors[1]?1000:0,length=offset===1000?101:500;

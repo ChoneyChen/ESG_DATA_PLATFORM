@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from decimal import Decimal
 
+import pytest
+
 from esg_targeted.foundation.consolidate import consolidate
 from esg_targeted.foundation.guards import check
 from esg_targeted.foundation.kernel import bind, infer_unit, plan_table_tasks, scope2_method_from_text
@@ -410,3 +412,43 @@ def test_an_unseen_clause_is_judged_by_its_declared_spec_without_new_code():
     rejected, reason = SPECS["E1-5_03_test"].evaluate("能源消耗总量（兆瓦时）", None, "MWh", "energy")
     assert not rejected and reason == "label_not_this_concept"
     del SPECS["E1-5_03_test"]
+
+
+def test_metric_sets_are_data_and_never_refer_to_a_report():
+    from esg_targeted.foundation.catalog import BY_CODE, PROFILES, metrics_for
+
+    assert len(PROFILES["base16"]) == 16
+    assert len(PROFILES["priority32"]) == 32
+    assert set(PROFILES["base16"]) < set(PROFILES["priority32"])
+    assert all(code in BY_CODE for code in PROFILES["priority32"])
+    with pytest.raises(ValueError):
+        metrics_for("a-report-name")
+
+
+def test_a_component_clause_declares_its_parent():
+    from esg_targeted.foundation.catalog import BY_CODE
+
+    assert BY_CODE["E1-5_05"].parent_code == "E1-5_01"
+    assert BY_CODE["E5-5_15"].parent_code == "E5-5_07"
+    assert BY_CODE["E1-6_07"].parent_code == "E1-6_12"
+    assert BY_CODE["E1-5_01"].parent_code is None
+
+
+def test_extended_clause_guards_reject_the_confusable_neighbour():
+    from esg_targeted.foundation import guards as g
+
+    cases = [
+        ("E1-5_02", "化石能源消耗量", "吨标准煤", "energy", True),
+        ("E1-5_02", "可再生能源消耗量", "兆瓦时", "energy", False),
+        ("E1-6_12", "范围一排放量", "吨CO2e", "ghg-emissions", False),
+        ("E5-5_07", "有害废弃物产生量", "吨", "mass", False),
+        ("E5-5_15", "无害废弃物总量", "吨", "mass", False),
+        ("S1-6_02", "员工流失率", "%", "ratio", False),
+        ("S1-6_02", "平均员工人数", "人", "count", False),
+        ("S1-13_04", "商业道德人均培训时长", "小时", None, False),
+        ("S1-13_04", "全年人均受训小时数", "小时", None, True),
+        ("S1-16_01", "薪酬比", "倍", "ratio", False),
+        ("G1-4_01", "腐败事件数量", "件", "count", False),
+    ]
+    for code, label, unit, dimension, expected in cases:
+        assert g.check(code, label, None, unit, dimension).ok is expected, (code, label)

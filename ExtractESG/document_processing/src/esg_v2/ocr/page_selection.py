@@ -18,7 +18,7 @@ import pypdfium2 as pdfium
 
 
 SELECTOR_NAME = "foundation16"
-SELECTOR_VERSION = "foundation16-text-layer-v1"
+SELECTOR_VERSION = "foundation16-text-layer-v4"
 
 
 @dataclass(frozen=True)
@@ -41,7 +41,7 @@ GROUPS: tuple[KeywordGroup, ...] = (
     KeywordGroup(
         "ghg",
         ("范围一", "范围1", "范围二", "范围2", "范围三", "范围3", "范畴一", "范畴二", "范畴三", "scope 1", "scope 2",
-         "scope 3", "温室气体", "greenhouse gas", "ghg", "直接排放", "间接排放"),
+         "scope 3", "scope1", "scope2", "scope3", "温室气体", "greenhouse gas", "ghg", "直接排放", "间接排放"),
         ("co2e", "tco2e", "co2eq", "二氧化碳当量", "碳排放", "emissions", "排放总量"),
     ),
     KeywordGroup(
@@ -60,7 +60,8 @@ GROUPS: tuple[KeywordGroup, ...] = (
         "water",
         ("取水", "耗水", "用水", "排水", "水资源", "循环水", "循环利用", "重复利用", "回用", "新鲜水", "新水", "淡水",
          "水风险", "缺水", "水压力", "water withdrawal", "water consumption", "water discharge", "water recycled",
-         "recycled water", "water use", "water withdrawn", "water stress"),
+         "recycled water", "water use", "water withdrawn", "water stress", "water management", "water resources",
+         "water intake", "water sources", "total water", "ground water", "groundwater", "surface water"),
         ("立方米", "m3", "万吨", "百万吨", "吨", "megalitre", "ml", "地下水", "地表水", "市政", "groundwater",
          "surface water", "municipal"),
     ),
@@ -69,6 +70,56 @@ GROUPS: tuple[KeywordGroup, ...] = (
         ("关注物质", "高度关注物质", "高关注物质", "svhc", "substances of concern", "substance of concern",
          "有毒有害物质", "有害物质", "危险化学品", "hazardous substances"),
         ("化学品", "chemicals", "使用量", "采购量"),
+    ),
+    KeywordGroup(
+        'ghg_intensity',
+        ('温室气体排放强度', '排放强度', '碳强度', 'ghg intensity', 'emission intensity', 'carbon intensity', '每百万元营收', 'per million revenue', 'per revenue'),
+        ('tco2e', 'co2e', '吨二氧化碳当量', '万元', '百万元'),
+    ),
+    KeywordGroup(
+        'waste',
+        ('废弃物', '废物', '固废', '危险废物', '有害废弃物', 'waste', 'solid waste', 'hazardous waste'),
+        ('产生量', '总量', '处置', '回收', '有害', '无害', '吨', 'tonnes', 'generated', 'disposed', 'diverted'),
+    ),
+    KeywordGroup(
+        'materials',
+        ('原材料', '资源投入', '物料使用', '材料使用', 'materials used', 'resource inflow', 'material inflow'),
+        ('吨', '重量', '采购量', 'tonnes', 'weight'),
+    ),
+    KeywordGroup(
+        'workforce',
+        ('员工总数', '员工人数', '雇员人数', '在职员工', '员工流失率', '离职率', 'employee turnover', 'number of employees', 'headcount', 'head count'),
+        ('人', '人数', '期末', '平均', '%', 'turnover', 'employees'),
+    ),
+    KeywordGroup(
+        'workforce_training',
+        ('培训', '受训', '培训时长', '培训小时', '人均受训', 'training', 'training hours', 'trained'),
+        ('小时', '学时', '人均', 'hours', 'per employee'),
+    ),
+    KeywordGroup(
+        'workforce_safety',
+        ('工伤', '事故', '可记录', 'accident', 'injury', 'ltifr', 'trifr', 'recordable'),
+        ('率', '每百万工时', '人数', '起', 'rate'),
+    ),
+    KeywordGroup(
+        'workforce_pay',
+        ('薪酬差距', '薪酬差异', '男女薪酬', 'gender pay gap', 'pay gap', 'remuneration gap'),
+        ('%', '比率', 'ratio'),
+    ),
+    KeywordGroup(
+        'workforce_incidents',
+        ('歧视', '骚扰', 'discrimination', 'harassment'),
+        ('事件', '投诉', '件', 'incident', 'complaint'),
+    ),
+    KeywordGroup(
+        'workforce_gender',
+        ('高管', '管理层', '女性管理者', '性别比例', 'top management', 'senior management', 'gender distribution'),
+        ('%', '女性', '男性', 'female', 'male'),
+    ),
+    KeywordGroup(
+        'governance',
+        ('董事会', '治理机构', '女性董事', '董事会多元化', '腐败', '贿赂', '定罪', '付款天数', '账期', 'board', 'corruption', 'bribery', 'conviction', 'payment days'),
+        ('%', '件', '天', '人', '女性', 'days', 'cases'),
     ),
 )
 # Measurement-method wording (E2-4_09) only matters beside pollutant figures.
@@ -224,6 +275,7 @@ class Foundation16PageSelector:
         self,
         *,
         top_n: int = 18,
+        per_group_pages: int = 2,
         front_pages: int = 3,
         continuation_pages: int = 6,
         continuation_min_numbers: int = 12,
@@ -233,6 +285,7 @@ class Foundation16PageSelector:
         max_coverage_ratio: float = 0.8,
     ):
         self.top_n = max(1, int(top_n))
+        self.per_group_pages = max(0, int(per_group_pages))
         self.front_pages = max(0, int(front_pages))
         self.continuation_pages = max(0, int(continuation_pages))
         self.continuation_min_numbers = max(0, int(continuation_min_numbers))
@@ -245,6 +298,7 @@ class Foundation16PageSelector:
     def parameters(self) -> dict[str, Any]:
         return {
             "top_n": self.top_n,
+            "per_group_pages": self.per_group_pages,
             "front_pages": self.front_pages,
             "continuation_pages": self.continuation_pages,
             "continuation_min_numbers": self.continuation_min_numbers,
@@ -304,6 +358,14 @@ class Foundation16PageSelector:
         )
         if period_page is not None:
             include(period_page, "reporting_period_statement")
+        # Each family gets its best pages before the global ranking fills the
+        # rest: a fixed top-N lets one family crowd the others out as the
+        # metric set grows.
+        for group in GROUPS:
+            family = sorted((item for item in ranked if item.group_scores.get(group.key, 0) > 0),
+                            key=lambda item: (-item.group_scores[group.key], -item.numeric_tokens, item.page_index))
+            for item in family[: self.per_group_pages]:
+                include(item.page_index, f"family_{group.key}")
         for rank, item in enumerate(ranked[: self.top_n], start=1):
             include(item.page_index, f"score_rank_{rank}")
         # KPI tables run across consecutive pages whose rows repeat no keyword, so

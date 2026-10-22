@@ -31,7 +31,7 @@ const SOURCE_KINDS: [string, string][] = [
   ['component_sources', '分项构成'],
 ];
 
-type Conclusion = Row & {code: string; status: string; group: string};
+type Conclusion = Row & {code: string; status: string; group: string; parent_code?: string|null; children?: Row[]};
 
 /** Re-exported so the board, the extraction preview and reports share one reading vocabulary. */
 export {readingText} from '../pipeline';
@@ -119,6 +119,24 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
         <span className={`f16-status ${STATUS_TONE[conclusion.status] || 'none'}`}>{STATUS_WORD[conclusion.status] || conclusion.status_label}</span>
       </div>
       {conclusion.definition_zh && <p className="f16-definition">{conclusion.definition_zh || conclusion.definition}</p>}
+      {conclusion.parent_code && <p className="f16-parent">子项 · 属于 {conclusion.parent_code}</p>}
+      {(conclusion.children || []).length > 0 && (
+        <div className="f16-sublist">
+          <h4>本条包含的子项（{conclusion.children!.length}）</h4>
+          <table className="f16-members">
+            <thead><tr><th>子项</th><th>状态</th><th>值</th></tr></thead>
+            <tbody>
+              {conclusion.children!.map((child: Row) => (
+                <tr key={String(child.code)}>
+                  <td><strong>{child.code}</strong><small className="f16-attr">{child.label}</small></td>
+                  <td><span className={`f16-status ${STATUS_TONE[String(child.status)] || 'none'}`}>{STATUS_WORD[String(child.status)] || String(child.status)}</span></td>
+                  <td className="metric-value">{(child.values || []).map((v: Row, i: number) => <div key={i}>{v.member ? `${v.member} ` : ''}{v.value_raw ?? '—'}{v.unit_raw ? ` ${v.unit_raw}` : ''}</div>)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       {members.length > 0 && (
         <table className="f16-members">
           <thead><tr><th>成员</th><th>原值</th><th>单位</th><th>期间</th><th>来源行</th><th>口径标记</th></tr></thead>

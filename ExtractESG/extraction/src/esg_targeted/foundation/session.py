@@ -16,7 +16,14 @@ from esg_targeted.foundation.catalog import METRICS
 from esg_targeted.foundation.engine import FoundationEngine, read_calls
 from esg_targeted.ir.loader import DocumentIrLoader
 
+from esg_targeted.foundation.catalog import metrics_for
+
 FOUNDATION_METRIC_IDS = frozenset(m.metric_id for m in METRICS)
+
+
+def foundation_metric_ids(profile: str = "base16") -> frozenset[str]:
+    """The metric ids of one profile, so callers validate against the right set."""
+    return frozenset(metric.metric_id for metric in metrics_for(profile))
 STAGE_TABLES = "foundation_tables"
 STAGE_TEXT = "foundation_text"
 STAGE_BUNDLE = "foundation_bundle"
@@ -37,7 +44,8 @@ class FoundationSessionExecutor:
         projections = state["projections"]
         shared = self.artifacts.report_session_dir(session_id) / "foundation16"
         shared.mkdir(parents=True, exist_ok=True)
-        engine = FoundationEngine(DocumentIrLoader().load(ir_path))
+        profile = str(state.get("request", {}).get("metric_profile") or "base16")
+        engine = FoundationEngine(DocumentIrLoader().load(ir_path), profile=profile)
         (shared / "plan.json").write_text(json.dumps(engine.plan(), ensure_ascii=False, indent=2))
         calls_path = shared / "calls.jsonl"
         reusable = {r["task_id"]: r for r in read_calls(calls_path) if r.get("status") == "ok"} if calls_path.is_file() else {}

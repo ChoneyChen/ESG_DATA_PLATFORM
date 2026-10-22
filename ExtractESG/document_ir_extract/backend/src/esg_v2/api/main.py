@@ -578,6 +578,11 @@ def pipeline_standard_diagnostics():
     return _targeted_catalog_request("/api/standards/diagnostics")
 
 
+@app.get("/api/pipeline/extraction-profiles/foundation")
+def pipeline_extraction_foundation(profile: str = "base16"):
+    return _targeted_catalog_request(f"/api/extraction-profiles/foundation?profile={quote(profile)}")
+
+
 @app.get("/api/pipeline/extraction-profiles/platform-major")
 def get_extraction_platform_major(topics: str | None = None):
     suffix = f"?topics={quote(topics, safe=',')}" if topics else ""
