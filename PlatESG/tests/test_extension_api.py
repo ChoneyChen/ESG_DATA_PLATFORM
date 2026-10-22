@@ -68,7 +68,10 @@ def test_authenticated_extension_definition_registration_and_platform_selection_
         assert client.get('/internal/v1/publication-status', headers=admin).json()['derived_states'] == []
         # Registered projection is also the actual extraction planner input.
         coordinator = ReportSessionService.__new__(ReportSessionService)
-        coordinator.settings = type('Settings', (), {'standard_dist_root': STANDARDS / 'releases'})()
+        coordinator.settings = type('Settings', (), {'standard_dist_root': STANDARDS / 'releases',
+            'qwen_model_path': Path.home() / 'Desktop/model/Qwen3.5-9B-4bit',
+            'nuextract_model_path': Path.home() / 'Desktop/model/NuExtract',
+            'qiniu_model': 'registered-cloud-model'})()
         coordinator.standards = StandardPackageCatalog(STANDARDS / 'releases')
         selection = {'extension_id': release['definition']['extension_id'], 'definition_version': release['definition']['definition_version'],
             'release_digest': release['release_digest'], 'value_origins': ['reported'], 'derivation_rule_ids': []}

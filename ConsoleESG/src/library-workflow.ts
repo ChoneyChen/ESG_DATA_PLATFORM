@@ -4,7 +4,7 @@ import {scopeFromSelection} from './components/ScopeSelector';
 
 /** Use the existing production coordinator and the exact major profile. */
 export async function startLibraryProduction(assets:Row[],target:ProductionTarget,profile?:Row,catalog?:Row,processingMode:'auto'|'reprocess'='auto'){
- if(!credentials.roles.includes('admin'))throw new Error('请先在顶部“操作权限”启用任务管理权限，再开始处理。');
+ if(!credentials.roles.includes('admin'))throw new Error('数据平台未连接或当前身份没有管理权限，暂不能开始处理。');
  let scope={standards:[],originalIds:[],kind:'none'} as ReturnType<typeof scopeFromSelection>;
  if(target!=='processing'){
   if(!profile?.selection_snapshot||!profile.session_standards?.length)throw new Error('主要指标配置尚未就绪，请刷新后重试。');

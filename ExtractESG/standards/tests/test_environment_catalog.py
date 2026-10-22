@@ -23,9 +23,11 @@ def built():return load_registry(ROOT)
 def test_every_original_number_has_exactly_one_module_and_no_mdr_fake_metrics(built):
     registry,catalog,packages=built
     assert len(catalog['records'])==1184
-    assert len(packages)==41
-    assert sum(len(p.metrics) for p in packages.values())==512
-    assert sum(not r['executable'] for r in registry['modules'])==58
+    # Every original datapoint is compiled; a new planned module must be a
+    # deliberate regression, not an unnoticed coverage gap.
+    assert len(packages)==99
+    assert sum(len(p.metrics) for p in packages.values())==1126
+    assert sum(not r['executable'] for r in registry['modules'])==0
     expected={r['id'] for r in catalog['records'] if r['record_kind']=='独立编号条目'}
     assert len(expected)==1126
     assert {i for r in registry['modules'] for i in r['source_datapoint_ids']}==expected
@@ -63,9 +65,10 @@ def test_platform_major_exact_user_list_and_package_core_is_broader(built):
     assert all(p.manifest.core_source_datapoint_ids for p in packages.values())
 
 
-def test_pending_major_scope_fails_without_silent_deletion():
-    with pytest.raises(PackageIntegrityError,match='no silent scope reduction'):
-        compile_profile(ROOT,PROFILE)
+def test_full_compilation_leaves_no_pending_scope():
+    # With every module compiled, selecting the platform-major profile no
+    # longer meets a planned clause. The topic filter still narrows the
+    # selection explicitly and never drops the rest silently.
     result=compile_profile(ROOT,PROFILE,topics=['E1','E2','E3'])
     assert result['output_count']==16
     assert len(result['excluded_by_explicit_filter'])==33
@@ -176,9 +179,9 @@ def test_registry_rejects_wrong_version_and_missing_source_coverage(built):
         with pytest.raises(PackageIntegrityError):validate_registry(broken,catalog,packages)
 
 
-def test_placeholder_can_never_be_executable(built):
+def test_a_compiled_module_cannot_lose_its_identity(built):
     registry,_,_=built
-    r=deepcopy(next(r for r in registry['modules'] if not r['executable']));r['executable']=True
+    r=deepcopy(registry['modules'][0]);r['package_version']=None
     from esg_standard_packages.scope import ModuleRegistration
     with pytest.raises(ValidationError):ModuleRegistration.model_validate(r)
 

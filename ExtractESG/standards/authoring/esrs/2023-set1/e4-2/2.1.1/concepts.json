@@ -1,0 +1,222 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp01",
+    "description": "Disclosure on whether and how biodiversity and ecosystems-related policies relate to matters reported in E4 AR4。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure on whether and how biodiversity and ecosystems-related policies relate to matters reported in E4 AR4"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp02",
+    "description": "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material biodiversity and ecosystems-related impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material biodiversity and ecosystems-related impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp03",
+    "description": "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material dependencies and material physical and transition risks and opportunities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material dependencies and material physical and transition risks and opportunities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp04",
+    "description": "Explanation of whether and how biodiversity and ecosystems-related policy supports traceability of products, components and raw materials with significant actual or potential impacts on biodiversity and ecosystems along value chain。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Explanation of whether and how biodiversity and ecosystems-related policy supports traceability of products, components and raw materials with significant actual or potential impacts on biodiversity and ecosystems along value chain"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp05",
+    "description": "Explanation of whether and how biodiversity and ecosystems-related policy addresses production, sourcing or consumption from ecosystems that are managed to maintain or enhance conditions for biodiversity。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Explanation of whether and how biodiversity and ecosystems-related policy addresses production, sourcing or consumption from ecosystems that are managed to maintain or enhance conditions for biodiversity"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp06",
+    "description": "Explanation of whether and how biodiversity and ecosystems-related policy addresses social consequences of biodiversity and ecosystems-related impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Explanation of whether and how biodiversity and ecosystems-related policy addresses social consequences of biodiversity and ecosystems-related impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp07",
+    "description": "Disclosure of how policy refers to production, sourcing or consumption of raw materials。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how policy refers to production, sourcing or consumption of raw materials"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp08",
+    "description": "Disclosure of how policy refers to policies limiting procurement from suppliers that cannot demonstrate that they are not contributing to significant conversion of protected areas or key biodiversity areas。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how policy refers to policies limiting procurement from suppliers that cannot demonstrate that they are not contributing to significant conversion of protected areas or key biodiversity areas"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp09",
+    "description": "Disclosure of how policy refers to recognised standards or third-party certifications overseen by regulators。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how policy refers to recognised standards or third-party certifications overseen by regulators"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp10",
+    "description": "Disclosure of how policy addresses raw materials originating from ecosystems that have been managed to maintain or enhance conditions for biodiversity, as demonstrated by regular monitoring and reporting of biodiversity status and gains or losses。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how policy addresses raw materials originating from ecosystems that have been managed to maintain or enhance conditions for biodiversity, as demonstrated by regular monitoring and reporting of biodiversity status and gains or losses"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp11",
+    "description": "Disclosure of how the policy enables to a), b), c) and d)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how the policy enables to a), b), c) and d)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp12",
+    "description": "Third-party standard of conduct used in policy is objective and achievable based on scientific approach to identifying issues and realistic in assessing how these issues can be addressed under variety of practical circumstances。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy is objective and achievable based on scientific approach to identifying issues and realistic in assessing how these issues can be addressed under variety of practical circumstances"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp13",
+    "description": "Third-party standard of conduct used in policy is developed or maintained through process of ongoing consultation with relevant stakeholders with balanced input from all relevant stakeholder groups with no group holding undue authority or veto power over content。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy is developed or maintained through process of ongoing consultation with relevant stakeholders with balanced input from all relevant stakeholder groups with no group holding undue authority or veto power over content"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp14",
+    "description": "Third-party standard of conduct used in policy encourages step-wise approach and continuous improvement in standard and its application of better management practices and requires establishment of meaningful targets and specific milestones to indicate progress against principles and criteria over time。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy encourages step-wise approach and continuous improvement in standard and its application of better management practices and requires establishment of meaningful targets and specific milestones to indicate progress against principles and criteria over time"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp15",
+    "description": "Third-party standard of conduct used in policy is verifiable through independent certifying or verifying bodies, which have defined and rigorous assessment procedures that avoid conflicts of interest and are compliant with ISO guidance on accreditation and verification procedures or Article 5(2) of Regulation (EC) No 765/2008。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy is verifiable through independent certifying or verifying bodies, which have defined and rigorous assessment procedures that avoid conflicts of interest and are compliant with ISO guidance on accreditation and verification procedures or Article 5(2) of Regulation (EC) No 765/2008"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp16",
+    "description": "Third-party standard of conduct used in policy conforms to ISEAL Code of Good Practice。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy conforms to ISEAL Code of Good Practice"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp17",
+    "description": "Biodiversity and ecosystem protection policy covering operational sites owned, leased, managed in or near protected area or biodiversity-sensitive area outside protected areas has been adopted。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Biodiversity and ecosystem protection policy covering operational sites owned, leased, managed in or near protected area or biodiversity-sensitive area outside protected areas has been adopted"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp18",
+    "description": "Sustainable land or agriculture practices or policies have been adopted。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Sustainable land or agriculture practices or policies have been adopted"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp19",
+    "description": "Sustainable oceans or seas practices or policies have been adopted。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Sustainable oceans or seas practices or policies have been adopted"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp20",
+    "description": "Policies to address deforestation have been adopted。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Policies to address deforestation have been adopted"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  }
+]

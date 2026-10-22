@@ -3,16 +3,18 @@ import os
 
 import requests
 from fastapi import HTTPException
+from esg_runtime.local_operator import operator_headers
 
 
 def authorize_operator(authorization, role, *, publication_url=None):
-    if not isinstance(authorization, str) or not authorization.startswith("Bearer ") or not authorization[7:].strip():
-        raise HTTPException(401, "请先连接工作台访问密钥")
+    headers = operator_headers(authorization)
+    if headers is None:
+        raise HTTPException(401, "工作台未获本机操作员授权")
     base = (publication_url or os.getenv("ESG_PUBLICATION_API_URL", "http://127.0.0.1:8765")).rstrip("/")
     try:
         with requests.Session() as session:
             session.trust_env = False
-            response = session.get(base + "/internal/v1/me", headers={"Authorization": authorization},
+            response = session.get(base + "/internal/v1/me", headers=headers,
                                    timeout=15, allow_redirects=False)
         if response.status_code in {401, 403}:
             raise HTTPException(response.status_code, "工作台权限验证失败，请重新连接")

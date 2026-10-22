@@ -20,6 +20,12 @@ from esg_standard_packages.scope import compile_profile, load_registry  # noqa: 
 from esg_standard_packages.io import canonical_json_bytes  # noqa: E402
 
 VERSION = '1.2.0'
+# Definition versions continue from the last sealed file dictionary, not from
+# 1.0.0: a changed definition must never reuse a version already sealed.
+# Dictionary versions are shared with platform extension selections (the
+# live 1.3.0 is 1.2.0 plus an approved extension), so the next changed file
+# dictionary must take a version above every sealed one.
+PREVIOUS = 'catalog/history/metric-dictionary.1.2.0.json'
 COMMON_CONDITIONS = [
     '主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。',
     '原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。',
@@ -204,7 +210,7 @@ def _next_definition_version(previous, current):
 def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
                      previous_dictionary=None):
     if previous_dictionary is None:
-        previous_path = PLATFORM_ROOT / 'catalog/history/metric-dictionary.1.0.0.json'
+        previous_path = PLATFORM_ROOT / PREVIOUS
         previous_dictionary = json.loads(previous_path.read_text()) if previous_path.is_file() else None
     previous_metrics = {m['source_datapoint_id']: m for m in (previous_dictionary or {}).get('metrics', [])}
     registry, catalog, packages = load_registry(standard_root)
@@ -218,7 +224,9 @@ def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
     metrics = []
     for original in selected:
         record, module = records[original], modules[original]
-        ready = module['executable']
+        # A compiled module is not yet a platform commitment: modules generated
+        # from the catalog stay planned until their full analysis is authored.
+        ready = module['executable'] and module['core_analysis_state'] == 'authored_draft'
         if original not in module['core_source_datapoint_ids']:
             raise ValueError('A platform-major clause must be package-core: ' + original)
         metric = json.loads(json.dumps(SPECS[original], ensure_ascii=False))
@@ -227,8 +235,12 @@ def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
             package = packages[module['disclosure_requirement']]
             source_metric = next(m for m in package.metrics if m.source_datapoint_id == original)
             contract = source_metric.measurement_contract.model_dump(mode='json')
-            metric['description'] = source_metric.description
-            metric['value_role'] = contract['value_role']
+            # A package metric without an authored Chinese label was generated
+            # from the catalog; it does not replace the dictionary's authored
+            # description or value role.
+            if source_metric.labels.get('zh') not in (None, source_metric.labels.get('en')):
+                metric['description'] = source_metric.description
+                metric['value_role'] = contract['value_role']
             source_row_hash = source_metric.provenance.row_sha256
         else:
             contract = None

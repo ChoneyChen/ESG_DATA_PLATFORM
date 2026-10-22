@@ -1,0 +1,101 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp01",
+    "description": "Policies to manage material impacts, risks and opportunities related to affected consumers and end-users, including specific groups or all consumers / end-users。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Policies to manage material impacts, risks and opportunities related to affected consumers and end-users, including specific groups or all consumers / end-users"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp02",
+    "description": "Description of relevant human rights policy commitments relevant to consumers and/or end-users。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of relevant human rights policy commitments relevant to consumers and/or end-users"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp03",
+    "description": "Disclosure of general approach in relation to respect for human rights of consumers and end-users。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to respect for human rights of consumers and end-users"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp04",
+    "description": "Disclosure of general approach in relation to engagement with consumers and/or end-users。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to engagement with consumers and/or end-users"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp05",
+    "description": "Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp06",
+    "description": "Description of whether and how policies are aligned with relevant internationally recognised instruments。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of whether and how policies are aligned with relevant internationally recognised instruments"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp07",
+    "description": "Disclosure of extent and indication of nature of cases of non-respect of the UN Guiding Principles on Business and Human Rights, ILO Declaration on Fundamental Principles and Rights at Work or OECD Guidelines for Multinational Enterprises that involve consumers and/or end-users。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of extent and indication of nature of cases of non-respect of the UN Guiding Principles on Business and Human Rights, ILO Declaration on Fundamental Principles and Rights at Work or OECD Guidelines for Multinational Enterprises that involve consumers and/or end-users"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp08",
+    "description": "Disclosure of explanations of significant changes to policies adopted during reporting year。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of explanations of significant changes to policies adopted during reporting year"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-1.concept.dp09",
+    "description": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-1.source.law",
+      "esrs.2023-set1.s4-1.source.ig3"
+    ]
+  }
+]

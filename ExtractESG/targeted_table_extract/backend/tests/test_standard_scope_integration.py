@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[3]/'standard_packages'
 def test_all_new_packages_load_in_existing_targeted_catalog():
     packages,issues=StandardPackageCatalog(standard_dist_root()).scan()
     assert not issues
-    assert len(packages)==41
+    assert len(packages)==99
     revised={'E1-5','E1-6','E2-4'}
     assert all(p.package_version==('2.1.2' if p.disclosure_requirement in revised else '2.1.1')
                and p.status=='draft' for p in packages)

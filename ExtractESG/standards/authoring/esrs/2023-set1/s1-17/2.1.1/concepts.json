@@ -1,0 +1,156 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp01",
+    "description": "Number of incidents of discrimination [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Number of incidents of discrimination [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp02",
+    "description": "Number of incidents of discrimination。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of incidents of discrimination"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp03",
+    "description": "Number of complaints filed through channels for people in own workforce to raise concerns。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of complaints filed through channels for people in own workforce to raise concerns"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp04",
+    "description": "Number of complaints filed to National Contact Points for OECD Multinational Enterprises。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of complaints filed to National Contact Points for OECD Multinational Enterprises"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp05",
+    "description": "Amount of fines, penalties, and compensation for damages as result of incidents of discrimination, including harassment and complaints filed。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Amount of fines, penalties, and compensation for damages as result of incidents of discrimination, including harassment and complaints filed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp06",
+    "description": "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp07",
+    "description": "Disclosure of contextual information necessary to understand data and how data has been compiled (work-related grievances, incidents and complaints related to social and human rights matters)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data and how data has been compiled (work-related grievances, incidents and complaints related to social and human rights matters)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp08",
+    "description": "Number of severe human rights issues and incidents connected to own workforce。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of severe human rights issues and incidents connected to own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp09",
+    "description": "Number of severe human rights issues and incidents connected to own workforce that are cases of non respect of UN Guiding Principles and OECD Guidelines for Multinational Enterprises。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of severe human rights issues and incidents connected to own workforce that are cases of non respect of UN Guiding Principles and OECD Guidelines for Multinational Enterprises"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp10",
+    "description": "No severe human rights issues and incidents connected to own workforce have occurred。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "No severe human rights issues and incidents connected to own workforce have occurred"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp11",
+    "description": "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp12",
+    "description": "Information about reconciliation of amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce with most relevant amount presented in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about reconciliation of amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce with most relevant amount presented in financial statements"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp13",
+    "description": "Disclosure of the status of incidents and/or complaints and actions taken。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of the status of incidents and/or complaints and actions taken"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-17.concept.dp14",
+    "description": "Number of severe human rights cases where undertaking played role securing remedy for those affected。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of severe human rights cases where undertaking played role securing remedy for those affected"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-17.source.law",
+      "esrs.2023-set1.s1-17.source.ig3"
+    ]
+  }
+]

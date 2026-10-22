@@ -1,0 +1,20 @@
+[
+  {
+    "description": "由报告证据识别的披露主体；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.s3-4.dimension.reporting-entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "value_type": "string"
+  },
+  {
+    "description": "由报告证据识别的行动对象；未知不能由标准默认填充。",
+    "dimension_id": "esrs.2023-set1.s3-4.dimension.action-ref",
+    "labels": {
+      "en": "action ref",
+      "zh": "行动对象"
+    },
+    "value_type": "string"
+  }
+]

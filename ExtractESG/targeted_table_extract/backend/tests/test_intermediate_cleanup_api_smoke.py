@@ -15,6 +15,7 @@ from pydantic import BaseModel, ConfigDict, Field
 import pytest
 
 from esg_runtime.lifecycle import LifecycleBlocked
+from esg_runtime.local_operator import install_loopback_marker, operator_headers
 from esg_targeted.storage.intermediate_cleanup import IntermediateCleanupPlan
 
 
@@ -33,12 +34,15 @@ def api():
         def read(self): return json.dumps(state['principal']).encode()
     def open_request(request, timeout):
         state['calls'].append(('auth', request.full_url))
+        state['forwarded_headers'] = request.headers
         return Response()
     def operation(name, **kwargs):
         state['calls'].append((name, kwargs))
         return {'state': 'synthetic_only', 'calls_model': False}
     app = FastAPI()
+    install_loopback_marker(app)
     scope = {'app': app, 'BaseModel': BaseModel, 'ConfigDict': ConfigDict, 'Field': Field,
+        'operator_headers': operator_headers,
         'IntermediateCleanupPlan': IntermediateCleanupPlan, 'Header': Header, 'HTTPException': HTTPException,
         'LifecycleBlocked': LifecycleBlocked, 'json': json,
         'os': SimpleNamespace(getenv=lambda *_: 'http://isolated.invalid'),
@@ -51,6 +55,19 @@ def api():
     return SimpleNamespace(client=TestClient(app), state=state, scope=scope,
         endpoint='/api/report-sessions/report-synthetic/intermediates/execute',
         body={'plan_id': 'intermediate-plan-' + 'a' * 64, 'expected_revision': 2, 'reason': '合成API冒烟'})
+
+
+def test_loopback_without_credential_lets_the_publication_service_decide(api):
+    local = TestClient(api.scope['app'], client=('127.0.0.1', 50000))
+    assert local.post(api.endpoint, json=api.body).status_code == 200
+    # Nothing is invented: the identity request carries no credential, and
+    # the publication service alone decides whether this is the local operator.
+    assert api.state['forwarded_headers'] == {}
+    assert api.state['calls'][-1][0] == 'execute'
+    remote = TestClient(api.scope['app'], client=('192.0.2.10', 50000))
+    api.state['calls'].clear()
+    assert remote.post(api.endpoint, json=api.body).status_code == 401
+    assert api.state['calls'] == []
 
 
 @pytest.mark.parametrize('authorization', [None, 'Basic fake', 'Bearer ', 'fake'])

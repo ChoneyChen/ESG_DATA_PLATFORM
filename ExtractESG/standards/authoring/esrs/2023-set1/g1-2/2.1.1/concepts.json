@@ -1,0 +1,35 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.g1-2.concept.dp01",
+    "description": "Description of policy to prevent late payments, especially to SMEs。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of policy to prevent late payments, especially to SMEs"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-2.source.law",
+      "esrs.2023-set1.g1-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-2.concept.dp02",
+    "description": "Description of approaches in regard to relationships with suppliers, taking account risks related to supply chain and impacts on sustainability matters。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of approaches in regard to relationships with suppliers, taking account risks related to supply chain and impacts on sustainability matters"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-2.source.law",
+      "esrs.2023-set1.g1-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-2.concept.dp03",
+    "description": "Disclosure of whether and how social and environmental criteria are taken into account for selection of supply-side contractual partners。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how social and environmental criteria are taken into account for selection of supply-side contractual partners"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-2.source.law",
+      "esrs.2023-set1.g1-2.source.ig3"
+    ]
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp01",
+    "description": "Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential  impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential  impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp02",
+    "description": "Engagement occurs with value chain workers or their legitimate\nrepresentatives directly, or with credible proxies。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Engagement occurs with value chain workers or their legitimate\nrepresentatives directly, or with credible proxies"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp03",
+    "description": "Disclosure of stage at which engagement occurs, type of engagement and frequency of engagement。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of stage at which engagement occurs, type of engagement and frequency of engagement"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp04",
+    "description": "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp05",
+    "description": "Disclosure of Global Framework Agreement or other agreements related to respect of human rights of workers。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of Global Framework Agreement or other agreements related to respect of human rights of workers"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp06",
+    "description": "Disclosure of how effectiveness of engagement with value chain workers is assessed。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how effectiveness of engagement with value chain workers is assessed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp07",
+    "description": "Disclosure of steps taken to gain insight into perspectives of value chain workers that may be particularly vulnerable to impacts and (or) marginalised。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of steps taken to gain insight into perspectives of value chain workers that may be particularly vulnerable to impacts and (or) marginalised"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp08",
+    "description": "Statement in case the undertaking has not adopted a general process to engage with value chain workers。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a general process to engage with value chain workers"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp09",
+    "description": "Disclosure of timeframe for adoption of general process to engage with  value chain workers  in case the undertaking has not adopted a general process for engagement。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of timeframe for adoption of general process to engage with  value chain workers  in case the undertaking has not adopted a general process for engagement"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  }
+]

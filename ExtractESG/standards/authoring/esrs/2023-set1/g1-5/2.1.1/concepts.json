@@ -1,0 +1,134 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp01",
+    "description": "Information about representative(s) responsible in administrative, management and supervisory bodies for oversight of political influence and lobbying activities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about representative(s) responsible in administrative, management and supervisory bodies for oversight of political influence and lobbying activities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp02",
+    "description": "Information about financial or in-kind political contributions。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about financial or in-kind political contributions"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp03",
+    "description": "Financial political contributions made。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Financial political contributions made"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp04",
+    "description": "Amount of internal and external lobbying expenses。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Amount of internal and external lobbying expenses"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp05",
+    "description": "Amount paid for membership to lobbying associations。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Amount paid for membership to lobbying associations"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp06",
+    "description": "In-kind political contributions made。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "In-kind political contributions made"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp07",
+    "description": "Disclosure of how monetary value of in-kind contributions is estimated。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how monetary value of in-kind contributions is estimated"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp08",
+    "description": "Financial and in-kind political contributions made [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Financial and in-kind political contributions made [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp09",
+    "description": "Disclosure of main topics covered by lobbying activities and undertaking's main positions on these topics。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of main topics covered by lobbying activities and undertaking's main positions on these topics"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp10",
+    "description": "Undertaking is registered in EU Transparency Register or in equivalent transparency register in Member State。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Undertaking is registered in EU Transparency Register or in equivalent transparency register in Member State"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp11",
+    "description": "Information about appointment of any members of administrative, management and supervisory bodies who held comparable position in public administration in two years preceding such appointment。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about appointment of any members of administrative, management and supervisory bodies who held comparable position in public administration in two years preceding such appointment"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-5.concept.dp12",
+    "description": "The entity is legally obliged to be a member of a chamber of commerce or other organisation that represents its interests。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "The entity is legally obliged to be a member of a chamber of commerce or other organisation that represents its interests"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-5.source.law",
+      "esrs.2023-set1.g1-5.source.ig3"
+    ]
+  }
+]

@@ -1,0 +1,122 @@
+{
+  "catalog_id": "esrs.2023-set1.ig3-user-original",
+  "catalog_source_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
+  "context_requirements": [
+    {
+      "applies_to_source_datapoint_ids": [
+        "S1-14_01",
+        "S1-14_02",
+        "S1-14_03",
+        "S1-14_04",
+        "S1-14_05",
+        "S1-14_06",
+        "S1-14_07",
+        "S1-14_08",
+        "S1-14_09",
+        "S1-14_10",
+        "S1-14_11",
+        "S1-14_12"
+      ],
+      "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+      "output_policy": "context_only",
+      "purpose": "report_identity",
+      "reference_id": "esrs.2023-set1.s1-14.context.report_identity-bp-1",
+      "target_package_id": "esrs.2023-set1.bp-1",
+      "target_package_version": "2.1.1",
+      "target_source_datapoint_ids": [
+        "BP-1_01",
+        "BP-1_02",
+        "BP-1_04"
+      ]
+    },
+    {
+      "applies_to_source_datapoint_ids": [
+        "S1-14_01",
+        "S1-14_02",
+        "S1-14_03",
+        "S1-14_04",
+        "S1-14_05",
+        "S1-14_06",
+        "S1-14_07",
+        "S1-14_08",
+        "S1-14_09",
+        "S1-14_10",
+        "S1-14_12"
+      ],
+      "description": "共用指标定义、方法与重大假设；必须关联被测指标和可持续主题。",
+      "output_policy": "context_only",
+      "purpose": "measurement_method",
+      "reference_id": "esrs.2023-set1.s1-14.context.measurement_method-mdr-m",
+      "target_package_id": "esrs.2023-set1.mdr-m",
+      "target_package_version": "2.1.1",
+      "target_source_datapoint_ids": [
+        "MDR-M_01",
+        "MDR-M_02"
+      ]
+    },
+    {
+      "applies_to_source_datapoint_ids": [
+        "S1-14_01",
+        "S1-14_02",
+        "S1-14_03",
+        "S1-14_04",
+        "S1-14_05",
+        "S1-14_06",
+        "S1-14_07",
+        "S1-14_08",
+        "S1-14_09",
+        "S1-14_10",
+        "S1-14_12"
+      ],
+      "description": "只使用明确适用于所选指标的不确定性、方法、变更和重述说明。",
+      "output_policy": "context_only",
+      "purpose": "measurement_method",
+      "reference_id": "esrs.2023-set1.s1-14.context.measurement_method-bp-2",
+      "target_package_id": "esrs.2023-set1.bp-2",
+      "target_package_version": "2.1.1",
+      "target_source_datapoint_ids": [
+        "BP-2_07",
+        "BP-2_08",
+        "BP-2_09",
+        "BP-2_10",
+        "BP-2_14"
+      ]
+    }
+  ],
+  "core_schema_id": "extractesg.core",
+  "core_schema_version": "1.2.0",
+  "core_selection_reason": "核心条款沿用平台主要条款（用户选定）；尚未做全模块分析，待逐条人工复核。",
+  "core_source_datapoint_ids": [
+    "S1-14_02",
+    "S1-14_05"
+  ],
+  "default_language": "en",
+  "files": {
+    "code_sets": "code_sets.json",
+    "concepts": "concepts.json",
+    "derivations": "derivations.json",
+    "dimensions": "dimensions.json",
+    "elements": "elements.json",
+    "metrics": "metrics.json",
+    "relations": "relations.json",
+    "sources": "sources.json",
+    "validation_rules": "validation_rules.json"
+  },
+  "format_version": "2.1",
+  "package_id": "esrs.2023-set1.s1-14",
+  "package_version": "2.1.1",
+  "shared_requirements": [],
+  "standard": {
+    "disclosure_requirement": "S1-14",
+    "effective_from": "2024-01-01",
+    "framework_id": "esrs",
+    "framework_version": "2023-set1",
+    "jurisdiction": "EU",
+    "module_id": "s1-14"
+  },
+  "status": "draft",
+  "supported_languages": [
+    "en",
+    "zh"
+  ]
+}

@@ -1,0 +1,222 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp01",
+    "description": "Description of action taken, planned or underway to prevent or mitigate negative impacts on own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of action taken, planned or underway to prevent or mitigate negative impacts on own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp02",
+    "description": "Disclosure on whether and how action has been taken to provide or enable remedy in relation to actual material impact。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure on whether and how action has been taken to provide or enable remedy in relation to actual material impact"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp03",
+    "description": "Description of additional initiatives or actions with primary purpose of delivering positive impacts for own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of additional initiatives or actions with primary purpose of delivering positive impacts for own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp04",
+    "description": "Description of how effectiveness of actions and initiatives in delivering outcomes for own workforce is tracked and assessed。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of how effectiveness of actions and initiatives in delivering outcomes for own workforce is tracked and assessed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp05",
+    "description": "Description of process through which it identifies what action is needed and appropriate in response to particular actual or potential negative impact on own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of process through which it identifies what action is needed and appropriate in response to particular actual or potential negative impact on own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp06",
+    "description": "Description of what action is planned or underway to mitigate material risks arising from impacts and dependencies on own workforce  and how effectiveness is tracked。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of what action is planned or underway to mitigate material risks arising from impacts and dependencies on own workforce  and how effectiveness is tracked"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp07",
+    "description": "Description of what action is planned or underway to pursue material opportunities in relation to own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of what action is planned or underway to pursue material opportunities in relation to own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp08",
+    "description": "Disclosure of whether and how it is ensured that own practices do not cause or contribute to material negative impacts on own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how it is ensured that own practices do not cause or contribute to material negative impacts on own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp09",
+    "description": "Disclosure of resources are allocated to the management of material impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of resources are allocated to the management of material impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp10",
+    "description": "Disclosure of general and specific approaches to addressing material negative impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general and specific approaches to addressing material negative impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp11",
+    "description": "Disclosure of initiatives aimed at contributing to additional material positive impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of initiatives aimed at contributing to additional material positive impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp12",
+    "description": "Disclosure of how far undertaking has progressed in efforts during reporting period。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how far undertaking has progressed in efforts during reporting period"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp13",
+    "description": "Disclosure of aims for continued improvement。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of aims for continued improvement"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp14",
+    "description": "Disclosure of whether and how undertaking seeks to use leverage with relevant business relationships to manage material negative impacts affecting own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how undertaking seeks to use leverage with relevant business relationships to manage material negative impacts affecting own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp15",
+    "description": "Disclosure of how the initiative, and its own involvement, is aiming to address the material impact concerned。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how the initiative, and its own involvement, is aiming to address the material impact concerned"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp16",
+    "description": "Disclosure of whether and how workers and workers' representatives play role in decisions regarding design and implementation of programmes or processes whose primary aim is to deliver positive impacts for workers。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how workers and workers' representatives play role in decisions regarding design and implementation of programmes or processes whose primary aim is to deliver positive impacts for workers"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp17",
+    "description": "Information about intended or achieved positive outcomes of programmes or processes for own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about intended or achieved positive outcomes of programmes or processes for own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp18",
+    "description": "Initiatives or processes whose primary aim is to deliver positive impacts for own workforce  are designed also to support achievement of one or more of Sustainable Development Goals。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Initiatives or processes whose primary aim is to deliver positive impacts for own workforce  are designed also to support achievement of one or more of Sustainable Development Goals"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp19",
+    "description": "Information about measures taken to mitigate negative impacts on workers that arise from transition to greener, climate-neutral economy。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about measures taken to mitigate negative impacts on workers that arise from transition to greener, climate-neutral economy"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-4.concept.dp20",
+    "description": "Description of internal functions that are involved in managing impacts and types of action taken by internal functions to address negative and advance positive impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of internal functions that are involved in managing impacts and types of action taken by internal functions to address negative and advance positive impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-4.source.law",
+      "esrs.2023-set1.s1-4.source.ig3"
+    ]
+  }
+]

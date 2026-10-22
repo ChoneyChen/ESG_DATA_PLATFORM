@@ -52,8 +52,8 @@ def release(proposal, authority, parent):
 
 def test_original_catalog_and_major_ids_remain_unchanged(parent, proposal):
     _, _, packages = load_registry(ROOT)
-    assert len(packages) == 41
-    assert sum(len(p.metrics) for p in packages.values()) == 512
+    assert len(packages) == 99
+    assert sum(len(p.metrics) for p in packages.values()) == 1126
     profile = load_json(ROOT / 'profiles/esrs/2023-set1/platform-major.json')
     assert len(profile['source_datapoint_ids']) == len(set(profile['source_datapoint_ids'])) == 49
     assert len(parent.metrics) == 35

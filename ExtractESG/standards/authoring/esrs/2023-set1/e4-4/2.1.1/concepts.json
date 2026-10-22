@@ -1,0 +1,112 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp01",
+    "description": "Ecological threshold and allocation of impacts to undertaking were applied when setting target (biodiversity and ecosystems)。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Ecological threshold and allocation of impacts to undertaking were applied when setting target (biodiversity and ecosystems)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp02",
+    "description": "Disclosure of ecological threshold identified and methodology used to identify threshold (biodiversity and ecosystems)。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Disclosure of ecological threshold identified and methodology used to identify threshold (biodiversity and ecosystems)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp03",
+    "description": "Disclosure of how entity-specific threshold was determined (biodiversity and ecosystems)。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Disclosure of how entity-specific threshold was determined (biodiversity and ecosystems)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp04",
+    "description": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (biodiversity and ecosystems)。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (biodiversity and ecosystems)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp05",
+    "description": "Target is informed by relevant aspect of EU Biodiversity Strategy for 2030。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Target is informed by relevant aspect of EU Biodiversity Strategy for 2030"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp06",
+    "description": "Disclosure of how the targets relate to the biodiversity and ecosystem impacts, dependencies, risks and opportunities identified in relation to own operations and upstream and downstream value chain。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Disclosure of how the targets relate to the biodiversity and ecosystem impacts, dependencies, risks and opportunities identified in relation to own operations and upstream and downstream value chain"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp07",
+    "description": "Disclosure of the geographical scope of the targets。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Disclosure of the geographical scope of the targets"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp08",
+    "description": "Biodiversity offsets were used in setting target。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Biodiversity offsets were used in setting target"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp09",
+    "description": "Layer in mitigation hierarchy to which target can be allocated (biodiversity and ecosystems)。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "Layer in mitigation hierarchy to which target can be allocated (biodiversity and ecosystems)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-4.concept.dp10",
+    "description": "The target addresses shortcomings related to the Substantial Contribution criteria。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "labels": {
+      "en": "The target addresses shortcomings related to the Substantial Contribution criteria"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-4.source.law",
+      "esrs.2023-set1.e4-4.source.ig3"
+    ]
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp01",
+    "description": "All  affected communities who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All  affected communities who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp02",
+    "description": "Description of types of affected communities subject to material impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of types of affected communities subject to material impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp03",
+    "description": "Type of communities subject to material impacts by own operations or through value chain。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Type of communities subject to material impacts by own operations or through value chain"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp04",
+    "description": "Material negative impacts occurrence (affected communities)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Material negative impacts occurrence (affected communities)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp05",
+    "description": "Description of activities that result in positive impacts and types of affected communities that are positively affected or could be positively affected。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of activities that result in positive impacts and types of affected communities that are positively affected or could be positively affected"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp06",
+    "description": "Description of material risks and opportunities arising from impacts and dependencies on  affected communities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of material risks and opportunities arising from impacts and dependencies on  affected communities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp07",
+    "description": "Disclosure of whether and how the undertaking has developed an understanding of how affected communities with particular characteristics or those living in particular contexts, or those undertaking particular activities may be at greater risk of harm。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how the undertaking has developed an understanding of how affected communities with particular characteristics or those living in particular contexts, or those undertaking particular activities may be at greater risk of harm"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp08",
+    "description": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on affected communities are impacts on specific groups。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on affected communities are impacts on specific groups"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  }
+]

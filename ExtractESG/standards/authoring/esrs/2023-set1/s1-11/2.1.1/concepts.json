@@ -1,0 +1,123 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp01",
+    "description": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to sickness。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to sickness"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp02",
+    "description": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp03",
+    "description": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp04",
+    "description": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to parental leave。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to parental leave"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp05",
+    "description": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to retirement。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to retirement"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp06",
+    "description": "Social protection employees by country [table] by types of events and type of employees [including non employees]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Social protection employees by country [table] by types of events and type of employees [including non employees]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp07",
+    "description": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to sickness。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to sickness"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp08",
+    "description": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp09",
+    "description": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp10",
+    "description": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to maternity leave。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to maternity leave"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp11",
+    "description": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to retirement。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to retirement"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  }
+]

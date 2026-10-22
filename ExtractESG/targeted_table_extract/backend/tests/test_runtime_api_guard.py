@@ -27,7 +27,7 @@ assert job.json()['detail']['code'] == session.json()['detail']['code'] == 'runt
 assert not main.job_store.list()
 assert not main.report_sessions.list()
 assert client.get('/api/standards').status_code == 200
-assert len(client.get('/api/standards').json()) == 41
+assert len(client.get('/api/standards').json()) == 99
 print('stale creates blocked; no persisted jobs; read-only catalog remains available')
 """
     result = subprocess.run([sys.executable, '-B', '-c', program], env=environment, capture_output=True, text=True)

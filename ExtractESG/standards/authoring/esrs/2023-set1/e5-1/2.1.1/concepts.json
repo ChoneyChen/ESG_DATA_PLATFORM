@@ -1,0 +1,46 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e5-1.concept.dp01",
+    "description": "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-1.concept.dp02",
+    "description": "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-1.concept.dp03",
+    "description": "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-1.concept.dp04",
+    "description": "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ]
+  }
+]

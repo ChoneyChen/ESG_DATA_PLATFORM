@@ -1,0 +1,134 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp10",
+    "description": "Disclosure of general approach to and processes for providing or contributing to remedy where undertaking has identified that it connected with a material negative impact on affected communities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach to and processes for providing or contributing to remedy where undertaking has identified that it connected with a material negative impact on affected communities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp11",
+    "description": "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp12",
+    "description": "Disclosure of processes through which undertaking supports or requires availability of channels。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of processes through which undertaking supports or requires availability of channels"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp13",
+    "description": "Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp14",
+    "description": "Disclosure of whether and how it is assessed that affected communities are aware of and trust structures or processes as way to raise their concerns or needs and have them addressed。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how it is assessed that affected communities are aware of and trust structures or processes as way to raise their concerns or needs and have them addressed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp15",
+    "description": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp16",
+    "description": "Statement in case the undertaking has not adopted a general process to engage with affected communities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a general process to engage with affected communities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp17",
+    "description": "Disclosure of timeframe for channel or processes for raising concerns to be in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of timeframe for channel or processes for raising concerns to be in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp18",
+    "description": "Disclosure of whether and how affected communities are able to access channels at level of undertaking they are affected by。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how affected communities are able to access channels at level of undertaking they are affected by"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp19",
+    "description": "Third-party mechanisms are accessible to all affected communities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Third-party mechanisms are accessible to all affected communities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp20",
+    "description": "Grievances are treated confidentially and with respect to rights of privacy and data protection。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Grievances are treated confidentially and with respect to rights of privacy and data protection"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp21",
+    "description": "affected communities   are allowed to use anonymously channels to raise concerns or needs。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "affected communities   are allowed to use anonymously channels to raise concerns or needs"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  }
+]

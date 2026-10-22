@@ -31,6 +31,7 @@ from esg_targeted.storage.lifecycle import ExtractionLifecycle
 from esg_targeted.storage.intermediate_cleanup import IntermediateCleanup, IntermediateCleanupPlan
 from esg_runtime.lifecycle import LifecycleBlocked
 from esg_runtime.progress import progress_from_event, classify_error
+from esg_runtime.local_operator import install_loopback_marker, operator_headers
 from types import SimpleNamespace
 from esg_targeted.results.stages import collect_stage
 from pydantic import BaseModel, ConfigDict, Field
@@ -82,11 +83,12 @@ class IntermediateRestoreRequest(BaseModel):
 
 
 def _intermediate_operator(authorization, *, mutation=False):
-    if not authorization or not authorization.startswith('Bearer ') or not authorization[7:].strip():
+    headers = operator_headers(authorization)
+    if headers is None:
         raise HTTPException(401, '核对或恢复中间文件需要工作台操作员凭据')
     base = os.getenv('ESG_PUBLICATION_API_URL', 'http://127.0.0.1:8765').rstrip('/')
     try:
-        request = Request(base + '/internal/v1/me', headers={'Authorization': authorization})
+        request = Request(base + '/internal/v1/me', headers=headers)
         with build_opener(ProxyHandler({})).open(request, timeout=15) as response:
             principal = json.load(response)
     except HTTPError as exc:
@@ -103,11 +105,12 @@ def _intermediate_operator(authorization, *, mutation=False):
 
 
 def _materialization_operator(authorization):
-    if not authorization:
+    headers = operator_headers(authorization)
+    if headers is None:
         raise HTTPException(401, '保存交付成果需要工作台操作员凭据')
     base = os.getenv('ESG_PUBLICATION_API_URL', 'http://127.0.0.1:8765').rstrip('/')
     try:
-        request = Request(base + '/internal/v1/me', headers={'Authorization': authorization})
+        request = Request(base + '/internal/v1/me', headers=headers)
         with build_opener(ProxyHandler({})).open(request, timeout=15) as response:
             principal = json.load(response)
     except HTTPError as exc:
@@ -187,6 +190,7 @@ app = FastAPI(
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
 )
+install_loopback_marker(app)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

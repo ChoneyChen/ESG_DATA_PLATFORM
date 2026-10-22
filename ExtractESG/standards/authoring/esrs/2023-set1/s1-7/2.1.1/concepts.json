@@ -1,0 +1,112 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp01",
+    "description": "Number of non-employees in own workforce。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of non-employees in own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp02",
+    "description": "Number of non-employees in own workforce - self-employed people。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of non-employees in own workforce - self-employed people"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp03",
+    "description": "Number of non-employees in own workforce - people provided by undertakings primarily engaged in employment activities。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of non-employees in own workforce - people provided by undertakings primarily engaged in employment activities"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp04",
+    "description": "Undertaking does not have non-employees in own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Undertaking does not have non-employees in own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp05",
+    "description": "Disclosure of the most common types of non-employees (for example, self-employed people, people provided by undertakings primarily engaged in employment activities, and other types relevant to the undertaking), their relationship with the undertaking, and the type of work that they perform.。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of the most common types of non-employees (for example, self-employed people, people provided by undertakings primarily engaged in employment activities, and other types relevant to the undertaking), their relationship with the undertaking, and the type of work that they perform."
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp06",
+    "description": "Description of methodologies and assumptions used to compile data (non-employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of methodologies and assumptions used to compile data (non-employees)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp07",
+    "description": "Non-employees numbers are reported in head count/full time equivalent。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Non-employees numbers are reported in head count/full time equivalent"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp08",
+    "description": "Non-employees numbers are reported at end of reporting period/average/other methodology。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Non-employees numbers are reported at end of reporting period/average/other methodology"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp09",
+    "description": "Disclosure of contextual information necessary to understand data (non-employee workers)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data (non-employee workers)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-7.concept.dp10",
+    "description": "Description of basis of preparation of non-employees estimated number。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of basis of preparation of non-employees estimated number"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ]
+  }
+]

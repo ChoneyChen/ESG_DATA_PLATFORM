@@ -73,4 +73,4 @@ zsh ExtractESG/scripts/start_local_workbenches.sh
 - 修改后优先运行单元、合同或假模型测试；真实 OCR/VLM/抽取任务需明确安排。
 
 
-2026-10-04标准包阶段：E1–E3全量及ESRS2/MDR共用41包（512条）已建为2.1.1 draft；核心条款与平台49项主要条款分开，未来模块占位不执行。详见[建设记录及接口](docs/ESRS_STANDARD_PACKAGE_BUILD.md)。
+2026-10-22标准包阶段：原表1,126个独立原编号全部编译为99包（2.1.1/2.1.2 draft），其中41包512条为人工撰写，58包614条按EFRAG IG 3机械生成、待逐条复核；核心条款与平台49项主要条款分开，平台字典只把人工撰写的16项标为就绪。详见[建设记录及接口](docs/ESRS_STANDARD_PACKAGE_BUILD.md)。

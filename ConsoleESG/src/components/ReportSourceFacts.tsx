@@ -52,7 +52,7 @@ function SourceFactPages({reportRef}:{reportRef?:string|null}) {
  return <Section title="已读取的报告来源事实">
   <Notice>这里保留已读取的原始表行及属性，包括尚未对应条款的内容。保存来源不代表事实、条款映射或正式发布已获批准。</Notice>
   <button className="secondary" disabled={busy||!credentials.token} onClick={()=>void loadPage(null,0)}>重新读取来源事实</button>
-  {!credentials.token&&<Notice>请先连接工作台凭据，再浏览报告来源事实。</Notice>}
+  {!credentials.token&&<Notice>数据平台未连接，暂不能浏览报告来源事实。</Notice>}
   <details><summary>浏览来源事实（已读取 {loadedCount} 条；本页 {rows.length} 条）</summary>
    <ResourceState error={error} loading={busy&&!rows.length} empty={!!credentials.token&&!rows.length&&!busy&&!error}/>
    {error&&<button className="secondary" disabled={busy} onClick={()=>void loadPage(lastAttempt.current.cursor,lastAttempt.current.index)}>重试读取</button>}

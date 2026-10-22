@@ -1,0 +1,244 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp01",
+    "description": "Policies to manage material impacts, risks and opportunities related to own workforce, including for specific groups within workforce or all own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Policies to manage material impacts, risks and opportunities related to own workforce, including for specific groups within workforce or all own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp02",
+    "description": "Disclosure of explanations of significant changes to policies adopted during reporting year。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of explanations of significant changes to policies adopted during reporting year"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp03",
+    "description": "Description of relevant human rights policy commitments relevant to own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of relevant human rights policy commitments relevant to own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp04",
+    "description": "Disclosure of general approach in relation to respect for human rights including labour rights, of people in its own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to respect for human rights including labour rights, of people in its own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp05",
+    "description": "Disclosure of general approach in relation to engagement with people in its own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to engagement with people in its own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp06",
+    "description": "Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp07",
+    "description": "Disclosure of whether and how policies are aligned with relevant internationally recognised instruments。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how policies are aligned with relevant internationally recognised instruments"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp08",
+    "description": "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp09",
+    "description": "Workplace accident prevention policy or management system is in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Workplace accident prevention policy or management system is in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp10",
+    "description": "Specific policies aimed at elimination of discrimination are in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Specific policies aimed at elimination of discrimination are in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp11",
+    "description": "Grounds for discrimination are specifically covered in policy。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Grounds for discrimination are specifically covered in policy"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp12",
+    "description": "Disclosure of specific policy commitments related to inclusion and (or) positive action for people from groups at particular risk of vulnerability in own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of specific policy commitments related to inclusion and (or) positive action for people from groups at particular risk of vulnerability in own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp13",
+    "description": "Disclosure of whether and how policies are implemented through specific procedures to ensure discrimination is prevented, mitigated and acted upon once detected, as well as to advance diversity and inclusion。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how policies are implemented through specific procedures to ensure discrimination is prevented, mitigated and acted upon once detected, as well as to advance diversity and inclusion"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp14",
+    "description": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp15",
+    "description": "Policies and procedures which make qualifications, skills and experience the basis for the recruitment, placement, training and advancement are in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Policies and procedures which make qualifications, skills and experience the basis for the recruitment, placement, training and advancement are in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp16",
+    "description": "Has assigned responsibility at top management level for equal treatment and opportunities in employment, issue clear company-wide policies and procedures to guide equal employment practices, and link advancement to desired performance in this area。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Has assigned responsibility at top management level for equal treatment and opportunities in employment, issue clear company-wide policies and procedures to guide equal employment practices, and link advancement to desired performance in this area"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp17",
+    "description": "Staff training on non-discrimination policies and practices are in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Staff training on non-discrimination policies and practices are in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp18",
+    "description": "Adjustments to the physical environment to ensure health and safety for workers, customers and other visitors with disabilities are in place。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Adjustments to the physical environment to ensure health and safety for workers, customers and other visitors with disabilities are in place"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp19",
+    "description": "Has evaluated whether a there is a risk that job requirements have been defined in a way that would systematically disadvantage certain groups。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Has evaluated whether a there is a risk that job requirements have been defined in a way that would systematically disadvantage certain groups"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp20",
+    "description": "Keeping an up-to-date records on recruitment, training and promotion that provide a transparent view of opportunities for employees and their progression。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Keeping an up-to-date records on recruitment, training and promotion that provide a transparent view of opportunities for employees and their progression"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp21",
+    "description": "Has put in place grievance procedures to address complaints, handle appeals and provide recourse for employees when discrimination is identified, and is alert to formal structures and informal cultural issues that can prevent employees from raising concerns and grievances。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Has put in place grievance procedures to address complaints, handle appeals and provide recourse for employees when discrimination is identified, and is alert to formal structures and informal cultural issues that can prevent employees from raising concerns and grievances"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp22",
+    "description": "Has programs to promote access to skills development.。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Has programs to promote access to skills development."
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  }
+]

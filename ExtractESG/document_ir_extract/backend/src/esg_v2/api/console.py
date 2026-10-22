@@ -10,6 +10,7 @@ from urllib.parse import quote
 import requests
 from fastapi import APIRouter, Header, HTTPException, Query
 from pydantic import BaseModel, ConfigDict, Field
+from esg_runtime.local_operator import operator_headers
 from .console_history import standalone_jobs, fixed_session_evidence
 from .report_session_read import summarize_report_session
 from .console_delivery_identity import (
@@ -138,8 +139,8 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
     @router.get('/report-sessions/{session_id}/delivery-status')
     def delivery_status(session_id: str, report_id: str | None = Query(default=None, min_length=1, max_length=160),
                         authorization: str | None = Header(default=None)):
-        if not authorization or not authorization.startswith('Bearer ') or not authorization[7:].strip():
-            raise HTTPException(401, '查看 SQL 交付状态需要工作台 Bearer 凭据')
+        if operator_headers(authorization) is None:
+            raise HTTPException(401, '查看 SQL 交付状态需要工作台操作员授权')
         scope = None
         try:
             principal = publication('GET', '/internal/v1/me', authorization)
@@ -164,8 +165,8 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
 
     @router.post("/report-sessions/{session_id}/deliver")
     def deliver(session_id: str,request: DeliveryRequest,authorization: str | None=Header(default=None)):
-        if not authorization:
-            raise HTTPException(401,"交付候选需要工作台操作员凭据")
+        if operator_headers(authorization) is None:
+            raise HTTPException(401,"交付候选需要工作台操作员授权")
         principal=publication("GET","/internal/v1/me",authorization)
         if not set(principal["roles"]) & {"review","admin"}:
             raise HTTPException(403,"当前操作员没有候选交付权限")

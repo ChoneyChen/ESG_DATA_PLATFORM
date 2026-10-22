@@ -3,10 +3,11 @@ export type Service = 'document' | 'targeted' | 'publication';
 export type EvidenceLocation = {state:'verified'|'synthetic'|'unavailable'|'unknown';asset_id?:string|null;ir_run_id?:string|null;ir_revision?:number|null;pdf_available?:boolean;ir_available?:boolean;reason?:string|null};
 export function verifiedEvidence(location:EvidenceLocation|undefined){return {assetId:location?.pdf_available===true&&typeof location.asset_id==='string'?location.asset_id:undefined,irRunId:location?.ir_available===true&&typeof location.ir_run_id==='string'?location.ir_run_id:undefined};}
 let token = '';
+let localOperator = false;
 let operator = '';
 let operatorRoles:string[] = [];
 const secrets:Record<string,string> = {};
-export const credentials = {get token(){return token;},get operator(){return operator;},get roles(){return [...operatorRoles];},set(value:string,actor:string,roles:string[]=[]){token=value.trim();operator=actor.trim();operatorRoles=[...roles];},clear(){token='';operator='';operatorRoles=[];Object.keys(secrets).forEach(k=>delete secrets[k]);},secret:(name:string)=>secrets[name] || null,setSecret:(name:string,value:string)=>{secrets[name]=value.trim();}};
+export const credentials = {get token(){return token;},get operator(){return operator;},get roles(){return [...operatorRoles];},get ready(){return !!token || localOperator;},set(value:string,actor:string,roles:string[]=[]){token=value.trim();operator=actor.trim();operatorRoles=[...roles];},clear(){token='';localOperator=false;operator='';operatorRoles=[];Object.keys(secrets).forEach(k=>delete secrets[k]);},setLocal(actor:string,roles:string[]){localOperator=true;token='';operator=actor.trim();operatorRoles=[...roles];},secret:(name:string)=>secrets[name] || null,setSecret:(name:string,value:string)=>{secrets[name]=value.trim();}};
 export type ApiErrorContext={service:Service;path:string;kind:'http'|'network'|'response_format';requestId?:string;code?:string;layer?:string};
 export class ApiError extends Error {constructor(message:string,public status:number,public detail:unknown,public context?:ApiErrorContext){super(message);this.name='ApiError';}}
 export function errorText(value:unknown):string {if(typeof value==='string')return value;if(Array.isArray(value))return value.map(errorText).join('；');if(value && typeof value==='object'){const x=value as Row;return x.message || x.msg || x.reason || Object.values(x).map(errorText).join('；');}return String(value ?? '请求失败');}
@@ -36,7 +37,10 @@ function contextualMessage(message:string,status:number,context:ApiErrorContext)
 export async function request<T=Row>(service:Service,path:string,options:RequestInit={}):Promise<T>{
   if(!path.startsWith('/') || path.startsWith('//'))throw new Error('接口路径必须是当前服务中的绝对路径');
   const headers=new Headers(options.headers);
-  if(service==='publication' && path.startsWith('/internal/')){if(!token)throw new Error('请先启用操作权限');headers.set('Authorization',`Bearer ${token}`);}
+  // This workbench runs on the machine that hosts the data platform, which
+  // recognises the request itself. A bearer is attached only when a remote or
+  // scripted caller supplied one.
+  if(service==='publication' && path.startsWith('/internal/') && token)headers.set('Authorization',`Bearer ${token}`);
   if(service==='document' && (path.startsWith('/api/console/') || /^\/api\/report-sessions\/[^/]+\/materialize$/.test(path)) && token)headers.set('Authorization',`Bearer ${token}`);
   if(token && ((service==='document' && path.startsWith('/api/production-automations')) ||
     (service==='targeted' && /^\/api\/report-sessions\/[^/]+\/intermediates(?:\/|$)/.test(path))))headers.set('Authorization',`Bearer ${token}`);

@@ -257,6 +257,46 @@ def test_delivery_restart_requires_runtime_authorization_without_reprocessing(tm
     assert b"synthetic-runtime-only" not in store.path.read_bytes()
 
 
+def test_credentialless_local_operator_is_held_and_rechecked_for_delivery(tmp_path):
+    from esg_runtime.local_operator import install_loopback_marker, operator_headers
+    engine, processing, store, assets, calls, plans, deliveries, _, _, _ = setup(tmp_path, 1)
+    report = processing.register_asset(assets[0])
+    from esg_v2.control_plane.report_processing import ReportMetadataPatch, ReportMetadata
+    report = processing.update_metadata(report["report_id"], ReportMetadataPatch(expected_revision=report["revision"],
+        metadata=ReportMetadata(title="Synthetic report", publisher_entity_ref="org:synthetic", period_start="2025-01-01", period_end="2025-12-31")))
+    payload = request(assets, "processing_extraction").model_dump(mode="json")
+    payload["target"] = "processing_extraction_delivery"
+    payload["items"][0].update(report_id=report["report_id"], report_revision=report["revision"])
+    req = AutomationRequest.model_validate(payload)
+    checks = []
+
+    def authorize(authorization, role):
+        # Stands in for the publication service: only a credential-less call
+        # made for this machine is the local operator.
+        if operator_headers(authorization) != {}:
+            raise HTTPException(401, "需要工作台操作员权限")
+        checks.append(role)
+        return {"operator_ref": "local-operator", "roles": ["read", "review", "admin"]}
+
+    def deliver(session, report_id, revision, authorization):
+        assert authorization is None and operator_headers(None) == {}
+        deliveries.append((session, report_id, revision))
+        return {"status": "imported", "deliveries": [{"receipt_id": "synthetic-receipt", "status": "imported"}]}
+
+    engine.authorize, engine.deliver = authorize, deliver
+    app = FastAPI(); install_loopback_marker(app); app.include_router(production_automation_router(engine))
+    local, remote = TestClient(app, client=("127.0.0.1", 50000)), TestClient(app, client=("192.0.2.10", 50000))
+    preview = local.post("/api/production-automations/preview", json=req.model_dump(mode="json")).json()
+    body = {"request": req.model_dump(mode="json"), "preview_id": preview["preview_id"], "submission_key": "local-batch", "start": True}
+    assert remote.post("/api/production-automations", json=body).status_code == 401
+    created = local.post("/api/production-automations", json=body)
+    assert created.status_code == 202
+    engine.tick(); finish_processing(engine, processing, store); plans.finish()
+    engine.tick()  # outside any request: the held stand-in acts and is checked again
+    done = engine.get(created.json()["automation_id"])
+    assert done["status"] == "completed" and len(deliveries) == 1 and checks[-1] == "review"
+
+
 def test_local_only_contract_rejects_cloud_or_any_secret(tmp_path):
     _, _, _, assets, _, _, _, _, _, _ = setup(tmp_path)
     req = request(assets, "processing_extraction").model_dump(mode="json")

@@ -1,0 +1,299 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp01",
+    "description": "Number of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp02",
+    "description": "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp03",
+    "description": "Disclosure of land-use based on Life Cycle Assessment。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of land-use based on Life Cycle Assessment"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp04",
+    "description": "Disclosure of metrics considered relevant (land-use change, freshwater-use change and (or) sea-use change)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of metrics considered relevant (land-use change, freshwater-use change and (or) sea-use change)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp05",
+    "description": "Disclosure of conversion over time of land cover。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of conversion over time of land cover"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp06",
+    "description": "Disclosure of changes over time in management of ecosystem。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of changes over time in management of ecosystem"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp07",
+    "description": "Disclosure of changes in spatial configuration of landscape。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of changes in spatial configuration of landscape"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp08",
+    "description": "Disclosure of changes in ecosystem structural connectivity。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of changes in ecosystem structural connectivity"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp09",
+    "description": "Disclosure of functional connectivity。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of functional connectivity"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp10",
+    "description": "Total use of land area。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Total use of land area"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp11",
+    "description": "Total sealed area。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Total sealed area"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp12",
+    "description": "Nature-oriented area on site。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Nature-oriented area on site"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp13",
+    "description": "Nature-oriented area off site。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Nature-oriented area off site"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp14",
+    "description": "Disclosure of how pathways of introduction and spread of invasive alien species and risks posed by invasive alien species are managed。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of how pathways of introduction and spread of invasive alien species and risks posed by invasive alien species are managed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp15",
+    "description": "Number of invasive alien species。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of invasive alien species"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp16",
+    "description": "Area covered by invasive alien species。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Area covered by invasive alien species"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp17",
+    "description": "Disclosure of metrics considered relevant (state of species)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of metrics considered relevant (state of species)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp18",
+    "description": "Disclosure of paragraph in another environment-related standard in which metric is referred to。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of paragraph in another environment-related standard in which metric is referred to"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp19",
+    "description": "Disclosure of population size, range within specific ecosystems and extinction risk。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of population size, range within specific ecosystems and extinction risk"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp20",
+    "description": "Disclosure of changes in number of individuals of species within specific area。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of changes in number of individuals of species within specific area"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp21",
+    "description": "Information about species at global extinction risk。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about species at global extinction risk"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp22",
+    "description": "Disclosure of threat status of species and how activities or pressures may affect threat status。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of threat status of species and how activities or pressures may affect threat status"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp23",
+    "description": "Disclosure of change in relevant habitat for threatened species as proxy for impact on local population's extinction risk。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of change in relevant habitat for threatened species as proxy for impact on local population's extinction risk"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp24",
+    "description": "Disclosure of ecosystem area coverage。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of ecosystem area coverage"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp25",
+    "description": "Disclosure of quality of ecosystems relative to pre-determined reference state。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of quality of ecosystems relative to pre-determined reference state"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp26",
+    "description": "Disclosure of multiple species within ecosystem。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of multiple species within ecosystem"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp27",
+    "description": "Disclosure of structural components of ecosystem condition。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of structural components of ecosystem condition"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  }
+]

@@ -1,0 +1,937 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 98 - AR 100"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Gender pay gap。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Gender pay gap",
+      "zh": "Gender pay gap"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.s1-16.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percent",
+    "paragraph": "97 a ",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR/BENCH",
+      "may": null,
+      "original_data_type": "Percent",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_01",
+        "S1",
+        "S1-16",
+        "97 a ",
+        "AR 98 - AR 100",
+        "Gender pay gap",
+        "Percent",
+        null,
+        null,
+        "SFDR/BENCH",
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "9cc7174879cbdc4a867a5dcd6f47ddb091e1e9830d7af3b095c6512ce8b78ada",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 180,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-16_01",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp01"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 101"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Annual total remuneration ratio。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Annual total remuneration ratio",
+      "zh": "Annual total remuneration ratio"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.s1-16.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Percent",
+    "paragraph": "97 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "Percent",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_02",
+        "S1",
+        "S1-16",
+        "97 b",
+        "AR 101",
+        "Annual total remuneration ratio",
+        "Percent",
+        null,
+        null,
+        "SFDR",
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "2fe2203ad08423e1ef2b1cdcc6104ec8c876378180d390e0929a7507b9db7163",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 181,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-16_02",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp02"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 99, AR 102"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered",
+      "zh": "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-16.dp03",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "97 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_03",
+        "S1",
+        "S1-16",
+        "97 c",
+        "AR 99, AR 102",
+        "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "9c604d957b3d58f860ecb285d7eec9bdeb3185b4f862081b06457b80b83250e2",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 182,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-16_03",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Gender pay gap breakdown by employee category and/or country/segment [table]。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "labels": {
+      "en": "Gender pay gap breakdown by employee category and/or country/segment [table]",
+      "zh": "Gender pay gap breakdown by employee category and/or country/segment [table]"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "表内成员（行/列标题所示的分解项）须与证据一致；成员与合计不能互相替代或重复求和。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": null,
+      "value_role": "actual"
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-16.dp04",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "Table/numerical",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.breakdown-member"
+    ],
+    "paragraph": "98",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "Table/numerical",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_04",
+        "S1",
+        "S1-16",
+        98,
+        null,
+        "Gender pay gap breakdown by employee category and/or country/segment [table]",
+        "Table/numerical",
+        null,
+        "V",
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "9de66039bf8c7ea58442aefba8d0aff0f58c3c66504379859024ee9910bfa0b6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 183,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "source_datapoint_id": "S1-16_04",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp04"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "labels": {
+      "en": "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components",
+      "zh": "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "表内成员（行/列标题所示的分解项）须与证据一致；成员与合计不能互相替代或重复求和。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": null,
+      "value_role": "actual"
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-16.dp05",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "Table/numerical",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.breakdown-member"
+    ],
+    "paragraph": "98",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "Table/numerical",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_05",
+        "S1",
+        "S1-16",
+        98,
+        null,
+        "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components",
+        "Table/numerical",
+        null,
+        "V",
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "6bb77cf7c9e7b5bb23878b0482e6f38701e88ffd109d62b6a009fcb63db73554",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 184,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "source_datapoint_id": "S1-16_05",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp05"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Remuneration ratio adjusted for purchasing power differences between countries。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Remuneration ratio adjusted for purchasing power differences between countries",
+      "zh": "Remuneration ratio adjusted for purchasing power differences between countries"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "匹配分子分母和比率定义；百分数可转换为0—1比例，但原值及单位保留。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual"
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.s1-16.dp06",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "Percent",
+    "paragraph": "99",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "Percent",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_06",
+        "S1",
+        "S1-16",
+        99,
+        null,
+        "Remuneration ratio adjusted for purchasing power differences between countries",
+        "Percent",
+        null,
+        "V",
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "95d16ed045a632ee0e012968734a30c8e943c880298b8e114714b1c9b2273f14",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 185,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-16_06",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp06"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "disclosure_requirement": "S1-16",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-16.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries",
+      "zh": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-16.dp07",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "99",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-16_07",
+        "S1",
+        "S1-16",
+        99,
+        null,
+        "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "d7a52c72cb0484f2a795f02a516238685997f3c4bc6e96afd4275701816594be",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 186,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-16.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-16_07",
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-16.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

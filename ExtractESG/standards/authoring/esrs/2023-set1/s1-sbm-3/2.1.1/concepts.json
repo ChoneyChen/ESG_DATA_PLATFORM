@@ -1,0 +1,134 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp01",
+    "description": "All people in its own workforce who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "All people in its own workforce who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp02",
+    "description": "Description of types of employees and non-employees in its own workforce subject to material impacts。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of types of employees and non-employees in its own workforce subject to material impacts"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp03",
+    "description": "Material negative impacts occurrence (own workforce)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Material negative impacts occurrence (own workforce)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp04",
+    "description": "Description of activities that result in positive impacts and types of employees and non-employees in its own workforce that are positively affected or could be positively affected。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of activities that result in positive impacts and types of employees and non-employees in its own workforce that are positively affected or could be positively affected"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp05",
+    "description": "Description of material risks and opportunities arising from impacts and dependencies on own workforce。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of material risks and opportunities arising from impacts and dependencies on own workforce"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp06",
+    "description": "Description of material impacts on workers that may arise from transition plans for reducing negative impacts on environment and achieving greener and climate-neutral operations。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of material impacts on workers that may arise from transition plans for reducing negative impacts on environment and achieving greener and climate-neutral operations"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp07",
+    "description": "Information about type of operations at significant risk of incidents of forced labour or compulsory labour。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about type of operations at significant risk of incidents of forced labour or compulsory labour"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp08",
+    "description": "Information about countries or geographic areas with operations considered at significant risk of incidents of forced labour or compulsory labour。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about countries or geographic areas with operations considered at significant risk of incidents of forced labour or compulsory labour"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp09",
+    "description": "Information about type of operations at significant risk of incidents of child labour。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about type of operations at significant risk of incidents of child labour"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp10",
+    "description": "Information about countries or geographic areas with operations considered at significant risk of incidents of child labour。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Information about countries or geographic areas with operations considered at significant risk of incidents of child labour"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp11",
+    "description": "Disclosure of whether and how understanding of people in its own workforce with particular characteristics, working in particular contexts, or undertaking particular activities may be at greater risk of harm has been developed。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of whether and how understanding of people in its own workforce with particular characteristics, working in particular contexts, or undertaking particular activities may be at greater risk of harm has been developed"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp12",
+    "description": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on people in its own workforce  relate to specific groups of people。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on people in its own workforce  relate to specific groups of people"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  }
+]

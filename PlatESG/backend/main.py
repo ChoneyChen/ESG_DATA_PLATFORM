@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Annotated, Literal
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Query
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -507,7 +507,17 @@ def create_app(environment: dict[str, str] | None = None):
     app.state.bridge = bridge
     app.add_middleware(APIPrefixMiddleware)
 
-    def authorized(authorization: Annotated[str | None, Header()] = None):
+    local_operator = config.get("PLATESG_LOCAL_OPERATOR", "1") != "0"
+
+    def authorized(request: Request, authorization: Annotated[str | None, Header()] = None):
+        # The service binds loopback only. A request from this machine is the
+        # local operator, so the workbench needs no pasted credential; an
+        # explicit Bearer still authenticates remote or scripted callers, and
+        # an invalid one is rejected rather than downgraded to the local identity.
+        if local_operator and authorization is None:
+            host = (request.client.host if request.client else "") or ""
+            if host in {"127.0.0.1", "::1", "localhost"}:
+                return {"operator_ref": "local-operator", "roles": ["read", "review", "publish", "admin"]}
         if not operators:
             raise HTTPException(503, "内部写入接口未启用；请配置审核凭据")
         supplied = authorization.removeprefix("Bearer ") if authorization else ""

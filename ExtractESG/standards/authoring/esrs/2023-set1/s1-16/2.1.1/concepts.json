@@ -1,0 +1,79 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp01",
+    "description": "Gender pay gap。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Gender pay gap"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp02",
+    "description": "Annual total remuneration ratio。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Annual total remuneration ratio"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp03",
+    "description": "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp04",
+    "description": "Gender pay gap breakdown by employee category and/or country/segment [table]。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Gender pay gap breakdown by employee category and/or country/segment [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp05",
+    "description": "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp06",
+    "description": "Remuneration ratio adjusted for purchasing power differences between countries。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Remuneration ratio adjusted for purchasing power differences between countries"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-16.concept.dp07",
+    "description": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-16.source.law",
+      "esrs.2023-set1.s1-16.source.ig3"
+    ]
+  }
+]

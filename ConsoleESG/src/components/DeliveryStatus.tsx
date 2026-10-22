@@ -10,7 +10,7 @@ const names:Record<string,string>={source_archived:'来源已存档',candidates_
  partial:'部分成果已存档',not_imported:'尚未存档',no_artifact:'暂无可交付成果',
  committed_without_acknowledgement:'SQL已提交，回执待确认',failed:'交付失败',unknown:'存档状态待核对',
  identity_mismatch:'成果身份不符',artifact_unavailable:'固定成果不可读',
- credentials_required:'连接凭据后核对存档'};
+ credentials_required:'数据平台连接后核对存档'};
 export const deliveryLabel=(status:unknown)=>names[String(status)] || names.unknown;
 export const countLabel=(value:unknown)=>Number.isSafeInteger(value)&&Number(value)>=0?String(value):'尚未核对';
 export function useDeliveryStatus(sessionId:string,reportId?:string){
@@ -31,7 +31,7 @@ function Counts({counts}:{counts?:DeliveryCounts}){
   <dt>已发布观测</dt><dd>{countLabel(counts?.published_observation_count)}</dd></dl>;
 }
 export function DeliveryStatusPanel({data,error,loading=false}:{data?:DeliveryState,error?:string,loading?:boolean}){
- if(!credentials.token)return <Notice>连接工作台审核凭据后核对数据库存档。已保存成果数量不作为SQL入库证明。</Notice>;
+ if(!credentials.token)return <Notice>数据平台未连接，暂不能核对数据库存档。已保存成果数量不作为SQL入库证明。</Notice>;
  return <div aria-label="数据库持久交付状态"><div className="between"><h3>数据库存档与发布</h3><DeliveryStatusBadge data={data} error={error} loading={loading}/></div>
   {error&&<Notice tone="error">当前无法刷新存档状态：{error}。{data?'以下保留上次核对结果，不能视为当前状态。':'数量尚未核对，不能据此判断未入库。'}</Notice>}
   {loading&&!data&&<p className="muted">正在核对数据库持久回执…</p>}

@@ -1,8 +1,7 @@
 import {useEffect,useState} from 'react';
-import {credentials,navigate} from './api';
+import {navigate} from './api';
 import {useWorkspace} from './state';
 import {Notice} from './components/ui';
-import {OperatorConnection} from './components/OperatorConnection';
 import {OcrLibrary} from './pages/OcrLibrary';
 import {FloatingProcessingStatus} from './components/FloatingProcessingStatus';
 import {Reports,ReportDetail} from './pages/Reports';
@@ -48,7 +47,6 @@ function sectionTitle(section: string) {
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash);
-  const [authPanel, setAuthPanel] = useState(false);
   const {refresh, connected} = useWorkspace();
   const route = parseRoute(hash);
   useEffect(() => {
@@ -107,10 +105,8 @@ export default function App() {
           <div><span className={`live-dot ${connected ? 'connected' : ''}`}/>{connected ? '事件实时连接' : '自动刷新与恢复'}</div>
           <div className="button-row">
             <button className="ghost" onClick={refresh} aria-label="刷新工作台">刷新</button>
-            <button className="secondary" key={authPanel ? 'open' : 'closed'} onClick={() => setAuthPanel(!authPanel)}>{credentials.token ? `${credentials.operator || '操作员'} · 已启用权限` : '操作权限'}</button>
           </div>
         </header>
-        {authPanel && <OperatorConnection onClose={() => setAuthPanel(false)}/>}
         <main id="main-content" className="workspace">
           <StepSpine stage={stageOf(route.section)}/>
           {page}

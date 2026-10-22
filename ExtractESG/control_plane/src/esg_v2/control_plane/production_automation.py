@@ -19,6 +19,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from esg_v2.control_plane.contracts import utc_now
 from esg_v2.control_plane.report_processing import ProcessingConfig, ProcessingRequest, ProcessingActionRequest
 from esg_v2.control_plane.shared_contracts import ReportExtractionRequest
+from esg_runtime.local_operator import acting_for, held_authorization
 
 SCHEMA = "production-automation-v1"
 TERMINAL = {"completed", "partial", "cancelled"}
@@ -236,7 +237,7 @@ class ProductionAutomationCoordinator:
                 if old[1] != fingerprint:
                     raise ValueError("相同提交键不能用于不同批量计划")
                 state = json.loads(old[0])
-                self._authorizations[state["automation_id"]] = authorization
+                self._authorizations[state["automation_id"]] = held_authorization(authorization)
                 return self.detail(state)
             preview = self.preview(request.request)
             if not preview["can_submit"]:
@@ -263,7 +264,7 @@ class ProductionAutomationCoordinator:
                 else:
                     db.execute("INSERT INTO production_automations VALUES (?,?,?,?,?)", (automation_id, request.submission_key, fingerprint, 1, json.dumps(state, ensure_ascii=False)))
                     self._event(db, state, "submitted", principal["operator_ref"], "批量输入和执行顺序已冻结")
-            self._authorizations[state["automation_id"]] = authorization
+            self._authorizations[state["automation_id"]] = held_authorization(authorization)
             return self.detail(state)
 
     def get(self, automation_id):
@@ -399,12 +400,13 @@ class ProductionAutomationCoordinator:
             item.update(status=plan["status"], stage="completed", message="所选提取成果已保存" if plan["status"] == "completed" else "部分提取成果已保存，仍有覆盖缺口")
             return
         item.update(stage="delivery", status="delivering", message="正在交付冻结成果至候选审核")
-        authorization = self._authorizations.get(state["automation_id"])
-        if not authorization:
+        held = self._authorizations.get(state["automation_id"])
+        if not held:
             state.update(status="waiting_credentials", pause_reason="服务重启或操作员授权失效，请重新连接权限并恢复，已完成报告不会重复执行")
             return
-        self._principal(authorization, "review")
-        result = self.deliver(item["extraction_plan_id"], item["report_id"], item["report_revision"], authorization)
+        with acting_for(held) as authorization:
+            self._principal(authorization, "review")
+            result = self.deliver(item["extraction_plan_id"], item["report_id"], item["report_revision"], authorization)
         item["delivery"] = result
         if result.get("status") == "imported":
             item.update(status="partial" if plan["status"] == "partial" else "completed", stage="completed", message="已进入候选审核；正式发布仍由人工审核决定")
@@ -576,7 +578,7 @@ class ProductionAutomationCoordinator:
                 state.update(status="active")
                 state.pop("retry_item_id", None)
                 state.pop("pause_reason", None)
-                self._authorizations[automation_id] = authorization
+                self._authorizations[automation_id] = held_authorization(authorization)
             elif action in {"pause", "cancel"}:
                 if state["status"] in TERMINAL:
                     raise ValueError("该计划已经结束")

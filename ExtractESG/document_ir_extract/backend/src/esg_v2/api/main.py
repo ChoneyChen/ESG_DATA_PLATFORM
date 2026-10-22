@@ -16,6 +16,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 from esg_runtime.lifecycle import LifecycleBlocked
+from esg_runtime.local_operator import install_loopback_marker
 
 from esg_v2 import __version__
 from esg_v2.runtime_compatibility import compatibility_snapshot, check_compatibility, runtime_release
@@ -143,6 +144,7 @@ pipeline_scheduler = PipelineScheduler(
 )
 
 app = FastAPI(title="ESG v2 Extraction Backend", version=__version__)
+install_loopback_marker(app)
 register_api_errors(app, "document")
 library_deletion = LibraryDeletionService(report_assets, storage_inventory, ocr_store=ocr_store, ir_store=ir_store)
 app.include_router(library_deletion_router(library_deletion, authorize_operator))

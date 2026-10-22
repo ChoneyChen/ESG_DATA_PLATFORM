@@ -12,10 +12,16 @@ def platform_major_profile(standard_root: Path, *, topics: list[str] | None):
     profile_path = standard_root / "profiles/esrs/2023-set1/platform-major.json"
     dictionary_path = standard_root.parents[1] / "PlatESG/catalog/metric-dictionary.v1.json"
     dictionary = json.loads(dictionary_path.read_text(encoding="utf-8"))
-    # compile_profile explicitly rejects unbuilt modules if no topic filter is supplied.
     result = compile_profile(standard_root, profile_path, topics=topics)
     ready = [m["source_datapoint_id"] for m in dictionary["metrics"] if m["readiness"] == "ready"]
     pending = [m["source_datapoint_id"] for m in dictionary["metrics"] if m["readiness"] == "planned"]
+    # A compiled package is not a platform commitment. A platform-major scope
+    # may only hold clauses the platform dictionary can accept; anything else
+    # fails explicitly instead of producing facts the platform must reject.
+    blocked = [i for i in result["source_datapoint_ids"] if i in set(pending)]
+    if blocked:
+        raise ValueError("Selected platform-major clauses are not ready on the platform; "
+                         "no silent scope reduction: " + ", ".join(blocked))
     result.update(overall_source_datapoint_ids=[m["source_datapoint_id"] for m in dictionary["metrics"]],
                   ready_source_datapoint_ids=ready, pending_source_datapoint_ids=pending,
                   dictionary_version=dictionary["dictionary_version"])

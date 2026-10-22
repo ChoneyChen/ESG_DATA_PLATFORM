@@ -8,8 +8,9 @@ from tests.helpers import standard_dist_root
 
 def test_catalog_has_light_original_id_core_and_explicit_validation_metadata():
     snapshot = StandardPackageCatalog(standard_dist_root()).snapshot()
-    assert len(snapshot["packages"]) == 41
-    assert len(snapshot["planned"]) == 58
+    # Every module in the IG 3 catalog is compiled; none is left planned.
+    assert len(snapshot["packages"]) == 99
+    assert len(snapshot["planned"]) == 0
     assert snapshot["historical"]
     assert snapshot["diagnostics"]["validation_scope"] == "structural_only"
     package = next(p for p in snapshot["packages"] if p["disclosure_requirement"] == "E1-5")

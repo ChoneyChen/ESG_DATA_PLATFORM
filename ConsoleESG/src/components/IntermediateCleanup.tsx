@@ -18,7 +18,7 @@ export function IntermediateCleanup({session}:{session:Row}){
  return <Section title="任务残留与中间缓存">
   <p>任务结束后可先删除记录，再核查未引用的缓存。这里只回收安全的中间文件，不会删除 PDF、OCR、结构证据、来源事实或已交付成果。</p>
   {!native&&<Notice>此任务尚无可确认的原生提取会话；可先整理任务记录，准备阶段成果在报告处理中管理。</Notice>}
-  {!credentials.token&&<Notice>缓存管理需要管理员工作台凭据。请先在工作台连接凭据。</Notice>}
+  {!credentials.token&&<Notice>数据平台未连接，缓存管理暂不可用。</Notice>}
   {native&&!archived&&<Notice>先取消进行中的任务，等待执行退出，再使用“删除记录（可恢复）”。归档后可以核查中间缓存。</Notice>}
   <button type="button" className="secondary" disabled={busy||!native||!archived||!credentials.token} onClick={check}>{busy?'正在核查…':'核查可清理的中间缓存'}</button>
   {plan&&<div className="confirm-box"><h3>本次可回收 {plan.candidates.length} 个文件 · {bytes(plan.total_size_bytes || 0)}</h3>

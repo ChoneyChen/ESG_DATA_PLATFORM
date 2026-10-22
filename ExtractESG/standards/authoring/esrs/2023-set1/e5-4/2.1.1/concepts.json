@@ -1,0 +1,90 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp01",
+    "description": "Disclosure of information on material resource inflows。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of information on material resource inflows"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp02",
+    "description": "Overall total weight of products and technical and biological materials used during the reporting period。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Overall total weight of products and technical and biological materials used during the reporting period"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp03",
+    "description": "Percentage of biological materials (and biofuels used for non-energy purposes)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Percentage of biological materials (and biofuels used for non-energy purposes)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp04",
+    "description": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp05",
+    "description": "Percentage of secondary reused or recycled components, secondary intermediary products and secondary materials。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Percentage of secondary reused or recycled components, secondary intermediary products and secondary materials"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp06",
+    "description": "Description of methodologies used to calculate data and key assumptions used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of methodologies used to calculate data and key assumptions used"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp07",
+    "description": "Description of materials that are sourced from by-products or waste stream。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of materials that are sourced from by-products or waste stream"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-4.concept.dp08",
+    "description": "Description of how double counting was avoided and of choices made。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of how double counting was avoided and of choices made"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-4.source.law",
+      "esrs.2023-set1.e5-4.source.ig3"
+    ]
+  }
+]

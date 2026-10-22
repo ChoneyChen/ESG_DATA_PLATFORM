@@ -1,0 +1,222 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp01",
+    "description": "Characteristics of undertaking's employees - number of employees by gender [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Characteristics of undertaking's employees - number of employees by gender [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp02",
+    "description": "Number of employees (head count)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of employees (head count)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp03",
+    "description": "Average number of employees (head count)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Average number of employees (head count)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp04",
+    "description": "Characteristics of undertaking's employees - number of employees in countries with 50 or more employees representing at least 10% of total number of employees [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Characteristics of undertaking's employees - number of employees in countries with 50 or more employees representing at least 10% of total number of employees [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp05",
+    "description": "Number of employees in countries with 50 or more employees representing at least 10% of total number of employees。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of employees in countries with 50 or more employees representing at least 10% of total number of employees"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp06",
+    "description": "Average number of employees in countries with 50 or more employees representing at least 10% of total number of employees。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Average number of employees in countries with 50 or more employees representing at least 10% of total number of employees"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp07",
+    "description": "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp08",
+    "description": "Characteristics of undertaking's employees - information on employees by region [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Characteristics of undertaking's employees - information on employees by region [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp09",
+    "description": "Number of employees (head count or full-time equivalent)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of employees (head count or full-time equivalent)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp10",
+    "description": "Average number of employees (head count or full-time equivalent)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Average number of employees (head count or full-time equivalent)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp11",
+    "description": "Number of employee who have left undertaking。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of employee who have left undertaking"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp12",
+    "description": "Percentage of employee turnover。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Percentage of employee turnover"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp13",
+    "description": "Description of methodologies and assumptions used to compile data (employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Description of methodologies and assumptions used to compile data (employees)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp14",
+    "description": "Employees numbers are reported in head count or full-time equivalent。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Employees numbers are reported in head count or full-time equivalent"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp15",
+    "description": "Employees numbers are reported at end of reporting period/average/other methodology。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Employees numbers are reported at end of reporting period/average/other methodology"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp16",
+    "description": "Disclosure of contextual information necessary to understand data (employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data (employees)"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp17",
+    "description": "Disclosure of cross-reference of information reported under paragragph 50 (a) to most representative number in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "labels": {
+      "en": "Disclosure of cross-reference of information reported under paragragph 50 (a) to most representative number in financial statements"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp18",
+    "description": "Further detailed breakdown by gender and by region [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "labels": {
+      "en": "Further detailed breakdown by gender and by region [table]"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp19",
+    "description": "Number of full-time employees by head count or full time equivalent。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of full-time employees by head count or full time equivalent"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-6.concept.dp20",
+    "description": "Number of part-time employees by head count or full time equivalent。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "labels": {
+      "en": "Number of part-time employees by head count or full time equivalent"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-6.source.law",
+      "esrs.2023-set1.s1-6.source.ig3"
+    ]
+  }
+]

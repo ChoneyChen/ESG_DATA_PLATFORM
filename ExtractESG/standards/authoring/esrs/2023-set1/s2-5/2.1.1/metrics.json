@@ -1,0 +1,842 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in setting targets。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "disclosure_requirement": "S2-5",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s2-5.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in setting targets",
+      "zh": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in setting targets"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.target-ref",
+      "esrs.2023-set1.s2-5.dimension.target-year"
+    ],
+    "paragraph": "42 a ",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-5_01",
+        "S2",
+        "S2-5",
+        "42 a ",
+        null,
+        "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in setting targets ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "27160ac027ccc067478d428f944984fb862bfc97477ec28187def2765d90da64",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 67,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "source_datapoint_id": "S2-5_01",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-5.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in tracking performance against targets。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "disclosure_requirement": "S2-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-5.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in tracking performance against targets",
+      "zh": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in tracking performance against targets"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.target-ref",
+      "esrs.2023-set1.s2-5.dimension.target-year"
+    ],
+    "paragraph": "42 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-5_02",
+        "S2",
+        "S2-5",
+        "42 b",
+        null,
+        "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in tracking performance against targets ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "80b3d668a5dfe7aaa468faef96df4085c51a0014fde3264f9b1119ace6f70f94",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 68,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "source_datapoint_id": "S2-5_02",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-5.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in identifying lessons or improvements as result of undertaking’s performance。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "disclosure_requirement": "S2-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-5.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in identifying lessons or improvements as result of undertaking’s performance",
+      "zh": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in identifying lessons or improvements as result of undertaking’s performance"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.target-ref",
+      "esrs.2023-set1.s2-5.dimension.target-year"
+    ],
+    "paragraph": "42 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-5_03",
+        "S2",
+        "S2-5",
+        "42 c",
+        null,
+        "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in identifying lessons or improvements as result of undertaking’s performance ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "c4529cdf40e83a7eb30b787e2bc3c9139fede81af9a8b20f72cf1bbcc48c9735",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 69,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "source_datapoint_id": "S2-5_03",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-5.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of intended outcomes to be achieved in lives of  value chain workers。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "disclosure_requirement": "S2-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-5.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of intended outcomes to be achieved in lives of  value chain workers",
+      "zh": "Disclosure of intended outcomes to be achieved in lives of  value chain workers"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.target-ref",
+      "esrs.2023-set1.s2-5.dimension.target-year"
+    ],
+    "paragraph": "AR 45 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-5_04",
+        "S2",
+        "S2-5",
+        "AR 45 a",
+        null,
+        "Disclosure of intended outcomes to be achieved in lives of  value chain workers  ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "0fdb7b9d08e4e86ab314e75a9e33b8f52368e5e1513c3a1d7773817b44bf3e30",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 70,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "source_datapoint_id": "S2-5_04",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-5.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Information about stability over time of target in terms of definitions and methodologies to enable comparability。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "disclosure_requirement": "S2-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-5.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Information about stability over time of target in terms of definitions and methodologies to enable comparability",
+      "zh": "Information about stability over time of target in terms of definitions and methodologies to enable comparability"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.target-ref",
+      "esrs.2023-set1.s2-5.dimension.target-year"
+    ],
+    "paragraph": "AR 45 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-5_05",
+        "S2",
+        "S2-5",
+        "AR 45 b",
+        null,
+        "Information about stability over time of target in terms of definitions and methodologies to enable comparability ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "fb880fa90a57d400f477ebf708130ed7e68fe2c9389e3dc524b59d1550520876",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 71,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "source_datapoint_id": "S2-5_05",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-5.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of references to standards or commitments on which target is based。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "disclosure_requirement": "S2-5",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-5.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "labels": {
+      "en": "Disclosure of references to standards or commitments on which target is based",
+      "zh": "Disclosure of references to standards or commitments on which target is based"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "target_year"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "policy_action_target",
+      "unit_dimension": null,
+      "value_role": "target"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.target-ref",
+      "esrs.2023-set1.s2-5.dimension.target-year"
+    ],
+    "paragraph": "AR 45 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-5_06",
+        "S2",
+        "S2-5",
+        "AR 45 c",
+        null,
+        "Disclosure of references to standards or commitments on which target is based ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "29a3e9a045933769d330e0909699e70eae3997c998d16d59b4c1f3de045ecda7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 72,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "source_datapoint_id": "S2-5_06",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-5.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]
