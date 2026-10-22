@@ -27,10 +27,10 @@ function readState(asset:Row, versions:Row[]){
   const structures=versions.flatMap(irVersions);
   if(asset.processing_status==='failed'||versions.some(v=>v.status==='failed'))return {key:'failed',label:'提取失败',tone:'failed',next:'重新提取'};
   if(!structures.length)return {key:'read',label:'读取中 · 待建证据',tone:'review',next:'继续提取'};
-  return {key:'ready',label:'可提取',tone:'ready',next:'提取指标'};
+  return {key:'ready',label:'已读取',tone:'ready',next:'重新提取'};
 }
 
-const FILTERS=[['all','全部'],['unread','未提取'],['ready','可提取'],['failed','有问题']] as const;
+const FILTERS=[['all','全部'],['unread','未提取'],['ready','已读取'],['failed','有问题']] as const;
 
 export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}){
  const {refresh}=useWorkspace();
@@ -76,7 +76,7 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
  return <>
   <div className="page-heading">
     <div><span className="eyebrow">第 1 步 · 报告</span><h1>报告资产</h1><p>选一份 PDF 就能开始提取；读取页面与构建结构证据在提取中自动完成。</p></div>
-    <div className="asset-summary"><span><strong>{rows.length}</strong> 份 PDF</span><span><strong>{ocrCount}</strong> 个读取版本</span><span><strong>{described.filter(d=>d.state.key==='ready').length}</strong> 可提取</span></div>
+    <div className="asset-summary"><span><strong>{rows.length}</strong> 份 PDF</span><span><strong>{ocrCount}</strong> 个读取版本</span><span><strong>{described.filter(d=>d.state.key==='new').length}</strong> 未提取</span></div>
   </div>
   {resource.data?.compatibility_view&&<Notice>当前显示已有服务的来源关系。新的处理与删除入口将在服务更新后启用，正在执行的任务继续处理。</Notice>}
   {pendingDeletions.length>0&&<div className="asset-pending-deletions">{pendingDeletions.map(pending=>{
