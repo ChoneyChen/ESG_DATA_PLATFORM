@@ -17,7 +17,9 @@ from esg_targeted.foundation.text_pass import (
 )
 from esg_targeted.ir.loader import DocumentIrLoader, LoadedDocumentIr
 
-ENGINE_VERSION = "foundation16-engine-v1"
+# Bump whenever the binding, guard or consolidation rules change meaning. A
+# saved result from an older rule set is never presented as a current one.
+ENGINE_VERSION = "foundation16-engine-v2"
 
 
 SCOPE2_UNSTATED_FLAGS = ("scope2_method_unstated", "scope2_method_not_stated_in_source")

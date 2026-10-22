@@ -534,6 +534,10 @@ def get_foundation16_result(session_id: str) -> dict:
                 "plan": json.loads(plan_path.read_text()) if plan_path.is_file() else None,
                 "execution_status": session.get("execution_status")}
     result = json.loads(result_path.read_text())
+    from esg_targeted.foundation.engine import ENGINE_VERSION
+    result["engine_version"] = result.get("engine_version") or ENGINE_VERSION
+    result["stale_engine"] = result["engine_version"] != ENGINE_VERSION
+    result["current_engine_version"] = ENGINE_VERSION
     for conclusion in result["conclusions"]:
         metric = BY_CODE[conclusion["code"]]
         conclusion.update(group=metric.group, group_label=GROUP_LABELS.get(metric.group, metric.group),

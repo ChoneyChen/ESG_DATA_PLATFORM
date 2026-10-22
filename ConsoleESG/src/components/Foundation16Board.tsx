@@ -217,7 +217,7 @@ function download(name: string, text: string) {
   URL.revokeObjectURL(url);
 }
 
-export function Foundation16Board({sessionId}: {sessionId: string}) {
+export function Foundation16Board({sessionId, assetId}: {sessionId: string; assetId?: string}) {
   const resource = useResource('document', `/api/report-sessions/${encodeURIComponent(sessionId)}/foundation16`);
   const [visible, setVisible] = useState<ColumnKey[]>(['code', 'label', 'status', 'value', 'unit', 'period', 'page', 'flags', 'detail']);
   const [open, setOpen] = useState<string | null>(null);
@@ -265,6 +265,13 @@ export function Foundation16Board({sessionId}: {sessionId: string}) {
         <button type="button" className="secondary" onClick={() => download(`${result.document_label || 'foundation16'}-16项基础指标.csv`, foundationCsv(conclusions))}>导出 CSV</button>
       </div>
     }>
+      {result.stale_engine && (
+        <Notice>
+          这份成果由较早的提取规则生成（{result.engine_version}，当前 {result.current_engine_version}），
+          结论可能在成员或口径上与本版本不同。
+          {assetId && <button type="button" className="text-button" onClick={() => navigate(`/extractions/new?asset=${encodeURIComponent(assetId)}`)}>按当前规则重新提取</button>}
+        </Notice>
+      )}
       <div className="f16-header">
         <div>
           <p className="muted">

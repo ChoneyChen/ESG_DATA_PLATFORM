@@ -41,7 +41,7 @@ export function Extractions({sessionId,standaloneJobId,newTask=false,params}:{se
  const sessions=items(list.data,'sessions'),standalone=standaloneJobsFromCatalog(items(history.data),items(reports.data),sessions),historyComplete=history.data?.status==='available';
  return <><div className="page-heading"><div><span className="eyebrow">定向数据生产</span><h1>提取任务</h1><p>明确所选原编号，分别查看范围处理、可审核事实、缺口及交付结果。</p></div><button onClick={()=>navigate('/extractions/new')}>新建定向提取</button></div>
  {newTask?<ExtractionCreator params={params}/>:standaloneJobId?<><Section title="历史独立提取 · 只读成果"><Notice>此任务没有父报告会话，可查看原来源与成果，删除条件由后端核查。</Notice><button className="secondary" onClick={()=>navigate('/extractions')}>返回提取任务</button></Section><StandaloneManagement jobId={standaloneJobId}/><ProjectionInspection jobId={standaloneJobId}/></>:sessionId?<SessionDetail sessionId={sessionId} initialTab={params.get('tab')==='deliver'?'deliver':undefined}/>:<>
- <Section title="报告提取会话"><BatchRecordDelete rows={endedRecords(sessions)} kind="session" idKey="session_id"/><ResourceState error={list.error} loading={list.loading&&!list.data} empty={!list.loading&&!sessions.length}/>{sessions.map(s=>{const counts=sessionOutputCounts(s);return <article className="work-item" key={s.session_id}><div><strong>{s.name}</strong><p>{s.request?.standards?.length || 0} 个标准包 · {counts.total} 个输出条款{counts.extensions>0?`（原条款 ${counts.originals} 项；延伸 ${counts.extensions} 项）`:''}</p><ReportReadNotice row={s}/></div><Badge value={s.execution_status}/><Badge value={s.result_status}/><SessionDeliveryBadge sessionId={s.session_id}/><button className="secondary" onClick={()=>navigate(`/extractions/${s.session_id}`)}>范围、成果与缺口</button><RecordManagement record={s} kind="session" id={s.session_id} compact/></article>})}</Section>
+ <Section title="报告提取会话"><BatchRecordDelete rows={endedRecords(sessions)} kind="session" idKey="session_id"/><ResourceState error={list.error} loading={list.loading&&!list.data} empty={!list.loading&&!sessions.length}/>{sessions.map(s=><SessionRow key={s.session_id} session={s}/>)}</Section>
  <Section title="历史独立提取"><ResourceState error={history.error} loading={history.loading&&!history.data} empty={historyComplete&&!history.loading&&!standalone.length}/>{history.data?.status==='partial'&&<Notice>历史目录读取不完整，以下为已确认记录；其余记录尚待读取。</Notice>}{history.data?.status==='unavailable'&&<Notice tone="error">历史目录暂不可读，不能据此判断没有历史任务。{history.data.error || history.data.reason}</Notice>}{standalone.map(job=><article className="work-item" key={job.job_id}><div><strong>{job.title || job.disclosure_requirement || job.job_id}</strong><p>{job.report_title} · {job.disclosure_requirement || job.standard_id || '标准身份见原任务'}</p>{job.diagnostics?.length>0&&<p>来源或身份待核对，保留原任务供检查。</p>}</div><Badge value={job.status}/><button className="secondary" onClick={()=>navigate(`/extractions/standalone/${encodeURIComponent(job.job_id)}`)}>只读查看历史成果</button><RecordManagement record={job} kind="job" id={job.job_id} compact/></article>)}</Section></>}
  </>;
 }
@@ -89,11 +89,48 @@ function PreparedPlan({plan}:{plan:Row}){
  return <div className="prepared-plan"><h3>后端确认的读取方式与模型</h3><p>{preparationText(preparation)}</p><div className="chips"><span>理解与事实解释：{label(roles.semantic_brain || {})}</span><span>模板抽取：{label(roles.specialist || {})}</span>{!preparation.ir_reused&&<span>文字层不可用页：{preparation.ocr_provider==='paddle_api'?'云端 ':''}{preparation.ocr_model || 'PaddleOCR-VL'}</span>}</div>{!preparation.ir_reused&&<p className="muted">必要模型复核：{preparation.required_reviews?'开启':'关闭'} · 额外视觉复核：{preparation.optional_reviews?'开启':'关闭'}</p>}</div>;
 }
 export function PlanPreview({plan}:{plan:Row}){const clauses=(rows:Row[])=>rows.map((c,i)=><li key={c.metric_id || i}><strong>{c.source_datapoint_id || (c.clause_kind==='project_extension'?'项目延伸':c.metric_id)}</strong> {c.label || c.description}</li>);return <Section title={`实际计划 · ${plan.report_name}`}><PreparedPlan plan={plan}/><div className="two-columns"><div><h3>所选输出（{plan.output_count ?? plan.selected_outputs?.length ?? '以合同为准'}）</h3><ul>{clauses(plan.selected_outputs || [])}</ul>{plan.extension_output_count>0&&<Notice>原条款 {plan.original_output_count} 项；项目延伸 {plan.extension_output_count} 项；内部操作数 {plan.internal_operand_count} 项。内部依赖不计入所选输出。</Notice>}<h3>必要身份与方法</h3><ul>{(plan.identity_requirements || []).map((r:Row,i:number)=><li key={i}><strong>{r.source_datapoint_id}</strong>：{r.identity_axes?.join('、')}</li>)}</ul></div><div><h3>共用背景（不扩大输出）</h3><ul>{(plan.context_requirements || []).map((r:Row,i:number)=><li key={i}>{r.description}<ul>{clauses(r.clauses || [])}</ul></li>)}</ul><h3>内部计算依赖</h3><ul>{(plan.internal_dependencies || []).map((r:Row,i:number)=><li key={i}>{r.package_id}：{r.metric_ids?.join('、') || '无额外依赖'}</li>)}</ul><h3>证据限制</h3><ul>{(plan.evidence_limitations || []).map((r:Row,i:number)=><li key={i}>{r.message || r.reason}</li>)}</ul></div></div><details><summary>计算操作数与排除条件</summary><Diagnostics value={{formula_operands:plan.formula_operands,exclusions:plan.exclusions}}/></details><Diagnostics value={plan} title="角色、预算、输入身份与冻结计划"/></Section>;}
+/**
+ * One extraction session in the list.
+ *
+ * The single question here is "what now": continue a stopped run, look at a
+ * finished one, or wait. A stopped run names its cause instead of showing a
+ * bare "failed", because a temporarily unavailable dependency is not a result.
+ */
+function SessionRow({session:s}:{session:Row}){
+ const {refresh}=useWorkspace();const [busy,setBusy]=useState(false),[message,setMessage]=useState('');
+ const counts=sessionOutputCounts(s);
+ const actions:Row[]=Array.isArray(s.available_actions)?s.available_actions:[];
+ const resume=actions.find(a=>a.action==='resume'&&a.enabled!==false);
+ const cancel=actions.find(a=>a.action==='cancel'&&a.enabled!==false);
+ const active=['running','queued'].includes(String(s.execution_status));
+ const stopped=!active&&['failed','interrupted','cancelled'].includes(String(s.execution_status));
+ const reason=String(s.error||'').replace(/^HTTPException:\s*\d+:\s*/,'');
+ async function run(action:Row){
+  if(!action.endpoint)return;
+  setBusy(true);setMessage('');
+  try{await post('document',action.endpoint,{});refresh();}
+  catch(e){setMessage((e as Error).message);}
+  finally{setBusy(false);}
+ }
+ return <article className="work-item">
+  <div><strong>{s.name}</strong>
+   <p>{s.request?.standards?.length || 0} 个标准包 · {counts.total} 个输出条款{counts.extensions>0?`（原条款 ${counts.originals} 项；延伸 ${counts.extensions} 项）`:''}</p>
+   {stopped&&reason&&<p className="session-stop-reason">已停止：{reason}。成果保留，可继续执行。</p>}
+   <ReportReadNotice row={s}/>{message&&<p className="session-stop-reason">{message}</p>}
+  </div>
+  <Badge value={s.execution_status}/><Badge value={s.result_status}/>{s.database_status && s.database_status!=='not_imported'?<SessionDeliveryBadge sessionId={s.session_id}/>:<span className="muted-chip">未交付</span>}
+  {resume&&<button disabled={busy} onClick={()=>void run(resume)}>{busy?'正在继续…':'继续执行'}</button>}
+  {active&&cancel&&<button className="secondary" disabled={busy} onClick={()=>void run(cancel)}>取消</button>}
+  <button className="secondary" onClick={()=>navigate(`/extractions/${s.session_id}`)}>{active?'查看进度':'范围、成果与缺口'}</button>
+  <RecordManagement record={s} kind="session" id={s.session_id} compact/>
+ </article>;
+}
+
 function SessionDetail({sessionId,initialTab}:{sessionId:string,initialTab?:string}){const resource=useResource('document',`/api/report-sessions/${encodeURIComponent(sessionId)}`),facts=useResource('document',`/api/report-sessions/${encodeURIComponent(sessionId)}/facts`);const [tab,setTab]=useState(initialTab || 'results'),[selectedFact,setSelectedFact]=useState<Row>();const [deliverySelection,setDeliverySelection]=useState({sessionId,reportId:''});const deliveryReportId=deliverySelection.sessionId===sessionId?deliverySelection.reportId:'';const setDeliveryReportId=(reportId:string)=>setDeliverySelection({sessionId,reportId});const deliveryState=useDeliveryStatus(sessionId,deliveryReportId || undefined);const session=resource.data?.session || resource.data;const foundation=session?.request?.extraction_route==='foundation16';const defaultTab=initialTab || (foundation?'foundation':'results');useEffect(()=>{setTab(defaultTab);setSelectedFact(undefined);},[sessionId,defaultTab]);return <><ResourceState error={resource.error} loading={resource.loading&&!session}/>{session&&<><Section title={session.name} action={<Badge value={session.execution_status}/>}><div className="outcome-grid"><div><small>执行</small><Badge value={session.execution_status}/></div><div><small>成果</small><Badge value={session.result_status}/></div><div><small>来源存档与候选入库</small><DeliveryStatusBadge data={deliveryState.data} error={deliveryState.error} loading={deliveryState.loading}/></div></div>{session.error&&<Notice tone="error">{session.error}{session.read_error?.request_id&&<span> · 问题编号 {session.read_error.request_id}</span>}</Notice>}{session.state_notice&&<ReportReadNotice row={session}/>}<RecordManagement record={session} kind="session" id={sessionId}/><Actions actions={workActions(session.available_actions)} revision={session.revision}/></Section>{/* Four tabs, in the order an operator works: what was found, where it came
   from, what still blocks it, and how it reaches review. Fixed scope is an
   input, so it sits inside the results tab instead of competing for a slot. */}
   <div className="tabs" role="tablist">{[...(foundation?[['foundation','16项基础指标']]:[]),['results',foundation?'分包成果':'条款成果'],['facts','共享来源事实'],['progress','阶段与运行'],['deliver','交付审核']].map(([key,title])=><button key={key} role="tab" aria-selected={tab===key} onClick={()=>setTab(key)}>{title}</button>)}</div>
- {tab==='foundation'&&<Foundation16Board sessionId={sessionId}/>}
+ {tab==='foundation'&&<Foundation16Board sessionId={sessionId} assetId={session?.request?.input?.asset_id}/>}
  {tab==='results'&&<><details className="scope-summary"><summary>本次固定的输出范围（原版本，不随标准更新改变）</summary><SelectedScope session={session}/></details>{session.job_ids?.map((id:string)=><ProjectionInspection key={id} jobId={id}/>)}</>}
  {tab==='facts'&&<Section title="来源事实（候选，不等同于条款映射）"><ResourceState error={facts.error} loading={facts.loading&&!facts.data}/><div className="table-scroll"><table><thead><tr><th>来源名称</th><th>报告原值</th><th>单位</th><th>主体与期间</th><th>证据</th></tr></thead><tbody>{(facts.data?.facts || []).map((f:Row)=><tr key={f.source_fact_id}><td>{f.source_row_label || f.identity_raw?.indicator_name || '正文陈述'}</td><td>{f.value_raw ?? f.statement_raw}</td><td>{f.unit_raw || '未记录'}</td><td>{f.identity_raw?.reporting_entity || f.semantics?.reporting_entity || '主体待核对'}<small className="table-secondary">{f.identity_raw?.reporting_period || f.semantics?.reporting_period || '期间待核对'}</small></td><td><button className="text-button" onClick={()=>setSelectedFact(f)}>核对原文</button></td></tr>)}</tbody></table></div>{selectedFact&&<Section title="所选事实来源"><p className="raw-text">{selectedFact.value_raw ?? selectedFact.statement_raw}</p><ul>{selectedFact.physical_sources?.map((s:Row,i:number)=><li key={i}>PDF 第 {s.pdf_page_index+1} 页 · <button className="text-button" onClick={()=>navigate(`/processing?ir=${selectedFact.ir_run_id}&page=${s.pdf_page_index}&object=${encodeURIComponent(s.ir_object_id)}`)}>定位原文对象</button></li>)}</ul><Diagnostics value={selectedFact.identity_raw} title="原始身份及推断边界"/></Section>}</Section>}
  {tab==='progress'&&<Section title="运行进度"><PipelineProgress session={session}/></Section>}
