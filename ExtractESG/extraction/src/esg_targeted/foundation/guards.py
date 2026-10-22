@@ -55,6 +55,18 @@ AIR_POLLUTANT_RE = _rx(r"氮氧化", r"(?<![a-z0-9])nox(?![a-z0-9])", r"(?<![a-z
 WATER_POLLUTANT_RE = _rx(r"化学需氧量", r"(?<![a-z0-9])cod(?![a-z0-9])", r"生化需氧量", r"(?<![a-z0-9])bod(?![a-z0-9])", r"氨氮", r"nh\s*3\s*-?\s*n", r"总氮", r"总磷", r"石油类", r"悬浮物", r"(?<![a-z0-9])ss(?![a-z0-9])", r"氰化物", r"氟化物", r"硫化物", r"挥发酚", r"重金属", r"铜", r"锌", r"铅", r"镉", r"汞", r"砷", r"铬", r"镍", r"ammonia", r"chemical\s+oxygen", r"nitrogen", r"phosph", r"heavy\s+metal", r"水污染物", r"废水污染物")
 AIR_ONLY_RE = _rx(r"氮氧化", r"(?<![a-z0-9])nox(?![a-z0-9])", r"二氧化硫", r"so\s*2", r"硫氧化", r"(?<![a-z0-9])sox(?![a-z0-9])", r"颗粒", r"烟尘", r"粉尘", r"挥发性有机", r"(?<![a-z0-9])vocs?(?![a-z0-9])", r"硫酸雾", r"一氧化碳", r"particulate", r"dust")
 WATER_ONLY_RE = _rx(r"化学需氧量", r"(?<![a-z0-9])cod(?![a-z0-9])", r"生化需氧量", r"(?<![a-z0-9])bod(?![a-z0-9])", r"氨氮", r"总磷", r"总氮", r"悬浮物", r"石油类")
+# A regulatory limit, permit or quota is a different quantity from the actual
+# amount, even when a report prints both in one table: Chinese permits print
+# "核定的年度二氧化硫排放总量" next to "外排废气中二氧化硫量". Treating the
+# permit as a rival value turns an otherwise correct extraction into a conflict.
+REGULATORY_LIMIT_RE = _rx(
+    r"核定(?:的)?[^，。；]{0,20}(?:总量|排放量|量|配额|额度)", r"许可[^，。；]{0,16}排放",
+    r"排污许可", r"排放许可证",
+    r"排放(?:配额|额度|限额|上限)", r"允许排放", r"总量控制指标",
+    r"(?:approved|permitted|allowed)\s+(?:annual\s+)?(?:emission|discharge)",
+    r"(?:emission|discharge)\s+(?:limit|cap|allowance|quota|ceiling)",
+    r"(?:regulatory|permitted)\s+limit",
+)
 POLLUTANT_EXCLUDE_RE = _rx(r"浓度", r"concentration", r"mg\s*/", r"达标", r"compliance", r"去除", r"removal", r"减排", r"reduction", r"温室", r"ghg", r"二氧化碳(?!硫)", r"\bco\s*2\b", r"co₂", r"废水量", r"废水排放量", r"wastewater\s+(?:volume|discharge)")
 
 SUBSTANCE_RE = _rx(r"关注物质", r"高度关注", r"高关注", r"svhc", r"substances?\s+of\s+(?:very\s+high\s+)?concern", r"有毒有害物质", r"有害物质", r"危险化学品", r"hazardous\s+substance")
@@ -108,6 +120,10 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
     unit = normalize(unit) if unit else unit
     scope_text = f"{section or ''} {text}"
     flags: list[str] = []
+    # Applied before every concept rule: no disclosure of an actual amount is a
+    # permit, quota or regulatory ceiling, whatever metric it is mapped to.
+    if not code.startswith("E1-8") and REGULATORY_LIMIT_RE.search(text):
+        return _reject("label_is_regulatory_limit_not_actual")
     review = False
     last = text.split(" › ")[-1]
     # A bare total or method-only row takes its subject from the section and table title.

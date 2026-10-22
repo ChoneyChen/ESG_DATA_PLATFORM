@@ -54,14 +54,14 @@ it('新资产接口返回500时显示错误，不偷偷换旧接口隐藏故障'
 });
 it('悬浮状态点击展开真实任务，不派发任务',async()=>{mount(<FloatingProcessingStatus/>);await waitFor(()=>expect(screen.getByRole('button',{name:'展开处理状态'}).textContent).toContain('1'));expect(screen.queryByRole('dialog')).toBeNull();fireEvent.click(screen.getByRole('button',{name:'展开处理状态'}));expect(screen.getByRole('dialog',{name:'处理状态'})).toBeTruthy();expect(screen.getByText('正在识别合成PDF')).toBeTruthy();expect(calls.every(c=>c.method==='GET')).toBe(true);});
 it('直接主要指标提取复用生产计划，保留原号及快照，仅提交一个父计划',async()=>{credentials.set('synthetic-token','operator',['admin']);await startLibraryProduction([asset],'processing_extraction',profile,catalog);const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing_extraction');expect(preview.processing.mode).toBe('auto');expect(preview.extraction.selection_snapshot).toEqual(snapshot);expect(preview.extraction.standards[0].metric_ids).toEqual(['original-metric']);expect(preview.extraction.completeness).toBe('balanced');expect(preview.processing.config.execute_optional_reviews).toBe(false);expect(preview.processing.config.execute_required_reviews).toBe(false);expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);expect(calls.some(c=>c.url.includes('archive'))).toBe(false);});
-it('已有读取版本的重新读取按钮明确要求重新读取，不被自动复用替代',async()=>{
+it('已有读取版本时直接提取，读取在提取内部自动复用',async()=>{
  credentials.set('synthetic-token','operator',['admin']);mount(<Reports/>);await screen.findByText('ocr-second');
- fireEvent.click(screen.getByRole('button',{name:'重新读取页面'}));
+ fireEvent.click(screen.getByRole('button',{name:'直接提取主要指标'}));
  await waitFor(()=>expect(calls.some(c=>c.url==='/document/api/production-automations')).toBe(true));
- const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing');expect(preview.processing.mode).toBe('reprocess');expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);
+ const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing_extraction');expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);
 });
 it('显示后端真实的待删除状态，不把202当作已经删除',async()=>{
  const normal=globalThis.fetch;vi.stubGlobal('fetch',vi.fn((url:string,options:RequestInit={})=>url==='/document/api/report-library'?json({items:[{...asset,ocr_versions:[],ocr_count:0}],pending_deletions:[{kind:'pdf',identity:asset.asset_id,status:'deletion_pending'}],unlinked_ocr:[]}):normal(url,options)));
- mount(<Reports/>);await screen.findByText(/正在停止关联任务，退出后自动删除/);expect(screen.getByRole('button',{name:'读取页面并构建证据'})).toBeTruthy();expect(screen.queryByText('已删除')).toBeNull();expect(calls.every(c=>c.method==='GET')).toBe(true);
+ mount(<Reports/>);await screen.findByText(/正在停止关联任务，退出后自动删除/);expect(screen.getByRole('button',{name:'提取指标'})).toBeTruthy();expect(screen.queryByText('已删除')).toBeNull();expect(calls.every(c=>c.method==='GET')).toBe(true);
 });
 it('未连接权限时不发任务',async()=>{await expect(startLibraryProduction([asset],'processing')).rejects.toThrow(/权限|连接/);expect(calls).toHaveLength(0);});

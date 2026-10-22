@@ -189,6 +189,9 @@ class LibraryDeletionService:
         rows = []
         for path in paths:
             path = Path(path)
+            if not path.exists() and not path.is_symlink():
+                # Already removed by a sibling deletion in the same cleanup.
+                continue
             if path.is_symlink():
                 raise LifecycleBlocked([blocker("unsafe_source_path", "来源包含符号链接，删除已停止。")])
             children = [path] if path.is_file() else [path, *sorted(path.rglob("*"))]
@@ -206,14 +209,14 @@ class LibraryDeletionService:
     def _digest(value):
         return hashlib.sha256(json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
-    def _ocr_parts(self, run_id):
+    def _ocr_parts(self, run_id, *, ocr=None, ir=None):
         if not self.inventory:
             raise ValueError("OCR library is not configured")
-        ocr = self._ocr_rows()
+        ocr = self._ocr_rows() if ocr is None else ocr
         row = ocr.get(run_id)
         if row is None:
             raise KeyError(run_id)
-        ir = self.inventory._discover_ir_runs(ocr)
+        ir = self.inventory._discover_ir_runs(ocr) if ir is None else ir
         selected = {key for key, value in ir.items() if value.get("ocr_run_id") == run_id}
         # All descendants belong to the same deleted evidence lineage, even if
         # an old repair manifest omitted its direct OCR link.
@@ -228,15 +231,24 @@ class LibraryDeletionService:
         paths = [Path(entry["absolute_path"]) for entry in entries]
         retention=self.inventory.cleanup_root/'ir-retention'/'current'/f'{run_id}.json'
         if retention.is_file():paths.append(retention)
+        for path in paths:
+            if path != retention:self.inventory._require_owned_path(path)
+        # The identity covers the run's own outputs, not bookkeeping pins: a pin
+        # may be shared with a sibling run and disappear when that run is
+        # deleted first, which must not look like a changed OCR result.
+        snapshot = {"row": row, "linked_ir_ids": sorted(selected), "paths": self._path_snapshot(paths)}
+        digest = self._digest(snapshot)
+        paths = paths + self._pins_for(selected)
+        return row, sorted(selected), paths, digest
+
+    def _pins_for(self, run_ids) -> list[Path]:
+        pins=[]
         for pin in (self.inventory.ir_output_root/'.pins').glob('*.json'):
             try:
                 record=json.loads(pin.read_text())
-                if (record.get('run_id') or record.get('ir_run_id')) in selected:paths.append(pin)
+                if (record.get('run_id') or record.get('ir_run_id')) in run_ids:pins.append(pin)
             except (OSError,ValueError):continue
-        for path in paths:
-            if path != retention:self.inventory._require_owned_path(path)
-        snapshot = {"row": row, "linked_ir_ids": sorted(selected), "paths": self._path_snapshot(paths)}
-        return row, sorted(selected), paths, self._digest(snapshot)
+        return sorted(pins)
 
     def pdf_library(self):
         assets=self.catalog.refresh(include_archived=True)['assets']
@@ -269,20 +281,30 @@ class LibraryDeletionService:
 
     def ocr_library(self):
         rows=self._ocr_rows()
+        ir=self.inventory._discover_ir_runs(rows) if self.inventory else {}
         items=[]
         for identity,row in sorted(rows.items(),reverse=True):
-            action=self._action(f'/api/ocr-library/{identity}',{})
+            # The list must advertise the exact identity the DELETE endpoint
+            # verifies. An empty payload made every client-side delete fail
+            # before a request was ever sent.
+            _,linked,_,digest=self._ocr_parts(identity,ocr=rows,ir=ir)
+            action=self._action(f'/api/ocr-library/{identity}',{'identity_sha256':digest},linked_count=len(linked))
             action.update(preflight_endpoint=f'/api/ocr-library/{identity}',requires_operator=True,
                 confirmation_message='确认删除这份 OCR、关联结构与本地处理记录？保留 PDF 和其他 OCR 版本。')
-            items.append({**row,'title':row.get('document_label'),'available_actions':[action]})
+            items.append({**row,'title':row.get('document_label'),'identity_sha256':digest,
+                'linked_ir_ids':sorted(linked),'available_actions':[action]})
         return {'schema_version':'ocr-library-v1','items':items,'count':len(items),'generated_at':_now()}
 
     def report_library(self):
         pdf=self.pdf_library()['items'];ocr=self.ocr_library()['items']
-        ir=self.inventory._discover_ir_runs({row['run_id']:row for row in ocr}) if self.inventory else {}
+        ir_rows={row['run_id']:row for row in ocr}
+        ir=self.inventory._discover_ir_runs(ir_rows) if self.inventory else {}
         children={}
         for row in ir.values():
-            action=self._action(f"/api/document-ir/jobs/{row['run_id']}",{})
+            _,selected,_,digest=self._ir_parts(row['run_id'],ocr=ir_rows,ir=ir)
+            action=self._action(f"/api/document-ir/jobs/{row['run_id']}",{'identity_sha256':digest})
+            action['identity_sha256']=digest
+            action['linked_ir_ids']=sorted(selected)
             action.update(preflight_endpoint=f"/api/document-ir/jobs/{row['run_id']}/deletion",requires_operator=True,accepts_revision=False,
                 confirmation_message='确认删除这个结构版本及其后续修订、关联提取记录？保留 PDF 和 OCR。')
             row['available_actions']=[action]
@@ -309,8 +331,8 @@ class LibraryDeletionService:
                 'unlinked_ir':[row for row in ir.values() if row.get('ocr_run_id') not in {r['run_id'] for r in ocr}],
                 'count':len(grouped),'ocr_count':len(ocr),'pending_deletions':pending,'compatibility_view':False}
 
-    def _ir_parts(self,run_id):
-        ir=self.inventory._discover_ir_runs(self._ocr_rows())
+    def _ir_parts(self,run_id,*,ocr=None,ir=None):
+        ir=self.inventory._discover_ir_runs(self._ocr_rows() if ocr is None else ocr) if ir is None else ir
         if run_id not in ir:raise KeyError(run_id)
         selected={run_id}
         while True:
@@ -321,6 +343,7 @@ class LibraryDeletionService:
                for entry in self.inventory._owned_path_entries('ir',identity)]
         for path in paths:self.inventory._require_owned_path(path)
         digest=self._digest({'row':ir[run_id],'selected':sorted(selected),'paths':self._path_snapshot(paths)})
+        paths = paths + self._pins_for(selected)
         return ir[run_id],selected,paths,digest
 
     def ir_description(self,run_id):

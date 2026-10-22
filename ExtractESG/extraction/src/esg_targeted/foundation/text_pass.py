@@ -168,14 +168,59 @@ def build_text_request(group: str, codes: tuple[str, ...], blocks: list[TextBloc
     return instructions, context, schema, 64 + 40 * min(12, len(blocks) * 2)
 
 
-def _sentence_around(text: str, value: str) -> str:
+def _find_value(text: str, value: str) -> int:
+    """Locate a value even when OCR spacing differs ("257 万" vs "257万")."""
     index = text.find(value)
+    if index >= 0:
+        return index
+    compact = _compact(value)
+    if not compact:
+        return -1
+    # Map the compacted position back to the raw string.
+    offset = 0
+    for position, char in enumerate(text):
+        if _SPACE_RE.match(char):
+            continue
+        if text[position:position + len(compact)] == compact or _compact(text[position:]).startswith(compact):
+            if not text[offset:position].replace(" ", "") or True:
+                return position
+        offset = position
+    return -1
+
+
+def _sentence_around(text: str, value: str) -> str:
+    index = _find_value(text, value)
     if index < 0:
         return text
     start = max(text.rfind("。", 0, index), text.rfind(". ", 0, index), text.rfind("；", 0, index), -1) + 1
     ends = [pos for pos in (text.find("。", index), text.find("；", index), text.find(". ", index)) if pos >= 0]
     end = min(ends) if ends else len(text)
     return text[start:end + 1]
+
+
+def _value_clause(text: str, value: str, *, before: int = 40, after: int = 16) -> str:
+    """The short clause a number belongs to, not the whole sentence.
+
+    A sentence may state the value and also a year-on-year change of a
+    different number ("雨水回用量达257万立方米，较2024年增加162万立方米").
+    Judging the concept from the whole sentence turns the value into a change.
+    """
+    index = _find_value(text, value)
+    if index < 0:
+        return text
+    # Stop at the sentence boundary, then keep one neighbouring clause: a verb
+    # such as 减少 can govern a comma-separated list ("减少 CO2 143 万吨、粉尘 38 吨").
+    low = max(0, index - before)
+    hard = max(text.rfind(mark, low, index) for mark in "。；;")
+    cuts = sorted({text.rfind(mark, max(low, hard + 1), index) for mark in "，,、"})
+    cuts = [position for position in cuts if position >= 0]
+    start = (cuts[-2] if len(cuts) >= 2 else cuts[-1]) + 1 if cuts else index
+    end = min(len(text), index + len(value) + after)
+    for mark in "。；;，,、":
+        position = text.find(mark, index + len(value))
+        if 0 <= position < end:
+            end = position
+    return text[start:end]
 
 
 def page_scope2_methods(pages: list[dict]) -> dict[int, str]:
@@ -189,6 +234,35 @@ def page_scope2_methods(pages: list[dict]) -> dict[int, str]:
         if method:
             methods[int((payload.get("page") or {}).get("page_number") or 0)] = method
     return methods
+
+
+_SPACE_RE = re.compile(r"\s+")
+
+
+def _compact(text: str) -> str:
+    """Paragraph and OCR spacing must not decide whether a value is verbatim."""
+    return _SPACE_RE.sub("", text or "")
+
+
+def _verbatim(part: str, text: str) -> bool:
+    return part in text or _compact(part) in _compact(text)
+
+
+def _split_printed_unit(value: str | None, unit: str | None, text: str) -> tuple[str | None, str | None]:
+    """Separate a number from its printed unit, including duplicated model units.
+
+    A model sometimes answers "257万立方米" as the value with "万立方米 立方米"
+    as the unit. The value must stay a bare number and the unit must be the one
+    the paragraph actually prints.
+    """
+    if unit and " " in unit.strip():
+        pieces = [piece for piece in unit.split() if piece]
+        printed = [piece for piece in pieces if piece in text]
+        unit = (max(printed, key=len) if printed else
+                max(pieces, key=lambda piece: len(piece) if piece in (value or "") else 0))
+    if value and unit and value.endswith(unit):
+        value = value[: -len(unit)].strip()
+    return value, unit
 
 
 def bind_text(payload: dict, blocks: list[TextBlock], reporting_year: int | None,
@@ -205,24 +279,26 @@ def bind_text(payload: dict, blocks: list[TextBlock], reporting_year: int | None
         unit_raw = (fact.get("unit") or "").strip() or None
         if value_raw and value_raw.endswith(("%", "％")) and not unit_raw:
             value_raw, unit_raw = value_raw[:-1].strip(), value_raw[-1]
+        value_raw, unit_raw = _split_printed_unit(value_raw, unit_raw, block.text)
         flags = ["from_narrative_text"]
         status = "review"
         if metric.kind == "narrative":
             if g.is_pollution_method_text(block.text):
                 observations.append(_obs(code, "review", None, None, None, None, block, block.text, flags))
             continue
-        if value_raw is None or value_raw not in block.text:
+        if value_raw is None or not _verbatim(value_raw, block.text):
             flags.append("value_not_verbatim_in_paragraph")
             observations.append(_obs(code, "rejected", value_raw, None, unit_raw, None, block, block.text, flags))
             continue
-        if unit_raw and unit_raw not in block.text:
+        if unit_raw and not _verbatim(unit_raw, block.text):
             flags.append("unit_not_verbatim_in_paragraph")
             unit_raw = None
         sentence = _sentence_around(block.text, value_raw)
+        clause = _value_clause(block.text, value_raw)
         number = parse_number(value_raw.replace(" ", ""))
         dimension = unit_dimension(unit_raw)
         guard_code = "SCOPE2" if code in ("E1-6_09", "E1-6_10") else code
-        guard = g.check(guard_code, sentence, None, unit_raw, dimension)
+        guard = g.check(guard_code, clause, None, unit_raw, dimension)
         flags.extend(guard.flags)
         if code in ("E1-6_09", "E1-6_10"):
             stated = scope2_method_from_text(sentence)

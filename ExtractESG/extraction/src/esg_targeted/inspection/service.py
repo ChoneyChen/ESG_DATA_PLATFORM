@@ -58,6 +58,10 @@ class ResultInspectionService:
         if not package:
             try:
                 stage = collect_stage(self.artifact_store, job_id)
+                if stage.get("missing_artifact"):
+                    # The output folder is gone; the record itself may still be
+                    # listed and deleted, but there is no stage evidence to show.
+                    stage_error = "任务成果目录已不存在；记录仍可查看和删除。"
             except (FileNotFoundError, ValueError) as exc:
                 stage_error = str(exc)
             manifest = {**manifest, **stage.get("summary", {})}

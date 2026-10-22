@@ -16,6 +16,8 @@ beforeEach(()=>{
  credentials.clear();calls=[];routes={};window.location.hash='';
  vi.stubGlobal('EventSource',class{addEventListener(){}close(){}});
  vi.stubGlobal('fetch',vi.fn(async(url:string,options:RequestInit={})=>{
+  // Identity discovery is not a business request.
+  if(String(url).endsWith('/internal/v1/me'))return new Response(JSON.stringify({operator_ref:'local-operator',roles:['read','review','admin']}),{headers:{'Content-Type':'application/json'}});
   calls.push({url:String(url),options});
   return new Response(JSON.stringify(routes[String(url)] || {}),{headers:{'Content-Type':'application/json'}});
  }));
@@ -26,7 +28,7 @@ it('没有凭据时终态保存动作禁用且不写请求',()=>{
  mount(<Actions actions={[action]} revision={987}/>);
  const button=screen.getByRole('button',{name:action.label});
  expect(button.hasAttribute('disabled')).toBe(true);
- expect(button.getAttribute('title')).toBe('请先启用操作权限');
+ expect(button.getAttribute('title')).toBe('数据平台未连接或当前身份没有此操作权限');
  fireEvent.click(button);
  expect(calls).toHaveLength(0);
 });

@@ -17,7 +17,7 @@
 
 ## v2 报告事实 Agent
 
-2026-10-08当前代际为 `report-fact-agent-v8` / `report-semantics-v7`；现代2.0/2.1报告主题统一由中立来源读取后独立映射，长正文保留原span逐窗续读，部分返回数值继续留在阅读前沿。下文早期直接填表说明保留兼容历史含义，不能用来判断当前报告模式的路由。当前实现与限制见 [本阶段记录](../../docs/PERSISTENT_DELIVERY_SPAN_20261008.md)，业务操作验收由用户执行。
+2026-10-08当前代际为 `report-fact-agent-v8` / `report-semantics-v7`；现代2.0/2.1报告主题统一由中立来源读取后独立映射，长正文保留原span逐窗续读，部分返回数值继续留在阅读前沿。下文早期直接填表说明保留兼容历史含义，不能用来判断当前报告模式的路由。当前实现与限制见 本阶段记录（已归档到 Git 历史），业务操作验收由用户执行。
 
 归档后的未引用中间缓存可使用原生服务的 `GET /api/report-sessions/{native_session_id}/intermediates/plan` 核对，`POST .../execute` 按固定计划回收，`POST .../restore` 恢复。核对要求read/admin权限，执行及恢复要求admin权限；请求固定计划标识、预期修订及理由，操作员由服务端凭据解析。只回收允许列表内、不在来源引用闭包的缓存，保留完整SQL来源guard；文件移到 `.lifecycle/intermediates` 并保存可恢复日志。缓存未恢复时不允许恢复父记录继续提取。此接口不等同于删除来源或重跑旧任务。
 
@@ -25,7 +25,7 @@
 同一 Session 按源对象、证据内容、解释版本及 provider/model 共享标准无关理解；各包保留各自标准快照、映射和 Core 合同。
 新请求使用 `roles.semantic_brain`（默认本地 Qwen）负责导航、理解与映射，`roles.specialist`（默认 NuExtract）承担成熟直接填表；七牛须显式授权。
 旧单包请求未传 `roles` 时继续使用原 `semantic_provider`。本地重模型分阶段释放；Qwen 和 NuExtract 共享运行时而各自保留 Provider 协议。
-需求与验收范围见 [系统重塑方案](../docs/SYSTEM_RESHAPING_PLAN.md)。
+需求与验收范围见 系统重塑方案（已归档到 Git 历史）。
 
 标准包格式 `2.0` 声明披露主题、指标角色及类型化关系。自动模式合并候选对象目录，让模型依据定义和具体缺口选择阅读、改写查询补查、单独重新映射或结束。共享理解的目标是正确、连贯地理解报告事实，不以减少调用数量代替质量。
 

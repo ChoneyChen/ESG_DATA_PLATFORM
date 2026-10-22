@@ -209,7 +209,7 @@ REMARK_HEADER_RE = re.compile(r"(?:备注|備註|说明|說明|remark|note|comme
 def _sibling_run_straddles_parents(header_rows, origin, covered, value_cols) -> bool:
     """Detect an OCR colspan error that splits one sibling run across periods.
 
-    A run like 紫金 | 藏格 | 合计 under 2025 (colspan 2) | 2024 places the group
+    A run like entity | entity | 合计 under 2025 (colspan 2) | 2024 places the group
     total under the next year. A parent whose only child is a total-like label,
     directly after a parent with non-total children, is not a reliable layout.
     """

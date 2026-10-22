@@ -96,9 +96,9 @@ it('切换报告立即清选择和游标，迟到的旧续页不能污染新报�
  expect(calls.at(-1)).not.toContain('cursor=');expect(screen.getByText('第 1 页 · 已读取 1 条')).toBeDefined();
 });
 
-it('未连接审核凭据不请求内部来源，也不显示完整读取状态',()=>{
+it('数据平台未连接时不请求内部来源，也不显示完整读取状态',()=>{
  credentials.clear();render(<ReportSourceFacts reportRef="report-a"/>);
- expect(screen.getByText(/请先连接工作台凭据/)).toBeDefined();expect(calls).toHaveLength(0);
+ expect(screen.getByText(/数据平台未连接，暂不能浏览报告来源事实/)).toBeDefined();expect(calls).toHaveLength(0);
  expect(screen.queryByText(/已读至末页/)).toBeNull();
 });
 

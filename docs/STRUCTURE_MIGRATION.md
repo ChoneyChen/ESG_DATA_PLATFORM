@@ -74,7 +74,7 @@ python scripts/preserve_release_sources.py capture --root /绝对路径/ESG_DATA
 python scripts/preserve_release_sources.py --manifest /仓库外/源码保全目录/releases/release-构建指纹.json
 ```
 
-旧945e清单作为父发布时须同时指定 `--parent-legacy-base`，其兼容校验只证明登记原字节完整，不能复算未登记的旧组件指纹。此工具不补造10月5日尚缺的37份原件，不修改旧迁移收据或消除旧严格校验失败。当前发布的保存凭证见 [后续阶段记录](PERSISTENT_DELIVERY_SPAN_20261008.md)。
+旧945e清单作为父发布时须同时指定 `--parent-legacy-base`，其兼容校验只证明登记原字节完整，不能复算未登记的旧组件指纹。此工具不补造10月5日尚缺的37份原件，不修改旧迁移收据或消除旧严格校验失败。当前发布的保存凭证见 后续阶段记录（已归档到 Git 历史）。
 
 ## 迁移当日验证与边界
 

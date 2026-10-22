@@ -132,8 +132,8 @@ class FoundationSessionExecutor:
             "agent": {"current_call": current_call},
         }
         if conclusions is not None:
-            summary["foundation_conclusions"] = [{"code": c["code"], "metric_id": c["metric_id"], "status": c["status"]}
-                                                 for c in conclusions]
+            from .bundle import _conclusion_summary
+            summary["foundation_conclusions"] = [_conclusion_summary(c) for c in conclusions]
         if timing is not None:
             summary["model_execution"] = {key: timing.get(key) for key in
                                           ("model_calls", "input_tokens", "output_tokens", "elapsed_seconds")}

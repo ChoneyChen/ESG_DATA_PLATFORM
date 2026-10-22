@@ -35,7 +35,21 @@ def _read(path, default=None):
 
 def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, package=None):
     """Read persisted progress, including legacy jobs without a final Bundle."""
-    root = artifact_store.existing_job_dir(job_id)
+    try:
+        root = artifact_store.existing_job_dir(job_id)
+    except FileNotFoundError:
+        # The output folder was deleted (for example by a cleanup) while the
+        # session record remained. The record must stay readable and
+        # deletable instead of failing the whole session list.
+        return {"schema_version": STAGE_SCHEMA_VERSION, "missing_artifact": True,
+                "summary": {"status": "artifact_missing", "execution_status": "unavailable",
+                            "result_status": "not_evaluated", "counts": {},
+                            "unfinished_metric_ids": [], "processing_metric_ids": []},
+                "records": {key: [] for key in RECORD_LAYOUT},
+                "source_facts": {"schema_version": "source-facts-v1", "facts": [], "objects": [],
+                                 "historical_facts": [], "source_objects": [], "gaps": []},
+                "metric_source_mappings": {"schema_version": "metric-source-mappings-v1",
+                                           "mappings": [], "core_bindings": []}}
     snapshot_path = root / "progress/snapshot.json"
     durable_paths = [root / "agent/source-invalidations.json", root / "agent/state.json", root / "progress/metric-attempts.json",
                      root / 'input/runtime-standard-snapshot.json',

@@ -124,7 +124,7 @@ describe('批量生产交互',()=>{
   fireEvent.click(previewButton);
   expect((await screen.findByRole('button',{name:'一键部署并自动开始'}) as HTMLButtonElement).disabled).toBe(true);
   expect((screen.getByRole('button',{name:'保存计划，稍后启动'}) as HTMLButtonElement).disabled).toBe(true);
-  expect(screen.getByText(/当前访问密钥未提供生产管理权限/)).toBeTruthy();
+  expect(screen.getByText(/当前身份没有生产管理权限/)).toBeTruthy();
   const previewCall=calls.find(call=>call.url.endsWith('/production-automations/preview'));
   expect(new Headers(previewCall?.options.headers).get('Authorization')).toBe('Bearer synthetic-read-token');
   expect(JSON.stringify(previewCall?.body)).not.toContain('synthetic-read-token');
@@ -173,9 +173,9 @@ describe('批量生产交互',()=>{
   fireEvent.click(screen.getByRole('button',{name:'上移第 2 份报告'}));
   expect(changed).toHaveBeenCalledWith([...draft.assetIds].reverse());
  });
- it('没有操作权限时不读取后台计划，清楚提示先启用操作权限',async()=>{
+ it('数据平台未连接时不读取后台计划，并说明原因',async()=>{
   credentials.clear();render(<WorkspaceProvider><Automation/></WorkspaceProvider>);
-  expect(screen.getByText('请在顶部启用操作权限，再管理或部署批量生产计划。')).toBeTruthy();
+  expect(screen.getByText('数据平台未连接，暂不能管理或部署批量生产计划。')).toBeTruthy();
   await waitFor(()=>expect(calls.filter(call=>call.url.includes('production-automations'))).toHaveLength(0));
  });
 });

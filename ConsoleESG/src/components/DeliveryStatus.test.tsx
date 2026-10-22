@@ -28,6 +28,8 @@ beforeEach(()=>{
  credentials.clear();calls=[];respond=async()=>json(saved);
  vi.stubGlobal('EventSource',class{addEventListener(){}close(){}});
  vi.stubGlobal('fetch',vi.fn(async(url:string,options:RequestInit={})=>{
+  // Identity discovery is the workbench asking who it is, not a data request.
+  if(String(url).endsWith('/internal/v1/me'))return json({operator_ref:'local-operator',roles:['read','review','admin']});
   calls.push({url:String(url),options});return respond(String(url),options);
  }));
 });
@@ -35,7 +37,7 @@ afterEach(()=>{cleanup();credentials.clear();vi.unstubAllGlobals();});
 
 it('无凭据不请求SQL状态，也不把本地成果数量显示为零或已入库',()=>{
  mount();expect(calls).toHaveLength(0);
- expect(screen.getByText('连接工作台审核凭据后核对数据库存档。已保存成果数量不作为SQL入库证明。')).toBeTruthy();
+ expect(screen.getByText('数据平台未连接，暂不能核对数据库存档。已保存成果数量不作为SQL入库证明。')).toBeTruthy();
  expect(screen.queryByLabelText('数据库持久交付状态')).toBeNull();
 });
 

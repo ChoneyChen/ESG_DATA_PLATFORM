@@ -18,7 +18,7 @@ const STATUS_WORD: Record<string, string> = {
   review: '待复核',
   conflict: '冲突',
   not_found_in_selected_sources: '未披露',
-  only_rejected_or_other_period: '仅其他期间',
+  only_rejected_or_other_period: '仅有被拒候选',
 };
 
 const GROUP_ORDER = ['energy', 'ghg', 'air', 'water_pollutants', 'pollution_method', 'substances', 'water'];

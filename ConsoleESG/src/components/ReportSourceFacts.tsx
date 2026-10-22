@@ -39,7 +39,7 @@ function SourceFactPages({reportRef}:{reportRef?:string|null}) {
   finally{if(!active.signal.aborted)setBusy(false);}
  };
  useEffect(()=>{
-  if(credentials.token)void loadPage(null,0);
+  if(credentials.ready)void loadPage(null,0);
   return()=>controller.current?.abort();
  // The keyed parent remounts on report or credentials changes. Background
  // workspace refreshes must not erase a user's already verified page history.
@@ -51,10 +51,10 @@ function SourceFactPages({reportRef}:{reportRef?:string|null}) {
  const page=Number.isInteger(first?.pdf_page_index)?first.pdf_page_index+1:1;
  return <Section title="已读取的报告来源事实">
   <Notice>这里保留已读取的原始表行及属性，包括尚未对应条款的内容。保存来源不代表事实、条款映射或正式发布已获批准。</Notice>
-  <button className="secondary" disabled={busy||!credentials.token} onClick={()=>void loadPage(null,0)}>重新读取来源事实</button>
-  {!credentials.token&&<Notice>数据平台未连接，暂不能浏览报告来源事实。</Notice>}
+  <button className="secondary" disabled={busy||!credentials.ready} onClick={()=>void loadPage(null,0)}>重新读取来源事实</button>
+  {!credentials.ready&&<Notice>数据平台未连接，暂不能浏览报告来源事实。</Notice>}
   <details><summary>浏览来源事实（已读取 {loadedCount} 条；本页 {rows.length} 条）</summary>
-   <ResourceState error={error} loading={busy&&!rows.length} empty={!!credentials.token&&!rows.length&&!busy&&!error}/>
+   <ResourceState error={error} loading={busy&&!rows.length} empty={!!credentials.ready&&!rows.length&&!busy&&!error}/>
    {error&&<button className="secondary" disabled={busy} onClick={()=>void loadPage(lastAttempt.current.cursor,lastAttempt.current.index)}>重试读取</button>}
    <div className="table-scroll"><table><thead><tr><th>报告与原始指标</th><th>原始披露期间</th><th>原值</th><th>条款映射</th><th>证据</th><th>操作</th></tr></thead>
     <tbody>{rows.map(row=><tr key={row.snapshot_id}>

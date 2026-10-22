@@ -514,7 +514,7 @@ def _header_spans(line_group: list[Line], columns: list[Column], size: float) ->
 
 def _widen_group_headings(rows: list[list[list[Any]]], columns: list[Column]) -> None:
     """A heading centred over sub-columns that have no heading of their own in
-    its row ("2025" over 紫金 | 藏格 | 合计) spans those sub-columns."""
+    its row ("2025" over two entity columns | 合计) spans those sub-columns."""
     for index, spans in enumerate(rows[:-1]):
         below = {c for lower in rows[index + 1:] for first, last, text, _ in lower if text for c in range(first, last + 1)}
         taken = {c for first, last, _, _ in spans for c in range(first, last + 1)}

@@ -237,6 +237,21 @@ class ControlPlaneRecordDeletion:
         state = json.loads(row[0])
         return state, state.get("revision", state.get("lifecycle", {}).get("revision", 0))
 
+    def describe(self, kind, identity, fallback=None):
+        """The delete action computed from the stored state, never a mutated copy.
+
+        A dangling plan whose row is already gone still has to be deletable, so
+        the caller's copy is used when the store has no record.
+        """
+        try:
+            with self.store._connect() as db:
+                state, revision = self._state(kind, identity, db)
+        except KeyError:
+            if fallback is None:
+                raise
+            return delete_action(kind, identity, 0, fallback)
+        return delete_action(kind, identity, revision, state)
+
     def action(self, kind, state):
         identity = state[{"processing": "processing_id", "session": "plan_id", "queue": "task_id"}[kind]]
         revision = state.get("revision", state.get("lifecycle", {}).get("revision", 0))

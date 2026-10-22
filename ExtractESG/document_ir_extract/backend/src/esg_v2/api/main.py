@@ -313,7 +313,7 @@ def _queue_with_references(task):
         raw, _ = execution_deletion._state("queue", task.task_id, db)
         owned = execution_deletion._parent_blockers("queue", raw, db)
     if not owned:
-        task.available_actions.append(AvailableAction.model_validate(execution_deletion.action("queue", raw)))
+        task.available_actions.append(AvailableAction.model_validate(execution_deletion.describe("queue", raw["task_id"], raw)))
     references["available_actions"] = []
     return task
 
@@ -327,7 +327,7 @@ def clear_pipeline_task_history(authorization: str | None = Header(default=None)
     for row in rows:
         try:
             result = execution_deletion.request("queue", row["task_id"],
-                **execution_deletion.action("queue", row)["payload"], authorization=authorization)
+                **execution_deletion.describe("queue", row["task_id"], row)["payload"], authorization=authorization)
             (deleted if result.get("deleted") else pending).append(row["task_id"])
         except (KeyError, ValueError) as exc:
             blocked.append({"task_id": row["task_id"], "message": str(exc)})
@@ -778,7 +778,7 @@ def _report_plan_detail(plan):
         plan, native, result["available_actions"], ir_root=settings.document_ir_output_root,
         execution_status=result["execution_status"])
     result['available_actions'] = [action for action in result['available_actions'] if action.get('action') not in {'archive','restore','discard','delete'}]
-    result['available_actions'].append(execution_deletion.action('session', plan))
+    result['available_actions'].append(execution_deletion.describe('session', plan['plan_id'], plan))
     result['deletion_pending'] = execution_deletion.pending('session', plan['plan_id'])
     reference_integrity = lifecycle.get('reference_integrity', {})
     result['reference_integrity'] = reference_integrity
@@ -789,9 +789,9 @@ def _report_plan_detail(plan):
         if missing_current or reference_integrity.get('invalid_reference_paths'):
             result['available_actions'] = [action for action in result['available_actions'] if action.get('action') in {'delete','cancel'}]
     if lifecycle['state'] != 'active':
-        result['available_actions'] = [execution_deletion.action('session', plan)]
+        result['available_actions'] = [execution_deletion.describe('session', plan['plan_id'], plan)]
     elif result['execution_status'] == 'stopping':
-        result['available_actions'] = [execution_deletion.action('session', plan)]
+        result['available_actions'] = [execution_deletion.describe('session', plan['plan_id'], plan)]
     return result
 
 
@@ -830,7 +830,7 @@ app.include_router(record_deletion_router(execution_deletion, authorize_operator
 
 def _processing_record_actions(state):
     description = processing_lifecycle.describe(state)
-    description['available_actions'] = [execution_deletion.action('processing', state)]
+    description['available_actions'] = [execution_deletion.describe('processing', state['processing_id'], state)]
     description['deletion_pending'] = execution_deletion.pending('processing', state['processing_id'])
     return description
 
@@ -891,7 +891,7 @@ def create_report_session(request: ReportExtractionRequest):
 
 @app.get("/api/report-sessions")
 def list_report_sessions(include_archived: bool = Query(False), view: Literal["full", "summary"] = Query("full")):
-    rows = [read_report_session(p, _report_plan_detail, execution_deletion.action) for p in pipeline_plans.list() if p.get("report_request")
+    rows = [read_report_session(p, _report_plan_detail, lambda kind, plan, _p=p: execution_deletion.describe(kind, plan['plan_id'], _p)) for p in pipeline_plans.list() if p.get("report_request")
         and (include_archived or p.get('lifecycle', {}).get('state', 'active') == 'active')]
     return [summarize_report_session(row) for row in rows] if view == "summary" else rows
 
@@ -900,7 +900,7 @@ def list_report_sessions(include_archived: bool = Query(False), view: Literal["f
 def get_report_session(session_id: str):
     plan = _find_report_plan(session_id)
     if plan:
-        return read_report_session(plan, _report_plan_detail, execution_deletion.action)
+        return read_report_session(plan, _report_plan_detail, lambda kind, plan, _p=plan: execution_deletion.describe(kind, plan['plan_id'], _p))
     return _targeted_report_request("GET", f"/api/report-sessions/{session_id}")
 
 

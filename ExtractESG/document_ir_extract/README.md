@@ -15,7 +15,7 @@ Document IR 链路不负责报告爬取、Kodo 文件索引、公司/年份/行�
 项目已经另有 `targeted_table_extract` 下游及 07 控制面，不能把模块职责终点表述为整个系统没有下游。
 
 2026-10-02 系统升级：基础 IR 默认不调用全报告可选 VLM 复核；对象能力可用性 v2 保留同页可靠对象。OCR/IR/repair/retry 的 API 与 CLI 均提交统一队列，报告 Session 使用输入 pin 和显式证据转换，逻辑表/跨页视图已由下游消费。
-需求与改造前审计见 [系统重塑方案](../docs/SYSTEM_RESHAPING_PLAN.md)，当前实现与验收见 [升级实施报告](../docs/UPGRADE_IMPLEMENTATION_REPORT.md)。
+需求与改造前审计见 系统重塑方案（已归档到 Git 历史），当前实现与验收见 升级实施报告（已归档到 Git 历史）。
 
 报告普通入口 `POST /api/report-sessions` 接收 PDF/已有 IR、多个标准选择、角色和预算；`preview` 先给出冻结标准、复用输入和已知限制。PDF 先进入必要 OCR/基础 IR，再建立一个原生跨标准 Session。内部 prepare 与投影仍有独立产物，页面以一个报告任务组织。
 

@@ -3,26 +3,24 @@ import {navigate} from '../api';
 /**
  * One spine for the whole workspace.
  *
- * Every page says where it sits in the production line and what comes next,
- * so the operator never has to reconstruct the route from nine menu entries.
- * The line is deliberately short: a PDF enters at 报告, is read once, yields
- * extraction results, and only then reaches review and publication.
+ * Reading a PDF is a step inside extraction, not a destination of its own: the
+ * operator never has to "read first, then extract". The line is therefore
+ * three moves — pick the report, get the numbers, review and publish — and
+ * every page states where it sits in it.
  */
-export type Stage = 'reports' | 'reading' | 'extraction' | 'review' | 'published';
+export type Stage = 'reports' | 'extraction' | 'review' | 'published';
 
 export const STAGES: {key: Stage; title: string; href: string; hint: string}[] = [
-  {key: 'reports', title: '报告', href: '/reports', hint: 'PDF 与报告身份'},
-  {key: 'reading', title: '读取', href: '/processing', hint: '文字层直读与结构证据'},
-  {key: 'extraction', title: '提取', href: '/extractions', hint: '条款成果与证据'},
+  {key: 'reports', title: '报告', href: '/reports', hint: '选择 PDF 与报告身份'},
+  {key: 'extraction', title: '提取', href: '/extractions', hint: '读取、提取与证据'},
   {key: 'review', title: '审核', href: '/review', hint: '事实、映射与口径'},
   {key: 'published', title: '发布', href: '/publication', hint: '正式数据版本'},
 ];
 
 export function stageOf(section: string): Stage {
-  if (section === 'ocr' || section === 'processing' || section === 'runtime') return 'reading';
-  if (section === 'extractions' || section === 'automation') return 'extraction';
   if (section === 'review') return 'review';
   if (section === 'publication') return 'published';
+  if (section === 'extractions' || section === 'automation' || section === 'processing' || section === 'ocr' || section === 'runtime') return 'extraction';
   return 'reports';
 }
 

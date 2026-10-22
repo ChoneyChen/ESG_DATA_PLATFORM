@@ -15,22 +15,22 @@ export const reportTabs=[['overview','概览'],['source','原文'],['processing'
 function reportItems(value:Row|undefined){return items(value,'reports').length?items(value,'reports'):items(value,'assets').length?items(value,'assets'):items(value);}
 
 /**
- * Reading state of one PDF, in operator terms.
+ * Extraction state of one PDF, in operator terms.
  *
- * The library used to print every backend status side by side. What an
- * operator needs is one of four states and the single next action that moves
- * the report forward, so that is what the row shows first.
+ * Reading is the first step of extraction, so the row speaks about extraction
+ * only: not started, working, ready, or failed. The page-reading versions stay
+ * available underneath for inspection, never as a separate entry point.
  */
 function readState(asset:Row, versions:Row[]){
-  if(!versions.length)return {key:'new',label:'未读取',tone:'',next:'读取页面'};
+  if(asset.processing_status==='running'||versions.some(v=>['running','queued'].includes(v.status)))return {key:'running',label:'提取中',tone:'running',next:'查看进度'};
+  if(!versions.length)return {key:'new',label:'未提取',tone:'',next:'提取指标'};
   const structures=versions.flatMap(irVersions);
-  if(asset.processing_status==='failed'||versions.some(v=>v.status==='failed'))return {key:'failed',label:'读取失败',tone:'failed',next:'重新读取'};
-  if(!structures.length)return {key:'read',label:'已读取 · 待建证据',tone:'review',next:'构建结构证据'};
-  if(asset.processing_status==='running'||versions.some(v=>['running','queued'].includes(v.status)))return {key:'running',label:'处理中',tone:'running',next:'查看进度'};
+  if(asset.processing_status==='failed'||versions.some(v=>v.status==='failed'))return {key:'failed',label:'提取失败',tone:'failed',next:'重新提取'};
+  if(!structures.length)return {key:'read',label:'读取中 · 待建证据',tone:'review',next:'继续提取'};
   return {key:'ready',label:'可提取',tone:'ready',next:'提取指标'};
 }
 
-const FILTERS=[['all','全部'],['unread','未读取'],['ready','可提取'],['failed','有问题']] as const;
+const FILTERS=[['all','全部'],['unread','未提取'],['ready','可提取'],['failed','有问题']] as const;
 
 export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}){
  const {refresh}=useWorkspace();
@@ -75,7 +75,7 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
 
  return <>
   <div className="page-heading">
-    <div><span className="eyebrow">第 1 步 · 报告</span><h1>报告资产</h1><p>每份 PDF 的身份、页面读取版本与结构证据；从这里开始整条链路。</p></div>
+    <div><span className="eyebrow">第 1 步 · 报告</span><h1>报告资产</h1><p>选一份 PDF 就能开始提取；读取页面与构建结构证据在提取中自动完成。</p></div>
     <div className="asset-summary"><span><strong>{rows.length}</strong> 份 PDF</span><span><strong>{ocrCount}</strong> 个读取版本</span><span><strong>{described.filter(d=>d.state.key==='ready').length}</strong> 可提取</span></div>
   </div>
   {resource.data?.compatibility_view&&<Notice>当前显示已有服务的来源关系。新的处理与删除入口将在服务更新后启用，正在执行的任务继续处理。</Notice>}
@@ -85,18 +85,17 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
   })}</div>}
 
   <Section title="加入报告">
-    <form onSubmit={upload} className="upload-form"><input aria-label="选择PDF文件" name="file" type="file" accept="application/pdf,.pdf" multiple required/><button disabled={busy}>上传 PDF</button><small className="muted">上传后即可在同一行读取页面并提取；身份信息不靠文件名推断。</small></form>
+    <form onSubmit={upload} className="upload-form"><input aria-label="选择PDF文件" name="file" type="file" accept="application/pdf,.pdf" multiple required/><button disabled={busy}>上传 PDF</button><small className="muted">上传后直接点“提取指标”；身份信息不靠文件名推断。</small></form>
     {message&&<Notice>{message}</Notice>}
   </Section>
 
-  <Section title="报告与页面读取版本" action={selectedRows.length>0?<BatchRecordDelete rows={selectedRows} kind="asset" idKey="asset_id" label="删除所选报告"/>:undefined}>
+  <Section title="报告" action={selectedRows.length>0?<BatchRecordDelete rows={selectedRows} kind="asset" idKey="asset_id" label="删除所选报告"/>:undefined}>
    <div className="library-toolbar">
     <input aria-label="搜索报告资产" placeholder="搜索 PDF、报告名称或版本编号" value={query} onChange={e=>setQuery(e.target.value)}/>
     <div className="library-filters" role="group" aria-label="按读取状态筛选">
      {FILTERS.map(([key,title])=><button type="button" key={key} className={filter===key?'secondary selected':'ghost'} aria-pressed={filter===key} onClick={()=>setFilter(key)}>{title} <small>{counts[key]}</small></button>)}
     </div>
     <div className="library-main-actions">
-     <button className="secondary" disabled={unavailable||!selectedRows.length} onClick={()=>start(selectedRows,false)}>读取所选 PDF</button>
      <button disabled={unavailable||!selectedRows.length||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start(selectedRows,true)}>提取主要指标（{selectedRows.length} 份）</button>
     </div>
    </div>
@@ -121,23 +120,20 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
        </div>
        <span className={`asset-state ${state.tone}`}>{state.label}</span>
        <div className="asset-primary-action">
-        {state.key==='ready'
-         ? <button onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(asset.asset_id)}`)}>提取指标</button>
-         : state.key==='failed'
-          ? <button className="secondary" disabled={unavailable} onClick={()=>start([asset],false)}>重新读取</button>
-          : <button disabled={unavailable} onClick={()=>start([asset],false)}>{state.key==='new'?'读取页面':'构建结构证据'}</button>}
+        {state.key==='running'
+         ? <button className="secondary" onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}/processing`)}>查看进度</button>
+         : <button onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(asset.asset_id)}`)}>{state.next}</button>}
        </div>
        <details className="asset-more"><summary aria-label={`${reportLabel(asset)} 的更多操作`}>⋯</summary>
         <div className="library-row-actions">
-         <button className="secondary" disabled={unavailable} onClick={()=>start([asset],false)}>{versions.length?'重新读取页面':'读取页面并构建证据'}</button>
-         <button className="secondary" disabled={unavailable||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start([asset],true)}>提取主要指标</button>
+         <button className="secondary" disabled={unavailable||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start([asset],true)}>直接提取主要指标</button>
          <RecordManagement record={asset} kind="asset" id={asset.asset_id} compact/>
         </div>
        </details>
       </div>
       {isOpen&&<div className="asset-versions" aria-label={`${reportLabel(asset)} 的读取版本`}>
        <div className="asset-relation-label">来源 PDF → 页面读取版本 → 结构证据</div>
-       {!versions.length?<div className="asset-no-versions">这份 PDF 还没有读取版本。点击“读取页面并构建证据”开始处理。</div>:versions.map((ocr,index)=><OcrVersion key={ocr.run_id} row={ocr} asset={asset} index={index}/>)}
+       {!versions.length?<div className="asset-no-versions">这份 PDF 还没有读取版本。提取时会自动读取页面并构建结构证据。</div>:versions.map((ocr,index)=><OcrVersion key={ocr.run_id} row={ocr} asset={asset} index={index}/>)}
       </div>}
      </article>;
     })}
@@ -176,14 +172,14 @@ function ReportWorkbenchDetail({assetId,tab='overview'}:{assetId:string,tab?:str
  const standaloneJobs:Row[]=aggregate.data?.standalone_jobs || [];const runs:Row[]=aggregate.data?.processing_runs || items(processing.data,'runs').filter(r=>r.asset_id===assetId);const sessions:Row[]=aggregate.data?.extraction_sessions || items(extraction.data,'sessions').filter(s=>s.request?.input?.asset_id===assetId || s.source_asset_id===assetId || s.asset_id===assetId);const irId=asset?.ir_run_id || runs.find(r=>r.ir_run_id)?.ir_run_id;const metadata=identity.data?.metadata || asset?.report_metadata || {};const [message,setMessage]=useState(''),[busy,setBusy]=useState(false);
  async function register(){setBusy(true);try{await post('document','/api/reports',{asset_id:assetId});refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
  const rows:Row[]=(aggregate.data?.candidates || items(candidates.data)).filter((c:Row)=>c.report_ref===reportId || c.report_ref===assetId || c.source_sha256 && c.source_sha256===asset?.sha256);const records:Row[]=aggregate.data?.publication_records || rows.filter(c=>c.publication_status==='published');
- return <><div className="page-heading"><div><button className="text-button" onClick={()=>navigate('/reports')}>← 报告库</button><h1>{asset?reportLabel(asset):'报告详情'}</h1><p>{metadata.publisher_name || '发布者待确认'} · {metadata.reporting_year || '报告期待确认'}</p></div><div className="button-row"><button className="secondary" disabled={!asset||isArchived(asset)} onClick={()=>navigate(`/processing/new?asset=${encodeURIComponent(assetId)}`)}>读取页面</button><button disabled={!asset||isArchived(asset)} onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(assetId)}${irId?`&ir=${encodeURIComponent(irId)}`:''}`)}>提取指标</button></div></div><div className="tabs" role="tablist">{reportTabs.map(([code,title])=><button role="tab" aria-selected={tab===code} key={code} onClick={()=>navigate(`/reports/${assetId}/${code}`)}>{title}</button>)}</div><ResourceState error={assets.error} loading={!asset&&assets.loading}/>{message && <Notice tone="error">{message}</Notice>}{asset && <>
+ return <><div className="page-heading"><div><button className="text-button" onClick={()=>navigate('/reports')}>← 报告库</button><h1>{asset?reportLabel(asset):'报告详情'}</h1><p>{metadata.publisher_name || '发布者待确认'} · {metadata.reporting_year || '报告期待确认'}</p></div><div className="button-row"><button disabled={!asset||isArchived(asset)} onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(assetId)}${irId?`&ir=${encodeURIComponent(irId)}`:''}`)}>提取指标</button></div></div><div className="tabs" role="tablist">{reportTabs.map(([code,title])=><button role="tab" aria-selected={tab===code} key={code} onClick={()=>navigate(`/reports/${assetId}/${code}`)}>{title}</button>)}</div><ResourceState error={assets.error} loading={!asset&&assets.loading}/>{message && <Notice tone="error">{message}</Notice>}{asset && <>
  <Section title="资产管理"><RecordManagement record={asset} kind="asset" id={assetId}/></Section>
- {tab==='overview' && <><div className="stat-grid"><article><small>处理</small><Badge value={asset.processing_status}/></article><article><small>提取任务</small><strong>{sessions.length}</strong></article><article><small>待审核</small><strong>{aggregate.data?.review_count ?? (credentials.token?candidates.error?'—':candidates.data?rows.filter(c=>c.fact_review_status!=='approved'||c.mapping_review_status!=='approved').length:'…':'平台未连接')}</strong></article><article><small>已发布</small><strong>{aggregate.data?.published_count ?? (credentials.token?candidates.error?'—':candidates.data?records.length:'…':'平台未连接')}</strong></article></div><Section title="报告身份与版本">{identity.data?<MetadataEditor report={identity.data}/>:reportId?<ResourceState error={identity.error} loading={identity.loading}/>:<><Notice>这份 PDF 尚未登记业务报告身份。文件名仅用于找到文件，发布者与报告期需明确核对。</Notice><button disabled={busy} onClick={register}>登记报告身份</button></>}<dl className="facts"><dt>文件名</dt><dd>{asset.file_name}</dd><dt>文件大小</dt><dd>{asset.size_bytes?`${(asset.size_bytes/1024/1024).toFixed(1)} MB`:'未记录'}</dd><dt>内容指纹</dt><dd className="mono">{asset.sha256}</dd><dt>最后更新</dt><dd>{dateLabel(asset.modified_at)}</dd></dl><Actions actions={workActions(asset.available_actions)} revision={asset.lifecycle?.revision}/></Section></>}
+ {tab==='overview' && <><div className="stat-grid"><article><small>处理</small><Badge value={asset.processing_status}/></article><article><small>提取任务</small><strong>{sessions.length}</strong></article><article><small>待审核</small><strong>{aggregate.data?.review_count ?? (credentials.ready?candidates.error?'—':candidates.data?rows.filter(c=>c.fact_review_status!=='approved'||c.mapping_review_status!=='approved').length:'…':'平台未连接')}</strong></article><article><small>已发布</small><strong>{aggregate.data?.published_count ?? (credentials.ready?candidates.error?'—':candidates.data?records.length:'…':'平台未连接')}</strong></article></div><Section title="报告身份与版本">{identity.data?<MetadataEditor report={identity.data}/>:reportId?<ResourceState error={identity.error} loading={identity.loading}/>:<><Notice>这份 PDF 尚未登记业务报告身份。文件名仅用于找到文件，发布者与报告期需明确核对。</Notice><button disabled={busy} onClick={register}>登记报告身份</button></>}<dl className="facts"><dt>文件名</dt><dd>{asset.file_name}</dd><dt>文件大小</dt><dd>{asset.size_bytes?`${(asset.size_bytes/1024/1024).toFixed(1)} MB`:'未记录'}</dd><dt>内容指纹</dt><dd className="mono">{asset.sha256}</dd><dt>最后更新</dt><dd>{dateLabel(asset.modified_at)}</dd></dl><Actions actions={workActions(asset.available_actions)} revision={asset.lifecycle?.revision}/></Section></>}
  {tab==='source' && <Section title="不可变报告原文"><iframe className="pdf-standalone" title="报告 PDF 原文" src={assetFile(assetId)}/></Section>}
  {tab==='processing' && <><Section title="处理记录"><ResourceState error={processing.error}/>{runs.map(run=><article className="work-item" key={run.processing_id}><strong>{reportLabel(run)}</strong><Badge value={run.status}/><button className="secondary" onClick={()=>navigate(`/processing/${run.processing_id}`)}>阶段与证据操作</button><RecordManagement record={run} kind="processing" id={run.processing_id} compact/></article>)}{!runs.length&&<Notice>历史读取成果仍可保留；请创建报告处理任务以核对兼容性并构建固定证据版本。</Notice>}</Section><ReportEvidence current={aggregate.data?.current_processing_evidence} history={aggregate.data?.historical_fixed_evidence || []}/></>}
  {tab==='extraction' && <><Section title="报告提取与成果"><ResourceState error={extraction.error} empty={!sessions.length}/>{sessions.map(s=><article className="work-item" key={s.session_id}><div><strong>{s.name}</strong><p>{s.request?.standards?.reduce((n:number,r:Row)=>n+(r.metric_ids?.length || 0),0)} 个明确选择的输出</p></div><Badge value={s.execution_status}/><Badge value={s.result_status}/><button onClick={()=>navigate(`/extractions/${s.session_id}`)}>成果与缺口</button><RecordManagement record={s} kind="session" id={s.session_id} compact/></article>)}</Section><Section title="历史独立提取"><Notice>这些任务没有父报告会话，按后端验证的资产与证据关系关联。只读查看既有成果，不自动恢复或迁移任务。</Notice><ResourceState empty={!standaloneJobs.length}/>{standaloneJobs.map(job=><article className="work-item" key={job.job_id}><div><strong>{job.title || job.disclosure_requirement || job.job_id}</strong><p>{job.disclosure_requirement || job.standard_id || "标准身份见原任务"} · {job.ir_run_id || "来源身份见详情"}</p></div><Badge value={job.status}/><button className="secondary" onClick={()=>navigate(`/extractions/standalone/${encodeURIComponent(job.job_id)}`)}>只读查看历史成果</button><RecordManagement record={job} kind="job" id={job.job_id} compact/></article>)}</Section></>}
- {tab==='review' && <Section title="本报告候选审核">{!credentials.token?<Notice>数据平台未连接，暂不能读取未发布候选。</Notice>:<><ResourceState error={candidates.error} empty={!rows.length}/>{rows.map(c=><article className="work-item" key={c.mapping_id}><strong>{c.source_datapoint_id}</strong><span>{c.raw_value_text || c.raw_disclosure_text}</span><Badge value={c.fact_review_status}/><Badge value={c.mapping_review_status}/><button onClick={()=>navigate(`/review/${c.mapping_id}`)}>核对来源和口径</button></article>)}</>}<button className="secondary" onClick={()=>navigate(`/review?report=${encodeURIComponent(reportId || assetId)}`)}>打开报告审核中心</button></Section>}
- {tab==='publication' && <Section title="本报告正式发布记录"><ResourceState error={aggregate.error && candidates.error} empty={!!credentials.token&&!records.length}/>{!credentials.token&&<Notice>数据平台未连接，暂不能读取发布管理记录；公开网站可查看正式数据。</Notice>}{records.map((c:Row)=><article className="work-item" key={c.observation_id || c.mapping_id}><strong>{c.source_datapoint_id || c.metric_id}</strong><Badge value={c.publication_status || 'published'}/><button onClick={()=>navigate(`/publication?report=${encodeURIComponent(reportId || assetId)}`)}>查看版本与来源</button></article>)}</Section>}
+ {tab==='review' && <Section title="本报告候选审核">{!credentials.ready?<Notice>数据平台未连接，暂不能读取未发布候选。</Notice>:<><ResourceState error={candidates.error} empty={!rows.length}/>{rows.map(c=><article className="work-item" key={c.mapping_id}><strong>{c.source_datapoint_id}</strong><span>{c.raw_value_text || c.raw_disclosure_text}</span><Badge value={c.fact_review_status}/><Badge value={c.mapping_review_status}/><button onClick={()=>navigate(`/review/${c.mapping_id}`)}>核对来源和口径</button></article>)}</>}<button className="secondary" onClick={()=>navigate(`/review?report=${encodeURIComponent(reportId || assetId)}`)}>打开报告审核中心</button></Section>}
+ {tab==='publication' && <Section title="本报告正式发布记录"><ResourceState error={aggregate.error && candidates.error} empty={!!credentials.ready&&!records.length}/>{!credentials.ready&&<Notice>数据平台未连接，暂不能读取发布管理记录；公开网站可查看正式数据。</Notice>}{records.map((c:Row)=><article className="work-item" key={c.observation_id || c.mapping_id}><strong>{c.source_datapoint_id || c.metric_id}</strong><Badge value={c.publication_status || 'published'}/><button onClick={()=>navigate(`/publication?report=${encodeURIComponent(reportId || assetId)}`)}>查看版本与来源</button></article>)}</Section>}
  </>}</>;}
 
 const evidenceKey=(value:Row)=>`${value.ir_run_id || value.evidence_location?.ir_run_id || ''}:${value.ir_revision ?? value.evidence_location?.ir_revision ?? ''}`;

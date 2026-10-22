@@ -12,7 +12,7 @@ Downstream processing and its intermediate packages are outside this codebase.
 
 ## Report orchestration boundary
 
-The module also owns the shared SQLite execution control plane and the report-session facade. Ordinary OCR/IR/repair/retry and extraction API/CLI calls enqueue isolated workers. Basic IR does not run optional full-report VLM reviews by default. Object capability availability, immutable input pins and explicit evidence transitions govern partial consumption. Physical IR remains separate from downstream SourceFact and standard projections. See [implementation report](../../docs/UPGRADE_IMPLEMENTATION_REPORT.md).
+The module also owns the shared SQLite execution control plane and the report-session facade. Ordinary OCR/IR/repair/retry and extraction API/CLI calls enqueue isolated workers. Basic IR does not run optional full-report VLM reviews by default. Object capability availability, immutable input pins and explicit evidence transitions govern partial consumption. Physical IR remains separate from downstream SourceFact and standard projections. See implementation report（已归档到 Git 历史）.
 
 ## Active Pipeline
 

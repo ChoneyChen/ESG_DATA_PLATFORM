@@ -9,7 +9,7 @@
 别名与排除关系均从包内编译。抽取引擎拥有检索权重、预算、模型路由、重试、Guard 和物化策略，
 这些运行参数不写回标准包。
 
-报告级 ReportSession 统筹多包投影；同一中性来源理解跨包缓存，独立 Bundle 保留标准快照和真实 Core 绑定。默认 API/CLI 通过 Document 控制面唯一队列执行。当前跨模块实施见 [升级实施报告](../../docs/UPGRADE_IMPLEMENTATION_REPORT.md)。
+报告级 ReportSession 统筹多包投影；同一中性来源理解跨包缓存，独立 Bundle 保留标准快照和真实 Core 绑定。默认 API/CLI 通过 Document 控制面唯一队列执行。当前跨模块实施见 升级实施报告（已归档到 Git 历史）。
 
 ## 2. 高内聚组件
 

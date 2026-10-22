@@ -22,16 +22,17 @@ import {StepSpine,stageOf} from './components/StepSpine';
  * the default view never asks a choice before it is needed.
  */
 const MAIN = [
-  ['reports', '报告', '▤', 'PDF、报告身份与版本'],
-  ['processing', '读取', '◫', '文字层直读与结构证据'],
-  ['extractions', '提取', '⇢', '条款成果、证据与缺口'],
-  ['review', '审核发布', '✓', '事实、映射、口径与正式发布'],
+  ['reports', '报告', '▤', '选择 PDF，开始或继续提取'],
+  ['extractions', '提取', '⇢', '读取、指标成果与证据'],
+  ['review', '审核', '✓', '事实、映射与测量口径'],
+  ['publication', '发布', '↗', '正式数据版本与来源'],
 ] as const;
 
+// Reading a PDF is part of extraction; these stay for inspection and control.
 const TOOLS = [
   ['automation', '批量生产', '▷'],
   ['standards', '标准中心', '▦'],
-  ['publication', '发布记录', '↗'],
+  ['processing', '读取详情', '◫'],
   ['runtime', '系统运行', '⚙'],
 ] as const;
 
@@ -73,7 +74,7 @@ export default function App() {
     default: page = <Notice tone="error">找不到该工作台页面。<button onClick={() => navigate('/reports')}>返回报告</button></Notice>;
   }
 
-  const active = (key: string) => route.section === key || (key === 'reports' && route.section === 'ocr');
+  const active = (key: string) => route.section === key || (key === 'extractions' && ['ocr', 'processing'].includes(route.section));
   return (
     <div className="app-shell">
       <aside className="app-sidebar">
@@ -96,7 +97,7 @@ export default function App() {
           </nav>
         </details>
         <div className="sidebar-footer">
-          <p>报告 → 读取 → 提取 → 审核 → 发布</p>
+          <p>报告 → 提取 → 审核 → 发布</p>
           <a href="http://127.0.0.1:8765/" target="_blank" rel="noreferrer">打开数据网站 ↗</a>
         </div>
       </aside>

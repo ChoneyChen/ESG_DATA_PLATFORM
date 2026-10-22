@@ -37,7 +37,9 @@ it('成功状态中的HTML不是成功数据，不能被转成空目录',async()
 it('代理不可用503不会被误分类为用户输入错误',async()=>{
  vi.stubGlobal('fetch',vi.fn(async()=>new Response('<html>Upstream service unavailable</html>',{status:503})));
  const error=await request('publication','/internal/v1/me').catch(value=>value);
- expect(error).not.toBeInstanceOf(ApiError); // Missing credentials prevent any request.
+ // No credential is required on this machine: an unavailable upstream is a
+ // service error, not a missing-credentials shortcut.
+ expect(error).toBeInstanceOf(ApiError);expect(error.status).toBe(503);
  credentials.set('synthetic-operator-key','synthetic-operator');
  const connectedError=await request('publication','/internal/v1/me').catch(value=>value);
  expect(connectedError.status).toBe(503);

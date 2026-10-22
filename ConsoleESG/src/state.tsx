@@ -7,6 +7,9 @@ export function WorkspaceProvider({children}:{children:ReactNode}){
   // No credential is pasted: the data platform recognises a request from this
   // machine as the local operator. Probe once, and again if it is not up yet.
   useEffect(()=>{let cancelled=false,timer:ReturnType<typeof setTimeout>|undefined;
+    // A caller that supplied a token (scripts, tests, remote use) already has
+    // an identity; only the browser workbench needs discovery.
+    if(credentials.token)return;
     const probe=()=>{request<Row>('publication','/internal/v1/me').then(me=>{
       if(cancelled)return;
       if(credentials.token)return;
@@ -28,7 +31,7 @@ export function WorkspaceProvider({children}:{children:ReactNode}){
 export const useWorkspace=()=>useContext(Context);
 export function useResource<T=Row>(service:Service,path:string|null,authenticated=false){
   const {epoch,auth}=useWorkspace();const key=`${service}:${path}:${auth}:${authenticated}`;const enabled=!!path&&(!authenticated||credentials.ready);const [state,setState]=useState<{key:string,data?:T,error:string,loading:boolean}>({key:'',error:'',loading:false});
-  useEffect(()=>{if(!path || authenticated && !credentials.token){setState({key,error:'',loading:false});return;}const controller=new AbortController();setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:'',loading:true}));
+  useEffect(()=>{if(!path || authenticated && !credentials.ready){setState({key,error:'',loading:false});return;}const controller=new AbortController();setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:'',loading:true}));
     request<T>(service,path,{signal:controller.signal}).then(value=>{if(!controller.signal.aborted)setState({key,data:value,error:'',loading:false});}).catch(e=>{if(!controller.signal.aborted)setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:e.message,loading:false}));});return()=>controller.abort();
   },[service,path,epoch,auth,authenticated,key]);return {data:enabled&&state.key===key?state.data:undefined,error:enabled&&state.key===key?state.error:'',loading:enabled&&(state.key!==key||state.loading)};
 }

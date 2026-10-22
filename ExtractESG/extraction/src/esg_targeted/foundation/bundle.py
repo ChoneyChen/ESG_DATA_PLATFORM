@@ -53,6 +53,31 @@ def not_covered_gap(task_id: str, metric_id: str, code: str) -> dict:
                        next_action="review_source_pages").model_dump(mode="json")
 
 
+def _conclusion_summary(conclusion: dict) -> dict:
+    """A conclusion as saved evidence: status, value, members and refusal reasons."""
+    summary = {"code": conclusion["code"], "metric_id": conclusion["metric_id"], "status": conclusion["status"]}
+    for key in ("label", "rejection_reasons"):
+        if conclusion.get(key):
+            summary[key] = conclusion[key]
+    members = conclusion.get("members") or []
+    if members:
+        summary["members"] = [
+            {key: member.get(key) for key in ("member", "status", "value", "value_raw", "unit_raw",
+                                              "unit_id", "period", "period_year", "flags")
+             if member.get(key) is not None}
+            for member in members]
+    statements = conclusion.get("statements") or []
+    if statements:
+        summary["statements"] = [str(item.get("text") or "")[:400] for item in statements[:6]]
+    candidates = conclusion.get("candidates") or []
+    if candidates:
+        summary["candidates"] = [
+            {key: candidate.get(key) for key in ("value_raw", "unit_raw", "row_label", "page", "rejected_by", "flags")
+             if candidate.get(key) is not None}
+            for candidate in candidates[:8]]
+    return summary
+
+
 class BundleWriter:
     def __init__(self, settings, *, model_label: str = "Qwen3.5-9B-4bit"):
         self.settings = settings
@@ -150,7 +175,10 @@ class BundleWriter:
             "execution_status": "completed",
             "outcomes": self._outcomes(records, conclusions),
             "unfinished_metric_ids": [], "processing_metric_ids": [], "not_executed_metric_ids": [],
-            "foundation_conclusions": [{"code": c["code"], "metric_id": c["metric_id"], "status": c["status"]} for c in conclusions],
+            # The bundle keeps what the conclusion actually says. Truncating it
+            # to three fields made every saved result unable to explain which
+            # member was found, with what value, or why a candidate was refused.
+            "foundation_conclusions": [_conclusion_summary(c) for c in conclusions],
         }
         exports = ResultExporter().export(output_dir=output_dir, records=records, summary=manifest, package=package)
         manifest["exports"] = exports
