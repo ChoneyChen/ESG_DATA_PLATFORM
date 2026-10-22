@@ -563,6 +563,10 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
                 current_section = text
             continue
         label = " › ".join(part for part in label_parts if part)
+        # A two-panel table can land the unit cell in the label column; when the
+        # roles are visibly reversed, trust the cell contents.
+        if unit and _is_unit_like(label) and not _is_unit_like(unit):
+            label, unit = unit, label
         lines.append(DataLine(r, f"r{r}", label, unit or None, current_section, values))
 
     page = (page_payload or {}).get("page") or {}
@@ -922,8 +926,8 @@ def render_table(view: TableView, lines: list[DataLine] | None = None) -> str:
 GROUP_SCOPE_RE = re.compile(r"(?:集团|全集团|本集团|公司整体|全公司|合并|总计|合计|汇总|group|consolidated|company[-\s]wide|whole\s+company|total)", re.I)
 SUBSET_SCOPE_RE = re.compile(
     r"(?:基地|工厂|厂区|园区|数据中心|办公(?:楼|室|场所)?|分公司|子公司|事业部|板块|运营中心|门店|矿山|矿区|电站|项目公司|"
-    r"境内|境外|海外|国内|中国大陆|\bsites?\b|\bplants?\b|\bfacilit|\bbase\b|\bsegments?\b|\bsubsidiar|\bdata\s+cent|"
-    r"\boffices?\b|\bdomestic\b|\boverseas\b|\bmainland\b)",
+    r"境内|境外|海外|国内|中国大陆|香港|澳門|澳门|台灣|台湾|\bsites?\b|\bplants?\b|\bfacilit|\bbase\b|\bsegments?\b|\bsubsidiar|\bdata\s+cent|"
+    r"\boffices?\b|\bdomestic\b|\boverseas\b|\bmainland\b|hong\s+kong|macau|macao|taiwan|outside\s+hong\s+kong)",
     re.I,
 )
 

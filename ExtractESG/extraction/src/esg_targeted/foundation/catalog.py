@@ -287,7 +287,7 @@ GROUPS: tuple[SourceGroup, ...] = (
     ),
     SourceGroup(
         "workforce", ("S1-6_02", "S1-6_12"),
-        ("员工总数", "员工人数", "雇员人数", "在职员工", "员工流失率", "离职率", "employee turnover", "number of employees",
+        ("员工总数", "员工总人数", "员工人数", "雇员人数", "在职员工", "总人数", "员工流失率", "离职率", "employee turnover", "number of employees",
          "headcount", "head count"),
         ("人", "人数", "期末", "平均", "%", "turnover", "employees"),
     ),

@@ -77,6 +77,24 @@ def scope2_method_from_text(*texts: str | None, grid_factor: bool = False) -> st
 def unit_dimension(unit: str | None) -> str | None:
     if not unit:
         return None
+    raw_unit = unit.casefold()
+    # "m3 (m3 per employee)" prints a conversion note after the unit; the base
+    # unit is still m3. Only a denominator in the unit itself is an intensity.
+    base_unit = raw_unit.split("(")[0].split("（")[0].strip()
+    if base_unit and base_unit != raw_unit:
+        base_dimension = unit_dimension(base_unit)
+        if base_dimension:
+            return base_dimension
+    # A unit with a denominator is an intensity of its numerator, not the
+    # numerator's absolute dimension ("吨CO2e/万元" is GHG intensity).
+    if re.search(r"[/／]|每|per\s", raw_unit):
+        if any(token in raw_unit for token in ("co2", "co₂", "二氧化碳", "碳当量")):
+            return "ghg-intensity"
+        if any(token in raw_unit for token in ("wh", "千瓦时", "瓦时", "焦", "tce", "toe", "标煤", "标准煤")):
+            return "energy-intensity"
+        if any(token in raw_unit for token in ("m3", "m³", "立方米", "升", "litre", "liter")):
+            return "water-intensity"
+        return "intensity"
     scaled = unit_scale(unit)
     if scaled:
         return FAMILY_DIMENSION.get(scaled[0])
@@ -402,6 +420,42 @@ def pollutant_row_items(task: TableTask, items: list[dict]) -> list[dict]:
     return extra
 
 
+MAX_DERIVED_ROWS_PER_CODE = 3
+
+
+def concept_row_items(task: TableTask, items: list[dict], col: int | None) -> list[dict]:
+    """Propose printed rows whose own label already satisfies the clause guard.
+
+    The model proposes which row answers which datapoint, but it sometimes
+    leaves out a row the table clearly prints (a total head count, a turnover
+    rate, a water withdrawal). Those rows are still judged by the same guard
+    that would judge a model mapping: this never invents a value, only points
+    at a row the table printed and lets bind() read the current column.
+    Pollutant rows keep their own multi-member rule.
+    """
+    if col is None:
+        return []  # no value column: nothing to point at
+    seen = {item.get("row") for item in items}
+    extra: list[dict] = []
+    for code in task.codes:
+        metric = BY_CODE[code]
+        if metric.kind == "narrative" or metric.group in ("air", "water_pollutants"):
+            continue
+        added = 0
+        for line in task.lines:
+            if line.rid in seen:
+                continue
+            verdict = concept_check(code, line.label, line.section, line.unit, unit_dimension(line.unit))
+            if not verdict.ok:
+                continue
+            extra.append({"row": line.rid, "target": code, "note": None, "derived": "row_label_matches_concept"})
+            seen.add(line.rid)
+            added += 1
+            if added >= MAX_DERIVED_ROWS_PER_CODE:
+                break
+    return extra
+
+
 def share_partner_items(task: TableTask, items: list[dict]) -> list[dict]:
     """Propose the share row printed beside a mapped quantity row ("X" and "X 占比")."""
     targets = {item.get("target") for item in items}
@@ -462,7 +516,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[li
     items = list(payload.get("items") or [])
     items += share_partner_items(task, items) + scope2_partner_items(task, items)
     items += exact_label_items(task, items, payload)
-    items += pollutant_row_items(task, items)
+    items += pollutant_row_items(task, items) + concept_row_items(task, items, col)
     # One page-level method note cannot disambiguate two different Scope 2 rows.
     scope2_rows = len({item.get("row") for item in items
                        if item.get("target") in ("E1-6_09", "E1-6_10", SCOPE2_UNSPECIFIED)})

@@ -251,7 +251,7 @@ def _value_clause(text: str, value: str, *, before: int = 40, after: int = 16) -
     else:
         # Infographic text has no punctuation: keep the label that precedes the
         # number so the concept can be judged at all.
-        start = max(0, index - 24)
+        start = max(0, index - 60)
     end = min(len(text), index + len(value) + after)
     for mark in "。；;，,、":
         position = text.find(mark, index + len(value))
