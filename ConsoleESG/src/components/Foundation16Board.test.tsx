@@ -12,8 +12,8 @@ describe('foundationCsv', () => {
     ]);
     const lines = csv.split('\n');
     expect(lines).toHaveLength(4);
-    expect(lines[1]).toBe('E2-4_02,向空气排放污染物,已找到,NOx,45.63,t,2025,161,氮氧化物排放量,');
-    expect(lines[2].endsWith('"原文单位, 需复核"')).toBe(true);
+    expect(lines[1]).toBe('E2-4_02,向空气排放污染物,已找到,NOx,45.63,t,2025,161,氮氧化物排放量,,,,,,');
+    expect(lines[2].endsWith('"原文单位, 需复核",,,,,')).toBe(true);
     expect(lines[3].startsWith('E2-5_02,关注物质总量,未找到,')).toBe(true);
   });
 });

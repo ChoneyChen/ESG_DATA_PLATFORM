@@ -35,6 +35,14 @@ const CHILD_RELATION: Record<string, string> = {
   related_measure: '相关度量',
 };
 
+const SOURCE_KINDS: [string, string][] = [
+  ['agreeing_sources', '一致来源'],
+  ['conflicting_sources', '冲突来源'],
+  ['alternative_unit_sources', '其他单位'],
+  ['related_subset_sources', '相关子口径'],
+  ['component_sources', '分项构成'],
+];
+
 /** Filter keys are outcome words, not colour tones: the counts must match. */
 function bucketOf(status: string) {
   if (status === 'found') return 'found';
@@ -49,14 +57,6 @@ const FILTERS: [string, string][] = [
   ['review', '待复核'],
   ['conflict', '冲突'],
   ['none', '未披露'],
-];
-
-const SOURCE_KINDS: [string, string][] = [
-  ['agreeing_sources', '一致来源'],
-  ['conflicting_sources', '冲突来源'],
-  ['alternative_unit_sources', '其他单位'],
-  ['related_subset_sources', '相关子口径'],
-  ['component_sources', '分项构成'],
 ];
 
 export type Conclusion = Row & {code: string; status: string; group: string; parent_code?: string | null; children?: Row[]};
@@ -77,6 +77,10 @@ function valueText(row: Row) {
   return `${mark}${raw}${row.unit_raw ? ` ${row.unit_raw}` : ''}`;
 }
 
+function statusText(conclusion: Conclusion) {
+  return conclusion.child_only ? '已找到分项' : (STATUS_WORD[conclusion.status] || conclusion.status_label || conclusion.status);
+}
+
 function summaryOf(conclusion: Conclusion) {
   const members: Row[] = conclusion.members || [];
   if (members.length > 1) return members.map(m => `${m.member ?? ''} ${valueText(m)}`).join(' · ');
@@ -90,11 +94,22 @@ function packageTitle(conclusions: Conclusion[], key: string) {
   return row?.group_label ? `${row.group_label} · ${key}` : key;
 }
 
+function childValue(child: Row) {
+  if (child.values) return (child.values as Row[]).map(v => `${v.member ? `${v.member} ` : ''}${v.value_raw ?? '—'}${v.unit_raw ? ` ${v.unit_raw}` : ''}`).join('；');
+  return `${child.value_raw ?? '—'}${child.unit_raw ? ` ${child.unit_raw}` : ''}`;
+}
+
+function Locate({irRunId, source}: {irRunId: string; source?: Row}) {
+  if (!source) return null;
+  return <button type="button" className="text-button" onClick={() => locate(irRunId, source)}>定位原文</button>;
+}
+
 /* ==========================================================================
    CSV
    ========================================================================== */
 
-const CSV_COLUMNS = ['原编号', '指标', '结论', '成员', '报告原值', '单位', '期间', '页码', '来源行', '说明'];
+const CSV_COLUMNS = ['原编号', '指标', '结论', '成员', '报告原值', '单位', '期间', '页码', '来源行', '说明',
+  '子项', '子项关系', '子项原值', '子项单位', '子项页码'];
 
 function csvCell(value: unknown) {
   const text = value === null || value === undefined ? '' : String(value);
@@ -105,14 +120,23 @@ export function foundationCsv(conclusions: Conclusion[]) {
   const rows: unknown[][] = [];
   for (const c of conclusions) {
     const members: Row[] = c.members || [];
+    const children: Row[] = c.children || [];
+    const base = (member: Row | null) => [
+      c.code, c.label, c.status_label, member?.member ?? '', member?.value_raw ?? '', member?.unit_raw ?? '',
+      member?.period ?? '', member?.source?.page_number ?? '', member?.source?.row_label ?? '',
+      member ? (member.flag_labels || []).join('；') : '',
+    ];
     if (!members.length) {
       const statement = c.statements?.[0];
-      rows.push([c.code, c.label, c.status_label, '', statement ? statement.text : '', '', '', statement?.page_number ?? '', '', '']);
-      continue;
+      rows.push([...base(null), '', '', statement ? statement.text : '', '', '']);
+    } else {
+      for (const member of members) rows.push([...base(member), '', '', '', '', '']);
     }
-    for (const m of members) {
-      rows.push([c.code, c.label, c.status_label, m.member ?? '', m.value_raw, m.unit_raw ?? '', m.period ?? '',
-        m.source?.page_number ?? '', m.source?.row_label ?? '', (m.flag_labels || []).join('；')]);
+    for (const child of children) {
+      rows.push([c.code, c.label, statusText(c), '', '', '', child.period ?? '',
+        child.source?.page_number ?? '', child.source?.row_label ?? '', '',
+        child.code || child.label, CHILD_RELATION[String(child.relation)] || '', child.value_raw ?? '', child.unit_raw ?? '',
+        child.source?.page_number ?? '']);
     }
   }
   return [CSV_COLUMNS, ...rows].map(row => row.map(csvCell).join(',')).join('\n');
@@ -128,24 +152,24 @@ function download(name: string, text: string) {
 }
 
 /* ==========================================================================
-   Pieces
+   Detail tables
    ========================================================================== */
-
-function SourceLine({source, irRunId, caption, reasons = true}: {source: Row; irRunId: string; caption: string; reasons?: boolean}) {
-  return (
-    <li className="f16-source-line">
-      <span className="f16-caption">{caption}</span>
-      <span className="f16-value">{valueText(source)}</span>
-      <span className="f16-source">第 {source.page_number} 页 · {source.row_label}</span>
-      {source.period && <span className="f16-source">{source.period}</span>}
-      <button type="button" className="text-button" onClick={() => locate(irRunId, source)}>定位原文</button>
-      {reasons && source.flag_labels?.length > 0 && <span className="f16-reasons">{source.flag_labels.join('；')}</span>}
-    </li>
-  );
-}
 
 function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: string}) {
   const members: Row[] = conclusion.members || [];
+  const children: Row[] = conclusion.children || [];
+  const views: Row[] = conclusion.views || [];
+  const statements: Row[] = conclusion.statements || [];
+  const candidates: Row[] = conclusion.candidates || [];
+
+  const sourceRows = members.flatMap((member: Row, index: number) => {
+    const rows = [{...member.source, member: member.member, role: '主证据'}];
+    for (const [key, caption] of SOURCE_KINDS) {
+      for (const source of member[key] || []) rows.push({...source, member: member.member, role: caption});
+    }
+    return rows.map((row, order) => ({...row, key: `${index}-${order}`}));
+  });
+
   return (
     <div className="f16-detail-pane">
       <header className="f16-detail-head">
@@ -154,121 +178,169 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
           <h2>{conclusion.label}</h2>
           {conclusion.package_id && <small className="mono">{conclusion.package_id}{conclusion.metric_id ? ` · ${conclusion.metric_id}` : ''}</small>}
         </div>
-        <span className={`f16-status ${STATUS_TONE[conclusion.status] || 'none'}`}>{conclusion.child_only ? '已找到分项' : (STATUS_WORD[conclusion.status] || conclusion.status_label)}</span>
+        <span className={`f16-status ${STATUS_TONE[conclusion.status] || 'none'}`}>{statusText(conclusion)}</span>
       </header>
 
       {conclusion.parent_code && <p className="f16-parent">子项 · 属于 {conclusion.parent_code}</p>}
-
-      {members.length > 0 && (
-        <div className="f16-values">
-          {members.map((member, i) => (
-            <div className="f16-value-card" key={i}>
-              {members.length > 1 && <small>{member.member || '合计'}</small>}
-              <strong>{member.value_raw ?? '—'}</strong>
-              <span>{member.unit_raw ?? ''}</span>
-              <em>{member.period ?? ''}</em>
-            </div>
-          ))}
-        </div>
-      )}
-
       {conclusion.definition_zh && <p className="f16-definition">{conclusion.definition_zh || conclusion.definition}</p>}
 
-      {(conclusion.views || []).length > 0 && (
-        <div className="f16-views">
-          <h4>同一指标的其他报告口径（{conclusion.views!.length}）</h4>
-          <p className="muted">这些口径各自成为一条候选。交付后在审核中心逐条确认边界，才能分别发布；不要把集团值与基地值合并成一个观测。</p>
-          <table className="f16-members">
-            <thead><tr><th>口径</th><th>边界代码</th><th>原值</th><th>期间</th><th>来源</th></tr></thead>
-            <tbody>
-              {conclusion.views!.map((view: Row, index: number) => (
-                <tr key={`${view.boundary_label}-${index}`}>
-                  <td><strong>{BOUNDARY_WORD[String(view.boundary_label)] || String(view.boundary_label)}</strong></td>
-                  <td className="mono">{view.boundary_label || '—'}</td>
-                  <td className="metric-value">{view.value_raw}{view.unit_raw ? ` ${view.unit_raw}` : ''}</td>
-                  <td>{view.period || '—'}</td>
-                  <td>
-                    第 {view.source?.page_number} 页 · {view.source?.row_label}
-                    <button type="button" className="text-button" onClick={() => locate(irRunId, view.source || {})}>定位原文</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {(conclusion.children || []).length > 0 && (
-        <div className="f16-sublist">
-          <h4>本条包含的子项（{conclusion.children!.length}）</h4>
-          <p className="muted">这些是同一披露下的分项或相关度量，已单独保留原值与页码；它们不替代本条主值。</p>
-          <table className="f16-members">
-            <thead><tr><th>子项</th><th>关系</th><th>原值</th><th>来源</th></tr></thead>
-            <tbody>
-              {conclusion.children!.map((child: Row, index: number) => (
-                <tr key={`${child.code || child.label}-${index}`}>
-                  <td><strong>{child.code || child.label}</strong>{child.code && <small className="f16-attr">{child.label}</small>}</td>
-                  <td>{child.relation ? (CHILD_RELATION[String(child.relation)] || String(child.relation)) : (STATUS_WORD[String(child.status)] || '子项')}</td>
-                  <td className="metric-value">
-                    {child.values
-                      ? (child.values as Row[]).map((v: Row, i: number) => <div key={i}>{v.member ? `${v.member} ` : ''}{v.value_raw ?? '—'}{v.unit_raw ? ` ${v.unit_raw}` : ''}</div>)
-                      : `${child.value_raw ?? '—'}${child.unit_raw ? ` ${child.unit_raw}` : ''}`}
-                  </td>
-                  <td>{child.source?.page_number ? `第 ${child.source.page_number} 页` : child.source?.row_label || '—'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
       {members.length > 0 && (
-        <>
-          <h4>每个成员的来源</h4>
-          {members.map((member, i) => (
-            <div className="f16-member" key={`src${i}`}>
-              {members.length > 1 && <h5>{member.member}</h5>}
-              <div className="f16-row-meta">
-                <span>{member.source?.row_label || '—'}</span>
-                {member.source?.attributes?.column_header && <small>列：{member.source.attributes.column_header}</small>}
-                {member.source?.attributes?.table_title && <small>表：{member.source.attributes.table_title}</small>}
-                {member.source?.attributes?.section && <small>分区：{member.source.attributes.section}</small>}
-              </div>
-              <ul className="f16-sources">
-                <SourceLine source={member.source} irRunId={irRunId} caption="主证据" reasons={false}/>
-                {SOURCE_KINDS.flatMap(([key, caption]) =>
-                  (member[key] || []).map((source: Row, j: number) => <SourceLine key={`${key}${j}`} source={source} irRunId={irRunId} caption={caption}/>))}
-              </ul>
-              {(member.flag_labels?.length > 0 || (member as Row).source?.flag_labels?.length > 0) && (
-                <div className="f16-flags">
-                  {(member.flag_labels || []).map((f: string) => <span key={f}>{f}</span>)}
-                  {(member as Row).source?.flag_labels?.map((f: string) => <span key={f}>{f}</span>)}
-                </div>
-              )}
-              {member.value_raw != null && <button className="text-button" onClick={() => locate(irRunId, member.source || {})}>在第 {member.source?.page_number} 页核对这一行</button>}
-            </div>
-          ))}
-        </>
+        <section className="f16-block">
+          <h4>主值（{members.length}）</h4>
+          <div className="table-scroll">
+            <table className="f16-table">
+              <thead><tr>
+                <th>成员 / 口径</th><th>状态</th><th>原值</th><th>单位</th><th>期间</th><th>页码</th>
+                <th>一致</th><th>冲突</th><th>其他单位</th><th>子口径</th><th>分项</th>
+              </tr></thead>
+              <tbody>
+                {members.map((member: Row, index: number) => {
+                  const tone = member.status === 'accepted' ? 'found' : (member.status || 'review');
+                  return <tr key={index}>
+                    <td><strong>{member.member || '合计'}</strong></td>
+                    <td><span className={`f16-status ${STATUS_TONE[tone] || 'review'}`}>{STATUS_WORD[tone] || '待复核'}</span></td>
+                    <td className="metric-value">{valueText(member)}</td>
+                    <td>{member.unit_raw || '—'}</td>
+                    <td>{member.period || '—'}</td>
+                    <td>{member.source?.page_number ?? '—'}</td>
+                    <td>{(member.agreeing_sources || []).length}</td>
+                    <td>{(member.conflicting_sources || []).length}</td>
+                    <td>{(member.alternative_unit_sources || []).length}</td>
+                    <td>{(member.related_subset_sources || []).length}</td>
+                    <td>{(member.component_sources || []).length}</td>
+                  </tr>;
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
       )}
 
-      {conclusion.statements?.map((s: Row) => (
-        <blockquote key={s.block_id}>
-          {s.text}
-          <footer>第 {s.page_number} 页 · <button type="button" className="text-button" onClick={() => locate(irRunId, {page_number: s.page_number, note_block_id: s.block_id})}>定位原文</button></footer>
-        </blockquote>
-      ))}
+      {children.length > 0 && (
+        <section className="f16-block">
+          <h4>子表（{children.length}）</h4>
+          <p className="muted">同一披露下的分项或相关度量，已单独保留原值与页码；它们不替代主值。</p>
+          <div className="table-scroll">
+            <table className="f16-table">
+              <thead><tr><th>子项</th><th>关系</th><th>原值</th><th>单位</th><th>期间</th><th>页码</th><th>操作</th></tr></thead>
+              <tbody>
+                {children.map((child: Row, index: number) => (
+                  <tr key={`${child.code || child.label}-${index}`}>
+                    <td><strong>{child.code || child.label}</strong>{child.code && <small className="f16-attr">{child.label}</small>}</td>
+                    <td>{CHILD_RELATION[String(child.relation)] || (child.status ? (STATUS_WORD[String(child.status)] || '子项') : '子项')}</td>
+                    <td className="metric-value">{childValue(child)}</td>
+                    <td>{child.unit_raw || '—'}</td>
+                    <td>{child.period || (child.values?.[0]?.period) || '—'}</td>
+                    <td>{child.source?.page_number ?? child.values?.[0]?.source?.page_number ?? '—'}</td>
+                    <td><Locate irRunId={irRunId} source={child.source || child.values?.[0]?.source}/></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
-      {!members.length && !conclusion.statements?.length && (
-        <>
-          <Notice>
-            在所选表格与正文段落中没有符合本条款定义的披露。
-            {conclusion.rejection_reasons?.length ? `已排除的近似披露原因：${conclusion.rejection_reasons.join('；')}。` : ''}
-            {conclusion.candidates?.length ? '以下近似披露因概念或口径不符被排除：' : ''}
-          </Notice>
-          <ul className="f16-sources">
-            {conclusion.candidates?.map((s: Row, i: number) => <SourceLine key={i} source={s} irRunId={irRunId} caption="已排除"/>)}
-          </ul>
-        </>
+      {views.length > 0 && (
+        <section className="f16-block">
+          <h4>同一指标的其他报告口径（{views.length}）</h4>
+          <p className="muted">每个口径各自成为候选；交付后在审核中心逐条确认边界，不合并为一个观测。</p>
+          <div className="table-scroll">
+            <table className="f16-table">
+              <thead><tr><th>口径</th><th>边界代码</th><th>状态</th><th>原值</th><th>单位</th><th>期间</th><th>页码</th><th>操作</th></tr></thead>
+              <tbody>
+                {views.map((view: Row, index: number) => (
+                  <tr key={`${view.boundary_label}-${index}`}>
+                    <td><strong>{BOUNDARY_WORD[String(view.boundary_label)] || String(view.boundary_label)}</strong></td>
+                    <td className="mono">{view.boundary_label || '—'}</td>
+                    <td><span className={`f16-status ${STATUS_TONE[view.status] || 'review'}`}>{STATUS_WORD[view.status] || '待复核'}</span></td>
+                    <td className="metric-value">{valueText(view)}</td>
+                    <td>{view.unit_raw || '—'}</td>
+                    <td>{view.period || '—'}</td>
+                    <td>{view.source?.page_number ?? '—'}</td>
+                    <td><Locate irRunId={irRunId} source={view.source}/></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {sourceRows.length > 0 && (
+        <section className="f16-block">
+          <h4>来源明细（{sourceRows.length}）</h4>
+          <div className="table-scroll">
+            <table className="f16-table">
+              <thead><tr><th>成员</th><th>角色</th><th>原值</th><th>单位</th><th>期间</th><th>页码</th><th>来源行</th><th>说明</th><th>操作</th></tr></thead>
+              <tbody>
+                {sourceRows.map((source: Row) => (
+                  <tr key={source.key}>
+                    <td>{source.member || '合计'}</td>
+                    <td>{source.role}</td>
+                    <td className="metric-value">{valueText(source)}</td>
+                    <td>{source.unit_raw || '—'}</td>
+                    <td>{source.period || '—'}</td>
+                    <td>{source.page_number ?? '—'}</td>
+                    <td>{source.row_label || '—'}</td>
+                    <td className="f16-reason-cell">{(source.flag_labels || []).join('；')}</td>
+                    <td><Locate irRunId={irRunId} source={source}/></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {statements.length > 0 && (
+        <section className="f16-block">
+          <h4>陈述（{statements.length}）</h4>
+          <div className="table-scroll">
+            <table className="f16-table">
+              <thead><tr><th>页码</th><th>原文陈述</th><th>操作</th></tr></thead>
+              <tbody>
+                {statements.map((statement: Row) => (
+                  <tr key={statement.block_id}>
+                    <td>{statement.page_number ?? '—'}</td>
+                    <td>{statement.text}</td>
+                    <td><Locate irRunId={irRunId} source={{page_number: statement.page_number, note_block_id: statement.block_id}}/></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {!members.length && !statements.length && (
+        <section className="f16-block">
+          <h4>未采用候选（{candidates.length}）</h4>
+          <p className="muted">
+            在所选表格与正文段落中没有符合本条款定义的主值。
+            {conclusion.rejection_reasons?.length ? `已排除原因：${conclusion.rejection_reasons.join('；')}。` : ''}
+          </p>
+          {candidates.length > 0 && (
+            <div className="table-scroll">
+              <table className="f16-table">
+                <thead><tr><th>原值</th><th>单位</th><th>期间</th><th>页码</th><th>来源行</th><th>原因</th><th>操作</th></tr></thead>
+                <tbody>
+                  {candidates.map((candidate: Row, index: number) => (
+                    <tr key={index}>
+                      <td className="metric-value">{valueText(candidate)}</td>
+                      <td>{candidate.unit_raw || '—'}</td>
+                      <td>{candidate.period || '—'}</td>
+                      <td>{candidate.page_number ?? '—'}</td>
+                      <td>{candidate.row_label || '—'}</td>
+                      <td className="f16-reason-cell">{(candidate.flag_labels || []).join('；')}</td>
+                      <td><Locate irRunId={irRunId} source={candidate}/></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
       )}
     </div>
   );
@@ -357,30 +429,34 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
       </div>
 
       <div className="f16-workbench">
-        <div className="f16-rail" role="list">
+        <div className="f16-rail">
           {groups.map(({key, title, rows}) => {
             const shown = rows.filter(visible);
             if (!shown.length) return null;
             return (
               <section className="f16-group-block" key={key} aria-label={title}>
                 <h3 className="f16-group-title">{title}<small>{shown.length} 项</small></h3>
-                {shown.map(c => (
-                  <button
-                    key={c.code}
-                    role="listitem"
-                    type="button"
-                    className={`f16-item ${STATUS_TONE[c.status] || 'none'} ${open === c.code ? 'selected' : ''}`}
-                    onClick={() => setOpen(c.code)}
-                    aria-current={open === c.code ? 'true' : undefined}
-                  >
-                    <span className="f16-item-dot" aria-hidden="true"/>
-                    <span className="f16-item-body">
-                      <span className="f16-item-label">{c.label}</span>
-                      <span className="f16-item-meta">{c.code} · {STATUS_WORD[c.status] || c.status_label}</span>
-                    </span>
-                    <span className="f16-item-value">{summaryOf(c) || '—'}</span>
-                  </button>
-                ))}
+                <div className="table-scroll">
+                  <table className="f16-table f16-rail-table">
+                    <thead><tr><th>条款</th><th>状态</th><th>主值</th><th>子项</th><th></th></tr></thead>
+                    <tbody>
+                      {shown.map(c => (
+                        <tr
+                          key={c.code}
+                          className={`${STATUS_TONE[c.status] || 'none'} ${open === c.code ? 'selected' : ''}`}
+                          aria-selected={open === c.code}
+                          onClick={() => setOpen(c.code)}
+                        >
+                          <td><strong className="mono">{c.code}</strong><small className="f16-attr">{c.label}</small></td>
+                          <td><span className={`f16-status ${STATUS_TONE[c.status] || 'none'}`}>{statusText(c)}</span></td>
+                          <td className="metric-value">{summaryOf(c) || '—'}</td>
+                          <td>{(c.children || []).length || '—'}</td>
+                          <td><button type="button" className="text-button" onClick={event => {event.stopPropagation(); setOpen(c.code);}}>展开</button></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </section>
             );
           })}

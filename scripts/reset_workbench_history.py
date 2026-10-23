@@ -18,7 +18,7 @@ import urllib.request
 from pathlib import Path
 
 BASE = "http://127.0.0.1:18081"
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 EXTRACT = ROOT / "ExtractESG"
 OUTPUT_ROOT = EXTRACT / "document_ir_extract"
 
