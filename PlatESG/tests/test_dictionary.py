@@ -31,8 +31,8 @@ def test_all_major_ids_preserved_in_original_order_with_explicit_pending(artifac
     ids = [m['source_datapoint_id'] for m in dictionary['metrics']]
     assert ids == selection['source_datapoint_ids']
     assert len(ids) == len(set(ids)) == 55
-    assert len(profile['ready_source_datapoint_ids']) == 38
-    assert len(profile['pending_source_datapoint_ids']) == 17
+    assert len(profile['ready_source_datapoint_ids']) == 55
+    assert len(profile['pending_source_datapoint_ids']) == 0
     assert profile['overall_source_datapoint_ids'] == ids
     # The executable E1–E3 scope holds 19 ready clauses out of the 55.
     assert len(profile['source_datapoint_ids']) == 19 and set(profile['source_datapoint_ids']) <= set(ids)
@@ -152,4 +152,4 @@ def test_major_scope_maps_every_selected_metric_back_to_its_original_id():
     assert originals == profile['source_datapoint_ids']
     assert profile['output_count'] == len(originals) == 19
     assert len(profile['overall_source_datapoint_ids']) == 55
-    assert len(profile['pending_source_datapoint_ids']) == 17
+    assert len(profile['pending_source_datapoint_ids']) == 0

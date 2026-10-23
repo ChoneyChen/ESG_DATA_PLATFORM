@@ -101,6 +101,99 @@ SPECS: dict[str, ClauseSpec] = {
         exclude_terms=("耗水", "consumption", "取水", "withdrawal", "循环", "recycl", "风险", "risk"),
         dimension="volume", total=True, component_terms=("地表", "地下", "海洋", "surface", "ground", "sea"),
     ),
+    # Platform-major clauses outside the sixteen. These carry concept language
+    # only; their labels and positive definitions live in the 2.3.0 packages.
+    "E4.IRO-1_14": ClauseSpec(
+        "E4.IRO-1_14", "位于或邻近生物多样性敏感区域的场址",
+        require_terms=("生物多样性敏感", "biodiversity-sensitive", "biodiversity sensitive", "敏感区域"),
+        exclude_terms=("数量", "number of", "面积", "area of"),
+    ),
+    "E4.SBM-3_04": ClauseSpec(
+        "E4.SBM-3_04", "受到影响的生物多样性敏感区域",
+        require_terms=("敏感区域", "sensitive area", "sensitive areas"),
+        exclude_terms=("数量", "number of", "面积", "area of", "场址清单", "list of sites"),
+    ),
+    "E4-5_01": ClauseSpec(
+        "E4-5_01", "受负面影响的保护区或重点生物多样性区域场址数量",
+        require_terms=("场址", "site", "sites"),
+        exclude_terms=("面积", "area"),
+        dimension="count",
+    ),
+    "E4-5_02": ClauseSpec(
+        "E4-5_02", "受负面影响的保护区或重点生物多样性区域场址面积",
+        require_terms=("面积", "area"),
+        dimension="area",
+    ),
+    "S2-1_05": ClauseSpec(
+        "S2-1_05", "价值链政策对人口贩运、强迫劳动和童工的覆盖",
+        require_terms=("贩运", "trafficking", "强迫劳动", "forced labour", "forced labor",
+                       "童工", "child labour", "child labor"),
+        exclude_terms=("申诉", "channel", "grievance"),
+    ),
+    "S2-3_02": ClauseSpec(
+        "S2-3_02", "价值链劳动者提出关切的渠道",
+        require_terms=("渠道", "channel", "申诉", "grievance", "投诉", "complaint"),
+        scope_terms=("价值链", "value chain", "供应商", "supplier"),
+        exclude_terms=("报复", "retaliation"),
+    ),
+    "S2-3_06": ClauseSpec(
+        "S2-3_06", "价值链劳动者申诉的反报复政策",
+        require_terms=("报复", "retaliation"),
+        scope_terms=("价值链", "value chain", "供应商", "supplier"),
+    ),
+    "S2-4_11": ClauseSpec(
+        "S2-4_11", "价值链中的严重人权问题与事件",
+        require_terms=("严重人权", "severe human rights", "人权事件", "human rights incident"),
+    ),
+    "S3-1_01": ClauseSpec(
+        "S3-1_01", "防止和应对原住民影响的政策条款",
+        require_terms=("原住民", "indigenous"),
+        exclude_terms=("申诉", "channel"),
+    ),
+    "S3-3_11": ClauseSpec(
+        "S3-3_11", "受影响社区提出关切的渠道",
+        require_terms=("渠道", "channel", "申诉", "grievance"),
+        scope_terms=("社区", "community"),
+        exclude_terms=("报复", "retaliation"),
+    ),
+    "S3-4_02": ClauseSpec(
+        "S3-4_02", "对受影响社区实际重大影响的补救行动",
+        require_terms=("补救", "remedy"),
+        scope_terms=("社区", "community"),
+    ),
+    "S3-4_11": ClauseSpec(
+        "S3-4_11", "与受影响社区相关的严重人权问题与事件",
+        require_terms=("严重人权", "severe human rights"),
+        scope_terms=("社区", "community"),
+    ),
+    "S4-1_01": ClauseSpec(
+        "S4-1_01", "管理消费者和终端用户重大影响、风险和机遇的政策",
+        require_terms=("政策", "polic"),
+        scope_terms=("消费者", "consumer"),
+    ),
+    "S4-3_02": ClauseSpec(
+        "S4-3_02", "消费者和终端用户提出关切的渠道",
+        require_terms=("渠道", "channel", "申诉", "grievance", "投诉", "complaint"),
+        scope_terms=("消费者", "consumer"),
+        exclude_terms=("报复", "retaliation"),
+    ),
+    "S4-3_13": ClauseSpec(
+        "S4-3_13", "报告期内收到的消费者投诉数量",
+        require_terms=("投诉", "complaint"),
+        scope_terms=("消费者", "consumer"),
+        exclude_terms=("率", "%", "比例", "rate", "share"),
+        dimension="count",
+    ),
+    "S4-4_11": ClauseSpec(
+        "S4-4_11", "与消费者和终端用户相关的严重人权问题与事件",
+        require_terms=("严重人权", "severe human rights"),
+        scope_terms=("消费者", "consumer"),
+    ),
+    "G1-1_03": ClauseSpec(
+        "G1-1_03", "未制定符合联合国反腐败公约的反腐败或反贿赂政策",
+        require_terms=("反腐败", "反贿赂", "anti-corruption", "anti-bribery", "corruption"),
+        exclude_terms=("培训", "training", "定罪", "conviction", "罚款", "fine", "事件", "incident"),
+    ),
 }
 
 

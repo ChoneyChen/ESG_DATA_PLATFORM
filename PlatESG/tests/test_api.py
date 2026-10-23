@@ -27,11 +27,12 @@ def client(tmp_path_factory):
 def test_all_major_original_ids_survive_and_decimal_api_is_exact(client):
     metrics=client.get("/v1/metrics").json()
     assert len(metrics["items"])==55
-    assert sum(m["readiness"]=="ready" for m in client.get("/internal/v1/metrics",headers={"Authorization":"Bearer integration-review-token"}).json()["items"])==38
+    assert sum(m["readiness"]=="ready" for m in client.get("/internal/v1/metrics",headers={"Authorization":"Bearer integration-review-token"}).json()["items"])==55
     assert "E1-6_11" in {m["source_datapoint_id"] for m in metrics["items"]}
-    rows=client.get("/v1/observations").json()
-    # Ready metrics × two demo entities × two years.
-    assert len(rows["items"])==140
+    rows=client.get("/v1/observations",params={"limit":1000}).json()
+    # 52 value-bearing metrics (3 structure metrics carry no value) × two demo
+    # entities × two years.
+    assert len(rows["items"])==208
     assert all(isinstance(r["value_numeric"],str) for r in rows["items"] if r["value_numeric"] is not None)
     ratio=next(r for r in rows["items"] if r["source_datapoint_id"]=="E1-5_09")
     assert ratio["value_numeric"]=="0.25125"
@@ -165,7 +166,9 @@ def test_cursor_and_export_freeze_dataset_and_do_not_turn_missing_into_zero(clie
     export=client.get("/v1/exports",params={"format":"json","dataset_version":first["dataset_version"]}).json()
     assert export["dataset_version"]==first["dataset_version"]
     coverage=client.get("/v1/coverage",params={"entity_ref":"demo-alpha","dataset_version":first["dataset_version"]}).json()
-    assert sum(r["status"]=="not_available" for r in coverage["items"])>=20
+    statuses=[r["status"] for r in coverage["items"]]
+    assert "not_available" in statuses, "a clause without a published observation must stay not_available"
+    assert set(statuses) <= {"published","not_available"}
     assert client.get("/v1/datasets/999999").status_code==404
     assert client.get("/v1/observations",params={"dataset_version":999999}).status_code==404
 

@@ -19,13 +19,13 @@ sys.path.insert(0, str(STANDARD_ROOT / 'src'))
 from esg_standard_packages.scope import compile_profile, load_registry  # noqa: E402
 from esg_standard_packages.io import canonical_json_bytes  # noqa: E402
 
-VERSION = '1.4.2'
+VERSION = '1.4.3'
 # Definition versions continue from the last sealed file dictionary, not from
 # 1.0.0: a changed definition must never reuse a version already sealed.
 # Dictionary versions are shared with platform extension selections (the
 # live 1.3.0 is 1.2.0 plus an approved extension), so the next changed file
 # dictionary must take a version above every sealed one.
-PREVIOUS = 'catalog/history/metric-dictionary.1.4.1.json'
+PREVIOUS = 'catalog/history/metric-dictionary.1.4.2.json'
 COMMON_CONDITIONS = [
     '主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。',
     '原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。',

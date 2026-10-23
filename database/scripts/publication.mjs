@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import {projectDerivedCandidates} from './extension-derivation.mjs';
 import {resolveReportedProperties} from './scientific-properties.mjs';
 
-const UNIT_RULES = JSON.parse(await readFile(new URL('./unit-conversions.1.5.3.json',import.meta.url),'utf8'));
+const UNIT_RULES = JSON.parse(await readFile(new URL('./unit-conversions.1.5.4.json',import.meta.url),'utf8'));
 export const NORMALIZATION_RULE_VERSION = UNIT_RULES.rule_version;
 const stableJSON = value => JSON.stringify(value, (_, v) => v && typeof v === 'object' && !Array.isArray(v)
   ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => a.localeCompare(b))) : v);
@@ -149,7 +149,7 @@ export async function saveMeasurementContext(db, payload) {
 const cleanUnit = u => (u || '').replace(/\s+/gu,'');
 const seenAliases=new Set();
 for(const rule of UNIT_RULES.conversions) {
-  if(!['MWh','tCO2e','tonne','m3','ratio','person','count','rate','day','hour/person','tCO2e-per-10k-cny'].includes(rule.canonical_unit) || !Array.isArray(rule.aliases) || !rule.aliases.length
+  if(!['MWh','tCO2e','tonne','m3','ha','ratio','person','count','rate','day','hour/person','tCO2e-per-10k-cny'].includes(rule.canonical_unit) || !Array.isArray(rule.aliases) || !rule.aliases.length
       || ![rule.multiplier,rule.divisor].every(v=>typeof v==='string' && /^\d+(?:\.\d+)?$/.test(v) && /[1-9]/.test(v)))
     throw new Error('Invalid versioned unit conversion rule');
   for(const alias of rule.aliases) {

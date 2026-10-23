@@ -30,12 +30,13 @@ LOCATION_TERMS_RE = re.compile(r"(?:location[\s-]*based|地点法|基于(?:地�
 GRID_FACTOR_RE = re.compile(r"(?:(?:当地|所在地|区域|地区|全国|所在国)(?:的)?电网(?:平均)?(?:二氧化碳)?(?:排放)?因子|grid[\s-]*average|average\s+grid|grid\s+emission\s+factor)", re.I)
 MARKET_TERMS_RE = re.compile(r"(?:market[\s-]*based|市场法|基于市场|(?<!未)(?<!不)绿电抵扣|抵扣绿电后|供应商特定|supplier[\s-]*specific|contractual\s+instrument|residual\s+mix|剩余组合)", re.I)
 FAMILY_DIMENSION = {"ghg": "ghg-emissions", "energy": "energy", "energy_tce": "energy", "volume": "volume",
-                    "mass": "mass", "ratio": "ratio"}
+                    "mass": "mass", "ratio": "ratio", "area": "area"}
 FALLBACK_DIMENSIONS = (
     ("ghg-emissions", ("co2", "二氧化碳", "碳当量")),
     ("ratio", ("%", "％", "百分比")),
     ("energy", ("wh", "千瓦时", "瓦时", "焦", "tj", "gj", "mj", "tce", "toe", "标准煤", "标煤", "btu")),
     ("volume", ("m3", "m³", "立方米", "升", "megalit", "litre", "liter")),
+    ("area", ("公顷", "hectare", "ha", "平方米", "m2", "m²", "平方公里", "km2")),
     ("currency", ("元", "usd", "rmb", "cny", "hkd", "eur", "dollar")),
     ("mass", ("吨", "噸", "kg", "千克", "公斤", "tonne")),
     ("count", ("件", "次", "个", "家", "项", "起", "台", "辆", "宗", "人", "number", "cases", "no.")),

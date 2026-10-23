@@ -21,7 +21,11 @@ def platform_major_profile(standard_root: Path, *, topics: list[str] | None):
     profile_path = standard_root / "profiles/esrs/2023-set1/platform-major.json"
     dictionary_path_value = dictionary_path(standard_root)
     dictionary = json.loads(dictionary_path_value.read_text(encoding="utf-8"))
+    if topics is not None and not any(str(topic).strip() for topic in topics):
+        raise ValueError("Topic filter must name at least one topic; an empty scope is not allowed")
     result = compile_profile(standard_root, profile_path, topics=topics)
+    if topics is not None and not result["source_datapoint_ids"]:
+        raise ValueError("Topic filter selected no platform-major clauses; no silent empty scope")
     ready = [m["source_datapoint_id"] for m in dictionary["metrics"] if m["readiness"] == "ready"]
     pending = [m["source_datapoint_id"] for m in dictionary["metrics"] if m["readiness"] == "planned"]
     # A compiled package is not a platform commitment. A platform-major scope

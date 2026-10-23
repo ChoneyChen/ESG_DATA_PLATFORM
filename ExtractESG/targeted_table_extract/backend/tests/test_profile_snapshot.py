@@ -13,7 +13,7 @@ def test_major_profile_pins_dictionary_and_selected_outputs_independently_of_cor
     scope=platform_major_profile(STANDARD_ROOT,topics=["E1","E2","E3"])
     assert len(scope["overall_source_datapoint_ids"])==55
     assert len(scope["source_datapoint_ids"])==19
-    assert len(scope["pending_source_datapoint_ids"])==17
+    assert len(scope["pending_source_datapoint_ids"])==0
     catalog=StandardPackageCatalog(STANDARD_ROOT/"dist")
     selections=[(catalog.load(s["package_id"],s["package_version"]),s["metric_ids"]) for s in scope["session_standards"]]
     snapshot=ExtractionSelectionSnapshot.model_validate(scope["selection_snapshot"])
@@ -28,6 +28,8 @@ def test_major_profile_pins_dictionary_and_selected_outputs_independently_of_cor
         validate_selection_snapshot(STANDARD_ROOT,changed,selections)
 
 
-def test_global_major_profile_never_silently_shrinks_unbuilt_modules():
-    with pytest.raises(ValueError,match="no silent scope reduction"):
-        platform_major_profile(STANDARD_ROOT,topics=None)
+def test_global_major_profile_selects_every_ready_clause():
+    scope=platform_major_profile(STANDARD_ROOT,topics=None)
+    assert len(scope["source_datapoint_ids"])==55
+    assert scope["pending_source_datapoint_ids"]==[]
+    assert set(scope["source_datapoint_ids"])==set(scope["ready_source_datapoint_ids"])

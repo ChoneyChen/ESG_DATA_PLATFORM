@@ -35,17 +35,30 @@ def frozen_scope():
     return response, selection, chosen
 
 
-@pytest.mark.parametrize('topics', [None, [], ['E99'], ['E1', 'E99'], ['S2'], ['X1']])
-def test_unbuilt_or_unknown_or_empty_topic_scope_never_silently_reduces(topics):
+@pytest.mark.parametrize('topics', [[], ['E99'], ['E1', 'E99'], ['X1']])
+def test_unknown_or_empty_topic_scope_never_silently_reduces(topics):
     with pytest.raises(ValueError):
         platform_major_profile(STANDARDS, topics=topics)
+
+
+def test_global_scope_selects_every_ready_clause_without_shrinking():
+    scope = platform_major_profile(STANDARDS, topics=None)
+    assert len(scope['source_datapoint_ids']) == 55
+    assert scope['pending_source_datapoint_ids'] == []
+
+
+def test_social_topic_scope_is_selectable_once_authored():
+    scope = platform_major_profile(STANDARDS, topics=['S2'])
+    assert scope['source_datapoint_ids']
+    assert set(scope['source_datapoint_ids']) <= set(scope['overall_source_datapoint_ids'])
+    assert scope['pending_source_datapoint_ids'] == []
 
 
 def test_scope_hashes_bind_full_original_profile_dictionary_and_selected_packages(frozen_scope):
     response, selection, chosen = frozen_scope
     assert len(response['overall_source_datapoint_ids']) == 55
     assert len(selection.source_datapoint_ids) == response['output_count'] == 19
-    assert len(response['pending_source_datapoint_ids']) == 17
+    assert len(response['pending_source_datapoint_ids']) == 0
     assert selection.profile_digest == hashlib.sha256((STANDARDS / 'profiles/esrs/2023-set1/platform-major.json').read_bytes()).hexdigest()
     assert selection.dictionary_digest == hashlib.sha256((REPOSITORY / 'PlatESG/catalog/metric-dictionary.v1.json').read_bytes()).hexdigest()
     validate_selection_snapshot(STANDARDS, selection, chosen)

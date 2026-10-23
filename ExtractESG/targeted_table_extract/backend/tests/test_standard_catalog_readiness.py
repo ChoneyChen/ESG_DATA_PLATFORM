@@ -47,7 +47,7 @@ def test_major_profile_readiness_preserves_every_id_with_explicit_pending(monkey
     assert payload["readiness"]["ready"]
     assert payload["readiness"]["business_approval"] == "not_assessed"
     profile = payload["readiness"]["profile"]
-    assert (profile["overall_count"], profile["ready_count"], profile["pending_count"]) == (55, 38, 17)
+    assert (profile["overall_count"], profile["ready_count"], profile["pending_count"]) == (55, 55, 0)
     assert profile["selected_output_count"] == 19
     assert len(profile["selection_snapshot"]["source_datapoint_ids"]) == 19
 

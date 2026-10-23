@@ -185,8 +185,21 @@ async function internalCoverage(db, params) {
 }
 
 // Frozen public evidence never queries the live candidate or review tables.
-async function detail(db, params) {
+// Internal review reads the current dictionary, not the last published
+// snapshot: a newly ready clause must be reviewable before it can produce an
+// observation and hence a new dataset. Public /v1/metrics stays dataset-bound.
+async function internalMetrics(db, params) {
   const data = await snapshot(db, params.dataset_version);
+  const dictionary = await dictionaryFile();
+  const current = new Map(dictionary.metrics.map(metric => [metric.source_datapoint_id, metric]));
+  const items = data.metrics.map(metric => {
+    const live = current.get(metric.source_datapoint_id);
+    return live ? { ...metric, ...live } : metric;
+  });
+  return listResponse(data, items);
+}
+
+async function detail(db, params) {  const data = await snapshot(db, params.dataset_version);
   const row = data.rows.find(r => r.observation_id === params.observation_id);
   if (!row) throw error('Observation is not present in the requested published dataset','not_found');
   const metric = data.metrics.find(m => m.metric_id === row.metric_id);
@@ -568,7 +581,7 @@ export async function dispatch(db, method, params) {
     case 'source_document': return sourceDocument(db,params);
     case 'internal_detail': return internalDetail(db,params);
     case 'internal_coverage': return internalCoverage(db,params);
-    case 'internal_metrics': {const data=await snapshot(db,params.dataset_version);return listResponse(data,data.metrics);}
+    case 'internal_metrics': return internalMetrics(db, params);
     case 'extension_registry': return listExtensionRegistry(db);
     case 'extension_propose': return saveExtensionProposal(db,params);
     case 'extension_decide': {

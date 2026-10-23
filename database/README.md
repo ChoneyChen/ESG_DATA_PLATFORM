@@ -27,7 +27,7 @@ disclosure_dimensions                                     dataset_membership
 | 审核 | `review_decisions`、`measurement_contexts` | 事实/映射决定与测量口径（主体、期间、边界、方法、维度） |
 | 导入 | `import_batches`、`import_items` | 一次交付的批次、逐项结果与幂等键 |
 | 字典 | `dictionary_versions`、`metric_definition_versions`、`dictionary_membership` | 不可变字典快照与指标定义版本 |
-| 单位 | `normalization_rule_versions` | 版本化换算规则（当前 `esg-units-1.5.3`） |
+| 单位 | `normalization_rule_versions` | 版本化换算规则（当前 `esg-units-1.5.4`） |
 | 发布 | `curated_observations`、`observation_sources`、`publication_states` | 规范观测、其来源与发布判定 |
 | 口径 | `curated_observations.boundary_code` | 同一指标在集团、基地、子公司、地区等不同范围下是**不同观测**，各自独立发布 |
 | 版本 | `dataset_versions`、`dataset_membership`、`outbox_events`、`publication_control` | 冻结数据版本与发布事件 |

@@ -535,3 +535,22 @@ def test_declared_spec_judges_a_clause_without_a_bespoke_guard():
         assert rejected.ok is False and rejected.flags
     finally:
         specs.SPECS.pop("E9-9_01", None)
+
+
+def test_platform_major_specs_keep_each_new_clause_distinct():
+    cases = [
+        ("E4-5_01", "受影响的场址数量", "个", "count", True),
+        ("E4-5_01", "受影响场址面积", "公顷", "area", False),
+        ("E4-5_02", "受影响的场址面积", "公顷", "area", True),
+        ("E4-5_02", "受影响的场址数量", "个", "count", False),
+        ("S2-3_02", "价值链劳动者申诉渠道", None, None, True),
+        ("S2-3_02", "价值链反报复政策", None, None, False),
+        ("S3-3_11", "受影响社区申诉渠道", None, None, True),
+        ("S3-3_11", "消费者申诉渠道", None, None, False),
+        ("S4-3_13", "消费者投诉数量", "件", "count", True),
+        ("S4-3_13", "消费者投诉比例", "%", "ratio", False),
+        ("G1-1_03", "反腐败政策", None, None, True),
+        ("G1-1_03", "反腐败培训", None, None, False),
+    ]
+    for code, label, unit, dimension, expected in cases:
+        assert check(code, label, None, unit, dimension).ok is expected, (code, label)

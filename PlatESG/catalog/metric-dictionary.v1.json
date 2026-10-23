@@ -1,5 +1,5 @@
 {
-  "dictionary_version": "1.4.2",
+  "dictionary_version": "1.4.3",
   "comparison_contract_version": "1.0.0",
   "profile_id": "esrs.2023-set1.platform-major",
   "profile_version": "1.1.0",
@@ -2413,7 +2413,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "敏感生物多样性区域内或附近场址情况",
+      "description": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -2430,17 +2430,54 @@
       "original_name": "Undertaking has sites located in or near biodiversity-sensitive areas",
       "original_data_type": "semi-narrative",
       "topic": "E4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.e4-iro-1",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.e4-iro-1.dp14",
+        "digest": "07694458822692a7136dac865210bf30ab30cfbe7ddb3e847dd78a6bc9dcb828"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "categorical",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "risk_type",
+          "time_horizon",
+          "scenario"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "risk_type",
+          "time_horizon",
+          "scenario"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -2452,7 +2489,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "biodiversity.impacted_sensitive_areas",
@@ -2470,7 +2507,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "受影响的敏感生物多样性区域",
+      "description": "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -2487,17 +2524,54 @@
       "original_name": "Disclosure of biodiversity-sensitive areas impacted ",
       "original_data_type": "narrative",
       "topic": "E4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.e4-sbm-3",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.e4-sbm-3.dp04",
+        "digest": "d5fcb198e7de17dd34fa29bf324f5451cdd7464be9b3284cc48af9bc54700db0"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "risk_type",
+          "time_horizon",
+          "scenario"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "risk_type",
+          "time_horizon",
+          "scenario"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -2509,7 +2583,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "biodiversity.negatively_impacted_site_count",
@@ -2533,7 +2607,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "负面影响敏感区域的场址数量",
+      "description": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址数量。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -2550,17 +2624,48 @@
       "original_name": "Number of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
       "original_data_type": "Integer",
       "topic": "E4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.e4-5",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.e4-5.dp01",
+        "digest": "96b465ec27dbfb0c3bad9028963e149a5de58ef0f463c9cde44ea49da47d7ebf"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "numeric",
+        "value_role": "actual",
+        "unit_dimension": "extractesg.core.unit-dimension.count",
+        "canonical_unit_id": "extractesg.core.unit.count",
+        "normalization": "compatible_unit_only",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "conditional_numeric",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址数量。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -2572,7 +2677,7 @@
         "conditional_or_alternative": "Conditional",
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "biodiversity.negatively_impacted_site_area",
@@ -2597,7 +2702,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "负面影响敏感区域的场址面积",
+      "description": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -2614,17 +2719,48 @@
       "original_name": "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
       "original_data_type": "Area",
       "topic": "E4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.e4-5",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.e4-5.dp02",
+        "digest": "96b465ec27dbfb0c3bad9028963e149a5de58ef0f463c9cde44ea49da47d7ebf"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "numeric",
+        "value_role": "actual",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "conditional_numeric",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": "核心单位表暂无面积维度；保留原值与原单位，不做换算。"
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -2636,7 +2772,7 @@
         "conditional_or_alternative": "Conditional",
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "materials.total_input_weight",
@@ -4038,7 +4174,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "价值链劳工政策对人口贩卖、强迫及童工的覆盖",
+      "description": "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4055,17 +4191,50 @@
       "original_name": "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour",
       "original_data_type": "semi-narrative",
       "topic": "S2",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s2-1",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s2-1.dp05",
+        "digest": "f333ff82039557afa4a8c4fcfd7ce505f6ec80933f6a65fdb95d9d48f9b95296"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "categorical",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4077,7 +4246,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "value_chain_worker.grievance_channels",
@@ -4094,7 +4263,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "价值链劳动者申诉渠道",
+      "description": "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4111,17 +4280,48 @@
       "original_name": "Disclosure of specific channels in place for value chain workers to raise concerns or needs directly with undertaking and have them addressed ",
       "original_data_type": "narrative",
       "topic": "S2",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s2-3",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s2-3.dp02",
+        "digest": "7834fd258e03bca5765599afc6907dc7944636e9eecfb7be5a329108b3b7b668"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4133,7 +4333,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "value_chain_worker.anti_retaliation_policy",
@@ -4150,7 +4350,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "价值链劳动者申诉反报复政策",
+      "description": "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4167,17 +4367,48 @@
       "original_name": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
       "original_data_type": "semi-narrative",
       "topic": "S2",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s2-3",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s2-3.dp06",
+        "digest": "7834fd258e03bca5765599afc6907dc7944636e9eecfb7be5a329108b3b7b668"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "categorical",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4189,7 +4420,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "value_chain_worker.severe_human_rights_issues",
@@ -4207,7 +4438,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "价值链严重人权问题和事件",
+      "description": "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4224,17 +4455,50 @@
       "original_name": "Disclosure of severe human rights issues and incidents connected to upstream and downstream value chain ",
       "original_data_type": "narrative",
       "topic": "S2",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s2-4",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s2-4.dp11",
+        "digest": "80c3e99682be15120208af91fdeac3ab9ae810cc6c3728a6f167e175e5d3baa8"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4246,7 +4510,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "community.indigenous_policy",
@@ -4263,7 +4527,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "原住民影响预防和应对政策",
+      "description": "披露主体政策中用于防止和应对对原住民影响的特定条款，包括自由、事先和知情同意安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4280,17 +4544,50 @@
       "original_name": "Disclosure of any  any particular policy provisions for preventing and addressing impacts on indigenous peoples",
       "original_data_type": "narrative",
       "topic": "S3",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s3-1",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s3-1.dp01",
+        "digest": "e5dbe4ba30a74204277a52761f7114baff3c001a3dfb00b60aa09012d1eca018"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露主体政策中用于防止和应对对原住民影响的特定条款，包括自由、事先和知情同意安排。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4302,7 +4599,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "community.grievance_channels",
@@ -4319,7 +4616,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "受影响社区申诉渠道",
+      "description": "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4336,17 +4633,48 @@
       "original_name": "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed ",
       "original_data_type": "narrative",
       "topic": "S3",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s3-3",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s3-3.dp11",
+        "digest": "0ef78795ffef6fe5738c7e42e7f6e0e0d8783c22eac1038559de678490be2720"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4358,7 +4686,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "community.remedy_actions",
@@ -4376,7 +4704,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "对社区实际重大影响的补救行动",
+      "description": "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4393,17 +4721,50 @@
       "original_name": "Description of whether and how the undertaking has taken action to provide or enable remedy in relation to an actual material impact",
       "original_data_type": "narrative",
       "topic": "S3",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s3-4",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s3-4.dp02",
+        "digest": "011fc51e148b0adcb3d6358537ab3f93b6012436848a9082a760c95c01be034d"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4415,7 +4776,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "community.severe_human_rights_issues",
@@ -4432,7 +4793,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "受影响社区严重人权问题和事件",
+      "description": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4449,17 +4810,50 @@
       "original_name": "Disclosure of severe human rights issues and incidents connected to affected communities ",
       "original_data_type": "narrative",
       "topic": "S3",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s3-4",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s3-4.dp11",
+        "digest": "011fc51e148b0adcb3d6358537ab3f93b6012436848a9082a760c95c01be034d"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4471,7 +4865,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "consumer.impact_policies",
@@ -4488,7 +4882,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "消费者及终端用户重大影响、风险和机遇政策",
+      "description": "披露主体为管理消费者和终端用户相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全部消费者的安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4505,17 +4899,50 @@
       "original_name": "Policies to manage material impacts, risks and opportunities related to affected consumers and end-users, including specific groups or all consumers / end-users",
       "original_data_type": "narrative",
       "topic": "S4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s4-1",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s4-1.dp01",
+        "digest": "b47dce9e6d570dc25e1910deacb3c62c9078bba1b6fea8fab598a0d4930c1d59"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露主体为管理消费者和终端用户相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全部消费者的安排。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4527,7 +4954,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "consumer.grievance_channels",
@@ -4544,7 +4971,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "消费者及终端用户申诉渠道",
+      "description": "披露消费者和终端用户可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4561,17 +4988,48 @@
       "original_name": "Disclosure of specific channels in place for consumers and end-users to raise concerns or needs directly with undertaking and have them addressed ",
       "original_data_type": "narrative",
       "topic": "S4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s4-3",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s4-3.dp02",
+        "digest": "dc4507740b40f040c975104c8f07efce5b19d0d761d49dbcc2e85702769d2f54"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露消费者和终端用户可直接向主体提出关切或需求并获得处理的特定渠道。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4583,7 +5041,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "consumer.complaint_count",
@@ -4607,7 +5065,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "消费者及终端用户投诉数量",
+      "description": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4625,17 +5083,48 @@
       "original_name": "Number of complaints received from consumers and/or end users during the reporting period",
       "original_data_type": "Integer",
       "topic": "S4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s4-3",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s4-3.dp13",
+        "digest": "dc4507740b40f040c975104c8f07efce5b19d0d761d49dbcc2e85702769d2f54"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "numeric",
+        "value_role": "actual",
+        "unit_dimension": "extractesg.core.unit-dimension.count",
+        "canonical_unit_id": "extractesg.core.unit.count",
+        "normalization": "compatible_unit_only",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary"
+        ],
+        "comparison_mode": "conditional_numeric",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4647,7 +5136,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "consumer.severe_human_rights_issues",
@@ -4664,7 +5153,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "消费者及终端用户严重人权问题和事件",
+      "description": "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4681,17 +5170,50 @@
       "original_name": "Disclosure of severe human rights issues and incidents connected to consumers and/or end-users",
       "original_data_type": "narrative",
       "topic": "S4",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.s4-4",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.s4-4.dp11",
+        "digest": "6b6c580d16da6924cc828e812a22730c553d8c4e852b108264ebe95f70cf4f6a"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "qualitative_claim",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "action_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4703,7 +5225,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "governance.board_gender_ratio",
@@ -4815,7 +5337,7 @@
       "dimension_constraints": {},
       "required_context_fields": [],
       "typed_context_constraints": {},
-      "description": "未制定符合联合国反腐败公约的反腐败或反贿赂政策",
+      "description": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
       "aggregation": "do_not_sum",
       "exclusions": [
         "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
@@ -4834,17 +5356,50 @@
       "original_name": "No policies on anti-corruption or anti-bribery consistent with United Nations Convention against Corruption are in place",
       "original_data_type": "semi-narrative",
       "topic": "G1",
-      "readiness": "planned",
-      "definition_status": "planned_proposal",
+      "readiness": "ready",
+      "definition_status": "authored_draft",
       "package_core": true,
       "platform_major": true,
       "standard_binding": {
         "package_id": "esrs.2023-set1.g1-1",
-        "package_version": null,
-        "metric_id": null,
-        "digest": null
+        "package_version": "2.3.0",
+        "metric_id": "esrs.2023-set1.g1-1.dp03",
+        "digest": "ee60fdbc7db21632ae2fd51ac9ae7058e8403bed77cde0965287202905992b5a"
       },
-      "source_measurement_contract": null,
+      "source_measurement_contract": {
+        "template": "categorical",
+        "value_role": "context",
+        "unit_dimension": null,
+        "canonical_unit_id": null,
+        "normalization": "preserve",
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "aggregation": "do_not_sum",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "positive_definition": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。",
+        "interpretation_guidance": [],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "semantic_type_note": null
+      },
       "source_reference": {
         "catalog_id": "esrs.2023-set1.ig3-user-original",
         "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -4856,7 +5411,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "business.corruption_conviction_count",
