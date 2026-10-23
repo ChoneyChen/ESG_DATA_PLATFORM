@@ -11,7 +11,6 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Callable
 
-import numpy as np
 from esg_standard_packages.contracts import CompiledStandardPackage
 
 from esg_targeted.config import Settings
@@ -338,6 +337,7 @@ class TargetedExtractionWorkflow:
                     if callable(embed_queries):
                         vectors = embed_queries(query_texts)
                     else:
+                        import numpy as np
                         vectors = np.stack(
                             [embedding_provider.embed_query(text) for text in query_texts]
                         )

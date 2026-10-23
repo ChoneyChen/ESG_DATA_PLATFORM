@@ -3,7 +3,10 @@ from __future__ import annotations
 import re
 from collections import defaultdict
 
-import numpy as np
+try:  # Vector search is optional; importing the API must not require numpy.
+    import numpy as np
+except ModuleNotFoundError:  # pragma: no cover - environment check
+    np = None
 
 from esg_targeted.contracts import EvidenceInventory, MetricQuery, RetrievalHit
 from esg_targeted.evidence.quality import is_retrieval_eligible
@@ -31,6 +34,8 @@ class HybridRetriever:
         )
         self.embedding_provider = embedding_provider
         self.embedding_matrix = embedding_matrix
+        if embedding_matrix is not None and np is None:
+            raise RuntimeError("语义检索需要 numpy；请安装 numpy 或关闭 semantic_search。")
         self.semantic_searchable = (
             np.any(embedding_matrix != 0, axis=1)
             if embedding_matrix is not None

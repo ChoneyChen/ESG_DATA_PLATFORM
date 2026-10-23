@@ -146,8 +146,10 @@ def _job_with_lifecycle(job):
         deletion = execution_deletion.describe("job", job.job_id)
         result["lifecycle"]["available_actions"].extend(deletion["available_actions"])
         result["deletion_pending"] = deletion["deletion_pending"]
-    except LifecycleBlocked:
-        pass  # A projection is deleted with its report-session owner.
+    except LifecycleBlocked as exc:
+        # A projection is deleted with its report-session owner. Keep the reason
+        # so the workbench can explain why instead of hiding the command.
+        result["deletion_blockers"] = exc.blockers
     result["available_actions"] = result["lifecycle"]["available_actions"]
     try:
         counts = collect_stage(artifact_store, job.job_id, request=job.request)['summary']['counts']

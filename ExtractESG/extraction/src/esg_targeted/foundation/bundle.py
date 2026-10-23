@@ -53,7 +53,7 @@ def not_covered_gap(task_id: str, metric_id: str, code: str) -> dict:
                        next_action="review_source_pages").model_dump(mode="json")
 
 
-def _conclusion_summary(conclusion: dict) -> dict:
+def conclusion_summary(conclusion: dict) -> dict:
     """A conclusion as saved evidence: status, value, members and refusal reasons."""
     summary = {"code": conclusion["code"], "metric_id": conclusion["metric_id"], "status": conclusion["status"]}
     for key in ("label", "rejection_reasons"):
@@ -185,7 +185,7 @@ class BundleWriter:
             # The bundle keeps what the conclusion actually says. Truncating it
             # to three fields made every saved result unable to explain which
             # member was found, with what value, or why a candidate was refused.
-            "foundation_conclusions": [_conclusion_summary(c) for c in conclusions],
+            "foundation_conclusions": [conclusion_summary(c) for c in conclusions],
         }
         exports = ResultExporter().export(output_dir=output_dir, records=records, summary=manifest, package=package)
         manifest["exports"] = exports

@@ -128,7 +128,7 @@ def _physical_anchor_locations(locations, *, include_excerpt=False):
 
 
 def source_facts(source: dict, identity: dict, obj: dict) -> list[dict]:
-    """Expand exact reported values once, retaining physical provenance."""
+    """Legacy row-to-fact expansion; new report semantics use models.source_facts."""
     context_rows = {r["group_id"]: r for r in obj["rows"]}
     output, positions = [], {}
     for row in source.get("rows", []):

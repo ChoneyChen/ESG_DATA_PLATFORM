@@ -244,8 +244,10 @@ def _publish_interrupted_stage(store: JobStore, job_id: str) -> None:
                 snapshot = json.loads(snapshot_path.read_text(encoding='utf-8'))
                 if snapshot.get('schema_version') == 'report-stage-snapshot-v1' and snapshot.get('summary',{}).get('job_id') == job_id:
                     store.update(job_id, summary=snapshot['summary'])
-            except (OSError, ValueError, KeyError):
-                pass  # An unreadable stage is not evidence of accepted facts.
+            except (OSError, ValueError, KeyError) as exc:
+                # An unreadable stage is not evidence of accepted facts, but
+                # silently dropping it hides a broken artifact from operators.
+                store.add_event(job_id, 'stage_snapshot_unreadable', 'warning', str(exc))
 
 
 def watch_job(state_db: Path, job_id: str) -> None:

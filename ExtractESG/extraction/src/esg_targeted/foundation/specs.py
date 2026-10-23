@@ -61,8 +61,9 @@ class ClauseSpec:
 
 
 # Rules learned from the foundation datapoints, written once and reused by any
-# clause that names the same concept. Codes here that also have a bespoke
-# guard are documentation only; `guards.check` keeps the bespoke branch.
+# clause that names the same concept. A code that also has a bespoke guard keeps
+# that branch for applicability; its spec still supplies the declared dimension,
+# and any code without a bespoke branch is judged by its spec.
 SPECS: dict[str, ClauseSpec] = {
     "E1-5_01": ClauseSpec(
         "E1-5_01", "总能源消耗",

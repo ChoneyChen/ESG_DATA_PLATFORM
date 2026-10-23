@@ -519,3 +519,19 @@ def test_extended_clause_guards_reject_the_confusable_neighbour():
     ]
     for code, label, unit, dimension, expected in cases:
         assert g.check(code, label, None, unit, dimension).ok is expected, (code, label)
+
+
+def test_declared_spec_judges_a_clause_without_a_bespoke_guard():
+    """Adding a concept is a data change: the spec is authoritative here."""
+    from esg_targeted.foundation import specs
+
+    specs.SPECS["E9-9_01"] = specs.ClauseSpec(
+        "E9-9_01", "合成物质排放量",
+        require_terms=("合成物质",), exclude_terms=("强度",), dimension="mass",
+    )
+    try:
+        assert check("E9-9_01", "合成物质排放量", None, "吨", "mass").ok is True
+        rejected = check("E9-9_01", "合成物质排放强度", None, "吨/人", "mass")
+        assert rejected.ok is False and rejected.flags
+    finally:
+        specs.SPECS.pop("E9-9_01", None)

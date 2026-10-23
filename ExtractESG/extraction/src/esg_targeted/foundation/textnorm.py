@@ -27,14 +27,14 @@ _PAIRS = (
     "旅旅 通通 勤勤 廢废 棄弃 物物 租租 賃赁 投投 資资 銷销 售售 產产 品品 使使 用用 終终 處处 置置 特特 許许 經经 營营"
 )
 
-_TABLE = {}
+TRANSLATION_TABLE = {}
 for pair in _PAIRS.split():
     if len(pair) == 2 and pair[0] != pair[1]:
-        _TABLE[ord(pair[0])] = pair[1]
+        TRANSLATION_TABLE[ord(pair[0])] = pair[1]
 
 
 def fold(text: str | None) -> str:
     """Simplified-Chinese, case-folded text for keyword matching."""
     if not text:
         return ""
-    return text.translate(_TABLE).casefold()
+    return text.translate(TRANSLATION_TABLE).casefold()

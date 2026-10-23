@@ -16,7 +16,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 
 from esg_targeted.foundation.tables import TableView, is_number_text, number_text
-from esg_targeted.foundation.textnorm import _TABLE
+from esg_targeted.foundation.textnorm import TRANSLATION_TABLE
 
 MIN_AGREEMENT = 0.8
 MIN_NUMBERS = 4
@@ -27,7 +27,7 @@ CJK_RE = re.compile(r"[㐀-鿿]")
 
 def fold_chars(text: str) -> str:
     """Length-preserving fold for alignment: traditional→simplified, ASCII lower case."""
-    return text.translate(_TABLE).lower()
+    return text.translate(TRANSLATION_TABLE).lower()
 
 
 def load_native_text(ir_root: Path) -> dict[int, str]:

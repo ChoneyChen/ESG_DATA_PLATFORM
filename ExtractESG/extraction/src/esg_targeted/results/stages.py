@@ -50,6 +50,7 @@ def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, pa
                                  "historical_facts": [], "source_objects": [], "gaps": []},
                 "metric_source_mappings": {"schema_version": "metric-source-mappings-v1",
                                            "mappings": [], "core_bindings": []}}
+    diagnostics: list[str] = []
     snapshot_path = root / "progress/snapshot.json"
     durable_paths = [root / "agent/source-invalidations.json", root / "agent/state.json", root / "progress/metric-attempts.json",
                      root / 'input/runtime-standard-snapshot.json',
@@ -83,8 +84,10 @@ def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, pa
         if package and summary.get("standard", {}).get("source_digest") == package.compilation.source_digest and summary.get('standard', {}).get('runtime_standard_digest', package.compilation.source_digest) == execution_digest(package):
             try:
                 ResultContractValidator(package.core).validate(records)
-            except ResultContractError:
-                pass  # fall through to independently checked durable fragments
+            except ResultContractError as contract_error:
+                # Fall through to independently checked durable fragments, but
+                # keep the reason so a broken bundle is diagnosable.
+                diagnostics.append(f"bundle_contract_invalid: {contract_error}")
             else:
                 source_payload = bundle.get("source_facts", _read(root / "results/source-facts.json"))
                 mapping_payload = bundle.get("metric_source_mappings", _read(root / "results/metric-source-mappings.json"))
@@ -276,8 +279,10 @@ def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, pa
     if internal_ids and prior_internal and not known_internal:
         try:
             known_internal = validate_internal_dependency_scope(prior_internal,package)
-        except (ValueError,KeyError):
-            pass  # stale/untrusted material cannot supply current bindings
+        except (ValueError,KeyError) as scope_error:
+            # Stale/untrusted material cannot supply current bindings; record
+            # why it was ignored instead of silently dropping it.
+            diagnostics.append(f"internal_scope_untrusted: {scope_error}")
     if known_internal:
         facts.update({f['source_fact_id']:f for f in known_internal.source_facts
                       if f['source_fact_id'] not in invalidated_ids | quarantined_sources})
@@ -359,6 +364,7 @@ def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, pa
                      "source_digest": package.compilation.source_digest if package else None} if request else {},
         "configuration": request.model_dump(mode="json") if request else {},
         "record_counts": {key: len(rows) for key, rows in records.items()}, "contract_validation": validation,
+        "diagnostics": diagnostics,
         "task_count": len(outcomes), "outcomes": outcomes, "errors": errors, "gaps": list(gaps.values()),
         "pending_metric_ids": sorted(set(selected) - set(checkpoints)), "processing_metric_ids": processing,
         "not_executed_metric_ids": sorted(set(selected) - attempted), "unfinished_metric_ids": sorted(unfinished),

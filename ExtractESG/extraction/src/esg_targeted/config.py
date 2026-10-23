@@ -13,6 +13,10 @@ def _bool_env(name: str, default: bool) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _model_root() -> Path:
+    return Path(os.getenv("ESG_MODEL_ROOT") or Path.home() / "Desktop" / "model")
+
+
 @dataclass(frozen=True)
 class Settings:
     project_root: Path
@@ -50,7 +54,7 @@ class Settings:
     cloud_packet_max_groups: int = 24
     cloud_packet_max_candidates: int = 480
     cloud_packet_max_images: int = 1
-    qwen_model_path: Path = Path.home() / "Desktop" / "model" / "Qwen3.5-9B-4bit"
+    qwen_model_path: Path = _model_root() / "Qwen3.5-9B-4bit"
 
     @classmethod
     def load(cls) -> "Settings":
@@ -72,7 +76,7 @@ class Settings:
             os.getenv("ESG_TARGETED_OUTPUT_ROOT", project_root / "targeted_extract_output")
         ).expanduser().resolve()
         local_root = project_root / ".local"
-        model_root = Path.home() / "Desktop" / "model"
+        model_root = _model_root()
         return cls(
             project_root=project_root,
             ir_roots=ir_roots,
