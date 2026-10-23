@@ -75,7 +75,7 @@ disclosure_dimensions                                     dataset_membership
 
 ```bash
 npm install
-npm test          # 54 项：事务、幂等、单位、发布门槛、来源快照
+npm test          # 55 项：事务、幂等、单位、发布门槛、来源快照
 npm run db:init   # 初始化所选库
 npm run db:status
 ```

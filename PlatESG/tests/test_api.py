@@ -307,3 +307,36 @@ def test_internal_coverage_and_report_summaries_are_authorized_and_explicit(clie
     summaries=client.get('/internal/v1/report-summaries',headers=auth).json()
     assert summaries['items']
     assert {'report_ref','review_count','published_count','blocked_count'} <= set(summaries['items'][0])
+
+
+def test_review_decisions_and_publication_processing_are_auditable(client):
+    auth={'Authorization':'Bearer integration-review-token'}
+    candidate=client.get('/internal/v1/candidates',headers=auth).json()['items'][0]
+    fact=client.post('/internal/v1/reviews',headers=auth,json={'disclosure_id':candidate['disclosure_id'],
+        'decision':'approved','operator_ref':'reviewer','reason':'原文数值与单位核对一致'})
+    assert fact.status_code==200
+    mapping=client.post('/internal/v1/reviews',headers=auth,json={'mapping_id':candidate['mapping_id'],
+        'decision':'approved','mapping_relation':'exact','satisfaction_status':'supports',
+        'operator_ref':'reviewer','reason':'条款定义与披露内容一致'})
+    assert mapping.status_code==200
+    processed=client.post('/internal/v1/publication-process',headers=auth)
+    assert processed.status_code==200
+    assert isinstance(processed.json().get('processed'), int)
+    compatibility=client.get('/internal/v1/compatibility',headers=auth)
+    assert compatibility.status_code==200 and isinstance(compatibility.json(), dict)
+
+
+def test_coverage_decision_keeps_missing_state_explicit(client):
+    auth={'Authorization':'Bearer integration-review-token'}
+    body={'entity_ref':'demo-alpha','source_datapoint_id':'E1-5_01',
+        'status':'not_disclosed_in_reviewed_scope','period_start':'2023-01-01','period_end':'2023-12-31',
+        'evidence_scope':{'report_ref':'fixture-report','reviewed_basis':'逐页核对未发现该口径'},
+        'operator_ref':'reviewer','reason':'核对报告范围后确认未披露'}
+    assert client.post('/internal/v1/coverage-decisions',headers=auth,json=body).status_code==200
+    coverage=client.get('/internal/v1/coverage',headers=auth).json()
+    match=next(item for item in coverage['items']
+        if item['entity_ref']=='demo-alpha' and item['source_datapoint_id']=='E1-5_01')
+    period=next(p for p in match['periods'] if p['period_start']=='2023-01-01' and p['period_end']=='2023-12-31')
+    assert period['status']=='not_disclosed_in_reviewed_scope'
+    # A reviewed missing state is never turned into a zero observation.
+    assert period['published_count']==0
