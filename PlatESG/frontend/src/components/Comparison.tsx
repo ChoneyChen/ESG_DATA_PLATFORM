@@ -1,6 +1,12 @@
 import { clauseReference } from "../format";
 import { useEffect, useRef, useState } from "react";
 import { apiUrl, request } from "../api";
+
+const CAVEAT_TEXT: Record<string, string> = {
+  measurement_method_differs_across_entities: "参与比较的企业使用了不同的测量方法，请结合方法说明阅读",
+  boundary_code_differs_across_entities: "参与比较的企业报告边界不同，不能直接视为同一口径",
+  value_role_differs_across_entities: "参与比较的数值包含实际值与重述值，请核对值角色",
+};
 import { observationGroup, pointValue } from "../chart-contract";
 import {
   contextLabel,
@@ -414,6 +420,11 @@ export default function Comparison({
                 数据版本 {result.dataset_version} · {result.rows.length}{" "}
                 条纳入，{result.excluded.length} 项未纳入
               </p>
+              {result.caveats?.length ? (
+                <p className="caveat">
+                  {result.caveats.map((code) => CAVEAT_TEXT[code] || code).join("；")}
+                </p>
+              ) : null}
             </div>
             {result.rows.length > 0 && (
               <DisplaySwitch

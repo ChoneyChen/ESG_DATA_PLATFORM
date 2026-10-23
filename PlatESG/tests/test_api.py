@@ -293,3 +293,17 @@ def test_operator_identity_and_roles_are_server_controlled(tmp_path,monkeypatch)
     assert c.post('/internal/v1/reviews',json=body,headers=reviewer).status_code==200
     assert calls[-1][1]['operator_ref']=='verified-reviewer'
     assert c.post('/internal/v1/lifecycle/reserve',json={'job_ids':['test-job'],'reason':'权限检查'},headers=reader).status_code==403
+
+
+def test_internal_coverage_and_report_summaries_are_authorized_and_explicit(client):
+    assert client.get('/internal/v1/coverage').status_code==401
+    assert client.get('/internal/v1/report-summaries').status_code==401
+    auth={'Authorization':'Bearer integration-review-token'}
+    coverage=client.get('/internal/v1/coverage',headers=auth).json()
+    assert coverage['items'] and coverage['items'][0]['periods']
+    statuses={period['status'] for item in coverage['items'] for period in item['periods']}
+    assert statuses <= {'published','not_selected','not_extracted','source_unreadable',
+                        'not_disclosed_in_reviewed_scope','not_applicable','review_required'}
+    summaries=client.get('/internal/v1/report-summaries',headers=auth).json()
+    assert summaries['items']
+    assert {'report_ref','review_count','published_count','blocked_count'} <= set(summaries['items'][0])

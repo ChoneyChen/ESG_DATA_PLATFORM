@@ -22,12 +22,19 @@ try {
     "Every approved disclosure must have at least one simplified source.",
   );
 
-  const mappedWithoutConcept = await db.query(`
+  // Published observations must keep at least one immutable source. Identity
+  // columns on the legacy views are never written, so they are not checked.
+  const publishedWithoutSource = await db.query(`
     SELECT count(*)::integer AS count
-    FROM esg.esg_disclosures
-    WHERE mapping_status = 'mapped' AND concept_id IS NULL
+    FROM esg.curated_observations o
+    LEFT JOIN esg.observation_sources s ON s.observation_id = o.observation_id
+    WHERE s.observation_id IS NULL
   `);
-  assert.equal(mappedWithoutConcept.rows[0].count, 0);
+  assert.equal(
+    publishedWithoutSource.rows[0].count,
+    0,
+    "Every published observation must retain at least one source.",
+  );
 
   const malformedSubtype = await db.query(`
     SELECT count(*)::integer AS count
@@ -52,35 +59,25 @@ try {
     "Each disclosure must use exactly the correct result subtype.",
   );
 
-  const comparisonRows = await db.query(`
-    SELECT
-      concept_code,
-      normalized_numeric_value,
-      dimensions,
-      comparison_signature
-    FROM esg_api.v_quantitative_observations
-    ORDER BY normalized_numeric_value
+  const duplicateIdentities = await db.query(`
+    SELECT identity_key, value_origin, count(*)::integer AS count
+    FROM esg.curated_observations
+    GROUP BY identity_key, value_origin
+    HAVING count(*) > 1
   `);
-
-  if (comparisonRows.rows.length > 0) {
-    const signatures = new Set(
-      comparisonRows.rows.map((row) => row.comparison_signature),
-    );
-    assert.equal(
-      signatures.size,
-      comparisonRows.rows.length,
-      "Demo disclosures with different scopes must not collapse to one comparison signature.",
-    );
-  }
+  assert.equal(
+    duplicateIdentities.rows.length,
+    0,
+    "One identity key must not silently hold two published values of the same origin.",
+  );
 
   const result = {
     checks: {
       approved_disclosures_have_sources: true,
-      mapped_disclosures_have_concepts: true,
+      published_observations_have_sources: true,
+      observation_identity_is_unique: true,
       result_subtypes_are_consistent: true,
-      scope_specific_comparison_signatures_are_distinct: true,
     },
-    quantitativeRowsChecked: comparisonRows.rows.length,
   };
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
 } finally {

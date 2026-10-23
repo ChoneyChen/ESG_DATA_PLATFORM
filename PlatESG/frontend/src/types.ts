@@ -171,6 +171,7 @@ export interface DatasetResponse {
 export interface ComparisonResponse {
   dataset_version: string | number;
   metric_id: string;
+  caveats?: string[];
   rows: Observation[];
   excluded: {
     observation_id?: string;

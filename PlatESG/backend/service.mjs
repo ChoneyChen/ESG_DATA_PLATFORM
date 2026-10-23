@@ -103,7 +103,7 @@ async function observations(db, params) {
   const items = remaining.slice(0, params.limit || 200);
   const next = remaining.length > items.length ? Buffer.from(JSON.stringify({ query: queryIdentity,
     after: items.at(-1).observation_id })).toString('base64url') : null;
-  return listResponse(data, items.map(row => publicObservation(row, data.metrics.find(m => m.metric_id === row.metric_id))), { next_cursor: next });
+  return listResponse(data, items.map(row => publicObservation(row, data.metrics.find(m => m.metric_id === row.metric_id), data.as_of)), { next_cursor: next });
 }
 
 async function internalDetail(db, params) {
@@ -191,10 +191,10 @@ async function detail(db, params) {
   if (!row) throw error('Observation is not present in the requested published dataset','not_found');
   const metric = data.metrics.find(m => m.metric_id === row.metric_id);
   const first = row.sources?.[0];
-  return { ...publicObservation(row, metric),
+  return { ...publicObservation(row, metric, data.as_of),
     sources: (row.sources || []).flatMap(source => (source.evidence || []).map(evidence => publicEvidence(evidence,source))),
     report: first ? {report_title_snapshot:first.report_title_snapshot,source_id:sourceId(first),public_url:documentUrl(first,data.dataset_version)} : null,
-    published_at: data.as_of, public_revisions: [], calculation:row.calculation?{
+    public_revisions: [], calculation:row.calculation?{
       operation:'sum',rule_version:row.calculation.rule_version,input_dataset_version:row.calculation.input_dataset_version,
       operands:row.calculation.operands.map(operand=>({observation_id:operand.observation_id,label_zh:operand.label_zh,
         numeric_value:operand.numeric_value,canonical_unit:operand.canonical_unit}))}:null };
@@ -263,6 +263,7 @@ const CORE_AXES = ['definition_version','period_start','period_end','boundary_co
 
 async function comparisons(db, params) {
   const data = await snapshot(db, params.dataset_version);
+  const {comparison_contract_version: contractVersion} = await dictionaryFile();
   const metric = data.metrics.find(m => m.metric_id === params.metric_id);
   if (!metric) throw error('Unknown canonical metric_id', 'not_found');
   const excluded = [], eligible = [];
@@ -312,9 +313,15 @@ async function comparisons(db, params) {
   for (const entity_ref of params.entity_refs) {
     if (!candidates.some(r => r.entity_ref === entity_ref)) excluded.push({ entity_ref, reasons: ['no_published_observation_in_dataset'] });
   }
+  // The contract compares like with like; when the surviving rows still differ
+  // on a descriptive axis the reader must see that, not a silent average.
+  const caveats = [];
+  if (new Set(rows.map(r => r.measurement_method).filter(Boolean)).size > 1) caveats.push('measurement_method_differs_across_entities');
+  if (new Set(rows.map(r => r.boundary_code).filter(Boolean)).size > 1) caveats.push('boundary_code_differs_across_entities');
+  if (new Set(rows.map(r => r.value_role).filter(Boolean)).size > 1) caveats.push('value_role_differs_across_entities');
   return { dataset_version: data.dataset_version, dictionary_version: data.dictionary_version,
-    contract_version: '1.1.0', metric_id: metric.metric_id, source_datapoint_id: metric.source_datapoint_id,
-    rows: rows.map(row => publicObservation(row,metric)), excluded, caveats: [],
+    contract_version: contractVersion, metric_id: metric.metric_id, source_datapoint_id: metric.source_datapoint_id,
+    rows: rows.map(row => publicObservation(row,metric,data.as_of)), excluded, caveats,
     available_cohorts,equivalent_alternatives:originChoice.alternatives };
 }
 
@@ -519,7 +526,14 @@ async function candidateList(db, params) {
     [params.entity_ref || null,params.report_ref || null,params.source_datapoint_id || null,params.limit || 200])).rows.map(row=>{
       let detail;try{detail=JSON.parse(row.mapping_reason);}catch{}
       const {source_payload,raw_property_dimensions,...candidate}=row;
-      return {...candidate,available_reported_properties:availableReportedProperties({source_payload,
+      // A newly delivered candidate has no publication state until the
+      // processor runs. Saying "blocked, not evaluated" is honest; returning
+      // null makes an unexamined row look like it has no conditions at all.
+      const evaluated = candidate.publication_status !== null && candidate.publication_status !== undefined;
+      return {...candidate,
+        publication_status: evaluated ? candidate.publication_status : 'blocked',
+        reason_codes: evaluated ? candidate.reason_codes : ['publication_not_evaluated'],
+        available_reported_properties:availableReportedProperties({source_payload,
         dimensions:raw_property_dimensions || [],sources:row.sources || []}),
         candidate_scope_role:detail?.candidate_scope_role || 'historical_output',
         required_by_extension_ids:detail?.required_by_extension_ids || []};

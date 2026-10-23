@@ -57,7 +57,9 @@ def confirm_identity(session: str, publisher: str, entity: str, kind: str, indus
     period_end = proposal["proposal"]["period_end"]
     if not (title and period_start and period_end):
         raise SystemExit(f"报告身份不完整：title={title} period={period_start}~{period_end}")
-    current = call("GET", f"/document/api/reports/{registered['report_id']}")[1]
+    status, current = call("GET", f"/document/api/reports/{registered['report_id']}")
+    if status != 200:
+        raise SystemExit(f"读取报告详情失败：{status} {current}")
     metadata = {**(current.get("metadata") or {}),
                 "title": title, "publisher_name": publisher, "publisher_entity_ref": entity,
                 "period_start": period_start, "period_end": period_end,
@@ -76,6 +78,8 @@ def confirm_identity(session: str, publisher: str, entity: str, kind: str, indus
 
 def ensure_entity(publisher: str, entity: str, kind: str, industry: str, country: str) -> str:
     status, body = call("GET", "/publication/internal/v1/entities")
+    if status != 200:
+        raise SystemExit(f"读取发布主体失败：{status} {body}")
     known = {row.get("entity_ref") for row in items(body)}
     if entity in known:
         return "existing"

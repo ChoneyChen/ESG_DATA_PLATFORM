@@ -1,6 +1,6 @@
 /** Publication gate reasons are distinct from comparison eligibility. */
 const labels:Record<string,string>={
- fact_pending:'报告事实尚待审核',fact_candidate:'报告事实尚待审核',fact_review_required:'报告事实尚待审核',
+ fact_pending:'报告事实尚待审核',fact_candidate:'报告事实尚待审核',fact_review_required:'报告事实尚待审核',publication_not_evaluated:'尚未执行发布条件检查，请先在发布中心处理待发布事件',
  fact_needs_confirmation:'报告事实仍需确认',fact_rejected:'报告事实已被拒绝',fact_grounded:'报告事实有来源依据，仍需审核',fact_superseded:'报告事实已被更新事实替代',
  mapping_pending:'条款映射尚待审核',mapping_review_required:'条款映射尚待审核',mapping_rejected:'条款映射已被拒绝',
  measurement_context_required:'测量口径尚未确认',

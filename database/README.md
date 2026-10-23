@@ -20,10 +20,10 @@ disclosure_dimensions                                     dataset_membership
 
 | 层 | 表 | 作用 |
 |---|---|---|
-| 参考 | `source_report_refs`、`unit_definitions`、`canonical_concepts`、`concept_synonyms`、`standard_frameworks`、`framework_versions`、`standard_requirements` | 报告来源、单位、概念与标准条目 |
+| 参考 | `source_report_refs`、`standard_frameworks`、`framework_versions`、`standard_requirements` | 报告来源与标准条目；`unit_definitions` / `canonical_concepts` / `concept_synonyms` 仅保留历史种子，代码不读取 |
 | 来源 | `esg_disclosures`、`structured_values`、`qualitative_claims`、`disclosure_dimensions`、`disclosure_sources` | 一条披露的原值/陈述、维度、页码与引文 |
 | 来源快照 | `report_source_fact_snapshots`、`import_source_facts` | 中立的整表行快照（含未映射行），按报告与 IR 版本保存 |
-| 映射 | `disclosure_standard_mappings`、`disclosure_relations` | 披露到标准条款的映射及重复/合计关系 |
+| 映射 | `disclosure_standard_mappings`、`disclosure_relations` | 披露到标准条款的映射；关系表已写入，尚未被读取接口使用 |
 | 审核 | `review_decisions`、`measurement_contexts` | 事实/映射决定与测量口径（主体、期间、边界、方法、维度） |
 | 导入 | `import_batches`、`import_items` | 一次交付的批次、逐项结果与幂等键 |
 | 字典 | `dictionary_versions`、`metric_definition_versions`、`dictionary_membership` | 不可变字典快照与指标定义版本 |
@@ -38,9 +38,11 @@ disclosure_dimensions                                     dataset_membership
 
 - **观测身份**：主体 + 指标定义版本 + 期间 + 边界 + 值角色 + 方法 + 必要维度；`identity_key` 是它的哈希。
   同值不证明同一事实，不同 Scope 2 方法、集团/子公司、人头/FTE、取水/耗水分别保存。
-- **原值优先**：`structured_values` 保存印刷值与单位；换算只写规范值，原值与单位不变。
+- **原值优先**：`structured_values` 保存印刷值与单位，不做换算；规范值与换算依据写入 `curated_observations` 与 `observation_sources`，来源层不重复保存。
 - **不可变**：字典快照、发布版本、换算规则一经登记不可修改（触发器与校验），内容变化必须新版本。
 - **幂等**：交付按批次键与内容摘要去重；同一回执可安全重试。
+- **候选状态**：刚交付、尚未运行发布处理器的候选返回 `blocked` + `publication_not_evaluated`；
+  不返回空状态，也不把“尚未检查”当成“没有阻塞”。
 - **发布门槛**：事实审核、映射审核、测量口径三者齐备且字典就绪，才产生观测；
   比较资格单独计算（缺维度记 `missing_comparison_dimension:*`，不默认相同）。
 
@@ -55,7 +57,7 @@ disclosure_dimensions                                     dataset_membership
 | `GET /internal/v1/candidates` | 候选与发布阻塞原因 |
 | `POST /internal/v1/delivery-status/query` | 只读核对交付与发布状态（固定描述符） |
 | `POST /internal/v1/entities` | 登记企业主体（发布前置） |
-| `GET /v1/observations`、`/v1/comparisons`、`/v1/exports` | 公开读取与固定版本导出 |
+| `GET /v1/observations`、`POST /v1/comparisons`、`/v1/exports` | 公开读取与固定版本导出 |
 
 命令行：
 

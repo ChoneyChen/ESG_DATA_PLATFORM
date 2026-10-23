@@ -665,8 +665,8 @@ def create_app(environment: dict[str, str] | None = None):
         fields = ["dataset_version","observation_id","entity_ref","entity_name","is_demo","metric_id","source_datapoint_id",
                   "clause_kind","extension_id","related_source_datapoint_ids","value_origin",
                   "definition_version","period_start","period_end","boundary_code","measurement_method","value_role",
-                  "value_numeric","lower_bound","upper_bound","canonical_unit","statement_text","dimensions","reported_properties",
-                  "comparison_eligibility","comparison_reasons"]
+                  "value_numeric","lower_bound","upper_bound","precision_qualifier","canonical_unit","statement_text","dimensions","reported_properties",
+                  "comparison_eligibility","comparison_reasons","source_count","published_at"]
         buffer = io.StringIO()
         writer = csv.DictWriter(buffer, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()

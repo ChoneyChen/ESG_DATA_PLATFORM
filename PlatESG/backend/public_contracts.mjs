@@ -11,7 +11,7 @@ export function publicMetric(metric) {
 export function publicEntity(entity) {
   return pick(entity, ['entity_ref','name_zh','entity_kind','industry_code','country_code','is_demo','coverage_count']);
 }
-export function publicObservation(row, metric) {
+export function publicObservation(row, metric, publishedAt) {
   const result = pick(row, ['observation_id','entity_ref','entity_name','entity_kind','is_demo','metric_id',
     'source_datapoint_id','label_zh','topic','definition_version','period_start','period_end','boundary_code',
     'clause_kind','extension_id','related_source_datapoint_ids','parent_package_id','value_origin',
@@ -23,7 +23,9 @@ export function publicObservation(row, metric) {
     ...(metric?.required_context_fields || [])]);
   result.dimensions = Object.fromEntries(Object.entries(row.dimensions || {}).filter(([key]) => axes.has(key)));
   result.reported_properties = (row.reported_properties || []).map(publicReportedProperty).filter(Boolean);
-  result.published_at = row.created_at;
+  // Publication time belongs to the frozen dataset version, not to the row's
+  // import time, so list and detail views agree on the same observation.
+  result.published_at = publishedAt || row.created_at;
   return result;
 }
 export function publicReportedProperty(property) {
