@@ -246,6 +246,8 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
   const assetRows = items(assets.data, 'assets');
   const catalogRows = items(irRuns.data, 'runs');
   const selectedAssets = inputChoice.mode === 'batch' ? inputChoice.assetIds : (inputChoice.assetId ? [inputChoice.assetId] : []);
+  // History mode submits an existing IR revision, not a PDF asset.
+  const submissionUnits = inputChoice.mode === 'history' ? (inputChoice.irId ? [inputChoice.irId] : []) : selectedAssets;
 
   function build(asset: string): Row {
     if (compatibility.data?.ready !== true) throw new Error('服务合同或当前标准目录尚未就绪，请检查系统运行。');
@@ -274,17 +276,21 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
 
   async function runPreview() {
     setBusy(true); setMessage(''); setResults([]);
-    const output: Row[] = []; const inputs: Row[] = [];
+    const output: Row[] = []; const inputs: Row[] = []; const failures: string[] = [];
     try {
       if (inputChoice.mode === 'batch' && !selectedAssets.length) throw new Error('请至少选择一份报告。');
-      for (const asset of selectedAssets) {
-        const req = build(asset);
-        inputs.push(req);
-        const value = await post('document', '/api/report-sessions/preview', req);
-        output.push({...value, report_asset_id: asset, report_name: req.name});
+      // One bad report must not hide the plans that are valid.
+      for (const asset of submissionUnits) {
+        try {
+          const req = build(asset);
+          const value = await post('document', '/api/report-sessions/preview', req);
+          inputs.push(req);
+          output.push({...value, report_asset_id: asset, report_name: req.name});
+        } catch (e) { failures.push(`${asset}: ${(e as Error).message}`); }
       }
-      setRequests(inputs); setPreview(output);
-    } catch (e) { setMessage((e as Error).message); setRequests(undefined); setPreview(undefined); }
+      setRequests(inputs.length ? inputs : undefined); setPreview(output.length ? output : undefined);
+      if (failures.length) setMessage(`有 ${failures.length} 份报告未能生成预览：${failures.join('；')}`);
+    } catch (e) { setMessage((e as Error).message); }
     finally { setBusy(false); }
   }
 
@@ -294,7 +300,7 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
     const output: Row[] = [];
     try {
       if (inputChoice.mode === 'batch' && !selectedAssets.length) throw new Error('请至少选择一份报告。');
-      const inputs = requests?.length ? requests : selectedAssets.map(build);
+      const inputs = requests?.length ? requests : submissionUnits.map(build);
       for (const input of inputs) {
         try {
           const value = await post('document', '/api/report-sessions', {...input, qiniu_api_key: credentials.secret('qiniu_api_key'), ocr_token: credentials.secret('ocr_token')});
@@ -402,17 +408,17 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
       <div className="launch-bar">
         <p>
           将提取 <strong>{PROFILES.find(p => p.key === metricProfile)!.title} {metricCount} 条</strong>
-          {selectedAssets.length ? ` · ${selectedAssets.length} 份报告` : ' · 尚未选择报告'}
+          {submissionUnits.length ? ` · ${submissionUnits.length} ${inputChoice.mode === 'history' ? '个历史结构证据' : '份报告'}` : ' · 尚未选择报告或结构证据'}
           <br/>
           <span className="muted">读取页面、构建结构证据与提取在同一个任务里完成；开始后可在任务页看到逐条进度。</span>
         </p>
         <div className="button-row">
           <button type="button" className="ghost" disabled={busy || blocked} onClick={runPreview}>{busy ? '处理中…' : '预览后端实际计划'}</button>
-          <button type="submit" disabled={busy || blocked || !selectedAssets.length}>{busy ? '正在提交…' : `开始提取${selectedAssets.length > 1 ? `（${selectedAssets.length} 份）` : ''}`}</button>
+          <button type="submit" disabled={busy || blocked || !submissionUnits.length}>{busy ? '正在提交…' : `开始提取${submissionUnits.length > 1 ? `（${submissionUnits.length} ${inputChoice.mode === 'history' ? '个证据' : '份'}）` : ''}`}</button>
         </div>
       </div>
 
-      <ResourceState error={compatibility.error}/>
+      <ResourceState error={compatibility.error || irRuns.error || modelOptions.error || foundation.error}/>
       {compatibility.data?.ready === false && <Notice tone="error">{compatibility.data.blockers?.join('；') || '当前服务业务未就绪'}</Notice>}
       {message && <Notice tone="error">{message}</Notice>}
       {preview?.map(p => <PlanPreview key={p.report_asset_id || p.report_name} plan={p}/>)}
@@ -534,9 +540,9 @@ function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?:
             </div>
             {session.error && <Notice tone="error">{session.error}{session.read_error?.request_id && <span> · 问题编号 {session.read_error.request_id}</span>}</Notice>}
             {session.state_notice && <ReportReadNotice row={session}/>}
+            <Actions actions={workActions(session.available_actions)} revision={session.revision}/>
             <details className="session-more">
-              <summary>维护动作与记录管理</summary>
-              <Actions actions={workActions(session.available_actions)} revision={session.revision}/>
+              <summary>记录管理</summary>
               <RecordManagement record={session} kind="session" id={sessionId}/>
             </details>
           </Section>

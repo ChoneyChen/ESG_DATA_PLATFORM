@@ -23,7 +23,7 @@ export function Standards(){
   <Notice>结构校验、真实报告验收与业务批准分别记录。已编译草稿不自动等同于提取质量已验收。</Notice>
   <div className="standard-layout"><aside className="panel standard-index">
    <Field label="查找标准包"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="E1-5 / MDR / 原编号"/></Field>
-   <ResourceState error={catalog.error} loading={catalog.loading&&!packages.length}/>
+   <ResourceState error={catalog.error || profile.error} loading={catalog.loading&&!packages.length}/>
    {packages.filter(p=>`${p.disclosure_requirement} ${(p.metric_summaries || []).map((m:Row)=>m.source_datapoint_id).join(' ')}`.toLowerCase().includes(query.toLowerCase())).map(p=><button className={`standard-item ${selected?.package_id===p.package_id&&selected?.package_version===p.package_version?'selected':''}`} key={`${p.package_id}@${p.package_version}`} onClick={()=>setSelected({...p,is_historical:false})}><strong>{p.disclosure_requirement}</strong><small>{p.metric_count} 条 · v{p.package_version}</small><Badge value={p.status}/></button>)}
   </aside><div>{selected?<>
    <Section title={`${name} · v${selected.package_version}`} action={<Badge value={historical?'历史只读':verifiedManifest?.status || selected.status}/>}>

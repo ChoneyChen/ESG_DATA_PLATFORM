@@ -168,12 +168,14 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
       {(conclusion.views || []).length > 0 && (
         <div className="f16-views">
           <h4>同一指标的其他报告口径（{conclusion.views!.length}）</h4>
+          <p className="muted">这些口径各自成为一条候选。交付后在审核中心逐条确认边界，才能分别发布；不要把集团值与基地值合并成一个观测。</p>
           <table className="f16-members">
-            <thead><tr><th>口径</th><th>原值</th><th>期间</th><th>来源</th></tr></thead>
+            <thead><tr><th>口径</th><th>边界代码</th><th>原值</th><th>期间</th><th>来源</th></tr></thead>
             <tbody>
-              {conclusion.views!.map((view: Row) => (
-                <tr key={String(view.boundary_label)}>
+              {conclusion.views!.map((view: Row, index: number) => (
+                <tr key={`${view.boundary_label}-${index}`}>
                   <td><strong>{BOUNDARY_WORD[String(view.boundary_label)] || String(view.boundary_label)}</strong></td>
+                  <td className="mono">{view.boundary_label || '—'}</td>
                   <td className="metric-value">{view.value_raw}{view.unit_raw ? ` ${view.unit_raw}` : ''}</td>
                   <td>{view.period || '—'}</td>
                   <td>

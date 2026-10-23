@@ -93,11 +93,14 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
   // the registration on delivery.
   const entityKnown = !entities.data || entityList.some(entity => entity.entity_ref === entityRef);
   const artifacts: Row[] = session?.delivery_artifacts || [];
+  const blockedArtifacts: Row[] = session?.delivery_artifact_blockers || [];
   const availableArtifacts = artifacts.filter(a => a.status === 'available').length;
   // Older sessions report the count without the per-artifact list.
   const deliverable = availableArtifacts || Number(session?.delivery_counts?.available_bundle_count) || 0;
-  // A session that lists no artifacts cannot be judged here; the backend decides.
-  const canDeliver = deliverable > 0 || artifacts.length === 0;
+  // Blocked artifacts are listed separately. A session with only blockers must
+  // not offer delivery: the operator needs to see why each package is blocked.
+  const canDeliver = deliverable > 0 || (artifacts.length === 0 && blockedArtifacts.length === 0
+    && session?.delivery_counts?.available_bundle_count == null);
   const delivered = deliveryState.data?.jobs?.filter((job: Row) => job.status === 'imported').length || 0;
   const allImported = artifacts.length > 0 && delivered >= artifacts.length;
 
@@ -142,7 +145,10 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
   }
 
   async function deliver() {
-    if (!registered || !identityReady) return;
+    if (!registered || !identityReady) {
+      setMessage(!registered ? '请先选择或登记报告身份，再交付。' : '请先补全报告标题、发布者与报告期。');
+      return;
+    }
     setBusy('deliver'); setMessage('');
     try {
       const value = await post('document', `/api/console/report-sessions/${encodeURIComponent(session.session_id)}/deliver`, {
@@ -173,7 +179,7 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
           交付只把来源事实与标准映射存进平台候选池；事实、映射与测量口径仍要分别审核，发布后才会出现在公开数据网站。
         </Notice>
         {!credentials.ready && <Notice tone="error">数据平台未连接，交付与发布暂不可用。</Notice>}
-        <ResourceState error={reports.error || entities.error}/>
+        <ResourceState error={reports.error || entities.error || identity.error}/>
       </Section>
 
       <Step index={1} title="报告身份" state={identityReady ? 'done' : 'current'}>
@@ -233,6 +239,12 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
           <dt>可交付成果包</dt><dd>{deliverable}{artifacts.length ? ` / ${artifacts.length}` : ''}</dd>
           <dt>已存档的包</dt><dd>{delivered || '尚未核对'}</dd>
         </dl>
+        {blockedArtifacts.length > 0 && (
+          <Notice tone="warning">
+            有 {blockedArtifacts.length} 个成果包暂时不能交付：
+            {blockedArtifacts.map((b: Row) => b.reason || b.message || b.status).filter(Boolean).join('；')}
+          </Notice>
+        )}
         <p className="muted">每个成果包对应一个条款包，包含来源事实、标准映射与证据位置；交付不改写原值。</p>
         <Field label="交付依据"><textarea value={reason} onChange={e => setReason(e.target.value)}/></Field>
         <div className="button-row">

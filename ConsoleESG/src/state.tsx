@@ -51,6 +51,7 @@ export function useResource<T=Row>(service:Service,path:string|null,authenticate
   const [state,setState]=useState<{key:string,data?:T,error:string,loading:boolean}>({key,error:'',loading:enabled});
   const pending=useRef('');
   const retry=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+  const failures=useRef(0);
   const load=useCallback(()=>{
     if(!path||(authenticated&&!credentials.ready))return;
     // One request at a time per resource: a poll, an event or a re-render must
@@ -61,12 +62,17 @@ export function useResource<T=Row>(service:Service,path:string|null,authenticate
     setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:'',loading:true}));
     const mine=key;
     request<T>(service,path)
-      .then(value=>{if(pending.current!==mine)return;pending.current='';setState({key,data:value,error:'',loading:false});})
+      .then(value=>{if(pending.current!==mine)return;pending.current='';failures.current=0;setState({key,data:value,error:'',loading:false});})
       .catch(e=>{if(pending.current!==mine)return;pending.current='';setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:e.message,loading:false}));
-        // A failed read retries on its own; a dead screen should not need a reload.
-        retry.current=setTimeout(load,5000);});
+        // Only transient failures recover on their own. A missing resource or a
+        // permission error is deterministic; retrying it forever hides the cause.
+        const status=Number((e as {status?:number}).status) || 0;
+        if((status===0||status>=500)&&failures.current<5){
+          failures.current+=1;
+          retry.current=setTimeout(load,Math.min(30000,2000*2**failures.current));
+        }});
   },[service,path,key,authenticated]);
   useEffect(()=>{load();return()=>clearTimeout(retry.current);},[load]);
-  useEffect(()=>{if(epoch>0)load();},[epoch]);
-  return {data:enabled&&state.key===key?state.data:undefined,error:enabled&&state.key===key?state.error:'',loading:enabled&&state.loading};
+  useEffect(()=>{if(epoch>0){failures.current=0;load();}},[epoch]);
+  return {data:enabled&&state.key===key?state.data:undefined,error:enabled&&state.key===key?state.error:'',loading:enabled&&state.loading,retry:load};
 }

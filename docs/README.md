@@ -10,6 +10,7 @@
 | [根 README](../README.md) | 系统定位、Console 与 Extract 的关系、数据流、目录、测试与约定；新对话先读这一份 |
 | [更新日志](CHANGELOG.md) | 按日期倒序的每轮实际变化 |
 | [系统状态](SYSTEM_STATE.md) | 服务、端口、数据位置、实测质量、测试结果与已知问题 |
+| [全链路体检](AUDIT_2026-10-23.md) | 2026-10-23 的未完成/待测试/待修复清单与逐轮修复台账 |
 | [数据生产工作台](PRODUCTION_WORKBENCH_20261010.md) | 日常操作、权限、恢复与本地模型边界 |
 | [科学数据存储](SCIENTIFIC_DATA_STORAGE.md) | 事实、测量口径、版本与发布的存储合同 |
 | [结构迁移](STRUCTURE_MIGRATION.md) | 物理职责、旧路径兼容与回滚依据 |

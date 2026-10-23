@@ -13,7 +13,6 @@ export function RecordManagement({record,kind,id,compact=false}:{record:Row,kind
  const blockers=deletion?.disabled_reason?[deletion.disabled_reason]:deletionBlockers(current);
  return <div className={`record-management ${compact?'compact':''}`}>
   <Actions actions={actions} revision={record.lifecycle?.revision ?? record.revision}/>
-  {!deletion&&<button type="button" className="secondary" disabled title={blockers.join('；') || '当前记录暂不可删除'}>删除</button>}
   {(deletion?.enabled===false||!deletion)&&<small className="table-secondary">{blockers.join('；') || '当前记录暂不可删除'}</small>}
  </div>;
 }
