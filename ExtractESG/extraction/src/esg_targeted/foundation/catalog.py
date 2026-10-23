@@ -348,6 +348,27 @@ PROFILES: dict[str, tuple[str, ...]] = {
     "quantitative": QUANTITATIVE,
 }
 
+# Concept families used to recognise a row that belongs under a metric as a
+# component or a related measure, rather than as a rival value. This is data:
+# a new clause inside an existing family needs no new branch.
+GROUP_COMPONENT_TERMS: dict[str, tuple[str, ...]] = {
+    "energy": ("风能", "风电", "风力", "太阳能", "光伏", "水能", "水电", "生物质", "地热", "海洋能",
+               "可再生", "化石", "煤炭", "原煤", "煤", "天然气", "石油", "柴油", "汽油", "燃料油", "焦炭",
+               "蒸汽", "其他能源", "wind", "solar", "hydro", "biomass", "geothermal", "renewable",
+               "coal", "natural gas", "oil", "diesel", "steam"),
+    "ghg": ("范围一", "范围二", "范围三", "scope 1", "scope 2", "scope 3", "直接排放", "间接排放"),
+    "ghg_intensity": ("强度", "intensity", "每兆瓦时", "per mwh"),
+    "air": ("氮氧化", "硫氧化", "二氧化硫", "颗粒物", "颗粒", "烟尘", "粉尘", "挥发性有机", "vocs", "nox", "sox"),
+    "water_pollutants": ("化学需氧量", "cod", "氨氮", "总氮", "总磷", "重金属", "悬浮物"),
+    "substances": ("关注物质", "有害物质", "危险物质", "substance"),
+    "water": ("地表水", "地下水", "市政", "自来水", "海水", "淡水", "循环", "再生水", "雨水", "取水", "排水", "耗水"),
+    "waste": ("有害", "无害", "危险", "一般", "回收", "填埋", "焚烧", "处置", "资源化", "废弃物"),
+    "materials": ("可再生", "不可再生", "生物材料", "技术材料", "包装", "原材料", "材料"),
+    "workforce": ("女性", "男性", "员工", "高管", "管理层", "董事会", "培训", "事故", "工伤", "流失",
+                  "薪酬", "残疾", "歧视", "供应商", "小时", "人次"),
+    "governance": ("董事", "董事会", "女性", "腐败", "贿赂", "定罪", "付款", "投诉", "罚", "案件"),
+}
+
 
 def metrics_for(profile: str) -> tuple[FoundationMetric, ...]:
     """The metrics of one set; an unknown set is an error, never a silent 16."""

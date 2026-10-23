@@ -577,3 +577,49 @@ def test_quantitative_profile_is_only_a_selection_of_numeric_metrics():
         "metric_profile": "quantitative",
     })
     assert request.metric_profile == "quantitative"
+
+
+def test_measure_parser_keeps_open_bounds_and_ranges():
+    from decimal import Decimal
+    from esg_targeted.foundation.tables import parse_measure
+
+    assert parse_measure("≥ 28.5%") == {"value": Decimal("28.5"), "comparator": "greater_than",
+                                        "lower": Decimal("28.5"), "upper": None}
+    assert parse_measure("不超过 74")["comparator"] == "less_than"
+    assert parse_measure("约 5.2")["comparator"] == "about"
+    assert parse_measure("10-20 吨") == {"value": None, "comparator": "range",
+                                         "lower": Decimal("10"), "upper": Decimal("20")}
+    assert parse_measure("1,234")["comparator"] == "exact"
+
+
+def _observation(code, label, value, flags, rejected_by):
+    return {"code": code, "metric_id": "esrs.2023-set1.e1-5.dp09", "package_id": "esrs.2023-set1.e1-5",
+            "status": "rejected", "value_raw": value, "value": value, "unit_raw": "%", "unit_id": None,
+            "period": "2025", "period_year": 2025, "entity_basis": "group", "member": None,
+            "table_id": "table-p0072-0006", "page_number": 72, "row_id": label, "row_label": label,
+            "cell_id": None, "column": None, "note_block_id": None, "flags": flags,
+            "rejected_by": rejected_by, "attributes": {}}
+
+
+def test_rejected_share_rows_become_a_stored_child_breakdown():
+    from esg_targeted.foundation.consolidate import consolidate
+
+    rows = [_observation("E1-5_09", "风能比例", "28.28", ["share_row_beside_mapped_quantity"], "label_not_renewable"),
+            _observation("E1-5_09", "太阳能比例", "13.24", ["share_row_beside_mapped_quantity"], "label_not_renewable"),
+            _observation("E1-5_09", "水能比例", "14.33", ["share_row_beside_mapped_quantity"], "label_not_renewable")]
+    conclusion = next(item for item in consolidate([{"observations": rows}], 2025) if item["code"] == "E1-5_09")
+    assert conclusion["status"] == "review" and conclusion["child_only"] is True
+    assert [child["label"] for child in conclusion["children"]] == ["风能比例", "太阳能比例", "水能比例"]
+    assert all(child["relation"] == "component" for child in conclusion["children"])
+    assert conclusion["children"][0]["source"]["page_number"] == 72
+
+
+def test_children_travel_with_the_fact_as_named_attributes():
+    from esg_targeted.foundation.bundle import BundleWriter
+
+    conclusions = [{"metric_id": "esrs.2023-set1.e1-5.dp09", "children": [
+        {"label": "风能比例", "value_raw": "28.28", "unit_raw": "%"}]}]
+    facts = [{"source_fact_id": "fact-1", "identity_raw": {}}]
+    bindings = [{"metric_id": "esrs.2023-set1.e1-5.dp09", "source_fact_id": "fact-1"}]
+    BundleWriter._attach_children(None, conclusions, facts, bindings)
+    assert facts[0]["identity_raw"] == {"component_风能比例": "28.28 %"}

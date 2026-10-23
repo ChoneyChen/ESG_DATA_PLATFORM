@@ -98,6 +98,43 @@ def parse_number(text: str | None) -> Decimal | None:
     return -value if negative else value
 
 
+_RANGE_RE = re.compile(r"^\s*([-+]?\d[\d,，.]*)\s*(?:-|–|—|~|～|至|到)\s*([-+]?\d[\d,，.]*)")
+
+
+def parse_measure(text: str | None) -> dict | None:
+    """A number together with how the report qualifies it.
+
+    Open bounds and ranges stay typed: the printed value is preserved, while
+    the platform receives a comparator and lower/upper bounds instead of a
+    silently truncated exact number.
+    """
+    if not text:
+        return None
+    raw = number_text(text)
+    if not raw:
+        return None
+    match = _RANGE_RE.match(raw.replace(" ", ""))
+    if match and not re.search(r"\d", raw.replace(" ", "")[match.end():]):
+        low, high = parse_number(match.group(1)), parse_number(match.group(2))
+        if low is not None and high is not None and low <= high:
+            return {"value": None, "comparator": "range", "lower": low, "upper": high}
+    comparator = "exact"
+    if re.search(r"≥|>=|不少于|不低于|至少", raw):
+        comparator = "greater_than"
+    elif re.search(r"≤|<=|不超过|不高于|至多", raw):
+        comparator = "less_than"
+    elif re.search(r"约|大約|大约|約|approximately|approx\.?|~|～|≈", raw, re.I):
+        comparator = "about"
+    cleaned = re.sub(r"不少于|不低于|不超过|不高于|至少|至多|大約|大约|approximately|approx\.?|约|約|≥|>=|≤|<=|~|～|≈",
+                     "", raw, flags=re.I).strip()
+    value = parse_number(cleaned)
+    if value is None:
+        return None
+    return {"value": value, "comparator": comparator,
+            "lower": value if comparator == "greater_than" else None,
+            "upper": value if comparator == "less_than" else None}
+
+
 CN_DIGITS = {"零": "0", "〇": "0", "○": "0", "Ｏ": "0", "一": "1", "二": "2", "三": "3", "四": "4", "五": "5",
              "六": "6", "七": "7", "八": "8", "九": "9"}
 CN_YEAR_RE = re.compile(r"([零〇○Ｏ一二三四五六七八九]{4})(?=\s*年)")

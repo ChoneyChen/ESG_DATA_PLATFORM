@@ -1256,7 +1256,9 @@ def get_report_asset_file(asset_id: str) -> FileResponse:
         path = report_assets.resolve(asset_id)
     except (KeyError, FileNotFoundError, ValueError) as exc:
         raise HTTPException(status_code=404, detail="Report asset not found") from exc
-    return FileResponse(path, filename=path.name, media_type="application/pdf")
+    # Inline so the workbench can show the page instead of forcing a download.
+    return FileResponse(path, filename=path.name, media_type="application/pdf",
+                        content_disposition_type="inline")
 
 
 @app.get("/api/report-assets/{asset_id}/lifecycle")

@@ -16,7 +16,7 @@ from esg_targeted.foundation.guards import (
 from esg_targeted.foundation.quantities import unit_scale
 from esg_targeted.foundation.tables import (
     DataLine, TableView, _is_unit_like, boundary_hint, boundary_label, entity_sum_role, explicit_total_column, is_number_text,
-    number_text, parse_number, period_years, render_table, structural_boundary, textual_subset_evidence,
+    number_text, parse_measure, parse_number, period_years, render_table, structural_boundary, textual_subset_evidence,
     title_subset_evidence,
 )
 from esg_targeted.foundation.textnorm import fold
@@ -245,6 +245,9 @@ class Observation:
     # section, boundary, unit source). Kept open so a future parser or model
     # can carry more context without changing the contract.
     attributes: dict = field(default_factory=dict)
+    comparator: str = "exact"
+    value_lower: str | None = None
+    value_upper: str | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -570,7 +573,8 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
         if cell and cell.cell_id in view.corrected_cells:
             value_raw = view.corrected_cells[cell.cell_id]
             row_flags.append("value_corrected_from_pdf_text_layer")
-        number = parse_number(value_raw) if value_raw else None
+        measure = parse_measure(value_raw) if value_raw else None
+        number = measure["value"] if measure else None
         if cell and cell.cell_id in view.unconfirmed_cells:
             row_flags.append("value_not_in_pdf_text_layer")
         if line.ocr_label:
@@ -627,7 +631,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
             if value_raw is None:
                 flags.append("no_value_in_current_column")
                 status, rejected_by = "rejected", rejected_by or "no_value_in_current_column"
-            elif number is None:
+            elif number is None and not (measure and measure["comparator"] == "range"):
                 flags.append("value_not_numeric")
                 status, rejected_by = "rejected", rejected_by or "value_not_numeric"
             if unit_source == "missing":
@@ -647,7 +651,11 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
                 flags.append("row_limited_to_part_of_group")
             observations.append(Observation(
                 code=metric_code, metric_id=metric.metric_id, package_id=metric.package_id, status=status,
-                value_raw=value_raw, value=str(number) if number is not None else None, unit_raw=unit_raw,
+                value_raw=value_raw, value=str(number) if number is not None else None,
+                comparator=measure["comparator"] if measure else "exact",
+                value_lower=str(measure["lower"]) if measure and measure["lower"] is not None else None,
+                value_upper=str(measure["upper"]) if measure and measure["upper"] is not None else None,
+                unit_raw=unit_raw,
                 unit_id=canonical_unit_id(unit_raw) if unit_raw else None,
                 period=current_year, period_year=period_year, entity_basis=entity_basis,
                 member=pollutant_key(line.label) if metric.group in ("air", "water_pollutants") else None,

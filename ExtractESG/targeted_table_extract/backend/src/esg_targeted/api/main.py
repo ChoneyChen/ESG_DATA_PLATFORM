@@ -577,12 +577,15 @@ def get_foundation16_result(session_id: str) -> dict:
     for conclusion in result["conclusions"]:
         metric = BY_CODE[conclusion["code"]]
         children = [item for item in result["conclusions"] if item.get("parent_code") == metric.code]
+        # Keep the authored child breakdown discovered by consolidation; the
+        # catalog's own sub-clauses are added alongside it.
+        stored_children = [item for item in conclusion.get("children") or [] if item.get("relation")]
         conclusion.update(parent_code=metric.parent_code,
                           children=[{"code": item["code"], "label": item.get("label"),
                                      "status": item["status"],
                                      "values": [{"member": m.get("member"), "value_raw": m.get("value_raw"),
                                                  "unit_raw": m.get("unit_raw")} for m in item.get("members") or []]}
-                                    for item in children],
+                                    for item in children] + stored_children,
                           group=metric.group, group_label=GROUP_LABELS.get(metric.group, metric.group),
                           status_label=STATUS_LABELS.get(conclusion["status"], conclusion["status"]),
                           definition=metric.definition, definition_zh=DEFINITIONS_ZH.get(metric.code), kind=metric.kind)

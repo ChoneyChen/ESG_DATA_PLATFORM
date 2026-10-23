@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import shutil
 from datetime import datetime, timezone
 from decimal import Decimal
@@ -138,6 +139,7 @@ class BundleWriter:
                                                   target_cells=self._target_cells(conclusions))
         for binding in bindings:
             binding["route"] = ROUTE
+        self._attach_children(conclusions, facts, bindings)
 
         (output_dir / "input").mkdir(parents=True, exist_ok=True)
         (output_dir / "results").mkdir(parents=True, exist_ok=True)
@@ -305,6 +307,35 @@ class BundleWriter:
             "bbox_x0": None, "bbox_y0": None, "bbox_x1": None, "bbox_y1": None,
         })
 
+    def _attach_children(self, conclusions: list[dict], facts: list[dict], bindings: list[dict]) -> None:
+        """Carry a metric's disclosed breakdown as named source attributes.
+
+        A child value is not a second observation: it is an attribute of the
+        same disclosure, so it travels with the fact without inventing a new
+        identity or a second publication decision.
+        """
+        children = {item["metric_id"]: item.get("children") or [] for item in conclusions}
+        by_fact = {fact.get("source_fact_id"): fact for fact in facts}
+        attached: set[str] = set()
+        for binding in bindings:
+            metric_id = binding.get("metric_id")
+            rows = children.get(metric_id) or []
+            if not rows or metric_id in attached:
+                continue
+            fact = by_fact.get(binding.get("source_fact_id"))
+            if fact is None:
+                continue
+            identity = fact.setdefault("identity_raw", {})
+            for child in rows:
+                label = re.sub(r"[^\w]+", "_", str(child.get("label") or "")).strip("_")[:40]
+                if not label:
+                    continue
+                key = f"component_{label}"
+                if key in identity:
+                    continue
+                identity[key] = f'{child.get("value_raw") or ""} {child.get("unit_raw") or ""}'.strip()
+            attached.add(metric_id)
+
     def _observation(self, records, package, elements, element_ids, task_id, metric_id, member, sources, ir, *, review, coded,
                      boundary=None):
         primary = sources[0]
@@ -318,8 +349,10 @@ class BundleWriter:
             value_numeric = _decimal_text(str(parsed)) if parsed is not None else None
         records["quantitative_observations"].append({
             "observation_id": observation_id, "task_id": task_id, "metric_id": metric_id, "value_origin": "reported",
-            "value_raw": member.get("value_raw") or "", "comparator": "exact", "value_numeric": value_numeric,
-            "value_lower": None, "value_upper": None, "unit_raw": member.get("unit_raw"),
+            "value_raw": member.get("value_raw") or "", "comparator": member.get("comparator") or "exact",
+            "value_numeric": value_numeric,
+            "value_lower": _decimal_text(member.get("value_lower")) if member.get("value_lower") else None,
+            "value_upper": _decimal_text(member.get("value_upper")) if member.get("value_upper") else None, "unit_raw": member.get("unit_raw"),
             "unit_id": coded("quantitative_observation", "unit_id", member.get("unit_id")),
             "reporting_period_raw": member.get("period"), "reporting_year": member.get("period_year"),
             "period_start": None, "period_end": None,

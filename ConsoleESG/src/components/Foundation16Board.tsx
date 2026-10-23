@@ -30,6 +30,11 @@ const STATUS_WORD: Record<string, string> = {
   only_rejected_or_other_period: '仅有被拒候选',
 };
 
+const CHILD_RELATION: Record<string, string> = {
+  component: '分项',
+  related_measure: '相关度量',
+};
+
 /** Filter keys are outcome words, not colour tones: the counts must match. */
 function bucketOf(status: string) {
   if (status === 'found') return 'found';
@@ -65,7 +70,11 @@ function locate(irRunId: string, source: Row) {
 }
 
 function valueText(row: Row) {
-  return `${row.value_raw ?? '—'}${row.unit_raw ? ` ${row.unit_raw}` : ''}`;
+  const raw = row.value_raw ?? '—';
+  const mark = row.comparator === 'greater_than' ? (String(raw).includes('≥') ? '' : '≥ ')
+    : row.comparator === 'less_than' ? (String(raw).includes('≤') ? '' : '≤ ')
+    : row.comparator === 'about' ? (String(raw).includes('约') ? '' : '约 ') : '';
+  return `${mark}${raw}${row.unit_raw ? ` ${row.unit_raw}` : ''}`;
 }
 
 function summaryOf(conclusion: Conclusion) {
@@ -145,7 +154,7 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
           <h2>{conclusion.label}</h2>
           {conclusion.package_id && <small className="mono">{conclusion.package_id}{conclusion.metric_id ? ` · ${conclusion.metric_id}` : ''}</small>}
         </div>
-        <span className={`f16-status ${STATUS_TONE[conclusion.status] || 'none'}`}>{STATUS_WORD[conclusion.status] || conclusion.status_label}</span>
+        <span className={`f16-status ${STATUS_TONE[conclusion.status] || 'none'}`}>{conclusion.child_only ? '已找到分项' : (STATUS_WORD[conclusion.status] || conclusion.status_label)}</span>
       </header>
 
       {conclusion.parent_code && <p className="f16-parent">子项 · 属于 {conclusion.parent_code}</p>}
@@ -192,14 +201,20 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
       {(conclusion.children || []).length > 0 && (
         <div className="f16-sublist">
           <h4>本条包含的子项（{conclusion.children!.length}）</h4>
+          <p className="muted">这些是同一披露下的分项或相关度量，已单独保留原值与页码；它们不替代本条主值。</p>
           <table className="f16-members">
-            <thead><tr><th>子项</th><th>状态</th><th>值</th></tr></thead>
+            <thead><tr><th>子项</th><th>关系</th><th>原值</th><th>来源</th></tr></thead>
             <tbody>
-              {conclusion.children!.map((child: Row) => (
-                <tr key={String(child.code)}>
-                  <td><strong>{child.code}</strong><small className="f16-attr">{child.label}</small></td>
-                  <td><span className={`f16-status ${STATUS_TONE[String(child.status)] || 'none'}`}>{STATUS_WORD[String(child.status)] || String(child.status)}</span></td>
-                  <td className="metric-value">{(child.values || []).map((v: Row, i: number) => <div key={i}>{v.member ? `${v.member} ` : ''}{v.value_raw ?? '—'}{v.unit_raw ? ` ${v.unit_raw}` : ''}</div>)}</td>
+              {conclusion.children!.map((child: Row, index: number) => (
+                <tr key={`${child.code || child.label}-${index}`}>
+                  <td><strong>{child.code || child.label}</strong>{child.code && <small className="f16-attr">{child.label}</small>}</td>
+                  <td>{child.relation ? (CHILD_RELATION[String(child.relation)] || String(child.relation)) : (STATUS_WORD[String(child.status)] || '子项')}</td>
+                  <td className="metric-value">
+                    {child.values
+                      ? (child.values as Row[]).map((v: Row, i: number) => <div key={i}>{v.member ? `${v.member} ` : ''}{v.value_raw ?? '—'}{v.unit_raw ? ` ${v.unit_raw}` : ''}</div>)
+                      : `${child.value_raw ?? '—'}${child.unit_raw ? ` ${child.unit_raw}` : ''}`}
+                  </td>
+                  <td>{child.source?.page_number ? `第 ${child.source.page_number} 页` : child.source?.row_label || '—'}</td>
                 </tr>
               ))}
             </tbody>

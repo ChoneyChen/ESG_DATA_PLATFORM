@@ -5,10 +5,19 @@ from collections import defaultdict
 from decimal import Decimal
 from itertools import combinations
 
-from esg_targeted.foundation.catalog import METRICS
+from esg_targeted.foundation.catalog import GROUP_COMPONENT_TERMS, METRICS
 from esg_targeted.foundation.quantities import agreement, comparable
 
 NOT_FOUND_STATUSES = ("not_found_in_selected_sources", "only_rejected_or_other_period")
+# Rejections that mean "this is a different expression of the same subject",
+# not "this is a different metric". They are kept as child attributes.
+CHILD_REJECTIONS = frozenset({
+    "label_not_renewable", "label_is_fossil_carrier", "label_not_fossil_energy",
+    "label_not_top_management_gender", "label_not_training_hours", "label_not_board_gender",
+    "label_not_work_related_accident", "label_not_materials_used", "label_not_waste",
+    "label_is_waste_category", "label_not_turnover_rate", "label_not_corruption_conviction",
+    "label_not_recycled_or_reused_water", "not_a_ratio", "unit_is_count",
+})
 # When nothing qualifies, one near miss is offered for review instead of
 # "not found": a Scope 3 figure the report limits to named categories, or a
 # renewable purchase/generation figure printed without a consumption total.
@@ -79,7 +88,53 @@ def _promote(code: str, candidates: list[dict], reporting_year: int | None) -> l
 def brief(obs: dict) -> dict:
     return {key: obs.get(key) for key in ("status", "value_raw", "unit_raw", "period", "table_id", "page_number",
                                            "row_label", "cell_id", "column", "note_block_id", "flags",
-                                           "rejected_by", "attributes")}
+                                           "rejected_by", "attributes", "comparator", "value_lower", "value_upper")}
+
+
+def _child_relation(metric, obs: dict, reporting_year: int | None, parent_value) -> str | None:
+    """A rejected row that belongs *under* the metric, never in place of it."""
+    if obs.get("status") != "rejected":
+        return None
+    if reporting_year is not None and obs.get("period_year") not in (reporting_year, None):
+        return None
+    flags = set(obs.get("flags") or [])
+    reason = obs.get("rejected_by")
+    if "share_row_beside_mapped_quantity" in flags:
+        return "component"
+    if reason not in CHILD_REJECTIONS:
+        return None
+    label = (obs.get("row_label") or "").casefold()
+    if not any(term.casefold() in label for term in GROUP_COMPONENT_TERMS.get(metric.group, ())):
+        return None
+    value = obs.get("value")
+    if parent_value is not None and value is not None:
+        try:
+            # A row larger than the headline is a rival total, not a child.
+            if Decimal(str(value)) > Decimal(str(parent_value)) * Decimal("1.02"):
+                return None
+        except (ValueError, ArithmeticError):
+            pass
+    if metric.dimension:
+        return "component"
+    return "related_measure"
+
+
+def _children(metric, candidates: list[dict], reporting_year: int | None, parent_value) -> list[dict]:
+    children, seen = [], set()
+    for obs in candidates:
+        relation = _child_relation(metric, obs, reporting_year, parent_value)
+        if relation is None:
+            continue
+        key = (obs.get("row_label"), obs.get("value_raw"), obs.get("page_number"))
+        if key in seen:
+            continue
+        seen.add(key)
+        children.append({"relation": relation, "label": obs.get("row_label"),
+                         "value_raw": obs.get("value_raw"), "unit_raw": obs.get("unit_raw"),
+                         "period": obs.get("period"), "period_year": obs.get("period_year"),
+                         "source": brief(obs), "flags": list(obs.get("flags") or []),
+                         "attributes": obs.get("attributes") or {}})
+    return children[:24]
 
 
 def consolidate(records: list[dict], reporting_year: int | None,
@@ -121,9 +176,18 @@ def consolidate(records: list[dict], reporting_year: int | None,
             entry.update(status="found" if unique else "not_found_in_selected_sources", statements=list(unique.values()))
             conclusions.append(entry)
             continue
+        parent_value = current[0]["value"] if current else None
+        children = _children(metric, candidates, reporting_year, parent_value)
+        if children:
+            entry["children"] = children
         if not current:
-            entry.update(status=NOT_FOUND_STATUSES[1] if candidates else NOT_FOUND_STATUSES[0],
-                         candidates=[brief(o) for o in candidates[:8]])
+            status = NOT_FOUND_STATUSES[1] if candidates else NOT_FOUND_STATUSES[0]
+            if children:
+                # The headline was not disclosed, but the report does break it
+                # down; store the breakdown instead of reporting "not found".
+                status = "review"
+                entry["child_only"] = True
+            entry.update(status=status, candidates=[brief(o) for o in candidates[:8]])
             # Surface why printed candidates were not used, so "not found"
             # never hides a rejected combined-scope row or a prior-period row.
             reasons = sorted({o.get("rejected_by") for o in candidates if o.get("rejected_by")})
@@ -156,6 +220,8 @@ def consolidate(records: list[dict], reporting_year: int | None,
                 head = sorted(best_view, key=lambda o: (o["status"] != "accepted", o["page_number"]))[0]
                 views.append({"boundary_label": label, "status": head["status"],
                               "value": head["value"], "value_raw": head["value_raw"],
+                              "comparator": head.get("comparator", "exact"),
+                              "value_lower": head.get("value_lower"), "value_upper": head.get("value_upper"),
                               "unit_raw": head["unit_raw"], "unit_id": head["unit_id"],
                               "period": head.get("period"), "period_year": head.get("period_year"),
                               "source": brief(head), "flags": list(head["flags"]),
@@ -202,7 +268,9 @@ def consolidate(records: list[dict], reporting_year: int | None,
                 status = "review" if status == "accepted" else status
                 flags.append("only_part_of_group_disclosed")
             members.append({"member": primary.get("member"), "status": status, "value": primary["value"],
-                            "value_raw": primary["value_raw"], "unit_raw": primary["unit_raw"], "unit_id": primary["unit_id"],
+                            "value_raw": primary["value_raw"],
+                            "comparator": primary.get("comparator", "exact"),
+                            "value_lower": primary.get("value_lower"), "value_upper": primary.get("value_upper"), "unit_raw": primary["unit_raw"], "unit_id": primary["unit_id"],
                             "period": primary.get("period"), "period_year": primary.get("period_year"),
                             "source": brief(primary), "agreeing_sources": [brief(o) for o in best if o is not primary],
                             "conflicting_sources": [brief(o) for o in conflicting],
