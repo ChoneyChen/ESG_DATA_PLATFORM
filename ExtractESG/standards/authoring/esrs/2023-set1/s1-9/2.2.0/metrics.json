@@ -1,0 +1,816 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Gender distribution in number of employees (head count) at top management level。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-9",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-9.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "labels": {
+      "en": "Gender distribution in number of employees (head count) at top management level",
+      "zh": "Gender distribution in number of employees (head count) at top management level"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": "extractesg.core.unit.count",
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "表内成员（行/列标题所示的分解项）须与证据一致；成员与合计不能互相替代或重复求和。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "normalization": "compatible_unit_only",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": "extractesg.core.unit-dimension.count",
+      "value_role": "actual",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "positive_definition": "Gender distribution in number of employees (head count) at top management level",
+      "distinguish_from": []
+    },
+    "measurement_kind": "count",
+    "metric_id": "esrs.2023-set1.s1-9.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/Integer",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.breakdown-member"
+    ],
+    "paragraph": "66a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Table/Integer",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-9_01",
+        "S1",
+        "S1-9",
+        "66a",
+        null,
+        "Gender distribution in number of employees (head count) at top management level",
+        "Table/Integer",
+        null,
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "93b76f712ec16cdc52744db03188c87707e38e4430ab956cb806d7f672314a8c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 133,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "source_datapoint_id": "S1-9_01",
+    "source_refs": [
+      "esrs.2023-set1.s1-9.source.law",
+      "esrs.2023-set1.s1-9.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-9.concept.dp01"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "最高管理层员工按性别划分的人数占比。",
+    "disclosure_requirement": "S1-9",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s1-9.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "population",
+      "gender",
+      "management_level_definition"
+    ],
+    "labels": {
+      "en": "Gender distribution in percentage of employees at top management level",
+      "zh": "最高管理层员工性别分布占比"
+    },
+    "measurement_contract": {
+      "aggregation": "ratio_recompute",
+      "canonical_unit_id": "extractesg.core.unit.ratio",
+      "comparison_axes": [
+        "population",
+        "gender",
+        "management_level_definition"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "比例指标必须保留分子、分母与计算口径；不同分母的占比不能直接比较。"
+      ],
+      "exclusions": [
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+        "最高管理层与董事会是不同人群；占比不能与人数互换。"
+      ],
+      "identity_axes": [
+        "population",
+        "gender",
+        "management_level_definition"
+      ],
+      "normalization": "percent_to_ratio",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": "extractesg.core.unit-dimension.ratio",
+      "value_role": "actual",
+      "positive_definition": "最高管理层员工中按性别划分的占比。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "distinguish_from": [
+        "董事会性别比例",
+        "管理层人数"
+      ]
+    },
+    "measurement_kind": "ratio",
+    "metric_id": "esrs.2023-set1.s1-9.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Table/percentage",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.breakdown-member"
+    ],
+    "paragraph": "66 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Table/percentage",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-9_02",
+        "S1",
+        "S1-9",
+        "66 a",
+        null,
+        "Gender distribution in percentage of employees at top management level",
+        "Table/percentage",
+        null,
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "42be275ba6958dca6a2e457ba42af84e86640a76df0a0160b4dc1c0233eeff2c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 134,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "source_datapoint_id": "S1-9_02",
+    "source_refs": [
+      "esrs.2023-set1.s1-9.source.law",
+      "esrs.2023-set1.s1-9.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-9.concept.dp02"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Distribution of employees (head count) under 30 years old。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-9",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-9.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Distribution of employees (head count) under 30 years old",
+      "zh": "Distribution of employees (head count) under 30 years old"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": "原表类型含多种数值形式（Integer/percentage）；单位维度由报告证据确定，不预设。",
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "actual",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "positive_definition": "Distribution of employees (head count) under 30 years old",
+      "distinguish_from": []
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-9.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Integer/percentage",
+    "paragraph": "66 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Integer/percentage",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-9_03",
+        "S1",
+        "S1-9",
+        "66 b",
+        null,
+        "Distribution of employees (head count) under 30 years old",
+        "Integer/percentage",
+        null,
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "fed868b3011beca73d11cb39d34566b80fec840e3be3f3760af1d4799655baff",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 135,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-9_03",
+    "source_refs": [
+      "esrs.2023-set1.s1-9.source.law",
+      "esrs.2023-set1.s1-9.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-9.concept.dp03"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Distribution of employees (head count) between 30 and 50 years old。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-9",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-9.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Distribution of employees (head count) between 30 and 50 years old",
+      "zh": "Distribution of employees (head count) between 30 and 50 years old"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": "原表类型含多种数值形式（Integer/percentage）；单位维度由报告证据确定，不预设。",
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "actual",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "positive_definition": "Distribution of employees (head count) between 30 and 50 years old",
+      "distinguish_from": []
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-9.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Integer/percentage",
+    "paragraph": "66 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Integer/percentage",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-9_04",
+        "S1",
+        "S1-9",
+        "66 b",
+        null,
+        "Distribution of employees (head count) between 30 and 50 years old",
+        "Integer/percentage",
+        null,
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "3f78c72b19fbcf983fb0db35cf8d719df7ced40cac7d10f8e462d55a98784c59",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 136,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-9_04",
+    "source_refs": [
+      "esrs.2023-set1.s1-9.source.law",
+      "esrs.2023-set1.s1-9.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-9.concept.dp04"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "Distribution of employees (head count) over 50 years old。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "disclosure_requirement": "S1-9",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-9.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Distribution of employees (head count) over 50 years old",
+      "zh": "Distribution of employees (head count) over 50 years old"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": "原表类型含多种数值形式（Integer/percentage）；单位维度由报告证据确定，不预设。",
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "actual",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "positive_definition": "Distribution of employees (head count) over 50 years old",
+      "distinguish_from": []
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-9.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Integer/percentage",
+    "paragraph": "66 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Integer/percentage",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-9_05",
+        "S1",
+        "S1-9",
+        "66 b",
+        null,
+        "Distribution of employees (head count) over 50 years old",
+        "Integer/percentage",
+        null,
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "44de20992b29dcab313545f8140ba2ce8046ee4115880f77ada050e5d092ea2d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 137,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-9_05",
+    "source_refs": [
+      "esrs.2023-set1.s1-9.source.law",
+      "esrs.2023-set1.s1-9.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-9.concept.dp05"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "Disclosure of own definition of top management used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "disclosure_requirement": "S1-9",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-9.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of own definition of top management used",
+      "zh": "Disclosure of own definition of top management used"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "positive_definition": "Disclosure of own definition of top management used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+      "distinguish_from": []
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-9.dp06",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 71",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S1-9_06",
+        "S1",
+        "S1-9",
+        "AR 71",
+        null,
+        "Disclosure of own definition of top management used ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        null,
+        null
+      ],
+      "row_sha256": "8bfd69b59e8e9dd68f78473ea74d231e45c434233832ab5dc1314b388d4a62c8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 138,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-9.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-9_06",
+    "source_refs": [
+      "esrs.2023-set1.s1-9.source.law",
+      "esrs.2023-set1.s1-9.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-9.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

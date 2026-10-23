@@ -40,16 +40,16 @@ def test_invalid_package_does_not_hide_healthy_package_and_changed_files_invalid
     assert len(catalog.list()) == 1
 
 
-def test_major_profile_readiness_preserves_49_ids_with_16_ready_and_33_pending(monkeypatch):
+def test_major_profile_readiness_preserves_every_id_with_explicit_pending(monkeypatch):
     import esg_targeted.runtime_compatibility as module
     monkeypatch.setattr(module.runtime_release, "snapshot", lambda: {"restart_required": False})
     payload = compatibility_snapshot(StandardPackageCatalog(standard_dist_root()))
     assert payload["readiness"]["ready"]
     assert payload["readiness"]["business_approval"] == "not_assessed"
     profile = payload["readiness"]["profile"]
-    assert (profile["overall_count"], profile["ready_count"], profile["pending_count"]) == (49, 16, 33)
-    assert profile["selected_output_count"] == 16
-    assert len(profile["selection_snapshot"]["source_datapoint_ids"]) == 16
+    assert (profile["overall_count"], profile["ready_count"], profile["pending_count"]) == (55, 38, 17)
+    assert profile["selected_output_count"] == 19
+    assert len(profile["selection_snapshot"]["source_datapoint_ids"]) == 19
 
 
 def test_catalog_cache_does_not_allow_callers_to_mutate_validation_truth():

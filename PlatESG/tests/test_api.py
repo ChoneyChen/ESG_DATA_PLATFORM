@@ -26,11 +26,12 @@ def client(tmp_path_factory):
 
 def test_all_major_original_ids_survive_and_decimal_api_is_exact(client):
     metrics=client.get("/v1/metrics").json()
-    assert len(metrics["items"])==49
-    assert sum(m["readiness"]=="ready" for m in client.get("/internal/v1/metrics",headers={"Authorization":"Bearer integration-review-token"}).json()["items"])==16
+    assert len(metrics["items"])==55
+    assert sum(m["readiness"]=="ready" for m in client.get("/internal/v1/metrics",headers={"Authorization":"Bearer integration-review-token"}).json()["items"])==38
     assert "E1-6_11" in {m["source_datapoint_id"] for m in metrics["items"]}
     rows=client.get("/v1/observations").json()
-    assert len(rows["items"])==64
+    # Ready metrics × two demo entities × two years.
+    assert len(rows["items"])==140
     assert all(isinstance(r["value_numeric"],str) for r in rows["items"] if r["value_numeric"] is not None)
     ratio=next(r for r in rows["items"] if r["source_datapoint_id"]=="E1-5_09")
     assert ratio["value_numeric"]=="0.25125"
@@ -164,7 +165,7 @@ def test_cursor_and_export_freeze_dataset_and_do_not_turn_missing_into_zero(clie
     export=client.get("/v1/exports",params={"format":"json","dataset_version":first["dataset_version"]}).json()
     assert export["dataset_version"]==first["dataset_version"]
     coverage=client.get("/v1/coverage",params={"entity_ref":"demo-alpha","dataset_version":first["dataset_version"]}).json()
-    assert sum(r["status"]=="not_available" for r in coverage["items"])>=33
+    assert sum(r["status"]=="not_available" for r in coverage["items"])>=20
     assert client.get("/v1/datasets/999999").status_code==404
     assert client.get("/v1/observations",params={"dataset_version":999999}).status_code==404
 

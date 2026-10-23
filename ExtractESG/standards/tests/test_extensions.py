@@ -55,7 +55,7 @@ def test_original_catalog_and_major_ids_remain_unchanged(parent, proposal):
     assert len(packages) == 99
     assert sum(len(p.metrics) for p in packages.values()) == 1126
     profile = load_json(ROOT / 'profiles/esrs/2023-set1/platform-major.json')
-    assert len(profile['source_datapoint_ids']) == len(set(profile['source_datapoint_ids'])) == 49
+    assert len(profile['source_datapoint_ids']) == len(set(profile['source_datapoint_ids'])) == 55
     assert len(parent.metrics) == 35
     assert all(m.source_datapoint_id.startswith('E1-6_') for m in parent.metrics)
     assert proposal.definition.extension_id not in profile['source_datapoint_ids']

@@ -77,9 +77,9 @@ test('scientific dimension declarations include explicit constraints and exclude
     ['entity_kind','extra_axis','flow','method_basis','pollutant','risk_class','scope']);
 });
 
-test('all 49 original IDs remain immutable; four approval/publication axes are independent',async()=>{
+test('every original ID remains immutable; four approval/publication axes are independent',async()=>{
   const db=await database();try {
-    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.metric_definition_versions')).rows[0].n,49);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.metric_definition_versions')).rows[0].n,dictionary.metrics.length);
     const initial=await readDataset(db);
     assert.equal(initial.dictionary_version,dictionary.dictionary_version);
     assert.equal(initial.observations.length,0);
@@ -101,7 +101,7 @@ test('all 49 original IDs remain immutable; four approval/publication axes are i
     assert.equal((await state(db,item)).publication_status,'published');
     const drift=structuredClone(dictionary);drift.metrics[0].label_zh='Silent semantic drift';
     await assert.rejects(seedMetricDictionary(db,drift),/Immutable (metric definition|dictionary snapshot)/);
-    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.metric_definition_versions')).rows[0].n,49);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.metric_definition_versions')).rows[0].n,dictionary.metrics.length);
   } finally {await db.close();}
 });
 
@@ -126,8 +126,8 @@ test('dictionary releases reuse immutable concepts and freeze membership indepen
     const baseline=await readDataset(db);
     const next={...structuredClone(dictionary),dictionary_version:'test-2.0.0'};
     await seedMetricDictionary(db,next);
-    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.metric_definition_versions')).rows[0].n,49);
-    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.dictionary_membership')).rows[0].n,98);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.metric_definition_versions')).rows[0].n,dictionary.metrics.length);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.dictionary_membership')).rows[0].n,dictionary.metrics.length*2);
     await processOutbox(db);
     assert.equal((await readDataset(db)).dictionary_version,'test-2.0.0');
     assert.equal((await readDataset(db,baseline.dataset_version)).dictionary_version,dictionary.dictionary_version);

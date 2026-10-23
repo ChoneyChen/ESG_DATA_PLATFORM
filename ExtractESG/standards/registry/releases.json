@@ -346,6 +346,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "b0d3f65a58eb51f4d45ce989e937ed5901f3d6b0a9e1724551f7ff7e43d5f369",
       "source_digest": "1e08b3337b26db030fbdc6e4db20499090d297033db3c125c7d0021ea64e165d",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.e1-6",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.e1-6/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "ec6714689513b445bbf2f88d8a714a83a70bef39631b8c288ec81b03e9589e38",
+      "source_digest": "5d51232aeed35fa5fbd2bea0d5424d4be396d2e5c857ccc68494afa4a3924423",
       "state": "compiled_draft"
     },
     {
@@ -982,6 +994,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "921a8d6fca913a5463095bc69bef0a839530240c7d35f31a216573c6c153a6be",
       "source_digest": "a58d289438a37b970ed49269c7555cb58dde5bbd89b93b68aa44e29f57d3ca06",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.e5-4",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.e5-4/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "82e7280db7dc7d6aa4b7daa9f0e57a8bd4e1347bfc70032aaa20e0c7e7e6ddbd",
+      "source_digest": "b664ffc64f5d91ed4dd3d663aacaa4a9ce41b575d519ca1f53cc2d2eac761545",
       "state": "compiled_draft"
     },
     {
@@ -994,6 +1018,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "2c2873b58d268ffabe219d480e28eb0e339ea805b852d13a3653bf169a5868e6",
       "source_digest": "1decd2214b5e51df1bc5e9fabf16e2002dbcca57696d106a6523e10a8a1834e5",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.e5-5",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.e5-5/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "4b691b723ea6ff42334191f09cb39112ef0020b1edcd765d270f691f5149af18",
+      "source_digest": "f8d6cb3a326463bc574ffcbc20b320dd374018dae5487ab5e306f8e959fb8f44",
       "state": "compiled_draft"
     },
     {
@@ -1066,6 +1102,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "081039c8fa0a954b6e0884dd12f06a215f98028c3297f851c848d610e847be9a",
       "source_digest": "c9ce1d1dc9a0260646155e0abbaf2227a930d923d79df317ec93780e86554d2e",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.g1-4",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.g1-4/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "d64e065c27e5d20cb0fbcdc012d64754a59d2209f4353eee9ebc9c47cb0c095f",
+      "source_digest": "d3fdfbe37c28b9c888f3631ce3542181a8e8f6bf343af60fc1103e60d521e8d5",
       "state": "compiled_draft"
     },
     {
@@ -1090,6 +1138,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "bebc46945fcee2f021bc32cac82951128669df482ee18628cbc9e93d2777f2e4",
       "source_digest": "a502a09f7399f83f10cbc442e88516aee786b21a889394d253a1199e4febe804",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.g1-6",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.g1-6/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "9273a9e997523f25393613653d8b49f9bb90bf5f034f42b2a8b8da8ab0db62b2",
+      "source_digest": "4292ef04bdc160cc13baa615e528dce749b3ac9625e4c77ae6f8595b42a79b56",
       "state": "compiled_draft"
     },
     {
@@ -1426,6 +1486,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "2669556429246968829037772281a83af6b45d2e5f45b21d447304ad5f7ec339",
       "source_digest": "5ea0e5be160d07988286336f44eed54e25a840fe4910ecf6b9121221080d8848",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.s1-13",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.s1-13/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "31fc3331ec6a345392e2846b14462cd2bdb8a289951303a720d1cec8daa91bf4",
+      "source_digest": "2f35b29e915ddc1960c05828f3e1596745ae34d8c029eef333a7ccaef08349f2",
       "state": "compiled_draft"
     },
     {
@@ -1438,6 +1510,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "a917f6e65475c77b2c13544e747bdf5a6a8f651fae4f88a4cd4f30966fb241ae",
       "source_digest": "4c2f6179c7cd9d462f8b74f5c00eb8a0e6a5ef2e7a1523bf736c5b7af3274ded",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.s1-14",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.s1-14/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "9f711ad8422e5f8e6e5b2718b2d4587161084d6161f9451d7db371093251afdd",
+      "source_digest": "6f2c79d1449f7a2281c176b130fee2e38801675c9a388fc88a5b9405dcdce185",
       "state": "compiled_draft"
     },
     {
@@ -1462,6 +1546,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "83e9046c77bb2eda67792831795a28d6c04df3c357e14bf51593ab3c7c8da4c0",
       "source_digest": "961f145e80fb68707b791283ba63bcb2e667cdee1288060a72927351ed48bc8b",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.s1-16",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.s1-16/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "674c79c6e9bae3b2e6cb5047c72654df8da9c416acda08c9247a0f9f8107a9f1",
+      "source_digest": "a578ea071c2cb8ff2bcaad7e06f0852405d75a7e560e24cd10e05667dff42332",
       "state": "compiled_draft"
     },
     {
@@ -1474,6 +1570,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "8054ddc48b92b8305369320ed31ec9f9b0313a87d401383fba5a68e9fa1749d5",
       "source_digest": "265f43b263fcb3eb71edbb45a0363b21515ab3b7315019756e8c112f174980cd",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.s1-17",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.s1-17/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "5f1452f63ef121f04b60a733488361e459d69bdb053310878a4fd59c1deec88a",
+      "source_digest": "78222857162d26731acbf7278c287fd565ccdf3294dd7c4ffb3e0c6e5d893ea8",
       "state": "compiled_draft"
     },
     {
@@ -1534,6 +1642,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "4001e56313974eb90874851a7b7d2f8004e3b88ffb7e5bef72513bc6bb5a42f6",
       "source_digest": "5503ff120914e8c18207548af371567ce7bd46a5ee920c250761d9880f81181a",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.s1-6",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.s1-6/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "1f2e34f88738f833635d1cbf142f3c7e3cebdecfe79622022b0a497037e3e302",
+      "source_digest": "af741e2126f1f544fcad5945cf66067e9ac8565c1776a78b71a4651c835acddf",
       "state": "compiled_draft"
     },
     {
@@ -1570,6 +1690,18 @@
       "real_extraction_validation": "not_assessed",
       "sha256": "e8165fb43b93fdd00aaee66bff75a20b2b87e4669f9711fed6712020de4cda49",
       "source_digest": "d4554d2ef2b962826ada9f7d29503a1a62310dbf461a805691f3e078ce341e42",
+      "state": "retired"
+    },
+    {
+      "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.s1-9",
+      "package_version": "2.2.0",
+      "path": "releases/esrs.2023-set1.s1-9/2.2.0/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "5d73c495e31fdc3430ae9f257b5597434dda41113b9986be99b9ce39a8505551",
+      "source_digest": "d1d55e4ae72af4612aa9fe8bd3f6cd526e6baafee90799b51525a731bbbeb573",
       "state": "compiled_draft"
     },
     {

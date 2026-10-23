@@ -14,9 +14,12 @@ def test_all_new_packages_load_in_existing_targeted_catalog():
     packages,issues=StandardPackageCatalog(standard_dist_root()).scan()
     assert not issues
     assert len(packages)==99
-    revised={'E1-5','E1-6','E2-4'}
-    assert all(p.package_version==('2.1.2' if p.disclosure_requirement in revised else '2.1.1')
-               and p.status=='draft' for p in packages)
+    # Versions come from the registry so a published package never needs a
+    # test edit; the scan above already proved every dist package loads.
+    import json
+    registry=json.loads((ROOT/'registry/esrs/2023-set1/registry.json').read_text())
+    versions={m['disclosure_requirement']:m['package_version'] for m in registry['modules'] if m['executable']}
+    assert all(p.package_version==versions[p.disclosure_requirement] and p.status=='draft' for p in packages)
     assert {p.disclosure_requirement for p in packages}>={'E1-5','E1-6','E2-4','E3-4','MDR-M','BP-1'}
 
 
@@ -24,7 +27,7 @@ def test_major_scope_is_a_valid_existing_report_session_selection():
     scope=compile_profile(ROOT,ROOT/'profiles/esrs/2023-set1/platform-major.json',topics=['E1','E2','E3'])
     request=ReportExtractionRequest(input={'kind':'document_ir','ir_run_id':'ir-scope-fixture'},standards=scope['session_standards'])
     assert len(request.standards)==5
-    assert sum(len(s.metric_ids) for s in request.standards)==16
+    assert sum(len(s.metric_ids) for s in request.standards)==19
     assert not any(s.package_id.endswith(('mdr-m','bp-1','sbm-1')) for s in request.standards)
 
 

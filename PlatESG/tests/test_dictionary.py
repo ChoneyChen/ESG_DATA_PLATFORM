@@ -33,13 +33,14 @@ def test_all_major_ids_preserved_in_original_order_with_explicit_pending(artifac
     selection = json.loads((STANDARDS / 'profiles/esrs/2023-set1/platform-major.json').read_text())
     ids = [m['source_datapoint_id'] for m in dictionary['metrics']]
     assert ids == selection['source_datapoint_ids']
-    assert len(ids) == len(set(ids)) == 49
-    assert len(profile['ready_source_datapoint_ids']) == 16
-    assert len(profile['pending_source_datapoint_ids']) == 33
+    assert len(ids) == len(set(ids)) == 55
+    assert len(profile['ready_source_datapoint_ids']) == 38
+    assert len(profile['pending_source_datapoint_ids']) == 17
     assert profile['overall_source_datapoint_ids'] == ids
-    assert profile['source_datapoint_ids'] == ids[:16]
-    assert profile['output_count'] == 16
-    assert set(profile['excluded_by_explicit_filter']) == set(ids[16:])
+    # The executable E1–E3 scope holds 19 ready clauses out of the 55.
+    assert len(profile['source_datapoint_ids']) == 19 and set(profile['source_datapoint_ids']) <= set(ids)
+    assert profile['output_count'] == 19
+    assert set(profile['excluded_by_explicit_filter']) == set(ids) - set(profile['source_datapoint_ids'])
 
 
 def test_main_selection_does_not_activate_all_package_core(artifacts):
@@ -49,8 +50,8 @@ def test_main_selection_does_not_activate_all_package_core(artifacts):
     for metric in dictionary['metrics']:
         assert metric['source_datapoint_id'] in modules[metric['source_datapoint_id']]['core_source_datapoint_ids']
     e1 = next(r for r in profile['routes'] if r['package_id'].endswith('.e1-5'))
-    assert e1['source_datapoint_ids'] == ['E1-5_01', 'E1-5_05', 'E1-5_09']
-    assert 'esrs.2023-set1.e1-5.dp02' not in e1['output_metric_ids']
+    assert e1['source_datapoint_ids'] == ['E1-5_01', 'E1-5_02', 'E1-5_05', 'E1-5_09']
+    assert 'esrs.2023-set1.e1-5.dp02' in e1['output_metric_ids']
     # The existing derived-ratio fallback may read internal operands, which
     # still cannot alter the selected outputs or their coverage denominator.
     assert set(e1['output_metric_ids']).isdisjoint(e1['internal_dependency_metric_ids'])
@@ -185,11 +186,11 @@ const server = http.createServer((req, res) => {
     });
     await page.goto(`http://127.0.0.1:${server.address().port}/index.html`);
     await page.getByRole('button', {name: '提取此报告'}).click();
-    await page.waitForFunction(() => document.querySelectorAll('#session-standards input:checked').length === 16);
-    assert.match(await page.locator('#session-profile-hint').innerText(), /49.*16.*33/);
+    await page.waitForFunction(() => document.querySelectorAll('#session-standards input:checked').length === 19);
+    assert.match(await page.locator('#session-profile-hint').innerText(), /55.*19.*17/);
     await page.locator('#session-pending-profile summary').click();
     assert.equal(await page.locator('#session-pending-profile-ids').innerText(), profile.pending_source_datapoint_ids.join('、'));
-    const energyCore = page.locator('label.session-metric').filter({hasText: 'E1-5_02'});
+    const energyCore = page.locator('label.session-metric').filter({hasText: 'E1-5_03'});
     assert.match(await energyCore.innerText(), /核心条款/);
     assert.doesNotMatch(await energyCore.innerText(), /主要条款/);
     assert.equal(await energyCore.locator('input').isChecked(), false);
@@ -198,18 +199,18 @@ const server = http.createServer((req, res) => {
     assert.deepEqual(requests.at(-1).selection_snapshot, profile.selection_snapshot);
     assert.deepEqual(requests.at(-1).standards, profile.session_standards);
     await page.locator('[data-standard-id="esrs.2023-set1.e1-5"][data-standard-choice="core"]').click();
-    assert.equal(await page.locator('#session-standards input:checked').count(), 18);
+    assert.equal(await page.locator('#session-standards input:checked').count(), 20);
     await page.getByRole('button', {name: '预览实际计划', exact: true}).click();
     await page.waitForFunction(() => !document.querySelector('#session-create').disabled);
     assert.equal('selection_snapshot' in requests.at(-1), false, 'manual package-core selection clears the product scope lock');
     assert.equal(requests.at(-1).standards[0].metric_ids.length, 5);
     await page.locator('#session-select-major').click();
-    assert.equal(await page.locator('#session-standards input:checked').count(), 16);
+    assert.equal(await page.locator('#session-standards input:checked').count(), 19);
     await page.locator('input[value="esrs.2023-set1.e1-5.dp05"]').uncheck();
     await page.getByRole('button', {name: '预览实际计划', exact: true}).click();
     await page.waitForFunction(() => !document.querySelector('#session-create').disabled);
     assert.equal('selection_snapshot' in requests.at(-1), false);
-    assert.equal(requests.at(-1).standards.flatMap(s => s.metric_ids).length, 15);
+    assert.equal(requests.at(-1).standards.flatMap(s => s.metric_ids).length, 18);
     assert.deepEqual(errors, []);
     console.log('PASS: 49-ID major catalog, 16-output explicit scope, 33 pending, package-core separation, locked preview and manual invalidation.');
   } finally {await browser.close();server.close();}

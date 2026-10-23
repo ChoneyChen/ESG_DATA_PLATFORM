@@ -1,6 +1,6 @@
 {
   "profile_id": "esrs.2023-set1.platform-major",
-  "profile_version": "1.0.0",
+  "profile_version": "1.1.0",
   "selection_kind": "platform_major",
   "catalog_id": "esrs.2023-set1.ig3-user-original",
   "catalog_source_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
@@ -11,12 +11,15 @@
   ],
   "source_datapoint_ids": [
     "E1-5_01",
+    "E1-5_02",
     "E1-5_05",
     "E1-5_09",
     "E1-6_07",
     "E1-6_09",
     "E1-6_10",
     "E1-6_11",
+    "E1-6_12",
+    "E1-6_30",
     "E2-4_02",
     "E2-4_03",
     "E2-4_09",
@@ -27,7 +30,7 @@
     "E3-4_11",
     "E3-4_12"
   ],
-  "output_count": 16,
+  "output_count": 19,
   "excluded_by_explicit_filter": [
     "E4.IRO-1_14",
     "E4.SBM-3_04",
@@ -42,9 +45,11 @@
     "S1-6_12",
     "S1-9_02",
     "S1-13_03",
+    "S1-13_04",
     "S1-14_02",
     "S1-14_05",
     "S1-16_01",
+    "S1-17_02",
     "S2-1_05",
     "S2-3_02",
     "S2-3_06",
@@ -57,6 +62,7 @@
     "S4-3_02",
     "S4-3_13",
     "S4-4_11",
+    "GOV-1_06",
     "G1-1_03",
     "G1-4_01",
     "G1-4_02",
@@ -70,11 +76,13 @@
       "source_digest": "0ae216b3cbb45320ed965f738e6abc642e5c3fc22dd405dbf9c0deaeab1bde1d",
       "source_datapoint_ids": [
         "E1-5_01",
+        "E1-5_02",
         "E1-5_05",
         "E1-5_09"
       ],
       "output_metric_ids": [
         "esrs.2023-set1.e1-5.dp01",
+        "esrs.2023-set1.e1-5.dp02",
         "esrs.2023-set1.e1-5.dp05",
         "esrs.2023-set1.e1-5.dp09"
       ],
@@ -94,7 +102,6 @@
         "esrs.2023-set1.e1-5.dp14"
       ],
       "internal_dependency_metric_ids": [
-        "esrs.2023-set1.e1-5.dp02",
         "esrs.2023-set1.e1-5.dp03",
         "esrs.2023-set1.e1-5.dp06",
         "esrs.2023-set1.e1-5.dp07",
@@ -153,6 +160,7 @@
           ],
           "selected_applicable_source_datapoint_ids": [
             "E1-5_01",
+            "E1-5_02",
             "E1-5_05",
             "E1-5_09"
           ]
@@ -198,6 +206,7 @@
           ],
           "selected_applicable_source_datapoint_ids": [
             "E1-5_01",
+            "E1-5_02",
             "E1-5_05",
             "E1-5_09"
           ]
@@ -249,6 +258,7 @@
           ],
           "selected_applicable_source_datapoint_ids": [
             "E1-5_01",
+            "E1-5_02",
             "E1-5_05",
             "E1-5_09"
           ]
@@ -296,6 +306,7 @@
           ],
           "selected_applicable_source_datapoint_ids": [
             "E1-5_01",
+            "E1-5_02",
             "E1-5_05",
             "E1-5_09"
           ]
@@ -304,33 +315,45 @@
     },
     {
       "package_id": "esrs.2023-set1.e1-6",
-      "package_version": "2.1.2",
-      "source_digest": "1e08b3337b26db030fbdc6e4db20499090d297033db3c125c7d0021ea64e165d",
+      "package_version": "2.2.0",
+      "source_digest": "5d51232aeed35fa5fbd2bea0d5424d4be396d2e5c857ccc68494afa4a3924423",
       "source_datapoint_ids": [
         "E1-6_07",
         "E1-6_09",
         "E1-6_10",
-        "E1-6_11"
+        "E1-6_11",
+        "E1-6_12",
+        "E1-6_30"
       ],
       "output_metric_ids": [
         "esrs.2023-set1.e1-6.dp07",
         "esrs.2023-set1.e1-6.dp09",
         "esrs.2023-set1.e1-6.dp10",
-        "esrs.2023-set1.e1-6.dp11"
+        "esrs.2023-set1.e1-6.dp11",
+        "esrs.2023-set1.e1-6.dp12",
+        "esrs.2023-set1.e1-6.dp30"
       ],
       "execution_metric_ids": [
         "esrs.2023-set1.e1-6.dp07",
         "esrs.2023-set1.e1-6.dp09",
         "esrs.2023-set1.e1-6.dp10",
-        "esrs.2023-set1.e1-6.dp11"
+        "esrs.2023-set1.e1-6.dp11",
+        "esrs.2023-set1.e1-6.dp12",
+        "esrs.2023-set1.e1-6.dp30",
+        "esrs.2023-set1.e1-6.dp34"
       ],
-      "internal_dependency_metric_ids": [],
+      "internal_dependency_metric_ids": [
+        "esrs.2023-set1.e1-6.dp34"
+      ],
       "context_metric_ids": [
         "esrs.2023-set1.e1-6.dp02",
         "esrs.2023-set1.e1-6.dp14",
         "esrs.2023-set1.e1-6.dp15",
         "esrs.2023-set1.e1-6.dp16",
-        "esrs.2023-set1.e1-6.dp29"
+        "esrs.2023-set1.e1-6.dp29",
+        "esrs.2023-set1.e1-6.dp32",
+        "esrs.2023-set1.e1-6.dp33",
+        "esrs.2023-set1.e1-6.dp35"
       ],
       "shared_requirement_references": [],
       "context_requirement_references": [
@@ -393,7 +416,9 @@
             "E1-6_07",
             "E1-6_09",
             "E1-6_10",
-            "E1-6_11"
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_30"
           ]
         },
         {
@@ -438,7 +463,9 @@
             "E1-6_07",
             "E1-6_09",
             "E1-6_10",
-            "E1-6_11"
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_30"
           ]
         },
         {
@@ -489,7 +516,9 @@
             "E1-6_07",
             "E1-6_09",
             "E1-6_10",
-            "E1-6_11"
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_30"
           ]
         },
         {
@@ -549,7 +578,9 @@
             "E1-6_07",
             "E1-6_09",
             "E1-6_10",
-            "E1-6_11"
+            "E1-6_11",
+            "E1-6_12",
+            "E1-6_30"
           ]
         }
       ]
@@ -1041,7 +1072,10 @@
         "esrs.2023-set1.e1-6.dp14",
         "esrs.2023-set1.e1-6.dp15",
         "esrs.2023-set1.e1-6.dp16",
-        "esrs.2023-set1.e1-6.dp29"
+        "esrs.2023-set1.e1-6.dp29",
+        "esrs.2023-set1.e1-6.dp32",
+        "esrs.2023-set1.e1-6.dp33",
+        "esrs.2023-set1.e1-6.dp35"
       ],
       "purpose": "semantic_context_only"
     },
@@ -1074,18 +1108,21 @@
       "package_version": "2.1.2",
       "metric_ids": [
         "esrs.2023-set1.e1-5.dp01",
+        "esrs.2023-set1.e1-5.dp02",
         "esrs.2023-set1.e1-5.dp05",
         "esrs.2023-set1.e1-5.dp09"
       ]
     },
     {
       "package_id": "esrs.2023-set1.e1-6",
-      "package_version": "2.1.2",
+      "package_version": "2.2.0",
       "metric_ids": [
         "esrs.2023-set1.e1-6.dp07",
         "esrs.2023-set1.e1-6.dp09",
         "esrs.2023-set1.e1-6.dp10",
-        "esrs.2023-set1.e1-6.dp11"
+        "esrs.2023-set1.e1-6.dp11",
+        "esrs.2023-set1.e1-6.dp12",
+        "esrs.2023-set1.e1-6.dp30"
       ]
     },
     {
@@ -1117,15 +1154,18 @@
     }
   ],
   "note": "session_standards可填入现有ReportSession请求；上下文只提供定义/口径，不自动成为输出或覆盖分母。",
-  "dictionary_version": "1.2.0",
+  "dictionary_version": "1.4.0",
   "overall_source_datapoint_ids": [
     "E1-5_01",
+    "E1-5_02",
     "E1-5_05",
     "E1-5_09",
     "E1-6_07",
     "E1-6_09",
     "E1-6_10",
     "E1-6_11",
+    "E1-6_12",
+    "E1-6_30",
     "E2-4_02",
     "E2-4_03",
     "E2-4_09",
@@ -1148,9 +1188,11 @@
     "S1-6_12",
     "S1-9_02",
     "S1-13_03",
+    "S1-13_04",
     "S1-14_02",
     "S1-14_05",
     "S1-16_01",
+    "S1-17_02",
     "S2-1_05",
     "S2-3_02",
     "S2-3_06",
@@ -1163,6 +1205,7 @@
     "S4-3_02",
     "S4-3_13",
     "S4-4_11",
+    "GOV-1_06",
     "G1-1_03",
     "G1-4_01",
     "G1-4_02",
@@ -1171,12 +1214,15 @@
   ],
   "ready_source_datapoint_ids": [
     "E1-5_01",
+    "E1-5_02",
     "E1-5_05",
     "E1-5_09",
     "E1-6_07",
     "E1-6_09",
     "E1-6_10",
     "E1-6_11",
+    "E1-6_12",
+    "E1-6_30",
     "E2-4_02",
     "E2-4_03",
     "E2-4_09",
@@ -1185,13 +1231,7 @@
     "E3-4_02",
     "E3-4_03",
     "E3-4_11",
-    "E3-4_12"
-  ],
-  "pending_source_datapoint_ids": [
-    "E4.IRO-1_14",
-    "E4.SBM-3_04",
-    "E4-5_01",
-    "E4-5_02",
+    "E3-4_12",
     "E5-4_02",
     "E5-4_05",
     "E5-5_07",
@@ -1201,9 +1241,22 @@
     "S1-6_12",
     "S1-9_02",
     "S1-13_03",
+    "S1-13_04",
     "S1-14_02",
     "S1-14_05",
     "S1-16_01",
+    "S1-17_02",
+    "GOV-1_06",
+    "G1-4_01",
+    "G1-4_02",
+    "G1-4_04",
+    "G1-6_01"
+  ],
+  "pending_source_datapoint_ids": [
+    "E4.IRO-1_14",
+    "E4.SBM-3_04",
+    "E4-5_01",
+    "E4-5_02",
     "S2-1_05",
     "S2-3_02",
     "S2-3_06",
@@ -1216,10 +1269,6 @@
     "S4-3_02",
     "S4-3_13",
     "S4-4_11",
-    "G1-1_03",
-    "G1-4_01",
-    "G1-4_02",
-    "G1-4_04",
-    "G1-6_01"
+    "G1-1_03"
   ]
 }

@@ -35,7 +35,7 @@ def frozen_scope():
     return response, selection, chosen
 
 
-@pytest.mark.parametrize('topics', [None, [], ['E99'], ['E1', 'E99'], ['S2'], ['2']])
+@pytest.mark.parametrize('topics', [None, [], ['E99'], ['E1', 'E99'], ['S2'], ['X1']])
 def test_unbuilt_or_unknown_or_empty_topic_scope_never_silently_reduces(topics):
     with pytest.raises(ValueError):
         platform_major_profile(STANDARDS, topics=topics)
@@ -43,9 +43,9 @@ def test_unbuilt_or_unknown_or_empty_topic_scope_never_silently_reduces(topics):
 
 def test_scope_hashes_bind_full_original_profile_dictionary_and_selected_packages(frozen_scope):
     response, selection, chosen = frozen_scope
-    assert len(response['overall_source_datapoint_ids']) == 49
-    assert len(selection.source_datapoint_ids) == response['output_count'] == 16
-    assert len(response['pending_source_datapoint_ids']) == 33
+    assert len(response['overall_source_datapoint_ids']) == 55
+    assert len(selection.source_datapoint_ids) == response['output_count'] == 19
+    assert len(response['pending_source_datapoint_ids']) == 17
     assert selection.profile_digest == hashlib.sha256((STANDARDS / 'profiles/esrs/2023-set1/platform-major.json').read_bytes()).hexdigest()
     assert selection.dictionary_digest == hashlib.sha256((REPOSITORY / 'PlatESG/catalog/metric-dictionary.v1.json').read_bytes()).hexdigest()
     validate_selection_snapshot(STANDARDS, selection, chosen)
@@ -69,7 +69,9 @@ def test_core_clause_cannot_join_major_under_an_old_snapshot(frozen_scope):
     _, selection, chosen = frozen_scope
     modified = [(p, list(ids)) for p, ids in chosen]
     package, outputs = modified[0]
-    source = next(m for m in package.metrics if m.source_datapoint_id == 'E1-5_02')
+    # A package-core clause outside the platform selection: it cannot be
+    # added to a frozen major snapshot.
+    source = next(m for m in package.metrics if m.source_datapoint_id == 'E1-5_03')
     assert source.source_datapoint_id in package.manifest.core_source_datapoint_ids
     outputs.append(source.metric_id)
     with pytest.raises(ValueError, match='differ'):
@@ -108,7 +110,7 @@ def test_empty_platform_preserves_definitions_but_creates_no_facts(empty_platfor
     response = empty_platform.get('/v1/metrics')
     assert response.status_code == 200
     catalog = response.json()
-    assert len(catalog['items']) == 49
+    assert len(catalog['items']) == 55
     assert all('readiness' not in m and 'standard_binding' not in m for m in catalog['items'])
     observations = empty_platform.get('/v1/observations', params={'dataset_version': catalog['dataset_version']}).json()
     assert observations['items'] == []
@@ -118,8 +120,8 @@ def test_empty_platform_preserves_definitions_but_creates_no_facts(empty_platfor
     assert coverage_response.status_code == 200, coverage_response.text
     assert coverage_response.json()['items'] == []
     snapshot = empty_platform.get('/internal/v1/extraction-profiles', headers={'Authorization':'Bearer independent-boundary-token'}).json()
-    assert snapshot['output_count'] == 16
-    assert len(snapshot['overall_source_datapoint_ids']) == 49
+    assert snapshot['output_count'] == 19
+    assert len(snapshot['overall_source_datapoint_ids']) == 55
 
 
 @pytest.mark.parametrize('endpoint', ['/v1/metrics', '/v1/entities', '/v1/observations', '/v1/coverage', '/v1/exports'])
@@ -193,8 +195,8 @@ def test_import_requires_authentic_scope_and_retains_partial_idempotence(empty_p
     imported = valid.json()
     assert imported['imported'] == 0
     assert imported['result_state'] == 'partial'
-    assert imported['platform_major_count'] == 49
-    assert imported['executable_major_count'] == 16
+    assert imported['platform_major_count'] == 55
+    assert imported['executable_major_count'] == 19
     replay = empty_platform.post('/internal/v1/import-batches', json=body, headers=auth)
     assert replay.status_code == 200
     assert replay.json()['idempotent'] is True

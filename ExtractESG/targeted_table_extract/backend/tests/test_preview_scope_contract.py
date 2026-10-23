@@ -27,7 +27,7 @@ def test_major_preview_keeps_only_16_outputs_and_separates_pinned_context(tmp_pa
     query = ReportExtractionRequest(input={'kind': 'pdf', 'asset_id': 'fixture-pdf'},
         standards=profile['session_standards'], selection_snapshot=profile['selection_snapshot'])
     plan = pipeline.preview(query)
-    assert plan['output_count'] == 16
+    assert plan['output_count'] == 19
     assert [m['source_datapoint_id'] for m in plan['selected_outputs']] == profile['source_datapoint_ids']
     assert all(m['package_core'] for m in plan['selected_outputs'])
     assert all(ref['output_policy'] == 'context_only' for ref in plan['context_requirements'])

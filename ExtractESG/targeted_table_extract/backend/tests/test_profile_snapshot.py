@@ -11,9 +11,9 @@ STANDARD_ROOT=Path(__file__).resolve().parents[3]/"standard_packages"
 
 def test_major_profile_pins_dictionary_and_selected_outputs_independently_of_core():
     scope=platform_major_profile(STANDARD_ROOT,topics=["E1","E2","E3"])
-    assert len(scope["overall_source_datapoint_ids"])==49
-    assert len(scope["source_datapoint_ids"])==16
-    assert len(scope["pending_source_datapoint_ids"])==33
+    assert len(scope["overall_source_datapoint_ids"])==55
+    assert len(scope["source_datapoint_ids"])==19
+    assert len(scope["pending_source_datapoint_ids"])==17
     catalog=StandardPackageCatalog(STANDARD_ROOT/"dist")
     selections=[(catalog.load(s["package_id"],s["package_version"]),s["metric_ids"]) for s in scope["session_standards"]]
     snapshot=ExtractionSelectionSnapshot.model_validate(scope["selection_snapshot"])

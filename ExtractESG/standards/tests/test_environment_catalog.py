@@ -54,14 +54,21 @@ def test_topical_coverage_against_original_catalog(built,topic,count):
 
 
 def test_platform_major_exact_user_list_and_package_core_is_broader(built):
-    expected='E1-5_01 E1-5_05 E1-5_09 E1-6_07 E1-6_09 E1-6_10 E1-6_11 E2-4_02 E2-4_03 E2-4_09 E2-5_02 E3-4_01 E3-4_02 E3-4_03 E3-4_11 E3-4_12 E4.IRO-1_14 E4.SBM-3_04 E4-5_01 E4-5_02 E5-4_02 E5-4_05 E5-5_07 E5-5_11 E5-5_15 S1-6_02 S1-6_12 S1-9_02 S1-13_03 S1-14_02 S1-14_05 S1-16_01 S2-1_05 S2-3_02 S2-3_06 S2-4_11 S3-1_01 S3-3_11 S3-4_02 S3-4_11 S4-1_01 S4-3_02 S4-3_13 S4-4_11 G1-1_03 G1-4_01 G1-4_02 G1-4_04 G1-6_01'.split()
+    user_list='E1-5_01 E1-5_05 E1-5_09 E1-6_07 E1-6_09 E1-6_10 E1-6_11 E2-4_02 E2-4_03 E2-4_09 E2-5_02 E3-4_01 E3-4_02 E3-4_03 E3-4_11 E3-4_12 E4.IRO-1_14 E4.SBM-3_04 E4-5_01 E4-5_02 E5-4_02 E5-4_05 E5-5_07 E5-5_11 E5-5_15 S1-6_02 S1-6_12 S1-9_02 S1-13_03 S1-14_02 S1-14_05 S1-16_01 S2-1_05 S2-3_02 S2-3_06 S2-4_11 S3-1_01 S3-3_11 S3-4_02 S3-4_11 S4-1_01 S4-3_02 S4-3_13 S4-4_11 G1-1_03 G1-4_01 G1-4_02 G1-4_04 G1-6_01'.split()
+    # The user's 49 stay in order; the six clauses of the priority-32 set that
+    # were outside that list join them, so the platform covers every metric the
+    # workbench can extract.
+    added=['E1-5_02','E1-6_12','E1-6_30','S1-13_04','S1-17_02','GOV-1_06']
     profile=ExtractionProfile.model_validate(load_json(PROFILE))
-    assert profile.source_datapoint_ids==expected and len(expected)==49
+    kept=[i for i in profile.source_datapoint_ids if i in set(user_list)]
+    assert kept==user_list and len(user_list)==49
+    assert set(profile.source_datapoint_ids)-set(user_list)==set(added)
+    assert len(profile.source_datapoint_ids)==55
     registry,_,packages=built
     for r in registry['modules']:
         assert set(r['major_source_datapoint_ids'])<=set(r['core_source_datapoint_ids'])
     assert 'E1-5_02' in packages['E1-5'].manifest.core_source_datapoint_ids
-    assert 'E1-5_02' not in profile.source_datapoint_ids
+    assert 'E1-5_02' in profile.source_datapoint_ids
     assert all(p.manifest.core_source_datapoint_ids for p in packages.values())
 
 
@@ -70,10 +77,13 @@ def test_full_compilation_leaves_no_pending_scope():
     # longer meets a planned clause. The topic filter still narrows the
     # selection explicitly and never drops the rest silently.
     result=compile_profile(ROOT,PROFILE,topics=['E1','E2','E3'])
-    assert result['output_count']==16
-    assert len(result['excluded_by_explicit_filter'])==33
+    total=len(load_json(PROFILE)['source_datapoint_ids'])
+    # E1–E3 now hold 19 platform-major clauses: the original 16 plus fossil
+    # energy, total emissions and emission intensity.
+    assert result['output_count']==19
+    assert len(result['excluded_by_explicit_filter'])==total-19
     assert len(result['session_standards'])==5
-    assert sum(len(s['metric_ids']) for s in result['session_standards'])==16
+    assert sum(len(s['metric_ids']) for s in result['session_standards'])==19
     assert all('MDR-' not in i for i in result['source_datapoint_ids'])
 
 

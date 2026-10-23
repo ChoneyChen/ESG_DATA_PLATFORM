@@ -30,7 +30,7 @@ def test_authenticated_extension_definition_registration_and_platform_selection_
     reviewer = {'Authorization': 'Bearer review-token'}
     with TestClient(app) as client:
         original = client.get('/v1/metrics').json()
-        assert len(original['items']) == 49
+        assert len(original['items']) == 55
         draft = client.get('/internal/v1/extensions', headers=admin).json()['authoring_drafts'][0]
         proposal = json.loads(DRAFT.read_text())
         proposal.update(proposer_kind='human', proposer_ref='local-reviewer')
@@ -57,7 +57,7 @@ def test_authenticated_extension_definition_registration_and_platform_selection_
         assert client.get('/v1/metrics').json() == original  # explicit publication hold survives both decisions
         assert client.post('/internal/v1/publication-process', headers=admin).status_code == 200
         current = client.get('/v1/metrics').json()
-        assert len(current['items']) == 50
+        assert len(current['items']) == 56
         original_by_id = {m['metric_id']: m for m in original['items']}
         assert {m['metric_id']: m for m in current['items'] if m['source_datapoint_id']} == original_by_id
         extension = next(m for m in current['items'] if m.get('clause_kind') == 'project_extension')

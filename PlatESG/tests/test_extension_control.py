@@ -75,7 +75,7 @@ def test_rejected_definition_cannot_compile_or_register(tmp_path):
     assert bridge.releases==[]
 
 
-def test_platform_selection_preserves_49_original_definitions_and_missing_context(tmp_path):
+def test_platform_selection_preserves_original_definitions_and_missing_context(tmp_path):
     service,bridge=control(tmp_path)
     principal={'operator_ref':'authenticated-admin','roles':['admin']}
     p=proposal();service.propose(p,principal)
@@ -84,7 +84,7 @@ def test_platform_selection_preserves_49_original_definitions_and_missing_contex
     original=json.loads((ROOT/'PlatESG/catalog/metric-dictionary.v1.json').read_text())
     before=deepcopy(original)
     dictionary=build_extension_dictionary(original,bridge.releases,[p.definition.extension_id],'1.1.0')
-    assert original==before and dictionary['metrics'][:49]==before['metrics']
+    assert original==before and dictionary['metrics'][:len(before['metrics'])]==before['metrics']
     extension=dictionary['metrics'][-1]
     assert extension['source_datapoint_id'] is None
     assert extension['related_source_datapoint_ids']==['E1-6_07','E1-6_09','E1-6_10']
