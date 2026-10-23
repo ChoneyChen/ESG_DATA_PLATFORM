@@ -29,6 +29,7 @@ disclosure_dimensions                                     dataset_membership
 | 字典 | `dictionary_versions`、`metric_definition_versions`、`dictionary_membership` | 不可变字典快照与指标定义版本 |
 | 单位 | `normalization_rule_versions` | 版本化换算规则（当前 `esg-units-1.5.3`） |
 | 发布 | `curated_observations`、`observation_sources`、`publication_states` | 规范观测、其来源与发布判定 |
+| 口径 | `curated_observations.boundary_code` | 同一指标在集团、基地、子公司、地区等不同范围下是**不同观测**，各自独立发布 |
 | 版本 | `dataset_versions`、`dataset_membership`、`outbox_events`、`publication_control` | 冻结数据版本与发布事件 |
 | 扩展 | `extension_*`、`derived_observation_lineage`、`derived_publication_states` | 延伸条款定义、计算血缘与派生发布 |
 | 平台 | `plat.entities`、`plat.extraction_scopes`、`plat.import_receipts`、`plat.import_receipt_attempts`、`plat.import_stage_events`、`plat.coverage_decisions`、`plat.artifact_lifecycle_*`、`plat.import_contract_releases` | 企业主体、范围快照、交付收据与覆盖决定 |

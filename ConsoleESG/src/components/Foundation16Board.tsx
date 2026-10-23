@@ -13,6 +13,15 @@ const STATUS_TONE: Record<string, string> = {
   only_rejected_or_other_period: 'none',
 };
 
+const BOUNDARY_WORD: Record<string, string> = {
+  group: '集团／合并口径',
+  battery_production_bases: '电池生产基地',
+  subsidiary: '子公司',
+  overseas: '海外',
+  hong_kong: '香港',
+  mainland: '中国内地',
+};
+
 const STATUS_WORD: Record<string, string> = {
   found: '已找到',
   review: '待复核',
@@ -155,6 +164,28 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
       )}
 
       {conclusion.definition_zh && <p className="f16-definition">{conclusion.definition_zh || conclusion.definition}</p>}
+
+      {(conclusion.views || []).length > 0 && (
+        <div className="f16-views">
+          <h4>同一指标的其他报告口径（{conclusion.views!.length}）</h4>
+          <table className="f16-members">
+            <thead><tr><th>口径</th><th>原值</th><th>期间</th><th>来源</th></tr></thead>
+            <tbody>
+              {conclusion.views!.map((view: Row) => (
+                <tr key={String(view.boundary_label)}>
+                  <td><strong>{BOUNDARY_WORD[String(view.boundary_label)] || String(view.boundary_label)}</strong></td>
+                  <td className="metric-value">{view.value_raw}{view.unit_raw ? ` ${view.unit_raw}` : ''}</td>
+                  <td>{view.period || '—'}</td>
+                  <td>
+                    第 {view.source?.page_number} 页 · {view.source?.row_label}
+                    <button type="button" className="text-button" onClick={() => locate(irRunId, view.source || {})}>定位原文</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {(conclusion.children || []).length > 0 && (
         <div className="f16-sublist">

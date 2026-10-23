@@ -15,7 +15,7 @@ from esg_targeted.foundation.guards import (
 )
 from esg_targeted.foundation.quantities import unit_scale
 from esg_targeted.foundation.tables import (
-    DataLine, TableView, _is_unit_like, boundary_hint, entity_sum_role, explicit_total_column, is_number_text,
+    DataLine, TableView, _is_unit_like, boundary_hint, boundary_label, entity_sum_role, explicit_total_column, is_number_text,
     number_text, parse_number, period_years, render_table, structural_boundary, textual_subset_evidence,
     title_subset_evidence,
 )
@@ -497,6 +497,14 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
             period_year = header_years[0]
             current_year = current_year or " ".join(view.column_paths.get(col, []))
             column_flags.append("period_from_column_header")
+    if col is None and view.value_cols:
+        # The model sometimes returns no column at all for a table it did read.
+        # The table itself still says which column is the reporting period, so
+        # pick it deterministically instead of dropping every printed row.
+        year_cols = [c for c in view.value_cols
+                     if reporting_year and reporting_year in period_years(" ".join(view.column_paths.get(c, [])))]
+        col = (year_cols or view.value_cols)[-1]
+        column_flags.append("column_from_header_year" if year_cols else "column_from_layout")
     if col is None:
         column_flags.append("no_current_column")
     if reporting_year and period_year and period_year != reporting_year:
@@ -653,6 +661,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
                     "section": line.section,
                     "unit_source": unit_source,
                     "entity_basis": entity_basis,
+                    "boundary_label": boundary_label(view, line.label, line.section),
                     "period_label": current_year,
                     "derived_from": item.get("derived"),
                 },

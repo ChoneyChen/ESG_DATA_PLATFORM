@@ -143,6 +143,39 @@ def consolidate(records: list[dict], reporting_year: int | None,
             full += [o for o in items if o not in full and not any(f.startswith("subset_scope_") for f in o["flags"])
                      and any(o["value"] == f["value"] and agreement(o, f) for f in full)]
             subset = [o for o in items if o not in full]
+            # The same indicator may be printed under several reporting scopes
+            # (group, a production base, a subsidiary). Each scope is its own
+            # measurement: keep them apart instead of merging or conflicting.
+            views: list[dict] = []
+
+            def add_view(label: str, scoped: list[dict]) -> None:
+                scoped_pool, _ = _split_components(scoped)
+                if not scoped_pool:
+                    return
+                best_view = _cluster(scoped_pool)[0]
+                head = sorted(best_view, key=lambda o: (o["status"] != "accepted", o["page_number"]))[0]
+                views.append({"boundary_label": label, "status": head["status"],
+                              "value": head["value"], "value_raw": head["value_raw"],
+                              "unit_raw": head["unit_raw"], "unit_id": head["unit_id"],
+                              "period": head.get("period"), "period_year": head.get("period_year"),
+                              "source": brief(head), "flags": list(head["flags"]),
+                              "agreeing_sources": [brief(o) for o in best_view if o is not head]})
+
+            labelled: dict[str, list[dict]] = defaultdict(list)
+            for obs in full:
+                labelled[(obs.get("attributes") or {}).get("boundary_label") or "_"].append(obs)
+            if len(labelled) > 1:
+                primary_label = "group" if "group" in labelled else ("_" if "_" in labelled else sorted(labelled)[0])
+                for label, scoped in sorted(labelled.items()):
+                    if label != primary_label:
+                        add_view(label, scoped)
+                full = labelled[primary_label]
+            # A printed sub-scope (a production base, a region, a subsidiary) is
+            # a different measurement, never a second opinion about the group
+            # total: it is published as its own row with its own boundary.
+            for obs in subset:
+                label = (obs.get("attributes") or {}).get("boundary_label") or "part_of_group"
+                add_view(label, [obs])
             pool, components = _split_components(full or items)
             clusters = _cluster(pool)
             best = clusters[0]
@@ -179,5 +212,7 @@ def consolidate(records: list[dict], reporting_year: int | None,
         statuses = {m["status"] for m in members}
         overall = "found" if statuses == {"accepted"} else ("conflict" if "conflict" in statuses else "review")
         entry.update(status=overall, members=members)
+        if views:
+            entry["views"] = views
         conclusions.append(entry)
     return conclusions

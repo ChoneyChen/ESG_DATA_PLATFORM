@@ -103,6 +103,8 @@ FLAG_LABELS = {
     "sentence_names_other_period": "句子描述的是其他期间",
     "scope2_method_not_stated_in_sentence": "句子未说明范围2核算方法",
     "no_current_column": "表格中没有本报告期的列",
+    "column_from_header_year": "模型未给出列，按表头年份取列",
+    "column_from_layout": "模型未给出列，按表格末列取列",
     "only_part_of_group_disclosed": "报告仅披露部分主体（分部/基地）数值，集团合计不是直接披露",
     "scope3_only_named_categories_reported": "报告仅披露范围3的部分类别，此数值不是完整范围3总量，需复核",
     "scope3_limited_to_named_categories": "范围3仅覆盖所列类别，需复核",

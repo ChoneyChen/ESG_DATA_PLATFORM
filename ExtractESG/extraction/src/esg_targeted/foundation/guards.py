@@ -62,7 +62,10 @@ WATER_ONLY_RE = _rx(r"化学需氧量", r"(?<![a-z0-9])cod(?![a-z0-9])", r"生�
 # permit as a rival value turns an otherwise correct extraction into a conflict.
 # GRI/ESRS index rows point at a section; the number in them is a page or a
 # clause number, never the disclosed figure.
-INDEX_ENTRY_RE = _rx(r"gri\s*\d{2,3}", r"disclosure\s*\d{2,3}", r"指标\s*\d{3}", r"esrs\s+[a-z]\d")
+INDEX_ENTRY_RE = _rx(r"gri\s*\d{2,3}", r"disclosure\s*\d{2,3}", r"指标\s*\d{3}", r"esrs\s+[a-z]\d",
+                      # GRI content-index rows are numbered `303-5耗水`; they
+                      # point at a page, they are not a measured value.
+                      r"(?:^|[\s（(])\d{3}[-–]\d{1,2}(?![\d.])")
 REGULATORY_LIMIT_RE = _rx(
     r"核定(?:的)?[^，。；]{0,20}(?:总量|排放量|量|配额|额度)", r"许可[^，。；]{0,16}排放",
     r"排污许可", r"排放许可证",

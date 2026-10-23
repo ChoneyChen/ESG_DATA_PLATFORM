@@ -134,6 +134,30 @@ def test_parts_that_add_up_to_the_total_are_not_conflicts():
     assert len(member["component_sources"]) == 2
 
 
+def test_the_same_total_under_two_reporting_scopes_is_two_measurements():
+    """A group total and a production-base total are different measurements of
+    the same clause, not a conflicting value."""
+    records = [{"observations": [
+        observation("E1-6_12", "117026505.54", period="2025", period_year=2025, attributes={"boundary_label": "group"}),
+        observation("E1-6_12", "1751599.73", period="2025", period_year=2025, attributes={"boundary_label": "battery_production_bases"}),
+    ]}]
+    conclusion = next(c for c in consolidate(records, 2025) if c["code"] == "E1-6_12")
+    assert conclusion["status"] == "found"
+    assert conclusion["members"][0]["value"].startswith("117026505")
+    views = conclusion.get("views") or []
+    assert [view["boundary_label"] for view in views] == ["battery_production_bases"]
+    assert views[0]["value_raw"] == "1751599.73"
+    assert not conclusion["members"][0]["conflicting_sources"]
+
+
+def test_a_scope_word_in_the_row_label_names_the_boundary():
+    from esg_targeted.foundation.tables import TableView, boundary_label
+    view = TableView("t", 0, 1, 2, 2, [], [], [1], None, [0], [], {}, False, {}, [], None)
+    assert boundary_label(view, "集团排放总量") == "group"
+    assert boundary_label(view, "电池生产基地排放强度") == "battery_production_bases"
+    assert boundary_label(view, "范围一温室气体排放总量") is None
+
+
 def test_different_totals_remain_a_conflict():
     records = [{"observations": [observation("E1-6_07", "321428"), observation("E1-6_07", "25829")]}]
     conclusion = next(c for c in consolidate(records, 2024) if c["code"] == "E1-6_07")
@@ -306,8 +330,13 @@ def test_a_row_named_after_a_target_is_proposed_when_the_call_skips_it():
     assert by_code["E3-4_01"].status == "accepted"
     assert by_code["E3-4_11"].value_raw == "49,244,155.42"
     assert by_code["E3-4_11"].status == "review" and "row_label_names_datapoint" in by_code["E3-4_11"].flags
-    # Without a current column nothing is proposed.
-    assert bind(task, {**payload, "current_col": None, "items": []}, 2025)[0] == []
+    # Without a current column the column is derived from the header year, so a
+    # printed row is still proposed instead of the whole table being dropped.
+    derived, _ = bind(task, {**payload, "current_col": None, "items": []}, 2025)
+    by_code = {o.code: o for o in derived}
+    assert by_code["E3-4_11"].value_raw == "49,244,155.42"
+    assert "column_from_header_year" in by_code["E3-4_11"].flags
+
 
 
 def test_reused_equipment_is_not_recycled_water():

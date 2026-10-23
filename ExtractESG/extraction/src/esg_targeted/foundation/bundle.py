@@ -66,6 +66,13 @@ def _conclusion_summary(conclusion: dict) -> dict:
                                               "unit_id", "period", "period_year", "flags")
              if member.get(key) is not None}
             for member in members]
+    views = conclusion.get("views") or []
+    if views:
+        summary["views"] = [
+            {key: view.get(key) for key in ("boundary_label", "status", "value", "value_raw", "unit_raw",
+                                            "period", "period_year", "flags")
+             if view.get(key) is not None}
+            for view in views]
     statements = conclusion.get("statements") or []
     if statements:
         summary["statements"] = [str(item.get("text") or "")[:400] for item in statements[:6]]
@@ -216,6 +223,11 @@ class BundleWriter:
                 sources = [member["source"], *member.get("agreeing_sources", [])]
                 self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id, member,
                                   sources, ir, review="human_required" if member["status"] != "accepted" else "pending", coded=coded)
+                for view in conclusion.get("views") or []:
+                    self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id, view,
+                                      [view["source"], *view.get("agreeing_sources", [])], ir,
+                                      review="human_required" if view["status"] != "accepted" else "pending",
+                                      coded=coded, boundary=view.get("boundary_label"))
                 for other in member.get("conflicting_sources", []):
                     self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id,
                                       {**member, "value_raw": other["value_raw"], "unit_raw": other["unit_raw"],
@@ -293,7 +305,8 @@ class BundleWriter:
             "bbox_x0": None, "bbox_y0": None, "bbox_x1": None, "bbox_y1": None,
         })
 
-    def _observation(self, records, package, elements, element_ids, task_id, metric_id, member, sources, ir, *, review, coded):
+    def _observation(self, records, package, elements, element_ids, task_id, metric_id, member, sources, ir, *, review, coded,
+                     boundary=None):
         primary = sources[0]
         observation_id = stable_id("obs", task_id, primary.get("cell_id") or primary.get("note_block_id"), member.get("member"),
                                    member.get("value_raw"))
@@ -309,7 +322,9 @@ class BundleWriter:
             "value_lower": None, "value_upper": None, "unit_raw": member.get("unit_raw"),
             "unit_id": coded("quantitative_observation", "unit_id", member.get("unit_id")),
             "reporting_period_raw": member.get("period"), "reporting_year": member.get("period_year"),
-            "period_start": None, "period_end": None, "reporting_boundary": None, "confidence": None,
+            "period_start": None, "period_end": None,
+            "reporting_boundary": boundary or (member.get("source") or {}).get("attributes", {}).get("boundary_label"),
+            "confidence": None,
             "evidence_set_id": evidence_set_id, "review_status": review,
         })
         for index, source in enumerate(sources, 1):

@@ -947,6 +947,35 @@ SUBSET_SCOPE_RE = re.compile(
 )
 
 
+# A report may disclose the same indicator under several reporting scopes:
+# the group total, a production base, a subsidiary, an overseas region. They
+# are different measurements, not conflicting values, so each keeps its own
+# label and becomes its own published observation.
+BOUNDARY_VOCAB: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("battery_production_bases", re.compile(r"电池生产基地|生产基地|制造基地|生产基地群")),
+    ("subsidiary", re.compile(r"子公司|下属公司|附属公司|subsidiar")),
+    ("overseas", re.compile(r"海外|境外|国外|overseas|outside\s+china")),
+    ("hong_kong", re.compile(r"香港|hong\s*kong")),
+    ("mainland", re.compile(r"中国大陆|中国内地|内地|mainland")),
+    ("group", re.compile(r"集团|合并口径|合并报表|本公司|公司整体|全公司|全球范围|全球|\bgroup\b")),
+)
+
+
+def boundary_label(view: TableView, *texts: str | None) -> str | None:
+    """The reporting scope a printed row belongs to, when the report names one.
+
+    Only an explicit scope word counts; a bare number never implies a scope.
+    """
+    near = " ".join(str(text) for text in [*texts, view.title, view.caption, *view.headings] if text)
+    near = fold(near)
+    if not near:
+        return None
+    for key, pattern in BOUNDARY_VOCAB:
+        if pattern.search(near):
+            return key
+    return None
+
+
 def structural_boundary(view: TableView, col: int | None, period_year: int | None) -> str | None:
     """Several columns of the same period under different parents are segments."""
     if col is None or period_year is None or not view.headers_aligned:

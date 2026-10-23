@@ -345,7 +345,11 @@ export async function importBundle(db, bundle, metadata, { inTransaction = false
             attributes: attributes.filter(a => a.parent_record_id === recordId),
             formula: row.derivation || null, logical_measurement_id: row.logical_measurement_id || null,
             evidence_transition: bundle.evidenceTransition || null, origin: 'legacy_projection', unverified_source_binding: binding || null };
-          const identity = sourceFact?.identity_raw || {};
+          // The printed reporting scope travels with the fact identity so the
+          // platform can show and publish two scopes of one clause separately.
+          const identity = { ...(sourceFact?.identity_raw || {}) };
+          if (row.reporting_boundary && !identity.reporting_boundary) identity.reporting_boundary = row.reporting_boundary;
+          if (row.reporting_boundary && !sourceIdentity.reporting_boundary) sourceIdentity.reporting_boundary = row.reporting_boundary;
           const rawValue = sourceFact ? sourceFact.value_raw ?? sourceFact.statement_raw ?? '' : row.value_raw ?? row.statement_raw ?? '';
           const rawUnit = sourceFact ? sourceFact.unit_raw ?? null : row.unit_raw || null;
           const periodStart = sourceFact ? identity.period_start || null : row.period_start || null;
