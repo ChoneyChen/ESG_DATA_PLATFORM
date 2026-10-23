@@ -7,23 +7,23 @@
 
 | 文档 | 内容 |
 |---|---|
-| [根 README](../README.md) | 项目范围、架构、运行方式与验证边界；新对话先读这一份 |
-| [更新日志](CHANGELOG.md) | 按日期倒序的每轮实际变化，以及被删除文档的结论摘要 |
-| [系统状态](SYSTEM_STATE.md) | 服务、端口、本地模型、数据位置、实测质量、测试结果与已知问题 |
-| [数据生产工作台](PRODUCTION_WORKBENCH_20261010.md) | 工作台操作、权限、恢复与本地模型边界 |
+| [根 README](../README.md) | 系统定位、Console 与 Extract 的关系、数据流、目录、测试与约定；新对话先读这一份 |
+| [更新日志](CHANGELOG.md) | 按日期倒序的每轮实际变化 |
+| [系统状态](SYSTEM_STATE.md) | 服务、端口、数据位置、实测质量、测试结果与已知问题 |
+| [数据生产工作台](PRODUCTION_WORKBENCH_20261010.md) | 日常操作、权限、恢复与本地模型边界 |
 | [科学数据存储](SCIENTIFIC_DATA_STORAGE.md) | 事实、测量口径、版本与发布的存储合同 |
 | [结构迁移](STRUCTURE_MIGRATION.md) | 物理职责、旧路径兼容与回滚依据 |
 
 ## 模块手册（各自单一职责）
 
-| 模块 | 入口 |
-|---|---|
-| 标准系统 | [ExtractESG/standards/README](../ExtractESG/standards/README.md) |
-| 数据库合同 | [database/README](../database/README.md) |
-| 产品网站 | [PlatESG/README](../PlatESG/README.md) |
-| 操作台 | [ConsoleESG/README](../ConsoleESG/README.md) |
-| 文档读取 | [document_ir_extract/README](../ExtractESG/document_ir_extract/README.md) |
-| 定向提取 | [targeted_table_extract/README](../ExtractESG/targeted_table_extract/README.md) |
+| 模块 | 入口 | 角色 |
+|---|---|---|
+| 操作台 | [ConsoleESG/README](../ConsoleESG/README.md) | 唯一人工界面：报告、提取、审核、发布 |
+| 文档读取 | [document_ir_extract/README](../ExtractESG/document_ir_extract/README.md) | PDF→OCR→DocumentIR 服务与合同（无自带前端） |
+| 定向提取 | [targeted_table_extract/README](../ExtractESG/targeted_table_extract/README.md) | 条款投影、事实与成果包 |
+| 标准系统 | [ExtractESG/standards/README](../ExtractESG/standards/README.md) | 作者源、编译、发布与版本不可变 |
+| 数据库合同 | [database/README](../database/README.md) | 存储、审核与发布 SQL |
+| 产品网站 | [PlatESG/README](../PlatESG/README.md) | 公开 `/v1`、内部接口与发布库 |
 
 ## 标准与来源材料
 

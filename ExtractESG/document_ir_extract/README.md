@@ -490,28 +490,24 @@ POST /api/document-ir/jobs/{run_id}/reviews/retry
 GET  /api/models/status
 ```
 
-## 前端启动
+## 操作台入口
 
-```bash
-./scripts/run_frontend.sh
-```
-
-打开 `http://127.0.0.1:18081`。
-
-完整平台使用桌面上的 `启动ESG统一工作台.command`，或运行：
+本模块**没有自带前端**。人工界面是 [ConsoleESG](../../ConsoleESG/README.md)，由启动器构建并在
+`http://127.0.0.1:18081` 提供；这个静态服务器同时把 `/document`、`/targeted`、`/publication`
+代理到三个后端。
 
 ```bash
 ./ESG_DATA_PLATFORM/ExtractESG/scripts/start_local_workbenches.sh
 ```
 
-启动器拉起三个服务：Document/OCR 后端 `18080`、定向抽取后端 `18180`、统一前端
-`18081`。前端关闭不会影响 CLI 或 HTTP API；关闭启动器终端会停止由该窗口创建的服务。
+启动器拉起三个服务：Document/OCR 后端 `18080`、定向抽取后端 `18180`、操作台静态入口
+`18081`。操作台关闭不会影响 CLI 或 HTTP API；关闭启动器终端会停止由该窗口创建的服务。
 日志和统一任务状态位于工作区 `.local/platform-runtime/`。
 Document/OCR 后端默认不开启 Uvicorn 热重载，避免开发期间修改源码时重启 worker、把正在
 运行或排队的持久化任务错误标记为 `interrupted`。只有明确设置
 `ESG_V2_DEV_RELOAD=1` 时才启用开发热重载；运行真实 OCR/IR 任务时不要开启该变量。
 
-统一前端采用报告库、提取任务、结果工作台、待处理和系统设置五个业务入口；OCR、IR、复核等技术细节作为高级视图保留。底部全局任务工作台集中显示队列、日志和健康。
+操作台按生产主线组织：报告 → 提取 → 审核 → 发布；OCR、IR、复核等技术细节作为“工具”分组保留。右下角的处理状态浮层集中显示队列、日志与健康。
 
 主线 API 为 `/api/report-sessions/preview`、创建/list/detail/facts、resume/cancel/evidence-transition。标准目录通过 Document 后端读取。原 `/api/pipeline/plans` 和 batch 接口保留兼容，普通页面不再各自构造一套请求。
 PDF/已有 IR 统一使用 `sessions.js`；API、状态、动作、订阅和密钥分别由共同服务管理。密钥不写浏览器持久化存储。
@@ -610,7 +606,7 @@ POST /api/pipeline/tasks/targeted-extraction/{job_id}/resume
 GET/POST/DELETE /api/report-assets
 ```
 
-原 OCR、Document IR、定向抽取 API 和 CLI 保留，供独立后端集成与迁移使用；统一前端主要走队列入口。
+原 OCR、Document IR、定向抽取 API 和 CLI 保留，供独立后端集成与迁移使用；操作台主要走队列入口。
 旧直接 IR 创建/返修/重试 API 仍在服务内线程执行，不能声称所有入口已受同一 Worker/执行槽保护。
 07 当前会把 partial 步骤视为报告失败，即使原生结果可局部消费；下一版按 StageOutcome 推进并仅恢复真实缺口。
 

@@ -23,7 +23,7 @@ const fields:Record<string,string>={
  entity_ref:'测量主体',period_start:'期间起始日',period_end:'期间结束日',boundary_code:'报告边界',
  measurement_method:'测量方法',value_role:'实际、目标或重述属性',reported_unit:'报告单位',
  ghg_scope:'温室气体排放范围',scope:'排放范围',scope2_method:'范围2核算方法',gwp_basis:'全球变暖潜势依据',
- gross_net_basis:'排放总量或净额口径',emissions_basis:'排放核算口径',energy_type:'能源类型',energy_source:'能源来源',
+ gross_net_basis:'排放总量或净额口径',emissions_basis:'排放核算口径',energy_type:'能源类型',energy_source:'能源来源',intensity_numerator_scope:'强度分子范围',intensity_denominator:'强度分母',board_definition:'董事会口径',
  renewable_basis:'可再生能源口径',pollutant:'污染物',pollutant_medium:'污染介质',medium:'污染介质',
  facility:'设施',site:'场址',geography:'地理范围',population:'人群范围',workforce_scope:'劳动力范围',
  water_measure:'水量类型',water_definition:'水量定义',water_risk_class:'水风险等级',

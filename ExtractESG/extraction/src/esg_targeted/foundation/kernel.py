@@ -423,7 +423,8 @@ def pollutant_row_items(task: TableTask, items: list[dict]) -> list[dict]:
 MAX_DERIVED_ROWS_PER_CODE = 3
 
 
-def concept_row_items(task: TableTask, items: list[dict], col: int | None) -> list[dict]:
+def concept_row_items(task: TableTask, items: list[dict], col: int | None,
+                      extra_codes: tuple[str, ...] = ()) -> list[dict]:
     """Propose printed rows whose own label already satisfies the clause guard.
 
     The model proposes which row answers which datapoint, but it sometimes
@@ -437,7 +438,12 @@ def concept_row_items(task: TableTask, items: list[dict], col: int | None) -> li
         return []  # no value column: nothing to point at
     seen = {item.get("row") for item in items}
     extra: list[dict] = []
-    for code in task.codes:
+    # A table can print a clause from another family: the pollutant table also
+    # prints total wastewater discharge. The table's family is a hint for which
+    # datapoints the model is asked about, never a reason to ignore a row whose
+    # own label already satisfies the clause guard.
+    candidates = list(task.codes) + [code for code in extra_codes if code not in task.codes]
+    for code in candidates:
         metric = BY_CODE[code]
         if metric.kind == "narrative" or metric.group in ("air", "water_pollutants"):
             continue
@@ -474,7 +480,8 @@ def share_partner_items(task: TableTask, items: list[dict]) -> list[dict]:
     return extra
 
 
-def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[list[Observation], dict]:
+def bind(task: TableTask, payload: dict, reporting_year: int | None,
+         extra_codes: tuple[str, ...] = ()) -> tuple[list[Observation], dict]:
     view = task.view
     lines = {line.rid: line for line in task.lines}
     notes = {note.nid: note for note in view.notes}
@@ -516,7 +523,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None) -> tuple[li
     items = list(payload.get("items") or [])
     items += share_partner_items(task, items) + scope2_partner_items(task, items)
     items += exact_label_items(task, items, payload)
-    items += pollutant_row_items(task, items) + concept_row_items(task, items, col)
+    items += pollutant_row_items(task, items) + concept_row_items(task, items, col, extra_codes)
     # One page-level method note cannot disambiguate two different Scope 2 rows.
     scope2_rows = len({item.get("row") for item in items
                        if item.get("target") in ("E1-6_09", "E1-6_10", SCOPE2_UNSPECIFIED)})

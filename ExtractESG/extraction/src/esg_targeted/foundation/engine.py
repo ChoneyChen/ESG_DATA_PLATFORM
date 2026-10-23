@@ -119,7 +119,7 @@ class FoundationEngine:
                 return records
             saved, origin = saved_answer(task.task_id, lambda: task_digest(task, self.period.year))
             if saved is not None:
-                observations, extras = bind(task, saved["payload"], self.period.year)
+                observations, extras = bind(task, saved["payload"], self.period.year, self.selected_codes)
                 record = {**saved, "task_id": task.task_id, "observations": [o.to_dict() for o in observations],
                           **extras, "reused": origin}
             else:
@@ -166,7 +166,7 @@ class FoundationEngine:
             if record is None:
                 continue
             if record.get("status") == "ok":
-                observations, extras = bind(task, record["payload"], self.period.year)
+                observations, extras = bind(task, record["payload"], self.period.year, self.selected_codes)
                 record = {**record, "observations": [o.to_dict() for o in observations], **extras}
             records.append(record)
         for task_id, record in by_id.items():

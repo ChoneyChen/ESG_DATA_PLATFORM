@@ -253,6 +253,25 @@ def test_identical_requests_are_answered_from_the_cache_without_a_model_call():
     assert [o["value_raw"] for o in second[0]["observations"]] == ["10,120"]
 
 
+def test_a_clause_printed_in_another_family_table_is_still_judged_by_its_guard():
+    """The pollutant table also prints total wastewater discharge. The table's
+    family decides what the model is asked; a row whose own label satisfies a
+    clause guard is still a candidate for that clause."""
+    view = build_table_view(make_table([
+        ["污染物排放指标", "指标", "单位", "2024", "2025"],
+        ["废水", "废水排放总量", "吨", "174.83", "112.39"],
+        ["", "化学需氧量（COD）排放量", "千克", "8.74", "1.91"],
+    ]), page())
+    task = plan_table_tasks(view, ["water_pollutants"])[0]
+    payload = {"current_col": "c4", "current_year": "2025", "current_scope": "whole_reporting_group",
+               "items": [], "method_notes": []}
+    assert not any(o.code == "E3-4_12" for o in bind(task, payload, 2025)[0])
+    widened, _ = bind(task, payload, 2025, ("E3-4_12",))
+    discharge = next(o for o in widened if o.code == "E3-4_12")
+    assert discharge.value_raw == "112.39"
+    # A group row that only says "废水" is not a discharge total.
+    assert all(o.row_label.strip() != "废水" for o in widened)
+
 def test_a_row_named_after_a_target_is_proposed_when_the_call_skips_it():
     view = build_table_view(make_table([
         ["指标", "单位", "2024", "2025"],

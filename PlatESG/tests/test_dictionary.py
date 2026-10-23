@@ -2,9 +2,6 @@
 import importlib.util
 import hashlib
 import json
-import os
-import shutil
-import subprocess
 from pathlib import Path
 
 import pytest
@@ -134,91 +131,21 @@ def test_raw_source_identity_and_legal_facets_preserved(artifacts):
     assert rows['E3-4_12']['may'] == 'V'
 
 
-def test_extraction_ui_distinguishes_major_and_package_core(tmp_path):
-    """Real browser, fake HTTP only: never starts extraction or a model."""
-    bundled = Path.home() / '.cache/codex-runtimes/codex-primary-runtime/dependencies/node'
-    node = os.environ.get('ESG_TEST_NODE') or shutil.which('node') or str(bundled / 'bin/node')
-    playwright = os.environ.get('ESG_TEST_PLAYWRIGHT') or str(bundled / 'node_modules/playwright')
-    chrome = os.environ.get('ESG_TEST_CHROME') or '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-    if not Path(node).is_file() or not Path(playwright).is_dir() or not Path(chrome).is_file():
-        pytest.skip('A local Node/Playwright/Chromium runtime is required for the UI contract test')
-    script = tmp_path / 'major_scope_ui.cjs'
-    script.write_text(r'''
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const http = require('node:http');
-const {chromium} = require(process.env.ESG_TEST_PLAYWRIGHT);
-const root = process.env.ESG_FRONTEND_ROOT;
-const standards = process.env.ESG_STANDARD_ROOT;
-const profile = JSON.parse(fs.readFileSync(process.env.ESG_PROFILE_PATH, 'utf8'));
-profile.selection_snapshot = {profile_id: profile.profile_id, profile_version: profile.profile_version, fixture: 'version-lock-test'};
-const packages = new Map(profile.session_standards.map(s => [s.package_id, JSON.parse(fs.readFileSync(path.join(standards, 'dist', s.package_id, s.package_version, 'package.json'), 'utf8'))]));
-const catalog = [...packages.values()].map(p => ({package_id: p.manifest.package_id, package_version: p.manifest.package_version, status: p.manifest.status, disclosure_requirement: p.manifest.standard.disclosure_requirement, format_version: p.format_version, source_digest: p.compilation.source_digest, core_source_datapoint_ids: p.manifest.core_source_datapoint_ids, metric_summaries: p.metrics}));
-const requests = [], errors = [];
-const server = http.createServer((req, res) => {
-  const file = path.resolve(root, '.' + new URL(req.url, 'http://local').pathname);
-  if (!file.startsWith(root + path.sep)) {res.writeHead(403); res.end(); return;}
-  fs.readFile(file, (error, data) => {
-    if (error) {res.writeHead(404);res.end();return;}
-    res.writeHead(200, {'Content-Type': file.endsWith('.js') ? 'text/javascript' : file.endsWith('.css') ? 'text/css' : 'text/html'});res.end(data);
-  });
-});
-(async () => {
-  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  const browser = await chromium.launch({headless: true, executablePath: process.env.ESG_TEST_CHROME});
-  try {
-    const page = await browser.newPage();
-    page.on('pageerror', e => errors.push(e.message));
-    await page.route('**/*', async route => {
-      const req = route.request(), url = new URL(req.url());
-      if (![18080,18180].includes(Number(url.port))) return route.continue();
-      let payload = [];
-      if (url.pathname === '/api/report-assets') payload = {assets: [{asset_id: 'scope-fixture', file_name: '重点配置测试.pdf', ocr_status: 'unprocessed'}]};
-      else if (url.pathname === '/api/pipeline/standards/catalog') payload = {packages: catalog, diagnostics: {ready: true, errors: []}, planned: [], historical: []};
-      else if (url.pathname === '/api/pipeline/compatibility') payload = {ready: true, blockers: []};
-      else if (url.pathname === '/api/pipeline/standards' || url.pathname === '/api/standards') payload = catalog;
-      else if (url.pathname.startsWith('/api/pipeline/standards/') || url.pathname.startsWith('/api/standards/esrs.')) payload = packages.get(decodeURIComponent(url.pathname.split('/').at(-2)));
-      else if (url.pathname === '/api/pipeline/extraction-profiles/platform-major') {assert.equal(url.searchParams.get('topics'), 'E1,E2,E3');payload = profile;}
-      else if (url.pathname === '/api/report-sessions/preview') {requests.push(req.postDataJSON());payload = {roles: {}, internal_dependencies: [], budget: {}, evidence_limitations: []};}
-      else if (['/api/pipeline/status','/api/storage/inventory','/api/config','/api/models/status','/api/ocr/providers/status'].includes(url.pathname)) payload = {};
-      await route.fulfill({status: 200, contentType: 'application/json', body: JSON.stringify(payload)});
-    });
-    await page.goto(`http://127.0.0.1:${server.address().port}/index.html`);
-    await page.getByRole('button', {name: '提取此报告'}).click();
-    await page.waitForFunction(() => document.querySelectorAll('#session-standards input:checked').length === 19);
-    assert.match(await page.locator('#session-profile-hint').innerText(), /55.*19.*17/);
-    await page.locator('#session-pending-profile summary').click();
-    assert.equal(await page.locator('#session-pending-profile-ids').innerText(), profile.pending_source_datapoint_ids.join('、'));
-    const energyCore = page.locator('label.session-metric').filter({hasText: 'E1-5_03'});
-    assert.match(await energyCore.innerText(), /核心条款/);
-    assert.doesNotMatch(await energyCore.innerText(), /主要条款/);
-    assert.equal(await energyCore.locator('input').isChecked(), false);
-    await page.getByRole('button', {name: '预览实际计划', exact: true}).click();
-    await page.waitForFunction(() => !document.querySelector('#session-create').disabled);
-    assert.deepEqual(requests.at(-1).selection_snapshot, profile.selection_snapshot);
-    assert.deepEqual(requests.at(-1).standards, profile.session_standards);
-    await page.locator('[data-standard-id="esrs.2023-set1.e1-5"][data-standard-choice="core"]').click();
-    assert.equal(await page.locator('#session-standards input:checked').count(), 20);
-    await page.getByRole('button', {name: '预览实际计划', exact: true}).click();
-    await page.waitForFunction(() => !document.querySelector('#session-create').disabled);
-    assert.equal('selection_snapshot' in requests.at(-1), false, 'manual package-core selection clears the product scope lock');
-    assert.equal(requests.at(-1).standards[0].metric_ids.length, 5);
-    await page.locator('#session-select-major').click();
-    assert.equal(await page.locator('#session-standards input:checked').count(), 19);
-    await page.locator('input[value="esrs.2023-set1.e1-5.dp05"]').uncheck();
-    await page.getByRole('button', {name: '预览实际计划', exact: true}).click();
-    await page.waitForFunction(() => !document.querySelector('#session-create').disabled);
-    assert.equal('selection_snapshot' in requests.at(-1), false);
-    assert.equal(requests.at(-1).standards.flatMap(s => s.metric_ids).length, 18);
-    assert.deepEqual(errors, []);
-    console.log('PASS: 49-ID major catalog, 16-output explicit scope, 33 pending, package-core separation, locked preview and manual invalidation.');
-  } finally {await browser.close();server.close();}
-})().catch(error => {console.error(error);server.close();process.exitCode = 1;});
-''')
-    env = {**os.environ, 'ESG_TEST_PLAYWRIGHT': playwright, 'ESG_TEST_CHROME': chrome,
-           'ESG_FRONTEND_ROOT': str(PLATFORM.parent / 'ExtractESG/document_ir_extract/frontend'),
-           'ESG_STANDARD_ROOT': str(STANDARDS),
-           'ESG_PROFILE_PATH': str(PLATFORM / 'catalog/extraction-profile.e1-e3.json')}
-    result = subprocess.run([node, str(script)], env=env, capture_output=True, text=True, timeout=45)
-    assert result.returncode == 0, result.stdout + result.stderr
+def test_major_scope_maps_every_selected_metric_back_to_its_original_id():
+    """The selector contract, without a browser: every metric the console may
+    pre-select maps back to the same original ID, in the profile's own order.
+    The old workbench enforced this in JavaScript; the console now relies on
+    the same server contract."""
+    import sys
+    sys.path.insert(0, str(STANDARDS.parent / 'targeted_table_extract/backend/src'))
+    from esg_targeted.standards.profiles import platform_major_profile
+    profile = platform_major_profile(STANDARDS, topics=['E1', 'E2', 'E3'])
+    dictionary = json.loads((PLATFORM / 'catalog/metric-dictionary.v1.json').read_text())
+    by_metric = {m['standard_binding']['metric_id']: m['source_datapoint_id']
+                 for m in dictionary['metrics'] if m.get('standard_binding')}
+    originals = [by_metric[metric_id] for standard in profile['session_standards']
+                 for metric_id in standard['metric_ids'] if metric_id in by_metric]
+    assert originals == profile['source_datapoint_ids']
+    assert profile['output_count'] == len(originals) == 19
+    assert len(profile['overall_source_datapoint_ids']) == 55
+    assert len(profile['pending_source_datapoint_ids']) == 17

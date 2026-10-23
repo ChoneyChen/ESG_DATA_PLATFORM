@@ -79,12 +79,7 @@ class WorkbenchHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
             return
-        if self.path=="/legacy":
-            self.send_response(307);self.send_header("Location","/legacy/");self.end_headers();return
-        if self.path.startswith("/legacy/"):
-            self.directory=str(ROOT/"document_ir_extract/frontend")
-            self.path=self.path[len("/legacy"):]
-        elif not Path(self.path.split("?",1)[0]).suffix:
+        if not Path(self.path.split("?",1)[0]).suffix:
             self.path="/index.html"
         super().do_GET()
 

@@ -37,10 +37,7 @@ def release_files(extract_root: Path) -> dict[str, list[Path]]:
             + list((root / "standards/schemas").rglob("*.json"))
             + list((root / "standards/extensions/schemas").rglob("*.json"))
             + list((root / "shared_runtime/src").rglob("*.py")),
-        "frontend": list((root / "document_ir_extract/frontend/src").glob("*.js"))
-            + list((root / "document_ir_extract/frontend/src").glob("*.css"))
-            + [root / "document_ir_extract/frontend/index.html"]
-            + [p for p in (root.parent / "ConsoleESG/src").rglob("*") if p.suffix in {".tsx",".ts",".css"}]
+        "frontend": [p for p in (root.parent / "ConsoleESG/src").rglob("*") if p.suffix in {".tsx",".ts",".css"}]
             + [root.parent / "ConsoleESG" / f for f in ("package.json","package-lock.json","vite.config.ts","tsconfig.json","index.html")],
         "publication_backend": list((root.parent / "PlatESG/backend").glob("*.py"))
             + list((root.parent / "PlatESG/backend").glob("*.mjs"))
