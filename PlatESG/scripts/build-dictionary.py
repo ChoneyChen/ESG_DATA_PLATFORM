@@ -19,7 +19,7 @@ sys.path.insert(0, str(STANDARD_ROOT / 'src'))
 from esg_standard_packages.scope import compile_profile, load_registry  # noqa: E402
 from esg_standard_packages.io import canonical_json_bytes  # noqa: E402
 
-VERSION = '1.4.0'
+VERSION = '1.4.1'
 # Definition versions continue from the last sealed file dictionary, not from
 # 1.0.0: a changed definition must never reuse a version already sealed.
 # Dictionary versions are shared with platform extension selections (the
