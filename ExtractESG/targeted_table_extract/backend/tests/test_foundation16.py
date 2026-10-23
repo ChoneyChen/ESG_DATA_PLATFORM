@@ -554,3 +554,26 @@ def test_platform_major_specs_keep_each_new_clause_distinct():
     ]
     for code, label, unit, dimension, expected in cases:
         assert check(code, label, None, unit, dimension).ok is expected, (code, label)
+
+
+def test_quantitative_profile_is_only_a_selection_of_numeric_metrics():
+    from esg_targeted.contracts import ReportExtractionRequest
+    from esg_targeted.foundation.catalog import (
+        BASE16, BY_CODE, METRICS, PROFILES, QUANTITATIVE, metrics_for,
+    )
+
+    numeric = tuple(metric.code for metric in METRICS if metric.kind in {"quantity", "percentage"})
+    assert PROFILES["quantitative"] == numeric
+    assert len(QUANTITATIVE) == 31 and "E2-4_09" not in QUANTITATIVE
+    # A set is only a list of codes: the metric objects and their order are
+    # exactly those the engine already built for each clause.
+    assert metrics_for("quantitative") == tuple(BY_CODE[code] for code in numeric)
+    assert PROFILES["base16"] == BASE16 and len(PROFILES["priority32"]) == 32
+    request = ReportExtractionRequest.model_validate({
+        "input": {"kind": "document_ir", "ir_run_id": "ir-fixture"},
+        "standards": [{"package_id": "esrs.2023-set1.e1-5", "package_version": "2.0.0",
+                       "metric_ids": ["esrs.2023-set1.e1-5.dp01"]}],
+        "extraction_route": "foundation16",
+        "metric_profile": "quantitative",
+    })
+    assert request.metric_profile == "quantitative"

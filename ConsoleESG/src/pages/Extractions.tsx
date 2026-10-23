@@ -186,6 +186,7 @@ function SessionRow({session: s}: {session: Row}) {
 const PROFILES = [
   {key: 'priority32', title: '重点条款', badge: '32 条', hint: '环境指标之外，再加能源结构、废弃物、员工与治理；一年报告一次到位。'},
   {key: 'base16', title: '基础指标', badge: '16 条', hint: 'E1–E3 环境核心：能源、温室气体、空气与水污染物、水与资源。'},
+  {key: 'quantitative', title: '全部定量', badge: '31 条', hint: '32 条中所有带数值的条款（数量、比例、强度）一次选中；每条仍独立提取、独立审核。'},
 ] as const;
 
 function ExtractionCreator({params}: {params: URLSearchParams}) {
@@ -203,7 +204,7 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
   const [extensionError, setExtensionError] = useState('');
   const [provider, setProvider] = useState('local_qwen');
   const [route, setRoute] = useState('foundation16');
-  const [metricProfile, setMetricProfile] = useState<'base16' | 'priority32'>('priority32');
+  const [metricProfile, setMetricProfile] = useState<'base16' | 'priority32' | 'quantitative'>('priority32');
   const [model, setModel] = useState('');
   const [completeness, setCompleteness] = useState('balanced');
   const [limited, setLimited] = useState(true);
@@ -315,7 +316,7 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
     }
   }
 
-  const metricCount = foundation.data?.metric_count ?? (metricProfile === 'priority32' ? 32 : 16);
+  const metricCount = foundation.data?.metric_count ?? (metricProfile === 'priority32' ? 32 : metricProfile === 'quantitative' ? 31 : 16);
   const blocked = compatibility.data?.ready === false || !!scopeError || !!extensionError || (!scope.standards.length && !extensionSelections.length);
   const profileTitle = PROFILES.find(p => p.key === metricProfile)!.title;
 

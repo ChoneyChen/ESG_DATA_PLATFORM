@@ -35,6 +35,7 @@ PDF（SHA-256 资产身份）
 
 - `base16`：E1–E3 环境核心 16 条。
 - `priority32`：基础 16 + 16 条（化石能源、排放总量与强度、废弃物、材料、员工、治理）。
+- `quantitative`：32 条中所有带数值的 31 条（数量、比例、强度），一次选择；每条仍独立提取与审核。
 
 指标集是数据（`extraction/src/esg_targeted/foundation/catalog.py` 的 `PROFILES`），引擎按请求里的
 `metric_profile` 运行；条款包、链路与报告三者互不绑定。

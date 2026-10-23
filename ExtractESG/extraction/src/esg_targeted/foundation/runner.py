@@ -72,7 +72,7 @@ def main() -> None:
     parser.add_argument("ir_root", type=Path)
     parser.add_argument("out_dir", type=Path)
     parser.add_argument("--model", type=Path)
-    parser.add_argument("--profile", default="base16", help="metric set: base16 | priority32")
+    parser.add_argument("--profile", default="base16", help="metric set: base16 | priority32 | quantitative")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--tables", nargs="*")
     parser.add_argument("--replay", type=Path, help="re-bind saved calls.jsonl payloads without model calls")

@@ -337,7 +337,16 @@ METHOD_TERMS = (
 # refers to a report, and no rule below refers to a set.
 BASE16: tuple[str, ...] = ('E1-5_01', 'E1-5_05', 'E1-5_09', 'E1-6_07', 'E1-6_09', 'E1-6_10', 'E1-6_11', 'E2-4_02', 'E2-4_03', 'E2-4_09', 'E2-5_02', 'E3-4_01', 'E3-4_02', 'E3-4_03', 'E3-4_11', 'E3-4_12')
 EXTENDED: tuple[str, ...] = ('E1-5_02', 'E1-6_12', 'E1-6_30', 'E5-5_07', 'E5-5_15', 'E5-4_02', 'S1-6_02', 'S1-6_12', 'S1-9_02', 'S1-13_04', 'S1-14_05', 'S1-16_01', 'S1-17_02', 'GOV-1_06', 'G1-4_01', 'G1-6_01')
-PROFILES: dict[str, tuple[str, ...]] = {"base16": BASE16, "priority32": BASE16 + EXTENDED}
+# Every metric with a number; the narrative measurement-method clause is the
+# only member of the thirty-two that does not qualify.
+QUANTITATIVE: tuple[str, ...] = tuple(
+    metric.code for metric in METRICS if metric.kind in {"quantity", "percentage"}
+)
+PROFILES: dict[str, tuple[str, ...]] = {
+    "base16": BASE16,
+    "priority32": BASE16 + EXTENDED,
+    "quantitative": QUANTITATIVE,
+}
 
 
 def metrics_for(profile: str) -> tuple[FoundationMetric, ...]:
