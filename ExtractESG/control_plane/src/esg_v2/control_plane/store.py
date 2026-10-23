@@ -646,6 +646,11 @@ class PipelineQueueStore:
                 ),
         )
 
+    def max_event_id(self) -> int:
+        with self._connect() as connection:
+            row = connection.execute("SELECT max(event_id) FROM pipeline_events").fetchone()
+        return int(row[0] or 0)
+
     def events(self, task_id: str | None, after: int = 0, *, limit: int = 1000) -> list[dict[str, Any]]:
         if task_id is not None:
             self.get(task_id)
@@ -653,9 +658,9 @@ class PipelineQueueStore:
             rows = connection.execute(
                 """
                 SELECT * FROM pipeline_events
-                WHERE (task_id = ? OR ? IS NULL) AND event_id > ? ORDER BY event_id LIMIT ?
+                WHERE event_id > ? AND (? IS NULL OR task_id = ?) ORDER BY event_id LIMIT ?
                 """,
-                (task_id, task_id, after, max(1, min(limit, 2000))),
+                (after, task_id, task_id, max(1, min(limit, 2000))),
             ).fetchall()
         return [
             {

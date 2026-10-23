@@ -890,8 +890,14 @@ def create_report_session(request: ReportExtractionRequest):
         and not (request.ocr_token or getattr(settings, "paddle_token", None))):
         raise HTTPException(400, "所选云 OCR 需要本次 OCR Token 或后端配置")
     plan = pipeline_plans.create_report(request, _report_document(request))
+    _invalidate_session_summaries()
     pipeline_plans.tick()
     return _report_plan_detail(_find_report_plan(plan["plan_id"]))
+
+
+def _invalidate_session_summaries() -> None:
+    """Kept for callers that create plans; the parsed-plan cache lives in the store."""
+    return None
 
 
 @app.get("/api/report-sessions")

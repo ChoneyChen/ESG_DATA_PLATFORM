@@ -9,6 +9,7 @@ from contextvars import ContextVar
 from datetime import datetime, timezone
 import json
 import threading
+import time
 from uuid import uuid4
 from typing import Literal
 from pydantic import BaseModel, Field, model_validator
@@ -76,15 +77,24 @@ class PipelinePlanCoordinator:
         self._thread = None
         self.record_processing = record_processing
         self._secrets = {}
+        self._list_cache: tuple[float, list] | None = None
         with store._connect() as connection:
             connection.execute("CREATE TABLE IF NOT EXISTS pipeline_plans (plan_id TEXT PRIMARY KEY, state_json TEXT NOT NULL)")
 
     def list(self):
+        # The workbench polls plan state; re-parsing every plan for each read
+        # made the session list take seconds. Two seconds of reuse is enough.
+        now = time.monotonic()
+        if self._list_cache and now - self._list_cache[0] < 2.0:
+            return self._list_cache[1]
         with self.store._connect() as connection:
-            return [json.loads(r[0]) for r in connection.execute("SELECT state_json FROM pipeline_plans ORDER BY rowid DESC")]
+            plans = [json.loads(r[0]) for r in connection.execute("SELECT state_json FROM pipeline_plans ORDER BY rowid DESC")]
+        self._list_cache = (now, plans)
+        return plans
 
     def save(self, plan):
         plan["updated_at"] = utc_now()
+        self._list_cache = None
         with self.store._connect() as connection:
             connection.execute("INSERT INTO pipeline_plans VALUES (?,?) ON CONFLICT(plan_id) DO UPDATE SET state_json=excluded.state_json", (plan["plan_id"], json.dumps(plan, ensure_ascii=False)))
 

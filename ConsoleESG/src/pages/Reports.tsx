@@ -95,9 +95,9 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
     <div className="library-filters" role="group" aria-label="按读取状态筛选">
      {FILTERS.map(([key,title])=><button type="button" key={key} className={filter===key?'secondary selected':'ghost'} aria-pressed={filter===key} onClick={()=>setFilter(key)}>{title} <small>{counts[key]}</small></button>)}
     </div>
-    <div className="library-main-actions">
-     <button disabled={unavailable||!selectedRows.length||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start(selectedRows,true)}>提取主要指标（{selectedRows.length} 份）</button>
-    </div>
+    {selectedRows.length>0&&<div className="library-main-actions">
+     <button disabled={unavailable||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start(selectedRows,true)}>提取主要指标（{selectedRows.length} 份）</button>
+    </div>}
    </div>
    <ResourceState error={resource.error || profile.error} loading={resource.loading&&!resource.data} empty={!!resource.data&&!visible.length&&!visibleUnlinked.length&&!visibleUnlinkedIr.length}/>
    <div className="asset-list" role="list">

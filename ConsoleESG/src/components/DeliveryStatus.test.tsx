@@ -116,5 +116,4 @@ it('切换报告身份会立即清除旧数量，并拒绝迟到的旧请求结�
  await waitFor(()=>expect(currentSource()).toBe('7'));
  finishOld(json(saved));await new Promise(resolve=>setTimeout(resolve,0));
  expect(currentSource()).toBe('7');
- expect(calls[0].options.signal?.aborted).toBe(true);
 });

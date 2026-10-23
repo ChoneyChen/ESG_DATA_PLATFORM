@@ -103,8 +103,16 @@ export default function App() {
       </aside>
       <div className="app-content">
         <header className="topbar">
-          <div><span className={`live-dot ${connected ? 'connected' : ''}`}/>{connected ? '事件实时连接' : '自动刷新与恢复'}</div>
+          <div className="topbar-context">
+            <span className="topbar-section">{sectionTitle(route.section)}</span>
+            <span className="topbar-sep" aria-hidden="true">/</span>
+            <span>数据生产工作台</span>
+          </div>
           <div className="button-row">
+            <span className="topbar-live" role="status" aria-live="polite">
+              <span className={`live-dot ${connected ? 'connected' : ''}`}/>
+              {connected ? '事件实时连接' : '自动刷新与恢复'}
+            </span>
             <button className="ghost" onClick={refresh} aria-label="刷新工作台">刷新</button>
           </div>
         </header>

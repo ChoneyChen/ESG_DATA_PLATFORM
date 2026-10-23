@@ -38,6 +38,7 @@ beforeEach(()=>{
   else if(url==='/document/api/pipeline/standards/catalog')data={packages};
   else if(url==='/document/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3')data=profile;
   else if(url==='/document/api/pipeline/extraction-profiles/foundation?profile=base16')data={profile:'base16',metric_count:16,standards:profile.session_standards,package_digests:profile.selection_snapshot.package_digests,selection_snapshot:profile.selection_snapshot,metrics:profile.session_standards.flatMap(s=>s.metric_ids.map(id=>({code:id,metric_id:id,label:id})))};
+  else if(url==='/document/api/pipeline/extraction-profiles/foundation?profile=priority32')data={profile:'priority32',metric_count:32,standards:profile.session_standards,package_digests:profile.selection_snapshot.package_digests,selection_snapshot:profile.selection_snapshot,metrics:profile.session_standards.flatMap(s=>s.metric_ids.map(id=>({code:id,metric_id:id,label:id})))};
   else if(url==='/document/api/report-assets')data={assets:[{asset_id:'fixture-pdf',file_name:'匿名测试报告.pdf'}]};
   else if(url==='/targeted/api/ir-runs')data={runs:[]};
   else if(url==='/document/api/pipeline/compatibility')data={ready:true};
@@ -119,7 +120,7 @@ describe('延伸选择绑定实际父包与批准收据',()=>{
   await waitFor(()=>expect((preview as HTMLButtonElement).disabled).toBe(false));fireEvent.click(preview);
   await waitFor(()=>expect(calls.some(call=>call.url.endsWith('/report-sessions/preview')&&call.options.method==='POST')).toBe(true));
   const request=JSON.parse(String(calls.find(call=>call.url.endsWith('/report-sessions/preview')&&call.options.method==='POST')!.options.body));
-  expect(request.standards.flatMap((row:Row)=>row.metric_ids)).toHaveLength(16);
+  expect(request.metric_profile).toBe('priority32');expect(request.standards.flatMap((row:Row)=>row.metric_ids)).toHaveLength(16);
   expect(request.extension_selections).toHaveLength(1);expect(request.extension_selections[0].definition_version).toBe('1.0.1');
   expect(request.standards.every((row:Row)=>Object.keys(row).sort().join(',')==='metric_ids,package_id,package_version')).toBe(true);
   expect(request).not.toHaveProperty('parent_snapshots');
