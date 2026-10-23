@@ -596,6 +596,7 @@ class ReportSessionService:
             if state["request"].get("extraction_route") == "foundation16":
                 from esg_targeted.foundation.session import FoundationSessionExecutor
                 FoundationSessionExecutor(self).run(session_id, state, ir_path)
+            deferred_budget_failure = None
             for projection in ([] if state["request"].get("extraction_route") == "foundation16" else state["projections"]):
                 if self._state(session_id)["cancel_requested"]:
                     break
@@ -616,10 +617,28 @@ class ReportSessionService:
                     workflow = TargetedExtractionWorkflow(self.settings, self.jobs, self.artifacts)
                 workflow.run(child.job_id)
                 finished_child = self.jobs.get(child.job_id)
-                # Package model allowances are independent. A child's budget
-                # failure preserves its partial results and cannot stop siblings.
-                if finished_child.status == JobStatus.INTERRUPTED and (finished_child.summary or {}).get("failure_category") != "budget":
+                finished_summary = finished_child.summary or {}
+                # A report-wide budget is shared across projections; package
+                # quotas stay independent and only fail their own projection.
+                # A package that stops before processing its selected metrics
+                # still makes the session incomplete, so it is recorded and
+                # raised after sibling projections have had their own allowance.
+                if finished_summary.get("failure_category") == "budget":
+                    boundary = finished_summary.get("budget_boundary", "report")
+                    if boundary == "report":
+                        from esg_targeted.runtime_budget import BudgetExceeded
+                        raise BudgetExceeded(
+                            "Report runtime budget exhausted; later standard projections remain unexecuted",
+                            {}, scope=session_id, boundary="report")
+                    if boundary == "package" and finished_summary.get("not_executed_metric_ids"):
+                        deferred_budget_failure = deferred_budget_failure or finished_child.job_id
+                if finished_child.status == JobStatus.INTERRUPTED and finished_summary.get("failure_category") != "budget":
                     raise RuntimeError(self.jobs.get(child.job_id).error or "Projection interrupted")
+            if deferred_budget_failure:
+                from esg_targeted.runtime_budget import BudgetExceeded
+                raise BudgetExceeded(
+                    "Package runtime budget exhausted; later metrics in this projection remain unexecuted",
+                    {}, scope=deferred_budget_failure, boundary="package")
             self._mutate(session_id, lambda s: s.update(execution_status="cancelled" if s["cancel_requested"] else "finished", owner_pid=None, owner_started=None))
         except Exception as exc:
             self._mutate(session_id, lambda s: s.update(execution_status="interrupted" if isinstance(exc, TimeoutError) else "failed", error=f"{type(exc).__name__}: {exc}", owner_pid=None, owner_started=None))

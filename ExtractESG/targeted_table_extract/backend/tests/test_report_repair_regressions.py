@@ -268,7 +268,8 @@ def test_mapping_length_splits_rows_and_metric_cards_without_format_repair(tmp_p
                 raise ModelRunFailure("output cap", category="generation_incomplete", raw_output='{"matches":[',
                     telemetry={"finish_reason": "length", "generation_tokens": 4096})
             return json.dumps({"matches": [{"source_id": context["source_rows"][0]["source_id"],
-                "metric_id": context["metrics"][0]["metric_id"], "columns": ["amount-a"], "match": "match"}],
+                "metric_id": context["metrics"][0]["metric_id"], "columns": ["amount-a"], "match": "match",
+                "reason": "Row label and unit match the declared metric."}],
                 "coverage": [{"metric_id": context["metrics"][0]["metric_id"], "status": "reviewed", "reason": "Slice assessed"}]}), {
                     "prompt_tokens": 20, "generation_tokens": 10}
     model = Length(None)

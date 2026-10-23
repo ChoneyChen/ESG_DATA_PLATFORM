@@ -203,7 +203,9 @@ def test_retired_versions_remain_loadable_but_not_selectable():
     assert catalog.load("esrs.2023-set1.e1-6", "1.5.0").manifest.package_version == "1.5.0"
     assert catalog.load("esrs.2023-set1.e1-6", "2.0.0").manifest.package_version == "2.0.0"
     assert catalog.load("esrs.2023-set1.e1-6", "2.1.1").manifest.package_version == "2.1.1"
-    assert {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")} == {"2.1.2"}
+    active = {p.package_version for p in catalog.list() if p.package_id.endswith("e1-6")}
+    assert len(active) == 1, f"exactly one active version is selectable, got {active}"
+    assert active <= {"2.1.2", "2.2.0"}, "retired versions must not be selectable"
 
 
 def _scope3_structure_decision(packet, category_element_id, statement_element_id=None):

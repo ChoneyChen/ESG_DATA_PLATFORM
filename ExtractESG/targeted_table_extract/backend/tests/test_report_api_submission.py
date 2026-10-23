@@ -40,14 +40,16 @@ def api_client(tmp_path, monkeypatch):
     sys.modules.pop("esg_targeted.api.main", None)
 
 
-def test_native_report_api_submits_one_master_and_preserves_projection_ownership(api_client):
+def test_native_report_api_submits_one_master_and_preserves_projection_ownership(api_client, monkeypatch):
     client, api, calls = api_client
+    monkeypatch.setattr(api, "_intermediate_operator", lambda *args, **kwargs: "isolated-operator")
     response = client.post("/api/report-sessions", json=request().model_dump(mode="json"))
     assert response.status_code == 202
     report = response.json()
     assert len(report["job_ids"]) == 3
     assert calls[0][:2] == ("report-session", report["session_id"])
-    assert client.delete(f"/api/jobs/{report['job_ids'][0]}").status_code == 409
+    assert client.request("DELETE", f"/api/jobs/{report['job_ids'][0]}", json={"expected_revision": 0,
+        "identity_sha256": "0" * 64}).status_code == 409
     assert not hasattr(api, "executor")
 
 

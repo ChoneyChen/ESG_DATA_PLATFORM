@@ -19,8 +19,9 @@ def test_parent_api_archive_restore_preserves_cancel_and_resume_routes(api_clien
     assert client.post(f"/api/report-sessions/{identity}/resume").status_code==202
 
 
-def test_native_projection_delete_and_archive_return_actionable_blocker(api_client):
+def test_native_projection_delete_and_archive_return_actionable_blocker(api_client, monkeypatch):
     client,api,calls=api_client
+    monkeypatch.setattr(api, "_intermediate_operator", lambda *args, **kwargs: "isolated-operator")
     session=client.post("/api/report-sessions?enqueue=false",json=request().model_dump(mode="json")).json()
     job=session["job_ids"][0]
     description=client.get(f"/api/jobs/{job}/lifecycle").json()
@@ -28,7 +29,8 @@ def test_native_projection_delete_and_archive_return_actionable_blocker(api_clie
     denied=client.post(f"/api/jobs/{job}/archive",json={"reason":"子结果不能独立操作"})
     assert denied.status_code==409
     assert denied.json()["detail"]["blockers"][0]["code"]=="parent_owned_projection"
-    assert client.delete(f"/api/jobs/{job}").status_code==409
+    assert client.request("DELETE", f"/api/jobs/{job}", json={"expected_revision": 0,
+        "identity_sha256": "0" * 64}).status_code==409
 
 
 def test_native_discard_checks_sources_and_recovers_all_owned_artifacts(api_client):

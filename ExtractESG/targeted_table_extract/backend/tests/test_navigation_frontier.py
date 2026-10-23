@@ -11,7 +11,7 @@ from types import SimpleNamespace
 import pytest
 
 from esg_targeted.contracts import EvidenceGap, SemanticDecision
-from esg_targeted.evidence.disclosure import DisclosureSession
+from esg_targeted.evidence.disclosure import DisclosureSession, REPORT_SOURCE_AGENT_VERSION
 from esg_targeted.grounding.guard import GroundingGuard
 from esg_targeted.models.report_semantics import (
     AgentPlan, PlannerFrontierError, plan_template, validate_plan_frontier,
@@ -218,7 +218,7 @@ def test_report_positive_inspect_mapping_path_and_old_v4_state_are_independent(t
     session, packet, ids, store = report_session(tmp_path)
     decision, _, _, _ = run(session, packet, ReportModel(ids))
     assert decision.status == "found" and session.sources
-    assert session.agent["version"] == "report-fact-agent-v8"
+    assert session.agent["version"] == REPORT_SOURCE_AGENT_VERSION
     assert session.agent["executed_actions"] == 1 and session.agent["planning_rounds"] == 2
     store.write_json("old", "agent/state.json", {"version": "report-fact-agent-v4", "model_calls": 900})
     fresh = DisclosureSession(package=session.package, metrics=session.package.metrics, request=session.request,

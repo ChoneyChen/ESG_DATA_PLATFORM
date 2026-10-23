@@ -3,7 +3,7 @@ import pytest
 from esg_standard_packages.compiler import StandardPackageCompiler
 from esg_targeted.config import Settings
 from esg_targeted.contracts import ExtractionRequest
-from esg_targeted.evidence.disclosure import DisclosureSession
+from esg_targeted.evidence.disclosure import DisclosureSession, REPORT_SOURCE_AGENT_VERSION
 from esg_targeted.evidence.regions import EvidenceRegionCompiler
 from esg_targeted.evidence.target_cells import target_cell_contracts
 from esg_targeted.grounding.guard import GroundingGuard
@@ -254,7 +254,7 @@ def test_workflow_projects_one_shared_source_without_changing_core_layout(tmp_pa
         assert len(model.calls) == 1  # unchanged neutral reading is reusable
         assert not any(event["stage"] == "checkpoint_resume" for event in jobs.events("shared-workflow", after=prior_event_id))
         assert all(store.read_json("shared-workflow", f"checkpoints/{safe_filename(mid)}.json")["semantic_pipeline_version"]
-                   == "report-fact-agent-v8" for mid in ids)
+                   == REPORT_SOURCE_AGENT_VERSION for mid in ids)
 
 
 @pytest.mark.parametrize("mode,session_id,format_version,semantic_fill,expected", [
@@ -279,7 +279,7 @@ def test_report_semantic_ownership_does_not_depend_on_numeric_siblings(
         artifact_store=store, job_id="job", max_context_chars=100000)
     assert session.eligible(singleton.metric_id) is expected
     if session_id:
-        assert session.agent["version"] == "report-fact-agent-v8"
+        assert session.agent["version"] == REPORT_SOURCE_AGENT_VERSION
         assert session.agent["model_calls"] == 0  # old routing-state cannot masquerade as current
     else:
         assert session.agent["version"] == "report-fact-agent-v3"

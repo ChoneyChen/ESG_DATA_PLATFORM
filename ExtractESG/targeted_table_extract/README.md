@@ -17,7 +17,7 @@
 
 ## v2 报告事实 Agent
 
-2026-10-08当前代际为 `report-fact-agent-v8` / `report-semantics-v7`；现代2.0/2.1报告主题统一由中立来源读取后独立映射，长正文保留原span逐窗续读，部分返回数值继续留在阅读前沿。下文早期直接填表说明保留兼容历史含义，不能用来判断当前报告模式的路由。当前实现与限制见 本阶段记录（已归档到 Git 历史），业务操作验收由用户执行。
+当前代际为 `report-fact-agent-v9` / `report-semantics-v8`（版本常量定义在 `esg_targeted/evidence/disclosure.py` 与 `esg_targeted/models/report_semantics.py`，测试直接引用常量）；现代2.0/2.1报告主题统一由中立来源读取后独立映射，长正文保留原span逐窗续读，部分返回数值继续留在阅读前沿。下文早期直接填表说明保留兼容历史含义，不能用来判断当前报告模式的路由。当前实现与限制见 本阶段记录（已归档到 Git 历史），业务操作验收由用户执行。
 
 归档后的未引用中间缓存可使用原生服务的 `GET /api/report-sessions/{native_session_id}/intermediates/plan` 核对，`POST .../execute` 按固定计划回收，`POST .../restore` 恢复。核对要求read/admin权限，执行及恢复要求admin权限；请求固定计划标识、预期修订及理由，操作员由服务端凭据解析。只回收允许列表内、不在来源引用闭包的缓存，保留完整SQL来源guard；文件移到 `.lifecycle/intermediates` 并保存可恢复日志。缓存未恢复时不允许恢复父记录继续提取。此接口不等同于删除来源或重跑旧任务。
 

@@ -37,5 +37,5 @@ where = ["src"]
 esg_targeted = ["resources/*.json"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src", "../../standard_packages/src"]
+pythonpath = ["src", "../../standard_packages/src", "../../shared_runtime/src", "../../standards/src"]
 testpaths = ["tests"]

@@ -50,6 +50,12 @@ class ProtocolFailure(ValueError):
         self.stage = stage
 
 
+# Versioned routing policies. Tests and checkpoint reuse must compare against
+# these constants instead of repeating the literals.
+REPORT_SOURCE_AGENT_VERSION = "report-fact-agent-v9"
+IMPLICIT_AGENT_VERSION = "report-fact-agent-v3"
+
+
 class DisclosureSession:
     def __init__(self, *, package, metrics, request, artifact_store, job_id, max_context_chars,
                  inventory=None, job_store=None, search_report=None, call_timeout_seconds=180,
@@ -74,7 +80,7 @@ class DisclosureSession:
         # routing policy so old direct-fill checkpoints cannot become accepted
         # report-source interpretations merely by resuming a job.
         self.report_source_route = bool(getattr(request, "report_session_id", None))
-        self.agent = {"version": "report-fact-agent-v9" if self.report_source_route else "report-fact-agent-v3", "steps": [], "model_calls": 0,
+        self.agent = {"version": REPORT_SOURCE_AGENT_VERSION if self.report_source_route else IMPLICIT_AGENT_VERSION, "steps": [], "model_calls": 0,
                       "interpreted_objects": 0, "mapped_rows": 0, "planning_rounds": 0,
                       "executed_actions": 0, "navigation": {}, "planning_history": [],
                       "unresolved_metrics": [], "state": "planning"}

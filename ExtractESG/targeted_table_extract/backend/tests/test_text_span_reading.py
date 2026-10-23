@@ -7,7 +7,8 @@ from types import SimpleNamespace
 import pytest
 
 from esg_targeted.evidence import source_frames as policy
-from esg_targeted.evidence.disclosure import DisclosureSession
+from esg_targeted.evidence.disclosure import DisclosureSession, REPORT_SOURCE_AGENT_VERSION
+from esg_targeted.models.report_semantics import INTERPRETATION_VERSION
 from esg_targeted.evidence.inventory import EvidenceInventoryBuilder
 from esg_targeted.evidence.regions import EvidenceRegionCompiler
 from esg_targeted.ir.loader import LoadedDocumentIr
@@ -537,8 +538,8 @@ def test_old_complete_neutral_cache_is_preserved_but_cannot_complete_new_span_re
     fresh.document_context = deepcopy(session.document_context)
     model = RecordingModel(contexts_only)
     result = fresh._understand(obj, model, lambda: False)
-    assert fresh.agent["version"] == "report-fact-agent-v8" and len(model.contexts) == 1
-    assert result["version"] == "report-semantics-v7" and not result["complete"]
+    assert fresh.agent["version"] == REPORT_SOURCE_AGENT_VERSION and len(model.contexts) == 1
+    assert result["version"] == INTERPRETATION_VERSION and not result["complete"]
     # Existing workflow checks this semantic version before checkpoint reuse;
     # old successful not_found decisions cannot bypass the new read policy.
     assert store.read_json(session.job_id, "checkpoints/anonymous.json") == checkpoint
