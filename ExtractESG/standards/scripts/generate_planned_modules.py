@@ -329,6 +329,11 @@ def main() -> int:
     compiler = StandardPackageCompiler()
     written, skipped = [], []
     for entry in registry["modules"]:
+        # Never overwrite a package that the registry has already advanced past
+        # the generator's version (for example an authored 2.2.0 module).
+        if entry["executable"] and entry["package_version"] != VERSION:
+            skipped.append((entry["package_id"], f"registered {entry['package_version']} differs from generator {VERSION}"))
+            continue
         generated = MARKER in entry["next_steps"] and (entry["package_id"], VERSION) not in released
         if entry["executable"] and not generated:
             continue
