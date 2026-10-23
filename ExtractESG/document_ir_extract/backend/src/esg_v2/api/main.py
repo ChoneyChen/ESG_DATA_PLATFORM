@@ -933,6 +933,78 @@ def get_report_session_foundation16(session_id: str):
     return _targeted_report_request("GET", f"/api/report-sessions/{native}/foundation16")
 
 
+@app.get("/api/report-sessions/{session_id}/report-identity")
+def report_session_identity(session_id: str):
+    """Propose the report identity the platform needs, with its evidence.
+
+    The operator confirms it; nothing here is inferred silently. Everything is
+    either already registered, printed on the document, or stated by the
+    extraction result (which records the period statement it read).
+    """
+    plan = _find_report_plan(session_id)
+    if not plan:
+        raise HTTPException(404, "报告提取会话不存在")
+    document = plan["documents"][0]
+    asset_id = document.get("asset_id")
+    registered = next((report for report in report_processing.reports()
+                       if any(version.get("asset_id") == asset_id for version in report.get("asset_versions", []))), None)
+    label = None
+    ir_run = document.get("ir_run_id")
+    if ir_run:
+        try:
+            manifest, _ = report_processing._manifest("ir", ir_run)
+            label = (manifest.get("document") or {}).get("document_label")
+        except (OSError, ValueError, KeyError):
+            label = None
+    if not label and asset_id:
+        try:
+            label = report_processing.assets.get(asset_id).get("file_name")
+        except KeyError:
+            label = None
+    period, period_source = None, None
+    metadata = (registered or {}).get("metadata") or {}
+    if metadata.get("period_start") and metadata.get("period_end"):
+        period = {"start": metadata["period_start"], "end": metadata["period_end"], "source": "registered"}
+        period_source = "registered"
+    else:
+        native = document.get("native_session_id")
+        if native:
+            try:
+                result = _targeted_report_request("GET", f"/api/report-sessions/{native}/foundation16")
+                statement = ((result or {}).get("result") or {}).get("reporting_period") or {}
+                year = statement.get("year")
+                if isinstance(year, int):
+                    basis = statement.get("basis")
+                    period = {"start": f"{year}-01-01", "end": f"{year}-12-31",
+                              "year": year, "source": "extraction", "basis": basis,
+                              "evidence": statement.get("evidence") or basis,
+                              "weak": basis in {"report_file_label", "most_common_table_header_year"}}
+                    period_source = "extraction"
+            except HTTPException:
+                period = None
+    title = metadata.get("title") or label
+    return {
+        "session_id": session_id,
+        "asset_id": asset_id,
+        "registered": None if not registered else {
+            "report_id": registered["report_id"], "revision": registered["revision"]},
+        "proposal": {
+            "title": title,
+            "publisher_name": metadata.get("publisher_name"),
+            "publisher_entity_ref": metadata.get("publisher_entity_ref"),
+            "period_start": (period or {}).get("start"),
+            "period_end": (period or {}).get("end"),
+            "language": metadata.get("language") or "zh",
+        },
+        "evidence": {
+            "title": "document_label" if title == label else "registered",
+            "period": period_source,
+            "period_detail": period,
+        },
+        "blockers": [] if (title and period) else ["report_period_or_title_unconfirmed"],
+    }
+
+
 @app.post('/api/report-sessions/{session_id}/materialize')
 def materialize_report_session(session_id: str, request: MaterializationRequest,
                                authorization: str | None = Header(default=None)):

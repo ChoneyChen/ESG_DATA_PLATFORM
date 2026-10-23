@@ -35,6 +35,9 @@
 - 二者通过 HTTP 合同连接：Console 用同源代理 `/document`、`/targeted`、`/publication` 访问三个服务，
   前端不直接读写文件系统、数据库或模型。
 
+**从提取到发布的一条命令**：`scripts/publish_session.py --session plan-… --publisher "…" --entity org:…`
+确认报告身份、登记主体、交付成果包，并列出每条候选能否审核、缺什么口径；审核与发布仍在操作台完成。
+
 **Extract 自己的前端已经移除（2026-10-23）**：早期 `document_ir_extract/frontend` 是一个原生 JS
 工作台（`/legacy/` 入口），功能已被 ConsoleESG 完整覆盖（报告库、提取创建、证据查看、审核、发布、
 标准、运行诊断）。保留两套界面只会让同一合同的措辞与行为漂移，因此删除；对应浏览器合同测试改为
@@ -90,7 +93,7 @@ PDF 只是检验链路是否成立的样本：规则来自可推广的类别（�
 
 - **标准包**：1,126 个独立原编号编译为 99 个草稿包；承载重点条款的 11 个包已按条款撰写并发布 2.2.0。
 - **平台范围**：55 个原编号（用户原 49 条按原顺序保留 + 重点条款中不在该清单的 6 项）。
-- **平台字典 1.4.1**：55 条中 **38 条就绪**；重点条款 32 条全部就绪，均可提取、审核并发布。
+- **平台字典 1.4.2**：55 条中 **38 条就绪**；重点条款 32 条全部就绪，均可提取、审核并发布。
 
 ## 6. 目录
 
@@ -124,7 +127,7 @@ Python 包名仍是 `esg_v2`、`esg_targeted`；业务目录已经真实迁移�
 |---|---|---|
 | ConsoleESG | `cd ConsoleESG && npm test` | 213 通过 |
 | Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 657 通过 |
-| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 697 通过；16 项既有失败（版本常量、删除契约） |
+| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 698 通过；16 项既有失败（版本常量、删除契约） |
 | 标准包 | `pytest ExtractESG/standards/tests` | 116 通过 |
 | PlatESG | `pytest PlatESG/tests` | 70 通过 |
 | 数据库 | `cd database && npm test` | 54 通过、2 跳过 |

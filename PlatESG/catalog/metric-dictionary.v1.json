@@ -1,5 +1,5 @@
 {
-  "dictionary_version": "1.4.1",
+  "dictionary_version": "1.4.2",
   "comparison_contract_version": "1.0.0",
   "profile_id": "esrs.2023-set1.platform-major",
   "profile_version": "1.1.0",
@@ -24,7 +24,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "energy_source",
         "energy_flow",
         "aggregation_role",
@@ -142,7 +141,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "energy.fossil_consumption",
@@ -157,7 +156,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "energy_source",
         "energy_flow",
         "aggregation_role",
@@ -271,7 +269,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "energy.renewable_consumption",
@@ -286,7 +284,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "energy_source",
         "energy_flow",
         "aggregation_role",
@@ -406,7 +403,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "energy.renewable_share",
@@ -421,7 +418,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "energy_source",
         "energy_flow",
         "denominator_scope",
@@ -538,7 +534,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "ghg.scope1",
@@ -552,7 +548,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "ghg_scope",
         "aggregation_role",
         "gwp_basis",
@@ -672,7 +667,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "ghg.scope2_location_based",
@@ -686,13 +681,13 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "ghg_scope",
         "aggregation_role",
         "gwp_basis",
         "consolidation_approach",
         "amount_basis",
-        "accounting_standard"
+        "accounting_standard",
+        "measurement_method"
       ],
       "fixed_dimensions": {
         "ghg_scope": "scope_2",
@@ -816,7 +811,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "ghg.scope2_market_based",
@@ -830,13 +825,13 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "ghg_scope",
         "aggregation_role",
         "gwp_basis",
         "consolidation_approach",
         "amount_basis",
-        "accounting_standard"
+        "accounting_standard",
+        "measurement_method"
       ],
       "fixed_dimensions": {
         "ghg_scope": "scope_2",
@@ -960,7 +955,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "ghg.scope3",
@@ -975,7 +970,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "ghg_scope",
         "aggregation_role",
         "scope3_category",
@@ -1100,7 +1094,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "ghg.total_location_based",
@@ -1115,7 +1109,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "ghg_scope",
         "aggregation_role",
         "consolidation_approach",
@@ -1225,7 +1218,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "ghg.intensity_location_based",
@@ -1240,7 +1233,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "intensity_numerator_scope",
         "intensity_denominator",
         "consolidation_approach",
@@ -1335,7 +1327,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "pollution.air_emissions",
@@ -1349,7 +1341,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "pollutant",
         "pollution_medium",
         "pollutant_definition",
@@ -1454,7 +1445,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "pollution.water_emissions",
@@ -1468,7 +1459,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "pollutant",
         "pollution_medium",
         "pollutant_definition",
@@ -1574,7 +1564,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "pollution.measurement_methodology",
@@ -1682,7 +1672,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "substance",
         "hazard_class",
         "concern_class",
@@ -1801,7 +1790,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "water.consumption",
@@ -1815,7 +1804,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "water_measure",
         "aggregation_role",
         "water_definition"
@@ -1922,7 +1910,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "water.consumption_risk_areas",
@@ -1938,7 +1926,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "water_measure",
         "aggregation_role",
         "geography",
@@ -2049,7 +2036,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "water.recycled_reused",
@@ -2063,7 +2050,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "water_measure",
         "aggregation_role",
         "water_definition"
@@ -2170,7 +2156,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "water.withdrawal",
@@ -2184,7 +2170,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "water_measure",
         "aggregation_role",
         "water_definition"
@@ -2291,7 +2276,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "water.discharge",
@@ -2305,7 +2290,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "water_measure",
         "aggregation_role",
         "water_definition"
@@ -2412,7 +2396,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "biodiversity.sensitive_site_presence",
@@ -2540,7 +2524,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "site_definition",
         "sensitivity_class",
         "impact_type",
@@ -2589,7 +2572,7 @@
         "conditional_or_alternative": "Conditional",
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "biodiversity.negatively_impacted_site_area",
@@ -2604,7 +2587,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "site_definition",
         "sensitivity_class",
         "impact_type",
@@ -2654,7 +2636,7 @@
         "conditional_or_alternative": "Conditional",
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "materials.total_input_weight",
@@ -2669,7 +2651,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "material_scope",
         "material_flow",
         "aggregation_role"
@@ -2754,7 +2735,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "materials.secondary_share",
@@ -2768,7 +2749,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "material_scope",
         "denominator_scope"
       ],
@@ -2848,7 +2828,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "waste.generated",
@@ -2863,7 +2843,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "waste_scope",
         "waste_flow",
         "aggregation_role"
@@ -2951,7 +2930,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "waste.non_recycled_share",
@@ -2965,7 +2944,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "waste_scope",
         "denominator_scope"
       ],
@@ -3046,7 +3024,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "waste.hazardous",
@@ -3061,7 +3039,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "waste_scope",
         "hazard_classification",
         "aggregation_role",
@@ -3145,7 +3122,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.employee_headcount",
@@ -3160,7 +3137,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "count_basis",
         "statistical_time_basis"
@@ -3247,7 +3223,7 @@
         "conditional_or_alternative": "Alternative",
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.turnover_rate",
@@ -3262,7 +3238,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "turnover_definition",
         "denominator_scope"
@@ -3345,7 +3320,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.top_management_gender_share",
@@ -3360,7 +3335,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "gender",
         "management_level_definition"
@@ -3443,7 +3417,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.training_hours",
@@ -3459,7 +3433,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "gender",
         "training_scope",
@@ -3546,7 +3519,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.training_hours_per_person",
@@ -3561,7 +3534,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "training_scope",
         "denominator_scope"
@@ -3650,7 +3622,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "workforce.work_related_fatalities",
@@ -3665,7 +3637,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "fatality_cause_scope",
         "aggregation_role"
@@ -3748,7 +3719,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.recordable_accident_rate",
@@ -3764,7 +3735,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "accident_definition",
         "denominator_unit",
@@ -3852,7 +3822,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.gender_pay_gap",
@@ -3867,7 +3837,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "pay_definition",
         "denominator_scope"
@@ -3950,7 +3919,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.discrimination_incidents",
@@ -3965,7 +3934,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "population",
         "incident_definition",
         "counting_basis"
@@ -4053,7 +4021,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "value_chain_worker.forced_child_labour_policy",
@@ -4630,7 +4598,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "consumer_population",
         "complaint_definition",
         "channel_scope",
@@ -4680,7 +4647,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "consumer.severe_human_rights_issues",
@@ -4750,7 +4717,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "gender",
         "board_definition"
       ],
@@ -4833,7 +4799,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.0.0"
+      "definition_version": "1.1.0"
     },
     {
       "metric_id": "business.anti_corruption_policy_absence",
@@ -4904,7 +4870,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "legal_scope",
         "counting_basis"
       ],
@@ -4984,7 +4949,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "business.corruption_fines",
@@ -4999,7 +4964,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "legal_scope",
         "currency",
         "fine_basis"
@@ -5082,7 +5046,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "business.confirmed_corruption_count",
@@ -5096,7 +5060,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "incident_definition",
         "counting_basis"
       ],
@@ -5175,7 +5138,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "business.average_payment_days",
@@ -5190,7 +5153,6 @@
       ],
       "comparison_dimensions": [
         "entity_kind",
-        "measurement_method",
         "payment_start_definition",
         "invoice_scope",
         "averaging_basis"
@@ -5273,7 +5235,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     }
   ]
 }

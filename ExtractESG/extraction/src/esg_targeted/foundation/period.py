@@ -34,6 +34,18 @@ class ReportingPeriod:
     source_id: str | None
 
 
+STANDARD_CODE_PREFIX_RE = re.compile(
+    r"(?:iso|iec|gb\s*/?\s*t?|esrs|ifrs|sasb|gri|astm|en|bs|jis)\s*$", re.I)
+
+
+def _year_is_standard_code(text: str, start: int) -> bool:
+    """`ISO 14067:2018` names a standard, not the reporting period."""
+    prefix = text[max(0, start - 16):start]
+    if re.search(r"[:：/／]\s*$", prefix):
+        return True
+    return bool(STANDARD_CODE_PREFIX_RE.search(prefix))
+
+
 def detect_reporting_period(manifest: dict, pages: list[dict], *, header_years: list[int] | None = None,
                             scan_pages: int = 12) -> ReportingPeriod:
     for payload in pages[:scan_pages]:
@@ -50,8 +62,9 @@ def detect_reporting_period(manifest: dict, pages: list[dict], *, header_years: 
     for payload in pages[:scan_pages]:
         for block in payload.get("blocks") or []:
             text = fold(clean_text(block.get("text")))
-            match = PERIOD_STATEMENT_RE.search(text or "")
-            if match:
+            for match in PERIOD_STATEMENT_RE.finditer(text or ""):
+                if _year_is_standard_code(text or "", match.start(1)):
+                    continue
                 return ReportingPeriod(int(match.group(1)), "reporting_period_statement", match.group(0)[:160], block["block_id"])
     title_years: Counter = Counter()
     title_evidence: dict[int, tuple[str, str]] = {}

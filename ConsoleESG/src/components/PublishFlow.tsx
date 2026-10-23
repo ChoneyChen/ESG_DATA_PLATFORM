@@ -41,6 +41,9 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
   const {refresh} = useWorkspace();
   const assetId: string = session?.request?.input?.asset_id || '';
   const reports = useResource('document', '/api/reports');
+  // The engine proposes what it read from the document; the operator confirms.
+  const identity = useResource('document', session?.session_id
+    ? `/api/report-sessions/${encodeURIComponent(session.session_id)}/report-identity` : null);
   const entities = useResource('publication', credentials.ready ? '/internal/v1/entities' : null, true);
   const [entityRef, setEntityRef] = useState('');
   const [publisher, setPublisher] = useState('');
@@ -72,14 +75,17 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
   useEffect(() => {
     if (!registered) return;
     const meta = registered.metadata || {};
-    setTitle(meta.title || session?.name || '');
+    const proposed = (identity.data as Row | undefined)?.proposal || {};
+    setTitle(meta.title || proposed.title || session?.name || '');
     setPublisher(meta.publisher_name || meta.publisher_entity_ref || '');
     setEntityRef(meta.publisher_entity_ref || '');
-    setStart(String(meta.period_start || '').slice(0, 10));
-    setEnd(String(meta.period_end || '').slice(0, 10));
+    setStart(String(meta.period_start || proposed.period_start || '').slice(0, 10));
+    setEnd(String(meta.period_end || proposed.period_end || '').slice(0, 10));
     onReportId(registered.report_id);
-  }, [registered?.report_id]);
+  }, [registered?.report_id, identity.data]);
 
+  const identityPeriod = ((identity.data as Row | undefined)?.evidence as Row | undefined)?.period_detail as
+    { basis?: string; evidence?: string; weak?: boolean } | undefined;
   const identityReady = !!(title && publisher && entityRef && start && end);
   const entityList = items(entities.data);
   // An unavailable entity list proves nothing; only a list that loaded without
@@ -172,6 +178,12 @@ export function PublishFlow({session, reportId, onReportId, deliveryState}: {
 
       <Step index={1} title="报告身份" state={identityReady ? 'done' : 'current'}>
         <p className="muted">文件名不是身份。这里的标题、发布者与报告期会写进每条已发布数据的来源记录。</p>
+        {identityPeriod?.weak && (
+          <Notice tone="warning">
+            报告期是从{identityPeriod.basis === 'report_file_label' ? '文件名' : '表头年份'}推断的
+            （{identityPeriod.evidence || '无原文依据'}），请对照封面或“报告范围”确认后再保存。
+          </Notice>
+        )}
         <Field label="已明确登记的报告身份" hint="同一份 PDF 可能有多条报告身份；选择与本次固定来源一致的一条。">
           <select aria-label="已明确登记的报告身份" value={registered?.report_id || ''} onChange={e => onReportId(e.target.value)}>
             <option value="">请选择与固定 PDF 一致的报告</option>

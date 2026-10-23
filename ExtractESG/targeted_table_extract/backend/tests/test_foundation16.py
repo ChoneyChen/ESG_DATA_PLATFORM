@@ -253,6 +253,25 @@ def test_identical_requests_are_answered_from_the_cache_without_a_model_call():
     assert [o["value_raw"] for o in second[0]["observations"]] == ["10,120"]
 
 
+def test_a_standard_code_year_is_not_the_reporting_period():
+    """`ISO 14067:2018` names a norm. Reading 2018 as the reporting period used
+    to push a 2025 report's rows into 2018."""
+    from esg_targeted.foundation.period import detect_reporting_period
+
+    def pages_of(*texts):
+        return [{"page_index": i, "blocks": [{"block_id": f"b{i}", "text": text}]}
+                for i, text in enumerate(texts)]
+
+    only_code = detect_reporting_period({}, pages_of("报告期内，我们采用基于ISO 14067:2018 标准核算产品碳足迹。"))
+    assert only_code.year is None and only_code.basis == "unknown"
+    with_statement = detect_reporting_period({}, pages_of(
+        "报告期内，我们采用基于ISO 14067:2018 标准核算产品碳足迹。",
+        "本报告涵盖 2025 年 1 月 1 日至 2025 年 12 月 31 日的绩效。"))
+    assert with_statement.year == 2025
+    labelled = detect_reporting_period({"document_label": "紫金矿业2025年可持续发展报告.pdf"}, pages_of("前言"))
+    assert labelled.year == 2025 and labelled.basis == "report_file_label"
+
+
 def test_a_clause_printed_in_another_family_table_is_still_judged_by_its_guard():
     """The pollutant table also prints total wastewater discharge. The table's
     family decides what the model is asked; a row whose own label satisfies a

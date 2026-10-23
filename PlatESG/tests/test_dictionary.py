@@ -82,11 +82,15 @@ def test_method_and_scope_are_explicit_constraints_not_implicit_defaults(artifac
     for source, scope, method in [('E1-6_07', 'scope_1', None), ('E1-6_09', 'scope_2', 'location_based'), ('E1-6_10', 'scope_2', 'market_based'), ('E1-6_11', 'scope_3', None)]:
         metric = by_id[source]
         assert metric['dimension_constraints']['ghg_scope']['allowed_values'] == [scope]
-        assert 'measurement_method' in metric['comparison_dimensions']
         assert 'measurement_method' not in metric['required_dimensions']
         if method:
+            # A method the clause itself fixes is part of the comparison; a
+            # scope that declares none does not require one to compare.
+            assert 'measurement_method' in metric['comparison_dimensions']
             assert metric['required_context_fields'] == ['measurement_method']
             assert metric['typed_context_constraints']['measurement_method']['allowed_values'] == [method]
+        else:
+            assert 'measurement_method' not in metric['comparison_dimensions']
     assert by_id['E3-4_01']['dimension_constraints']['water_measure']['allowed_values'] == ['consumption']
     assert by_id['E3-4_11']['dimension_constraints']['water_measure']['allowed_values'] == ['withdrawal']
     assert by_id['E2-4_02']['dimension_constraints']['pollution_medium']['allowed_values'] == ['air']

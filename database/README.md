@@ -1,31 +1,82 @@
-# 数据库合同与审核发布
+# 数据库合同与发布
 
-迁移SQL、候选导入、审核、发布、单位转换和冻结数据版本的代码唯一维护于本目录。旧 `ExtractESG/esg_database/{migrations,scripts,tests,examples}`及包文件为兼容链接。历史默认运行库仍为 `ExtractESG/esg_database/.local/pglite`；源码迁移不初始化、移动或替换数据。
+本目录是**唯一**的存储与发布代码：表结构、候选导入、审核、单位换算、冻结数据版本。
+HTTP 由 [PlatESG 后端](../PlatESG/README.md)集成，读取由公开 `/v1` 与受控 `/internal/v1` 提供。
 
-正式方言是PostgreSQL SQL，本地开发使用PGlite。精确数值、主体、期间、边界、方法及类型化维度共同表达观测身份，保留原值及来源。事实审核、映射审核、发布、当前比较口径分别表达。批准及outbox同事务，发布幂等重试；冻结版本保持可复现。
+## 1. 三层结构
 
-额外表行独立存入中立来源快照，补充属性经明确选择后随测量口径及发布来源冻结。详见 [科学数据存储链路](../docs/SCIENTIFIC_DATA_STORAGE.md)，包括实际表、事务、工作台读取与产品展示合同。
-
-| 位置 | 内容 |
-|---|---|
-| `migrations/` | 表/约束、候选/审核/outbox、规范观测及公开视图 |
-| `scripts/import-bundle.mjs` | 中性事实、标准投影、候选导入/审核、幂等及来源保护 |
-| `scripts/publication.mjs` | 单位、身份、发布门槛及数据集版本 |
-| `scripts/db.mjs` | 本地库/迁移CLI |
-| `scripts/unit-conversions.1.2.0.json` | 当前精确比例及显式单位规则；原 `unit-conversions.v1.json` 保留旧1.1.0内容 |
-| `tests/` | 隔离数据库的事务、发布及来源验证 |
-
-HTTP及产品读取由 [PlatESG后端](../PlatESG/README.md)集成；产品平台与独立工作台分别呈现。本目录不复制HTTP业务服务。
-
-本目录使用Node.js20+和pnpm：
-
-```bash
-pnpm install
-pnpm test
-pnpm db:init
-pnpm db:status
+```text
+① 来源事实（原文）          ② 映射与审核                ③ 发布（正式数据）
+esg_disclosures            disclosure_standard_mappings   curated_observations
+structured_values          review_decisions               observation_sources
+disclosure_sources         measurement_contexts           dataset_versions
+disclosure_dimensions                                     dataset_membership
 ```
 
-`ESG_DATABASE_DATA_DIR`覆盖运行库。依赖实体统一维护于 `database/node_modules`，旧路径是兼容链接；PostgreSQL驱动固定为 `pg 8.23.1`，连接由服务配置选择，参见 [node-postgres官方说明](https://node-postgres.com/features/connecting)。原包/lock及安装元数据留有迁移原件，运行数据未移动。`db:demo`、`db:reset`及导入/审核会修改所选库，操作须确认配置；测试使用隔离或内存库。
+三层之间只能**向前流动**：发布不会改写来源；审核不会改写原披露；重新提取产生新的来源事实版本。
+同一份 PDF 可以交付多次，每次交付是一个 `import_batches` 批次，候选按真实快照去重。
 
-实际活动存储由PlatESG配置决定，旧默认路径不等于活动库。来源删除须通过全部已登记存储引用核查；未知或不可访问时失败关闭，归档保留引用。迁移依据见 [结构迁移记录](../docs/STRUCTURE_MIGRATION.md)。迁移前手册原样保存在迁移审计目录。
+## 2. 表地图
+
+| 层 | 表 | 作用 |
+|---|---|---|
+| 参考 | `source_report_refs`、`unit_definitions`、`canonical_concepts`、`concept_synonyms`、`standard_frameworks`、`framework_versions`、`standard_requirements` | 报告来源、单位、概念与标准条目 |
+| 来源 | `esg_disclosures`、`structured_values`、`qualitative_claims`、`disclosure_dimensions`、`disclosure_sources` | 一条披露的原值/陈述、维度、页码与引文 |
+| 来源快照 | `report_source_fact_snapshots`、`import_source_facts` | 中立的整表行快照（含未映射行），按报告与 IR 版本保存 |
+| 映射 | `disclosure_standard_mappings`、`disclosure_relations` | 披露到标准条款的映射及重复/合计关系 |
+| 审核 | `review_decisions`、`measurement_contexts` | 事实/映射决定与测量口径（主体、期间、边界、方法、维度） |
+| 导入 | `import_batches`、`import_items` | 一次交付的批次、逐项结果与幂等键 |
+| 字典 | `dictionary_versions`、`metric_definition_versions`、`dictionary_membership` | 不可变字典快照与指标定义版本 |
+| 单位 | `normalization_rule_versions` | 版本化换算规则（当前 `esg-units-1.5.3`） |
+| 发布 | `curated_observations`、`observation_sources`、`publication_states` | 规范观测、其来源与发布判定 |
+| 版本 | `dataset_versions`、`dataset_membership`、`outbox_events`、`publication_control` | 冻结数据版本与发布事件 |
+| 扩展 | `extension_*`、`derived_observation_lineage`、`derived_publication_states` | 延伸条款定义、计算血缘与派生发布 |
+| 平台 | `plat.entities`、`plat.extraction_scopes`、`plat.import_receipts`、`plat.import_receipt_attempts`、`plat.import_stage_events`、`plat.coverage_decisions`、`plat.artifact_lifecycle_*`、`plat.import_contract_releases` | 企业主体、范围快照、交付收据与覆盖决定 |
+
+## 3. 身份与不可变规则
+
+- **观测身份**：主体 + 指标定义版本 + 期间 + 边界 + 值角色 + 方法 + 必要维度；`identity_key` 是它的哈希。
+  同值不证明同一事实，不同 Scope 2 方法、集团/子公司、人头/FTE、取水/耗水分别保存。
+- **原值优先**：`structured_values` 保存印刷值与单位；换算只写规范值，原值与单位不变。
+- **不可变**：字典快照、发布版本、换算规则一经登记不可修改（触发器与校验），内容变化必须新版本。
+- **幂等**：交付按批次键与内容摘要去重；同一回执可安全重试。
+- **发布门槛**：事实审核、映射审核、测量口径三者齐备且字典就绪，才产生观测；
+  比较资格单独计算（缺维度记 `missing_comparison_dimension:*`，不默认相同）。
+
+## 4. 产品化接口
+
+| 接口 | 用途 |
+|---|---|
+| `POST /internal/v1/deliveries` | 交付一个成果包（幂等，返回持久收据） |
+| `POST /internal/v1/reviews` | 事实或映射审核决定（带操作员与依据） |
+| `POST /internal/v1/measurement-contexts` | 保存测量口径（主体、期间、边界、维度、原单位） |
+| `POST /internal/v1/publication-process` | 处理待发布事件，生成观测与新数据版本 |
+| `GET /internal/v1/candidates` | 候选与发布阻塞原因 |
+| `POST /internal/v1/delivery-status/query` | 只读核对交付与发布状态（固定描述符） |
+| `POST /internal/v1/entities` | 登记企业主体（发布前置） |
+| `GET /v1/observations`、`/v1/comparisons`、`/v1/exports` | 公开读取与固定版本导出 |
+
+命令行：
+
+```bash
+./ESG_DATA_PLATFORM/scripts/publish_session.py --session plan-... \
+    --publisher "宁德时代新能源科技股份有限公司" --entity org:catl --industry C3841
+```
+
+它确认报告身份、登记主体、交付成果包，并列出每条候选“能否审核 / 是否缺口径 / 被什么阻塞”；
+审核与发布仍在操作台完成，命令不替人做决定。
+
+## 5. 运行与测试
+
+本目录使用 Node.js 20+：
+
+```bash
+npm install
+npm test          # 54 项：事务、幂等、单位、发布门槛、来源快照
+npm run db:init   # 初始化所选库
+npm run db:status
+```
+
+`ESG_DATABASE_DATA_DIR` 覆盖运行库；`PLATESG_DATABASE_URL` 指向受控 PostgreSQL。
+测试使用隔离或内存库，不会打开活动库。科学存储合同（原值、口径、版本、公开白名单）见
+[科学数据存储链路](../docs/SCIENTIFIC_DATA_STORAGE.md)。

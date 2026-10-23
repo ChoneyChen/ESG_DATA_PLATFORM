@@ -432,6 +432,7 @@ class ComparisonResponse(BaseModel):
     rows: list[Observation]
     excluded: list[dict]
     available_cohorts: list[dict]
+    caveats: list[str] = Field(default_factory=list)
     equivalent_alternatives: list[dict] = Field(default_factory=list)
     source_datapoint_id: str | None = None
 

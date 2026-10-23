@@ -342,8 +342,8 @@ test('a unique rule upgrade event re-evaluates pending observations without chan
     const metric=definition('E3-4_01');
     await db.query(`INSERT INTO esg.curated_observations(observation_id,metric_id,definition_version,identity_key,entity_ref,period_start,period_end,boundary_code,value_role,
       measurement_method,dimensions,canonical_unit,numeric_value,comparison_eligibility,comparison_reasons,normalization_rule_version)
-      VALUES($1,$2,'1.0.0',$3,'synthetic_group','2024-01-01','2024-12-31','group_consolidated','actual','verified_fixture_method','{}','m3','10','not_comparable','[]','esg-units-1.0.0')`,
-      [oldObservation,metric.metric_id,'1'.repeat(64)]);
+      VALUES($1,$2,$4,$3,'synthetic_group','2024-01-01','2024-12-31','group_consolidated','actual','verified_fixture_method','{}','m3','10','not_comparable','[]','esg-units-1.0.0')`,
+      [oldObservation,metric.metric_id,'1'.repeat(64),metric.definition_version]);
     const oldVersion=(await db.query(`INSERT INTO esg.dataset_versions(dictionary_version,content_digest) VALUES('1.0.0',$1) RETURNING dataset_version`,['2'.repeat(64)])).rows[0].dataset_version;
     await db.query('INSERT INTO esg.dataset_membership VALUES($1,$2)',[oldVersion,oldObservation]);await db.query('UPDATE esg.dataset_versions SET sealed=true WHERE dataset_version=$1',[oldVersion]);
     await db.query("UPDATE esg.outbox_events SET status='processed',processed_at=CURRENT_TIMESTAMP");

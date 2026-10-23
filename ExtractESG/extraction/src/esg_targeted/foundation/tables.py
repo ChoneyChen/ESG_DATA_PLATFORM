@@ -32,6 +32,21 @@ FOOTNOTE_MARK_RE = re.compile(r"^[\(（]\s*\d{1,2}\s*[\)）]$")
 SCOPE_TERMS = ("范围", "scope", "location", "market", "地点", "位置", "市场", "排放因子", "emission factor", "电网")
 
 
+UNIT_PARENTHETICAL_RE = re.compile(r"^([^()（）]{1,24}?)\s*[（(].*$")
+
+
+def clean_unit(text: str | None) -> str:
+    """The unit cell sometimes carries a parenthetical after the unit itself
+    (`m3 (m3 per ...)`); the printed unit is the head, not the explanation."""
+    value = clean_text(text)
+    match = UNIT_PARENTHETICAL_RE.match(value)
+    if match and match.group(1).strip():
+        head = match.group(1).strip()
+        if re.search(r"[A-Za-z\u4e00-\u9fff]", head):
+            return head
+    return value
+
+
 def clean_text(text: str | None) -> str:
     if not text:
         return ""
@@ -555,7 +570,7 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
             if ref is not None and ref.text:
                 values[c] = ref
         has_numeric = any(is_number_text(v.text) for v in values.values())
-        unit = text_at(r, unit_col) if unit_col is not None else None
+        unit = clean_unit(text_at(r, unit_col)) if unit_col is not None else None
         if not has_numeric:
             text = " ".join(part for part in label_parts if part)
             if text and not values:

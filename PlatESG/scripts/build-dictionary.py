@@ -19,13 +19,13 @@ sys.path.insert(0, str(STANDARD_ROOT / 'src'))
 from esg_standard_packages.scope import compile_profile, load_registry  # noqa: E402
 from esg_standard_packages.io import canonical_json_bytes  # noqa: E402
 
-VERSION = '1.4.1'
+VERSION = '1.4.2'
 # Definition versions continue from the last sealed file dictionary, not from
 # 1.0.0: a changed definition must never reuse a version already sealed.
 # Dictionary versions are shared with platform extension selections (the
 # live 1.3.0 is 1.2.0 plus an approved extension), so the next changed file
 # dictionary must take a version above every sealed one.
-PREVIOUS = 'catalog/history/metric-dictionary.1.2.0.json'
+PREVIOUS = 'catalog/history/metric-dictionary.1.4.1.json'
 COMMON_CONDITIONS = [
     '主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。',
     '原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。',
@@ -40,10 +40,16 @@ COMMON_EXCLUSIONS = [
 def spec(metric_id, label, value_type='numeric', unit=None, dimension=None,
          required=(), comparison=(), fixed=None, allowed=None, description='',
          exclusions=(), conditions=(), aggregation='do_not_sum', **extra):
+    # Comparison needs the axes that change what the number means. A
+    # measurement method only belongs here when the clause itself declares one;
+    # requiring it for a head count made every record incomparable.
+    axes = ['entity_kind', *required, *comparison]
+    if 'measurement_method' in (fixed or {}):
+        axes.append('measurement_method')
     result = dict(metric_id=metric_id, label_zh=label, value_type=value_type,
                   canonical_unit=unit, unit_dimension=dimension,
                   required_dimensions=list(required),
-                  comparison_dimensions=list(dict.fromkeys(['entity_kind', 'measurement_method', *required, *comparison])) if value_type == 'numeric' else [],
+                  comparison_dimensions=list(dict.fromkeys(axes)) if value_type == 'numeric' else [],
                   fixed_dimensions=fixed or {},
                   dimension_constraints={k: {'allowed_values': v} for k, v in (allowed or {}).items()},
                   required_context_fields=[], typed_context_constraints={},
@@ -96,6 +102,7 @@ def ghg(metric_id, label, scope, method=None):
     if method:
         result['fixed_dimensions']['measurement_method'] = method
         result['required_context_fields'] = ['measurement_method']
+        result['comparison_dimensions'] = list(dict.fromkeys([*result['comparison_dimensions'], 'measurement_method']))
         result['typed_context_constraints'] = {'measurement_method': {'allowed_values': [method]}}
         result['comparison_conditions'].append('地点法与市场法独立；方法必须由来源支持，不能根据指标名补造。')
     return result
@@ -322,6 +329,20 @@ def main():
     previous = json.loads(args.previous_dictionary.read_text()) if args.previous_dictionary else None
     dictionary, profile = build_dictionary(dictionary_version=args.dictionary_version, previous_dictionary=previous)
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    # Keep the outgoing dictionary as history before it is overwritten: the
+    # next build needs its exact definitions to decide version bumps.
+    current = args.output_dir / 'metric-dictionary.v1.json'
+    if current.is_file():
+        try:
+            sealed = json.loads(current.read_text())
+        except ValueError:
+            sealed = None
+        version = (sealed or {}).get('dictionary_version')
+        if version and version != dictionary['dictionary_version']:
+            target = args.output_dir / 'history' / f'metric-dictionary.{version}.json'
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if not target.exists():
+                target.write_text(current.read_text())
     for name, value in [('metric-dictionary.v1.json', dictionary), ('extraction-profile.e1-e3.json', profile)]:
         (args.output_dir / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({'dictionary_version': dictionary['dictionary_version'], 'major_count': len(dictionary['metrics']),

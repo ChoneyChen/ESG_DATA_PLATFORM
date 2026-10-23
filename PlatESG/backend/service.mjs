@@ -49,6 +49,9 @@ export async function snapshot(db, version = null) {
       clause_kind:metric.clause_kind || 'original_datapoint',extension_id:metric.extension_id || null,
       related_source_datapoint_ids:metric.related_source_datapoint_ids || [],parent_package_id:metric.parent_package_id,
       entity_name: entity?.name_zh || row.entity_ref, is_demo: entity?.is_demo || false,
+      // The registry is authoritative; a context that recorded the kind stays
+      // as evidence but never overrides it.
+      entity_kind: entity?.entity_kind || row.dimensions?.entity_kind || null,
       period_start: isoDate(row.period_start), period_end: isoDate(row.period_end),
       value_numeric: row.numeric_value == null ? null : String(row.numeric_value),
       lower_bound: row.lower_bound == null ? null : String(row.lower_bound),
@@ -256,6 +259,7 @@ export function preferEquivalentOrigins(rows,metric) {
   return {rows:rows.filter(row=>!removed.has(row.observation_id)),alternatives};
 }
 function missing(value) { return value == null || value === '' || ['unknown', 'unspecified', '未知'].includes(String(value).toLowerCase()); }
+const CORE_AXES = ['definition_version','period_start','period_end','boundary_code','value_role','entity_kind'];
 
 async function comparisons(db, params) {
   const data = await snapshot(db, params.dataset_version);
@@ -263,7 +267,7 @@ async function comparisons(db, params) {
   if (!metric) throw error('Unknown canonical metric_id', 'not_found');
   const excluded = [], eligible = [];
   const candidates = data.rows.filter(r => r.metric_id === params.metric_id && params.entity_refs.includes(r.entity_ref));
-  const keys = [...new Set(['definition_version','period_start','period_end','boundary_code','value_role','entity_kind',
+  const keys = [...new Set([...CORE_AXES, ...(metric.required_dimensions || []),
     ...(metric.comparison_dimensions || [])])];
   for (const row of candidates) {
     const reasons = [];
@@ -271,6 +275,8 @@ async function comparisons(db, params) {
     if (row.value_numeric == null) reasons.push('numeric_point_required');
     if (row.value_role !== 'actual' && row.value_role !== 'restated') reasons.push('actual_measure_required');
     if (row.comparison_eligibility === 'not_comparable') reasons.push(...(row.comparison_reasons || []));
+    // Comparison needs every declared axis known: an unknown refinement axis is
+    // never assumed equal to another company's value.
     for (const key of keys) if (missing(axis(row, key))) reasons.push(`missing_comparison_dimension:${key}`);
     for (const key of ['period_start','period_end','boundary_code','measurement_method']) {
       if (params[key] && axis(row, key) !== params[key]) reasons.push(`request_dimension_differs:${key}`);
@@ -308,7 +314,8 @@ async function comparisons(db, params) {
   }
   return { dataset_version: data.dataset_version, dictionary_version: data.dictionary_version,
     contract_version: '1.1.0', metric_id: metric.metric_id, source_datapoint_id: metric.source_datapoint_id,
-    rows: rows.map(row => publicObservation(row,metric)), excluded, available_cohorts,equivalent_alternatives:originChoice.alternatives };
+    rows: rows.map(row => publicObservation(row,metric)), excluded, caveats: [],
+    available_cohorts,equivalent_alternatives:originChoice.alternatives };
 }
 
 async function datasets(db) {
