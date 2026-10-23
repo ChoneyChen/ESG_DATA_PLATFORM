@@ -1,0 +1,2356 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明当前商业模式和战略在生物多样性与生态系统相关的物理风险、转型风险和系统性风险及机遇下的韧性，包括分析结论及其对战略的含义。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of resilience of current business model(s) and strategy to biodiversity and ecosystems-related physical, transition and systemic risks and opportunities",
+      "zh": "商业模式与战略对生物多样性和生态系统风险的韧性"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明当前商业模式和战略在生物多样性与生态系统相关的物理风险、转型风险和系统性风险及机遇下的韧性，包括分析结论及其对战略的含义。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "13 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_01",
+        "E4",
+        "E4-1",
+        "13 a",
+        "AR 1- AR 3",
+        "Disclosure of resilience of current business model(s) and strategy to biodiversity and ecosystems-related physical, transition and systemic risks and opportunities ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "6b361b4601daa597105b76bc7b551a353051b77dab4f0f98140b4e2d054ab66d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 25,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_01",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明韧性分析覆盖的自身运营范围以及相关的上游和下游价值链环节，并指出未覆盖的部分。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of scope of resilience analysis along own operations and related upstream and downstream value chain",
+      "zh": "韧性分析的范围"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明韧性分析覆盖的自身运营范围以及相关的上游和下游价值链环节，并指出未覆盖的部分。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "13 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_02",
+        "E4",
+        "E4-1",
+        "13 b",
+        "AR 1- AR 3",
+        "Disclosure of scope of resilience analysis along own operations and related upstream and downstream value chain ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "bc02c4bac6147a243ad9b00dfe2674c1396f42c834064a9f27e98259e6afcb61",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 26,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_02",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "列出生物多样性和生态系统韧性分析所依赖的关键假设，并说明这些假设的依据与不确定性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of key assumptions made (biodiversity and ecosystems)",
+      "zh": "韧性分析的关键假设"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "列出生物多样性和生态系统韧性分析所依赖的关键假设，并说明这些假设的依据与不确定性。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "13 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_03",
+        "E4",
+        "E4-1",
+        "13 c",
+        "AR 1- AR 3",
+        "Disclosure of key assumptions made (biodiversity and ecosystems) ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "4aa97ec3cf098866310078c8e3781b8fd4658972222aa7b9641c92784e08720c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 27,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_03",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明韧性分析采用的短期、中期和长期时间范围及其划分依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of time horizons used for analysis (biodiversity and ecosystems)",
+      "zh": "韧性分析采用的时间范围"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明韧性分析采用的短期、中期和长期时间范围及其划分依据。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "13 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_04",
+        "E4",
+        "E4-1",
+        "13 d",
+        "AR 1- AR 3",
+        "Disclosure of time horizons used for analysis (biodiversity and ecosystems) ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "1e86fc79c7429f1724dbaaa4cdd7644e779e4716f3542f2f67ed6dbfa965c440",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 28,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_04",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露生物多样性和生态系统韧性分析的结果，包括在不同情景下商业模式与战略的适应能力。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of results of resilience analysis (biodiversity and ecosystems)",
+      "zh": "韧性分析的结果"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露生物多样性和生态系统韧性分析的结果，包括在不同情景下商业模式与战略的适应能力。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "13 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_05",
+        "E4",
+        "E4-1",
+        "13 e",
+        "AR 1- AR 3",
+        "Disclosure of results of resilience analysis (biodiversity and ecosystems) ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "7b9edc061830e6fc770ff6817aaf8904567440ae798dfdf5d169c7697d890ef6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 29,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_05",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明在生物多样性和生态系统韧性分析中参与了哪些利益相关方，以及参与方式和所起作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of involvement of stakeholders (biodiversity and ecosystems)",
+      "zh": "韧性分析中的利益相关方参与"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明在生物多样性和生态系统韧性分析中参与了哪些利益相关方，以及参与方式和所起作用。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "13 f",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_06",
+        "E4",
+        "E4-1",
+        "13 f",
+        "AR 1- AR 3",
+        "Disclosure of involvement of stakeholders (biodiversity and ecosystems) ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "67e092d7e765621a8fe7e4873f045d98992bf54b875f6ffbcce1cc869db3a7e3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 30,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_06",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 1- AR 3"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露为改善并最终实现商业模式和战略与生物多样性和生态系统目标对齐而制定的转型计划。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of transition plan to improve and achieve alignment of its business model and strategy",
+      "zh": "改善商业模式与战略对齐的转型计划"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露为改善并最终实现商业模式和战略与生物多样性和生态系统目标对齐而制定的转型计划。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp07",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "15",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_07",
+        "E4",
+        "E4-1",
+        15,
+        "AR 1- AR 3",
+        "Disclosure of transition plan to improve and achieve alignment of its business model and strategy",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "58659e8b7fd2509eae267b6184b4fbd062f00b57bc6f2e9ff55224db8579ce4d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 31,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_07",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明战略和商业模式将如何调整，以改善并最终实现与相关地方、国家和全球公共政策目标的对齐。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Explanation of how strategy and business model will be adjusted to improve and, ultimately, achieve alignment with relevant local, national and global public policy goals",
+      "zh": "战略与商业模式为对齐公共政策目标将作出的调整"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明战略和商业模式将如何调整，以改善并最终实现与相关地方、国家和全球公共政策目标的对齐。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp08",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_08",
+        "E4",
+        "E4-1",
+        "AR 1 a",
+        null,
+        "Explanation of how strategy and business model will be adjusted to improve and, ultimately, achieve alignment with relevant local, national and global public policy goals",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "fb4c057e2c7899a36b834930334a465e21477b5cc473ef014ee1c96d573dbf35",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 32,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_08",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明自身运营的情况，以及主体如何应对其相关价值链中的重大生物多样性和生态系统影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Include information about  its own operations and  explain how it is responding to material impacts in its related value chain",
+      "zh": "自身运营对价值链重大影响的应对"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明自身运营的情况，以及主体如何应对其相关价值链中的重大生物多样性和生态系统影响。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp09",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": " ",
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_09",
+        "E4",
+        "E4-1",
+        "AR 1 b",
+        null,
+        "Include information about  its own operations and  explain how it is responding to material impacts in its related value chain",
+        "narrative",
+        null,
+        "V",
+        " ",
+        "2 years",
+        null
+      ],
+      "row_sha256": "1da09974a38dd59fee47934c8a215394ea6c3f785a047bd095f7d636643fc32e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 33,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_09",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明生物多样性和生态系统战略与转型计划之间如何相互作用、相互支持。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Explanation of how b strategy interacts with  transition plan",
+      "zh": "战略与转型计划的相互作用"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明生物多样性和生态系统战略与转型计划之间如何相互作用、相互支持。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp10",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_10",
+        "E4",
+        "E4-1",
+        "AR 1 c",
+        null,
+        "Explanation of how b strategy interacts with  transition plan ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "3c8dd1453e8635580d510a54211a5150d5319c703c9dabb4b5c42c1fe7db9a76",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 34,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_10",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露主体对生物多样性和生态系统变化影响驱动因素的贡献、按减缓层级采取的减缓行动，以及相关路径依赖和锁定资产与资源。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp11",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of contribution to impact drivers and possible mitigation actions following mitigation hierarchy and main path-dependencies and locked-in assets and resources that are associated with biodiversity and ecosystems change",
+      "zh": "对影响驱动因素的贡献与减缓行动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露主体对生物多样性和生态系统变化影响驱动因素的贡献、按减缓层级采取的减缓行动，以及相关路径依赖和锁定资产与资源。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp11",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_11",
+        "E4",
+        "E4-1",
+        "AR 1 d",
+        null,
+        "Disclosure of contribution to impact drivers and possible mitigation actions following mitigation hierarchy and main path-dependencies and locked-in assets and resources that are associated with biodiversity and ecosystems change ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "894916ae8d8cfd0b6a6ee234ebb0288778628809a75b2e974c3db7791b936f0b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 35,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_11",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp11"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明并尽可能量化支持转型计划实施的投资和资金安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp12",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Explanation and quantification of investments and funding supporting the implementation of its transition plan",
+      "zh": "支持转型计划的投资与资金"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明并尽可能量化支持转型计划实施的投资和资金安排。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp12",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_12",
+        "E4",
+        "E4-1",
+        "AR 1 e",
+        null,
+        "Explanation and quantification of investments and funding supporting the implementation of its transition plan",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "24ffba0b636b2cb899a2318d3cff0dc7bccd92ac5c7cdc4adc9bfa20b04a60bb",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 36,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_12",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp12"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露使收入、资本支出等经济活动与生物多样性和生态系统目标对齐的目标或计划。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp13",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of objectives or plans for aligning economic activities (revenues, CapEx)",
+      "zh": "经济活动的对齐目标或计划"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露使收入、资本支出等经济活动与生物多样性和生态系统目标对齐的目标或计划。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp13",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1  f",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_13",
+        "E4",
+        "E4-1",
+        "AR 1  f",
+        null,
+        "Disclosure of objectives or plans for aligning economic activities (revenues, CapEx)",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "0a1f5bcb89653e5ecca8be6276c8d2ba98975f2046f0cd3cb2eb2f0b396dcef4",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 37,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_13",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp13"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明生物多样性抵消是否以及如何构成转型计划的一部分，并指出抵消在减缓层级中的位置。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp14",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Biodiversity offsets are part of transition plan",
+      "zh": "转型计划中的生物多样性抵消"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明生物多样性抵消是否以及如何构成转型计划的一部分，并指出抵消在减缓层级中的位置。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp14",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1 g",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_14",
+        "E4",
+        "E4-1",
+        "AR 1 g",
+        null,
+        "Biodiversity offsets are part of transition plan",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "41bf32cbbc3a6da763782597acea0d78faa5debb859789acf1e82de4a42f51b8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 38,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_14",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp14"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明转型计划的实施、监督和更新过程如何管理，包括责任分工与复核频率。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp15",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Information about how process of implementing and updating transition plan is managed",
+      "zh": "转型计划的实施与更新管理过程"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明转型计划的实施、监督和更新过程如何管理，包括责任分工与复核频率。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp15",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1  h",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_15",
+        "E4",
+        "E4-1",
+        "AR 1  h",
+        null,
+        "Information about how process of implementing and updating transition plan is managed ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "6eed369e199462ea22cec8782e9826a3d6859521ee92e6c3eec31ce77d1fefed",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 39,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_15",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp15"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "列明用于衡量转型计划进展的指标及相关工具，并说明它们如何纳入主体的计量方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp16",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Indication of metrics and related tools used to measure progress that are integrated in measurement approach (biodiversity and ecosystems)",
+      "zh": "衡量进展的指标与工具"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "列明用于衡量转型计划进展的指标及相关工具，并说明它们如何纳入主体的计量方法。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp16",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1  i",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_16",
+        "E4",
+        "E4-1",
+        "AR 1  i",
+        null,
+        "Indication of metrics and related tools used to measure progress that are integrated in measurement approach (biodiversity and ecosystems) ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "fa5c334442ca08025b14fe720fc495f9b70b1f3ae7f1a8b29cd593c2c678abbf",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 40,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_16",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp16"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明行政、管理和监督机构是否以及何时批准了转型计划。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp17",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Administrative, management and supervisory bodies have approved transition plan",
+      "zh": "管理层与监督机构对转型计划的批准"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明行政、管理和监督机构是否以及何时批准了转型计划。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp17",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1  j",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_17",
+        "E4",
+        "E4-1",
+        "AR 1  j",
+        null,
+        "Administrative, management and supervisory bodies have approved transition plan",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "b24f610acb1a54a1da8382da3ab178a5cee76c6c19a9ed6f361ea1e6faeae8e7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 41,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_17",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp17"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明在重大影响领域起草转型计划时面临的挑战和局限，以及主体正在采取的应对措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-1.topic.dp18",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Indication of current challenges and limitations to draft plan in relation to areas of significant impact and actions company is taking to address them (biodiversity and ecosystems)",
+      "zh": "转型计划草案的挑战、局限与应对"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明在重大影响领域起草转型计划时面临的挑战和局限，以及主体正在采取的应对措施。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-1.dp18",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "AR 1  k",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4-1_18",
+        "E4",
+        "E4-1",
+        "AR 1  k",
+        null,
+        "Indication of current challenges and limitations to draft plan in relation to areas of significant impact and actions company is taking to address them (biodiversity and ecosystems) ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "a71df2372cffb2da4a122e1a07b16fa17d253555f9b526325aee511956b6a098",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 42,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "E4-1_18",
+    "source_refs": [
+      "esrs.2023-set1.e4-1.source.law",
+      "esrs.2023-set1.e4-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-1.concept.dp18"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

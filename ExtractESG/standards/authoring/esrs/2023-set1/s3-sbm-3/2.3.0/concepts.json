@@ -1,0 +1,98 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp01",
+    "description": "说明所有可能受主体重大影响的受影响社区是否已纳入ESRS 2披露范围。",
+    "labels": {
+      "en": "All  affected communities who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2",
+      "zh": "可能受重大影响的社区纳入披露范围"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp02",
+    "description": "描述受影响社区中受重大影响的群体类型，包括原住民社区和地方社区。",
+    "labels": {
+      "en": "Description of types of affected communities subject to material impacts",
+      "zh": "受重大影响的社区类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp03",
+    "description": "说明因主体自身运营或通过价值链而受重大影响的社区类型。",
+    "labels": {
+      "en": "Type of communities subject to material impacts by own operations or through value chain",
+      "zh": "因自身运营或价值链而受影响的社区类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp04",
+    "description": "披露受影响社区中重大负面影响是否已经发生，以及发生的情形。",
+    "labels": {
+      "en": "Material negative impacts occurrence (affected communities)",
+      "zh": "社区重大负面影响的出现情况"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp05",
+    "description": "描述产生积极影响的活动，以及受到或可能受到积极影响的社区类型。",
+    "labels": {
+      "en": "Description of activities that result in positive impacts and types of affected communities that are positively affected or could be positively affected",
+      "zh": "产生积极影响的活动及受益社区类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp06",
+    "description": "描述因对受影响社区的影响和依赖所产生的重大风险与机遇。",
+    "labels": {
+      "en": "Description of material risks and opportunities arising from impacts and dependencies on  affected communities",
+      "zh": "社区相关重大风险与机遇"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp07",
+    "description": "说明主体是否以及如何形成对特定特征、特定情境或特定活动的社区群体可能面临更高伤害风险的理解。",
+    "labels": {
+      "en": "Disclosure of whether and how the undertaking has developed an understanding of how affected communities with particular characteristics or those living in particular contexts, or those undertaking particular activities may be at greater risk of harm",
+      "zh": "特定特征或情境社区更高风险的理解"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-sbm-3.concept.dp08",
+    "description": "说明社区相关重大风险与机遇中，哪些涉及特定群体。",
+    "labels": {
+      "en": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on affected communities are impacts on specific groups",
+      "zh": "重大风险与机遇对应的特定社区群体"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-sbm-3.source.law",
+      "esrs.2023-set1.s3-sbm-3.source.ig3"
+    ]
+  }
+]

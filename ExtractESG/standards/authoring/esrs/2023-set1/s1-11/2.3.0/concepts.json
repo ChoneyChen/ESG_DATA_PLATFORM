@@ -1,0 +1,134 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp01",
+    "description": "说明所有员工是否通过公共计划或主体福利获得因病失去收入的社保覆盖。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to sickness",
+      "zh": "员工因病失去收入的社保覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp02",
+    "description": "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking",
+      "zh": "员工因失业失去收入的社保覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp03",
+    "description": "说明所有员工是否通过公共计划或主体福利获得工伤和获得性残疾收入损失的社保覆盖。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability",
+      "zh": "员工因工伤和获得性残疾失去收入的社保覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp04",
+    "description": "说明所有员工是否通过公共计划或主体福利获得育儿假期间收入损失的社保覆盖。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to parental leave",
+      "zh": "员工因育儿假失去收入的社保覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp05",
+    "description": "说明所有员工是否通过公共计划或主体福利获得退休收入损失的社保覆盖。",
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to retirement",
+      "zh": "员工因退休失去收入的社保覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp06",
+    "description": "以表格披露按国家、事件类型和员工类型（含非员工）划分的社会保护覆盖情况。",
+    "labels": {
+      "en": "Social protection employees by country [table] by types of events and type of employees [including non employees]",
+      "zh": "按国家、事件类型与员工类型划分的社保覆盖表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp07",
+    "description": "披露未通过公共计划或主体福利获得因病收入损失保障的员工类型。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to sickness",
+      "zh": "未获因病收入保障的员工类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp08",
+    "description": "披露未通过公共计划或主体福利获得失业收入损失保障的员工类型。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking",
+      "zh": "未获失业收入保障的员工类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp09",
+    "description": "披露未通过公共计划或主体福利获得工伤和获得性残疾收入损失保障的员工类型。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability",
+      "zh": "未获工伤和残疾收入保障的员工类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp10",
+    "description": "披露未通过公共计划或主体福利获得育儿假收入损失保障的员工类型。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to maternity leave",
+      "zh": "未获育儿假收入保障的员工类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-11.concept.dp11",
+    "description": "披露未通过公共计划或主体福利获得退休收入损失保障的员工类型。",
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to retirement",
+      "zh": "未获退休收入保障的员工类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ]
+  }
+]

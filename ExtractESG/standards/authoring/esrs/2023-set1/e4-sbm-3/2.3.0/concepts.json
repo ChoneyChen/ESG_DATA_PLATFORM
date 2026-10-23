@@ -1,0 +1,74 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-sbm-3.concept.dp01",
+    "description": "列明自身运营中与生物多样性和生态系统影响相关的重大场址清单。",
+    "labels": {
+      "en": "List of material sites in own operation",
+      "zh": "自身运营中的重大场址清单"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-sbm-3.source.law",
+      "esrs.2023-set1.e4-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-sbm-3.concept.dp02",
+    "description": "披露对生物多样性敏感区域产生负面影响的活动，包括活动类型与影响方式。",
+    "labels": {
+      "en": "Disclosure of activities negatively affecting biodiversity sensitive areeas",
+      "zh": "对生物多样性敏感区域产生负面影响的活动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-sbm-3.source.law",
+      "esrs.2023-set1.e4-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-sbm-3.concept.dp03",
+    "description": "披露基于实际和潜在生物多样性与生态系统影响识别评估结果所确定的自身运营重大场址清单。",
+    "labels": {
+      "en": "Disclosure of list of material sites in own operations based on results of identification and assessment of actual and potential impacts on biodiversity and ecosystems",
+      "zh": "基于影响识别与评估的重大场址清单"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-sbm-3.source.law",
+      "esrs.2023-set1.e4-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-sbm-3.concept.dp04",
+    "description": "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。",
+    "labels": {
+      "en": "Disclosure of biodiversity-sensitive areas impacted",
+      "zh": "受到影响的生物多样性敏感区域"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-sbm-3.source.law",
+      "esrs.2023-set1.e4-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-sbm-3.concept.dp05",
+    "description": "披露已识别的与土地退化、荒漠化或土壤封固相关的重大负面影响。",
+    "labels": {
+      "en": "Material negative impacts with regards to land degradation, desertification or soil sealing have been identified",
+      "zh": "土地退化、荒漠化或土壤封固的重大负面影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-sbm-3.source.law",
+      "esrs.2023-set1.e4-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-sbm-3.concept.dp06",
+    "description": "说明自身运营是否以及如何影响受威胁物种，并指出涉及的物种与影响方式。",
+    "labels": {
+      "en": "Own operations affect threatened species",
+      "zh": "自身运营对受威胁物种的影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-sbm-3.source.law",
+      "esrs.2023-set1.e4-sbm-3.source.ig3"
+    ]
+  }
+]

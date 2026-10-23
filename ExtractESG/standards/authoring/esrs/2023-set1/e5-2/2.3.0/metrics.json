@@ -1,0 +1,1374 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明在技术材料、生物材料和水资源使用方面提高资源效率的具体做法与成效。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of higher levels of resource efficiency in use of technical and biological materials and water",
+      "zh": "技术与生物材料及水的资源效率提升"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明在技术材料、生物材料和水资源使用方面提高资源效率的具体做法与成效。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp01",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "20 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_01",
+        "E5",
+        "E5-2",
+        "20 a",
+        null,
+        "Description of higher levels of resource efficiency in use of technical and biological materials and water",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1c1d6c3190edea3701866698ec06f8f15948976422a2037fffd155524d45d4c7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 12,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_01",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明提高二次原材料使用比例的措施、目标与报告期内的进展。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of higher rates of use of secondary raw materials",
+      "zh": "二次原材料使用比例提升"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明提高二次原材料使用比例的措施、目标与报告期内的进展。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp02",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "20b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_02",
+        "E5",
+        "E5-2",
+        "20b",
+        null,
+        "Description of higher rates of use of secondary raw materials",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "c3d372d90bbd8956163252e611a5956dbae6fc201e0ed1c420695931d544da2b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 13,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_02",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明循环设计原则在产品、部件和材料设计中的应用方式与覆盖范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of application of circular design",
+      "zh": "循环设计的应用"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明循环设计原则在产品、部件和材料设计中的应用方式与覆盖范围。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp03",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "20c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_03",
+        "E5",
+        "E5-2",
+        "20c",
+        null,
+        "Description of application of circular design",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "005460f4cd1c3ddd7e0224096ad88e819a5ca6f230d8d2ba22282e35f3b1882f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 14,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_03",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体采用哪些循环商业实践，如产品即服务、共享、再制造或翻新，并说明其规模。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of application of circular business practices",
+      "zh": "循环商业实践的应用"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体采用哪些循环商业实践，如产品即服务、共享、再制造或翻新，并说明其规模。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp04",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "20d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_04",
+        "E5",
+        "E5-2",
+        "20d",
+        null,
+        "Description of application of circular business practices",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "06a5b24268faa940c146c6fa3c2ffceb111b88c8cb82799282889a863e422118",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 15,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_04",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 13"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明为在上游和下游价值链中预防废弃物产生所采取的行动及其效果。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of actions taken to prevent waste generation in the undertaking's upstream and downstram value chain",
+      "zh": "上下游价值链废弃物预防行动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明为在上游和下游价值链中预防废弃物产生所采取的行动及其效果。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp05",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "20e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_05",
+        "E5",
+        "E5-2",
+        "20e",
+        "AR 13",
+        "Description of actions taken to prevent waste generation in the undertaking's upstream and downstram value chain",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "1da116ad6291ce3166e00eefc23dbf7ea8d74095370bf9398eda9b90a2526a31",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 16,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_05",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体如何优化废弃物管理，包括分类、收集、回收和处置环节的改进。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of Optimistation of waste management",
+      "zh": "废弃物管理优化"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体如何优化废弃物管理，包括分类、收集、回收和处置环节的改进。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp06",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "20f",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_06",
+        "E5",
+        "E5-2",
+        "20f",
+        null,
+        "Description of Optimistation of waste management",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "fffc2087e2c0445be127ce9cae8bf762d0ab270fec8666d2b5a1628d9e736ba9",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 17,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_06",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体参与或发起的、旨在提升产品和材料循环性的合作、倡议或伙伴关系。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Information about collective action on development of collaborations or initiatives increasing circularity of products and materials",
+      "zh": "提升产品与材料循环性的合作行动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体参与或发起的、旨在提升产品和材料循环性的合作、倡议或伙伴关系。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp07",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "AR 11",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_07",
+        "E5",
+        "E5-2",
+        "AR 11",
+        null,
+        "Information about collective action on development of collaborations or initiatives increasing circularity of products and materials ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "35cba4bb1e8e6799eee44316b57df3351c107c0d30ace01733f10f785df67a0e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 18,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_07",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体的行动对循环经济的贡献，包括资源使用减少和材料循环性提升的结果。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of contribution to circular economy",
+      "zh": "对循环经济的贡献"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体的行动对循环经济的贡献，包括资源使用减少和材料循环性提升的结果。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp08",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "AR 12 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_08",
+        "E5",
+        "E5-2",
+        "AR 12 a",
+        null,
+        "Description of contribution to circular economy ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "bd806be2547c53cd90d43f1f7d62ca338a84eeffebf34f013aac8dd74c415dc6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 19,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_08",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明参与资源利用与循环经济集体行动的其他利益相关方及其角色。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of other stakeholders involved in collective action (resource use and circular economy)",
+      "zh": "集体行动中的其他利益相关方"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明参与资源利用与循环经济集体行动的其他利益相关方及其角色。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp09",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "AR 12 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_09",
+        "E5",
+        "E5-2",
+        "AR 12 b",
+        null,
+        "Description of other stakeholders involved in collective action (resource use and circular economy) ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "29f8147275045a5d59d1d1c57f5577b9c36c135161d9cf8403294753d42cd964",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 20,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_09",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明资源利用与循环经济相关项目的组织方式，包括治理结构、责任分工和资源投入。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-2.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of organisation of project (resource use and circular economy)",
+      "zh": "项目的组织方式"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明资源利用与循环经济相关项目的组织方式，包括治理结构、责任分工和资源投入。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-2.dp10",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.action-ref"
+    ],
+    "paragraph": "AR 12 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-2_10",
+        "E5",
+        "E5-2",
+        "AR 12 c",
+        null,
+        "Description of organisation of project (resource use and circular economy) ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "8335a482cfc49b25e3653b3f9c7a2125af6f1b20d364e3006c1b26c01ff50210",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 21,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "E5-2_10",
+    "source_refs": [
+      "esrs.2023-set1.e5-2.source.law",
+      "esrs.2023-set1.e5-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-2.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

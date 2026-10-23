@@ -1,0 +1,326 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp01",
+    "description": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址数量。",
+    "labels": {
+      "en": "Number of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+      "zh": "受负面影响的保护区内或附近场址数量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp02",
+    "description": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。",
+    "labels": {
+      "en": "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+      "zh": "受负面影响的保护区内或附近场址面积"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp03",
+    "description": "披露基于生命周期评估方法确定的土地利用情况，包括评估边界与数据来源。",
+    "labels": {
+      "en": "Disclosure of land-use based on Life Cycle Assessment",
+      "zh": "基于生命周期评估的土地利用"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp04",
+    "description": "披露主体认为相关的土地利用变化、淡水利用变化或海洋利用变化指标及其选择依据。",
+    "labels": {
+      "en": "Disclosure of metrics considered relevant (land-use change, freshwater-use change and (or) sea-use change)",
+      "zh": "与土地利用变化相关的指标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp05",
+    "description": "披露报告期内土地覆盖类型的转化情况，包括转化面积、方向和驱动因素。",
+    "labels": {
+      "en": "Disclosure of conversion over time of land cover",
+      "zh": "土地覆盖随时间的转化"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp06",
+    "description": "披露生态系统管理方式随时间发生的变化，包括管理措施及其对生态条件的影响。",
+    "labels": {
+      "en": "Disclosure of changes over time in management of ecosystem",
+      "zh": "生态系统管理方式随时间的变化"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp07",
+    "description": "披露景观空间配置的变化，包括栖息地斑块、廊道和基质结构的改变。",
+    "labels": {
+      "en": "Disclosure of changes in spatial configuration of landscape",
+      "zh": "景观空间格局的变化"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp08",
+    "description": "披露生态系统结构连通性的变化，以及阻碍或改善连通性的因素。",
+    "labels": {
+      "en": "Disclosure of changes in ecosystem structural connectivity",
+      "zh": "生态系统结构连通性的变化"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp09",
+    "description": "披露生态系统功能连通性的状况与变化，包括物种迁移和生态过程受到的影响。",
+    "labels": {
+      "en": "Disclosure of functional connectivity",
+      "zh": "生态系统功能连通性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp10",
+    "description": "披露主体使用的土地总面积，并说明统计边界与计量方法。",
+    "labels": {
+      "en": "Total use of land area",
+      "zh": "土地面积总使用量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp11",
+    "description": "披露被建筑物、铺装或其他不透水表面封固的土地面积总量。",
+    "labels": {
+      "en": "Total sealed area",
+      "zh": "封固面积总量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp12",
+    "description": "披露场址范围内以自然导向方式管理的面积，并说明其生态特征。",
+    "labels": {
+      "en": "Nature-oriented area on site",
+      "zh": "场址内自然导向面积"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp13",
+    "description": "披露场址范围外由主体支持或管理的自然导向面积，并说明其与主体活动的关系。",
+    "labels": {
+      "en": "Nature-oriented area off site",
+      "zh": "场址外自然导向面积"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp14",
+    "description": "说明主体如何管理外来入侵物种的引入和扩散路径，以及由此产生的风险。",
+    "labels": {
+      "en": "Disclosure of how pathways of introduction and spread of invasive alien species and risks posed by invasive alien species are managed",
+      "zh": "外来入侵物种引入与扩散路径的管理"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp15",
+    "description": "披露在主体运营范围内出现的外来入侵物种数量，并说明识别与统计口径。",
+    "labels": {
+      "en": "Number of invasive alien species",
+      "zh": "外来入侵物种数量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp16",
+    "description": "披露受外来入侵物种覆盖或影响的面积，并说明调查方法与时间。",
+    "labels": {
+      "en": "Area covered by invasive alien species",
+      "zh": "受外来入侵物种覆盖的面积"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp17",
+    "description": "披露主体认为与物种状态相关的指标，包括指标定义、单位和监测频率。",
+    "labels": {
+      "en": "Disclosure of metrics considered relevant (state of species)",
+      "zh": "物种状态相关指标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp18",
+    "description": "指出所用物种状态指标在其他环境相关标准中所对应的段落，以便交叉核对。",
+    "labels": {
+      "en": "Disclosure of paragraph in another environment-related standard in which metric is referred to",
+      "zh": "指标在其他环境标准中的对应段落"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp19",
+    "description": "披露特定生态系统中物种的种群规模、分布范围和灭绝风险，并说明数据来源。",
+    "labels": {
+      "en": "Disclosure of population size, range within specific ecosystems and extinction risk",
+      "zh": "种群规模、分布范围与灭绝风险"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp20",
+    "description": "披露特定区域内物种个体数量随时间的变化，包括变化幅度与监测方法。",
+    "labels": {
+      "en": "Disclosure of changes in number of individuals of species within specific area",
+      "zh": "特定区域内物种个体数量变化"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp21",
+    "description": "提供与主体活动相关的、处于全球灭绝风险物种的信息，包括物种名称与风险等级。",
+    "labels": {
+      "en": "Information about species at global extinction risk",
+      "zh": "处于全球灭绝风险的物种信息"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp22",
+    "description": "披露相关物种的受威胁状态，以及主体活动或压力可能如何影响该状态。",
+    "labels": {
+      "en": "Disclosure of threat status of species and how activities or pressures may affect threat status",
+      "zh": "物种受威胁状态及其受影响方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp23",
+    "description": "披露受威胁物种相关栖息地的变化，并将其作为当地种群灭绝风险的代理指标。",
+    "labels": {
+      "en": "Disclosure of change in relevant habitat for threatened species as proxy for impact on local population's extinction risk",
+      "zh": "受威胁物种栖息地变化作为灭绝风险代理"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp24",
+    "description": "披露相关生态系统的面积覆盖情况，包括类型、范围和变化趋势。",
+    "labels": {
+      "en": "Disclosure of ecosystem area coverage",
+      "zh": "生态系统面积覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp25",
+    "description": "披露生态系统质量相对于预先确定参考状态的情况，并说明参考状态的选择依据。",
+    "labels": {
+      "en": "Disclosure of quality of ecosystems relative to pre-determined reference state",
+      "zh": "相对于参考状态的生态系统质量"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp26",
+    "description": "披露同一生态系统内多个物种的状况，以反映生态群落而非单一物种。",
+    "labels": {
+      "en": "Disclosure of multiple species within ecosystem",
+      "zh": "生态系统内的多物种信息"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-5.concept.dp27",
+    "description": "披露生态系统状况的结构性组成部分，如植被结构、土壤和水文条件。",
+    "labels": {
+      "en": "Disclosure of structural components of ecosystem condition",
+      "zh": "生态系统状况的结构性组成部分"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-5.source.law",
+      "esrs.2023-set1.e4-5.source.ig3"
+    ]
+  }
+]

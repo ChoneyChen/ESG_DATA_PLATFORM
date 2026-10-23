@@ -1,0 +1,134 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp01",
+    "description": "说明主体在造成或促成对自身劳动力重大负面影响时，提供或促成补救的总体方法与流程。",
+    "labels": {
+      "en": "Disclosure of general approach to and processes for providing or contributing to remedy where undertaking has caused or contributed to a material negative impact on people in its own workforce",
+      "zh": "提供或促成补救的总体方法与流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp02",
+    "description": "披露自身劳动力可直接向主体提出关切或需求并获得处理的特定渠道。",
+    "labels": {
+      "en": "Disclosure of specific channels in place for its own workforce to raise concerns or needs directly with undertaking and have them addressed",
+      "zh": "员工直接提出关切或需求的渠道"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp03",
+    "description": "说明第三方机制是否向全体自身劳动力开放，以及可及性安排。",
+    "labels": {
+      "en": "Third-party mechanisms are accessible to all own workforce",
+      "zh": "面向全体员工的第三方机制"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp04",
+    "description": "说明自身劳动力及其代表是否以及如何在其受雇或签约主体的层级使用申诉渠道。",
+    "labels": {
+      "en": "Disclosure of whether and how own workforce and their workers' representatives are able to access channels at level of undertaking they are employed by or contracted to work for",
+      "zh": "员工在其受雇或签约层级使用渠道的能力"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp05",
+    "description": "披露主体是否已建立与员工事项相关的申诉或投诉处理机制，并说明其运作方式。",
+    "labels": {
+      "en": "Grievance or complaints handling mechanisms related to employee matters exist",
+      "zh": "员工事项的申诉或投诉处理机制"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp06",
+    "description": "说明主体通过哪些流程支持或要求提供申诉渠道，包括对业务伙伴的要求。",
+    "labels": {
+      "en": "Disclosure of processes through which undertaking supports or requires availability of channels",
+      "zh": "支持或要求提供渠道的流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp07",
+    "description": "说明提出的问题如何被跟踪和处理，以及如何确保渠道的有效性。",
+    "labels": {
+      "en": "Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured",
+      "zh": "问题的跟踪、监测与渠道有效性保障"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp08",
+    "description": "说明主体是否以及如何评估员工知晓并信任相关结构或流程，以提出关切和需求。",
+    "labels": {
+      "en": "Disclosure of whether and how it is assessed that its own workforce is aware of and trust structures or processes as way to raise their concerns or needs and have them addressed",
+      "zh": "员工对渠道的知晓与信任评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp09",
+    "description": "披露主体是否已制定保护使用申诉渠道人员免遭报复的政策，并说明保护范围。",
+    "labels": {
+      "en": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
+      "zh": "防止报复的政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp10",
+    "description": "说明主体是否尚未建立提出关切的渠道；若未建立，披露现状与原因。",
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a channel for raising concerns",
+      "zh": "未建立申诉渠道时的说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-3.concept.dp11",
+    "description": "披露主体计划建立提出关切渠道的时间表。",
+    "labels": {
+      "en": "Disclosure of timeframe for channel for raising concerns to be in place",
+      "zh": "建立申诉渠道的时间表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-3.source.law",
+      "esrs.2023-set1.s1-3.source.ig3"
+    ]
+  }
+]

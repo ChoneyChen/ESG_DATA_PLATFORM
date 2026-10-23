@@ -1,0 +1,38 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-12.concept.dp01",
+    "description": "披露残障员工占员工总数的比例，并说明在数据收集法律限制下的统计方式。",
+    "labels": {
+      "en": "Percentage of persons with disabilities amongst employees, subject to legal restrictions on collection of data",
+      "zh": "残障员工比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-12.source.law",
+      "esrs.2023-set1.s1-12.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-12.concept.dp02",
+    "description": "以表格披露自身劳动力中按性别划分的残障员工比例。",
+    "labels": {
+      "en": "Percentage of employees with disabilities in own workforce breakdown by gender [table]",
+      "zh": "按性别划分的残障员工比例表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-12.source.law",
+      "esrs.2023-set1.s1-12.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-12.concept.dp03",
+    "description": "披露理解残障数据所必需的背景信息以及数据如何编制。",
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data and how data has been compiled (persons with disabilities))",
+      "zh": "残障数据的背景与编制信息"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-12.source.law",
+      "esrs.2023-set1.s1-12.source.ig3"
+    ]
+  }
+]

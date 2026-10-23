@@ -1,0 +1,266 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp01",
+    "description": "披露主体为管理自身劳动力相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全体员工的安排。",
+    "labels": {
+      "en": "Policies to manage material impacts, risks and opportunities related to own workforce, including for specific groups within workforce or all own workforce",
+      "zh": "管理自身劳动力相关重大影响、风险和机遇的政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp02",
+    "description": "说明报告年度内对政策作出的重大变化及其原因和影响。",
+    "labels": {
+      "en": "Disclosure of explanations of significant changes to policies adopted during reporting year",
+      "zh": "报告年度政策重大变化的说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp03",
+    "description": "描述与自身劳动力相关的、主体作出的人权政策承诺及其来源。",
+    "labels": {
+      "en": "Description of relevant human rights policy commitments relevant to own workforce",
+      "zh": "与自身劳动力相关的人权政策承诺"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp04",
+    "description": "说明主体在尊重自身劳动力人权和劳工权利方面的总体方法与责任安排。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to respect for human rights including labour rights, of people in its own workforce",
+      "zh": "尊重自身劳动力人权（含劳工权利）的总体方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp05",
+    "description": "说明主体与自身劳动力人员开展接触和沟通的总体方法。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to engagement with people in its own workforce",
+      "zh": "与自身劳动力接触的总体方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp06",
+    "description": "说明主体为自身劳动力人权影响提供或促成补救的总体方法与机制。",
+    "labels": {
+      "en": "Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts",
+      "zh": "提供或促成补救的总体方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp07",
+    "description": "说明政策是否以及如何与相关国际公认文书保持一致，并指出对应文书。",
+    "labels": {
+      "en": "Disclosure of whether and how policies are aligned with relevant internationally recognised instruments",
+      "zh": "政策与国际公认文书的一致性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp08",
+    "description": "说明政策是否明确处理人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。",
+    "labels": {
+      "en": "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour",
+      "zh": "政策对人口贩运、强迫劳动和童工的明确覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp09",
+    "description": "披露主体是否已建立工作场所事故预防政策或管理体系，并说明其主要内容。",
+    "labels": {
+      "en": "Workplace accident prevention policy or management system is in place",
+      "zh": "工作场所事故预防政策或管理体系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp10",
+    "description": "披露主体是否已制定旨在消除歧视的专项政策，并说明适用范围。",
+    "labels": {
+      "en": "Specific policies aimed at elimination of discrimination are in place",
+      "zh": "消除歧视的专项政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp11",
+    "description": "说明政策具体覆盖哪些歧视理由，如性别、年龄、种族、宗教、残疾等。",
+    "labels": {
+      "en": "Grounds for discrimination are specifically covered in policy",
+      "zh": "政策覆盖的歧视理由"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp12",
+    "description": "披露与自身劳动力中尤其易受伤害群体相关的包容和积极行动政策承诺。",
+    "labels": {
+      "en": "Disclosure of specific policy commitments related to inclusion and (or) positive action for people from groups at particular risk of vulnerability in own workforce",
+      "zh": "针对弱势群体的包容或积极行动承诺"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp13",
+    "description": "说明政策如何通过具体程序落实，以预防、减轻并在发现后处理歧视，同时推进多元与包容。",
+    "labels": {
+      "en": "Disclosure of whether and how policies are implemented through specific procedures to ensure discrimination is prevented, mitigated and acted upon once detected, as well as to advance diversity and inclusion",
+      "zh": "政策通过具体程序防止和处理歧视的实施方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp14",
+    "description": "举例说明政策如何向相关个人、群体或实体传达，包括渠道和语言。",
+    "labels": {
+      "en": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant",
+      "zh": "政策向相关人员传达的方式示例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp15",
+    "description": "说明主体是否已建立以资格、技能和经验为基础的招聘、安置、培训和晋升政策与程序。",
+    "labels": {
+      "en": "Policies and procedures which make qualifications, skills and experience the basis for the recruitment, placement, training and advancement are in place",
+      "zh": "以资格、技能和经验为基础的招聘、安置、培训和晋升政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp16",
+    "description": "说明主体是否在高层管理层指定平等就业机会责任，发布全公司政策与程序，并将晋升与该领域表现挂钩。",
+    "labels": {
+      "en": "Has assigned responsibility at top management level for equal treatment and opportunities in employment, issue clear company-wide policies and procedures to guide equal employment practices, and link advancement to desired performance in this area",
+      "zh": "高层对平等就业机会的责任与落实"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp17",
+    "description": "披露主体是否已开展反歧视政策和实践方面的员工培训，并说明覆盖范围。",
+    "labels": {
+      "en": "Staff training on non-discrimination policies and practices are in place",
+      "zh": "反歧视政策与实践的员工培训"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp18",
+    "description": "说明主体是否已对物理环境作出调整，以保障残障员工、客户和其他访客的健康与安全。",
+    "labels": {
+      "en": "Adjustments to the physical environment to ensure health and safety for workers, customers and other visitors with disabilities are in place",
+      "zh": "为残障员工、客户和访客提供的物理环境调整"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp19",
+    "description": "说明主体是否已评估岗位要求的设定方式是否存在系统性不利于特定群体的风险。",
+    "labels": {
+      "en": "Has evaluated whether a there is a risk that job requirements have been defined in a way that would systematically disadvantage certain groups",
+      "zh": "岗位要求是否系统性不利于特定群体的评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp20",
+    "description": "说明主体是否保存最新的招聘、培训和晋升记录，以透明呈现员工机会与晋升路径。",
+    "labels": {
+      "en": "Keeping an up-to-date records on recruitment, training and promotion that provide a transparent view of opportunities for employees and their progression",
+      "zh": "招聘、培训和晋升的最新记录"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp21",
+    "description": "说明主体是否已建立申诉程序，用于处理歧视投诉、上诉和救济，并关注阻碍员工发声的正式与非正式因素。",
+    "labels": {
+      "en": "Has put in place grievance procedures to address complaints, handle appeals and provide recourse for employees when discrimination is identified, and is alert to formal structures and informal cultural issues that can prevent employees from raising concerns and grievances",
+      "zh": "歧视申诉程序与救济渠道"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-1.concept.dp22",
+    "description": "披露主体为促进员工获得技能发展机会所设立的项目及覆盖范围。",
+    "labels": {
+      "en": "Has programs to promote access to skills development.",
+      "zh": "促进技能发展机会的项目"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-1.source.law",
+      "esrs.2023-set1.s1-1.source.ig3"
+    ]
+  }
+]

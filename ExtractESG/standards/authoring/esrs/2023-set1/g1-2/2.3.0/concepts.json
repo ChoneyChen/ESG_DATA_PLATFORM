@@ -1,0 +1,38 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.g1-2.concept.dp01",
+    "description": "说明主体为防止逾期付款、尤其是对中小企业逾期付款所制定的政策与措施。",
+    "labels": {
+      "en": "Description of policy to prevent late payments, especially to SMEs",
+      "zh": "防止逾期付款（尤其是对中小企业）的政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-2.source.law",
+      "esrs.2023-set1.g1-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-2.concept.dp02",
+    "description": "说明主体在供应商关系方面的做法，包括考虑供应链风险和可持续性事项影响的方式。",
+    "labels": {
+      "en": "Description of approaches in regard to relationships with suppliers, taking account risks related to supply chain and impacts on sustainability matters",
+      "zh": "供应商关系管理方法"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-2.source.law",
+      "esrs.2023-set1.g1-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-2.concept.dp03",
+    "description": "说明在选择供应方合同伙伴时，社会和环境标准是否以及如何纳入考量。",
+    "labels": {
+      "en": "Disclosure of whether and how social and environmental criteria are taken into account for selection of supply-side contractual partners",
+      "zh": "供应方合同伙伴选择中的社会与环境标准"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-2.source.law",
+      "esrs.2023-set1.g1-2.source.ig3"
+    ]
+  }
+]

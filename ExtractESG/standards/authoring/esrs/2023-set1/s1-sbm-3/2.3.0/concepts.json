@@ -1,0 +1,146 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp01",
+    "description": "说明所有可能受主体重大影响的自身劳动力人员是否已纳入ESRS 2披露范围。",
+    "labels": {
+      "en": "All people in its own workforce who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2",
+      "zh": "可能受重大影响的自身劳动力纳入披露范围"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp02",
+    "description": "描述自身劳动力中受重大影响的员工和非员工类型。",
+    "labels": {
+      "en": "Description of types of employees and non-employees in its own workforce subject to material impacts",
+      "zh": "受重大影响的员工与非员工类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp03",
+    "description": "披露自身劳动力中重大负面影响是否已经发生，以及发生的情形。",
+    "labels": {
+      "en": "Material negative impacts occurrence (own workforce)",
+      "zh": "自身劳动力重大负面影响的出现情况"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp04",
+    "description": "描述产生积极影响的活动，以及受到或可能受到积极影响的员工与非员工类型。",
+    "labels": {
+      "en": "Description of activities that result in positive impacts and types of employees and non-employees in its own workforce that are positively affected or could be positively affected",
+      "zh": "产生积极影响的活动及受益人员类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp05",
+    "description": "描述因对自身劳动力的影响和依赖所产生的重大风险与机遇。",
+    "labels": {
+      "en": "Description of material risks and opportunities arising from impacts and dependencies on own workforce",
+      "zh": "自身劳动力相关重大风险与机遇"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp06",
+    "description": "描述为减少环境负面影响、实现绿色气候中性运营的转型计划可能对员工造成的重大影响。",
+    "labels": {
+      "en": "Description of material impacts on workers that may arise from transition plans for reducing negative impacts on environment and achieving greener and climate-neutral operations",
+      "zh": "环境转型计划对员工的重大影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp07",
+    "description": "提供存在强迫劳动或强制劳动事件重大风险的运营类型信息。",
+    "labels": {
+      "en": "Information about type of operations at significant risk of incidents of forced labour or compulsory labour",
+      "zh": "存在强迫劳动重大风险的运营类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp08",
+    "description": "提供被认为存在强迫劳动或强制劳动事件重大风险的国家或地理区域信息。",
+    "labels": {
+      "en": "Information about countries or geographic areas with operations considered at significant risk of incidents of forced labour or compulsory labour",
+      "zh": "存在强迫劳动重大风险的国家或地区"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp09",
+    "description": "提供存在童工事件重大风险的运营类型信息。",
+    "labels": {
+      "en": "Information about type of operations at significant risk of incidents of child labour",
+      "zh": "存在童工重大风险的运营类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp10",
+    "description": "提供被认为存在童工事件重大风险的国家或地理区域信息。",
+    "labels": {
+      "en": "Information about countries or geographic areas with operations considered at significant risk of incidents of child labour",
+      "zh": "存在童工重大风险的国家或地区"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp11",
+    "description": "说明主体是否以及如何形成对特定特征、特定情境或特定活动员工可能面临更高伤害风险的理解。",
+    "labels": {
+      "en": "Disclosure of whether and how understanding of people in its own workforce with particular characteristics, working in particular contexts, or undertaking particular activities may be at greater risk of harm has been developed",
+      "zh": "特定特征或情境员工更高风险的理解"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-sbm-3.concept.dp12",
+    "description": "说明自身劳动力相关重大风险与机遇中，哪些涉及特定群体。",
+    "labels": {
+      "en": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on people in its own workforce  relate to specific groups of people",
+      "zh": "重大风险与机遇对应的特定群体"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-sbm-3.source.law",
+      "esrs.2023-set1.s1-sbm-3.source.ig3"
+    ]
+  }
+]

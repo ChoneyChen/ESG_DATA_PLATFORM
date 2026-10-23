@@ -1,0 +1,1180 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 20"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential  impacts",
+      "zh": "价值链劳动者观点对决策的影响"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "22",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_01",
+        "S2",
+        "S2-2",
+        22,
+        "AR 20",
+        "Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential  impacts ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "303939ca0b17effecd94321d5daa871f961858ef417720d4601bb3f4a81bb7b6",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 25,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_01",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否与价值链劳动者或其合法代表、可信代理直接开展接触，并指出接触形式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Engagement occurs with value chain workers or their legitimate\nrepresentatives directly, or with credible proxies",
+      "zh": "与价值链劳动者或其代表的接触"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否与价值链劳动者或其合法代表、可信代理直接开展接触，并指出接触形式。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp02",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "22 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_02",
+        "S2",
+        "S2-2",
+        "22 a",
+        null,
+        "Engagement occurs with value chain workers or their legitimate\nrepresentatives directly, or with credible proxies",
+        "semi-narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "de6c588749be96468cfddb91f6ac56b0954af435e166e05ebfb8cf6ed6e41a67",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 26,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_02",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 18"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露与价值链劳动者接触发生的阶段、接触类型和频率。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of stage at which engagement occurs, type of engagement and frequency of engagement",
+      "zh": "接触发生的阶段、类型与频率（价值链劳动者）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露与价值链劳动者接触发生的阶段、接触类型和频率。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp03",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "22 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_03",
+        "S2",
+        "S2-2",
+        "22 b",
+        "AR 18",
+        "Disclosure of stage at which engagement occurs, type of engagement and frequency of engagement ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "7e5e589109566ffe89b95db191e6ec648520cdd5bd248e0f498a09dbae10f265",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 27,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_03",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 17 - AR 18"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体内部负责确保价值链劳动者接触发生并使结果影响主体方法的职能和最资深角色。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach",
+      "zh": "负责确保接触发生并反馈结果的高级职能与角色（价值链）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体内部负责确保价值链劳动者接触发生并使结果影响主体方法的职能和最资深角色。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp04",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "22 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_04",
+        "S2",
+        "S2-2",
+        "22 c",
+        "AR 17 - AR 18",
+        "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "3d7cd5a02454265d30524b99cf3fd21aa1691254f98ace09be73b8b7aea8f546",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 28,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_04",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 19"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露主体是否签订全球框架协议或其他与尊重劳动者人权相关的协议，并说明其覆盖的价值链范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of Global Framework Agreement or other agreements related to respect of human rights of workers",
+      "zh": "全球框架协议或其他劳工权利协议（价值链）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露主体是否签订全球框架协议或其他与尊重劳动者人权相关的协议，并说明其覆盖的价值链范围。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp05",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "22 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_05",
+        "S2",
+        "S2-2",
+        "22 d",
+        "AR 19",
+        "Disclosure of Global Framework Agreement or other agreements related to respect of human rights of workers ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "84ddb172eee236351c16f3e1f254e58708a98e0b7678de31815c8303a80fdcac",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 29,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_05",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体如何评估与价值链劳动者接触的有效性，包括评估指标与反馈机制。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of how effectiveness of engagement with value chain workers is assessed",
+      "zh": "与价值链劳动者接触有效性的评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体如何评估与价值链劳动者接触的有效性，包括评估指标与反馈机制。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp06",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "22 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_06",
+        "S2",
+        "S2-2",
+        "22 e",
+        null,
+        "Disclosure of how effectiveness of engagement with value chain workers is assessed ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "5a8d0c9e52e167378f07167446ec8862ff287c174140e596029610c09a2c8456",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 30,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_06",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体为深入了解尤其易受伤害或边缘化的价值链劳动者观点所采取的步骤。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of steps taken to gain insight into perspectives of value chain workers that may be particularly vulnerable to impacts and (or) marginalised",
+      "zh": "了解易受伤害或边缘化价值链劳动者观点的步骤"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体为深入了解尤其易受伤害或边缘化的价值链劳动者观点所采取的步骤。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp07",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "23",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_07",
+        "S2",
+        "S2-2",
+        23,
+        null,
+        "Disclosure of steps taken to gain insight into perspectives of value chain workers that may be particularly vulnerable to impacts and (or) marginalised ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "ac838494ff4add58ca6f81b22248f7ec4eac4303f3d5e030c6e6538b8160cdbf",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 31,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_07",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否尚未建立与价值链劳动者接触的一般性流程；若未建立，披露现状与原因。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a general process to engage with value chain workers",
+      "zh": "未建立价值链劳动者接触流程时的说明"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否尚未建立与价值链劳动者接触的一般性流程；若未建立，披露现状与原因。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp08",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "24",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_08",
+        "S2",
+        "S2-2",
+        24,
+        null,
+        "Statement in case the undertaking has not adopted a general process to engage with value chain workers",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "ca7644990be996e73db70a26e5503fac6fef76a4a0f5a56d33023fdd0b1c3252",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 32,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_08",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露主体计划建立与价值链劳动者一般性接触流程的时间表。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S2-2",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s2-2.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of timeframe for adoption of general process to engage with  value chain workers  in case the undertaking has not adopted a general process for engagement",
+      "zh": "建立价值链劳动者接触流程的时间表"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露主体计划建立与价值链劳动者一般性接触流程的时间表。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s2-2.dp09",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "24",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S2-2_09",
+        "S2",
+        "S2-2",
+        24,
+        null,
+        "Disclosure of timeframe for adoption of general process to engage with  value chain workers  in case the undertaking has not adopted a general process for engagement",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "c4256af5d4678773e67338c12fcbcf3c32b5fbae732f17f67ff57f0c0bb7e80f",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 33,
+      "source_sheet": "ESRS S2",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s2-2.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S2-2_09",
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s2-2.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

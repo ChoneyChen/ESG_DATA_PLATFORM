@@ -1,0 +1,110 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp01",
+    "description": "说明消费者和终端用户的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
+    "labels": {
+      "en": "Disclosure of whether and how perspectives of consumers and end-users inform decisions or activities aimed at managing actual and potential impacts",
+      "zh": "消费者和终端用户观点对决策的影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp02",
+    "description": "说明主体是否与消费者和终端用户或其合法代表、可信代理直接开展接触，并指出接触形式。",
+    "labels": {
+      "en": "Engagement occurs with consumers and end-users  or their legitimate representatives directly, or with credible proxies",
+      "zh": "与消费者和终端用户或其代表的接触"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp03",
+    "description": "披露与消费者和终端用户接触发生的阶段、接触类型和频率。",
+    "labels": {
+      "en": "Disclosure of stage at which engagement occurs, type of engagement and frequency of engagement",
+      "zh": "接触发生的阶段、类型与频率（消费者）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp04",
+    "description": "说明主体内部负责确保消费者接触发生并使结果影响主体方法的职能和最资深角色。",
+    "labels": {
+      "en": "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach",
+      "zh": "负责确保接触发生并反馈结果的高级职能与角色（消费者）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp05",
+    "description": "说明主体如何评估与消费者和终端用户接触的有效性，包括评估指标与反馈机制。",
+    "labels": {
+      "en": "Disclosure of how effectiveness of engagement with  consumers and end-users   is assessed",
+      "zh": "消费者和终端用户接触有效性的评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp06",
+    "description": "说明主体为深入了解尤其易受伤害或边缘化的消费者和终端用户观点所采取的步骤。",
+    "labels": {
+      "en": "Disclosure of steps taken to gain insight into perspectives of  consumers and end-users  / consumers and end-users that may be particularly vulnerable to impacts and (or) marginalised",
+      "zh": "了解易受伤害或边缘化消费者观点的步骤"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp07",
+    "description": "说明主体是否尚未建立与消费者和终端用户接触的一般性流程；若未建立，披露现状与原因。",
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a general process to engage with consumers and/or end-users",
+      "zh": "未建立消费者接触流程时的说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp08",
+    "description": "披露主体计划建立与消费者和终端用户一般性接触流程的时间表。",
+    "labels": {
+      "en": "Disclosure of timeframe for adoption of general process to engage with  consumers and end-users   in case the undertaking has not adopted a general process for engageme",
+      "zh": "建立消费者接触流程的时间表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s4-2.concept.dp09",
+    "description": "说明主体内部负责处理消费者和终端用户接触的角色或职能类型。",
+    "labels": {
+      "en": "Type of role or function handling with engagement",
+      "zh": "负责消费者接触的角色或职能类型"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s4-2.source.law",
+      "esrs.2023-set1.s4-2.source.ig3"
+    ]
+  }
+]

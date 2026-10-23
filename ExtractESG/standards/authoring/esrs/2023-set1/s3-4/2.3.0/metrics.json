@@ -1,0 +1,2617 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 28 - AR 29, AR 36"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述主体为预防、减轻或补救受影响社区重大负面影响而已采取、计划或正在进行的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of action taken, planned or underway to prevent, mitigate or remediate material negative impacts on affected communities",
+      "zh": "预防、减轻或补救社区负面影响的行动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述主体为预防、减轻或补救受影响社区重大负面影响而已采取、计划或正在进行的行动。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "32 a ",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_01",
+        "S3",
+        "S3-4",
+        "32 a ",
+        "AR 28 - AR 29, AR 36",
+        "Description of action taken, planned or underway to prevent, mitigate or remediate material negative impacts on affected communities   ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "e651dd052e9f3942ef2b7bedfbf5f3eb021f7b63091e9657457dcc3ba41234a0",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 44,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_01",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of whether and how the undertaking has taken action to provide or enable remedy in relation to an actual material impact",
+      "zh": "对实际重大影响提供或促成补救的行动（社区）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "32 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_02",
+        "S3",
+        "S3-4",
+        "32 b",
+        null,
+        "Description of whether and how the undertaking has taken action to provide or enable remedy in relation to an actual material impact",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "dd5ca8bc07827f5f885dfe35b8296772bad601ed6faa0f35bf7136f6dff69c36",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 45,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_02",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 37"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述以向受影响社区传递积极影响为主要目的的其他举措或流程。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of additional initiatives or processes with primary purpose of delivering positive impacts for affected communities",
+      "zh": "为社区带来积极影响的其他举措"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述以向受影响社区传递积极影响为主要目的的其他举措或流程。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "32 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_03",
+        "S3",
+        "S3-4",
+        "32 c",
+        "AR 37",
+        "Description of additional initiatives or processes with primary purpose of delivering positive impacts for affected communities  ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "a23795f860108ef164f94b15e0308359e4061857d8a46ba7e72d3d74a475436e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 46,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_03",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 31 - AR 33"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体如何跟踪和评估行动或举措在改善社区结果方面的有效性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of how effectiveness of actions or initiatives in delivering outcomes for affected communities is tracked and assessed",
+      "zh": "行动与举措有效性的跟踪评估（社区）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体如何跟踪和评估行动或举措在改善社区结果方面的有效性。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "32 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_04",
+        "S3",
+        "S3-4",
+        "32 d",
+        "AR 31 - AR 33",
+        "Description of how effectiveness of actions or initiatives in delivering outcomes for affected communities is tracked and assessed ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "3f72ca95c83a84e5e39ce3c357bfb1a503ee388b7053db0642f20604a23fc311",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 47,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_04",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 26"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述主体针对受影响社区特定实际或潜在重大负面影响确定所需适当行动的流程。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of processes to identifying what action is needed and appropriate in response to particular actual or potential material negative impact on affected communities",
+      "zh": "确定所需行动的流程（社区）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述主体针对受影响社区特定实际或潜在重大负面影响确定所需适当行动的流程。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "33 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_05",
+        "S3",
+        "S3-4",
+        "33 a",
+        "AR 26",
+        "Description of processes to identifying what action is needed and appropriate in response to particular actual or potential material negative impact on affected communities   ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "5a28aa55d0ca2a5dcde77efb741ada8b24ba26b2ff130e954c0e13cc12671d1e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 48,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_05",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述主体针对受影响社区特定重大负面影响采取行动的方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of approach to taking action in relation to specific material negative impacts on affected communities",
+      "zh": "针对社区重大负面影响的行为方法"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述主体针对受影响社区特定重大负面影响采取行动的方法。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "33 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_06",
+        "S3",
+        "S3-4",
+        "33 b",
+        null,
+        "Description of approach to taking action in relation to specific material negative impacts on affected communities   ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "927c1f499f198230beeb49cd31e0553ef178e69a8d0f647b7f4ef6087a12481b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 49,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_06",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述主体如何确保在受影响社区发生重大负面影响时，补救流程可得、可实施且结果有效。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of approach to ensuring that processes to provide or enable remedy in event of material negative impacts on affected communities are available and effective in their implementation and outcomes",
+      "zh": "确保社区补救流程可用有效的机制"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述主体如何确保在受影响社区发生重大负面影响时，补救流程可得、可实施且结果有效。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "33 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_07",
+        "S3",
+        "S3-4",
+        "33 c",
+        null,
+        "Description of approach to ensuring that processes to provide or enable remedy in event of material negative impacts on affected communities are available and effective in their implementation and outcomes ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "41059f7570b3585efe04c0dfce8e631848c99d889360e880e15f7ac21e491e88",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 50,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_07",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 38 - AR 40, AR 42"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述为缓解因对社区的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of what action is planned or underway to mitigate material risks arising from impacts and dependencies on affected communities and how effectiveness is tracked",
+      "zh": "缓解社区重大风险的行动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述为缓解因对社区的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "34 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_08",
+        "S3",
+        "S3-4",
+        "34 a",
+        "AR 38 - AR 40, AR 42",
+        "Description of what action is planned or underway to mitigate material risks arising from impacts and dependencies on affected communities and how effectiveness is tracked ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "1cae777431902c0000ebc7eba2fea5a5eeb05c1f8137f940625a88db55f6dc57",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 51,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_08",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述为把握与受影响社区相关的重大机遇而计划或正在进行的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of what action is planned or underway to pursue material opportunities in relation to affected communities",
+      "zh": "把握社区相关重大机遇的行动"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述为把握与受影响社区相关的重大机遇而计划或正在进行的行动。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp09",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "34 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_09",
+        "S3",
+        "S3-4",
+        "34 b",
+        null,
+        "Description of what action is planned or underway to pursue material opportunities in relation to affected communities   ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "4945b809cde018721426808b6d508efece558b05bfc97fd2668bf3aa7b7ac613",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 52,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_09",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 30"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体如何确保自身实践不会造成或促成对受影响社区的重大负面影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how it is ensured that own practices do not cause or contribute to material negative impacts on affected communities",
+      "zh": "确保自身实践不造成社区负面影响的机制"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体如何确保自身实践不会造成或促成对受影响社区的重大负面影响。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp10",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "35",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_10",
+        "S3",
+        "S3-4",
+        35,
+        "AR 30",
+        "Disclosure of whether and how it is ensured that own practices do not cause or contribute to material negative impacts on affected communities   ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "58d2fb78b3522d3f199b5a98a4dc0f5a0f815472bf41e214d2b10de919497c09",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 53,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_10",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp11",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of severe human rights issues and incidents connected to affected communities",
+      "zh": "与受影响社区相关的严重人权问题与事件"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp11",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "36",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": "SFDR",
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_11",
+        "S3",
+        "S3-4",
+        36,
+        null,
+        "Disclosure of severe human rights issues and incidents connected to affected communities ",
+        "narrative",
+        null,
+        null,
+        "SFDR",
+        "2 years",
+        null
+      ],
+      "row_sha256": "0cd0ee66e71dea1c409280dddfd08ea301065df6b8ddc6149ea1a02d92867bfe",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 54,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_11",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp11"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露为管理受影响社区重大影响所分配的资源，包括人员、预算和管理层投入。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp12",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of resources allocated to management of material impacts",
+      "zh": "管理社区重大影响的资源分配"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露为管理受影响社区重大影响所分配的资源，包括人员、预算和管理层投入。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp12",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "38",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_12",
+        "S3",
+        "S3-4",
+        38,
+        null,
+        "Disclosure of resources allocated to management of material impacts ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "751d28e503b61782a2971cd84e4a08b042f460fe8f84f0cd63657f541ca67860",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 55,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_12",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp12"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响社区的重大负面影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp13",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how undertaking seeks to use leverage with relevant business relationships to manage material negative impacts affecting  affected communities",
+      "zh": "利用业务关系杠杆管理社区负面影响"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响社区的重大负面影响。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp13",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 27",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_13",
+        "S3",
+        "S3-4",
+        "AR 27",
+        null,
+        "Disclosure of whether and how undertaking seeks to use leverage with relevant business relationships to manage material negative impacts affecting  affected communities   ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "a7642f88dd5bed949f471966c6df4a371afed387d1ac4efee20cf1bf2cb80299",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 56,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_13",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp13"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体参与行业或多利益相关方倡议的情况，以及其自身参与如何针对社区重大影响发挥作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp14",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of how participation in industry or multi-stakeholder initiative and undertaking's own involvement is aiming to address material impacts",
+      "zh": "行业或多利益相关方倡议中的参与与作用（社区）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体参与行业或多利益相关方倡议的情况，以及其自身参与如何针对社区重大影响发挥作用。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp14",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 28",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_14",
+        "S3",
+        "S3-4",
+        "AR 28",
+        null,
+        "Disclosure of how participation in industry or multi-stakeholder initiative and undertaking's own involvement is aiming to address material impacts ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "a2eaac422195bec9bd082785693b2c1bd41f9354a494924e893cdb9e0ba1e960",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 57,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_14",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp14"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明受影响社区是否以及如何在项目、投资或流程的设计与实施决策中发挥作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp15",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how affected communities  play role in decisions regarding design and implementation of programmes or investments",
+      "zh": "社区在项目设计与实施中的参与"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明受影响社区是否以及如何在项目、投资或流程的设计与实施决策中发挥作用。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp15",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 34 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_15",
+        "S3",
+        "S3-4",
+        "AR 34 a",
+        null,
+        "Disclosure of whether and how affected communities  play role in decisions regarding design and implementation of programmes or investments ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "a3e30e8bef90ef63277a61ee1d8ed3a5f2a73fbaa5fc5cc0430f285116045c2e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 58,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_15",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp15"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "提供面向受影响社区的项目或投资的预期或已实现积极结果信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp16",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Information about intended or achieved positive outcomes of programmes or investments for  affected communities",
+      "zh": "面向社区的项目或投资预期或已实现结果"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "提供面向受影响社区的项目或投资的预期或已实现积极结果信息。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp16",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 34 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_16",
+        "S3",
+        "S3-4",
+        "AR 34 b",
+        null,
+        "Information about intended or achieved positive outcomes of programmes or investments for  affected communities   ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "dd063ef691cd23ed4acedc0677bb9ce0d01ab527b792a834fe0284e105fbc6d0",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 59,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_16",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp16"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所描述社会投资或发展项目覆盖的社区大致范围，以及选择这些社区的理由。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp17",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Explanation of the approximate scope of affected communities covered by the described social investment or development programmes, and, where applicable, the rationale for why selected communities were chosen",
+      "zh": "社会投资或发展项目的社区覆盖范围"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所描述社会投资或发展项目覆盖的社区大致范围，以及选择这些社区的理由。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp17",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 34 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_17",
+        "S3",
+        "S3-4",
+        "AR 34 c",
+        null,
+        "Explanation of the approximate scope of affected communities covered by the described social investment or development programmes, and, where applicable, the rationale for why selected communities were chosen",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "80f6480ad6336e0760c7a4c5243e0461bfa3a50c088bb161d18faf6785b61ec8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 60,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_17",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp17"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明以积极影响社区为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp18",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Initiatives or processes whose primary aim is to deliver positive impacts for affected communities are designed also to support achievement of one or more of Sustainable Development Goals",
+      "zh": "项目与可持续发展目标的衔接（社区）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明以积极影响社区为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp18",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 35",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_18",
+        "S3",
+        "S3-4",
+        "AR 35",
+        null,
+        "Initiatives or processes whose primary aim is to deliver positive impacts for affected communities are designed also to support achievement of one or more of Sustainable Development Goals",
+        "semi-narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "62ad6c62f8e46158e747a88f4b52440f69e9f8573b7960ae13bd0db083f72b44",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 61,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_18",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp18"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述参与社区影响管理的内部职能，以及这些职能所采取的行动类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S3-4",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s3-4.topic.dp19",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "labels": {
+      "en": "Description of internal functions that are involved in managing impacts and types of action taken by internal functions to address negative and advance positive impacts",
+      "zh": "参与影响管理的内部职能及行动类型（社区）"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述参与社区影响管理的内部职能，以及这些职能所采取的行动类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s3-4.dp19",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.action-ref"
+    ],
+    "paragraph": "AR 43",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "S3-4_19",
+        "S3",
+        "S3-4",
+        "AR 43",
+        null,
+        "Description of internal functions that are involved in managing impacts and types of action taken by internal functions to address negative and advance positive impacts ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "002164115776951829509a7ceb879f1cc4996e978fbff04fd94d5f69a9ce9644",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR ",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 62,
+      "source_sheet": "ESRS S3",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s3-4.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "source_datapoint_id": "S3-4_19",
+    "source_refs": [
+      "esrs.2023-set1.s3-4.source.law",
+      "esrs.2023-set1.s3-4.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s3-4.concept.dp19"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

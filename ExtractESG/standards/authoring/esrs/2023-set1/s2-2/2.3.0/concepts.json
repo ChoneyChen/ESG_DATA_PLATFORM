@@ -1,0 +1,110 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp01",
+    "description": "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
+    "labels": {
+      "en": "Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential  impacts",
+      "zh": "价值链劳动者观点对决策的影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp02",
+    "description": "说明主体是否与价值链劳动者或其合法代表、可信代理直接开展接触，并指出接触形式。",
+    "labels": {
+      "en": "Engagement occurs with value chain workers or their legitimate\nrepresentatives directly, or with credible proxies",
+      "zh": "与价值链劳动者或其代表的接触"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp03",
+    "description": "披露与价值链劳动者接触发生的阶段、接触类型和频率。",
+    "labels": {
+      "en": "Disclosure of stage at which engagement occurs, type of engagement and frequency of engagement",
+      "zh": "接触发生的阶段、类型与频率（价值链劳动者）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp04",
+    "description": "说明主体内部负责确保价值链劳动者接触发生并使结果影响主体方法的职能和最资深角色。",
+    "labels": {
+      "en": "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach",
+      "zh": "负责确保接触发生并反馈结果的高级职能与角色（价值链）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp05",
+    "description": "披露主体是否签订全球框架协议或其他与尊重劳动者人权相关的协议，并说明其覆盖的价值链范围。",
+    "labels": {
+      "en": "Disclosure of Global Framework Agreement or other agreements related to respect of human rights of workers",
+      "zh": "全球框架协议或其他劳工权利协议（价值链）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp06",
+    "description": "说明主体如何评估与价值链劳动者接触的有效性，包括评估指标与反馈机制。",
+    "labels": {
+      "en": "Disclosure of how effectiveness of engagement with value chain workers is assessed",
+      "zh": "与价值链劳动者接触有效性的评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp07",
+    "description": "说明主体为深入了解尤其易受伤害或边缘化的价值链劳动者观点所采取的步骤。",
+    "labels": {
+      "en": "Disclosure of steps taken to gain insight into perspectives of value chain workers that may be particularly vulnerable to impacts and (or) marginalised",
+      "zh": "了解易受伤害或边缘化价值链劳动者观点的步骤"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp08",
+    "description": "说明主体是否尚未建立与价值链劳动者接触的一般性流程；若未建立，披露现状与原因。",
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a general process to engage with value chain workers",
+      "zh": "未建立价值链劳动者接触流程时的说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s2-2.concept.dp09",
+    "description": "披露主体计划建立与价值链劳动者一般性接触流程的时间表。",
+    "labels": {
+      "en": "Disclosure of timeframe for adoption of general process to engage with  value chain workers  in case the undertaking has not adopted a general process for engagement",
+      "zh": "建立价值链劳动者接触流程的时间表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s2-2.source.law",
+      "esrs.2023-set1.s2-2.source.ig3"
+    ]
+  }
+]

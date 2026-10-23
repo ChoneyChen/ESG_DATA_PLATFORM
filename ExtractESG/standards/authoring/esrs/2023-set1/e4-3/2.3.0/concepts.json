@@ -1,0 +1,194 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp01",
+    "description": "说明生物多样性和生态系统相关行动如何应用避免、最小化、恢复和抵消的减缓层级。",
+    "labels": {
+      "en": "Disclosure on how the mitigation hierarchy has been applied with regard to biodiversity and ecosystem actions",
+      "zh": "减缓层级在生物多样性和生态系统行动中的应用"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp02",
+    "description": "说明行动计划是否使用生物多样性抵消，并指出抵消对应的残余影响。",
+    "labels": {
+      "en": "Biodiversity offsets were used in action plan",
+      "zh": "行动计划中的生物多样性抵消使用"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp03",
+    "description": "披露每项生物多样性抵消的目的及其关键绩效指标，包括衡量生态等效性的方式。",
+    "labels": {
+      "en": "Disclosure of aim of biodiversity offset and key performance indicators used",
+      "zh": "生物多样性抵消的目的与关键绩效指标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp04",
+    "description": "量化生物多样性抵消产生的直接和间接成本，并说明其确认与计量基础。",
+    "labels": {
+      "en": "Financing effects (direct and indirect costs) of biodiversity offsets",
+      "zh": "生物多样性抵消的财务影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp05",
+    "description": "说明实施已采取或计划行动所需的重大资本支出和运营支出与财务报表相关项目或附注的对应关系。",
+    "labels": {
+      "en": "Explanation of rekationship of significant Capex and Opex required to impelement actions taken or planned to relevant line items or notes in the financial statements",
+      "zh": "重大资本支出与运营支出在财务报表中的对应关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp06",
+    "description": "说明实施行动所需的重大资本支出和运营支出与欧盟委托条例(EU) 2021/2178所要求关键绩效指标的对应关系。",
+    "labels": {
+      "en": "Explanation of rekationship of significant Capex and Opex required to impelement actions taken or planned to key  performance indicators required under Commission Delegated Regulation (EU) 2021/2178",
+      "zh": "资本支出与运营支出同欧盟分类法关键绩效指标的对应关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp07",
+    "description": "说明实施行动所需的重大资本支出和运营支出与欧盟委托条例(EU) 2021/2178所要求资本支出计划的对应关系。",
+    "labels": {
+      "en": "Explanation of rekationship of significant Capex and Opex required to impelement actions taken or planned to Capex plan required under Commission Delegated Regulation (EU) 2021/2178",
+      "zh": "资本支出与运营支出同欧盟分类法资本支出计划的对应关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp08",
+    "description": "描述所采用的生物多样性抵消措施，包括地点、面积、生态目标和持续时间。",
+    "labels": {
+      "en": "Description of biodiversity offsets",
+      "zh": "生物多样性抵消的描述"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp09",
+    "description": "说明地方和原住民知识以及基于自然的解决方案是否以及如何纳入生物多样性和生态系统相关行动。",
+    "labels": {
+      "en": "Description of whether and how local and indigenous knowledge and nature-based solutions have been incorporated into biodiversity and ecosystems-related action",
+      "zh": "地方与传统知识及基于自然的解决方案的纳入"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp10",
+    "description": "披露行动涉及的关键利益相关方、参与方式，以及受到正面或负面影响的群体及其受影响方式。",
+    "labels": {
+      "en": "Disclosure of key stakeholders involved and how they are involved, key stakeholders negatively or positively impacted by action and how they are impacted",
+      "zh": "关键利益相关方及其受影响方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp11",
+    "description": "说明行动为何需要适当协商，以及如何尊重受影响社区的决策与权利。",
+    "labels": {
+      "en": "Explanation of need for appropriate consultations and need to respect decisions of affected communities",
+      "zh": "受影响社区协商与决策尊重"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp12",
+    "description": "说明关键行动是否可能引发重大负面可持续性影响，包括影响的类型与范围。",
+    "labels": {
+      "en": "Description of whether key action may induce significant negative sustainability impacts (biodiversity and ecosystems)",
+      "zh": "关键行动可能引发的重大负面影响"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp13",
+    "description": "说明关键行动是计划作为一次性举措还是作为系统性实践持续实施。",
+    "labels": {
+      "en": "Explanation of whether the key action is intended to be a one-time initiative or systematic practice",
+      "zh": "关键行动是一次性举措还是系统性实践"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp14",
+    "description": "说明由主体单独使用自身资源实施的关键行动，包括资源投入与责任分工。",
+    "labels": {
+      "en": "Key action plan is carried out only by undertaking (individual action) using its resources (biodiversity and ecosystems)",
+      "zh": "主体单独实施的关键行动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp15",
+    "description": "说明关键行动所属的更广泛集体行动计划、主体在其中的角色以及其他参与方。",
+    "labels": {
+      "en": "Key action plan is part of wider action plan (collective action), of which undertaking is member (biodiversity and ecosystems)",
+      "zh": "主体参与的集体行动"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-3.concept.dp16",
+    "description": "补充说明项目背景、发起方和其他参与方，以便理解行动的组织方式与影响范围。",
+    "labels": {
+      "en": "Additional information about project, its sponsors and other participants (biodiversity and ecosystems)",
+      "zh": "项目、发起方与其他参与方的补充信息"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-3.source.law",
+      "esrs.2023-set1.e4-3.source.ig3"
+    ]
+  }
+]

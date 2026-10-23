@@ -1,0 +1,110 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp01",
+    "description": "说明主体为预防、发现和处理腐败或贿赂指控或事件所建立的程序。",
+    "labels": {
+      "en": "Information about procedures in place to prevent, detect, and address allegations or incidents of corruption or bribery",
+      "zh": "预防、发现和处理腐败或贿赂指控的程序"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp02",
+    "description": "说明调查人员或调查委员会是否独立于参与预防和发现腐败或贿赂的管理链条，并说明其报告关系。",
+    "labels": {
+      "en": "Investigators or investigating committee are separate from chain of management involved in prevention and detection of corruption or bribery",
+      "zh": "调查人员或调查委员会的独立性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp03",
+    "description": "说明将调查结果和处置情况报告给行政、管理和监督机构的流程与频率。",
+    "labels": {
+      "en": "Information about process to report outcomes to administrative, management and supervisory bodies",
+      "zh": "向行政、管理和监督机构报告结果的流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp04",
+    "description": "说明在尚未建立预防、发现和处理腐败或贿赂程序的情况下，主体计划如何建立相关程序。",
+    "labels": {
+      "en": "Disclosure of plans to adopt procedures to prevent, detect, and address allegations or incidents of corruption or bribery in case of no procedure",
+      "zh": "在缺少程序时采用相关程序的计划"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp05",
+    "description": "说明反腐败或反贿赂政策如何传达给相关人员，包括渠道、语言和确认机制。",
+    "labels": {
+      "en": "Information about how policies are communicated to those for whom they are relevant (prevention and detection of corruption or bribery)",
+      "zh": "政策向相关人员的传达方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp06",
+    "description": "说明主体提供或要求参加的反腐败或反贿赂培训的性质、覆盖范围和内容深度。",
+    "labels": {
+      "en": "Information about nature, scope and depth of anti-corruption or anti-bribery training programmes offered or required",
+      "zh": "反腐败或反贿赂培训的性质、范围与深度"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp07",
+    "description": "披露高风险职能中受反腐败或反贿赂培训覆盖的比例，并说明统计口径。",
+    "labels": {
+      "en": "Percentage of functions-at-risk covered by training programmes",
+      "zh": "受培训覆盖的高风险职能比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp08",
+    "description": "说明行政、监督和管理机构成员参与反腐败或反贿赂培训的情况。",
+    "labels": {
+      "en": "Information about members of administrative, supervisory and management bodies relating to anti-corruption or anti-bribery training",
+      "zh": "行政、监督与管理机构成员的反腐败培训"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-3.concept.dp09",
+    "description": "披露按地区、类别等维度对反腐败或反贿赂培训活动所作的分析。",
+    "labels": {
+      "en": "Disclosure of an analysis of its training activities by, for example, region of training or category",
+      "zh": "培训活动的分析"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-3.source.law",
+      "esrs.2023-set1.g1-3.source.ig3"
+    ]
+  }
+]

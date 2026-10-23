@@ -1,0 +1,2366 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 4-AR 9"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how actual and potential impacts on biodiversity and ecosystems at own site locations and in value chain have been identified and assessed",
+      "zh": "自身场址与价值链中生物多样性和生态系统影响的识别与评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_01",
+        "E4",
+        "E4.IRO-1",
+        " 17 a",
+        "AR 4-AR 9",
+        "Disclosure of whether and how actual and potential impacts on biodiversity and ecosystems at own site locations and in value chain have been identified and assessed ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "9455090ed8de21386474d7f4cd6c4f316922e07a4e19eb8a5f384a60e886b415",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 9,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_01",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 8"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统及其服务的依赖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how dependencies on biodiversity and ecosystems and their services have been identified and assessed at own site locations and in value chain",
+      "zh": "生物多样性和生态系统依赖的识别与评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统及其服务的依赖。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_02",
+        "E4",
+        "E4.IRO-1",
+        " 17 b",
+        "AR 8",
+        "Disclosure of whether and how dependencies on biodiversity and ecosystems and their services have been identified and assessed at own site locations and in value chain ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "d0228c5c616106ff3366fe19b671855f68d0ca92e157002f29e4da7bb2b891cd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 10,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_02",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 9"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何识别和评估与生物多样性和生态系统相关的转型风险、物理风险及机遇。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how transition and physical risks and opportunities related to biodiversity and ecosystems have been identified and assessed",
+      "zh": "生物多样性和生态系统相关转型风险、物理风险与机遇的识别与评估"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何识别和评估与生物多样性和生态系统相关的转型风险、物理风险及机遇。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_03",
+        "E4",
+        "E4.IRO-1",
+        " 17 c",
+        "AR 9",
+        "Disclosure of whether and how transition and physical risks and opportunities related to biodiversity and ecosystems have been identified and assessed ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "2f0fa7266817237d05e6f9c97a8c5523fd0fd97081d2a72192c3d1acd9b5d897",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 11,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_03",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 9"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何考虑与生物多样性和生态系统相关的系统性风险。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how systemic risks have been considered (biodiversity and ecosystems)",
+      "zh": "系统性风险的考虑"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何考虑与生物多样性和生态系统相关的系统性风险。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_04",
+        "E4",
+        "E4.IRO-1",
+        " 17 d",
+        "AR 9",
+        "Disclosure of whether and how systemic risks have been considered (biodiversity and ecosystems)",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "94ea464f574a1b64ed332efda9bd24fb6f63c5bfa66efd60bc83c61f8844f7ce",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 12,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_04",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何就共享生物资源和生态系统的可持续性评估与受影响社区开展协商。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how consultations with affected communities on sustainability assessments of shared biological resources and ecosystems have been conducted",
+      "zh": "对共享生物资源与生态系统评估的社区协商"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何就共享生物资源和生态系统的可持续性评估与受影响社区开展协商。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_05",
+        "E4",
+        "E4.IRO-1",
+        " 17 e",
+        null,
+        "Disclosure of whether and how consultations with affected communities on sustainability assessments of shared biological resources and ecosystems have been conducted ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "6e52e5007762ad5ab67297b1c031d3b09eebd920ccfc72bc7315898d7bbdaab3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 13,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_05",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何识别对受影响社区产生实际或潜在负面影响的特定场址、原材料生产或采购来源。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how specific sites, raw materials production or sourcing with negative or potential negative impacts on affected communities",
+      "zh": "对受影响社区有负面影响的场址与原料来源识别"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何识别对受影响社区产生实际或潜在负面影响的特定场址、原材料生产或采购来源。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 e i",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_06",
+        "E4",
+        "E4.IRO-1",
+        " 17 e i",
+        null,
+        "Disclosure of whether and how specific sites, raw materials production or sourcing with negative or potential negative impacts on affected communities ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "55360e74f15ce1b4fe3444648b102cb95460f3950e3ca826bb148f1adcd2701b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 14,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_06",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明社区是否以及如何参与生物多样性和生态系统重要性评估。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how communities were involved in materiality assessment",
+      "zh": "社区在重要性评估中的参与"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明社区是否以及如何参与生物多样性和生态系统重要性评估。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 e ii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_07",
+        "E4",
+        "E4.IRO-1",
+        " 17 e ii",
+        null,
+        "Disclosure of whether and how communities were involved in materiality assessment ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "6b70258e62a26b2b46d7468d658b6b368ec2a10a3e87d4e1a110f51493de25fd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 15,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_07",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何避免对受影响社区相关的优先生态系统服务造成负面影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how negative impacts on priority ecosystem services of relevance to affected communities may be avoided",
+      "zh": "避免对社区优先生态系统服务负面影响的方式"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何避免对受影响社区相关的优先生态系统服务造成负面影响。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 e iii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_08",
+        "E4",
+        "E4.IRO-1",
+        " 17 e iii",
+        null,
+        "Disclosure of whether and how negative impacts on priority ecosystem services of relevance to affected communities may be avoided ",
+        "narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "ed46adb5cefd29dffa0c369af9b10324f3e21eec063cecdd3d4fd8195cc8bdd5",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 16,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_08",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露将不可避免的负面影最小化的计划，以及为维持优先服务的价值与功能而实施的减缓措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of plans to minimise unavoidable negative impacts and implement mitigation measures that aim to maintain value and functionality of priority services",
+      "zh": "不可避免影响的最小化与减缓计划"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露将不可避免的负面影最小化的计划，以及为维持优先服务的价值与功能而实施的减缓措施。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp09",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 17 e iii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_09",
+        "E4",
+        "E4.IRO-1",
+        " 17 e iii",
+        null,
+        "Disclosure of plans to minimise unavoidable negative impacts and implement mitigation measures that aim to maintain value and functionality of priority services ",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "39eb21cd49676379c34aca3d0073578f142e7316e403e6b2a5722c8e1d99f73d",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 17,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_09",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how tthe business model(s) has been verified using range of biodiversity and ecosystems scenarios, or other scenarios with modelling of biodiversity and ecosystems related consequences, with different possible pathways",
+      "zh": "使用生物多样性和生态系统情景验证商业模式"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp10",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": "18",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_10",
+        "E4",
+        "E4.IRO-1",
+        18,
+        null,
+        "Disclosure of whether and how tthe business model(s) has been verified using range of biodiversity and ecosystems scenarios, or other scenarios with modelling of biodiversity and ecosystems related consequences, with different possible pathways",
+        "narrative",
+        null,
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "89ad6b67ecadbab54d3735c871792c4c8e693b2a697027988772e934fc9b44a3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 18,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_10",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体为何选择所考虑的生物多样性和生态系统情景，以及这些情景与自身风险和机遇的相关性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp11",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of why considered scenarios were taken into consideration",
+      "zh": "采用特定情景的理由"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体为何选择所考虑的生物多样性和生态系统情景，以及这些情景与自身风险和机遇的相关性。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp11",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 18 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_11",
+        "E4",
+        "E4.IRO-1",
+        " 18 a",
+        null,
+        "Disclosure of why considered scenarios were taken into consideration ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "082658cd809c7ac630cb7cc4be4e06fb86878f16dd8e9f18d4ab8b405bfc24f0",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 19,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_11",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp11"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所考虑的情景如何根据不断变化的条件和新兴趋势进行更新。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp12",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Disclosure of how considered scenarios are updated according to evolving conditions and emerging trends",
+      "zh": "情景随条件与趋势的更新"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所考虑的情景如何根据不断变化的条件和新兴趋势进行更新。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp12",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 18 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_12",
+        "E4",
+        "E4.IRO-1",
+        " 18 b",
+        null,
+        "Disclosure of how considered scenarios are updated according to evolving conditions and emerging trends ",
+        "narrative",
+        "Conditional",
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "d5d19859286f75fb39dab35970dfbeba42176729511542edc992446fddbcb453",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 20,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_12",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp12"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所用情景如何参考权威政府间工具中的预期和科学共识。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp13",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Scenarios are informed by expectations in authoritative intergovernmental instruments and by scientific consensus",
+      "zh": "情景与权威政府间工具及科学共识的一致性"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所用情景如何参考权威政府间工具中的预期和科学共识。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp13",
+    "obligation_class": "conditional_voluntary_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 18 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_13",
+        "E4",
+        "E4.IRO-1",
+        " 18 c",
+        null,
+        "Scenarios are informed by expectations in authoritative intergovernmental instruments and by scientific consensus",
+        "semi-narrative",
+        "Conditional",
+        "V",
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "1b1f4d569ed57b4903b933f151f1402771a49adb4d91c6dc12673012b944e0c7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 21,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_13",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp13"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 7d"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp14",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Undertaking has sites located in or near biodiversity-sensitive areas",
+      "zh": "位于或邻近生物多样性敏感区域的场址"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp14",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 19a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_14",
+        "E4",
+        "E4.IRO-1",
+        " 19a",
+        "AR 7d",
+        "Undertaking has sites located in or near biodiversity-sensitive areas",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "37ccefbd333c3bffc71cd9838797434c76c6f373ac30a09754185ed06a96cfb2",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 22,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_14",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp14"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR  7d"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp15",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "Activities related to sites located in or near biodiversity-sensitive areas negatively affect these areas by leading to deterioration of natural habitats and habitats of species and to disturbance of species for which protected area has been designated",
+      "zh": "敏感区域场址活动造成的栖息地退化与物种干扰"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp15",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 19a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_15",
+        "E4",
+        "E4.IRO-1",
+        " 19a",
+        "AR  7d",
+        "Activities related to sites located in or near biodiversity-sensitive areas negatively affect these areas by leading to deterioration of natural habitats and habitats of species and to disturbance of species for which protected area has been designated",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "1c87333d19c76c73850198c92b64ed3b32b81f44914fe0ebb90efc90ba1a7c81",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 23,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_15",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp15"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体是否已得出结论认为有必要实施生物多样性减缓措施，并给出理由。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E4.IRO-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e4-iro-1.topic.dp16",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "labels": {
+      "en": "It has been concluded that it is necessary to implement biodiversity mitigation measures",
+      "zh": "实施生物多样性减缓措施的必要性结论"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体是否已得出结论认为有必要实施生物多样性减缓措施，并给出理由。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e4-iro-1.dp16",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.risk-type",
+      "esrs.2023-set1.e4-iro-1.dimension.time-horizon",
+      "esrs.2023-set1.e4-iro-1.dimension.scenario"
+    ],
+    "paragraph": " 19b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "2 years",
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E4.IRO-1_16",
+        "E4",
+        "E4.IRO-1",
+        " 19b",
+        null,
+        "It has been concluded that it is necessary to implement biodiversity mitigation measures",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "2 years",
+        null
+      ],
+      "row_sha256": "a1988c29e7aa86201771455f07fbaf85cd732f9f3a452c92c1983a6654a32e95",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 24,
+      "source_sheet": "ESRS E4",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e4-iro-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "source_datapoint_id": "E4.IRO-1_16",
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e4-iro-1.concept.dp16"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

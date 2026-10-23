@@ -1,0 +1,26 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.g1-gov-1.concept.dp01",
+    "description": "披露行政、管理和监督机构在商业行为相关事项中的角色、职责与监督安排。",
+    "labels": {
+      "en": "Disclosure of role of administrative, management and supervisory bodies related to business conduct",
+      "zh": "行政、管理和监督机构在商业行为中的角色"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-gov-1.source.law",
+      "esrs.2023-set1.g1-gov-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.g1-gov-1.concept.dp02",
+    "description": "披露行政、管理和监督机构在商业行为事项方面的专长、经验及获取方式。",
+    "labels": {
+      "en": "Disclosure of expertise of administrative, management and supervisory bodies on business conduct matters",
+      "zh": "行政、管理和监督机构在商业行为方面的专长"
+    },
+    "source_refs": [
+      "esrs.2023-set1.g1-gov-1.source.law",
+      "esrs.2023-set1.g1-gov-1.source.ig3"
+    ]
+  }
+]

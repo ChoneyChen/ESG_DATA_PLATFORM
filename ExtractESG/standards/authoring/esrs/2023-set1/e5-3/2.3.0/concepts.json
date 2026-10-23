@@ -1,0 +1,158 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp01",
+    "description": "说明资源利用与循环经济目标如何与资源使用总量、强度或结构相关联。",
+    "labels": {
+      "en": "Disclosure of how target relates to resources (resource use and circular economy)",
+      "zh": "目标与资源使用的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp02",
+    "description": "说明目标如何与循环设计应用范围的扩大相关联，并给出衡量方式。",
+    "labels": {
+      "en": "Disclosure of how target relates to increase of circular design",
+      "zh": "目标与循环设计提升的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp03",
+    "description": "说明目标如何与循环材料使用率的提升相关联，包括基准值和目标值。",
+    "labels": {
+      "en": "Disclosure of how target relates to increase of circular material use rate",
+      "zh": "目标与循环材料使用率提升的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp04",
+    "description": "说明目标如何与原生原材料使用的最小化相关联，包括覆盖的材料范围。",
+    "labels": {
+      "en": "Disclosure of how target relates to minimisation of primary raw material",
+      "zh": "目标与原生原材料最小化的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp05",
+    "description": "说明目标如何与逆转可再生资源存量耗竭相关联，包括再生速率与消耗速率的关系。",
+    "labels": {
+      "en": "Disclosure of how target relates to reversal of depletion of stock of renewable resources",
+      "zh": "目标与可再生资源存量耗竭逆转的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp06",
+    "description": "披露与废弃物管理相关的目标，包括减量、回收或处置方式的目标值。",
+    "labels": {
+      "en": "Target relates to waste management",
+      "zh": "与废弃物管理相关的目标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp07",
+    "description": "说明目标如何与废弃物管理的各个层级相关联，并指出目标的衡量口径。",
+    "labels": {
+      "en": "Disclosure of how target relates to waste management",
+      "zh": "目标与废弃物管理的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp08",
+    "description": "说明目标如何与除废弃物管理外的其他资源利用或循环经济事项相关联。",
+    "labels": {
+      "en": "Disclosure of how target relates to other matters related to resource use or circular economy",
+      "zh": "目标与其他资源利用或循环经济事项的关系"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp09",
+    "description": "说明目标归属于废弃物层级的哪一层，即预防、再利用准备、回收、其他回收利用或处置。",
+    "labels": {
+      "en": "Layer in waste hierarchy to which target relates",
+      "zh": "目标对应的废弃物层级"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp10",
+    "description": "披露资源利用与循环经济目标所依据的生态阈值及其识别方法。",
+    "labels": {
+      "en": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (resource use and circular economy)",
+      "zh": "生态阈值的识别与方法（资源利用与循环经济）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp11",
+    "description": "说明主体特定的资源利用生态阈值如何确定，包括本地化调整与科学依据。",
+    "labels": {
+      "en": "Disclosure of how ecological entity-specific threshold was determined (resource use and circular economy)",
+      "zh": "主体特定生态阈值的确定（资源利用与循环经济）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp12",
+    "description": "说明尊重所识别资源利用生态阈值的责任如何在主体内部及价值链相关方之间分配。",
+    "labels": {
+      "en": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (resource use and circular economy)",
+      "zh": "尊重生态阈值的责任分配（资源利用与循环经济）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e5-3.concept.dp13",
+    "description": "说明所设定并披露的目标是否为法规强制要求，并指出对应的法律依据。",
+    "labels": {
+      "en": "The targets being  set and presented are mandatory (required by legislation)",
+      "zh": "法定要求的目标"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e5-3.source.law",
+      "esrs.2023-set1.e5-3.source.ig3"
+    ]
+  }
+]

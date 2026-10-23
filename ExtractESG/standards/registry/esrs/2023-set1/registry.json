@@ -1569,7 +1569,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4.SBM-3_04"
       ],
@@ -1579,12 +1579,12 @@
         "E4.SBM-3_04"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-sbm-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-sbm-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-sbm-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4.SBM-3_01",
         "E4.SBM-3_02",
@@ -1593,13 +1593,13 @@
         "E4.SBM-3_05",
         "E4.SBM-3_06"
       ],
-      "source_digest": "4ff1edf8853d34a12f22c6077c98a61ef2d89cf591d243f98ac88d929845848f",
-      "source_directory": "authoring/esrs/2023-set1/e4-sbm-3/2.1.1",
+      "source_digest": "d5fcb198e7de17dd34fa29bf324f5451cdd7464be9b3284cc48af9bc54700db0",
+      "source_directory": "authoring/esrs/2023-set1/e4-sbm-3/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4.IRO-1_14"
       ],
@@ -1609,12 +1609,12 @@
         "E4.IRO-1_14"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-iro-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-iro-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-iro-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4.IRO-1_01",
         "E4.IRO-1_02",
@@ -1633,13 +1633,13 @@
         "E4.IRO-1_15",
         "E4.IRO-1_16"
       ],
-      "source_digest": "f37c8e8bdab7260ccae55f5281efcbd5cfc7ceb4cbcbe847d728abd7b74ef20f",
-      "source_directory": "authoring/esrs/2023-set1/e4-iro-1/2.1.1",
+      "source_digest": "07694458822692a7136dac865210bf30ab30cfbe7ddb3e847dd78a6bc9dcb828",
+      "source_directory": "authoring/esrs/2023-set1/e4-iro-1/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4-1_01"
       ],
@@ -1647,12 +1647,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4-1_01",
         "E4-1_02",
@@ -1673,13 +1673,13 @@
         "E4-1_17",
         "E4-1_18"
       ],
-      "source_digest": "e00db0386d42689c3372d548072a6ddd72c9e03269acde313ac8c4edd5d798f0",
-      "source_directory": "authoring/esrs/2023-set1/e4-1/2.1.1",
+      "source_digest": "e97d95b226c9c88b5cc9164585e0aab7014e3380b70b588910f6f3959dacb15d",
+      "source_directory": "authoring/esrs/2023-set1/e4-1/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4-2_01"
       ],
@@ -1687,12 +1687,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4-2_01",
         "E4-2_02",
@@ -1715,13 +1715,13 @@
         "E4-2_19",
         "E4-2_20"
       ],
-      "source_digest": "a4fd37459231ab9bf7d0683d51f7ece0eaf3884fce1991d4fbc7499838bcd734",
-      "source_directory": "authoring/esrs/2023-set1/e4-2/2.1.1",
+      "source_digest": "2bb8b579f5371636849a112e4b30de1e7fc4d91f7216fe180506c57e45762adc",
+      "source_directory": "authoring/esrs/2023-set1/e4-2/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4-3_01"
       ],
@@ -1729,12 +1729,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4-3_01",
         "E4-3_02",
@@ -1753,13 +1753,13 @@
         "E4-3_15",
         "E4-3_16"
       ],
-      "source_digest": "57de6e349ba10362d456117958cedba98df28681a30768d38795dbe9778b4e0b",
-      "source_directory": "authoring/esrs/2023-set1/e4-3/2.1.1",
+      "source_digest": "0e64313c3ed73edffa23dd69a898e5c1aaa4670e6699f07ace8fef406acab100",
+      "source_directory": "authoring/esrs/2023-set1/e4-3/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4-4_01"
       ],
@@ -1767,12 +1767,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-4",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-4/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-4/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4-4_01",
         "E4-4_02",
@@ -1785,13 +1785,13 @@
         "E4-4_09",
         "E4-4_10"
       ],
-      "source_digest": "734ae5bb5078b25c5f5b1982a4d7361c1da42fd20ce32b57540a9f798c1ac820",
-      "source_directory": "authoring/esrs/2023-set1/e4-4/2.1.1",
+      "source_digest": "d956d4d6b0549ec04bdfbecd50956d9f9efd4209c8ac81842e36d7fd53920731",
+      "source_directory": "authoring/esrs/2023-set1/e4-4/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4-5_01",
         "E4-5_02"
@@ -1803,12 +1803,12 @@
         "E4-5_02"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-5",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-5/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-5/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4-5_01",
         "E4-5_02",
@@ -1838,13 +1838,13 @@
         "E4-5_26",
         "E4-5_27"
       ],
-      "source_digest": "07c67172070e79edbdb050e9355a7a0297696a668683b9f14f5cd3e860b36780",
-      "source_directory": "authoring/esrs/2023-set1/e4-5/2.1.1",
+      "source_digest": "96b465ec27dbfb0c3bad9028963e149a5de58ef0f463c9cde44ea49da47d7ebf",
+      "source_directory": "authoring/esrs/2023-set1/e4-5/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E4-6_01"
       ],
@@ -1852,12 +1852,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e4-6",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e4-6/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e4-6/2.3.0/package.json",
       "source_datapoint_ids": [
         "E4-6_01",
         "E4-6_02",
@@ -1866,13 +1866,13 @@
         "E4-6_05",
         "E4-6_06"
       ],
-      "source_digest": "d35d544950a4e40b97e2ef5277b7122e78f7cb2da4cda8d11e7aa022f8d3b6c4",
-      "source_directory": "authoring/esrs/2023-set1/e4-6/2.1.1",
+      "source_digest": "e654df53884debac3f883e2b9102a288391eb5fc6ec968b518c780cbdd918734",
+      "source_directory": "authoring/esrs/2023-set1/e4-6/2.3.0",
       "source_sheet": "ESRS E4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E5.IRO-1_01"
       ],
@@ -1880,23 +1880,23 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e5-iro-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e5-iro-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e5-iro-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "E5.IRO-1_01",
         "E5.IRO-1_02"
       ],
-      "source_digest": "9787ff76585dd2409165484c317c07607312705bffa421e531dda00ddfcbd481",
-      "source_directory": "authoring/esrs/2023-set1/e5-iro-1/2.1.1",
+      "source_digest": "fbe99b91977d9e76bb2f59c59c7cceffda80ffbb052324dc72c40a96ffeb1cf8",
+      "source_directory": "authoring/esrs/2023-set1/e5-iro-1/2.3.0",
       "source_sheet": "ESRS E5",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E5-1_01"
       ],
@@ -1904,25 +1904,25 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e5-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e5-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e5-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "E5-1_01",
         "E5-1_02",
         "E5-1_03",
         "E5-1_04"
       ],
-      "source_digest": "b1a288c596bba8fd3ec608f468af6f02caf6a22b9d5f7dfe842a371e4af7dead",
-      "source_directory": "authoring/esrs/2023-set1/e5-1/2.1.1",
+      "source_digest": "fadb391ec8f5729404d35fe36e79ec3f560faea0c192c1116ec3eab2552f4e73",
+      "source_directory": "authoring/esrs/2023-set1/e5-1/2.3.0",
       "source_sheet": "ESRS E5",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E5-2_01"
       ],
@@ -1930,12 +1930,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e5-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e5-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e5-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "E5-2_01",
         "E5-2_02",
@@ -1948,13 +1948,13 @@
         "E5-2_09",
         "E5-2_10"
       ],
-      "source_digest": "cf87c7a8e3f4576efb4574400550cd3c041ae8e55374e22a34cf50eef5296e7d",
-      "source_directory": "authoring/esrs/2023-set1/e5-2/2.1.1",
+      "source_digest": "15ee7b883fc73760e8a0a2e8f0952888b61e7acdaacb0375c5a0df60923096e9",
+      "source_directory": "authoring/esrs/2023-set1/e5-2/2.3.0",
       "source_sheet": "ESRS E5",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E5-3_01"
       ],
@@ -1962,12 +1962,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e5-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e5-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e5-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "E5-3_01",
         "E5-3_02",
@@ -1983,8 +1983,8 @@
         "E5-3_12",
         "E5-3_13"
       ],
-      "source_digest": "46020712a645a8b802d612220dd0599683dc53917f58a159fb8a1abceb711067",
-      "source_directory": "authoring/esrs/2023-set1/e5-3/2.1.1",
+      "source_digest": "e3e4da5a3b02b0b8d1d2941ff409cab68f7513af664b4faf1f8a63bfa32a3643",
+      "source_directory": "authoring/esrs/2023-set1/e5-3/2.3.0",
       "source_sheet": "ESRS E5",
       "state": "compiled_draft"
     },
@@ -2069,7 +2069,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "E5-6_01"
       ],
@@ -2077,12 +2077,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e5-6",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.e5-6/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.e5-6/2.3.0/package.json",
       "source_datapoint_ids": [
         "E5-6_01",
         "E5-6_02",
@@ -2091,13 +2091,13 @@
         "E5-6_05",
         "E5-6_06"
       ],
-      "source_digest": "c15436e4031a4b799460b2b8c8858bdb71c0ce207ba715ddba4cba974c822f07",
-      "source_directory": "authoring/esrs/2023-set1/e5-6/2.1.1",
+      "source_digest": "e691f3044037c019418dd80f113a2c2020e1833e8a65b91e3302bb9141d5bc95",
+      "source_directory": "authoring/esrs/2023-set1/e5-6/2.3.0",
       "source_sheet": "ESRS E5",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1.SBM-3_01"
       ],
@@ -2105,12 +2105,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-sbm-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-sbm-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-sbm-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1.SBM-3_01",
         "S1.SBM-3_02",
@@ -2125,13 +2125,13 @@
         "S1.SBM-3_11",
         "S1.SBM-3_12"
       ],
-      "source_digest": "9df3d125fbac1786ec044f447639995da8c951f6f9b26fbd1e9b21a0af883709",
-      "source_directory": "authoring/esrs/2023-set1/s1-sbm-3/2.1.1",
+      "source_digest": "d77bee20b29477ea496a9e348bc748150fc5730d642a67cc614d47537e652130",
+      "source_directory": "authoring/esrs/2023-set1/s1-sbm-3/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-1_01"
       ],
@@ -2139,12 +2139,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-1_01",
         "S1-1_02",
@@ -2169,13 +2169,13 @@
         "S1-1_21",
         "S1-1_22"
       ],
-      "source_digest": "c663ae4502ddb7ebc3347f9aa34f61632b6df6c34be214ebb74f0d59839c2223",
-      "source_directory": "authoring/esrs/2023-set1/s1-1/2.1.1",
+      "source_digest": "c71b4ed58c0db5ec95e607599d6010588a9d5af20a10e6324f9699f76d8d1f29",
+      "source_directory": "authoring/esrs/2023-set1/s1-1/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-2_01"
       ],
@@ -2183,12 +2183,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-2_01",
         "S1-2_02",
@@ -2206,13 +2206,13 @@
         "S1-2_14",
         "S1-2_15"
       ],
-      "source_digest": "cd9cc00ead939ad9bbd05aac045a8dac9a1dc4984f860fff100dc5c6001e218e",
-      "source_directory": "authoring/esrs/2023-set1/s1-2/2.1.1",
+      "source_digest": "81ce16ad224eb1513e6807a36572eb19e344cd28045cd30db80bf2ecbcb938db",
+      "source_directory": "authoring/esrs/2023-set1/s1-2/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-3_01"
       ],
@@ -2220,12 +2220,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-3_01",
         "S1-3_02",
@@ -2239,13 +2239,13 @@
         "S1-3_10",
         "S1-3_11"
       ],
-      "source_digest": "59037e9f91976bdd77f3e1ce6428f85275f896c7dd81be0c37a596fe714e731d",
-      "source_directory": "authoring/esrs/2023-set1/s1-3/2.1.1",
+      "source_digest": "f32fffe444a20fca30d5e424af671420bf6ece74b174c244f889fd17db4ea252",
+      "source_directory": "authoring/esrs/2023-set1/s1-3/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-4_01"
       ],
@@ -2253,12 +2253,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-4",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-4/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-4/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-4_01",
         "S1-4_02",
@@ -2281,13 +2281,13 @@
         "S1-4_19",
         "S1-4_20"
       ],
-      "source_digest": "45091aa784b6da86c91c28789149e55d007283457472dd62723bae8ee2949dff",
-      "source_directory": "authoring/esrs/2023-set1/s1-4/2.1.1",
+      "source_digest": "7a5500554fbcd7a03dff2c7790f79d55f2d721201d430ecd34265a580e202a09",
+      "source_directory": "authoring/esrs/2023-set1/s1-4/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-5_01"
       ],
@@ -2295,12 +2295,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-5",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-5/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-5/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-5_01",
         "S1-5_02",
@@ -2309,8 +2309,8 @@
         "S1-5_05",
         "S1-5_06"
       ],
-      "source_digest": "63723113aa0fe6ca696204bb22e88884dd39d10efb88bfcd1b8ad32f3cc8d571",
-      "source_directory": "authoring/esrs/2023-set1/s1-5/2.1.1",
+      "source_digest": "aae49e81891664ac25ecb70d2bb8ed21d20de4c7b5c1265745a90088a0ef33d0",
+      "source_directory": "authoring/esrs/2023-set1/s1-5/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
@@ -2361,7 +2361,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-7_01"
       ],
@@ -2369,12 +2369,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-7",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-7/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-7/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-7_01",
         "S1-7_02",
@@ -2387,13 +2387,13 @@
         "S1-7_09",
         "S1-7_10"
       ],
-      "source_digest": "f084a15ffd3a4e5112b1ab9fe40d79322d745bb14bb62de094c9ac486ebfce05",
-      "source_directory": "authoring/esrs/2023-set1/s1-7/2.1.1",
+      "source_digest": "b14a84e81985085c8ced9e43e8de24d54bb6ff5bf5e8a36dc75f0152b325edc0",
+      "source_directory": "authoring/esrs/2023-set1/s1-7/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-8_01"
       ],
@@ -2401,12 +2401,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-8",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-8/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-8/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-8_01",
         "S1-8_02",
@@ -2417,8 +2417,8 @@
         "S1-8_07",
         "S1-8_08"
       ],
-      "source_digest": "bf20b5947712ee5cb33d67b0f27bee7eab8538798d845517440f350b3d852ae8",
-      "source_directory": "authoring/esrs/2023-set1/s1-8/2.1.1",
+      "source_digest": "595c2b0ee5ceccdf1f3bbf58354cd9a81a47ea87124727a64bd6e0089ac55231",
+      "source_directory": "authoring/esrs/2023-set1/s1-8/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
@@ -2453,7 +2453,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-10_01"
       ],
@@ -2461,25 +2461,25 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-10",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-10/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-10/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-10_01",
         "S1-10_02",
         "S1-10_03",
         "S1-10_04"
       ],
-      "source_digest": "754928933a91200d536b9b35b16ace051d79f98d3532733ccae2a745b9a87180",
-      "source_directory": "authoring/esrs/2023-set1/s1-10/2.1.1",
+      "source_digest": "b3333de2eb549407bfc3b99bf973c56c35f5a8d4717883347b8d4438d5a798cc",
+      "source_directory": "authoring/esrs/2023-set1/s1-10/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-11_01"
       ],
@@ -2487,12 +2487,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-11",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-11/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-11/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-11_01",
         "S1-11_02",
@@ -2506,13 +2506,13 @@
         "S1-11_10",
         "S1-11_11"
       ],
-      "source_digest": "314dc1e0a72038c449b99a9bf89b50811f6c64cbba2f1e8c02912b7d83a9b70b",
-      "source_directory": "authoring/esrs/2023-set1/s1-11/2.1.1",
+      "source_digest": "0212ce7deb98c88a204426c7a438d0dd153132ee5f3dfb95fde1914c1180bcfe",
+      "source_directory": "authoring/esrs/2023-set1/s1-11/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-12_01"
       ],
@@ -2520,19 +2520,19 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-12",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-12/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-12/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-12_01",
         "S1-12_02",
         "S1-12_03"
       ],
-      "source_digest": "f29cadb39e2a1159dfe494c669d57f50cde7200f0e13b154007704ea3b8efec0",
-      "source_directory": "authoring/esrs/2023-set1/s1-12/2.1.1",
+      "source_digest": "b04d89363ef6d8d4247adf1abe87e08386d09074c8a2f095f785eb9baf081a0e",
+      "source_directory": "authoring/esrs/2023-set1/s1-12/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
@@ -2608,7 +2608,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S1-15_01"
       ],
@@ -2616,20 +2616,20 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s1-15",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s1-15/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s1-15/2.3.0/package.json",
       "source_datapoint_ids": [
         "S1-15_01",
         "S1-15_02",
         "S1-15_03",
         "S1-15_04"
       ],
-      "source_digest": "4d9f4c4cc086b4d8c28595c100d15e99a7fd59c117076e661ef1a2a0af09c0d8",
-      "source_directory": "authoring/esrs/2023-set1/s1-15/2.1.1",
+      "source_digest": "6351832da9ab75ac77e209aeee723d099344bb2976cb04df538978f4470421b5",
+      "source_directory": "authoring/esrs/2023-set1/s1-15/2.3.0",
       "source_sheet": "ESRS S1",
       "state": "compiled_draft"
     },
@@ -2704,7 +2704,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S2.SBM-3_01"
       ],
@@ -2712,12 +2712,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s2-sbm-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s2-sbm-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s2-sbm-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S2.SBM-3_01",
         "S2.SBM-3_02",
@@ -2729,13 +2729,13 @@
         "S2.SBM-3_08",
         "S2.SBM-3_09"
       ],
-      "source_digest": "c4f4ba1ad1b64f84c8ff2a0c70f2f806b799ceb924200af819a07feeb64627d7",
-      "source_directory": "authoring/esrs/2023-set1/s2-sbm-3/2.1.1",
+      "source_digest": "16b157ea2d4f5bafea8dd2583e3a02d182aacf375b44b73d539b847e0d567dca",
+      "source_directory": "authoring/esrs/2023-set1/s2-sbm-3/2.3.0",
       "source_sheet": "ESRS S2",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S2-1_05"
       ],
@@ -2745,12 +2745,12 @@
         "S2-1_05"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s2-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s2-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s2-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "S2-1_01",
         "S2-1_02",
@@ -2764,13 +2764,13 @@
         "S2-1_10",
         "S2-1_11"
       ],
-      "source_digest": "1f57031f0e210d9f4d0d66f42bebe54dcc9bb15c6d5698289c334fb8c210bdbd",
-      "source_directory": "authoring/esrs/2023-set1/s2-1/2.1.1",
+      "source_digest": "f333ff82039557afa4a8c4fcfd7ce505f6ec80933f6a65fdb95d9d48f9b95296",
+      "source_directory": "authoring/esrs/2023-set1/s2-1/2.3.0",
       "source_sheet": "ESRS S2",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S2-2_01"
       ],
@@ -2778,12 +2778,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s2-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s2-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s2-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "S2-2_01",
         "S2-2_02",
@@ -2795,13 +2795,13 @@
         "S2-2_08",
         "S2-2_09"
       ],
-      "source_digest": "0673916cf0faf31a45c7dc4f1c09a35945e38af77bbe901158a60819a3926636",
-      "source_directory": "authoring/esrs/2023-set1/s2-2/2.1.1",
+      "source_digest": "975d34eb41cf546a9a9b09e91cb94f23842f7756ef5137da3565462cc1892c3c",
+      "source_directory": "authoring/esrs/2023-set1/s2-2/2.3.0",
       "source_sheet": "ESRS S2",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S2-3_02",
         "S2-3_06"
@@ -2813,12 +2813,12 @@
         "S2-3_06"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s2-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s2-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s2-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S2-3_01",
         "S2-3_02",
@@ -2833,13 +2833,13 @@
         "S2-3_11",
         "S2-3_12"
       ],
-      "source_digest": "da55dd79fdc07fc7792d48877daa7460553eff00a2b61982fce1d04b4151db68",
-      "source_directory": "authoring/esrs/2023-set1/s2-3/2.1.1",
+      "source_digest": "7834fd258e03bca5765599afc6907dc7944636e9eecfb7be5a329108b3b7b668",
+      "source_directory": "authoring/esrs/2023-set1/s2-3/2.3.0",
       "source_sheet": "ESRS S2",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S2-4_11"
       ],
@@ -2849,12 +2849,12 @@
         "S2-4_11"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s2-4",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s2-4/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s2-4/2.3.0/package.json",
       "source_datapoint_ids": [
         "S2-4_01",
         "S2-4_02",
@@ -2875,13 +2875,13 @@
         "S2-4_17",
         "S2-4_18"
       ],
-      "source_digest": "0681cabe00fc4015ec6185082bf6844bfd6a7983c54ebcbc082a5b258c6e2b46",
-      "source_directory": "authoring/esrs/2023-set1/s2-4/2.1.1",
+      "source_digest": "80c3e99682be15120208af91fdeac3ab9ae810cc6c3728a6f167e175e5d3baa8",
+      "source_directory": "authoring/esrs/2023-set1/s2-4/2.3.0",
       "source_sheet": "ESRS S2",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S2-5_01"
       ],
@@ -2889,12 +2889,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s2-5",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s2-5/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s2-5/2.3.0/package.json",
       "source_datapoint_ids": [
         "S2-5_01",
         "S2-5_02",
@@ -2903,13 +2903,13 @@
         "S2-5_05",
         "S2-5_06"
       ],
-      "source_digest": "41e44f70ff7cae519d425ffe33575a7be575e91e7e6639d03b4391ea1dc9294a",
-      "source_directory": "authoring/esrs/2023-set1/s2-5/2.1.1",
+      "source_digest": "ba164949398096ccc547d477983a639046575e0751f7321b3df9d66d6067e148",
+      "source_directory": "authoring/esrs/2023-set1/s2-5/2.3.0",
       "source_sheet": "ESRS S2",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S3.SBM-3_01"
       ],
@@ -2917,12 +2917,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s3-sbm-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s3-sbm-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s3-sbm-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S3.SBM-3_01",
         "S3.SBM-3_02",
@@ -2933,13 +2933,13 @@
         "S3.SBM-3_07",
         "S3.SBM-3_08"
       ],
-      "source_digest": "2693089f74f1a1b587a0a959750f7c3716fd288ec627a225ac86efd5dedf65e3",
-      "source_directory": "authoring/esrs/2023-set1/s3-sbm-3/2.1.1",
+      "source_digest": "7f75ec55289ab79611ca005e66a404b0c6a30082bb7eac3f5369355b39b7decd",
+      "source_directory": "authoring/esrs/2023-set1/s3-sbm-3/2.3.0",
       "source_sheet": "ESRS S3",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S3-1_01"
       ],
@@ -2949,12 +2949,12 @@
         "S3-1_01"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s3-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s3-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s3-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "S3-1_01",
         "S3-1_02",
@@ -2966,13 +2966,13 @@
         "S3-1_08",
         "S3-1_09"
       ],
-      "source_digest": "80d7e830d1b625f55676f59eee11f024680f6ebe0f879828a8b3f3ce04bd904b",
-      "source_directory": "authoring/esrs/2023-set1/s3-1/2.1.1",
+      "source_digest": "e5dbe4ba30a74204277a52761f7114baff3c001a3dfb00b60aa09012d1eca018",
+      "source_directory": "authoring/esrs/2023-set1/s3-1/2.3.0",
       "source_sheet": "ESRS S3",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S3-2_01"
       ],
@@ -2980,12 +2980,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s3-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s3-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s3-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "S3-2_01",
         "S3-2_02",
@@ -2997,13 +2997,13 @@
         "S3-2_08",
         "S3-2_09"
       ],
-      "source_digest": "fecc8d54379d63dc3c9bd082a158455296c4169761c542ec5bced6e433b5a38c",
-      "source_directory": "authoring/esrs/2023-set1/s3-2/2.1.1",
+      "source_digest": "f542f9f5b8465c5716bdf175467165aff76e6ea6a131e4fbe8a175fb15f51c04",
+      "source_directory": "authoring/esrs/2023-set1/s3-2/2.3.0",
       "source_sheet": "ESRS S3",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S3-3_11"
       ],
@@ -3013,12 +3013,12 @@
         "S3-3_11"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s3-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s3-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s3-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S3-3_10",
         "S3-3_11",
@@ -3033,13 +3033,13 @@
         "S3-3_20",
         "S3-3_21"
       ],
-      "source_digest": "cdedc5def98b108d085b9dffe8951baa5663b72460fea3aa821cb9566ab93d83",
-      "source_directory": "authoring/esrs/2023-set1/s3-3/2.1.1",
+      "source_digest": "0ef78795ffef6fe5738c7e42e7f6e0e0d8783c22eac1038559de678490be2720",
+      "source_directory": "authoring/esrs/2023-set1/s3-3/2.3.0",
       "source_sheet": "ESRS S3",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S3-4_02",
         "S3-4_11"
@@ -3051,12 +3051,12 @@
         "S3-4_11"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s3-4",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s3-4/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s3-4/2.3.0/package.json",
       "source_datapoint_ids": [
         "S3-4_01",
         "S3-4_02",
@@ -3078,13 +3078,13 @@
         "S3-4_18",
         "S3-4_19"
       ],
-      "source_digest": "fc1bcd71ba16bf9cee89df81f4d6eba2c5fdcd71c64711d37089f57628a81354",
-      "source_directory": "authoring/esrs/2023-set1/s3-4/2.1.1",
+      "source_digest": "011fc51e148b0adcb3d6358537ab3f93b6012436848a9082a760c95c01be034d",
+      "source_directory": "authoring/esrs/2023-set1/s3-4/2.3.0",
       "source_sheet": "ESRS S3",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S3-5_01"
       ],
@@ -3092,12 +3092,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s3-5",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s3-5/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s3-5/2.3.0/package.json",
       "source_datapoint_ids": [
         "S3-5_01",
         "S3-5_02",
@@ -3106,13 +3106,13 @@
         "S3-5_05",
         "S3-5_06"
       ],
-      "source_digest": "b04bb0126696b2e900fb333043f2ac8a9180597448e1c6daa8b7429762bd0393",
-      "source_directory": "authoring/esrs/2023-set1/s3-5/2.1.1",
+      "source_digest": "71b7e7909f2c294db5db150ea8dd93d84d1be5aa81341581b8961fc8d6ddced5",
+      "source_directory": "authoring/esrs/2023-set1/s3-5/2.3.0",
       "source_sheet": "ESRS S3",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S4.SBM-3_01"
       ],
@@ -3120,12 +3120,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s4-sbm-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s4-sbm-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s4-sbm-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S4.SBM-3_01",
         "S4.SBM-3_02",
@@ -3136,13 +3136,13 @@
         "S4.SBM-3_07",
         "S4.SBM-3_08"
       ],
-      "source_digest": "6bf0f820449dc2b8ad9e4f5d1bd5fbf4e92cf443bffb5cf3ec270bb32491726c",
-      "source_directory": "authoring/esrs/2023-set1/s4-sbm-3/2.1.1",
+      "source_digest": "ba406d395dd302b6b6f4fc3785a1da6052c975227a0290b56becde7d13a25612",
+      "source_directory": "authoring/esrs/2023-set1/s4-sbm-3/2.3.0",
       "source_sheet": "ESRS S4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S4-1_01"
       ],
@@ -3152,12 +3152,12 @@
         "S4-1_01"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s4-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s4-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s4-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "S4-1_01",
         "S4-1_02",
@@ -3169,13 +3169,13 @@
         "S4-1_08",
         "S4-1_09"
       ],
-      "source_digest": "1afcf7ff76a70c9b6e36519dc75d066dfe9e0a6170f86165814a7bc3741cc04e",
-      "source_directory": "authoring/esrs/2023-set1/s4-1/2.1.1",
+      "source_digest": "b47dce9e6d570dc25e1910deacb3c62c9078bba1b6fea8fab598a0d4930c1d59",
+      "source_directory": "authoring/esrs/2023-set1/s4-1/2.3.0",
       "source_sheet": "ESRS S4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S4-2_01"
       ],
@@ -3183,12 +3183,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s4-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s4-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s4-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "S4-2_01",
         "S4-2_02",
@@ -3200,13 +3200,13 @@
         "S4-2_08",
         "S4-2_09"
       ],
-      "source_digest": "4d0c2655e75299b043fcfc92252b44f972b82fe948b2efcd37c62f4bb9835c8d",
-      "source_directory": "authoring/esrs/2023-set1/s4-2/2.1.1",
+      "source_digest": "74fc44c375b310bb20e3413a2387af37fe14c5628064f0c719ca6f3aa546ce4f",
+      "source_directory": "authoring/esrs/2023-set1/s4-2/2.3.0",
       "source_sheet": "ESRS S4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S4-3_02",
         "S4-3_13"
@@ -3218,12 +3218,12 @@
         "S4-3_13"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s4-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s4-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s4-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "S4-3_01",
         "S4-3_02",
@@ -3239,13 +3239,13 @@
         "S4-3_12",
         "S4-3_13"
       ],
-      "source_digest": "aaaa9b3a67e10840d6f3fe6f9495c495862fa4215d40724c2d8f1d03d5b6e802",
-      "source_directory": "authoring/esrs/2023-set1/s4-3/2.1.1",
+      "source_digest": "dc4507740b40f040c975104c8f07efce5b19d0d761d49dbcc2e85702769d2f54",
+      "source_directory": "authoring/esrs/2023-set1/s4-3/2.3.0",
       "source_sheet": "ESRS S4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S4-4_11"
       ],
@@ -3255,12 +3255,12 @@
         "S4-4_11"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s4-4",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s4-4/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s4-4/2.3.0/package.json",
       "source_datapoint_ids": [
         "S4-4_01",
         "S4-4_02",
@@ -3281,13 +3281,13 @@
         "S4-4_17",
         "S4-4_18"
       ],
-      "source_digest": "339d57f7636cb8629e43c10744f5254c02827a6815459525e52790437d2fa294",
-      "source_directory": "authoring/esrs/2023-set1/s4-4/2.1.1",
+      "source_digest": "6b6c580d16da6924cc828e812a22730c553d8c4e852b108264ebe95f70cf4f6a",
+      "source_directory": "authoring/esrs/2023-set1/s4-4/2.3.0",
       "source_sheet": "ESRS S4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "S4-5_01"
       ],
@@ -3295,12 +3295,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.s4-5",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.s4-5/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.s4-5/2.3.0/package.json",
       "source_datapoint_ids": [
         "S4-5_01",
         "S4-5_02",
@@ -3309,13 +3309,13 @@
         "S4-5_05",
         "S4-5_06"
       ],
-      "source_digest": "3cd5ca30805dfbfa37dada758ad7a8beaeaf519f066028eb2997d3c8ece1d3d0",
-      "source_directory": "authoring/esrs/2023-set1/s4-5/2.1.1",
+      "source_digest": "cac31658790f21d6ab47f233e94c0dbd0b087a28d29dd0fd45e5e69dbd305d18",
+      "source_directory": "authoring/esrs/2023-set1/s4-5/2.3.0",
       "source_sheet": "ESRS S4",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "G1.GOV-1_01"
       ],
@@ -3323,23 +3323,23 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.g1-gov-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.g1-gov-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.g1-gov-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "G1.GOV-1_01",
         "G1.GOV-1_02"
       ],
-      "source_digest": "4e765e1a93a33d92dc3c39d607d366ef0cfcfbcdbfeeada59a17b850a2cbcb26",
-      "source_directory": "authoring/esrs/2023-set1/g1-gov-1/2.1.1",
+      "source_digest": "ff5f2609869544f16f95330ce99e743509ddfbd4a018c260bdec32554b53d10a",
+      "source_directory": "authoring/esrs/2023-set1/g1-gov-1/2.3.0",
       "source_sheet": "ESRS G1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "G1-1_03"
       ],
@@ -3349,12 +3349,12 @@
         "G1-1_03"
       ],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.g1-1",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.g1-1/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.g1-1/2.3.0/package.json",
       "source_datapoint_ids": [
         "G1-1_01",
         "G1-1_02",
@@ -3369,13 +3369,13 @@
         "G1-1_11",
         "G1-1_12"
       ],
-      "source_digest": "c6be6777873f41bef2aabfde4f03156e94f37f6758422629d676abed50dfd970",
-      "source_directory": "authoring/esrs/2023-set1/g1-1/2.1.1",
+      "source_digest": "ee60fdbc7db21632ae2fd51ac9ae7058e8403bed77cde0965287202905992b5a",
+      "source_directory": "authoring/esrs/2023-set1/g1-1/2.3.0",
       "source_sheet": "ESRS G1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "G1-2_01"
       ],
@@ -3383,24 +3383,24 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.g1-2",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.g1-2/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.g1-2/2.3.0/package.json",
       "source_datapoint_ids": [
         "G1-2_01",
         "G1-2_02",
         "G1-2_03"
       ],
-      "source_digest": "89df88bc41cb8f52aa6b1fa4dc80591d025314e5d23278adc254635a1176cd44",
-      "source_directory": "authoring/esrs/2023-set1/g1-2/2.1.1",
+      "source_digest": "c1e9c4128182458d5c919f93bcaa00f241f8dd48064d3350f879cf1a88396217",
+      "source_directory": "authoring/esrs/2023-set1/g1-2/2.3.0",
       "source_sheet": "ESRS G1",
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "G1-3_01"
       ],
@@ -3408,12 +3408,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.g1-3",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.g1-3/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.g1-3/2.3.0/package.json",
       "source_datapoint_ids": [
         "G1-3_01",
         "G1-3_02",
@@ -3425,8 +3425,8 @@
         "G1-3_08",
         "G1-3_09"
       ],
-      "source_digest": "d34bba6b84cad4a8425feeaddeeaacf4447ef02d39487b0e4b2ee4afa66ec542",
-      "source_directory": "authoring/esrs/2023-set1/g1-3/2.1.1",
+      "source_digest": "ae19a306fc0cd7352728cd4b9fca81bb43e19a1625f343f33a69afadcc4ba1f3",
+      "source_directory": "authoring/esrs/2023-set1/g1-3/2.3.0",
       "source_sheet": "ESRS G1",
       "state": "compiled_draft"
     },
@@ -3467,7 +3467,7 @@
       "state": "compiled_draft"
     },
     {
-      "core_analysis_state": "pending_full_module_analysis",
+      "core_analysis_state": "authored_draft",
       "core_source_datapoint_ids": [
         "G1-5_01"
       ],
@@ -3475,12 +3475,12 @@
       "executable": true,
       "major_source_datapoint_ids": [],
       "next_steps": [
-        "逐条人工复核 IG 3 机械生成的语义合同",
-        "真实报告验收"
+        "真实报告金标准验收",
+        "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.g1-5",
-      "package_version": "2.1.1",
-      "runtime_path": "releases/esrs.2023-set1.g1-5/2.1.1/package.json",
+      "package_version": "2.3.0",
+      "runtime_path": "releases/esrs.2023-set1.g1-5/2.3.0/package.json",
       "source_datapoint_ids": [
         "G1-5_01",
         "G1-5_02",
@@ -3495,8 +3495,8 @@
         "G1-5_11",
         "G1-5_12"
       ],
-      "source_digest": "55d56b1aba43842748c42da80e9d4893e94857c249f8a0f3df596a90bc3d11e7",
-      "source_directory": "authoring/esrs/2023-set1/g1-5/2.1.1",
+      "source_digest": "5bc6b013b56ca4f0059b78033d315be117e7f73d514e61de6bb416f38387f318",
+      "source_directory": "authoring/esrs/2023-set1/g1-5/2.3.0",
       "source_sheet": "ESRS G1",
       "state": "compiled_draft"
     },

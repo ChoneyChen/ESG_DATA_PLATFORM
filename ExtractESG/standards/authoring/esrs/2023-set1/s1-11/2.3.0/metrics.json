@@ -1,0 +1,1474 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 75"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所有员工是否通过公共计划或主体福利获得因病失去收入的社保覆盖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to sickness",
+      "zh": "员工因病失去收入的社保覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所有员工是否通过公共计划或主体福利获得因病失去收入的社保覆盖。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "74 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_01",
+        "S1",
+        "S1-11",
+        "74 a",
+        "AR 75",
+        "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to sickness",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "c1bc3746aacd804a49ebfed1fc7d4bd32ceb52b883ad4c250769bd73a7a943cd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 143,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_01",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 75"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking",
+      "zh": "员工因失业失去收入的社保覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "74 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_02",
+        "S1",
+        "S1-11",
+        "74 b",
+        "AR 75",
+        "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "cfaae1ddb9547855192f0a2c8e71dffe61f85fa454d11ca7b391534bb85b5828",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 144,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_02",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 75"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所有员工是否通过公共计划或主体福利获得工伤和获得性残疾收入损失的社保覆盖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability",
+      "zh": "员工因工伤和获得性残疾失去收入的社保覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所有员工是否通过公共计划或主体福利获得工伤和获得性残疾收入损失的社保覆盖。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "74 c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_03",
+        "S1",
+        "S1-11",
+        "74 c",
+        "AR 75",
+        "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "1f2a0dd11e83f551d3012e1bd053b1bddc4c7daacd2061b8a6e0400fdf01ad89",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 145,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_03",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 75"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所有员工是否通过公共计划或主体福利获得育儿假期间收入损失的社保覆盖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to parental leave",
+      "zh": "员工因育儿假失去收入的社保覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所有员工是否通过公共计划或主体福利获得育儿假期间收入损失的社保覆盖。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp04",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "74 d",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_04",
+        "S1",
+        "S1-11",
+        "74 d",
+        "AR 75",
+        "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to parental leave",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "ce15990624936cba6714e0372846802f681bfb3c8896a6c21560274ab88c0a22",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 146,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_04",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 75"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明所有员工是否通过公共计划或主体福利获得退休收入损失的社保覆盖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to retirement",
+      "zh": "员工因退休失去收入的社保覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明所有员工是否通过公共计划或主体福利获得退休收入损失的社保覆盖。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp05",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "74 e",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_05",
+        "S1",
+        "S1-11",
+        "74 e",
+        "AR 75",
+        "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to retirement",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "df3c316884d5055729d0cdf2266c97a3f4a3cdbf19febf2543a4d1ac19ce39fd",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 147,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_05",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 75"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "structure",
+    "description": "以表格披露按国家、事件类型和员工类型（含非员工）划分的社会保护覆盖情况。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "presentation",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "structure_member",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "labels": {
+      "en": "Social protection employees by country [table] by types of events and type of employees [including non employees]",
+      "zh": "按国家、事件类型与员工类型划分的社保覆盖表"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "comparison_mode": "structure_only",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+        "表内成员（行/列标题所示的分解项）须与证据一致；成员与合计不能互相替代或重复求和。"
+      ],
+      "exclusions": [
+        "表结构只承载成员与列的定义，不单独形成带值事实。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "breakdown_member"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "以表格披露按国家、事件类型和员工类型（含非员工）划分的社会保护覆盖情况。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "dimensional_table",
+      "unit_dimension": null,
+      "value_role": "structure"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp06",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "Table",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.breakdown-member"
+    ],
+    "paragraph": "75, 76",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Table",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_06",
+        "S1",
+        "S1-11",
+        "75, 76",
+        "AR 75",
+        "Social protection employees by country [table] by types of events and type of employees [including non employees]",
+        "Table",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "d726e05cd161e1b9dfa65ccaa85404121ef2c1890ae8586e8dcdbf4e900c6112",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 148,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。表结构只承载成员与列的定义，不单独形成带值事实。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "source_datapoint_id": "S1-11_06",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露未通过公共计划或主体福利获得因病收入损失保障的员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to sickness",
+      "zh": "未获因病收入保障的员工类型"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露未通过公共计划或主体福利获得因病收入损失保障的员工类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp07",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "75",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_07",
+        "S1",
+        "S1-11",
+        75,
+        null,
+        "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to sickness ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "b0119e76ffd161add2c34eefae50e0c2ee90297d129a459bca71c6c046cd4bf8",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 149,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_07",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露未通过公共计划或主体福利获得失业收入损失保障的员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking",
+      "zh": "未获失业收入保障的员工类型"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露未通过公共计划或主体福利获得失业收入损失保障的员工类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp08",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "75",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_08",
+        "S1",
+        "S1-11",
+        75,
+        null,
+        "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "6d61a03db62736505861c182198b1f5235326270768bf26d8ea3c7c06327b1a7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 150,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_08",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露未通过公共计划或主体福利获得工伤和获得性残疾收入损失保障的员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability",
+      "zh": "未获工伤和残疾收入保障的员工类型"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露未通过公共计划或主体福利获得工伤和获得性残疾收入损失保障的员工类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp09",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "75",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_09",
+        "S1",
+        "S1-11",
+        75,
+        null,
+        "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to employment injury and acquired disability ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "96e73b929f2527b71d89ad806ae876297ffabc89b83c23be2454fc7ac4c1d21b",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 151,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_09",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露未通过公共计划或主体福利获得育儿假收入损失保障的员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to maternity leave",
+      "zh": "未获育儿假收入保障的员工类型"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露未通过公共计划或主体福利获得育儿假收入损失保障的员工类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp10",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "75",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_10",
+        "S1",
+        "S1-11",
+        75,
+        null,
+        "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to maternity leave ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "e879703ce146119b3dde85683c961ad6366f56e5da8929801cb2712feeffa820",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 152,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_10",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露未通过公共计划或主体福利获得退休收入损失保障的员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-11",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-11.topic.dp11",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to retirement",
+      "zh": "未获退休收入保障的员工类型"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露未通过公共计划或主体福利获得退休收入损失保障的员工类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-11.dp11",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "75",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-11_11",
+        "S1",
+        "S1-11",
+        75,
+        null,
+        "Disclosure of types of employees who are not covered by social protection, through public programs or through benefits offered, against loss of income due to retirement ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "6a0e63827ffe1a6f6388ffddbdb8c97f8c4c5a1e2dc602e370c4342183cfedb7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 153,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-11.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-11_11",
+    "source_refs": [
+      "esrs.2023-set1.s1-11.source.law",
+      "esrs.2023-set1.s1-11.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-11.concept.dp11"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

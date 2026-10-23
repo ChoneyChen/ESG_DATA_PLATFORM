@@ -1,0 +1,146 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp10",
+    "description": "说明主体在已识别与受影响社区重大负面影响相关时，提供或促成补救的总体方法与流程。",
+    "labels": {
+      "en": "Disclosure of general approach to and processes for providing or contributing to remedy where undertaking has identified that it connected with a material negative impact on affected communities",
+      "zh": "受影响社区影响的补救方法与流程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp11",
+    "description": "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。",
+    "labels": {
+      "en": "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed",
+      "zh": "受影响社区直接提出关切或需求的渠道"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp12",
+    "description": "说明主体通过哪些流程支持或要求提供社区申诉渠道，包括对业务伙伴的要求。",
+    "labels": {
+      "en": "Disclosure of processes through which undertaking supports or requires availability of channels",
+      "zh": "支持或要求提供渠道的流程（受影响社区）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp13",
+    "description": "说明社区提出的问题如何被跟踪和处理，以及如何确保渠道的有效性。",
+    "labels": {
+      "en": "Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured",
+      "zh": "问题的跟踪、监测与渠道有效性保障（社区）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp14",
+    "description": "说明主体是否以及如何评估受影响社区知晓并信任相关结构或流程，以提出关切和需求。",
+    "labels": {
+      "en": "Disclosure of whether and how it is assessed that affected communities are aware of and trust structures or processes as way to raise their concerns or needs and have them addressed",
+      "zh": "受影响社区对渠道的知晓与信任评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp15",
+    "description": "披露主体是否已制定保护使用申诉渠道的社区成员免遭报复的政策，并说明保护范围。",
+    "labels": {
+      "en": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
+      "zh": "防止报复的政策（受影响社区）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp16",
+    "description": "说明主体是否尚未建立面向受影响社区的申诉流程；若未建立，披露现状与原因。",
+    "labels": {
+      "en": "Statement in case the undertaking has not adopted a general process to engage with affected communities",
+      "zh": "未建立社区申诉流程时的说明"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp17",
+    "description": "披露主体计划建立面向受影响社区申诉渠道或流程的时间表。",
+    "labels": {
+      "en": "Disclosure of timeframe for channel or processes for raising concerns to be in place",
+      "zh": "建立社区申诉渠道的时间表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp18",
+    "description": "说明受影响社区是否以及如何在其受影响主体的层级使用申诉渠道。",
+    "labels": {
+      "en": "Disclosure of whether and how affected communities are able to access channels at level of undertaking they are affected by",
+      "zh": "社区在其受影响层级使用渠道的能力"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp19",
+    "description": "说明第三方机制是否向所有受影响社区开放，以及可及性安排。",
+    "labels": {
+      "en": "Third-party mechanisms are accessible to all affected communities",
+      "zh": "面向所有受影响社区的第三方机制"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp20",
+    "description": "说明社区申诉如何保密处理，并尊重隐私权和数据保护要求。",
+    "labels": {
+      "en": "Grievances are treated confidentially and with respect to rights of privacy and data protection",
+      "zh": "申诉的保密、隐私与数据保护（社区）"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s3-3.concept.dp21",
+    "description": "说明提出关切或需求的渠道是否允许受影响社区匿名使用。",
+    "labels": {
+      "en": "affected communities   are allowed to use anonymously channels to raise concerns or needs",
+      "zh": "社区匿名提出关切的渠道"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s3-3.source.law",
+      "esrs.2023-set1.s3-3.source.ig3"
+    ]
+  }
+]

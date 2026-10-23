@@ -1,0 +1,242 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp01",
+    "description": "说明生物多样性和生态系统相关政策与E4 AR4所述事项是否以及如何相关。",
+    "labels": {
+      "en": "Disclosure on whether and how biodiversity and ecosystems-related policies relate to matters reported in E4 AR4",
+      "zh": "生物多样性和生态系统政策与E4 AR4所述事项的关联"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp02",
+    "description": "说明生物多样性和生态系统相关政策与重大影响是否以及如何相关，包括政策覆盖的影响类型。",
+    "labels": {
+      "en": "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material biodiversity and ecosystems-related impacts",
+      "zh": "政策与重大生物多样性和生态系统影响的关联"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp03",
+    "description": "说明生物多样性和生态系统相关政策与重大依赖、物理风险和转型风险及机遇是否以及如何相关。",
+    "labels": {
+      "en": "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material dependencies and material physical and transition risks and opportunities",
+      "zh": "政策与依赖、风险和机遇的关联"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp04",
+    "description": "说明政策是否以及如何支持对生物多样性和生态系统有重大实际或潜在影响的产品、部件和原材料的可追溯性。",
+    "labels": {
+      "en": "Explanation of whether and how biodiversity and ecosystems-related policy supports traceability of products, components and raw materials with significant actual or potential impacts on biodiversity and ecosystems along value chain",
+      "zh": "政策对产品与原料可追溯性的支持"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp05",
+    "description": "说明政策是否以及如何涵盖来自以维持或提升生物多样性条件方式管理的生态系统的生产、采购或消费。",
+    "labels": {
+      "en": "Explanation of whether and how biodiversity and ecosystems-related policy addresses production, sourcing or consumption from ecosystems that are managed to maintain or enhance conditions for biodiversity",
+      "zh": "政策对维护生物多样性条件的管理方式的覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp06",
+    "description": "说明政策是否以及如何处理生物多样性和生态系统影响所引发的社会后果。",
+    "labels": {
+      "en": "Explanation of whether and how biodiversity and ecosystems-related policy addresses social consequences of biodiversity and ecosystems-related impacts",
+      "zh": "政策对生物多样性影响社会后果的处理"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp07",
+    "description": "披露政策如何规定原材料的生产、采购或消费，包括适用范围和限制条件。",
+    "labels": {
+      "en": "Disclosure of how policy refers to production, sourcing or consumption of raw materials",
+      "zh": "政策对原材料生产、采购与消费的规定"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp08",
+    "description": "说明政策如何限制从无法证明未造成保护区或重点生物多样性区域显著转化的供应商处采购。",
+    "labels": {
+      "en": "Disclosure of how policy refers to policies limiting procurement from suppliers that cannot demonstrate that they are not contributing to significant conversion of protected areas or key biodiversity areas",
+      "zh": "政策对无法证明未造成保护区转化的供应商的采购限制"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp09",
+    "description": "说明政策如何引用由监管机构监督的公认标准或第三方认证。",
+    "labels": {
+      "en": "Disclosure of how policy refers to recognised standards or third-party certifications overseen by regulators",
+      "zh": "政策对公认标准与第三方认证的引用"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp10",
+    "description": "说明政策如何处理来自经定期生物多样性监测并披露增益或损失、以维持或提升生物多样性条件方式管理的生态系统的原材料。",
+    "labels": {
+      "en": "Disclosure of how policy addresses raw materials originating from ecosystems that have been managed to maintain or enhance conditions for biodiversity, as demonstrated by regular monitoring and reporting of biodiversity status and gains or losses",
+      "zh": "政策对经监测验证的生物多样性友好来源的覆盖"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp11",
+    "description": "说明政策如何同时支持E4-2所述四项要求，并指出各项要求在政策中的对应条款。",
+    "labels": {
+      "en": "Disclosure of how the policy enables to a), b), c) and d)",
+      "zh": "政策对所列四项要求的支持方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp12",
+    "description": "说明政策采用的第三方行为标准是否基于科学方法识别问题，并在多种实际情形下可客观实现。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy is objective and achievable based on scientific approach to identifying issues and realistic in assessing how these issues can be addressed under variety of practical circumstances",
+      "zh": "政策所用第三方行为标准的科学性与可实现性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp13",
+    "description": "说明第三方行为标准是否通过持续协商制定或维护，且各相关利益群体均有平衡参与、无单一群体拥有不当否决权。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy is developed or maintained through process of ongoing consultation with relevant stakeholders with balanced input from all relevant stakeholder groups with no group holding undue authority or veto power over content",
+      "zh": "第三方行为标准的利益相关方协商过程"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp14",
+    "description": "说明第三方行为标准是否鼓励渐进式改进和持续提升最佳实践，并要求设置有意义的阶段性目标与里程碑。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy encourages step-wise approach and continuous improvement in standard and its application of better management practices and requires establishment of meaningful targets and specific milestones to indicate progress against principles and criteria over time",
+      "zh": "第三方行为标准的渐进改进与目标设置"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp15",
+    "description": "说明第三方行为标准是否可由独立认证或验证机构核查，且其程序避免利益冲突并符合ISO或欧盟相关法规要求。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy is verifiable through independent certifying or verifying bodies, which have defined and rigorous assessment procedures that avoid conflicts of interest and are compliant with ISO guidance on accreditation and verification procedures or Article 5(2) of Regulation (EC) No 765/2008",
+      "zh": "第三方行为标准的独立验证"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp16",
+    "description": "说明政策采用的第三方行为标准是否符合ISEAL良好实践准则。",
+    "labels": {
+      "en": "Third-party standard of conduct used in policy conforms to ISEAL Code of Good Practice",
+      "zh": "第三方行为标准对ISEAL良好实践准则的符合性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp17",
+    "description": "说明主体是否已就在保护区或保护区外生物多样性敏感区域内及附近拥有、租赁或管理的运营场址制定生物多样性和生态系统保护政策。",
+    "labels": {
+      "en": "Biodiversity and ecosystem protection policy covering operational sites owned, leased, managed in or near protected area or biodiversity-sensitive area outside protected areas has been adopted",
+      "zh": "保护区及生物多样性敏感区域场址的保护政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp18",
+    "description": "披露主体是否已制定可持续土地或农业实践的政策或做法，并说明其主要内容。",
+    "labels": {
+      "en": "Sustainable land or agriculture practices or policies have been adopted",
+      "zh": "可持续土地或农业实践政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp19",
+    "description": "披露主体是否已制定可持续海洋或海域实践的政策或做法，并说明其主要内容。",
+    "labels": {
+      "en": "Sustainable oceans or seas practices or policies have been adopted",
+      "zh": "可持续海洋实践政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-2.concept.dp20",
+    "description": "披露主体是否已制定应对森林砍伐的政策，并说明其覆盖范围与承诺。",
+    "labels": {
+      "en": "Policies to address deforestation have been adopted",
+      "zh": "应对森林砍伐的政策"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-2.source.law",
+      "esrs.2023-set1.e4-2.source.ig3"
+    ]
+  }
+]

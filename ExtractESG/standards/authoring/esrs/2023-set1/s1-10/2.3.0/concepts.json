@@ -1,0 +1,50 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.s1-10.concept.dp01",
+    "description": "说明所有员工是否获得符合适用基准的足额工资，并指出所采用的基准。",
+    "labels": {
+      "en": "All employees are paid adequate wage, in line with applicable benchmarks",
+      "zh": "所有员工获得符合适用基准的足额工资"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-10.source.law",
+      "esrs.2023-set1.s1-10.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-10.concept.dp02",
+    "description": "以表格披露员工工资低于适用足额工资基准的国家，以及涉及的员工范围。",
+    "labels": {
+      "en": "Countries where employees earn below the applicable adequate wage benchmark [table]",
+      "zh": "员工工资低于适用足额工资基准的国家表"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-10.source.law",
+      "esrs.2023-set1.s1-10.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-10.concept.dp03",
+    "description": "披露工资低于适用足额工资基准的员工占员工总数的比例。",
+    "labels": {
+      "en": "Percentage of  employees paid below the applicable adequate wage benchmark",
+      "zh": "工资低于足额工资基准的员工比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-10.source.law",
+      "esrs.2023-set1.s1-10.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.s1-10.concept.dp04",
+    "description": "披露工资低于足额工资的非员工占非员工总数的比例。",
+    "labels": {
+      "en": "Percentage of non-employees paid below adequate wage",
+      "zh": "工资低于足额工资的非员工比例"
+    },
+    "source_refs": [
+      "esrs.2023-set1.s1-10.source.law",
+      "esrs.2023-set1.s1-10.source.ig3"
+    ]
+  }
+]

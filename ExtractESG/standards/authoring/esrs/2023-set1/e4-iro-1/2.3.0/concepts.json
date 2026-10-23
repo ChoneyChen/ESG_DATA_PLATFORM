@@ -1,0 +1,194 @@
+[
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp01",
+    "description": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。",
+    "labels": {
+      "en": "Disclosure of whether and how actual and potential impacts on biodiversity and ecosystems at own site locations and in value chain have been identified and assessed",
+      "zh": "自身场址与价值链中生物多样性和生态系统影响的识别与评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp02",
+    "description": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统及其服务的依赖。",
+    "labels": {
+      "en": "Disclosure of whether and how dependencies on biodiversity and ecosystems and their services have been identified and assessed at own site locations and in value chain",
+      "zh": "生物多样性和生态系统依赖的识别与评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp03",
+    "description": "说明主体是否以及如何识别和评估与生物多样性和生态系统相关的转型风险、物理风险及机遇。",
+    "labels": {
+      "en": "Disclosure of whether and how transition and physical risks and opportunities related to biodiversity and ecosystems have been identified and assessed",
+      "zh": "生物多样性和生态系统相关转型风险、物理风险与机遇的识别与评估"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp04",
+    "description": "说明主体是否以及如何考虑与生物多样性和生态系统相关的系统性风险。",
+    "labels": {
+      "en": "Disclosure of whether and how systemic risks have been considered (biodiversity and ecosystems)",
+      "zh": "系统性风险的考虑"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp05",
+    "description": "说明主体是否以及如何就共享生物资源和生态系统的可持续性评估与受影响社区开展协商。",
+    "labels": {
+      "en": "Disclosure of whether and how consultations with affected communities on sustainability assessments of shared biological resources and ecosystems have been conducted",
+      "zh": "对共享生物资源与生态系统评估的社区协商"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp06",
+    "description": "说明主体是否以及如何识别对受影响社区产生实际或潜在负面影响的特定场址、原材料生产或采购来源。",
+    "labels": {
+      "en": "Disclosure of whether and how specific sites, raw materials production or sourcing with negative or potential negative impacts on affected communities",
+      "zh": "对受影响社区有负面影响的场址与原料来源识别"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp07",
+    "description": "说明社区是否以及如何参与生物多样性和生态系统重要性评估。",
+    "labels": {
+      "en": "Disclosure of whether and how communities were involved in materiality assessment",
+      "zh": "社区在重要性评估中的参与"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp08",
+    "description": "说明主体是否以及如何避免对受影响社区相关的优先生态系统服务造成负面影响。",
+    "labels": {
+      "en": "Disclosure of whether and how negative impacts on priority ecosystem services of relevance to affected communities may be avoided",
+      "zh": "避免对社区优先生态系统服务负面影响的方式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp09",
+    "description": "披露将不可避免的负面影最小化的计划，以及为维持优先服务的价值与功能而实施的减缓措施。",
+    "labels": {
+      "en": "Disclosure of plans to minimise unavoidable negative impacts and implement mitigation measures that aim to maintain value and functionality of priority services",
+      "zh": "不可避免影响的最小化与减缓计划"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp10",
+    "description": "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。",
+    "labels": {
+      "en": "Disclosure of whether and how tthe business model(s) has been verified using range of biodiversity and ecosystems scenarios, or other scenarios with modelling of biodiversity and ecosystems related consequences, with different possible pathways",
+      "zh": "使用生物多样性和生态系统情景验证商业模式"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp11",
+    "description": "说明主体为何选择所考虑的生物多样性和生态系统情景，以及这些情景与自身风险和机遇的相关性。",
+    "labels": {
+      "en": "Disclosure of why considered scenarios were taken into consideration",
+      "zh": "采用特定情景的理由"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp12",
+    "description": "说明所考虑的情景如何根据不断变化的条件和新兴趋势进行更新。",
+    "labels": {
+      "en": "Disclosure of how considered scenarios are updated according to evolving conditions and emerging trends",
+      "zh": "情景随条件与趋势的更新"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp13",
+    "description": "说明所用情景如何参考权威政府间工具中的预期和科学共识。",
+    "labels": {
+      "en": "Scenarios are informed by expectations in authoritative intergovernmental instruments and by scientific consensus",
+      "zh": "情景与权威政府间工具及科学共识的一致性"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp14",
+    "description": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。",
+    "labels": {
+      "en": "Undertaking has sites located in or near biodiversity-sensitive areas",
+      "zh": "位于或邻近生物多样性敏感区域的场址"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp15",
+    "description": "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。",
+    "labels": {
+      "en": "Activities related to sites located in or near biodiversity-sensitive areas negatively affect these areas by leading to deterioration of natural habitats and habitats of species and to disturbance of species for which protected area has been designated",
+      "zh": "敏感区域场址活动造成的栖息地退化与物种干扰"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  },
+  {
+    "concept_id": "esrs.2023-set1.e4-iro-1.concept.dp16",
+    "description": "说明主体是否已得出结论认为有必要实施生物多样性减缓措施，并给出理由。",
+    "labels": {
+      "en": "It has been concluded that it is necessary to implement biodiversity mitigation measures",
+      "zh": "实施生物多样性减缓措施的必要性结论"
+    },
+    "source_refs": [
+      "esrs.2023-set1.e4-iro-1.source.law",
+      "esrs.2023-set1.e4-iro-1.source.ig3"
+    ]
+  }
+]

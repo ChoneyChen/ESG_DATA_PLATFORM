@@ -1,0 +1,1328 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "披露自身劳动力中非员工的总人数，并说明统计口径与报告时点。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Number of non-employees in own workforce",
+      "zh": "自身劳动力中的非员工人数"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露自身劳动力中非员工的总人数，并说明统计口径与报告时点。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "actual"
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-7.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Decimal",
+    "paragraph": "55 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Decimal",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_01",
+        "S1",
+        "S1-7",
+        "55 a",
+        null,
+        "Number of non-employees in own workforce",
+        "Decimal",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "a725c7c68b01e7805e560052be43c9ce9afa128beec29fc9df758e13041764b7",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 115,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_01",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp01"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "披露自身劳动力中自雇人员的数量，并说明其与主体的合同关系。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Number of non-employees in own workforce - self-employed people",
+      "zh": "自身劳动力中的自雇人员人数"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露自身劳动力中自雇人员的数量，并说明其与主体的合同关系。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "actual"
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-7.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Decimal",
+    "paragraph": "55 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Decimal",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_02",
+        "S1",
+        "S1-7",
+        "55 a",
+        null,
+        "Number of non-employees in own workforce - self-employed people",
+        "Decimal",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "61edcb510a416e0f3c1705b5223742416bd7bb34eadd57ac0c632b025c37aec4",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 116,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_02",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp02"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "quantitative",
+    "description": "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "detail",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "source_cell",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Number of non-employees in own workforce - people provided by undertakings primarily engaged in employment activities",
+      "zh": "由就业活动机构提供的人员数量"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "conditional_numeric",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "numeric",
+      "unit_dimension": null,
+      "value_role": "actual"
+    },
+    "measurement_kind": "number",
+    "metric_id": "esrs.2023-set1.s1-7.dp03",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "Decimal",
+    "paragraph": "55 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "Decimal",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_03",
+        "S1",
+        "S1-7",
+        "55 a",
+        null,
+        "Number of non-employees in own workforce - people provided by undertakings primarily engaged in employment activities",
+        "Decimal",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "3364a7d92013bc218aacc125235ba9912891554b2aaa0b52608d2b6caa51aa66",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 117,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_03",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp03"
+      ]
+    ],
+    "value_family": "number"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体的自身劳动力中是否没有非员工；如有，应披露其人数与类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Undertaking does not have non-employees in own workforce",
+      "zh": "自身劳动力中没有非员工"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体的自身劳动力中是否没有非员工；如有，应披露其人数与类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp04",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "AR 61",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_04",
+        "S1",
+        "S1-7",
+        "AR 61",
+        null,
+        "Undertaking does not have non-employees in own workforce",
+        "semi-narrative",
+        null,
+        "V",
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "3982b0a8b16e9cd70cd034ac3964d95c566d9c5ad3c9a8f0c33cc5e51b4db393",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 118,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_04",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 62"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp05",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of the most common types of non-employees (for example, self-employed people, people provided by undertakings primarily engaged in employment activities, and other types relevant to the undertaking), their relationship with the undertaking, and the type of work that they perform.",
+      "zh": "非员工的主要类型、关系与工作内容"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp05",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "56",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_05",
+        "S1",
+        "S1-7",
+        56,
+        "AR 62",
+        "Disclosure of the most common types of non-employees (for example, self-employed people, people provided by undertakings primarily engaged in employment activities, and other types relevant to the undertaking), their relationship with the undertaking, and the type of work that they perform.",
+        "narrative",
+        null,
+        "V",
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "a6b938acbbc93cdb22aca0f55166139986f563f85b8b64e1e7500d3970534808",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 119,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_05",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp05"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述编制非员工数据所采用的方法和假设，包括估算与去重方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp06",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Description of methodologies and assumptions used to compile data (non-employees)",
+      "zh": "非员工数据编制方法与假设"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述编制非员工数据所采用的方法和假设，包括估算与去重方式。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp06",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "55 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_06",
+        "S1",
+        "S1-7",
+        "55 b",
+        null,
+        "Description of methodologies and assumptions used to compile data (non-employees) ",
+        "narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "ff9dec6f854187aacc50a3c686926d9300a36bea60d17b4cef7bff8207fb9387",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 120,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_06",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp06"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明非员工人数是以人头数还是全职当量报告，并给出换算方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp07",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Non-employees numbers are reported in head count/full time equivalent",
+      "zh": "非员工人数按人头或全职当量报告"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明非员工人数是以人头数还是全职当量报告，并给出换算方式。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp07",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "55 b i",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_07",
+        "S1",
+        "S1-7",
+        "55 b i",
+        null,
+        "Non-employees numbers are reported in head count/full time equivalent",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "a2c670361e9d146b01d063e67122dd1ed62abacaf08a6b8595f118019a9b4adf",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 121,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_07",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp07"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明非员工人数是在报告期末、平均值或其他时点口径下报告。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp08",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Non-employees numbers are reported at end of reporting period/average/other methodology",
+      "zh": "非员工人数的报告时点与口径"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明非员工人数是在报告期末、平均值或其他时点口径下报告。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "categorical",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp08",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "semi-narrative",
+    "paragraph": "55 b ii",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "semi-narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_08",
+        "S1",
+        "S1-7",
+        "55 b ii",
+        null,
+        "Non-employees numbers are reported at end of reporting period/average/other methodology",
+        "semi-narrative",
+        null,
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "504d56a0d17439294b107ea34f1e94257c4bda076da9fede63e79e7f95f89b37",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 122,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_08",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp08"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 64 - AR 65"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "披露理解非员工数据所必需的背景信息，包括季节性、地区分布和用工变化。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp09",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Disclosure of contextual information necessary to understand data (non-employee workers)",
+      "zh": "理解非员工数据所需的背景信息"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "披露理解非员工数据所必需的背景信息，包括季节性、地区分布和用工变化。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp09",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "55c",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_09",
+        "S1",
+        "S1-7",
+        "55c",
+        "AR 64 - AR 65",
+        "Disclosure of contextual information necessary to understand data (non-employee workers) ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "f55b443734450eb14b6b59b519689a3154a0092cbe728ca992f1103ca0bac13e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 123,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_09",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp09"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [
+      "AR 63"
+    ],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "描述非员工估计人数的编制基础，包括数据来源、抽样方法和不确定性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "S1-7",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.s1-7.topic.dp10",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "labels": {
+      "en": "Description of basis of preparation of non-employees estimated number",
+      "zh": "非员工估计人数的编制基础"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "描述非员工估计人数的编制基础，包括数据来源、抽样方法和不确定性。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.s1-7.dp10",
+    "obligation_class": "conditional_if_material",
+    "official_data_type": "narrative",
+    "paragraph": "57",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": "Conditional",
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": "1 year",
+      "phase_in_column_l": "1 year",
+      "raw_values": [
+        "S1-7_10",
+        "S1",
+        "S1-7",
+        57,
+        "AR 63",
+        "Description of basis of preparation of non-employees estimated number ",
+        "narrative",
+        "Conditional",
+        null,
+        null,
+        "1 year",
+        "1 year",
+        null
+      ],
+      "row_sha256": "1d5915bc3bf9845fce29bc7019f1dfd92f7dad8d03385696b352805fe8eae34c",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings ",
+        null
+      ],
+      "source_row": 124,
+      "source_sheet": "ESRS S1",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.s1-7.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "source_datapoint_id": "S1-7_10",
+    "source_refs": [
+      "esrs.2023-set1.s1-7.source.law",
+      "esrs.2023-set1.s1-7.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.s1-7.concept.dp10"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

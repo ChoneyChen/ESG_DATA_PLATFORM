@@ -1,0 +1,550 @@
+[
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-1",
+    "disclosure_role": "anchor",
+    "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp01",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources",
+      "zh": "逐步摆脱原生资源使用的政策"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-1.dp01",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.policy-ref"
+    ],
+    "paragraph": "15a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-1_01",
+        "E5",
+        "E5-1",
+        "15a",
+        null,
+        "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "6fb5f46a378cdf8e114a4ae2e0aa26fa532ddb3971f85e4a2865920c4d81cdfa",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 6,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "E5-1_01",
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-1.concept.dp01"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明政策是否以及如何规定可再生资源的可持续采购与使用，包括来源要求和认证标准。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp02",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources",
+      "zh": "可再生资源可持续采购与使用的政策"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明政策是否以及如何规定可再生资源的可持续采购与使用，包括来源要求和认证标准。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-1.dp02",
+    "obligation_class": "mandatory_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.policy-ref"
+    ],
+    "paragraph": "15b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": null,
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-1_02",
+        "E5",
+        "E5-1",
+        "15b",
+        null,
+        "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources",
+        "narrative",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "53e8153aa29ea85059a3d398dcaf0b6b1087d9a86ac030eb24cc7be018c37551",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 7,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "E5-1_02",
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-1.concept.dp02"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp03",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal)",
+      "zh": "废弃物层级的政策覆盖"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-1.dp03",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.policy-ref"
+    ],
+    "paragraph": "AR 9 a",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-1_03",
+        "E5",
+        "E5-1",
+        "AR 9 a",
+        null,
+        "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal) ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "e8bcaeab2f7e33de95d2fe94c148a9ec7e6cd181ef258d11d4f1bd9e4673e26e",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 8,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "E5-1_03",
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-1.concept.dp03"
+      ]
+    ],
+    "value_family": "statement"
+  },
+  {
+    "allowed_value_origins": [
+      "reported"
+    ],
+    "application_requirements": [],
+    "cardinality": {
+      "maximum": null,
+      "minimum": 0
+    },
+    "data_class": "qualitative",
+    "description": "说明政策是否以及如何优先采取避免或最小化废弃物产生的策略，而非废弃物处理策略。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "disclosure_requirement": "E5-1",
+    "disclosure_role": "context",
+    "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp04",
+    "evidence_form": [
+      "table_row",
+      "narrative_statement",
+      "footnote_context"
+    ],
+    "evidence_roles": [
+      "primary",
+      "context"
+    ],
+    "fact_grain": "assertion",
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "labels": {
+      "en": "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies",
+      "zh": "优先避免或最小化废弃物的政策"
+    },
+    "measurement_contract": {
+      "aggregation": "do_not_sum",
+      "canonical_unit_id": null,
+      "comparison_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "comparison_mode": "structured_display",
+      "comparison_requirements": [
+        "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+        "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+      ],
+      "exclusions": [
+        "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+        "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+      ],
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "normalization": "preserve",
+      "positive_definition": "说明政策是否以及如何优先采取避免或最小化废弃物产生的策略，而非废弃物处理策略。",
+      "semantic_contract_version": "partitioned-semantics-v1",
+      "semantic_type_note": null,
+      "template": "qualitative_claim",
+      "unit_dimension": null,
+      "value_role": "context"
+    },
+    "measurement_kind": "statement",
+    "metric_id": "esrs.2023-set1.e5-1.dp04",
+    "obligation_class": "voluntary_if_material",
+    "official_data_type": "narrative",
+    "optional_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.policy-ref"
+    ],
+    "paragraph": "AR 9 b",
+    "provenance": {
+      "catalog_id": "esrs.2023-set1.ig3-user-original",
+      "conditional_or_alternative": null,
+      "eu_regulations": null,
+      "may": "V",
+      "original_data_type": "narrative",
+      "phase_in_column_k": null,
+      "phase_in_column_l": null,
+      "raw_values": [
+        "E5-1_04",
+        "E5",
+        "E5-1",
+        "AR 9 b",
+        null,
+        "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies ",
+        "narrative",
+        null,
+        "V",
+        null,
+        null,
+        null
+      ],
+      "row_sha256": "d69ead441d43c7be88aebd375ace5d50c91f3b8cbf835838302616278be650a3",
+      "source_headers": [
+        "ID",
+        "ESRS",
+        "DR",
+        "Paragraph",
+        "Related AR",
+        "Name",
+        "Data Type",
+        "Conditional or alternative DP",
+        "May \n[V]",
+        "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+        "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+      ],
+      "source_row": 9,
+      "source_sheet": "ESRS E5",
+      "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+    },
+    "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "required_dimension_ids": [
+      "esrs.2023-set1.e5-1.dimension.reporting-entity"
+    ],
+    "required_semantic_discriminators": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "source_datapoint_id": "E5-1_04",
+    "source_refs": [
+      "esrs.2023-set1.e5-1.source.law",
+      "esrs.2023-set1.e5-1.source.ig3"
+    ],
+    "subject_concept_groups": [
+      [
+        "esrs.2023-set1.e5-1.concept.dp04"
+      ]
+    ],
+    "value_family": "statement"
+  }
+]

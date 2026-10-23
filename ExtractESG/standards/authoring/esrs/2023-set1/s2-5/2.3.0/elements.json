@@ -1,0 +1,1190 @@
+[
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+    "element_code": "statement",
+    "element_id": "esrs.2023-set1.s2-5.dp01.element.statement",
+    "labels": {
+      "en": "statement",
+      "zh": "原文陈述或独立结构成员"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "statement",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.s2-5.dp01.element.reporting_period",
+    "labels": {
+      "en": "reporting period",
+      "zh": "实际披露期间"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_period",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "报告边界；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.s2-5.dp01.element.reporting_boundary",
+    "labels": {
+      "en": "reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "reporting_boundary",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "披露主体；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_entity",
+    "element_id": "esrs.2023-set1.s2-5.dp01.element.reporting_entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_entity",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-ref"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标对象；必须关联独立证据和该事实的身份。",
+    "element_code": "target_ref",
+    "element_id": "esrs.2023-set1.s2-5.dp01.element.target_ref",
+    "labels": {
+      "en": "target ref",
+      "zh": "目标对象"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_ref",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-year"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标年；必须关联独立证据和该事实的身份。",
+    "element_code": "target_year",
+    "element_id": "esrs.2023-set1.s2-5.dp01.element.target_year",
+    "labels": {
+      "en": "target year",
+      "zh": "目标年"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp01",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_year",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+    "element_code": "statement",
+    "element_id": "esrs.2023-set1.s2-5.dp02.element.statement",
+    "labels": {
+      "en": "statement",
+      "zh": "原文陈述或独立结构成员"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "statement",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.s2-5.dp02.element.reporting_period",
+    "labels": {
+      "en": "reporting period",
+      "zh": "实际披露期间"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_period",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "报告边界；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.s2-5.dp02.element.reporting_boundary",
+    "labels": {
+      "en": "reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "reporting_boundary",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "披露主体；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_entity",
+    "element_id": "esrs.2023-set1.s2-5.dp02.element.reporting_entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_entity",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-ref"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标对象；必须关联独立证据和该事实的身份。",
+    "element_code": "target_ref",
+    "element_id": "esrs.2023-set1.s2-5.dp02.element.target_ref",
+    "labels": {
+      "en": "target ref",
+      "zh": "目标对象"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_ref",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-year"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标年；必须关联独立证据和该事实的身份。",
+    "element_code": "target_year",
+    "element_id": "esrs.2023-set1.s2-5.dp02.element.target_year",
+    "labels": {
+      "en": "target year",
+      "zh": "目标年"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp02",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_year",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+    "element_code": "statement",
+    "element_id": "esrs.2023-set1.s2-5.dp03.element.statement",
+    "labels": {
+      "en": "statement",
+      "zh": "原文陈述或独立结构成员"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "statement",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.s2-5.dp03.element.reporting_period",
+    "labels": {
+      "en": "reporting period",
+      "zh": "实际披露期间"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_period",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "报告边界；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.s2-5.dp03.element.reporting_boundary",
+    "labels": {
+      "en": "reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "reporting_boundary",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "披露主体；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_entity",
+    "element_id": "esrs.2023-set1.s2-5.dp03.element.reporting_entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_entity",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-ref"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标对象；必须关联独立证据和该事实的身份。",
+    "element_code": "target_ref",
+    "element_id": "esrs.2023-set1.s2-5.dp03.element.target_ref",
+    "labels": {
+      "en": "target ref",
+      "zh": "目标对象"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_ref",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-year"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标年；必须关联独立证据和该事实的身份。",
+    "element_code": "target_year",
+    "element_id": "esrs.2023-set1.s2-5.dp03.element.target_year",
+    "labels": {
+      "en": "target year",
+      "zh": "目标年"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp03",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_year",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+    "element_code": "statement",
+    "element_id": "esrs.2023-set1.s2-5.dp04.element.statement",
+    "labels": {
+      "en": "statement",
+      "zh": "原文陈述或独立结构成员"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "statement",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.s2-5.dp04.element.reporting_period",
+    "labels": {
+      "en": "reporting period",
+      "zh": "实际披露期间"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_period",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "报告边界；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.s2-5.dp04.element.reporting_boundary",
+    "labels": {
+      "en": "reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "reporting_boundary",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "披露主体；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_entity",
+    "element_id": "esrs.2023-set1.s2-5.dp04.element.reporting_entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_entity",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-ref"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标对象；必须关联独立证据和该事实的身份。",
+    "element_code": "target_ref",
+    "element_id": "esrs.2023-set1.s2-5.dp04.element.target_ref",
+    "labels": {
+      "en": "target ref",
+      "zh": "目标对象"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_ref",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-year"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标年；必须关联独立证据和该事实的身份。",
+    "element_code": "target_year",
+    "element_id": "esrs.2023-set1.s2-5.dp04.element.target_year",
+    "labels": {
+      "en": "target year",
+      "zh": "目标年"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp04",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_year",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+    "element_code": "statement",
+    "element_id": "esrs.2023-set1.s2-5.dp05.element.statement",
+    "labels": {
+      "en": "statement",
+      "zh": "原文陈述或独立结构成员"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "statement",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.s2-5.dp05.element.reporting_period",
+    "labels": {
+      "en": "reporting period",
+      "zh": "实际披露期间"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_period",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "报告边界；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.s2-5.dp05.element.reporting_boundary",
+    "labels": {
+      "en": "reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "reporting_boundary",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "披露主体；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_entity",
+    "element_id": "esrs.2023-set1.s2-5.dp05.element.reporting_entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_entity",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-ref"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标对象；必须关联独立证据和该事实的身份。",
+    "element_code": "target_ref",
+    "element_id": "esrs.2023-set1.s2-5.dp05.element.target_ref",
+    "labels": {
+      "en": "target ref",
+      "zh": "目标对象"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_ref",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-year"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标年；必须关联独立证据和该事实的身份。",
+    "element_code": "target_year",
+    "element_id": "esrs.2023-set1.s2-5.dp05.element.target_year",
+    "labels": {
+      "en": "target year",
+      "zh": "目标年"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp05",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_year",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "statement_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+    "element_code": "statement",
+    "element_id": "esrs.2023-set1.s2-5.dp06.element.statement",
+    "labels": {
+      "en": "statement",
+      "zh": "原文陈述或独立结构成员"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "statement",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "text",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_period_raw"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_period",
+    "element_id": "esrs.2023-set1.s2-5.dp06.element.reporting_period",
+    "labels": {
+      "en": "reporting period",
+      "zh": "实际披露期间"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_period",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "core_field",
+      "target": "reporting_boundary"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "报告边界；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_boundary",
+    "element_id": "esrs.2023-set1.s2-5.dp06.element.reporting_boundary",
+    "labels": {
+      "en": "reporting boundary",
+      "zh": "报告边界"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "reporting_boundary",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.reporting-entity"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 1
+    },
+    "concept_ids": [],
+    "description": "披露主体；必须关联独立证据和该事实的身份。",
+    "element_code": "reporting_entity",
+    "element_id": "esrs.2023-set1.s2-5.dp06.element.reporting_entity",
+    "labels": {
+      "en": "reporting entity",
+      "zh": "披露主体"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "null_allowed": false,
+    "requirement_level": "required",
+    "semantic_role": "reporting_entity",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-ref"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标对象；必须关联独立证据和该事实的身份。",
+    "element_code": "target_ref",
+    "element_id": "esrs.2023-set1.s2-5.dp06.element.target_ref",
+    "labels": {
+      "en": "target ref",
+      "zh": "目标对象"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_ref",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  },
+  {
+    "binding": {
+      "record_type": "qualitative_assertion",
+      "storage": "dimension",
+      "target": "esrs.2023-set1.s2-5.dimension.target-year"
+    },
+    "cardinality": {
+      "maximum": 1,
+      "minimum": 0
+    },
+    "concept_ids": [],
+    "description": "目标年；必须关联独立证据和该事实的身份。",
+    "element_code": "target_year",
+    "element_id": "esrs.2023-set1.s2-5.dp06.element.target_year",
+    "labels": {
+      "en": "target year",
+      "zh": "目标年"
+    },
+    "metric_id": "esrs.2023-set1.s2-5.dp06",
+    "null_allowed": true,
+    "requirement_level": "recommended",
+    "semantic_role": "target_year",
+    "source_refs": [
+      "esrs.2023-set1.s2-5.source.law",
+      "esrs.2023-set1.s2-5.source.ig3"
+    ],
+    "value_concept_root_ids": [],
+    "value_contract": {
+      "minimum": null,
+      "primary_type": "string",
+      "unit_dimension": null
+    }
+  }
+]

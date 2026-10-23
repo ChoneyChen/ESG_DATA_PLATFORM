@@ -1,0 +1,3590 @@
+{
+  "code_sets": [],
+  "compilation": {
+    "compiler_id": "extractesg.standard-package-compiler",
+    "compiler_version": "0.3.0",
+    "source_digest": "fadb391ec8f5729404d35fe36e79ec3f560faea0c192c1116ec3eab2552f4e73",
+    "source_files": [
+      {
+        "path": "core/core.json",
+        "sha256": "d5e0088d8d8e3c1d474317a13c941849bc40b9353886e430f891f96143339c7d"
+      },
+      {
+        "path": "module/code_sets.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "path": "module/concepts.json",
+        "sha256": "91414d1be46f6cb8ce3c042bd936f03e0b24aededc9ff85cfc8d9a0eb0271e14"
+      },
+      {
+        "path": "module/derivations.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "path": "module/dimensions.json",
+        "sha256": "c7a27b4f997ae578ebb5df4771e3c1abd8704554306f744b772b43a2186a0feb"
+      },
+      {
+        "path": "module/elements.json",
+        "sha256": "9c251a2e48254ef21728d278177c9e73a6e85352d87dfd23f92708bb5c7c8655"
+      },
+      {
+        "path": "module/manifest.json",
+        "sha256": "1c7a0fe3482e75fb8c5535f823480d8c3e84aad99bb9ffd343140d5711315f5a"
+      },
+      {
+        "path": "module/metrics.json",
+        "sha256": "613ad4aa47e6b3673b67428c47ada987d2166ffc6fa3d8727d19cc6ea975cfd6"
+      },
+      {
+        "path": "module/relations.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "path": "module/sources.json",
+        "sha256": "c9cc497d5964e4ade2816e75399ad6c67acd5bfa134f36f88c08ffa42944af01"
+      },
+      {
+        "path": "module/validation_rules.json",
+        "sha256": "f498928e11883c5dabd80db6213b2fdb845e4fa43400aebf4497618dbc624514"
+      }
+    ]
+  },
+  "concepts": [
+    {
+      "abbreviations": [],
+      "aliases": {},
+      "applicable_context_concept_ids": [],
+      "broader_concept_ids": [],
+      "concept_id": "esrs.2023-set1.e5-1.concept.dp01",
+      "description": "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。",
+      "excluded_concept_ids": [],
+      "formulas": [],
+      "labels": {
+        "en": "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources",
+        "zh": "逐步摆脱原生资源使用的政策"
+      },
+      "related_concept_ids": [],
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ]
+    },
+    {
+      "abbreviations": [],
+      "aliases": {},
+      "applicable_context_concept_ids": [],
+      "broader_concept_ids": [],
+      "concept_id": "esrs.2023-set1.e5-1.concept.dp02",
+      "description": "说明政策是否以及如何规定可再生资源的可持续采购与使用，包括来源要求和认证标准。",
+      "excluded_concept_ids": [],
+      "formulas": [],
+      "labels": {
+        "en": "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources",
+        "zh": "可再生资源可持续采购与使用的政策"
+      },
+      "related_concept_ids": [],
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ]
+    },
+    {
+      "abbreviations": [],
+      "aliases": {},
+      "applicable_context_concept_ids": [],
+      "broader_concept_ids": [],
+      "concept_id": "esrs.2023-set1.e5-1.concept.dp03",
+      "description": "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。",
+      "excluded_concept_ids": [],
+      "formulas": [],
+      "labels": {
+        "en": "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal)",
+        "zh": "废弃物层级的政策覆盖"
+      },
+      "related_concept_ids": [],
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ]
+    },
+    {
+      "abbreviations": [],
+      "aliases": {},
+      "applicable_context_concept_ids": [],
+      "broader_concept_ids": [],
+      "concept_id": "esrs.2023-set1.e5-1.concept.dp04",
+      "description": "说明政策是否以及如何优先采取避免或最小化废弃物产生的策略，而非废弃物处理策略。",
+      "excluded_concept_ids": [],
+      "formulas": [],
+      "labels": {
+        "en": "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies",
+        "zh": "优先避免或最小化废弃物的政策"
+      },
+      "related_concept_ids": [],
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ]
+    }
+  ],
+  "core": {
+    "common_code_sets": [
+      {
+        "code_set_id": "extractesg.core.codeset.materiality-status",
+        "extensible": false,
+        "values": [
+          {
+            "code": "material",
+            "description": null,
+            "labels": {
+              "en": "Material",
+              "zh": "重大"
+            }
+          },
+          {
+            "code": "not_material",
+            "description": null,
+            "labels": {
+              "en": "Not material",
+              "zh": "不重大"
+            }
+          },
+          {
+            "code": "not_assessed",
+            "description": null,
+            "labels": {
+              "en": "Not assessed",
+              "zh": "未评估"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.applicability-status",
+        "extensible": false,
+        "values": [
+          {
+            "code": "applicable",
+            "description": null,
+            "labels": {
+              "en": "Applicable",
+              "zh": "适用"
+            }
+          },
+          {
+            "code": "not_applicable",
+            "description": null,
+            "labels": {
+              "en": "Not applicable",
+              "zh": "不适用"
+            }
+          },
+          {
+            "code": "uncertain",
+            "description": null,
+            "labels": {
+              "en": "Uncertain",
+              "zh": "待判断"
+            }
+          },
+          {
+            "code": "not_assessed",
+            "description": null,
+            "labels": {
+              "en": "Not assessed",
+              "zh": "未评估"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.found-status",
+        "extensible": false,
+        "values": [
+          {
+            "code": "reported",
+            "description": null,
+            "labels": {
+              "en": "Reported",
+              "zh": "找到直接披露"
+            }
+          },
+          {
+            "code": "explicit_zero",
+            "description": null,
+            "labels": {
+              "en": "Explicit zero",
+              "zh": "明确零披露"
+            }
+          },
+          {
+            "code": "partial",
+            "description": null,
+            "labels": {
+              "en": "Partial",
+              "zh": "部分找到"
+            }
+          },
+          {
+            "code": "not_found_after_complete_search",
+            "description": null,
+            "labels": {
+              "en": "Not found after complete search",
+              "zh": "完整检索后未找到"
+            }
+          },
+          {
+            "code": "uncertain",
+            "description": null,
+            "labels": {
+              "en": "Uncertain",
+              "zh": "不确定"
+            }
+          },
+          {
+            "code": "not_applicable",
+            "description": null,
+            "labels": {
+              "en": "Not applicable",
+              "zh": "不适用"
+            }
+          },
+          {
+            "code": "not_assessed",
+            "description": null,
+            "labels": {
+              "en": "Not assessed",
+              "zh": "未评估"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.review-status",
+        "extensible": false,
+        "values": [
+          {
+            "code": "pending",
+            "description": null,
+            "labels": {
+              "en": "Pending",
+              "zh": "待审核"
+            }
+          },
+          {
+            "code": "auto_verified",
+            "description": null,
+            "labels": {
+              "en": "Automatically verified",
+              "zh": "自动校验通过"
+            }
+          },
+          {
+            "code": "human_required",
+            "description": null,
+            "labels": {
+              "en": "Human review required",
+              "zh": "需人工判断"
+            }
+          },
+          {
+            "code": "approved",
+            "description": null,
+            "labels": {
+              "en": "Approved",
+              "zh": "已批准"
+            }
+          },
+          {
+            "code": "rejected",
+            "description": null,
+            "labels": {
+              "en": "Rejected",
+              "zh": "已拒绝"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.task-status",
+        "extensible": false,
+        "values": [
+          {
+            "code": "not_started",
+            "description": null,
+            "labels": {
+              "en": "Not started",
+              "zh": "未开始"
+            }
+          },
+          {
+            "code": "running",
+            "description": null,
+            "labels": {
+              "en": "Running",
+              "zh": "处理中"
+            }
+          },
+          {
+            "code": "completed",
+            "description": null,
+            "labels": {
+              "en": "Completed",
+              "zh": "已完成"
+            }
+          },
+          {
+            "code": "partial",
+            "description": null,
+            "labels": {
+              "en": "Partial",
+              "zh": "部分完成"
+            }
+          },
+          {
+            "code": "blocked",
+            "description": null,
+            "labels": {
+              "en": "Blocked",
+              "zh": "阻塞"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.value-origin",
+        "extensible": false,
+        "values": [
+          {
+            "code": "reported",
+            "description": null,
+            "labels": {
+              "en": "Reported",
+              "zh": "报告直接披露"
+            }
+          },
+          {
+            "code": "derived",
+            "description": null,
+            "labels": {
+              "en": "Derived",
+              "zh": "后续处理派生"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.comparator",
+        "extensible": false,
+        "values": [
+          {
+            "code": "exact",
+            "description": null,
+            "labels": {
+              "en": "Exact",
+              "zh": "精确值"
+            }
+          },
+          {
+            "code": "about",
+            "description": null,
+            "labels": {
+              "en": "Approximate",
+              "zh": "约数"
+            }
+          },
+          {
+            "code": "less_than",
+            "description": null,
+            "labels": {
+              "en": "Less than",
+              "zh": "小于"
+            }
+          },
+          {
+            "code": "greater_than",
+            "description": null,
+            "labels": {
+              "en": "Greater than",
+              "zh": "大于"
+            }
+          },
+          {
+            "code": "range",
+            "description": null,
+            "labels": {
+              "en": "Range",
+              "zh": "区间"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.parent-record-type",
+        "extensible": false,
+        "values": [
+          {
+            "code": "reporting_task",
+            "description": null,
+            "labels": {
+              "en": "Reporting task",
+              "zh": "指标任务"
+            }
+          },
+          {
+            "code": "quantitative_observation",
+            "description": null,
+            "labels": {
+              "en": "Quantitative observation",
+              "zh": "量化事实"
+            }
+          },
+          {
+            "code": "qualitative_assertion",
+            "description": null,
+            "labels": {
+              "en": "Qualitative assertion",
+              "zh": "定性断言"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.attribute-value-type",
+        "extensible": false,
+        "values": [
+          {
+            "code": "text",
+            "description": null,
+            "labels": {
+              "en": "Text",
+              "zh": "文本"
+            }
+          },
+          {
+            "code": "numeric",
+            "description": null,
+            "labels": {
+              "en": "Numeric",
+              "zh": "数值"
+            }
+          },
+          {
+            "code": "boolean",
+            "description": null,
+            "labels": {
+              "en": "Boolean",
+              "zh": "布尔"
+            }
+          },
+          {
+            "code": "date",
+            "description": null,
+            "labels": {
+              "en": "Date",
+              "zh": "日期"
+            }
+          },
+          {
+            "code": "code",
+            "description": null,
+            "labels": {
+              "en": "Controlled code",
+              "zh": "受控代码"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.boolean-unknown",
+        "extensible": false,
+        "values": [
+          {
+            "code": "true",
+            "description": null,
+            "labels": {
+              "en": "True",
+              "zh": "是"
+            }
+          },
+          {
+            "code": "false",
+            "description": null,
+            "labels": {
+              "en": "False",
+              "zh": "否"
+            }
+          },
+          {
+            "code": "unknown",
+            "description": null,
+            "labels": {
+              "en": "Unknown",
+              "zh": "未知"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.ir-object-type",
+        "extensible": false,
+        "values": [
+          {
+            "code": "page",
+            "description": null,
+            "labels": {
+              "en": "Page",
+              "zh": "页面"
+            }
+          },
+          {
+            "code": "section",
+            "description": null,
+            "labels": {
+              "en": "Section",
+              "zh": "章节"
+            }
+          },
+          {
+            "code": "block",
+            "description": null,
+            "labels": {
+              "en": "Block",
+              "zh": "版面块"
+            }
+          },
+          {
+            "code": "table",
+            "description": null,
+            "labels": {
+              "en": "Table",
+              "zh": "表格"
+            }
+          },
+          {
+            "code": "cell",
+            "description": null,
+            "labels": {
+              "en": "Cell",
+              "zh": "单元格"
+            }
+          },
+          {
+            "code": "figure",
+            "description": null,
+            "labels": {
+              "en": "Figure",
+              "zh": "图形"
+            }
+          },
+          {
+            "code": "spread",
+            "description": null,
+            "labels": {
+              "en": "Spread",
+              "zh": "跨页拼接"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.evidence-role",
+        "extensible": false,
+        "values": [
+          {
+            "code": "primary",
+            "description": null,
+            "labels": {
+              "en": "Primary",
+              "zh": "主证据"
+            }
+          },
+          {
+            "code": "supporting",
+            "description": null,
+            "labels": {
+              "en": "Supporting",
+              "zh": "辅助证据"
+            }
+          },
+          {
+            "code": "context",
+            "description": null,
+            "labels": {
+              "en": "Context",
+              "zh": "上下文证据"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.currency",
+        "extensible": true,
+        "values": [
+          {
+            "code": "cny",
+            "description": null,
+            "labels": {
+              "en": "Chinese yuan",
+              "zh": "人民币"
+            }
+          },
+          {
+            "code": "eur",
+            "description": null,
+            "labels": {
+              "en": "Euro",
+              "zh": "欧元"
+            }
+          },
+          {
+            "code": "usd",
+            "description": null,
+            "labels": {
+              "en": "US dollar",
+              "zh": "美元"
+            }
+          },
+          {
+            "code": "gbp",
+            "description": null,
+            "labels": {
+              "en": "Pound sterling",
+              "zh": "英镑"
+            }
+          },
+          {
+            "code": "jpy",
+            "description": null,
+            "labels": {
+              "en": "Japanese yen",
+              "zh": "日元"
+            }
+          },
+          {
+            "code": "hkd",
+            "description": null,
+            "labels": {
+              "en": "Hong Kong dollar",
+              "zh": "港元"
+            }
+          },
+          {
+            "code": "other",
+            "description": null,
+            "labels": {
+              "en": "Other currency",
+              "zh": "其他货币"
+            }
+          }
+        ]
+      },
+      {
+        "code_set_id": "extractesg.core.codeset.currency-scale",
+        "extensible": true,
+        "values": [
+          {
+            "code": "unit",
+            "description": null,
+            "labels": {
+              "en": "unit",
+              "zh": "元"
+            }
+          },
+          {
+            "code": "thousand",
+            "description": null,
+            "labels": {
+              "en": "thousand",
+              "zh": "千"
+            }
+          },
+          {
+            "code": "ten_thousand",
+            "description": null,
+            "labels": {
+              "en": "ten thousand",
+              "zh": "万"
+            }
+          },
+          {
+            "code": "million",
+            "description": null,
+            "labels": {
+              "en": "million",
+              "zh": "百万"
+            }
+          },
+          {
+            "code": "hundred_million",
+            "description": null,
+            "labels": {
+              "en": "hundred million",
+              "zh": "亿"
+            }
+          },
+          {
+            "code": "billion",
+            "description": null,
+            "labels": {
+              "en": "billion",
+              "zh": "十亿"
+            }
+          },
+          {
+            "code": "other",
+            "description": null,
+            "labels": {
+              "en": "other scale",
+              "zh": "其他量级"
+            }
+          }
+        ]
+      }
+    ],
+    "common_dimensions": [
+      {
+        "code_set_id": null,
+        "description": "A reporting site or location.",
+        "dimension_id": "extractesg.core.dimension.site",
+        "hierarchical": false,
+        "labels": {
+          "en": "Site",
+          "zh": "场地"
+        },
+        "value_type": "string"
+      },
+      {
+        "code_set_id": null,
+        "description": "A named operating facility or installation.",
+        "dimension_id": "extractesg.core.dimension.facility",
+        "hierarchical": false,
+        "labels": {
+          "en": "Facility",
+          "zh": "设施"
+        },
+        "value_type": "string"
+      },
+      {
+        "code_set_id": null,
+        "description": "Country, region or other geographical area.",
+        "dimension_id": "extractesg.core.dimension.geography",
+        "hierarchical": true,
+        "labels": {
+          "en": "Geography",
+          "zh": "地理区域"
+        },
+        "value_type": "string"
+      },
+      {
+        "code_set_id": null,
+        "description": "Business, operating or sector segment.",
+        "dimension_id": "extractesg.core.dimension.business-segment",
+        "hierarchical": true,
+        "labels": {
+          "en": "Business segment",
+          "zh": "业务板块"
+        },
+        "value_type": "string"
+      },
+      {
+        "code_set_id": null,
+        "description": "Type of source used to disaggregate a disclosure.",
+        "dimension_id": "extractesg.core.dimension.source-type",
+        "hierarchical": false,
+        "labels": {
+          "en": "Source type",
+          "zh": "来源类型"
+        },
+        "value_type": "string"
+      }
+    ],
+    "common_units": [
+      {
+        "dimension": "extractesg.core.unit-dimension.mass",
+        "labels": {
+          "en": "tonne",
+          "zh": "吨"
+        },
+        "scale_to_si": "1000",
+        "symbol": "t",
+        "unit_id": "extractesg.core.unit.tonne"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.mass",
+        "labels": {
+          "en": "kilogram",
+          "zh": "千克"
+        },
+        "scale_to_si": "1",
+        "symbol": "kg",
+        "unit_id": "extractesg.core.unit.kilogram"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.mass",
+        "labels": {
+          "en": "gram",
+          "zh": "克"
+        },
+        "scale_to_si": "0.001",
+        "symbol": "g",
+        "unit_id": "extractesg.core.unit.gram"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.mass",
+        "labels": {
+          "en": "milligram",
+          "zh": "毫克"
+        },
+        "scale_to_si": "0.000001",
+        "symbol": "mg",
+        "unit_id": "extractesg.core.unit.milligram"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ratio",
+        "labels": {
+          "en": "percent",
+          "zh": "百分比"
+        },
+        "scale_to_si": "0.01",
+        "symbol": "%",
+        "unit_id": "extractesg.core.unit.percent"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "watt-hour",
+          "zh": "瓦时"
+        },
+        "scale_to_si": "3600",
+        "symbol": "Wh",
+        "unit_id": "extractesg.core.unit.watt-hour"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "kilowatt-hour",
+          "zh": "千瓦时"
+        },
+        "scale_to_si": "3600000",
+        "symbol": "kWh",
+        "unit_id": "extractesg.core.unit.kilowatt-hour"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "megawatt-hour",
+          "zh": "兆瓦时"
+        },
+        "scale_to_si": "3600000000",
+        "symbol": "MWh",
+        "unit_id": "extractesg.core.unit.megawatt-hour"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "gigawatt-hour",
+          "zh": "吉瓦时"
+        },
+        "scale_to_si": "3600000000000",
+        "symbol": "GWh",
+        "unit_id": "extractesg.core.unit.gigawatt-hour"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "terawatt-hour",
+          "zh": "太瓦时"
+        },
+        "scale_to_si": "3600000000000000",
+        "symbol": "TWh",
+        "unit_id": "extractesg.core.unit.terawatt-hour"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "megajoule",
+          "zh": "兆焦"
+        },
+        "scale_to_si": "1000000",
+        "symbol": "MJ",
+        "unit_id": "extractesg.core.unit.megajoule"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "gigajoule",
+          "zh": "吉焦"
+        },
+        "scale_to_si": "1000000000",
+        "symbol": "GJ",
+        "unit_id": "extractesg.core.unit.gigajoule"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "terajoule",
+          "zh": "太焦"
+        },
+        "scale_to_si": "1000000000000",
+        "symbol": "TJ",
+        "unit_id": "extractesg.core.unit.terajoule"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy",
+        "labels": {
+          "en": "tonne of coal equivalent",
+          "zh": "吨标准煤"
+        },
+        "scale_to_si": "29307600000",
+        "symbol": "tce",
+        "unit_id": "extractesg.core.unit.tonne-coal-equivalent"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ghg-emissions",
+        "labels": {
+          "en": "kilogram CO2 equivalent",
+          "zh": "千克二氧化碳当量"
+        },
+        "scale_to_si": "1",
+        "symbol": "kgCO2e",
+        "unit_id": "extractesg.core.unit.kilogram-co2e"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ghg-emissions",
+        "labels": {
+          "en": "tonne CO2 equivalent",
+          "zh": "吨二氧化碳当量"
+        },
+        "scale_to_si": "1000",
+        "symbol": "tCO2e",
+        "unit_id": "extractesg.core.unit.tonne-co2e"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ghg-emissions",
+        "labels": {
+          "en": "kilotonne CO2 equivalent",
+          "zh": "千吨二氧化碳当量"
+        },
+        "scale_to_si": "1000000",
+        "symbol": "ktCO2e",
+        "unit_id": "extractesg.core.unit.kilotonne-co2e"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ghg-emissions",
+        "labels": {
+          "en": "megatonne CO2 equivalent",
+          "zh": "百万吨二氧化碳当量"
+        },
+        "scale_to_si": "1000000000",
+        "symbol": "MtCO2e",
+        "unit_id": "extractesg.core.unit.megatonne-co2e"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.currency",
+        "labels": {
+          "en": "Chinese yuan",
+          "zh": "人民币"
+        },
+        "scale_to_si": null,
+        "symbol": "CNY",
+        "unit_id": "extractesg.core.unit.cny"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.currency",
+        "labels": {
+          "en": "Euro",
+          "zh": "欧元"
+        },
+        "scale_to_si": null,
+        "symbol": "EUR",
+        "unit_id": "extractesg.core.unit.eur"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.currency",
+        "labels": {
+          "en": "US dollar",
+          "zh": "美元"
+        },
+        "scale_to_si": null,
+        "symbol": "USD",
+        "unit_id": "extractesg.core.unit.usd"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.currency",
+        "labels": {
+          "en": "Pound sterling",
+          "zh": "英镑"
+        },
+        "scale_to_si": null,
+        "symbol": "GBP",
+        "unit_id": "extractesg.core.unit.gbp"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.currency",
+        "labels": {
+          "en": "Japanese yen",
+          "zh": "日元"
+        },
+        "scale_to_si": null,
+        "symbol": "JPY",
+        "unit_id": "extractesg.core.unit.jpy"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.currency",
+        "labels": {
+          "en": "Hong Kong dollar",
+          "zh": "港元"
+        },
+        "scale_to_si": null,
+        "symbol": "HKD",
+        "unit_id": "extractesg.core.unit.hkd"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.energy-intensity",
+        "labels": {
+          "en": "MWh per monetary unit",
+          "zh": "兆瓦时/货币单位"
+        },
+        "scale_to_si": null,
+        "symbol": "MWh/currency",
+        "unit_id": "extractesg.core.unit.mwh-per-monetary-unit"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ghg-intensity",
+        "labels": {
+          "en": "tCO2e per monetary unit",
+          "zh": "吨二氧化碳当量/货币单位"
+        },
+        "scale_to_si": null,
+        "symbol": "tCO2e/currency",
+        "unit_id": "extractesg.core.unit.tco2e-per-monetary-unit"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.volume",
+        "labels": {
+          "en": "cubic metre",
+          "zh": "立方米"
+        },
+        "scale_to_si": "1",
+        "symbol": "m3",
+        "unit_id": "extractesg.core.unit.cubic-metre"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.volume",
+        "labels": {
+          "en": "litre",
+          "zh": "升"
+        },
+        "scale_to_si": "0.001",
+        "symbol": "L",
+        "unit_id": "extractesg.core.unit.litre"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.ratio",
+        "labels": {
+          "en": "ratio",
+          "zh": "比例"
+        },
+        "scale_to_si": "1",
+        "symbol": "1",
+        "unit_id": "extractesg.core.unit.ratio"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.count",
+        "labels": {
+          "en": "count",
+          "zh": "个数"
+        },
+        "scale_to_si": "1",
+        "symbol": "count",
+        "unit_id": "extractesg.core.unit.count"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.water-intensity",
+        "labels": {
+          "en": "cubic metre per million euro",
+          "zh": "立方米/百万欧元"
+        },
+        "scale_to_si": null,
+        "symbol": "m3/million EUR",
+        "unit_id": "extractesg.core.unit.cubic-metre-per-million-eur"
+      },
+      {
+        "dimension": "extractesg.core.unit-dimension.carbon-price",
+        "labels": {
+          "en": "currency per tonne CO2 equivalent",
+          "zh": "货币单位/吨二氧化碳当量"
+        },
+        "scale_to_si": null,
+        "symbol": "currency/tCO2e",
+        "unit_id": "extractesg.core.unit.currency-per-tonne-co2e"
+      }
+    ],
+    "core_schema_id": "extractesg.core",
+    "core_schema_version": "1.2.0",
+    "format_version": "1.0",
+    "record_types": [
+      {
+        "description": "One selected standard datapoint for one report and one immutable IR revision.",
+        "fields": [
+          {
+            "code_set_id": null,
+            "description": "Stable task identifier.",
+            "field_id": "task_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Upstream report reference.",
+            "field_id": "report_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Immutable source document identifier.",
+            "field_id": "document_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Document IR run identifier.",
+            "field_id": "ir_run_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Document IR revision.",
+            "field_id": "ir_revision",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Standard package identifier.",
+            "field_id": "package_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Standard package semantic version.",
+            "field_id": "package_version",
+            "nullable": false,
+            "required": true,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced metric identifier.",
+            "field_id": "metric_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.materiality-status",
+            "description": "Materiality state.",
+            "field_id": "materiality_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.applicability-status",
+            "description": "Applicability state.",
+            "field_id": "applicability_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.found-status",
+            "description": "Disclosure finding state.",
+            "field_id": "found_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Number of accepted result records.",
+            "field_id": "result_count",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Number of attached evidence records.",
+            "field_id": "evidence_count",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Bounded reason when the task cannot be resolved.",
+            "field_id": "uncertainty_reason",
+            "nullable": true,
+            "required": false,
+            "value_type": "text"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.review-status",
+            "description": "Review state.",
+            "field_id": "review_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.task-status",
+            "description": "Task execution state.",
+            "field_id": "task_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          }
+        ],
+        "primary_key": "task_id",
+        "record_type": "reporting_task"
+      },
+      {
+        "description": "One quantitative value for one metric, period, boundary and dimension combination.",
+        "fields": [
+          {
+            "code_set_id": null,
+            "description": "Stable quantitative observation identifier.",
+            "field_id": "observation_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Owning reporting task.",
+            "field_id": "task_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced metric identifier.",
+            "field_id": "metric_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.value-origin",
+            "description": "Reported or derived origin.",
+            "field_id": "value_origin",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Value exactly as represented by the report.",
+            "field_id": "value_raw",
+            "nullable": false,
+            "required": true,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.comparator",
+            "description": "Exact, approximate, bound or range comparator.",
+            "field_id": "comparator",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Typed exact or central numeric value.",
+            "field_id": "value_numeric",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Typed lower bound.",
+            "field_id": "value_lower",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Typed upper bound.",
+            "field_id": "value_upper",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Unit exactly as represented by the report.",
+            "field_id": "unit_raw",
+            "nullable": true,
+            "required": false,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Controlled unit identifier.",
+            "field_id": "unit_id",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Reporting period exactly as represented by the report.",
+            "field_id": "reporting_period_raw",
+            "nullable": true,
+            "required": false,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Reporting year when the period is annual.",
+            "field_id": "reporting_year",
+            "nullable": true,
+            "required": false,
+            "value_type": "year"
+          },
+          {
+            "code_set_id": null,
+            "description": "Reporting period start.",
+            "field_id": "period_start",
+            "nullable": true,
+            "required": false,
+            "value_type": "date"
+          },
+          {
+            "code_set_id": null,
+            "description": "Reporting period end.",
+            "field_id": "period_end",
+            "nullable": true,
+            "required": false,
+            "value_type": "date"
+          },
+          {
+            "code_set_id": null,
+            "description": "Original reporting boundary or scope.",
+            "field_id": "reporting_boundary",
+            "nullable": true,
+            "required": false,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Evidence set supporting this observation.",
+            "field_id": "evidence_set_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Machine confidence from zero to one.",
+            "field_id": "confidence",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.review-status",
+            "description": "Review state.",
+            "field_id": "review_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          }
+        ],
+        "primary_key": "observation_id",
+        "record_type": "quantitative_observation"
+      },
+      {
+        "description": "One independently supportable qualitative assertion or list item.",
+        "fields": [
+          {
+            "code_set_id": null,
+            "description": "Stable qualitative assertion identifier.",
+            "field_id": "assertion_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Owning reporting task.",
+            "field_id": "task_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced metric identifier.",
+            "field_id": "metric_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Evidence-grounded original assertion text.",
+            "field_id": "statement_raw",
+            "nullable": false,
+            "required": true,
+            "value_type": "text"
+          },
+          {
+            "code_set_id": null,
+            "description": "Constrained normalized assertion.",
+            "field_id": "statement_summary",
+            "nullable": true,
+            "required": false,
+            "value_type": "text"
+          },
+          {
+            "code_set_id": null,
+            "description": "Applicable period exactly as represented by the report.",
+            "field_id": "reporting_period_raw",
+            "nullable": true,
+            "required": false,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Reporting year when applicable.",
+            "field_id": "reporting_year",
+            "nullable": true,
+            "required": false,
+            "value_type": "year"
+          },
+          {
+            "code_set_id": null,
+            "description": "Applicable period start.",
+            "field_id": "period_start",
+            "nullable": true,
+            "required": false,
+            "value_type": "date"
+          },
+          {
+            "code_set_id": null,
+            "description": "Applicable period end.",
+            "field_id": "period_end",
+            "nullable": true,
+            "required": false,
+            "value_type": "date"
+          },
+          {
+            "code_set_id": null,
+            "description": "Original reporting boundary or scope.",
+            "field_id": "reporting_boundary",
+            "nullable": true,
+            "required": false,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Evidence set supporting this assertion.",
+            "field_id": "evidence_set_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Machine confidence from zero to one.",
+            "field_id": "confidence",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.review-status",
+            "description": "Review state.",
+            "field_id": "review_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          }
+        ],
+        "primary_key": "assertion_id",
+        "record_type": "qualitative_assertion"
+      },
+      {
+        "description": "A typed module-specific property attached to a task, observation or assertion.",
+        "fields": [
+          {
+            "code_set_id": null,
+            "description": "Stable attribute identifier.",
+            "field_id": "attribute_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.parent-record-type",
+            "description": "Type of parent record.",
+            "field_id": "parent_record_type",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Parent record identifier.",
+            "field_id": "parent_record_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced metric identifier.",
+            "field_id": "metric_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced semantic element identifier.",
+            "field_id": "element_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.attribute-value-type",
+            "description": "Populated typed value column.",
+            "field_id": "value_type",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Text value.",
+            "field_id": "value_text",
+            "nullable": true,
+            "required": false,
+            "value_type": "text"
+          },
+          {
+            "code_set_id": null,
+            "description": "Numeric value.",
+            "field_id": "value_numeric",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Boolean value.",
+            "field_id": "value_boolean",
+            "nullable": true,
+            "required": false,
+            "value_type": "boolean"
+          },
+          {
+            "code_set_id": null,
+            "description": "Date value.",
+            "field_id": "value_date",
+            "nullable": true,
+            "required": false,
+            "value_type": "date"
+          },
+          {
+            "code_set_id": null,
+            "description": "Controlled code value.",
+            "field_id": "value_code",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Controlled unit identifier when applicable.",
+            "field_id": "unit_id",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Stable order for repeated attributes.",
+            "field_id": "sequence",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Evidence set supporting this attribute.",
+            "field_id": "evidence_set_id",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.review-status",
+            "description": "Review state.",
+            "field_id": "review_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          }
+        ],
+        "primary_key": "attribute_id",
+        "record_type": "attribute_value"
+      },
+      {
+        "description": "One controlled or original dimension attached to a result record.",
+        "fields": [
+          {
+            "code_set_id": null,
+            "description": "Stable dimension value identifier.",
+            "field_id": "dimension_value_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.parent-record-type",
+            "description": "Type of parent record.",
+            "field_id": "parent_record_type",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Parent record identifier.",
+            "field_id": "parent_record_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced metric identifier.",
+            "field_id": "metric_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Namespaced semantic element identifier.",
+            "field_id": "element_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Controlled dimension identifier.",
+            "field_id": "dimension_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Original dimension value.",
+            "field_id": "value_raw",
+            "nullable": false,
+            "required": true,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Normalized dimension code.",
+            "field_id": "value_code",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Hierarchy level when applicable.",
+            "field_id": "value_level",
+            "nullable": true,
+            "required": false,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Parent dimension value when hierarchical.",
+            "field_id": "parent_dimension_value_id",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Stable order for repeated values.",
+            "field_id": "sequence",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Evidence set supporting this dimension.",
+            "field_id": "evidence_set_id",
+            "nullable": true,
+            "required": false,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.review-status",
+            "description": "Review state.",
+            "field_id": "review_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          }
+        ],
+        "primary_key": "dimension_value_id",
+        "record_type": "dimension_value"
+      },
+      {
+        "description": "A reproducible reference from a result record to Document IR and the source PDF.",
+        "fields": [
+          {
+            "code_set_id": null,
+            "description": "Stable evidence identifier.",
+            "field_id": "evidence_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Evidence group identifier.",
+            "field_id": "evidence_set_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.parent-record-type",
+            "description": "Supported record type.",
+            "field_id": "source_record_type",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Supported record identifier.",
+            "field_id": "source_record_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Immutable source document identifier.",
+            "field_id": "document_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Document IR run identifier.",
+            "field_id": "ir_run_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Document IR revision.",
+            "field_id": "ir_revision",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.ir-object-type",
+            "description": "Document IR object type.",
+            "field_id": "ir_object_type",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": null,
+            "description": "Document IR object identifier.",
+            "field_id": "ir_object_id",
+            "nullable": false,
+            "required": true,
+            "value_type": "identifier"
+          },
+          {
+            "code_set_id": null,
+            "description": "Zero-based physical PDF page index.",
+            "field_id": "pdf_page_index",
+            "nullable": false,
+            "required": true,
+            "value_type": "integer"
+          },
+          {
+            "code_set_id": null,
+            "description": "Printed page label when available.",
+            "field_id": "printed_page_label",
+            "nullable": true,
+            "required": false,
+            "value_type": "string"
+          },
+          {
+            "code_set_id": null,
+            "description": "Left source coordinate.",
+            "field_id": "bbox_x0",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Top source coordinate.",
+            "field_id": "bbox_y0",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Right source coordinate.",
+            "field_id": "bbox_x1",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Bottom source coordinate.",
+            "field_id": "bbox_y1",
+            "nullable": true,
+            "required": false,
+            "value_type": "decimal"
+          },
+          {
+            "code_set_id": null,
+            "description": "Bounded supporting excerpt.",
+            "field_id": "evidence_excerpt",
+            "nullable": false,
+            "required": true,
+            "value_type": "text"
+          },
+          {
+            "code_set_id": null,
+            "description": "Hash of the normalized supporting excerpt.",
+            "field_id": "quote_sha256",
+            "nullable": false,
+            "required": true,
+            "value_type": "hash"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.evidence-role",
+            "description": "Primary, supporting or contextual evidence role.",
+            "field_id": "evidence_role",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          },
+          {
+            "code_set_id": "extractesg.core.codeset.review-status",
+            "description": "Review state.",
+            "field_id": "review_status",
+            "nullable": false,
+            "required": true,
+            "value_type": "enum"
+          }
+        ],
+        "primary_key": "evidence_id",
+        "record_type": "evidence_reference"
+      }
+    ]
+  },
+  "derivations": [],
+  "dimensions": [
+    {
+      "code_set_id": null,
+      "description": "由报告证据识别的政策对象；未知不能由标准默认填充。",
+      "dimension_id": "esrs.2023-set1.e5-1.dimension.policy-ref",
+      "hierarchical": false,
+      "labels": {
+        "en": "policy ref",
+        "zh": "政策对象"
+      },
+      "value_type": "string"
+    },
+    {
+      "code_set_id": null,
+      "description": "由报告证据识别的披露主体；未知不能由标准默认填充。",
+      "dimension_id": "esrs.2023-set1.e5-1.dimension.reporting-entity",
+      "hierarchical": false,
+      "labels": {
+        "en": "reporting entity",
+        "zh": "披露主体"
+      },
+      "value_type": "string"
+    }
+  ],
+  "elements": [
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.policy-ref"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "政策对象；必须关联独立证据和该事实的身份。",
+      "element_code": "policy_ref",
+      "element_id": "esrs.2023-set1.e5-1.dp01.element.policy_ref",
+      "labels": {
+        "en": "policy ref",
+        "zh": "政策对象"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp01",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "policy_ref",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_boundary"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "报告边界；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_boundary",
+      "element_id": "esrs.2023-set1.e5-1.dp01.element.reporting_boundary",
+      "labels": {
+        "en": "reporting boundary",
+        "zh": "报告边界"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp01",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "reporting_boundary",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "披露主体；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_entity",
+      "element_id": "esrs.2023-set1.e5-1.dp01.element.reporting_entity",
+      "labels": {
+        "en": "reporting entity",
+        "zh": "披露主体"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp01",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_entity",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_period_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_period",
+      "element_id": "esrs.2023-set1.e5-1.dp01.element.reporting_period",
+      "labels": {
+        "en": "reporting period",
+        "zh": "实际披露期间"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp01",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_period",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "statement_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+      "element_code": "statement",
+      "element_id": "esrs.2023-set1.e5-1.dp01.element.statement",
+      "labels": {
+        "en": "statement",
+        "zh": "原文陈述或独立结构成员"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp01",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "statement",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "text",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.policy-ref"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "政策对象；必须关联独立证据和该事实的身份。",
+      "element_code": "policy_ref",
+      "element_id": "esrs.2023-set1.e5-1.dp02.element.policy_ref",
+      "labels": {
+        "en": "policy ref",
+        "zh": "政策对象"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp02",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "policy_ref",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_boundary"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "报告边界；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_boundary",
+      "element_id": "esrs.2023-set1.e5-1.dp02.element.reporting_boundary",
+      "labels": {
+        "en": "reporting boundary",
+        "zh": "报告边界"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp02",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "reporting_boundary",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "披露主体；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_entity",
+      "element_id": "esrs.2023-set1.e5-1.dp02.element.reporting_entity",
+      "labels": {
+        "en": "reporting entity",
+        "zh": "披露主体"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp02",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_entity",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_period_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_period",
+      "element_id": "esrs.2023-set1.e5-1.dp02.element.reporting_period",
+      "labels": {
+        "en": "reporting period",
+        "zh": "实际披露期间"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp02",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_period",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "statement_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+      "element_code": "statement",
+      "element_id": "esrs.2023-set1.e5-1.dp02.element.statement",
+      "labels": {
+        "en": "statement",
+        "zh": "原文陈述或独立结构成员"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp02",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "statement",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "text",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.policy-ref"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "政策对象；必须关联独立证据和该事实的身份。",
+      "element_code": "policy_ref",
+      "element_id": "esrs.2023-set1.e5-1.dp03.element.policy_ref",
+      "labels": {
+        "en": "policy ref",
+        "zh": "政策对象"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp03",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "policy_ref",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_boundary"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "报告边界；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_boundary",
+      "element_id": "esrs.2023-set1.e5-1.dp03.element.reporting_boundary",
+      "labels": {
+        "en": "reporting boundary",
+        "zh": "报告边界"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp03",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "reporting_boundary",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "披露主体；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_entity",
+      "element_id": "esrs.2023-set1.e5-1.dp03.element.reporting_entity",
+      "labels": {
+        "en": "reporting entity",
+        "zh": "披露主体"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp03",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_entity",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_period_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_period",
+      "element_id": "esrs.2023-set1.e5-1.dp03.element.reporting_period",
+      "labels": {
+        "en": "reporting period",
+        "zh": "实际披露期间"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp03",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_period",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "statement_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+      "element_code": "statement",
+      "element_id": "esrs.2023-set1.e5-1.dp03.element.statement",
+      "labels": {
+        "en": "statement",
+        "zh": "原文陈述或独立结构成员"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp03",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "statement",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "text",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.policy-ref"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "政策对象；必须关联独立证据和该事实的身份。",
+      "element_code": "policy_ref",
+      "element_id": "esrs.2023-set1.e5-1.dp04.element.policy_ref",
+      "labels": {
+        "en": "policy ref",
+        "zh": "政策对象"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp04",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "policy_ref",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_boundary"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "concept_ids": [],
+      "description": "报告边界；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_boundary",
+      "element_id": "esrs.2023-set1.e5-1.dp04.element.reporting_boundary",
+      "labels": {
+        "en": "reporting boundary",
+        "zh": "报告边界"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp04",
+      "null_allowed": true,
+      "requirement_level": "recommended",
+      "semantic_role": "reporting_boundary",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "dimension",
+        "target": "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "披露主体；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_entity",
+      "element_id": "esrs.2023-set1.e5-1.dp04.element.reporting_entity",
+      "labels": {
+        "en": "reporting entity",
+        "zh": "披露主体"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp04",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_entity",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "reporting_period_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "实际披露期间；必须关联独立证据和该事实的身份。",
+      "element_code": "reporting_period",
+      "element_id": "esrs.2023-set1.e5-1.dp04.element.reporting_period",
+      "labels": {
+        "en": "reporting period",
+        "zh": "实际披露期间"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp04",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "reporting_period",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "string",
+        "unit_dimension": null
+      }
+    },
+    {
+      "binding": {
+        "record_type": "qualitative_assertion",
+        "storage": "core_field",
+        "target": "statement_raw"
+      },
+      "cardinality": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "concept_ids": [],
+      "description": "原文陈述或独立结构成员；必须关联独立证据和该事实的身份。",
+      "element_code": "statement",
+      "element_id": "esrs.2023-set1.e5-1.dp04.element.statement",
+      "labels": {
+        "en": "statement",
+        "zh": "原文陈述或独立结构成员"
+      },
+      "metric_id": "esrs.2023-set1.e5-1.dp04",
+      "null_allowed": false,
+      "requirement_level": "required",
+      "semantic_role": "statement",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "value_concept_root_ids": [],
+      "value_contract": {
+        "code_set_id": null,
+        "fallback_types": [],
+        "fixed_value": null,
+        "maximum": null,
+        "minimum": null,
+        "primary_type": "text",
+        "unit_dimension": null
+      }
+    }
+  ],
+  "elements_by_metric": {
+    "esrs.2023-set1.e5-1.dp01": [
+      "esrs.2023-set1.e5-1.dp01.element.policy_ref",
+      "esrs.2023-set1.e5-1.dp01.element.reporting_boundary",
+      "esrs.2023-set1.e5-1.dp01.element.reporting_entity",
+      "esrs.2023-set1.e5-1.dp01.element.reporting_period",
+      "esrs.2023-set1.e5-1.dp01.element.statement"
+    ],
+    "esrs.2023-set1.e5-1.dp02": [
+      "esrs.2023-set1.e5-1.dp02.element.policy_ref",
+      "esrs.2023-set1.e5-1.dp02.element.reporting_boundary",
+      "esrs.2023-set1.e5-1.dp02.element.reporting_entity",
+      "esrs.2023-set1.e5-1.dp02.element.reporting_period",
+      "esrs.2023-set1.e5-1.dp02.element.statement"
+    ],
+    "esrs.2023-set1.e5-1.dp03": [
+      "esrs.2023-set1.e5-1.dp03.element.policy_ref",
+      "esrs.2023-set1.e5-1.dp03.element.reporting_boundary",
+      "esrs.2023-set1.e5-1.dp03.element.reporting_entity",
+      "esrs.2023-set1.e5-1.dp03.element.reporting_period",
+      "esrs.2023-set1.e5-1.dp03.element.statement"
+    ],
+    "esrs.2023-set1.e5-1.dp04": [
+      "esrs.2023-set1.e5-1.dp04.element.policy_ref",
+      "esrs.2023-set1.e5-1.dp04.element.reporting_boundary",
+      "esrs.2023-set1.e5-1.dp04.element.reporting_entity",
+      "esrs.2023-set1.e5-1.dp04.element.reporting_period",
+      "esrs.2023-set1.e5-1.dp04.element.statement"
+    ]
+  },
+  "format_version": "2.1",
+  "manifest": {
+    "catalog_id": "esrs.2023-set1.ig3-user-original",
+    "catalog_source_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9",
+    "context_requirements": [
+      {
+        "applies_to_source_datapoint_ids": [
+          "E5-1_01",
+          "E5-1_02",
+          "E5-1_03",
+          "E5-1_04"
+        ],
+        "description": "共享编制基础、合并范围和价值链覆盖；按所选条款需要使用，不推定具体事实主体。",
+        "output_policy": "context_only",
+        "purpose": "report_identity",
+        "reference_id": "esrs.2023-set1.e5-1.context.report_identity-bp-1",
+        "target_package_id": "esrs.2023-set1.bp-1",
+        "target_package_version": "2.1.1",
+        "target_source_datapoint_ids": [
+          "BP-1_01",
+          "BP-1_02",
+          "BP-1_04"
+        ]
+      }
+    ],
+    "core_schema_id": "extractesg.core",
+    "core_schema_version": "1.2.0",
+    "core_selection_reason": "核心条款取该披露要求的锚点数据点（disclosure_role=anchor）；已逐条撰写中文标签与正向定义，仍待真实报告验收与业务批准。",
+    "core_source_datapoint_ids": [
+      "E5-1_01"
+    ],
+    "default_language": "en",
+    "files": {
+      "code_sets": "code_sets.json",
+      "concepts": "concepts.json",
+      "derivations": "derivations.json",
+      "dimensions": "dimensions.json",
+      "elements": "elements.json",
+      "metrics": "metrics.json",
+      "relations": "relations.json",
+      "sources": "sources.json",
+      "validation_rules": "validation_rules.json"
+    },
+    "format_version": "2.1",
+    "package_id": "esrs.2023-set1.e5-1",
+    "package_version": "2.3.0",
+    "shared_requirements": [
+      {
+        "original_disclosure_requirement": "E5-1",
+        "purpose": "adopted_policy",
+        "source_datapoint_id": "E5.MDR-P_01-06",
+        "source_row": 5,
+        "source_sheet": "ESRS E5",
+        "target_package_id": "esrs.2023-set1.mdr-p",
+        "target_package_version": "2.1.1",
+        "target_source_datapoint_ids": [
+          "MDR-P_01",
+          "MDR-P_02",
+          "MDR-P_03",
+          "MDR-P_04",
+          "MDR-P_05",
+          "MDR-P_06"
+        ],
+        "topic_binding": "E5"
+      }
+    ],
+    "standard": {
+      "disclosure_requirement": "E5-1",
+      "effective_from": "2024-01-01",
+      "effective_to": null,
+      "framework_id": "esrs",
+      "framework_version": "2023-set1",
+      "jurisdiction": "EU",
+      "module_id": "e5-1"
+    },
+    "status": "draft",
+    "supported_languages": [
+      "en",
+      "zh"
+    ]
+  },
+  "metrics": [
+    {
+      "allowed_value_origins": [
+        "reported"
+      ],
+      "application_requirements": [],
+      "cardinality": {
+        "maximum": null,
+        "minimum": 0
+      },
+      "confusable_metric_ids": [],
+      "context_concept_ids": [],
+      "data_class": "qualitative",
+      "depends_on": [],
+      "derivation_policy": null,
+      "description": "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "disclosure_requirement": "E5-1",
+      "disclosure_role": "anchor",
+      "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp01",
+      "evidence_form": [
+        "table_row",
+        "narrative_statement",
+        "footnote_context"
+      ],
+      "evidence_roles": [
+        "primary",
+        "context"
+      ],
+      "excluded_concept_ids": [],
+      "extraction_strategy": "reported",
+      "fact_grain": "assertion",
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "labels": {
+        "en": "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources",
+        "zh": "逐步摆脱原生资源使用的政策"
+      },
+      "measurement_contract": {
+        "aggregation": "do_not_sum",
+        "canonical_unit_id": null,
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "interpretation_guidance": [],
+        "normalization": "preserve",
+        "positive_definition": "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "semantic_type_note": null,
+        "template": "qualitative_claim",
+        "unit_dimension": null,
+        "value_role": "context"
+      },
+      "measurement_kind": "statement",
+      "metric_family": null,
+      "metric_id": "esrs.2023-set1.e5-1.dp01",
+      "obligation_class": "mandatory_if_material",
+      "official_data_type": "narrative",
+      "optional_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.policy-ref"
+      ],
+      "paragraph": "15a",
+      "provenance": {
+        "catalog_id": "esrs.2023-set1.ig3-user-original",
+        "conditional_or_alternative": null,
+        "eu_regulations": null,
+        "may": null,
+        "original_data_type": "narrative",
+        "phase_in_column_k": null,
+        "phase_in_column_l": null,
+        "raw_values": [
+          "E5-1_01",
+          "E5",
+          "E5-1",
+          "15a",
+          null,
+          "Disclosure of whether and how policy addresses transitioning away from use of virgin resources, including relative increases in use of secondary (recycled) resources",
+          "narrative",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "row_sha256": "6fb5f46a378cdf8e114a4ae2e0aa26fa532ddb3971f85e4a2865920c4d81cdfa",
+        "source_headers": [
+          "ID",
+          "ESRS",
+          "DR",
+          "Paragraph",
+          "Related AR",
+          "Name",
+          "Data Type",
+          "Conditional or alternative DP",
+          "May \n[V]",
+          "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+        ],
+        "source_row": 6,
+        "source_sheet": "ESRS E5",
+        "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+      },
+      "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+      "required_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      ],
+      "required_semantic_discriminators": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "source_datapoint_id": "E5-1_01",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "subject_concept_groups": [
+        [
+          "esrs.2023-set1.e5-1.concept.dp01"
+        ]
+      ],
+      "value_family": "statement"
+    },
+    {
+      "allowed_value_origins": [
+        "reported"
+      ],
+      "application_requirements": [],
+      "cardinality": {
+        "maximum": null,
+        "minimum": 0
+      },
+      "confusable_metric_ids": [],
+      "context_concept_ids": [],
+      "data_class": "qualitative",
+      "depends_on": [],
+      "derivation_policy": null,
+      "description": "说明政策是否以及如何规定可再生资源的可持续采购与使用，包括来源要求和认证标准。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "disclosure_requirement": "E5-1",
+      "disclosure_role": "context",
+      "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp02",
+      "evidence_form": [
+        "table_row",
+        "narrative_statement",
+        "footnote_context"
+      ],
+      "evidence_roles": [
+        "primary",
+        "context"
+      ],
+      "excluded_concept_ids": [],
+      "extraction_strategy": "reported",
+      "fact_grain": "assertion",
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "labels": {
+        "en": "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources",
+        "zh": "可再生资源可持续采购与使用的政策"
+      },
+      "measurement_contract": {
+        "aggregation": "do_not_sum",
+        "canonical_unit_id": null,
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "interpretation_guidance": [],
+        "normalization": "preserve",
+        "positive_definition": "说明政策是否以及如何规定可再生资源的可持续采购与使用，包括来源要求和认证标准。",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "semantic_type_note": null,
+        "template": "qualitative_claim",
+        "unit_dimension": null,
+        "value_role": "context"
+      },
+      "measurement_kind": "statement",
+      "metric_family": null,
+      "metric_id": "esrs.2023-set1.e5-1.dp02",
+      "obligation_class": "mandatory_if_material",
+      "official_data_type": "narrative",
+      "optional_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.policy-ref"
+      ],
+      "paragraph": "15b",
+      "provenance": {
+        "catalog_id": "esrs.2023-set1.ig3-user-original",
+        "conditional_or_alternative": null,
+        "eu_regulations": null,
+        "may": null,
+        "original_data_type": "narrative",
+        "phase_in_column_k": null,
+        "phase_in_column_l": null,
+        "raw_values": [
+          "E5-1_02",
+          "E5",
+          "E5-1",
+          "15b",
+          null,
+          "Disclosure of whether and how policy addresses sustainable sourcing and use of renewable resources",
+          "narrative",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "row_sha256": "53e8153aa29ea85059a3d398dcaf0b6b1087d9a86ac030eb24cc7be018c37551",
+        "source_headers": [
+          "ID",
+          "ESRS",
+          "DR",
+          "Paragraph",
+          "Related AR",
+          "Name",
+          "Data Type",
+          "Conditional or alternative DP",
+          "May \n[V]",
+          "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+        ],
+        "source_row": 7,
+        "source_sheet": "ESRS E5",
+        "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+      },
+      "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+      "required_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      ],
+      "required_semantic_discriminators": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "source_datapoint_id": "E5-1_02",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "subject_concept_groups": [
+        [
+          "esrs.2023-set1.e5-1.concept.dp02"
+        ]
+      ],
+      "value_family": "statement"
+    },
+    {
+      "allowed_value_origins": [
+        "reported"
+      ],
+      "application_requirements": [],
+      "cardinality": {
+        "maximum": null,
+        "minimum": 0
+      },
+      "confusable_metric_ids": [],
+      "context_concept_ids": [],
+      "data_class": "qualitative",
+      "depends_on": [],
+      "derivation_policy": null,
+      "description": "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "disclosure_requirement": "E5-1",
+      "disclosure_role": "context",
+      "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp03",
+      "evidence_form": [
+        "table_row",
+        "narrative_statement",
+        "footnote_context"
+      ],
+      "evidence_roles": [
+        "primary",
+        "context"
+      ],
+      "excluded_concept_ids": [],
+      "extraction_strategy": "reported",
+      "fact_grain": "assertion",
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "labels": {
+        "en": "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal)",
+        "zh": "废弃物层级的政策覆盖"
+      },
+      "measurement_contract": {
+        "aggregation": "do_not_sum",
+        "canonical_unit_id": null,
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "interpretation_guidance": [],
+        "normalization": "preserve",
+        "positive_definition": "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "semantic_type_note": null,
+        "template": "qualitative_claim",
+        "unit_dimension": null,
+        "value_role": "context"
+      },
+      "measurement_kind": "statement",
+      "metric_family": null,
+      "metric_id": "esrs.2023-set1.e5-1.dp03",
+      "obligation_class": "voluntary_if_material",
+      "official_data_type": "narrative",
+      "optional_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.policy-ref"
+      ],
+      "paragraph": "AR 9 a",
+      "provenance": {
+        "catalog_id": "esrs.2023-set1.ig3-user-original",
+        "conditional_or_alternative": null,
+        "eu_regulations": null,
+        "may": "V",
+        "original_data_type": "narrative",
+        "phase_in_column_k": null,
+        "phase_in_column_l": null,
+        "raw_values": [
+          "E5-1_03",
+          "E5",
+          "E5-1",
+          "AR 9 a",
+          null,
+          "Description of whether and how policy addresses waste hierarchy (prevention, preparing for re-use, recycling, other recovery, disposal) ",
+          "narrative",
+          null,
+          "V",
+          null,
+          null,
+          null
+        ],
+        "row_sha256": "e8bcaeab2f7e33de95d2fe94c148a9ec7e6cd181ef258d11d4f1bd9e4673e26e",
+        "source_headers": [
+          "ID",
+          "ESRS",
+          "DR",
+          "Paragraph",
+          "Related AR",
+          "Name",
+          "Data Type",
+          "Conditional or alternative DP",
+          "May \n[V]",
+          "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+        ],
+        "source_row": 8,
+        "source_sheet": "ESRS E5",
+        "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+      },
+      "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+      "required_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      ],
+      "required_semantic_discriminators": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "source_datapoint_id": "E5-1_03",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "subject_concept_groups": [
+        [
+          "esrs.2023-set1.e5-1.concept.dp03"
+        ]
+      ],
+      "value_family": "statement"
+    },
+    {
+      "allowed_value_origins": [
+        "reported"
+      ],
+      "application_requirements": [],
+      "cardinality": {
+        "maximum": null,
+        "minimum": 0
+      },
+      "confusable_metric_ids": [],
+      "context_concept_ids": [],
+      "data_class": "qualitative",
+      "depends_on": [],
+      "derivation_policy": null,
+      "description": "说明政策是否以及如何优先采取避免或最小化废弃物产生的策略，而非废弃物处理策略。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "disclosure_requirement": "E5-1",
+      "disclosure_role": "context",
+      "disclosure_topic": "esrs.2023-set1.e5-1.topic.dp04",
+      "evidence_form": [
+        "table_row",
+        "narrative_statement",
+        "footnote_context"
+      ],
+      "evidence_roles": [
+        "primary",
+        "context"
+      ],
+      "excluded_concept_ids": [],
+      "extraction_strategy": "reported",
+      "fact_grain": "assertion",
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "labels": {
+        "en": "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies",
+        "zh": "优先避免或最小化废弃物的政策"
+      },
+      "measurement_contract": {
+        "aggregation": "do_not_sum",
+        "canonical_unit_id": null,
+        "comparison_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "comparison_mode": "structured_display",
+        "comparison_requirements": [
+          "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+          "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+        ],
+        "distinguish_from": [],
+        "exclusions": [
+          "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+          "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+        ],
+        "identity_axes": [
+          "reporting_entity",
+          "reporting_period",
+          "reporting_boundary",
+          "policy_ref"
+        ],
+        "interpretation_guidance": [],
+        "normalization": "preserve",
+        "positive_definition": "说明政策是否以及如何优先采取避免或最小化废弃物产生的策略，而非废弃物处理策略。",
+        "semantic_contract_version": "partitioned-semantics-v1",
+        "semantic_type_note": null,
+        "template": "qualitative_claim",
+        "unit_dimension": null,
+        "value_role": "context"
+      },
+      "measurement_kind": "statement",
+      "metric_family": null,
+      "metric_id": "esrs.2023-set1.e5-1.dp04",
+      "obligation_class": "voluntary_if_material",
+      "official_data_type": "narrative",
+      "optional_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.policy-ref"
+      ],
+      "paragraph": "AR 9 b",
+      "provenance": {
+        "catalog_id": "esrs.2023-set1.ig3-user-original",
+        "conditional_or_alternative": null,
+        "eu_regulations": null,
+        "may": "V",
+        "original_data_type": "narrative",
+        "phase_in_column_k": null,
+        "phase_in_column_l": null,
+        "raw_values": [
+          "E5-1_04",
+          "E5",
+          "E5-1",
+          "AR 9 b",
+          null,
+          "Description of  whether and how policy addresses prioritisation of strategies to avoid or minimise waste over waste treatment strategies ",
+          "narrative",
+          null,
+          "V",
+          null,
+          null,
+          null
+        ],
+        "row_sha256": "d69ead441d43c7be88aebd375ace5d50c91f3b8cbf835838302616278be650a3",
+        "source_headers": [
+          "ID",
+          "ESRS",
+          "DR",
+          "Paragraph",
+          "Related AR",
+          "Name",
+          "Data Type",
+          "Conditional or alternative DP",
+          "May \n[V]",
+          "Appendix B - ESRS 2 \n(SFDR + PILLAR 3 + Benchmark + CL)",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to undertaking with less than 750 employees",
+          "Appendix C - ESRS 1\nDPs subject to phasing-in provisions applicable to all undertakings "
+        ],
+        "source_row": 9,
+        "source_sheet": "ESRS E5",
+        "workbook_sha256": "90f15872c489786d86c445d8dc02e00783eb16ecd998d6e1f5a43ad48edd8be9"
+      },
+      "reporting_requirement": "仅接收符合本数据点定义的原报告事实，保留原值、单位、实际期间、主体、边界与可定位证据。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+      "required_dimension_ids": [
+        "esrs.2023-set1.e5-1.dimension.reporting-entity"
+      ],
+      "required_semantic_discriminators": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ],
+      "source_datapoint_id": "E5-1_04",
+      "source_refs": [
+        "esrs.2023-set1.e5-1.source.law",
+        "esrs.2023-set1.e5-1.source.ig3"
+      ],
+      "subject_concept_groups": [
+        [
+          "esrs.2023-set1.e5-1.concept.dp04"
+        ]
+      ],
+      "value_family": "statement"
+    }
+  ],
+  "relations": [],
+  "sources": [
+    {
+      "authority": "non_authoritative_implementation_guidance",
+      "locator": "ESRS E5",
+      "notes": "原始表格快照保留；不替代法律或重要性判断。",
+      "source_id": "esrs.2023-set1.e5-1.source.ig3",
+      "title": "EFRAG IG 3 List of ESRS Data Points (1) (1).xlsx",
+      "url": "https://www.efrag.org/sites/default/files/media/document/2025-06/EFRAG%20IG%203%20List%20of%20ESRS%20Data%20Points%20%281%29%20%281%29.xlsx",
+      "version_or_date": "User-provided immutable IG3 workbook"
+    },
+    {
+      "authority": "authoritative_law",
+      "locator": "Annex I, ESRS E5 E5-1",
+      "notes": null,
+      "source_id": "esrs.2023-set1.e5-1.source.law",
+      "title": "Commission Delegated Regulation (EU) 2023/2772",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R2772",
+      "version_or_date": "2023-07-31"
+    },
+    {
+      "authority": "official_reproduction",
+      "locator": "E5-1",
+      "notes": null,
+      "source_id": "esrs.2023-set1.e5-1.source.reproduction",
+      "title": "EFRAG ESRS Set 1 official reproduction",
+      "url": "https://xbrl.efrag.org/e-esrs/esrs-set1-2023.html",
+      "version_or_date": "2023-set1"
+    }
+  ],
+  "validation_rules": [
+    {
+      "assertion": "evidence_required",
+      "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+      "parameters": {
+        "when_value_origin": "any"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp01-evidence",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp01"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要披露主体。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp01.element.reporting_entity"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp01-reporting-entity",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp01"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要实际披露期间。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp01.element.reporting_period"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp01-reporting-period",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp01"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp01.element.statement"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp01-statement",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp01"
+    },
+    {
+      "assertion": "evidence_required",
+      "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+      "parameters": {
+        "when_value_origin": "any"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp02-evidence",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp02"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要披露主体。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp02.element.reporting_entity"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp02-reporting-entity",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp02"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要实际披露期间。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp02.element.reporting_period"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp02-reporting-period",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp02"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp02.element.statement"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp02-statement",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp02"
+    },
+    {
+      "assertion": "evidence_required",
+      "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+      "parameters": {
+        "when_value_origin": "any"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp03-evidence",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp03"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要披露主体。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp03.element.reporting_entity"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp03-reporting-entity",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp03"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要实际披露期间。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp03.element.reporting_period"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp03-reporting-period",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp03"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp03.element.statement"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp03-statement",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp03"
+    },
+    {
+      "assertion": "evidence_required",
+      "message": "事实必须有可定位原报告证据；缺失不插入空事实。",
+      "parameters": {
+        "when_value_origin": "any"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp04-evidence",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp04"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要披露主体。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp04.element.reporting_entity"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp04-reporting-entity",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp04"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要实际披露期间。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp04.element.reporting_period"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp04-reporting-period",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp04"
+    },
+    {
+      "assertion": "required_element",
+      "message": "已形成的对应类型事实需要原文陈述或独立结构成员。",
+      "parameters": {
+        "element_id": "esrs.2023-set1.e5-1.dp04.element.statement"
+      },
+      "rule_id": "esrs.2023-set1.e5-1.rule.dp04-statement",
+      "severity": "error",
+      "target": "esrs.2023-set1.e5-1.dp04"
+    }
+  ]
+}
