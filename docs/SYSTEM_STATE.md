@@ -69,7 +69,7 @@
 |---|---|
 | ConsoleESG | 214 通过 |
 | Document 后端 | 657 通过 |
-| Targeted 提取后端 | **716 通过、6 跳过、0 失败**（需用模型运行时 venv 并补齐 `PYTHONPATH`） |
+| Targeted 提取后端 | **717 通过、6 跳过、0 失败**（模型运行时 venv；项目 venv 为 711 通过、12 跳过，差异是 llguidance/mlx 可选检查） |
 | 数据库（pglite） | 55 通过、2 跳过 |
 | 标准包 | 116 通过 |
 | PlatESG | 73 通过 |

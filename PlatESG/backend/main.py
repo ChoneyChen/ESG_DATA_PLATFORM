@@ -656,7 +656,7 @@ def create_app(environment: dict[str, str] | None = None):
             result = bridge.call("observations", params)
             rows.extend(Observation.model_validate(row).model_dump(mode="json") for row in result["items"])
             if len(rows) > 100000:
-                raise HTTPException(413, "请缩小导出范围；批量数据集导出需使用离线任务")
+                raise HTTPException(413, "单次导出最多 100000 条，请缩小时间或企业范围后重试")
         version = result["dataset_version"]
         if format == "json":
             return JSONResponse({"schema_version": "platesg-export-v1", "dataset_version": version,
