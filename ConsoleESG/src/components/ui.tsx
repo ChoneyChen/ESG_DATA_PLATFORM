@@ -7,6 +7,13 @@ export const dateLabel=(s:unknown)=>s?new Date(String(s)).toLocaleString('zh-CN'
 Object.assign(labels,{available:'已保存，可交付',not_published:'未发布',source_only_not_published:'来源存档，未发布',no_retained_facts:'暂无保留事实'});
 export function Badge({value}:{value:unknown}){const s=String(value || 'unknown');return <span className={`badge ${s}`}>{label(s)}</span>;}
 export function Notice({children,tone='info'}:{children:ReactNode,tone?:string}){return <div role={tone==='error'?'alert':'status'} className={`notice ${tone}`}>{children}</div>;}
+export function readinessText(blockers:unknown[],fallback='当前服务尚未就绪'){
+ const values=(Array.isArray(blockers)?blockers:[]).flatMap(item=>{
+  const text=typeof item==='string'?item:String((item as Row)?.message || (item as Row)?.reason || (item as Row)?.code || '');
+  return text.replace(/^业务未就绪：/,'').split('；');
+ }).map(value=>value.trim()).filter(Boolean).map(value=>/重启/.test(value)?'服务代码已更新，需协调重启三个后端':value);
+ return [...new Set(values)].join('；') || fallback;
+}
 export function ResourceState({error,loading,empty}:{error?:string,loading?:boolean,empty?:boolean}){return error?<Notice tone="error">读取失败：{error}。本次未取得最新状态。</Notice>:loading?<p className="muted">正在读取…</p>:empty?<div className="empty">暂无符合当前条件的记录。</div>:null;}
 export function Section({title,children,action}:{title?:string,children:ReactNode,action?:ReactNode}){return <section className="panel">{title&&<div className="section-title"><h2>{title}</h2>{action}</div>}{children}</section>;}
 export function Field({label:caption,children,hint}:{label:string,children:ReactNode,hint?:string}){return <label className="field"><span>{caption}</span>{children}{hint && <small>{hint}</small>}</label>;}

@@ -26,6 +26,7 @@ beforeEach(()=>{
   if(path==='/document/api/reports')return response({reports});
   if(path==='/document/api/pipeline/compatibility')return response({ready:true});
   if(path.includes('/standards/catalog'))return response({packages:[]});
+  if(path.includes('/extraction-profiles/foundation'))return response({profile:'universal',metric_count:2,standards:scope.standards,package_digests:{'esrs.2023-set1.e1-5':'d'.repeat(64)},metrics:[{code:'E1-5_01',metric_id:'stable-original-01'},{code:'E1-5_05',metric_id:'stable-original-05'}]});
   if(path.includes('/extraction-profiles/'))return response({overall_source_datapoint_ids:[],pending_source_datapoint_ids:[],session_standards:[],output_count:0});
   if(path.includes('/extensions'))return response({items:[]});
   if(path.endsWith('/production-automations/preview'))return response({preview_id:`automation-preview-${'d'.repeat(64)}`,can_submit:true,items:(body?.items || []).map((item:Row)=>({...item,file_name:'合成预览报告',status:'ready',stages:['报告处理'],blockers:[]}))});
@@ -61,6 +62,12 @@ describe('批次身份、排序及范围合同',()=>{
   expect(JSON.stringify(result)).not.toContain('synthetic-token');
   expect(JSON.stringify(result)).not.toContain('qiniu_api_key');
  });
+ it('指标集同步冻结为 foundation 路由与 profile，不退回标准映射',()=>{
+  const profileScope={standards:scope.standards,originalIds:['E1-5_01','E1-5_05','E1-6_07'],kind:'foundation',profile:'universal',parent_snapshots:[{package_id:'esrs.2023-set1.e1-5',package_version:'2.1.1',source_digest:'d'.repeat(64)}]};
+  const result=buildAutomationRequest({...draft,scope:profileScope,target:'processing_extraction'});
+  expect(result.extraction.extraction_route).toBe('foundation16');
+  expect(result.extraction.metric_profile).toBe('universal');
+ });
  it('所选资产不再存在或被归档时阻止提交，不默默缩减批次',()=>{
   expect(()=>buildAutomationRequest({...draft,assets:[assets[0]]})).toThrow('不再位于当前报告库');
   expect(()=>buildAutomationRequest({...draft,assets:[{...assets[0],lifecycle:{state:'archived'}},assets[1]]})).toThrow('已归档或删除');
@@ -91,7 +98,6 @@ describe('批量生产交互',()=>{
  });
  it('一键部署只提交一个父计划，后台编排子阶段；预览和提交顺序一致',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
-  fireEvent.click(screen.getByDisplayValue('processing'));
   const previewButton=await screen.findByRole('button',{name:'预览整个批次的实际计划'});
   await waitFor(()=>expect((previewButton as HTMLButtonElement).disabled).toBe(false));
   fireEvent.click(previewButton);
@@ -106,7 +112,6 @@ describe('批量生产交互',()=>{
  });
  it('排序或配置改变使已有预览失效，必须重新核对后才能部署',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
-  fireEvent.click(screen.getByDisplayValue('processing'));
   const previewButton=screen.getByRole('button',{name:'预览整个批次的实际计划'});
   await waitFor(()=>expect((previewButton as HTMLButtonElement).disabled).toBe(false));
   fireEvent.click(previewButton);
@@ -118,7 +123,6 @@ describe('批量生产交互',()=>{
  it('只读操作员可预览，管理按钮按服务器已验证角色禁用',async()=>{
   credentials.set('synthetic-read-token','synthetic-reader',['read']);
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({asset:assets[0].asset_id})}/></WorkspaceProvider>);
-  fireEvent.click(screen.getByDisplayValue('processing'));
   const previewButton=screen.getByRole('button',{name:'预览整个批次的实际计划'});
   await waitFor(()=>expect((previewButton as HTMLButtonElement).disabled).toBe(false));
   fireEvent.click(previewButton);

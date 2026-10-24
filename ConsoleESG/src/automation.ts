@@ -12,7 +12,7 @@ export const automationLabels:Record<string,string> = {
   waiting_credentials:'等待运行密钥',archived:'已归档',completed:'执行完成',partial:'执行结束，含失败或阻塞',
   cancelling:'正在取消',cancelled:'已取消',pending:'待派发',queued:'已排队',running:'正在执行',
   ready:'可以部署',blocked:'需处理',failed:'失败',skipped:'已跳过',interrupted:'已中断',imported:'候选已导入',not_imported:'尚未交付',
-  processing:'报告处理',extraction:'定向提取',extracting:'定向提取中',delivery:'候选交付',delivering:'候选交付中',done:'已完成',
+  processing:'报告处理',extraction:'定向提取',extracting:'定向提取中',delivery:'候选交付',delivering:'候选交付中',done:'已完成',unprocessed:'未处理',
 };
 export const automationLabel=(value:unknown)=>automationLabels[String(value)] || String(value || '未提供');
 
@@ -76,14 +76,14 @@ export function buildAutomationRequest(draft:AutomationDraft):Row {
   if(draft.target==='processing')return request;
   if(!draft.scope.standards.length&&!draft.extensionSelections.length)throw new Error('请明确选择主要条款、包内核心或自定义输出范围');
   // The platform foundation datapoints use the bounded one-call-per-table route.
-  const foundation=draft.scope.kind==='platform_major'&&!draft.extensionSelections.length;
+  const foundation=draft.scope.kind==='foundation'&&!draft.extensionSelections.length;
   request.extraction={input:{kind:'pdf',asset_id:items[0].asset_id},name:draft.name.trim().slice(0,120),
     standards:draft.scope.standards,extension_selections:draft.extensionSelections,
     ...(draft.scope.selection_snapshot?{selection_snapshot:draft.scope.selection_snapshot}:{}),
     role_config:{semantic_brain:{provider:draft.semanticProvider,model:draft.semanticProvider==='qiniu_vlm'?draft.semanticModel.trim()||null:null},
       specialist:{provider:foundation?'local_qwen':'local_nuextract',model:null},cloud_authorization:{allowed:draft.cloudAuthorization,allow_ocr_api:draft.cloudOcr}},
     completeness:draft.completeness,allow_limited_evidence:draft.limitedEvidence,semantic_search:true,
-    ...(foundation?{extraction_route:'foundation16'}:{}),
+    ...(foundation?{extraction_route:'foundation16',metric_profile:draft.scope.profile || 'universal'}:{}),
     ...(Object.keys(draft.budget).length?{budget:{...draft.budget}}:{}),
   };
   return request;

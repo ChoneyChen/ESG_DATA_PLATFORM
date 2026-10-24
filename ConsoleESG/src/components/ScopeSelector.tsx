@@ -3,7 +3,7 @@ import {type Row} from '../api';
 import {useResource} from '../state';
 import {Badge,Notice,ResourceState} from './ui';
 export type ParentSnapshot={package_id:string,package_version:string,source_digest:string};
-export type Scope={standards:Row[],selection_snapshot?:Row,originalIds:string[],kind:string,parent_snapshots?:ParentSnapshot[]};
+export type Scope={standards:Row[],selection_snapshot?:Row,originalIds:string[],kind:string,parent_snapshots?:ParentSnapshot[],profile?:string};
 export function scopeFromSelection(packages:Row[],selected:Set<string>,snapshot?:Row):Scope{
  const metrics=packages.flatMap(p=>p.metric_summaries || []);const known=new Set(metrics.map(m=>m.metric_id));const missing=[...selected].filter(id=>!known.has(id));if(missing.length)throw new Error(`所选条款不可读取，保留原选择且阻止执行：${missing.join('、')}`);
  const standards=packages.map(p=>({package_id:p.package_id,package_version:p.package_version,metric_ids:(p.metric_summaries || []).filter((m:Row)=>selected.has(m.metric_id)).map((m:Row)=>m.metric_id)})).filter(p=>p.metric_ids.length);

@@ -36,8 +36,7 @@ const FILTERS=[['all','全部'],['unread','未提取'],['ready','已读取'],['f
 
 export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}){
  const {refresh}=useWorkspace();
- const [query,setQuery]=useState(''),[filter,setFilter]=useState<string>('all'),[selected,setSelected]=useState<Set<string>>(new Set()),[expanded,setExpanded]=useState<Set<string>>(new Set()),[busy,setBusy]=useState(false),[message,setMessage]=useState(''),[failedUploads,setFailedUploads]=useState<File[]>([]);
- const initialized=useRef('');
+ const [query,setQuery]=useState(''),[filter,setFilter]=useState<string>('all'),[selected,setSelected]=useState<Set<string>>(new Set()),[busy,setBusy]=useState(false),[message,setMessage]=useState(''),[failedUploads,setFailedUploads]=useState<File[]>([]);
  const resource=useLibraryResource('report'),profile=useResource('document','/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3'),catalog=useResource('document','/api/pipeline/standards/catalog');
  const rows=items(resource.data),unlinked=items(resource.data,'unlinked_ocr'),unlinkedIr=items(resource.data,'unlinked_ir');
  const search=query.trim().toLowerCase();
@@ -51,15 +50,6 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
   return true;
  });
  const visibleUnlinked=unlinked.filter(matches),visibleUnlinkedIr=unlinkedIr.filter(matches);
- const focus=params.get('asset') || params.get('source') || params.get('ocr') || '';
- useEffect(()=>{
-  if(!resource.data || initialized.current===`loaded:${focus}`)return;
-  const parent=rows.find(a=>a.asset_id===focus||a.sha256===focus||ocrVersions(a).some(r=>r.run_id===focus));
-  // The newest report's chain stays open so its versions are visible without
-  // a second click; a focus link from elsewhere opens that report instead.
-  setExpanded(previous=>new Set([...previous,...(parent?[parent.asset_id]:rows.slice(0,1).map(a=>a.asset_id))]));
-  initialized.current=`loaded:${focus}`;
- },[resource.data,focus]);
 
  async function uploadFiles(files:File[]){
   setBusy(true);const messages:string[]=[];const failed:File[]=[];
@@ -71,7 +61,6 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
   await uploadFiles(files);
  }
  async function start(assets:Row[],extract:boolean){setBusy(true);setMessage('');try{await startLibraryProduction(assets,extract?'processing_extraction':'processing',profile.data,catalog.data,!extract&&assets.some(a=>ocrVersions(a).length>0)?'reprocess':'auto');setMessage('已加入处理队列，右下角查看处理状态。');refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
- function toggle(assetId:string){setExpanded(previous=>{const next=new Set(previous);next.has(assetId)?next.delete(assetId):next.add(assetId);return next;});}
  const unavailable=busy||resource.data?.compatibility_view;
  const selectedRows=rows.filter(a=>selected.has(a.asset_id));
  const ocrCount=resource.data?.ocr_count ?? new Set([...rows.flatMap(ocrVersions),...unlinked].map(r=>r.run_id)).size;
@@ -107,11 +96,9 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
    <ResourceState error={resource.error || profile.error || catalog.error} loading={resource.loading&&!resource.data} empty={!!resource.data&&!visible.length&&!visibleUnlinked.length&&!visibleUnlinkedIr.length}/>
    <div className="asset-list" role="list">
     {visible.map(({asset,versions,state})=>{
-     const isOpen=expanded.has(asset.asset_id)||!!search;
-     return <article className={`asset-row ${state.tone} ${isOpen?'expanded':''}`} key={asset.asset_id} id={`asset-${asset.asset_id}`} role="listitem">
+     return <article className={`asset-row ${state.tone}`} key={asset.asset_id} id={`asset-${asset.asset_id}`} role="listitem">
       <div className="asset-main">
        <input type="checkbox" aria-label={`选择 ${reportLabel(asset)}`} checked={selected.has(asset.asset_id)} onChange={e=>{const next=new Set(selected);e.target.checked?next.add(asset.asset_id):next.delete(asset.asset_id);setSelected(next);}}/>
-       <button className="asset-expand" aria-expanded={isOpen} aria-label={`${isOpen?'收起':'展开'} ${reportLabel(asset)} 的读取版本`} onClick={()=>toggle(asset.asset_id)}>{isOpen?'⌄':'›'}</button>
        <span className="asset-file-icon" aria-hidden="true">PDF</span>
        <div className="asset-parent-name">
         <button className="text-button asset-title" title={reportLabel(asset)} onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>{reportLabel(asset)}</button>
@@ -119,7 +106,7 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
          {asset.report_metadata?.title?`${asset.file_name} · `:''}
          {typeof asset.size_bytes==='number'?`${(asset.size_bytes/1024/1024).toFixed(1)} MB · `:''}
          {dateLabel(asset.created_at || asset.modified_at)}
-         {' · '}{versions.length} 个读取版本
+         {versions.length?` · ${versions.length} 个读取版本可复用`:''}
         </small>
         {asset.state_notice&&<small className="asset-note">{asset.state_notice}</small>}
        </div>
@@ -136,10 +123,6 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
         </div>
        </details>
       </div>
-      {isOpen&&<div className="asset-reveal"><div className="asset-versions" aria-label={`${reportLabel(asset)} 的读取版本`}>
-       <div className="asset-relation-label">来源 PDF → 页面读取版本 → 结构证据</div>
-       {!versions.length?<div className="asset-no-versions">这份 PDF 还没有读取版本。提取时会自动读取页面并构建结构证据。</div>:versions.map((ocr,index)=><OcrVersion key={ocr.run_id} row={ocr} asset={asset} index={index}/>)}
-      </div></div>}
      </article>;
     })}
    </div>

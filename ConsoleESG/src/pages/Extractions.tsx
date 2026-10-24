@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState, type FormEvent} from 'react';
 import {credentials, items, navigate, post, reportLabel, type Row} from '../api';
 import {useResource, useWorkspace} from '../state';
-import {Actions, Badge, Diagnostics, Field, MetricValue, Notice, Progress, ResourceState, Section} from '../components/ui';
+import {Actions, Badge, Diagnostics, Field, MetricValue, Notice, Progress, ResourceState, Section, readinessText} from '../components/ui';
 import {ScopeSelector, type Scope} from '../components/ScopeSelector';
 import {DeliveryStatusBadge, SessionDeliveryBadge, useDeliveryStatus} from '../components/DeliveryStatus';
 import {RecordManagement} from '../components/RecordManagement';
@@ -424,7 +424,7 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
       </div>
 
       <ResourceState error={compatibility.error || irRuns.error || modelOptions.error || foundation.error}/>
-      {compatibility.data?.ready === false && <Notice tone="error">{compatibility.data.blockers?.join('；') || '当前服务业务未就绪'}</Notice>}
+      {compatibility.data?.ready === false && <Notice tone="error">{readinessText(compatibility.data.blockers)}<br/><small>服务仍运行更新前的代码；协调重启后重新核对。</small></Notice>}
       {message && <Notice tone="error">{message}</Notice>}
       {preview?.map(p => <PlanPreview key={p.report_asset_id || p.report_name} plan={p}/>)}
       {requests?.length ? (

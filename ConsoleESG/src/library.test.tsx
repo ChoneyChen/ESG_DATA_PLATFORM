@@ -2,7 +2,7 @@ import {afterEach,beforeEach,expect,it,vi} from 'vitest';
 import {cleanup,fireEvent,render,screen,waitFor,within} from '@testing-library/react';
 import {WorkspaceProvider} from './state';
 import {credentials,type Row} from './api';
-import {Reports} from './pages/Reports';
+import {Reports,ReportDetail} from './pages/Reports';
 import {OcrLibrary} from './pages/OcrLibrary';
 import {SidebarMonitor} from './components/SidebarMonitor';
 import {startLibraryProduction} from './library-workflow';
@@ -28,22 +28,24 @@ beforeEach(()=>{calls=[];credentials.clear();window.location.hash='';vi.stubGlob
  return json({});}));});
 afterEach(()=>{cleanup();vi.unstubAllGlobals();credentials.clear();});
 const mount=(node:React.ReactNode)=>render(<WorkspaceProvider>{node}</WorkspaceProvider>);
-it('统一资产中心按PDF显示多个OCR及其结构版本，不加载聚合审核成果',async()=>{
- mount(<Reports/>);await screen.findByText('ocr-second');
- expect(screen.getByRole('heading',{name:'报告资产'})).toBeTruthy();
- const parent=screen.getByLabelText('合成报告.pdf 的读取版本');
- expect(within(parent).getByText('ocr-synthetic')).toBeTruthy();expect(within(parent).getByText('ocr-second')).toBeTruthy();expect(within(parent).getByText('ir-synthetic')).toBeTruthy();
+it('报告库只展示提取状态，读取与结构版本留在报告详情',async()=>{
+ mount(<Reports/>);await screen.findByRole('heading',{name:'报告资产'});
+ expect(await screen.findByRole('button',{name:/重新提取|提取指标/})).toBeTruthy();
+ expect(screen.queryByText('ocr-synthetic')).toBeNull();expect(screen.queryByText('ocr-second')).toBeNull();
+ expect(screen.queryByText(/来源 PDF → 页面读取版本/)).toBeNull();
+ expect(screen.queryByText(/这份 PDF 还没有读取版本/)).toBeNull();
  expect(screen.queryByText('显示已归档')).toBeNull();expect(calls.some(c=>c.url.includes('/console/reports')||c.url.includes('/report-sessions'))).toBe(false);
+ cleanup();
+ mount(<ReportDetail assetId="pdf-synthetic"/>);await screen.findByText('ocr-synthetic');
+ expect(screen.getByText('ocr-second')).toBeTruthy();expect(screen.getByText('ir-synthetic')).toBeTruthy();
  fireEvent.click(screen.getByRole('button',{name:'按此版本选择指标'}));expect(window.location.hash).toBe('#/extractions/new?asset=pdf-synthetic&ir=ir-synthetic');
 });
 it('缺少关联的OCR单独展示，不冒充任意PDF的子版本',async()=>{
- mount(<Reports/>);await screen.findByText('ocr-second');
+ mount(<Reports/>);await screen.findByText('ocr-orphan');
  expect(screen.getByRole('heading',{name:'未关联原 PDF · 1 个页面读取版本'})).toBeTruthy();
- expect(within(screen.getByLabelText('合成报告.pdf 的读取版本')).queryByText('ocr-orphan')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'收起 合成报告.pdf 的读取版本'}));
- expect(screen.queryByText('ocr-second')).toBeNull();expect(screen.getByText('ocr-orphan')).toBeTruthy();
+ expect(screen.queryByText('ocr-second')).toBeNull();
 });
-it('旧OCR列表入口打开同一个资产中心',async()=>{mount(<OcrLibrary/>);await screen.findByText('ocr-synthetic');expect(screen.getByRole('heading',{name:'报告资产'})).toBeTruthy();expect(calls.some(c=>c.url==='/document/api/report-library')).toBe(true);expect(calls.some(c=>c.url==='/document/api/ocr-library')).toBe(false);});
+it('旧OCR列表入口打开同一个资产中心',async()=>{mount(<OcrLibrary/>);expect(await screen.findByRole('heading',{name:'报告资产'})).toBeTruthy();await screen.findByText('合成报告.pdf');expect(calls.some(c=>c.url==='/document/api/report-library')).toBe(true);expect(calls.some(c=>c.url==='/document/api/ocr-library')).toBe(false);});
 it('兼容分组只接受明确来源身份，即使文件名相同也不误归属',()=>{
  const result=groupReportLibrary([asset],[{...ocr},{...ocr,run_id:'wrong-source',document_label:asset.file_name,source_pdf_sha256:'f'.repeat(64)},{run_id:'no-identity',document_label:asset.file_name},{...ocr,run_id:'explicit-other-asset',source_asset_id:'different'}]);
  expect(result.items[0].ocr_versions.map(r=>r.run_id)).toEqual(['ocr-synthetic']);expect(result.unlinked_ocr.map(r=>r.run_id)).toEqual(['wrong-source','no-identity','explicit-other-asset']);
@@ -55,8 +57,8 @@ it('新资产接口返回500时显示错误，不偷偷换旧接口隐藏故障'
 it('侧栏运行监视显示队列数量，展开真实任务，不派发任务',async()=>{mount(<SidebarMonitor/>);await waitFor(()=>expect(screen.getByRole('button',{name:'展开处理状态'}).textContent).toContain('1'));expect(screen.queryByRole('dialog')).toBeNull();fireEvent.click(screen.getByRole('button',{name:'展开处理状态'}));expect(screen.getByRole('dialog',{name:'处理状态'})).toBeTruthy();expect(screen.getAllByText('正在识别合成PDF').length).toBeGreaterThan(0);expect(calls.every(c=>c.method==='GET')).toBe(true);});
 it('直接主要指标提取复用生产计划，保留原号及快照，仅提交一个父计划',async()=>{credentials.set('synthetic-token','operator',['admin']);await startLibraryProduction([asset],'processing_extraction',profile,catalog);const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing_extraction');expect(preview.processing.mode).toBe('auto');expect(preview.extraction.selection_snapshot).toEqual(snapshot);expect(preview.extraction.standards[0].metric_ids).toEqual(['original-metric']);expect(preview.extraction.completeness).toBe('balanced');expect(preview.processing.config.execute_optional_reviews).toBe(false);expect(preview.processing.config.execute_required_reviews).toBe(false);expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);expect(calls.some(c=>c.url.includes('archive'))).toBe(false);});
 it('已有读取版本时直接提取，读取在提取内部自动复用',async()=>{
- credentials.set('synthetic-token','operator',['admin']);mount(<Reports/>);await screen.findByText('ocr-second');
- fireEvent.click(screen.getByRole('button',{name:'直接提取主要指标'}));
+ credentials.set('synthetic-token','operator',['admin']);mount(<Reports/>);
+ fireEvent.click(await screen.findByRole('button',{name:'直接提取主要指标'}));
  await waitFor(()=>expect(calls.some(c=>c.url==='/document/api/production-automations')).toBe(true));
  const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing_extraction');expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);
 });

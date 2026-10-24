@@ -82,7 +82,7 @@
 
 | 套件 | 结果 |
 |---|---|
-| ConsoleESG | 217 通过 |
+| ConsoleESG | 218 通过 |
 | Document 后端 | 657 通过 |
 | Targeted 提取后端 | **717 通过、6 跳过、0 失败**（模型运行时 venv；项目 venv 为 711 通过、12 跳过，差异是 llguidance/mlx 可选检查） |
 | 数据库（pglite） | 57 个测试：55 通过、2 跳过 |
