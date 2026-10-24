@@ -128,3 +128,35 @@ def test_scientific_unit_rule_json_is_boot_frozen(tmp_path):
     runtime = release.RuntimeRelease(root, 'publication-backend')
     rules.write_text('{"rule_version":"esg-units-1.2.0","conversions":["tampered"]}')
     assert runtime.snapshot()['restart_required'] is True
+
+
+def test_release_scope_follows_each_service_and_shared_contracts(tmp_path):
+    root, source = checkout(tmp_path)
+    document = release.RuntimeRelease(root, 'document-backend')
+    publication = release.RuntimeRelease(root, 'publication-backend')
+    frontend = release.RuntimeRelease(root, 'workbench-frontend')
+    source.write_text("VERSION = 'unrelated-backend-edit'\n")
+    assert document.snapshot()['restart_required'] is True
+    assert publication.snapshot()['restart_required'] is False
+    assert frontend.snapshot()['restart_required'] is False
+    (root.parent / 'PlatESG/backend').mkdir(parents=True)
+    (root.parent / 'PlatESG/backend/main.py').write_text("VERSION = 'publish-edit'\n")
+    assert publication.snapshot()['restart_required'] is True
+    shared = release.RuntimeRelease(root, 'publication-backend')
+    (root / 'standards/src').mkdir(parents=True)
+    (root / 'standards/src/datapoint.py').write_text("CONTRACT = 'shared'\n")
+    assert shared.snapshot()['restart_required'] is True
+    assert release.release_identity(root, 'workbench-frontend') != release.release_identity(root, 'document-backend')
+
+
+def test_peer_check_compares_shared_contracts_not_service_files(tmp_path):
+    root, _ = checkout(tmp_path)
+    document = release.release_identity(root, 'document-backend')
+    targeted = release.release_identity(root, 'targeted-backend')
+    assert document['build_fingerprint'] != targeted['build_fingerprint']
+    payload = {'service': 'targeted-backend', **targeted, 'readiness': {'ready': True, 'blockers': []}}
+    assert release.check_peer(payload, document, 'targeted-backend') == []
+    drifted = {**payload, 'components': {**targeted['components'], 'catalog': '0' * 64}}
+    assert any('共享合同' in error for error in release.check_peer(drifted, document, 'targeted-backend'))
+    stale = {**payload, 'restart_required': True}
+    assert any('协调重启' in error for error in release.check_peer(stale, document, 'targeted-backend'))

@@ -328,9 +328,14 @@ class ProductionAutomationCoordinator:
                 if fresh.get(key) != frozen.get(key):
                     raise ValueError("冻结的标准条款或主要范围已变化；禁止自动换版")
             extracted = extracted.model_copy(update={"name": name, "frozen_runtime_standard_snapshots": frozen.get("runtime_standard_snapshots", {})})
+            # The plan must carry the preparation actually used for this item, not
+            # the request default: a foundation16 item may have recognised only
+            # its candidate pages, and provenance that claims "all" would make
+            # the enrollment reject the very artifact it just built.
+            preparation = item.get("processing_config") or request.processing.config.model_dump(mode="json")
             return self.plans.create_report(extracted, {"asset_id": item["asset_id"], "file_name": item["file_name"],
                 "source_sha256": item["source_sha256"], "ir_run_id": processed["ir_run_id"], "ocr_run_id": processed.get("ocr_run_id"),
-                "processing_config": request.processing.config.model_dump(mode="json"), "processing_engine_versions": self.processing.engine_versions})
+                "processing_config": preparation, "processing_engine_versions": self.processing.engine_versions})
 
     def _fail(self, state, item, code, message):
         item.update(status="failed", message=message, blockers=[{"code": code, "message": message}])
@@ -347,8 +352,14 @@ class ProductionAutomationCoordinator:
             raise ValueError("冻结 PDF 内容身份已变化，停止自动推进")
         if item.get("report_id"):
             report = self.processing.report(item["report_id"])
-            if report["revision"] != item["report_revision"]:
-                raise ValueError("已确认的报告元信息版本发生变化，请重新规划")
+            # The frozen binding is the PDF, not the metadata revision: the
+            # delivery step re-reads and re-validates the identity anyway, so an
+            # operator correcting a title, entity ref or period must not make a
+            # finished report impossible to deliver.
+            if not any(v["asset_id"] == item["asset_id"] and v["source_sha256"] == item["source_sha256"]
+                       for v in report["asset_versions"]):
+                raise ValueError("报告身份与所选 PDF 的绑定已变化，请重新规划")
+            item["report_revision"] = report["revision"]
         if not item.get("processing_id"):
             if "processing_config" not in item:
                 route = getattr(request.extraction, "extraction_route", "standard") if request.extraction else "standard"
@@ -567,7 +578,9 @@ class ProductionAutomationCoordinator:
                         self.processing.action(item["processing_id"], "resume", ProcessingActionRequest())
                     if item.get("extraction_plan_id"):
                         plan = self._plan(item["extraction_plan_id"])
-                        if plan and plan["status"] in {"paused", "needs_attention", "interrupted", "partial"}:
+                        if plan and plan["status"] in {"paused", "needs_attention", "interrupted", "partial", "failed"}:
+                            # A plan whose native session already finished adopts
+                            # its results instead of recognising the pages again.
                             self.plans.action(plan["plan_id"], "resume")
                     item.update(status="processing" if not item.get("extraction_plan_id") else "extracting", blockers=[])
                 for item in state["items"]:

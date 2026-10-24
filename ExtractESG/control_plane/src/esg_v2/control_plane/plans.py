@@ -71,11 +71,14 @@ class PipelinePlanRequest(BaseModel):
 
 
 class PipelinePlanCoordinator:
-    def __init__(self, store, dispatch, inspect_ir, cancel, record_processing=None):
+    def __init__(self, store, dispatch, inspect_ir, cancel, record_processing=None, inspect_session=None):
         self.store, self.dispatch, self.inspect_ir, self.cancel = store, dispatch, inspect_ir, cancel
         self._lock, self._stop = threading.RLock(), threading.Event()
         self._thread = None
         self.record_processing = record_processing
+        # Reading a finished native session's detail lets a resumed plan adopt
+        # its results instead of asking the service to re-run finished work.
+        self.inspect_session = inspect_session
         self._secrets = {}
         self._list_cache: tuple[float, list] | None = None
         with store._connect() as connection:
@@ -250,6 +253,21 @@ class PipelinePlanCoordinator:
                     plan["status"] = "needs_attention"
                 self.save(plan)
 
+    def _finished_session(self, plan, document):
+        """A session that already finished keeps its result; never re-run it."""
+        if not self.inspect_session or not document.get("native_session_id"):
+            return None
+        try:
+            detail = self.inspect_session(plan, document)
+        except Exception:
+            return None
+        if not isinstance(detail, dict) or detail.get("execution_status") != "finished":
+            return None
+        statuses = {job.get("status") for job in detail.get("jobs") or [] if isinstance(job, dict)}
+        partial = detail.get("result_status") != "usable" or "partial" in statuses
+        return {"session_id": detail.get("session_id") or document.get("native_session_id"),
+                "result_status": "partial" if partial else "completed"}
+
     def _step(self, plan, index, document, name):
         step = document["steps"].setdefault(name, {"attempt": 0, "status": "pending"})
         if step.get("queue_record_deleted"):
@@ -268,6 +286,12 @@ class PipelinePlanCoordinator:
             document.update(status='interrupted',error='关联执行记录缺失，请从报告资产新建任务。')
             return None
         if task is None:
+            finished = self._finished_session(plan, document) if name == "report_session" else None
+            if finished:
+                step.update(status=finished.get("result_status") or "completed",
+                            run_id=finished.get("session_id") or document.get("native_session_id"),
+                            finished_at=utc_now(), message="复用已完成的报告会话")
+                return step["run_id"]
             token = dispatch_key.set(key)
             budget = ReportExtractionRequest.model_validate(plan["config"]["report_request"]).effective_budget() if plan["config"].get("report_request") else None
             remaining = self._execution_budget(plan, budget.total_timeout_seconds)["remaining_seconds"] if budget else None
@@ -381,7 +405,13 @@ class PipelinePlanCoordinator:
                 "Repair it in 04, then resume this plan."))
             return
         if self.record_processing:
-            self.record_processing(plan, document)
+            # Enrollment is reuse bookkeeping, not a precondition for the report:
+            # the IR above already passed the usability check, so a provenance
+            # mismatch must not stop extraction.
+            try:
+                self.record_processing(plan, document)
+            except (OSError, ValueError, TypeError) as exc:
+                document["processing_enrollment"] = {"status": "skipped", "reason": str(exc)}
         if plan["config"].get("report_request"):
             run_id = self._step(plan, index, document, "report_session")
             if run_id:

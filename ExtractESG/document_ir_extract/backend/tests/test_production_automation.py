@@ -179,6 +179,22 @@ def test_processing_then_extraction_holds_next_report_and_recovers_plan_gap(tmp_
     assert len(processing.list()) == 2 and plans.created == 1
 
 
+def test_extraction_plan_pins_the_preparation_actually_used(tmp_path):
+    """A foundation16 item recognises only candidate pages; its plan must say so."""
+    engine, processing, store, assets, calls, plans, _, _, _, _ = setup(tmp_path)
+    body = {"items": [{"asset_id": assets[0]["asset_id"], "source_sha256": assets[0]["sha256"]}],
+        "target": "processing_extraction",
+        "extraction": {"input": {"kind": "pdf", "asset_id": assets[0]["asset_id"]},
+            "standards": [{"package_id": "esrs.e1-6", "package_version": "1.0.0", "metric_ids": ["dp07"]}],
+            "extraction_route": "foundation16"}}
+    state = create(engine, AutomationRequest.model_validate(body))
+    engine.tick(); finish_processing(engine, processing, store)
+    item = engine.get(state["automation_id"])["items"][0]
+    assert item["processing_config"]["page_selection"] == "foundation16"
+    assert plans.created == 1
+    assert plans._plans[-1]["documents"][0]["processing_config"]["page_selection"] == "foundation16"
+
+
 @pytest.mark.parametrize("policy, expected", [("continue", "active"), ("pause", "paused")])
 def test_failed_item_policy_retains_actual_reason(tmp_path, policy, expected):
     engine, processing, store, assets, calls, _, _, _, _, _ = setup(tmp_path)
@@ -255,6 +271,26 @@ def test_delivery_restart_requires_runtime_authorization_without_reprocessing(tm
     assert done["status"] == "completed" and len(deliveries) == 1 and calls == ["ocr", "ir"] and plans.created == 1
     assert "synthetic-runtime-only" not in json.dumps(done)
     assert b"synthetic-runtime-only" not in store.path.read_bytes()
+
+
+def test_metadata_correction_after_planning_still_delivers(tmp_path):
+    """The frozen binding is the PDF; fixing a wrong entity ref must not block delivery."""
+    from esg_v2.control_plane.report_processing import ReportMetadataPatch, ReportMetadata
+    engine, processing, store, assets, calls, plans, deliveries, _, _, _ = setup(tmp_path, 1)
+    report = processing.register_asset(assets[0])
+    report = processing.update_metadata(report["report_id"], ReportMetadataPatch(expected_revision=report["revision"],
+        metadata=ReportMetadata(title="Synthetic report", publisher_entity_ref="org:wrong", period_start="2025-01-01", period_end="2025-12-31")))
+    payload = request(assets, "processing_extraction").model_dump(mode="json")
+    payload["target"] = "processing_extraction_delivery"
+    payload["items"][0].update(report_id=report["report_id"], report_revision=report["revision"])
+    state = create(engine, AutomationRequest.model_validate(payload))
+    engine.tick(); finish_processing(engine, processing, store); plans.finish()
+    corrected = processing.update_metadata(report["report_id"], ReportMetadataPatch(expected_revision=report["revision"],
+        metadata=ReportMetadata(title="Synthetic report", publisher_entity_ref="org:synthetic", period_start="2025-01-01", period_end="2025-12-31")))
+    engine.tick()
+    done = engine.get(state["automation_id"])
+    assert done["items"][0]["status"] == "completed" and len(deliveries) == 1
+    assert deliveries[0][2] == corrected["revision"] and calls == ["ocr", "ir"]
 
 
 def test_credentialless_local_operator_is_held_and_rechecked_for_delivery(tmp_path):

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Annotated, Literal
@@ -19,7 +20,7 @@ from esg_runtime.lifecycle import LifecycleBlocked
 from esg_runtime.local_operator import install_loopback_marker
 
 from esg_v2 import __version__
-from esg_v2.runtime_compatibility import compatibility_snapshot, check_compatibility, runtime_release
+from esg_v2.runtime_compatibility import compatibility_snapshot, check_compatibility, check_peer, runtime_release
 from esg_v2.assets import ReportAssetCatalog
 from esg_v2.config import get_settings
 from esg_v2.contracts import OcrJobState, OcrRunRequest, OptionalPayload, validate_page_indices
@@ -473,7 +474,14 @@ def _cancel_plan_child(task_id):
         cancel_pipeline_task(task_id)
 
 
-pipeline_plans = PipelinePlanCoordinator(pipeline_store, _dispatch_plan_step, _plan_ir_manifest, _cancel_plan_child)
+def _inspect_plan_session(plan, document):
+    """Read-only adoption of a report session that already finished."""
+    session_id = document.get("native_session_id")
+    return _targeted_report_request("GET", f"/api/report-sessions/{session_id}") if session_id else None
+
+
+pipeline_plans = PipelinePlanCoordinator(pipeline_store, _dispatch_plan_step, _plan_ir_manifest, _cancel_plan_child,
+    inspect_session=_inspect_plan_session)
 
 
 def _dispatch_processing_step(stage, config, state, secrets):
@@ -522,30 +530,36 @@ def _targeted_catalog_request(path: str) -> object:
 
     The pipeline UI intentionally talks to one backend only.  Keeping this hop
     here prevents stale browser-local targeted URLs from hiding standards in
-    the full-pipeline planner.
+    the full-pipeline planner.  A read-only catalog stays readable while that
+    service is busy extracting, so it is retried instead of failing a batch.
     """
-    try:
-        with requests.Session() as session:
-            session.trust_env = False
-            response = session.get(f"{settings.targeted_backend_url}{path}", timeout=10)
-            response.raise_for_status()
-            return response.json()
-    except requests.HTTPError as exc:
-        status_code = exc.response.status_code if exc.response is not None else 502
-        if status_code == 404:
-            message = "所需接口不可用，定向后端可能尚未更新" if path in {
-                "/api/compatibility", "/api/standards/catalog", "/api/standards/diagnostics"
-            } or path.startswith("/api/extraction-profiles/") else "标准包不存在或已退役"
-            raise HTTPException(404, message) from exc
-        if status_code == 409:
-            try:
-                detail = exc.response.json().get("detail", "所选标准范围暂不可执行")
-            except ValueError:
-                detail = "所选标准范围暂不可执行"
-            raise HTTPException(409, detail) from exc
-        raise HTTPException(502, "定向抽取后端未能返回标准目录") from exc
-    except (requests.RequestException, ValueError) as exc:
-        raise HTTPException(503, "无法连接定向抽取后端，标准目录暂不可用") from exc
+    for attempt in range(3):
+        try:
+            with requests.Session() as session:
+                session.trust_env = False
+                response = session.get(f"{settings.targeted_backend_url}{path}", timeout=30)
+                response.raise_for_status()
+                return response.json()
+        except requests.HTTPError as exc:
+            status_code = exc.response.status_code if exc.response is not None else 502
+            if status_code == 404:
+                message = "所需接口不可用，定向后端可能尚未更新" if path in {
+                    "/api/compatibility", "/api/standards/catalog", "/api/standards/diagnostics"
+                } or path.startswith("/api/extraction-profiles/") else "标准包不存在或已退役"
+                raise HTTPException(404, message) from exc
+            if status_code == 409:
+                try:
+                    detail = exc.response.json().get("detail", "所选标准范围暂不可执行")
+                except ValueError:
+                    detail = "所选标准范围暂不可执行"
+                raise HTTPException(409, detail) from exc
+            raise HTTPException(502, "定向抽取后端未能返回标准目录") from exc
+        except (requests.Timeout, requests.ConnectionError) as exc:
+            if attempt == 2:
+                raise HTTPException(503, "定向抽取后端正忙，标准目录暂不可用") from exc
+            time.sleep(1.5 * (attempt + 1))
+        except (requests.RequestException, ValueError) as exc:
+            raise HTTPException(503, "无法连接定向抽取后端，标准目录暂不可用") from exc
 
 
 @app.get("/api/pipeline/standards")
@@ -565,7 +579,7 @@ def pipeline_compatibility() -> dict:
     blockers = list(document["readiness"]["blockers"])
     try:
         targeted = _targeted_catalog_request("/api/compatibility")
-        blockers.extend(check_compatibility(targeted, runtime_release.started, "targeted-backend"))
+        blockers.extend(check_peer(targeted, runtime_release.started, "targeted-backend"))
     except HTTPException as exc:
         blockers.append(str(exc.detail))
     return {"protocol_version": document["protocol_version"], "ready": not blockers,
@@ -656,7 +670,7 @@ def _targeted_report_request(method, path, payload=None, *, authorization=None):
     try:
         with requests.Session() as session:
             session.trust_env = False
-            response = session.request(method, f"{settings.targeted_backend_url}{path}", json=payload, timeout=20,
+            response = session.request(method, f"{settings.targeted_backend_url}{path}", json=payload, timeout=60,
                 **({'headers': {'Authorization': authorization}} if authorization else {}))
         if response.status_code >= 400:
             try:

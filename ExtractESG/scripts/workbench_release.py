@@ -17,7 +17,14 @@ from urllib.request import ProxyHandler, build_opener
 PROTOCOL_VERSION = "workbench-compatibility-v1"
 SUPPORTED_PACKAGE_FORMATS = ["1.0", "1.1", "2.0", "2.1"]
 SUPPORTED_CORE_VERSIONS = ["1.0.0", "1.1.0", "1.2.0"]
-_CACHE: dict[tuple[str, tuple], dict] = {}
+_CACHE: dict[tuple, dict] = {}
+
+SERVICE_GROUPS = {
+    "document-backend": ("document_backend", "standard_contracts", "catalog", "startup"),
+    "targeted-backend": ("targeted_backend", "standard_contracts", "catalog", "startup"),
+    "workbench-frontend": ("frontend", "startup"),
+    "publication-backend": ("publication_backend", "product_frontend", "standard_contracts", "catalog", "startup"),
+}
 
 
 def release_files(extract_root: Path) -> dict[str, list[Path]]:
@@ -88,12 +95,20 @@ def release_files(extract_root: Path) -> dict[str, list[Path]]:
     return {name: sorted({path.resolve() for path in paths}) for name, paths in groups.items()}
 
 
-def release_identity(extract_root: Path) -> dict:
+def release_identity(extract_root: Path, service: str | None = None) -> dict:
     root = extract_root.resolve()
     groups = release_files(root)
+    # A release is scoped to what a service actually runs plus the shared
+    # contracts it reads. An unrelated backend edit must not make the
+    # publication database refuse writes until it is restarted too.
+    if service:
+        wanted = SERVICE_GROUPS.get(service)
+        if not wanted:
+            raise ValueError(f"未知服务身份：{service}")
+        groups = {name: paths for name, paths in groups.items() if name in wanted}
     signature = tuple((str(path), path.stat().st_mtime_ns, path.stat().st_size) if path.is_file()
                       else (str(path), None, None) for paths in groups.values() for path in paths)
-    key = (str(root), signature)
+    key = (str(root), service or "*", signature)
     if key in _CACHE:
         return json.loads(json.dumps(_CACHE[key]))
     digests = {}
@@ -121,15 +136,39 @@ def release_identity(extract_root: Path) -> dict:
 class RuntimeRelease:
     def __init__(self, extract_root: Path, service: str) -> None:
         self.root, self.service = extract_root.resolve(), service
-        self.started = release_identity(self.root)
+        self.started = release_identity(self.root, self.service)
 
     def snapshot(self) -> dict:
-        current = release_identity(self.root)
+        current = release_identity(self.root, self.service)
         changed = current["build_fingerprint"] != self.started["build_fingerprint"]
         return {"service": self.service, **self.started,
                 "current_disk_fingerprint": current["build_fingerprint"],
                 "source_changed_since_start": changed,
                 "restart_required": changed}
+
+
+def check_peer(payload: dict, expected: dict, service: str, groups=("standard_contracts", "catalog")) -> list[str]:
+    """Verify another service runs the same shared contracts, not the same files.
+
+    Each service is only restarted for its own code, so peers agree on the
+    standards and catalog groups they exchange and on the protocol contract.
+    """
+    errors = []
+    if payload.get("service") != service:
+        errors.append("服务身份不匹配")
+    if payload.get("protocol_version") != PROTOCOL_VERSION:
+        errors.append("缺少当前版本握手协议，请更新服务")
+    components = payload.get("components") if isinstance(payload.get("components"), dict) else {}
+    for group in groups:
+        if components.get(group) != expected["components"].get(group):
+            errors.append(f"服务共享合同（{group}）不一致，需要协调重启")
+    if payload.get("source_changed_since_start") or payload.get("restart_required"):
+        errors.append("服务启动后项目已更新，需要协调重启")
+    if payload.get("contracts") != expected["contracts"]:
+        errors.append("标准包、Core 或范围合同不一致")
+    if not payload.get("readiness", {}).get("ready", False):
+        errors.append("业务未就绪：" + "；".join(payload.get("readiness", {}).get("blockers", ["未返回就绪诊断"])))
+    return errors
 
 
 def check_compatibility(payload: dict, expected: dict, service: str) -> list[str]:
@@ -155,7 +194,7 @@ def main() -> int:
     parser.add_argument("--url")
     parser.add_argument("--service", choices=["document-backend", "targeted-backend", "workbench-frontend"])
     args = parser.parse_args()
-    expected = release_identity(args.root)
+    expected = release_identity(args.root, args.service)
     if not args.url:
         print(json.dumps(expected, ensure_ascii=False))
         return 0

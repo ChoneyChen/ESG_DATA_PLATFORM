@@ -60,6 +60,10 @@ def finish(engine, store, stage, *, full=True, limited=False, fail=False):
     else:
         config = state["request"]["config"]
         manifest["provider_route"] = {"requested": config["ocr_provider"], "requested_model": config["ocr_model"], "allow_api_fallback": config["allow_cloud_ocr"]}
+        # A real targeted run records its selector; a fixture that omitted it
+        # would silently claim full-document coverage.
+        if config.get("page_selection", "all") != "all":
+            manifest["page_selection"] = {"mode": "targeted", "page_indices": [0], "selector": {"name": config["page_selection"]}}
     (target / "manifest.json").write_text(json.dumps(manifest))
     (target / "payload.txt").write_text("valid fixture artifact")
     store.update(task.task_id, status=PipelineTaskStatus.COMPLETED)

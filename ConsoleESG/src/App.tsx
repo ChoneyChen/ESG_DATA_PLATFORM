@@ -91,7 +91,6 @@ export default function App() {
             ))}
           </nav>
         </div>
-        <SidebarMonitor/>
         <details className="sidebar-tools" open={toolsOpen}>
           <summary>工具</summary>
           <nav aria-label="工具">
@@ -104,6 +103,7 @@ export default function App() {
           <p>报告 → 提取 → 审核 → 发布</p>
           <a href="http://127.0.0.1:8765/" target="_blank" rel="noreferrer">打开数据网站 ↗</a>
         </div>
+        <SidebarMonitor/>
       </aside>
       <div className="app-content">
         <header className="topbar">

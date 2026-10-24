@@ -117,6 +117,13 @@ GROUPS: tuple[KeywordGroup, ...] = (
         ('%', '女性', '男性', 'female', 'male'),
     ),
     KeywordGroup(
+        'consumer',
+        ('消费者投诉', '客户投诉', '投诉数量', 'consumer complaint', 'customer complaint', 'complaints received',
+         '投诉处理', '消费者权益', '客户满意度', '满意度', 'consumer protection', 'customer satisfaction',
+         'complaints', '投诉'),
+        ('件', '起', 'count', 'complaints', '率', '%', 'cases', 'complaint'),
+    ),
+    KeywordGroup(
         'governance',
         ('董事会', '治理机构', '女性董事', '董事会多元化', '腐败', '贿赂', '定罪', '付款天数', '账期', 'board', 'corruption', 'bribery', 'conviction', 'payment days'),
         ('%', '件', '天', '人', '女性', 'days', 'cases'),

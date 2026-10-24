@@ -102,3 +102,17 @@ def test_limited_evidence_policy_is_explicit(tmp_path):
     engine.tick()
     assert engine.list()[0]["status"] == "needs_attention"
     assert not store.list()
+
+
+def test_resumed_plan_adopts_a_finished_session_instead_of_rerunning_it(tmp_path):
+    store = PipelineQueueStore(tmp_path / "queue.sqlite")
+    calls = []
+    engine = PipelinePlanCoordinator(store, lambda *args: calls.append(args), lambda run: {"can_build_evidence": True},
+        store.request_cancel, inspect_session=lambda plan, document: {
+            "session_id": "report-finished", "execution_status": "finished", "result_status": "partial",
+            "jobs": [{"status": "completed"}, {"status": "completed"}]})
+    document = {"native_session_id": "report-finished", "steps": {}}
+    plan = {"plan_id": "plan-resume", "config": {}, "documents": [document]}
+    assert engine._step(plan, 0, document, "report_session") == "report-finished"
+    assert calls == [] and document["steps"]["report_session"]["status"] == "partial"
+    assert document["steps"]["report_session"]["message"] == "复用已完成的报告会话"

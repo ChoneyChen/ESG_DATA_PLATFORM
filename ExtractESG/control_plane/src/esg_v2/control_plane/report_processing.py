@@ -335,6 +335,12 @@ class ReportProcessingCoordinator:
             if existing:
                 return json.loads(existing[0])
             config = ProcessingConfig.model_validate(document["processing_config"])
+            # The artifacts describe their own page coverage; enrolling them with
+            # a caller-side default would reject the OCR run they were built from.
+            ocr_manifest, _ = self._manifest("ocr", document["ocr_run_id"])
+            selector = (ocr_manifest.get("page_selection") or {}).get("selector") or "all"
+            if selector != config.page_selection and config.page_selection == "all":
+                config = config.model_copy(update={"page_selection": selector})
             asset = self.assets.get(document["asset_id"])
             if asset["sha256"] != document["source_sha256"]:
                 raise ValueError("计划的 PDF 已变化，不能登记处理成果")

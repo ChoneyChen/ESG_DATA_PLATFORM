@@ -8,6 +8,7 @@ _module = module_from_spec(_spec)
 _spec.loader.exec_module(_module)
 runtime_release = _module.RuntimeRelease(EXTRACT_ROOT, "document-backend")
 check_compatibility = _module.check_compatibility
+check_peer = _module.check_peer
 
 
 def compatibility_snapshot():

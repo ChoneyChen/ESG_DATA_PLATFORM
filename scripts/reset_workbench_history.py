@@ -88,9 +88,12 @@ def clear(dry: bool) -> None:
         identity = record.get("task_id")
         delete(f"/document/api/pipeline/tasks/{identity}", identity, delete_action(record), "任务")
     print("处理任务")
+    # Deleting the sessions above moves each run's revision, so the delete
+    # identity is re-read right before use instead of trusting the list snapshot.
     for record in runs:
         identity = record.get("processing_id")
-        delete(f"/document/api/report-processing/runs/{identity}", identity, delete_action(record), "处理")
+        detail = call("GET", f"/document/api/report-processing/runs/{identity}")[1]
+        delete(f"/document/api/report-processing/runs/{identity}", identity, delete_action(detail or record), "处理")
     print("页面读取版本")
     # Deleting one version moves the library revision, so each identity is
     # re-read right before its delete instead of trusting the list snapshot.
