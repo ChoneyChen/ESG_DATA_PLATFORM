@@ -99,6 +99,16 @@ describe('批量生产交互',()=>{
   fireEvent.click(first);
   expect(screen.getByText('已选 1 份')).toBeTruthy();
  });
+ it('未补报告身份的勾选项直接标出缺失字段，并可进入报告详情补齐',async()=>{
+  render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({asset:assets[2].asset_id})}/></WorkspaceProvider>);
+  await screen.findByText('全选（3）');
+  expect(await screen.findByText('补身份：报告身份')).toBeTruthy();
+  expect(screen.getByText('待补身份 1 份')).toBeTruthy();
+ });
+ it('交付身份阻塞把字段键翻译为中文，不再显示英文轴名',()=>{
+  render(<AutomationPreview value={{can_submit:false,items:[],blockers:[{message:'候选交付缺少已确认报告身份：title、publisher_entity_ref、period_start、period_end'}]}} originalIds={[]}/>);
+  expect(screen.getByText(/报告名称、发布者主体、报告期起始、报告期结束/)).toBeTruthy();
+ });
  it('一键部署只提交一个父计划，后台编排子阶段；预览和提交顺序一致',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
   const previewButton=await screen.findByRole('button',{name:'预览整个批次的实际计划'});

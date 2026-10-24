@@ -23,3 +23,7 @@
 @media(max-width:900px){.automation-profiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.automation-profiles{grid-template-columns:1fr}}
 .automation-select{display:grid;gap:12px}
+.count.warning{background:var(--warn-soft);border-color:#efdfba;color:var(--warn)}
+.automation-identity-fix{display:inline-flex;margin-left:7px;padding:1px 6px;min-height:0;font-size:9.5px;font-weight:600;color:var(--warn);background:var(--warn-soft);border:1px solid #efdfba;border-radius:5px;box-shadow:none}
+.automation-identity-fix:hover:not(:disabled){background:#fbe9c6;transform:none;box-shadow:none}
+.automation-identity-ok{margin-left:7px;font-size:9.5px;color:var(--ok);font-weight:600}
