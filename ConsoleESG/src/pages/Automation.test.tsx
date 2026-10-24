@@ -98,7 +98,6 @@ describe('批量生产交互',()=>{
   expect(screen.getByText('已选 0 份')).toBeTruthy();
   fireEvent.click(first);
   expect(screen.getByText('已选 1 份')).toBeTruthy();
-  expect(screen.getByRole('button',{name:'移除第 1 份报告'})).toBeTruthy();
  });
  it('一键部署只提交一个父计划，后台编排子阶段；预览和提交顺序一致',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
@@ -114,14 +113,17 @@ describe('批量生产交互',()=>{
   expect(mutations[1].body?.preview_id).toBe(`automation-preview-${'d'.repeat(64)}`);
   expect(mutations[1].body?.submission_key).toBeTruthy();
  });
- it('报告按登记年份自动排序，页面不再出现排序规则控件',async()=>{
+ it('报告按登记年份自动排序提交，页面不再出现排序控件或已选面板',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
   await screen.findByText('全选（3）');
   expect(screen.queryByText('自动排序规则')).toBeNull();
-  const items=document.querySelectorAll('.automation-order li');
-  expect(items).toHaveLength(2);
-  expect(items[0].textContent).toContain('明确报告 B');
-  expect(items[1].textContent).toContain('明确报告 A');
+  expect(document.querySelector('.automation-order')).toBeNull();
+  const previewButton=await screen.findByRole('button',{name:'预览整个批次的实际计划'});
+  await waitFor(()=>expect((previewButton as HTMLButtonElement).disabled).toBe(false));
+  fireEvent.click(previewButton);
+  await waitFor(()=>expect(calls.some(call=>call.url.endsWith('/production-automations/preview'))).toBe(true));
+  const request=calls.find(call=>call.url.endsWith('/production-automations/preview'))!.body!;
+  expect(request.items.map((item:Row)=>item.asset_id)).toEqual([assets[1].asset_id,assets[0].asset_id]);
  });
  it('配置改变使已有预览失效，必须重新核对后才能部署',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
