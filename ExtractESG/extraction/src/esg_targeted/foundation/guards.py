@@ -54,6 +54,13 @@ def _rx(*terms: str) -> re.Pattern:
     return re.compile("(?:" + "|".join(terms) + ")", re.I)
 
 
+MARKET_METHOD_RE = _rx(r"市场法", r"基于市场", r"market[\s-]*based", r"supplier[\s-]*specific", r"contractual\s+instruments")
+LOCATION_METHOD_RE = _rx(r"位置法", r"地点法", r"基于位置", r"基于地点", r"location[\s-]*based", r"average\s+grid\s+emission\s+factor")
+REVENUE_RE = _rx(r"营收", r"营业收入", r"营业额", r"收入", r"revenue", r"net\s+sales")
+RENEWABLE_COMPONENT_RE = _rx(r"风能", r"风电", r"太阳能", r"光伏", r"水能", r"水电", r"wind\s+power", r"solar", r"hydro", r"photovoltaic")
+PER_HUNDRED_WORKERS_RE = _rx(r"每\s*百\s*人", r"每\s*百\s*名", r"per\s+100\s+employees?", r"per\s+hundred\s+employees?")
+
+
 SCOPE1_RE = _rx(r"范围\s*[一1](?![0-9])", r"范畴\s*[一1]", r"scope\s*1(?![0-9])", r"scope\s*i\b", r"直接(?:温室气体|GHG|碳)?排放", r"direct\s+(?:ghg\s+)?emission")
 SCOPE2_RE = _rx(r"范围\s*[二2](?![0-9])", r"范畴\s*[二2]", r"scope\s*2(?![0-9])", r"scope\s*ii\b", r"(?<!其他)间接(?:温室气体|GHG|碳)?排放", r"energy\s+indirect", r"(?<!other\s)indirect\s+(?:ghg\s+)?emission")
 SCOPE3_RE = _rx(r"范围\s*[三3](?![0-9])", r"范畴\s*[三3]", r"scope\s*3(?![0-9])", r"scope\s*iii\b", r"其他间接", r"other\s+indirect", r"价值链排放", r"value\s+chain\s+emission")
@@ -68,7 +75,7 @@ GHG_LABEL_RE = _rx(r"温室气体", r"ghg", r"greenhouse", r"碳排放", r"二�
 DIRECT_AND_INDIRECT_RE = _rx(r"直接(?:及|和|与|、|\+|＋)间接", r"direct\s+(?:and|&|\+)\s+indirect")
 ENERGY_TOTAL_RE = _rx(r"能源消耗", r"能源消费", r"能耗", r"能源使用", r"耗能", r"用能", r"能量消耗", r"energy\s+(?:consumption|consumed|use)", r"total\s+energy")
 ENERGY_SUBSET_RE = _rx(r"直接", r"间接", r"direct", r"indirect", r"电", r"煤", r"油", r"气", r"汽", r"热", r"柴", r"electric", r"gas", r"diesel", r"coal", r"steam", r"heat", r"fuel", r"petrol", r"gasoline", r"可再生", r"清洁", r"绿色", r"非化石", r"化石", r"renewable", r"clean", r"fossil", r"外购", r"purchased", r"自产", r"self[-\s]generated", r"数据中心", r"data\s+cent", r"办公", r"office")
-RENEWABLE_RE = _rx(r"可再生", r"清洁能源", r"绿色电力", r"绿电", r"非化石", r"renewable", r"clean\s+energy", r"green\s+(?:power|electricity|energy)", r"non[-\s]?fossil")
+RENEWABLE_RE = _rx(r"可再生", r"清洁能源", r"绿色电力", r"绿电", r"非化石", r"renewable", r"clean\s+energy", r"green\s+(?:power|electricity|energy)", r"non[-\s]?fossil", r"风能", r"风电", r"太阳能", r"光伏", r"水能", r"水电", r"wind\s+power", r"solar", r"hydro", r"photovoltaic")
 ELECTRICITY_RE = _rx(r"电力", r"电量", r"用电", r"绿电", r"electricity", r"power")
 FOSSIL_RE = _rx(r"(?<!非)化石", r"(?<!non-)(?<!non )fossil", r"电网", r"grid", r"灰电")
 GENERATION_RE = _rx(r"发电量", r"装机", r"产生", r"生产", r"出售", r"售出", r"上网", r"generat", r"capacity", r"installed", r"sold", r"produced", r"exported")
@@ -111,7 +118,7 @@ SINGLE_FUEL_RE = _rx(r"天然气", r"natural\s+gas", r"柴油", r"diesel", r"汽
                      r"原油", r"石油", r"crude\s*oil", r"petroleum")
 MATERIAL_RE = _rx(r"原材料", r"物料", r"材料", r"资源投入", r"materials?", r"resource\s+inflow")
 EMPLOYEE_RE = _rx(r"员工", r"雇员", r"职工", r"从业人数", r"employee", r"staff")
-TURNOVER_RE = _rx(r"流失率", r"离职率", r"turnover")
+TURNOVER_RE = _rx(r"流失率", r"流失比率", r"离职率", r"离职比率", r"turnover")
 AVERAGE_RE = _rx(r"平均", r"average", r"mean")
 TRAINING_RE = _rx(r"培训", r"受训", r"training", r"trained")
 TOPIC_TRAINING_RE = _rx(r"商业道德", r"反腐败", r"合规", r"信息安全", r"数据安全", r"隐私", r"网络安全", r"ehs", r"安全培训", r"领导力",
@@ -178,12 +185,13 @@ def normalize(text: str | None) -> str:
     return " › ".join(parts)
 
 
-def check(code: str, label: str, section: str | None, unit: str | None, dimension: str | None) -> GuardResult:
+def check(code: str, label: str, section: str | None, unit: str | None, dimension: str | None, *, evidence: str | None = None) -> GuardResult:
     """Apply concept rules for one datapoint to one mapped source row."""
     text = normalize(label)
     section = normalize(section)
     unit = normalize(unit) if unit else unit
     scope_text = f"{section or ''} {text}"
+    evidence_text = normalize(evidence) if evidence else ""
     flags: list[str] = []
     # Applied before every concept rule: no disclosure of an actual amount is a
     # permit, quota or regulatory ceiling, whatever metric it is mapped to.
@@ -231,6 +239,11 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         if re.search(r"采购|购买|购入|purchas|现场|自发|自建|自产|on[-\s]?site|self[-\s]?generat", text) and not re.search(
                 r"消耗|消费|使用|用量|consum|\buse", text):
             return _reject("renewable_source_component")
+        if RENEWABLE_COMPONENT_RE.search(text) and not TOTAL_RE.search(text):
+            # Wind/solar/hydro rows are evidence for a component, not proof that
+            # the renewable total is absent. Keep them for review as components.
+            flags.append("renewable_component_not_total")
+            review = True
         if RATIO_WORD_RE.search(text) or GENERATION_RE.search(text) or INTENSITY_RE.search(text) or CHANGE_RE.search(text):
             return _reject("label_is_ratio_generation_or_change")
         if FOSSIL_RE.search(text):
@@ -340,6 +353,9 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         elif code == "E3-4_03":
             if not RECYCLE_RE.search(subject):
                 return _reject("label_not_recycled_or_reused_water")
+            if re.search(r"固体废弃物|固废|废物|垃圾|solid\s+waste", scope_text, re.I) and not re.search(
+                    r"循环水|回用水|重复利用水|再生水|中水|recycled\s+water|reused\s+water", text, re.I):
+                return _reject("label_is_solid_waste_not_water")
             # Reclaimed water taken in as an alternative source is a supply
             # choice; the clause asks for the volume the company recycled or
             # reused. Keep the value, but as a reviewed reading.
@@ -386,13 +402,29 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
     elif code == "E1-6_12":
         if INTENSITY_RE.search(text) or RATIO_WORD_RE.search(text) or CHANGE_RE.search(text):
             return _reject("label_is_ratio_intensity_or_change")
-        # The total must name emissions and be a total: an unrelated row with an
-        # unrecognised unit can otherwise pass every other check.
+        # The declared total is Scope 1 + location-based Scope 2 + Scope 3.
+        # A total of one or two scopes, or a market-based total, is a different
+        # datapoint even when the row literally says "total".
         if not re.search(r"温室气体|温室氣體|碳排放|二氧化碳|排放|ghg|co2", text, re.I):
             return _reject("label_not_ghg_emissions")
-        scopes = sum(bool(item.search(text)) for item in (SCOPE1_RE, SCOPE2_RE, SCOPE3_RE))
-        if scopes == 1 and not TOTAL_RE.search(text):
-            return _reject("label_is_single_scope_not_total")
+        has_scope_words = bool(SCOPE1_RE.search(text) or SCOPE2_RE.search(text) or SCOPE3_RE.search(text))
+        scope_evidence = text if has_scope_words else f"{text} {evidence_text}"
+        has_12 = (bool(SCOPE1_RE.search(scope_evidence) and SCOPE2_RE.search(scope_evidence)) or bool(COMBINED_SCOPE_RE.search(scope_evidence)))
+        has_3 = bool(SCOPE3_RE.search(scope_evidence))
+        if has_12 and not has_3:
+            return _reject("label_missing_scope3_for_total")
+        if has_3 and not has_12 and (TOTAL_RE.search(text) or SCOPE1_RE.search(scope_evidence) or SCOPE2_RE.search(scope_evidence)):
+            return _reject("label_scope3_total_not_all_scopes")
+        if (SCOPE1_RE.search(scope_evidence) or SCOPE2_RE.search(scope_evidence)) and not has_12 and not has_3:
+            return _reject("label_single_scope_not_all_scopes")
+        method_text = f"{scope_text} {evidence_text}"
+        has_market = bool(MARKET_METHOD_RE.search(method_text))
+        has_location = bool(LOCATION_METHOD_RE.search(method_text))
+        if has_market and not has_location:
+            return _reject("method_not_location_based")
+        if has_market and has_location:
+            flags.append("scope2_method_ambiguous")
+            review = True
         # The same total under another consolidation boundary (operational
         # control vs financial control) is an alternative view, not a rival value.
         if CONSOLIDATION_BOUNDARY_RE.search(text):
@@ -403,6 +435,17 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
     elif code == "E1-6_30":
         if not (INTENSITY_RE.search(text) or INTENSITY_UNIT_RE.search(unit or "")):
             return _reject("label_not_intensity")
+        if not REVENUE_RE.search(f"{scope_text} {unit or ''}"):
+            return _reject("label_not_revenue_intensity")
+        if (SCOPE1_RE.search(text) or SCOPE2_RE.search(text) or SCOPE3_RE.search(text)) and not (
+                SCOPE1_RE.search(text) and SCOPE2_RE.search(text) and SCOPE3_RE.search(text)):
+            return _reject("label_single_scope_intensity_not_total")
+        method_text = f"{scope_text} {evidence_text}"
+        if MARKET_METHOD_RE.search(method_text) and not LOCATION_METHOD_RE.search(method_text):
+            return _reject("method_not_location_based")
+        if MARKET_METHOD_RE.search(method_text) and LOCATION_METHOD_RE.search(method_text):
+            flags.append("scope2_method_ambiguous")
+            review = True
         if dimension not in (None, "ghg-intensity"):
             return _reject(f"unit_dimension_{dimension}_not_ghg_intensity")
     elif code == "E5-5_07":
@@ -439,6 +482,9 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
             return _reject("label_is_waste_not_inflow")
         if not MATERIAL_RE.search(subject):
             return _reject("label_not_materials_used")
+        if re.search(r"废旧|回收量|回收率|再生量|recovered|recovery|recycled\s+amount", text, re.I) \
+                and not re.search(r"资源投入|原材料.{0,8}(?:使用|投入)|materials?\s+used", text, re.I):
+            return _reject("label_is_recycled_material_not_inflow")
         if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
             return _reject("label_is_ratio_or_intensity")
         # A hazardous/toxic portion of the material inflow is a subset of the
@@ -490,7 +536,9 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
             return _reject(f"unit_dimension_{dimension}_not_ratio")
     elif code == "S1-13_04":
-        if not (TRAINING_RE.search(text) and HOURS_RE.search(text)):
+        # The section heading ("培训") supplies the subject for a table whose
+        # row is only "Average (per employee)".
+        if not (TRAINING_RE.search(scope_text) and HOURS_RE.search(scope_text)):
             return _reject("label_not_training_hours")
         # Business-ethics, EHS or leadership training is a topic, not the
         # workforce-wide average this clause asks for.
@@ -510,6 +558,10 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         # Insurance or training coverage of workers is not an accident rate.
         if re.search(r"覆盖|coverage", text, re.I):
             return _reject("label_is_coverage_not_rate")
+        # A per-100-employee rate has a different denominator from the declared
+        # per-million-work-hours rate and cannot be compared as the same field.
+        if PER_HUNDRED_WORKERS_RE.search(text):
+            return _reject("label_is_per_employee_rate_not_work_hours")
         # A lost-hours or fatality count is a different clause; this one is a rate.
         if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
             return _reject(f"unit_dimension_{dimension}_not_ratio")

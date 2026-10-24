@@ -103,6 +103,16 @@ class AutomationOrder(AutomationAction):
     item_ids: list[str] = Field(min_length=1, max_length=500)
 
 
+def _automation_plan_matches(plan: dict, key: str) -> bool:
+    """Correlation is separate from the label shown to an operator."""
+    if plan.get("automation_key") == key:
+        return True
+    if any(document.get("automation_key") == key for document in plan.get("documents", [])):
+        return True
+    # Plans written before the display-name split remain resumable.
+    return (plan.get("report_request") or {}).get("name") == "自动生产:" + key
+
+
 def foundation_processing_config(processing, source_sha256: str, config: ProcessingConfig) -> ProcessingConfig:
     """Preparation for a foundation16 extraction of one PDF.
 
@@ -207,6 +217,7 @@ class ProductionAutomationCoordinator:
                         if missing:
                             raise ValueError("候选交付缺少已确认报告身份：" + "、".join(missing))
                     row["report_title"] = report["metadata"].get("title")
+                    row["report_code"] = report.get("report_code")
                 if request.extraction:
                     preview = self.extraction_preview(self._report_request(request, row))
                     row["extraction_preview"] = preview
@@ -312,10 +323,10 @@ class ProductionAutomationCoordinator:
         return next((p for p in self.plans.list() if p["plan_id"] == plan_id), None)
 
     def _create_extraction(self, state, item, request, processed):
-        # Stable name is a durable correlation key in the existing plan journal.
-        name = "自动生产:" + state["automation_id"] + ":" + item["item_id"]
+        # Stable key is durable correlation, never an operator-facing task name.
+        key = state["automation_id"] + ":" + item["item_id"]
         with self.plans._lock:
-            matches = [p for p in self.plans.list() if p.get("report_request", {}).get("name") == name]
+            matches = [p for p in self.plans.list() if _automation_plan_matches(p, key)]
             if len(matches) > 1:
                 raise ValueError("自动化提取子计划存在重复身份，需人工检查")
             if matches:
@@ -324,10 +335,11 @@ class ProductionAutomationCoordinator:
             frozen = next(i["extraction_preview"] for i in state["snapshot"]["items"] if i["asset_id"] == item["asset_id"])
             # Validate current packages before any child task or queue creation.
             fresh = self.extraction_preview(extracted)
-            for key in ("standards", "runtime_standard_snapshots", "selection_snapshot", "selected_outputs", "internal_dependencies"):
-                if fresh.get(key) != frozen.get(key):
+            for field in ("standards", "runtime_standard_snapshots", "selection_snapshot", "selected_outputs", "internal_dependencies"):
+                if fresh.get(field) != frozen.get(field):
                     raise ValueError("冻结的标准条款或主要范围已变化；禁止自动换版")
-            extracted = extracted.model_copy(update={"name": name, "frozen_runtime_standard_snapshots": frozen.get("runtime_standard_snapshots", {})})
+            title = item.get("report_title") or item.get("file_name") or item["asset_id"]
+            extracted = extracted.model_copy(update={"name": f"{request.name} · {title}"[:120], "frozen_runtime_standard_snapshots": frozen.get("runtime_standard_snapshots", {})})
             # The plan must carry the preparation actually used for this item, not
             # the request default: a foundation16 item may have recognised only
             # its candidate pages, and provenance that claims "all" would make
@@ -335,7 +347,7 @@ class ProductionAutomationCoordinator:
             preparation = item.get("processing_config") or request.processing.config.model_dump(mode="json")
             return self.plans.create_report(extracted, {"asset_id": item["asset_id"], "file_name": item["file_name"],
                 "source_sha256": item["source_sha256"], "ir_run_id": processed["ir_run_id"], "ocr_run_id": processed.get("ocr_run_id"),
-                "processing_config": preparation, "processing_engine_versions": self.processing.engine_versions})
+                "automation_key": key, "processing_config": preparation, "processing_engine_versions": self.processing.engine_versions})
 
     def _fail(self, state, item, code, message):
         item.update(status="failed", message=message, blockers=[{"code": code, "message": message}])
@@ -360,6 +372,7 @@ class ProductionAutomationCoordinator:
                        for v in report["asset_versions"]):
                 raise ValueError("报告身份与所选 PDF 的绑定已变化，请重新规划")
             item["report_revision"] = report["revision"]
+            item["report_code"] = report.get("report_code")
         if not item.get("processing_id"):
             if "processing_config" not in item:
                 route = getattr(request.extraction, "extraction_route", "standard") if request.extraction else "standard"
@@ -441,7 +454,7 @@ class ProductionAutomationCoordinator:
                 if found:
                     item.update(processing_id=found[0]["processing_id"], stage="processing", status="processing")
             if not item.get("extraction_plan_id"):
-                found = [p for p in plans if p.get("report_request", {}).get("name") == "自动生产:" + key]
+                found = [p for p in plans if _automation_plan_matches(p, key)]
                 if len(found) > 1:
                     raise ValueError("提取提交身份重复，禁止自动猜测恢复")
                 if found:

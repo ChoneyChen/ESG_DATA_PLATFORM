@@ -33,6 +33,20 @@ def _read(path, default=None):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _bundle_covers_selected(bundle: dict, selected: list[str]) -> bool:
+    """A final Bundle is authoritative for selected outputs even with dependencies.
+
+    Internal dependency facts live in the same validated Bundle; treating their
+    presence as a reason to rebuild from per-metric checkpoints lost those facts.
+    """
+    outcomes = (bundle.get("summary") or {}).get("outcomes")
+    if not isinstance(outcomes, list) or not outcomes:
+        return False
+    covered = {outcome.get("metric_id") for outcome in outcomes if isinstance(outcome, dict)}
+    return set(selected) <= covered
+
+
+
 def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, package=None):
     """Read persisted progress, including legacy jobs without a final Bundle."""
     try:
@@ -77,11 +91,11 @@ def collect_stage(artifact_store, job_id, *, use_snapshot=True, request=None, pa
         internal_ids = declared_internal_ids(package,selected)
     internal_ids -= set(selected)
     bundle_path = root / "exports/extraction-result.json"
-    if use_snapshot and not internal_ids and bundle_path.is_file() and bundle_path.stat().st_mtime_ns >= durable_version and (not snapshot_path.is_file() or bundle_path.stat().st_mtime_ns >= snapshot_path.stat().st_mtime_ns):
+    if use_snapshot and bundle_path.is_file() and bundle_path.stat().st_mtime_ns >= durable_version and (not snapshot_path.is_file() or bundle_path.stat().st_mtime_ns >= snapshot_path.stat().st_mtime_ns):
         bundle = _read(bundle_path)
         summary = bundle.get("summary", {})
         records = bundle.get("records", {})
-        if package and summary.get("standard", {}).get("source_digest") == package.compilation.source_digest and summary.get('standard', {}).get('runtime_standard_digest', package.compilation.source_digest) == execution_digest(package):
+        if package and summary.get("standard", {}).get("source_digest") == package.compilation.source_digest and summary.get('standard', {}).get('runtime_standard_digest', package.compilation.source_digest) == execution_digest(package) and (not internal_ids or _bundle_covers_selected(bundle, selected)):
             try:
                 ResultContractValidator(package.core).validate(records)
             except ResultContractError as contract_error:

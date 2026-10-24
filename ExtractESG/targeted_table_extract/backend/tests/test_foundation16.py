@@ -923,3 +923,65 @@ def test_universal_clauses_accept_their_own_concept_and_reject_neighbours():
             assert result.ok, (code, label, result.flags)
         else:
             assert not result.ok and result.flags == (expected,), (code, label, result.flags)
+
+
+def test_ghg_total_requires_all_scopes_and_location_method():
+    label = "范围一、范围二、范围三温室气体排放总量"
+    assert check("E1-6_12", "范围一、范围二温室气体排放总量", None, "吨CO2e", "ghg-emissions").ok is False
+    assert check("E1-6_12", "范围三排放总量", None, "吨CO2e", "ghg-emissions").ok is False
+    assert check("E1-6_12", label, None, "吨CO2e", "ghg-emissions",
+                 evidence="范围二采用基于市场的方法").ok is False
+    accepted = check("E1-6_12", label, None, "吨CO2e", "ghg-emissions",
+                     evidence="范围二采用基于位置的方法")
+    assert accepted.ok and accepted.status is None
+    ambiguous = check("E1-6_12", label, None, "吨CO2e", "ghg-emissions",
+                      evidence="范围二同时披露基于位置与基于市场的方法")
+    assert ambiguous.ok and ambiguous.status == "review"
+
+
+def test_ghg_intensity_requires_total_and_revenue_denominator():
+    assert check("E1-6_30", "范围一温室气体排放强度", None, "吨CO2e/兆瓦时", "ghg-intensity").ok is False
+    assert check("E1-6_30", "温室气体排放强度", None, "吨CO2e/兆瓦时", "ghg-intensity").ok is False
+    assert check("E1-6_30", "温室气体排放强度（位置法）", None, "吨CO2e/百万元营收", "ghg-intensity").ok is True
+
+
+def test_section_context_and_customer_synonyms_are_used():
+    assert check("S1-13_04", "Average (per employee)", "Training hours", "Hours", None).ok is True
+    assert check("S4-3_13", "Customer complaints", None, "件", "count").ok is True
+    assert check("S4-3_13", "客户投诉数量", None, "件", "count").ok is True
+
+
+def test_wrong_family_rows_are_rejected_before_binding():
+    assert check("E5-4_02", "废旧电池及材料回收量", "循环经济", "吨", "mass").ok is False
+    assert check("E3-4_03", "固体废弃物循环利用量", "环境", "吨", "mass").ok is False
+    assert check("E3-4_03", "循环使用", "固体废弃物", "吨", "volume").ok is False
+    assert check("S1-14_05", "每百人工伤率", None, "%", "ratio").ok is False
+    assert check("S1-6_12", "员工流失比率", None, "%", "ratio").ok is True
+
+
+def test_one_row_with_two_targets_evaluates_both_candidates():
+    view = build_table_view(make_table([
+        ["指标", "单位", "2024"],
+        ["取水总量", "立方米", "1,076,415"],
+    ]), page())
+    task = plan_table_tasks(view, ["water"])[0]
+    payload = {"current_col": "c2", "current_year": "2024", "current_scope": "whole_reporting_group",
+               "items": [{"row": "r1", "target": "E3-4_03", "note": None},
+                         {"row": "r1", "target": "E3-4_11", "note": None}]}
+    observations, _ = bind(task, payload, 2024)
+    accepted = [o for o in observations if o.status == "accepted"]
+    assert [o.code for o in accepted] == ["E3-4_11"]
+
+
+def test_column_header_year_overrides_a_conflicting_model_year():
+    view = build_table_view(make_table([
+        ["指标", "单位", "2023", "2024"],
+        ["范围一排放", "吨二氧化碳当量", "11,345", "12,567"],
+    ]), page())
+    task = plan_table_tasks(view, ["ghg"])[0]
+    payload = {"current_col": "c2", "current_year": "2025", "current_scope": "whole_reporting_group",
+               "items": [{"row": "r1", "target": "E1-6_07", "note": None}]}
+    observations, _ = bind(task, payload, 2025)
+    assert observations[0].period_year == 2023
+    assert "current_year_conflicts_with_column_header" in observations[0].flags
+    assert observations[0].status == "rejected"

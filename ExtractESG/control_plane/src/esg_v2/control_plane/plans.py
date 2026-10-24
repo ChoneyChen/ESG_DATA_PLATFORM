@@ -25,6 +25,15 @@ dispatch_key = ContextVar("pipeline_plan_dispatch_key", default=None)
 execution_budget_seconds = ContextVar("pipeline_plan_execution_budget", default=None)
 
 
+def display_plan_name(plan: dict) -> str:
+    """Human label; correlation keys stay in their own durable fields."""
+    raw = str(plan.get("name") or (plan.get("report_request") or {}).get("name") or "报告提取")
+    if raw.startswith("自动生产:"):
+        document = (plan.get("documents") or [{}])[0]
+        return "批量生产 · " + str(document.get("file_name") or "报告")
+    return raw
+
+
 class PlanStandard(BaseModel):
     package_id: str = Field(pattern=r"^[a-z0-9][a-z0-9._-]+$")
     package_version: str = Field(pattern=r"^\d+\.\d+\.\d+$")
@@ -131,6 +140,8 @@ class PipelinePlanCoordinator:
                 retrieval_object_top_n=budget.retrieval_object_top_n, shared_object_budget=budget.shared_object_budget,
                 agent_max_steps=budget.agent_max_steps, qiniu_api_key=request.qiniu_api_key, ocr_token=request.ocr_token)
             plan = self.create(config, [document])
+            if document.get("automation_key"):
+                plan["automation_key"] = document["automation_key"]
             plan["budget_started_at"] = None
             plan["budget_attempt"] = 1
             plan["budget_baseline_task_ids"] = []

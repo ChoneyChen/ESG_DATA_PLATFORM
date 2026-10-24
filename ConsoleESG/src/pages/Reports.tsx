@@ -5,6 +5,7 @@ import {Actions,Badge,dateLabel,Diagnostics,Field,Notice,ResourceState,Section} 
 import {EvidenceExplorer} from '../components/EvidenceExplorer';
 import {RecordManagement} from '../components/RecordManagement';
 import {BatchRecordDelete} from '../components/BatchRecordDelete';
+import {CrawlIndexPicker} from '../components/CrawlIndexPicker';
 import {startLibraryProduction} from '../library-workflow';
 import '../library.css';
 import {useLibraryResource} from '../library-resource';
@@ -32,7 +33,10 @@ function readState(asset:Row, versions:Row[]){
   return {key:'ready',label:'已读取',tone:'ready',next:'重新提取'};
 }
 
-const FILTERS=[['all','全部'],['unread','未提取'],['ready','已读取'],['failed','有问题']] as const;
+const FILTERS=[['all','全部'],['unread','未提取'],['ready','已读取'],['identity','待补身份'],['failed','有问题']] as const;
+const IDENTITY_KEYS=['title','publisher_name','publisher_entity_ref','reporting_year','period_start','period_end','language','report_kind'];
+function identityGaps(asset:Row){const metadata=asset.report_metadata || {};return IDENTITY_KEYS.filter(key=>metadata[key]===null||metadata[key]===undefined||String(metadata[key]).trim()==='');}
+function identityCode(asset:Row){const metadata=asset.report_metadata || {};return asset.report_code || (metadata.publisher_entity_ref&&metadata.reporting_year?`${metadata.publisher_entity_ref}/${metadata.reporting_year}`:'');}
 
 export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}){
  const {refresh}=useWorkspace();
@@ -40,12 +44,13 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
  const resource=useLibraryResource('report'),profile=useResource('document','/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3'),catalog=useResource('document','/api/pipeline/standards/catalog');
  const rows=items(resource.data),unlinked=items(resource.data,'unlinked_ocr'),unlinkedIr=items(resource.data,'unlinked_ir');
  const search=query.trim().toLowerCase();
- const matches=(row:Row)=>`${reportLabel(row)} ${row.file_name || ''} ${row.run_id || ''} ${row.document_label || ''}`.toLowerCase().includes(search);
- const described=rows.map(asset=>{const versions=ocrVersions(asset);return {asset,versions,state:readState(asset,versions)};});
- const visible=described.filter(({asset,versions,state})=>{
+ const matches=(row:Row)=>`${reportLabel(row)} ${row.file_name || ''} ${row.run_id || ''} ${row.document_label || ''} ${row.report_metadata?.publisher_name || ''} ${row.report_metadata?.publisher_entity_ref || ''} ${row.report_metadata?.reporting_year || ''}`.toLowerCase().includes(search);
+ const described=rows.map(asset=>{const versions=ocrVersions(asset);return {asset,versions,state:readState(asset,versions),gaps:identityGaps(asset)};});
+ const visible=described.filter(({asset,versions,state,gaps})=>{
   if(!matches(asset)&&!versions.some(matches))return false;
   if(filter==='unread')return state.key==='new';
   if(filter==='ready')return state.key==='ready';
+  if(filter==='identity')return gaps.length>0;
   if(filter==='failed')return state.key==='failed';
   return true;
  });
@@ -63,27 +68,28 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
  async function start(assets:Row[],extract:boolean){setBusy(true);setMessage('');try{await startLibraryProduction(assets,extract?'processing_extraction':'processing',profile.data,catalog.data,!extract&&assets.some(a=>ocrVersions(a).length>0)?'reprocess':'auto');setMessage('已加入处理队列，右下角查看处理状态。');refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
  const unavailable=busy||resource.data?.compatibility_view;
  const selectedRows=rows.filter(a=>selected.has(a.asset_id));
- const ocrCount=resource.data?.ocr_count ?? new Set([...rows.flatMap(ocrVersions),...unlinked].map(r=>r.run_id)).size;
  const pendingDeletions=items(resource.data,'pending_deletions');
- const counts={all:rows.length,unread:described.filter(d=>d.state.key==='new').length,ready:described.filter(d=>d.state.key==='ready').length,failed:described.filter(d=>d.state.key==='failed').length};
+ const counts={all:rows.length,unread:described.filter(d=>d.state.key==='new').length,ready:described.filter(d=>d.state.key==='ready').length,identity:described.filter(d=>d.gaps.length>0).length,failed:described.filter(d=>d.state.key==='failed').length};
 
  return <>
-  <div className="page-heading">
-    <div><span className="eyebrow">第 1 步 · 报告</span><h1>报告资产</h1><p>选一份 PDF 就能开始提取；读取页面与构建结构证据在提取中自动完成。</p></div>
-    <div className="asset-summary"><span><strong>{rows.length}</strong> 份 PDF</span><span><strong>{ocrCount}</strong> 个读取版本</span><span><strong>{described.filter(d=>d.state.key==='new').length}</strong> 未提取</span></div>
+  <div className="page-heading library-heading">
+    <div><span className="eyebrow">报告资源</span><h1>报告资产</h1><p>从 PDF 到目标指标。身份、条款与平台各自独立确认。</p></div>
+    <div className="button-row"><button className="secondary" onClick={()=>navigate('/automation/new')}>批量生产</button></div>
   </div>
+  <div className="library-kpis" aria-label="报告库概览"><span><strong>{rows.length}</strong>全部报告</span><span><strong>{counts.ready}</strong>可继续提取</span><span className={counts.identity?'warning':''}><strong>{counts.identity}</strong>待补身份</span><span className={counts.failed?'warning':''}><strong>{counts.failed}</strong>需处理</span></div>
   {resource.data?.compatibility_view&&<Notice>当前显示已有服务的来源关系。新的处理与删除入口将在服务更新后启用，正在执行的任务继续处理。</Notice>}
   {pendingDeletions.length>0&&<div className="asset-pending-deletions">{pendingDeletions.map(pending=>{
    const name=pending.kind==='pdf'?rows.find(row=>row.asset_id===pending.identity)?.file_name:pending.identity;
    return <Notice key={`${pending.kind}:${pending.identity}`} tone={pending.status==='deletion_failed'?'error':'info'}><strong>{name || pending.identity}</strong> · {pending.status==='deletion_failed'?`删除未完成：${pending.error || '请刷新后重试删除'}`:'正在停止关联任务，退出后自动删除。'}</Notice>;
   })}</div>}
 
-  <Section title="加入报告">
-    <form onSubmit={upload} className="upload-form"><input aria-label="选择PDF文件" name="file" type="file" accept="application/pdf,.pdf" multiple required/><button disabled={busy}>上传 PDF</button>{failedUploads.length>0&&<button type="button" className="secondary" disabled={busy} onClick={()=>void uploadFiles(failedUploads)}>重试失败的 {failedUploads.length} 个文件</button>}<small className="muted">上传后直接点“提取指标”；身份信息不靠文件名推断。</small></form>
-    {message&&<Notice>{message}</Notice>}
-  </Section>
+  <details className="library-upload">
+   <summary><span>导入 PDF</span><small>上传后逐份确认报告身份</small></summary>
+   <form onSubmit={upload} className="upload-form"><input aria-label="选择PDF文件" name="file" type="file" accept="application/pdf,.pdf" multiple required/><button disabled={busy}>上传 PDF</button>{failedUploads.length>0&&<button type="button" className="secondary" disabled={busy} onClick={()=>void uploadFiles(failedUploads)}>重试失败的 {failedUploads.length} 个文件</button>}<small className="muted">不会从文件名自动填充企业或年份。</small></form>
+   {message&&<Notice>{message}</Notice>}
+  </details>
 
-  <Section title="报告" action={selectedRows.length>0?<BatchRecordDelete rows={selectedRows} kind="asset" idKey="asset_id" label="删除所选报告"/>:undefined}>
+  <Section title="报告库" action={selectedRows.length>0?<BatchRecordDelete rows={selectedRows} kind="asset" idKey="asset_id" label="删除所选报告"/>:undefined}>
    <div className="library-toolbar">
     <input aria-label="搜索报告资产" placeholder="搜索 PDF、报告名称或版本编号" value={query} onChange={e=>setQuery(e.target.value)}/>
     <div className="library-filters" role="group" aria-label="按读取状态筛选">
@@ -95,33 +101,32 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
    </div>
    <ResourceState error={resource.error || profile.error || catalog.error} loading={resource.loading&&!resource.data} empty={!!resource.data&&!visible.length&&!visibleUnlinked.length&&!visibleUnlinkedIr.length}/>
    <div className="asset-list" role="list">
-    {visible.map(({asset,versions,state})=>{
+    <div className="asset-list-head" aria-hidden="true"><span>报告</span><span>身份与期间</span><span>状态</span><span>下一步</span></div>
+    {visible.map(({asset,state,gaps})=>{
+     const metadata=asset.report_metadata || {};
      return <article className={`asset-row ${state.tone}`} key={asset.asset_id} id={`asset-${asset.asset_id}`} role="listitem">
       <div className="asset-main">
        <input type="checkbox" aria-label={`选择 ${reportLabel(asset)}`} checked={selected.has(asset.asset_id)} onChange={e=>{const next=new Set(selected);e.target.checked?next.add(asset.asset_id):next.delete(asset.asset_id);setSelected(next);}}/>
        <span className="asset-file-icon" aria-hidden="true">PDF</span>
        <div className="asset-parent-name">
         <button className="text-button asset-title" title={reportLabel(asset)} onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>{reportLabel(asset)}</button>
-        <small>
-         {asset.report_metadata?.title?`${asset.file_name} · `:''}
-         {typeof asset.size_bytes==='number'?`${(asset.size_bytes/1024/1024).toFixed(1)} MB · `:''}
-         {dateLabel(asset.created_at || asset.modified_at)}
-         {versions.length?` · ${versions.length} 个读取版本可复用`:''}
-        </small>
+        {asset.file_name!==reportLabel(asset)&&<small className="asset-file-name">{asset.file_name}</small>}
+        <small>{typeof asset.size_bytes==='number'?`${(asset.size_bytes/1024/1024).toFixed(1)} MB · `:''}{dateLabel(asset.created_at || asset.modified_at)}</small>
         {asset.state_notice&&<small className="asset-note">{asset.state_notice}</small>}
+       </div>
+       <div className="asset-identity">
+        <strong>{metadata.publisher_name || '发布者待确认'}</strong>
+        <small>{metadata.reporting_year || '报告年待确认'}{metadata.period_start&&metadata.period_end?` · ${metadata.period_start} — ${metadata.period_end}`:''}</small>
+        {identityCode(asset)&&<small className="mono">{identityCode(asset)}</small>}
+        {gaps.length?<button className="identity-fix" onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>补身份（{gaps.length}）</button>:<span className="identity-ok">身份完整</span>}
        </div>
        <span className={`asset-state ${state.tone}`}>{state.label}</span>
        <div className="asset-primary-action">
         {state.key==='running'
          ? <button className="secondary" onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}/processing`)}>查看进度</button>
          : <button onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(asset.asset_id)}`)}>{state.next}</button>}
+        <button className="secondary asset-direct" disabled={unavailable||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start([asset],true)}>直接提取主要指标</button>
        </div>
-       <details className="asset-more"><summary aria-label={`${reportLabel(asset)} 的更多操作`}>⋯</summary>
-        <div className="library-row-actions">
-         <button className="secondary" disabled={unavailable||!profile.data||!!profile.error||!!catalog.error} onClick={()=>start([asset],true)}>直接提取主要指标</button>
-         <RecordManagement record={asset} kind="asset" id={asset.asset_id} compact/>
-        </div>
-       </details>
       </div>
      </article>;
     })}
@@ -152,7 +157,20 @@ function OcrVersion({row,asset,index}:{row:Row,asset?:Row,index:number}){
 export function ReportDetail({assetId,tab='overview'}:{assetId:string,tab?:string}){
  const resource=useLibraryResource('report');const asset=items(resource.data).find(a=>a.asset_id===assetId);const [identityOpen,setIdentityOpen]=useState(false);const identity=useResource('document',identityOpen&&asset?.report_id?`/api/reports/${encodeURIComponent(asset.report_id)}`:null);
  if(tab!=='overview'&&tab!=='source')return <ReportWorkbenchDetail assetId={assetId} tab={tab}/>;
- return <><div className="page-heading"><div><button className="text-button" onClick={()=>navigate(`/reports?asset=${encodeURIComponent(assetId)}`)}>← 报告资产</button><h1>{asset?reportLabel(asset):'PDF 报告'}</h1><p>PDF 原文 → 页面读取版本 → 结构证据 → 提取</p></div><div className="button-row"><button className="secondary" onClick={()=>navigate(`/reports?asset=${encodeURIComponent(assetId)}`)}>全部版本</button><button disabled={!asset} onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(assetId)}`)}>用这份报告提取</button></div></div><ResourceState error={resource.error} loading={resource.loading&&!asset}/>{asset&&<><Section title="PDF 原文"><iframe className="pdf-library-preview" title="PDF报告原文" src={assetFile(assetId)}/></Section><Section title={`这份 PDF 的页面读取版本 · ${ocrVersions(asset).length}`}>{ocrVersions(asset).map((row,index)=><OcrVersion key={row.run_id} row={row} asset={asset} index={index}/>)}{!ocrVersions(asset).length&&<p className="muted">尚未生成页面读取版本。</p>}</Section><details className="panel" open={identityOpen} onToggle={e=>setIdentityOpen(e.currentTarget.open)}><summary>报告信息</summary>{identity.data?<MetadataEditor report={identity.data}/>:<ResourceState error={identity.error} loading={identity.loading}/>}<p>{asset.file_name}</p></details><RecordManagement record={asset} kind="asset" id={assetId}/></>}</>;
+ const metadata=asset?.report_metadata || {};
+ return <><div className="page-heading report-detail-heading"><div><button className="text-button" onClick={()=>navigate('/reports')}>← 报告库</button><h1>{asset?reportLabel(asset):'PDF 报告'}</h1><p>{metadata.publisher_name || '发布者待确认'}{metadata.reporting_year?` · ${metadata.reporting_year}`:''}</p></div><div className="button-row"><button className="secondary" onClick={()=>navigate(`/automation/new?asset=${encodeURIComponent(assetId)}`)}>加入批量生产</button><button disabled={!asset} onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(assetId)}`)}>用这份报告提取</button></div></div>
+ <div className="tabs" role="tablist">{reportTabs.map(([code,title])=><button role="tab" aria-selected={tab===code} key={code} onClick={()=>navigate(`/reports/${assetId}/${code}`)}>{title}</button>)}</div>
+ <ResourceState error={resource.error} loading={resource.loading&&!asset}/>{asset&&<>
+  {tab==='source'?<Section title="不可变报告原文"><iframe className="pdf-standalone" title="报告 PDF 原文" src={assetFile(assetId)}/></Section>:<div className="report-overview-grid">
+   <Section title="PDF 原文"><iframe className="pdf-library-preview" title="PDF报告原文" src={assetFile(assetId)}/></Section>
+   <aside className="report-overview-side">
+    <Section title="报告概览"><dl className="facts"><dt>发布者</dt><dd>{metadata.publisher_name || '待确认'}</dd><dt>报告年</dt><dd>{metadata.reporting_year || '待确认'}</dd><dt>报告期</dt><dd>{metadata.period_start&&metadata.period_end?`${metadata.period_start} — ${metadata.period_end}`:'待确认'}</dd><dt>业务标识</dt><dd className="mono">{identityCode(asset) || '保存身份后生成'}</dd><dt>文件</dt><dd>{asset.file_name}</dd></dl></Section>
+    <details className="panel report-identity-panel" open={identityOpen} onToggle={event=>setIdentityOpen(event.currentTarget.open)}><summary>报告信息</summary>{identity.data?<MetadataEditor report={identity.data}/>:<ResourceState error={identity.error} loading={identity.loading}/>}</details>
+    <Section title="资产操作"><RecordManagement record={asset} kind="asset" id={assetId}/></Section>
+   </aside>
+  </div>}
+  {tab==='overview'&&<details className="panel report-versions"><summary>页面读取版本 · {ocrVersions(asset).length}</summary>{ocrVersions(asset).map((row,index)=><OcrVersion key={row.run_id} row={row} asset={asset} index={index}/>)}{!ocrVersions(asset).length&&<p className="muted">尚未生成页面读取版本；提取时自动完成。</p>}</details>}
+ </>}</>;
 }
 
 function ReportWorkbenchDetail({assetId,tab='overview'}:{assetId:string,tab?:string}){
@@ -161,7 +179,7 @@ function ReportWorkbenchDetail({assetId,tab='overview'}:{assetId:string,tab?:str
  async function register(){setBusy(true);try{await post('document','/api/reports',{asset_id:assetId});refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
  const rows:Row[]=(aggregate.data?.candidates || items(candidates.data)).filter((c:Row)=>c.report_ref===reportId || c.report_ref===assetId || c.source_sha256 && c.source_sha256===asset?.sha256);const records:Row[]=aggregate.data?.publication_records || rows.filter(c=>c.publication_status==='published');
  return <><div className="page-heading"><div><button className="text-button" onClick={()=>navigate('/reports')}>← 报告库</button><h1>{asset?reportLabel(asset):'报告详情'}</h1><p>{metadata.publisher_name || '发布者待确认'} · {metadata.reporting_year || '报告期待确认'}</p></div><div className="button-row"><button disabled={!asset||isArchived(asset)} onClick={()=>navigate(`/extractions/new?asset=${encodeURIComponent(assetId)}${irId?`&ir=${encodeURIComponent(irId)}`:''}`)}>提取指标</button></div></div><div className="tabs" role="tablist">{reportTabs.map(([code,title])=><button role="tab" aria-selected={tab===code} key={code} onClick={()=>navigate(`/reports/${assetId}/${code}`)}>{title}</button>)}</div><ResourceState error={assets.error || aggregate.error} loading={!asset&&assets.loading}/>{message && <Notice tone="error">{message}</Notice>}{asset && <>
- <Section title="资产管理"><RecordManagement record={asset} kind="asset" id={assetId}/></Section>
+ <Section title="资产管理"><details className="report-asset-actions"><summary>资产与记录操作</summary><RecordManagement record={asset} kind="asset" id={assetId}/></details></Section>
  {tab==='overview' && <><div className="stat-grid"><article><small>处理</small><Badge value={asset.processing_status}/></article><article><small>提取任务</small><strong>{sessions.length}</strong></article><article><small>待审核</small><strong>{aggregate.data?.review_count ?? (credentials.ready?candidates.error?'—':candidates.data?rows.filter(c=>c.fact_review_status!=='approved'||c.mapping_review_status!=='approved').length:'…':'平台未连接')}</strong></article><article><small>已发布</small><strong>{aggregate.data?.published_count ?? (credentials.ready?candidates.error?'—':candidates.data?records.length:'…':'平台未连接')}</strong></article></div><Section title="报告身份与版本">{identity.data?<MetadataEditor report={identity.data}/>:reportId?<ResourceState error={identity.error} loading={identity.loading}/>:<><Notice>这份 PDF 尚未登记业务报告身份。文件名仅用于找到文件，发布者与报告期需明确核对。</Notice><button disabled={busy} onClick={register}>登记报告身份</button></>}<dl className="facts"><dt>文件名</dt><dd>{asset.file_name}</dd><dt>文件大小</dt><dd>{asset.size_bytes?`${(asset.size_bytes/1024/1024).toFixed(1)} MB`:'未记录'}</dd><dt>内容指纹</dt><dd className="mono">{asset.sha256}</dd><dt>最后更新</dt><dd>{dateLabel(asset.modified_at)}</dd></dl><Actions actions={workActions(asset.available_actions)} revision={asset.lifecycle?.revision}/></Section></>}
  {tab==='source' && <Section title="不可变报告原文"><iframe className="pdf-standalone" title="报告 PDF 原文" src={assetFile(assetId)}/></Section>}
  {tab==='processing' && <><Section title="处理记录"><ResourceState error={processing.error}/>{runs.map(run=><article className="work-item" key={run.processing_id}><strong>{reportLabel(run)}</strong><Badge value={run.status}/><button className="secondary" onClick={()=>navigate(`/processing/${run.processing_id}`)}>阶段与证据操作</button><RecordManagement record={run} kind="processing" id={run.processing_id} compact/></article>)}{!runs.length&&<Notice>历史读取成果仍可保留；请创建报告处理任务以核对兼容性并构建固定证据版本。</Notice>}</Section><ReportEvidence current={aggregate.data?.current_processing_evidence} history={aggregate.data?.historical_fixed_evidence || []}/></>}
@@ -178,9 +196,24 @@ export function ReportEvidence({current,history}:{current?:Row,history:Row[]}){
 }
 
 export function MetadataEditor({report}:{report:Row}){
- const {refresh}=useWorkspace();const [form,setForm]=useState<Row>(report.metadata || {}),[busy,setBusy]=useState(false),[message,setMessage]=useState('');useEffect(()=>{setForm(report.metadata || {});},[report.report_id,report.revision]);const fields=[['title','报告名称','text',''],['publisher_name','报告发布者','text',''],['publisher_entity_ref','发布者主体引用（显式确认）','text','必须与审核中心已登记主体的 entity_ref 完全一致'],['reporting_year','报告年','number',''],['period_start','报告期起始','date',''],['period_end','报告期结束','date',''],['language','语言','text',''],['report_kind','报告类型','text','']] as const;
- async function save(e:FormEvent){e.preventDefault();setBusy(true);setMessage('');try{const metadata:Row={};for(const [key,,type] of fields){metadata[key]=form[key]?type==='number'?Number(form[key]):form[key]:null;}await request('document',`/api/reports/${report.report_id}`,{method:'PATCH',body:JSON.stringify({metadata,expected_revision:report.revision})});setMessage('报告身份已保存。发布者不自动等同于每一项指标的测量主体。');refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
- return <form onSubmit={save}><Notice>报告发布者与指标测量主体分别确认。不会从文件名自动填充身份。</Notice><div className="form-grid">{fields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div><button disabled={busy}>{busy?'保存中…':'保存报告身份'}</button>{message&&<Notice>{message}</Notice>}<details><summary>已关联 PDF 版本（{report.asset_versions?.length || 0}）</summary><ul>{report.asset_versions?.map((v:Row)=><li key={v.asset_id}>版本 {v.version} · <button type="button" className="text-button" onClick={()=>navigate(`/reports/${v.asset_id}`)}>打开 PDF 资产</button> · {dateLabel(v.created_at)}</li>)}</ul><AttachVersion report={report}/></details><Diagnostics value={{report_id:report.report_id,revision:report.revision,history:report.metadata_history}} title="身份修订诊断"/></form>;
+ const {refresh}=useWorkspace();const [form,setForm]=useState<Row>(report.metadata || {}),[busy,setBusy]=useState(false),[message,setMessage]=useState('');
+ useEffect(()=>{setForm(report.metadata || {});},[report.report_id,report.revision]);
+ const baseFields=[['title','报告名称','text','报告封面或目录上的正式名称'],['publisher_name','报告发布者','text','公司全称，不从文件名推断'],['reporting_year','报告年','number','报告所属年度或财年'],['period_start','报告期起始','date',''],['period_end','报告期结束','date',''],['language','语言','text','如 zh-Hans、zh-Hant、en'],['report_kind','报告类型','text','如 sustainability、esg']] as const;
+ const subjectFields=[['publisher_entity_ref','发布者主体引用（显式确认）','text','必须与审核中心已登记主体的 entity_ref 完全一致'],['measurement_entity_ref','默认测量主体（可选）','text','仅作提取与审核默认，不自动等于发布者，也不改写指标边界']] as const;
+ const externalFields=[['source_system','外部索引系统','text','如 CrawlESG；仅记录来源'],['source_report_id','外部报告编号','text',''],['lei','LEI','text',''],['ticker','证券代码','text',''],['isin','ISIN','text',''],['source_package_sha256','外部包 SHA-256','text','64 位十六进制'],['source_url','外部来源地址','text','公开报告页或索引链接']] as const;
+ const allFields=[...baseFields,...subjectFields,...externalFields];
+ async function save(e:FormEvent){e.preventDefault();setBusy(true);setMessage('');try{const metadata:Row={};for(const [key,,type] of allFields){metadata[key]=String(form[key] ?? '').trim()?type==='number'?Number(form[key]):String(form[key]).trim():null;}await request('document',`/api/reports/${report.report_id}`,{method:'PATCH',body:JSON.stringify({metadata,expected_revision:report.revision})});setMessage('报告身份已保存。发布者、测量主体与各项指标边界分别确认。');refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
+ function applyIndex(candidate:Row){setForm({...form,publisher_name:candidate.entity_name || form.publisher_name,reporting_year:candidate.fiscal_year ?? form.reporting_year,period_end:candidate.period_end || form.period_end,lei:candidate.lei,source_system:candidate.source_system,source_report_id:candidate.source_report_id,source_package_sha256:candidate.source_package_sha256,source_url:candidate.source_url});setMessage('已填入索引候选。请继续确认报告名称、发布者主体引用和报告期起始后再保存。');}
+ const code=form.publisher_entity_ref&&form.reporting_year?`${form.publisher_entity_ref}/${form.reporting_year}`:'保存主体引用与报告年后生成';
+ return <form className="metadata-editor" onSubmit={save}><Notice>报告发布者与指标测量主体分别确认；不会从文件名或外部索引自动填充主体引用。</Notice>
+  <div className="metadata-head"><span className="mono">{code}</span><small>内部报告 ID 保持稳定：{report.report_id}</small></div>
+  <fieldset className="metadata-section"><legend>报告与报告期</legend><div className="form-grid">{baseFields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input aria-label={title} type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div></fieldset>
+  <fieldset className="metadata-section"><legend>主体确认</legend><div className="form-grid">{subjectFields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input aria-label={title} type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div></fieldset>
+  <details className="metadata-external"><summary>外部索引与可选标识（只读匹配）</summary><CrawlIndexPicker onSelect={applyIndex}/><div className="form-grid">{externalFields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input aria-label={title} type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div></details>
+  <div className="metadata-actions"><button disabled={busy}>{busy?'保存中…':'保存报告身份'}</button>{message&&<Notice>{message}</Notice>}</div>
+  <details><summary>已关联 PDF 版本（{report.asset_versions?.length || 0}）</summary><ul>{report.asset_versions?.map((v:Row)=><li key={v.asset_id}>版本 {v.version} · <button type="button" className="text-button" onClick={()=>navigate(`/reports/${v.asset_id}`)}>打开 PDF 资产</button> · {dateLabel(v.created_at)}</li>)}</ul><AttachVersion report={report}/></details>
+  <Diagnostics value={{report_id:report.report_id,report_code:report.report_code,revision:report.revision,history:report.metadata_history}} title="身份修订诊断"/>
+ </form>;
 }
 
 function AttachVersion({report}:{report:Row}){const resource=useResource('document','/api/report-assets'),{refresh}=useWorkspace();const [asset,setAsset]=useState(''),[message,setMessage]=useState('');return <div className="form-grid"><Field label="明确关联另一 PDF 为报告新版本"><select value={asset} onChange={e=>setAsset(e.target.value)}><option value="">请选择 PDF</option>{items(resource.data,'assets').filter(a=>!report.asset_versions?.some((v:Row)=>v.asset_id===a.asset_id)).map(a=><option key={a.asset_id} value={a.asset_id}>{a.file_name}</option>)}</select></Field><button type="button" className="secondary" disabled={!asset} onClick={async()=>{try{await post('document',`/api/reports/${report.report_id}/versions`,{asset_id:asset,expected_revision:report.revision});setMessage('新 PDF 版本已显式关联，既有引用保持原版本。');refresh();}catch(e){setMessage((e as Error).message);}}}>确认关联版本</button>{message&&<Notice>{message}</Notice>}</div>;}

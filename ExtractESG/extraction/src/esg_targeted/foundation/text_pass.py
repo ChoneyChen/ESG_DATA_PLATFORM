@@ -93,13 +93,20 @@ class TextBlock:
     block_id: str
     page_number: int
     text: str
+    context: str = ""
 
 
 def retrieve_blocks(pages: list[dict], codes: tuple[str, ...], *, reporting_year: int | None, limit: int = 8) -> list[TextBlock]:
     scored = []
+    contexts: dict[str, str] = {}
     for payload in pages:
         page_number = int((payload.get("page") or {}).get("page_number") or 0)
+        heading = ""
         for block in payload.get("blocks") or []:
+            if block.get("block_type") == "heading":
+                heading = clean_text(block.get("text"))
+            if block.get("block_id") and heading:
+                contexts[block["block_id"]] = heading
             if block.get("block_type") in {"table_markdown", "table", "figure", "image", "header", "footer"}:
                 continue
             text = clean_text(block.get("text"))
@@ -141,7 +148,7 @@ def retrieve_blocks(pages: list[dict], codes: tuple[str, ...], *, reporting_year
         if key in seen:
             continue
         seen.add(key)
-        chosen.append(TextBlock(f"b{len(chosen) + 1}", block_id, page_number, _window(text, codes)))
+        chosen.append(TextBlock(f"b{len(chosen) + 1}", block_id, page_number, _window(text, codes), contexts.get(block_id, "")))
         if len(chosen) >= limit:
             break
     return chosen
@@ -335,7 +342,7 @@ def bind_text(payload: dict, blocks: list[TextBlock], reporting_year: int | None
         number = parse_number(value_raw.replace(" ", ""))
         dimension = unit_dimension(unit_raw)
         guard_code = "SCOPE2" if code in ("E1-6_09", "E1-6_10") else code
-        guard = g.check(guard_code, clause, None, unit_raw, dimension)
+        guard = g.check(guard_code, clause, None, unit_raw, dimension, evidence=f"{block.context} {block.text}")
         flags.extend(guard.flags)
         if code in ("E1-6_09", "E1-6_10"):
             stated = scope2_method_from_text(sentence)

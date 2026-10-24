@@ -169,18 +169,18 @@ SPECS: dict[str, ClauseSpec] = {
     "S4-1_01": ClauseSpec(
         "S4-1_01", "管理消费者和终端用户重大影响、风险和机遇的政策",
         require_terms=("政策", "polic"),
-        scope_terms=("消费者", "consumer"),
+        scope_terms=("消费者", "consumer", "客户", "customer"),
     ),
     "S4-3_02": ClauseSpec(
         "S4-3_02", "消费者和终端用户提出关切的渠道",
         require_terms=("渠道", "channel", "申诉", "grievance", "投诉", "complaint"),
-        scope_terms=("消费者", "consumer"),
+        scope_terms=("消费者", "consumer", "客户", "customer"),
         exclude_terms=("报复", "retaliation"),
     ),
     "S4-3_13": ClauseSpec(
         "S4-3_13", "报告期内收到的消费者投诉数量",
         require_terms=("投诉", "complaint"),
-        scope_terms=("消费者", "consumer"),
+        scope_terms=("消费者", "consumer", "客户", "customer"),
         exclude_terms=("率", "%", "比例", "rate", "share"),
         dimension="count",
     ),
@@ -228,7 +228,7 @@ SPECS: dict[str, ClauseSpec] = {
     "S4-4_11": ClauseSpec(
         "S4-4_11", "与消费者和终端用户相关的严重人权问题与事件",
         require_terms=("严重人权", "severe human rights"),
-        scope_terms=("消费者", "consumer"),
+        scope_terms=("消费者", "consumer", "客户", "customer"),
     ),
     "G1-1_03": ClauseSpec(
         "G1-1_03", "未制定符合联合国反腐败公约的反腐败或反贿赂政策",

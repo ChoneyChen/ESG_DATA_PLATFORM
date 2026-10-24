@@ -513,10 +513,13 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
     year_values = period_years(current_year) if current_year else []
     period_year = year_values[-1] if year_values else None
     column_flags: list[str] = []
-    if period_year is None and col is not None and view.headers_aligned:
+    if col is not None and view.headers_aligned:
         header_years = sorted(set(period_years(" ".join(view.column_paths.get(col, [])))))
         if len(header_years) == 1:
-            period_year = header_years[0]
+            header_year = header_years[0]
+            if period_year is not None and period_year != header_year:
+                column_flags.append("current_year_conflicts_with_column_header")
+            period_year = header_year
             current_year = current_year or " ".join(view.column_paths.get(col, []))
             column_flags.append("period_from_column_header")
     if col is None and view.value_cols:
@@ -549,7 +552,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
     if boundary == "subset":
         boundary_flags.append("boundary_part_of_group")
     observations: list[Observation] = []
-    seen_rows: set[str] = set()
+    seen_candidates: set[tuple] = set()
     items = list(payload.get("items") or [])
     items += share_partner_items(task, items) + scope2_partner_items(task, items)
     items += exact_label_items(task, items, payload)
@@ -559,9 +562,10 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
                        if item.get("target") in ("E1-6_09", "E1-6_10", SCOPE2_UNSPECIFIED)})
     for item in items:
         rid, proposed = item.get("row"), item.get("target")
-        if rid not in lines or rid in seen_rows:
+        candidate_key = (rid, proposed, item.get("note"), item.get("derived"))
+        if rid not in lines or candidate_key in seen_candidates:
             continue
-        seen_rows.add(rid)
+        seen_candidates.add(candidate_key)
         line = lines[rid]
         note = notes.get(item.get("note")) if item.get("note") else None
         # A value that is one addend of a same-period column sum in this row is
@@ -613,7 +617,9 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
         subject = view.title or view.heading_above or view.caption
         if view.numeric_line_count == 1 and subject and fold(subject) not in fold(label):
             label = f"{subject} › {line.label}"
-        guard = concept_check(guard_code(proposed), label, context, unit_raw, dimension)
+        guard_evidence = " ".join(filter(None, [view.title, view.caption, view.heading_above, line.section,
+                                                 note.text if note else "", " ".join(n.text for n in view.notes[:8])]))[:6000]
+        guard = concept_check(guard_code(proposed), label, context, unit_raw, dimension, evidence=guard_evidence)
         reassigned = None
         if not guard.ok:
             group = BY_CODE["E1-6_09" if proposed == SCOPE2_UNSPECIFIED else proposed].group
@@ -621,7 +627,7 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
             for sibling in GROUP_SIBLINGS.get(group, ()):
                 if sibling == guard_code(proposed):
                     continue
-                result = concept_check(sibling, label, context, unit_raw, dimension)
+                result = concept_check(sibling, label, context, unit_raw, dimension, evidence=guard_evidence)
                 if result.ok:
                     passing.append((sibling, result))
             if len(passing) == 1:
@@ -663,6 +669,12 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
                 status, rejected_by = "rejected", rejected_by or f"unit_is_{dimension}"
             if metric.dimension == "volume" and dimension == "mass":
                 flags.append("water_reported_as_mass_unit")
+                if status == "accepted":
+                    status = "review"
+            if {"current_year_conflicts_with_column_header",
+                "current_column_year_differs_from_reporting_period"} & set(column_flags):
+                flags.append("period_mismatch")
+                status, rejected_by = "rejected", rejected_by or "period_mismatch"
             entity_basis = row_boundary
             if row_is_subset(line.label):
                 entity_basis = "subset"
@@ -693,6 +705,17 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
                     "derived_from": item.get("derived"),
                 },
             ))
+    # A reassignment and an explicit candidate can reach the same metric on the
+    # same row. Keep one observation per row/cell/metric/period.
+    unique: list[Observation] = []
+    seen_observations: set[tuple] = set()
+    for observation in observations:
+        key = (observation.row_id, observation.code, observation.cell_id, observation.note_block_id,
+               observation.value_raw, observation.period_year, observation.entity_basis, observation.status)
+        if key not in seen_observations:
+            seen_observations.add(key)
+            unique.append(observation)
+    observations = unique
     # A note is a pollutant method statement when it says so, or when an accepted
     # pollutant row cites it (a footnote under "SO2 排放量³¹" need not repeat "SO2").
     cited = {o.note_block_id for o in observations

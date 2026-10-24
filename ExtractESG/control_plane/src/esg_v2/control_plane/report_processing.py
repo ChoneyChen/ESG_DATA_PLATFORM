@@ -39,6 +39,16 @@ class ReportMetadata(BaseModel):
     period_end: date | None = None
     language: str | None = Field(default=None, max_length=40)
     report_kind: str | None = Field(default=None, max_length=80)
+    # Optional links to an external report catalogue. They never replace the
+    # local report_id, PDF asset_id or the registered measurement entity.
+    measurement_entity_ref: str | None = Field(default=None, max_length=160)
+    source_system: str | None = Field(default=None, max_length=80)
+    source_report_id: str | None = Field(default=None, max_length=200)
+    lei: str | None = Field(default=None, max_length=32)
+    ticker: str | None = Field(default=None, max_length=80)
+    isin: str | None = Field(default=None, max_length=32)
+    source_package_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
+    source_url: str | None = Field(default=None, max_length=2048)
 
     @model_validator(mode="after")
     def valid_period(self):
@@ -106,6 +116,16 @@ class ReportVersionRequest(BaseModel):
     expected_revision: int = Field(ge=1)
 
 
+def report_identity_code(metadata: dict) -> str | None:
+    """Readable business alias, never the durable identity used by references."""
+    entity = metadata.get("publisher_entity_ref")
+    year = metadata.get("reporting_year")
+    if not entity or not year:
+        return None
+    kind = metadata.get("report_kind")
+    return f"{entity}/{year}" + (f"/{kind}" if kind else "")
+
+
 class ReportProcessingCoordinator:
     def __init__(self, store, assets, dispatch, cancel, ocr_root: Path, ir_root: Path, *, engine_versions=None, integrity_check=None, runtime_config=None):
         self.store, self.assets, self.dispatch, self.cancel = store, assets, dispatch, cancel
@@ -158,7 +178,8 @@ class ReportProcessingCoordinator:
             if row is None:
                 raise KeyError(report_id)
             versions = [dict(v) for v in db.execute("SELECT * FROM report_asset_versions WHERE report_id=? ORDER BY version", (report_id,))]
-        return {"report_id": report_id, "revision": row["revision"], "metadata": json.loads(row["metadata_json"]),
+        metadata = json.loads(row["metadata_json"])
+        return {"report_id": report_id, "report_code": report_identity_code(metadata), "revision": row["revision"], "metadata": metadata,
                 "asset_versions": versions, "created_at": row["created_at"], "updated_at": row["updated_at"]}
 
     def reports(self):

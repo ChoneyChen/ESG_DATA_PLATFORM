@@ -104,3 +104,12 @@ def export_browser_fixture(path):
     with tempfile.TemporaryDirectory() as temporary:
         job, store, _ = stage_fixture(Path(temporary), "mapping")
         Path(path).write_text(json.dumps(ResultInspectionService(store).build(job).model_dump(mode="json"), ensure_ascii=False))
+
+
+def test_final_bundle_with_internal_dependencies_is_reused():
+    from esg_targeted.results.stages import _bundle_covers_selected
+
+    bundle = {"summary": {"outcomes": [{"metric_id": "dp07"}, {"metric_id": "dp09"}]}}
+    assert _bundle_covers_selected(bundle, ["dp07", "dp09"]) is True
+    assert _bundle_covers_selected(bundle, ["dp07", "dp12"]) is False
+    assert _bundle_covers_selected({"summary": {}}, ["dp07"]) is False

@@ -23,6 +23,7 @@ export function SidebarMonitor(){
  const count=running+queued;
  const failures=recent.filter(task=>['failed','interrupted'].includes(String(task.status))).length;
  const current=active[0];
+ const groups=groupTasks(active);
  return (
   <>
    <button type="button" className={`side-monitor ${count?'busy':''}`} aria-label="打开处理状态" aria-haspopup="dialog" onClick={()=>setOpen(true)}>
@@ -58,11 +59,12 @@ export function SidebarMonitor(){
         </section>
        )}
        <ResourceState error={plan.error}/>
-       {active.map(task=>(
-        <article className="monitor-task" key={task.task_id}>
-         <header><strong>{task.title}</strong><Badge value={task.status}/></header>
-         <Progress task={task} compact/>
-         <Actions actions={(task.available_actions||[]).filter((action:Row)=>action.action==='cancel')}/>
+       {groups.map(group=>(
+        <article className="monitor-report" key={group.key}>
+         <header><strong>{group.title}</strong><Badge value={group.current.status}/><small>{group.tasks.length>1?`${group.tasks.length} 个内部步骤`:''}</small></header>
+         <Progress task={group.current} compact/>
+         <div className="monitor-stage-chips">{group.tasks.map(task=><span key={task.task_id} className={`monitor-stage-chip ${String(task.status)}`}>{stageLabel(task.stage)}</span>)}</div>
+         <Actions actions={(group.current.available_actions||[]).filter((action:Row)=>action.action==='cancel')}/>
         </article>
        ))}
        {!active.length&&resource.data&&<p className="monitor-empty">当前没有执行中的任务。</p>}
@@ -84,6 +86,16 @@ export function SidebarMonitor(){
  );
 }
 
+function groupTasks(tasks:Row[]){
+ const groups:Array<{key:string,title:string,tasks:Row[],current:Row}>=[];
+ for(const task of tasks){
+  const title=String(task.title||'').replace(/^(?:Document IR|报告提取|OCR)\s*·\s*/,'') || task.task_id;
+  const group=groups.find(item=>item.title===title);
+  if(group)group.tasks.push(task);else groups.push({key:title,title,tasks:[task],current:task});
+ }
+ for(const group of groups)group.current=group.tasks.find(task=>['running','queued'].includes(String(task.status))) || group.tasks[group.tasks.length-1];
+ return groups;
+}
 function taskPercent(task:Row){
  const current=task.progress?.current,total=task.progress?.total;
  if(task.progress?.determinate===true&&typeof current==='number'&&typeof total==='number'&&total>0)return Math.min(100,Math.max(0,Math.round(current/total*100)));

@@ -27,3 +27,27 @@
 .automation-identity-fix{display:inline-flex;margin-left:7px;padding:1px 6px;min-height:0;font-size:9.5px;font-weight:600;color:var(--warn);background:var(--warn-soft);border:1px solid #efdfba;border-radius:5px;box-shadow:none}
 .automation-identity-fix:hover:not(:disabled){background:#fbe9c6;transform:none;box-shadow:none}
 .automation-identity-ok{margin-left:7px;font-size:9.5px;color:var(--ok);font-weight:600}
+
+/* Compact stage strip: one row per report, details only on demand */
+.automation-stage-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.automation-stage{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:var(--paper-2);display:grid;gap:5px;min-width:0}
+.automation-stage-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:10px;color:var(--muted)}
+.automation-stage-head span{font-weight:650;letter-spacing:.02em}
+.automation-stage-head small{font-size:9px;color:var(--faint);font-weight:500;white-space:nowrap}
+.automation-stage strong{font-size:11px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:14px}
+.automation-stage-meter{height:3px;border-radius:999px;background:var(--line);overflow:hidden}
+.automation-stage-meter span{display:block;height:100%;border-radius:inherit;background:var(--brand);transition:width 560ms var(--spring)}
+.automation-stage.working{border-color:#c7dcee;background:#f5f9fd}.automation-stage.working .automation-stage-meter span{background:#73a4cf}
+.automation-stage.done{border-color:#c9e2d0;background:#f6fbf7}.automation-stage.done .automation-stage-meter span{background:#65a77b}
+.automation-stage.issue{border-color:#efdcc0;background:#fffbf4}.automation-stage.issue .automation-stage-meter span{background:#c8975f}
+.automation-item-detail{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.automation-item-detail>summary{font-size:10.5px;color:var(--muted);cursor:pointer}
+.automation-detail-row{display:grid;grid-template-columns:128px minmax(0,1fr);gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:11px}
+.automation-detail-row>span{font-size:10.5px;color:var(--muted)}
+.automation-detail-row small{font-size:10.5px;color:var(--muted)}
+.automation-runtime-card{padding:15px 16px;margin:9px 0;box-shadow:var(--sh-1)}
+.automation-runtime-card .item-header{margin-bottom:0}
+.automation-runtime-card .item-stage{margin:3px 0 0;font-size:10.5px;color:var(--muted);display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+.automation-runtime-card .runtime-refs{margin-top:10px}
+.automation-runtime-card .runtime-refs button{font-size:10px;padding:4px 9px;min-height:26px}
+@media(max-width:820px){.automation-stage-strip{grid-template-columns:1fr}.automation-detail-row{grid-template-columns:100px minmax(0,1fr)}}

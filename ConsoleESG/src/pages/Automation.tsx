@@ -23,6 +23,45 @@ const canManageAutomation=()=>credentials.roles.includes('admin');
 const workingStates=new Set(['processing','extraction','delivery','extracting','delivering','running','queued']);
 const completedStates=new Set(['completed','done']);
 function blockText(blocker:unknown):string{const raw=typeof blocker==='string'?blocker:(blocker as Row)?.message || (blocker as Row)?.reason || (blocker as Row)?.code || '需处理的条件';return IDENTITY_FIELDS.reduce((text,[key,label])=>text.split(key).join(label),String(raw));}
+function stagePercent(stage:Row|undefined,working:boolean){
+ const progress=stage?.progress || stage || {},current=progress.current,total=progress.total;
+ if(progress.determinate===true&&typeof current==='number'&&typeof total==='number'&&total>0)return Math.min(100,Math.max(0,Math.round(current/total*100)));
+ if(stage?.status==='completed')return 100;
+ if(working)return 42;
+ return 6;
+}
+function stageTone(stage:Row|undefined,fallback:string){
+ const value=String(stage?.status || fallback || 'pending');
+ if(['completed','done','imported'].includes(value))return 'done';
+ if(['failed','blocked','interrupted','cancelled','partial'].includes(value))return 'issue';
+ if(['running','extracting','delivering','processing','queued'].includes(value))return 'working';
+ return 'waiting';
+}
+function stageLine(item:Row){
+ const stages:Row[]=item.progress?.stages || [];
+ const current=[...stages].reverse().find(stage=>['running','queued'].includes(String(stage.status))) || [...stages].reverse().find(stage=>stage.status==='completed');
+ return current?.label || current?.message || (item.progress?.evidence_status==='full'?'证据已就绪':item.processing_id?'准备可读证据':'等待派发');
+}
+function extractionLine(item:Row){
+ const stages:Row[]=item.progress?.extraction_stages || [];
+ const current=[...stages].reverse().find(stage=>['running','queued'].includes(String(stage.status))) || [...stages].reverse().find(stage=>['completed','partial'].includes(String(stage.status)));
+ return current?.label || current?.message || (item.progress?.job_ids?.length?`${item.progress.job_ids.length} 个条款任务`:'等待提取');
+}
+function deliveryLine(item:Row){
+ const deliveries:Row[]=item.delivery?.deliveries || [];
+ const imported=deliveries.filter(delivery=>delivery.status==='imported');
+ if(deliveries.length)return `已导入 ${imported.length}/${deliveries.length} 个成果包`;
+ return item.delivery?automationLabel(item.delivery.status):'等待候选交付';
+}
+function compactStage(item:Row,key:'processing'|'extraction'|'delivery'){
+ const stages:Row[]=key==='processing'?item.progress?.stages || []:key==='extraction'?item.progress?.extraction_stages || []:[];
+ const active=[...stages].reverse().find(stage=>['running','queued','delivering','extracting'].includes(String(stage.status))) || [...stages].reverse()[0];
+ const fallback=key==='processing'?item.status:key==='extraction'?item.progress?.execution_status:item.delivery?.status;
+ const label=key==='processing'?'准备可读证据':key==='extraction'?'目标提取':'候选交付';
+ const line=key==='processing'?stageLine(item):key==='extraction'?extractionLine(item):deliveryLine(item);
+ const percent=key==='processing'?stagePercent(active,workingStates.has(String(item.status))&&item.stage==='processing'):key==='extraction'?(item.progress?.job_ids?.length?(['completed','partial'].includes(String(item.progress?.execution_status))?100:58):8):item.delivery?(item.delivery.status==='imported'?100:70):4;
+ return {label,line,tone:stageTone(active,fallback),percent};
+}
 export function Automation({automationId,newTask=false,params=new URLSearchParams()}:{automationId?:string,newTask?:boolean,params?:URLSearchParams}){
  return <><div className="page-heading"><div><span className="eyebrow">批量数据生产</span><h1>自动化生产中心</h1><p>配置一次，按固定报告顺序自动完成处理、提取与候选交付。</p></div><div className="automation-header-actions">{(automationId||newTask)&&<button className="secondary" onClick={()=>navigate('/automation')}>全部计划</button>}{!newTask&&<button onClick={()=>navigate('/automation/new')}>新建批量计划</button>}</div></div>{!credentials.ready&&<Notice>数据平台未连接，暂不能管理或部署批量生产计划。</Notice>}{credentials.ready&&!canManageAutomation()&&<Notice>当前身份没有生产管理权限。可查看与预览计划，部署、暂停、恢复和取消需要管理权限。</Notice>}{newTask?<AutomationCreator params={params}/>:automationId?<AutomationDetail automationId={automationId}/>:<AutomationList/>}</>;
 }
@@ -97,5 +136,10 @@ function AutomationDetail({automationId}:{automationId:string}){
 }
 export function AutomationItem({item,index,current=false}:{item:Row,index:number,current?:boolean}){
  const processingStages:Row[]=item.progress?.stages || item.stages || [],extractionStages:Row[]=item.progress?.extraction_stages || [],stages=[...processingStages,...extractionStages],processingId=item.processing_id,extractionId=item.extraction_plan_id || item.session_id;
- return <article className={`automation-runtime-card ${current?'current':''}`}><div className="item-header"><div className="item-title"><span className="item-number">{item.position ?? index+1}</span><div><h3>{item.report_title || item.file_name || item.asset_id}</h3><p className="item-stage">{item.stage_label || automationLabel(item.stage)}{item.message?` · ${item.message}`:''}</p></div></div><AutomationStatus value={item.status} text={item.status_label}/></div>{stages.map((stage,index)=><div className="task-card" key={stage.task_id || stage.stage || index}><Progress task={stage}/>{stage.error&&<p className="automation-failure">{blockText(stage.error)}</p>}</div>)}{!stages.length&&workingStates.has(item.status)&&<p className="muted">此阶段尚未返回可计算进度，完成量以实际阶段记录为准。</p>}{item.error&&<p className="automation-failure">{blockText(item.error)}</p>}{item.blockers?.map((blocker:Row,index:number)=><p className="automation-failure" key={index}>{blockText(blocker)}</p>)}{item.delivery&&<p className="muted">候选交付：{automationLabel(item.delivery.status)}{item.delivery.message || item.delivery.reason?` · ${item.delivery.message || item.delivery.reason}`:''}。审核与正式发布分别完成。</p>}<div className="runtime-refs"><button className="secondary" onClick={()=>navigate(`/reports/${encodeURIComponent(item.asset_id)}`)}>报告资产</button>{processingId&&<button className="secondary" onClick={()=>navigate(`/processing/${encodeURIComponent(processingId)}`)}>处理证据与问题</button>}{extractionId&&<button className="secondary" onClick={()=>navigate(`/extractions/${encodeURIComponent(extractionId)}`)}>提取成果与缺口</button>}{item.delivery&&item.report_id&&<button className="secondary" onClick={()=>navigate(`/review?report=${encodeURIComponent(item.report_id)}`)}>进入人工审核</button>}</div><Diagnostics value={{item_id:item.item_id,source_sha256:item.source_sha256,report_id:item.report_id,report_revision:item.report_revision,processing_id:processingId,extraction_plan_id:extractionId,delivery:item.delivery,progress:item.progress}} title="阶段身份与运行诊断"/></article>;
+ const compact=['processing','extraction','delivery'].map(key=>compactStage(item,key as 'processing'|'extraction'|'delivery'));
+ return <article className={`automation-runtime-card ${current?'current':''}`}><div className="item-header"><div className="item-title"><span className="item-number">{item.position ?? index+1}</span><div><h3>{item.report_title || item.file_name || item.asset_id}</h3><p className="item-stage">{item.report_code && <span className="report-code">{item.report_code}</span>}{item.stage_label || automationLabel(item.stage)}{item.message?` · ${blockText(item.message)}`:''}</p></div></div><AutomationStatus value={item.status} text={item.status_label}/></div>
+  <div className="automation-stage-strip">{compact.map((stage,stageIndex)=><div className={`automation-stage ${stage.tone}`} key={stageIndex}><div className="automation-stage-head"><span>{stage.label}</span><small>{stage.tone==='done'?'已完成':stage.tone==='issue'?'需处理':stage.tone==='working'?'进行中':'等待'}</small></div><strong>{stage.line}</strong><div className="automation-stage-meter" aria-hidden="true"><span style={{width:`${stage.percent}%`}}/></div></div>)}</div>
+  {item.error&&<p className="automation-failure">{blockText(item.error)}</p>}{item.blockers?.map((blocker:Row,blockerIndex:number)=><p className="automation-failure" key={blockerIndex}>{blockText(blocker)}</p>)}
+  {(stages.length>0||item.delivery)&&<details className="automation-item-detail"><summary>阶段明细</summary>{processingStages.map((stage,stageIndex)=><div className="automation-detail-row" key={`p${stage.task_id || stageIndex}`}><span>{stage.label || automationLabel(stage.stage)}</span><Progress task={stage}/>{stage.error&&<small className="automation-failure">{blockText(stage.error)}</small>}</div>)}{extractionStages.map((stage,stageIndex)=><div className="automation-detail-row" key={`x${stage.task_id || stageIndex}`}><span>{stage.label || automationLabel(stage.stage)}</span><Progress task={stage}/></div>)}{item.delivery&&<div className="automation-detail-row"><span>候选交付</span><small>{deliveryLine(item)}{item.delivery.status==='imported'?' · 审核与正式发布分别完成':''}</small></div>}</details>}
+  <div className="runtime-refs"><button className="secondary" onClick={()=>navigate(`/reports/${encodeURIComponent(item.asset_id)}`)}>报告资产</button>{processingId&&<button className="secondary" onClick={()=>navigate(`/processing/${encodeURIComponent(processingId)}`)}>处理证据</button>}{extractionId&&<button className="secondary" onClick={()=>navigate(`/extractions/${encodeURIComponent(extractionId)}`)}>提取成果与缺口</button>}{item.delivery&&item.report_id&&<button className="secondary" onClick={()=>navigate(`/review?report=${encodeURIComponent(item.report_id)}`)}>进入审核</button>}</div><Diagnostics value={{item_id:item.item_id,source_sha256:item.source_sha256,report_id:item.report_id,report_revision:item.report_revision,processing_id:processingId,extraction_plan_id:extractionId,delivery:item.delivery,progress:item.progress}} title="阶段身份与运行诊断"/></article>;
 }

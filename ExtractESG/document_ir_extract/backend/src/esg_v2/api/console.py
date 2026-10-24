@@ -11,6 +11,7 @@ import requests
 from fastapi import APIRouter, Header, HTTPException, Query
 from pydantic import BaseModel, ConfigDict, Field
 from esg_runtime.local_operator import operator_headers
+from esg_v2.control_plane.crawl_index import CrawlIndexReader
 from .console_history import standalone_jobs, fixed_session_evidence
 from .report_session_read import summarize_report_session
 from .console_delivery_identity import (
@@ -32,8 +33,9 @@ class MaterializationRequest(BaseModel):
     job_ids: list[str] | None = None
 
 
-def console_router(processing, plans, session_detail, targeted, *, publication_url=None, output_root=None):
+def console_router(processing, plans, session_detail, targeted, *, publication_url=None, output_root=None, crawl_index=None):
     router = APIRouter(prefix="/api/console")
+    crawl = crawl_index or CrawlIndexReader()
     base = (publication_url or os.getenv("ESG_PUBLICATION_API_URL","http://127.0.0.1:8765")).rstrip("/")
     root = Path(output_root or os.getenv("ESG_TARGETED_OUTPUT_ROOT",
         Path(__file__).resolve().parents[5]/"targeted_table_extract/targeted_extract_output")).resolve()
@@ -111,6 +113,16 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
         result["next_action"] = "confirm_metadata" if not all(result.get("report_metadata",{}).get(k) for k in
             ("title","publisher_entity_ref","period_start","period_end")) else "process_report" if not result.get("current_evidence",{}).get("ready") else "review" if result["review_count"] else "extract"
         return result
+
+    @router.get("/crawl-index")
+    def crawl_reports(query: str = Query(default="", max_length=160), fiscal_year: int | None = Query(default=None, ge=1900, le=2200),
+                      limit: int = Query(default=50, ge=1, le=100)):
+        """Only expose local filing candidates; confirmation stays with the operator."""
+        return crawl.reports(query=query, fiscal_year=fiscal_year, limit=limit)
+
+    @router.get("/crawl-index/companies")
+    def crawl_companies(query: str = Query(default="", max_length=160), limit: int = Query(default=50, ge=1, le=100)):
+        return crawl.companies(query=query, limit=limit)
 
     @router.get("/reports")
     def reports(include_archived: bool=False,authorization: str | None=Header(default=None)):

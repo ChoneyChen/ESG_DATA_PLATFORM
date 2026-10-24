@@ -170,7 +170,7 @@ describe('批量生产交互',()=>{
   render(<AutomationItem index={0} current item={item}/>);
   expect(screen.getByText('定向提取中')).toBeTruthy();
   expect(screen.getByText('2 / 16 条款 · 已记录处理结论不代表有可用事实或发布')).toBeTruthy();
-  expect(screen.getByText('文档识别')).toBeTruthy();
+  expect(screen.getAllByText('文档识别').length).toBeGreaterThan(0);
   expect(screen.getByRole('button',{name:'提取成果与缺口'})).toBeTruthy();
  });
  it('服务依赖暂时不可用时显示真实暂停原因，不把在途报告伪装为失败',async()=>{

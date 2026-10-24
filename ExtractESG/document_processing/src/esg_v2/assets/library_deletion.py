@@ -258,7 +258,10 @@ class LibraryDeletionService:
                 tables={r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
                 if {'reports','report_asset_versions'}<=tables:
                     for report_id,metadata,sha in db.execute('SELECT r.report_id,r.metadata_json,v.source_sha256 FROM reports r JOIN report_asset_versions v USING(report_id)'):
-                        identities[sha]={'report_id':report_id,'report_metadata':json.loads(metadata)}
+                        identity=json.loads(metadata)
+                        entity=identity.get('publisher_entity_ref');year=identity.get('reporting_year');kind=identity.get('report_kind')
+                        identities[sha]={'report_id':report_id,'report_metadata':identity,
+                            'report_code':f"{entity}/{year}"+(f"/{kind}" if kind else "") if entity and year else None}
         rows=[]
         for asset in assets:
             row={key:asset.get(key) for key in ('asset_id','file_name','size_bytes','modified_at','sha256','lifecycle')}

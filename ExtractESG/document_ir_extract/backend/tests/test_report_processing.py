@@ -388,3 +388,15 @@ def test_running_child_cancel_is_observed_before_parent_claims_cancelled(tmp_pat
     assert stopped["status"] == "cancelled"
     assert "resume" in {a["action"] for a in engine.detail(stopped)["available_actions"]}
     assert calls == ["ocr"]
+
+
+def test_report_identity_code_and_external_references_are_additive(tmp_path):
+    engine, store, asset, calls, _ = fixture(tmp_path)
+    report = engine.register_asset(asset)
+    report = engine.update_metadata(report["report_id"], ReportMetadataPatch(expected_revision=report["revision"],
+        metadata=ReportMetadata(title="合成报告", publisher_entity_ref="org:synthetic", reporting_year=2025,
+            report_kind="sustainability", source_system="CrawlESG", source_report_id="R-1", lei="L-1",
+            source_package_sha256="a" * 64)))
+    assert report["report_id"].startswith("report-")
+    assert report["report_code"] == "org:synthetic/2025/sustainability"
+    assert report["metadata"]["source_report_id"] == "R-1"

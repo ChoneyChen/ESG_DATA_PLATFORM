@@ -39,7 +39,7 @@ from esg_v2.control_plane.hooks import PlatformTaskHooks
 from esg_v2.control_plane.scheduler import PipelineScheduler
 from esg_v2.control_plane.secrets import RuntimeSecretVault
 from esg_v2.control_plane.store import PipelineQueueStore
-from esg_v2.control_plane.plans import PipelinePlanCoordinator, PipelinePlanRequest, dispatch_key, execution_budget_seconds
+from esg_v2.control_plane.plans import PipelinePlanCoordinator, PipelinePlanRequest, dispatch_key, execution_budget_seconds, display_plan_name
 from esg_v2.control_plane.plan_lifecycle import PlanLifecycle
 from esg_v2.control_plane.progress import stage_label, classify_error
 from esg_v2.control_plane.report_processing import ProcessingConfig, ReportProcessingCoordinator
@@ -764,7 +764,7 @@ def _report_plan_detail(plan):
             'queue_record_missing': bool(step.get('task_id') and queue_task is None)})
     lifecycle = plan_lifecycle.describe(plan, (native or {}).get('lifecycle'))
     result = {**(native or {}), "session_id": plan["plan_id"], "native_session_id": document.get("native_session_id"),
-        "schema_version": "report-session-platform-v1", "name": plan["name"], "request": plan["report_request"],
+        "schema_version": "report-session-platform-v1", "name": display_plan_name(plan), "request": plan["report_request"],
         "execution_status": execution_status, "native_execution_status": (native or {}).get("execution_status"),
         "result_status": (native or {}).get("result_status", "needs_confirmation" if document.get("status") == "waiting_review" else "not_evaluated"),
         "revision": f"{plan['updated_at']}:{(native or {}).get('revision', 0)}", "created_at": plan["created_at"],

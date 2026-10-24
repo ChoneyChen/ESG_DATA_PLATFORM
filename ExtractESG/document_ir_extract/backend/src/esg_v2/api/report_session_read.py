@@ -7,6 +7,8 @@ import logging
 import traceback
 from uuid import uuid4
 
+from esg_v2.control_plane.plans import display_plan_name
+
 logger = logging.getLogger(__name__)
 
 
@@ -23,7 +25,7 @@ def read_report_session(plan, project, deletion_action):
                  'request_id': identity, 'layer': 'document', 'recoverable': False}
         lifecycle = plan.get('lifecycle') if isinstance(plan.get('lifecycle'),dict) else {}
         return {'schema_version': 'report-session-platform-v1', 'session_id': plan['plan_id'],
-                'name': plan.get('name') or '待处理的历史提取任务',
+                'name': display_plan_name(plan) if plan.get('name') or plan.get('report_request') else '待处理的历史提取任务',
                 'request': plan.get('report_request') if isinstance(plan.get('report_request'), dict) else {},
                 'created_at': plan.get('created_at'), 'updated_at': plan.get('updated_at'),
                 'execution_status': 'unavailable', 'result_status': 'not_evaluated',
