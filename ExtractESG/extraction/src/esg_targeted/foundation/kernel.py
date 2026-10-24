@@ -8,7 +8,9 @@ import time
 from dataclasses import dataclass, field, asdict
 
 from esg_targeted.evidence.units import canonical_unit_id, normalize_unit_text
-from esg_targeted.foundation.catalog import BY_CODE, GROUP_BY_KEY, SCOPE2_UNSPECIFIED
+from esg_targeted.foundation.catalog import (
+    BY_CODE, GROUP_BY_KEY, GROUP_COMPONENT_TERMS, RELATED_MEASURE_REJECTIONS, SCOPE2_UNSPECIFIED,
+)
 from esg_targeted.foundation.guards import (
     GENERIC_TOTAL_RE, POLLUTANT_SPECIFIC_RE, QUALIFIER_ONLY_RE, check as concept_check, is_method_text,
     is_pollution_method_text, pollutant_key, row_is_subset,
@@ -457,6 +459,13 @@ def concept_row_items(task: TableTask, items: list[dict], col: int | None,
                 continue
             verdict = concept_check(code, line.label, line.section, line.unit, unit_dimension(line.unit))
             if not verdict.ok:
+                # A row naming the same subject at another level or category is
+                # related evidence: keep it so consolidation can store it as a
+                # child instead of losing the breakdown.
+                if _names_a_related_measure(metric, line, verdict):
+                    extra.append({"row": line.rid, "target": code, "note": None,
+                                  "derived": "row_label_names_a_related_measure"})
+                    seen.add(line.rid)
                 continue
             extra.append({"row": line.rid, "target": code, "note": None, "derived": "row_label_matches_concept"})
             seen.add(line.rid)
@@ -464,6 +473,15 @@ def concept_row_items(task: TableTask, items: list[dict], col: int | None,
             if added >= MAX_DERIVED_ROWS_PER_CODE:
                 break
     return extra
+
+
+def _names_a_related_measure(metric, line, verdict) -> bool:
+    """A rejection that states the same subject at another level or category."""
+    reason = (verdict.flags or ("",))[0]
+    if reason not in RELATED_MEASURE_REJECTIONS:
+        return False
+    label = fold(line.label)
+    return any(term.casefold() in label for term in GROUP_COMPONENT_TERMS.get(metric.group, ()))
 
 
 def share_partner_items(task: TableTask, items: list[dict]) -> list[dict]:

@@ -126,7 +126,7 @@ class ReportExtractionRequest(StrictModel):
     extraction_route: Literal["standard", "foundation16"] = "standard"
     # Which foundation metric set this task runs. The link reads the set from
     # the request, so adding a set never edits the engine.
-    metric_profile: Literal["base16", "priority32", "quantitative"] = "base16"
+    metric_profile: Literal["base16", "priority32", "quantitative", "universal"] = "base16"
     completeness: Literal["quick", "balanced", "thorough"] = "balanced"
     budget: EvidenceBudget | None = None
     allow_limited_evidence: bool = True

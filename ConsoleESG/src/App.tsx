@@ -12,7 +12,6 @@ import {Standards} from './pages/Standards';
 import {Review} from './pages/Review';
 import {Publication} from './pages/Publication';
 import {Runtime} from './pages/Runtime';
-import {StepSpine,stageOf} from './components/StepSpine';
 
 /**
  * The sidebar follows the production line, not the backend's module list.
@@ -117,7 +116,6 @@ export default function App() {
           </div>
         </header>
         <main id="main-content" className="workspace">
-          <StepSpine stage={stageOf(route.section)}/>
           {page}
         </main>
         <FloatingProcessingStatus/>

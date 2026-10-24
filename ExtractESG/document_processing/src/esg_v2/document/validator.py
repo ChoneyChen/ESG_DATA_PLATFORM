@@ -505,6 +505,7 @@ class DocumentIrValidator:
             "duplicate_internal_ids": [],
             "dangling_references": [],
             "invalid_coordinates": [],
+            "degenerate_geometry": [],
             "invalid_table_grids": [],
             "invalid_logical_tables": [],
             "invalid_section_hierarchy": [],
@@ -945,6 +946,7 @@ class DocumentIrValidator:
             "duplicate_internal_ids": ("duplicate_internal_ids", "blocking"),
             "dangling_references": ("dangling_entity_references", "blocking"),
             "invalid_coordinates": ("invalid_coordinate_contract", "blocking"),
+            "degenerate_geometry": ("degenerate_bounding_box", "warning"),
             "invalid_table_grids": ("invalid_table_grid", "blocking"),
             "invalid_logical_tables": ("invalid_logical_table", "blocking"),
             "invalid_section_hierarchy": ("invalid_section_hierarchy", "blocking"),
@@ -969,6 +971,7 @@ class DocumentIrValidator:
             "duplicate_internal_id_count": len(problems["duplicate_internal_ids"]),
             "dangling_reference_count": len(problems["dangling_references"]),
             "invalid_coordinate_count": len(problems["invalid_coordinates"]),
+            "degenerate_geometry_count": len(problems["degenerate_geometry"]),
             "invalid_table_grid_count": len(problems["invalid_table_grids"]),
             "invalid_logical_table_count": len(problems["invalid_logical_tables"]),
             "invalid_section_hierarchy_count": len(problems["invalid_section_hierarchy"]),
@@ -983,6 +986,7 @@ class DocumentIrValidator:
             "internal_ids_unique": not problems["duplicate_internal_ids"],
             "entity_references_valid": not problems["dangling_references"],
             "coordinate_contract_valid": not problems["invalid_coordinates"],
+            "degenerate_geometry_present": bool(problems["degenerate_geometry"]),
             "table_grids_valid": not problems["invalid_table_grids"],
             "logical_tables_valid": not problems["invalid_logical_tables"],
             "section_hierarchy_valid": not problems["invalid_section_hierarchy"],
@@ -1170,7 +1174,14 @@ class DocumentIrValidator:
             if bbox is None:
                 continue
             if bbox.x0 >= bbox.x1 or bbox.y0 >= bbox.y1:
-                problems["invalid_coordinates"].append(f"{entity_id} has a degenerate bounding box.")
+                # A zero-area box is a defect of that object, not of the
+                # document's coordinate contract: its text and page still
+                # locate it. Blocking the whole report for one decorative
+                # glyph or tabulation cell discarded every usable page.
+                problems["degenerate_geometry"].append(
+                    f"{entity_id} on PDF page {page_index + 1 if isinstance(page_index, int) else '?'} "
+                    "has a degenerate bounding box."
+                )
                 continue
             if not bbox.coordinate_system_id:
                 if has_coordinate_contract:

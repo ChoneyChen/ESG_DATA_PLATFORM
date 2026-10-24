@@ -4,7 +4,7 @@ import test from "node:test";
 
 import { NORMALIZATION_RULE_VERSION } from "../scripts/publication.mjs";
 
-const file = new URL("../scripts/unit-conversions.1.5.4.json", import.meta.url);
+const file = new URL("../scripts/unit-conversions.1.5.5.json", import.meta.url);
 
 test("every declared unit alias maps to exactly one canonical unit", async () => {
   const rules = JSON.parse(await readFile(file, "utf8"));

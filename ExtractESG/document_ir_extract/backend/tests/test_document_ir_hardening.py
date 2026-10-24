@@ -1001,3 +1001,26 @@ def test_dynamic_scheduler_selects_blocking_queue_before_optional(tmp_path: Path
         "review-000003",
         "review-000006",
     }
+
+
+def test_a_degenerate_box_is_a_local_warning_not_a_document_blocker() -> None:
+    """One zero-area glyph box keeps its page and text usable; only the box is bad."""
+    page = PageIR(page_id="page-0001", page_index=0, page_number=1, width=600, height=800,
+                  text="(cid:28595)", text_length=11, block_ids=["block-0001"], source_trace=TRACE)
+    block = BlockIR(block_id="block-0001", page_index=0, order=0, block_type="paragraph",
+                    text="(cid:28595)",
+                    bbox=BoundingBox(x0=10, y0=10, x1=10, y1=12, unit="points"), source_trace=TRACE)
+    document = DocumentIR(metadata=DocumentIRMetadata(run_id="ir-test", ocr_run_id="ocr-test",
+                                                     document_id="doc-legacy-" + "0" * 24),
+                          pages=[page], blocks=[block])
+    DocumentIrValidator().validate(document)
+    codes = {(issue.code, issue.severity) for issue in document.validation_report.issues}
+    assert ("degenerate_bounding_box", "warning") in codes
+    assert "invalid_coordinate_contract" not in {code for code, _ in codes}
+    assert document.readiness != "failed"
+    degenerate = next(issue for issue in document.validation_report.issues
+                      if issue.code == "degenerate_bounding_box")
+    policy = DocumentIrValidator._evidence_policy(document, [degenerate], False)
+    assert policy["global_failure"] is False
+    assert policy["mode"] != "blocked"
+    assert document.validation_report.checks["degenerate_geometry_present"] is True

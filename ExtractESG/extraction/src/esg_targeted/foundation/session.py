@@ -15,6 +15,7 @@ from esg_targeted.foundation.bundle import BundleWriter
 from esg_targeted.foundation.catalog import METRICS
 from esg_targeted.foundation.engine import FoundationEngine, read_calls
 from esg_targeted.ir.loader import DocumentIrLoader
+from esg_targeted.results.validation import ResultContractError
 
 from esg_targeted.foundation.catalog import metrics_for
 
@@ -94,9 +95,19 @@ class FoundationSessionExecutor:
             self.jobs.update(job_id, stage=STAGE_BUNDLE, summary=self._summary(projection, processed=0, current_call=None))
             request = ExtractionRequest.model_validate(self.artifacts.read_json(job_id, "input/request.json"))
             conclusions = [c for c in summary["conclusions"] if c["metric_id"] in set(request.metric_ids)]
-            result = writer.write_package(projection["package_id"], projection["package_version"], conclusions, summary,
-                                          engine.ir, output_dir=self.artifacts.job_dir(job_id), job_id=job_id,
-                                          session_id=session_id, request=request)
+            try:
+                result = writer.write_package(projection["package_id"], projection["package_version"], conclusions, summary,
+                                              engine.ir, output_dir=self.artifacts.job_dir(job_id), job_id=job_id,
+                                              session_id=session_id, request=request)
+            except ResultContractError as exc:
+                # Packages are separate deliverables: an invalid bundle fails
+                # its own package and keeps every other package writable.
+                self.jobs.update(job_id, status=JobStatus.FAILED, stage="failed", error=f"{type(exc).__name__}: {exc}",
+                                 summary=self._summary(projection, processed=0, current_call=None))
+                self.jobs.add_event(job_id, "bundle_contract_failed", "error",
+                                    f"Package {projection['package_id']} produced an invalid result bundle",
+                                    {"error": str(exc)})
+                continue
             counts = result["record_counts"]
             self.jobs.update(job_id, status=JobStatus.COMPLETED, stage="finished", progress_current=max(1, total),
                              progress_total=max(1, total),

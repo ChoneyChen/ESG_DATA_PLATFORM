@@ -14,7 +14,7 @@ from esg_targeted.foundation.textnorm import fold
 
 TOTAL_RE = re.compile(r"(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\s+sources)", re.I)
 COMPONENT_PREFIX_RE = re.compile(r"^\s*(?:[-–—•·▪●]|其中|of\s+which|including|\(?[a-h]\)|[ⅰ-ⅹ])", re.I)
-FRESHWATER_RE = re.compile(r"(?:淡水|fresh\s*water|freshwater)", re.I)
+FRESHWATER_RE = re.compile(r"(?:淡水|新水|新鲜水|取新水|fresh\s*water|freshwater)", re.I)
 NON_FRESH_RE = re.compile(r"(?:非淡水|non[-\s]?fresh)", re.I)
 WATER_SOURCE_RE = re.compile(r"(?:地下水|地表水|市政|自来水|第三方|海水|雨水|矿井|矿坑|外购水|河|湖|groundwater|surface\s+water|municipal|third[-\s]party|sea\s*water|rain)", re.I)
 WATER_DEST_RE = re.compile(r"(?:地表|地下|外送|管网|海洋|市政|surface|ground|third[-\s]party|ocean|sea|marine|sewage|sewer|river|public\s+sewer|municipal)", re.I)
@@ -23,6 +23,27 @@ RATIO_WORD_RE = re.compile(r"(?:%|％|率|占比|比例|比率|比重|percentage
 INTENSITY_RE = re.compile(r"(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\s+(?:unit|revenue|million|employee|tonne|m2|square))", re.I)
 INTENSITY_UNIT_RE = re.compile(r"(?:/|／|\bper\b|每)", re.I)
 CHANGE_RE = re.compile(r"(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)", re.I)
+# Progress/target tables print "较 2020 年下降 52%" or "到 2030 年实现…" beside
+# current-year columns. Such a row is a plan or a delta, never the amount the
+# clause asks for, whichever clause it was mapped to.
+RELATIVE_CHANGE_OR_TARGET_RE = re.compile(
+    r"(?:相比|较|比|compared\s+(?:with|to))\s*(?:19|20)\d{2}\s*年?[^。；;]{0,24}?"
+    r"(?:下降|降低|减少|增加|增长|提升)"
+    r"|(?:下降|降低|减少|增加|增长|提升)\s*\d+(?:\.\d+)?\s*[%％]"
+    r"|(?:下降率|降低率|减少率|增长率|变化率|降幅|增幅)"
+    r"|(?:到|至|by)\s*(?:19|20)\d{2}\s*年?[^。；;]{0,20}?(?:目标|计划|规划|实现|达成|承诺)",
+    re.I)
+# A long interrogative label is a disclosure description beside a page number
+# (content indexes print "how the board oversees climate…"), not a value row.
+NARRATIVE_QUESTION_RE = re.compile(r"(?:如何|是否|怎样|為何|为什么|何时|how\s+|why\s+)", re.I)
+# Management levels below top management. A workforce-gender row about them is
+# a related measure, not the top-management distribution the clause asks for.
+LOWER_MANAGEMENT_RE = re.compile(
+    r"(?:初级管理|中级管理|基层管理|一线管理|非管理层|创收职能|"
+    r"entry[-\s]?level|middle\s+management|first[-\s]?line|non[-\s]?management)",
+    re.I)
+TOP_MANAGEMENT_RE = re.compile(
+    r"(?:高级管理|最高管理|执行管理|高管|top\s+management|senior\s+management|executive)", re.I)
 # A row that only names a method or a part ("基于市场", "Location-based") takes its
 # subject from the section heading above it ("范围 2 排放量").
 QUALIFIER_ONLY_RE = re.compile(r"^\s*(?:[-–—•·]\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\s-]*based|location[\s-]*based)"
@@ -62,10 +83,13 @@ WATER_ONLY_RE = _rx(r"化学需氧量", r"(?<![a-z0-9])cod(?![a-z0-9])", r"生�
 # permit as a rival value turns an otherwise correct extraction into a conflict.
 # GRI/ESRS index rows point at a section; the number in them is a page or a
 # clause number, never the disclosed figure.
-INDEX_ENTRY_RE = _rx(r"gri\s*\d{2,3}", r"disclosure\s*\d{2,3}", r"指标\s*\d{3}", r"esrs\s+[a-z]\d",
-                      # GRI content-index rows are numbered `303-5耗水`; they
-                      # point at a page, they are not a measured value.
-                      r"(?:^|[\s（(])\d{3}[-–]\d{1,2}(?![\d.])")
+INDEX_ENTRY_RE = _rx(r"gri\s*\d{1,3}", r"disclosure\s*\d{2,3}", r"指标\s*\d{3}", r"esrs\s+[a-z]\d",
+                      # A content index points at a page; it is not a value.
+                      # GRI ("GRI 3：实质性议题"), HKEX ("层面A1", "关键绩效指标
+                      # A1.3") and "一般披露" rows all print a page number.
+                      r"实质性议题", r"一般披露", r"关键绩效指标\s*[a-z]?\d", r"层面\s*[a-z]\d",
+                      r"(?:^|[\s（(])\d{1,3}[-–]\d{1,2}(?![\d.%])"
+                      r"(?!\s*(?:岁|年|月|日|吨|噸|人|小时|小時|万元|%|％))")
 REGULATORY_LIMIT_RE = _rx(
     r"核定(?:的)?[^，。；]{0,20}(?:总量|排放量|量|配额|额度)", r"许可[^，。；]{0,16}排放",
     r"排污许可", r"排放许可证",
@@ -80,10 +104,11 @@ POLLUTANT_EXCLUDE_RE = _rx(r"浓度", r"concentration", r"mg\s*/", r"达标", r"
 FOSSIL_FUEL_RE = _rx(r"化石", r"煤炭", r"原煤", r"煤", r"石油", r"原油", r"汽油", r"柴油", r"燃料油", r"天然气", r"液化石油气",
                      r"fossil", r"coal", r"petroleum", r"crude\s*oil", r"gasoline", r"diesel", r"natural\s+gas", r"lpg")
 HAZARDOUS_RE = _rx(r"有害", r"危险废物", r"危险废弃物", r"hazardous")
-WASTE_DEST_RE = _rx(r"处置", r"回收", r"填埋", r"焚烧", r"利用", r"dispos", r"divert", r"recycl", r"landfill", r"incinerat")
+WASTE_DEST_RE = _rx(r"处置", r"处理", r"回收", r"填埋", r"焚烧", r"利用", r"dispos", r"treat", r"divert", r"recycl", r"landfill", r"incinerat")
 SINGLE_FUEL_RE = _rx(r"天然气", r"natural\s+gas", r"柴油", r"diesel", r"汽油", r"petrol", r"gasoline", r"煤油", r"kerosene",
                      r"液化石油气", r"lpg", r"合成天然气", r"synthetic\s+natural\s+gas", r"sng", r"填埋气", r"landfill\s+gas",
-                     r"燃料油", r"fuel\s+oil", r"(?<![a-z])coal(?![a-z])", r"煤炭", r"原煤")
+                     r"燃料油", r"fuel\s+oil", r"(?<![a-z])coal(?![a-z])", r"煤炭", r"原煤",
+                     r"原油", r"石油", r"crude\s*oil", r"petroleum")
 MATERIAL_RE = _rx(r"原材料", r"物料", r"材料", r"资源投入", r"materials?", r"resource\s+inflow")
 EMPLOYEE_RE = _rx(r"员工", r"雇员", r"职工", r"从业人数", r"employee", r"staff")
 TURNOVER_RE = _rx(r"流失率", r"离职率", r"turnover")
@@ -166,6 +191,10 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         return _reject("label_is_regulatory_limit_not_actual")
     if INDEX_ENTRY_RE.search(text):
         return _reject("label_is_index_entry")
+    if len(text) >= 24 and NARRATIVE_QUESTION_RE.search(text):
+        return _reject("label_is_narrative_question")
+    if RELATIVE_CHANGE_OR_TARGET_RE.search(text):
+        return _reject("label_is_target_or_relative_change")
     review = False
     last = text.split(" › ")[-1]
     # A bare total or method-only row takes its subject from the section and table title.
@@ -311,6 +340,13 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         elif code == "E3-4_03":
             if not RECYCLE_RE.search(subject):
                 return _reject("label_not_recycled_or_reused_water")
+            # Reclaimed water taken in as an alternative source is a supply
+            # choice; the clause asks for the volume the company recycled or
+            # reused. Keep the value, but as a reviewed reading.
+            if re.search(r"替代水源|替代水|alternative\s+(?:water\s+)?source", text, re.I) \
+                    and re.search(r"使用|用量|consum|\buse", text, re.I):
+                flags.append("reclaimed_water_as_alternative_source")
+                review = True
         elif code == "E3-4_11":
             if not WITHDRAWAL_RE.search(subject):
                 return _reject("label_not_water_withdrawal")
@@ -350,6 +386,10 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
     elif code == "E1-6_12":
         if INTENSITY_RE.search(text) or RATIO_WORD_RE.search(text) or CHANGE_RE.search(text):
             return _reject("label_is_ratio_intensity_or_change")
+        # The total must name emissions and be a total: an unrelated row with an
+        # unrecognised unit can otherwise pass every other check.
+        if not re.search(r"温室气体|温室氣體|碳排放|二氧化碳|排放|ghg|co2", text, re.I):
+            return _reject("label_not_ghg_emissions")
         scopes = sum(bool(item.search(text)) for item in (SCOPE1_RE, SCOPE2_RE, SCOPE3_RE))
         if scopes == 1 and not TOTAL_RE.search(text):
             return _reject("label_is_single_scope_not_total")
@@ -371,6 +411,10 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         # A category (hazardous / non-hazardous / general industrial / construction)
         # is a component of the total, not the total itself.
         if re.search(r"一般|无害|無害|生活|建筑|建築|危险|危險|有害", text):
+            return _reject("label_is_waste_category")
+        # "固体废弃物量" without a total word is the solid-waste stream, not the
+        # overall generated total (a report also prints hazardous and liquid).
+        if re.search(r"固废|固体废弃物|固体废物", text) and not TOTAL_RE.search(text):
             return _reject("label_is_waste_category")
         if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
             return _reject("label_is_ratio_or_intensity")
@@ -397,15 +441,29 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
             return _reject("label_not_materials_used")
         if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
             return _reject("label_is_ratio_or_intensity")
+        # A hazardous/toxic portion of the material inflow is a subset of the
+        # total weight, even when the report calls it a total.
+        if re.search(r"有毒|有害|危險|危险|hazardous|toxic", text, re.I):
+            return _reject("label_is_hazardous_materials_subset")
         if dimension not in (None, "mass"):
             return _reject(f"unit_dimension_{dimension}_not_mass")
     elif code == "S1-6_02":
         if re.search(r"非员工|非雇员|劳务派遣|外包|non-employee|contractor", text, re.I):
             return _reject("label_is_non_employees")
-        if TURNOVER_RE.search(text) or re.search(r"入职率|hiring|new hires", text, re.I):
+        # A subgroup count (minority, disabled, women, expatriates, local staff)
+        # is a breakdown of the workforce, not the headcount.
+        if re.search(r"少数民族|少数族裔|残疾|殘疾|女性员工|男性员工|外籍|外派|本地员工|退伍|复员", text, re.I):
+            return _reject("label_is_population_subset")
+        if TURNOVER_RE.search(text) or re.search(r"入职率|新入职|新进员工|招聘人数|离职|解雇|解僱|hiring|new hires|new employees|leavers?|dismiss", text, re.I):
             return _reject("label_is_turnover_or_hiring")
         if AVERAGE_RE.search(text):
             return _reject("label_is_average_not_period_end")
+        # Person-times ("人次") count participation, never people.
+        if "人次" in text or re.search(r"参与|参加|演练|演練|活动人数|person[-\s]?times", text, re.I):
+            return _reject("label_is_participation_count_not_headcount")
+        # An accident/incident count is a safety event, not a head count.
+        if re.search(r"事故|事件|工伤|工傷|伤亡|傷亡|accident|incident", text, re.I):
+            return _reject("label_is_incident_count_not_headcount")
         if not EMPLOYEE_RE.search(subject):
             return _reject("label_not_employees")
         if dimension not in (None, "count"):
@@ -413,11 +471,20 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
     elif code == "S1-6_12":
         if not TURNOVER_RE.search(subject):
             return _reject("label_not_turnover_rate")
+        # A rate for men, women or one age band is a population subset, not the
+        # workforce-wide turnover the clause asks for.
+        if component or re.search(
+                r"其中|男性|女性|按性别|按年龄|岁以下|岁以上|\d+\s*[-–—~至]\s*\d+\s*岁|\d+\s*岁|"
+                r"管理者|管理层|职级|岗位|地区|区域|基层|中层|高层|普通员工|劳务|派遣|"
+                r"by\s+(?:gender|age|region|level|job)", text):
+            return _reject("label_is_population_subset")
         if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
             return _reject(f"unit_dimension_{dimension}_not_ratio")
     elif code == "S1-9_02":
         if not (GENDER_RE.search(text) and TOPMGMT_RE.search(text)):
             return _reject("label_not_top_management_gender")
+        if LOWER_MANAGEMENT_RE.search(text) and not TOP_MANAGEMENT_RE.search(text):
+            return _reject("label_not_top_management_level")
         if BOARD_RE.search(text) and not TOPMGMT_RE.search(text):
             return _reject("label_is_board_scope")
         if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
@@ -431,6 +498,10 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
             return _reject("label_is_topic_specific_training")
         if re.search(r"总(?:培训)?(?:时长|小时|学时)", text) and not re.search(r"人均|每人|per\s+(?:employee|person)|average", text, re.I):
             return _reject("label_is_total_hours_not_per_person")
+        # A breakdown by gender, category, level or region describes a
+        # sub-population, not the workforce-wide average.
+        if re.search(r"按(?:性别|雇员类别|职级|地区|年龄)|男性|女性", text) and not WHOLE_WORKFORCE_RE.search(text):
+            return _reject("label_is_population_subset")
         if RATIO_WORD_RE.search(text):
             return _reject("label_is_ratio")
     elif code == "S1-14_05":

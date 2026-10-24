@@ -217,6 +217,7 @@ class BundleWriter:
                                 package.manifest.package_version, metric_id)
             facts_before = len(records["quantitative_observations"]) + len(records["qualitative_assertions"])
             evidence_before = len(records["evidence_references"])
+            emitted: set[str] = set()
             status = conclusion["status"]
             if conclusion.get("statements"):
                 for index, statement in enumerate(conclusion["statements"][:3], 1):
@@ -224,17 +225,20 @@ class BundleWriter:
             for member in conclusion.get("members") or []:
                 sources = [member["source"], *member.get("agreeing_sources", [])]
                 self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id, member,
-                                  sources, ir, review="human_required" if member["status"] != "accepted" else "pending", coded=coded)
-                for view in conclusion.get("views") or []:
-                    self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id, view,
-                                      [view["source"], *view.get("agreeing_sources", [])], ir,
-                                      review="human_required" if view["status"] != "accepted" else "pending",
-                                      coded=coded, boundary=view.get("boundary_label"))
+                                  sources, ir, review="human_required" if member["status"] != "accepted" else "pending",
+                                  coded=coded, emitted=emitted)
                 for other in member.get("conflicting_sources", []):
                     self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id,
                                       {**member, "value_raw": other["value_raw"], "unit_raw": other["unit_raw"],
                                        "value": None, "period": other.get("period")},
-                                      [other], ir, review="human_required", coded=coded)
+                                      [other], ir, review="human_required", coded=coded, emitted=emitted)
+            # A view is another printed scope of the same datapoint: one fact,
+            # emitted once, not once per member.
+            for view in conclusion.get("views") or []:
+                self._observation(records, package, elements, by_metric.get(metric_id, []), task_id, metric_id, view,
+                                  [view["source"], *view.get("agreeing_sources", [])], ir,
+                                  review="human_required" if view["status"] != "accepted" else "pending",
+                                  coded=coded, boundary=view.get("boundary_label"), emitted=emitted)
             results = len(records["quantitative_observations"]) + len(records["qualitative_assertions"]) - facts_before
             evidence = len(records["evidence_references"]) - evidence_before
             if results == 0:
@@ -337,10 +341,17 @@ class BundleWriter:
             attached.add(metric_id)
 
     def _observation(self, records, package, elements, element_ids, task_id, metric_id, member, sources, ir, *, review, coded,
-                     boundary=None):
+                     boundary=None, emitted: set[str] | None = None):
         primary = sources[0]
         observation_id = stable_id("obs", task_id, primary.get("cell_id") or primary.get("note_block_id"), member.get("member"),
                                    member.get("value_raw"))
+        # Identity is derived from the printed reading: an id already emitted
+        # for this datapoint is the same disclosure reached twice, so writing a
+        # second row would only manufacture a contract violation.
+        if emitted is not None:
+            if observation_id in emitted:
+                return
+            emitted.add(observation_id)
         evidence_set_id = stable_id("evset", observation_id)
         value_numeric = _decimal_text(member.get("value")) if member.get("value") is not None else None
         if value_numeric is None and member.get("value_raw"):

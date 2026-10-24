@@ -152,14 +152,28 @@ class PipelineQueueStore:
                 if not isinstance(task_type, PipelineTaskType):
                     task_type = PipelineTaskType(str(task_type))
                 native_id = specification.get("native_job_id")
+                # One dispatch key is one queue row for the life of the plan
+                # step. A second dispatch of the same step reaches this method
+                # with a fresh native id, so it must adopt the first row rather
+                # than collide with the unique plan-step index.
+                step_key = (specification.get("payload") or {}).get("_plan_step_key")
+                existing_step = connection.execute(
+                    "SELECT task_id FROM pipeline_tasks "
+                    "WHERE json_extract(payload_json, '$._plan_step_key')=? ORDER BY position LIMIT 1",
+                    (step_key,)).fetchone() if step_key else None
+                if existing_step:
+                    task_ids.append(str(existing_step["task_id"]))
+                    continue
                 existing = connection.execute(
                     "SELECT task_id FROM pipeline_tasks WHERE task_type=? AND native_job_id=? AND status IN ('queued','running') ORDER BY CASE status WHEN 'running' THEN 0 ELSE 1 END,position LIMIT 1",
                     (task_type.value, native_id)).fetchone() if native_id else None
                 if existing:
-                    if specification.get("deduplicate_native", False):
+                    # A plan-owned dispatch always adopts the row it already
+                    # created: the step key, not the native id, is its identity.
+                    if specification.get("deduplicate_native", False) or step_key:
                         task_ids.append(str(existing["task_id"]))
                         continue
-                    raise ValueError("Native task already has an active queue entry")
+                    raise ValueError(f"Native task already has an active queue entry: {native_id}")
                 connection.execute(
                     """
                     INSERT INTO pipeline_tasks (

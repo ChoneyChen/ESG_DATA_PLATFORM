@@ -5,19 +5,10 @@ from collections import defaultdict
 from decimal import Decimal
 from itertools import combinations
 
-from esg_targeted.foundation.catalog import GROUP_COMPONENT_TERMS, METRICS
+from esg_targeted.foundation.catalog import CHILD_REJECTIONS, GROUP_COMPONENT_TERMS, METRICS, METRIC_CHILD_EXCLUDES
 from esg_targeted.foundation.quantities import agreement, comparable
 
 NOT_FOUND_STATUSES = ("not_found_in_selected_sources", "only_rejected_or_other_period")
-# Rejections that mean "this is a different expression of the same subject",
-# not "this is a different metric". They are kept as child attributes.
-CHILD_REJECTIONS = frozenset({
-    "label_not_renewable", "label_is_fossil_carrier", "label_not_fossil_energy",
-    "label_not_top_management_gender", "label_not_training_hours", "label_not_board_gender",
-    "label_not_work_related_accident", "label_not_materials_used", "label_not_waste",
-    "label_is_waste_category", "label_not_turnover_rate", "label_not_corruption_conviction",
-    "label_not_recycled_or_reused_water", "not_a_ratio", "unit_is_count",
-})
 # When nothing qualifies, one near miss is offered for review instead of
 # "not found": a Scope 3 figure the report limits to named categories, or a
 # renewable purchase/generation figure printed without a consumption total.
@@ -97,13 +88,17 @@ def _child_relation(metric, obs: dict, reporting_year: int | None, parent_value)
         return None
     if reporting_year is not None and obs.get("period_year") not in (reporting_year, None):
         return None
+    label = (obs.get("row_label") or "").casefold()
+    # The metric's own subject decides the direction: a fossil carrier is never
+    # a child of renewable energy, however the row was rejected.
+    if any(term.casefold() in label for term in METRIC_CHILD_EXCLUDES.get(metric.code, ())):
+        return None
     flags = set(obs.get("flags") or [])
     reason = obs.get("rejected_by")
     if "share_row_beside_mapped_quantity" in flags:
         return "component"
     if reason not in CHILD_REJECTIONS:
         return None
-    label = (obs.get("row_label") or "").casefold()
     if not any(term.casefold() in label for term in GROUP_COMPONENT_TERMS.get(metric.group, ())):
         return None
     value = obs.get("value")
@@ -199,6 +194,17 @@ def consolidate(records: list[dict], reporting_year: int | None,
         for obs in current:
             groups[(obs.get("member") or "_") if metric.group in ("air", "water_pollutants") else "_"].append(obs)
         members = []
+        # The same indicator may be printed under several reporting scopes
+        # (group, a production base, a subsidiary). Each scope is its own
+        # measurement, but only when it is a *different* printed reading: a
+        # scope list is collected here and emitted after the member is chosen,
+        # so the value already shown as the member can never reappear as a view.
+        scope_readings: list[tuple[str, list[dict]]] = []
+        member_readings: set[tuple] = set()
+
+        def reading(obs: dict) -> tuple:
+            return (obs.get("cell_id") or obs.get("note_block_id"), obs.get("value_raw"), obs.get("unit_raw"))
+
         for items in groups.values():
             full = [o for o in items if not any(f.startswith("subset_scope_") for f in o["flags"])
                     and o.get("entity_basis") != "subset"]
@@ -207,41 +213,32 @@ def consolidate(records: list[dict], reporting_year: int | None,
             full += [o for o in items if o not in full and not any(f.startswith("subset_scope_") for f in o["flags"])
                      and any(o["value"] == f["value"] and agreement(o, f) for f in full)]
             subset = [o for o in items if o not in full]
-            # The same indicator may be printed under several reporting scopes
-            # (group, a production base, a subsidiary). Each scope is its own
-            # measurement: keep them apart instead of merging or conflicting.
-            views: list[dict] = []
-
-            def add_view(label: str, scoped: list[dict]) -> None:
-                scoped_pool, _ = _split_components(scoped)
-                if not scoped_pool:
-                    return
-                best_view = _cluster(scoped_pool)[0]
-                head = sorted(best_view, key=lambda o: (o["status"] != "accepted", o["page_number"]))[0]
-                views.append({"boundary_label": label, "status": head["status"],
-                              "value": head["value"], "value_raw": head["value_raw"],
-                              "comparator": head.get("comparator", "exact"),
-                              "value_lower": head.get("value_lower"), "value_upper": head.get("value_upper"),
-                              "unit_raw": head["unit_raw"], "unit_id": head["unit_id"],
-                              "period": head.get("period"), "period_year": head.get("period_year"),
-                              "source": brief(head), "flags": list(head["flags"]),
-                              "agreeing_sources": [brief(o) for o in best_view if o is not head]})
-
             labelled: dict[str, list[dict]] = defaultdict(list)
             for obs in full:
                 labelled[(obs.get("attributes") or {}).get("boundary_label") or "_"].append(obs)
+            # A reading with no scope word that states the same quantity as a
+            # named scope belongs to that scope: it is the same disclosure
+            # printed in another unit or table, not a second scope.
+            if "_" in labelled and len(labelled) > 1:
+                for label, scoped in list(labelled.items()):
+                    if label == "_":
+                        continue
+                    same = [o for o in labelled["_"] if any(agreement(o, f) for f in scoped)]
+                    if same:
+                        scoped.extend(same)
+                        labelled["_"] = [o for o in labelled["_"] if o not in same]
             if len(labelled) > 1:
                 primary_label = "group" if "group" in labelled else ("_" if "_" in labelled else sorted(labelled)[0])
                 for label, scoped in sorted(labelled.items()):
-                    if label != primary_label:
-                        add_view(label, scoped)
+                    if label != primary_label and scoped:
+                        scope_readings.append((label, scoped))
                 full = labelled[primary_label]
             # A printed sub-scope (a production base, a region, a subsidiary) is
             # a different measurement, never a second opinion about the group
             # total: it is published as its own row with its own boundary.
             for obs in subset:
                 label = (obs.get("attributes") or {}).get("boundary_label") or "part_of_group"
-                add_view(label, [obs])
+                scope_readings.append((label, [obs]))
             pool, components = _split_components(full or items)
             clusters = _cluster(pool)
             best = clusters[0]
@@ -254,8 +251,12 @@ def consolidate(records: list[dict], reporting_year: int | None,
             # group, so it never counts as a conflicting value.
             def other_boundary(item: dict) -> bool:
                 return "consolidation_boundary_differs" in (item.get("flags") or [])
-            conflicting = [o for o in others if not other_boundary(o) and agreement(primary, o) is False]
-            alternative = [o for o in others if other_boundary(o) or agreement(primary, o) is None]
+            # A Scope 2 row that states no method cannot contradict a value that
+            # names its method: it is an unclassified reading, kept for review.
+            conflicting = [o for o in others if not other_boundary(o) and not _scope2_unstated(o)
+                           and agreement(primary, o) is False]
+            alternative = [o for o in others if other_boundary(o) or _scope2_unstated(o)
+                           or agreement(primary, o) is None]
             status = primary["status"]
             flags = list(primary["flags"])
             if conflicting:
@@ -277,6 +278,28 @@ def consolidate(records: list[dict], reporting_year: int | None,
                             "alternative_unit_sources": [brief(o) for o in alternative],
                             "related_subset_sources": [brief(o) for o in subset if o is not primary],
                             "component_sources": [brief(o) for o in components], "flags": flags})
+            member_readings.update(reading(o) for o in best)
+        # One view per distinct printed reading that the member does not already
+        # carry. Two labels pointing at the same cell and value are one scope.
+        views: list[dict] = []
+        seen_readings: set[tuple] = set()
+        for label, scoped in scope_readings:
+            pool_view, _ = _split_components([o for o in scoped if reading(o) not in member_readings])
+            if not pool_view:
+                continue
+            best_view = _cluster(pool_view)[0]
+            head = sorted(best_view, key=lambda o: (o["status"] != "accepted", o["page_number"]))[0]
+            if reading(head) in seen_readings:
+                continue
+            seen_readings.add(reading(head))
+            views.append({"boundary_label": label, "status": head["status"],
+                          "value": head["value"], "value_raw": head["value_raw"],
+                          "comparator": head.get("comparator", "exact"),
+                          "value_lower": head.get("value_lower"), "value_upper": head.get("value_upper"),
+                          "unit_raw": head["unit_raw"], "unit_id": head["unit_id"],
+                          "period": head.get("period"), "period_year": head.get("period_year"),
+                          "source": brief(head), "flags": list(head["flags"]),
+                          "agreeing_sources": [brief(o) for o in best_view if o is not head]})
         statuses = {m["status"] for m in members}
         overall = "found" if statuses == {"accepted"} else ("conflict" if "conflict" in statuses else "review")
         entry.update(status=overall, members=members)

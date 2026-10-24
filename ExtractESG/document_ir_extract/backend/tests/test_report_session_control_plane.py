@@ -651,3 +651,13 @@ def test_pdf_report_freezes_overlay_before_preparation_and_blocks_changed_native
     assert engine.list()[0]['report_request']['frozen_runtime_standard_snapshots'] == frozen
     assert queue.list() == []
     assert not any('/api/report-sessions?enqueue=false' in path for _,path,_ in calls)
+
+
+def test_a_second_dispatch_of_one_plan_step_adopts_the_first_queue_row(tmp_path):
+    queue = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    base = {"task_type": PipelineTaskType.TARGETED_EXTRACTION, "operation": "report_session",
+            "title": "report", "payload": {"_plan_step_key": "plan-1:0:report_session:0", "ir_run_id": "ir-1"}}
+    first = queue.create_many([{**base, "task_id": "pt-one", "native_job_id": "report-a"}])[0]
+    second = queue.create_many([{**base, "task_id": "pt-two", "native_job_id": "report-b"}])[0]
+    assert first.task_id == second.task_id == "pt-one"
+    assert len(queue.list()) == 1

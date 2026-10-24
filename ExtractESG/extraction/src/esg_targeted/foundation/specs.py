@@ -184,6 +184,47 @@ SPECS: dict[str, ClauseSpec] = {
         exclude_terms=("率", "%", "比例", "rate", "share"),
         dimension="count",
     ),
+    # Universal clauses that many reports print; concept language only.
+    "E5-4_05": ClauseSpec(
+        "E5-4_05", "二次使用或再生材料占比",
+        require_terms=("再生材料", "回收材料", "二次使用", "再生组分", "recycled content",
+                       "secondary material", "recycled material"),
+        exclude_terms=("未回收", "吨", "tonnes", "weight", "废弃物", "waste"),
+        dimension="ratio",
+    ),
+    "E5-5_11": ClauseSpec(
+        "E5-5_11", "未回收废弃物占比",
+        require_terms=("未回收", "未资源化", "未循环利用", "non-recycled", "not recycled"),
+        exclude_terms=("回收率", "回收利用比例", "recycling rate", "回收量"),
+        dimension="ratio",
+    ),
+    "S1-13_03": ClauseSpec(
+        "S1-13_03", "按性别划分的平均培训小时数",
+        require_terms=("培训", "training"),
+        scope_terms=("男性", "女性", "按性别", "male", "female", "by gender"),
+        exclude_terms=("商业道德", "合规培训", "ehs", "安全培训", "leadership", "专题"),
+        dimension=None,
+    ),
+    "S1-14_02": ClauseSpec(
+        "S1-14_02", "工伤或职业病死亡人数",
+        require_terms=("工亡", "死亡人数", "死亡事故", "因工伤死亡", "fatalit"),
+        exclude_terms=("率", "rate", "天数", "days", "交通事故", "traffic", "承包商", "contractor"),
+        dimension="count",
+    ),
+    "G1-4_02": ClauseSpec(
+        "G1-4_02", "反腐败罚款金额",
+        require_terms=("罚款", "罚金", "fine", "penalt"),
+        scope_terms=("腐败", "贿赂", "corruption", "bribery"),
+        exclude_terms=("数量", "number", "件数", "事件数"),
+        dimension="currency",
+    ),
+    "G1-4_04": ClauseSpec(
+        "G1-4_04", "已确认腐败或贿赂事件数量",
+        require_terms=("已确认", "确认的", "confirmed"),
+        scope_terms=("腐败", "贿赂", "corruption", "bribery"),
+        exclude_terms=("定罪", "conviction", "罚款", "fine", "金额", "amount"),
+        dimension="count",
+    ),
     "S4-4_11": ClauseSpec(
         "S4-4_11", "与消费者和终端用户相关的严重人权问题与事件",
         require_terms=("严重人权", "severe human rights"),

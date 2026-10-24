@@ -215,6 +215,52 @@ METRICS: tuple[FoundationMetric, ...] = (
         "Average number of days to pay an invoice from the contractual or statutory due date (平均付款天数/平均账期). "
         "Standard payment terms or the share of on-time payments is not this.",
     ),
+    # Clauses that nearly every ESG report prints, taken from the platform's
+    # ready dictionary rather than from any report.
+    FoundationMetric(
+        "E5-4_05", "esrs.2023-set1.e5-4.dp05", "esrs.2023-set1.e5-4", "materials", "percentage", "ratio",
+        "二次使用或再生材料占比 Share of secondary or recycled materials",
+        "Percentage of material inputs that are secondary, reused or recycled (再生材料/回收材料/二次使用材料占比). "
+        "Not an absolute weight, not recyclability of products, not waste diverted.",
+        parent_code="E5-4_02",
+    ),
+    FoundationMetric(
+        "E5-5_11", "esrs.2023-set1.e5-5.dp11", "esrs.2023-set1.e5-5", "waste", "percentage", "ratio",
+        "未回收废弃物占比 Share of waste not recycled",
+        "Percentage of generated waste that is NOT recycled or reused (未回收/未资源化废弃物占比). "
+        "A recycling rate names the complementary quantity, not this one.",
+        parent_code="E5-5_07",
+    ),
+    FoundationMetric(
+        "S1-13_03", "esrs.2023-set1.s1-13.dp03", "esrs.2023-set1.s1-13", "workforce", "quantity", None,
+        "按性别划分的平均培训小时数 Average training hours by gender",
+        "Average training hours per employee reported separately for women and men (按性别划分的人均培训时数). "
+        "The workforce-wide average is another clause; a topic-specific course is not this.",
+    ),
+    FoundationMetric(
+        "S1-14_02", "esrs.2023-set1.s1-14.dp02", "esrs.2023-set1.s1-14", "workforce", "quantity", "count",
+        "工伤或职业病死亡人数 Work-related fatalities",
+        "Number of own-workforce deaths from work-related injuries or illness (工亡/因工伤死亡人数). "
+        "A fatality rate, lost days or commuting deaths are different measures.",
+    ),
+    FoundationMetric(
+        "S4-3_13", "esrs.2023-set1.s4-3.dp13", "esrs.2023-set1.s4-3", "consumer", "quantity", "count",
+        "消费者投诉数量 Consumer complaints",
+        "Number of complaints received from consumers and end-users (客户/消费者投诉数量). "
+        "A complaint rate, resolved share or supplier grievance count is not this.",
+    ),
+    FoundationMetric(
+        "G1-4_02", "esrs.2023-set1.g1-4.dp02", "esrs.2023-set1.g1-4", "governance", "quantity", "currency",
+        "反腐败罚款金额 Fines for corruption and bribery",
+        "Total amount of fines for violations of anti-corruption and anti-bribery laws (腐败/贿赂罚款金额). "
+        "The number of convictions or incidents, and other legal fines, are different clauses.",
+    ),
+    FoundationMetric(
+        "G1-4_04", "esrs.2023-set1.g1-4.dp04", "esrs.2023-set1.g1-4", "governance", "quantity", "count",
+        "已确认腐败事件数量 Confirmed corruption incidents",
+        "Number of confirmed incidents of corruption or bribery (已确认腐败/贿赂事件数量). "
+        "Convictions, dismissals and fines are different clauses.",
+    ),
 )
 
 BY_CODE = {item.code: item for item in METRICS}
@@ -276,12 +322,12 @@ GROUPS: tuple[SourceGroup, ...] = (
         ("tco2e", "co2e", "吨二氧化碳当量", "万元", "百万元"),
     ),
     SourceGroup(
-        "waste", ("E5-5_07", "E5-5_15"),
+        "waste", ("E5-5_07", "E5-5_11", "E5-5_15"),
         ("废弃物", "废物", "固废", "危险废物", "有害废弃物", "waste", "solid waste", "hazardous waste"),
         ("产生量", "总量", "处置", "回收", "有害", "无害", "吨", "tonnes", "generated", "disposed", "diverted"),
     ),
     SourceGroup(
-        "materials", ("E5-4_02",),
+        "materials", ("E5-4_02", "E5-4_05"),
         ("原材料", "资源投入", "物料使用", "材料使用", "materials used", "resource inflow", "material inflow"),
         ("吨", "重量", "采购量", "tonnes", "weight"),
     ),
@@ -292,12 +338,12 @@ GROUPS: tuple[SourceGroup, ...] = (
         ("人", "人数", "期末", "平均", "%", "turnover", "employees"),
     ),
     SourceGroup(
-        "workforce_training", ("S1-13_04",),
+        "workforce_training", ("S1-13_03", "S1-13_04"),
         ("培训", "受训", "培训时长", "培训小时", "人均受训", "training", "training hours", "trained"),
         ("小时", "学时", "人均", "hours", "per employee"),
     ),
     SourceGroup(
-        "workforce_safety", ("S1-14_05",),
+        "workforce_safety", ("S1-14_02", "S1-14_05"),
         ("工伤", "事故", "可记录", "accident", "injury", "ltifr", "trifr", "recordable"),
         ("率", "每百万工时", "人数", "起", "rate"),
     ),
@@ -317,7 +363,12 @@ GROUPS: tuple[SourceGroup, ...] = (
         ("%", "女性", "男性", "female", "male"),
     ),
     SourceGroup(
-        "governance", ("GOV-1_06", "G1-4_01", "G1-6_01"),
+        "consumer", ("S4-3_13",),
+        ("消费者投诉", "客户投诉", "投诉数量", "consumer complaint", "customer complaint", "complaints received"),
+        ("件", "起", "count", "complaints"),
+    ),
+    SourceGroup(
+        "governance", ("GOV-1_06", "G1-4_01", "G1-4_02", "G1-4_04", "G1-6_01"),
         ("董事会", "治理机构", "女性董事", "董事会多元化", "腐败", "贿赂", "定罪", "付款天数", "账期", "board", "corruption", "bribery",
          "conviction", "payment days"),
         ("%", "件", "天", "人", "女性", "days", "cases"),
@@ -346,6 +397,19 @@ PROFILES: dict[str, tuple[str, ...]] = {
     "base16": BASE16,
     "priority32": BASE16 + EXTENDED,
     "quantitative": QUANTITATIVE,
+    # What nearly every ESG report prints, chosen across all ready clauses of
+    # the standard library (not just the sixteen or thirty-two). It is a set of
+    # codes like every other profile; each clause keeps its own task and guard.
+    "universal": (
+        "E1-5_01", "E1-5_05", "E1-5_09",
+        "E1-6_07", "E1-6_09", "E1-6_10", "E1-6_11", "E1-6_12", "E1-6_30",
+        "E2-4_02", "E2-4_03",
+        "E3-4_01", "E3-4_03", "E3-4_11", "E3-4_12",
+        "E5-4_02", "E5-4_05", "E5-5_07", "E5-5_11", "E5-5_15",
+        "S1-6_02", "S1-6_12", "S1-9_02", "S1-13_04", "S1-14_02", "S1-14_05",
+        "S1-16_01", "S1-17_02", "S4-3_13",
+        "GOV-1_06", "G1-4_01", "G1-4_02", "G1-4_04", "G1-6_01",
+    ),
 }
 
 # Concept families used to recognise a row that belongs under a metric as a
@@ -365,8 +429,43 @@ GROUP_COMPONENT_TERMS: dict[str, tuple[str, ...]] = {
     "waste": ("有害", "无害", "危险", "一般", "回收", "填埋", "焚烧", "处置", "资源化", "废弃物"),
     "materials": ("可再生", "不可再生", "生物材料", "技术材料", "包装", "原材料", "材料"),
     "workforce": ("女性", "男性", "员工", "高管", "管理层", "董事会", "培训", "事故", "工伤", "流失",
-                  "薪酬", "残疾", "歧视", "供应商", "小时", "人次"),
+                  "薪酬", "残疾", "歧视", "供应商", "小时", "人次", "死亡", "工亡", "死亡人数"),
+    "consumer": ("消费者", "客户", "用户", "投诉", "complaint", "consumer", "customer"),
     "governance": ("董事", "董事会", "女性", "腐败", "贿赂", "定罪", "付款", "投诉", "罚", "案件"),
+}
+
+# Rejections that mean "this is another expression of the same subject", not
+# "this is a different metric": the printed row is kept as a child of the
+# clause so the breakdown survives even when it cannot be the headline value.
+CHILD_REJECTIONS = frozenset({
+    "label_not_renewable", "label_is_fossil_carrier", "label_not_fossil_energy",
+    "label_not_top_management_gender", "label_not_training_hours", "label_not_board_gender",
+    "label_not_work_related_accident", "label_not_materials_used", "label_not_waste",
+    "label_is_waste_category", "label_not_turnover_rate", "label_not_corruption_conviction",
+    "label_not_recycled_or_reused_water", "not_a_ratio", "unit_is_count",
+    "label_not_top_management_level", "label_is_population_subset",
+    "label_is_hazardous_materials_subset",
+})
+
+# Only rejections that state "same subject, another level or category" justify
+# pulling an unmapped row into the result as a child. Broader reasons such as
+# "not recycled water" also match rows about a different quantity entirely
+# (a wastewater discharge row), which must stay out.
+RELATED_MEASURE_REJECTIONS = frozenset({
+    "label_not_top_management_level",
+})
+
+# A rejected row is kept as a child only when it belongs under *this* clause.
+# A fossil carrier is a component of total energy, never of renewable energy,
+# and the reverse holds under the fossil clause.
+METRIC_CHILD_EXCLUDES: dict[str, tuple[str, ...]] = {
+    "E1-5_05": ("化石", "煤", "原煤", "煤炭", "石油", "原油", "汽油", "柴油", "燃料油", "天然气",
+                "fossil", "coal", "petroleum", "crude oil", "natural gas", "diesel", "gasoline"),
+    "E1-5_09": ("化石", "煤", "原煤", "煤炭", "石油", "原油", "汽油", "柴油", "燃料油", "天然气",
+                "fossil", "coal", "petroleum", "crude oil", "natural gas", "diesel", "gasoline"),
+    "E1-5_02": ("可再生", "风能", "风电", "太阳能", "光伏", "水能", "水电", "生物质", "地热", "海洋能",
+                "renewable", "wind", "solar", "hydro", "biomass", "geothermal"),
+    "E5-5_15": ("无害", "非有害", "一般工业", "non-hazardous"),
 }
 
 

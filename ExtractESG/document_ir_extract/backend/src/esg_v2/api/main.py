@@ -450,7 +450,11 @@ def _dispatch_plan_step(name, config, document, secrets):
             title=f"报告提取 · {document.get('file_name') or document['ir_run_id']}",
             payload={**request_payload, "budget": ReportExtractionRequest.model_validate(request_payload).effective_budget().model_dump(mode="json")},
             native_job_id=session["session_id"], secrets={"QINIU_API_KEY": secrets.get("qiniu_api_key"),
-                "PADDLEOCR_VL_API_TOKEN": secrets.get("ocr_token")})
+                "PADDLEOCR_VL_API_TOKEN": secrets.get("ocr_token")},
+            # A plan step may be dispatched again while its first queue entry is
+            # still active (request-thread tick beside the coordinator loop).
+            # Adopt that entry instead of failing the document.
+            deduplicate_native=bool(dispatch_key.get()))
     if config.get("_resume_job_id"):
         return queue_targeted_extraction_resume(config["_resume_job_id"], TargetedExtractionResumeRequest(qiniu_api_key=secrets.get("qiniu_api_key")))
     standard = next(s for s in config["standards"] if name == f"targeted:{s['package_id']}")

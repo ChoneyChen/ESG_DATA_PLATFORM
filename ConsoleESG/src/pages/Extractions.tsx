@@ -184,9 +184,10 @@ function SessionRow({session: s}: {session: Row}) {
    ========================================================================== */
 
 const PROFILES = [
+  {key: 'universal', title: '通用必备', badge: '34 条', hint: '每份 ESG 报告几乎都会披露的条款：能源、排放、水、废弃物、员工、安全、治理与投诉；跨全部标准包挑选。'},
   {key: 'priority32', title: '重点条款', badge: '32 条', hint: '环境指标之外，再加能源结构、废弃物、员工与治理；一年报告一次到位。'},
   {key: 'base16', title: '基础指标', badge: '16 条', hint: 'E1–E3 环境核心：能源、温室气体、空气与水污染物、水与资源。'},
-  {key: 'quantitative', title: '全部定量', badge: '31 条', hint: '32 条中所有带数值的条款（数量、比例、强度）一次选中；每条仍独立提取、独立审核。'},
+  {key: 'quantitative', title: '全部定量', badge: '38 条', hint: '全部带数值的条款（数量、比例、强度）一次选中；每条仍独立提取、独立审核。'},
 ] as const;
 
 function ExtractionCreator({params}: {params: URLSearchParams}) {
@@ -204,7 +205,7 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
   const [extensionError, setExtensionError] = useState('');
   const [provider, setProvider] = useState('local_qwen');
   const [route, setRoute] = useState('foundation16');
-  const [metricProfile, setMetricProfile] = useState<'base16' | 'priority32' | 'quantitative'>('priority32');
+  const [metricProfile, setMetricProfile] = useState<'base16' | 'priority32' | 'quantitative' | 'universal'>('priority32');
   const [model, setModel] = useState('');
   const [completeness, setCompleteness] = useState('balanced');
   const [limited, setLimited] = useState(true);
@@ -316,7 +317,8 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
     }
   }
 
-  const metricCount = foundation.data?.metric_count ?? (metricProfile === 'priority32' ? 32 : metricProfile === 'quantitative' ? 31 : 16);
+  const PROFILE_COUNTS: Record<string, number> = {base16: 16, priority32: 32, quantitative: 38, universal: 34};
+  const metricCount = foundation.data?.metric_count ?? PROFILE_COUNTS[metricProfile] ?? 0;
   const blocked = compatibility.data?.ready === false || !!scopeError || !!extensionError || (!scope.standards.length && !extensionSelections.length);
   const profileTitle = PROFILES.find(p => p.key === metricProfile)!.title;
 
@@ -507,6 +509,10 @@ export function PlanPreview({plan}: {plan: Row}) {
    Detail
    ========================================================================== */
 
+// Delivery actions belong to the 交付审核 tab; resume and document review stay
+// with the session header so they never hide behind a tab.
+const DELIVERY_ACTIONS = new Set(['materialize', 'deliver', 'local_repair']);
+
 function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?: string}) {
   const resource = useResource('document', `/api/report-sessions/${encodeURIComponent(sessionId)}`);
   const facts = useResource('document', `/api/report-sessions/${encodeURIComponent(sessionId)}/facts`);
@@ -530,6 +536,9 @@ function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?:
   ];
   return (
     <>
+      <div className="detail-back">
+        <button type="button" className="text-button" onClick={() => navigate('/extractions')}>← 返回提取任务</button>
+      </div>
       <ResourceState error={resource.error} loading={resource.loading && !session}/>
       {session && (
         <>
@@ -541,7 +550,7 @@ function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?:
             </div>
             {session.error && <Notice tone="error">{session.error}{session.read_error?.request_id && <span> · 问题编号 {session.read_error.request_id}</span>}</Notice>}
             {session.state_notice && <ReportReadNotice row={session}/>}
-            <Actions actions={workActions(session.available_actions)} revision={session.revision}/>
+            <Actions actions={workActions(session.available_actions).filter(action => !DELIVERY_ACTIONS.has(action.action))} revision={session.revision}/>
             <details className="session-more">
               <summary>记录管理</summary>
               <RecordManagement record={session} kind="session" id={sessionId}/>
@@ -621,7 +630,14 @@ function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?:
               </Section>
             </>
           )}
-          {tab === 'deliver' && <PublishFlow session={session} reportId={deliveryReportId} onReportId={setDeliveryReportId} deliveryState={deliveryState}/>}
+          {tab === 'deliver' && (
+            <>
+              <Section title="成果处置" action={<Actions actions={workActions(session.available_actions).filter(action => DELIVERY_ACTIONS.has(action.action))} revision={session.revision}/>}>
+                <p className="muted">交付前先保存可交付阶段成果；已保存来源进入审核前不会改变正式发布数据。</p>
+              </Section>
+              <PublishFlow session={session} reportId={deliveryReportId} onReportId={setDeliveryReportId} deliveryState={deliveryState}/>
+            </>
+          )}
         </>
       )}
     </>

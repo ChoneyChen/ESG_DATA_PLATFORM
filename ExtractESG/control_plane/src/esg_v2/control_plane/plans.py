@@ -274,7 +274,16 @@ class PipelinePlanCoordinator:
             budget_token = execution_budget_seconds.set(max(1, int(remaining)) if remaining is not None else None)
             try:
                 config = {**plan["config"], "_resume_job_id": step.get("resume_run_id"), "_plan_id": plan["plan_id"], "_document_index": index, "_transition_queued": step.get("transition_queued", False)}
-                task = self.dispatch(name, config, document, self._secrets.get(plan["plan_id"], {}))
+                try:
+                    task = self.dispatch(name, config, document, self._secrets.get(plan["plan_id"], {}))
+                except Exception:
+                    # The dispatch key is the identity of this step's queue row.
+                    # If a parallel tick already created it, adopt that row
+                    # instead of failing the document.
+                    adopted = self.store.find_plan_step(key)
+                    if adopted is None:
+                        raise
+                    task = adopted
             finally:
                 dispatch_key.reset(token)
                 execution_budget_seconds.reset(budget_token)
@@ -365,7 +374,11 @@ class PipelinePlanCoordinator:
             self.store.pin_ir(plan["plan_id"], resolved_run)
         document["evidence_policy"] = manifest.get("evidence_policy", {})
         if not usable:
-            document.update(status="waiting_review", error="IR requires review; repair it in 04, then resume this plan.")
+            policy = document.get("evidence_policy") or {}
+            reason = policy.get("reason") or "no page or object retained a usable evidence capability"
+            document.update(status="waiting_review", error=(
+                f"IR {document['ir_run_id']} is not evidence-ready ({manifest.get('readiness') or 'unknown'}): {reason} "
+                "Repair it in 04, then resume this plan."))
             return
         if self.record_processing:
             self.record_processing(plan, document)

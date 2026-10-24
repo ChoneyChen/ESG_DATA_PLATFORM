@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react';
+import {Fragment, useMemo, useState} from 'react';
 import {navigate, type Row} from '../api';
 import {useResource} from '../state';
 import {Notice, ResourceState, Section} from './ui';
@@ -374,17 +374,10 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
     (filter === 'all' || bucketOf(row.status) === filter) &&
     (!needle || `${row.code} ${row.label} ${summaryOf(row)}`.toLowerCase().includes(needle));
 
-  // Selecting the first clause keeps the inspector useful before any click.
-  useEffect(() => {
-    if (open || !conclusions.length) return;
-    const first = conclusions.find(c => c.status === 'review' || c.status === 'conflict') || conclusions.find(c => c.status === 'found');
-    if (first) setOpen(first.code);
-  }, [conclusions.length, open]);
-
-  if (!data) return <Section title="指标成果"><ResourceState error={resource.error} loading={resource.loading}/></Section>;
+  if (!data) return <Section><ResourceState error={resource.error} loading={resource.loading}/></Section>;
   if (data.status !== 'available') {
     return (
-      <Section title="指标成果">
+      <Section>
         <Notice>{data.status === 'running' ? `正在逐表理解指标：已规划 ${data.plan?.tasks?.length ?? '…'} 张候选表格。` : '尚未开始执行。'}</Notice>
       </Section>
     );
@@ -393,17 +386,12 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
   const result = data.result;
   const period = result.reporting_period || {};
   const coverage = result.document_coverage;
-  const selected = conclusions.find(c => c.code === open);
+  const shownGroups = groups
+    .map(group => ({...group, rows: group.rows.filter(visible)}))
+    .filter(group => group.rows.length);
 
   return (
-    <Section
-      title="指标成果"
-      action={
-        <div className="f16-actions">
-          <button type="button" className="secondary" onClick={() => download(`${result.document_label || 'foundation16'}-指标成果.csv`, foundationCsv(conclusions))}>导出 CSV</button>
-        </div>
-      }
-    >
+    <Section>
       {result.stale_engine && (
         <Notice>
           这份成果由较早的提取规则生成（{result.engine_version}，当前 {result.current_engine_version}），结论可能在成员或口径上与本版本不同。
@@ -417,7 +405,7 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
         {' '}· 模型调用 {result.model_calls} 次{result.reused_answers ? `（复用 ${result.reused_answers} 次）` : ''} · 用时 {Math.round(result.elapsed_seconds)} 秒
       </p>
 
-      <div className="f16-summary-bar">
+      <div className="f16-toolbar">
         <div className="f16-filters" role="group" aria-label="按结论筛选">
           {FILTERS.map(([key, title]) => (
             <button key={key} type="button" className={`f16-filter ${filter === key ? 'selected' : ''}`} aria-pressed={filter === key} onClick={() => setFilter(key)}>
@@ -426,45 +414,67 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
           ))}
         </div>
         <input className="f16-search" aria-label="搜索指标" placeholder="搜索原编号或指标" value={query} onChange={e => setQuery(e.target.value)}/>
+        <button type="button" className="text-button f16-export" onClick={() => download(`${result.document_label || 'foundation16'}-指标成果.csv`, foundationCsv(conclusions))}>导出 CSV</button>
       </div>
 
-      <div className="f16-workbench">
-        <div className="f16-rail">
-          {groups.map(({key, title, rows}) => {
-            const shown = rows.filter(visible);
-            if (!shown.length) return null;
-            return (
-              <section className="f16-group-block" key={key} aria-label={title}>
-                <h3 className="f16-group-title">{title}<small>{shown.length} 项</small></h3>
-                <div className="table-scroll">
-                  <table className="f16-table f16-rail-table">
-                    <thead><tr><th>条款</th><th>状态</th><th>主值</th><th>子项</th><th></th></tr></thead>
-                    <tbody>
-                      {shown.map(c => (
-                        <tr
-                          key={c.code}
-                          className={`${STATUS_TONE[c.status] || 'none'} ${open === c.code ? 'selected' : ''}`}
-                          aria-selected={open === c.code}
-                          onClick={() => setOpen(c.code)}
-                        >
-                          <td><strong className="mono">{c.code}</strong><small className="f16-attr">{c.label}</small></td>
-                          <td><span className={`f16-status ${STATUS_TONE[c.status] || 'none'}`}>{statusText(c)}</span></td>
-                          <td className="metric-value">{summaryOf(c) || '—'}</td>
-                          <td>{(c.children || []).length || '—'}</td>
-                          <td><button type="button" className="text-button" onClick={event => {event.stopPropagation(); setOpen(c.code);}}>展开</button></td>
+      <div className="f16-table-wrap">
+        <table className="f16-grid">
+          <thead>
+            <tr>
+              <th className="f16-col-code">条款</th>
+              <th>指标</th>
+              <th className="f16-col-status">状态</th>
+              <th>主值</th>
+              <th className="f16-col-open"/>
+            </tr>
+          </thead>
+          <tbody>
+            {shownGroups.map(group => (
+              <Fragment key={group.key}>
+                <tr className="f16-group-row">
+                  <th colSpan={5}>{group.title}<small>{group.rows.length} 项</small></th>
+                </tr>
+                {group.rows.map(c => {
+                  const expanded = open === c.code;
+                  const firstPage = (c.members || [])[0]?.source?.page_number;
+                  const meta = [
+                    firstPage ? `第 ${firstPage} 页` : null,
+                    (c.children || []).length ? `子项 ${(c.children || []).length}` : null,
+                    (c.views || []).length ? `其他口径 ${(c.views || []).length}` : null,
+                  ].filter(Boolean).join(' · ');
+                  return (
+                    <Fragment key={c.code}>
+                      <tr
+                        className={`f16-row ${expanded ? 'selected' : ''}`}
+                        aria-selected={expanded}
+                        tabIndex={0}
+                        onClick={() => setOpen(expanded ? null : c.code)}
+                        onKeyDown={event => {
+                          if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            setOpen(expanded ? null : c.code);
+                          }
+                        }}
+                      >
+                        <td className="f16-code"><strong className="mono">{c.code}</strong></td>
+                        <td className="f16-label"><span title={c.label}>{c.label}</span>{meta && <small className="f16-row-note">{meta}</small>}</td>
+                        <td><span className={`f16-status ${STATUS_TONE[c.status] || 'none'}`}>{statusText(c)}</span></td>
+                        <td className="metric-value" title={summaryOf(c)}>{summaryOf(c) || '—'}</td>
+                        <td className="f16-open"><button type="button" className="text-button" onClick={event => {event.stopPropagation(); setOpen(expanded ? null : c.code);}}>{expanded ? '收起' : '查看'}</button></td>
+                      </tr>
+                      {expanded && (
+                        <tr className="f16-detail-row">
+                          <td colSpan={5}><ClauseDetail conclusion={c} irRunId={result.ir_run_id}/></td>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-            );
-          })}
-          {!groups.some(g => g.rows.some(visible)) && <Notice>当前筛选下没有指标。</Notice>}
-        </div>
-        <div className="f16-inspector">
-          {selected ? <ClauseDetail conclusion={selected} irRunId={result.ir_run_id}/> : <Notice>从左侧选择一条指标，查看原值、来源与证据位置。</Notice>}
-        </div>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+        {!shownGroups.length && <Notice>当前筛选下没有指标。</Notice>}
       </div>
     </Section>
   );

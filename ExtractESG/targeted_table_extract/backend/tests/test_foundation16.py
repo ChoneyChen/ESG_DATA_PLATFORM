@@ -564,11 +564,18 @@ def test_quantitative_profile_is_only_a_selection_of_numeric_metrics():
 
     numeric = tuple(metric.code for metric in METRICS if metric.kind in {"quantity", "percentage"})
     assert PROFILES["quantitative"] == numeric
-    assert len(QUANTITATIVE) == 31 and "E2-4_09" not in QUANTITATIVE
+    assert len(QUANTITATIVE) == 38 and "E2-4_09" not in QUANTITATIVE
     # A set is only a list of codes: the metric objects and their order are
     # exactly those the engine already built for each clause.
     assert metrics_for("quantitative") == tuple(BY_CODE[code] for code in numeric)
     assert PROFILES["base16"] == BASE16 and len(PROFILES["priority32"]) == 32
+    # The universal set is curated across the whole ready library: every code
+    # exists, the clauses that nearly every report prints are in it, and the
+    # specialised ones stay out.
+    universal = metrics_for("universal")
+    assert len(universal) == 34 and all(item.code in BY_CODE for item in universal)
+    assert {"S1-14_02", "S4-3_13", "G1-4_02", "G1-4_04", "E5-4_05", "E5-5_11"} <= set(PROFILES["universal"])
+    assert not {"E1-5_02", "E2-5_02", "E3-4_02", "S1-13_03", "E2-4_09"} & set(PROFILES["universal"])
     request = ReportExtractionRequest.model_validate({
         "input": {"kind": "document_ir", "ir_run_id": "ir-fixture"},
         "standards": [{"package_id": "esrs.2023-set1.e1-5", "package_version": "2.0.0",
@@ -623,3 +630,296 @@ def test_children_travel_with_the_fact_as_named_attributes():
     bindings = [{"metric_id": "esrs.2023-set1.e1-5.dp09", "source_fact_id": "fact-1"}]
     BundleWriter._attach_children(None, conclusions, facts, bindings)
     assert facts[0]["identity_raw"] == {"component_风能比例": "28.28 %"}
+
+
+def test_a_lone_part_of_group_reading_is_not_also_its_own_view():
+    """The only disclosed value is a sub-scope: it is the reviewed member, and a
+    second row for the same cell would duplicate the fact identity."""
+    records = [{"observations": [
+        observation("E3-4_11", "45.61", unit_raw="m3", flags=["subset_scope_freshwater"],
+                    entity_basis="subset", cell_id="cell-p0190-t0001-r0017-c0004", page_number=190,
+                    attributes={}),
+    ]}]
+    conclusion = next(c for c in consolidate(records, 2024) if c["code"] == "E3-4_11")
+    assert conclusion["status"] == "review"
+    assert "only_part_of_group_disclosed" in conclusion["members"][0]["flags"]
+    assert not conclusion.get("views")
+
+
+def test_a_scope_word_less_reading_in_another_unit_is_the_same_disclosure():
+    """3.40 百万吨 and 3,400,000 吨 are one reading of one scope, not two scopes."""
+    records = [{"observations": [
+        observation("E1-6_07", "3400000", unit_raw="tCO2e", attributes={"boundary_label": "group"}),
+        observation("E1-6_07", "3.40", unit_raw="百万tCO2 e", page_number=76, cell_id="cell-76"),
+    ]}]
+    conclusion = next(c for c in consolidate(records, 2024) if c["code"] == "E1-6_07")
+    assert len(conclusion["members"]) == 1
+    assert len(conclusion["members"][0]["agreeing_sources"]) == 1
+    assert not conclusion.get("views")
+
+
+def test_a_view_is_written_once_even_when_the_metric_has_several_members():
+    from types import SimpleNamespace
+    from esg_targeted.foundation.bundle import BundleWriter
+
+    records = {key: [] for key in ("reporting_tasks", "quantitative_observations", "qualitative_assertions",
+                                   "attribute_values", "dimension_values", "evidence_references")}
+    ir = SimpleNamespace(document_id="doc", run_id="ir", ir_revision=1)
+    member = {"member": "NOx", "status": "accepted", "value": "1", "value_raw": "1", "unit_raw": "t",
+              "source": {"cell_id": "cell-1", "page_number": 5, "value_raw": "1", "row_label": "NOx"}}
+    view = {"boundary_label": "part_of_group", "status": "review", "value": "2", "value_raw": "2", "unit_raw": "t",
+            "source": {"cell_id": "cell-2", "page_number": 6, "value_raw": "2", "row_label": "NOx 某基地"}}
+    emitted: set[str] = set()
+    writer = BundleWriter.__new__(BundleWriter)
+    for _ in range(2):
+        writer._observation(records, None, {}, [], "task-1", "metric-1", member, [member["source"]], ir,
+                            review="pending", coded=lambda *args: None, emitted=emitted)
+        writer._observation(records, None, {}, [], "task-1", "metric-1", view, [view["source"]], ir,
+                            review="human_required", coded=lambda *args: None,
+                            boundary="part_of_group", emitted=emitted)
+    assert len(records["quantitative_observations"]) == 2
+    assert len(records["evidence_references"]) == 2
+    assert len({row["observation_id"] for row in records["quantitative_observations"]}) == 2
+
+
+
+def test_a_progress_table_target_is_not_a_current_intensity():
+    """'到2030年…下降52%' is a plan beside a progress column, not an intensity."""
+    result = check("E1-6_30", "到2030年，范围3中外购商品和服务的每吨采购商品排放强度相比2020年下降52%", None, None, "ghg-intensity")
+    assert not result.ok and result.flags == ("label_is_target_or_relative_change",)
+    assert check("E1-6_30", "温室气体排放强度（吨CO2e/万元营收）", None, "tCO2e/万元", "ghg-intensity").ok
+
+
+def test_a_lower_management_level_is_not_the_top_management_share():
+    lower = check("S1-9_02", "初级管理层女性员工比例", None, "%", "ratio")
+    assert not lower.ok and lower.flags == ("label_not_top_management_level",)
+    assert check("S1-9_02", "执行管理层女性员工比例", None, "%", "ratio").ok
+
+
+def test_rejected_management_levels_are_kept_as_related_measures():
+    rows = [
+        {**observation("S1-9_02", "23.41", unit_raw="%"), "row_label": "执行管理层女性员工比例"},
+        {**observation("S1-9_02", "7.60", unit_raw="%", page_number=162, cell_id="cell-b"),
+         "row_label": "创收职能（如销售）管理层女性员工比例", "status": "rejected",
+         "rejected_by": "label_not_top_management_level"},
+    ]
+    conclusion = next(c for c in consolidate([{"observations": rows}], 2024) if c["code"] == "S1-9_02")
+    assert conclusion["status"] == "found"
+    assert [child["label"] for child in conclusion["children"]] == ["创收职能（如销售）管理层女性员工比例"]
+    assert not conclusion["members"][0]["conflicting_sources"]
+
+
+def test_chinese_kwh_forms_scale_to_megawatt_hours():
+    from decimal import Decimal
+    from esg_targeted.foundation.quantities import unit_scale
+
+    assert unit_scale("亿度") == ("energy", Decimal("1e5"))
+    assert unit_scale("亿千瓦时") == ("energy", Decimal("1e5"))
+    assert unit_scale("万度") == ("energy", Decimal("10"))
+    assert unit_scale("千度") == ("energy", Decimal("1"))
+    assert unit_scale("度") == ("energy", Decimal("0.001"))
+
+
+def test_a_related_management_level_row_is_recovered_for_storage():
+    """A row the model skipped is kept when its rejection means related evidence."""
+    from types import SimpleNamespace
+    from esg_targeted.foundation.catalog import BY_CODE
+    from esg_targeted.foundation.kernel import _names_a_related_measure
+
+    line = SimpleNamespace(label="初级管理层女性员工比例")
+    verdict = check("S1-9_02", line.label, None, "%", "ratio")
+    assert _names_a_related_measure(BY_CODE["S1-9_02"], line, verdict)
+
+    target = SimpleNamespace(label="到2030年，范围3排放强度相比2020年下降52%")
+    target_verdict = check("E1-6_30", target.label, None, None, "ghg-intensity")
+    assert not _names_a_related_measure(BY_CODE["E1-6_30"], target, target_verdict)
+
+    # A wastewater row also fails "not recycled water"; it is another quantity.
+    discharge = SimpleNamespace(label="废水排放量（地表水）")
+    discharge_verdict = check("E3-4_03", discharge.label, None, "kt", "mass")
+    assert not _names_a_related_measure(BY_CODE["E3-4_03"], discharge, discharge_verdict)
+
+
+def test_a_single_fuel_is_a_component_not_the_fossil_total():
+    carrier = check("E1-5_02", "原油消耗量", None, "吨标准煤", "energy")
+    assert not carrier.ok and carrier.flags == ("label_is_fossil_carrier",)
+    assert check("E1-5_02", "化石能源消耗量", None, "吨标准煤", "energy").ok
+
+
+def test_a_fresh_water_intake_is_a_source_subset_not_total_withdrawal():
+    subset = check("E3-4_11", "工业取新水用量", None, "百万立方米", "volume")
+    assert not subset.ok and subset.flags == ("component_by_source_or_destination",)
+    assert check("E3-4_11", "取水总量", None, "百万立方米", "volume").ok
+
+
+def test_treated_waste_is_not_waste_generated():
+    treated = check("E5-5_07", "总废弃物处理量", None, "千吨", "mass")
+    assert not treated.ok and treated.flags == ("label_is_treatment_route_not_generated",)
+    assert check("E5-5_07", "废弃物产生总量", None, "千吨", "mass").ok
+    hazardous = check("E5-5_15", "总危险废弃物处理量", None, "千吨", "mass")
+    assert not hazardous.ok and hazardous.flags == ("label_is_treatment_route_not_generated",)
+
+
+def test_a_population_subset_turnover_rate_is_not_the_workforce_rate():
+    subset = check("S1-6_12", "其中：男性员工流失率", None, "%", "ratio")
+    assert not subset.ok and subset.flags == ("label_is_population_subset",)
+    assert check("S1-6_12", "员工流失率", None, "%", "ratio").ok
+
+
+def test_fossil_carriers_are_not_children_of_the_renewable_clause():
+    rows = [
+        {**observation("E1-5_05", "51.37", unit_raw="亿度"), "row_label": "可再生能源消耗量"},
+        {**observation("E1-5_05", "1,485,744", unit_raw="吨标准煤", page_number=36, cell_id="cell-gas"),
+         "row_label": "天然气消耗量", "status": "rejected", "rejected_by": "label_is_fossil_carrier"},
+    ]
+    conclusion = next(c for c in consolidate([{"observations": rows}], 2024) if c["code"] == "E1-5_05")
+    assert not conclusion.get("children")
+
+
+def test_a_fossil_share_is_not_a_child_of_the_renewable_share():
+    rows = [
+        {**observation("E1-5_09", "52.40", unit_raw="%"), "row_label": "可再生能源占比"},
+        {**observation("E1-5_09", "10.21", unit_raw="%", page_number=36, cell_id="cell-gas"),
+         "row_label": "天然气消耗量占比", "status": "rejected", "rejected_by": "label_not_renewable",
+         "flags": ["label_not_renewable", "share_row_beside_mapped_quantity"]},
+    ]
+    conclusion = next(c for c in consolidate([{"observations": rows}], 2024) if c["code"] == "E1-5_09")
+    assert not conclusion.get("children")
+
+
+def test_a_solid_waste_stream_is_a_category_not_the_generated_total():
+    row = check("E5-5_07", "注2固体废弃物量", None, "千吨", "mass")
+    assert not row.ok and row.flags == ("label_is_waste_category",)
+    assert check("E5-5_07", "固体废弃物产生总量", None, "千吨", "mass").ok
+
+
+def test_turnover_rates_for_age_bands_and_managers_are_population_subsets():
+    for label in ("31-50岁员工流失率", "中级管理者流失率", "51岁及以上员工流失率", "基层员工流失率"):
+        verdict = check("S1-6_12", label, None, "%", "ratio")
+        assert not verdict.ok and verdict.flags == ("label_is_population_subset",), label
+
+
+def test_content_index_rows_are_never_measurements():
+    gri = check("E1-6_12", "GRI 3：实质性议题2021 › 3-3实质性议题的管理", None, None, None)
+    assert not gri.ok and gri.flags == ("label_is_index_entry",)
+    hkex = check("E5-5_15", "层面A1：排放物 › 关键绩效指标A1.3 › 所产生有害废弃物总量（以吨计算）", None, "吨", "mass")
+    assert not hkex.ok and hkex.flags == ("label_is_index_entry",)
+
+
+def test_new_hires_are_not_the_employee_headcount():
+    hires = check("S1-6_02", "年度新入职员工总数", None, "人", "count")
+    assert not hires.ok and hires.flags == ("label_is_turnover_or_hiring",)
+    assert check("S1-6_02", "员工总数", None, "人", "count").ok
+
+
+def test_a_training_breakdown_is_not_the_workforce_average():
+    row = check("S1-13_04", "按性别及雇员类别划分，每名雇员平均培训小时数", None, "小时", None)
+    assert not row.ok and row.flags == ("label_is_population_subset",)
+
+
+def test_a_scope2_row_without_a_method_does_not_conflict_with_one_that_names_it():
+    rows = [
+        {**observation("E1-6_09", "35.02", unit_raw="百万吨"), "row_label": "范围二（绿电未抵扣）",
+         "flags": ["scope2_method_from_label"]},
+        {**observation("E1-6_09", "1087.3", unit_raw="万吨", page_number=96, cell_id="cell-x"),
+         "row_label": "间接温室气体排放总量（范围二）", "status": "review",
+         "flags": ["scope2_method_not_stated_in_source"]},
+    ]
+    conclusion = next(c for c in consolidate([{"observations": rows}], 2024) if c["code"] == "E1-6_09")
+    assert conclusion["status"] == "found"
+    assert not conclusion["members"][0]["conflicting_sources"]
+    moved = next(c for c in consolidate([{"observations": rows}], 2024) if c["code"] == "E1-6_10")
+    assert not (moved.get("members") and moved["members"][0]["conflicting_sources"])
+
+
+def test_a_change_rate_is_not_a_measured_share():
+    row = check("E1-5_09", "万元营业收入碳碳排放下降率（绿电抵扣）", None, "%", "ratio")
+    assert not row.ok and row.flags == ("label_is_target_or_relative_change",)
+
+
+def test_a_hkex_general_disclosure_row_is_an_index_entry():
+    row = check("E1-6_12", "一般披露：有关防止贿赂、勒索、欺诈及洗黑钱的资料", None, None, None)
+    assert not row.ok and row.flags == ("label_is_index_entry",)
+
+
+def test_voluntary_leavers_are_not_the_headcount():
+    row = check("S1-6_02", "年度主动离职员工数", None, "人", "count")
+    assert not row.ok and row.flags == ("label_is_turnover_or_hiring",)
+
+
+def test_a_toxic_materials_portion_is_not_the_total_inflow():
+    row = check("E5-4_02", "生产终端设备过程中所使用的有毒有害物料总量", None, "吨", "mass")
+    assert not row.ok and row.flags == ("label_is_hazardous_materials_subset",)
+    assert check("E5-4_02", "生产终端设备过程中所使用的物料总量", None, "吨", "mass").ok
+
+
+def test_traditional_forms_fold_to_the_same_keywords():
+    assert fold("關鍵績效指標B7.2") == "关键绩效指标b7.2"
+    assert fold("年度主動離職員工數") == "年度主动离职员工数"
+    assert fold("實質性議題") == "实质性议题"
+    assert check("E1-6_12", "關鍵績效指標B7.2 › 描述防範措施及舉報程序", None, None, None).flags == ("label_is_index_entry",)
+    assert check("S1-6_02", "年度主動離職員工數", None, "人", "count").flags == ("label_is_turnover_or_hiring",)
+
+
+def test_traditional_age_band_and_dismissals_are_not_headline_values():
+    age = check("S1-6_12", "30歲以下員工流失率", None, "%", "ratio")
+    assert not age.ok and age.flags == ("label_is_population_subset",)
+    dismissed = check("S1-6_02", "年度解僱員工數", None, "人", "count")
+    assert not dismissed.ok and dismissed.flags == ("label_is_turnover_or_hiring",)
+
+
+def test_a_long_interrogative_description_is_not_a_value_row():
+    row = check("E1-6_12", "該機構或個人如何厘定當前或將來是否有適當的技能和勝任能力來監督應對氣候相關議題", None, None, None)
+    assert not row.ok and row.flags == ("label_is_narrative_question",)
+
+
+def test_a_subgroup_headcount_is_not_the_workforce_total():
+    row = check("S1-6_02", "少數民族員工數", None, "人", "count")
+    assert not row.ok and row.flags == ("label_is_population_subset",)
+    assert check("S1-6_02", "员工总数", None, "人", "count").ok
+
+
+def test_a_numbered_content_index_row_is_not_a_value_row():
+    row = check("E1-6_12", "2-1組織詳細情況", None, None, None)
+    assert not row.ok and row.flags == ("label_is_index_entry",)
+
+
+def test_the_emissions_total_requires_an_emissions_subject():
+    other = check("E1-6_12", "女性员工平均培训时间", None, "小时", None)
+    assert not other.ok and other.flags == ("label_not_ghg_emissions",)
+    assert check("E1-6_12", "温室气体排放总量", None, "吨二氧化碳当量", "ghg-emissions").ok
+
+
+def test_person_times_are_not_a_headcount():
+    row = check("S1-6_02", "安全应急演练活动员工参与人次", None, "人次", "count")
+    assert not row.ok and row.flags == ("label_is_participation_count_not_headcount",)
+
+
+def test_an_accident_count_is_not_a_headcount():
+    row = check("S1-6_02", "在工作场所员工发生事故的数量", None, "件", "count")
+    assert not row.ok and row.flags == ("label_is_incident_count_not_headcount",)
+
+
+def test_universal_clauses_accept_their_own_concept_and_reject_neighbours():
+    cases = [
+        ("E5-4_05", "再生材料占比", "%", "ratio", None),
+        ("E5-4_05", "再生材料使用量", "吨", "mass", "unit_dimension_mass_not_ratio"),
+        ("E5-5_11", "未回收废弃物占比", "%", "ratio", None),
+        ("E5-5_11", "废弃物回收率", "%", "ratio", "label_not_this_concept"),
+        ("S1-13_03", "男性员工平均培训小时数", "小时", None, None),
+        ("S1-13_03", "商业道德培训时长", "小时", None, "label_is_other_concept"),
+        ("S1-14_02", "工亡人数", "人", "count", None),
+        ("S1-14_02", "工伤事故率", "%", "ratio", "label_not_this_concept"),
+        ("S4-3_13", "消费者投诉数量", "件", "count", None),
+        ("S4-3_13", "供应商投诉数量", "件", "count", "label_not_group_scope"),
+        ("G1-4_02", "反腐败罚款金额", "万元", "currency", None),
+        ("G1-4_02", "腐败定罪数量", "件", "count", "label_not_this_concept"),
+        ("G1-4_04", "已确认腐败事件数量", "件", "count", None),
+        ("G1-4_04", "腐败定罪数量", "件", "count", "label_not_this_concept"),
+    ]
+    for code, label, unit, dimension, expected in cases:
+        result = check(code, label, None, unit, dimension)
+        if expected is None:
+            assert result.ok, (code, label, result.flags)
+        else:
+            assert not result.ok and result.flags == (expected,), (code, label, result.flags)
