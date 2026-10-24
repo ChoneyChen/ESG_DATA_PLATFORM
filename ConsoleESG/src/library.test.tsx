@@ -4,7 +4,7 @@ import {WorkspaceProvider} from './state';
 import {credentials,type Row} from './api';
 import {Reports} from './pages/Reports';
 import {OcrLibrary} from './pages/OcrLibrary';
-import {FloatingProcessingStatus} from './components/FloatingProcessingStatus';
+import {SidebarMonitor} from './components/SidebarMonitor';
 import {startLibraryProduction} from './library-workflow';
 import {groupReportLibrary} from './library-resource';
 
@@ -52,7 +52,7 @@ it('新资产接口返回500时显示错误，不偷偷换旧接口隐藏故障'
  const normal=globalThis.fetch;vi.stubGlobal('fetch',vi.fn((url:string,options:RequestInit={})=>url==='/document/api/report-library'?Promise.resolve(new Response(JSON.stringify({detail:{code:'internal_service_error',message:'服务内部问题'}}),{status:500,headers:{'Content-Type':'application/json'}})):normal(url,options)));
  mount(<Reports/>);await screen.findByRole('alert');expect(screen.queryByText('合成报告.pdf')).toBeNull();expect(calls.some(c=>c.url==='/document/api/pdf-library'||c.url==='/document/api/ocr-library'||c.url==='/document/api/report-assets')).toBe(false);
 });
-it('悬浮状态点击展开真实任务，不派发任务',async()=>{mount(<FloatingProcessingStatus/>);await waitFor(()=>expect(screen.getByRole('button',{name:'展开处理状态'}).textContent).toContain('1'));expect(screen.queryByRole('dialog')).toBeNull();fireEvent.click(screen.getByRole('button',{name:'展开处理状态'}));expect(screen.getByRole('dialog',{name:'处理状态'})).toBeTruthy();expect(screen.getByText('正在识别合成PDF')).toBeTruthy();expect(calls.every(c=>c.method==='GET')).toBe(true);});
+it('侧栏运行监视显示队列数量，展开真实任务，不派发任务',async()=>{mount(<SidebarMonitor/>);await waitFor(()=>expect(screen.getByRole('button',{name:'展开处理状态'}).textContent).toContain('1'));expect(screen.queryByRole('dialog')).toBeNull();fireEvent.click(screen.getByRole('button',{name:'展开处理状态'}));expect(screen.getByRole('dialog',{name:'处理状态'})).toBeTruthy();expect(screen.getAllByText('正在识别合成PDF').length).toBeGreaterThan(0);expect(calls.every(c=>c.method==='GET')).toBe(true);});
 it('直接主要指标提取复用生产计划，保留原号及快照，仅提交一个父计划',async()=>{credentials.set('synthetic-token','operator',['admin']);await startLibraryProduction([asset],'processing_extraction',profile,catalog);const preview=calls.find(c=>c.url.includes('/preview'))!.body!;expect(preview.target).toBe('processing_extraction');expect(preview.processing.mode).toBe('auto');expect(preview.extraction.selection_snapshot).toEqual(snapshot);expect(preview.extraction.standards[0].metric_ids).toEqual(['original-metric']);expect(preview.extraction.completeness).toBe('balanced');expect(preview.processing.config.execute_optional_reviews).toBe(false);expect(preview.processing.config.execute_required_reviews).toBe(false);expect(calls.filter(c=>c.url==='/document/api/production-automations')).toHaveLength(1);expect(calls.some(c=>c.url.includes('archive'))).toBe(false);});
 it('已有读取版本时直接提取，读取在提取内部自动复用',async()=>{
  credentials.set('synthetic-token','operator',['admin']);mount(<Reports/>);await screen.findByText('ocr-second');

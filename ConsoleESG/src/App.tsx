@@ -3,7 +3,7 @@ import {navigate} from './api';
 import {useWorkspace} from './state';
 import {Notice} from './components/ui';
 import {OcrLibrary} from './pages/OcrLibrary';
-import {FloatingProcessingStatus} from './components/FloatingProcessingStatus';
+import {SidebarMonitor} from './components/SidebarMonitor';
 import {Reports,ReportDetail} from './pages/Reports';
 import {Processing} from './pages/Processing';
 import {Automation} from './pages/Automation';
@@ -15,19 +15,16 @@ import {Runtime} from './pages/Runtime';
 
 /**
  * The sidebar follows the production line, not the backend's module list.
- * Four destinations cover an operator's day: reports, reading, extraction and
- * review/publishing. Everything that is a tool rather than a step (automation
- * batches, standards, runtime, OCR artifacts) lives in one collapsed group so
- * the default view never asks a choice before it is needed.
+ * Four destinations cover an operator's day: reports, extraction, review and
+ * publishing. The live run monitor sits below them; tools stay collapsed.
  */
 const MAIN = [
-  ['reports', '报告', '▤', '选择 PDF，开始或继续提取'],
-  ['extractions', '提取', '⇢', '读取、指标成果与证据'],
-  ['review', '审核', '✓', '事实、映射与测量口径'],
-  ['publication', '发布', '↗', '正式数据版本与来源'],
+  ['reports', '报告', '▤', '选择报告并开始'],
+  ['extractions', '提取', '⇢', '读取、成果与证据'],
+  ['review', '审核', '✓', '事实、映射与口径'],
+  ['publication', '发布', '↗', '版本、来源与发布'],
 ] as const;
 
-// Reading a PDF is part of extraction; these stay for inspection and control.
 const TOOLS = [
   ['automation', '批量生产', '▷'],
   ['standards', '标准中心', '▦'],
@@ -74,24 +71,32 @@ export default function App() {
   }
 
   const active = (key: string) => route.section === key || (key === 'extractions' && ['ocr', 'processing'].includes(route.section));
+  const toolsOpen = TOOLS.some(([key]) => key === route.section);
   return (
     <div className="app-shell">
       <aside className="app-sidebar">
-        <a className="brand" href="#/reports"><span className="brand-icon">E</span><span>Console<span className="brand-accent">ESG</span><small>数据生产工作台</small></span></a>
-        <nav aria-label="生产主线">
-          {MAIN.map(([key, title, icon, hint], index) => (
-            <a className={active(key) ? 'active' : ''} href={`#/${key}`} key={key} aria-current={active(key) ? 'page' : undefined}>
-              <span className="nav-index">{index + 1}</span>
-              <span className="nav-body"><strong>{title}</strong><small>{hint}</small></span>
-              <span className="nav-icon">{icon}</span>
-            </a>
-          ))}
-        </nav>
-        <details className="sidebar-tools" open={TOOLS.some(([key]) => key === route.section)}>
+        <a className="brand" href="#/reports">
+          <span className="brand-icon">E</span>
+          <span className="brand-text"><span className="brand-name">Console<span className="brand-accent">ESG</span></span><small>数据生产工作台</small></span>
+        </a>
+        <div className="side-section">
+          <span className="side-label">生产主线</span>
+          <nav aria-label="生产主线">
+            {MAIN.map(([key, title, icon, hint], index) => (
+              <a className={active(key) ? 'active' : ''} href={`#/${key}`} key={key} aria-current={active(key) ? 'page' : undefined}>
+                <span className="nav-index">{index + 1}</span>
+                <span className="nav-body"><strong>{title}</strong><small>{hint}</small></span>
+                <span className="nav-icon" aria-hidden="true">{icon}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+        <SidebarMonitor/>
+        <details className="sidebar-tools" open={toolsOpen}>
           <summary>工具</summary>
           <nav aria-label="工具">
             {TOOLS.map(([key, title, icon]) => (
-              <a className={route.section === key ? 'active' : ''} href={`#/${key}`} key={key}><span className="nav-icon">{icon}</span>{title}</a>
+              <a className={route.section === key ? 'active' : ''} href={`#/${key}`} key={key}><span className="nav-icon" aria-hidden="true">{icon}</span>{title}</a>
             ))}
           </nav>
         </details>
@@ -105,12 +110,12 @@ export default function App() {
           <div className="topbar-context">
             <span className="topbar-section">{sectionTitle(route.section)}</span>
             <span className="topbar-sep" aria-hidden="true">/</span>
-            <span>数据生产工作台</span>
+            <span className="topbar-sub">数据生产工作台</span>
           </div>
           <div className="button-row">
             <span className="topbar-live" role="status" aria-live="polite">
               <span className={`live-dot ${connected ? 'connected' : ''}`}/>
-              {connected ? '事件实时连接' : '自动刷新与恢复'}
+              {connected ? '实时连接' : '自动刷新与恢复'}
             </span>
             <button className="ghost" onClick={refresh} aria-label="刷新工作台">刷新</button>
           </div>
@@ -118,7 +123,6 @@ export default function App() {
         <main id="main-content" className="workspace">
           {page}
         </main>
-        <FloatingProcessingStatus/>
         <footer className="app-footer">ConsoleESG · 正式数据与未发布工作分开管理 · 来源与修订可追踪</footer>
       </div>
     </div>

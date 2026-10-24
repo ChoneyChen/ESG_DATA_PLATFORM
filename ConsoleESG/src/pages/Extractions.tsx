@@ -69,16 +69,18 @@ export function Extractions({sessionId, standaloneJobId, newTask = false, params
   const historyComplete = history.data?.status === 'available';
   return (
     <>
-      <div className="page-heading">
-        <div>
-          <span className="eyebrow">定向数据生产</span>
-          <h1>提取任务</h1>
-          <p>每份报告一次提取，得到按条款整理的数值、口径与原文证据。</p>
+      {!sessionId && !standaloneJobId && (
+        <div className="page-heading">
+          <div>
+            <span className="eyebrow">定向数据生产</span>
+            <h1>提取任务</h1>
+            <p>每份报告一次提取，得到按条款整理的数值、口径与原文证据。</p>
+          </div>
+          <div className="button-row">
+            <button onClick={() => navigate('/extractions/new')}>新建提取</button>
+          </div>
         </div>
-        <div className="button-row">
-          <button onClick={() => navigate('/extractions/new')}>新建提取</button>
-        </div>
-      </div>
+      )}
       {newTask ? <ExtractionCreator params={params}/> : standaloneJobId ? (
         <>
           <Section title="历史独立提取 · 只读成果">

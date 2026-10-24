@@ -114,7 +114,7 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
        <button className="asset-expand" aria-expanded={isOpen} aria-label={`${isOpen?'收起':'展开'} ${reportLabel(asset)} 的读取版本`} onClick={()=>toggle(asset.asset_id)}>{isOpen?'⌄':'›'}</button>
        <span className="asset-file-icon" aria-hidden="true">PDF</span>
        <div className="asset-parent-name">
-        <button className="text-button asset-title" onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>{reportLabel(asset)}</button>
+        <button className="text-button asset-title" title={reportLabel(asset)} onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>{reportLabel(asset)}</button>
         <small>
          {asset.report_metadata?.title?`${asset.file_name} · `:''}
          {typeof asset.size_bytes==='number'?`${(asset.size_bytes/1024/1024).toFixed(1)} MB · `:''}
@@ -136,10 +136,10 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
         </div>
        </details>
       </div>
-      {isOpen&&<div className="asset-versions" aria-label={`${reportLabel(asset)} 的读取版本`}>
+      {isOpen&&<div className="asset-reveal"><div className="asset-versions" aria-label={`${reportLabel(asset)} 的读取版本`}>
        <div className="asset-relation-label">来源 PDF → 页面读取版本 → 结构证据</div>
        {!versions.length?<div className="asset-no-versions">这份 PDF 还没有读取版本。提取时会自动读取页面并构建结构证据。</div>:versions.map((ocr,index)=><OcrVersion key={ocr.run_id} row={ocr} asset={asset} index={index}/>)}
-      </div>}
+      </div></div>}
      </article>;
     })}
    </div>

@@ -57,10 +57,8 @@ export function MachineVerification({reportRef}: {reportRef?: string}) {
   return (
     <Section title="机器核验">
       <p className="muted">
-        只批准证据已经证明全部发布条件的候选：指标就绪、映射由提取守卫判定为完全对应、期间与主体可证、
-        边界与单位可核、指标要求的维度齐全。提取读到的污染物、范围、类别、方法、分母与边界会先归一为指标维度；
-        指标定义固定的轴直接采用定义，陈述型指标未陈述的轴记为 not_stated（展示但不进入同口径比较）。
-        其余保留人工审核，并在下方列出缺少哪一项。
+        只批准证据能证明全部发布条件的候选：指标就绪、映射完全对应、期间与主体可证、边界与单位可核、维度齐全。
+        其余保留人工审核，并在下方列出缺少项。
       </p>
       <ResourceState error={proposals.error} loading={proposals.loading && !proposals.data}/>
       <div className="stat-grid">

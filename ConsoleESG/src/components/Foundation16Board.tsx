@@ -91,7 +91,9 @@ function summaryOf(conclusion: Conclusion) {
 
 function packageTitle(conclusions: Conclusion[], key: string) {
   const row = conclusions.find(c => String(c.package_id || '') === key);
-  return row?.group_label ? `${row.group_label} · ${key}` : key;
+  const short = key.split('.').filter(Boolean).pop()?.toUpperCase() || key;
+  if (!row?.group_label) return short;
+  return row.group_label.includes(short) ? row.group_label : `${row.group_label} · ${short}`;
 }
 
 function childValue(child: Row) {
@@ -163,7 +165,7 @@ function ClauseDetail({conclusion, irRunId}: {conclusion: Conclusion; irRunId: s
   const candidates: Row[] = conclusion.candidates || [];
 
   const sourceRows = members.flatMap((member: Row, index: number) => {
-    const rows = [{...member.source, member: member.member, role: '主证据'}];
+    const rows = [{...member.source, member: member.member, role: '主证据', value_raw: member.value_raw, unit_raw: member.unit_raw, period: member.period}];
     for (const [key, caption] of SOURCE_KINDS) {
       for (const source of member[key] || []) rows.push({...source, member: member.member, role: caption});
     }
@@ -400,10 +402,20 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
       )}
 
       <p className="f16-meta">
-        报告期 {period.year ?? '待确认'}（依据：{period.evidence || period.basis}）
-        {coverage && <> · {coverageText(coverage)}</>}
-        {' '}· 模型调用 {result.model_calls} 次{result.reused_answers ? `（复用 ${result.reused_answers} 次）` : ''} · 用时 {Math.round(result.elapsed_seconds)} 秒
+        <span>报告期 <b>{period.year ?? '待确认'}</b>（{period.evidence || period.basis}）</span>
+        {coverage && <span>{coverageText(coverage)}</span>}
+        <span>模型调用 <b>{result.model_calls}</b> 次{result.reused_answers ? `（复用 ${result.reused_answers} 次）` : ''}</span>
+        <span>用时 <b>{Math.round(result.elapsed_seconds)}</b> 秒</span>
       </p>
+
+      <div className="f16-summary" aria-label="结果概况">
+        {FILTERS.filter(([key]) => key !== 'all').map(([key, title]) => (
+          <article key={key} className={key}>
+            <strong>{counts[key] || 0}</strong>
+            <span>{title}</span>
+          </article>
+        ))}
+      </div>
 
       <div className="f16-toolbar">
         <div className="f16-filters" role="group" aria-label="按结论筛选">
@@ -414,7 +426,7 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
           ))}
         </div>
         <input className="f16-search" aria-label="搜索指标" placeholder="搜索原编号或指标" value={query} onChange={e => setQuery(e.target.value)}/>
-        <button type="button" className="text-button f16-export" onClick={() => download(`${result.document_label || 'foundation16'}-指标成果.csv`, foundationCsv(conclusions))}>导出 CSV</button>
+        <button type="button" className="secondary f16-export" onClick={() => download(`${result.document_label || 'foundation16'}-指标成果.csv`, foundationCsv(conclusions))}>导出 CSV</button>
       </div>
 
       <div className="f16-table-wrap">
@@ -460,11 +472,20 @@ export function Foundation16Board({sessionId, assetId}: {sessionId: string; asse
                         <td className="f16-label"><span title={c.label}>{c.label}</span>{meta && <small className="f16-row-note">{meta}</small>}</td>
                         <td><span className={`f16-status ${STATUS_TONE[c.status] || 'none'}`}>{statusText(c)}</span></td>
                         <td className="metric-value" title={summaryOf(c)}>{summaryOf(c) || '—'}</td>
-                        <td className="f16-open"><button type="button" className="text-button" onClick={event => {event.stopPropagation(); setOpen(expanded ? null : c.code);}}>{expanded ? '收起' : '查看'}</button></td>
+                        <td className="f16-open">
+                          <button
+                            type="button"
+                            aria-label={expanded ? '收起' : '查看'}
+                            aria-expanded={expanded}
+                            onClick={event => {event.stopPropagation(); setOpen(expanded ? null : c.code);}}
+                          >›</button>
+                        </td>
                       </tr>
                       {expanded && (
                         <tr className="f16-detail-row">
-                          <td colSpan={5}><ClauseDetail conclusion={c} irRunId={result.ir_run_id}/></td>
+                          <td colSpan={5}>
+                            <div className="f16-expand"><div><ClauseDetail conclusion={c} irRunId={result.ir_run_id}/></div></div>
+                          </td>
                         </tr>
                       )}
                     </Fragment>

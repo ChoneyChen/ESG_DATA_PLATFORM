@@ -50,7 +50,7 @@ function SourceFactPages({reportRef}:{reportRef?:string|null}) {
  const first=chosen?.physical_sources?.[0];
  const page=Number.isInteger(first?.pdf_page_index)?first.pdf_page_index+1:1;
  return <Section title="已读取的报告来源事实">
-  <Notice>这里保留已读取的原始表行及属性，包括尚未对应条款的内容。保存来源不代表事实、条款映射或正式发布已获批准。</Notice>
+  <Notice>已读取的来源事实；保存来源不等于审核或发布通过。</Notice>
   <button className="secondary" disabled={busy||!credentials.ready} onClick={()=>void loadPage(null,0)}>重新读取来源事实</button>
   {!credentials.ready&&<Notice>数据平台未连接，暂不能浏览报告来源事实。</Notice>}
   <details><summary>浏览来源事实（已读取 {loadedCount} 条；本页 {rows.length} 条）</summary>
