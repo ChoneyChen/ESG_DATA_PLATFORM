@@ -22,6 +22,7 @@ export default function Methods({
           <a href="#data-definition">定义与口径</a>
           <a href="#data-comparison">比较与趋势</a>
           <a href="#data-missing">缺失与限制</a>
+          <a href="#data-review">复核与发布</a>
           <a href="#data-versions">版本与下载</a>
         </nav>
         <div className="method-articles">
@@ -86,8 +87,41 @@ export default function Methods({
               “已审核范围内未披露”“不适用”和“来源无法读取”只有在发布版本保留相应声明时才显示。缺少数据本身不足以推断企业没有披露。上下限、区间与定性披露保留原义，不用中点代替。
             </p>
           </section>
+          <section id="data-review">
+            <span className="eyebrow">05 · 复核</span>
+            <h2>发布前逐条复核</h2>
+            <p>
+              每条候选数据在进入公开版本前都要通过同一套检查。机器只处理能够由证据证明的条件，需要判断的部分留给人。
+            </p>
+            <div className="review-grid">
+              <div>
+                <h3>机器核验</h3>
+                <ul>
+                  <li>指标定义已就绪，单位可换算</li>
+                  <li>映射被提取证据判定为完全对应</li>
+                  <li>期间、主体与边界可由原文证明</li>
+                  <li>数值可核对，必要维度齐全</li>
+                </ul>
+              </div>
+              <div>
+                <h3>人工决定</h3>
+                <ul>
+                  <li>子范围与合并口径的选择</li>
+                  <li>范围三类别与聚合层级</li>
+                  <li>强度分母与业务量口径</li>
+                  <li>无法由原文唯一确定的方法</li>
+                </ul>
+              </div>
+            </div>
+            <p>
+              通过复核的数据固定为发布版本。原文、口径与复核凭证随数据一起保留，读取接口不再区分内部审核阶段。
+            </p>
+            <ProductLink view="api" className="text-button">
+              查看公开读取接口 <Icon name="arrow" size={16} />
+            </ProductLink>
+          </section>
           <section id="data-versions">
-            <span className="eyebrow">05 · 版本</span>
+            <span className="eyebrow">06 · 版本</span>
             <h2>固定版本，复现一次查询</h2>
             <p>
               网站解析最新发布后，将明确的数据版本保存在链接中。企业、指标、比较、原文和下载使用相同版本；后续发布不会悄悄改变旧链接的数据。公开修订说明可以在数据来源详情中查看。

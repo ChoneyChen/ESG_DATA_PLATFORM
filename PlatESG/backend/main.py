@@ -190,6 +190,19 @@ class ReviewRequest(StrictRequest):
         return self
 
 
+class MachineVerificationRequest(StrictRequest):
+    report_ref: Text | None = None
+    mapping_ids: list[UUID] = Field(default_factory=list, max_length=500)
+    apply: bool = False
+    reason: Annotated[str, Field(max_length=2000)] | None = None
+
+
+class ArtifactPurgeRequest(StrictRequest):
+    apply: bool = False
+    confirm: Text | None = None
+    reason: Annotated[str, Field(min_length=1, max_length=2000)] | None = None
+
+
 class PropertySelectionRequest(StrictRequest):
     source_field: Text
     ordinal: Annotated[int, Field(ge=1, le=1000)] = 1
@@ -802,6 +815,28 @@ def create_app(environment: dict[str, str] | None = None):
         ir_root = Path(config.get("PLATESG_IR_ROOT", str(ROOT.parent/"ExtractESG/document_ir_extract/document_ir_output")))
         candidate_locations(result["items"], pdf_roots, ir_root)
         return result
+
+    @app.get("/internal/v1/candidate-proposals", dependencies=[Depends(permission("read"))])
+    def candidate_proposals(report_ref: str | None = Query(None, max_length=240), limit: int = Query(500, ge=1, le=1000)):
+        return bridge.call("candidate_proposals", {"report_ref": report_ref, "limit": limit})
+
+    @app.get("/internal/v1/candidates/{mapping_id}/proposal", dependencies=[Depends(permission("read"))])
+    def candidate_proposal(mapping_id: UUID):
+        return bridge.call("candidate_proposal", {"mapping_id": str(mapping_id)})
+
+    @app.post("/internal/v1/machine-verification", dependencies=[Depends(permission("review"))])
+    def machine_verification(request: MachineVerificationRequest, principal=Depends(permission("review"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["mapping_ids"] = [str(item) for item in request.mapping_ids]
+        return bridge.call("machine_verify", payload)
+
+    @app.get("/internal/v1/artifact-inventory", dependencies=[Depends(permission("read"))])
+    def artifact_inventory():
+        return bridge.call("artifact_inventory", {})
+
+    @app.post("/internal/v1/artifact-purge", dependencies=[Depends(permission("admin"))])
+    def artifact_purge(request: ArtifactPurgeRequest, principal=Depends(permission("admin"))):
+        return bridge.call("purge_artifacts", operator_payload(request, principal, exclude_none=True))
 
     @app.get("/internal/v1/source-facts", dependencies=[Depends(permission("read"))])
     def report_source_facts(report_ref: str | None = Query(None, max_length=240),

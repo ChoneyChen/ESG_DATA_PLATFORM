@@ -83,8 +83,13 @@ export async function seedMetricDictionary(db, dictionary) {
       for(const metric of dictionary.metrics) await tx.query('INSERT INTO esg.dictionary_membership(dictionary_version,metric_id,definition_version,source_datapoint_id,clause_kind,extension_id) VALUES($1,$2,$3,$4,$5,$6)',[dictionary.dictionary_version,metric.metric_id,metric.definition_version,metric.source_datapoint_id,metric.clause_kind || 'original_datapoint',metric.extension_id || null]);
       await tx.query('UPDATE esg.dictionary_versions SET sealed=true WHERE dictionary_version=$1',[dictionary.dictionary_version]);
     }
-    const eventId = uuid(`dictionary:${dictionary.dictionary_version}:${dictionaryDigest}`);
-    await tx.query(`INSERT INTO esg.outbox_events(event_id,event_type,target_ref) VALUES($1,'dictionary',$2) ON CONFLICT DO NOTHING`,[eventId,dictionary.dictionary_version]);
+    // Only a new dictionary (or one whose snapshot is being sealed for the
+    // first time) is a publication event. Restarting an unchanged dictionary
+    // must not leave a pending event behind.
+    if (!knownDictionary || !knownDictionary.snapshot_digest) {
+      const eventId = uuid(`dictionary:${dictionary.dictionary_version}:${dictionaryDigest}`);
+      await tx.query(`INSERT INTO esg.outbox_events(event_id,event_type,target_ref) VALUES($1,'dictionary',$2) ON CONFLICT DO NOTHING`,[eventId,dictionary.dictionary_version]);
+    }
     // Publish the initial empty dictionary without consuming pending fact,
     // review or context events. Manual publication holds must survive startup.
     const latest=(await tx.query('SELECT dataset_version,dictionary_version FROM esg.dataset_versions WHERE sealed ORDER BY dataset_version DESC LIMIT 1')).rows[0];
@@ -160,6 +165,11 @@ for(const rule of UNIT_RULES.conversions) {
   }
 }
 const unitRule=(canonical,unit)=>UNIT_RULES.conversions.find(rule=>rule.canonical_unit===canonical && rule.aliases.some(alias=>cleanUnit(alias)===cleanUnit(unit)));
+export function unitIsSupported(canonicalUnit, rawUnit) {
+  if (!rawUnit) return false;
+  if (unitRule(canonicalUnit, rawUnit)) return true;
+  return canonicalUnit === 'ratio' && ['%', '％', 'percent'].includes(String(rawUnit).trim());
+}
 async function registerUnitRules(tx) {
   const known=(await tx.query('SELECT rule_digest FROM esg.normalization_rule_versions WHERE rule_version=$1',[NORMALIZATION_RULE_VERSION])).rows[0];
   if(known && known.rule_digest!==UNIT_RULE_DIGEST) throw new Error(`Immutable normalization rule differs: ${NORMALIZATION_RULE_VERSION}`);
@@ -273,6 +283,8 @@ async function evaluate(tx, row, metric) {
   if(def.value_type==='statement') comparisonReasons.push('qualitative_display_only');
   if(value.numeric_value==null && def.value_type==='numeric') comparisonReasons.push('interval_not_point');
   for(const key of def.comparison_dimensions || []) if(!present(contextValue(row,key))) comparisonReasons.push(`missing_comparison_dimension:${key}`);
+  for(const [key,value] of Object.entries(row.dimensions || {}))
+    if(value==='not_stated') comparisonReasons.push(`unstated_dimension:${key}`);
   for(const [key,allowed] of Object.entries(def.comparison_allowed_values || {}))
     if(present(contextValue(row,key)) && !allowed.includes(contextValue(row,key))) comparisonReasons.push(`comparison_dimension_mismatch:${key}`);
   if(row.value_role==='restated') comparisonReasons.push('restated_value_requires_matching_revision');

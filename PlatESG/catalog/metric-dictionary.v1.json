@@ -1,5 +1,5 @@
 {
-  "dictionary_version": "1.4.3",
+  "dictionary_version": "1.4.5",
   "comparison_contract_version": "1.0.0",
   "profile_id": "esrs.2023-set1.platform-major",
   "profile_version": "1.1.0",
@@ -981,7 +981,9 @@
         "estimation_method"
       ],
       "fixed_dimensions": {
-        "ghg_scope": "scope_3"
+        "ghg_scope": "scope_3",
+        "aggregation_role": "total",
+        "scope3_category": "total"
       },
       "dimension_constraints": {
         "ghg_scope": {
@@ -991,9 +993,12 @@
         },
         "aggregation_role": {
           "allowed_values": [
-            "total",
-            "subtotal",
-            "category"
+            "total"
+          ]
+        },
+        "scope3_category": {
+          "allowed_values": [
+            "total"
           ]
         }
       },
@@ -1094,7 +1099,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.3.0"
+      "definition_version": "1.4.0"
     },
     {
       "metric_id": "ghg.total_location_based",
@@ -1117,7 +1122,8 @@
         "accounting_standard"
       ],
       "fixed_dimensions": {
-        "ghg_scope": "total"
+        "ghg_scope": "total",
+        "aggregation_role": "total"
       },
       "dimension_constraints": {
         "ghg_scope": {
@@ -1218,7 +1224,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "ghg.intensity_location_based",
@@ -1592,6 +1598,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "E2-4_09",
       "original_name": "Description of measurement methodologies (pollution of air, water and soil) ",
       "original_data_type": "narrative",
@@ -1655,7 +1662,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "substances.concern_input_quantity",
@@ -2426,6 +2433,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "E4.IRO-1_14",
       "original_name": "Undertaking has sites located in or near biodiversity-sensitive areas",
       "original_data_type": "semi-narrative",
@@ -2489,7 +2497,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "biodiversity.impacted_sensitive_areas",
@@ -2520,6 +2528,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "E4.SBM-3_04",
       "original_name": "Disclosure of biodiversity-sensitive areas impacted ",
       "original_data_type": "narrative",
@@ -2583,7 +2592,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "biodiversity.negatively_impacted_site_count",
@@ -2888,8 +2897,22 @@
         "material_scope",
         "denominator_scope"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "material_scope": "secondary",
+        "denominator_scope": "total_material_input"
+      },
+      "dimension_constraints": {
+        "material_scope": {
+          "allowed_values": [
+            "secondary"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "total_material_input"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "二次使用或再生的部件、中间产品与材料占材料投入的比例。",
@@ -2964,7 +2987,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "waste.generated",
@@ -3083,8 +3106,22 @@
         "waste_scope",
         "denominator_scope"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "waste_scope": "total",
+        "denominator_scope": "total_waste_generated"
+      },
+      "dimension_constraints": {
+        "waste_scope": {
+          "allowed_values": [
+            "total"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "total_waste_generated"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "未回收废弃物占全部废弃物的比例。",
@@ -3160,7 +3197,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "waste.hazardous",
@@ -3180,8 +3217,28 @@
         "aggregation_role",
         "classification_basis"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "waste_scope": "total",
+        "hazard_classification": "hazardous",
+        "aggregation_role": "total"
+      },
+      "dimension_constraints": {
+        "waste_scope": {
+          "allowed_values": [
+            "total"
+          ]
+        },
+        "hazard_classification": {
+          "allowed_values": [
+            "hazardous"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "报告期内产生的危险废弃物总量（吨）。",
@@ -3258,7 +3315,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "workforce.employee_headcount",
@@ -3475,8 +3532,28 @@
         "gender",
         "management_level_definition"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "population": "management",
+        "gender": "female",
+        "management_level_definition": "top_management"
+      },
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "management"
+          ]
+        },
+        "gender": {
+          "allowed_values": [
+            "female"
+          ]
+        },
+        "management_level_definition": {
+          "allowed_values": [
+            "top_management"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "最高管理层员工按性别划分的人数占比。",
@@ -3553,7 +3630,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "workforce.training_hours",
@@ -3574,8 +3651,28 @@
         "training_scope",
         "denominator_scope"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "population": "employees",
+        "training_scope": "by_gender",
+        "denominator_scope": "per_employee"
+      },
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "training_scope": {
+          "allowed_values": [
+            "by_gender"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "per_employee"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "报告期内员工按性别划分的人均培训小时数。",
@@ -3655,7 +3752,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "workforce.training_hours_per_person",
@@ -3674,8 +3771,28 @@
         "training_scope",
         "denominator_scope"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "population": "employees",
+        "training_scope": "all_employees",
+        "denominator_scope": "per_employee"
+      },
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "training_scope": {
+          "allowed_values": [
+            "all_employees"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "per_employee"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "报告期内员工人均接受培训的小时数。",
@@ -3758,7 +3875,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "workforce.work_related_fatalities",
@@ -3777,8 +3894,28 @@
         "fatality_cause_scope",
         "aggregation_role"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "population": "employees",
+        "fatality_cause_scope": "work_related",
+        "aggregation_role": "total"
+      },
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "fatality_cause_scope": {
+          "allowed_values": [
+            "work_related"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "报告期内自有劳动力因工伤或职业病导致死亡的人数。",
@@ -3855,7 +3992,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "workforce.recordable_accident_rate",
@@ -4074,8 +4211,28 @@
         "incident_definition",
         "counting_basis"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "population": "employees",
+        "incident_definition": "discrimination",
+        "counting_basis": "count"
+      },
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "incident_definition": {
+          "allowed_values": [
+            "discrimination"
+          ]
+        },
+        "counting_basis": {
+          "allowed_values": [
+            "count"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "报告期内报告的歧视事件数量。",
@@ -4157,7 +4314,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "value_chain_worker.forced_child_labour_policy",
@@ -4187,6 +4344,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S2-1_05",
       "original_name": "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour",
       "original_data_type": "semi-narrative",
@@ -4246,7 +4404,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "value_chain_worker.grievance_channels",
@@ -4276,6 +4434,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S2-3_02",
       "original_name": "Disclosure of specific channels in place for value chain workers to raise concerns or needs directly with undertaking and have them addressed ",
       "original_data_type": "narrative",
@@ -4333,7 +4492,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "value_chain_worker.anti_retaliation_policy",
@@ -4363,6 +4522,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S2-3_06",
       "original_name": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
       "original_data_type": "semi-narrative",
@@ -4420,7 +4580,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "value_chain_worker.severe_human_rights_issues",
@@ -4451,6 +4611,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S2-4_11",
       "original_name": "Disclosure of severe human rights issues and incidents connected to upstream and downstream value chain ",
       "original_data_type": "narrative",
@@ -4510,7 +4671,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "community.indigenous_policy",
@@ -4540,6 +4701,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S3-1_01",
       "original_name": "Disclosure of any  any particular policy provisions for preventing and addressing impacts on indigenous peoples",
       "original_data_type": "narrative",
@@ -4599,7 +4761,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "community.grievance_channels",
@@ -4629,6 +4791,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S3-3_11",
       "original_name": "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed ",
       "original_data_type": "narrative",
@@ -4686,7 +4849,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "community.remedy_actions",
@@ -4717,6 +4880,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S3-4_02",
       "original_name": "Description of whether and how the undertaking has taken action to provide or enable remedy in relation to an actual material impact",
       "original_data_type": "narrative",
@@ -4776,7 +4940,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "community.severe_human_rights_issues",
@@ -4806,6 +4970,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S3-4_11",
       "original_name": "Disclosure of severe human rights issues and incidents connected to affected communities ",
       "original_data_type": "narrative",
@@ -4865,7 +5030,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "consumer.impact_policies",
@@ -4895,6 +5060,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S4-1_01",
       "original_name": "Policies to manage material impacts, risks and opportunities related to affected consumers and end-users, including specific groups or all consumers / end-users",
       "original_data_type": "narrative",
@@ -4954,7 +5120,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "consumer.grievance_channels",
@@ -4984,6 +5150,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S4-3_02",
       "original_name": "Disclosure of specific channels in place for consumers and end-users to raise concerns or needs directly with undertaking and have them addressed ",
       "original_data_type": "narrative",
@@ -5041,7 +5208,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "consumer.complaint_count",
@@ -5061,8 +5228,22 @@
         "channel_scope",
         "business_scale_basis"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "consumer_population": "consumers",
+        "complaint_definition": "complaint"
+      },
+      "dimension_constraints": {
+        "consumer_population": {
+          "allowed_values": [
+            "consumers"
+          ]
+        },
+        "complaint_definition": {
+          "allowed_values": [
+            "complaint"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
@@ -5136,7 +5317,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "consumer.severe_human_rights_issues",
@@ -5166,6 +5347,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "source_datapoint_id": "S4-4_11",
       "original_name": "Disclosure of severe human rights issues and incidents connected to consumers and/or end-users",
       "original_data_type": "narrative",
@@ -5225,7 +5407,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "governance.board_gender_ratio",
@@ -5242,8 +5424,22 @@
         "gender",
         "board_definition"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "gender": "female",
+        "board_definition": "board_of_directors"
+      },
+      "dimension_constraints": {
+        "gender": {
+          "allowed_values": [
+            "female"
+          ]
+        },
+        "board_definition": {
+          "allowed_values": [
+            "board_of_directors"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -5321,7 +5517,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "business.anti_corruption_policy_absence",
@@ -5351,6 +5547,7 @@
       ],
       "value_role": "context",
       "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
       "statement_polarity": "negative_absence",
       "source_datapoint_id": "G1-1_03",
       "original_name": "No policies on anti-corruption or anti-bribery consistent with United Nations Convention against Corruption are in place",
@@ -5411,7 +5608,7 @@
         "conditional_or_alternative": null,
         "may": null
       },
-      "definition_version": "1.1.0"
+      "definition_version": "1.2.0"
     },
     {
       "metric_id": "business.corruption_conviction_count",
@@ -5618,8 +5815,22 @@
         "incident_definition",
         "counting_basis"
       ],
-      "fixed_dimensions": {},
-      "dimension_constraints": {},
+      "fixed_dimensions": {
+        "incident_definition": "confirmed_corruption",
+        "counting_basis": "count"
+      },
+      "dimension_constraints": {
+        "incident_definition": {
+          "allowed_values": [
+            "confirmed_corruption"
+          ]
+        },
+        "counting_basis": {
+          "allowed_values": [
+            "count"
+          ]
+        }
+      },
       "required_context_fields": [],
       "typed_context_constraints": {},
       "description": "报告期内经确认的腐败或贿赂事件数量。",
@@ -5693,7 +5904,7 @@
         "conditional_or_alternative": null,
         "may": "V"
       },
-      "definition_version": "1.2.0"
+      "definition_version": "1.3.0"
     },
     {
       "metric_id": "business.average_payment_days",

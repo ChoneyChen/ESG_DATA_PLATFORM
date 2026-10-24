@@ -4,6 +4,7 @@ import { contextLabel, dimensionLabels } from "../format";
 
 export type IconName =
   | "grid"
+  | "dashboard"
   | "building"
   | "book"
   | "compare"
@@ -15,7 +16,15 @@ export type IconName =
   | "layers"
   | "file"
   | "clock"
-  | "refresh";
+  | "refresh"
+  | "code"
+  | "shield"
+  | "copy"
+  | "external"
+  | "chevronLeft"
+  | "chevronRight"
+  | "spark"
+  | "terminal";
 const iconPaths: Record<IconName, ReactNode> = {
   grid: (
     <>
@@ -23,6 +32,14 @@ const iconPaths: Record<IconName, ReactNode> = {
       <rect x="14" y="3" width="7" height="7" rx="1.4" />
       <rect x="3" y="14" width="7" height="7" rx="1.4" />
       <rect x="14" y="14" width="7" height="7" rx="1.4" />
+    </>
+  ),
+  dashboard: (
+    <>
+      <rect x="3" y="3" width="8" height="10" rx="2" />
+      <rect x="13" y="3" width="8" height="6" rx="2" />
+      <rect x="13" y="11" width="8" height="10" rx="2" />
+      <rect x="3" y="15" width="8" height="6" rx="2" />
     </>
   ),
   building: (
@@ -76,6 +93,38 @@ const iconPaths: Record<IconName, ReactNode> = {
     <>
       <path d="M20 7v5h-5M4 17v-5h5" />
       <path d="M6 7a7 7 0 0 1 12-2l2 3M4 16l2 3a7 7 0 0 0 12-2" />
+    </>
+  ),
+  code: (
+    <>
+      <path d="m8 6-6 6 6 6m8-12 6 6-6 6" />
+    </>
+  ),
+  shield: (
+    <>
+      <path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z" />
+      <path d="m8.5 12 2.5 2.5 4.5-5" />
+    </>
+  ),
+  copy: (
+    <>
+      <rect x="8" y="8" width="13" height="13" rx="2.5" />
+      <path d="M16 8V5.5A2.5 2.5 0 0 0 13.5 3H5.5A2.5 2.5 0 0 0 3 5.5v8A2.5 2.5 0 0 0 5.5 16H8" />
+    </>
+  ),
+  external: <path d="M7 17 17 7m0 0H8m9 0v9" />,
+  chevronLeft: <path d="m14 6-6 6 6 6" />,
+  chevronRight: <path d="m10 6 6 6-6 6" />,
+  spark: (
+    <>
+      <path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8M8.4 15.6l-2.8 2.8" />
+      <circle cx="12" cy="12" r="2.6" />
+    </>
+  ),
+  terminal: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" />
+      <path d="m7 9 3 3-3 3m6 0h4" />
     </>
   ),
 };

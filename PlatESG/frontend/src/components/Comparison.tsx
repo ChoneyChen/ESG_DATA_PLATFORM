@@ -99,7 +99,7 @@ export default function Comparison({
         if (!pending.signal.aborted) setLoading(false);
       });
     return () => pending.abort();
-  }, [requestKey, shouldCompare, attempt]);
+  }, [requestKey, shouldCompare, attempt, metric]);
   function change(values: Record<string, string | null>) {
     patch({ ...values, compared: null });
   }

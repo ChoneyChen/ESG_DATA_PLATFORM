@@ -55,8 +55,8 @@
     },
     "metrics": {
       "type": "array",
-      "minItems": 49,
-      "maxItems": 49,
+      "minItems": 55,
+      "maxItems": 55,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -215,6 +215,12 @@
           "comparison_mode": {
             "type": "string",
             "minLength": 1
+          },
+          "unresolved_dimension_policy": {
+            "enum": [
+              "not_stated",
+              "block"
+            ]
           },
           "normalization": {
             "enum": [

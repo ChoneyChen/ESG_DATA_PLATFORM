@@ -92,9 +92,12 @@ def clear(dry: bool) -> None:
         identity = record.get("processing_id")
         delete(f"/document/api/report-processing/runs/{identity}", identity, delete_action(record), "处理")
     print("页面读取版本")
+    # Deleting one version moves the library revision, so each identity is
+    # re-read right before its delete instead of trusting the list snapshot.
     for record in ocr:
         identity = record.get("run_id")
-        delete(f"/document/api/ocr-library/{identity}", identity, delete_action(record), "读取")
+        detail = call("GET", f"/document/api/ocr-library/{identity}")[1]
+        delete(f"/document/api/ocr-library/{identity}", identity, delete_action(detail or record), "读取")
     print("结构证据版本")
     for record in rows("/document/api/document-ir/jobs"):
         identity = record.get("run_id")
@@ -104,6 +107,13 @@ def clear(dry: bool) -> None:
     for record in rows("/targeted/api/report-sessions") or []:
         identity = record.get("session_id")
         delete(f"/targeted/api/report-sessions/{identity}", identity, delete_action(record), "原生会话")
+    print("原生提取任务")
+    # Standalone projection jobs are deleted through the same permanent-deletion
+    # endpoint the workbench UI uses; parent-owned ones disappear with their session.
+    for record in rows("/targeted/api/jobs") or []:
+        identity = record.get("job_id")
+        detail = call("GET", f"/targeted/api/jobs/{identity}/deletion")[1]
+        delete(f"/targeted/api/jobs/{identity}", identity, delete_action(detail or {}), "原生任务")
     print("遗留目录")
     for folder in (OUTPUT_ROOT / "document_ir_output",
                    EXTRACT / "document_ir_extract" / "ocr_output",

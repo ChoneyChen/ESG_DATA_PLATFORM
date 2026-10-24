@@ -1,6 +1,7 @@
 import { useLocation } from "../navigation";
 import type { Entity } from "../types";
 import { DemoBadge, Icon, Kind, Notice } from "./Ui";
+import { Pagination, usePage } from "./Pagination";
 import { ProductLink } from "./ProductLink";
 export default function EntityDirectory({
   entities,
@@ -21,6 +22,8 @@ export default function EntityDirectory({
       (!kind || entity.entity_kind === kind) &&
       entity.name_zh.toLowerCase().includes(query.toLowerCase()),
   );
+  const paging = usePage(filtered.length, 12);
+  const visible = filtered.slice(paging.start, paging.end);
   return (
     <>
       <div className="page-heading">
@@ -35,14 +38,18 @@ export default function EntityDirectory({
             aria-label="搜索企业"
             placeholder="搜索企业名称"
             value={query}
-            onChange={(event) => patch({ q: event.target.value }, true)}
+            onChange={(event) =>
+              patch({ q: event.target.value, page: null }, true)
+            }
           />
         </label>
         <select
           className="select"
           aria-label="筛选行业"
           value={industry}
-          onChange={(event) => patch({ industry: event.target.value })}
+          onChange={(event) =>
+            patch({ industry: event.target.value, page: null })
+          }
         >
           <option value="">全部行业</option>
           {[
@@ -59,7 +66,7 @@ export default function EntityDirectory({
           className="select"
           aria-label="筛选主体类型"
           value={kind}
-          onChange={(event) => patch({ kind: event.target.value })}
+          onChange={(event) => patch({ kind: event.target.value, page: null })}
         >
           <option value="">全部主体类型</option>
           {[...new Set(entities.map((entity) => entity.entity_kind))].map(
@@ -85,10 +92,13 @@ export default function EntityDirectory({
           </button>
         </div>
       </div>
-      <p className="result-caption">{filtered.length} 家企业 · 当前发布版本</p>
+      <p className="result-caption">
+        {filtered.length} 家企业 · 当前发布版本
+        {paging.pages > 1 && ` · 第 ${paging.page} / ${paging.pages} 页`}
+      </p>
       {display === "cards" ? (
         <div className="entity-card-grid">
-          {filtered.map((entity) => (
+          {visible.map((entity) => (
             <ProductLink
               view="entity"
               values={{ entity: entity.entity_ref }}
@@ -98,18 +108,18 @@ export default function EntityDirectory({
               <span className="entity-avatar">
                 {entity.name_zh.slice(0, 1)}
               </span>
-              <h2>
-                {entity.name_zh} <DemoBadge entity={entity} />
-              </h2>
-              <p>
-                <Kind value={entity.entity_kind} /> ·{" "}
-                {entity.country_code || "地区未提供"}
-              </p>
-              <p>{entity.industry_code || "行业信息未提供"}</p>
-              <div>
+              <span className="entity-card-body">
+                <h2>
+                  {entity.name_zh} <DemoBadge entity={entity} />
+                </h2>
+                <p>
+                  <Kind value={entity.entity_kind} /> ·{" "}
+                  {entity.country_code || "地区未提供"}
+                </p>
+                <p>{entity.industry_code || "行业信息未提供"}</p>
                 <span>{entity.coverage_count} 项已发布指标</span>
-                <Icon name="arrow" />
-              </div>
+              </span>
+              <Icon name="arrow" />
             </ProductLink>
           ))}
         </div>
@@ -127,7 +137,7 @@ export default function EntityDirectory({
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((entity) => (
+                {visible.map((entity) => (
                   <tr key={entity.entity_ref}>
                     <td>
                       <strong>{entity.name_zh}</strong>{" "}
@@ -162,6 +172,12 @@ export default function EntityDirectory({
           </div>
         </section>
       )}
+      <Pagination
+        page={paging.page}
+        pages={paging.pages}
+        onChange={paging.setPage}
+        label="企业分页"
+      />
       {!filtered.length && (
         <Notice title="没有找到匹配企业">
           调整搜索与筛选条件，浏览其他企业。

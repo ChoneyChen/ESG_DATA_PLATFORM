@@ -82,6 +82,7 @@ export interface ReportedProperty {
 }
 
 export interface Evidence extends Observation {
+  published_at?: string | null;
   calculation?: {
     operation: string;
     rule_version: string;
@@ -205,11 +206,13 @@ export interface PublicSource {
   is_demo?: boolean;
 }
 export type View =
-  | "home"
+  | "landing"
+  | "overview"
   | "entities"
   | "entity"
   | "metrics"
   | "metric"
   | "compare"
   | "sources"
-  | "methods";
+  | "methods"
+  | "api";

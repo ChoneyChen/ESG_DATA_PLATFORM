@@ -3,7 +3,8 @@ import type { View } from "./types";
 
 const eventName = "platesg:navigation";
 const views = new Set<View>([
-  "home",
+  "landing",
+  "overview",
   "entities",
   "entity",
   "metrics",
@@ -11,14 +12,16 @@ const views = new Set<View>([
   "compare",
   "sources",
   "methods",
+  "api",
 ]);
 
 export function readLocation() {
   return new URLSearchParams(window.location.search);
 }
 export function currentView(params: URLSearchParams): View {
-  const value = params.get("view") as View;
-  return views.has(value) ? value : "home";
+  const value = params.get("view") || "";
+  if (value === "home") return "landing";
+  return views.has(value as View) ? (value as View) : "landing";
 }
 export function updateLocation(
   values: Record<string, string | null>,
@@ -72,7 +75,7 @@ export function pageHref(view: View, values: Record<string, string> = {}) {
   const dataset =
     readLocation().get("dataset_version") || readLocation().get("dataset");
   if (dataset) params.set("dataset_version", dataset);
-  if (view !== "home") params.set("view", view);
+  if (view !== "landing") params.set("view", view);
   for (const [key, value] of Object.entries(values))
     if (value) params.set(key, value);
   return `${window.location.pathname}${params.size ? `?${params}` : ""}`;

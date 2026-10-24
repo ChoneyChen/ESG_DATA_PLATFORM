@@ -6,6 +6,8 @@ import type { Entity, PublicSource, VersionedItems } from "../types";
 import { safePublicUrl } from "../public-contract";
 import { ErrorNotice, Icon, Loading, Notice } from "./Ui";
 import { ObservationTable } from "./ObservationTable";
+import { Pagination, usePage } from "./Pagination";
+import { ReviewStamp } from "./Review";
 export default function Sources({
   dataset,
   entities,
@@ -30,6 +32,8 @@ export default function Sources({
         .toLowerCase()
         .includes(query.toLowerCase()),
   );
+  const paging = usePage(filtered.length, 9);
+  const visible = filtered.slice(paging.start, paging.end);
   return (
     <>
       <div className="page-heading">
@@ -44,14 +48,18 @@ export default function Sources({
             aria-label="搜索来源报告"
             placeholder="搜索报告标题或发布者"
             value={query}
-            onChange={(event) => patch({ source_q: event.target.value }, true)}
+            onChange={(event) =>
+              patch({ source_q: event.target.value, page: null }, true)
+            }
           />
         </label>
         <select
           className="select"
           aria-label="筛选来源企业"
           value={entity}
-          onChange={(event) => patch({ source_entity: event.target.value })}
+          onChange={(event) =>
+            patch({ source_entity: event.target.value, page: null })
+          }
         >
           <option value="">全部企业</option>
           {entities.map((item) => (
@@ -67,7 +75,7 @@ export default function Sources({
         <ErrorNotice error={sources.error} retry={sources.reload} />
       ) : filtered.length ? (
         <div className="source-grid">
-          {filtered.map((source) => (
+          {visible.map((source) => (
             <article className="source-card" key={source.source_id}>
               <span className="source-icon">
                 <Icon name="file" size={25} />
@@ -90,9 +98,12 @@ export default function Sources({
                       .join("、") ||
                     "来源发布者未提供"}
                 </p>
-                <span className="muted">
-                  {source.observation_count} 条已发布数据引用
-                </span>
+                <div className="source-meta">
+                  <span className="muted">
+                    {source.observation_count} 条已发布数据引用
+                  </span>
+                  <ReviewStamp revisions={0} />
+                </div>
                 {safePublicUrl(source.public_url) && (
                   <a
                     href={safePublicUrl(source.public_url)!}
@@ -112,6 +123,12 @@ export default function Sources({
           来源目录仅收录已发布数据引用的报告。调整筛选或选择其他发布版本。
         </Notice>
       )}
+      <Pagination
+        page={paging.page}
+        pages={paging.pages}
+        onChange={paging.setPage}
+        label="来源分页"
+      />
       <section className="panel">
         <div className="section-heading">
           <div>

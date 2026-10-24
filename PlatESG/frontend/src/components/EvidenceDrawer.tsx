@@ -14,6 +14,7 @@ import { safePublicUrl } from "../public-contract";
 import type { Evidence } from "../types";
 import { Dimensions, Eligibility, ErrorNotice, Icon, Loading } from "./Ui";
 import { ReportedProperties } from "./ReportedProperties";
+import { ReviewStamp, ReviewTrail } from "./Review";
 export default function EvidenceDrawer({
   observationId,
   dataset,
@@ -75,7 +76,10 @@ export default function EvidenceDrawer({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="drawer-header">
-          <span className="eyebrow">数据来源</span>
+          <span className="eyebrow">原文证据 · 复核凭证</span>
+          {evidence.data && (
+            <ReviewStamp revisions={item?.public_revisions?.length || 0} />
+          )}
           <button
             className="icon-button"
             ref={closeRef}
@@ -107,6 +111,7 @@ export default function EvidenceDrawer({
                 </span>
                 <Eligibility value={item.comparison_eligibility} />
               </div>
+              <ReviewTrail item={item} />
               {item.calculation&&<section className="drawer-section"><h3>计算来源</h3><p>将下列已审核、口径相容的披露量相加。公式 v{item.calculation.rule_version}，输入数据版本 {item.calculation.input_dataset_version}。</p><ul>{item.calculation.operands.map(operand=><li key={operand.observation_id}>{operand.label_zh}：{formatDecimal(operand.numeric_value)} {unitLabel(operand.canonical_unit)}</li>)}</ul></section>}
               <section className="drawer-section">
                 <h3>披露与计量口径</h3>

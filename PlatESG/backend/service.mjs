@@ -9,6 +9,8 @@ import {saveExtensionProposal,recordExtensionDefinitionDecision,registerExtensio
 import {publicMetric,publicEntity,publicObservation,publicEvidence,publicDataset} from './public_contracts.mjs';
 import {availableReportedProperties} from '../../database/scripts/scientific-properties.mjs';
 import {readReportSourceFacts} from '../../database/scripts/report-source-facts.mjs';
+import {candidateProposal,candidateProposals,machineVerify} from '../../database/scripts/candidate-review.mjs';
+import {artifactInventory,purgeArtifacts} from '../../database/scripts/purge-artifacts.mjs';
 import {resolveImportCatalog,validateMajorImportScope,registerImportContract,listImportContracts} from './import_contracts.mjs';
 import {lifecycleReferences,lifecycleReserve,lifecycleReservation,assertImportSourcesAvailable} from './lifecycle.mjs';
 import {readDeliveryStatus,deliveryDescriptor} from './delivery_status.mjs';
@@ -609,6 +611,11 @@ export async function dispatch(db, method, params) {
     case 'import': return importCandidate(db, params);
     case 'deliver': return deliverCandidate(db,params);
     case 'candidates': return candidateList(db, params);
+    case 'candidate_proposal': return candidateProposal(db, params);
+    case 'candidate_proposals': return candidateProposals(db, params);
+    case 'machine_verify': return machineVerify(db, params);
+    case 'artifact_inventory': return artifactInventory(db);
+    case 'purge_artifacts': return purgeArtifacts(db, params);
     case 'review': return reviewRecord(db, params);
     case 'coverage_decision': return coverageDecision(db, params);
     case 'receipt': return receipt(db, params);

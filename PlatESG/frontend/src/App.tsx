@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { apiUrl } from "./api";
 import { useResource } from "./hooks/useResource";
 import { currentView, useLocation } from "./navigation";
@@ -7,11 +7,11 @@ import type {
   Entity,
   MetricsResponse,
   VersionedItems,
-  View,
 } from "./types";
-import { ErrorNotice, Icon, Loading, Notice } from "./components/Ui";
-import { ProductLink } from "./components/ProductLink";
-import Home from "./components/Home";
+import { ErrorNotice, Loading, Notice } from "./components/Ui";
+import Landing from "./components/Landing";
+import AppShell from "./components/AppShell";
+import Overview from "./components/Overview";
 import EntityDirectory from "./components/EntityDirectory";
 import EntityDetail from "./components/EntityDetail";
 import MetricCatalog from "./components/MetricCatalog";
@@ -19,16 +19,22 @@ import MetricDetail from "./components/MetricDetail";
 import Comparison from "./components/Comparison";
 import Sources from "./components/Sources";
 import Methods from "./components/Methods";
+import ApiDocs from "./components/ApiDocs";
 import EvidenceDrawer from "./components/EvidenceDrawer";
 
-const menu: { view: View; label: string }[] = [
-  { view: "home", label: "首页" },
-  { view: "entities", label: "企业" },
-  { view: "metrics", label: "指标" },
-  { view: "compare", label: "同行比较" },
-  { view: "sources", label: "来源" },
-  { view: "methods", label: "数据与方法" },
-];
+const titles: Record<string, string> = {
+  landing: "企业数据平台",
+  overview: "数据概览",
+  entities: "企业目录",
+  entity: "企业档案",
+  metrics: "指标浏览",
+  metric: "指标详情",
+  compare: "同行比较",
+  sources: "报告来源",
+  methods: "数据复核",
+  api: "API 文档",
+};
+
 export default function App() {
   const [params, patch] = useLocation(),
     view = currentView(params);
@@ -67,7 +73,6 @@ export default function App() {
     (item) => String(item.dataset_version) === dataset,
   );
   const error = datasets.error || entities.error || metrics.error;
-  const loading = datasets.loading || entities.loading || metrics.loading;
   const evidenceId = params.get("evidence");
   const closeEvidence = useCallback(
     () => patch({ evidence: null }, true),
@@ -77,7 +82,6 @@ export default function App() {
     (id: string) => patch({ evidence: id }),
     [patch],
   );
-  const [copied, setCopied] = useState(false);
   useEffect(() => {
     if (
       dataset &&
@@ -87,13 +91,16 @@ export default function App() {
       patch({ dataset_version: dataset, dataset: null }, true);
   }, [dataset, invalidDataset, params, patch]);
   useEffect(() => {
+    const selectedName =
+      view === "entity"
+        ? selectedEntity?.name_zh
+        : view === "metric"
+          ? selectedMetric?.label_zh
+          : "";
     document.title =
-      (menu.find((item) => item.view === view)?.label ||
-        (view === "entity"
-          ? selectedEntity?.name_zh
-          : selectedMetric?.label_zh) ||
-        "企业数据") + " · PlatESG";
-    setCopied(false);
+      [selectedName || titles[view] || titles.landing, "PlatESG"]
+        .filter(Boolean)
+        .join(" · ");
   }, [view, dataset, selectedEntity, selectedMetric]);
   const demo = entityList.some(
     (entity) => entity.is_demo || /^demo[.:_-]/i.test(entity.entity_ref),
@@ -103,209 +110,110 @@ export default function App() {
     entities.reload();
     metrics.reload();
   };
-  return (
-    <div className="site-shell">
-      <a href="#main-content" className="skip-link">
-        跳转到主要内容
-      </a>
-      <header className="site-header">
-        <div className="header-inner">
-          <ProductLink view="home" className="brand">
-            <span className="brand-mark">
-              <Icon name="layers" size={25} />
-            </span>
-            <span>
-              Plat<span className="brand-green">ESG</span>
-              <small>企业可持续发展数据</small>
-            </span>
-          </ProductLink>
-          <nav className="site-nav" aria-label="主要导航">
-            {menu.map((item) => (
-              <ProductLink
-                key={item.view}
-                view={item.view}
-                className={
-                  view === item.view ||
-                  (view === "entity" && item.view === "entities") ||
-                  (view === "metric" && item.view === "metrics")
-                    ? "active"
-                    : ""
-                }
-              >
-                {item.label}
-              </ProductLink>
-            ))}
-          </nav>
-          <div className="header-actions">
-            <a
-              className="header-data-link"
-              href={
-                dataset
-                  ? apiUrl("/v1/exports", {
-                      format: "csv",
-                      dataset_version: dataset,
-                    })
-                  : undefined
-              }
-              aria-disabled={!dataset}
-            >
-              <Icon name="download" size={18} />
-              <span>下载数据</span>
-            </a>
-          </div>
-        </div>
-      </header>
-      <div className="data-context">
-        <div className="context-inner">
-          <span>
-            <span className="status-dot" />
-            {currentDataset
-              ? "发布于 " + currentDataset.created_at.slice(0, 10)
-              : "尚无已发布数据"}
-          </span>
-          <div>
-            <label className="dataset-picker">
-              数据版本
-              <select
-                aria-label="选择数据集版本"
-                value={dataset}
-                disabled={!datasets.data?.items.length}
-                onChange={(event) =>
-                  patch({
-                    dataset_version: event.target.value,
-                    dataset: null,
-                    evidence: null,
-                  })
-                }
-              >
-                {!datasets.data?.items.length && (
-                  <option value="">尚无发布版本</option>
-                )}
-                {datasets.data?.items.map((item) => (
-                  <option
-                    key={item.dataset_version}
-                    value={String(item.dataset_version)}
-                  >
-                    {item.dataset_version}
-                    {String(item.dataset_version) ===
-                    String(datasets.data?.latest)
-                      ? " · 最新"
-                      : ""}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button
-              className="share-button"
-              disabled={!dataset}
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(window.location.href);
-                  setCopied(true);
-                } catch {
-                  setCopied(false);
-                }
-              }}
-            >
-              <Icon name="layers" size={15} />
-              {copied ? "链接已复制" : "分享此页面"}
-            </button>
-          </div>
-        </div>
-      </div>
-      {demo && (
-        <div className="demo-banner" role="note">
-          演示预览 ·
-          页面包含明确标注的合成演示数据，供体验展示与交互，不代表真实企业披露。
-        </div>
-      )}
-      <main id="main-content" className="site-content">
-        {error ? (
-          <ErrorNotice error={error} retry={retry} />
-        ) : invalidDataset ? (
-          <Notice title="此发布版本不可用">
-            链接中的数据版本不存在或未公开。请选择已发布的数据版本。
-          </Notice>
-        ) : loading ? (
-          <Loading rows={5} />
-        ) : view === "home" ? (
-          <Home
-            entities={entityList}
-            metrics={metricList}
-            dataset={dataset}
-            currentDataset={currentDataset}
-            onEvidence={openEvidence}
-          />
-        ) : view === "entities" ? (
-          <EntityDirectory
-            entities={entityList}
-            metricCount={metricList.length}
-          />
-        ) : view === "entity" && selectedEntity ? (
-          <EntityDetail
-            entity={selectedEntity}
-            metrics={metricList}
-            dataset={dataset}
-            onEvidence={openEvidence}
-          />
-        ) : view === "entity" ? (
-          <Notice title="此版本未找到企业">
-            请返回企业目录，选择本版本中已发布的企业。
-          </Notice>
-        ) : view === "metrics" ? (
-          <MetricCatalog metrics={metricList} />
-        ) : view === "metric" && selectedMetric ? (
-          <MetricDetail
-            metric={selectedMetric}
-            dataset={dataset}
-            onEvidence={openEvidence}
-          />
-        ) : view === "metric" ? (
-          <Notice title="此版本未找到指标">
-            请返回指标浏览，选择已有定义的指标。
-          </Notice>
-        ) : view === "compare" ? (
-          <Comparison
-            entities={entityList}
-            metrics={metricList}
-            dataset={dataset}
-            onEvidence={openEvidence}
-          />
-        ) : view === "sources" ? (
-          <Sources
-            dataset={dataset}
-            entities={entityList}
-            onEvidence={openEvidence}
-          />
-        ) : (
-          <Methods dataset={dataset} datasets={datasets.data?.items || []} />
-        )}
-      </main>
-      <footer className="site-footer">
-        <div>
-          <ProductLink view="home" className="footer-brand">
-            PlatESG
-          </ProductLink>
-          <p>从企业披露出发，让数据有据可依。</p>
-        </div>
-        <nav aria-label="页脚导航">
-          <ProductLink view="entities">企业目录</ProductLink>
-          <ProductLink view="metrics">指标浏览</ProductLink>
-          <ProductLink view="sources">报告来源</ProductLink>
-          <ProductLink view="methods">数据与方法</ProductLink>
-        </nav>
-        <span>
-          {dataset ? "固定数据版本 " + dataset : "尚无已发布数据版本"} ·
-          保留来源与公开修订
-        </span>
-      </footer>
-      {evidenceId && dataset && (
-        <EvidenceDrawer
-          observationId={evidenceId}
+  const changeDataset = (value: string) =>
+    patch({ dataset_version: value, dataset: null, evidence: null, page: null });
+
+  const contentReady =
+    !!error ||
+    invalidDataset ||
+    (!!datasets.data && !entities.loading && !metrics.loading);
+
+  const content = error ? (
+    <ErrorNotice error={error} retry={retry} />
+  ) : invalidDataset ? (
+    <Notice title="此发布版本不可用">
+      链接中的数据版本不存在或未公开。请选择已发布的数据版本。
+    </Notice>
+  ) : view === "overview" ? (
+    <Overview
+      entities={entityList}
+      metrics={metricList}
+      dataset={dataset}
+      currentDataset={currentDataset}
+      datasets={datasets.data?.items || []}
+      onEvidence={openEvidence}
+    />
+  ) : view === "entities" ? (
+    <EntityDirectory entities={entityList} metricCount={metricList.length} />
+  ) : view === "entity" && selectedEntity ? (
+    <EntityDetail
+      entity={selectedEntity}
+      metrics={metricList}
+      dataset={dataset}
+      onEvidence={openEvidence}
+    />
+  ) : view === "entity" ? (
+    <Notice title="此版本未找到企业">
+      请返回企业目录，选择本版本中已发布的企业。
+    </Notice>
+  ) : view === "metrics" ? (
+    <MetricCatalog metrics={metricList} />
+  ) : view === "metric" && selectedMetric ? (
+    <MetricDetail
+      metric={selectedMetric}
+      dataset={dataset}
+      onEvidence={openEvidence}
+    />
+  ) : view === "metric" ? (
+    <Notice title="此版本未找到指标">
+      请返回指标浏览，选择已有定义的指标。
+    </Notice>
+  ) : view === "compare" ? (
+    <Comparison
+      entities={entityList}
+      metrics={metricList}
+      dataset={dataset}
+      onEvidence={openEvidence}
+    />
+  ) : view === "sources" ? (
+    <Sources
+      dataset={dataset}
+      entities={entityList}
+      onEvidence={openEvidence}
+    />
+  ) : view === "methods" ? (
+    <Methods dataset={dataset} datasets={datasets.data?.items || []} />
+  ) : view === "api" ? (
+    <ApiDocs dataset={dataset} />
+  ) : null;
+
+  const isLanding = view === "landing";
+  const drawer =
+    evidenceId && dataset ? (
+      <EvidenceDrawer
+        observationId={evidenceId}
+        dataset={dataset}
+        close={closeEvidence}
+      />
+    ) : null;
+
+  if (isLanding)
+    return (
+      <div className="site-shell">
+        <Landing
+          entities={entityList}
+          metrics={metricList}
           dataset={dataset}
-          close={closeEvidence}
+          currentDataset={currentDataset}
+          datasets={datasets.data?.items || []}
+          demo={demo}
+          error={error}
         />
-      )}
-    </div>
+        {drawer}
+      </div>
+    );
+
+  return (
+    <AppShell
+      view={view}
+      dataset={dataset}
+      datasets={datasets.data?.items || []}
+      currentDataset={currentDataset}
+      demo={demo}
+      onDataset={changeDataset}
+    >
+      {contentReady ? content : <Loading rows={4} />}
+      {drawer}
+    </AppShell>
   );
 }

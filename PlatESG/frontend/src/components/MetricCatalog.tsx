@@ -3,6 +3,7 @@ import { topicLabels, unitLabel } from "../format";
 import { useLocation } from "../navigation";
 import type { Metric } from "../types";
 import { Icon, Notice } from "./Ui";
+import { Pagination, usePage } from "./Pagination";
 import { ProductLink } from "./ProductLink";
 export default function MetricCatalog({ metrics }: { metrics: Metric[] }) {
   const [params, patch] = useLocation(),
@@ -16,6 +17,8 @@ export default function MetricCatalog({ metrics }: { metrics: Metric[] }) {
         .toLowerCase()
         .includes(query.toLowerCase()),
   );
+  const paging = usePage(filtered.length, 24);
+  const visible = filtered.slice(paging.start, paging.end);
   return (
     <>
       <div className="page-heading">
@@ -33,17 +36,20 @@ export default function MetricCatalog({ metrics }: { metrics: Metric[] }) {
             aria-label="搜索主要指标"
             placeholder="搜索指标名称、原编号或定义"
             value={query}
-            onChange={(event) => patch({ q: event.target.value }, true)}
+            onChange={(event) =>
+              patch({ q: event.target.value, page: null }, true)
+            }
           />
         </label>
         <span className="muted">
           {filtered.length} / {metrics.length} 项指标定义
+          {paging.pages > 1 && ` · 第 ${paging.page} / ${paging.pages} 页`}
         </span>
       </div>
       <div className="topic-tabs" role="group" aria-label="按主题筛选">
         <button
           className={!topic ? "active" : ""}
-          onClick={() => patch({ topic: null })}
+          onClick={() => patch({ topic: null, page: null })}
         >
           全部 <span>{metrics.length}</span>
         </button>
@@ -51,14 +57,14 @@ export default function MetricCatalog({ metrics }: { metrics: Metric[] }) {
           <button
             key={code}
             className={topic === code ? "active" : ""}
-            onClick={() => patch({ topic: code })}
+            onClick={() => patch({ topic: code, page: null })}
           >
             {code} {topicLabels[code] || ""}
           </button>
         ))}
       </div>
       <div className="metric-grid">
-        {filtered.map((metric) => (
+        {visible.map((metric) => (
           <ProductLink
             view="metric"
             values={{ metric: metric.metric_id, q: "", topic: "" }}
@@ -95,6 +101,12 @@ export default function MetricCatalog({ metrics }: { metrics: Metric[] }) {
           </ProductLink>
         ))}
       </div>
+      <Pagination
+        page={paging.page}
+        pages={paging.pages}
+        onChange={paging.setPage}
+        label="指标分页"
+      />
       {!filtered.length && (
         <Notice title="没有找到匹配的指标">
           调整主题或搜索条件，可以浏览完整主要条款清单。

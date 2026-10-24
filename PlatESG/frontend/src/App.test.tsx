@@ -317,7 +317,9 @@ describe("independent public data platform", () => {
     const nav = screen.getByRole("navigation", { name: "主要导航" });
     expect(within(nav).getAllByRole("link")).toHaveLength(6);
     expect(container.querySelector(".sidebar")).toBeNull();
-    expect(screen.getByRole("note").textContent).toContain("合成演示数据");
+    expect((await screen.findByRole("note")).textContent).toContain(
+      "合成演示数据",
+    );
     expect(screen.queryByText("标准包已建指标")).toBeNull();
     expect(screen.queryByText("当前审核状态")).toBeNull();
   });
@@ -488,11 +490,22 @@ describe("independent public data platform", () => {
     expect(body.dimensions).toEqual({ entity_kind: "consolidated_group" });
     expect(body.dimensions.definition_version).toBeUndefined();
   });
-  it("shows all 49 original major clause IDs while keeping package construction in the console", async () => {
+  it("shows all 49 original major clause IDs across catalog pages while keeping package construction in the console", async () => {
     render(<App />);
     fireEvent.click(await screen.findByRole("link", { name: "浏览全部指标" }));
     await screen.findByRole("heading", { name: "指标浏览" });
-    for (const id of ids) expect(screen.getByText(id)).toBeTruthy();
+    const seen = new Set<string>();
+    for (let page = 0; page < 3; page += 1) {
+      await waitFor(() =>
+        expect(document.querySelectorAll(".metric-card").length).toBeGreaterThan(0),
+      );
+      for (const id of ids)
+        if (screen.queryAllByText(id).length) seen.add(id);
+      const next = screen.getByRole("button", { name: "下一页" });
+      if (!(next as HTMLButtonElement).disabled) fireEvent.click(next);
+    }
+    expect(seen.size).toBe(ids.length);
+    for (const id of ids) expect(seen.has(id)).toBe(true);
     expect(screen.queryByText("标准包已建")).toBeNull();
     expect(screen.queryByText("标准包待建设")).toBeNull();
   });
@@ -611,5 +624,33 @@ describe("independent public data platform", () => {
         (call) => !call.options?.method || call.options.method === "GET",
       ),
     ).toBe(true);
+  });
+  it("enters the platform from the product intro and documents the read-only API", async () => {
+    const { container } = render(<App />);
+    await screen.findByRole("heading", { name: /看清数据。\s*理解企业。/ });
+    expect(container.querySelector(".sidebar")).toBeNull();
+    fireEvent.click(await screen.findByRole("link", { name: /进入数据平台/ }));
+    await screen.findByRole("heading", { name: "数据概览" });
+    expect(container.querySelector(".sidebar")).not.toBeNull();
+    const platform = screen.getByRole("navigation", { name: "平台导航" });
+    fireEvent.click(within(platform).getByRole("link", { name: "API" }));
+    await screen.findByRole("heading", { name: "API 文档" });
+    expect(screen.getByText("/v1/observations")).toBeTruthy();
+    expect(screen.getAllByText("公开只读").length).toBeGreaterThan(0);
+  });
+  it("shows the reviewer proof trail with the frozen release in the evidence drawer", async () => {
+    window.history.replaceState(
+      {},
+      "",
+      "/?view=entity&entity=demo.alpha&dataset=d2",
+    );
+    render(<App />);
+    fireEvent.click(
+      await screen.findByRole("button", { name: "查看总能源消耗原文证据" }),
+    );
+    await screen.findByText("复核凭证");
+    expect(screen.getByText("固定版本发布")).toBeTruthy();
+    expect(screen.getByText("比较判定")).toBeTruthy();
+    expect(screen.getAllByText(/数据版本 d2/).length).toBeGreaterThan(0);
   });
 });
