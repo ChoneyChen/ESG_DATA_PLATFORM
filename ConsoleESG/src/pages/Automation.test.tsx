@@ -92,6 +92,10 @@ describe('批量生产交互',()=>{
   const first=await screen.findByRole('checkbox',{name:/明确报告 A/});
   expect(screen.getByRole('checkbox',{name:/明确报告 B/})).toBeTruthy();
   expect(screen.getByText('选取筛选结果（3）')).toBeTruthy();
+  fireEvent.click(screen.getByRole('button',{name:'全选（3）'}));
+  expect(screen.getByText('已选 3 份')).toBeTruthy();
+  fireEvent.click(screen.getByRole('button',{name:'清空所选'}));
+  expect(screen.getByText('已选 0 份')).toBeTruthy();
   fireEvent.click(first);
   expect(screen.getByText('已选 1 份')).toBeTruthy();
   expect(screen.getByRole('button',{name:'移除第 1 份报告'})).toBeTruthy();
@@ -110,13 +114,22 @@ describe('批量生产交互',()=>{
   expect(mutations[1].body?.preview_id).toBe(`automation-preview-${'d'.repeat(64)}`);
   expect(mutations[1].body?.submission_key).toBeTruthy();
  });
- it('排序或配置改变使已有预览失效，必须重新核对后才能部署',async()=>{
+ it('报告按登记年份自动排序，页面不再出现排序规则控件',async()=>{
+  render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
+  await screen.findByText('全选（3）');
+  expect(screen.queryByText('自动排序规则')).toBeNull();
+  const items=document.querySelectorAll('.automation-order li');
+  expect(items).toHaveLength(2);
+  expect(items[0].textContent).toContain('明确报告 B');
+  expect(items[1].textContent).toContain('明确报告 A');
+ });
+ it('配置改变使已有预览失效，必须重新核对后才能部署',async()=>{
   render(<WorkspaceProvider><Automation newTask params={new URLSearchParams({assets:`${assets[0].asset_id},${assets[1].asset_id}`})}/></WorkspaceProvider>);
   const previewButton=screen.getByRole('button',{name:'预览整个批次的实际计划'});
   await waitFor(()=>expect((previewButton as HTMLButtonElement).disabled).toBe(false));
   fireEvent.click(previewButton);
   await screen.findByRole('button',{name:'一键部署并自动开始'});
-  fireEvent.click(screen.getByRole('button',{name:'上移第 2 份报告'}));
+  fireEvent.change(screen.getByLabelText('遇到失败或阻塞'),{target:{value:'pause'}});
   await waitFor(()=>expect(screen.queryByRole('button',{name:'一键部署并自动开始'})).toBeNull());
   expect(calls.filter(call=>call.url==='/document/api/production-automations'&&call.options.method==='POST')).toHaveLength(0);
  });
