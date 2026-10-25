@@ -42,18 +42,10 @@
 报告身份资源：18 份 PDF 全部有标题、发布者、`publisher_entity_ref`、报告年、报告期起止、语言与报告类型，
 对应 18 个已登记发布主体（`org:*`）。`report_id` 是内部稳定主键，`report_code` 只是可读展示；
 指标测量主体在审核口径中逐项确认，报告级只保留可选默认值。本地 CrawlESG 索引 2,796 条可通过只读接口
-`/api/console/crawl-index` 查询；`CrawlIndexReader` 还读取
-`<workspace>/.local/crawl-work/download_ledger.csv` 与 `packages/`，返回包是否已下载、包名、大小与 ESG 标记。
-CrawlESG 依赖装在仓库外 `.local/crawl-venv`，`ExtractESG/scripts/setup_crawl_esg.sh` 可重复安装；
-2026-10-25 已用 2024 年 GB 索引实测 `plan` 并下载 1 个 ESEF 包（112 MB，ESG 标记命中）。
-**Crawl 下载的是 ESEF ZIP，不是 PDF**；索引不会自动填主体引用，也不会自动导入候选。
-字段、命令与下一步构造见[CrawlESG 对接接口](CRAWL_INTEGRATION.md)。
-
-ESEF 读取器（`esg_v2.control_plane.esef_reader`）流式解析 iXBRL，事实缓存到
-`<workspace>/.local/esef-cache/<sha>/reader.json`；自动采集设置与已见状态在
-`<workspace>/.local/crawl-intake/`；运行控制任务日志在 `<workspace>/.local/crawl-work/.runner/`。
-这些目录都在仓库外，CrawlESG 目录保持只读。真实 R000001 包解析出 705 个事实（610 数值 / 95 文本），
-报告期为 2024-01-01 — 2024-12-31。
+`/api/console/crawl-index` 查询，索引只提供企业、LEI、财年、期末、报告类型与报告编号；
+状态固定返回 `pdf_available=false`、`pdf_interface=reserved`。**没有 PDF 文件，ESEF 包不作为 PDF 资产。**
+索引选择器只填来源字段草稿，不自动生成报告标题、发布主体或候选。
+PDF 交接合同见[CrawlESG 对接接口](CRAWL_INTEGRATION.md)。
 
 `scripts/reset_workbench_history.py --yes` 清空读取与提取历史（含独立原生任务），保留 PDF、标准包与发布库。
 
@@ -109,7 +101,7 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
 | 套件 | 结果 |
 |---|---|
 | ConsoleESG | 227 通过 |
-| Document 后端 | **678 通过、0 失败**（含 ESEF 读取 4、CrawlIntake 3、CrawlRunner 3） |
+| Document 后端 | **667 通过、0 失败** |
 | Targeted 提取后端 | **762 通过、6 跳过、0 失败**（模型运行时 venv） |
 | 数据库（pglite） | 57 个测试：55 通过、2 跳过 |
 | 标准包 | 118 通过 |
@@ -188,11 +180,7 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
 | 发布服务重启后默认自动处理 outbox | 人工发布模式必须显式设置 `PLATESG_AUTO_PUBLISH=0`；自动审核本身不发布 |
 | 待审核候选和提取成果没有前端删除入口 | 报告详情分别提供候选层删除与提取任务删除，并显示 mapping/disclosure/IR/批次/PDF 位置 |
 | 已发布或已保存口径的候选被误删 | 删除服务按报告检查发布观测、测量口径、延伸血缘与后续披露引用，受保护行列出原因 |
-| Crawl 只读索引无法判断包是否已下载 | 读取 `download_ledger.csv` 与 packages，返回包名、大小、下载状态与 ESG 标记 |
-| Crawl 的 ESEF ZIP 被误当成本链路 PDF | 适配器固定返回 `artifact_kind=ESEF_ZIP`、`pdf_available=false`，选择索引只填元数据 |
-| ESEF 包只能看文件名，无法读取事实 | 新增流式 iXBRL 读取器，保留数值/文本、期间、维度、单位、续段，按包摘要缓存 |
-| Console 无法控制 CrawlESG，或控制会耦合代码 | 独立页通过外部进程启动官方 CLI；白名单参数、独立进程组、日志与停止，Crawl 目录只读 |
-| 自动采集设置没有落点与扫描计划 | CrawlIntake 持久化设置，按台账生成 plan_only 动作；执行 worker 明确留待下一阶段 |
+| Crawl 索引没有 PDF，却被提前扩展成 ESEF 读取/自动派发 | 收敛为只读索引 + PDF 交接预留；ESEF ZIP 明确不是 PDF |
 | 报告库表头与实际 6 列不对齐，长文本撑破列 | 表头与行同宽，标题/文件名/发布者/代码统一省略号截断并保留 title |
 
 ## 7. 已知问题
@@ -206,12 +194,10 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
   否则交付会返回 `runtime_requires_restart`。各服务只为自身代码重启，跨服务只校验共享标准与目录合同。
 - 公开发布站的历史观测在 2026-10-24 清理时随产物清除；当前 198 条候选由旧规则生成，其中 115 条经自动审核
   已写入数据集 2，83 条待人工。正式采用前建议按当前规则重新提取，避免把旧规则候选与新规则结果混在一起。
-- 本地 CrawlESG 只有索引、下载台账和 1 个已下载 ESEF 包，没有本链路可读的 PDF；索引记录不替代
-  PDF、报告 ID 或主体登记。ESEF 包需要单独的包读取路径，当前未接入提取链路。批量下载未执行。
-- ESEF 读取器当前输出概念事实与证据，尚未映射到 55 条 ESRS 指标定义，也不会直接生成候选；
-  `queue_extraction` 与 `create_report_draft` 只是扫描计划动作，执行 worker 尚未接入。
-- CrawlESG 运行控制需要平台 admin，一次只允许一个任务；`download` 必须显式确认。停止只作用于该任务
-  自己的进程组，不影响工作台或发布服务。
+- 本地 CrawlESG 只有索引，没有本链路可读的 PDF；索引记录不替代 PDF、报告 ID 或主体登记。
+  `pdf_available=false`，PDF 交接接口预留；“导入 PDF”按钮保持禁用，直到 Crawl 提供 PDF 路径与 SHA-256。
+  ESEF ZIP 不作为 PDF 资产，也不在本链路解析。
+- Crawl 源页面只做索引元数据与 PDF 接口预留，不提供 ESEF 事实读取、Crawl 运行控制或自动采集派发。
 - 单报告候选删除是逻辑候选层删除，不是物理全库清理：导入批次审计、不可变来源快照与报告身份保留；
   已发布或已保存口径的候选会拒绝删除。需要彻底清空时使用全库 `artifact-purge`。
 - 报告身份现含外部索引字段，但这些字段只是来源记录；`publisher_entity_ref` 仍必须显式选择已登记主体。

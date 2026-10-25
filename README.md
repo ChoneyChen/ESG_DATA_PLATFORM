@@ -42,10 +42,9 @@
 提取任务记录删除负责未发布引用的成果目录。已发布观测、测量口径、报告身份与不可变来源快照保留；
 彻底物理清理使用发布中心的全库产物清理。
 
-**CrawlESG 是只读报告源**：`ExtractESG/scripts/setup_crawl_esg.sh` 在仓库外安装依赖；
-控制台 `#/crawl` 独立页读取其索引、下载台账与 packages，并可通过外部进程执行
-`plan` / `download` / `verify`、查看日志与停止任务。ESEF 包由流式 iXBRL 读取器解析为事实证据，
-不是 PDF、不自动导入、不自动创建报告身份。字段、控制边界与全自动流程规划见
+**CrawlESG 是只读报告源**：控制台 `#/crawl` 独立页读取其索引，显示企业、LEI、财年、报告编号与公开来源，
+用于确认报告身份草稿。当前 Crawl 导出没有 PDF，`pdf_available=false`；ESEF 包不作为 PDF 资产。
+“导入 PDF”接口保留但未启用，直到 Crawl 能提供 PDF 路径与 SHA-256。字段与接收合同见
 [CrawlESG 对接接口](docs/CRAWL_INTEGRATION.md)。
 
 **Extract 自己的前端已经移除（2026-10-23）**：早期 `document_ir_extract/frontend` 是一个原生 JS

@@ -32,26 +32,12 @@ def _integer(row: dict[str, Any], key: str) -> int | None:
         return None
 
 
-def _number(row: dict[str, Any], key: str) -> float | None:
-    value = _text(row, key)
-    try:
-        return float(value) if value is not None else None
-    except ValueError:
-        return None
-
-
 class CrawlIndexReader:
-    def __init__(self, root: str | Path | None = None, output_dir: str | Path | None = None):
+    def __init__(self, root: str | Path | None = None):
         self.root = Path(root or os.getenv("ESG_CRAWL_INDEX_DIR", EXTRACT_ROOT.parent / "CrawlESG" / "index")).expanduser()
         self.path = self.root / "gb_filings_primary.csv"
-        self.output_dir = Path(output_dir or os.getenv("ESG_CRAWL_OUTPUT_DIR",
-            EXTRACT_ROOT.parent.parent / ".local" / "crawl-work")).expanduser()
-        self.ledger_path = Path(os.getenv("ESG_CRAWL_LEDGER", self.output_dir / "download_ledger.csv")).expanduser()
-        self.package_dir = Path(os.getenv("ESG_CRAWL_PACKAGE_DIR", self.output_dir / "packages")).expanduser()
         self._cache_key: tuple[int, int] | None = None
         self._cache: list[dict[str, Any]] = []
-        self._ledger_key: tuple[int, int] | None = None
-        self._ledger: list[dict[str, Any]] = []
 
     def _rows(self) -> list[dict[str, Any]]:
         if not self.path.is_file():
@@ -64,94 +50,14 @@ class CrawlIndexReader:
             self._cache_key = key
         return self._cache
 
-    def _ledger_rows(self) -> list[dict[str, Any]]:
-        if not self.ledger_path.is_file():
-            return []
-        stat = self.ledger_path.stat()
-        key = (stat.st_mtime_ns, stat.st_size)
-        if key != self._ledger_key:
-            with self.ledger_path.open("r", encoding="utf-8-sig", newline="") as stream:
-                self._ledger = list(csv.DictReader(stream))
-            self._ledger_key = key
-        return self._ledger
-
-    def _ledger_by_report(self) -> dict[str, dict[str, Any]]:
-        return {report_id: row for row in self._ledger_rows()
-                if (report_id := _text(row, "report_id"))}
-
-    def _package_state(self, ledger: dict[str, Any] | None) -> dict[str, Any]:
-        filename = _text(ledger or {}, "file")
-        safe = bool(filename) and Path(filename).name == filename
-        exists = safe and (self.package_dir / filename).is_file()
-        status = _text(ledger or {}, "status")
-        esg_flag = _text(ledger or {}, "esg_flag")
-        return {
-            "artifact_kind": "ESEF_ZIP",
-            "package_filename": filename,
-            "package_available": bool(exists and status == "ok"),
-            "download_status": ("file_missing" if status == "ok" and not exists else status) or "not_downloaded",
-            "package_size_mb": _number(ledger or {}, "size_mb"),
-            "esg_flag": None if esg_flag is None else esg_flag not in {"0", "false", "False"},
-        }
-
-    def package(self, source_report_id: str) -> dict[str, Any] | None:
-        """Resolve one Crawl report to a verified local ESEF package, if any."""
-        ledger = self._ledger_by_report().get(source_report_id)
-        if not ledger:
-            return None
-        state = self._package_state(ledger)
-        index = next((row for row in self._rows()
-                      if any(_text(row, key) == source_report_id for key in ("report_id", "fxo_id", "api_id"))), None)
-        digest = _text(index or {}, "sha256")
-        if not state["package_available"]:
-            return {**state, "path": None,
-                    "source_package_sha256": digest if digest and _SHA256.fullmatch(digest) else None}
-        return {**state, "path": self.package_dir / state["package_filename"],
-                "source_package_sha256": digest if digest and _SHA256.fullmatch(digest) else None}
-
-    def downloads(self, limit: int = 1000) -> dict[str, Any]:
-        """List every downloaded ESEF package with its index identity and ledger state."""
-        index_by_report = {}
-        for row in self._rows():
-            report_id = _text(row, "report_id") or _text(row, "fxo_id") or _text(row, "api_id")
-            if report_id:
-                index_by_report[report_id] = row
-        items = []
-        for ledger in self._ledger_rows():
-            report_id = _text(ledger, "report_id")
-            if not report_id:
-                continue
-            index = index_by_report.get(report_id, {})
-            package = self._package_state(ledger)
-            items.append({
-                "source_system": "CrawlESG", "source_report_id": report_id,
-                "entity_name": _text(index, "entity_name"), "lei": _text(index, "lei"),
-                "country_code": _text(index, "country"), "fiscal_year": _integer(index, "fiscal_year"),
-                "period_end": _text(index, "period_end"), "report_type": _text(index, "report_type"),
-                "source_package_sha256": (_text(index, "sha256")
-                    if _text(index, "sha256") and _SHA256.fullmatch(_text(index, "sha256")) else None),
-                "viewer_url": _text(index, "viewer_url"), "source_url": _text(index, "package_url"),
-                **package,
-            })
-        size = max(1, min(limit, 1000))
-        return {**self.status(), "items": items[:size], "total": len(items), "limit": size}
-
     def status(self) -> dict[str, Any]:
-        ledger = self._ledger_by_report()
-        downloaded = sum(1 for row in ledger.values()
-                         if _text(row, "status") == "ok" and _text(row, "file")
-                         and Path(_text(row, "file")).name == _text(row, "file")
-                         and (self.package_dir / _text(row, "file")).is_file())
         return {"available": self.path.is_file(), "source_system": "CrawlESG",
                 "record_count": len(self._rows()) if self.path.is_file() else 0,
-                "index_path": str(self.path), "download_ledger_available": self.ledger_path.is_file(),
-                "ledger_path": str(self.ledger_path), "package_dir": str(self.package_dir),
-                "downloaded_count": downloaded, "ledger_count": len(ledger),
-                "artifact_kind": "ESEF_ZIP", "pdf_available": False, "mode": "read_only"}
+                "index_path": str(self.path), "pdf_available": False,
+                "pdf_interface": "reserved", "mode": "read_only"}
 
     def reports(self, query: str = "", fiscal_year: int | None = None, limit: int = 50) -> dict[str, Any]:
         needle = query.strip().casefold()
-        ledger = self._ledger_by_report()
         rows = []
         for row in self._rows():
             if fiscal_year is not None and _integer(row, "fiscal_year") != fiscal_year:
@@ -161,11 +67,9 @@ class CrawlIndexReader:
             if needle and needle not in haystack:
                 continue
             package_hash = _text(row, "sha256")
-            source_report_id = _text(row, "report_id") or _text(row, "fxo_id") or _text(row, "api_id")
-            package = self._package_state(ledger.get(source_report_id or ""))
             rows.append({
                 "source_system": "CrawlESG",
-                "source_report_id": source_report_id,
+                "source_report_id": _text(row, "report_id") or _text(row, "fxo_id") or _text(row, "api_id"),
                 "fxo_id": _text(row, "fxo_id"),
                 "api_id": _text(row, "api_id"),
                 "lei": _text(row, "lei"),
@@ -179,7 +83,6 @@ class CrawlIndexReader:
                 "json_url": _text(row, "json_url"),
                 "viewer_url": _text(row, "viewer_url"),
                 "version_count": _integer(row, "n_versions"),
-                **package,
                 # These are intentionally not inferred from a filing index.
                 "title": None,
                 "publisher_entity_ref": None,

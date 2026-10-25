@@ -12,9 +12,6 @@ from fastapi import APIRouter, Header, HTTPException, Query
 from pydantic import BaseModel, ConfigDict, Field
 from esg_runtime.local_operator import operator_headers
 from esg_v2.control_plane.crawl_index import CrawlIndexReader
-from esg_v2.control_plane.crawl_intake import CrawlIntake
-from esg_v2.control_plane.crawl_runner import CrawlRunner
-from esg_v2.control_plane.esef_reader import EsefPackageReader
 from .console_history import standalone_jobs, fixed_session_evidence
 from .report_session_read import summarize_report_session
 from .console_delivery_identity import (
@@ -39,9 +36,6 @@ class MaterializationRequest(BaseModel):
 def console_router(processing, plans, session_detail, targeted, *, publication_url=None, output_root=None, crawl_index=None):
     router = APIRouter(prefix="/api/console")
     crawl = crawl_index or CrawlIndexReader()
-    esef = EsefPackageReader()
-    intake = CrawlIntake(crawl)
-    runner = CrawlRunner()
     base = (publication_url or os.getenv("ESG_PUBLICATION_API_URL","http://127.0.0.1:8765")).rstrip("/")
     root = Path(output_root or os.getenv("ESG_TARGETED_OUTPUT_ROOT",
         Path(__file__).resolve().parents[5]/"targeted_table_extract/targeted_extract_output")).resolve()
@@ -134,93 +128,6 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
     @router.get("/crawl-index/companies")
     def crawl_companies(query: str = Query(default="", max_length=160), limit: int = Query(default=50, ge=1, le=100)):
         return crawl.companies(query=query, limit=limit)
-
-    @router.get("/crawl-index/downloads")
-    def crawl_downloads(limit: int = Query(default=1000, ge=1, le=1000)):
-        return crawl.downloads(limit=limit)
-
-    @router.get("/crawl-intake/settings")
-    def crawl_intake_settings():
-        return intake.settings()
-
-    @router.put("/crawl-intake/settings")
-    def update_crawl_intake_settings(payload: dict):
-        try:
-            return intake.update(payload)
-        except ValueError as exc:
-            raise HTTPException(400, str(exc)) from exc
-
-    @router.post("/crawl-intake/scan")
-    def scan_crawl_intake(mark_seen: bool = Query(default=False)):
-        """Read-only plan; never downloads, reads a package or writes candidates."""
-        return intake.scan(mark_seen=mark_seen)
-
-    def require_crawl_admin(authorization: str | None) -> None:
-        if operator_headers(authorization) is None:
-            raise HTTPException(401, "控制 CrawlESG 需要工作台操作员授权")
-        principal = publication("GET", "/internal/v1/me", authorization)
-        if "admin" not in set(principal.get("roles", [])):
-            raise HTTPException(403, "当前操作员没有 CrawlESG 控制权限")
-
-    @router.get("/crawl-runner/status")
-    def crawl_runner_status():
-        return {"capabilities": runner.capabilities(), "jobs": runner.jobs(8)}
-
-    @router.get("/crawl-runner/jobs")
-    def crawl_runner_jobs(limit: int = Query(default=12, ge=1, le=50)):
-        return {"items": runner.jobs(limit)}
-
-    @router.get("/crawl-runner/jobs/{job_id}")
-    def crawl_runner_job(job_id: str):
-        job = runner.status(job_id)
-        if not job:
-            raise HTTPException(404, "CrawlESG 任务不存在")
-        return job
-
-    @router.post("/crawl-runner/jobs")
-    def start_crawl_runner_job(payload: dict, authorization: str | None = Header(default=None)):
-        require_crawl_admin(authorization)
-        try:
-            return runner.start(str(payload.get("command") or ""),
-                                years=payload.get("years") or [], limit=payload.get("limit"),
-                                workers=payload.get("workers") or 4, no_esg=bool(payload.get("no_esg")),
-                                confirm=bool(payload.get("confirm")))
-        except ValueError as exc:
-            raise HTTPException(409 if "已有" in str(exc) else 400, str(exc)) from exc
-
-    @router.post("/crawl-runner/jobs/{job_id}/stop")
-    def stop_crawl_runner_job(job_id: str, authorization: str | None = Header(default=None)):
-        require_crawl_admin(authorization)
-        try:
-            return runner.stop(job_id)
-        except KeyError as exc:
-            raise HTTPException(404, "CrawlESG 任务不存在") from exc
-
-    def esef_package(source_report_id: str) -> tuple[dict, dict]:
-        if not source_report_id or len(source_report_id) > 160:
-            raise HTTPException(400, "外部报告编号无效。")
-        package = crawl.package(source_report_id)
-        if not package or not package.get("path"):
-            raise HTTPException(404, {"code": "esef_package_unavailable",
-                                      "message": "本地没有该报告的已下载 ESEF 包；这不是 PDF 资产。"})
-        data = esef.read(package["path"], expected_sha256=package.get("source_package_sha256"))
-        return package, data
-
-    @router.get("/esef-packages/{source_report_id}")
-    def esef_summary(source_report_id: str):
-        """Read-only ESEF package summary; no ZIP extraction and no model call."""
-        package, data = esef_package(source_report_id)
-        return {**EsefPackageReader.summary(data),
-                "source_report_id": source_report_id,
-                "package_state": {key: package.get(key) for key in
-                                  ("package_filename", "package_available", "download_status", "artifact_kind")}}
-
-    @router.get("/esef-packages/{source_report_id}/facts")
-    def esef_facts(source_report_id: str, query: str = Query(default="", max_length=160),
-                   offset: int = Query(default=0, ge=0), limit: int = Query(default=100, ge=1, le=200)):
-        _, data = esef_package(source_report_id)
-        return {**EsefPackageReader.facts(data, query=query, offset=offset, limit=limit),
-                "source_report_id": source_report_id}
 
     @router.get("/reports")
     def reports(include_archived: bool=False,authorization: str | None=Header(default=None)):
