@@ -61,7 +61,7 @@ def release_files(extract_root: Path) -> dict[str, list[Path]]:
             + [root / "standards/extensions/registry.json"]
             + list((root / "standards/extensions/releases").rglob("*.json"))
             + [root.parent / "PlatESG/catalog/metric-dictionary.v1.json"],
-        "startup": [root / "scripts/workbench_release.py", root / "scripts/start_local_workbenches.sh",root / "scripts/bootstrap_extension_runtime.py",
+        "startup": [root / "scripts/workbench_release.py", root / "scripts/bootstrap_extension_runtime.py",
             root / "scripts/serve_workbench_frontend.py", root / "document_ir_extract/scripts/run_backend.sh",
             root / "document_ir_extract/scripts/run_frontend.sh", root / "targeted_table_extract/scripts/run_backend.sh",
             root.parent / "PlatESG/scripts/run.sh"],
