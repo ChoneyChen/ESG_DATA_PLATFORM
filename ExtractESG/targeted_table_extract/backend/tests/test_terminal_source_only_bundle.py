@@ -244,3 +244,16 @@ def test_actual_v4_budget_fragments_replay_preserves_291_unconfirmed_sources_and
             'original_sha256':copied,'master_request_sha256':sha(master),'artifact':artifact,
             'real_report_semantic_accuracy_accepted':False,'database_writes':0,'models_called':0}
         Path(output).parent.mkdir(parents=True,exist_ok=True);Path(output).write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n')
+
+
+def test_completed_projection_materializes_without_an_explicit_handoff(tmp_path):
+    service, session_id, job_id, metrics, *_ = _stage_session(tmp_path)
+    service.jobs.update(job_id, status=JobStatus.COMPLETED)
+    service._mutate(session_id, lambda state: state.update(execution_status='finished',
+        owner_pid=None, owner_started=None))
+    service._finalize_terminal_projections(session_id)
+    detail = service.detail(session_id)
+    available = [item for item in detail['delivery_artifacts'] if item['status'] == 'available']
+    assert available, detail['delivery_artifact_blockers']
+    assert available[0]['source_fact_count'] >= 1
+    assert detail['delivery_counts']['available_bundle_count'] >= 1

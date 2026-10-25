@@ -534,7 +534,11 @@ class ReportSessionService:
                 self.jobs.update(job_id, status=JobStatus.INTERRUPTED, stage='not_executed',
                     error='报告任务已结束；此标准投影尚未执行',
                     summary={**(job.summary or {}), 'not_executed_reason': 'report_terminal_before_projection'})
-            if job.status in {JobStatus.FAILED, JobStatus.CANCELLED, JobStatus.INTERRUPTED, JobStatus.PARTIAL}:
+            if job.status in {JobStatus.COMPLETED, JobStatus.FAILED, JobStatus.CANCELLED,
+                              JobStatus.INTERRUPTED, JobStatus.PARTIAL}:
+                # A finished extraction is already the deliverable one; saving
+                # its immutable bundle here is content-addressed and idempotent,
+                # so the handoff never waits for an operator click.
                 from esg_targeted.results.terminal_bundle import materialize_terminal_bundle
                 try:
                     materialize_terminal_bundle(job.output_dir, job_id, job.status.value, job.error,

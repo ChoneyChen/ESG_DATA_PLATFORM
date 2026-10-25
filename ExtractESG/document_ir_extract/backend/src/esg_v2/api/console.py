@@ -33,6 +33,12 @@ class MaterializationRequest(BaseModel):
     job_ids: list[str] | None = None
 
 
+class HandoffRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid', str_strip_whitespace=True)
+    reason: str = Field(default="提取完成自动交付进入审核", min_length=1, max_length=2000)
+    report_id: str | None = Field(default=None, max_length=160)
+
+
 def console_router(processing, plans, session_detail, targeted, *, publication_url=None, output_root=None, crawl_index=None):
     router = APIRouter(prefix="/api/console")
     crawl = crawl_index or CrawlIndexReader()
@@ -209,6 +215,15 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
         doc=plan["documents"][0]
         if not doc.get("ir_run_id"):
             raise HTTPException(409,"会话尚未固定结构证据")
+        if targeted and not session.get("delivery_artifacts") and doc.get("native_session_id"):
+            # Terminal sessions created before automatic materialization still
+            # deliver: the bundle is content-addressed, so saving it here is safe.
+            try:
+                targeted("POST",f"/api/report-sessions/{quote(str(doc['native_session_id']),safe='')}/materialize",
+                    {"reason":"交付前保存可交付成果"})
+                session=session_detail(plan)
+            except HTTPException:
+                pass
         manifest,_=processing._manifest("ir",doc["ir_run_id"])
         try:
             processing.integrity_check("ir",doc["ir_run_id"])
@@ -280,7 +295,92 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
             "status":"imported" if deliveries and all(d["status"]=="imported" for d in deliveries) else "partial" if any(d["status"]=="imported" for d in deliveries) else "blocked",
             "review_url":"/#/review?report="+quote(report["report_id"],safe="")}
 
+    @router.post("/report-sessions/{session_id}/handoff")
+    def handoff(session_id: str, request: HandoffRequest | None = None,
+                authorization: str | None = Header(default=None)):
+        """One automatic step from a finished extraction to reviewable candidates.
+
+        Saving the immutable bundle and delivering it are both content-addressed
+        and idempotent, so repeating this call after a crash converges on the
+        same state instead of duplicating candidates.
+        """
+        if operator_headers(authorization) is None:
+            raise HTTPException(401, "自动衔接需要工作台操作员授权")
+        principal = publication("GET", "/internal/v1/me", authorization)
+        if not set(principal.get("roles", [])) & {"review", "admin"}:
+            raise HTTPException(403, "当前操作员没有候选交付权限")
+        reason = (request.reason if request else None) or "提取完成自动交付进入审核"
+        plan = next((p for p in plans.list() if p.get("report_request") and (p["plan_id"] == session_id
+            or p["documents"][0].get("native_session_id") == session_id)), None)
+        if not plan:
+            raise HTTPException(404, "报告提取会话不存在")
+        document = plan["documents"][0]
+        native_id = document.get("native_session_id") or plan["plan_id"]
+        if plan["status"] in {"planned", "active", "cancelling"}:
+            return {"session_id": plan["plan_id"], "status": "waiting", "stage": "extraction",
+                "plan_status": plan["status"], "message": "提取仍在执行；结束后自动保存成果并交付审核"}
+        session = session_detail(plan)
+        if session.get("execution_status") in {"queued", "running"}:
+            return {"session_id": plan["plan_id"], "status": "waiting", "stage": "extraction",
+                "plan_status": plan["status"], "message": "提取仍在执行；结束后自动保存成果并交付审核"}
+        available = [a for a in (session.get("delivery_artifacts") or []) if a.get("status") == "available"]
+        if not available:
+            try:
+                targeted("POST", f"/api/report-sessions/{quote(str(native_id), safe='')}/materialize",
+                    {"reason": reason})
+            except HTTPException as exc:
+                if exc.status_code in {401, 403}:
+                    raise
+                return {"session_id": plan["plan_id"], "status": "blocked", "stage": "materialize",
+                    "message": "可交付成果未能保存", "detail": exc.detail}
+            session = session_detail(plan)
+            available = [a for a in (session.get("delivery_artifacts") or []) if a.get("status") == "available"]
+        if not available and session.get("delivery_counts", {}).get("available_bundle_count") is None:
+            return {"session_id": plan["plan_id"], "status": "no_artifacts", "stage": "materialize",
+                "message": "本次提取没有可交付的来源事实"}
+        reports = processing.reports()
+        if request and request.report_id:
+            report = next((r for r in reports if r["report_id"] == request.report_id), None)
+        else:
+            bound = [r for r in reports if any(v["asset_id"] == document.get("asset_id")
+                or v["source_sha256"] == document.get("source_sha256") for v in r.get("asset_versions", []))]
+            report = bound[0] if len(bound) == 1 else None
+        if not report:
+            return {"session_id": plan["plan_id"], "status": "needs_identity", "stage": "identity",
+                "message": "尚未登记这份 PDF 的报告身份，请确认后自动交付",
+                "report_options": [r["report_id"] for r in reports]}
+        metadata = report.get("metadata") or {}
+        missing = [k for k in ("title", "publisher_entity_ref", "period_start", "period_end") if not metadata.get(k)]
+        if missing:
+            return {"session_id": plan["plan_id"], "status": "needs_identity", "stage": "identity",
+                "report_id": report["report_id"], "field_blockers": missing,
+                "message": "报告身份不完整，请补全后再交付"}
+        try:
+            result = deliver(session_id, DeliveryRequest(report_id=report["report_id"],
+                organization_ref=metadata["publisher_entity_ref"], expected_revision=report["revision"],
+                reason=reason), authorization)
+        except HTTPException as exc:
+            if exc.status_code in {401, 403}:
+                raise
+            return {"session_id": plan["plan_id"], "status": "blocked", "stage": "deliver",
+                "report_id": report["report_id"], "message": "候选交付被阻止", "detail": exc.detail}
+        reviews = [d["auto_review"] for d in result.get("deliveries", [])
+            if isinstance(d.get("auto_review"), dict)]
+        automatic = None
+        if reviews:
+            automatic = {"rule_version": next((r.get("verification_rule_version") for r in reviews
+                if r.get("verification_rule_version")), None),
+                "approved": sum(int(r.get("applied") or 0) for r in reviews),
+                "needs_human": sum(int(r.get("needs_human") or 0) for r in reviews),
+                "failed": sum(1 for r in reviews if r.get("status") == "failed")}
+        return {"session_id": plan["plan_id"], "status": result["status"],
+            "stage": "review" if result["status"] in {"imported", "partial"} else "deliver",
+            "report_id": report["report_id"], "deliveries": result.get("deliveries", []),
+            "auto_review": automatic, "review_url": result.get("review_url"),
+            "message": "已自动交付到候选审核" if result["status"] == "imported" else "部分成果包未能交付"}
+
     # Manual handoff and batch production use the same immutable delivery
     # command, including report revision, evidence identity and import receipts.
     router.deliver_candidates = deliver
+    router.handoff = handoff
     return router

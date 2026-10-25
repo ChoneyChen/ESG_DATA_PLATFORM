@@ -142,8 +142,8 @@ Python 包名仍是 `esg_v2`、`esg_targeted`；业务目录已经真实迁移�
 | 套件 | 命令 | 结果（2026-10-25） |
 |---|---|---|
 | ConsoleESG | `cd ConsoleESG && npm test` | 228 通过 |
-| Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 667 通过 |
-| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 762 通过、6 跳过 |
+| Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 674 通过 |
+| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 763 通过、6 跳过 |
 | 标准包 | `pytest ExtractESG/standards/tests` | 118 通过 |
 | PlatESG | `pytest PlatESG/tests` | 77 通过 |
 | 公开前端 | `cd PlatESG/frontend && npm test` | 82 通过 |

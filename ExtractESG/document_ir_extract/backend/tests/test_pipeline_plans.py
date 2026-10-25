@@ -116,3 +116,31 @@ def test_resumed_plan_adopts_a_finished_session_instead_of_rerunning_it(tmp_path
     assert engine._step(plan, 0, document, "report_session") == "report-finished"
     assert calls == [] and document["steps"]["report_session"]["status"] == "partial"
     assert document["steps"]["report_session"]["message"] == "复用已完成的报告会话"
+
+
+def test_terminal_report_plan_records_automatic_handoff_and_review(tmp_path):
+    store, engine, _, _ = setup_plan(tmp_path)
+    engine.on_report_handoff = lambda plan, document: {"status": "imported", "stage": "review",
+        "report_id": "report-x", "message": "已自动交付到候选审核",
+        "auto_review": {"approved": 3, "needs_human": 1, "rule_version": "v3"}}
+    state = {"schema_version": "pipeline-plan-v1", "plan_id": "plan-x", "name": "x", "status": "partial",
+             "created_at": "now", "config": {"report_request": {"name": "x"}},
+             "documents": [{"status": "partial", "steps": {}}]}
+    engine._maybe_handoff(state)
+    record = state["documents"][0]["auto_handoff"]
+    assert record["status"] == "imported" and record["stage"] == "review"
+    assert record["auto_review"] == {"approved": 3, "needs_human": 1, "rule_version": "v3"}
+    assert record["attempts"] == 1
+    engine._maybe_handoff(state)
+    assert state["documents"][0]["auto_handoff"]["attempts"] == 1
+
+
+def test_deferred_handoff_does_not_consume_attempts(tmp_path):
+    store, engine, _, _ = setup_plan(tmp_path)
+    engine.on_report_handoff = lambda plan, document: {"status": "deferred", "stage": "automation"}
+    state = {"schema_version": "pipeline-plan-v1", "plan_id": "plan-y", "name": "y", "status": "partial",
+             "created_at": "now", "config": {"report_request": {"name": "y"}},
+             "documents": [{"status": "partial", "steps": {}}]}
+    engine._maybe_handoff(state)
+    record = state["documents"][0]["auto_handoff"]
+    assert record["status"] == "deferred" and record["attempts"] == 0

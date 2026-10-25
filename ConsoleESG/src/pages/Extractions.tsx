@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, type FormEvent} from 'react';
+import {useCallback, useEffect, useRef, useState, type FormEvent} from 'react';
 import {credentials, items, navigate, post, reportLabel, type Row} from '../api';
 import {useResource, useWorkspace} from '../state';
 import {Actions, Badge, Diagnostics, Field, MetricValue, Notice, Progress, ResourceState, Section, readinessText} from '../components/ui';
@@ -526,6 +526,42 @@ function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?:
   const session = resource.data?.session || resource.data;
   const foundation = session?.request?.extraction_route === 'foundation16';
   const defaultTab = initialTab || (foundation ? 'foundation' : 'results');
+  const [handoff, setHandoff] = useState<Row>();
+  const [handoffBusy, setHandoffBusy] = useState(false);
+  const attempted = useRef(new Set<string>());
+  const terminal = !!session && !['queued', 'running', 'stopping'].includes(session.execution_status);
+  const delivers = ['usable', 'partial', 'needs_confirmation'].includes(session?.result_status);
+
+  async function runHandoff() {
+    setHandoffBusy(true);
+    try {
+      const value = await post('document', `/api/console/report-sessions/${encodeURIComponent(sessionId)}/handoff`,
+        {reason: '提取完成自动交付进入审核'}) as Row;
+      setHandoff(value);
+      if (['imported', 'partial'].includes(value.status)) resource.retry();
+    } catch (error) {
+      setHandoff({status: 'failed', message: (error as Error).message});
+    } finally {
+      setHandoffBusy(false);
+    }
+  }
+
+  // A finished extraction is handed off without a click; the guard keeps the
+  // automatic call from repeating on every poll of the same terminal state.
+  // The coordinator already runs the same handoff server-side, so a plan that
+  // reports its own record is not called again from here.
+  const serverHandoff = session?.auto_handoff as Row | undefined;
+  useEffect(() => {
+    if (!session || !terminal || !delivers) return;
+    if (['imported', 'needs_identity', 'no_artifacts', 'running', 'deferred'].includes(serverHandoff?.status || '')) return;
+    const key = `${sessionId}:${session.execution_status}:${session.result_status}`;
+    if (attempted.current.has(key)) return;
+    attempted.current.add(key);
+    void runHandoff();
+  }, [sessionId, terminal, delivers, session?.execution_status, session?.result_status, serverHandoff?.status]);
+  const handoffView = handoff || serverHandoff;
+  const review = handoff?.auto_review || serverHandoff?.auto_review;
+
   useEffect(() => { setTab(defaultTab); setSelectedFact(undefined); }, [sessionId, defaultTab]);
 
   const tabs: [string, string][] = [
@@ -633,10 +669,39 @@ function SessionDetail({sessionId, initialTab}: {sessionId: string; initialTab?:
           )}
           {tab === 'deliver' && (
             <>
-              <Section title="成果处置" action={<Actions actions={workActions(session.available_actions).filter(action => DELIVERY_ACTIONS.has(action.action))} revision={session.revision}/>}>
-                <p className="muted">交付前先保存可交付阶段成果；已保存来源进入审核前不会改变正式发布数据。</p>
+              <Section title="自动衔接：提取 → 审核"
+                action={<button type="button" className="secondary" disabled={handoffBusy || !terminal}
+                  onClick={() => void runHandoff()}>{handoffBusy ? '自动衔接中…' : '重新执行自动衔接'}</button>}>
+                <div className="publish-rail">
+                  <span className={handoffView?.stage && handoffView.stage !== 'materialize' ? 'done' : 'current'}>1 保存成果</span>
+                  <span className={handoffView?.stage === 'review' ? 'done' : handoffView?.status === 'imported' ? 'done' : 'todo'}>2 交付候选</span>
+                  <span className={review || handoffView?.status === 'imported' ? 'done' : 'todo'}>3 自动审核</span>
+                  <span className="todo">4 发布前确认</span>
+                </div>
+                <Notice tone={['failed', 'blocked', 'needs_identity'].includes(handoffView?.status || '') ? 'warning' : 'info'}>
+                  {handoffBusy ? '提取已结束，正在自动保存成果、交付候选并运行机器核验…'
+                    : handoffView?.message || (terminal ? '本次没有可自动交接的成果；可在下方手动核对。'
+                      : '提取结束后会自动保存成果、交付候选并运行机器核验，无需手动点击交付。')}
+                </Notice>
+                {review && (
+                  <dl className="facts">
+                    <dt>机器核验批准</dt><dd>{review.approved ?? 0}</dd>
+                    <dt>保留人工审核</dt><dd>{review.needs_human ?? 0}</dd>
+                    <dt>核验规则</dt><dd>{review.rule_version || '见审核记录'}</dd>
+                  </dl>
+                )}
+                {handoffView?.status === 'imported' && (
+                  <div className="button-row">
+                    <button type="button" className="secondary"
+                      onClick={() => navigate(`/review?report=${encodeURIComponent(handoffView.report_id || deliveryReportId)}`)}>审核仍需人工的候选</button>
+                    <button type="button" className="secondary" onClick={() => navigate('/publication')}>打开发布中心</button>
+                  </div>
+                )}
               </Section>
-              <PublishFlow session={session} reportId={deliveryReportId} onReportId={setDeliveryReportId} deliveryState={deliveryState}/>
+              <details className="scope-summary">
+                <summary>自动衔接受阻时：核对报告身份并手动交付</summary>
+                <PublishFlow session={session} reportId={deliveryReportId} onReportId={setDeliveryReportId} deliveryState={deliveryState}/>
+              </details>
             </>
           )}
         </>

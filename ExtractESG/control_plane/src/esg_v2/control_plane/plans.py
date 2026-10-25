@@ -89,6 +89,9 @@ class PipelinePlanCoordinator:
         # its results instead of asking the service to re-run finished work.
         self.inspect_session = inspect_session
         self._secrets = {}
+        # Set by the app: turns a terminal report plan into reviewable
+        # candidates without waiting for an operator click.
+        self.on_report_handoff = None
         self._list_cache: tuple[float, list] | None = None
         with store._connect() as connection:
             connection.execute("CREATE TABLE IF NOT EXISTS pipeline_plans (plan_id TEXT PRIMARY KEY, state_json TEXT NOT NULL)")
@@ -233,6 +236,8 @@ class PipelinePlanCoordinator:
                         self.save(plan)
                     continue
                 if plan["status"] != "active":
+                    if plan["status"] in {"completed", "partial"}:
+                        self._maybe_handoff(plan)
                     continue
                 for index, document in enumerate(plan["documents"]):
                     if document["status"] in {"completed", "partial", "failed", "interrupted", "cancelled"}:
@@ -263,6 +268,55 @@ class PipelinePlanCoordinator:
                 elif statuses <= {"completed", "partial", "failed", "waiting_review", "interrupted", "cancelled"}:
                     plan["status"] = "needs_attention"
                 self.save(plan)
+                if plan["status"] in {"completed", "partial"}:
+                    self._maybe_handoff(plan)
+
+    def _maybe_handoff(self, plan):
+        """Deliver a finished report once; retries stay bounded and spaced.
+
+        Ownership is decided by the hook: a live batch automation delivers its
+        own items and reports ``deferred`` here.
+        """
+        if not self.on_report_handoff:
+            return
+        if not (plan.get("config") or {}).get("report_request"):
+            return
+        for document in plan["documents"]:
+            if document.get("status") not in {"completed", "partial"}:
+                continue
+            record = document.get("auto_handoff") or {}
+            if record.get("status") in {"imported", "needs_identity", "no_artifacts"}:
+                continue
+            attempts_before = int(record.get("attempts") or 0)
+            if attempts_before >= 12:
+                continue
+            if record.get("attempted_at"):
+                try:
+                    last = datetime.fromisoformat(record["attempted_at"])
+                    if last.tzinfo is None:
+                        last = last.replace(tzinfo=timezone.utc)
+                    pause = 30 if attempts_before < 5 else 300
+                    if (datetime.now(timezone.utc) - last).total_seconds() < pause:
+                        continue
+                except ValueError:
+                    pass
+            attempts = int(record.get("attempts") or 0) + 1
+            document["auto_handoff"] = {"status": "running", "attempts": attempts,
+                "attempted_at": datetime.now(timezone.utc).isoformat()}
+            self.save(plan)
+            try:
+                result = self.on_report_handoff(plan, document) or {}
+                status = result.get("status") or "unknown"
+                deferred = status == "deferred"
+                document["auto_handoff"] = {"status": status, "stage": result.get("stage"),
+                    "message": result.get("message"), "report_id": result.get("report_id"),
+                    "auto_review": result.get("auto_review"),
+                    "attempts": attempts - 1 if deferred else attempts,
+                    "updated_at": datetime.now(timezone.utc).isoformat()}
+            except Exception as exc:
+                document["auto_handoff"] = {"status": "failed", "message": str(exc),
+                    "attempts": attempts, "updated_at": datetime.now(timezone.utc).isoformat()}
+            self.save(plan)
 
     def _finished_session(self, plan, document):
         """A session that already finished keeps its result; never re-run it."""

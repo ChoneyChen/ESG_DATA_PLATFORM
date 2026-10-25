@@ -774,6 +774,7 @@ def _report_plan_detail(plan):
         "execution_budget": pipeline_plans._execution_budget(plan, ReportExtractionRequest.model_validate(plan['report_request']).effective_budget().total_timeout_seconds),
         "model_budget": (native or {}).get("runtime_budget"),
         "lifecycle": lifecycle, 'native_unavailable': native_unavailable,
+        "auto_handoff": document.get("auto_handoff"),
         'error_detail': native_unavailable or next((step['error_detail'] for step in reversed(preparation)
             if step.get('error_detail') and step['error_detail'].get('technical_detail') == error), None)
             or (native or {}).get('error_detail') or (classify_error(str(error)).model_dump(mode='json') if error else None),
@@ -824,6 +825,28 @@ def _find_report_plan(session_id):
 
 console_api = console_router(report_processing,pipeline_plans,_report_plan_detail,_targeted_report_request)
 app.include_router(console_api)
+
+
+def _auto_report_handoff(plan, document):
+    from esg_runtime.local_operator import LOCAL_OPERATOR, acting_for
+    from esg_v2.api.console import HandoffRequest
+
+    key = plan.get("automation_key")
+    if key:
+        try:
+            owner = production_automation.get(str(key).split(":", 1)[0])
+        except KeyError:
+            owner = None
+        if owner and not owner.get("archived_at") \
+                and owner.get("status") in {"planned", "active", "pausing", "paused", "waiting_credentials"}:
+            return {"status": "deferred", "stage": "automation",
+                "message": "由批量生产计划交付，不做重复衔接"}
+    with acting_for(LOCAL_OPERATOR):
+        return console_api.handoff(plan["plan_id"], HandoffRequest(), None)
+
+
+# The coordinator, not a browser, finishes the chain for a report extraction.
+pipeline_plans.on_report_handoff = _auto_report_handoff
 
 
 def _automation_ready(target):
