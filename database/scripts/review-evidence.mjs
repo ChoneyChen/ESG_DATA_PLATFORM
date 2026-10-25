@@ -214,7 +214,7 @@ function turnoverDefinition(value) {
   if (!raw) return null;
   if (/自愿|主动离职|voluntary/.test(raw)) return 'voluntary';
   if (/非自愿|被动离职|involuntary/.test(raw)) return 'involuntary';
-  if (/总体|全部|整体|overall|total/.test(raw)) return 'overall';
+  if (/总体|全部|整体|总流失|总流动|overall|total/.test(raw)) return 'overall';
   return null;
 }
 
@@ -293,10 +293,10 @@ function normalize(key, value, {structured = false} = {}) {
  * Resolve platform dimensions from the evidence a delivered fact carries.
  * Later sources never overwrite an earlier, stronger one:
  * canonical extraction dimension > raw extraction dimension > source identity
- * > row label > metric label > statement.
+ * > row label > printed unit > metric label > statement.
  */
 export function resolveDimensions({definition, identity = {}, rawDimensions = [],
-                                     label = '', statement = '', metricLabel = ''}) {
+                                     label = '', statement = '', unit = '', metricLabel = ''}) {
   const wanted = new Set([
     ...(definition.required_dimensions || []),
     ...Object.keys(definition.dimension_constraints || {}),
@@ -323,7 +323,8 @@ export function resolveDimensions({definition, identity = {}, rawDimensions = []
   }
   for (const key of wanted) {
     if (nonempty(values[key])) continue;
-    for (const [value, source] of [[label, 'row_label'], [metricLabel, 'metric_label'], [statement, 'statement']]) {
+    for (const [value, source] of [[label, 'row_label'], [unit, 'source_unit'],
+      [metricLabel, 'metric_label'], [statement, 'statement']]) {
       const normalised = normalize(key, value);
       if (nonempty(normalised)) { take(key, normalised, source, value); break; }
     }

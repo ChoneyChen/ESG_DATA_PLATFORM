@@ -29,7 +29,7 @@ async function candidateRow(db, mappingId) {
       d.source_report_id,d.raw_indicator_name,d.period_start::text AS period_start,d.period_end::text AS period_end,
       d.quality_status AS fact_review_status,d.source_identity,d.source_payload,
       (SELECT context_id FROM esg.measurement_contexts c WHERE c.mapping_id=m.disclosure_standard_mapping_id LIMIT 1) AS context_id,
-      r.organization_ref,r.report_title_snapshot,
+      r.organization_ref,r.report_ref,r.report_title_snapshot,
       COALESCE(r.report_period_start::text,r.metadata->>'report_period_start') AS report_period_start,
       COALESCE(r.report_period_end::text,r.metadata->>'report_period_end') AS report_period_end,r.metadata AS report_metadata,
       s.requirement_code AS source_datapoint_id,s.clause_kind,
@@ -82,7 +82,7 @@ async function proposalFor(db, mappingId) {
   const resolved = resolveDimensions({
     definition, identity, rawDimensions,
     label: row.raw_indicator_name || '', statement: row.raw_value_text || '',
-    metricLabel: definition.label_zh || '',
+    unit: row.raw_unit || '', metricLabel: definition.label_zh || '',
   });
   for (const [key, value] of Object.entries(resolved.values)) {
     if (TYPED_CONTEXT_FIELDS.has(key) || nonempty(dimensions[key])) continue;
@@ -150,6 +150,8 @@ async function proposalFor(db, mappingId) {
     { code: 'metric_ready', ok: readiness === 'ready' },
     { code: 'mapping_exact', ok: row.mapping_relation === 'exact' && row.satisfaction_status === 'supports' },
     { code: 'physical_source', ok: sourceCount > 0 },
+    { code: 'row_label', ok: definition.value_type === 'statement'
+      || nonempty(row.raw_indicator_name) || nonempty(identity.source_row_label) },
     { code: 'value_numeric', ok: definition.value_type === 'statement' ? nonempty(row.raw_value_text) : nonempty(row.value_numeric) },
     { code: 'period_present', ok: Boolean(periodStart && periodEnd && periodStart <= periodEnd) },
     { code: 'entity_registered', ok: Boolean(entity) },
@@ -158,10 +160,18 @@ async function proposalFor(db, mappingId) {
     { code: 'dimensions_complete', ok: missing.length === 0 && mismatched.length === 0 && fixedMismatch.length === 0 },
   ];
   const blockers = checks.filter(check => !check.ok).map(check => check.code);
+  const blockerDetails = checks.filter(check => !check.ok).map(check => ({ code: check.code,
+    ...(check.code === 'mapping_exact' ? { relation: row.mapping_relation, satisfaction: row.satisfaction_status,
+      detail: row.mapping_relation === 'narrower'
+        ? '概念匹配，但原文披露的是更窄边界；需确认是否按该边界发布'
+        : '提取证据未判定概念完全等价，需人工确认映射' } : {}),
+    ...(check.code === 'dimensions_complete' ? { missing, mismatched, fixed_mismatch: fixedMismatch } : {}),
+  }));
   const methodSource = method ? (resolved.sources.measurement_method
     || (definition.fixed_dimensions?.measurement_method === method ? 'definition_fixed' : 'source')) : null;
   return {
-    mapping_id: mappingId, disclosure_id: row.disclosure_id, source_datapoint_id: row.source_datapoint_id,
+    mapping_id: mappingId, disclosure_id: row.disclosure_id, report_ref: row.report_ref,
+    source_datapoint_id: row.source_datapoint_id,
     raw_indicator_name: row.raw_indicator_name, raw_value_text: row.raw_value_text, raw_unit: row.raw_unit,
     metric_id: definition.metric_id, canonical_unit: definition.canonical_unit, value_type: definition.value_type,
     mapping_relation: row.mapping_relation, satisfaction_status: row.satisfaction_status,
@@ -172,7 +182,7 @@ async function proposalFor(db, mappingId) {
     evidence_rule_version: REVIEW_EVIDENCE_VERSION,
     missing, mismatched_dimensions: mismatched, fixed_dimension_mismatch: fixedMismatch,
     evidence_conflicts: fixedMismatch,
-    checks, blockers, resolvable: blockers.length === 0,
+    checks, blockers, blocker_details: blockerDetails, resolvable: blockers.length === 0,
     already_approved: row.fact_review_status === 'approved' && row.mapping_review_status === 'approved' && Boolean(row.context_id),
     rule_version: VERIFICATION_RULE_VERSION,
   };

@@ -10,6 +10,7 @@ import {publicMetric,publicEntity,publicObservation,publicEvidence,publicDataset
 import {availableReportedProperties} from '../../database/scripts/scientific-properties.mjs';
 import {readReportSourceFacts} from '../../database/scripts/report-source-facts.mjs';
 import {candidateProposal,candidateProposals,machineVerify} from '../../database/scripts/candidate-review.mjs';
+import {autoReview} from '../../database/scripts/auto-review.mjs';
 import {artifactInventory,purgeArtifacts} from '../../database/scripts/purge-artifacts.mjs';
 import {resolveImportCatalog,validateMajorImportScope,registerImportContract,listImportContracts} from './import_contracts.mjs';
 import {lifecycleReferences,lifecycleReserve,lifecycleReservation,assertImportSourcesAvailable} from './lifecycle.mjs';
@@ -498,19 +499,28 @@ async function retryReceipt(db, params) {
   return {receipt_id:params.receipt_id,current_status:status,attempt};
 }
 
+async function autoReviewDelivery(db,input) {
+  const report_ref=input.report_metadata?.report_ref;
+  if(!report_ref) return {status:'skipped',reason:'交付未携带报告引用'};
+  if(process.env.PLATESG_AUTO_REVIEW==='0') return {status:'disabled'};
+  try { return {status:'completed',...await autoReview(db,{report_ref,apply:true})}; }
+  catch(error) { return {status:'failed',message:error.message}; }
+}
+
 async function deliverCandidate(db,input) {
   const receipt_id=hash(stable(input));
   const existing=await receipt(db,{receipt_id});
-  if(existing?.current_status==='imported') return {receipt_id,status:'imported',...(existing.current_detail || existing.detail),idempotent:true};
+  if(existing?.current_status==='imported') return {receipt_id,status:'imported',...(existing.current_detail || existing.detail),idempotent:true,
+    auto_review:await autoReviewDelivery(db,input)};
   try {
     const imported=await importCandidate(db,input);
     if(existing) {
       const attempt=await db.query(`INSERT INTO plat.import_receipt_attempts VALUES($1,$2,'imported','delivery-service','幂等交付恢复',$3,DEFAULT) RETURNING *`,
         [randomUUID(),receipt_id,imported]);
-      return {receipt_id,status:'imported',...imported,attempt:attempt.rows[0]};
+      return {receipt_id,status:'imported',...imported,attempt:attempt.rows[0],auto_review:await autoReviewDelivery(db,input)};
     }
     await receipt(db,{receipt_id,status:'imported',import_batch_id:imported.import_batch_id,detail:imported});
-    return {receipt_id,status:'imported',...imported};
+    return {receipt_id,status:'imported',...imported,auto_review:await autoReviewDelivery(db,input)};
   } catch(failure) {
     const detail={request:input,message:failure.message,code:failure.code || 'database_error',
       ...(failure.delivery_identity?{delivery_identity:failure.delivery_identity}:{})};
@@ -613,6 +623,11 @@ export async function dispatch(db, method, params) {
     case 'candidates': return candidateList(db, params);
     case 'candidate_proposal': return candidateProposal(db, params);
     case 'candidate_proposals': return candidateProposals(db, params);
+    case 'auto_review': {
+      if(!params.report_ref) throw error('Automatic review is report-scoped','report_ref_required');
+      return autoReview(db,{report_ref:params.report_ref,limit:params.limit || 1000,apply:params.apply===true,
+        operator_ref:params.operator_ref,reason:params.reason || null});
+    }
     case 'machine_verify': return machineVerify(db, params);
     case 'artifact_inventory': return artifactInventory(db);
     case 'purge_artifacts': return purgeArtifacts(db, params);

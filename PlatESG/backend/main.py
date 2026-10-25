@@ -197,6 +197,12 @@ class MachineVerificationRequest(StrictRequest):
     reason: Annotated[str, Field(max_length=2000)] | None = None
 
 
+class AutoReviewRequest(StrictRequest):
+    report_ref: Text
+    apply: bool = True
+    reason: Annotated[str, Field(max_length=2000)] | None = None
+
+
 class ArtifactPurgeRequest(StrictRequest):
     apply: bool = False
     confirm: Text | None = None
@@ -829,6 +835,13 @@ def create_app(environment: dict[str, str] | None = None):
         payload = operator_payload(request, principal, exclude_none=True)
         payload["mapping_ids"] = [str(item) for item in request.mapping_ids]
         return bridge.call("machine_verify", payload)
+
+    @app.post("/internal/v1/auto-review", dependencies=[Depends(permission("review"))])
+    def auto_review(request: AutoReviewRequest, principal=Depends(permission("review"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["operator_ref"] = "auto-review:evidence-v1"
+        payload["triggered_by"] = principal["operator_ref"]
+        return bridge.call("auto_review", payload)
 
     @app.get("/internal/v1/artifact-inventory", dependencies=[Depends(permission("read"))])
     def artifact_inventory():

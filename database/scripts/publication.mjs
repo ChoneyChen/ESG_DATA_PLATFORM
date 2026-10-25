@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import {projectDerivedCandidates} from './extension-derivation.mjs';
 import {resolveReportedProperties} from './scientific-properties.mjs';
 
-const UNIT_RULES = JSON.parse(await readFile(new URL('./unit-conversions.1.5.5.json',import.meta.url),'utf8'));
+const UNIT_RULES = JSON.parse(await readFile(new URL('./unit-conversions.1.5.6.json',import.meta.url),'utf8'));
 export const NORMALIZATION_RULE_VERSION = UNIT_RULES.rule_version;
 const stableJSON = value => JSON.stringify(value, (_, v) => v && typeof v === 'object' && !Array.isArray(v)
   ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => a.localeCompare(b))) : v);

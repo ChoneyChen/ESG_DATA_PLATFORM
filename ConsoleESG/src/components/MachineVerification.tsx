@@ -14,6 +14,7 @@ const CHECK_TEXT: Record<string, string> = {
   metric_ready: '指标定义未就绪',
   mapping_exact: '映射尚未被证据判定为完全对应',
   physical_source: '缺少原文来源',
+  row_label: '缺少可核对的原始行标签',
   value_numeric: '缺少可核对数值',
   period_present: '报告期未确定',
   entity_registered: '报告主体未登记',

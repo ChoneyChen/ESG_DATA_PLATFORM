@@ -8,6 +8,7 @@ import {applyMigrations} from '../../../database/scripts/db.mjs';
 import {importBundle} from '../../../database/scripts/import-bundle.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 import {candidateProposal,machineVerify,VERIFICATION_RULE_VERSION} from '../../../database/scripts/candidate-review.mjs';
+import {autoReview,AUTO_REVIEW_OPERATOR} from '../../../database/scripts/auto-review.mjs';
 import {dictionaryFile,platformRoot} from '../service.mjs';
 
 const requireDB=createRequire(path.join(platformRoot,'../database/package.json'));
@@ -26,7 +27,8 @@ async function database() {
 }
 
 async function importFact(db, metricId, {value='10', unit=null, boundary=null, reviewStatus='pending',
-                                          identity:extraIdentity={}, kind='quantitative', statement=null, label=null}={}) {
+                                          identity:extraIdentity={}, kind='quantitative', statement=null, label=null,
+                                          reportRef=null}={}) {
   const dictionary=await dictionaryFile();
   const metric=dictionary.metrics.find(m=>m.source_datapoint_id===metricId);
   const binding=metric.standard_binding,n=++sequence;
@@ -52,7 +54,7 @@ async function importFact(db, metricId, {value='10', unit=null, boundary=null, r
       evidence_references:[{evidence_id:`e-${n}`,source_record_id:`r-${n}`,document_id:`doc-${n}`,ir_run_id:`ir-${n}`,ir_revision:1,
         ir_object_id:`cell-${n}`,pdf_page_index:0,evidence_excerpt:isStatement?printed:`合成来源值 ${value}`}]}};
   const imported=await importBundle(db,bundle,{upstream_system:'review_fixture',organization_ref:'review-company',
-    report_ref:`review-report-${n}`,report_version_ref:`review-report-${n}:asset:1`,source_artifact_ref:`pdf-${n}`,
+    report_ref:reportRef||`review-report-${n}`,report_version_ref:`review-report-${n}:asset:1`,source_artifact_ref:`pdf-${n}`,
     report_period_start:'2025-01-01',report_period_end:'2025-12-31'});
   return (await db.query(`SELECT i.disclosure_id,m.disclosure_standard_mapping_id AS mapping_id,m.mapping_relation,m.satisfaction_status,
       d.period_start::text AS period_start,d.period_end::text AS period_end
@@ -251,15 +253,39 @@ test('an axis that contradicts a closed definition still needs a person', async(
   }finally{await db.close();}
 });
 
-test('group boundary wording imports as the group, not as a narrower scope', async()=>{
+test('automatic review approves only evidence-proven candidates and stays report-scoped', async()=>{
   const db=await database();try{
-    const group=await importFact(db,'E1-6_07',{boundary:'集团合并口径'});
-    assert.equal(group.mapping_relation,'exact');
-    assert.equal(group.satisfaction_status,'supports');
-    const subsidiary=await importFact(db,'E1-6_07',{boundary:'下属子公司口径'});
-    assert.equal(subsidiary.mapping_relation,'narrower');
-    const proposal=await candidateProposal(db,{mapping_id:group.mapping_id});
-    assert.equal(proposal.suggested.boundary_code,'group');
-    assert.equal(proposal.boundary_source,'printed_group_boundary');
+    const exact=await importFact(db,'E1-6_07',{reportRef:'report-auto-a'});
+    const blocked=await importFact(db,'S1-6_02',{value:'100',unit:'人',reportRef:'report-auto-b'});
+    const first=await autoReview(db,{report_ref:'report-auto-a',apply:true});
+    assert.equal(first.applied,1);
+    assert.equal(first.needs_human,0);
+    const fact=(await db.query('SELECT quality_status FROM esg.esg_disclosures WHERE disclosure_id=$1',[exact.disclosure_id])).rows[0];
+    assert.equal(fact.quality_status,'approved');
+    const other=(await db.query('SELECT quality_status FROM esg.esg_disclosures WHERE disclosure_id=$1',[blocked.disclosure_id])).rows[0];
+    assert.equal(other.quality_status,'candidate');
+    const operator=(await db.query('SELECT operator_ref FROM esg.review_decisions WHERE disclosure_id=$1 ORDER BY created_at LIMIT 1',
+      [exact.disclosure_id])).rows[0];
+    assert.equal(operator.operator_ref,AUTO_REVIEW_OPERATOR);
+
+    const second=await autoReview(db,{report_ref:'report-auto-b',apply:true});
+    assert.equal(second.applied,0);
+    assert.equal(second.needs_human,1);
+    assert.equal(second.blockers.dimensions_complete,1);
   }finally{await db.close();}
 });
+
+test('unit aliases resolve without guessing the metric meaning', async()=>{
+  const db=await database();try{
+    const kilograms=await importFact(db,'E2-4_02',{value:'102879',unit:'Kg',label:'二氧化硫（SO2）排放量'});
+    const proposal=await candidateProposal(db,{mapping_id:kilograms.mapping_id});
+    assert.deepEqual(proposal.blockers,[],JSON.stringify(proposal.blockers));
+
+    const intensity=await importFact(db,'E1-6_30',{value:'25.34',unit:'吨二氧化碳当量/百万元营收',
+      label:'温室气体排放强度（按营业收入）',identity:{consolidation_approach:'运营控制'}});
+    const intensityProposal=await candidateProposal(db,{mapping_id:intensity.mapping_id});
+    assert.equal(intensityProposal.suggested.dimensions.intensity_denominator,'revenue');
+    assert.deepEqual(intensityProposal.blockers,[],JSON.stringify({blockers:intensityProposal.blockers,missing:intensityProposal.missing}));
+  }finally{await db.close();}
+});
+
