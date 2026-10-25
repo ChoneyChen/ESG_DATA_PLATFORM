@@ -104,15 +104,10 @@ export default function MetricDetail({
           </select>
           <a
             className="text-button"
-            href={
-              dataset
-                ? apiUrl("/v1/exports", {
-                    format: "csv",
-                    dataset_version: dataset,
-                    metric_id: metric.metric_id,
-                  })
-                : undefined
-            }
+            href={apiUrl("/v1/exports", {
+              format: "csv",
+              metric_id: metric.metric_id,
+            })}
           >
             <Icon name="download" size={16} /> 下载该指标数据
           </a>
@@ -176,7 +171,7 @@ export default function MetricDetail({
           </p>
         )}
         <div className="chart-footer">
-          <span>数据版本 {dataset || "尚无发布"}</span>
+          <span>当前已发布报告</span>
           <ProductLink view="compare" values={{ metric: metric.metric_id }}>
             在一致口径下比较 <Icon name="arrow" size={15} />
           </ProductLink>

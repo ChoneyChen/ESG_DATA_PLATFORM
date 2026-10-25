@@ -2,6 +2,10 @@
 
 2026-10-07：产品网站 `PlatESG/frontend` 与操作台 `ConsoleESG` 独立构建。公开接口仅投影固定发布版本的科学字段；候选、当前审核、操作员及运行诊断进入受凭据保护的内部接口。P4–P7完整业务验收进行中，不能以工程测试或合成观测代替真实企业验收。
 
+2026-10-25（第四十一轮）：**发布改为报告级**。每份报告在控制台独立 `draft / pending / published / withdrawn / deleted`，持有自己的 `publication_version`；
+公开站只显示当前已发布报告，默认不再要求读者选择全局 `dataset_version`。全局 `dataset_versions` 仅作为旧链接兼容快照。
+发布、撤下、删除走 `/internal/v1/report-publications/*`；整份报告产物删除走 `/internal/v1/report-artifacts/delete-report`。
+
 **核心条款属于标准包；主要条款属于当前产品选择，主要 ⊆ 核心。** 字典保留用户指定的 49 个原始 ESRS 编号，并列入重点条款中不在该清单的 6 项，合计 55 项：当前 55 项全部就绪。字典版本 1.4.3。
 
 | 目录 | 职责 |

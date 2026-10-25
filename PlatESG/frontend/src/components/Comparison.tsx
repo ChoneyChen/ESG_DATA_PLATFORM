@@ -59,7 +59,7 @@ export default function Comparison({
   const requestBody = {
     metric_id: metricId,
     entity_refs: selected,
-    dataset_version: dataset,
+    ...(dataset ? { dataset_version: dataset } : {}),
     ...(periodStart ? { period_start: periodStart } : {}),
     ...(periodEnd ? { period_end: periodEnd } : {}),
     ...(boundary ? { boundary_code: boundary } : {}),
@@ -75,7 +75,6 @@ export default function Comparison({
     setLoading(false);
     if (
       !shouldCompare ||
-      !dataset ||
       !metric ||
       !numericMetric(metric) ||
       !selected.length
@@ -393,7 +392,6 @@ export default function Comparison({
               className="button primary compare-submit"
               type="submit"
               disabled={
-                !dataset ||
                 !metric ||
                 !numericMetric(metric) ||
                 !selected.length ||
@@ -417,7 +415,7 @@ export default function Comparison({
             <div>
               <h2>比较结果</h2>
               <p>
-                数据版本 {result.dataset_version} · {result.rows.length}{" "}
+                当前已发布报告 · {result.rows.length}{" "}
                 条纳入，{result.excluded.length} 项未纳入
               </p>
               {result.caveats?.length ? (

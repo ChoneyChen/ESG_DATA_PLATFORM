@@ -8,7 +8,7 @@ describe('报告级审核单元',()=>{
    {mapping_id:'m2',report_ref:'report-a',report_title_snapshot:'报告 A',organization_ref:'org:a',fact_review_status:'approved',mapping_review_status:'approved',context:{entity_ref:'org:a'},publication_status:'published'},
    {mapping_id:'m3',report_ref:'report-b',report_title_snapshot:'报告 B',organization_ref:'org:b',fact_review_status:'approved',mapping_review_status:'approved',publication_status:'blocked',reason_codes:['reviewed_context_missing']},
   ];
-  const units=reviewReportUnits(rows,[{report_id:'report-a',metadata:{title:'报告 A',publisher_entity_ref:'org:a'},report_code:'org:a/2025'},{report_id:'report-b',metadata:{title:'报告 B'}}]);
+  const units=reviewReportUnits(rows,[{report_id:'report-a',metadata:{title:'报告 A',publisher_entity_ref:'org:a'},report_code:'org:a/2025'},{report_id:'report-b',metadata:{title:'报告 B'}}],[{report_ref:'report-a',status:'published',publication_version:1,approved_count:1,observation_count:1}]);
   expect(units.map(unit=>unit.ref)).toEqual(['report-b','report-a']);
   const a=units.find(unit=>unit.ref==='report-a')!;
   expect(a.total).toBe(2);expect(a.pending).toBe(1);expect(a.published).toBe(1);expect(a.blocked).toBe(0);expect(a.progress).toBe(50);

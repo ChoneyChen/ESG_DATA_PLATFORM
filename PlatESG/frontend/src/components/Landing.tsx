@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import type { Dataset, Entity, Metric } from "../types";
-import { navigate, useLocation } from "../navigation";
+import { navigate } from "../navigation";
 import { topicLabels } from "../format";
 import { DemoBadge, Icon, Notice } from "./Ui";
 import { ProductLink } from "./ProductLink";
@@ -31,34 +31,30 @@ const steps = [
   },
   {
     mark: "03",
-    title: "固定版本发布",
-    text: "以不可变版本对外提供，链接与下载始终可复现。",
+    title: "按报告发布",
+    text: "每份报告独立发布、撤下或删除，公开站只展示当前已发布报告。",
   },
 ];
 
 const apiSample = `GET /api/v1/observations
   ?metric_id=metric-E1-6_07
-  &dataset_version=12
   &limit=200`;
 
 export default function Landing({
   entities,
   metrics,
-  dataset,
   currentDataset,
-  datasets,
   demo,
   error,
+  reportCount,
 }: {
   entities: Entity[];
   metrics: Metric[];
-  dataset: string;
   currentDataset?: Dataset;
-  datasets: Dataset[];
   demo: boolean;
   error?: string;
+  reportCount: number;
 }) {
-  const [params, patch] = useLocation();
   const topicCounts = useMemo(
     () =>
       topics
@@ -96,35 +92,10 @@ export default function Landing({
             <ProductLink view="api">API</ProductLink>
           </nav>
           <div className="header-actions">
-            <label className="dataset-picker">
-              <span className="sr-only">数据版本</span>
-              <select
-                aria-label="选择数据集版本"
-                value={dataset}
-                disabled={!datasets.length}
-                onChange={(event) =>
-                  patch({
-                    dataset_version: event.target.value,
-                    dataset: null,
-                    page: null,
-                  })
-                }
-              >
-                {!datasets.length && <option value="">尚无发布版本</option>}
-                {datasets.map((item) => (
-                  <option
-                    key={item.dataset_version}
-                    value={String(item.dataset_version)}
-                  >
-                    {item.dataset_version}
-                    {String(item.dataset_version) ===
-                    String(datasets[0]?.dataset_version)
-                      ? " · 最新"
-                      : ""}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <span className="topbar-published">
+              <Icon name="layers" size={15} />
+              <span>{reportCount ? `当前发布 · ${reportCount} 份报告` : "尚无已发布报告"}</span>
+            </span>
             <ProductLink view="overview" className="button primary small">
               进入平台 <Icon name="arrow" size={16} />
             </ProductLink>
@@ -153,7 +124,7 @@ export default function Landing({
             </h1>
             <p className="hero-lead">
               企业 ESG
-              披露的公开数据层。每条数值保留报告原文、计量口径与固定数据版本。
+              披露的公开数据层。每条数值保留报告原文、计量口径与按报告独立发布。
             </p>
             <form
               className="hero-search"
@@ -211,10 +182,10 @@ export default function Landing({
             <div className="hero-panel-head">
               <span>
                 <span className="status-dot" />
-                {currentDataset ? "当前发布版本" : "尚无已发布数据"}
+                {currentDataset ? "当前发布" : "尚无已发布数据"}
               </span>
               <strong className="mono">
-                {currentDataset ? "v" + currentDataset.dataset_version : "—"}
+                {currentDataset ? `${reportCount} 份报告` : "—"}
               </strong>
             </div>
             <div className="hero-stats">
@@ -399,8 +370,8 @@ export default function Landing({
           <ProductLink view="api">API</ProductLink>
         </nav>
         <span>
-          {dataset ? "固定数据版本 " + dataset : "尚无已发布数据版本"} ·
-          保留来源与公开修订
+          {reportCount ? `当前发布 ${reportCount} 份报告` : "尚无已发布报告"} ·
+          按报告独立发布，保留来源与公开修订
         </span>
       </footer>
     </div>

@@ -7,13 +7,11 @@ export function useObservations(
   dataset: string,
   filters: Record<string, string> = {},
 ) {
-  const path = dataset
-    ? apiUrl("/v1/observations", {
-        ...filters,
-        dataset_version: dataset,
-        limit: 200,
-      })
-    : null;
+  const path = apiUrl("/v1/observations", {
+    ...filters,
+    ...(dataset ? { dataset_version: dataset } : {}),
+    limit: 200,
+  });
   const resource = useResource<ObservationResponse>(path);
   const [pages, setPages] = useState<{
     key: string | null;

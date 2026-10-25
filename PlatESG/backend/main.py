@@ -203,6 +203,12 @@ class AutoReviewRequest(StrictRequest):
     reason: Annotated[str, Field(max_length=2000)] | None = None
 
 
+class ReportPublicationRequest(StrictRequest):
+    report_ref: Text
+    apply: bool = True
+    reason: Annotated[str, Field(min_length=1, max_length=2000)] | None = None
+
+
 class ReportArtifactDeleteRequest(StrictRequest):
     report_ref: Text
     mapping_ids: list[UUID] = Field(default_factory=list, max_length=500)
@@ -421,6 +427,7 @@ class Observation(BaseModel):
     comparison_reasons: list[str]
     publication_status: Literal["published"]
     dataset_version: int
+    report_version: int | None = None
     entity_name: str | None = None
     entity_kind: str | None = None
     is_demo: bool = False
@@ -781,6 +788,32 @@ def create_app(environment: dict[str, str] | None = None):
     def publication_status(limit: int = Query(200,ge=1,le=1000)):
         return {**bridge.call("publication_status",{"limit":limit}),"processor":{"automatic":config.get("PLATESG_AUTO_PUBLISH","1")=="1"}}
 
+    @app.get("/internal/v1/report-publications", dependencies=[Depends(permission("read"))])
+    def report_publications(include_deleted: bool = False):
+        return bridge.call("report_publications", {"include_deleted": include_deleted})
+
+    @app.post("/internal/v1/report-publications/publish", dependencies=[Depends(permission("review"))])
+    def publish_report(request: ReportPublicationRequest, principal=Depends(permission("review"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["report_ref"] = request.report_ref
+        return bridge.call("publish_report", payload)
+
+    @app.post("/internal/v1/report-publications/withdraw", dependencies=[Depends(permission("review"))])
+    def withdraw_report(request: ReportPublicationRequest, principal=Depends(permission("review"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["report_ref"] = request.report_ref
+        return bridge.call("withdraw_report", payload)
+
+    @app.post("/internal/v1/report-publications/delete", dependencies=[Depends(permission("admin"))])
+    def delete_report(request: ReportPublicationRequest, principal=Depends(permission("admin"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["report_ref"] = request.report_ref
+        return bridge.call("delete_report", payload)
+
+    @app.get("/v1/reports")
+    def public_reports():
+        return bridge.call("published_reports", {})
+
     @app.get("/internal/v1/report-summaries", dependencies=[Depends(permission("read"))])
     def report_summaries():
         return bridge.call("report_summaries",{})
@@ -859,6 +892,12 @@ def create_app(environment: dict[str, str] | None = None):
         payload = operator_payload(request, principal, exclude_none=True)
         payload["mapping_ids"] = [str(item) for item in request.mapping_ids]
         return bridge.call("delete_report_candidates", payload)
+
+    @app.post("/internal/v1/report-artifacts/delete-report", dependencies=[Depends(permission("admin"))])
+    def delete_report_artifacts(request: ReportPublicationRequest, principal=Depends(permission("admin"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["report_ref"] = request.report_ref
+        return bridge.call("delete_report_artifacts", payload)
 
     @app.get("/internal/v1/artifact-inventory", dependencies=[Depends(permission("read"))])
     def artifact_inventory():

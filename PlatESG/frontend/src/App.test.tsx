@@ -359,7 +359,7 @@ describe("independent public data platform", () => {
     const link = screen.getByRole("link", { name: "下载该指标数据" });
     const url = new URL(link.getAttribute("href")!, "http://localhost");
     expect(url.searchParams.get("metric_id")).toBe("metric-E1-5_01");
-    expect(url.searchParams.get("dataset_version")).toBe("d2");
+    expect(url.searchParams.get("dataset_version")).toBeNull();
     expect(
       screen
         .getByRole("button", { name: "数据表" })
@@ -381,7 +381,7 @@ describe("independent public data platform", () => {
       calls
         .find((call) => call.url.pathname === "/api/v1/sources")
         ?.url.searchParams.get("dataset_version"),
-    ).toBe("d2");
+    ).toBeNull();
     fireEvent.click(
       screen.getByRole("button", { name: "查看总能源消耗原文证据" }),
     );
@@ -406,7 +406,6 @@ describe("independent public data platform", () => {
     expect(posts).toHaveLength(1);
     expect(JSON.parse(posts[0].options!.body as string)).toMatchObject({
       entity_refs: ["demo.alpha", "demo.beta"],
-      dataset_version: "d2",
       dimensions: { pollutant: "SOx" },
     });
     expect(
@@ -414,36 +413,34 @@ describe("independent public data platform", () => {
     ).toBeUndefined();
     expect(screen.getByText(/不代表 ESG 优劣排名/)).toBeTruthy();
   });
-  it("does not silently replace an unavailable shared release with latest data", async () => {
+  it("ignores legacy dataset_version links and reads the current published reports", async () => {
     window.history.replaceState(
       {},
       "",
       "/?view=entity&entity=demo.alpha&dataset_version=unavailable",
     );
     render(<App />);
-    await screen.findByText("此发布版本不可用");
-    expect(
-      new URLSearchParams(window.location.search).get("dataset_version"),
-    ).toBe("unavailable");
+    await screen.findByRole("heading", { name: "已发布数据" });
     expect(
       calls.some((call) => call.url.pathname === "/api/v1/observations"),
-    ).toBe(false);
+    ).toBe(true);
+    expect(
+      calls
+        .find((call) => call.url.pathname === "/api/v1/observations")
+        ?.url.searchParams.get("dataset_version"),
+    ).toBeNull();
   });
-  it("keeps numeric dataset versions stable between selects and query parameters", async () => {
+  it("shows current published reports without a global dataset selector", async () => {
     numericVersions = true;
     render(<App />);
     await screen.findByText("64");
     expect(
-      new URLSearchParams(window.location.search).get("dataset_version"),
-    ).toBe("2");
-    fireEvent.change(screen.getByRole("combobox", { name: "选择数据集版本" }), {
-      target: { value: "2" },
-    });
-    await waitFor(() => expect(screen.getByText("64")).toBeTruthy());
+      screen.queryByRole("combobox", { name: "选择数据集版本" }),
+    ).toBeNull();
     expect(
       calls
         .filter((call) => call.url.pathname === "/api/v1/entities")
-        .every((call) => call.url.searchParams.get("dataset_version") === "2"),
+        .every((call) => call.url.searchParams.get("dataset_version") === null),
     ).toBe(true);
   });
   it("shows published period coverage without exposing live candidate timestamps", async () => {
@@ -509,7 +506,7 @@ describe("independent public data platform", () => {
     expect(screen.queryByText("标准包已建")).toBeNull();
     expect(screen.queryByText("标准包待建设")).toBeNull();
   });
-  it("freezes the resolved dataset in links and all entity queries", async () => {
+  it("reads current published reports and does not ask the reader to pick a dataset version", async () => {
     render(<App />);
     const entityButton = await screen.findByRole("link", {
       name: /演示企业甲 演示数据/,
@@ -522,22 +519,14 @@ describe("independent public data platform", () => {
       ).toBe(true),
     );
     expect(
-      new URLSearchParams(window.location.search).get("dataset_version"),
-    ).toBe("d2");
+      screen.queryByRole("combobox", { name: "选择数据集版本" }),
+    ).toBeNull();
     for (const call of calls.filter((item) =>
       ["entities", "metrics", "observations", "coverage"].some((name) =>
         item.url.pathname.endsWith(`/${name}`),
       ),
     ))
-      expect(call.url.searchParams.get("dataset_version")).toBe("d2");
-    fireEvent.change(screen.getByRole("combobox", { name: "选择数据集版本" }), {
-      target: { value: "d1" },
-    });
-    await screen.findByText("此版本暂无已发布观测");
-    expect(screen.queryByText("0.000001")).toBeNull();
-    expect(
-      new URLSearchParams(window.location.search).get("dataset_version"),
-    ).toBe("d1");
+      expect(call.url.searchParams.get("dataset_version")).toBeNull();
   });
   it("displays actual source evidence and precise values through the read-only detail endpoint", async () => {
     window.history.replaceState(
@@ -557,7 +546,7 @@ describe("independent public data platform", () => {
       calls
         .find((call) => call.url.pathname.endsWith("/demo-observation"))
         ?.url.searchParams.get("dataset_version"),
-    ).toBe("d2");
+    ).toBeNull();
     fireEvent.keyDown(document, { key: "Escape" });
     expect(screen.queryByRole("dialog")).toBeNull();
   });
@@ -604,7 +593,7 @@ describe("independent public data platform", () => {
         .body as string,
     );
     expect(body.entity_refs).toEqual(["demo.alpha", "demo.beta"]);
-    expect(body.dataset_version).toBe("d2");
+    expect(body.dataset_version).toBeUndefined();
     expect(
       calls
         .filter((call) => call.options?.method && call.options.method !== "GET")
@@ -617,7 +606,7 @@ describe("independent public data platform", () => {
     await screen.findByText("等待首批数据发布");
     expect(screen.queryByText("演示企业甲")).toBeNull();
     expect(
-      screen.getByText("尚无已发布数据版本 · 保留来源与公开修订"),
+      screen.getByText("尚无已发布报告 · 按报告独立发布，保留来源与公开修订"),
     ).toBeTruthy();
     expect(
       calls.every(
@@ -649,8 +638,7 @@ describe("independent public data platform", () => {
       await screen.findByRole("button", { name: "查看总能源消耗原文证据" }),
     );
     await screen.findByText("复核凭证");
-    expect(screen.getByText("固定版本发布")).toBeTruthy();
+    expect(screen.getByText("报告发布")).toBeTruthy();
     expect(screen.getByText("比较判定")).toBeTruthy();
-    expect(screen.getAllByText(/数据版本 d2/).length).toBeGreaterThan(0);
   });
 });

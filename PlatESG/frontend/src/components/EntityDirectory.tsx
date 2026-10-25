@@ -93,7 +93,7 @@ export default function EntityDirectory({
         </div>
       </div>
       <p className="result-caption">
-        {filtered.length} 家企业 · 当前发布版本
+        {filtered.length} 家企业 · 当前发布
         {paging.pages > 1 && ` · 第 ${paging.page} / ${paging.pages} 页`}
       </p>
       {display === "cards" ? (

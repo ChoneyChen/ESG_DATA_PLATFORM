@@ -73,11 +73,11 @@ export function ReviewTrail({ item }: { item: Evidence }) {
     },
     {
       key: "release",
-      title: "固定版本发布",
-      detail: `数据版本 ${item.dataset_version}${
-        item.published_at ? " · " + stamp(item.published_at) : ""
-      }`,
-      ok: Boolean(item.dataset_version),
+      title: "报告发布",
+      detail: item.report_version
+        ? `报告第 ${item.report_version} 版${item.published_at ? " · " + stamp(item.published_at) : ""}`
+        : "当前已发布报告",
+      ok: Boolean(item.report_version || item.published_at),
     },
   ];
   const revisions = item.public_revisions || [];

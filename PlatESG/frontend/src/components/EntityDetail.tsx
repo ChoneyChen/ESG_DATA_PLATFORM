@@ -39,12 +39,10 @@ export default function EntityDetail({
     metric_id: metric,
   });
   const coverage = useResource<CoverageResponse>(
-    dataset
-      ? apiUrl("/v1/coverage", {
-          entity_ref: entity.entity_ref,
-          dataset_version: dataset,
-        })
-      : null,
+    apiUrl("/v1/coverage", {
+      entity_ref: entity.entity_ref,
+      ...(dataset ? { dataset_version: dataset } : {}),
+    }),
   );
   const groups = buildTrendSeries(data.rows);
   return (
@@ -84,8 +82,8 @@ export default function EntityDetail({
           </strong>
         </div>
         <div>
-          <span>固定数据版本</span>
-          <strong className="version-value">{dataset || "尚无发布"}</strong>
+          <span>发布范围</span>
+          <strong className="version-value">{dataset ? "历史快照" : "当前已发布报告"}</strong>
         </div>
       </div>
       <section className="panel">
@@ -114,16 +112,12 @@ export default function EntityDetail({
             ))}
           </select>
           <a
-            href={
-              dataset
-                ? apiUrl("/v1/exports", {
-                    format: "csv",
-                    dataset_version: dataset,
-                    entity_ref: entity.entity_ref,
-                    metric_id: metric,
-                  })
-                : undefined
-            }
+            href={apiUrl("/v1/exports", {
+              format: "csv",
+              ...(dataset ? { dataset_version: dataset } : {}),
+              entity_ref: entity.entity_ref,
+              metric_id: metric,
+            })}
             className="text-button"
           >
             <Icon name="download" size={16} /> 下载企业数据
@@ -187,7 +181,7 @@ export default function EntityDetail({
           <ObservationTable rows={data.rows} onEvidence={onEvidence} />
         ) : (
           <Notice title="此版本暂无已发布观测">
-            此数据版本没有该企业的已发布数据。
+            当前发布中没有该企业的已发布数据。
           </Notice>
         )}
         {data.cursor && (

@@ -16,6 +16,7 @@ export function ReportArtifacts({reportRef}:{reportRef:string}){
  const resource=useResource('publication',reportRef?`/internal/v1/report-artifacts?report_ref=${encodeURIComponent(reportRef)}`:null,true);
  const [selected,setSelected]=useState<Set<string>>(new Set());
  const [confirm,setConfirm]=useState<null|{ids:string[]}>(null);
+ const [confirmReport,setConfirmReport]=useState(false);
  const [busy,setBusy]=useState(false),[message,setMessage]=useState('');
  const candidates=items(resource.data,'candidates');
  const deletable=useMemo(()=>candidates.filter(candidate=>candidate.deletable),[candidates]);
@@ -31,6 +32,16 @@ export function ReportArtifacts({reportRef}:{reportRef:string}){
      reason:'删除未发布且未保存测量口径的候选',...(ids.length?{mapping_ids:ids}:{})});
    setMessage(`已删除 ${result.deleted ?? 0} 条候选；${(result.blocked_candidates || []).length} 条因已发布或已保存口径保留。`);
    setSelected(new Set());setConfirm(null);refresh();
+  }catch(error){setMessage((error as Error).message);}
+  finally{setBusy(false);}
+ }
+ async function removeReport(){
+  setBusy(true);setMessage('');
+  try{
+   const result=await post('publication','/internal/v1/report-artifacts/delete-report',{report_ref:reportRef,apply:true,
+     reason:'按报告删除提取产物并撤下公开数据'});
+   setMessage(`已删除报告产物：物理删除候选 ${result.deleted_candidates ?? 0} 条，受保护候选 ${result.protected_candidates ?? 0} 条；公开数据已撤下，审计快照保留。`);
+   setConfirmReport(false);refresh();
   }catch(error){setMessage((error as Error).message);}
   finally{setBusy(false);}
  }
@@ -62,6 +73,11 @@ export function ReportArtifacts({reportRef}:{reportRef:string}){
     <button type="button" className="danger" disabled={busy||!canDelete||!deletable.length} title={!canDelete?'当前身份没有管理权限':undefined}
       onClick={()=>setConfirm({ids:selected.size?[...selected]:[]})}>{busy?'删除中…':selected.size?`删除所选 ${selected.size} 条`:`删除全部可删除候选（${deletable.length}）`}</button>
     <small className="muted">每次最多删除当前报告的可删除候选；受保护行会列出原因。</small>
+   </div>
+   <div className="button-row">
+    {confirmReport?<><button type="button" className="danger" disabled={busy} onClick={()=>void removeReport()}>确认删除整份报告产物</button><button type="button" className="ghost" disabled={busy} onClick={()=>setConfirmReport(false)}>取消</button></>
+      :<button type="button" className="danger secondary" disabled={busy||!canDelete} title={!canDelete?'当前身份没有管理权限':undefined} onClick={()=>setConfirmReport(true)}>删除整份报告产物（含已审核 / 已发布）</button>}
+    <small className="muted">会把该报告从公开站撤下并隐藏全部候选；未受保护的候选物理删除，已保存口径与不可变快照保留审计。</small>
    </div>
    {confirm&&<div className="confirm-box"><strong>确认删除 {targetIds.length} 条候选？</strong>
     <p>删除后该报告的这些候选、映射、测量证据与审核决定不再可见，无法在这里恢复。报告身份与已发布观测不受影响。</p>

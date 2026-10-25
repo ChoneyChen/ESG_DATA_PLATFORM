@@ -21,7 +21,7 @@ export default function Sources({
     query = params.get("source_q") || "",
     entity = params.get("source_entity") || "";
   const sources = useResource<VersionedItems<PublicSource>>(
-    dataset ? apiUrl("/v1/sources", { dataset_version: dataset }) : null,
+    apiUrl("/v1/sources", dataset ? { dataset_version: dataset } : {}),
   );
   const data = useObservations(dataset, entity ? { entity_ref: entity } : {});
   const filtered = (sources.data?.items || []).filter(
@@ -39,7 +39,7 @@ export default function Sources({
       <div className="page-heading">
         <div className="eyebrow">SOURCES & PUBLICATIONS</div>
         <h1>报告来源</h1>
-        <p>查看本数据版本引用的企业报告，沿着每条数据回到披露片段与页码。</p>
+        <p>查看当前已发布报告引用的企业报告，沿着每条数据回到披露片段与页码。</p>
       </div>
       <div className="toolbar">
         <label className="search-field">

@@ -60,6 +60,7 @@ export interface Observation {
   comparison_eligibility: string;
   comparison_reasons: string[];
   publication_status: string;
+  report_version?: number | null;
   definition_version: string;
   revision?: number;
 }
@@ -116,6 +117,7 @@ export interface Evidence extends Observation {
     change_summary?: string | null;
   }[];
   dataset_version: string | number;
+  report_version?: number | null;
 }
 export interface UnitConversion {
   source_unit: string | null;
@@ -153,6 +155,26 @@ export interface Dataset {
   created_at: string;
   reason: string | null;
   observation_count: number;
+}
+
+export interface ReportRelease {
+  report_ref: string;
+  report_title_snapshot: string | null;
+  organization_ref: string | null;
+  publication_version: number;
+  published_at: string | null;
+  observation_count: number;
+}
+
+export interface ReportReleaseResponse {
+  items: ReportRelease[];
+  totals: {
+    reports: number;
+    published: number;
+    pending: number;
+    draft: number;
+    observations: number;
+  };
 }
 
 export interface VersionedItems<T> {

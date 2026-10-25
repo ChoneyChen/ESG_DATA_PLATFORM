@@ -9,6 +9,8 @@
  */
 export const REPORT_ARTIFACT_RULE_VERSION = 'report-artifacts-v1';
 
+import { deleteReport } from './publication.mjs';
+
 const nonempty = value => typeof value === 'string' && value.trim().length > 0;
 
 async function reportRow(db, reportRef) {
@@ -174,4 +176,35 @@ export async function collapseDuplicateCandidates(db, {report_ref, apply = false
   const result = await deleteReportCandidates(db, {report_ref, mapping_ids: duplicateMappingIds,
     apply: true, operator_ref, reason});
   return {...summary, applied: true, collapsed: result.deleted, delete_result: result};
+}
+
+/**
+ * Delete a report's platform artifacts as one report-scoped action. Candidates
+ * that are still unpublished and context-free are removed physically; rows
+ * already carrying a measurement context or a published observation are
+ * protected by the immutable audit contract, so the report is withdrawn and
+ * marked deleted, which removes the whole report from the public surface and
+ * from the working lists. The report identity and immutable snapshots remain
+ * available for audit; a later re-extraction creates a new report identity.
+ */
+export async function deleteReportArtifacts(db, {report_ref, operator_ref, reason, apply = false}) {
+  if (!nonempty(report_ref)) throw new Error('删除报告产物需要 report_ref');
+  const inventory = await reportArtifacts(db, {report_ref});
+  if (!inventory.report) throw new Error('报告身份不存在');
+  const deletable = inventory.candidates.filter(item => item.deletable);
+  const protectedCandidates = inventory.candidates.filter(item => !item.deletable);
+  if (!apply) return {...inventory, dry_run: true, applied: false,
+    deletable: deletable.length, protected_candidates: protectedCandidates.length};
+  if (!nonempty(operator_ref) || !nonempty(reason)) throw new Error('删除报告产物需要操作员身份与原因');
+  let candidateDeletion = null;
+  if (deletable.length) {
+    candidateDeletion = await deleteReportCandidates(db, {report_ref,
+      mapping_ids: deletable.map(item => item.mapping_id), apply: true, operator_ref, reason});
+  }
+  const publication = await deleteReport(db, {report_ref, operator_ref, reason});
+  return {...inventory, dry_run: false, applied: true,
+    deleted_candidates: candidateDeletion?.deleted || 0,
+    protected_candidates: protectedCandidates.length,
+    publication,
+    preserved: {report_identity: true, immutable_snapshots: true, audit_history: true}};
 }

@@ -23,14 +23,15 @@ function ReviewReportIndex({params}:{params:URLSearchParams}){
  const candidatesResource=useResource('publication','/internal/v1/candidates?limit=1000',true);
  const proposalsResource=useResource('publication','/internal/v1/candidate-proposals?limit=1000',true);
  const reportsResource=useResource('document','/api/reports');
+ const publicationsResource=useResource('publication','/internal/v1/report-publications',true);
  const [query,setQuery]=useState(''),[status,setStatus]=useState('pending');
- const all=items(candidatesResource.data),reports=items(reportsResource.data,'reports');
+ const all=items(candidatesResource.data),reports=items(reportsResource.data,'reports'),publications=items(publicationsResource.data);
  const autoStats=useMemo(()=>{const stats=new Map<string,{ready:number,human:number}>();for(const p of items(proposalsResource.data)){if(p.already_approved)continue;const key=String(p.report_ref || '');const entry=stats.get(key) || {ready:0,human:0};if(p.resolvable)entry.ready+=1;else entry.human+=1;stats.set(key,entry);}return stats;},[proposalsResource.data]);
  const selectedReasons=useMemo(()=>selectedRef?autoReviewReasonCounts(items(proposalsResource.data),selectedRef):[],[proposalsResource.data,selectedRef]);
  const matches=(candidate:Row)=>`${candidate.source_datapoint_id || ''} ${candidate.raw_indicator_name || ''} ${candidate.organization_ref || ''} ${candidate.report_title_snapshot || ''}`.toLowerCase().includes(query.trim().toLowerCase());
  const pending=(candidate:Row)=>candidate.fact_review_status!=='approved'||candidate.mapping_review_status!=='approved'||!candidate.context;
- const units=reviewReportUnits(all,reports).filter(unit=>!query.trim()||`${unit.title} ${unit.publisher} ${unit.code}`.toLowerCase().includes(query.trim().toLowerCase()));
- const selectedUnit=selectedRef?reviewReportUnits(all.filter(candidate=>candidate.report_ref===selectedRef),reports)[0]:undefined;
+ const units=reviewReportUnits(all,reports,publications).filter(unit=>!query.trim()||`${unit.title} ${unit.publisher} ${unit.code}`.toLowerCase().includes(query.trim().toLowerCase()));
+ const selectedUnit=selectedRef?reviewReportUnits(all.filter(candidate=>candidate.report_ref===selectedRef),reports,publications)[0]:undefined;
  const selectedRows=all.filter(candidate=>candidate.report_ref===selectedRef&&matches(candidate)&&(status==='all'||(status==='published'?candidate.publication_status==='published':pending(candidate))));
  return <><div className="page-heading"><div>{selectedRef&&<button className="text-button" onClick={()=>navigate('/review')}>← 全部报告</button>}<span className="eyebrow">质量与测量口径</span><h1>{selectedRef?(selectedUnit?.title || '报告审核'):'审核中心'}</h1><p>{selectedRef?`${selectedUnit?.publisher || '发布者未记录'} · 报告级核对 ${selectedUnit?.total || all.filter(item=>item.report_ref===selectedRef).length} 条候选，确认后仍按报告发布条件检查。`:'每份报告是一个审核单元；先看报告级状态，再进入该报告核对逐条候选。'}</p></div><div className="button-row">{selectedRef&&<AutoReviewButton reportRef={selectedRef}/>}<button className="secondary" onClick={()=>navigate('/publication')}>查看发布阻塞</button></div></div>
  {!credentials.ready?<Notice>数据平台未连接，审核暂不可用；数据平台启动后自动恢复。</Notice>:<>{selectedRef?selectedUnit&&<ReviewReportSummary unit={selectedUnit} auto={autoStats.get(selectedRef)} reasons={selectedReasons}/>:<div className="review-report-grid">{units.map(unit=>{const auto=autoStats.get(unit.ref);return <ReviewReportCard key={unit.ref||unit.title} unit={unit} hint={auto?<><span>可自动批准 <strong>{auto.ready}</strong></span><span>待人工 <strong>{auto.human}</strong></span></>:undefined} onOpen={()=>navigate(`/review?report=${encodeURIComponent(unit.ref)}`)}/>;})}</div>}

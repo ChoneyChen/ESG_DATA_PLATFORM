@@ -24,6 +24,7 @@ const digest = value => createHash('sha256').update(value).digest('hex');
 // candidates, candidates consume imports.
 export const ARTIFACT_GROUPS = Object.freeze([
   {key: 'published', label: '已发布观测与数据集', tables: [
+    'esg.report_publication_history', 'esg.report_publication_members', 'esg.report_publications',
     'esg.dataset_membership', 'esg.dataset_versions', 'esg.publication_states',
     'esg.observation_sources', 'esg.curated_observations',
     'esg.derived_publication_states', 'esg.derived_observation_lineage',

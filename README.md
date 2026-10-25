@@ -84,9 +84,13 @@ PDF（pdf/ 资产目录，SHA-256 身份）
   → 交付（/internal/v1/deliveries）→ 候选
   → 自动审核（先折叠同报告/条款/单元格/值/期间/边界的重复，再按投影与行标签证据批准；未陈述的可比性轴记 not_stated）
   → 事实审核 / 映射审核 / 测量口径（只处理自动审核保留的项）
-  → 发布（PLATESG_AUTO_PUBLISH=0 时人工触发）→ 观测与冻结数据版本
-  → 公开网站 /v1
+  → 发布（控制台按报告逐份发布；PLATESG_AUTO_PUBLISH=0）→ 报告版本与公开观测
+  → 公开网站 /v1（只显示当前已发布报告）
 ```
+
+审核通过只进入“待发布”。发布、撤下、删除都是**报告级**动作；公开站只显示当前已发布报告，
+每份报告持有自己的 `publication_version`，不存在需要读者选择的全局数据版本。
+全局 `dataset_versions` 只保留为旧链接的兼容快照。
 
 PDF 只是检验链路是否成立的样本：规则来自可推广的类别（单位与标签判定、许可上限与实际排放、
 跨页表格、显式合计列、父/子条款），**不为任何一份报告写特例**。
@@ -142,8 +146,9 @@ Python 包名仍是 `esg_v2`、`esg_targeted`；业务目录已经真实迁移�
 | 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 762 通过、6 跳过 |
 | 标准包 | `pytest ExtractESG/standards/tests` | 118 通过 |
 | PlatESG | `pytest PlatESG/tests` | 77 通过 |
+| 公开前端 | `cd PlatESG/frontend && npm test` | 82 通过 |
 | 数据库 | `cd database && npm test` | 57 个测试：55 通过、2 跳过 |
-| PlatESG Node | `database/scripts/run-node.sh --test PlatESG/backend/tests/*.test.mjs` | 69 个测试：59 通过、10 跳过 |
+| PlatESG Node | `database/scripts/run-node.sh --test PlatESG/backend/tests/*.test.mjs` | 70 个测试：60 通过、10 跳过 |
 | 金标回归（9 份报告，只重跑提取） | `.local/foundation-lab/reg_only.sh` | 158/159、0 错 0 漏、1 项已知误报 |
 
 工程通过不等于提取准确：金标与未见报告核验（宁德、越秀、紫金、隆基、航空工业、中华煤气、法拉电子）
@@ -156,6 +161,7 @@ Python 包名仍是 `esg_v2`、`esg_targeted`；业务目录已经真实迁移�
 - 所有模型调用默认本地；云模型、云 OCR 必须显式授权，`allow_cloud_ocr=false`。
 - 正式库为 `PlatESG/.local/data`（`PlatESG/.local/demo-data` 是历史快照，未被服务使用），不重置、不迁移；
   产物清理走 `POST /internal/v1/artifact-purge`，不直接改库；`PLATESG_AUTO_PUBLISH=0` 保持人工发布。
+  发布、撤下、删除都按报告执行（`/internal/v1/report-publications/*`）；不要恢复“一次发布全平台”的入口。
 - 真实 OCR、模型任务与发布由用户发起；离线测试使用假阶段与隔离库。
 - 前端只消费后端合同，不推断完成、发布或未披露；来源修订与重新执行都是显式动作。
 - 提交身份：`Choney Chen <ChoneyChen@users.noreply.github.com>`；远端 `ChoneyChen/ESG_DATA_PLATFORM` 为公开仓库。

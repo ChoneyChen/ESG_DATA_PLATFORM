@@ -3,10 +3,8 @@ import type { Dataset } from "../types";
 import { Icon } from "./Ui";
 import { ProductLink } from "./ProductLink";
 export default function Methods({
-  dataset,
   datasets,
 }: {
-  dataset: string;
   datasets: Dataset[];
 }) {
   return (
@@ -121,71 +119,43 @@ export default function Methods({
             </ProductLink>
           </section>
           <section id="data-versions">
-            <span className="eyebrow">06 · 版本</span>
-            <h2>固定版本，复现一次查询</h2>
+            <span className="eyebrow">06 · 发布</span>
+            <h2>按报告发布，各自独立</h2>
             <p>
-              网站解析最新发布后，将明确的数据版本保存在链接中。企业、指标、比较、原文和下载使用相同版本；后续发布不会悄悄改变旧链接的数据。公开修订说明可以在数据来源详情中查看。
+              每份报告由数据平台控制台单独发布、撤下或删除。公开站默认展示当前已发布报告；报告各自保留版本，新增或撤下某份报告不会改写其他报告的数据。公开修订说明可以在数据来源详情中查看。
             </p>
             <div className="download-options">
-              <a
-                className={
-                  "button primary " + (!dataset ? "disabled-link" : "")
-                }
-                aria-disabled={!dataset}
-                href={
-                  dataset
-                    ? apiUrl("/v1/exports", {
-                        format: "csv",
-                        dataset_version: dataset,
-                      })
-                    : undefined
-                }
-              >
-                <Icon name="download" size={17} /> 下载当前版本 CSV
+              <a className="button primary" href={apiUrl("/v1/exports", { format: "csv" })}>
+                <Icon name="download" size={17} /> 下载当前发布 CSV
               </a>
-              <a
-                className={
-                  "button secondary " + (!dataset ? "disabled-link" : "")
-                }
-                aria-disabled={!dataset}
-                href={
-                  dataset
-                    ? apiUrl("/v1/exports", {
-                        format: "json",
-                        dataset_version: dataset,
-                      })
-                    : undefined
-                }
-              >
+              <a className="button secondary" href={apiUrl("/v1/exports", { format: "json" })}>
                 下载 JSON
               </a>
             </div>
-            <div className="table-scroll">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>发布版本</th>
-                    <th>发布时间</th>
-                    <th>数据条数</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {datasets.map((item) => (
-                    <tr key={item.dataset_version}>
-                      <td>
-                        {item.dataset_version}
-                        {String(item.dataset_version) === dataset && (
-                          <span className="badge green">当前浏览</span>
-                        )}
-                      </td>
-                      <td>{item.created_at.replace("T", " ").slice(0, 19)}</td>
-                      <td>{item.observation_count}</td>
+            <details>
+              <summary>历史快照（兼容旧链接）</summary>
+              <div className="table-scroll">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>快照编号</th>
+                      <th>发布时间</th>
+                      <th>数据条数</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {!datasets.length && <p>尚无已发布数据版本。</p>}
+                  </thead>
+                  <tbody>
+                    {datasets.map((item) => (
+                      <tr key={item.dataset_version}>
+                        <td>{item.dataset_version}</td>
+                        <td>{item.created_at.replace("T", " ").slice(0, 19)}</td>
+                        <td>{item.observation_count}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {!datasets.length && <p>尚无历史快照。</p>}
+            </details>
           </section>
         </div>
       </div>

@@ -17,7 +17,7 @@ export function publicObservation(row, metric, publishedAt) {
     'clause_kind','extension_id','related_source_datapoint_ids','parent_package_id','value_origin',
     'measurement_method','value_role','canonical_unit','value_numeric','lower_bound','upper_bound',
     'precision_qualifier','statement_text','raw_value_text','raw_unit','source_count','comparison_eligibility',
-    'comparison_reasons','publication_status','dataset_version','created_at']);
+    'comparison_reasons','publication_status','dataset_version','report_version','created_at']);
   const axes = new Set(['entity_kind', ...(metric?.required_dimensions || []), ...(metric?.comparison_dimensions || []),
     ...Object.keys(metric?.fixed_dimensions || {}), ...Object.keys(metric?.dimension_constraints || {}),
     ...(metric?.required_context_fields || [])]);

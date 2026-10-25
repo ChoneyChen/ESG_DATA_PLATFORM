@@ -53,7 +53,12 @@ disclosure_dimensions                                     dataset_membership
 | `POST /internal/v1/deliveries` | 交付一个成果包（幂等，返回持久收据） |
 | `POST /internal/v1/reviews` | 事实或映射审核决定（带操作员与依据） |
 | `POST /internal/v1/measurement-contexts` | 保存测量口径（主体、期间、边界、维度、原单位） |
-| `POST /internal/v1/publication-process` | 处理待发布事件，生成观测与新数据版本 |
+| `POST /internal/v1/publication-process` | 兼容入口：处理待发布事件并生成观测；不再作为发布控制 |
+| `GET /internal/v1/report-publications` | 按报告列出待发布 / 已发布 / 已删除状态与版本 |
+| `POST /internal/v1/report-publications/publish` | 发布一份报告的当前已审核数据（报告级版本 +1） |
+| `POST /internal/v1/report-publications/withdraw` | 撤下一份报告（公开站立即隐藏，保留候选与快照） |
+| `POST /internal/v1/report-publications/delete` | 删除一份报告（隐藏报告与产物，保留审计快照） |
+| `POST /internal/v1/report-artifacts/delete-report` | 删除整份报告产物并撤下公开数据 |
 | `GET /internal/v1/candidates` | 候选与发布阻塞原因 |
 | `POST /internal/v1/delivery-status/query` | 只读核对交付与发布状态（固定描述符） |
 | `POST /internal/v1/entities` | 登记企业主体（发布前置） |

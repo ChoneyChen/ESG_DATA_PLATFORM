@@ -276,7 +276,7 @@ export default function ApiDocs({ dataset }: { dataset: string }) {
       <header className="page-heading">
         <span className="eyebrow">API REFERENCE</span>
         <h1>API 文档</h1>
-        <p>公开只读接口，与本页展示使用同一固定发布版本。</p>
+        <p>公开只读接口，与本页展示使用同一当前发布。</p>
       </header>
       <div className="api-meta">
         <div>

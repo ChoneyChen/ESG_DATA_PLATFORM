@@ -3,9 +3,11 @@ import { apiUrl } from "./api";
 import { useResource } from "./hooks/useResource";
 import { currentView, useLocation } from "./navigation";
 import type {
+  Dataset,
   DatasetResponse,
   Entity,
   MetricsResponse,
+  ReportReleaseResponse,
   VersionedItems,
 } from "./types";
 import { ErrorNotice, Loading, Notice } from "./components/Ui";
@@ -39,28 +41,32 @@ export default function App() {
   const [params, patch] = useLocation(),
     view = currentView(params);
   const datasets = useResource<DatasetResponse>(apiUrl("/v1/datasets"));
-  const dataset = String(
-    params.get("dataset_version") ||
-      params.get("dataset") ||
-      datasets.data?.latest ||
-      "",
-  );
-  const invalidDataset =
-    !!datasets.data &&
-    !!dataset &&
-    !datasets.data.items.some(
-      (item) => String(item.dataset_version) === dataset,
-    );
-  const entities = useResource<VersionedItems<Entity>>(
-    datasets.data && !invalidDataset
-      ? apiUrl("/v1/entities", { dataset_version: dataset })
-      : null,
-  );
-  const metrics = useResource<MetricsResponse>(
-    datasets.data && !invalidDataset
-      ? apiUrl("/v1/metrics", { dataset_version: dataset })
-      : null,
-  );
+  const reports = useResource<ReportReleaseResponse>(apiUrl("/v1/reports"));
+  // The public surface is the current set of published reports. Report
+  // versions are independent; there is no global version the reader selects.
+  const dataset = "";
+  const publishedReports = reports.data?.items || [];
+  const latestPublished = publishedReports
+    .map((item) => item.published_at)
+    .filter((value): value is string => Boolean(value))
+    .sort()
+    .at(-1);
+  const currentDataset: Dataset | undefined = publishedReports.length
+    ? {
+        dataset_version: "current",
+        created_at: latestPublished || "",
+        reason: null,
+        observation_count: publishedReports.reduce(
+          (sum, item) => sum + Number(item.observation_count || 0),
+          0,
+        ),
+      }
+    : datasets.data?.items.find(
+        (item) =>
+          String(item.dataset_version) === String(datasets.data?.latest),
+      );
+  const entities = useResource<VersionedItems<Entity>>(apiUrl("/v1/entities"));
+  const metrics = useResource<MetricsResponse>(apiUrl("/v1/metrics"));
   const entityList = entities.data?.items || [],
     metricList = metrics.data?.items || [];
   const selectedEntity = entityList.find(
@@ -68,9 +74,6 @@ export default function App() {
   );
   const selectedMetric = metricList.find(
     (metric) => metric.metric_id === params.get("metric"),
-  );
-  const currentDataset = datasets.data?.items.find(
-    (item) => String(item.dataset_version) === dataset,
   );
   const error = datasets.error || entities.error || metrics.error;
   const evidenceId = params.get("evidence");
@@ -82,14 +85,6 @@ export default function App() {
     (id: string) => patch({ evidence: id }),
     [patch],
   );
-  useEffect(() => {
-    if (
-      dataset &&
-      !invalidDataset &&
-      (params.get("dataset_version") !== dataset || params.has("dataset"))
-    )
-      patch({ dataset_version: dataset, dataset: null }, true);
-  }, [dataset, invalidDataset, params, patch]);
   useEffect(() => {
     const selectedName =
       view === "entity"
@@ -110,20 +105,10 @@ export default function App() {
     entities.reload();
     metrics.reload();
   };
-  const changeDataset = (value: string) =>
-    patch({ dataset_version: value, dataset: null, evidence: null, page: null });
-
-  const contentReady =
-    !!error ||
-    invalidDataset ||
-    (!!datasets.data && !entities.loading && !metrics.loading);
+  const contentReady = !!error || (!!datasets.data && !entities.loading && !metrics.loading);
 
   const content = error ? (
     <ErrorNotice error={error} retry={retry} />
-  ) : invalidDataset ? (
-    <Notice title="此发布版本不可用">
-      链接中的数据版本不存在或未公开。请选择已发布的数据版本。
-    </Notice>
   ) : view === "overview" ? (
     <Overview
       entities={entityList}
@@ -143,8 +128,8 @@ export default function App() {
       onEvidence={openEvidence}
     />
   ) : view === "entity" ? (
-    <Notice title="此版本未找到企业">
-      请返回企业目录，选择本版本中已发布的企业。
+    <Notice title="当前发布中未找到该企业">
+      请返回企业目录，选择已发布报告中的企业。
     </Notice>
   ) : view === "metrics" ? (
     <MetricCatalog metrics={metricList} />
@@ -155,7 +140,7 @@ export default function App() {
       onEvidence={openEvidence}
     />
   ) : view === "metric" ? (
-    <Notice title="此版本未找到指标">
+    <Notice title="当前发布中未找到该指标">
       请返回指标浏览，选择已有定义的指标。
     </Notice>
   ) : view === "compare" ? (
@@ -172,20 +157,19 @@ export default function App() {
       onEvidence={openEvidence}
     />
   ) : view === "methods" ? (
-    <Methods dataset={dataset} datasets={datasets.data?.items || []} />
+    <Methods datasets={datasets.data?.items || []} />
   ) : view === "api" ? (
     <ApiDocs dataset={dataset} />
   ) : null;
 
   const isLanding = view === "landing";
-  const drawer =
-    evidenceId && dataset ? (
-      <EvidenceDrawer
-        observationId={evidenceId}
-        dataset={dataset}
-        close={closeEvidence}
-      />
-    ) : null;
+  const drawer = evidenceId ? (
+    <EvidenceDrawer
+      observationId={evidenceId}
+      dataset={dataset}
+      close={closeEvidence}
+    />
+  ) : null;
 
   if (isLanding)
     return (
@@ -193,11 +177,10 @@ export default function App() {
         <Landing
           entities={entityList}
           metrics={metricList}
-          dataset={dataset}
           currentDataset={currentDataset}
-          datasets={datasets.data?.items || []}
           demo={demo}
           error={error}
+          reportCount={publishedReports.length}
         />
         {drawer}
       </div>
@@ -206,11 +189,10 @@ export default function App() {
   return (
     <AppShell
       view={view}
-      dataset={dataset}
-      datasets={datasets.data?.items || []}
-      currentDataset={currentDataset}
+      reportCount={publishedReports.length}
+      observationCount={currentDataset?.observation_count || 0}
+      latestPublishedAt={latestPublished || null}
       demo={demo}
-      onDataset={changeDataset}
     >
       {contentReady ? content : <Loading rows={4} />}
       {drawer}

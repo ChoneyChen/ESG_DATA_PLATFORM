@@ -405,18 +405,7 @@ export async function processOutbox(db,{limit=100}={}) {
   }
 }
 
-export async function readDataset(db,version=null) {
-  if(version!=null && (!/^\d+$/.test(String(version)) || !Number.isSafeInteger(Number(version)))) throw new Error('Invalid dataset version');
-  const dataset=(await db.query(version==null?'SELECT * FROM esg.dataset_versions WHERE sealed ORDER BY dataset_version DESC LIMIT 1':'SELECT * FROM esg.dataset_versions WHERE sealed AND dataset_version=$1',version==null?[]:[String(version)])).rows[0];
-  if(!dataset) {const error=new Error('Dataset version does not exist');error.code='not_found';throw error;}
-  const observations=(await db.query(`SELECT o.observation_id,o.metric_id,o.definition_version AS metric_definition_version,d.source_datapoint_id,
-    d.definition->>'label_zh' AS label_zh,d.definition->>'topic' AS topic,o.entity_ref,o.period_start::text,o.period_end::text,o.boundary_code,
-    o.value_role,o.measurement_method,o.dimensions,o.canonical_unit,o.numeric_value::text,o.lower_bound::text,o.upper_bound::text,
-    o.precision_qualifier,o.statement,o.comparison_eligibility,o.comparison_reasons,o.normalization_rule_version,o.created_at,o.value_origin,
-    d.clause_kind,d.extension_id
-    FROM esg.dataset_membership m JOIN esg.curated_observations o USING(observation_id)
-    JOIN esg.metric_definition_versions d ON d.metric_id=o.metric_id AND d.definition_version=o.definition_version
-    WHERE m.dataset_version=$1 ORDER BY o.entity_ref,o.metric_id,o.period_end,o.observation_id`,[String(dataset.dataset_version)])).rows;
+async function hydrateObservations(db, observations) {
   for(const o of observations) o.sources=(await db.query(`SELECT context_id,disclosure_id,mapping_id,source_snapshot
     FROM esg.observation_sources WHERE observation_id=$1 ORDER BY context_id`,[o.observation_id])).rows.map(({source_snapshot,...identity})=>({...identity,...source_snapshot}));
   for(const o of observations.filter(row=>row.value_origin==='derived')) {
@@ -438,6 +427,215 @@ export async function readDataset(db,version=null) {
   for(const o of observations) o.reported_properties=(o.sources || []).flatMap(source=>
     (source.reported_properties || []).map(property=>({...property,report_title:source.report_title_snapshot || null,
       ...(source.operand_id?{source_role:'operand',source_label:source.label_zh}:{} )})));
+  return observations;
+}
+
+export async function readDataset(db,version=null) {
+  if(version!=null && (!/^\d+$/.test(String(version)) || !Number.isSafeInteger(Number(version)))) throw new Error('Invalid dataset version');
+  const dataset=(await db.query(version==null?'SELECT * FROM esg.dataset_versions WHERE sealed ORDER BY dataset_version DESC LIMIT 1':'SELECT * FROM esg.dataset_versions WHERE sealed AND dataset_version=$1',version==null?[]:[String(version)])).rows[0];
+  if(!dataset) {const error=new Error('Dataset version does not exist');error.code='not_found';throw error;}
+  const observations=(await db.query(`SELECT o.observation_id,o.metric_id,o.definition_version AS metric_definition_version,d.source_datapoint_id,
+    d.definition->>'label_zh' AS label_zh,d.definition->>'topic' AS topic,o.entity_ref,o.period_start::text,o.period_end::text,o.boundary_code,
+    o.value_role,o.measurement_method,o.dimensions,o.canonical_unit,o.numeric_value::text,o.lower_bound::text,o.upper_bound::text,
+    o.precision_qualifier,o.statement,o.comparison_eligibility,o.comparison_reasons,o.normalization_rule_version,o.created_at,o.value_origin,
+    d.clause_kind,d.extension_id
+    FROM esg.dataset_membership m JOIN esg.curated_observations o USING(observation_id)
+    JOIN esg.metric_definition_versions d ON d.metric_id=o.metric_id AND d.definition_version=o.definition_version
+    WHERE m.dataset_version=$1 ORDER BY o.entity_ref,o.metric_id,o.period_end,o.observation_id`,[String(dataset.dataset_version)])).rows;
+  await hydrateObservations(db, observations);
   return {dataset_version:Number(dataset.dataset_version),as_of:dataset.created_at,dictionary_version:dataset.dictionary_version,
     comparison_contract_version:'esg-comparison-1.0.0',observations};
+}
+
+/**
+ * Current public surface: only observations whose supporting report is
+ * published. Deleted or withdrawn reports disappear immediately, without
+ * rewriting any immutable observation or dataset snapshot.
+ */
+export async function readPublished(db) {
+  // Compatibility for a database that predates report-scoped publication:
+  // with no report records at all, the last sealed dataset remains the public
+  // surface. As soon as one report is published or deleted, report state wins.
+  const hasReportState = (await db.query('SELECT 1 FROM esg.report_publications LIMIT 1')).rows.length > 0;
+  if (!hasReportState) return readDataset(db, null);
+  const observations=(await db.query(`SELECT o.observation_id,o.metric_id,o.definition_version AS metric_definition_version,
+    d.source_datapoint_id,d.definition->>'label_zh' AS label_zh,d.definition->>'topic' AS topic,o.entity_ref,
+    o.period_start::text,o.period_end::text,o.boundary_code,o.value_role,o.measurement_method,o.dimensions,o.canonical_unit,
+    o.numeric_value::text,o.lower_bound::text,o.upper_bound::text,o.precision_qualifier,o.statement,o.comparison_eligibility,
+    o.comparison_reasons,o.normalization_rule_version,o.created_at,o.value_origin,d.clause_kind,d.extension_id,
+    (SELECT max(pm.publication_version) FROM esg.report_publication_members pm
+      JOIN esg.report_publications rp ON rp.source_report_id=pm.source_report_id
+      WHERE pm.observation_id=o.observation_id AND rp.status='published'
+        AND pm.publication_version=rp.publication_version) AS report_version
+    FROM esg.curated_observations o
+    JOIN esg.metric_definition_versions d ON d.metric_id=o.metric_id AND d.definition_version=o.definition_version
+    WHERE EXISTS (
+      SELECT 1 FROM esg.report_publication_members pm
+      JOIN esg.report_publications rp ON rp.source_report_id=pm.source_report_id
+      WHERE pm.observation_id=o.observation_id AND rp.status='published'
+        AND pm.publication_version=rp.publication_version)
+    ORDER BY o.entity_ref,o.metric_id,o.period_end,o.observation_id`)).rows;
+  await hydrateObservations(db, observations);
+  const meta=(await db.query(`SELECT max(rp.published_at) AS as_of,
+      (SELECT dictionary_version FROM esg.dictionary_versions WHERE sealed ORDER BY release_order DESC LIMIT 1) AS dictionary_version,
+      (SELECT max(dataset_version) FROM esg.dataset_versions WHERE sealed) AS dataset_version
+    FROM esg.report_publications rp WHERE rp.status='published'`)).rows[0];
+  return {dataset_version:Number(meta?.dataset_version || 0),as_of:meta?.as_of || null,
+    dictionary_version:meta?.dictionary_version || 'uninitialized',
+    comparison_contract_version:'esg-comparison-1.0.0',observations};
+}
+
+const reportRefError = (message, code = 'invalid_report') => {
+  const error = new Error(message); error.code = code; return error;
+};
+
+export async function reportPublications(db, {include_deleted = false} = {}) {
+  const items = (await db.query(`SELECT r.report_ref,r.source_report_id,r.report_title_snapshot,r.organization_ref,
+      COALESCE(rp.status,'draft') AS status,COALESCE(rp.publication_version,0) AS publication_version,
+      rp.published_at,rp.withdrawn_at,rp.deleted_at,rp.operator_ref,rp.reason,
+      (SELECT count(DISTINCT m.disclosure_standard_mapping_id)::int
+       FROM esg.esg_disclosures d JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+       WHERE d.source_report_id=r.source_report_id) AS candidate_count,
+      (SELECT count(DISTINCT m.disclosure_standard_mapping_id)::int
+       FROM esg.esg_disclosures d JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+       WHERE d.source_report_id=r.source_report_id AND d.quality_status='approved' AND m.review_status='approved'
+         AND EXISTS (SELECT 1 FROM esg.measurement_contexts c WHERE c.mapping_id=m.disclosure_standard_mapping_id)) AS approved_count,
+      (SELECT count(DISTINCT m.disclosure_standard_mapping_id)::int
+       FROM esg.esg_disclosures d JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+       JOIN esg.publication_states p ON p.mapping_id=m.disclosure_standard_mapping_id
+       WHERE d.source_report_id=r.source_report_id AND p.publication_status IN ('blocked','withdrawn')) AS blocked_count,
+      (SELECT count(*)::int FROM esg.report_publication_members pm
+       WHERE pm.source_report_id=r.source_report_id
+         AND pm.publication_version=COALESCE(rp.publication_version,0)) AS observation_count,
+      (SELECT count(DISTINCT os.observation_id)::int
+       FROM esg.esg_disclosures d JOIN esg.observation_sources os USING(disclosure_id)
+       WHERE d.source_report_id=r.source_report_id) AS available_observation_count
+    FROM esg.source_report_refs r
+    LEFT JOIN esg.report_publications rp USING(source_report_id)
+    WHERE ($1 OR COALESCE(rp.status,'draft') <> 'deleted')
+    ORDER BY r.report_title_snapshot NULLS LAST,r.report_ref`,[include_deleted])).rows.map(row => {
+    const pending = Math.max(0, row.candidate_count - row.approved_count);
+    return {...row, pending_count: pending, ready: row.approved_count > 0,
+      public_visible: row.status === 'published' && row.observation_count > 0,
+      next_action: row.status === 'deleted' ? 'deleted' : row.status === 'published' ? 'published'
+        : row.approved_count > 0 ? 'publish' : 'review'};
+  });
+  return {items, totals: {
+    reports: items.length,
+    published: items.filter(item => item.status === 'published').length,
+    pending: items.filter(item => item.status !== 'published' && item.approved_count > 0).length,
+    draft: items.filter(item => item.status !== 'published' && item.approved_count === 0).length,
+    observations: items.filter(item => item.status === 'published').reduce((sum, item) => sum + item.observation_count, 0),
+  }};
+}
+
+async function reportByRef(db, report_ref) {
+  const report = (await db.query(`SELECT source_report_id,report_ref,report_title_snapshot,organization_ref
+    FROM esg.source_report_refs WHERE report_ref=$1`,[report_ref])).rows[0];
+  if (!report) throw reportRefError('报告身份不存在','not_found');
+  return report;
+}
+
+async function reportObservations(tx, sourceReportId) {
+  return (await tx.query(`SELECT DISTINCT os.observation_id
+    FROM esg.observation_sources os JOIN esg.esg_disclosures d USING(disclosure_id)
+    WHERE d.source_report_id=$1 ORDER BY os.observation_id`,[sourceReportId])).rows.map(row => row.observation_id);
+}
+
+async function recordReportHistory(tx, {sourceReportId, version, action, observationIds, operator_ref, reason}) {
+  await tx.query(`INSERT INTO esg.report_publication_history(history_id,source_report_id,publication_version,action,
+      observation_ids,operator_ref,reason) VALUES($1,$2,$3,$4,$5,$6,$7)`,
+    [randomUUID(), sourceReportId, version, action, observationIds, operator_ref.trim(), reason.trim()]);
+}
+
+export async function publishReport(db, {report_ref, operator_ref, reason, apply = true}) {
+  if (!nonempty(report_ref)) throw reportRefError('发布报告需要 report_ref');
+  if (!nonempty(operator_ref) || !nonempty(reason)) throw reportRefError('发布报告需要操作员与原因','operator_required');
+  const report = await reportByRef(db, report_ref);
+  const current = (await reportPublications(db, {include_deleted: true})).items
+    .find(item => item.report_ref === report_ref);
+  if (current?.status === 'deleted') throw reportRefError('报告已删除，不能直接发布；请先恢复报告身份','report_deleted');
+  if (!current?.approved_count) throw reportRefError('没有已审核且测量口径完整的数据可发布','no_approved_observations');
+  if (!apply) return {...current, dry_run: true, apply: false};
+
+  // Approved contexts become immutable observations through the same
+  // evidence-preserving reconciliation as before. Inclusion in the public
+  // surface is decided by the report status below, not by this snapshot.
+  await db.transaction(async tx => {
+    await tx.query('SELECT singleton FROM esg.publication_control FOR UPDATE');
+    await registerUnitRules(tx);
+    await reconcile(tx);
+  });
+  return db.transaction(async tx => {
+    const row = (await tx.query(`SELECT status,publication_version FROM esg.report_publications
+      WHERE source_report_id=$1 FOR UPDATE`,[report.source_report_id])).rows[0];
+    if (row?.status === 'deleted') throw reportRefError('报告已删除，不能直接发布','report_deleted');
+    const version = Number(row?.publication_version || 0) + 1;
+    const observationIds = await reportObservations(tx, report.source_report_id);
+    if (!observationIds.length) throw reportRefError('审核已通过但还没有形成可发布观测','no_published_observation');
+    await tx.query(`INSERT INTO esg.report_publications(source_report_id,status,publication_version,published_at,
+        withdrawn_at,deleted_at,operator_ref,reason,updated_at)
+      VALUES($1,'published',$2,CURRENT_TIMESTAMP,NULL,NULL,$3,$4,CURRENT_TIMESTAMP)
+      ON CONFLICT(source_report_id) DO UPDATE SET status='published',publication_version=EXCLUDED.publication_version,
+        published_at=CURRENT_TIMESTAMP,withdrawn_at=NULL,deleted_at=NULL,operator_ref=EXCLUDED.operator_ref,
+        reason=EXCLUDED.reason,updated_at=CURRENT_TIMESTAMP`,
+      [report.source_report_id, version, operator_ref.trim(), reason.trim()]);
+    for (const observationId of observationIds)
+      await tx.query(`INSERT INTO esg.report_publication_members(source_report_id,publication_version,observation_id)
+        VALUES($1,$2,$3) ON CONFLICT DO NOTHING`,[report.source_report_id, version, observationId]);
+    await recordReportHistory(tx, {sourceReportId: report.source_report_id, version, action: 'published',
+      observationIds, operator_ref, reason});
+    return {...current, status: 'published', publication_version: version, observation_count: observationIds.length,
+      public_visible: true, next_action: 'published', apply: true};
+  });
+}
+
+export async function withdrawReport(db, {report_ref, operator_ref, reason}) {
+  if (!nonempty(operator_ref) || !nonempty(reason)) throw reportRefError('撤下报告需要操作员与原因','operator_required');
+  const report = await reportByRef(db, report_ref);
+  return db.transaction(async tx => {
+    const row = (await tx.query(`SELECT status,publication_version FROM esg.report_publications
+      WHERE source_report_id=$1 FOR UPDATE`,[report.source_report_id])).rows[0];
+    if (!row || row.status !== 'published') throw reportRefError('只有已发布报告可以撤下','not_published');
+    const observationIds = await reportObservations(tx, report.source_report_id);
+    await tx.query(`UPDATE esg.report_publications SET status='withdrawn',withdrawn_at=CURRENT_TIMESTAMP,
+      operator_ref=$2,reason=$3,updated_at=CURRENT_TIMESTAMP WHERE source_report_id=$1`,
+      [report.source_report_id, operator_ref.trim(), reason.trim()]);
+    await recordReportHistory(tx, {sourceReportId: report.source_report_id, version: row.publication_version,
+      action: 'withdrawn', observationIds, operator_ref, reason});
+    return {report_ref, status: 'withdrawn', publication_version: row.publication_version,
+      observation_count: observationIds.length, public_visible: false};
+  });
+}
+
+export async function deleteReport(db, {report_ref, operator_ref, reason}) {
+  if (!nonempty(operator_ref) || !nonempty(reason)) throw reportRefError('删除报告需要操作员与原因','operator_required');
+  const report = await reportByRef(db, report_ref);
+  return db.transaction(async tx => {
+    const row = (await tx.query(`SELECT status,publication_version FROM esg.report_publications
+      WHERE source_report_id=$1 FOR UPDATE`,[report.source_report_id])).rows[0];
+    const version = Number(row?.publication_version || 0);
+    const observationIds = await reportObservations(tx, report.source_report_id);
+    await tx.query(`INSERT INTO esg.report_publications(source_report_id,status,publication_version,published_at,
+        withdrawn_at,deleted_at,operator_ref,reason,updated_at)
+      VALUES($1,'deleted',$2,NULL,NULL,CURRENT_TIMESTAMP,$3,$4,CURRENT_TIMESTAMP)
+      ON CONFLICT(source_report_id) DO UPDATE SET status='deleted',deleted_at=CURRENT_TIMESTAMP,
+        withdrawn_at=CURRENT_TIMESTAMP,operator_ref=EXCLUDED.operator_ref,reason=EXCLUDED.reason,updated_at=CURRENT_TIMESTAMP`,
+      [report.source_report_id, version, operator_ref.trim(), reason.trim()]);
+    // Existing publication states become withdrawn so no candidate keeps a
+    // stale "published" label after the report is deleted from the platform.
+    await tx.query(`UPDATE esg.publication_states p SET publication_status='withdrawn',last_evaluated_at=CURRENT_TIMESTAMP
+      FROM esg.disclosure_standard_mappings m JOIN esg.esg_disclosures d USING(disclosure_id)
+      WHERE p.mapping_id=m.disclosure_standard_mapping_id AND d.source_report_id=$1`,[report.source_report_id]);
+    await recordReportHistory(tx, {sourceReportId: report.source_report_id, version, action: 'deleted',
+      observationIds, operator_ref, reason});
+    return {report_ref, status: 'deleted', publication_version: version,
+      observation_count: observationIds.length, public_visible: false};
+  });
+}
+
+export async function publishedReports(db) {
+  const {items, totals} = await reportPublications(db);
+  return {items: items.filter(item => item.status === 'published' && item.observation_count > 0),
+    totals: {...totals, published: items.filter(item => item.status === 'published').length}};
 }

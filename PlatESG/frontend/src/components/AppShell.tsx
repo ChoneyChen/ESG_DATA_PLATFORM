@@ -5,7 +5,7 @@ import {
   type ReactNode,
 } from "react";
 import { apiUrl } from "../api";
-import type { Dataset, View } from "../types";
+import type { View } from "../types";
 import { ProductLink } from "./ProductLink";
 import { Icon, type IconName } from "./Ui";
 
@@ -33,19 +33,17 @@ const sectionTitles: Partial<Record<View, string>> = {
 
 export default function AppShell({
   view,
-  dataset,
-  datasets,
-  currentDataset,
+  reportCount,
+  observationCount,
+  latestPublishedAt,
   demo,
-  onDataset,
   children,
 }: {
   view: View;
-  dataset: string;
-  datasets: Dataset[];
-  currentDataset?: Dataset;
+  reportCount: number;
+  observationCount: number;
+  latestPublishedAt: string | null;
   demo: boolean;
-  onDataset: (value: string) => void;
   children: ReactNode;
 }) {
   const active = nav.findIndex(
@@ -105,16 +103,18 @@ export default function AppShell({
           ))}
         </nav>
         <div className="sidebar-foot">
-          <span className="eyebrow">数据版本</span>
+          <span className="eyebrow">已发布报告</span>
           <strong className="mono">
-            {dataset ? "v" + dataset : "尚无发布"}
+            {reportCount ? `${reportCount} 份` : "尚无发布"}
           </strong>
           <small>
-            {currentDataset
-              ? currentDataset.observation_count +
-                " 条 · " +
-                currentDataset.created_at.slice(0, 10)
-              : "等待首次发布"}
+            {reportCount
+              ? `${observationCount} 条观测${
+                  latestPublishedAt
+                    ? " · " + latestPublishedAt.slice(0, 10)
+                    : ""
+                }`
+              : "等待首份报告发布"}
           </small>
           <ProductLink view="landing" className="sidebar-intro">
             <Icon name="chevronLeft" size={14} /> 返回产品介绍
@@ -129,50 +129,20 @@ export default function AppShell({
             <strong>{sectionTitles[view] || "数据平台"}</strong>
           </div>
           <div className="topbar-right">
-            <label className="dataset-picker">
-              <span>版本</span>
-              <select
-                aria-label="选择数据集版本"
-                value={dataset}
-                disabled={!datasets.length}
-                onChange={(event) => onDataset(event.target.value)}
-              >
-                {!datasets.length && <option value="">尚无发布版本</option>}
-                {datasets.map((item) => (
-                  <option
-                    key={item.dataset_version}
-                    value={String(item.dataset_version)}
-                  >
-                    {item.dataset_version}
-                    {String(item.dataset_version) ===
-                    String(datasets[0]?.dataset_version)
-                      ? " · 最新"
-                      : ""}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <span className="topbar-published">
+              <Icon name="layers" size={15} />
+              <span>{reportCount ? `当前发布 · ${reportCount} 份报告` : "尚无已发布报告"}</span>
+            </span>
             <button
               type="button"
               className="topbar-action"
               onClick={share}
-              disabled={!dataset}
+              disabled={!reportCount}
             >
               <Icon name="copy" size={16} />
               <span>{copied ? "已复制" : "分享"}</span>
             </button>
-            <a
-              className="topbar-action"
-              aria-disabled={!dataset}
-              href={
-                dataset
-                  ? apiUrl("/v1/exports", {
-                      format: "csv",
-                      dataset_version: dataset,
-                    })
-                  : undefined
-              }
-            >
+            <a className="topbar-action" aria-disabled={!reportCount} href={reportCount ? apiUrl("/v1/exports", { format: "csv" }) : undefined}>
               <Icon name="download" size={16} />
               <span>下载</span>
             </a>
@@ -189,8 +159,8 @@ export default function AppShell({
         </main>
         <footer className="app-footer">
           <span>
-            {dataset ? "固定数据版本 " + dataset : "尚无已发布数据版本"} ·
-            保留来源与公开修订
+            {reportCount ? `当前发布 ${reportCount} 份报告` : "尚无已发布报告"} ·
+            按报告独立发布，保留来源与公开修订
           </span>
           <span className="app-footer-links">
             <ProductLink view="methods">复核标准</ProductLink>

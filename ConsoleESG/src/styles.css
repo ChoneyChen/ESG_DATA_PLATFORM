@@ -1000,6 +1000,7 @@ blockquote footer { font-size: 10.5px; color: #87997c; margin-top: 10px; display
 .review-report-card{display:grid;gap:10px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);padding:14px 15px;box-shadow:var(--sh-1);min-width:0}
 .review-report-card.blocked{border-left:3px solid #c7925e;background:#fffdf8}
 .review-report-card.published{border-left:3px solid #74a983;background:#fbfdfb}
+.review-report-card.ready{border-left:3px solid #6b8fc4;background:#fbfcff}
 .review-report-card>header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-width:0}
 .review-report-id{display:flex;gap:9px;align-items:flex-start;min-width:0}
 .review-report-icon{display:grid;place-items:center;flex:none;width:30px;height:34px;border:1px solid #d7e4da;border-radius:6px;background:#edf5ee;color:#3a7358;font-size:11px;font-weight:750}
@@ -1007,7 +1008,7 @@ blockquote footer { font-size: 10.5px; color: #87997c; margin-top: 10px; display
 .review-report-id h3{font-size:13px;line-height:1.35;margin:0;color:var(--ink);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .review-report-id small{display:block;margin-top:3px;font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .review-report-state{flex:none;font-size:9.5px;font-weight:650;padding:3px 7px;border-radius:5px;background:var(--bg-tint);color:var(--muted);white-space:nowrap}
-.review-report-state.blocked{background:#fff1e3;color:#9a6a36}.review-report-state.published{background:#eaf6ed;color:#3e7b54}.review-report-state.review{background:#edf3fa;color:#4d7292}
+.review-report-state.blocked{background:#fff1e3;color:#9a6a36}.review-report-state.published{background:#eaf6ed;color:#3e7b54}.review-report-state.ready{background:#eaf0fa;color:#45688f}.review-report-state.review{background:#edf3fa;color:#4d7292}
 .review-report-counts{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 0}
 .review-report-counts span{display:flex;flex-direction:column;gap:1px;font-size:9.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .review-report-counts strong{font-size:15px;line-height:1.15;color:var(--ink-2);font-weight:650}
@@ -1036,6 +1037,7 @@ blockquote footer { font-size: 10.5px; color: #87997c; margin-top: 10px; display
 .review-report-hint{margin:0 0 10px;font-size:11.5px}
 .review-table-wrap{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
 .publication-report-grid{margin-top:2px}
+.report-publication-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .publication-report-candidates{margin-top:2px}
 .publication-report-candidates>summary{font-size:10.5px;color:var(--muted);cursor:pointer;list-style:none}
 .publication-report-candidates>summary::-webkit-details-marker{display:none}

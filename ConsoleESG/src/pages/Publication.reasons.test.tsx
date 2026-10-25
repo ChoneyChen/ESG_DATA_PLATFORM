@@ -39,13 +39,14 @@ describe('发布门禁原因使用实际科学口径，不混淆比较排除',()
  });
  it('实际发布页服务器端按报告过滤，未知code只保留诊断，版本冲突不引导直接批准，审核链接保留报告',async()=>{
   render(<WorkspaceProvider><Publication params={new URLSearchParams('report=report%20%2F%20old')}/></WorkspaceProvider>);
+  fireEvent.click(await screen.findByRole('tab',{name:'发布条件与阻塞'}));
   expect(await screen.findByText('缺少必要维度：污染介质')).toBeDefined();
   expect(screen.getByText('发布条件候选 · 1')).toBeDefined();
   expect(screen.getByRole('button',{name:'进入报告审核'})).toBeDefined();
   expect(calls.find(url=>url.includes('/candidates?'))).toContain('&report_ref=report%20%2F%20old');
   expect(screen.getByText('尚需核对的发布条件')).toBeDefined();
-  expect(screen.getByText(/交付收据、发布事件显示所有报告，数据版本属于全平台/)).toBeDefined();
-  expect(screen.getByText('候选待发布（当前报告 · 当前窗口）')).toBeDefined();
+  expect(screen.getByText(/当前只显示该报告；发布、撤下与删除都以这份报告为单位/)).toBeDefined();
+  expect(screen.getByText('待发布报告')).toBeDefined();
   fireEvent.click(screen.getByRole('tab',{name:'发布事件'}));
   expect(screen.getByText('持久发布事件（所有报告）')).toBeDefined();
   fireEvent.click(screen.getByRole('tab',{name:'发布条件与阻塞'}));

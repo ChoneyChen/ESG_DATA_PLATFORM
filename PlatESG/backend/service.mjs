@@ -3,7 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
 import { loadBundle, importBundle, reviewRecord } from '../../database/scripts/import-bundle.mjs';
-import { readDataset, saveMeasurementContext, processOutbox, seedMetricDictionary, measurementDefinitionForMapping, scientificDimensionKeys } from '../../database/scripts/publication.mjs';
+import { readDataset, readPublished, reportPublications, publishedReports, publishReport, withdrawReport, deleteReport,
+  saveMeasurementContext, processOutbox, seedMetricDictionary, measurementDefinitionForMapping, scientificDimensionKeys } from '../../database/scripts/publication.mjs';
 import {saveExtensionProposal,recordExtensionDefinitionDecision,registerExtensionRelease,listExtensionRegistry,
   requestExtensionDerivation,retryExtensionDerivation,reviewDerivedCandidate,exactDecimalSum} from '../../database/scripts/extension-derivation.mjs';
 import {publicMetric,publicEntity,publicObservation,publicEvidence,publicDataset} from './public_contracts.mjs';
@@ -11,7 +12,7 @@ import {availableReportedProperties} from '../../database/scripts/scientific-pro
 import {readReportSourceFacts} from '../../database/scripts/report-source-facts.mjs';
 import {candidateProposal,candidateProposals,machineVerify} from '../../database/scripts/candidate-review.mjs';
 import {autoReview} from '../../database/scripts/auto-review.mjs';
-import {reportArtifacts,deleteReportCandidates} from '../../database/scripts/report-artifacts.mjs';
+import {reportArtifacts,deleteReportCandidates,deleteReportArtifacts} from '../../database/scripts/report-artifacts.mjs';
 import {artifactInventory,purgeArtifacts} from '../../database/scripts/purge-artifacts.mjs';
 import {resolveImportCatalog,validateMajorImportScope,registerImportContract,listImportContracts} from './import_contracts.mjs';
 import {lifecycleReferences,lifecycleReserve,lifecycleReservation,assertImportSourcesAvailable} from './lifecycle.mjs';
@@ -40,7 +41,7 @@ async function definitions(db, dictionaryVersion) {
 }
 
 export async function snapshot(db, version = null) {
-  const data = await readDataset(db, version);
+  const data = version == null ? await readPublished(db) : await readDataset(db, version);
   const metrics = await definitions(db, data.dictionary_version);
   const byId = new Map(metrics.map(m => [m.metric_id, m]));
   const entities = (await db.query('SELECT * FROM plat.entities ORDER BY entity_ref')).rows;
@@ -244,7 +245,8 @@ async function publicationStatus(db, params) {
   const limit = params.limit || 200;
   return {states:(await db.query('SELECT * FROM esg.publication_states ORDER BY last_evaluated_at DESC LIMIT $1',[limit])).rows,
     derived_states:(await db.query('SELECT * FROM esg.derived_publication_states ORDER BY evaluated_at DESC LIMIT $1',[limit])).rows,
-    events:(await db.query('SELECT * FROM esg.outbox_events ORDER BY created_at DESC LIMIT $1',[limit])).rows,receipts:(await db.query('SELECT * FROM plat.import_receipts ORDER BY created_at DESC LIMIT $1',[limit])).rows,datasets:await datasets(db)};
+    events:(await db.query('SELECT * FROM esg.outbox_events ORDER BY created_at DESC LIMIT $1',[limit])).rows,receipts:(await db.query('SELECT * FROM plat.import_receipts ORDER BY created_at DESC LIMIT $1',[limit])).rows,
+    reports:await reportPublications(db,{include_deleted:params.include_deleted===true}),datasets:await datasets(db)};
 }
 
 async function reportSummaries(db) {
@@ -613,6 +615,11 @@ export async function dispatch(db, method, params) {
       ORDER BY r.created_at DESC LIMIT 1000`)).rows};
     case 'internal_entities': return {items:(await db.query('SELECT * FROM plat.entities ORDER BY entity_ref')).rows};
     case 'publication_status': return publicationStatus(db,params);
+    case 'report_publications': return reportPublications(db,params);
+    case 'published_reports': return publishedReports(db);
+    case 'publish_report': return publishReport(db,params);
+    case 'withdraw_report': return withdrawReport(db,params);
+    case 'delete_report': return deleteReport(db,params);
     case 'report_summaries': return reportSummaries(db);
     case 'coverage': return coverage(db, params);
     case 'comparisons': return comparisons(db, params);
@@ -634,6 +641,11 @@ export async function dispatch(db, method, params) {
       if(!params.report_ref) throw error('Candidate deletion is report-scoped','report_ref_required');
       return deleteReportCandidates(db,{report_ref:params.report_ref,mapping_ids:params.mapping_ids?.length?params.mapping_ids:null,
         apply:params.apply===true,operator_ref:params.operator_ref,reason:params.reason || null});
+    }
+    case 'delete_report_artifacts': {
+      if(!params.report_ref) throw error('Artifact deletion is report-scoped','report_ref_required');
+      return deleteReportArtifacts(db,{report_ref:params.report_ref,apply:params.apply===true,
+        operator_ref:params.operator_ref,reason:params.reason || null});
     }
     case 'machine_verify': return machineVerify(db, params);
     case 'artifact_inventory': return artifactInventory(db);

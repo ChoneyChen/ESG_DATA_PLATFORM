@@ -7,6 +7,7 @@ import {applyPlatformMigrations} from '../database.mjs';
 import {applyMigrations} from '../../../database/scripts/db.mjs';
 import {importBundle} from '../../../database/scripts/import-bundle.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
+import {publishReport,withdrawReport,deleteReport,reportPublications,readPublished} from '../../../database/scripts/publication.mjs';
 import {candidateProposal,machineVerify,VERIFICATION_RULE_VERSION} from '../../../database/scripts/candidate-review.mjs';
 import {autoReview,AUTO_REVIEW_OPERATOR} from '../../../database/scripts/auto-review.mjs';
 import {reportArtifacts,deleteReportCandidates} from '../../../database/scripts/report-artifacts.mjs';
@@ -319,3 +320,37 @@ test('unit aliases resolve without guessing the metric meaning', async()=>{
   }finally{await db.close();}
 });
 
+
+test('publication is report-scoped: publish, withdraw and delete one report without touching another', async()=>{
+  const db=await database();try{
+    const first=await importFact(db,'E1-6_07',{reportRef:'report-public-a'});
+    const second=await importFact(db,'E1-5_01',{value:'20',unit:'MWh',reportRef:'report-public-b'});
+    await machineVerify(db,{mapping_ids:[first.mapping_id,second.mapping_id],apply:true,operator_ref:'review-operator'});
+
+    const publishedA=await publishReport(db,{report_ref:'report-public-a',operator_ref:'publisher',reason:'publish A'});
+    assert.equal(publishedA.status,'published');
+    assert.equal(publishedA.publication_version,1);
+    const afterA=await readPublished(db);
+    assert.equal(afterA.observations.length,1);
+    assert.equal(afterA.observations[0].entity_ref,'review-company');
+
+    const list=await reportPublications(db);
+    assert.equal(list.items.find(item=>item.report_ref==='report-public-a').status,'published');
+    assert.equal(list.items.find(item=>item.report_ref==='report-public-b').status,'draft');
+
+    await withdrawReport(db,{report_ref:'report-public-a',operator_ref:'publisher',reason:'withdraw A'});
+    assert.equal((await readPublished(db)).observations.length,0);
+
+    const publishedB=await publishReport(db,{report_ref:'report-public-b',operator_ref:'publisher',reason:'publish B'});
+    assert.equal(publishedB.status,'published');
+    const afterB=await readPublished(db);
+    assert.equal(afterB.observations.length,1);
+
+    await deleteReport(db,{report_ref:'report-public-a',operator_ref:'admin',reason:'delete A'});
+    const visible=await reportPublications(db);
+    assert.equal(visible.items.some(item=>item.report_ref==='report-public-a'),false);
+    const all=await reportPublications(db,{include_deleted:true});
+    assert.equal(all.items.find(item=>item.report_ref==='report-public-a').status,'deleted');
+    assert.equal((await readPublished(db)).observations.length,1);
+  }finally{await db.close();}
+});

@@ -1111,6 +1111,16 @@ table {
   align-items: center;
   gap: 8px;
 }
+.topbar-published {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--green-soft, #eaf6ed);
+  color: var(--ink-2);
+  font-size: 11.5px;
+}
 .topbar-action {
   display: inline-flex;
   align-items: center;

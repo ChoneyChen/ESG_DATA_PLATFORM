@@ -25,11 +25,9 @@ export default function EvidenceDrawer({
   close: () => void;
 }) {
   const evidence = useResource<Evidence>(
-    dataset
-      ? apiUrl("/v1/observations/" + encodeURIComponent(observationId), {
-          dataset_version: dataset,
-        })
-      : null,
+    apiUrl("/v1/observations/" + encodeURIComponent(observationId), {
+      ...(dataset ? { dataset_version: dataset } : {}),
+    }),
   );
   const closeRef = useRef<HTMLButtonElement>(null),
     drawer = useRef<HTMLElement>(null);
@@ -139,8 +137,8 @@ export default function EvidenceDrawer({
                     <dd>{item.definition_version}</dd>
                   </div>
                   <div>
-                    <dt>数据版本</dt>
-                    <dd>{item.dataset_version}</dd>
+                    <dt>报告版本</dt>
+                    <dd>{item.report_version ? `第 ${item.report_version} 版` : "当前发布"}</dd>
                   </div>
                 </dl>
                 <Dimensions values={item.dimensions} />
@@ -259,7 +257,7 @@ export default function EvidenceDrawer({
                 </section>
               )}
               <p className="drawer-version-note">
-                当前内容来自固定发布版本 {item.dataset_version}。
+                当前内容来自已发布报告{item.report_version ? `（第 ${item.report_version} 版）` : ""}。
               </p>
             </div>
           )

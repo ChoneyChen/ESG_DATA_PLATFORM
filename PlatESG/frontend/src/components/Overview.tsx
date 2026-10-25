@@ -45,7 +45,7 @@ export default function Overview({
       <header className="page-heading">
         <span className="eyebrow">PLATFORM OVERVIEW</span>
         <h1>数据概览</h1>
-        <p>当前发布版本的数据范围、主题覆盖与复核状态。</p>
+        <p>当前已发布报告的数据范围、主题覆盖与复核状态。</p>
       </header>
       <section className="kpi-row" aria-label="发布规模">
         <article className="kpi-card">
@@ -70,12 +70,12 @@ export default function Overview({
           <span>已发布数据</span>
           <strong>{currentDataset?.observation_count ?? 0}</strong>
           <small className="kpi-foot">
-            {growth > 0 ? `较上一版新增 ${growth} 条` : "当前稳定版本"}
+            {growth > 0 ? `已发布观测 ${growth} 条` : "当前发布"}
           </small>
         </article>
         <article className="kpi-card">
-          <span>发布版本</span>
-          <strong className="mono">{dataset ? "v" + dataset : "—"}</strong>
+          <span>已发布观测</span>
+          <strong className="mono">{currentDataset?.observation_count ?? 0}</strong>
           <small className="kpi-foot">
             {currentDataset?.created_at?.slice(0, 10) || "尚无发布"}
           </small>
