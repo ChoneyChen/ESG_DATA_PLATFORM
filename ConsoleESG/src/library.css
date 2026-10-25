@@ -66,8 +66,14 @@
 .library-upload small{font-weight:400;color:var(--muted);font-size:10.5px}
 .library-upload .upload-form{padding:0 15px 14px}
 .library-upload .notice{margin:0 15px 14px}
-.asset-list-head{display:grid;grid-template-columns:minmax(0,1fr) 214px 88px 236px;gap:12px;padding:0 16px 6px;font-size:9.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.asset-list-head{display:grid;grid-template-columns:18px 38px minmax(0,1fr) 214px 88px 236px;gap:12px;padding:0 14px 6px;font-size:9.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
 .asset-main{display:grid;grid-template-columns:18px 38px minmax(0,1fr) 214px 88px 236px;align-items:center;gap:12px;padding:12px 14px;flex-wrap:nowrap}
+.asset-parent-name{min-width:0}
+.asset-title{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.asset-file-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.asset-identity{display:flex;flex-direction:column;gap:3px;min-width:0}
+.asset-identity strong,.asset-identity small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asset-primary-action{min-width:0;flex-wrap:wrap;justify-content:flex-end}
 .asset-main>input[type=checkbox]{margin:0}
 .asset-file-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .asset-identity{display:grid;gap:2px;min-width:0}

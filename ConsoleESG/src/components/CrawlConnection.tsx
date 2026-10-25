@@ -1,3 +1,4 @@
+import {navigate} from '../api';
 import {useResource} from '../state';
 import {ResourceState} from './ui';
 
@@ -18,5 +19,6 @@ export function CrawlConnection(){
    <dt>包目录</dt><dd className="mono">{value?.package_dir || '未配置'}</dd>
    <dt>产物类型</dt><dd>ESEF ZIP（不是 PDF）</dd>
   </dl>
+  <div className="button-row"><button type="button" className="secondary" onClick={()=>navigate('/crawl')}>打开 Crawl 报告源</button></div>
  </details>;
 }

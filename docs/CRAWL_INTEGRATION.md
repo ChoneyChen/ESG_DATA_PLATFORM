@@ -67,17 +67,114 @@ ExtractESG/scripts/setup_crawl_esg.sh
   --out-dir <workspace>/.local/crawl-work --pkg-dir <workspace>/.local/crawl-work/packages
 ```
 
-## 5. 下一步构造
+## 5. ESEF 读取器（已实现）
 
-1. **ESEF 包读取器**（独立于 PDF 链路）：解析 XBRL-JSON / iXBRL，产出与 OCR/IR 同级的证据合同；
-   失败不影响 PDF 链路。
-2. **下载监控**：只读 `crawl.log` 与台账进度，报告资源页显示“下载中/失败/已完成”，不启动爬虫。
-3. **身份匹配**：LEI + 期间 + 主体登记的人工确认流程；禁止字符串自动匹配。
-4. **权限与密钥**：Crawl 不持 Kodo/对象存储密钥；若未来接入私有对象存储，签名只在平台后端完成。
+入口：
 
-## 6. 禁止事项
+- `GET /api/console/esef-packages/{source_report_id}`：包摘要、身份、上下文/单位、事实样例。
+- `GET /api/console/esef-packages/{source_report_id}/facts?query=&offset=&limit=`：事实分页。
+- Python：`esg_v2.control_plane.esef_reader.read_package(path)`；CLI
+  `python -m esg_v2.control_plane.esef_reader --package <zip>`（以服务环境为准）。
+
+读取器行为：
+
+- 直接从 ZIP 流式解析 iXBRL XHTML，不把 100–200 MB 报告解压到磁盘。
+- 保留 `ix:nonFraction` 与 `ix:nonNumeric` 事实、`xbrli:context` 期间/实体/维度、`xbrli:unit` 单位、
+  `ix:continuation` 续段，忽略 `ix:exclude` 脚注。
+- 数值按 `scale`、`sign`、`ixt:num-dot-decimal`/comma-decimal 归一；原文本始终保留。
+- 身份只输出 `entity_identifiers`、`period_start/end`、`instants`；不写报告身份。
+- 结果按 ZIP SHA-256 缓存在 `<workspace>/.local/esef-cache/<sha>/reader.json`；重复读取不重新解析。
+- 真实包实测：SEPLAT 2024，112 MB ZIP，705 个事实（610 数值 / 95 文本）、49 个上下文、4 个单位，
+  首次解析约 1.6 秒，无解析错误。
+
+事实合同（每条）：
+
+```
+fact_id, concept, kind(numeric|text), value_text, value_numeric, raw_text,
+unit[], unit_divide, scale, sign, decimals, format,
+context_ref, period_start, period_end, instant, dimensions{},
+file, order, esg_related
+```
+
+边界：读取器输出的是**证据事实**，不是已映射的 ESRS 指标，也不是候选。它不调用模型、不写发布库。
+
+## 6. 运行控制（已实现，进程边界）
+
+Console 的 CrawlESG 独立页只启动官方 CLI，不导入 CrawlESG 代码：
+
+| 控制 | 说明 |
+|---|---|
+| `plan` | 干跑统计；只读索引与本地文件 |
+| `download` | 下载 ESEF 包；显式 `confirm` 后才允许，写 `packages/` 与台账 |
+| `verify` | 校验已下文件 |
+| 停止 | 只向该任务的独立进程组发 SIGTERM/SIGKILL |
+| 日志 | 写入 `<workspace>/.local/crawl-work/.runner/`，页面显示尾部 |
+
+API：
+
+- `GET /api/console/crawl-runner/status`
+- `GET /api/console/crawl-runner/jobs?limit=`
+- `GET /api/console/crawl-runner/jobs/{job_id}`
+- `POST /api/console/crawl-runner/jobs`
+- `POST /api/console/crawl-runner/jobs/{job_id}/stop`
+
+启动/停止需要平台 admin；任务一次只允许一个。命令参数由服务端白名单构造，不经过 shell。
+CrawlESG 目录始终只读；Python 环境、索引和输出目录都可配置但默认在仓库外运行时目录。
+
+## 7. 自动采集规划（设置与扫描已实现，执行 worker 预留）
+
+独立页“自动采集规划”保存以下设置到 `<workspace>/.local/crawl-intake/settings.json`：
+
+- 总开关、监视下载台账、自动读取 ESEF、自动建报告身份草稿、自动送提取计划、只处理 ESG 标记包
+- 扫描间隔、国家、财年、提取配置（foundation16 / platform_major / quantitative / base16 / priority32）
+
+`POST /api/console/crawl-intake/scan?mark_seen=false` 只读取下载台账，返回：
+
+- `new_packages`：台账中新出现的包
+- `candidates`：按国家/财年/ESG 标记过滤后的包
+- `filtered_out`：被过滤排除的包
+- `actions`：`read_esef` / `create_report_draft` / `queue_extraction` 计划动作
+
+当前状态是 **plan_only**：不自动下载、不读取包、不调用模型、不写候选。`mark_seen=true` 只推进已见状态。
+接入执行 worker 后，建议按以下幂等键派发，避免重复：
+
+```
+(source_package_sha256, reader_schema_version)   → ESEF 读取
+(source_package_sha256, report_ref, profile)     → 提取计划
+```
+
+## 8. 全自动流程规划
+
+```
+① CrawlESG 外部 CLI
+   index → download → packages/ + download_ledger.csv
+        │（只读边界）
+        ▼
+② CrawlIntake.scan
+   new package → filter → plan actions（当前 plan_only）
+        │
+        ▼
+③ EsefPackageReader
+   ZIP → facts/contexts/units → cache（已实现）
+        │
+        ▼
+④ ESEF → 指标映射适配器（待构造）
+   ESRS/concept → 55 条指标定义 → 证据包/候选合同
+        │
+        ▼
+⑤ 现有交付、审核、发布
+   candidates → review → publication（不变）
+```
+
+各阶段失败隔离：Crawl 下载失败不影响 PDF 链；ESEF 解析失败不产生候选；映射失败保留读取事实；
+审核/发布仍按现有不可变合同执行。身份匹配必须人工确认，不能用 LEI 或文件名自动生成
+`publisher_entity_ref`。
+
+## 9. 禁止事项
 
 - 不把 ESEF ZIP 写进 `pdf/` 资产目录。
 - 不把 Crawl 索引行直接变成报告身份或候选。
 - 不在 CrawlESG 目录内安装依赖、写包或改索引。
 - 不从文件名或 LEI 自动推断 `publisher_entity_ref`。
+- 不让 Console 直接 import CrawlESG 的 Python 模块；只通过 CLI、CSV、ZIP 和进程状态交互。
+

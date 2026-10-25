@@ -105,7 +105,7 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
    </div>
    <ResourceState error={resource.error || profile.error || catalog.error} loading={resource.loading&&!resource.data} empty={!!resource.data&&!visible.length&&!visibleUnlinked.length&&!visibleUnlinkedIr.length}/>
    <div className="asset-list" role="list">
-    <div className="asset-list-head" aria-hidden="true"><span>报告</span><span>身份与期间</span><span>状态</span><span>下一步</span></div>
+    <div className="asset-list-head" aria-hidden="true"><span/><span/><span>报告</span><span>身份与期间</span><span>状态</span><span>下一步</span></div>
     {visible.map(({asset,state,gaps})=>{
      const metadata=asset.report_metadata || {};
      return <article className={`asset-row ${state.tone}`} key={asset.asset_id} id={`asset-${asset.asset_id}`} role="listitem">
@@ -114,14 +114,14 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
        <span className="asset-file-icon" aria-hidden="true">PDF</span>
        <div className="asset-parent-name">
         <button className="text-button asset-title" title={reportLabel(asset)} onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>{reportLabel(asset)}</button>
-        {asset.file_name!==reportLabel(asset)&&<small className="asset-file-name">{asset.file_name}</small>}
+        {asset.file_name!==reportLabel(asset)&&<small className="asset-file-name" title={asset.file_name}>{asset.file_name}</small>}
         <small>{typeof asset.size_bytes==='number'?`${(asset.size_bytes/1024/1024).toFixed(1)} MB · `:''}{dateLabel(asset.created_at || asset.modified_at)}</small>
         {asset.state_notice&&<small className="asset-note">{asset.state_notice}</small>}
        </div>
        <div className="asset-identity">
-        <strong>{metadata.publisher_name || '发布者待确认'}</strong>
-        <small>{metadata.reporting_year || '报告年待确认'}{metadata.period_start&&metadata.period_end?` · ${metadata.period_start} — ${metadata.period_end}`:''}</small>
-        {identityCode(asset)&&<small className="mono">{identityCode(asset)}</small>}
+        <strong title={metadata.publisher_name || '发布者待确认'}>{metadata.publisher_name || '发布者待确认'}</strong>
+        <small title={`${metadata.reporting_year || '报告年待确认'}${metadata.period_start&&metadata.period_end?` · ${metadata.period_start} — ${metadata.period_end}`:''}`}>{metadata.reporting_year || '报告年待确认'}{metadata.period_start&&metadata.period_end?` · ${metadata.period_start} — ${metadata.period_end}`:''}</small>
+        {identityCode(asset)&&<small className="mono" title={identityCode(asset)}>{identityCode(asset)}</small>}
         {gaps.length?<button className="identity-fix" onClick={()=>navigate(`/reports/${encodeURIComponent(asset.asset_id)}`)}>补身份（{gaps.length}）</button>:<span className="identity-ok">身份完整</span>}
        </div>
        <span className={`asset-state ${state.tone}`}>{state.label}</span>

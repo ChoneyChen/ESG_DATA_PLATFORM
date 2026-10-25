@@ -64,3 +64,9 @@ def test_download_ledger_reports_package_availability_without_turning_it_into_a_
     status = reader.status()
     assert status["download_ledger_available"] is True and status["downloaded_count"] == 1
     assert status["package_dir"] == str(packages)
+    downloads = reader.downloads()
+    assert downloads["total"] == 1 and downloads["items"][0]["source_report_id"] == "R1"
+    assert downloads["items"][0]["source_package_sha256"] == "a" * 64
+    resolved = reader.package("R1")
+    assert resolved["package_available"] is True and resolved["path"] == packages / "LEI-1_2025-12-31_aaaaaaaa.zip"
+    assert reader.package("R2") is None

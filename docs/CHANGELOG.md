@@ -4,6 +4,25 @@
 
 上一次提交为 `7ac8408`（2026-09-19）。2026-10-17 的推送一次性收录此后全部工作树改动（`CrawlESG/` 保护区除外）；`794c9b2` 收录文字层直读与 16 项绑定加固。
 
+## 2026-10-25（第三十八轮）：ESEF 包读取器、CrawlESG 独立页与运行控制
+
+- **ESEF 包读取器。** 新增 `esg_v2.control_plane.esef_reader`：从 ZIP 流式解析 iXBRL，
+  保留数值/文本事实、期间、实体、维度、单位与续段，忽略脚注；按包 SHA-256 缓存。
+  真实 SEPLAT 2024 包 112 MB，705 个事实、49 个上下文、4 个单位，首次解析约 1.6 秒。
+  读取器不调用模型、不写报告身份/候选，并固定 `artifact_kind=ESEF_ZIP`。
+- **CrawlESG 独立页。** Console 新增 `#/crawl` 主导航页：连接状态、索引/台账/包目录、
+  包列表、ESEF 读取与事实搜索、自动采集规划、运行控制；报告资源页的 Crawl 面板可直接跳转。
+- **运行控制走进程边界。** 独立页可启动 `plan` / `download` / `verify`、查看状态与日志、停止任务；
+  Console 只调用官方 CLI，不 import CrawlESG、不写索引、不共享数据库。下载必须显式确认，
+  命令参数白名单构造，任务独立进程组，一次一个。
+- **自动采集预留接口。** 新增 CrawlIntake 设置与 `scan` 计划：按国家/财年/ESG 标记筛选新包，
+  生成 `read_esef` / `create_report_draft` / `queue_extraction` 计划动作；当前 `plan_only`，
+  不自动下载/读取/调用模型/写候选，执行 worker 与身份匹配留待下一阶段。
+- **报告库大表对齐。** 表头改为与 6 列行严格同宽，报告名、文件名、发布者、报告代码统一省略号截断并保留
+  `title` 全量提示；Crawl 包表、ESEF 事实表、最近任务表在窄屏改为带字段标签的卡片。
+- 实测：真实 `plan` 任务完成、日志可读；R000001 的 ESEF 摘要与事实接口返回 705 条；报告库桌面/窄屏均核对。
+- 测试：操作台 227、Document 678（含 ESEF 4、CrawlIntake 3、CrawlRunner 3）、PlatESG Node 69、Python 77。
+
 ## 2026-10-25（第三十七轮）：报告产物可定位可删除，CrawlESG 只读接入
 
 - **报告产物清单。** 新增 `GET /internal/v1/report-artifacts?report_ref=...`：按报告列出候选行、

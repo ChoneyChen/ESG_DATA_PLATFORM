@@ -43,8 +43,9 @@
 彻底物理清理使用发布中心的全库产物清理。
 
 **CrawlESG 是只读报告源**：`ExtractESG/scripts/setup_crawl_esg.sh` 在仓库外安装依赖；
-报告资源页读取其索引、下载台账与 packages 目录。Crawl 下载的是 ESEF ZIP，不是本链路的 PDF，
-不会自动导入或自动创建报告身份。接口只校准元数据与包可用性。字段与后续构造见
+控制台 `#/crawl` 独立页读取其索引、下载台账与 packages，并可通过外部进程执行
+`plan` / `download` / `verify`、查看日志与停止任务。ESEF 包由流式 iXBRL 读取器解析为事实证据，
+不是 PDF、不自动导入、不自动创建报告身份。字段、控制边界与全自动流程规划见
 [CrawlESG 对接接口](docs/CRAWL_INTEGRATION.md)。
 
 **Extract 自己的前端已经移除（2026-10-23）**：早期 `document_ir_extract/frontend` 是一个原生 JS

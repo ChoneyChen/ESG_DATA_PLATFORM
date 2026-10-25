@@ -94,6 +94,48 @@ class CrawlIndexReader:
             "esg_flag": None if esg_flag is None else esg_flag not in {"0", "false", "False"},
         }
 
+    def package(self, source_report_id: str) -> dict[str, Any] | None:
+        """Resolve one Crawl report to a verified local ESEF package, if any."""
+        ledger = self._ledger_by_report().get(source_report_id)
+        if not ledger:
+            return None
+        state = self._package_state(ledger)
+        index = next((row for row in self._rows()
+                      if any(_text(row, key) == source_report_id for key in ("report_id", "fxo_id", "api_id"))), None)
+        digest = _text(index or {}, "sha256")
+        if not state["package_available"]:
+            return {**state, "path": None,
+                    "source_package_sha256": digest if digest and _SHA256.fullmatch(digest) else None}
+        return {**state, "path": self.package_dir / state["package_filename"],
+                "source_package_sha256": digest if digest and _SHA256.fullmatch(digest) else None}
+
+    def downloads(self, limit: int = 1000) -> dict[str, Any]:
+        """List every downloaded ESEF package with its index identity and ledger state."""
+        index_by_report = {}
+        for row in self._rows():
+            report_id = _text(row, "report_id") or _text(row, "fxo_id") or _text(row, "api_id")
+            if report_id:
+                index_by_report[report_id] = row
+        items = []
+        for ledger in self._ledger_rows():
+            report_id = _text(ledger, "report_id")
+            if not report_id:
+                continue
+            index = index_by_report.get(report_id, {})
+            package = self._package_state(ledger)
+            items.append({
+                "source_system": "CrawlESG", "source_report_id": report_id,
+                "entity_name": _text(index, "entity_name"), "lei": _text(index, "lei"),
+                "country_code": _text(index, "country"), "fiscal_year": _integer(index, "fiscal_year"),
+                "period_end": _text(index, "period_end"), "report_type": _text(index, "report_type"),
+                "source_package_sha256": (_text(index, "sha256")
+                    if _text(index, "sha256") and _SHA256.fullmatch(_text(index, "sha256")) else None),
+                "viewer_url": _text(index, "viewer_url"), "source_url": _text(index, "package_url"),
+                **package,
+            })
+        size = max(1, min(limit, 1000))
+        return {**self.status(), "items": items[:size], "total": len(items), "limit": size}
+
     def status(self) -> dict[str, Any]:
         ledger = self._ledger_by_report()
         downloaded = sum(1 for row in ledger.values()
