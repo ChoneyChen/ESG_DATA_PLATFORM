@@ -97,10 +97,10 @@ test('the proposal fills what the definition proves and names what only a person
     assert.equal(proposal.suggested.dimensions.aggregation_role,'total');
 
     const headcount=await importFact(db,'S1-6_02',{value:'100',unit:'人'});
-    const blocked=await candidateProposal(db,{mapping_id:headcount.mapping_id});
-    assert.equal(blocked.resolvable,false);
-    assert.ok(blocked.blockers.includes('dimensions_complete'));
-    assert.ok(blocked.missing.includes('statistical_time_basis'));
+    const stated=await candidateProposal(db,{mapping_id:headcount.mapping_id});
+    assert.equal(stated.resolvable,true);
+    assert.equal(stated.suggested.dimensions.statistical_time_basis,'not_stated');
+    assert.ok(stated.unstated_dimensions.includes('statistical_time_basis'));
   }finally{await db.close();}
 });
 
@@ -130,17 +130,18 @@ test('machine verification approves only what every requirement proves, and publ
   }finally{await db.close();}
 });
 
-test('machine verification leaves a narrower mapping and a missing dimension for a person', async()=>{
+test('machine verification leaves an unstated concept axis for a person', async()=>{
   const db=await database();try{
     const narrower=await importFact(db,'E1-6_07',{boundary:'part_of_group'});
     const first=await machineVerify(db,{mapping_ids:[narrower.mapping_id],apply:true,operator_ref:'review-operator'});
     assert.equal(first.applied,0);
     assert.ok(first.items[0].blockers.includes('mapping_exact'));
 
-    const headcount=await importFact(db,'S1-6_02',{value:'100',unit:'人'});
-    const second=await machineVerify(db,{mapping_ids:[headcount.mapping_id],apply:true,operator_ref:'review-operator'});
+    const unlabelled=await importFact(db,'E2-4_02',{value:'10',unit:'吨'});
+    const second=await machineVerify(db,{mapping_ids:[unlabelled.mapping_id],apply:true,operator_ref:'review-operator'});
     assert.equal(second.applied,0);
     assert.ok(second.items[0].blockers.includes('dimensions_complete'));
+    assert.ok(second.items[0].proposal.missing.includes('pollutant'));
   }finally{await db.close();}
 });
 
@@ -258,7 +259,7 @@ test('an axis that contradicts a closed definition still needs a person', async(
 test('automatic review approves only evidence-proven candidates and stays report-scoped', async()=>{
   const db=await database();try{
     const exact=await importFact(db,'E1-6_07',{reportRef:'report-auto-a'});
-    const blocked=await importFact(db,'S1-6_02',{value:'100',unit:'人',reportRef:'report-auto-b'});
+    const blocked=await importFact(db,'E2-4_02',{value:'10',unit:'吨',reportRef:'report-auto-b'});
     const first=await autoReview(db,{report_ref:'report-auto-a',apply:true});
     assert.equal(first.applied,1);
     assert.equal(first.needs_human,0);

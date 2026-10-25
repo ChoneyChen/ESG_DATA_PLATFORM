@@ -82,7 +82,7 @@ PDF（pdf/ 资产目录，SHA-256 身份）
   → 提取：每张候选表一次本地 Qwen 调用 + 确定性绑定/守卫     targeted_extract_output/
   → 成果包（来源事实、标准映射、证据位置）
   → 交付（/internal/v1/deliveries）→ 候选
-  → 自动审核（按报告，只批准证据已证明全部发布条件的候选）
+  → 自动审核（先折叠同报告/条款/单元格/值/期间/边界的重复，再按投影与行标签证据批准；未陈述的可比性轴记 not_stated）
   → 事实审核 / 映射审核 / 测量口径（只处理自动审核保留的项）
   → 发布（PLATESG_AUTO_PUBLISH=0 时人工触发）→ 观测与冻结数据版本
   → 公开网站 /v1
@@ -135,14 +135,15 @@ Python 包名仍是 `esg_v2`、`esg_targeted`；业务目录已经真实迁移�
 
 ## 7. 测试与验收
 
-| 套件 | 命令 | 结果（2026-10-23） |
+| 套件 | 命令 | 结果（2026-10-25） |
 |---|---|---|
-| ConsoleESG | `cd ConsoleESG && npm test` | 213 通过 |
-| Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 657 通过 |
-| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 698 通过；16 项既有失败（版本常量、删除契约） |
-| 标准包 | `pytest ExtractESG/standards/tests` | 116 通过 |
-| PlatESG | `pytest PlatESG/tests` | 70 通过 |
-| 数据库 | `cd database && npm test` | 54 通过、2 跳过 |
+| ConsoleESG | `cd ConsoleESG && npm test` | 227 通过 |
+| Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 667 通过 |
+| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 762 通过、6 跳过 |
+| 标准包 | `pytest ExtractESG/standards/tests` | 118 通过 |
+| PlatESG | `pytest PlatESG/tests` | 77 通过 |
+| 数据库 | `cd database && npm test` | 57 个测试：55 通过、2 跳过 |
+| PlatESG Node | `database/scripts/run-node.sh --test PlatESG/backend/tests/*.test.mjs` | 69 个测试：59 通过、10 跳过 |
 | 金标回归（9 份报告，只重跑提取） | `.local/foundation-lab/reg_only.sh` | 158/159、0 错 0 漏、1 项已知误报 |
 
 工程通过不等于提取准确：金标与未见报告核验（宁德、越秀、紫金、隆基、航空工业、中华煤气、法拉电子）

@@ -20,6 +20,8 @@ const CHECK_TEXT: Record<string, string> = {
   entity_registered: '报告主体未登记',
   boundary_resolved: '报告边界未确定',
   unit_supported: '原单位无法换算',
+  single_source_mapping: '同一来源事实映射到多个互斥指标',
+  consistent_value: '同一期间与边界下出现多个不同值',
   dimensions_complete: '测量维度仍需人工确认',
 };
 

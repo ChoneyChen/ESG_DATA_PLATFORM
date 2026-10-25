@@ -11,13 +11,29 @@
  */
 import { measurementDefinitionForMapping, saveMeasurementContext, unitIsSupported } from './publication.mjs';
 import { reviewRecord } from './import-bundle.mjs';
-import { resolveDimensions, normalizeBoundary, REVIEW_EVIDENCE_VERSION } from './review-evidence.mjs';
-export const VERIFICATION_RULE_VERSION = 'machine-verification-v2';
+import { resolveDimensions, normalizeBoundary, normalizeDimension, REVIEW_EVIDENCE_VERSION } from './review-evidence.mjs';
+export const VERIFICATION_RULE_VERSION = 'machine-verification-v3';
 const GROUP_ENTITIES = new Set(['group', 'listed_company']);
 // These are stored as their own measurement-context columns, never as
 // scientific dimensions.
 const TYPED_CONTEXT_FIELDS = new Set(['entity_ref', 'period_start', 'period_end', 'boundary_code',
   'value_role', 'measurement_method', 'reported_unit']);
+// Axes that describe comparability rather than the measured concept. When a
+// report simply does not state them, recording "not_stated" is honest and the
+// comparison contract keeps the value out of like-for-like sets; blocking the
+// whole disclosure would demand a person to invent a fact the report omits.
+const NOT_STATED_DIMENSIONS = new Set(['consolidation_approach', 'statistical_time_basis',
+  'population', 'accident_definition', 'turnover_definition', 'denominator_scope',
+  'denominator_unit', 'rate_multiplier', 'count_basis', 'training_scope',
+  'management_level_definition', 'gender']);
+const SUBSET_LABEL = /其他|其它|部分|不含|不包括|除外|其中|of which|other|excluding|subset/i;
+// Axes that say how a number was assembled rather than what was measured.
+// They are useful for comparability but are not positive concept evidence.
+const NON_CONCEPT_AXES = new Set(['aggregation_role', 'consolidation_approach',
+  'statistical_time_basis', 'denominator_scope', 'denominator_unit', 'rate_multiplier', 'count_basis']);
+// Projection element ids are the standard package's axis names; the two
+// scope-2 method spellings mean the same platform axis.
+const PROJECTION_AXES = { scope2_method: 'measurement_method', scope_2_method: 'measurement_method' };
 
 const nonempty = value => typeof value === 'string' && value.trim().length > 0;
 const identityOf = (disclosure) => disclosure?.source_identity?.identity_raw
@@ -57,6 +73,31 @@ async function definitionFor(db, mappingId) {
   return { definition, readiness: readiness || null };
 }
 
+function projectionOf(row) {
+  let reason = {};
+  try { reason = JSON.parse(row.mapping_reason || '{}'); } catch {}
+  const dimensions = [];
+  for (const item of reason.projection_dimensions || []) {
+    const axis = String(item.element_id || '').split('.').pop();
+    const key = PROJECTION_AXES[axis] || axis;
+    const value = item.value_code || item.value_raw;
+    if (key && nonempty(value)) {
+      // Projection values are sometimes dictionary codes (`scope2`,
+      // `location_based`) and sometimes the report's words. Normalise the code
+      // form so it compares with the definition's fixed value.
+      const canonical = normalizeDimension(key, value) || value;
+      dimensions.push({ dimension_key: key, canonical_value: canonical, raw_value: item.value_raw || value });
+    }
+  }
+  const attributes = (reason.projection_attributes || []).map(item => item.value_text).filter(nonempty);
+  return {
+    dimensions, attributes,
+    binding: reason.mapping_evidence?.binding_match || reason.source_binding?.match || null,
+    boundaryCode: reason.mapping_evidence?.boundary_code || null,
+    observation: reason.mapping_evidence?.observation_review_status || null,
+  };
+}
+
 async function proposalFor(db, mappingId) {
   const row = await candidateRow(db, mappingId);
   if (!row) throw new Error(`Candidate not found: ${mappingId}`);
@@ -64,8 +105,13 @@ async function proposalFor(db, mappingId) {
   if (!metric) throw new Error('该映射没有当前指标定义，不能提出测量口径');
   const { definition, readiness } = metric;
   const identity = identityOf(row);
-  const rawDimensions = (await db.query('SELECT dimension_key,ordinal,raw_value,canonical_value FROM esg.disclosure_dimensions WHERE disclosure_id=$1 ORDER BY dimension_key,ordinal',
+  const projection = projectionOf(row);
+  const storedDimensions = (await db.query('SELECT dimension_key,ordinal,raw_value,canonical_value FROM esg.disclosure_dimensions WHERE disclosure_id=$1 ORDER BY dimension_key,ordinal',
     [row.disclosure_id])).rows;
+  // Projection evidence is the extraction's own reading of the source table.
+  // It is as much a captured fact as the stored identity dimensions, so let it
+  // resolve axes the identity alone does not carry.
+  const rawDimensions = [...projection.dimensions, ...storedDimensions];
   const sourceCount = (await db.query('SELECT count(*)::int AS n FROM esg.disclosure_sources WHERE disclosure_id=$1', [row.disclosure_id])).rows[0].n;
   const entity = (await db.query('SELECT entity_ref,entity_kind FROM plat.entities WHERE entity_ref=$1', [row.organization_ref])).rows[0] || null;
 
@@ -84,6 +130,14 @@ async function proposalFor(db, mappingId) {
     label: row.raw_indicator_name || '', statement: row.raw_value_text || '',
     unit: row.raw_unit || '', metricLabel: definition.label_zh || '',
   });
+  // "其中：自发光伏" names a part of a larger row. A breakdown column
+  // ("component_水能") does not: the row itself is still the total.
+  const componentMarker = Object.keys(identity).some(key => /^component_(其中|of_which)|^其中|of which/i.test(key))
+    || /其中[:：]|of which/i.test(row.raw_indicator_name || '');
+  if (componentMarker && !nonempty(resolved.values.aggregation_role)) {
+    resolved.values.aggregation_role = 'component';
+    resolved.sources.aggregation_role = 'source_identity_component';
+  }
   for (const [key, value] of Object.entries(resolved.values)) {
     if (TYPED_CONTEXT_FIELDS.has(key) || nonempty(dimensions[key])) continue;
     dimensions[key] = value; dimensionSources[key] = resolved.sources[key];
@@ -99,12 +153,17 @@ async function proposalFor(db, mappingId) {
     if (only) { dimensions[key] = only; dimensionSources[key] = 'definition_single_value'; }
   }
   // A definition may declare that an unstated axis is recorded as
-  // `not_stated` rather than guessed or blocking the whole disclosure. It is
-  // only usable where the definition imposes no closed value set.
+  // `not_stated` rather than guessed or blocking the whole disclosure. The
+  // same rule applies to comparability descriptors: a report that does not say
+  // which consolidation approach it used is a reporting gap, not a reason to
+  // make a person invent one. Only axes with no closed value set qualify.
   for (const key of definition.required_dimensions || []) {
-    if (nonempty(dimensions[key]) || definition.unresolved_dimension_policy !== 'not_stated') continue;
-    if (definition.dimension_constraints?.[key] || definition.typed_context_constraints?.[key]) continue;
-    dimensions[key] = 'not_stated'; dimensionSources[key] = 'definition_policy';
+    if (nonempty(dimensions[key])) continue;
+    if (definition.dimension_constraints?.[key]?.allowed_values
+        || definition.typed_context_constraints?.[key]?.allowed_values) continue;
+    if (definition.unresolved_dimension_policy === 'not_stated' || NOT_STATED_DIMENSIONS.has(key)) {
+      dimensions[key] = 'not_stated'; dimensionSources[key] = 'definition_policy_not_stated';
+    }
   }
   for (const key of TYPED_CONTEXT_FIELDS) { delete dimensions[key]; delete dimensionSources[key]; }
 
@@ -128,8 +187,37 @@ async function proposalFor(db, mappingId) {
       : singleAllowed('measurement_method');
   }
 
+  // A rate printed as "/" carries its denominator only in the row label
+  // ("百万工时可记录事故率", "每百人工伤率"). Translate that into the unit the
+  // versioned rules can actually validate.
+  let reportedUnit = row.raw_unit || null;
+  if (definition.canonical_unit === 'rate' && reportedUnit) {
+    const unit = String(reportedUnit).replace(/\s+/g, '');
+    const wording = `${row.raw_indicator_name || ''} ${definition.label_zh || ''}`;
+    if (unit === '/') {
+      if (/每百万人时|百万工时|per.?million.?hours/i.test(wording)) reportedUnit = '次/百万工时';
+      else if (/每百人|per.?100/i.test(wording)) reportedUnit = '次/百人';
+    }
+  }
+  // A rate expressed per worker can only come from the workforce population.
+  if ((definition.required_dimensions || []).includes('population') && !nonempty(dimensions.population)
+      && ['per_100_workers', 'per_million_hours'].includes(dimensions.denominator_unit)) {
+    dimensions.population = 'employees'; dimensionSources.population = 'source_unit_population';
+  }
+
+  // Positive concept evidence: the written row label itself resolves one of
+  // the definition's axes. Absence of a contradiction is not evidence.
+  const labelAxes = {};
+  for (const key of new Set([...(definition.required_dimensions || []), ...Object.keys(fixed)])) {
+    const value = normalizeDimension(key, row.raw_indicator_name || '');
+    if (nonempty(value)) labelAxes[key] = value;
+  }
+  const labelSupports = !SUBSET_LABEL.test(row.raw_indicator_name || '')
+    && Object.entries(labelAxes).some(([key, value]) => !NON_CONCEPT_AXES.has(key)
+      && (fixed[key] === value || dimensions[key] === value || resolved.values[key] === value));
+
   const typed = { entity_ref: entity?.entity_ref || null, period_start: periodStart, period_end: periodEnd,
-    boundary_code: boundary, measurement_method: method, value_role: 'actual', reported_unit: row.raw_unit || null };
+    boundary_code: boundary, measurement_method: method, value_role: 'actual', reported_unit: reportedUnit };
   const missing = [];
   for (const key of definition.required_dimensions || []) if (!nonempty(typed[key]) && !nonempty(dimensions[key])) missing.push(key);
   for (const key of definition.required_context_fields || []) if (!nonempty(typed[key])) missing.push(key);
@@ -141,30 +229,94 @@ async function proposalFor(db, mappingId) {
   }
   // A fixed axis is the definition's meaning, but evidence that explicitly
   // says otherwise is a contradiction, not something the fixed value may hide.
-  const fixedMismatch = Object.entries(definition.fixed_dimensions || {})
-    .filter(([key]) => !TYPED_CONTEXT_FIELDS.has(key))
-    .filter(([key, value]) => nonempty(resolved.values[key]) && resolved.values[key] !== value)
-    .map(([key]) => key);
+  const fixedMismatch = [...new Set([
+    ...Object.entries(definition.fixed_dimensions || {})
+      .filter(([key]) => !TYPED_CONTEXT_FIELDS.has(key))
+      .filter(([key, value]) => nonempty(resolved.values[key]) && resolved.values[key] !== value)
+      .map(([key]) => key),
+    // The written row label is independent evidence. A projection that says
+    // "scope 3" cannot hide a label that says "total emissions".
+    ...Object.entries(definition.fixed_dimensions || {})
+      .filter(([key]) => !TYPED_CONTEXT_FIELDS.has(key))
+      .filter(([key, value]) => {
+        const printed = normalizeDimension(key, row.raw_indicator_name || '');
+        return nonempty(printed) && printed !== value;
+      })
+      .map(([key]) => key),
+  ])];
+
+  // Two independent source readings can both look valid yet claim the same
+  // fact for different clauses, or claim different values under one context.
+  // Those are real judgements, not missing axes, and must stay with a person.
+  const sourceRef = row.source_identity?.source_fact_ref || row.source_identity?.source_fact_id || null;
+  const primarySource = row.source_identity?.physical_sources?.[0] || null;
+  const sourceMetricCount = primarySource ? (await db.query(`SELECT count(DISTINCT s.requirement_code)::int AS n
+    FROM esg.esg_disclosures d JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+    JOIN esg.standard_requirements s USING(requirement_id) JOIN esg.disclosure_sources ds USING(disclosure_id)
+    WHERE d.source_report_id=$1 AND ds.page_number=$2 AND ds.source_node_id=$3 AND d.raw_disclosure_text=$4`,
+    [row.source_report_id, Number(primarySource.pdf_page_index) + 1, primarySource.ir_object_id,
+      row.raw_value_text || ''])).rows[0].n
+    : sourceRef ? (await db.query(`SELECT count(DISTINCT s.requirement_code)::int AS n
+      FROM esg.esg_disclosures d JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+      JOIN esg.standard_requirements s USING(requirement_id)
+      WHERE d.source_report_id=$1
+        AND COALESCE(d.source_identity->>'source_fact_ref',d.source_identity->>'source_fact_id')=$2`,
+      [row.source_report_id, sourceRef])).rows[0].n : 1;
+  const valueVariants = (await db.query(`SELECT count(DISTINCT COALESCE(v.raw_value_text,q.statement_raw,d.raw_disclosure_text)
+      || '|' || COALESCE(v.raw_unit,''))::int AS n
+    FROM esg.esg_disclosures d JOIN esg.source_report_refs r USING(source_report_id)
+    JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+    JOIN esg.standard_requirements s USING(requirement_id)
+    LEFT JOIN esg.structured_values v USING(disclosure_id)
+    LEFT JOIN esg.qualitative_claims q USING(disclosure_id)
+    WHERE r.report_ref=$1 AND s.requirement_code=$2
+      AND d.period_start IS NOT DISTINCT FROM $3::date AND d.period_end IS NOT DISTINCT FROM $4::date
+      AND COALESCE(d.source_identity->>'reporting_boundary','')=$5
+      AND COALESCE(d.raw_indicator_name,'')=$6
+      AND COALESCE(d.source_identity->>'pollutant','')=$7`,
+    [row.report_ref, row.source_datapoint_id, periodStart, periodEnd, identity.reporting_boundary || '',
+      row.raw_indicator_name || '', identity.pollutant || ''])).rows[0].n;
+
+  // A partial or boundary-narrower mapping becomes exact when the extracted
+  // projection or the written row label positively resolves the concept and
+  // every axis is complete. The boundary stays a typed context, not a
+  // different concept.
+  const evidenceComplete = missing.length === 0 && mismatched.length === 0 && fixedMismatch.length === 0;
+  const conceptEvidence = projection.dimensions.length > 0 || labelSupports;
+  const relationPromotable = readiness === 'ready' && projection.binding === 'match'
+    && evidenceComplete && conceptEvidence && !componentMarker
+    && (row.mapping_relation === 'partial'
+      || (row.mapping_relation === 'narrower' && Boolean(boundary)));
+  const mappingRelation = relationPromotable ? 'exact' : row.mapping_relation;
+  const satisfactionStatus = relationPromotable ? 'supports' : row.satisfaction_status;
 
   const checks = [
     { code: 'metric_ready', ok: readiness === 'ready' },
-    { code: 'mapping_exact', ok: row.mapping_relation === 'exact' && row.satisfaction_status === 'supports' },
+    { code: 'mapping_exact', ok: mappingRelation === 'exact' && satisfactionStatus === 'supports' },
     { code: 'physical_source', ok: sourceCount > 0 },
     { code: 'row_label', ok: definition.value_type === 'statement'
-      || nonempty(row.raw_indicator_name) || nonempty(identity.source_row_label) },
+      || nonempty(row.raw_indicator_name) || nonempty(identity.source_row_label)
+      || nonempty(identity.pollutant) || projection.attributes.length > 0 },
     { code: 'value_numeric', ok: definition.value_type === 'statement' ? nonempty(row.raw_value_text) : nonempty(row.value_numeric) },
     { code: 'period_present', ok: Boolean(periodStart && periodEnd && periodStart <= periodEnd) },
     { code: 'entity_registered', ok: Boolean(entity) },
     { code: 'boundary_resolved', ok: Boolean(boundary) },
-    { code: 'unit_supported', ok: definition.value_type === 'statement' || unitIsSupported(definition.canonical_unit, row.raw_unit) },
+    { code: 'unit_supported', ok: definition.value_type === 'statement' || unitIsSupported(definition.canonical_unit, reportedUnit) },
+    { code: 'single_source_mapping', ok: sourceMetricCount <= 1 },
+    { code: 'consistent_value', ok: valueVariants <= 1 },
     { code: 'dimensions_complete', ok: missing.length === 0 && mismatched.length === 0 && fixedMismatch.length === 0 },
   ];
   const blockers = checks.filter(check => !check.ok).map(check => check.code);
   const blockerDetails = checks.filter(check => !check.ok).map(check => ({ code: check.code,
-    ...(check.code === 'mapping_exact' ? { relation: row.mapping_relation, satisfaction: row.satisfaction_status,
-      detail: row.mapping_relation === 'narrower'
+    ...(check.code === 'mapping_exact' ? { relation: mappingRelation, satisfaction: satisfactionStatus,
+      original_relation: row.mapping_relation,
+      detail: mappingRelation === 'narrower'
         ? '概念匹配，但原文披露的是更窄边界；需确认是否按该边界发布'
         : '提取证据未判定概念完全等价，需人工确认映射' } : {}),
+    ...(check.code === 'single_source_mapping' ? { metrics: sourceMetricCount,
+      detail: '同一来源事实被映射到多个互斥指标，需人工确认应归入哪一条' } : {}),
+    ...(check.code === 'consistent_value' ? { values: valueVariants,
+      detail: '同一报告、指标、期间与边界下出现多个不同值，需人工确认' } : {}),
     ...(check.code === 'dimensions_complete' ? { missing, mismatched, fixed_mismatch: fixedMismatch } : {}),
   }));
   const methodSource = method ? (resolved.sources.measurement_method
@@ -174,7 +326,12 @@ async function proposalFor(db, mappingId) {
     source_datapoint_id: row.source_datapoint_id,
     raw_indicator_name: row.raw_indicator_name, raw_value_text: row.raw_value_text, raw_unit: row.raw_unit,
     metric_id: definition.metric_id, canonical_unit: definition.canonical_unit, value_type: definition.value_type,
-    mapping_relation: row.mapping_relation, satisfaction_status: row.satisfaction_status,
+    mapping_relation: mappingRelation, satisfaction_status: satisfactionStatus,
+    original_mapping_relation: row.mapping_relation,
+    mapping_reconciled: mappingRelation !== row.mapping_relation,
+    relation_evidence: {binding: projection.binding, projection_axes: projection.dimensions.map(d => d.dimension_key),
+      label_axes: labelAxes, label_supports: labelSupports, component: componentMarker,
+      promotable: relationPromotable},
     suggested: { ...typed, dimensions }, period_source: row.period_start ? 'fact' : 'report_identity',
     boundary_source: boundarySource, method_source: methodSource,
     dimension_sources: dimensionSources, resolved_axes: Object.keys(resolved.values),

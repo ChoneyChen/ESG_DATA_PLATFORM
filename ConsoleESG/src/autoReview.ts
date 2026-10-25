@@ -12,6 +12,8 @@ const axis = (key:string)=>AXIS_NAMES[key] || key;
 /** Plain-language reason a candidate still needs a person, from its proposal evidence. */
 export function autoReviewReason(proposal:Row):string{
   const blockers:string[]=proposal.blockers || [];
+  if(blockers.includes('single_source_mapping')) return '同一来源事实被映射到多个互斥指标';
+  if(blockers.includes('consistent_value')) return '同一期间与边界下出现多个不同值';
   if(blockers.includes('mapping_exact')) return proposal.mapping_relation==='narrower'
     ? '概念匹配但边界更窄，需确认按该边界发布'
     : `映射为 ${proposal.mapping_relation || '未判定'}/${proposal.satisfaction_status || '未判定'}，需确认概念等价`;

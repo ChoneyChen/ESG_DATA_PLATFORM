@@ -332,13 +332,38 @@ export async function importBundle(db, bundle, metadata, { inTransaction = false
         if (sourceFact && !sources.some(source => source.ir_run_id === sourceFact.ir_run_id && source.ir_revision === sourceFact.ir_revision))
           throw new Error(`SourceFact ${sourceFact.source_fact_id} disagrees with the Core evidence revision`);
         const sourceFactRef = sourceFact?.source_fact_id || `${sources[0].ir_run_id}:${jobId}:${recordId}`;
-        const disclosureId = uuid(`${reportId}:${sourceFactRef}`);
+        let disclosureId = uuid(`${reportId}:${sourceFactRef}`);
         const sourcePayload = sourceFact ? { origin: 'source_fact', source_fact: sourceFact } : { origin: 'legacy_projection', kind, value_raw: row.value_raw ?? row.statement_raw, unit_raw: row.unit_raw ?? null,
           comparator: row.comparator ?? null, value_numeric: row.value_numeric ?? null, value_lower: row.value_lower ?? null,
           value_upper: row.value_upper ?? null, period_start: row.period_start ?? null, period_end: row.period_end ?? null,
           reporting_period_raw: row.reporting_period_raw ?? null, reporting_boundary: row.reporting_boundary ?? null };
+        // Re-reading a report changes the extraction fact id, but the physical
+        // cell, clause, printed value and period are the same fact. Reuse the
+        // existing disclosure instead of delivering a duplicate candidate.
+        const printedValue = sourceFact ? sourceFact.value_raw ?? sourceFact.statement_raw ?? '' : row.value_raw ?? row.statement_raw ?? '';
+        const printedPeriodStart = sourceFact ? sourceFact.identity_raw?.period_start || metadata.report_period_start || null
+          : row.period_start || metadata.report_period_start || null;
+        const printedPeriodEnd = sourceFact ? sourceFact.identity_raw?.period_end || metadata.report_period_end || null
+          : row.period_end || metadata.report_period_end || null;
+        const primarySource = sources[0];
+        const duplicate = sourceFact && primarySource ? await tx.query(`SELECT d.disclosure_id
+          FROM esg.esg_disclosures d
+          JOIN esg.disclosure_standard_mappings m USING(disclosure_id)
+          JOIN esg.standard_requirements s USING(requirement_id)
+          JOIN esg.disclosure_sources ds USING(disclosure_id)
+          WHERE d.source_report_id=$1 AND s.requirement_code=$2 AND d.raw_disclosure_text=$3
+            AND ds.page_number=$4 AND ds.source_node_id=$5
+            AND d.period_start IS NOT DISTINCT FROM $6::date AND d.period_end IS NOT DISTINCT FROM $7::date
+            AND COALESCE(d.source_identity->>'reporting_boundary','')=COALESCE($8,'')
+          LIMIT 1`, [reportId, metric.source_datapoint_id || row.metric_id, String(printedValue),
+          Number(primarySource.pdf_page_index) + 1, primarySource.ir_object_id,
+          printedPeriodStart, printedPeriodEnd,
+          sourceFact.identity_raw?.reporting_boundary || row.reporting_boundary || null]) : { rows: [] };
+        const reused = duplicate.rows[0]?.disclosure_id || null;
+        if (reused) disclosureId = reused;
         const existing = await tx.query('SELECT source_payload FROM esg.esg_disclosures WHERE disclosure_id=$1', [disclosureId]);
-        if (existing.rows.length && stableJSON(existing.rows[0].source_payload) !== stableJSON(sourcePayload))
+        if (existing.rows.length && (!reused || reused === disclosureId)
+            && stableJSON(existing.rows[0].source_payload) !== stableJSON(sourcePayload))
           throw new Error(`Source fact collision: ${sourceFactRef}; import rolled back`);
         if (!existing.rows.length) {
           const sourceIdentity = sourceFact ? { ...sourceFact, source_fact_ref: sourceFactRef, origin: 'source_fact' } : { source_fact_ref: sourceFactRef, physical_sources: sources,

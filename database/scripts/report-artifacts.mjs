@@ -26,7 +26,7 @@ async function candidateRows(db, reportRef, mappingIds = null) {
   }
   return (await db.query(`SELECT m.disclosure_standard_mapping_id AS mapping_id,d.disclosure_id,
       d.raw_indicator_name,COALESCE(v.raw_value_text,q.statement_raw,d.raw_disclosure_text) AS raw_value_text,
-      d.source_ir_run_id,d.source_identity,
+      d.source_ir_run_id,d.source_identity,d.period_start::text AS period_start,d.period_end::text AS period_end,
       d.quality_status AS fact_review_status,m.review_status AS mapping_review_status,
       m.mapping_relation,s.clause_kind,s.extension_id,s.requirement_code AS source_datapoint_id,
       s.requirement_title AS clause_label,p.publication_status,p.observation_id,p.reason_codes,
@@ -133,4 +133,45 @@ export async function deleteReportCandidates(db, {report_ref, mapping_ids = null
         measurement_contexts: true, immutable_source_snapshots: true, import_batches: true,
         extraction_outputs: 'owned_by_extraction_service'}};
   });
+}
+
+/**
+ * A report can be read and delivered more than once. The same physical cell
+ * then arrives as a new disclosure because its extraction fact id changed,
+ * doubling every review row and every future observation. This finds rows that
+ * describe the same report, clause, value and physical source and keeps the
+ * newest reading; older copies are removed only when they are unpublished and
+ * carry no measurement context.
+ */
+export async function collapseDuplicateCandidates(db, {report_ref, apply = false, operator_ref, reason}) {
+  const inventory = await reportArtifacts(db, {report_ref});
+  if (!inventory.report) return {...inventory, duplicates: 0, collapsed: 0};
+  const groups = new Map();
+  for (const item of inventory.candidates) {
+    const source = item.source_identity?.physical_sources?.[0] || {};
+    const page = source.pdf_page_index ?? null;
+    const node = source.ir_object_id || null;
+    if (page == null || !node) continue;
+    const key = [item.source_datapoint_id, item.raw_value_text, page, node,
+      item.period_start || '', item.period_end || '',
+      item.source_identity?.identity_raw?.reporting_boundary || ''].join('|');
+    groups.set(key, [...(groups.get(key) || []), item]);
+  }
+  const duplicateGroups = [...groups.values()].filter(items => items.length > 1);
+  const duplicateMappingIds = [];
+  for (const items of duplicateGroups) {
+    // Keep the row that already carries a review context or publication over a
+    // bare duplicate, then the newest reading. A protected row is never
+    // deleted, so it must be the survivor when one exists.
+    const ordered = [...items].sort((a, b) => Number(a.deletable) - Number(b.deletable)
+      || String(b.source_ir_run_id || '').localeCompare(String(a.source_ir_run_id || '')));
+    for (const item of ordered.slice(1)) if (item.deletable) duplicateMappingIds.push(item.mapping_id);
+  }
+  const summary = {...inventory, duplicate_groups: duplicateGroups.length,
+    duplicate_candidates: duplicateGroups.reduce((sum, items) => sum + items.length - 1, 0),
+    deletable_duplicates: duplicateMappingIds.length};
+  if (!apply || !duplicateMappingIds.length) return {...summary, applied: false, collapsed: 0};
+  const result = await deleteReportCandidates(db, {report_ref, mapping_ids: duplicateMappingIds,
+    apply: true, operator_ref, reason});
+  return {...summary, applied: true, collapsed: result.deleted, delete_result: result};
 }

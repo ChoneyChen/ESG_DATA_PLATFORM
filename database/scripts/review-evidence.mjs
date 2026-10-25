@@ -115,6 +115,9 @@ function medium(value) {
 function scope(value) {
   const raw = compact(value);
   if (!raw) return null;
+  // "Scope 1+2", "SCOPE1+2" and "范围一、范围二" name the combined total even
+  // though only one scope word is spelled out.
+  if (/scope\s*1\s*[+&、,，/]\s*2|范围[一1]\s*[+&、,，/]\s*[二2]|范围一[、和及]范围二/i.test(raw)) return 'total';
   // A label naming one scope is that scope even when it says "total"; a label
   // naming several scopes is the combined total.
   const named = [/范围一|范围1|scope1|第一|直接|direct/, /范围二|范围2|scope2|second/,
@@ -149,17 +152,17 @@ function category(value) {
 function consolidation(value) {
   const raw = compact(value);
   if (!raw) return null;
-  if (/运营控制|operationalcontrol/.test(raw)) return 'operational_control';
-  if (/财务控制|financialcontrol/.test(raw)) return 'financial_control';
-  if (/股权比例|权益比例|equityshare/.test(raw)) return 'equity_share';
+  if (/运营控制|operational[\s_-]*control/.test(raw)) return 'operational_control';
+  if (/财务控制|financial[\s_-]*control/.test(raw)) return 'financial_control';
+  if (/股权比例|权益比例|equity[\s_-]*share/.test(raw)) return 'equity_share';
   return null;
 }
 
 function method(value) {
   const raw = clean(value);
   if (!raw) return null;
-  if (/地点法|位置法|基于位置|基于地点|location[\s-]*based|绿电未抵扣|未抵扣绿电/i.test(raw)) return 'location_based';
-  if (/市场法|基于市场|market[\s-]*based|绿电抵扣|抵扣绿电/i.test(raw)) return 'market_based';
+  if (/地点法|位置法|基于位置|基于地点|location[\s_-]*based|绿电未抵扣|未抵扣绿电/i.test(raw)) return 'location_based';
+  if (/市场法|基于市场|market[\s_-]*based|绿电抵扣|抵扣绿电/i.test(raw)) return 'market_based';
   return null;
 }
 
@@ -167,7 +170,9 @@ function denominator(value) {
   const raw = compact(value);
   if (!raw) return null;
   if (/营业收入|营收|销售额|revenue|sales/.test(raw)) return 'revenue';
-  if (/员工人数|员工|雇员|headcount|employee/.test(raw)) return 'employees';
+  // "员工" alone names the population, not a per-employee denominator. Only
+  // an explicit per-person phrase means the denominator is employee count.
+  if (/每人|人均|peremployee|perperson|员工人数|headcount/.test(raw)) return 'employees';
   if (/产量|产品产量|productionoutput|production/.test(raw)) return 'production_output';
   if (/增加值|valueadded/.test(raw)) return 'value_added';
   if (/产值|outputvalue/.test(raw)) return 'output_value';
@@ -181,6 +186,41 @@ function hazardClassification(value) {
   if (!raw) return null;
   if (/危险|有害|hazardous/.test(raw)) return 'hazardous';
   if (/非危险|无害|一般废弃物|non-?hazardous/.test(raw)) return 'non_hazardous';
+  return null;
+}
+
+function waterMeasure(value) {
+  const raw = compact(value);
+  if (!raw) return null;
+  if (/循环使用|重复利用|再生水|recycled|reused/.test(raw)) return 'recycled_reused';
+  if (/取水|抽取|用水|withdrawal/.test(raw)) return 'withdrawal';
+  if (/耗水|消耗|consumption/.test(raw)) return 'consumption';
+  return null;
+}
+
+function denominatorScope(value) {
+  const raw = compact(value);
+  if (!raw) return null;
+  if (/^employees?$|^peremployee$|^perperson$/.test(raw)) return 'per_employee';
+  const resolved = denominator(value);
+  return resolved === 'employees' ? 'per_employee' : resolved;
+}
+
+function energySource(value) {
+  const raw = compact(value);
+  if (!raw) return null;
+  if (/可再生|清洁能源|renewable/.test(raw)) return 'renewable';
+  if (/化石|fossil/.test(raw)) return 'fossil';
+  if (/全部|所有|总计|合计|total|all/.test(raw)) return 'all';
+  return null;
+}
+
+function accidentDefinition(value) {
+  const raw = compact(value);
+  if (!raw) return null;
+  if (/可记录|recordable|trir/.test(raw)) return 'recordable';
+  if (/失时|损失工作日|losttime|ltir/.test(raw)) return 'lost_time';
+  if (/死亡|致命|fatality/.test(raw)) return 'fatality';
   return null;
 }
 
@@ -273,8 +313,11 @@ function population(value) {
 const NORMALIZERS = Object.freeze({
   pollutant, substance: pollutant, pollution_medium: medium, ghg_scope: scope, aggregation_role: aggregation,
   scope3_category: category, consolidation_approach: consolidation, measurement_method: method,
-  denominator_scope: denominator, intensity_denominator: denominator, amount_basis: amountBasis,
+  scope2_method: method, scope_2_method: method,
+  denominator_scope: denominatorScope, intensity_denominator: denominator, amount_basis: amountBasis,
   statistical_time_basis: timeBasis, population, hazard_classification: hazardClassification,
+  water_measure: waterMeasure, water_flow: waterMeasure, energy_source: energySource,
+  accident_definition: accidentDefinition,
   gender, management_level_definition: managementLevel, board_definition: boardDefinition,
   turnover_definition: turnoverDefinition, training_scope: trainingScope,
   denominator_unit: denominatorUnit, rate_multiplier: rateMultiplier,
@@ -287,6 +330,11 @@ function normalize(key, value, {structured = false} = {}) {
   // keep a structured identity value verbatim. Free text from a label or a
   // statement is never turned into a code.
   return structured ? clean(value) || null : null;
+}
+
+/** Resolve one dimension from a printed label or value without a definition. */
+export function normalizeDimension(key, value) {
+  return normalize(key, value);
 }
 
 /**
@@ -333,15 +381,21 @@ export function resolveDimensions({definition, identity = {}, rawDimensions = []
 }
 
 const GROUP_BOUNDARY = /合并(?:口径|报表|范围|数据)?|本集团|集团(?:合并|整体|层面|口径)|全公司|公司整体|本公司及其子公司|全部子公司|consolidated|group[\s-]*wide|whole group|entire company|company[\s-]*wide/i;
+const CANONICAL_GROUP = new Set(['group', 'listed_company', 'reporting_entity']);
+const CANONICAL_PART = new Set(['part_of_group', 'subsidiary', 'business_segment']);
 
 /**
  * Printed reporting boundaries are verbatim. Explicit group language is the
  * whole reporting group; anything else is a narrower scope and must stay
- * narrower. The raw text remains in the source identity either way.
+ * narrower. An already-normalised code keeps its meaning: `group` must not be
+ * read as another narrower scope just because it is not the report's prose.
  */
 export function normalizeBoundary(value) {
   const raw = clean(value);
   if (!raw) return null;
+  const code = raw.toLowerCase().replace(/\s+/g, '_');
+  if (CANONICAL_GROUP.has(code)) return {code: 'group', is_group: true, raw};
+  if (CANONICAL_PART.has(code)) return {code: 'part_of_group', is_group: false, raw};
   return GROUP_BOUNDARY.test(raw)
     ? {code: 'group', is_group: true, raw}
     : {code: 'part_of_group', is_group: false, raw};

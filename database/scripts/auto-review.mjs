@@ -11,6 +11,7 @@
  * every automatic decision remains auditable and reversible.
  */
 import {candidateProposals, machineVerify, VERIFICATION_RULE_VERSION} from './candidate-review.mjs';
+import {collapseDuplicateCandidates} from './report-artifacts.mjs';
 
 export const AUTO_REVIEW_VERSION = 'auto-review-v1';
 export const AUTO_REVIEW_OPERATOR = 'auto-review:evidence-v1';
@@ -21,7 +22,16 @@ const blockerKey = item => (item.blockers || []).includes('mapping_exact') && it
 
 export async function autoReview(db, {report_ref = null, limit = 1000, apply = false,
                                        operator_ref = AUTO_REVIEW_OPERATOR, reason = null} = {}) {
-  const proposals = await candidateProposals(db, {report_ref, limit});
+  let proposals = await candidateProposals(db, {report_ref, limit});
+  const reports = report_ref ? [report_ref] : [...new Set((proposals.items || []).map(item => item.report_ref))];
+  let duplicatesFound = 0, duplicatesCollapsed = 0;
+  for (const ref of reports) {
+    const collapsed = await collapseDuplicateCandidates(db, {report_ref: ref, apply,
+      operator_ref, reason: reason?.trim() || DEFAULT_REASON});
+    duplicatesFound += collapsed.duplicate_candidates || 0;
+    duplicatesCollapsed += collapsed.collapsed || 0;
+  }
+  if (apply && duplicatesCollapsed) proposals = await candidateProposals(db, {report_ref, limit});
   const items = proposals.items || [];
   const pending = items.filter(item => !item.already_approved);
   const ready = pending.filter(item => item.resolvable);
@@ -35,7 +45,9 @@ export async function autoReview(db, {report_ref = null, limit = 1000, apply = f
   const summary = {
     version: AUTO_REVIEW_VERSION, verification_rule_version: VERIFICATION_RULE_VERSION,
     report_ref, considered: items.length, already_approved: items.length - pending.length,
-    ready: ready.length, needs_human: blocked.length, applied: 0, blockers, relations,
+    duplicates_found: duplicatesFound, duplicates_collapsed: duplicatesCollapsed,
+    ready: ready.length, needs_human: blocked.length,
+    applied: 0, blockers, relations,
   };
   if (!apply || !ready.length) return {...summary, apply: false};
 
