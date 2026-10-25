@@ -7,11 +7,46 @@ import {CalculationWorkbench} from '../components/CalculationWorkbench';
 import {ReportedPropertiesForm} from '../components/ReportedPropertiesForm';
 import {ReportSourceFacts} from '../components/ReportSourceFacts';
 import {blockerText} from '../publicationReasons';
+import {ReviewReportCard} from '../components/ReviewReportCard';
+import {reviewReportUnits,type ReportReviewUnit} from '../reviewReports';
 const fieldNames:Record<string,string>={energy_source:'能源来源',energy_flow:'能源流向',aggregation_role:'聚合层级',energy_accounting_basis:'能源统计基础',ghg_scope:'排放范围',scope2_method:'范围2方法',scope_2_method:'范围2方法',amount_basis:'排放性质',gwp_basis:'GWP依据',consolidation_approach:'合并方法',accounting_standard:'核算标准',measurement_method:'测量方法',water_measure:'水量定义',water_risk_class:'水风险区域',pollutant:'污染物',pollution_medium:'排放介质',denominator_scope:'分母范围',population:'人群',accident_rate_basis:'事故率基础',boundary_code:'报告边界',unit_currency:'币种',intensity_numerator_scope:'强度分子范围',intensity_denominator:'强度分母',board_definition:'董事会口径',gender:'性别',management_level_definition:'管理层口径',training_scope:'培训范围',incident_definition:'事件定义',counting_basis:'计数口径',legal_scope:'法律范围',payment_start_definition:'付款起算日',invoice_scope:'发票范围',averaging_basis:'平均口径',material_scope:'材料范围',waste_scope:'废弃物范围',hazard_classification:'危险分类'};
 const valueNames:Record<string,string>={all:'全部',total:'总量',own_operations:'自身运营',consumption:'消费',renewable:'可再生',nonrenewable:'非可再生',scope1:'范围1',scope2:'范围2',scope3:'范围3',scope_1:'范围1',scope_2:'范围2',scope_3:'范围3',scope_1_2:'范围1＋2合计',gross:'毛排放',net:'净排放',location_based:'地点法',market_based:'市场法',headcount:'人头数',fte:'全职当量',group:'集团',subsidiary:'子公司',actual:'实际值',restated:'重述值',context:'背景陈述',not_stated:'来源未陈述'};
 const boundarySourceNames:Record<string,string>={printed_group_boundary:'原文标明集团口径',printed_narrower_boundary:'原文标明更窄范围',printed_in_source:'原文标明',entity_scope:'报告主体为子公司',report_identity_group:'报告主体口径'};
 export function dimensionFields(metric:Row|undefined,context:Row={}){const typed=new Set(['entity_ref','value_role','entity_kind','measurement_method','period_start','period_end','boundary_code','definition_version']);const keys=[...new Set<string>([...(metric?.required_dimensions || []),...(metric?.comparison_dimensions || []).filter((key:string)=>!typed.has(key)),...Object.keys(metric?.fixed_dimensions || {}),...Object.keys(context.dimensions || {})])].filter(key=>!typed.has(key));return keys.map(key=>({key,label:fieldNames[key] || key,required:metric?.required_dimensions?.includes(key) || false,allowed:metric?.dimension_constraints?.[key]?.allowed_values || metric?.comparison_allowed_values?.[key] || [],fixed:metric?.fixed_dimensions?.[key]}));}
 export function Review({mappingId,params}:{mappingId?:string,params:URLSearchParams}){
+ return mappingId?<ReviewCandidateBrowser mappingId={mappingId} params={params}/>:<ReviewReportIndex params={params}/>;
+}
+function ReviewReportIndex({params}:{params:URLSearchParams}){
+ const selectedRef=params.get('report') || '';
+ const candidatesResource=useResource('publication','/internal/v1/candidates?limit=1000',true);
+ const reportsResource=useResource('document','/api/reports');
+ const [query,setQuery]=useState(''),[status,setStatus]=useState('pending');
+ const all=items(candidatesResource.data),reports=items(reportsResource.data,'reports');
+ const matches=(candidate:Row)=>`${candidate.source_datapoint_id || ''} ${candidate.raw_indicator_name || ''} ${candidate.organization_ref || ''} ${candidate.report_title_snapshot || ''}`.toLowerCase().includes(query.trim().toLowerCase());
+ const pending=(candidate:Row)=>candidate.fact_review_status!=='approved'||candidate.mapping_review_status!=='approved'||!candidate.context;
+ const filtered=all.filter(candidate=>matches(candidate)&&(status==='all'||(status==='published'?candidate.publication_status==='published':pending(candidate))));
+ const units=reviewReportUnits(filtered,reports);
+ const selectedUnit=selectedRef?reviewReportUnits(all.filter(candidate=>candidate.report_ref===selectedRef),reports)[0]:undefined;
+ const selectedRows=all.filter(candidate=>candidate.report_ref===selectedRef&&matches(candidate)&&(status==='all'||(status==='published'?candidate.publication_status==='published':pending(candidate))));
+ return <><div className="page-heading"><div>{selectedRef&&<button className="text-button" onClick={()=>navigate('/review')}>← 全部报告</button>}<span className="eyebrow">质量与测量口径</span><h1>{selectedRef?(selectedUnit?.title || '报告审核'):'审核中心'}</h1><p>{selectedRef?`${selectedUnit?.publisher || '发布者未记录'} · 报告级核对 ${selectedUnit?.total || all.filter(item=>item.report_ref===selectedRef).length} 条候选，确认后仍按报告发布条件检查。`:'每份报告是一个审核单元；先看报告级状态，再进入该报告核对逐条候选。'}</p></div><div className="button-row"><button className="secondary" onClick={()=>navigate('/publication')}>查看发布阻塞</button></div></div>
+ {!credentials.ready?<Notice>数据平台未连接，审核暂不可用；数据平台启动后自动恢复。</Notice>:<>{selectedRef?selectedUnit&&<ReviewReportSummary unit={selectedUnit}/>:<div className="review-report-grid">{units.map(unit=><ReviewReportCard key={unit.ref||unit.title} unit={unit} onOpen={()=>navigate(`/review?report=${encodeURIComponent(unit.ref)}`)}/>)}</div>}
+ <Section title={selectedRef?'报告内候选':'报告审核单元'} action={selectedRef?<span className="count">{selectedRows.length} 条当前筛选</span>:<span className="count">{units.length} 份报告</span>}>
+  <div className="filter-bar"><input value={query} onChange={event=>setQuery(event.target.value)} placeholder={selectedRef?'搜索原编号、指标或原始披露':'搜索报告、指标或主体'} aria-label="搜索审核候选"/><select aria-label="审核状态" value={status} onChange={event=>setStatus(event.target.value)}><option value="pending">待审核事实 / 映射 / 口径</option><option value="all">全部候选</option><option value="published">已发布（复核与修订）</option></select></div>
+  <ResourceState error={candidatesResource.error||reportsResource.error} loading={candidatesResource.loading&&!all.length} empty={!selectedRef&&!units.length}/>
+  {selectedRef?<ReviewCandidateTable rows={selectedRows} reportRef={selectedRef}/>:units.length>0&&<p className="muted review-report-hint">选择一份报告进入候选核对；报告之间不合并统计，也不跨报告批量批准。</p>}
+  {all.length>=1000&&<Notice>当前为前 1000 个候选。可按报告进一步读取，不将截断数量作为全库总量。</Notice>}
+ </Section>
+ {selectedRef&&<ReportSourceFacts reportRef={selectedRef}/>}
+ <EntityRegistration/><CalculationWorkbench/></>}</>;
+}
+function ReviewReportSummary({unit}:{unit:ReportReviewUnit}){
+ return <div className="review-report-summary"><ReviewReportCard unit={unit}/><div className="review-report-summary-note"><strong>报告级审核</strong><p>先核对事实、映射与口径，再处理该报告的发布条件。候选按原编号保留；不同口径不合并。</p></div></div>;
+}
+function ReviewCandidateTable({rows,reportRef}:{rows:Row[],reportRef:string}){
+ if(!rows.length)return <Notice>当前筛选下没有候选。报告级统计仍保留，切换状态或查看发布阻塞。</Notice>;
+ return <div className="review-table-wrap"><div className="table-scroll"><table><thead><tr><th>原编号</th><th>原始披露</th><th>事实</th><th>映射</th><th>边界 / 期间</th><th>测量口径</th><th>发布</th><th>操作</th></tr></thead><tbody>{rows.map(candidate=><tr key={candidate.mapping_id}><td><strong>{candidate.source_datapoint_id || candidate.clause_label || '项目延伸'}</strong>{candidate.candidate_scope_role==='internal_dependency'&&<small className="table-secondary">内部计算操作数 · 独立审核，不计入所选输出覆盖</small>}</td><td><MetricValue value={candidate.raw_value_text ?? candidate.raw_disclosure_text} unit={candidate.raw_unit}/></td><td><Badge value={candidate.fact_review_status}/></td><td><Badge value={candidate.mapping_review_status}/></td><td><small className="table-secondary">{candidate.source_identity?.identity_raw?.reporting_boundary || '未标注'}</small><small className="table-secondary">{candidate.period_start || '期间未识别'}{candidate.period_end?` — ${candidate.period_end}`:''}</small></td><td>{candidate.context?'已保存，核对适用性':'待确认'}</td><td><Badge value={candidate.publication_status || 'review_required'}/></td><td><button className="secondary" onClick={()=>navigate(`/review/${candidate.mapping_id}?report=${encodeURIComponent(reportRef)}`)}>核对</button></td></tr>)}</tbody></table></div></div>;
+}
+function ReviewCandidateBrowser({mappingId,params}:{mappingId:string,params:URLSearchParams}){
  const report=params.get('report');const rowsResource=useResource('publication',`/internal/v1/candidates?limit=1000${report?`&report_ref=${encodeURIComponent(report)}`:''}`,true),metricsResource=useResource('publication','/internal/v1/metrics',true),entitiesResource=useResource('publication','/internal/v1/entities',true);
  const [query,setQuery]=useState(''),[status,setStatus]=useState('pending');const all=items(rowsResource.data),chosen=mappingId?all.find(c=>c.mapping_id===mappingId):undefined;
  const visible=all.filter(c=>(!report||c.report_ref===report)&&`${c.source_datapoint_id} ${c.raw_indicator_name} ${c.organization_ref} ${c.report_title_snapshot}`.toLowerCase().includes(query.toLowerCase())&&(status==='all'||status==='published'?status==='all'||c.publication_status==='published':c.fact_review_status!=='approved'||c.mapping_review_status!=='approved'||!c.context));
