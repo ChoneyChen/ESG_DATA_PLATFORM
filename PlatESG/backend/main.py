@@ -203,6 +203,13 @@ class AutoReviewRequest(StrictRequest):
     reason: Annotated[str, Field(max_length=2000)] | None = None
 
 
+class ReportArtifactDeleteRequest(StrictRequest):
+    report_ref: Text
+    mapping_ids: list[UUID] = Field(default_factory=list, max_length=500)
+    apply: bool = False
+    reason: Annotated[str, Field(max_length=2000)] | None = None
+
+
 class ArtifactPurgeRequest(StrictRequest):
     apply: bool = False
     confirm: Text | None = None
@@ -842,6 +849,16 @@ def create_app(environment: dict[str, str] | None = None):
         payload["operator_ref"] = "auto-review:evidence-v1"
         payload["triggered_by"] = principal["operator_ref"]
         return bridge.call("auto_review", payload)
+
+    @app.get("/internal/v1/report-artifacts", dependencies=[Depends(permission("read"))])
+    def report_artifacts(report_ref: str = Query(..., min_length=1, max_length=240)):
+        return bridge.call("report_artifacts", {"report_ref": report_ref})
+
+    @app.post("/internal/v1/report-artifacts/delete", dependencies=[Depends(permission("admin"))])
+    def delete_report_candidates(request: ReportArtifactDeleteRequest, principal=Depends(permission("admin"))):
+        payload = operator_payload(request, principal, exclude_none=True)
+        payload["mapping_ids"] = [str(item) for item in request.mapping_ids]
+        return bridge.call("delete_report_candidates", payload)
 
     @app.get("/internal/v1/artifact-inventory", dependencies=[Depends(permission("read"))])
     def artifact_inventory():

@@ -9,6 +9,8 @@ import {importBundle} from '../../../database/scripts/import-bundle.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 import {candidateProposal,machineVerify,VERIFICATION_RULE_VERSION} from '../../../database/scripts/candidate-review.mjs';
 import {autoReview,AUTO_REVIEW_OPERATOR} from '../../../database/scripts/auto-review.mjs';
+import {reportArtifacts,deleteReportCandidates} from '../../../database/scripts/report-artifacts.mjs';
+import {processOutbox} from '../../../database/scripts/publication.mjs';
 import {dictionaryFile,platformRoot} from '../service.mjs';
 
 const requireDB=createRequire(path.join(platformRoot,'../database/package.json'));
@@ -54,7 +56,7 @@ async function importFact(db, metricId, {value='10', unit=null, boundary=null, r
       evidence_references:[{evidence_id:`e-${n}`,source_record_id:`r-${n}`,document_id:`doc-${n}`,ir_run_id:`ir-${n}`,ir_revision:1,
         ir_object_id:`cell-${n}`,pdf_page_index:0,evidence_excerpt:isStatement?printed:`合成来源值 ${value}`}]}};
   const imported=await importBundle(db,bundle,{upstream_system:'review_fixture',organization_ref:'review-company',
-    report_ref:reportRef||`review-report-${n}`,report_version_ref:`review-report-${n}:asset:1`,source_artifact_ref:`pdf-${n}`,
+    report_ref:reportRef||`review-report-${n}`,report_version_ref:reportRef?`${reportRef}:asset:1`:`review-report-${n}:asset:1`,source_artifact_ref:reportRef?`pdf-${reportRef}`:`pdf-${n}`,
     report_period_start:'2025-01-01',report_period_end:'2025-12-31'});
   return (await db.query(`SELECT i.disclosure_id,m.disclosure_standard_mapping_id AS mapping_id,m.mapping_relation,m.satisfaction_status,
       d.period_start::text AS period_start,d.period_end::text AS period_end
@@ -272,6 +274,33 @@ test('automatic review approves only evidence-proven candidates and stays report
     assert.equal(second.applied,0);
     assert.equal(second.needs_human,1);
     assert.equal(second.blockers.dimensions_complete,1);
+  }finally{await db.close();}
+});
+
+test('report artifacts locate the candidate layer and delete only unpublished rows without a context', async()=>{
+  const db=await database();try{
+    const approved=await importFact(db,'E1-6_07',{reportRef:'report-artifacts'});
+    const pending=await importFact(db,'S1-6_02',{value:'100',unit:'人',reportRef:'report-artifacts'});
+    await machineVerify(db,{mapping_ids:[approved.mapping_id],apply:true,operator_ref:'review-operator'});
+    await processOutbox(db,{limit:100});
+    const inventory=await reportArtifacts(db,{report_ref:'report-artifacts'});
+    assert.equal(inventory.counts.candidates,2);
+    assert.equal(inventory.counts.deletable,1);
+    assert.equal(inventory.counts.blocked,1);
+    assert.ok(inventory.extraction_batches.length>=1);
+    assert.ok(inventory.extraction_batches[0].bundle_ref);
+    const blocked=inventory.candidates.find(item=>item.mapping_id===approved.mapping_id);
+    assert.equal(blocked.deletion_blocker,'published_observation');
+    const dry=await deleteReportCandidates(db,{report_ref:'report-artifacts'});
+    assert.equal(dry.applied,false);
+    assert.equal(dry.deletable,1);
+    const deleted=await deleteReportCandidates(db,{report_ref:'report-artifacts',apply:true,
+      operator_ref:'admin',reason:'删除未进入口径的候选'});
+    assert.equal(deleted.deleted,1);
+    const after=await reportArtifacts(db,{report_ref:'report-artifacts'});
+    assert.equal(after.counts.candidates,1);
+    assert.equal(after.candidates[0].mapping_id,approved.mapping_id);
+    assert.ok((await db.query('SELECT 1 FROM esg.esg_disclosures WHERE disclosure_id=$1',[pending.disclosure_id])).rows.length===0);
   }finally{await db.close();}
 });
 

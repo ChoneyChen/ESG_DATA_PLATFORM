@@ -38,6 +38,15 @@
 **从提取到发布的一条命令**：`scripts/publish_session.py --session plan-… --publisher "…" --entity org:…`
 确认报告身份、登记主体、交付成果包，并列出每条候选能否审核、缺什么口径；审核与发布仍在操作台完成。
 
+**报告产物删除分两层**：报告详情“审核”页可定位并删除未发布、未保存口径的候选；
+提取任务记录删除负责未发布引用的成果目录。已发布观测、测量口径、报告身份与不可变来源快照保留；
+彻底物理清理使用发布中心的全库产物清理。
+
+**CrawlESG 是只读报告源**：`ExtractESG/scripts/setup_crawl_esg.sh` 在仓库外安装依赖；
+报告资源页读取其索引、下载台账与 packages 目录。Crawl 下载的是 ESEF ZIP，不是本链路的 PDF，
+不会自动导入或自动创建报告身份。接口只校准元数据与包可用性。字段与后续构造见
+[CrawlESG 对接接口](docs/CRAWL_INTEGRATION.md)。
+
 **Extract 自己的前端已经移除（2026-10-23）**：早期 `document_ir_extract/frontend` 是一个原生 JS
 工作台（`/legacy/` 入口），功能已被 ConsoleESG 完整覆盖（报告库、提取创建、证据查看、审核、发布、
 标准、运行诊断）。保留两套界面只会让同一合同的措辞与行为漂移，因此删除；对应浏览器合同测试改为

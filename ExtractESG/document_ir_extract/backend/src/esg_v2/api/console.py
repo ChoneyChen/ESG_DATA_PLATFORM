@@ -114,6 +114,11 @@ def console_router(processing, plans, session_detail, targeted, *, publication_u
             ("title","publisher_entity_ref","period_start","period_end")) else "process_report" if not result.get("current_evidence",{}).get("ready") else "review" if result["review_count"] else "extract"
         return result
 
+    @router.get("/crawl-index/status")
+    def crawl_status():
+        """Read-only crawl connection state; ESEF ZIPs are not PDF assets."""
+        return crawl.status()
+
     @router.get("/crawl-index")
     def crawl_reports(query: str = Query(default="", max_length=160), fiscal_year: int | None = Query(default=None, ge=1900, le=2200),
                       limit: int = Query(default=50, ge=1, le=100)):

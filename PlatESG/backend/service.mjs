@@ -11,6 +11,7 @@ import {availableReportedProperties} from '../../database/scripts/scientific-pro
 import {readReportSourceFacts} from '../../database/scripts/report-source-facts.mjs';
 import {candidateProposal,candidateProposals,machineVerify} from '../../database/scripts/candidate-review.mjs';
 import {autoReview} from '../../database/scripts/auto-review.mjs';
+import {reportArtifacts,deleteReportCandidates} from '../../database/scripts/report-artifacts.mjs';
 import {artifactInventory,purgeArtifacts} from '../../database/scripts/purge-artifacts.mjs';
 import {resolveImportCatalog,validateMajorImportScope,registerImportContract,listImportContracts} from './import_contracts.mjs';
 import {lifecycleReferences,lifecycleReserve,lifecycleReservation,assertImportSourcesAvailable} from './lifecycle.mjs';
@@ -627,6 +628,12 @@ export async function dispatch(db, method, params) {
       if(!params.report_ref) throw error('Automatic review is report-scoped','report_ref_required');
       return autoReview(db,{report_ref:params.report_ref,limit:params.limit || 1000,apply:params.apply===true,
         operator_ref:params.operator_ref,reason:params.reason || null});
+    }
+    case 'report_artifacts': return reportArtifacts(db,params);
+    case 'delete_report_candidates': {
+      if(!params.report_ref) throw error('Candidate deletion is report-scoped','report_ref_required');
+      return deleteReportCandidates(db,{report_ref:params.report_ref,mapping_ids:params.mapping_ids?.length?params.mapping_ids:null,
+        apply:params.apply===true,operator_ref:params.operator_ref,reason:params.reason || null});
     }
     case 'machine_verify': return machineVerify(db, params);
     case 'artifact_inventory': return artifactInventory(db);

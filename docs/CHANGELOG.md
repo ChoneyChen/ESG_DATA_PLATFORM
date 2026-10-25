@@ -4,6 +4,24 @@
 
 上一次提交为 `7ac8408`（2026-09-19）。2026-10-17 的推送一次性收录此后全部工作树改动（`CrawlESG/` 保护区除外）；`794c9b2` 收录文字层直读与 16 项绑定加固。
 
+## 2026-10-25（第三十七轮）：报告产物可定位可删除，CrawlESG 只读接入
+
+- **报告产物清单。** 新增 `GET /internal/v1/report-artifacts?report_ref=...`：按报告列出候选行、
+  mapping/disclosure 身份、IR/OCR 来源、页码、导入批次与 `bundle_ref`、PDF 资产与 SHA-256，
+  并区分“可删除 / 受保护”。候选删除入口在报告详情“审核”页，支持逐条与整报告可删除项。
+- **删除边界。** 只删除尚未发布、尚未保存测量口径、非项目延伸、未被后续披露引用的候选；
+  已发布观测、测量口径、报告身份、导入批次审计和不可变来源快照保留。彻底物理清理仍走发布中心的全库产物清理。
+  提取成果目录由提取服务的任务记录删除负责，页面已把两层删除路径分开说明。
+- **CrawlESG 独立安装。** 在仓库外 `.local/crawl-venv` 安装 `requests` 与 `pandas`，
+  用 `ExtractESG/scripts/setup_crawl_esg.sh` 可重复安装；未修改、未暂存 `CrawlESG/`。
+  实测 `plan`（2024 年 GB 579 份、约 8.5 GB）并只下载 1 个 ESEF 包（112 MB，ESG 标记命中）。
+- **Crawl 只读接口。** `CrawlIndexReader` 增加 `download_ledger.csv` 与 packages 目录读取，
+  返回包是否已下载、包名、大小、ESG 标记与下载状态；新增 `/api/console/crawl-index/status`。
+  报告资源页显示索引、台账、包目录和已下载数量；索引选择器显示每个候选的包状态与公开查看页。
+  **边界：Crawl 下载的是 ESEF ZIP，不是本链路的 PDF；不自动导入、不写 Crawl 索引、不自动创建报告身份。**
+- 测试：Crawl 适配器 3、候选/产物删除 16、操作台 226；真实系统 dry-run 宁德时代 49 条中 21 条可删除、
+  28 条因已发布受保护。
+
 ## 2026-10-25（第三十六轮）：证据驱动自动审核，人工只处理真正缺失的判断
 
 - **自动审核成为独立模块。** 新增 `database/scripts/auto-review.mjs` 与 `POST /internal/v1/auto-review`：

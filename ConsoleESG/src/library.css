@@ -112,6 +112,20 @@
 .crawl-candidates strong{font-size:11.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .crawl-candidates small{font-size:9.5px;color:var(--muted)}
 .crawl-candidates button{min-height:26px;padding:3px 8px;font-size:10.5px;white-space:nowrap}
+.crawl-package-state{display:grid;gap:3px;min-width:0;max-width:240px}
+.crawl-package-state .chip{display:inline-block;justify-self:start;padding:2px 7px;border-radius:5px;background:var(--bg-tint);color:var(--muted);font-size:9.5px;white-space:nowrap}
+.crawl-package-state .chip.ready{background:#eaf6ed;color:#3e7b54}
+.crawl-package-state small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.crawl-package-state a{font-size:10px;color:var(--accent)}
+.crawl-connection{margin:10px 0 14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper-2);padding:0 14px}
+.crawl-connection>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;cursor:pointer;list-style:none}
+.crawl-connection>summary::-webkit-details-marker{display:none}
+.crawl-connection>summary span{font-size:12px;font-weight:600;color:var(--ink-2)}
+.crawl-connection>summary small{font-size:10.5px;color:var(--muted)}
+.crawl-connection[open]{padding-bottom:12px}
+.crawl-connection>p{font-size:11px;line-height:1.7;margin:0 0 8px}
+.crawl-connection .facts{margin:0}
+.crawl-connection .facts dd{overflow-wrap:anywhere}
 @media(max-width:1180px){
  .asset-list-head{display:none}
  .asset-main{grid-template-columns:18px 38px minmax(0,1fr) 88px;grid-template-areas:'check icon name state' '. . identity identity' '. . actions actions'}
