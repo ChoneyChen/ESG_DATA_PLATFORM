@@ -10,7 +10,7 @@
 
 ```sh
 npm ci
-npm test        # 227 项合同与交互回归（隔离 HTTP，不调用模型）
+npm test        # 228 项合同与交互回归（隔离 HTTP，不调用模型）
 npm run build   # 产物 dist/，由项目启动器在 18081 提供
 npm run dev     # 开发入口 5180（需先起三个后端）
 ```

@@ -15,9 +15,10 @@ const reports:Row[]=assets.slice(0,2).map((asset,index)=>({report_id:`synthetic-
 const scope={standards:[{package_id:'esrs.2023-set1.e1-5',package_version:'2.1.1',metric_ids:['stable-original-01','stable-original-05']}],originalIds:['E1-5_01','E1-5_05'],kind:'platform_major',selection_snapshot:{source_datapoint_ids:['E1-5_01','E1-5_05'],profile_id:'synthetic-major'}};
 const draft:AutomationDraft={name:'合成批次',assetIds:[assets[0].asset_id,assets[1].asset_id],assets,reports,reportSelections:{},target:'processing_extraction',processingMode:'auto',processingConfig:{...defaultProcessingConfig},scope,extensionSelections:[],semanticProvider:'local_qwen',semanticModel:'',completeness:'balanced',limitedEvidence:true,cloudAuthorization:false,cloudOcr:false,failurePolicy:'continue',budget:{}};
 let calls:{url:string,options:RequestInit,body?:Row}[]=[];
+let plansFixture:Row[]=[];
 const response=(value:unknown,status=200)=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}});
 beforeEach(()=>{
- credentials.clear();credentials.set('synthetic-token-never-saved','synthetic-operator',['read','review','admin']);calls=[];window.location.hash='';
+ credentials.clear();credentials.set('synthetic-token-never-saved','synthetic-operator',['read','review','admin']);calls=[];plansFixture=[];window.location.hash='';
  vi.stubGlobal('EventSource',class{addEventListener(){}close(){}});
  vi.stubGlobal('fetch',vi.fn(async(url:string,options:RequestInit={})=>{
   const path=String(url),body=options.body && !(options.body instanceof FormData)?JSON.parse(String(options.body)):undefined;
@@ -31,7 +32,8 @@ beforeEach(()=>{
   if(path.includes('/extensions'))return response({items:[]});
   if(path.endsWith('/production-automations/preview'))return response({preview_id:`automation-preview-${'d'.repeat(64)}`,can_submit:true,items:(body?.items || []).map((item:Row)=>({...item,file_name:'合成预览报告',status:'ready',stages:['报告处理'],blockers:[]}))});
   if(path==='/document/api/production-automations'&&options.method==='POST')return response({automation_id:'synthetic-created',status:'active'});
-  if(path==='/document/api/production-automations'||path.startsWith('/document/api/production-automations?'))return response({plans:[]});
+  if(path.endsWith('/archive')&&options.method==='POST')return response({automation_id:'plan-terminal',status:'completed',archived_at:'2099-01-01T00:00:00Z'});
+  if(path==='/document/api/production-automations'||path.startsWith('/document/api/production-automations?'))return response({plans:plansFixture});
   return response({detail:`未声明合成接口：${path}`},404);
  }));
 });
@@ -206,5 +208,16 @@ describe('批量生产交互',()=>{
   credentials.clear();render(<WorkspaceProvider><Automation/></WorkspaceProvider>);
   expect(screen.getByText('数据平台未连接，暂不能管理或部署批量生产计划。')).toBeTruthy();
   await waitFor(()=>expect(calls.filter(call=>call.url.includes('production-automations'))).toHaveLength(0));
+ });
+ it('终态批量计划在列表可直接删除记录，删除只归档父计划并保留子任务',async()=>{
+  plansFixture=[{automation_id:'plan-terminal',name:'终态批次',revision:3,status:'completed',status_label:'执行完成',item_count:2,updated_at:'2099-01-01T00:00:00Z'}];
+  render(<WorkspaceProvider><Automation/></WorkspaceProvider>);
+  fireEvent.click(await screen.findByRole('button',{name:'删除记录'}));
+  expect(screen.getByText('删除这个批量生产记录？')).toBeTruthy();
+  fireEvent.change(screen.getByLabelText('删除原因'),{target:{value:'不再需要这个批次记录'}});
+  fireEvent.click(screen.getByRole('button',{name:'确认删除记录'}));
+  await waitFor(()=>expect(calls.some(call=>call.url.endsWith('/production-automations/plan-terminal/archive'))).toBe(true));
+  const call=calls.find(call=>call.url.endsWith('/production-automations/plan-terminal/archive'))!;
+  expect(call.body).toMatchObject({expected_revision:3,reason:'不再需要这个批次记录'});
  });
 });

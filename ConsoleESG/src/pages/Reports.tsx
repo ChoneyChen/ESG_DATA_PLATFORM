@@ -25,17 +25,17 @@ function reportItems(value:Row|undefined){return items(value,'reports').length?i
  * available underneath for inspection, never as a separate entry point.
  */
 function readState(asset:Row, versions:Row[]){
-  if(asset.processing_status==='running'||versions.some(v=>['running','queued'].includes(v.status)))return {key:'running',label:'提取中',tone:'running',next:'查看进度'};
+  if(asset.processing_status==='running'||versions.some(v=>['running','queued'].includes(v.status)))return {key:'running',label:'读取中',tone:'running',next:'查看进度'};
   // A failed run with no readable version must still read as failed; otherwise
   // it is indistinguishable from a report that was never started.
-  if(asset.processing_status==='failed'||versions.some(v=>v.status==='failed'))return {key:'failed',label:'提取失败',tone:'failed',next:'重新提取'};
-  if(!versions.length)return {key:'new',label:'未提取',tone:'',next:'提取指标'};
+  if(asset.processing_status==='failed'||versions.some(v=>v.status==='failed'))return {key:'failed',label:'读取失败',tone:'failed',next:'重新提取'};
+  if(!versions.length)return {key:'new',label:'未读取',tone:'',next:'提取指标'};
   const structures=versions.flatMap(irVersions);
-  if(!structures.length)return {key:'read',label:'读取中 · 待建证据',tone:'review',next:'继续提取'};
+  if(!structures.length)return {key:'read',label:'已读取 · 待建证据',tone:'review',next:'继续提取'};
   return {key:'ready',label:'已读取',tone:'ready',next:'重新提取'};
 }
 
-const FILTERS=[['all','全部'],['unread','未提取'],['ready','已读取'],['identity','待补身份'],['failed','有问题']] as const;
+const FILTERS=[['all','全部'],['unread','未读取'],['ready','已读取'],['identity','待补身份'],['failed','有问题']] as const;
 const IDENTITY_KEYS=['title','publisher_name','publisher_entity_ref','reporting_year','period_start','period_end','language','report_kind'];
 function identityGaps(asset:Row){const metadata=asset.report_metadata || {};return IDENTITY_KEYS.filter(key=>metadata[key]===null||metadata[key]===undefined||String(metadata[key]).trim()==='');}
 function identityCode(asset:Row){const metadata=asset.report_metadata || {};return asset.report_code || (metadata.publisher_entity_ref&&metadata.reporting_year?`${metadata.publisher_entity_ref}/${metadata.reporting_year}`:'');}
