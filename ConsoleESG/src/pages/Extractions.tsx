@@ -351,10 +351,9 @@ function ExtractionCreator({params}: {params: URLSearchParams}) {
           </Field>
           {route === 'foundation16'
             ? <div className="chips">{(foundation.data?.metrics || []).map((m: Row) => <span className="clause-chip" key={m.code} title={m.label}>{m.code}</span>)}</div>
-            : <ScopeSelector onChange={onScope}/>}
-          <div className="chips" style={{maxHeight: 96, overflow: 'auto'}}>
-            {scope.originalIds.map(id => <span className="clause-chip" key={id}>{id}</span>)}
-          </div>
+            : <><ScopeSelector onChange={onScope}/><div className="chips" style={{maxHeight: 96, overflow: 'auto'}}>
+              {scope.originalIds.map(id => <span className="clause-chip" key={id}>{id}</span>)}
+            </div></>}
           <ResourceState error={foundation.error} loading={foundation.loading && !foundation.data}/>
         </details>
         {extensionError && <Notice tone="error">{extensionError}</Notice>}

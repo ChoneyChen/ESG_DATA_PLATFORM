@@ -206,6 +206,7 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
 | 报告库表头与行实际列宽不一致 | 删除 styles.css 中残留的 `.asset-main{display:flex}`，统一使用 library.css 六列网格 |
 | 报告“未提取/已读取”来源不清 | 状态只跟随 OCR 版本与 IR 结构证据，和提取会话、候选、发布无关 |
 | 启动器在报告库首次扫描完成前打开页面，首屏 503 | 启动器先通过 18081 同源代理预热 `/document/api/report-library`，成功后再打开页面 |
+| 提取页指标集条款 chip 显示两次 | foundation 路线只渲染一份；`scope.originalIds` 摘要只在标准包路线显示 |
 
 ## 7. 已知问题
 
