@@ -177,6 +177,23 @@ wait_for_service() {
   return 1
 }
 
+# Compatibility endpoints can answer before the first report-library scan is
+# warm. Opening the browser at that moment makes the console show a transient
+# 503 on /api/report-library. Warm the exact proxied path the console uses.
+wait_for_report_library() {
+  local timeout="$1" elapsed=0
+  while (( elapsed < timeout )); do
+    if "${RELEASE_PYTHON}" -c 'import json,sys,urllib.request; json.load(urllib.request.urlopen(sys.argv[1], timeout=10))' \
+      "${PLATFORM_FRONTEND_URL%/}/document/api/report-library" >/dev/null 2>&1; then
+      print "[就绪] 报告库首次读取"
+      return 0
+    fi
+    sleep 1
+    (( elapsed += 1 ))
+  done
+  return 1
+}
+
 [[ -d "$DOCUMENT_ROOT" ]] || fail "找不到 Document IR 应用：$DOCUMENT_ROOT"
 [[ -d "$TARGETED_ROOT" ]] || fail "找不到抽取填表应用：$TARGETED_ROOT"
 
@@ -206,6 +223,9 @@ done
 wait_for_service doc_backend 180 || fail "Document IR 后端启动失败。"
 wait_for_service targeted_backend 120 || fail "抽取填表后端启动失败。"
 wait_for_service platform_frontend 30 || fail "ESG 统一前端启动失败。"
+if ! wait_for_report_library 90; then
+  print -u2 "[警告] 报告库首次读取尚未就绪，页面会自动重试；如持续失败请查看 $RUNTIME_ROOT/document-backend.log"
+fi
 
 print "\n三个服务均已就绪："
 print "统一前端：          $PLATFORM_FRONTEND_URL"
