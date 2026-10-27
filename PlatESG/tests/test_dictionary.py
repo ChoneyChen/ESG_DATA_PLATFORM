@@ -16,13 +16,30 @@ module_spec.loader.exec_module(builder)
 
 @pytest.fixture(scope='module')
 def artifacts():
-    return builder.build_dictionary()
+    return builder.build_dictionary(dictionary_version='1.5.0', allow_contract_changes=True)
 
 
-def test_generated_artifacts_reproduce_committed_catalog(artifacts):
+def test_generated_artifacts_preserve_public_semantics_and_compile_scientific_sources(artifacts):
     dictionary, profile = artifacts
-    assert dictionary == json.loads((PLATFORM / 'catalog/metric-dictionary.v1.json').read_text())
-    assert profile == json.loads((PLATFORM / 'catalog/extraction-profile.e1-e3.json').read_text())
+    previous = json.loads((PLATFORM / 'catalog/metric-dictionary.v1.json').read_text())
+    assert dictionary['dictionary_version'] == '1.5.0'
+    assert [metric['source_datapoint_id'] for metric in dictionary['metrics']] == [metric['source_datapoint_id'] for metric in previous['metrics']]
+    assert profile == json.loads((PLATFORM / 'catalog/extraction-profile.e1-e3.json').read_text()) | {'dictionary_version': '1.5.0'}
+    for metric, old in zip(dictionary['metrics'], previous['metrics']):
+        for key in ('metric_id', 'label_zh', 'value_type', 'canonical_unit', 'unit_dimension',
+                    'required_dimensions', 'comparison_dimensions', 'fixed_dimensions', 'dimension_constraints',
+                    'required_context_fields', 'typed_context_constraints', 'description', 'comparison_mode', 'value_role'):
+            assert metric[key] == old[key], (metric['source_datapoint_id'], key)
+        assert metric['scientific_contract_source']['measurement_contract'] == metric['source_measurement_contract']
+        if metric['source_datapoint_id'] != 'E1-6_30':
+            assert metric['aggregation'] == old['aggregation']
+    intensity = next(metric for metric in dictionary['metrics'] if metric['source_datapoint_id'] == 'E1-6_30')
+    assert intensity['aggregation'] == 'ratio_recompute'
+
+
+def test_default_build_rejects_unapproved_aggregation_change():
+    with pytest.raises(ValueError, match='E1-6_30'):
+        builder.build_dictionary()
 
 
 def test_all_major_ids_preserved_in_original_order_with_explicit_pending(artifacts):

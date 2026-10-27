@@ -215,6 +215,31 @@ test('definitional axes come from the metric, not from a reviewer', async()=>{
   }finally{await db.close();}
 });
 
+test('a report component does not invent an undeclared scientific aggregation axis', async()=>{
+  const db=await database();try{
+    const item=await importFact(db,'S1-13_04',{value:'68.04',unit:'小时',label:'员工职业培训平均时长',
+      identity:{component_其中_男性培训人均时长:'68.95 小时'}});
+    const proposal=await candidateProposal(db,{mapping_id:item.mapping_id});
+    assert.equal(proposal.suggested.dimensions.aggregation_role,undefined);
+    assert.deepEqual(proposal.blockers,[]);
+    const applied=await machineVerify(db,{mapping_ids:[item.mapping_id],apply:true,operator_ref:'review-operator'});
+    assert.equal(applied.applied,1);
+  }finally{await db.close();}
+});
+
+test('fixed axes and canonical projection codes are not replaced by source free text', async()=>{
+  const db=await database();try{
+    const item=await importFact(db,'E1-6_07',{value:'100',unit:'吨二氧化碳当量',
+      identity:{aggregation_role:'total'}});
+    const proposal=await candidateProposal(db,{mapping_id:item.mapping_id});
+    assert.equal(proposal.suggested.dimensions.aggregation_role,'total');
+    assert.ok(['definition_fixed', 'extraction_dimension_raw'].includes(proposal.dimension_sources.aggregation_role));
+    assert.deepEqual(proposal.blockers,[]);
+    const applied=await machineVerify(db,{mapping_ids:[item.mapping_id],apply:true,operator_ref:'review-operator'});
+    assert.equal(applied.applied,1);
+  }finally{await db.close();}
+});
+
 test('consolidation approach from the source completes a total-emissions context', async()=>{
   const db=await database();try{
     const item=await importFact(db,'E1-6_12',{value:'1751599.73',unit:'吨二氧化碳当量',
@@ -250,7 +275,7 @@ test('an axis that contradicts a closed definition still needs a person', async(
     const item=await importFact(db,'E1-6_09',{value:'7977357.46',unit:'吨二氧化碳当量',identity:{method:'市场法'}});
     const proposal=await candidateProposal(db,{mapping_id:item.mapping_id});
     assert.equal(proposal.suggested.measurement_method,'market_based');
-    assert.ok(proposal.mismatched_dimensions.includes('measurement_method'));
+    assert.ok([...proposal.fixed_dimension_mismatch, ...proposal.mismatched_dimensions].includes('measurement_method'));
     assert.ok(proposal.blockers.includes('dimensions_complete'));
     const applied=await machineVerify(db,{mapping_ids:[item.mapping_id],apply:true,operator_ref:'review-operator'});
     assert.equal(applied.applied,0);

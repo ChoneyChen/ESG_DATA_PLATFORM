@@ -18,6 +18,7 @@ STANDARD_ROOT = PLATFORM_ROOT.parent / 'ExtractESG' / 'standard_packages'
 sys.path.insert(0, str(STANDARD_ROOT / 'src'))
 from esg_standard_packages.scope import compile_profile, load_registry  # noqa: E402
 from esg_standard_packages.io import canonical_json_bytes  # noqa: E402
+from esg_standard_packages.scientific_contract import compile_dictionary_metrics, compile_scientific_contract  # noqa: E402
 
 VERSION = '1.4.5'
 # Definition versions continue from the last sealed file dictionary, not from
@@ -25,7 +26,7 @@ VERSION = '1.4.5'
 # Dictionary versions are shared with platform extension selections (the
 # live 1.3.0 is 1.2.0 plus an approved extension), so the next changed file
 # dictionary must take a version above every sealed one.
-PREVIOUS = 'catalog/history/metric-dictionary.1.4.4.json'
+PREVIOUS = 'catalog/metric-dictionary.v1.json'
 COMMON_CONDITIONS = [
     '主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。',
     '原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。',
@@ -290,7 +291,7 @@ def _next_definition_version(previous, current):
 
 
 def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
-                     previous_dictionary=None):
+                     previous_dictionary=None, allow_contract_changes=False):
     if previous_dictionary is None:
         previous_path = PLATFORM_ROOT / PREVIOUS
         previous_dictionary = json.loads(previous_path.read_text()) if previous_path.is_file() else None
@@ -303,31 +304,25 @@ def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
         raise ValueError(f'The authored dictionary must match every selected original ID: {sorted(set(selected) ^ set(SPECS))}')
     records = {r['id']: r for r in catalog['records'] if r['record_kind'] == '独立编号条目'}
     modules = {original: m for m in registry['modules'] for original in m['source_datapoint_ids']}
+    compiled_metrics = compile_dictionary_metrics(selected=selected, registry=registry, catalog=catalog,
+                                                  packages=packages, policies=SPECS,
+                                                  previous_metrics=previous_metrics)
     metrics = []
-    for original in selected:
+    for original, compiled in zip(selected, compiled_metrics):
         record, module = records[original], modules[original]
-        # A compiled module is not yet a platform commitment: modules generated
-        # from the catalog stay planned until their full analysis is authored.
-        ready = module['executable'] and module['core_analysis_state'] == 'authored_draft'
-        if original not in module['core_source_datapoint_ids']:
-            raise ValueError('A platform-major clause must be package-core: ' + original)
-        metric = json.loads(json.dumps(SPECS[original], ensure_ascii=False))
-        source_metric = None
-        if ready:
-            package = packages[module['disclosure_requirement']]
-            source_metric = next(m for m in package.metrics if m.source_datapoint_id == original)
-            contract = source_metric.measurement_contract.model_dump(mode='json')
-            # A package metric without an authored Chinese label was generated
-            # from the catalog; it does not replace the dictionary's authored
-            # description or value role.
-            if source_metric.labels.get('zh') not in (None, source_metric.labels.get('en')):
-                metric['description'] = source_metric.description
-                metric['value_role'] = contract['value_role']
-            source_row_hash = source_metric.provenance.row_sha256
-        else:
-            contract = None
-            # This is the compiler's exact row digest convention.
-            source_row_hash = hashlib.sha256(canonical_json_bytes(record['raw_values'])).hexdigest()
+        source_metric = compiled.pop('source_metric')
+        ready = compiled['readiness'] == 'ready'
+        contract = compiled['source_measurement_contract']
+        previous = previous_metrics.get(original)
+        metric = compiled
+        source_row_hash = source_metric.provenance.row_sha256 if source_metric else hashlib.sha256(
+            canonical_json_bytes(record['raw_values'])).hexdigest()
+        if previous:
+            # Source/adapter upgrades do not silently change the public display
+            # or comparison policy. Only an explicitly allowed scientific change
+            # (currently ratio aggregation) may take a new definition version.
+            for key in ('description', 'normalization', 'exclusions', 'comparison_conditions'):
+                metric[key] = previous.get(key)
         metric.update(source_datapoint_id=original,
                       original_name=record['name'], original_data_type=record['data_type'],
                       topic=record['standard'].strip(), readiness='ready' if ready else 'planned',
@@ -349,7 +344,15 @@ def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
                           'conditional_or_alternative': record['conditional_or_alternative'],
                           'may': record['may'],
                       })
-        metric['definition_version'] = _next_definition_version(previous_metrics.get(original), metric)
+        metric['definition_version'] = _next_definition_version(previous, metric)
+        if previous:
+            for key in ('metric_id', 'label_zh', 'value_type', 'canonical_unit', 'unit_dimension',
+                        'required_dimensions', 'comparison_dimensions', 'fixed_dimensions', 'dimension_constraints',
+                        'required_context_fields', 'typed_context_constraints', 'description', 'comparison_mode', 'value_role'):
+                if metric[key] != previous[key]:
+                    raise ValueError(f'Unapproved scientific/display change for {original}: {key}')
+            if metric['aggregation'] != previous['aggregation'] and not allow_contract_changes:
+                raise ValueError(f'Clause aggregation changed; explicitly author a new contract: {original}')
         metrics.append(metric)
     if len({m['metric_id'] for m in metrics}) != len(metrics):
         raise ValueError('Semantic metric IDs must be unique')
@@ -373,9 +376,11 @@ def main():
     parser.add_argument('--output-dir', type=Path, default=PLATFORM_ROOT / 'catalog')
     parser.add_argument('--dictionary-version', default=VERSION)
     parser.add_argument('--previous-dictionary', type=Path)
+    parser.add_argument('--allow-contract-changes', action='store_true')
     args = parser.parse_args()
     previous = json.loads(args.previous_dictionary.read_text()) if args.previous_dictionary else None
-    dictionary, profile = build_dictionary(dictionary_version=args.dictionary_version, previous_dictionary=previous)
+    dictionary, profile = build_dictionary(dictionary_version=args.dictionary_version, previous_dictionary=previous,
+                                          allow_contract_changes=args.allow_contract_changes)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     # Keep the outgoing dictionary as history before it is overwritten: the
     # next build needs its exact definitions to decide version bumps.

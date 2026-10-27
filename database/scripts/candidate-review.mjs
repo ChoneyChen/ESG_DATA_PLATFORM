@@ -134,12 +134,16 @@ async function proposalFor(db, mappingId) {
   // ("component_水能") does not: the row itself is still the total.
   const componentMarker = Object.keys(identity).some(key => /^component_(其中|of_which)|^其中|of which/i.test(key))
     || /其中[:：]|of which/i.test(row.raw_indicator_name || '');
-  if (componentMarker && !nonempty(resolved.values.aggregation_role)) {
+  if (componentMarker && allowed.has('aggregation_role') && !nonempty(resolved.values.aggregation_role)) {
     resolved.values.aggregation_role = 'component';
     resolved.sources.aggregation_role = 'source_identity_component';
   }
   for (const [key, value] of Object.entries(resolved.values)) {
-    if (TYPED_CONTEXT_FIELDS.has(key) || nonempty(dimensions[key])) continue;
+    if (TYPED_CONTEXT_FIELDS.has(key) || dimensionSources[key] === 'definition_fixed') continue;
+    if (nonempty(dimensions[key]) && dimensions[key] === value) {
+      if (!dimensionSources[key]) dimensionSources[key] = resolved.sources[key];
+      continue;
+    }
     dimensions[key] = value; dimensionSources[key] = resolved.sources[key];
   }
   // A dimension the definition admits in exactly one form is not a choice.
@@ -182,7 +186,7 @@ async function proposalFor(db, mappingId) {
   if ((definition.required_context_fields || []).includes('measurement_method') || allowed.has('measurement_method')) {
     const raw = rawDimensions.find(d => ['measurement_method', 'scope_2_method', 'scope2_method'].includes(d.dimension_key));
     method = nonempty(resolved.values.measurement_method) ? resolved.values.measurement_method
-      : nonempty(raw?.canonical_value) ? raw.canonical_value
+      : nonempty(raw?.canonical_value) ? normalizeDimension('measurement_method', raw.canonical_value) || raw.canonical_value
       : nonempty(definition.fixed_dimensions?.measurement_method) ? definition.fixed_dimensions.measurement_method
       : singleAllowed('measurement_method');
   }
@@ -230,9 +234,15 @@ async function proposalFor(db, mappingId) {
   // A fixed axis is the definition's meaning, but evidence that explicitly
   // says otherwise is a contradiction, not something the fixed value may hide.
   const fixedMismatch = [...new Set([
+    ...rawDimensions.filter(dimension => ['measurement_method', 'scope_2_method', 'scope2_method'].includes(dimension.dimension_key)
+      && nonempty(definition.fixed_dimensions?.measurement_method)
+      && nonempty(normalizeDimension('measurement_method', dimension.canonical_value || dimension.raw_value))
+      && normalizeDimension('measurement_method', dimension.canonical_value || dimension.raw_value) !== definition.fixed_dimensions.measurement_method)
+      .map(() => 'measurement_method'),
+    ...Object.keys(resolved.fixedContradictions || {}),
     ...Object.entries(definition.fixed_dimensions || {})
-      .filter(([key]) => !TYPED_CONTEXT_FIELDS.has(key))
-      .filter(([key, value]) => nonempty(resolved.values[key]) && resolved.values[key] !== value)
+      .filter(([key, value]) => nonempty(resolved.values[key]) && resolved.values[key] !== value
+        && (key === 'measurement_method' || !TYPED_CONTEXT_FIELDS.has(key)))
       .map(([key]) => key),
     // The written row label is independent evidence. A projection that says
     // "scope 3" cannot hide a label that says "total emissions".

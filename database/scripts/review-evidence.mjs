@@ -11,7 +11,26 @@
  *
  * It is pure data and functions: no report, clause or model special cases.
  */
-export const REVIEW_EVIDENCE_VERSION = 'review-evidence-v1';
+export const REVIEW_EVIDENCE_VERSION = 'review-evidence-v2';
+
+const CANONICAL_CODES = Object.freeze({
+  aggregation_role: new Set(['total', 'subtotal', 'component']),
+  energy_source: new Set(['all', 'renewable', 'fossil']),
+  ghg_scope: new Set(['scope_1', 'scope_2', 'scope_3', 'total']),
+  scope3_category: new Set(['total', ...Array.from({length: 15}, (_, index) => `category_${index + 1}`)]),
+  consolidation_approach: new Set(['operational_control', 'financial_control', 'equity_share']),
+  measurement_method: new Set(['location_based', 'market_based']),
+});
+
+function canonicalCode(key, value) {
+  const raw = compact(value);
+  if (key === 'aggregation_role' && ['total', 'subtotal', 'component'].includes(raw)) return raw;
+  if (key === 'energy_source') return {total: 'all', renewable: 'renewable', fossil: 'fossil'}[raw] || null;
+  if (key === 'ghg_scope') return {scope1: 'scope_1', scope2: 'scope_2', scope3: 'scope_3', total: 'total'}[raw] || null;
+  if (key === 'scope3_category' && /^category_\d+$/.test(raw)) return raw;
+  if (CANONICAL_CODES[key]?.has(raw)) return raw;
+  return null;
+}
 
 const nonempty = value => typeof value === 'string' && value.trim().length > 0;
 const text = value => value == null ? '' : typeof value === 'string' ? value : String(value);
@@ -324,6 +343,8 @@ const NORMALIZERS = Object.freeze({
 });
 
 function normalize(key, value, {structured = false} = {}) {
+  const code = canonicalCode(key, value);
+  if (code) return code;
   const normalizer = NORMALIZERS[key];
   if (normalizer) return normalizer(value);
   // A dictionary dimension with no controlled vocabulary (site, segment) may
@@ -347,16 +368,25 @@ export function resolveDimensions({definition, identity = {}, rawDimensions = []
                                      label = '', statement = '', unit = '', metricLabel = ''}) {
   const wanted = new Set([
     ...(definition.required_dimensions || []),
+    ...Object.keys(definition.fixed_dimensions || {}),
     ...Object.keys(definition.dimension_constraints || {}),
     ...Object.keys(definition.typed_context_constraints || {}),
   ]);
-  const values = {}, sources = {}, evidence = {};
+  const values = {}, sources = {}, evidence = {}, fixedContradictions = {};
+  const markFixedContradiction = (key, value) => {
+    if (definition.fixed_dimensions?.[key] && nonempty(value) && definition.fixed_dimensions[key] !== value) {
+      fixedContradictions[key] = value;
+    }
+  };
   const take = (key, value, source, raw) => {
+    if (wanted.has(key)) markFixedContradiction(key, value);
     if (!wanted.has(key) || nonempty(values[key]) || !nonempty(value)) return;
     values[key] = value; sources[key] = source; evidence[key] = clean(raw) || null;
   };
   for (const dimension of rawDimensions) {
-    if (nonempty(dimension.canonical_value)) take(dimension.dimension_key, dimension.canonical_value,
+    if (nonempty(dimension.canonical_value)) take(dimension.dimension_key,
+      canonicalCode(dimension.dimension_key, dimension.canonical_value)
+        || normalize(dimension.dimension_key, dimension.canonical_value, {structured: true}),
       'extraction_dimension', dimension.raw_value);
   }
   for (const dimension of rawDimensions) {
@@ -367,7 +397,8 @@ export function resolveDimensions({definition, identity = {}, rawDimensions = []
   for (const [identityKey, keys] of Object.entries(IDENTITY_AXES)) {
     if (!nonempty(text(identity[identityKey]))) continue;
     for (const key of keys)
-      take(key, normalize(key, identity[identityKey], {structured: true}), 'source_identity', identity[identityKey]);
+      take(key, normalize(key, identity[identityKey], {structured: true}),
+        'source_identity', identity[identityKey]);
   }
   for (const key of wanted) {
     if (nonempty(values[key])) continue;
@@ -377,7 +408,7 @@ export function resolveDimensions({definition, identity = {}, rawDimensions = []
       if (nonempty(normalised)) { take(key, normalised, source, value); break; }
     }
   }
-  return {values, sources, evidence};
+  return {values, sources, evidence, fixedContradictions};
 }
 
 const GROUP_BOUNDARY = /合并(?:口径|报表|范围|数据)?|本集团|集团(?:合并|整体|层面|口径)|全公司|公司整体|本公司及其子公司|全部子公司|consolidated|group[\s-]*wide|whole group|entire company|company[\s-]*wide/i;

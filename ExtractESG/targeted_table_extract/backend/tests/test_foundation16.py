@@ -544,12 +544,18 @@ def test_declared_spec_judges_a_clause_without_a_bespoke_guard():
         "E9-9_01", "合成物质排放量",
         require_terms=("合成物质",), exclude_terms=("强度",), dimension="mass",
     )
+    original_evaluate = specs.evaluate_spec
     try:
+        from esg_targeted.foundation.specs import evaluate_contract_spec
+        def evaluate_synthetic(code, label, section, unit, dimension):
+            return evaluate_contract_spec(specs.SPECS["E9-9_01"], dimension="mass").evaluate(label, section, unit, dimension)
+        specs.evaluate_spec = evaluate_synthetic
         assert check("E9-9_01", "合成物质排放量", None, "吨", "mass").ok is True
         rejected = check("E9-9_01", "合成物质排放强度", None, "吨/人", "mass")
         assert rejected.ok is False and rejected.flags
     finally:
         specs.SPECS.pop("E9-9_01", None)
+        specs.evaluate_spec = original_evaluate
 
 
 def test_platform_major_specs_keep_each_new_clause_distinct():

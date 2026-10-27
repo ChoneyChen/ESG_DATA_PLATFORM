@@ -266,6 +266,26 @@ METRICS: tuple[FoundationMetric, ...] = (
 BY_CODE = {item.code: item for item in METRICS}
 
 
+def scientific_contracts():
+    """Read the same immutable clause contracts consumed by review and PlatESG."""
+    from esg_runtime.layout import EXTRACT_ROOT
+    from esg_standard_packages.foundation_contract import foundation_contracts
+    return foundation_contracts(EXTRACT_ROOT / "standard_packages")
+
+
+def validate_contract_catalog(contracts: dict | None = None) -> None:
+    """Refuse a partial or incompatible foundation catalog, never silently mix versions."""
+    contracts = scientific_contracts() if contracts is None else contracts
+    for item in METRICS:
+        contract = contracts.get(item.code)
+        if contract is None:
+            raise ValueError(f"Foundation clause lacks standard scientific contract: {item.code}")
+        if (contract["metric_id"], contract["package_id"]) != (item.metric_id, item.package_id):
+            raise ValueError(f"Foundation clause identity differs from standard: {item.code}")
+        if item.dimension and contract["reading_dimension"] != item.dimension:
+            raise ValueError(f"Foundation unit dimension differs from standard: {item.code}")
+
+
 @dataclass(frozen=True)
 class SourceGroup:
     key: str

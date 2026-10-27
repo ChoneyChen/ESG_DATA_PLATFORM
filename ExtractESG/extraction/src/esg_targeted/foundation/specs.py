@@ -60,6 +60,29 @@ class ClauseSpec:
         return True, None
 
 
+from esg_targeted.foundation.catalog import scientific_contracts
+
+
+def compile_dimensions() -> dict[str, str | None]:
+    return {code: contract['reading_dimension'] for code, contract in scientific_contracts().items()}
+
+
+def evaluate_contract_spec(spec: ClauseSpec, *, dimension: str | None) -> ClauseSpec:
+    from dataclasses import replace
+    return replace(spec, dimension=dimension)
+
+
+def spec_for(code: str) -> ClauseSpec | None:
+    spec = SPECS.get(code)
+    if spec is None:
+        return None
+    contracts = compile_dimensions()
+    if code not in contracts:
+        raise ValueError(f'Clause spec has no scientific contract: {code}')
+    from dataclasses import replace
+    return replace(spec, dimension=contracts[code])
+
+
 # Rules learned from the foundation datapoints, written once and reused by any
 # clause that names the same concept. A code that also has a bespoke guard keeps
 # that branch for applicability; its spec still supplies the declared dimension,
@@ -241,7 +264,4 @@ SPECS: dict[str, ClauseSpec] = {
 def evaluate_spec(code: str, label: str, section: str | None, unit: str | None,
                   dimension: str | None) -> tuple[bool, str | None] | None:
     """Evaluate a declared spec; None when the code declares none."""
-    spec = SPECS.get(code)
-    if spec is None:
-        return None
-    return spec.evaluate(label, section, unit, dimension)
+    return spec_for(code).evaluate(label, section, unit, dimension)

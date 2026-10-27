@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 from typing import Callable
 
-from esg_targeted.foundation.catalog import METRICS, metrics_for
+from esg_targeted.foundation.catalog import METRICS, metrics_for, validate_contract_catalog
 from esg_targeted.foundation.consolidate import NOT_FOUND_STATUSES, consolidate
 from esg_targeted.foundation.kernel import TableTask, bind, plan_table_tasks, run_task, task_digest
 from esg_targeted.foundation.period import detect_reporting_period
@@ -58,6 +58,7 @@ class FoundationEngine:
         self.period = detect_reporting_period(ir.manifest, ir.pages, header_years=header_years)
         # The selected metric set is an input, not a constant of the link.
         self.profile = profile
+        validate_contract_catalog()
         self.metrics = metrics_for(profile)
         self.selected_codes = tuple(metric.code for metric in self.metrics)
         allowed = set(self.selected_codes)

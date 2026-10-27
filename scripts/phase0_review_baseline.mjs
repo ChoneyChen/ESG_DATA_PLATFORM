@@ -29,7 +29,7 @@ function parseArgs(argv) {
   const options = {};
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i];
-    if (!['--bundle-root', '--output', '--ledger', '--document-id', '--ir-run-id'].includes(key)) {
+    if (!['--bundle-root', '--output', '--ledger', '--document-id', '--ir-run-id', '--dictionary'].includes(key)) {
       throw new Error(`Unknown argument: ${key}`);
     }
     const value = argv[++i];
@@ -275,7 +275,7 @@ export async function measureHumanLedger(ledger, reportRef, currentCandidates, i
   } };
 }
 
-export async function runReviewBaseline({ bundleRoot, output, documentId, ledger = null, irRunId = null,
+export async function runReviewBaseline({ bundleRoot, output, documentId, ledger = null, irRunId = null, dictionaryPath = null,
   dependencies = null } = {}) {
   const root = path.resolve(bundleRoot);
   const realRoot = await realpath(root);
@@ -314,7 +314,8 @@ export async function runReviewBaseline({ bundleRoot, output, documentId, ledger
     if (!dependencies?.setupComplete) {
       await applyMigrations(db);
       await applyPlatformMigrations(db);
-      const { file_sha256, ...dictionary } = await dictionaryFile();
+      const { file_sha256, ...dictionary } = dictionaryPath
+        ? JSON.parse(await readFile(dictionaryPath, 'utf8')) : await dictionaryFile();
       await seedMetricDictionary(db, dictionary);
       await processOutbox(db);
     }
@@ -343,7 +344,7 @@ export async function runReviewBaseline({ bundleRoot, output, documentId, ledger
         throw Object.assign(new Error(`Delivery failed for ${bundle.root}: ${failure.error}`), { deliveryFailure: failure });
       }
       if (delivery.auto_review?.status !== 'completed') {
-        throw new Error(`Automatic review failed for ${bundle.root}: ${delivery.auto_review?.message || delivery.auto_review?.status}`);
+    throw Object.assign(new Error(`Automatic review failed for ${bundle.root}: ${delivery.auto_review?.message || delivery.auto_review?.status}`), { deliveryFailure: { bundle_path: bundle.root, job_id: bundle.manifest.job_id, status: 'auto_review_failed', error: delivery.auto_review?.message || delivery.auto_review?.status } });
       }
     }
     const current = await api(db, 'candidates', { report_ref: metadata.report_ref, limit: 100000 });
@@ -361,6 +362,7 @@ export async function runReviewBaseline({ bundleRoot, output, documentId, ledger
     }
     const report = {
       schema_version: 'phase0-review-baseline-1.0', document_id: documentId, ir_run_id: irRunId,
+      dictionary_version: dictionaryPath ? JSON.parse(await readFile(dictionaryPath, 'utf8')).dictionary_version : null,
       bundle_root: realRoot, bundle_count: bundles.length, bundles: deliveries,
       synthetic_report: metadata, initial_candidates: initialCandidates.items,
       initial_proposals: initialProposals, current_candidates: current.items,
@@ -391,7 +393,8 @@ async function main() {
   const options = parseArgs(process.argv.slice(2));
   const ledger = options.ledger ? JSON.parse(await readFile(options.ledger, 'utf8')) : null;
   const report = await runReviewBaseline({ bundleRoot: options['bundle-root'], output: path.resolve(options.output),
-    documentId: options['document-id'], ledger, irRunId: options['ir-run-id'] || null });
+    documentId: options['document-id'], ledger, irRunId: options['ir-run-id'] || null,
+    dictionaryPath: options.dictionary || null });
   process.stdout.write(JSON.stringify({ document_id: report.document_id, baseline: report.baseline,
     human_review: report.human_review, output: path.resolve(options.output) }, null, 2) + '\n');
 }
