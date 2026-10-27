@@ -7,7 +7,7 @@ import pytest
 
 from esg_targeted.foundation.consolidate import consolidate
 from esg_targeted.foundation.guards import check
-from esg_targeted.foundation.kernel import bind, infer_unit, plan_table_tasks, scope2_method_from_text
+from esg_targeted.foundation.kernel import bind, infer_unit, plan_table_tasks, run_task, scope2_method_from_text
 from esg_targeted.foundation.tables import (
     build_table_view, composed_tables, entity_sum_role, explicit_total_column, table_context,
 )
@@ -39,6 +39,21 @@ def observation(code: str, value: str, **extra) -> dict:
             "column": "c1", "note_block_id": None}
     base.update(extra)
     return base
+
+
+def test_foundation_shares_transport_parsing_and_rejects_unknown_targets():
+    class LocalSpecialist:
+        def generate_structured(self, **kwargs):
+            raw = '{"current_col":"c1","current_year":"2025","current_scope":"whole_reporting_group","items":[{"row":"r1","target":null,"note":null}]}<|im_end|>'
+            return raw, {"input_tokens": 10, "generation_tokens": 20, "generation_tps": 10,
+                         "peak_memory_gb": 2.5, "model_id": "local-specialist", "timings": {"model_load_seconds": 1.0}}
+    view = build_table_view(make_table([["指标", "2025"], ["范围一温室气体排放总量", "10"]]), page())
+    task = plan_table_tasks(view, ["ghg"])[0]
+    record = run_task(LocalSpecialist(), task, 2025)
+    assert record["status"] == "ok"
+    assert record["payload"]["items"][0]["target"] is None
+    assert all(observation["proposed_code"] is not None for observation in record["observations"])
+    assert record["peak_memory_gb"] == 2.5 and record["model_load_seconds"] == 1.0
 
 
 def test_misaligned_flat_header_binds_the_same_period_sum_column():

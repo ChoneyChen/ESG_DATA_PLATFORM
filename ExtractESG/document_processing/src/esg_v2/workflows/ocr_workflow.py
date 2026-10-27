@@ -190,7 +190,8 @@ class OcrWorkflow:
         PDF. Pages it cannot fill (scans, pictures of tables, broken fonts)
         keep going to visual OCR.
         """
-        if not self.settings.ocr_text_layer_enabled or request.page_selection != "foundation16" or not request.file_path:
+        if not self.settings.ocr_text_layer_enabled or (
+                request.page_selection != "foundation16" and request.page_indices is None) or not request.file_path:
             return None
         local = self.provider_router.local
         ready, reason = local.layout_ready()

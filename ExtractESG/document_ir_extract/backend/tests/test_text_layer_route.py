@@ -124,6 +124,23 @@ def test_text_layer_pages_skip_visual_ocr_and_keep_page_order(tmp_path: Path) ->
     assert {"Energy GWh", "12", "13", "Water m3", "45", "46"} <= cells
 
 
+def test_explicit_pages_can_use_text_layer_without_clause_selection(tmp_path: Path) -> None:
+    pages = [(595.0, 842.0, [f"Report page {index}", "Total energy consumption GWh 2,340"], index == 3)
+             for index in range(6)]
+    pdf_path = tmp_path / "short.pdf"
+    _write_text_pdf(pdf_path, pages)
+    router = HybridRouter(pages)
+    settings = _settings(tmp_path, ocr_text_layer_enabled=True)
+    ocr = OcrWorkflow(settings, provider_router=router).run(
+        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", allow_api_fallback=False,
+                      page_indices=[1, 3]), run_id=OCR_RUN_ID)
+    manifest = json.loads(ocr.manifest_path.read_text(encoding="utf-8"))
+    assert router.local.calls == [[1, 3]]
+    assert router.calls == []
+    assert manifest["text_layer"]["text_layer_pages"] == [1, 3]
+    assert manifest["page_selection"]["page_indices"] == [1, 3]
+
+
 def test_every_page_from_the_text_layer_needs_no_visual_ocr(tmp_path: Path) -> None:
     pages = [(595.0, 842.0, [f"Energy and water page {index}", "Total energy consumption GWh 2,340"], index == 3)
              for index in range(6)]

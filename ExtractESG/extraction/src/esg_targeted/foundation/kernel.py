@@ -562,6 +562,9 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
                        if item.get("target") in ("E1-6_09", "E1-6_10", SCOPE2_UNSPECIFIED)})
     for item in items:
         rid, proposed = item.get("row"), item.get("target")
+        if rid not in lines or not isinstance(proposed, str) or (
+                proposed != SCOPE2_UNSPECIFIED and proposed not in BY_CODE):
+            continue
         candidate_key = (rid, proposed, item.get("note"), item.get("derived"))
         if rid not in lines or candidate_key in seen_candidates:
             continue
@@ -755,11 +758,15 @@ def run_task(model, task: TableTask, reporting_year: int | None) -> dict:
     record.update(
         raw_output=raw, input_tokens=telemetry.get("input_tokens"), output_tokens=telemetry.get("generation_tokens"),
         prompt_tps=telemetry.get("prompt_tps"), generation_tps=telemetry.get("generation_tps"),
+        peak_memory_gb=telemetry.get("peak_memory_gb"), model_id=telemetry.get("model_id"),
+        model_load_seconds=(telemetry.get("timings") or {}).get("model_load_seconds"),
+        generation_seconds=(telemetry.get("timings") or {}).get("generation_seconds"),
         elapsed_seconds=round(time.perf_counter() - started, 2),
     )
     try:
-        payload = json.loads(raw)
-    except json.JSONDecodeError as exc:
+        from esg_targeted.models.response_adapter import decode_first_json_object
+        payload = decode_first_json_object(raw)
+    except (json.JSONDecodeError, ValueError, TypeError) as exc:
         record.update(status="invalid_json", error=str(exc))
         return record
     observations, extras = bind(task, payload, reporting_year)
