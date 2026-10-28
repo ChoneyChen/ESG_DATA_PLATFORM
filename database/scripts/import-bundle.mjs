@@ -198,6 +198,14 @@ function sourceContracts(bundle) {
   const facts = new Map(), bindings = new Map();
   const hasSourceFacts = bundle.sourceFacts != null || !!bundle.internalScope?.source_facts?.length;
   if (bundle.sourceFacts!=null && !Array.isArray(bundle.sourceFacts.facts)) throw new Error('Invalid SourceFact collection');
+  const neutralFacts = new Map();
+  for (const fact of bundle.sourceFacts?.reported_facts || []) {
+    if (!fact.source_fact_id) throw new Error('Neutral source fact has no source_fact_id');
+    const { review_status, ...immutable } = fact;
+    const previous = neutralFacts.get(fact.source_fact_id);
+    if (previous && stableJSON(previous) !== stableJSON(immutable)) throw new Error(`Neutral source fact collision: ${fact.source_fact_id}`);
+    neutralFacts.set(fact.source_fact_id, immutable);
+  }
   for (const fact of [...(bundle.sourceFacts?.facts || []),...(bundle.internalScope?.source_facts || [])]) {
     if (!fact.source_fact_id) throw new Error('SourceFact has no source_fact_id');
     // Review state is a separate mutable axis; it is not report identity.
@@ -233,7 +241,7 @@ function sourceContracts(bundle) {
     }
     bindings.set(binding.core_record_id, binding);
   }
-  return { facts, bindings, hasSourceFacts };
+  return { facts, bindings, hasSourceFacts, neutralFacts };
 }
 
 export async function importBundle(db, bundle, metadata, { inTransaction = false } = {}) {
@@ -251,7 +259,7 @@ export async function importBundle(db, bundle, metadata, { inTransaction = false
   const evidence = bundle.records.evidence_references;
   const dimensions = bundle.records.dimension_values;
   const attributes = bundle.records.attribute_values;
-  const { facts: sourceFacts, bindings, hasSourceFacts } = sourceContracts(bundle);
+  const { facts: sourceFacts, bindings, hasSourceFacts, neutralFacts } = sourceContracts(bundle);
   // Platform adapters may freeze their selection snapshot in the same outer
   // transaction. The default CLI behavior still owns one complete transaction.
   const execute = inTransaction ? callback => callback(db) : callback => db.transaction(callback);
@@ -293,6 +301,7 @@ export async function importBundle(db, bundle, metadata, { inTransaction = false
       [batchId, reportId, jobId, bundle.bundleDigest, bundle.request.package_id, bundle.request.package_version,
        bundle.standard.compilation.source_digest, bundle.root, IMPORTER_VERSION]);
     await archiveReportSourceFacts(tx,{bundle,source_report_id:reportId,import_batch_id:batchId,facts:sourceFacts,bindings});
+    await archiveReportSourceFacts(tx,{bundle,source_report_id:reportId,import_batch_id:batchId,facts:neutralFacts,bindings:new Map(),neutral:true});
     if(bundle.runtimeSnapshot) {
       await tx.query('INSERT INTO esg.extension_import_snapshots(import_batch_id,runtime_digest,runtime_snapshot) VALUES($1,$2,$3)',
         [batchId,bundle.runtimeSnapshot.runtime_digest,bundle.runtimeSnapshot]);
@@ -361,10 +370,33 @@ export async function importBundle(db, bundle, metadata, { inTransaction = false
           sourceFact.identity_raw?.reporting_boundary || row.reporting_boundary || null]) : { rows: [] };
         const reused = duplicate.rows[0]?.disclosure_id || null;
         if (reused) disclosureId = reused;
-        const existing = await tx.query('SELECT source_payload FROM esg.esg_disclosures WHERE disclosure_id=$1', [disclosureId]);
+        const existing = await tx.query('SELECT source_payload,source_identity FROM esg.esg_disclosures WHERE disclosure_id=$1', [disclosureId]);
         if (existing.rows.length && (!reused || reused === disclosureId)
-            && stableJSON(existing.rows[0].source_payload) !== stableJSON(sourcePayload))
-          throw new Error(`Source fact collision: ${sourceFactRef}; import rolled back`);
+            && stableJSON(existing.rows[0].source_payload) !== stableJSON(sourcePayload)) {
+          const previous = existing.rows[0].source_payload?.source_fact || existing.rows[0].source_identity;
+          const previousIdentity = previous.identity_raw || {};
+          const nextIdentity = sourceFact.identity_raw || {};
+          const sameReportedIdentity = Object.keys({...previousIdentity, ...nextIdentity}).every(key =>
+            key.startsWith('component_') || stableJSON(previousIdentity[key]) === stableJSON(nextIdentity[key]));
+          const samePrintedFact = previous && sourceFact && ['value_raw', 'statement_raw', 'unit_raw', 'source_row_label',
+            'document_id'].every(key => stableJSON(previous[key]) === stableJSON(sourceFact[key]))
+            && sameReportedIdentity
+            && stableJSON(previous.physical_sources?.map(source => ({
+              ir_object_id: source.ir_object_id, pdf_page_index: source.pdf_page_index, bbox: source.bbox,
+            }))) === stableJSON(sourceFact.physical_sources?.map(source => ({
+              ir_object_id: source.ir_object_id, pdf_page_index: source.pdf_page_index, bbox: source.bbox,
+            })));
+          if (sourceFact && samePrintedFact) {
+            await archiveReportSourceFacts(tx, {bundle, source_report_id: reportId, import_batch_id: batchId,
+              facts: new Map([[sourceFactRef, sourceFact]]), bindings});
+          } else {
+            const differing = ['value_raw', 'statement_raw', 'unit_raw', 'source_row_label', 'document_id', 'ir_run_id', 'ir_revision']
+              .filter(key => stableJSON(previous?.[key]) !== stableJSON(sourceFact?.[key]));
+            if (stableJSON(previous?.identity_raw) !== stableJSON(sourceFact?.identity_raw)) differing.push('identity_raw');
+            if (stableJSON(previous?.physical_sources) !== stableJSON(sourceFact?.physical_sources)) differing.push('physical_sources');
+            throw new Error(`Source fact collision: ${sourceFactRef}; import rolled back (${differing.join(',')})`);
+          }
+        }
         if (!existing.rows.length) {
           const sourceIdentity = sourceFact ? { ...sourceFact, source_fact_ref: sourceFactRef, origin: 'source_fact' } : { source_fact_ref: sourceFactRef, physical_sources: sources,
             dimensions: dimensions.filter(d => d.parent_record_id === recordId),

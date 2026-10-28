@@ -139,13 +139,19 @@ test('same source ID rejects identity, physical source and interpretation change
       input => { input.sourceFacts.facts[0].identity_raw.method = '另一方法'; },
       input => { input.sourceFacts.facts[0].identity_raw.reporting_entity = '另一实体'; },
       input => { input.sourceFacts.facts[0].physical_sources[0].bbox.x0 = 11; },
-      input => { input.sourceFacts.facts[0].interpretation_version = 'fixture-v2'; },
     ]) {
       const conflicting = bundle(); conflicting.manifest.job_id = 'conflicting-job'; conflicting.bundleDigest = '6'.repeat(64); mutate(conflicting);
       await assert.rejects(importBundle(db, conflicting, metadata), /Source fact collision/);
       assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.import_batches')).rows[0].n, 1);
       assert.equal((await db.query('SELECT count(*)::int AS n FROM esg.disclosure_standard_mappings')).rows[0].n, 1);
     }
+    const revised = bundle();
+    revised.manifest.job_id = 'interpretation-revision';
+    revised.bundleDigest = '7'.repeat(64);
+    revised.sourceFacts.facts[0].interpretation_version = 'fixture-v2';
+    assert.equal((await importBundle(db, revised, metadata)).imported, 0);
+    const snapshots = await db.query('SELECT snapshot_id,source_fact_ref FROM esg.report_source_fact_snapshots');
+    assert.equal(snapshots.rows.length, 2);
   } finally { await db.close(); }
 });
 

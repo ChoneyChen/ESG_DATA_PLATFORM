@@ -642,6 +642,43 @@ def test_rejected_share_rows_become_a_stored_child_breakdown():
     assert conclusion["children"][0]["source"]["page_number"] == 72
 
 
+def test_neutral_source_facts_retain_all_periods_boundary_and_field_evidence():
+    from esg_targeted.foundation.source_facts import table_source_facts
+    from types import SimpleNamespace
+    view = build_table_view(make_table([
+        ["指标", "2021", "2025"],
+        ["挥发性有机物（炼化）（万吨）", "7.06", "5.59"],
+        ["范围一+范围二排放（万吨）", "1.79", "1.78"],
+    ]), page())
+    task = SimpleNamespace(view=view, lines=view.lines, groups=("air", "ghg"), codes=("E2-4_02", "E1-6_07"))
+    facts = table_source_facts(task, 2025, document={"document_id": "doc-test", "ir_run_id": "ir-test", "ir_revision": 1})
+    assert len(facts) == 4
+    voc = [fact for fact in facts if fact["source_row_label"].startswith("挥发性")]
+    assert [fact["identity_raw"]["reporting_period"] for fact in voc] == ["2021", "2025"]
+    assert all(fact["identity_raw"]["reporting_boundary"] == "refining" for fact in voc)
+    assert all(fact["identity_raw"]["pollutant"] == "VOCs" for fact in voc)
+    assert voc[0]["identity_evidence"]["reporting_period"][0]["evidence_role"] == "column_header"
+    combined = next(fact for fact in facts if fact["source_row_label"].startswith("范围一+范围二"))
+    assert combined["source_fact_id"] and "metric_id" not in combined
+    assert combined["quality_status"] == "grounded"
+
+
+def test_reported_carrier_and_scope_method_stay_outside_fixed_clause_dimensions():
+    from esg_targeted.foundation.source_facts import table_source_facts
+    from types import SimpleNamespace
+    view = build_table_view(make_table([
+        ["指标", "2025"],
+        ["太阳能使用量（兆瓦时）", "13.24"],
+        ["范围二温室气体排放（基于位置）（吨）", "100"],
+    ]), page())
+    facts = table_source_facts(SimpleNamespace(view=view, lines=view.lines, groups=("energy", "ghg"), codes=()), 2025,
+                               document={"document_id": "doc-test", "ir_run_id": "ir-test", "ir_revision": 1})
+    assert facts[0]["identity_raw"]["energy_carrier"] == "solar"
+    assert "energy_source" not in facts[0]["identity_raw"]
+    assert facts[1]["identity_raw"]["method"] == "location_based"
+    assert facts[1]["identity_evidence"]["method"][0]["evidence_role"] == "row"
+
+
 def test_children_travel_with_the_fact_as_named_attributes():
     from esg_targeted.foundation.bundle import BundleWriter
 

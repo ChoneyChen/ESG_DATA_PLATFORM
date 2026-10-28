@@ -128,7 +128,7 @@ export async function saveMeasurementContext(db, payload) {
     const allowed=scientificDimensionKeys(definition);
     const unknown=Object.keys(payload.dimensions).filter(key=>!allowed.has(key));
     if(unknown.length)throw new Error(`指标定义未声明这些科学维度：${unknown.sort().join('、')}。报告额外说明请通过补充信息选择保存。`);
-    const raw=(await tx.query('SELECT source_payload FROM esg.esg_disclosures WHERE disclosure_id=$1 FOR UPDATE',[target.disclosure_id])).rows[0];
+    const raw=(await tx.query('SELECT source_payload,source_identity,source_fact_ref FROM esg.esg_disclosures WHERE disclosure_id=$1 FOR UPDATE',[target.disclosure_id])).rows[0];
     const dimensions=(await tx.query('SELECT dimension_key,ordinal,raw_value FROM esg.disclosure_dimensions WHERE disclosure_id=$1 ORDER BY dimension_key,ordinal',[target.disclosure_id])).rows;
     const sources=(await tx.query('SELECT page_number,source_quote,bbox FROM esg.disclosure_sources WHERE disclosure_id=$1 ORDER BY source_role,ordinal',[target.disclosure_id])).rows;
     const reported_properties=resolveReportedProperties({source_payload:raw.source_payload,dimensions,sources},payload.property_selections ?? []);
@@ -136,14 +136,17 @@ export async function saveMeasurementContext(db, payload) {
     const reviewed={entity_ref:payload.entity_ref.trim(),period_start:payload.period_start,period_end:payload.period_end,boundary_code:payload.boundary_code.trim(),value_role:payload.value_role,
       measurement_method:method,dimensions:payload.dimensions,reported_unit:unit,reported_properties,
       operator_ref:payload.operator_ref.trim(),reason:payload.reason.trim(),supersedes_observation_id:payload.supersedes_observation_id || null};
-    if(prior && Object.keys(reviewed).every(key=>stableJSON(prior[key])===stableJSON(reviewed[key])))
+    const evidenceRevision=digest(stableJSON({source_fact_ref:raw.source_fact_ref || null,
+      identity_evidence:raw.source_identity?.identity_evidence || {}}));
+    if(prior && Object.keys(reviewed).every(key=>stableJSON(prior[key])===stableJSON(reviewed[key]))
+        && prior.evidence_revision===evidenceRevision)
       return {context_id:prior.context_id,revision:prior.revision,idempotent:true};
     const revision = (await tx.query('SELECT COALESCE(max(revision),0)+1 AS revision FROM esg.measurement_contexts WHERE mapping_id=$1',[payload.mapping_id])).rows[0].revision;
     const context_id = randomUUID();
     await tx.query(`INSERT INTO esg.measurement_contexts(context_id,mapping_id,revision,entity_ref,period_start,period_end,boundary_code,value_role,
-      measurement_method,dimensions,reported_unit,operator_ref,reason,supersedes_observation_id,reported_properties) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
+      measurement_method,dimensions,reported_unit,operator_ref,reason,supersedes_observation_id,reported_properties,evidence_revision) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)`,
       [context_id,payload.mapping_id,revision,payload.entity_ref.trim(),payload.period_start,payload.period_end,payload.boundary_code.trim(),payload.value_role,
-        method,payload.dimensions,unit,payload.operator_ref.trim(),payload.reason.trim(),payload.supersedes_observation_id || null,reported_properties]);
+        method,payload.dimensions,unit,payload.operator_ref.trim(),payload.reason.trim(),payload.supersedes_observation_id || null,reported_properties,evidenceRevision]);
     await tx.query(`INSERT INTO esg.outbox_events(event_id,event_type,target_ref) VALUES($1,'context',$2)`,[context_id,payload.mapping_id]);
     return {context_id,revision,publication_status:'not_published'};
   });
@@ -305,6 +308,7 @@ async function reconcile(tx) {
   }
   const rows=(await tx.query(`SELECT m.disclosure_standard_mapping_id AS mapping_id,m.disclosure_id,m.review_status,m.mapping_relation,m.satisfaction_status,
     r.requirement_code,r.framework_version_id,r.clause_kind,r.extension_id,m.mapping_reason,d.quality_status,d.supersedes_disclosure_id,
+    d.source_identity,d.source_fact_ref,
     v.value_type,v.raw_unit,q.statement_raw,
     c.context_id,c.revision,c.entity_ref,c.period_start::text,c.period_end::text,c.boundary_code,c.value_role,c.measurement_method,
     c.dimensions,c.reported_unit,c.supersedes_observation_id
@@ -332,6 +336,7 @@ async function reconcile(tx) {
     // Supporting contexts are part of the immutable revision. Late evidence
     // creates another observation, preserving prior datasets byte for byte.
     const observation_id=uuid(stableJSON({identity:c.identity,value_key:c.value_key,contexts:group.map(x=>x.row.context_id).sort(),
+      source_evidence:group.map(x=>x.row.source_identity?.identity_evidence || {}).sort(),
       normalization_rule_version:NORMALIZATION_RULE_VERSION,normalization_rule_digest:UNIT_RULE_DIGEST}));
     const comparisonReasons=[...new Set(group.flatMap(x=>x.comparison_reasons))];
     await tx.query(`INSERT INTO esg.curated_observations(observation_id,metric_id,definition_version,identity_key,entity_ref,period_start,period_end,boundary_code,
@@ -342,8 +347,13 @@ async function reconcile(tx) {
         c.value.precision_qualifier,c.value.statement,comparisonReasons.length?'not_comparable':'comparable',comparisonReasons,NORMALIZATION_RULE_VERSION]);
     for(const source of group) {
       source.observation_id=observation_id;
+      source.evidence_revision=digest(stableJSON({
+        source_fact_ref:source.row.source_fact_ref || null,
+        identity_evidence:source.row.source_identity?.identity_evidence || {},
+      }));
       const snapshot=(await tx.query(`SELECT d.raw_indicator_name,d.raw_disclosure_text,v.raw_value_text,v.raw_unit,q.statement_raw,
         r.source_artifact_ref,r.source_sha256,r.report_title_snapshot,c.revision AS context_revision,
+        d.source_identity,d.source_fact_ref,
         c.operator_ref AS context_reviewer,c.reason AS context_review_reason,c.reported_unit,c.reported_properties,
         (SELECT jsonb_agg(jsonb_build_object('page_number',e.page_number,'printed_page_label',e.printed_page_label,'source_node_id',e.source_node_id,'source_quote',e.source_quote,'bbox',e.bbox) ORDER BY e.source_role,e.ordinal)
           FROM esg.disclosure_sources e WHERE e.disclosure_id=d.disclosure_id) AS evidence,
@@ -354,6 +364,9 @@ async function reconcile(tx) {
         LEFT JOIN esg.structured_values v USING(disclosure_id) LEFT JOIN esg.qualitative_claims q USING(disclosure_id)
         WHERE c.context_id=$1`,[source.row.context_id])).rows[0];
       snapshot.unit_conversion=source.value.unit_conversion || null;
+      snapshot.identity_evidence=source.row.source_identity?.identity_evidence || {};
+      snapshot.source_fact_ref=source.row.source_fact_ref || null;
+      delete snapshot.source_identity;
       await tx.query(`INSERT INTO esg.observation_sources(observation_id,context_id,disclosure_id,mapping_id,source_snapshot) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING`,
         [observation_id,source.row.context_id,source.row.disclosure_id,source.row.mapping_id,snapshot]);
     }

@@ -89,7 +89,7 @@ class FoundationSessionExecutor:
             return
         summary = engine.conclude(records, elapsed_seconds=time.perf_counter() - started)
         (shared / "result.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2))
-        writer = BundleWriter(self.settings, model_label=self.settings.qwen_model_path.name)
+        writer = BundleWriter(self.settings, model_label=self.settings.qwen_model_path.name, source_tasks=engine.tasks)
         for projection in projections:
             job_id = projection["job_id"]
             self.jobs.update(job_id, stage=STAGE_BUNDLE, summary=self._summary(projection, processed=0, current_call=None))

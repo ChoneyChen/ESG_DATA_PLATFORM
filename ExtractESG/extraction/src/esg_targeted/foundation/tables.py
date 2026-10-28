@@ -977,7 +977,7 @@ def render_table(view: TableView, lines: list[DataLine] | None = None) -> str:
 
 GROUP_SCOPE_RE = re.compile(r"(?:集团|全集团|本集团|公司整体|全公司|合并|总计|合计|汇总|group|consolidated|company[-\s]wide|whole\s+company|total)", re.I)
 SUBSET_SCOPE_RE = re.compile(
-    r"(?:基地|工厂|厂区|园区|数据中心|办公(?:楼|室|场所)?|分公司|子公司|事业部|板块|运营中心|门店|矿山|矿区|电站|项目公司|"
+    r"(?:基地|工厂|厂区|园区|数据中心|办公(?:楼|室|场所)?|分公司|子公司|事业部|板块|炼化|运营中心|门店|矿山|矿区|电站|项目公司|"
     r"境内|境外|海外|国内|中国大陆|香港|澳門|澳门|台灣|台湾|\bsites?\b|\bplants?\b|\bfacilit|\bbase\b|\bsegments?\b|\bsubsidiar|\bdata\s+cent|"
     r"\boffices?\b|\bdomestic\b|\boverseas\b|\bmainland\b|hong\s+kong|macau|macao|taiwan|outside\s+hong\s+kong)",
     re.I,
@@ -991,6 +991,7 @@ SUBSET_SCOPE_RE = re.compile(
 BOUNDARY_VOCAB: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("battery_production_bases", re.compile(r"电池生产基地|生产基地|制造基地|生产基地群")),
     ("subsidiary", re.compile(r"子公司|下属公司|附属公司|subsidiar")),
+    ("refining", re.compile(r"炼化")),
     ("overseas", re.compile(r"海外|境外|国外|overseas|outside\s+china")),
     ("hong_kong", re.compile(r"香港|hong\s*kong")),
     ("mainland", re.compile(r"中国大陆|中国内地|内地|mainland")),

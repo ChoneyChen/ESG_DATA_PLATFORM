@@ -87,8 +87,9 @@ def conclusion_summary(conclusion: dict) -> dict:
 
 
 class BundleWriter:
-    def __init__(self, settings, *, model_label: str = "Qwen3.5-9B-4bit"):
+    def __init__(self, settings, *, model_label: str = "Qwen3.5-9B-4bit", source_tasks=None):
         self.settings = settings
+        self.source_tasks = source_tasks or []
         self.catalog = StandardPackageCatalog(settings.standard_dist_root)
         self.profile = platform_major_profile(settings.standard_dist_root.parent, topics=["E1", "E2", "E3"])
         self.routes = {route["package_id"]: route for route in self.profile["routes"]}
@@ -137,6 +138,9 @@ class BundleWriter:
         roles = request.roles or RoleConfig()
         facts, bindings = adapt_direct_core_facts(records, package, bound_core_ids=set(), request=request,
                                                   target_cells=self._target_cells(conclusions))
+        from esg_targeted.foundation.source_facts import neutral_facts
+        neutral = neutral_facts(self.source_tasks, summary.get("reporting_period", {}).get("year"),
+                                document={"document_id": ir.document_id, "ir_run_id": ir.run_id, "ir_revision": ir.ir_revision})
         for binding in bindings:
             binding["route"] = ROUTE
         self._attach_children(conclusions, facts, bindings)
@@ -149,7 +153,7 @@ class BundleWriter:
         shutil.copyfile(self.dist_root / package_id / package_version / "package.json", output_dir / "input" / "standard-package.json")
         shutil.copyfile(ir.root / "manifest.json", output_dir / "input" / "ir-manifest.json")
         (output_dir / "results" / "source-facts.json").write_text(json.dumps(
-            {"schema_version": "report-source-facts-v2", "facts": facts, "gaps": gaps, "source_objects": []},
+            {"schema_version": "report-source-facts-v2", "facts": facts, "reported_facts": neutral, "gaps": gaps, "source_objects": []},
             ensure_ascii=False, indent=2, sort_keys=True))
         (output_dir / "results" / "metric-source-mappings.json").write_text(json.dumps(
             {"schema_version": "metric-source-mappings-v4", "mappings": [], "core_bindings": bindings},
@@ -180,7 +184,7 @@ class BundleWriter:
             "contract_validation": validation,
             "report_session_id": session_id,
             "roles": roles.model_dump(mode="json"),
-            "evidence_gap_count": len(gaps),
+            "evidence_gap_count": len(gaps), "neutral_source_fact_count": len(neutral),
             "execution_status": "completed",
             "outcomes": self._outcomes(records, conclusions),
             "unfinished_metric_ids": [], "processing_metric_ids": [], "not_executed_metric_ids": [],

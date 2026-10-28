@@ -17,12 +17,19 @@ export function publicObservation(row, metric, publishedAt) {
     'clause_kind','extension_id','related_source_datapoint_ids','parent_package_id','value_origin',
     'measurement_method','value_role','canonical_unit','value_numeric','lower_bound','upper_bound',
     'precision_qualifier','statement_text','raw_value_text','raw_unit','source_count','comparison_eligibility',
-    'comparison_reasons','publication_status','dataset_version','report_version','created_at']);
+    'comparison_reasons','publication_status','dataset_version','report_version','created_at',
+    'identity_evidence','source_fact_ref']);
   const axes = new Set(['entity_kind', ...(metric?.required_dimensions || []), ...(metric?.comparison_dimensions || []),
     ...Object.keys(metric?.fixed_dimensions || {}), ...Object.keys(metric?.dimension_constraints || {}),
     ...(metric?.required_context_fields || [])]);
   result.dimensions = Object.fromEntries(Object.entries(row.dimensions || {}).filter(([key]) => axes.has(key)));
   result.reported_properties = (row.reported_properties || []).map(publicReportedProperty).filter(Boolean);
+  result.identity_evidence = Object.fromEntries([...new Set((row.sources || []).flatMap(source => Object.keys(source.identity_evidence || {})))].sort()
+    .map(key => [key, (row.sources || []).flatMap(source => (source.identity_evidence?.[key] || []).map(evidence => ({
+      ir_object_id: evidence.ir_object_id, pdf_page_index: evidence.pdf_page_index,
+      evidence_role: evidence.evidence_role, raw_text: evidence.raw_text,
+    })))]));
+  result.source_fact_refs = [...new Set((row.sources || []).map(source => source.source_fact_ref).filter(Boolean))].sort();
   // Publication time belongs to the frozen dataset version, not to the row's
   // import time, so list and detail views agree on the same observation.
   result.published_at = publishedAt || row.created_at;

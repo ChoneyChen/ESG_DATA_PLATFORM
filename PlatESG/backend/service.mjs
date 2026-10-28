@@ -64,6 +64,7 @@ export async function snapshot(db, version = null) {
       statement_text: row.statement || null, definition_version: row.metric_definition_version || row.definition_version,
       raw_value_text:row.sources?.length===1?row.sources[0].raw_value_text || row.sources[0].statement_raw:null,
       raw_unit:row.sources?.length===1?row.sources[0].raw_unit:null,source_count:row.sources?.length || 0,
+      source_fact_refs:[...new Set((row.sources || []).map(source=>source.source_fact_ref).filter(Boolean))].sort(),
       publication_status: 'published', dataset_version: Number(data.dataset_version),
     };
   });

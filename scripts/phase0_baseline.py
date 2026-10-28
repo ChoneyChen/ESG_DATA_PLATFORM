@@ -89,8 +89,31 @@ def source_rows(result: dict):
                            "derived": section == "component_sources"}
 
 
-def full_field_rows(gold: dict, result: dict):
-    actual = list(source_rows(result))
+def neutral_rows(facts: list[dict], metrics: dict[str, dict]):
+    for fact in facts:
+        identity = fact["identity_raw"]
+        for code in metrics:
+            if code.startswith(("E2-4_02", "E2-4_03")):
+                member = identity.get("pollutant")
+                if not member:
+                    continue
+            yield {"code": code, "member": identity.get("pollutant"),
+                   "status": "accepted", "derived": False, "source": {
+                       "page_number": fact["physical_sources"][0]["pdf_page_index"] + 1,
+                       "value_raw": fact["value_raw"], "unit_raw": fact["unit_raw"],
+                       "period_year": int(identity["reporting_period"][:4]) if identity.get("reporting_period", "")[:4].isdigit() else None,
+                       "entity_basis": identity.get("entity_basis"),
+                       "reporting_boundary": identity.get("reporting_boundary"),
+                       "attributes": {"boundary_label": identity.get("reporting_boundary")}}}
+
+
+def neutral_baseline(gold: dict, facts: list[dict], metrics: dict[str, dict]):
+    return full_field_rows(gold, {"conclusions": [{"code": code, "status": "found", "members": []} for code in metrics]},
+                          actual_rows=list(neutral_rows(facts, metrics)))
+
+
+def full_field_rows(gold: dict, result: dict, actual_rows: list[dict] | None = None):
+    actual = actual_rows if actual_rows is not None else list(source_rows(result))
     for fact in gold["facts"]:
         expected_year = int(fact["column_year"])
         dimension = next((key for key, concept in POLLUTANTS.items() if fact["source_concept"] == concept
@@ -126,11 +149,12 @@ def full_field_rows(gold: dict, result: dict):
                 fields["boundary"] = {"expected": "group", "actual": entity,
                                       "correct": entity == "group" if entity in {"group", "subset"} else None}
             if fact["source_concept"] == "pollution.voc.air.refining":
-                fields["boundary"] = {"expected": "炼化", "actual": boundary,
-                                      "correct": bool(boundary and "炼化" in boundary)}
+                fields["boundary"] = {"expected": "炼化", "actual": boundary or actual_source.get("reporting_boundary"),
+                                      "correct": (boundary or actual_source.get("reporting_boundary")) in {"refining", "炼化"}}
         elif not allowed and outcome == "rejected":
             fields["value"] = {"expected": "rejected_source_value", "actual": rejected[0]["source"]["value_raw"], "correct": True}
         yield {"case_id": fact["gold_fact_id"], "report": "cnpc", "code": fact["allowed_standard_datapoint_ids"],
+               "allowed_codes": bool(fact["allowed_standard_datapoint_ids"]),
                "forbidden_codes": fact["forbidden_standard_datapoint_ids"], "expected": fact["raw_value"],
                "period": expected_year, "concept": fact["source_concept"], "boundary": fact["report_boundary"],
                "outcome": outcome, "fields": fields,
@@ -149,8 +173,7 @@ def summarize(rows: list[dict]):
         "legacy_negative_specificity": {"correct": sum(row["outcome"] == "correct" for row in negative), "total": len(negative)},
         "legacy_correct": {"correct": outcomes.get("correct", 0), "total": len(legacy)},
     }
-    source_facts = [row for row in rows if row.get("coverage") == "independent_pdf_cell_gold"
-                    and row.get("concept") not in {"ghg.scope1-plus-scope2.combined", "energy.savings", "water.savings"}]
+    source_facts = [row for row in rows if row["coverage"] == "independent_pdf_cell_gold" and row["code"]]
     current_source_facts = [row for row in source_facts if row.get("period") == 2025]
     metrics.update({
         "current_period_source_recall": {"correct": sum(row["outcome"] == "matched" for row in current_source_facts),

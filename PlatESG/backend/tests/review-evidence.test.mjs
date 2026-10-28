@@ -14,7 +14,7 @@ test('report identity axes become the dictionary codes', () => {
     identity: {pollutant: 'NOx', medium: '废气', scope: '范围一', aggregation_role: '总量',
       category: '类别 7', consolidation_approach: '运营控制', amount_basis: '总额'},
   });
-  assert.equal(REVIEW_EVIDENCE_VERSION, 'review-evidence-v1');
+  assert.equal(REVIEW_EVIDENCE_VERSION, 'review-evidence-v2');
   assert.deepEqual(resolved.values, {
     pollutant: 'nox', pollution_medium: 'air', ghg_scope: 'scope_1', aggregation_role: 'total',
     scope3_category: 'category_7', consolidation_approach: 'operational_control', amount_basis: 'gross',

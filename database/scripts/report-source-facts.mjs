@@ -70,7 +70,7 @@ function validateFact(fact,identity) {
     identity_basis:fact.ir_run_id!==identity.runId?'evidence_transition':identity.basis};
 }
 /** Archive everything read; Core linkage remains an independent, explicit axis. */
-export async function archiveReportSourceFacts(tx,{bundle,source_report_id,import_batch_id,facts,bindings}) {
+export async function archiveReportSourceFacts(tx,{bundle,source_report_id,import_batch_id,facts,bindings,neutral=false}) {
   if(!facts.size)return {source_fact_snapshots:0};
   const identity=frozenIdentity(bundle);
   for(const [ref,fact] of facts) {
@@ -78,15 +78,16 @@ export async function archiveReportSourceFacts(tx,{bundle,source_report_id,impor
     const snapshot_id=uuid(`report-source-fact-v1:${source_report_id}:${ref}:${snapshot_digest}`);
     await tx.query(`INSERT INTO esg.report_source_fact_snapshots(snapshot_id,source_report_id,source_fact_ref,snapshot_digest,
       document_id,source_ir_run_id,source_ir_revision,kind,source_row_label,value_raw,statement_raw,unit_raw,identity_raw,
-      physical_sources,quality_status,provenance_status,identity_basis,snapshot_payload)
-      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) ON CONFLICT DO NOTHING`,
+      physical_sources,quality_status,provenance_status,identity_basis,snapshot_payload,fact_role)
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19) ON CONFLICT DO NOTHING`,
       [snapshot_id,source_report_id,ref,snapshot_digest,fact.document_id,fact.ir_run_id,fact.ir_revision,fact.kind,
         fact.source_row_label ?? null,fact.value_raw ?? null,fact.statement_raw ?? null,fact.unit_raw ?? null,
-        fact.identity_raw || {},validated.physical,validated.quality,validated.physical.length?'physical':'unbound',validated.identity_basis,fact]);
+        fact.identity_raw || {},validated.physical,validated.quality,validated.physical.length?'physical':'unbound',validated.identity_basis,fact,
+        neutral?'neutral':'clause_source']);
     const core_bindings=[...bindings.values()].filter(binding=>binding.source_fact_id===ref)
       .sort((a,b)=>a.core_record_id.localeCompare(b.core_record_id));
     await tx.query(`INSERT INTO esg.import_source_facts(import_batch_id,source_fact_ref,snapshot_id,core_bindings)
-      VALUES($1,$2,$3,$4)`,[import_batch_id,ref,snapshot_id,core_bindings]);
+      VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`,[import_batch_id,ref,snapshot_id,core_bindings]);
   }
   return {source_fact_snapshots:facts.size};
 }

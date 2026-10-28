@@ -8,6 +8,8 @@ import {applyMigrations} from '../../../database/scripts/db.mjs';
 import {importBundle} from '../../../database/scripts/import-bundle.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 import {publishReport,withdrawReport,deleteReport,reportPublications,readPublished} from '../../../database/scripts/publication.mjs';
+import {dispatch} from '../service.mjs';
+import {publicObservation} from '../public_contracts.mjs';
 import {candidateProposal,machineVerify,VERIFICATION_RULE_VERSION} from '../../../database/scripts/candidate-review.mjs';
 import {autoReview,AUTO_REVIEW_OPERATOR} from '../../../database/scripts/auto-review.mjs';
 import {reportArtifacts,deleteReportCandidates} from '../../../database/scripts/report-artifacts.mjs';
@@ -358,6 +360,15 @@ test('publication is report-scoped: publish, withdraw and delete one report with
     const afterA=await readPublished(db);
     assert.equal(afterA.observations.length,1);
     assert.equal(afterA.observations[0].entity_ref,'review-company');
+    const sourceRef=(await db.query('SELECT source_fact_ref FROM esg.esg_disclosures WHERE disclosure_id=$1',[first.disclosure_id])).rows[0].source_fact_ref;
+    assert.ok(sourceRef);
+    assert.ok(afterA.observations[0].sources[0].source_fact_ref);
+    const publicData=await dispatch(db,'detail',{observation_id:afterA.observations[0].observation_id});
+    assert.deepEqual(publicData.source_fact_refs,[sourceRef]);
+    const publicRow=publicObservation(afterA.observations[0],afterA.observations[0],afterA.as_of);
+    assert.deepEqual(publicRow.source_fact_refs,[sourceRef]);
+    assert.ok(Array.isArray(publicRow.identity_evidence.period || []));
+    assert.equal(typeof publicRow.identity_evidence,'object');
 
     const list=await reportPublications(db);
     assert.equal(list.items.find(item=>item.report_ref==='report-public-a').status,'published');
