@@ -19,6 +19,7 @@ export function Runtime(){
   </Section>}
   {tab==='models'&&<><Section title="模型与服务资源"><ResourceState error={models.error}/><Diagnostics value={models.data} title="服务与资源状态"/></Section><Section title="平台状态"><ResourceState error={status.error}/><Diagnostics value={status.data} title="执行槽与控制状态"/></Section><RuntimeSecrets/></>}
   <details className="diagnostics"><summary>高级运行检查</summary><ResourceState error={compatibility.error}/>{compatibility.data?.ready===false&&<Notice tone="error">{compatibility.data.blockers?.join('；') || '当前服务尚未就绪'}</Notice>}<p>实时事件：{connected?'已连接':'轮询更新中'}</p><button type="button" className="text-button" onClick={()=>setTab('storage')}>查看存储引用</button><Diagnostics value={compatibility.data} title="服务兼容检查"/></details>
+  {tab==='queue'&&<Section title="技术诊断入口"><Notice>页面读取、结构证据与逐对象修复不在这里重复实现，从报告详情或报告处理进入。</Notice><div className="button-row"><button className="secondary" onClick={()=>navigate('/processing')}>报告处理与证据版本</button><button className="secondary" onClick={()=>navigate('/reports')}>报告库</button><button className="secondary" onClick={()=>navigate('/extractions')}>提取成果</button></div></Section>}
   {tab==='storage'&&<Section title="存储引用检查"><p>文件删除请在 PDF 库或 OCR 库操作。这里查看来源关系与文件规模。</p><ResourceState error={storage.error} loading={storage.loading&&!storage.data}/><Diagnostics value={storage.data} title="存储与依赖清单"/><button className="secondary" onClick={()=>setTab('queue')}>返回执行队列</button></Section>}
  </>;
 }

@@ -47,7 +47,7 @@ describe('发布门禁原因使用实际科学口径，不混淆比较排除',()
   expect(screen.getByText('尚需核对的发布条件')).toBeDefined();
   expect(screen.getByText(/当前只显示该报告；发布、撤下与删除都以这份报告为单位/)).toBeDefined();
   expect(screen.getByText('待发布报告')).toBeDefined();
-  fireEvent.click(screen.getByRole('tab',{name:'发布事件'}));
+  fireEvent.click(screen.getByRole('tab',{name:'记录与诊断'}));
   expect(screen.getByText('持久发布事件（所有报告）')).toBeDefined();
   fireEvent.click(screen.getByRole('tab',{name:'发布条件与阻塞'}));
   expect(screen.getByText(/批准事实或口径不能改变既有任务所用的版本/)).toBeDefined();

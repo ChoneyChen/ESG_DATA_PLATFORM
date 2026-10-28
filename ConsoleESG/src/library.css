@@ -182,3 +182,11 @@
 .run-axis.done{background:#e3f4ec;color:#1d6b4f}
 .run-axis.active{background:#e7eff9;color:#446b9a}
 .run-axis.blocked{background:#f7e7e1;color:#a05a44}
+
+/* Review work is grouped by why it is still open. */
+.review-groups{display:flex;flex-direction:column;gap:10px}
+.review-group{background:var(--surface,#fff);border:1px solid var(--line,#dde5e1);border-radius:10px;padding:8px 12px}
+.review-group>summary{display:flex;align-items:baseline;gap:10px;cursor:pointer;list-style:none}
+.review-group>summary::-webkit-details-marker{display:none}
+.review-group>summary strong{font-size:13px}
+.review-group>summary small{color:var(--muted,#7d9185);font-size:11px}

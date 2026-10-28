@@ -23,6 +23,12 @@ const digest = value => createHash('sha256').update(value).digest('hex');
 // Ordered so a reader can see the dependency direction: publication consumes
 // candidates, candidates consume imports.
 export const ARTIFACT_GROUPS = Object.freeze([
+  // The scientific model stores derived copies of the same observations; it is
+  // cleared first because it references the curated rows below.
+  {key: 'scientific', label: '科学模型观测、维度、证据与来源', tables: [
+    'esg.observation_evidence', 'esg.observation_dimensions', 'esg.observation_model_sources',
+    'esg.scientific_observation_model', 'esg.coverage_decisions',
+  ]},
   {key: 'published', label: '已发布观测与数据集', tables: [
     'esg.report_publication_history', 'esg.report_publication_members', 'esg.report_publications',
     'esg.dataset_membership', 'esg.dataset_versions', 'esg.publication_states',
