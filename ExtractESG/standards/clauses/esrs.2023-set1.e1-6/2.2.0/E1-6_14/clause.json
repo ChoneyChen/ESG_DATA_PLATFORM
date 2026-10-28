@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_14",
-  "contract_digest": "162ac66da046c4a0dac92b96db1890325c646b67ab447466ab08bf70446bd48b",
+  "contract_digest": "24a3ca009644a68efeb0350fc669bf01f5302b80bb19c2bf31a1931d7b56d6f6",
   "description": "报告边界、核算方法、数据来源或排放因子的实际变更及其可比性影响。每个变更形成可读、可举证的陈述；年份、百分比或排放量本身不是变更说明。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",

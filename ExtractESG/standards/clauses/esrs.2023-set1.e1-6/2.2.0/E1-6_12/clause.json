@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_12",
-  "contract_digest": "2bebe18ebdeaefb0ccafda6c0de46040ad777224a93361af1a7735696f55a7b2",
+  "contract_digest": "da096b1bd09fb6ae7d1a1028257b7a469d1e72bf9b19049dc8740e03249994f9",
   "description": "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量（吨二氧化碳当量）。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",

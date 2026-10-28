@@ -4,12 +4,12 @@
   "positive_terms": [
     "Gross Scope 3 GHG emissions by significant category",
     "按重大类别划分的范围3温室气体排放总量",
-    "Scope 3 emissions",
-    "范围3排放",
-    "scope3",
-    "scope III",
-    "other indirect GHG emissions",
-    "范围3"
+    "Gross GHG emissions",
+    "温室气体排放总量",
+    "gross greenhouse gas emissions",
+    "温室气体总排放",
+    "Scope 3 category",
+    "范围3类别"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

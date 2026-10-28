@@ -4,12 +4,12 @@
   "positive_terms": [
     "Types of contractual instruments",
     "合同工具类型",
+    "Contractual instrument",
+    "合同工具",
+    "contractual instruments",
+    "能源合同工具",
     "Scope 2 emissions",
-    "范围2排放",
-    "scope2",
-    "scope II",
-    "energy indirect GHG emissions",
-    "范围2"
+    "范围2排放"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

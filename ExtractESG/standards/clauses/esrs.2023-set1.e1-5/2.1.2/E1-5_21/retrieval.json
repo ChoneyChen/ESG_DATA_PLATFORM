@@ -4,12 +4,12 @@
   "positive_terms": [
     "Reconciliation of net revenue used for energy intensity",
     "能源强度所用净收入的对账说明",
+    "Energy intensity",
+    "能源强度",
+    "energy consumption intensity",
+    "能耗强度",
     "Net revenue",
-    "净收入",
-    "revenue used for intensity",
-    "营业净收入",
-    "Reconciliation",
-    "对账"
+    "净收入"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

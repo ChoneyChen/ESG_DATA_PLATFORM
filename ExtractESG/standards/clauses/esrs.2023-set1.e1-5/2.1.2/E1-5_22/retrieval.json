@@ -4,12 +4,12 @@
   "positive_terms": [
     "Net revenue from activities in high climate impact sectors",
     "高气候影响行业活动的净收入",
-    "Net revenue",
-    "净收入",
-    "revenue used for intensity",
-    "营业净收入",
     "High climate impact sector",
-    "高气候影响行业"
+    "高气候影响行业",
+    "high climate impact sectors",
+    "高气候影响部门",
+    "Net revenue",
+    "净收入"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

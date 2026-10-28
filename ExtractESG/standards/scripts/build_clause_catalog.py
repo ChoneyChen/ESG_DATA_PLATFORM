@@ -65,10 +65,24 @@ def main() -> int:
     parser.add_argument("--dictionary", default=str(ROOT.parent / "PlatESG/catalog/metric-dictionary.v1.json"))
     parser.add_argument("--out", default=str(ROOT / "clauses"))
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--include-drafts", action="store_true",
+                        help="Apply validated clause drafts as overrides before writing")
     args = parser.parse_args()
     root, out = Path(args.standards_root), Path(args.out)
     dictionary = load_dictionary(Path(args.dictionary))
-    payloads = build_profiles(root, dictionary)
+    overrides = {}
+    if args.include_drafts:
+        from esg_standard_packages.clause_drafts import ClauseDraftStore
+        store = ClauseDraftStore(root)
+        for manifest in store.list():
+            if manifest.get("status") != "validated":
+                continue
+            base = manifest.get("base") or {}
+            parts = store.load(manifest["draft_id"])
+            overrides[(base.get("package_id"), base.get("package_version"),
+                       base.get("source_datapoint_id"))] = parts
+        print(f"drafts_applied={len(overrides)}")
+    payloads = build_profiles(root, dictionary, overrides)
     generated_at = "2026-10-28T00:00:00+00:00"
     catalog_packages, stale, written = [], 0, 0
     for item in payloads:
@@ -100,7 +114,8 @@ def main() -> int:
                                  "skipped": item["skipped"],
                                  "clauses": clauses})
     catalog = {"schema_version": "clause-catalog-1.0", "generated_by": GENERATOR,
-               "generated_at": generated_at, "packages": catalog_packages}
+               "generated_at": generated_at, "drafts_applied": sorted(
+                   f"{key[0]}@{key[1]}:{key[2]}" for key in overrides), "packages": catalog_packages}
     catalog_path = out / "catalog.json"
     content = pretty_json_bytes(catalog)
     if not catalog_path.exists() or catalog_path.read_bytes() != content:

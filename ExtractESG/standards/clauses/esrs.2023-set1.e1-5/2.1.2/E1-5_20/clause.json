@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_20",
-  "contract_digest": "b066a1d10f06d860c636cc4164cafa62fcddd11fd6f596585d03518b69d98309",
+  "contract_digest": "00a49cc5065eef0ff54bf60807730f73835c49ffb28f105ea5a9eceeb70c6ddb",
   "description": "用于确定能源强度的高气候影响行业清单",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "context",

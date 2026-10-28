@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_10",
-  "contract_digest": "7325b62e19594c43bdfd4d6ebecbcf934b614b82cbc12afebe685490d6e23011",
+  "contract_digest": "e1cb3da60171a4fd8f4da192b50d72b7cc5a43349fc745fef1b9f330072346ae",
   "description": "基于市场法核算的范围2温室气体绝对排放量。市场法体现能源采购合同工具、供应商/产品特定排放属性及适用的剩余组合；方法可由报告核算说明支持，不要求逐字标签。仅披露用电、绿电比例或电网平均因子并不能独自证明市场法。方法未明的范围2测量应保留待确认，明确为位置法的不能贴上市方法标签。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",

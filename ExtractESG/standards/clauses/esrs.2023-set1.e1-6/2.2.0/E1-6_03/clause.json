@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_03",
-  "contract_digest": "3867fcc68318b08642cb1484f84c565ff725a0622d3c3c7f3a5bfec0e245e7c9",
+  "contract_digest": "a1a7f44a88a9e41054ffb727f71df85ab4b47582a967305f71bc6bd677338a9f",
   "description": "企业对温室气体排放采用的分解维度，例如国家、经营分部、经济活动、子公司、设施或排放源。输出实际披露的分解轴，不输出这些轴下的每个数值单元格。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "presentation",

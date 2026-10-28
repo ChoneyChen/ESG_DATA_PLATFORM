@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .clause_profile import compile_clause_profile, validate_profile
+from .clause_profile import ClauseExtractionProfile, compile_clause_profile, profile_digest, validate_profile
 from .retrieval_contract import clause_retrieval_terms
 from .scientific_contract import UNIT_IDS
 from .scope import load_registry
@@ -65,7 +65,35 @@ def canonical_unit_for(dictionary: dict | None, source_datapoint_id: str) -> str
     return _dictionary_metric(dictionary, source_datapoint_id).get("canonical_unit")
 
 
-def build_profiles(standards_root: Path, dictionary: dict | None) -> list[dict]:
+def apply_override(profile: dict, override: dict) -> dict:
+    """Apply an authored draft onto a compiled profile.
+
+    Only declared, validated fields are copied; the digest is recomputed so the
+    catalog never claims the original contract.
+    """
+    clause = override.get("clause") or {}
+    updated = dict(profile)
+    for field in ("positive_definition", "distinguish_from", "exclusions", "output_scopes", "publication"):
+        if field in clause:
+            updated[field] = clause[field]
+    for part, keys in (("retrieval", ("positive_terms", "negative_terms", "structural_anchors")),
+                       ("acceptance", ("minimum_reports", "samples"))):
+        body = override.get(part) or {}
+        for key in keys:
+            if key in body:
+                updated[part] = {**updated.get(part, {}), key: body[key]}
+    requirements = (override.get("evidence") or {}).get("requirements")
+    if requirements is not None:
+        updated["evidence"] = requirements
+    # The merged contract is a new contract: its digest must describe the edit,
+    # not the package it came from.
+    updated["contract_digest"] = "0" * 64
+    updated["contract_digest"] = profile_digest(ClauseExtractionProfile.model_validate(updated))
+    return updated
+
+
+def build_profiles(standards_root: Path, dictionary: dict | None,
+                   overrides: dict[tuple[str, str, str], dict] | None = None) -> list[dict]:
     registry, _, packages = load_registry(standards_root)
     terms = clause_retrieval_terms(standards_root)
     outputs = []
@@ -116,7 +144,14 @@ def build_profiles(standards_root: Path, dictionary: dict | None) -> list[dict]:
                 skipped.append({"metric_id": metric.metric_id, "source_datapoint_id": source_id,
                                 "reason": str(error)})
                 continue
-            profiles.append({"profile": profile.model_dump(mode="json"),
+            body = profile.model_dump(mode="json")
+            override = (overrides or {}).get((package.manifest.package_id, package.manifest.package_version, source_id))
+            if override is not None:
+                body = apply_override(body, override)
+                profile = ClauseExtractionProfile.model_validate(body)
+                validate_profile(profile)
+                body = profile.model_dump(mode="json")
+            profiles.append({"profile": body,
                              "paragraph": metric.paragraph, "source_refs": list(metric.source_refs),
                              "disclosure_requirement": metric.disclosure_requirement,
                              "obligation_class": str(getattr(metric.obligation_class, "value", metric.obligation_class)),

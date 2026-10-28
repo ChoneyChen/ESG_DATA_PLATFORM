@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_32",
-  "contract_digest": "fdbe20f749c9a809efe8edc277294e8817c90714526e7e2c3cf6b1537fec6b39",
+  "contract_digest": "1bd7fad117aa3e620556464518d0b4a9c8a2c4b93aa954bdcc739cc68de18d66",
   "description": "用于温室气体强度计算的净收入与财务报表净收入之间的对账说明。需有明确的对账关系、差异或一致性陈述；整张经济绩效表不是对账说明。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",

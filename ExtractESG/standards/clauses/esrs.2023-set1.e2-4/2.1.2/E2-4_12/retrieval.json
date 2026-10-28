@@ -4,12 +4,12 @@
   "positive_terms": [
     "Percentage of total emissions of pollutants to water occurring in areas of high-water stress",
     "高水压力地区水污染物排放占比",
-    "Water pollution",
-    "水体污染排放",
-    "emissions to water",
-    "discharge to water",
-    "effluent discharge",
-    "水污染"
+    "Percentage",
+    "百分比指标",
+    "share",
+    "proportion",
+    "percentage of total",
+    "占比"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

@@ -4,12 +4,12 @@
   "positive_terms": [
     "Total GHG emissions using location-based Scope 2",
     "范围 1＋位置法范围 2＋范围 3 温室气体排放总量",
-    "Total GHG emissions",
-    "温室气体排放合计",
-    "total scope 1 2 and 3 emissions",
-    "范围1、2、3排放总和",
     "Location-based",
-    "基于位置法"
+    "基于位置法",
+    "location based method",
+    "位置法",
+    "Total GHG emissions",
+    "温室气体排放合计"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

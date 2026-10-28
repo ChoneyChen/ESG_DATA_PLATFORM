@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_12",
-  "contract_digest": "a2c693bcd82765d49362e937c09fa8af1a90dff3898b0058bfda18c05fd2182f",
+  "contract_digest": "fc0bc5e311bef1ccc62e60221ba25f06182998c581e7c6d29a1ddac63f92fdf3",
   "description": "AR 23(c) 的可选背景信息；高水压力属于水风险的特定类别。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",

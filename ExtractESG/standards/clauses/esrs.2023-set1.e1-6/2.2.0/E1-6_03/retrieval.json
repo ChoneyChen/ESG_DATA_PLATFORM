@@ -4,12 +4,12 @@
   "positive_terms": [
     "GHG emissions disaggregation",
     "温室气体排放分解维度",
+    "Disaggregation",
+    "分解",
+    "GHG disaggregation",
+    "排放分拆",
     "GHG emissions",
-    "温室气体排放",
-    "greenhouse gas emissions",
-    "温室气体排放量",
-    "溫室氣體排放",
-    "溫室氣體排放量"
+    "温室气体排放"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_29",
-  "contract_digest": "0bda7fbe21057a22072eed84545d30e4390a270a1aba8306d9d8824a42dd4a18",
+  "contract_digest": "00e66e0462715bd70f37134ab886cbc13af47f31cddff0c1c65c7cc1287fc19f",
   "description": "范围3盘查边界、计算方法、关键假设、数据来源和工具。输出实际方法陈述并分别举证，不能以类别数字或单位代替。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",

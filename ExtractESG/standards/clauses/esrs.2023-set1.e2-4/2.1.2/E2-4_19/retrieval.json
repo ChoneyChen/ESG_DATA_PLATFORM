@@ -4,12 +4,12 @@
   "positive_terms": [
     "Disclosure of actual performance against environmental performance levels associated with best available techniques (BAT-AEPLs) applicable to sector and installation",
     "实际环境绩效与 BAT-AEPL 比较",
-    "Environmental performance",
-    "环境绩效",
-    "actual performance",
-    "实际绩效",
-    "环境表现",
-    "BAT-associated environmental performance level"
+    "BAT-associated environmental performance level",
+    "BAT相关环境绩效水平",
+    "BAT AEPL",
+    "best available techniques associated environmental performance level",
+    "最佳可行技术相关环境绩效水平",
+    "Environmental performance"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

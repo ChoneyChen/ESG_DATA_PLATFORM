@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_11",
-  "contract_digest": "92810bb0083da716b524c08290698261226c357e4816dfba49155f03eb9244f1",
+  "contract_digest": "8277af1a45b354a984ab9094e36f159a44262b051a10c40a709cb4525557d691",
   "description": "AR 23(c) 的可选背景信息。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",

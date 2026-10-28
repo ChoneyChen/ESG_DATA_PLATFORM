@@ -22,7 +22,9 @@ def clause_retrieval_terms(standard_root: Path, *, profile: str | None = None) -
             if selected is not None and metric.source_datapoint_id not in selected:
                 continue
             positive = []
-            for concept_id in {cid for group in metric.subject_concept_groups for cid in group}:
+            # Sorted: set iteration order differs between processes, which would
+            # make the clause catalog non-reproducible.
+            for concept_id in sorted({cid for group in metric.subject_concept_groups for cid in group}):
                 concept = next((item for item in package.concepts if item.concept_id == concept_id), None)
                 if concept:
                     positive.extend(concept.labels.values())

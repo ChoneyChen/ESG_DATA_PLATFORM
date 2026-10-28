@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_25",
-  "contract_digest": "07ab0b6378b0b0f50054f8dcd868d25802fa0f719ace9223d856860911beb5c0",
+  "contract_digest": "269d353bc6c7b3c80c406d1a9faa18d7994d50364db45f9f2b0d643afc96e351",
   "description": "使用供应商或其他价值链伙伴一手数据计算的范围3排放比例。需明确连接一手数据、范围3计算及比例口径。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "detail",

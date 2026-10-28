@@ -1,7 +1,7 @@
 {
   "canonical_unit": "currency",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_18",
-  "contract_digest": "b4e56c7536371538501f8f1db1942412e7a7feef378343d8947ebd09fe7c3c59",
+  "contract_digest": "c6ae3e1f1b7928751af0677bf7c9b953a7676aa132ff76268cc3f531ce295272",
   "description": "以高气候影响行业的能源消费量除以相应净收入形成能源强度；法规计量语义为 MWh/货币单位。",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",

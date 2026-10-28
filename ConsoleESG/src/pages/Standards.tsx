@@ -1,6 +1,7 @@
 import {ExtensionManagement} from "../components/ExtensionManagement";
 import {ClauseLifecyclePanel} from "../components/ClauseLifecyclePanel";
 import {ClauseProfiles} from "../components/ClauseProfiles";
+import {ClauseEditor} from "../components/ClauseEditor";
 import {useState} from 'react';
 import {type Row} from '../api';
 import {useResource,useWorkspace} from '../state';
@@ -11,7 +12,7 @@ export function Standards(){
  const catalog=useResource('document','/api/pipeline/standards/catalog');
  const profile=useResource('document','/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3');
  const lifecycleView=useResource('document','/api/pipeline/clause-lifecycle');
- const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState('');
+ const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false);
  const detail=useResource('document',selected?`/api/pipeline/standards/${encodeURIComponent(selected.package_id)}/${encodeURIComponent(selected.package_version)}`:null);
  const packages:Row[]=catalog.data?.packages || [],major=new Set<string>(profile.data?.overall_source_datapoint_ids || []);
  const manifest=detail.data?.manifest;
@@ -58,6 +59,8 @@ export function Standards(){
     <td>{m.obligation_class}<details><summary>身份与证据合同</summary><dl className="facts"><dt>正向定义</dt><dd>{m.measurement_contract?.positive_definition || m.description || m.labels?.zh || '详见合同'}</dd><dt>阅读说明</dt><dd>{(m.measurement_contract?.interpretation_guidance || []).join('；') || '无补充说明'}</dd><dt>易混概念</dt><dd>{(m.measurement_contract?.distinguish_from || []).join('、') || '详见合同'}</dd><dt>身份轴</dt><dd>{(m.measurement_contract?.identity_axes || []).join('、') || '详见合同'}</dd><dt>排除条件</dt><dd>{(m.measurement_contract?.exclusions || []).join('；') || '详见合同'}</dd></dl><Diagnostics value={m} title="完整合同"/></details></td>
    </tr>)}</tbody></table></div></Section>
    {!identityMismatch&&<ClauseProfiles profiles={detail.data?.profiles || []} skipped={detail.data?.profile_skipped || []}/>}
+   {!identityMismatch&&selected&&<div className="button-row"><button className="secondary" onClick={()=>setEditing(!editing)}>{editing?'收起条款编辑':'编辑条款'}</button></div>}
+   {!identityMismatch&&editing&&selected&&<ClauseEditor packageId={selected.package_id} version={selected.package_version} profiles={detail.data?.profiles || []} onClose={()=>setEditing(false)}/>}
    {!identityMismatch&&lifecycle.length>0&&<Section title="条款生命周期与真实验收" action={<Badge value={`${lifecycle.filter(row=>row.state==='publishable').length}/${lifecycle.length} 可发布`}/>}>
     <ClauseLifecyclePanel packageId={selected.package_id} version={selected.package_version} rows={lifecycle} versions={versions} refresh={()=>{workspace.refresh();detail.retry();lifecycleView.retry();}}/>
    </Section>}

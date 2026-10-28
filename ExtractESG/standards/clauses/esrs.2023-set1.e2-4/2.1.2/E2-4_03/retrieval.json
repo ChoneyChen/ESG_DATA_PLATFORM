@@ -4,12 +4,12 @@
   "positive_terms": [
     "Emissions to water by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
     "按污染物划分的水体排放量",
-    "Water pollution",
-    "水体污染排放",
-    "emissions to water",
-    "discharge to water",
-    "effluent discharge",
-    "水污染"
+    "Emission amount",
+    "污染排放量",
+    "emissions",
+    "discharges",
+    "releases",
+    "released amount"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

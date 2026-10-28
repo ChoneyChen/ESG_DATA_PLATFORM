@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_16",
-  "contract_digest": "4e4f95ca91d7fdb7fc0656cc805f1d3022061ebf3397979377ef303f8179a44c",
+  "contract_digest": "78e9b0c9995b42bd35f59e1f77fe6938f523587727a09b5f3f44c4be8ce95d81",
   "description": "在企业活动适用 IED 和相关 BREF 时，可披露附加信息。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "context",

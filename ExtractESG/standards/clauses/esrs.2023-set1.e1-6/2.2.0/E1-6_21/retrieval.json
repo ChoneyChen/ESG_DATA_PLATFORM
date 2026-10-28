@@ -4,12 +4,12 @@
   "positive_terms": [
     "Share linked to bundled energy attribute claims",
     "关联捆绑能源属性声明的比例",
+    "Bundled energy attribute claim",
+    "捆绑能源属性声明",
+    "bundled energy attribute claims",
     "Scope 2 emissions",
     "范围2排放",
-    "scope2",
-    "scope II",
-    "energy indirect GHG emissions",
-    "范围2"
+    "scope2"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

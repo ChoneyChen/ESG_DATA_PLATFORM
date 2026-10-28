@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_15",
-  "contract_digest": "34a2dba6b9f72a53d1bc8cea80874e18377919c36923227ffd4fbee817fd61f6",
+  "contract_digest": "175566674966f39f95f94f3c2c71f44bc86c3d6656b9867534591d16fb08ed08",
   "description": "温室气体核算采用的方法、关键假设、排放因子来源和计算工具。分别保留有语义的原文陈述；ISO、GHG Protocol、IPCC、电网因子或供应商参数只有在证据明确适用于本报告时才写入。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",

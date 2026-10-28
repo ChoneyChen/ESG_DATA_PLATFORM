@@ -1,7 +1,7 @@
 {
   "canonical_unit": "currency",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_34",
-  "contract_digest": "7425ff94e1905af71d08c66b7981763312c92badfdcad9d45a162df0f35c9223",
+  "contract_digest": "a548c63f649e3c0035addccfd75f10ce0931119502991b993aad570992605174",
   "description": "企业实际用于温室气体强度分母的净收入。必须由强度计算说明或对账表明确支持；工业增加值、利润或一般营业收入不能在缺少关联证据时自动采用。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "detail",

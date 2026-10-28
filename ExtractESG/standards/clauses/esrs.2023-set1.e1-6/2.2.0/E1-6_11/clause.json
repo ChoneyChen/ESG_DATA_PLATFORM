@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_11",
-  "contract_digest": "6823f2c726e47e83d62d3fff04f358a961eecb2b7c5cd92fb0dc91d83e577d1d",
+  "contract_digest": "59ee0361e6abdb90856357c39a7de471a1f5750c60626227de77bb0b00f27c44",
   "description": "范围3温室气体绝对排放总量及重大类别分解。保留总量、小计和类别各自的源行身份，不能把合计当类别，也不能将总量与成员重复相加。各期间和实体分别成事实。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",

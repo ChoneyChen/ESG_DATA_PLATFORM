@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_21",
-  "contract_digest": "fd5c39ec8285be8318378f57b8a4ce2a69ff6b07f8a6d966893934ddc784cfc0",
+  "contract_digest": "0c87d082dc7e1d86955ca942c8cab3dee671e7685a25933ed489bcbc6575b5ec",
   "description": "能源强度所用净收入的对账说明",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "context",

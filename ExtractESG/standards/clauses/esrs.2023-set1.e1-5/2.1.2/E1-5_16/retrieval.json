@@ -4,12 +4,12 @@
   "positive_terms": [
     "Non-renewable energy production",
     "非可再生能源生产量",
-    "Non-renewable energy",
-    "非可再生能源",
-    "non renewable energy",
     "Energy production",
     "能源生产",
-    "energy generated"
+    "energy generated",
+    "power generation",
+    "能源产量",
+    "发电量"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

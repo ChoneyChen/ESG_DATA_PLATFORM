@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_18",
-  "contract_digest": "f91e113c5c8f68b00ecdd08541cea8058172e67268b71d376dead8b2799e1c4b",
+  "contract_digest": "b3b68cc0d3b6b67c5b5b5bbbbe28e9d3988a6b833cb5d955c916118a648c7af8",
   "description": "与合同工具相关的范围2排放比例。分子、分母或文字说明必须明确连接范围2排放与合同工具；绿电或绿证的存在本身不等于该排放比例。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "detail",

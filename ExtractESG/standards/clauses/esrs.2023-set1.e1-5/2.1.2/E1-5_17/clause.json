@@ -1,7 +1,7 @@
 {
   "canonical_unit": "MWh",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_17",
-  "contract_digest": "66c2839bff78adb6d3523b9f776bb2b331a01e8a12ef26bff41b16ec6f24d5ce",
+  "contract_digest": "934ee8da302a4ebbc78ffd05f2074833e0a23efbdfebc3afa6df86afae93a28f",
   "description": "可再生能源生产量",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "anchor",

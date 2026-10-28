@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tonne",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_03",
-  "contract_digest": "67db2cb31f5223f72210f5a4f6abb2b77d4bfd6c54b3557967dd39e114f45c39",
+  "contract_digest": "774a0a31f1f872dfc530ffd7476743601a76729a4bf9373ebf2bb9cce135ec33",
   "description": "披露 E-PRTR 附件 II 所列污染物排入水体的量。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "anchor",

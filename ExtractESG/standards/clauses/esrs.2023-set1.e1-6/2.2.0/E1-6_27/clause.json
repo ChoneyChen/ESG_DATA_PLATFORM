@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_27",
-  "contract_digest": "06ba71c4047c11d0b1269a192835cc25b9a6aa73c8ea99e02557b3456e4335da",
+  "contract_digest": "aea1ff57d6ff0212eef78c0ac81a2dfb96cfb275778c891765a07129e805daab",
   "description": "纳入温室气体盘查的范围3类别清单。每个类别形成独立列表事实并保留证据；总计、年份、单位和类别排放数字不是清单成员。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",

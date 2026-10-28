@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_13",
-  "contract_digest": "f6acc313127b04f0f9f813f5defee143f64dccbab008302cdc5420342d21436c",
+  "contract_digest": "abd933bc53deee7eb468e3608d455f72242f7fc457f7beb6b2ca1ef4ad6912e6",
   "description": "采用市场法范围2口径的温室气体总量，即范围1、市场法范围2及范围3的合计。优先提取明确披露值；缺少市场法范围2时不得借用位置法数值或形成派生总量。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "derived",

@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_02",
-  "contract_digest": "b01647ef343bcfcaadfce8866772b5d0914179dc66e0435fd568e26fff0d09ac",
+  "contract_digest": "9cb537feddfca927d55eb017023671e3eba6ef88c6815852b8c4e74edd249da7",
   "description": "企业说明温室气体盘查采用的组织边界，包括财务控制、运营控制或其他明确方法。每种实际采用的方法形成可独立举证的断言；不能把表中公司名称、合计列或数值当作边界方法。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "presentation",

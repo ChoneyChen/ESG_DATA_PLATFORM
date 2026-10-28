@@ -4,12 +4,12 @@
   "positive_terms": [
     "Financial control and operational control boundary table",
     "财务控制与运营控制边界表",
+    "Control boundary",
+    "控制边界",
+    "financial or operational control",
+    "组织边界",
     "GHG emissions",
-    "温室气体排放",
-    "greenhouse gas emissions",
-    "温室气体排放量",
-    "溫室氣體排放",
-    "溫室氣體排放量"
+    "温室气体排放"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

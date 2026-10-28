@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_05",
-  "contract_digest": "c93e9013f7aaa810fea7e1f335aa5bb70fcb8e84f3c9bf67ed3e46d886f60c23",
+  "contract_digest": "6208f53b177aa5ce9267b899b0eb5f443ed24e3a9297b8c50bfe9fcfee8e1831",
   "description": "企业按照 ISO 14064-1 披露的范围3类别清单。每个实际披露的类别形成独立清单事实，并分别保留证据；总计、合计、小计、标题和注释不是类别成员。只有报告正文、表头或关联方法说明明确建立 ISO 14064-1 口径时才匹配本指标，不能把普通 GHG Protocol 类别表改贴为 ISO 分类。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "presentation",

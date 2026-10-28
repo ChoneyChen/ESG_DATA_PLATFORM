@@ -4,12 +4,12 @@
   "positive_terms": [
     "High climate impact sectors used to determine energy intensity",
     "用于确定能源强度的高气候影响行业清单",
-    "High climate impact sector",
-    "高气候影响行业",
-    "high climate impact sectors",
-    "高气候影响部门",
     "Energy intensity",
-    "能源强度"
+    "能源强度",
+    "energy consumption intensity",
+    "能耗强度",
+    "High climate impact sector",
+    "高气候影响行业"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

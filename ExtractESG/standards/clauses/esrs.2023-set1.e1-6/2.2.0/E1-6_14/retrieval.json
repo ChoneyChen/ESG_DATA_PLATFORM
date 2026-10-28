@@ -4,12 +4,12 @@
   "positive_terms": [
     "Changes in reporting boundary, methods, data or emission factors",
     "报告边界、方法、数据或排放因子的变更及可比性",
+    "Comparability change",
+    "可比性变更",
+    "methodology boundary or data change",
+    "基准年或边界变更",
     "GHG emissions",
-    "温室气体排放",
-    "greenhouse gas emissions",
-    "温室气体排放量",
-    "溫室氣體排放",
-    "溫室氣體排放量"
+    "温室气体排放"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

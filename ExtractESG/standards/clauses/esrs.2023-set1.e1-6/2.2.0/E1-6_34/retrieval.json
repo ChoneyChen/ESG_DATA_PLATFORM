@@ -4,12 +4,12 @@
   "positive_terms": [
     "Net revenue used to calculate GHG intensity",
     "用于计算温室气体强度的净收入",
+    "GHG intensity",
+    "温室气体排放强度",
+    "greenhouse gas intensity",
+    "碳排放强度",
     "Net revenue",
-    "净收入",
-    "revenue denominator",
-    "revenue",
-    "营业净收入",
-    "营业收入"
+    "净收入"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

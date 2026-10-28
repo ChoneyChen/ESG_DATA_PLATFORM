@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_09",
-  "contract_digest": "d5ddb2454a2da11e7e3ee1e33e47be50d5e045d494def26aa18e20b45be9717c",
+  "contract_digest": "a4fd216a4be48542186208021b5401c255ce9aa7499f7bdd2997242da1cf4fdb",
   "description": "AR 26 给出方法优先顺序；AR 27 要求考虑 BREF/基准、AMS 校准和独立实验室验证。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "context",

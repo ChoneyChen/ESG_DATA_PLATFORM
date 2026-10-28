@@ -4,12 +4,12 @@
   "positive_terms": [
     "Reconciliation of net revenue used for GHG intensity",
     "温室气体强度所用净收入的对账说明",
+    "GHG intensity",
+    "温室气体排放强度",
+    "greenhouse gas intensity",
+    "碳排放强度",
     "Net revenue",
-    "净收入",
-    "revenue denominator",
-    "revenue",
-    "营业净收入",
-    "营业收入"
+    "净收入"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

@@ -4,12 +4,12 @@
   "positive_terms": [
     "Gross location-based Scope 2 GHG emissions",
     "基于位置法的范围2温室气体排放总量",
-    "Scope 2 emissions",
-    "范围2排放",
-    "scope2",
-    "scope II",
-    "energy indirect GHG emissions",
-    "范围2"
+    "Gross GHG emissions",
+    "温室气体排放总量",
+    "gross greenhouse gas emissions",
+    "温室气体总排放",
+    "Location-based",
+    "基于位置法"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

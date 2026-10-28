@@ -4,12 +4,12 @@
   "positive_terms": [
     "Disclosure of reasons for choosing inferior methodology to quantify emissions",
     "选择低于直接测量优先级方法的原因",
-    "Method choice reason",
-    "量化方法选择原因",
-    "reason for estimation",
-    "reason for lower-priority method",
-    "方法选择原因",
-    "采用估算的原因"
+    "Measurement methodology",
+    "污染测量方法",
+    "measurement",
+    "monitoring method",
+    "estimation method",
+    "calculation method"
   ],
   "schema_version": "clause-retrieval-1.0",
   "structural_anchors": []

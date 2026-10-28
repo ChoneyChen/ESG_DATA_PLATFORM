@@ -591,12 +591,13 @@ def pipeline_standard_catalog():
     return _targeted_catalog_request("/api/standards/catalog")
 
 
-def _targeted_write(path: str, body: dict) -> dict:
+def _targeted_write(path: str, body: dict | None, method: str = "POST") -> dict:
     """Forward one lifecycle action to the targeted backend, preserving its refusal reason."""
     try:
         with requests.Session() as session:
             session.trust_env = False
-            response = session.post(f"{settings.targeted_backend_url}{path}", json=body, timeout=60)
+            response = session.request(method, f"{settings.targeted_backend_url}{path}",
+                                       **({"json": body} if body is not None else {}), timeout=60)
             response.raise_for_status()
             return response.json()
     except requests.HTTPError as exc:
@@ -608,6 +609,36 @@ def _targeted_write(path: str, body: dict) -> dict:
         raise HTTPException(status if status in {400, 404, 409} else 502, detail) from exc
     except (requests.RequestException, ValueError) as exc:
         raise HTTPException(503, "无法连接定向后端，条款操作暂不可用") from exc
+
+
+@app.get("/api/pipeline/clause-drafts")
+def pipeline_clause_drafts():
+    return _targeted_catalog_request("/api/clause-drafts")
+
+
+@app.get("/api/pipeline/clause-drafts/{draft_id}")
+def pipeline_clause_draft(draft_id: str):
+    return _targeted_catalog_request(f"/api/clause-drafts/{quote(draft_id, safe='')}")
+
+
+@app.post("/api/pipeline/clause-drafts")
+def pipeline_clause_draft_create(request: dict = Body(...)):
+    return _targeted_write("/api/clause-drafts", request)
+
+
+@app.put("/api/pipeline/clause-drafts/{draft_id}")
+def pipeline_clause_draft_save(draft_id: str, request: dict = Body(...)):
+    return _targeted_write(f"/api/clause-drafts/{quote(draft_id, safe='')}", request, "PUT")
+
+
+@app.post("/api/pipeline/clause-drafts/{draft_id}/validate")
+def pipeline_clause_draft_validate(draft_id: str):
+    return _targeted_write(f"/api/clause-drafts/{quote(draft_id, safe='')}/validate", None)
+
+
+@app.delete("/api/pipeline/clause-drafts/{draft_id}")
+def pipeline_clause_draft_discard(draft_id: str):
+    return _targeted_write(f"/api/clause-drafts/{quote(draft_id, safe='')}", None, "DELETE")
 
 
 @app.get("/api/pipeline/clause-catalog")

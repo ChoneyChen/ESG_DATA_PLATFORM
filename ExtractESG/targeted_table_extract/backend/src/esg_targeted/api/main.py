@@ -24,6 +24,7 @@ from esg_targeted.results.spec import result_contract
 from esg_targeted.standards.catalog import StandardPackageCatalog
 from esg_targeted.standards.clause_lifecycle_service import ClauseLifecycleService
 from esg_standard_packages.clause_package import ClausePackageCatalog
+from esg_standard_packages.clause_drafts import ClauseDraftStore
 from esg_targeted.standards.runtime_snapshot import registered_extensions, freeze_extraction_request
 from esg_targeted.runtime_compatibility import compatibility_snapshot, require_runtime_ready, RuntimeCompatibilityError
 from esg_targeted.storage.artifacts import ArtifactStore
@@ -53,6 +54,7 @@ ir_catalog = DocumentIrCatalog(settings.ir_roots)
 standard_catalog = StandardPackageCatalog(settings.standard_dist_root)
 clause_lifecycle = ClauseLifecycleService(standard_catalog)
 clause_profiles = ClausePackageCatalog(settings.standard_dist_root.parent)
+clause_drafts = ClauseDraftStore(settings.standard_dist_root.parent)
 workflow = TargetedExtractionWorkflow(settings, job_store, artifact_store)
 inspection_service = ResultInspectionService(artifact_store)
 report_sessions = ReportSessionService(settings, job_store, artifact_store)
@@ -570,6 +572,72 @@ def get_standard(package_id: str, package_version: str) -> dict:
                      for profile in clause_profiles.for_package(package_id, package_version).values()],
         "profile_skipped": clause_profiles.skipped(package_id, package_version),
     }
+
+
+class ClauseDraftCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    package_id: str
+    package_version: str
+    source_datapoint_id: str
+    author: str
+    note: str
+
+
+class ClauseDraftSave(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    edits: dict
+    author: str
+    note: str = ""
+    expected_digest: str | None = None
+
+
+@app.get("/api/clause-drafts")
+def list_clause_drafts() -> dict:
+    return {"schema_version": "clause-draft-list-1.0", "drafts": clause_drafts.list()}
+
+
+@app.post("/api/clause-drafts")
+def create_clause_draft(request: ClauseDraftCreate) -> dict:
+    try:
+        return clause_drafts.create(package_id=request.package_id, package_version=request.package_version,
+                                    source_datapoint_id=request.source_datapoint_id,
+                                    author=request.author, note=request.note)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
+@app.get("/api/clause-drafts/{draft_id}")
+def get_clause_draft(draft_id: str) -> dict:
+    try:
+        return clause_drafts.load(draft_id)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(404, str(exc)) from exc
+
+
+@app.put("/api/clause-drafts/{draft_id}")
+def save_clause_draft(draft_id: str, request: ClauseDraftSave) -> dict:
+    try:
+        return clause_drafts.save(draft_id, request.edits, author=request.author, note=request.note,
+                                  expected_digest=request.expected_digest)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
+@app.post("/api/clause-drafts/{draft_id}/validate")
+def validate_clause_draft(draft_id: str) -> dict:
+    try:
+        return clause_drafts.validate_parts({name: clause_drafts.load(draft_id)[name]
+                                             for name in ("clause", "retrieval", "evidence", "acceptance", "provenance")})
+    except (ValueError, OSError) as exc:
+        raise HTTPException(404, str(exc)) from exc
+
+
+@app.delete("/api/clause-drafts/{draft_id}")
+def discard_clause_draft(draft_id: str) -> dict:
+    try:
+        return clause_drafts.discard(draft_id)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
 
 
 @app.get("/api/clause-catalog")

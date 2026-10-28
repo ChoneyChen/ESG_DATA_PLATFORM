@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_26",
-  "contract_digest": "28c7730f6e4ae19abbac30e05269f04107d687f8f7d9a3a89c1b31cb978efe97",
+  "contract_digest": "19f137fb1db17aeb5b8cb0bb024aee870f400e32cb5849f58118b24b76467bd7",
   "description": "企业排除某一范围3类别的具体理由。每条事实必须包含被排除类别及可读理由；类别排放数值或总计不是排除理由。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",

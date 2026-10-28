@@ -1,7 +1,7 @@
 {
   "canonical_unit": null,
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_15",
-  "contract_digest": "ab726ae31aa0f32541b5a10da4b18375f58877f47fad45276e99596e2513cf3a",
+  "contract_digest": "9a3a9e12047125296796bb99c57fdfd62409ff35f1e5b2d1d0fd7a1b2bf03668",
   "description": "仅在采用低于直接测量的量化方法时适用；使用估算还应披露依据、可能不确定性程度和估算范围。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "context",
