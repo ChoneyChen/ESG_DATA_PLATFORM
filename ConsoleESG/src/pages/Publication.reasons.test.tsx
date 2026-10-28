@@ -37,24 +37,15 @@ describe('发布门禁原因使用实际科学口径，不混淆比较排除',()
   expect(blockerText('future_gate')).toBe('尚需核对的发布条件');
   expect(blockerText('not_comparable')).toBe('尚需核对的发布条件');
  });
- it('实际发布页服务器端按报告过滤，未知code只保留诊断，版本冲突不引导直接批准，审核链接保留报告',async()=>{
-  render(<WorkspaceProvider><Publication params={new URLSearchParams('report=report%20%2F%20old')}/></WorkspaceProvider>);
-  fireEvent.click(await screen.findByRole('tab',{name:'发布条件与阻塞'}));
-  expect(await screen.findByText('缺少必要维度：污染介质')).toBeDefined();
-  expect(screen.getByText('发布条件候选 · 1')).toBeDefined();
-  expect(screen.getByRole('button',{name:'进入报告审核'})).toBeDefined();
+ it('报告发布页按报告过滤，未知原因只保留原文，审核链接保留报告',async()=>{
+  render(<WorkspaceProvider><Publication params={new URLSearchParams()} reportRef="report / old"/></WorkspaceProvider>);
+  expect(await screen.findByText('范围1')).toBeDefined();
+  expect(screen.getByText(/缺少必要维度：污染介质/)).toBeDefined();
+  expect(screen.getByText(/尚需核对的发布条件/)).toBeDefined();
   expect(calls.find(url=>url.includes('/candidates?'))).toContain('&report_ref=report%20%2F%20old');
-  expect(screen.getByText('尚需核对的发布条件')).toBeDefined();
-  expect(screen.getByText(/当前只显示该报告；发布、撤下与删除都以这份报告为单位/)).toBeDefined();
-  expect(screen.getByText('待发布报告')).toBeDefined();
-  fireEvent.click(screen.getByRole('tab',{name:'记录与诊断'}));
-  expect(screen.getByText('持久发布事件（所有报告）')).toBeDefined();
-  fireEvent.click(screen.getByRole('tab',{name:'发布条件与阻塞'}));
   expect(screen.getByText(/批准事实或口径不能改变既有任务所用的版本/)).toBeDefined();
-  fireEvent.click(screen.getByText('原始发布原因代码'));
-  expect(screen.getByText(/unrecognized_future_reason/)).toBeDefined();
-  fireEvent.click(screen.getByRole('button',{name:'查看审核与来源'}));
+  fireEvent.click(screen.getByRole('button',{name:'审核'}));
   expect(window.location.hash).toBe('#/review/mapping%2F1?report=report%20%2F%20old');
-  expect(screen.queryByRole('button',{name:'处理审核条件'})).toBeNull();
+  expect(screen.queryByRole('tab')).toBeNull();
  });
 });

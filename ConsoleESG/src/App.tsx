@@ -67,9 +67,9 @@ export default function App() {
     case 'processing': page = <Processing key={`${route.id || ''}:${route.params.toString()}`} processingId={route.id === 'new' ? undefined : route.id} newTask={route.id === 'new'} params={route.params}/>; break;
     case 'automation': page = <Automation key={`${route.id || ''}:${route.params.toString()}`} automationId={route.id === 'new' ? undefined : route.id} newTask={route.id === 'new'} params={route.params}/>; break;
     case 'extractions': page = <Extractions key={`${route.id || ''}:${route.tab || ''}:${route.params.toString()}`} sessionId={['new', 'standalone'].includes(route.id || '') ? undefined : route.id} standaloneJobId={route.id === 'standalone' ? route.tab : undefined} newTask={route.id === 'new'} params={route.params}/>; break;
-    case 'standards': page = <Standards/>; break;
+    case 'standards': page = <Standards key={`${route.id || 'center'}:${route.tab || ''}`} packageId={route.id} clauseId={route.tab}/>; break;
     case 'review': page = <Review mappingId={route.id} params={route.params}/>; break;
-    case 'publication': page = <Publication params={route.params}/>; break;
+    case 'publication': page = <Publication key={route.id || ''} reportRef={route.id} params={route.params}/>; break;
     case 'runtime': page = <Runtime/>; break;
     default: page = <Notice tone="error">找不到该工作台页面。<button onClick={() => navigate('/reports')}>返回报告</button></Notice>;
   }

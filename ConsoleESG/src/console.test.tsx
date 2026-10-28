@@ -89,8 +89,7 @@ describe('来源、原编号与合同边界',()=>{
  it('标准中心分别呈现正向定义、阅读指导、易混概念与排除条件',async()=>{
   const p=packages[0],m=p.metric_summaries[0];
   routes[`/document/api/pipeline/standards/${p.package_id}/${p.package_version}`]={metrics:[{...m,measurement_contract:{positive_definition:'能源消费总量定义',interpretation_guidance:['按最终消耗理解'],distinguish_from:['能源生产量'],exclusions:['不得用节能量替代']}}],relations:[],semantic_diagnostics:[]};
-  mount(<Standards/>);
-  fireEvent.click(await screen.findByRole('button',{name:new RegExp(p.disclosure_requirement)}));
+  mount(<Standards packageId={p.package_id} clauseId={m.source_datapoint_id}/>);
   await screen.findByText('能源消费总量定义');
   expect(screen.getByText('按最终消耗理解')).toBeTruthy();
   expect(screen.getByText('能源生产量')).toBeTruthy();

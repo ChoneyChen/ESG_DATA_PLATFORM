@@ -17,6 +17,14 @@ export function readinessText(blockers:unknown[],fallback='当前服务尚未就
 export function ResourceState({error,loading,empty}:{error?:string,loading?:boolean,empty?:boolean}){return error?<Notice tone="error">读取失败：{error}。本次未取得最新状态。</Notice>:loading?<p className="muted">正在读取…</p>:empty?<div className="empty">暂无符合当前条件的记录。</div>:null;}
 export function Section({title,children,action}:{title?:string,children:ReactNode,action?:ReactNode}){return <section className="panel">{title&&<div className="section-title"><h2>{title}</h2>{action}</div>}{children}</section>;}
 export function Field({label:caption,children,hint}:{label:string,children:ReactNode,hint?:string}){return <label className="field"><span>{caption}</span>{children}{hint && <small>{hint}</small>}</label>;}
+export function Modal({title,onClose,children}:{title:string;onClose:()=>void;children:ReactNode}){
+ return <div className="modal-overlay" role="dialog" aria-modal="true" aria-label={title} onMouseDown={event=>{if(event.target===event.currentTarget)onClose();}}>
+  <div className="modal-panel">
+   <header className="modal-head"><h2>{title}</h2><button className="text-button" onClick={onClose}>关闭</button></header>
+   <div className="modal-body">{children}</div>
+  </div>
+ </div>;
+}
 export function MetricValue({value,unit}:{value:unknown,unit?:unknown}){return <span className="metric-value">{value===null||value===undefined?'未披露数值':String(value)}{unit?<small> {String(unit)}</small>:null}</span>;}
 const stageNames:Record<string,string>={queued:'等待执行',starting:'启动执行',running:'正在执行',stopping:'正在取消',completed:'执行完成',partial:'执行结束，有待处理成果',failed:'执行失败',cancelled:'已取消',interrupted:'执行中断',reconnected:'恢复观测已有任务',resource_lifecycle:'资源与执行时间检查',ocr:'文档识别',document_ir:'结构与证据构建',report_session:'报告定向提取',targeted_extraction:'条款提取',retrieval:'检索报告证据',search:'检索报告证据',source_understanding:'理解来源',interpret_source:'理解来源',mapping:'条款映射',map_metrics:'条款映射',metric_mapping:'条款映射',repair_format:'修复输出协议',materialization:'整理事实',export:'保存阶段成果',finalization:'检查并冻结成果',planning:'规划证据动作',quality:'检查证据可用范围',ir:'结构与证据构建'};
 export const stageLabel=(code:unknown)=>stageNames[String(code)] || (/[\u4e00-\u9fff]/.test(String(code || ''))?String(code):'执行阶段待识别');

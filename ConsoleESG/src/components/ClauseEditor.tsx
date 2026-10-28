@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import {credentials,request,type Row} from '../api';
 import {useResource} from '../state';
 import {Badge,Field,Notice,ResourceState,Section} from './ui';
@@ -10,7 +10,7 @@ const ROLES:Record<string,string>={actual:'实际值',target:'目标值',baselin
 
 const toLines = (text: string) => text.split('\n').map(item => item.trim()).filter(Boolean);
 
-export function ClauseEditor({packageId,version,profiles,onClose}:{packageId:string;version:string;profiles:Row[];onClose:()=>void}){
+export function ClauseEditor({packageId,version,profiles,onClose,initialDraftId}:{packageId:string;version:string;profiles:Row[];onClose:()=>void;initialDraftId?:string}){
  const draftsResource=useResource('document','/api/pipeline/clause-drafts');
  const [draftId,setDraftId]=useState(''),[parts,setParts]=useState<Row|null>(null),[meta,setMeta]=useState<Row>({}),
   [author,setAuthor]=useState(credentials.operator || 'local-operator'),[note,setNote]=useState(''),[source,setSource]=useState(''),
@@ -31,6 +31,8 @@ export function ClauseEditor({packageId,version,profiles,onClose}:{packageId:str
   setDraftId(id);setParts(null);
   await run(async()=>{const body=await request<Row>('document',`/api/pipeline/clause-drafts/${encodeURIComponent(id)}`);setParts(body);setMeta(body.manifest||{});setValidation((body.manifest?.validation as Row)||null);return body;},`已打开 ${id}。`);
  }
+
+ useEffect(()=>{if(initialDraftId)void open(initialDraftId);},[initialDraftId]);
 
  function edit(field:string,value:unknown){setParts(prev=>prev?{...prev,[field]:value}:prev);}
  function editPart(part:string,key:string,value:unknown){setParts(prev=>prev?{...prev,[part]:{...(prev[part] as Row),[key]:value}}:prev);}

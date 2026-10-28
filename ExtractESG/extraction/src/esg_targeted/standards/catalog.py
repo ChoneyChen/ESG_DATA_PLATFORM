@@ -20,6 +20,18 @@ class StandardPackageCatalog:
         self._scan_result = None
         self._lock = RLock()
 
+    @property
+    def _titles_path(self) -> Path:
+        return self.dist_root.parent / "profiles/esrs/2023-set1/package-titles.json"
+
+    def _titles(self) -> dict[str, str]:
+        """Short human names for the catalogue index; the package keeps the formal name."""
+        try:
+            payload = json.loads(self._titles_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return {}
+        return {str(key): str(value) for key, value in (payload.get("titles") or {}).items()}
+
     def _registered_releases(self):
         """Canonical catalogues use explicit identities; loose roots are fixtures/legacy."""
         root = self.dist_root.parent
@@ -90,12 +102,13 @@ class StandardPackageCatalog:
                          "error_type": type(exc).__name__, "error": str(exc)}]
         releases = {entry["resolved_path"]: entry for entry in registered[2]} if registered else {}
         paths = sorted(releases) if registered else sorted(self.dist_root.glob("*/*/package.json"))
-        signature_paths = [*paths, *(registered[3] if registered else [])]
+        signature_paths = [*paths, *(registered[3] if registered else []), self._titles_path]
         signature = tuple((str(path), path.stat().st_mtime_ns if path.is_file() else None,
                            path.stat().st_size if path.is_file() else None) for path in signature_paths)
         if signature == self._scan_signature:
             return ([record.model_copy(deep=True) for record in self._scan_result[0]],
                     [dict(issue) for issue in self._scan_result[1]])
+        titles = self._titles()
         for path in paths:
             try:
                 package = self._validate_release(releases[path]) if registered else self.compiler.validate_compiled(path)
@@ -108,7 +121,7 @@ class StandardPackageCatalog:
                     }
                 )
                 continue
-            packages.append(self._catalog_record(path, package))
+            packages.append(self._catalog_record(path, package, titles))
         self._scan_signature = signature
         self._scan_result = (packages, issues)
         return ([record.model_copy(deep=True) for record in packages], [dict(issue) for issue in issues])
@@ -181,15 +194,16 @@ class StandardPackageCatalog:
             raise FileNotFoundError(f"compiled standard package not found: {package_id}@{package_version}")
         return self.compiler.validate_compiled(path)
 
-    @staticmethod
     def _catalog_record(
-        path: Path, package: CompiledStandardPackage
+        self, path: Path, package: CompiledStandardPackage, titles: dict[str, str] | None = None
     ) -> CatalogStandardPackage:
+        requirement = package.manifest.standard.disclosure_requirement
         return CatalogStandardPackage(
             package_id=package.manifest.package_id,
             package_version=package.manifest.package_version,
             status=package.manifest.status,
-            disclosure_requirement=package.manifest.standard.disclosure_requirement,
+            disclosure_requirement=requirement,
+            title=(titles or {}).get(requirement, ""),
             path=str(path.resolve()),
             metric_count=len(package.metrics),
             element_count=len(package.elements),

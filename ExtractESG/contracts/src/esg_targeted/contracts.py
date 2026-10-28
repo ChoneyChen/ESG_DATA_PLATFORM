@@ -289,6 +289,7 @@ class CatalogStandardPackage(StrictModel):
     package_version: str
     status: str
     disclosure_requirement: str
+    title: str = ""
     path: str
     metric_count: int
     element_count: int
