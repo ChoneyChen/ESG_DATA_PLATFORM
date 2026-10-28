@@ -25,7 +25,8 @@ from esg_targeted.standards.catalog import StandardPackageCatalog
 from esg_targeted.standards.clause_lifecycle_service import ClauseLifecycleService
 from esg_standard_packages.clause_package import ClausePackageCatalog
 from esg_standard_packages.clause_drafts import ClauseDraftStore
-from esg_standard_packages.clause_promotion import plan as promotion_plan, promote as promote_draft
+from esg_standard_packages.clause_promotion import (activate_release, plan as promotion_plan,
+                                                     promote as promote_draft)
 from esg_targeted.standards.runtime_snapshot import registered_extensions, freeze_extraction_request
 from esg_targeted.runtime_compatibility import compatibility_snapshot, require_runtime_ready, RuntimeCompatibilityError
 from esg_targeted.storage.artifacts import ArtifactStore
@@ -615,6 +616,24 @@ def clause_promote(draft_id: str, request: ClausePromotion) -> dict:
     try:
         return promote_draft(clause_drafts, draft_id, version=request.version,
                              register=request.register_release, activate=request.activate)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
+class StandardActivation(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    reason: str
+
+
+@app.post("/api/standards/{package_id}/{package_version}/activate")
+def activate_standard(package_id: str, package_version: str, request: StandardActivation) -> dict:
+    if not request.reason.strip():
+        raise HTTPException(409, "切换当前标准需要写明原因")
+    try:
+        result = activate_release(clause_drafts, package_id, package_version)
+        standard_catalog._scan_signature = None
+        standard_catalog._scan_result = None
+        return result
     except (ValueError, OSError) as exc:
         raise HTTPException(409, str(exc)) from exc
 

@@ -621,6 +621,12 @@ def pipeline_clause_promote(draft_id: str, request: dict = Body(...)):
     return _targeted_write(f"/api/clause-drafts/{quote(draft_id, safe='')}/promote", request)
 
 
+@app.post("/api/pipeline/standards/{package_id}/{package_version}/activate")
+def pipeline_standard_activate(package_id: str, package_version: str, request: dict = Body(...)):
+    return _targeted_write(
+        f"/api/standards/{quote(package_id, safe='')}/{quote(package_version, safe='')}/activate", request)
+
+
 @app.get("/api/pipeline/clause-drafts")
 def pipeline_clause_drafts():
     return _targeted_catalog_request("/api/clause-drafts")

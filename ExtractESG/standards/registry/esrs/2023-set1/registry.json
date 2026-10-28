@@ -866,8 +866,8 @@
         "业务批准并发布新版本"
       ],
       "package_id": "esrs.2023-set1.e1-5",
-      "package_version": "2.1.2",
-      "runtime_path": "releases/esrs.2023-set1.e1-5/2.1.2/package.json",
+      "package_version": "2.1.3",
+      "runtime_path": "releases/esrs.2023-set1.e1-5/2.1.3/package.json",
       "source_datapoint_ids": [
         "E1-5_01",
         "E1-5_02",
@@ -893,8 +893,8 @@
         "E1-5_22",
         "E1-5_23"
       ],
-      "source_digest": "0ae216b3cbb45320ed965f738e6abc642e5c3fc22dd405dbf9c0deaeab1bde1d",
-      "source_directory": "authoring/esrs/2023-set1/e1-5/2.1.2",
+      "source_digest": "a94737a6c1360b6ffcde448a8e8e25491868763f93a13904d9e9cc8b32718388",
+      "source_directory": "authoring/esrs/2023-set1/e1-5/2.1.3",
       "source_sheet": "ESRS E1",
       "state": "compiled_draft"
     },

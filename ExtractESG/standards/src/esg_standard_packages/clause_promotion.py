@@ -171,3 +171,36 @@ def promote(store: ClauseDraftStore, draft_id: str, *, version: str | None = Non
         registry_path.write_bytes(pretty_json_bytes(registry))
         result["activated"] = True
     return result
+
+
+def activate_release(store: ClauseDraftStore, package_id: str, version: str) -> dict:
+    """Point the active module pin at an already registered release.
+
+    This changes what every new task reads. It refuses a version that is not
+    registered, retired, or whose release digest disagrees with the index.
+    """
+    root = store.packages.root.parent
+    index = json.loads((root / "registry/releases.json").read_text(encoding="utf-8"))
+    entry = next((row for row in index.get("releases", [])
+                  if row["package_id"] == package_id and row["package_version"] == version), None)
+    if entry is None:
+        raise PromotionError(f"Release is not registered: {package_id}@{version}")
+    if entry.get("state") == "retired":
+        raise PromotionError(f"A retired release cannot become the active standard: {package_id}@{version}")
+    release_path = root / entry["path"]
+    if not release_path.is_file():
+        raise PromotionError(f"Release file is missing: {entry['path']}")
+    compiled = StandardPackageCompiler().validate_compiled(release_path)
+    if compiled.compilation.source_digest != entry["source_digest"]:
+        raise PromotionError("Release digest differs from the index")
+    registry_path = root / "registry/esrs/2023-set1/registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    module = _module_entry(registry, package_id)
+    previous = module["package_version"]
+    module.update({"package_version": version, "runtime_path": entry["path"],
+                   "source_digest": entry["source_digest"], "state": entry.get("state", "compiled_draft"),
+                   "source_directory": (f"authoring/esrs/2023-set1/"
+                                        f"{package_id.rsplit('.', 1)[-1]}/{version}")})
+    registry_path.write_bytes(pretty_json_bytes(registry))
+    return {"package_id": package_id, "from_version": previous, "to_version": version,
+            "source_digest": entry["source_digest"], "changed": previous != version}

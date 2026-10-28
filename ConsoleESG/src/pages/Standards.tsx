@@ -3,7 +3,7 @@ import {ClauseLifecyclePanel} from "../components/ClauseLifecyclePanel";
 import {ClauseProfiles} from "../components/ClauseProfiles";
 import {ClauseEditor} from "../components/ClauseEditor";
 import {useState} from 'react';
-import {type Row} from '../api';
+import {post,type Row} from '../api';
 import {useResource,useWorkspace} from '../state';
 import {Badge,Diagnostics,Field,Notice,ResourceState,Section} from '../components/ui';
 const relationLabels:Record<string,string>={decomposes:'总量与组成',uses_context:'使用背景',depends_on:'必要依赖',conditional_activation:'按条件激活',derived_from:'派生关系',presentation_of:'展示关系',alternative_to:'替代关系'};
@@ -12,7 +12,17 @@ export function Standards(){
  const catalog=useResource('document','/api/pipeline/standards/catalog');
  const profile=useResource('document','/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3');
  const lifecycleView=useResource('document','/api/pipeline/clause-lifecycle');
- const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false);
+ const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false),
+  [activateMessage,setActivateMessage]=useState(''),[activating,setActivating]=useState('');
+  async function switchStandard(targetVersion:string){
+   if(!selected)return;
+   setActivating(targetVersion);setActivateMessage('');
+   try{
+    const result=await post('document',`/api/pipeline/standards/${encodeURIComponent(selected.package_id)}/${encodeURIComponent(targetVersion)}/activate`,{reason:'按条款中心决定切换当前标准'}) as Row;
+    setActivateMessage(`已切换 ${result.package_id}：${result.from_version} → ${result.to_version}（摘要 ${String(result.source_digest||'').slice(0,12)}…）。新任务从下一份开始读取新版本。`);
+    catalog.retry();profile.retry();detail.retry();
+   }catch(error){setActivateMessage((error as Error).message);}finally{setActivating('');}
+  }
  const detail=useResource('document',selected?`/api/pipeline/standards/${encodeURIComponent(selected.package_id)}/${encodeURIComponent(selected.package_version)}`:null);
  const packages:Row[]=catalog.data?.packages || [],major=new Set<string>(profile.data?.overall_source_datapoint_ids || []);
  const manifest=detail.data?.manifest;
@@ -51,7 +61,11 @@ export function Standards(){
      <dt>真实提取验收</dt><dd>{historical?'历史合同不继承当前版本验收':selected.real_extraction_validation==='not_assessed'?'尚未评估':selected.real_extraction_validation || '尚未记录'}</dd>
      <dt>业务批准</dt><dd>{historical?'历史合同不继承当前版本批准':selected.business_approval==='not_assessed'?'尚未评估':selected.business_approval || '尚未记录'}</dd>
     </dl>
-    {otherReleases.length>0&&<p className="muted">同包其他已登记版本：{otherReleases.map(release=><button key={release.package_version} className="text-button" onClick={()=>setSelected({...selected,package_version:release.package_version,is_historical:false})}>v{release.package_version}{release.active?'（当前）':'（试点/草稿）'}</button>)}</p>}<ResourceState error={detail.error} loading={detail.loading}/>
+    {otherReleases.length>0&&<p className="muted">同包其他已登记版本：{otherReleases.map(release=><span key={release.package_version}>
+      <button className="text-button" onClick={()=>setSelected({...selected,package_version:release.package_version,is_historical:false})}>v{release.package_version}{release.active?'（当前）':'（非当前版本）'}</button>
+      {!release.active&&<button className="text-button" disabled={!!activating} onClick={()=>void switchStandard(String(release.package_version))}>切换为当前标准</button>}
+      {' '}</span>)}</p>}
+    {activateMessage&&<Notice>{activateMessage}</Notice>}<ResourceState error={detail.error} loading={detail.loading}/>
     {identityMismatch&&<Notice tone="error">详情返回的包身份与所选固定版本不一致，已停止展示条款。请核对服务，不能用当前版本替代历史合同。</Notice>}
    </Section>
    {!identityMismatch&&detail.data?.semantic_diagnostics?.length>0&&<Notice tone="warning">此版本有 {detail.data?.semantic_diagnostics.length} 条语义诊断，按原合同保留。诊断不修改既有任务的标准身份。<Diagnostics value={detail.data?.semantic_diagnostics} title="历史语义诊断"/></Notice>}

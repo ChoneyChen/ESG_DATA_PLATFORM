@@ -32,7 +32,15 @@ def standards(tmp_path: Path) -> Path:
         {"schema_version": "clause-catalog-1.0", "packages": [entry]}, ensure_ascii=False), encoding="utf-8")
     (root / "registry/esrs/2023-set1").mkdir(parents=True, exist_ok=True)
     registry = json.loads((ROOT / "registry/esrs/2023-set1/registry.json").read_text(encoding="utf-8"))
-    registry["modules"] = [row for row in registry["modules"] if row["package_id"] == PACKAGE[0]]
+    module = next(row for row in registry["modules"] if row["package_id"] == PACKAGE[0])
+    # The live registry may already point at a newer version; this fixture is a
+    # frozen 2.1.2 world that the test can promote inside.
+    module.update({"package_version": PACKAGE[1], "state": "compiled_draft",
+                   "runtime_path": f"releases/{PACKAGE[0]}/{PACKAGE[1]}/package.json",
+                   "source_directory": f"authoring/esrs/2023-set1/e1-5/{PACKAGE[1]}",
+                   "source_digest": json.loads((ROOT / "releases" / PACKAGE[0] / PACKAGE[1] / "package.json")
+                                               .read_text(encoding="utf-8"))["compilation"]["source_digest"]})
+    registry["modules"] = [module]
     (root / "registry/esrs/2023-set1/registry.json").write_text(json.dumps(registry, ensure_ascii=False), encoding="utf-8")
     release = ROOT / "releases" / PACKAGE[0] / PACKAGE[1] / "package.json"
     index = json.loads((ROOT / "registry/releases.json").read_text(encoding="utf-8"))
@@ -117,3 +125,38 @@ def test_activation_is_an_explicit_decision(standards: Path, tmp_path: Path):
     assert result["activated"] is True
     registry = json.loads((standards / "registry/esrs/2023-set1/registry.json").read_text(encoding="utf-8"))
     assert registry["modules"][0]["package_version"] == "2.1.3"
+
+
+def test_activation_points_the_module_pin_at_a_registered_release(standards: Path, tmp_path: Path):
+    from esg_standard_packages.clause_promotion import activate_release
+    store = store_for(standards, tmp_path)
+    promote(store, validated_draft(store))
+    result = activate_release(store, PACKAGE[0], "2.1.3")
+    assert result["from_version"] == "2.1.2" and result["to_version"] == "2.1.3"
+    registry = json.loads((standards / "registry/esrs/2023-set1/registry.json").read_text(encoding="utf-8"))
+    assert registry["modules"][0]["package_version"] == "2.1.3"
+    assert registry["modules"][0]["runtime_path"] == f"releases/{PACKAGE[0]}/2.1.3/package.json"
+
+
+def test_activation_refuses_an_unregistered_or_retired_release(standards: Path, tmp_path: Path):
+    from esg_standard_packages.clause_promotion import activate_release
+    store = store_for(standards, tmp_path)
+    with pytest.raises(PromotionError, match="not registered"):
+        activate_release(store, PACKAGE[0], "9.9.9")
+    index_path = standards / "registry/releases.json"
+    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index["releases"][0]["state"] = "retired"
+    index_path.write_text(json.dumps(index), encoding="utf-8")
+    with pytest.raises(PromotionError, match="retired"):
+        activate_release(store, PACKAGE[0], PACKAGE[1])
+
+
+def test_activation_refuses_a_digest_that_disagrees_with_the_index(standards: Path, tmp_path: Path):
+    from esg_standard_packages.clause_promotion import activate_release
+    store = store_for(standards, tmp_path)
+    index_path = standards / "registry/releases.json"
+    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index["releases"][0]["source_digest"] = "f" * 64
+    index_path.write_text(json.dumps(index), encoding="utf-8")
+    with pytest.raises(PromotionError, match="digest differs"):
+        activate_release(store, PACKAGE[0], PACKAGE[1])
