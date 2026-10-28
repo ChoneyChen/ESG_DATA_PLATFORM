@@ -184,9 +184,12 @@ def test_reported_extension_bundle_reaches_review_publication_and_public_source_
         assert csv_rows[0]['clause_kind'] == 'project_extension'
         assert csv_rows[0]['extension_id'] == release['definition']['extension_id']
         assert csv_rows[0]['source_datapoint_id'] == ''
-        assert json.loads(csv_rows[0]['related_source_datapoint_ids']) == ['E1-6_07', 'E1-6_09', 'E1-6_10']
+        assert csv_rows[0]['related_source_datapoint_ids'].split('|') == ['E1-6_07', 'E1-6_09', 'E1-6_10']
         assert csv_rows[0]['value_origin'] == 'reported' and csv_rows[0]['value_numeric'] == '30'
-        assert all(axis not in row['dimensions'] for axis in replay['unknown_axes'])
+        exported_dimensions = client.get('/v1/exports', params={'format': 'csv', 'table': 'dimensions',
+                                                                'dataset_version': data['dataset_version']})
+        exported_axes = {axis['axis'] for axis in csv.DictReader(io.StringIO(exported_dimensions.text.removeprefix('﻿')))}
+        assert all(axis not in exported_axes for axis in replay['unknown_axes'])
         detail = client.get(f"/v1/observations/{row['observation_id']}", params={'dataset_version': data['dataset_version']}).json()
         assert detail['sources'][0]['raw_value_text'] == '30tCO2e'
         assert detail['sources'][0]['raw_unit'] == 'tCO2e'

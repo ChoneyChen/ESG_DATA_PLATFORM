@@ -133,7 +133,11 @@ def test_public_properties_survive_response_models_and_versioned_csv(client,monk
     assert data["items"][0]["reported_properties"][0]["value_raw"]==["炼化","化工"]
     export=client.get("/v1/exports",params={"format":"csv","dataset_version":data["dataset_version"]})
     rows=list(csv.DictReader(io.StringIO(export.text.lstrip("\ufeff"))))
-    assert json.loads(rows[0]["reported_properties"])==data['items'][0]['reported_properties']
+    assert "reported_properties" not in rows[0] and "dimensions" not in rows[0]
+    properties=client.get("/v1/exports",params={"format":"csv","table":"properties","dataset_version":data["dataset_version"]})
+    property_rows=list(csv.DictReader(io.StringIO(properties.text.lstrip("\ufeff"))))
+    assert property_rows[0]["field_key"]=="business_segment"
+    assert property_rows[0]["value"]=="\u70bc\u5316|\u5316\u5de5" and property_rows[0]["evidence_scope"]=="source"
     assert int(rows[0]["dataset_version"])==data["dataset_version"]
 
 

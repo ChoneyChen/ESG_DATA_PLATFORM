@@ -186,7 +186,7 @@ const groups: {
   {
     id: "export",
     title: "导出",
-    note: "单次导出最多 100,000 条；CSV 与 JSON 使用同一公开字段集。",
+    note: "单次导出最多 100,000 条。观测、维度、补充属性与证据各自成表，不再把 JSON 塞进单元格。",
     endpoints: [
       {
         method: "GET",
@@ -197,6 +197,11 @@ const groups: {
             name: "format",
             type: "csv | json",
             description: "导出格式，默认 csv",
+          },
+          {
+            name: "table",
+            type: "observations | dimensions | properties | evidence",
+            description: "CSV 导出的科学表，默认 observations；JSON 同时包含四张表",
           },
           {
             name: "dataset_version",

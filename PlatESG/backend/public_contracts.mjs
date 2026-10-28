@@ -23,6 +23,11 @@ export function publicObservation(row, metric, publishedAt) {
     ...Object.keys(metric?.fixed_dimensions || {}), ...Object.keys(metric?.dimension_constraints || {}),
     ...(metric?.required_context_fields || [])]);
   result.dimensions = Object.fromEntries(Object.entries(row.dimensions || {}).filter(([key]) => axes.has(key)));
+  // Printed classification, kept unfiltered by the clause axes: a report's own
+  // vocabulary (energy_carrier=solar) is evidence, not a contract violation.
+  result.reported_dimensions = Object.fromEntries(Object.entries(row.reported_dimensions || {})
+    .map(([key, values]) => [key, Array.isArray(values) ? values : [values]]));
+  result.source_row_label = row.source_row_label ?? null;
   result.reported_properties = (row.reported_properties || []).map(publicReportedProperty).filter(Boolean);
   result.identity_evidence = Object.fromEntries([...new Set((row.sources || []).flatMap(source => Object.keys(source.identity_evidence || {})))].sort()
     .map(key => [key, (row.sources || []).flatMap(source => (source.identity_evidence?.[key] || []).map(evidence => ({

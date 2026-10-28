@@ -417,6 +417,8 @@ class Observation(BaseModel):
     value_role: str
     measurement_method: str | None = None
     dimensions: dict
+    reported_dimensions: dict = Field(default_factory=dict)
+    source_row_label: str | None = None
     reported_properties: list[ReportedPropertyResponse] = Field(default_factory=list)
     canonical_unit: str | None = None
     value_numeric: str | None = None
@@ -468,6 +470,95 @@ class ComparisonResponse(BaseModel):
     caveats: list[str] = Field(default_factory=list)
     equivalent_alternatives: list[dict] = Field(default_factory=list)
     source_datapoint_id: str | None = None
+
+
+OBSERVATION_EXPORT_FIELDS = [
+    "dataset_version", "observation_id", "entity_ref", "entity_name", "is_demo", "metric_id",
+    "source_datapoint_id", "label_zh", "clause_kind", "extension_id", "related_source_datapoint_ids",
+    "value_origin", "definition_version", "period_start", "period_end", "boundary_code",
+    "measurement_method", "value_role", "value_numeric", "lower_bound", "upper_bound",
+    "precision_qualifier", "canonical_unit", "statement_text", "source_row_label",
+    "comparison_eligibility", "comparison_reasons", "source_count", "published_at",
+]
+DIMENSION_EXPORT_FIELDS = ["dataset_version", "observation_id", "axis_class", "axis", "ordinal", "value"]
+PROPERTY_EXPORT_FIELDS = ["dataset_version", "observation_id", "field_key", "label_zh", "value_type", "value",
+                          "unit_raw", "evidence_scope", "report_title", "source_role", "source_label"]
+EVIDENCE_EXPORT_FIELDS = ["dataset_version", "observation_id", "evidence_kind", "field_key", "evidence_role",
+                          "page_number", "printed_page_label", "source_quote", "bbox_x0", "bbox_y0",
+                          "bbox_x1", "bbox_y1", "raw_value_text", "raw_unit"]
+
+
+def export_dimensions(rows: list[dict], version: int) -> list[dict]:
+    """Long-format axes so a spreadsheet never has to parse a JSON cell."""
+    out = []
+    for row in rows:
+        for axis_class, source in (("clause", row.get("dimensions") or {}), ("reported", row.get("reported_dimensions") or {})):
+            for axis, values in source.items():
+                for ordinal, value in enumerate(values if isinstance(values, list) else [values], 1):
+                    out.append({"dataset_version": version, "observation_id": row["observation_id"],
+                                "axis_class": axis_class, "axis": axis, "ordinal": ordinal,
+                                "value": json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else value})
+    return out
+
+
+def export_properties(rows: list[dict], version: int) -> list[dict]:
+    """Reported properties as their own scientific table, one row per field."""
+    out = []
+    for row in rows:
+        for prop in row.get("reported_properties") or []:
+            value = prop.get("value_raw")
+            out.append({"dataset_version": version, "observation_id": row["observation_id"],
+                        "field_key": prop.get("field_key"), "label_zh": prop.get("label_zh"),
+                        "value_type": prop.get("value_type"),
+                        "value": "|".join(str(item) for item in value) if isinstance(value, list) else value,
+                        "unit_raw": prop.get("unit_raw"), "evidence_scope": prop.get("evidence_scope"),
+                        "report_title": prop.get("report_title"), "source_role": prop.get("source_role"),
+                        "source_label": prop.get("source_label")})
+    return out
+
+
+def export_evidence(rows: list[dict], version: int) -> list[dict]:
+    """Field-level evidence: which printed text supports which identity field."""
+    out = []
+    for row in rows:
+        for field_key, references in (row.get("identity_evidence") or {}).items():
+            for reference in references:
+                bbox = reference.get("bbox") if isinstance(reference.get("bbox"), dict) else {}
+                out.append({"dataset_version": version, "observation_id": row["observation_id"],
+                            "evidence_kind": "identity", "field_key": field_key,
+                            "evidence_role": reference.get("evidence_role"),
+                            "page_number": (reference.get("pdf_page_index") or 0) + 1 if reference.get("pdf_page_index") is not None else None,
+                            "printed_page_label": reference.get("printed_page_label"),
+                            "source_quote": reference.get("raw_text"), "bbox_x0": bbox.get("x0"),
+                            "bbox_y0": bbox.get("y0"), "bbox_x1": bbox.get("x1"), "bbox_y1": bbox.get("y1"),
+                            "raw_value_text": row.get("raw_value_text"), "raw_unit": row.get("raw_unit")})
+        for prop in row.get("reported_properties") or []:
+            for reference in prop.get("evidence") or []:
+                bbox = reference.get("bbox") if isinstance(reference.get("bbox"), dict) else {}
+                out.append({"dataset_version": version, "observation_id": row["observation_id"],
+                            "evidence_kind": "reported_property", "field_key": prop.get("field_key"),
+                            "evidence_role": prop.get("evidence_scope"), "page_number": reference.get("page_number"),
+                            "printed_page_label": reference.get("printed_page_label"),
+                            "source_quote": reference.get("source_quote"), "bbox_x0": bbox.get("x0"),
+                            "bbox_y0": bbox.get("y0"), "bbox_x1": bbox.get("x1"), "bbox_y1": bbox.get("y1"),
+                            "raw_value_text": None, "raw_unit": prop.get("unit_raw")})
+    return out
+
+
+def csv_table(rows: list[dict], fields: list[str], filename: str, *, exact: set[str] | None = None) -> Response:
+    exact = exact or {"value_numeric", "lower_bound", "upper_bound"}
+    buffer = io.StringIO()
+    writer = csv.DictWriter(buffer, fieldnames=fields, extrasaction="ignore")
+    writer.writeheader()
+    for row in rows:
+        values = {key: "|".join(str(item) for item in value) if isinstance(value, list) else value for key, value in row.items()}
+        for key in fields:
+            # Protect text cells opened by spreadsheets; numeric decimals stay exact.
+            if key not in exact and isinstance(values.get(key), str) and values[key].startswith(("=", "+", "-", "@")):
+                values[key] = "'" + values[key]
+        writer.writerow(values)
+    return Response("﻿" + buffer.getvalue(), media_type="text/csv; charset=utf-8",
+                    headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 
 def create_app(environment: dict[str, str] | None = None):
@@ -676,7 +767,9 @@ def create_app(environment: dict[str, str] | None = None):
         return bridge.call('register_import_catalog',operator_payload(request,principal))
 
     @app.get("/v1/exports")
-    def export(format: Literal["csv", "json"] = "csv", dataset_version: DatasetVersion = None,
+    def export(format: Literal["csv", "json"] = "csv",
+               table: Literal["observations", "dimensions", "properties", "evidence"] = "observations",
+               dataset_version: DatasetVersion = None,
                entity_ref: str | None = Query(None, max_length=240), metric_id: str | None = Query(None, max_length=240)):
         params = {"dataset_version": dataset_version, "entity_ref": entity_ref, "metric_id": metric_id, "limit": 1000}
         result = bridge.call("observations", params)
@@ -692,27 +785,22 @@ def create_app(environment: dict[str, str] | None = None):
             if len(rows) > 100000:
                 raise HTTPException(413, "单次导出最多 100000 条，请缩小时间或企业范围后重试")
         version = result["dataset_version"]
+        dimensions = export_dimensions(rows, version)
+        properties = export_properties(rows, version)
+        evidence = export_evidence(rows, version)
         if format == "json":
-            return JSONResponse({"schema_version": "platesg-export-v1", "dataset_version": version,
-                "dictionary_version": result["dictionary_version"], "as_of": result.get("as_of"), "items": rows},
+            return JSONResponse({"schema_version": "platesg-export-v2", "dataset_version": version,
+                "dictionary_version": result["dictionary_version"], "as_of": result.get("as_of"),
+                "items": rows, "dimensions": dimensions, "properties": properties, "evidence": evidence},
                 headers={"Content-Disposition": f'attachment; filename="platesg-v{version}.json"'})
-        fields = ["dataset_version","observation_id","entity_ref","entity_name","is_demo","metric_id","source_datapoint_id",
-                  "clause_kind","extension_id","related_source_datapoint_ids","value_origin",
-                  "definition_version","period_start","period_end","boundary_code","measurement_method","value_role",
-                  "value_numeric","lower_bound","upper_bound","precision_qualifier","canonical_unit","statement_text","dimensions","reported_properties",
-                  "comparison_eligibility","comparison_reasons","source_count","published_at"]
-        buffer = io.StringIO()
-        writer = csv.DictWriter(buffer, fieldnames=fields, extrasaction="ignore")
-        writer.writeheader()
-        for row in rows:
-            values = {key: json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else value for key, value in row.items()}
-            # Protect text cells opened by spreadsheet applications; numeric decimal columns remain exact.
-            for key in fields:
-                if key not in {"value_numeric","lower_bound","upper_bound"} and isinstance(values.get(key), str) and values[key].startswith(("=", "+", "-", "@")):
-                    values[key] = "'" + values[key]
-            writer.writerow(values)
-        return Response("\ufeff" + buffer.getvalue(), media_type="text/csv; charset=utf-8",
-                        headers={"Content-Disposition": f'attachment; filename="platesg-v{version}.csv"'})
+        if table == "dimensions":
+            return csv_table(dimensions, DIMENSION_EXPORT_FIELDS, f"platesg-v{version}-dimensions.csv", exact={"ordinal"})
+        if table == "properties":
+            return csv_table(properties, PROPERTY_EXPORT_FIELDS, f"platesg-v{version}-properties.csv")
+        if table == "evidence":
+            return csv_table(evidence, EVIDENCE_EXPORT_FIELDS, f"platesg-v{version}-evidence.csv",
+                             exact={"page_number", "bbox_x0", "bbox_y0", "bbox_x1", "bbox_y1"})
+        return csv_table(rows, OBSERVATION_EXPORT_FIELDS, f"platesg-v{version}.csv")
 
     @app.get("/internal/v1/me")
     def me(principal=Depends(authorized)):

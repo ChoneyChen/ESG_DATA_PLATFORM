@@ -185,10 +185,11 @@ class OcrWorkflow:
     ) -> "_TextLayerRun | None":
         """Fill the pages a digital PDF prints cleanly from its own text layer.
 
-        Only for foundation16 page-targeted runs: the layout model of the OCR
-        pipeline finds the regions; words, tables and figures come from the
-        PDF. Pages it cannot fill (scans, pictures of tables, broken fonts)
-        keep going to visual OCR.
+        Shared by every route that processes a real PDF: the layout model finds
+        the regions; words, tables and figures come from the PDF. It applies to
+        a full report as well as a page-targeted run, so a digital report never
+        pays for visual OCR it does not need. Pages it cannot fill (scans,
+        pictures of tables, broken fonts) keep going to visual OCR.
         """
         if not self.settings.ocr_text_layer_enabled or not request.file_path:
             return None

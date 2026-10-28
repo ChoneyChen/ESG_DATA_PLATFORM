@@ -4,6 +4,7 @@ import { apiUrl } from "../api";
 import { useResource } from "../hooks/useResource";
 import {
   contextLabel,
+  dimensionLabels,
   formatDecimal,
   formatValue,
   periodLabel,
@@ -120,6 +121,12 @@ export default function EvidenceDrawer({
                       {item.raw_value_text ?? "—"} {item.raw_unit || ""}
                     </dd>
                   </div>
+                  {item.source_row_label && (
+                    <div>
+                      <dt>报告行名</dt>
+                      <dd>{item.source_row_label}</dd>
+                    </div>
+                  )}
                   <div>
                     <dt>期间</dt>
                     <dd>{periodLabel(item)}</dd>
@@ -142,6 +149,7 @@ export default function EvidenceDrawer({
                   </div>
                 </dl>
                 <Dimensions values={item.dimensions} />
+                <PrintedDimensions item={item} />
                 {!!item.comparison_reasons?.length && (
                   <p className="reason-box">
                     {item.comparison_reasons.map(reasonLabel).join("；")}
@@ -263,6 +271,41 @@ export default function EvidenceDrawer({
           )
         )}
       </aside>
+    </div>
+  );
+}
+
+/**
+ * What the report itself printed, when it differs from the clause reading.
+ * A clause may fix energy_source=renewable while the printed row is 风能;
+ * comparison still uses the clause value, the printed one is the evidence.
+ */
+const PRINTED_CONTEXT_AXES = new Set([
+  "period_start",
+  "period_end",
+  "reporting_period",
+  "reporting_entity",
+  "reporting_boundary",
+  "entity_ref",
+]);
+function PrintedDimensions({ item }: { item: Evidence }) {
+  const printed = Object.entries(item.reported_dimensions || {})
+    .map(([key, values]) => [key, (Array.isArray(values) ? values : [values]).map(String)] as [string, string[]])
+    .filter(([key, values]) => {
+      if (PRINTED_CONTEXT_AXES.has(key)) return false;
+      const clause = item.dimensions?.[key];
+      const clauseValues = Array.isArray(clause) ? clause.map(String) : clause == null ? [] : [String(clause)];
+      return [...values].sort().join("|") !== [...clauseValues].sort().join("|");
+    });
+  if (!printed.length) return null;
+  return (
+    <div className="dimension-tags">
+      <span>报告原印分类：</span>
+      {printed.map(([key, values]) => (
+        <span key={key}>
+          {Object.hasOwn(dimensionLabels, key) ? dimensionLabels[key] : key}：{values.join("、")}
+        </span>
+      ))}
     </div>
   );
 }

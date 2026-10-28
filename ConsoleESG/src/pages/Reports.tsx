@@ -5,8 +5,6 @@ import {Actions,Badge,dateLabel,Diagnostics,Field,Notice,ResourceState,Section} 
 import {EvidenceExplorer} from '../components/EvidenceExplorer';
 import {RecordManagement} from '../components/RecordManagement';
 import {BatchRecordDelete} from '../components/BatchRecordDelete';
-import {CrawlIndexPicker} from '../components/CrawlIndexPicker';
-import {CrawlConnection} from '../components/CrawlConnection';
 import {ReportArtifacts} from '../components/ReportArtifacts';
 import {startLibraryProduction} from '../library-workflow';
 import {runCounts,stageChips} from '../reportRun';
@@ -75,8 +73,6 @@ export function Reports({params=new URLSearchParams()}:{params?:URLSearchParams}
    <form onSubmit={upload} className="upload-form"><input aria-label="选择PDF文件" name="file" type="file" accept="application/pdf,.pdf" multiple required/><button disabled={busy}>上传 PDF</button>{failedUploads.length>0&&<button type="button" className="secondary" disabled={busy} onClick={()=>void uploadFiles(failedUploads)}>重试失败的 {failedUploads.length} 个文件</button>}<small className="muted">不会从文件名自动填充企业或年份。</small></form>
    {message&&<Notice>{message}</Notice>}
   </details>
-
-  <CrawlConnection/>
 
   <Section title="报告库" action={selectedRows.length>0?<BatchRecordDelete rows={selectedRows} kind="asset" idKey="asset_id" label="删除所选报告"/>:undefined}>
    <div className="library-toolbar">
@@ -194,16 +190,13 @@ export function MetadataEditor({report}:{report:Row}){
  useEffect(()=>{setForm(report.metadata || {});},[report.report_id,report.revision]);
  const baseFields=[['title','报告名称','text','报告封面或目录上的正式名称'],['publisher_name','报告发布者','text','公司全称，不从文件名推断'],['reporting_year','报告年','number','报告所属年度或财年'],['period_start','报告期起始','date',''],['period_end','报告期结束','date',''],['language','语言','text','如 zh-Hans、zh-Hant、en'],['report_kind','报告类型','text','如 sustainability、esg']] as const;
  const subjectFields=[['publisher_entity_ref','发布者主体引用（显式确认）','text','必须与审核中心已登记主体的 entity_ref 完全一致'],['measurement_entity_ref','默认测量主体（可选）','text','仅作提取与审核默认，不自动等于发布者，也不改写指标边界']] as const;
- const externalFields=[['source_system','外部索引系统','text','如 CrawlESG；仅记录来源'],['source_report_id','外部报告编号','text',''],['lei','LEI','text',''],['ticker','证券代码','text',''],['isin','ISIN','text',''],['source_package_sha256','外部包 SHA-256','text','64 位十六进制'],['source_url','外部来源地址','text','公开报告页或索引链接']] as const;
- const allFields=[...baseFields,...subjectFields,...externalFields];
+ const allFields=[...baseFields,...subjectFields];
  async function save(e:FormEvent){e.preventDefault();setBusy(true);setMessage('');try{const metadata:Row={};for(const [key,,type] of allFields){metadata[key]=String(form[key] ?? '').trim()?type==='number'?Number(form[key]):String(form[key]).trim():null;}await request('document',`/api/reports/${report.report_id}`,{method:'PATCH',body:JSON.stringify({metadata,expected_revision:report.revision})});setMessage('报告身份已保存。发布者、测量主体与各项指标边界分别确认。');refresh();}catch(e){setMessage((e as Error).message);}finally{setBusy(false);}}
- function applyIndex(candidate:Row){setForm({...form,publisher_name:candidate.entity_name || form.publisher_name,reporting_year:candidate.fiscal_year ?? form.reporting_year,period_end:candidate.period_end || form.period_end,lei:candidate.lei,source_system:candidate.source_system,source_report_id:candidate.source_report_id,source_package_sha256:candidate.source_package_sha256,source_url:candidate.source_url});setMessage('已填入索引候选。请继续确认报告名称、发布者主体引用和报告期起始后再保存。');}
  const code=form.publisher_entity_ref&&form.reporting_year?`${form.publisher_entity_ref}/${form.reporting_year}`:'保存主体引用与报告年后生成';
- return <form className="metadata-editor" onSubmit={save}><Notice>报告发布者与指标测量主体分别确认；不会从文件名或外部索引自动填充主体引用。</Notice>
+ return <form className="metadata-editor" onSubmit={save}><Notice>报告发布者与指标测量主体分别确认；不会从文件名自动填充主体引用。</Notice>
   <div className="metadata-head"><span className="mono">{code}</span><small>内部报告 ID 保持稳定：{report.report_id}</small></div>
   <fieldset className="metadata-section"><legend>报告与报告期</legend><div className="form-grid">{baseFields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input aria-label={title} type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div></fieldset>
   <fieldset className="metadata-section"><legend>主体确认</legend><div className="form-grid">{subjectFields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input aria-label={title} type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div></fieldset>
-  <details className="metadata-external"><summary>外部索引与可选标识（只读匹配）</summary><CrawlIndexPicker onSelect={applyIndex}/><div className="form-grid">{externalFields.map(([name,title,type,hint])=><Field key={name} label={title} hint={hint || undefined}><input aria-label={title} type={type} value={form[name] ?? ''} onChange={e=>setForm({...form,[name]:e.target.value})}/></Field>)}</div></details>
   <div className="metadata-actions"><button disabled={busy}>{busy?'保存中…':'保存报告身份'}</button>{message&&<Notice>{message}</Notice>}</div>
   <details><summary>已关联 PDF 版本（{report.asset_versions?.length || 0}）</summary><ul>{report.asset_versions?.map((v:Row)=><li key={v.asset_id}>版本 {v.version} · <button type="button" className="text-button" onClick={()=>navigate(`/reports/${v.asset_id}`)}>打开 PDF 资产</button> · {dateLabel(v.created_at)}</li>)}</ul><AttachVersion report={report}/></details>
   <Diagnostics value={{report_id:report.report_id,report_code:report.report_code,revision:report.revision,history:report.metadata_history}} title="身份修订诊断"/>

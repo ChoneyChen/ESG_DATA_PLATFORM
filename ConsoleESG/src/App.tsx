@@ -5,7 +5,6 @@ import {Notice} from './components/ui';
 import {OcrLibrary} from './pages/OcrLibrary';
 import {SidebarMonitor} from './components/SidebarMonitor';
 import {Reports,ReportDetail} from './pages/Reports';
-import {CrawlSource} from './pages/CrawlSource';
 import {Processing} from './pages/Processing';
 import {Automation} from './pages/Automation';
 import {Extractions} from './pages/Extractions';
@@ -17,11 +16,11 @@ import {Runtime} from './pages/Runtime';
 /**
  * The sidebar follows the production line, not the backend's module list.
  * Four destinations cover an operator's day: reports, extraction, review and
- * publishing. The live run monitor sits below them; tools stay collapsed.
+ * publishing. Report processing and page reading are report evidence, reached
+ * from a report; reports enter only by uploading a PDF here.
  */
 const MAIN = [
   ['reports', '报告', '▤', '选择报告并开始'],
-  ['crawl', 'Crawl 源', '◈', '索引、下载与自动采集'],
   ['extractions', '提取', '⇢', '读取、成果与证据'],
   ['review', '审核', '✓', '事实、映射与口径'],
   ['publication', '发布', '↗', '版本、来源与发布'],
@@ -64,7 +63,6 @@ export default function App() {
   let page;
   switch (route.section) {
     case 'reports': page = route.id ? <ReportDetail key={route.id} assetId={route.id} tab={route.tab}/> : <Reports params={route.params}/>; break;
-    case 'crawl': page = <CrawlSource/>; break;
     case 'ocr': page = <OcrLibrary key={`${route.id || ''}:${route.params.toString()}`} runId={route.id} params={route.params}/>; break;
     case 'processing': page = <Processing key={`${route.id || ''}:${route.params.toString()}`} processingId={route.id === 'new' ? undefined : route.id} newTask={route.id === 'new'} params={route.params}/>; break;
     case 'automation': page = <Automation key={`${route.id || ''}:${route.params.toString()}`} automationId={route.id === 'new' ? undefined : route.id} newTask={route.id === 'new'} params={route.params}/>; break;

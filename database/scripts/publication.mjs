@@ -440,7 +440,35 @@ async function hydrateObservations(db, observations) {
   for(const o of observations) o.reported_properties=(o.sources || []).flatMap(source=>
     (source.reported_properties || []).map(property=>({...property,report_title:source.report_title_snapshot || null,
       ...(source.operand_id?{source_role:'operand',source_label:source.label_zh}:{} )})));
+  // The printed classification is published beside the clause classification.
+  // `dimensions` stays the canonical comparison identity; a report that prints
+  // 太阳能 while the clause fixes energy_source=renewable keeps both readings.
+  const printed=await printedDimensions(db,observations);
+  for(const o of observations) {
+    const merged={};
+    for(const source of o.sources || []) {
+      for(const [key,values] of Object.entries(printed.byDisclosure.get(source.disclosure_id) || {})) (merged[key] ||= []).push(...values);
+    }
+    o.reported_dimensions=Object.fromEntries(Object.entries(merged).map(([key,values])=>[key,[...new Set(values)]]));
+    const labels=[...new Set((o.sources || []).map(source=>source.raw_indicator_name).filter(Boolean))];
+    o.source_row_label=labels.length===1?labels[0]:null;
+  }
   return observations;
+}
+
+async function printedDimensions(db, observations) {
+  const ids=[...new Set(observations.flatMap(o=>(o.sources || []).map(source=>source.disclosure_id)).filter(Boolean))];
+  const byDisclosure=new Map();
+  if(!ids.length) return {byDisclosure};
+  const rows=(await db.query(`SELECT disclosure_id,dimension_key,ordinal,raw_value FROM esg.disclosure_dimensions
+    WHERE disclosure_id=ANY($1::uuid[]) AND normalization_status<>'rejected' AND raw_value IS NOT NULL AND raw_value<>''
+    ORDER BY disclosure_id,dimension_key,ordinal`,[ids])).rows;
+  for(const row of rows) {
+    const target=byDisclosure.get(row.disclosure_id) || {};
+    (target[row.dimension_key] ||= []).push(String(row.raw_value));
+    byDisclosure.set(row.disclosure_id,target);
+  }
+  return {byDisclosure};
 }
 
 export async function readDataset(db,version=null) {

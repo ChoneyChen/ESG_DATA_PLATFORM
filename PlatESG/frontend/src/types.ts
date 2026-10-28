@@ -48,6 +48,8 @@ export interface Observation {
   boundary_code: string | null;
   measurement_method: string | null;
   dimensions: Record<string, unknown>;
+  reported_dimensions?: Record<string, string[]>;
+  source_row_label?: string | null;
   reported_properties?: ReportedProperty[];
   canonical_unit: string | null;
   value_numeric: string | null;

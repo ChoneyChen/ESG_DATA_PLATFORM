@@ -64,15 +64,26 @@ def test_csv_keeps_extension_and_original_identity_exact_decimal_and_fixed_versi
     assert rows[0]['clause_kind'] == 'project_extension'
     assert rows[0]['extension_id'] == extension['extension_id']
     assert rows[0]['source_datapoint_id'] == ''
-    assert json.loads(rows[0]['related_source_datapoint_ids']) == extension['related_source_datapoint_ids']
+    assert rows[0]['related_source_datapoint_ids'].split('|') == extension['related_source_datapoint_ids']
     assert rows[0]['value_origin'] == 'derived'
     assert rows[0]['value_numeric'] == '9007199254740993.000001'
     assert rows[1]['source_datapoint_id'] == 'E1-6_07'
     assert rows[1]['clause_kind'] == 'original_datapoint'
     assert rows[1]['extension_id'] == ''
-    assert json.loads(rows[1]['related_source_datapoint_ids']) == []
+    assert rows[1]['related_source_datapoint_ids'] == ''
     assert rows[1]['value_origin'] == 'reported'
     assert rows[1]['value_numeric'] == '-0.000001'
     assert all(row['dataset_version'] == str(version) for row in rows)
     assert all(row['entity_name'].startswith("'=") and row['statement_text'].startswith("'@") for row in rows)
-    assert all(json.loads(row['dimensions']) == common['dimensions'] for row in rows)
+    # Dimensions are a long scientific table, never a JSON cell in the observation row.
+    assert 'dimensions' not in rows[0] and 'reported_properties' not in rows[0]
+    dimensions = client.get('/v1/exports', params={**params, 'table': 'dimensions'})
+    assert dimensions.status_code == 200, dimensions.text
+    assert dimensions.headers['content-disposition'] == f'attachment; filename="platesg-v{version}-dimensions.csv"'
+    dimension_rows = list(csv.DictReader(io.StringIO(dimensions.text.removeprefix('﻿'))))
+    assert [(row['observation_id'], row['axis_class'], row['axis'], row['value']) for row in dimension_rows] == [
+        ('fixture-derived', 'clause', 'scope_2_method', 'location_based'),
+        ('fixture-original', 'clause', 'scope_2_method', 'location_based')]
+    evidence = client.get('/v1/exports', params={**params, 'table': 'evidence'})
+    assert evidence.status_code == 200, evidence.text
+    assert evidence.headers['content-disposition'] == f'attachment; filename="platesg-v{version}-evidence.csv"'

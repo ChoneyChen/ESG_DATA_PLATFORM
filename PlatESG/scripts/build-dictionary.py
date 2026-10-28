@@ -20,7 +20,7 @@ from esg_standard_packages.scope import compile_profile, load_registry  # noqa: 
 from esg_standard_packages.io import canonical_json_bytes  # noqa: E402
 from esg_standard_packages.scientific_contract import compile_dictionary_metrics, compile_scientific_contract  # noqa: E402
 
-VERSION = '1.4.5'
+VERSION = '1.5.0'
 # Definition versions continue from the last sealed file dictionary, not from
 # 1.0.0: a changed definition must never reuse a version already sealed.
 # Dictionary versions are shared with platform extension selections (the

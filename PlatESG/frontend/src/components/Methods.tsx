@@ -131,7 +131,16 @@ export default function Methods({
               <a className="button secondary" href={apiUrl("/v1/exports", { format: "json" })}>
                 下载 JSON
               </a>
+              <a className="button secondary" href={apiUrl("/v1/exports", { format: "csv", table: "dimensions" })}>
+                维度表
+              </a>
+              <a className="button secondary" href={apiUrl("/v1/exports", { format: "csv", table: "evidence" })}>
+                证据表
+              </a>
             </div>
+            <p>
+              观测表一行一条数值，不再内嵌 JSON；条款口径与报告原印分类（如「能源来源＝可再生」与「行名＝风能」）分行导出在维度表，字段级证据在证据表。
+            </p>
             <details>
               <summary>历史快照（兼容旧链接）</summary>
               <div className="table-scroll">

@@ -42,10 +42,10 @@
 提取任务记录删除负责未发布引用的成果目录。已发布观测、测量口径、报告身份与不可变来源快照保留；
 彻底物理清理使用发布中心的全库产物清理。
 
-**CrawlESG 是只读报告源**：控制台 `#/crawl` 独立页读取其索引，显示企业、LEI、财年、报告编号与公开来源，
-用于确认报告身份草稿。当前 Crawl 导出没有 PDF，`pdf_available=false`；ESEF 包不作为 PDF 资产。
-“导入 PDF”接口保留但未启用，直到 Crawl 能提供 PDF 路径与 SHA-256。字段与接收合同见
-[CrawlESG 对接接口](docs/CRAWL_INTEGRATION.md)。
+**报告只从本链路上传 PDF 进入**：控制台不再连接任何外部报告索引。2026-10-28 起移除了 CrawlESG
+只读索引页、`/api/console/crawl-index*` 接口、索引读取器与外部索引字段，报告身份全部在工作台内登记。
+`CrawlESG/` 目录本身仍作为独立保护区存在（不修改、不暂存），但本链路不读取、不主动接入。
+历史交接合同见[CrawlESG 对接接口](docs/CRAWL_INTEGRATION.md)。
 
 **Extract 自己的前端已经移除（2026-10-23）**：早期 `document_ir_extract/frontend` 是一个原生 JS
 工作台（`/legacy/` 入口），功能已被 ConsoleESG 完整覆盖（报告库、提取创建、证据查看、审核、发布、
