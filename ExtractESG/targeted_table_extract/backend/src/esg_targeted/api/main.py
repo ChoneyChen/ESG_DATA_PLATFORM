@@ -22,6 +22,7 @@ from esg_targeted.ir.catalog import DocumentIrCatalog
 from esg_targeted.models.capabilities import NUEXTRACT3_CAPABILITIES
 from esg_targeted.results.spec import result_contract
 from esg_targeted.standards.catalog import StandardPackageCatalog
+from esg_targeted.standards.clause_lifecycle_service import ClauseLifecycleService
 from esg_targeted.standards.runtime_snapshot import registered_extensions, freeze_extraction_request
 from esg_targeted.runtime_compatibility import compatibility_snapshot, require_runtime_ready, RuntimeCompatibilityError
 from esg_targeted.storage.artifacts import ArtifactStore
@@ -49,6 +50,7 @@ restored_result_job_ids = recover_result_jobs(job_store, artifact_store)
 semantic_index_assets = SemanticIndexAssetCatalog(settings.index_cache_root)
 ir_catalog = DocumentIrCatalog(settings.ir_roots)
 standard_catalog = StandardPackageCatalog(settings.standard_dist_root)
+clause_lifecycle = ClauseLifecycleService(standard_catalog)
 workflow = TargetedExtractionWorkflow(settings, job_store, artifact_store)
 inspection_service = ResultInspectionService(artifact_store)
 report_sessions = ReportSessionService(settings, job_store, artifact_store)
@@ -465,14 +467,78 @@ def get_standard_catalog() -> dict:
     return standard_catalog.snapshot()
 
 
+class ClauseAcceptanceRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    bundle_path: str
+    package_id: str | None = None
+    package_version: str | None = None
+    source_datapoint_ids: list[str] = Field(default_factory=list)
+    extension_id: str | None = None
+    definition_version: str | None = None
+    gold: dict | None = None
+    recorded_by: str
+    reason: str
+
+
+class ClauseRetirementRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    package_id: str | None = None
+    package_version: str | None = None
+    source_datapoint_id: str | None = None
+    extension_id: str | None = None
+    definition_version: str | None = None
+    reason: str
+    retired_by: str
+    published_observations: int = Field(default=0, ge=0)
+    active_tasks: int = Field(default=0, ge=0)
+    dependent_extensions: list[str] = Field(default_factory=list)
+    force: bool = False
+
+
+@app.get("/api/clause-lifecycle")
+def get_clause_lifecycle() -> dict:
+    return clause_lifecycle.view()
+
+
+@app.post("/api/clause-lifecycle/acceptances")
+def record_clause_acceptance(request: ClauseAcceptanceRequest) -> dict:
+    try:
+        return clause_lifecycle.record(
+            bundle_path=request.bundle_path, allowed_roots=[settings.output_root],
+            package_id=request.package_id, package_version=request.package_version,
+            source_datapoint_ids=request.source_datapoint_ids, extension_id=request.extension_id,
+            definition_version=request.definition_version, gold=request.gold,
+            recorded_by=request.recorded_by, reason=request.reason)
+    except (ValueError, FileNotFoundError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
+@app.post("/api/clause-lifecycle/retirements")
+def retire_clause_version(request: ClauseRetirementRequest) -> dict:
+    try:
+        return clause_lifecycle.retire(
+            package_id=request.package_id, package_version=request.package_version,
+            source_datapoint_id=request.source_datapoint_id, extension_id=request.extension_id,
+            definition_version=request.definition_version, reason=request.reason,
+            retired_by=request.retired_by, published_observations=request.published_observations,
+            active_tasks=request.active_tasks, dependent_extensions=request.dependent_extensions,
+            force=request.force)
+    except (ValueError, FileNotFoundError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
 @app.get('/api/extensions')
 def list_approved_extensions() -> dict:
     try:
         releases = registered_extensions(settings.standard_dist_root.parent, standard_catalog)
     except (ValueError, FileNotFoundError) as exc:
         raise HTTPException(409, str(exc)) from exc
+    from esg_standard_packages.clause_lifecycle import load_ledger
+    ledger = load_ledger(clause_lifecycle.ledger_path)
+    states = {row["clause"]: row for row in clause_lifecycle.extension_states(releases, ledger)}
     return {'schema_version':'approved-extension-catalog-1.0',
-            'items':[release.model_dump(mode='json') for release in releases]}
+            'items':[{**release.model_dump(mode='json'),
+                      'lifecycle':states.get(clause_lifecycle.extension_ref(release).key())} for release in releases]}
 
 
 @app.get("/api/result-catalog")
@@ -497,7 +563,24 @@ def get_standard(package_id: str, package_version: str) -> dict:
         "relations": [item.model_dump(mode="json") for item in package.relations],
         "derivations": [item.model_dump(mode="json") for item in package.derivations],
         "semantic_diagnostics": standard_catalog.compiler.semantic_diagnostics(package),
+        "lifecycle": clause_lifecycle.package_lifecycle(package_id, package_version, package),
     }
+
+
+@app.get("/api/standards/{package_id}/{package_version}/diff/{other_version}")
+def standard_version_diff(package_id: str, package_version: str, other_version: str) -> dict:
+    try:
+        return clause_lifecycle.diff(package_id, package_version, other_version)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/standards/{package_id}/{package_version}/dependents/{source_datapoint_id}")
+def standard_clause_dependents(package_id: str, package_version: str, source_datapoint_id: str) -> dict:
+    try:
+        return clause_lifecycle.dependents(package_id, package_version, source_datapoint_id)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.post("/api/jobs", status_code=202)

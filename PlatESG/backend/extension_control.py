@@ -16,19 +16,58 @@ from esg_standard_packages.extensions import (
     decide_proposal, definition_digest, register_extension, validate_parent,
     validate_release, write_extension_release, load_registered_extension,
 )
+from esg_standard_packages.clause_lifecycle import (
+    ClauseRef, extension_contract_digest, lifecycle_state, load_ledger,
+)
 from esg_standard_packages.io import pretty_json_bytes
 from esg_targeted.standards.catalog import StandardPackageCatalog
 
 
 class ExtensionControl:
-    def __init__(self, bridge, *, standards_root: Path, runtime_root: Path):
+    def __init__(self, bridge, *, standards_root: Path, runtime_root: Path, ledger_path: Path | None = None):
         self.bridge = bridge
         self.standards_root = standards_root.resolve()
         self.runtime_root = runtime_root.resolve()
+        self.ledger_path = (ledger_path or (self.standards_root / 'lifecycle/ledger.json')).resolve()
         self.catalog = StandardPackageCatalog(self.standards_root / 'releases')
 
     def parent(self, definition):
         return self.catalog.load(definition.parent_package_id, definition.parent_package_version)
+
+    def release_state(self, release, ledger=None):
+        body = release if hasattr(release, 'definition') else None
+        if body is None:
+            from esg_standard_packages.extensions import CompiledExtension
+            body = CompiledExtension.model_validate(release)
+        definition = body.definition
+        return lifecycle_state(
+            clause=ClauseRef(kind='extension', extension_id=definition.extension_id,
+                             definition_version=definition.definition_version),
+            contract_digest_value=extension_contract_digest(definition),
+            ledger=ledger if ledger is not None else load_ledger(self.ledger_path),
+            business_approved=body.approval.decision == 'approved')
+
+    def require_accepted(self, extension_ids, *, purpose: str):
+        """A clause that no real run has proved cannot be published or made a major clause."""
+        stored = self.bridge.call('extension_registry', {})
+        ledger = load_ledger(self.ledger_path)
+        wanted = set(extension_ids)
+        blocked = []
+        for row in stored.get('releases', []):
+            raw = row.get('release', row)
+            if raw['definition']['extension_id'] not in wanted:
+                continue
+            state = self.release_state(raw, ledger)
+            if state['state'] != 'publishable':
+                blocked.append({'extension_id': raw['definition']['extension_id'],
+                                'definition_version': raw['definition']['definition_version'],
+                                'state': state['state'], 'reasons': state['reasons']})
+        if blocked:
+            raise ValueError(
+                f'延伸条款未通过真实验收，不能用于{purpose}：'
+                + '；'.join(f"{row['extension_id']}@{row['definition_version']}={row['state']}"
+                            f"({','.join(row['reasons'])})" for row in blocked)
+                + '。请先在真实报告上完成试提取并登记验收。')
 
     def validate_bundle(self, bundle_path: str, allowed_roots: list[Path]):
         root=Path(bundle_path).resolve()
@@ -72,6 +111,8 @@ class ExtensionControl:
         authority=[row.get('release',row) for row in stored.get('releases',[])]
         if any(release.model_dump(mode='json') not in authority for release in snapshot.extension_releases):
             raise ValueError('Extension Bundle has no authoritative registered release')
+        self.require_accepted([release.definition.extension_id for release in snapshot.extension_releases],
+                              purpose='交付入库')
 
     def catalog_view(self):
         stored = self.bridge.call('extension_registry', {})
@@ -84,7 +125,19 @@ class ExtensionControl:
             except (ValueError, OSError) as exc:
                 issues.append({'code':'draft_invalid','message':str(exc)})
         return {**stored, 'authoring_drafts': drafts, 'diagnostics': issues,
-                'authority':'database', 'runtime_projection': self.projection_status(stored.get('releases', []))}
+                'authority':'database', 'runtime_projection': self.projection_status(stored.get('releases', [])),
+                **self.lifecycle_view(stored.get('releases', []))}
+
+    def lifecycle_view(self, releases):
+        ledger = load_ledger(self.ledger_path)
+        states = {}
+        for row in releases:
+            raw = row.get('release', row)
+            state = self.release_state(raw, ledger)
+            states[state['clause']] = state
+        return {'lifecycle': list(states.values()),
+                'major_eligible_extension_ids': sorted({state['label'] for state in states.values() if state['publishable']}),
+                'lifecycle_policy': '未通过真实验收的延伸条款不能成为平台主要条款，也不能交付入库'}
 
     def propose(self, proposal: ExtensionProposal, principal):
         validate_parent(proposal.definition, self.parent(proposal.definition))

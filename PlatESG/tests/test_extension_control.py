@@ -6,6 +6,9 @@ import pytest
 
 from PlatESG.backend.extension_control import ExtensionControl
 from PlatESG.backend.extension_dictionary import build_extension_dictionary
+from esg_standard_packages.clause_lifecycle import (
+    ClauseRef, evaluate_run, extension_contract_digest, record_acceptance,
+)
 from esg_standard_packages.extensions import ExtensionProposal
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -96,3 +99,44 @@ def test_platform_selection_preserves_original_definitions_and_missing_context(t
         build_extension_dictionary(original,bridge.releases,[p.definition.extension_id],original['dictionary_version'])
     with pytest.raises(ValueError,match='registered'):
         build_extension_dictionary(original,[],[p.definition.extension_id],'1.1.0')
+
+
+def _real_run(metric_id: str) -> dict:
+    return {
+        'records': {
+            'reporting_tasks': [{'task_id': 'task-1', 'metric_id': metric_id, 'task_status': 'completed',
+                                 'found_status': 'reported', 'ir_run_id': 'ir-1', 'document_id': 'doc-1'}],
+            'quantitative_observations': [{'observation_id': 'obs-1', 'task_id': 'task-1',
+                                           'value_raw': '1234.5', 'value_numeric': '1234.5',
+                                           'unit_raw': '兆瓦时', 'reporting_year': 2025,
+                                           'reporting_boundary': 'group', 'evidence_set_id': 'evset-1'}],
+            'evidence_references': [{'evidence_id': 'evidence-1', 'evidence_set_id': 'evset-1',
+                                     'ir_object_id': 'cell-p0010-t0001-r0004-c0003', 'pdf_page_index': 9}],
+        },
+        'source_facts': {'gaps': []},
+        'summary': {'document': {'document_id': 'doc-1', 'document_label': '测试报告'}},
+    }
+
+
+def test_extension_needs_real_acceptance_before_major_selection_or_import(tmp_path):
+    service,bridge=control(tmp_path)
+    service.ledger_path=tmp_path/'ledger.json'
+    principal={'operator_ref':'authenticated-admin','roles':['admin']}
+    p=proposal();service.propose(p,principal)
+    approval=service.decide(p.proposal_id,decision='approved',reason='隔离的合同验收批准',principal=principal)
+    service.register(p.proposal_id,approval['approval_id'])
+    with pytest.raises(ValueError,match='真实验收'):
+        service.require_accepted([p.definition.extension_id],purpose='平台主要配置')
+    assert service.catalog_view()['major_eligible_extension_ids']==[]
+    clause=ClauseRef(kind='extension',extension_id=p.definition.extension_id,
+                     definition_version=p.definition.definition_version)
+    acceptance=evaluate_run(_real_run(p.definition.extension_id),clause=clause,
+                            metric_ids=[p.definition.extension_id],
+                            contract_digest_value=extension_contract_digest(p.definition),
+                            run_ref='tx-fixture',recorded_by='operator',reason='真实报告试提取')
+    assert acceptance.outcome=='accepted'
+    record_acceptance(service.ledger_path,acceptance)
+    service.require_accepted([p.definition.extension_id],purpose='平台主要配置')
+    view=service.catalog_view()
+    assert view['major_eligible_extension_ids']==[p.definition.extension_id]
+    assert view['lifecycle'][0]['publishable'] is True

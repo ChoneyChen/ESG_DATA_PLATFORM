@@ -20,11 +20,44 @@ STANDARDS = ROOT / 'ExtractESG/standards'
 DRAFT = STANDARDS / 'extensions/authoring/esrs/2023-set1/e1-6/scope1-scope2-total/1.0.0/proposal.json'
 
 
+def accept_release(ledger_path: Path, release: dict, bundle_root: Path | None = None) -> None:
+    """Bind one isolated acceptance to this release so the publication gate can be exercised.
+
+    A synthetic fixture is not a real report acceptance; the ledger here is a
+    per-test file and never the standards ledger.
+    """
+    from esg_standard_packages.clause_lifecycle import (
+        ClauseRef, evaluate_run, extension_contract_digest, record_acceptance,
+    )
+    definition = release['definition']
+    result = (json.loads((bundle_root / 'exports/extraction-result.json').read_text()) if bundle_root
+              else {'records': {'reporting_tasks': [{'task_id': 'task-1', 'metric_id': definition['extension_id'],
+                                                     'task_status': 'completed', 'found_status': 'reported',
+                                                     'ir_run_id': 'ir-fixture', 'document_id': 'doc-fixture'}],
+                                'quantitative_observations': [{'observation_id': 'obs-1', 'task_id': 'task-1',
+                                                               'value_raw': '30', 'value_numeric': '30',
+                                                               'unit_raw': 'tCO2e', 'reporting_year': 2024,
+                                                               'reporting_boundary': 'china_own_operations',
+                                                               'evidence_set_id': 'evset-1'}],
+                                'evidence_references': [{'evidence_id': 'evidence-1', 'evidence_set_id': 'evset-1',
+                                                         'ir_object_id': 'cell-fixture-1', 'pdf_page_index': 0}]},
+                      'source_facts': {'gaps': []},
+                      'summary': {'document': {'document_id': 'doc-fixture', 'document_label': '隔离合同回放'}}})
+    acceptance = evaluate_run(result,
+        clause=ClauseRef(kind='extension', extension_id=definition['extension_id'],
+                         definition_version=definition['definition_version']),
+        metric_ids=[definition['extension_id']], contract_digest_value=extension_contract_digest(definition),
+        run_ref=bundle_root.name if bundle_root else 'fixture-run', recorded_by='fixture',
+        reason='隔离合同回放：仅用于验证发布门禁与该版本登记，非真实报告验收')
+    assert acceptance.outcome == 'accepted', [(check.check, check.outcome, check.detail) for check in acceptance.checks]
+    record_acceptance(ledger_path, acceptance)
+
+
 def test_authenticated_extension_definition_registration_and_platform_selection_are_independent(tmp_path, monkeypatch):
     runtime = tmp_path / 'extensions'
     monkeypatch.setenv('ESG_EXTENSION_ROOT', str(runtime))
     app = create_app({'PLATESG_DATA_DIR': str(tmp_path / 'data'), 'PLATESG_REVIEW_TOKEN': 'admin-token',
-        'PLATESG_AUTO_PUBLISH': '0', 'ESG_EXTENSION_ROOT': str(runtime),
+        'PLATESG_AUTO_PUBLISH': '0', 'ESG_EXTENSION_ROOT': str(runtime), 'ESG_CLAUSE_LIFECYCLE_LEDGER': str(tmp_path / 'ledger.json'),
         'PLATESG_OPERATORS_JSON': json.dumps([{'token': 'review-token', 'operator_ref': 'review-only', 'roles': ['read', 'review']}])})
     admin = {'Authorization': 'Bearer admin-token'}
     reviewer = {'Authorization': 'Bearer review-token'}
@@ -52,6 +85,10 @@ def test_authenticated_extension_definition_registration_and_platform_selection_
         assert len(json.loads((runtime / 'registry.json').read_text())['registrations']) == 1
         assert client.get('/v1/metrics').json() == original
         assert client.post('/internal/v1/extensions/decisions', json={**decision, 'decision': 'rejected'}, headers=admin).status_code == 422
+        selected = client.post('/internal/v1/extensions/platform-selection', json={'dictionary_version': '1.1.0', 'extension_ids': [release['definition']['extension_id']]}, headers=admin)
+        assert selected.status_code == 409
+        assert '真实验收' in json.dumps(selected.json(), ensure_ascii=False)
+        accept_release(tmp_path / 'ledger.json', release)
         selected = client.post('/internal/v1/extensions/platform-selection', json={'dictionary_version': '1.1.0', 'extension_ids': [release['definition']['extension_id']]}, headers=admin)
         assert selected.status_code == 200, selected.text
         assert client.get('/v1/metrics').json() == original  # explicit publication hold survives both decisions
@@ -87,7 +124,8 @@ def test_reported_extension_bundle_reaches_review_publication_and_public_source_
     runtime = tmp_path / 'extensions'
     monkeypatch.setenv('ESG_EXTENSION_ROOT', str(runtime))
     app = create_app({'PLATESG_DATA_DIR': str(tmp_path / 'data'), 'PLATESG_REVIEW_TOKEN': 'admin-token',
-        'PLATESG_AUTO_PUBLISH': '0', 'ESG_EXTENSION_ROOT': str(runtime), 'PLATESG_IMPORT_ROOTS': str(tmp_path)})
+        'PLATESG_AUTO_PUBLISH': '0', 'ESG_EXTENSION_ROOT': str(runtime), 'PLATESG_IMPORT_ROOTS': str(tmp_path),
+        'ESG_CLAUSE_LIFECYCLE_LEDGER': str(tmp_path / 'ledger.json')})
     auth = {'Authorization': 'Bearer admin-token'}
     with TestClient(app) as client:
         proposal = json.loads(DRAFT.read_text())
@@ -97,6 +135,8 @@ def test_reported_extension_bundle_reaches_review_publication_and_public_source_
         registered = client.post('/internal/v1/extensions/register', json={'proposal_id': proposal['proposal_id'], 'approval_id': approved['approval']['approval_id']}, headers=auth)
         assert registered.status_code == 200, registered.text
         release = registered.json()['release']
+        assert client.post('/internal/v1/extensions/platform-selection', json={'dictionary_version': '1.1.0', 'extension_ids': [release['definition']['extension_id']]}, headers=auth).status_code == 409
+        accept_release(tmp_path / 'ledger.json', release)
         assert client.post('/internal/v1/extensions/platform-selection', json={'dictionary_version': '1.1.0', 'extension_ids': [release['definition']['extension_id']]}, headers=auth).status_code == 200
         assert client.post('/internal/v1/publication-process', headers=auth).status_code == 200
         assert client.post('/internal/v1/entities', json={'entity_ref': 'fixture-extension-entity', 'name_zh': '隔离虚构主体', 'entity_kind': 'group', 'country_code': 'CN', 'industry_code': 'fixture-industry'}, headers=auth).status_code == 200
@@ -162,7 +202,8 @@ def test_actual_internal_operand_bundle_delivers_original_candidates_without_exp
     runtime = tmp_path / 'extensions'
     monkeypatch.setenv('ESG_EXTENSION_ROOT', str(runtime))
     app = create_app({'PLATESG_DATA_DIR': str(tmp_path / 'data'), 'PLATESG_REVIEW_TOKEN': 'admin-token',
-        'PLATESG_AUTO_PUBLISH': '0', 'ESG_EXTENSION_ROOT': str(runtime), 'PLATESG_IMPORT_ROOTS': str(tmp_path)})
+        'PLATESG_AUTO_PUBLISH': '0', 'ESG_EXTENSION_ROOT': str(runtime), 'PLATESG_IMPORT_ROOTS': str(tmp_path),
+        'ESG_CLAUSE_LIFECYCLE_LEDGER': str(tmp_path / 'ledger.json')})
     auth = {'Authorization': 'Bearer admin-token'}
     with TestClient(app) as client:
         proposal = json.loads(DRAFT.read_text())
@@ -176,6 +217,7 @@ def test_actual_internal_operand_bundle_delivers_original_candidates_without_exp
         assert registered.status_code == 200, registered.text
         release = registered.json()['release']
         extension_id = release['definition']['extension_id']
+        accept_release(tmp_path / 'ledger.json', release)
         selected = client.post('/internal/v1/extensions/platform-selection', json={'dictionary_version': '1.1.0',
             'extension_ids': [extension_id]}, headers=auth)
         assert selected.status_code == 200, selected.text

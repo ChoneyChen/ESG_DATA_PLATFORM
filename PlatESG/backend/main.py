@@ -474,7 +474,8 @@ def create_app(environment: dict[str, str] | None = None):
     config = {**os.environ, **(environment or {})}
     bridge = DatabaseBridge(config)
     extensions = ExtensionControl(bridge, standards_root=ROOT.parent/'ExtractESG/standards',
-        runtime_root=Path(config.get('ESG_EXTENSION_ROOT',str(ROOT.parent/'ExtractESG/.local/extensions'))))
+        runtime_root=Path(config.get('ESG_EXTENSION_ROOT',str(ROOT.parent/'ExtractESG/.local/extensions'))),
+        ledger_path=(Path(config['ESG_CLAUSE_LIFECYCLE_LEDGER']) if config.get('ESG_CLAUSE_LIFECYCLE_LEDGER') else None))
     import_roots=[Path(value) for value in config.get('PLATESG_IMPORT_ROOTS',os.pathsep.join([str(ROOT.parent/'ExtractESG'),str(ROOT/'.local')])).split(os.pathsep) if value]
     running_release=release()
     token = config.get("PLATESG_REVIEW_TOKEN")
@@ -756,9 +757,12 @@ def create_app(environment: dict[str, str] | None = None):
     @app.post('/internal/v1/extensions/platform-selection', dependencies=[Depends(permission('admin'))])
     def extension_platform_selection(request: ExtensionPlatformSelection):
         from .extension_dictionary import build_extension_dictionary
-        return extension_action(lambda: bridge.call('extension_platform_selection',{
-            'dictionary':build_extension_dictionary(json.loads((ROOT/'catalog/metric-dictionary.v1.json').read_text()),
-                extensions.catalog_view()['releases'], request.extension_ids, request.dictionary_version)}))
+        def select():
+            extensions.require_accepted(request.extension_ids, purpose='平台主要配置')
+            dictionary = build_extension_dictionary(json.loads((ROOT/'catalog/metric-dictionary.v1.json').read_text()),
+                extensions.catalog_view()['releases'], request.extension_ids, request.dictionary_version)
+            return bridge.call('extension_platform_selection', {'dictionary': dictionary})
+        return extension_action(select)
 
     @app.get('/internal/v1/extensions/calculations', dependencies=[Depends(permission('read'))])
     def extension_calculations():

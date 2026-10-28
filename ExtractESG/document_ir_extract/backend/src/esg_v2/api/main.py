@@ -591,6 +591,54 @@ def pipeline_standard_catalog():
     return _targeted_catalog_request("/api/standards/catalog")
 
 
+def _targeted_write(path: str, body: dict) -> dict:
+    """Forward one lifecycle action to the targeted backend, preserving its refusal reason."""
+    try:
+        with requests.Session() as session:
+            session.trust_env = False
+            response = session.post(f"{settings.targeted_backend_url}{path}", json=body, timeout=60)
+            response.raise_for_status()
+            return response.json()
+    except requests.HTTPError as exc:
+        status = exc.response.status_code if exc.response is not None else 502
+        try:
+            detail = exc.response.json().get("detail", "条款操作被拒绝")
+        except ValueError:
+            detail = "条款操作被拒绝"
+        raise HTTPException(status if status in {400, 404, 409} else 502, detail) from exc
+    except (requests.RequestException, ValueError) as exc:
+        raise HTTPException(503, "无法连接定向后端，条款操作暂不可用") from exc
+
+
+@app.get("/api/pipeline/clause-lifecycle")
+def pipeline_clause_lifecycle():
+    return _targeted_catalog_request("/api/clause-lifecycle")
+
+
+@app.post("/api/pipeline/clause-lifecycle/acceptances")
+def pipeline_clause_acceptance(request: dict = Body(...)):
+    return _targeted_write("/api/clause-lifecycle/acceptances", request)
+
+
+@app.post("/api/pipeline/clause-lifecycle/retirements")
+def pipeline_clause_retirement(request: dict = Body(...)):
+    return _targeted_write("/api/clause-lifecycle/retirements", request)
+
+
+@app.get("/api/pipeline/standards/{package_id}/{package_version}/diff/{other_version}")
+def pipeline_standard_diff(package_id: str, package_version: str, other_version: str):
+    return _targeted_catalog_request(
+        f"/api/standards/{quote(package_id, safe='')}/{quote(package_version, safe='')}"
+        f"/diff/{quote(other_version, safe='')}")
+
+
+@app.get("/api/pipeline/standards/{package_id}/{package_version}/dependents/{source_datapoint_id}")
+def pipeline_standard_dependents(package_id: str, package_version: str, source_datapoint_id: str):
+    return _targeted_catalog_request(
+        f"/api/standards/{quote(package_id, safe='')}/{quote(package_version, safe='')}"
+        f"/dependents/{quote(source_datapoint_id, safe='')}")
+
+
 @app.get("/api/pipeline/standards/diagnostics")
 def pipeline_standard_diagnostics():
     return _targeted_catalog_request("/api/standards/diagnostics")
