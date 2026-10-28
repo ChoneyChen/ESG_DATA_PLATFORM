@@ -139,6 +139,10 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
 - **Console 层级化（2026-10-28）**：标准中心改为目录 → 包 → 条款三级页面，包与条款都有中文简述名
   （标准侧 `package-titles.json`）；新增条款为独立弹窗；发布页改为报告列表 → 单份报告，
   候选以表格呈现。详见[阶段 16](PHASE16_CONSOLE_HIERARCHY.md)。
+- **条款合同单一来源（2026-10-28）**：平台字典不再包含任何条款字面量，55 条平台策略声明在
+  `ExtractESG/standards/contracts/platform-policy.esrs-2023-set1.json`；字典重建与封存版本字节一致。
+  删除 `compat/packages` 与 `packages` 旧路径链接；新增仓库内规范
+  [标准条款合同](../ExtractESG/standards/docs/STANDARD_CONTRACT.md)。
 - 全链路到发布（2026-10-23，历史记录）：法拉电子、宁德时代、紫金矿业、香港中华煤气曾各跑通“提取 → 交付 → 审核 → 发布”。
   2026-10-24 清理后公开 `/v1` 为空数据集（versions 0），上述观测已随产物清除；链路定义与实体保留，重新交付即可恢复。
 

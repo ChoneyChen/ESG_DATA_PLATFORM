@@ -15,7 +15,7 @@ def test_successful_publish_retires_only_older_versions_of_same_package(tmp_path
     unrelated.parent.mkdir(parents=True)
     shutil.copyfile(ROOT / "dist/.retired/esrs.2023-set1.e2-4/1.0.0/package.json", unrelated)
     new = tmp_path / "dist/esrs.2023-set1.e1-6/1.2.0/package.json"
-    compiler.compile_to_path(core_path=ROOT / "core/1.1.0/core.json", module_dir=ROOT / "packages/esrs/2023-set1/e1-6/1.2.0", output_path=new)
+    compiler.compile_to_path(core_path=ROOT / "core/1.1.0/core.json", module_dir=ROOT / "history/authoring/esrs/2023-set1/e1-6/1.2.0", output_path=new)
     archived = tmp_path / "dist/.retired/esrs.2023-set1.e1-6/1.0.0/package.json"
     assert not old.exists()
     assert archived.is_file() and new.is_file() and unrelated.is_file()

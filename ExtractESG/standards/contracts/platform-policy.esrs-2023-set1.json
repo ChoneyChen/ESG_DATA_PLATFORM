@@ -1,0 +1,2437 @@
+{
+  "policy_id": "esrs.2023-set1.platform-policy",
+  "policy_version": "1.0.0",
+  "label": "平台主要条款的比较与呈现策略",
+  "description": "科学定义（身份轴、固定口径、单位、聚合、排除）来自标准包；本文件只声明平台层的比较维度、约束与呈现策略，是平台条款策略的唯一来源。构建脚本不再写任何条款。",
+  "framework": "esrs",
+  "framework_version": "2023-set1",
+  "metrics": {
+    "E1-5_01": {
+      "metric_id": "energy.total_consumption",
+      "label_zh": "自身运营能源消费总量",
+      "value_type": "numeric",
+      "canonical_unit": "MWh",
+      "unit_dimension": "energy",
+      "required_dimensions": [
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role",
+        "energy_accounting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "energy_source": {
+          "allowed_values": [
+            "all"
+          ]
+        },
+        "energy_flow": {
+          "allowed_values": [
+            "consumption"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "自身运营能源消费总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "发电量、装机容量、强度和减排量不能作为消费量。",
+        "不能将总量和其成员重复求和。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "自身运营能源口径一致；可再生比例的分子分母必须同期间、同边界。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E1-5_05": {
+      "metric_id": "energy.renewable_consumption",
+      "label_zh": "可再生能源消费总量",
+      "value_type": "numeric",
+      "canonical_unit": "MWh",
+      "unit_dimension": "energy",
+      "required_dimensions": [
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role",
+        "energy_accounting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "energy_source": {
+          "allowed_values": [
+            "renewable"
+          ]
+        },
+        "energy_flow": {
+          "allowed_values": [
+            "consumption"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "可再生能源消费总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "发电量、装机容量、强度和减排量不能作为消费量。",
+        "不能将总量和其成员重复求和。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "自身运营能源口径一致；可再生比例的分子分母必须同期间、同边界。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E1-5_09": {
+      "metric_id": "energy.renewable_share",
+      "label_zh": "可再生能源消费占比",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "energy_source",
+        "energy_flow",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "energy_source",
+        "energy_flow",
+        "denominator_scope",
+        "energy_accounting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "energy_source": {
+          "allowed_values": [
+            "renewable"
+          ]
+        },
+        "energy_flow": {
+          "allowed_values": [
+            "consumption"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "total_energy_consumption_same_boundary"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "可再生能源消费占比",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "发电量、装机容量、强度和减排量不能作为消费量。",
+        "不能将总量和其成员重复求和。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "自身运营能源口径一致；可再生比例的分子分母必须同期间、同边界。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "percent_to_ratio",
+      "value_constraints": {
+        "minimum": "0",
+        "maximum": "1"
+      }
+    },
+    "E1-6_07": {
+      "metric_id": "ghg.scope1",
+      "label_zh": "范围1温室气体毛排放量",
+      "value_type": "numeric",
+      "canonical_unit": "tCO2e",
+      "unit_dimension": "ghg_emissions",
+      "required_dimensions": [
+        "ghg_scope",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "ghg_scope",
+        "aggregation_role",
+        "gwp_basis",
+        "consolidation_approach",
+        "amount_basis",
+        "accounting_standard"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "ghg_scope": {
+          "allowed_values": [
+            "scope_1"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "范围1温室气体毛排放量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "范围1、范围2、范围3及范围1+2合计独立，不能相互替换。",
+        "减排量、抵消量、目标和排放强度不属于绝对毛排放量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "GWP依据、核算边界与合并方法经审核一致。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      },
+      "comparison_allowed_values": {
+        "amount_basis": [
+          "gross"
+        ]
+      }
+    },
+    "E1-6_09": {
+      "metric_id": "ghg.scope2_location_based",
+      "label_zh": "范围2温室气体毛排放量（地点法）",
+      "value_type": "numeric",
+      "canonical_unit": "tCO2e",
+      "unit_dimension": "ghg_emissions",
+      "required_dimensions": [
+        "ghg_scope",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "ghg_scope",
+        "aggregation_role",
+        "gwp_basis",
+        "consolidation_approach",
+        "amount_basis",
+        "accounting_standard",
+        "measurement_method"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "ghg_scope": {
+          "allowed_values": [
+            "scope_2"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [
+        "measurement_method"
+      ],
+      "typed_context_constraints": {
+        "measurement_method": {
+          "allowed_values": [
+            "location_based"
+          ]
+        }
+      },
+      "description": "范围2温室气体毛排放量（地点法）",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "范围1、范围2、范围3及范围1+2合计独立，不能相互替换。",
+        "减排量、抵消量、目标和排放强度不属于绝对毛排放量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "GWP依据、核算边界与合并方法经审核一致。",
+        "地点法与市场法独立；方法必须由来源支持，不能根据指标名补造。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      },
+      "comparison_allowed_values": {
+        "amount_basis": [
+          "gross"
+        ]
+      }
+    },
+    "E1-6_10": {
+      "metric_id": "ghg.scope2_market_based",
+      "label_zh": "范围2温室气体毛排放量（市场法）",
+      "value_type": "numeric",
+      "canonical_unit": "tCO2e",
+      "unit_dimension": "ghg_emissions",
+      "required_dimensions": [
+        "ghg_scope",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "ghg_scope",
+        "aggregation_role",
+        "gwp_basis",
+        "consolidation_approach",
+        "amount_basis",
+        "accounting_standard",
+        "measurement_method"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "ghg_scope": {
+          "allowed_values": [
+            "scope_2"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [
+        "measurement_method"
+      ],
+      "typed_context_constraints": {
+        "measurement_method": {
+          "allowed_values": [
+            "market_based"
+          ]
+        }
+      },
+      "description": "范围2温室气体毛排放量（市场法）",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "范围1、范围2、范围3及范围1+2合计独立，不能相互替换。",
+        "减排量、抵消量、目标和排放强度不属于绝对毛排放量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "GWP依据、核算边界与合并方法经审核一致。",
+        "地点法与市场法独立；方法必须由来源支持，不能根据指标名补造。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      },
+      "comparison_allowed_values": {
+        "amount_basis": [
+          "gross"
+        ]
+      }
+    },
+    "E1-6_11": {
+      "metric_id": "ghg.scope3",
+      "label_zh": "范围3温室气体毛排放量",
+      "value_type": "numeric",
+      "canonical_unit": "tCO2e",
+      "unit_dimension": "ghg_emissions",
+      "required_dimensions": [
+        "ghg_scope",
+        "aggregation_role",
+        "scope3_category"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "ghg_scope",
+        "aggregation_role",
+        "scope3_category",
+        "gwp_basis",
+        "consolidation_approach",
+        "amount_basis",
+        "accounting_standard",
+        "category_coverage",
+        "estimation_method"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "ghg_scope": {
+          "allowed_values": [
+            "scope_3"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        },
+        "scope3_category": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "范围3温室气体毛排放量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "范围1、范围2、范围3及范围1+2合计独立，不能相互替换。",
+        "减排量、抵消量、目标和排放强度不属于绝对毛排放量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "GWP依据、核算边界与合并方法经审核一致。",
+        "范围3总量、类别和小计分别展示；类别覆盖与估计方法相同才可比较。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      },
+      "comparison_allowed_values": {
+        "amount_basis": [
+          "gross"
+        ]
+      }
+    },
+    "E2-4_02": {
+      "metric_id": "pollution.air_emissions",
+      "label_zh": "按污染物划分的空气排放量",
+      "value_type": "numeric",
+      "canonical_unit": "tonne",
+      "unit_dimension": "mass",
+      "required_dimensions": [
+        "pollutant",
+        "pollution_medium"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "pollutant",
+        "pollution_medium",
+        "pollutant_definition",
+        "release_boundary"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "pollution_medium": {
+          "allowed_values": [
+            "air"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "按污染物划分的空气排放量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "温室气体、排放浓度和污染削减量不属于本污染物排放质量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "污染物种类、介质、排放边界和测量方法相同；不同污染物不相加。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E2-4_03": {
+      "metric_id": "pollution.water_emissions",
+      "label_zh": "按污染物划分的水体排放量",
+      "value_type": "numeric",
+      "canonical_unit": "tonne",
+      "unit_dimension": "mass",
+      "required_dimensions": [
+        "pollutant",
+        "pollution_medium"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "pollutant",
+        "pollution_medium",
+        "pollutant_definition",
+        "release_boundary"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "pollution_medium": {
+          "allowed_values": [
+            "water"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "按污染物划分的水体排放量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "温室气体、排放浓度和污染削减量不属于本污染物排放质量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "污染物种类、介质、排放边界和测量方法相同；不同污染物不相加。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E2-4_09": {
+      "metric_id": "pollution.measurement_methodology",
+      "label_zh": "空气、水和土壤污染测量方法",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "原报告对污染物测量方法、计算、监测和验证的描述，按适用污染物与介质关联。",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "不能把方法存在与否转换成污染表现评分。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "E2-5_02": {
+      "metric_id": "substances.concern_input_quantity",
+      "label_zh": "生产生成、使用或采购的关注物质量",
+      "value_type": "numeric",
+      "canonical_unit": "tonne",
+      "unit_dimension": "mass",
+      "required_dimensions": [
+        "substance",
+        "hazard_class",
+        "concern_class",
+        "material_flow",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "substance",
+        "hazard_class",
+        "concern_class",
+        "material_flow",
+        "aggregation_role",
+        "classification_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "concern_class": {
+          "allowed_values": [
+            "substances_of_concern"
+          ]
+        },
+        "material_flow": {
+          "allowed_values": [
+            "generated",
+            "used",
+            "procured",
+            "generated_used_procured_combined"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total",
+            "hazard_class",
+            "substance"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "生产生成、使用或采购的关注物质量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "生成、使用、采购量可能重叠，不能盲目相加。",
+        "高度关注物质的单独数量与关注物质全量不能混同。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "物质、危害类别、关注分类和生成/使用/采购口径相同。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E3-4_01": {
+      "metric_id": "water.consumption",
+      "label_zh": "耗水总量",
+      "value_type": "numeric",
+      "canonical_unit": "m3",
+      "unit_dimension": "volume",
+      "required_dimensions": [
+        "water_measure",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "water_measure",
+        "aggregation_role",
+        "water_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "water_measure": {
+          "allowed_values": [
+            "consumption"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "耗水总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "耗水、取水、排水和循环利用水量相互独立。",
+        "储水是存量；循环利用量可能包含多次利用，不能与取水相加。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "水量定义与运营边界经审核一致。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E3-4_02": {
+      "metric_id": "water.consumption_risk_areas",
+      "label_zh": "水风险地区耗水总量",
+      "value_type": "numeric",
+      "canonical_unit": "m3",
+      "unit_dimension": "volume",
+      "required_dimensions": [
+        "water_measure",
+        "aggregation_role",
+        "geography",
+        "water_risk_class"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "water_measure",
+        "aggregation_role",
+        "geography",
+        "water_risk_class",
+        "water_definition",
+        "risk_classification_method"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "water_measure": {
+          "allowed_values": [
+            "consumption"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "水风险地区耗水总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "耗水、取水、排水和循环利用水量相互独立。",
+        "储水是存量；循环利用量可能包含多次利用，不能与取水相加。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "水量定义与运营边界经审核一致。",
+        "水风险地区需保留地域、风险分类及分类方法。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E3-4_03": {
+      "metric_id": "water.recycled_reused",
+      "label_zh": "循环利用及重复使用水量",
+      "value_type": "numeric",
+      "canonical_unit": "m3",
+      "unit_dimension": "volume",
+      "required_dimensions": [
+        "water_measure",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "water_measure",
+        "aggregation_role",
+        "water_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "water_measure": {
+          "allowed_values": [
+            "recycled_reused"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "循环利用及重复使用水量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "耗水、取水、排水和循环利用水量相互独立。",
+        "储水是存量；循环利用量可能包含多次利用，不能与取水相加。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "水量定义与运营边界经审核一致。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E3-4_11": {
+      "metric_id": "water.withdrawal",
+      "label_zh": "取水总量",
+      "value_type": "numeric",
+      "canonical_unit": "m3",
+      "unit_dimension": "volume",
+      "required_dimensions": [
+        "water_measure",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "water_measure",
+        "aggregation_role",
+        "water_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "water_measure": {
+          "allowed_values": [
+            "withdrawal"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "取水总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "耗水、取水、排水和循环利用水量相互独立。",
+        "储水是存量；循环利用量可能包含多次利用，不能与取水相加。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "水量定义与运营边界经审核一致。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E3-4_12": {
+      "metric_id": "water.discharge",
+      "label_zh": "排水总量",
+      "value_type": "numeric",
+      "canonical_unit": "m3",
+      "unit_dimension": "volume",
+      "required_dimensions": [
+        "water_measure",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "water_measure",
+        "aggregation_role",
+        "water_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "water_measure": {
+          "allowed_values": [
+            "discharge"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "排水总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "耗水、取水、排水和循环利用水量相互独立。",
+        "储水是存量；循环利用量可能包含多次利用，不能与取水相加。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "水量定义与运营边界经审核一致。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E4.IRO-1_14": {
+      "metric_id": "biodiversity.sensitive_site_presence",
+      "label_zh": "敏感生物多样性区域内或附近场址情况",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "site",
+        "sensitivity_class"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "敏感生物多样性区域内或附近场址情况",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "E4.SBM-3_04": {
+      "metric_id": "biodiversity.impacted_sensitive_areas",
+      "label_zh": "受影响的敏感生物多样性区域",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "site",
+        "sensitivity_class",
+        "impact_type"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "受影响的敏感生物多样性区域",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "E4-5_01": {
+      "metric_id": "biodiversity.negatively_impacted_site_count",
+      "label_zh": "负面影响敏感区域的场址数量",
+      "value_type": "numeric",
+      "canonical_unit": "count",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "site_definition",
+        "sensitivity_class",
+        "impact_type"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "site_definition",
+        "sensitivity_class",
+        "impact_type",
+        "classification_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "负面影响敏感区域的场址数量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E4-5_02": {
+      "metric_id": "biodiversity.negatively_impacted_site_area",
+      "label_zh": "负面影响敏感区域的场址面积",
+      "value_type": "numeric",
+      "canonical_unit": "ha",
+      "unit_dimension": "area",
+      "required_dimensions": [
+        "site_definition",
+        "sensitivity_class",
+        "impact_type"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "site_definition",
+        "sensitivity_class",
+        "impact_type",
+        "classification_basis",
+        "area_measurement_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "负面影响敏感区域的场址面积",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E5-4_02": {
+      "metric_id": "materials.total_input_weight",
+      "label_zh": "产品及技术和生物材料投入总重量",
+      "value_type": "numeric",
+      "canonical_unit": "tonne",
+      "unit_dimension": "mass",
+      "required_dimensions": [
+        "material_scope",
+        "material_flow",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "material_scope",
+        "material_flow",
+        "aggregation_role"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "产品及技术和生物材料投入总重量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "产品重量与投入材料若重叠，不能重复求和。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E5-4_05": {
+      "metric_id": "materials.secondary_share",
+      "label_zh": "二次使用或再生组分及材料占比",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "material_scope",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "material_scope",
+        "denominator_scope"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "material_scope": {
+          "allowed_values": [
+            "secondary"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "total_material_input"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "二次使用或再生组分及材料占比",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E5-5_07": {
+      "metric_id": "waste.generated",
+      "label_zh": "废弃物产生总量",
+      "value_type": "numeric",
+      "canonical_unit": "tonne",
+      "unit_dimension": "mass",
+      "required_dimensions": [
+        "waste_scope",
+        "waste_flow",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "waste_scope",
+        "waste_flow",
+        "aggregation_role"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "废弃物产生总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E5-5_11": {
+      "metric_id": "waste.non_recycled_share",
+      "label_zh": "未回收废弃物占比",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "waste_scope",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "waste_scope",
+        "denominator_scope"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "waste_scope": {
+          "allowed_values": [
+            "total"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "total_waste_generated"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "未回收废弃物占比",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "未回收不能直接等同于处置、填埋或危险废物。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E5-5_15": {
+      "metric_id": "waste.hazardous",
+      "label_zh": "危险废弃物总量",
+      "value_type": "numeric",
+      "canonical_unit": "tonne",
+      "unit_dimension": "mass",
+      "required_dimensions": [
+        "waste_scope",
+        "hazard_classification",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "waste_scope",
+        "hazard_classification",
+        "aggregation_role",
+        "classification_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "waste_scope": {
+          "allowed_values": [
+            "total"
+          ]
+        },
+        "hazard_classification": {
+          "allowed_values": [
+            "hazardous"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "危险废弃物总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-6_02": {
+      "metric_id": "workforce.employee_headcount",
+      "label_zh": "员工人头数",
+      "value_type": "numeric",
+      "canonical_unit": "person",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "population",
+        "count_basis",
+        "statistical_time_basis"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "count_basis",
+        "statistical_time_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "员工人头数",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "员工人头数、全职当量和全部自有劳动力不可互换。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-6_12": {
+      "metric_id": "workforce.turnover_rate",
+      "label_zh": "员工流动率",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "population",
+        "turnover_definition",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "turnover_definition",
+        "denominator_scope"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "员工流动率",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-9_02": {
+      "metric_id": "workforce.top_management_gender_share",
+      "label_zh": "最高管理层员工性别分布占比",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "population",
+        "gender",
+        "management_level_definition"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "gender",
+        "management_level_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "management"
+          ]
+        },
+        "gender": {
+          "allowed_values": [
+            "female"
+          ]
+        },
+        "management_level_definition": {
+          "allowed_values": [
+            "top_management"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "最高管理层员工性别分布占比",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-13_03": {
+      "metric_id": "workforce.training_hours",
+      "label_zh": "按性别划分的平均培训小时数",
+      "value_type": "numeric",
+      "canonical_unit": "hour/person",
+      "unit_dimension": "training_intensity",
+      "required_dimensions": [
+        "population",
+        "gender",
+        "training_scope",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "gender",
+        "training_scope",
+        "denominator_scope"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "training_scope": {
+          "allowed_values": [
+            "by_gender"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "per_employee"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "按性别划分的平均培训小时数",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-14_02": {
+      "metric_id": "workforce.work_related_fatalities",
+      "label_zh": "自有劳动力因工伤或职业病死亡人数",
+      "value_type": "numeric",
+      "canonical_unit": "person",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "population",
+        "fatality_cause_scope",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "fatality_cause_scope",
+        "aggregation_role"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "fatality_cause_scope": {
+          "allowed_values": [
+            "work_related"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "自有劳动力因工伤或职业病死亡人数",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-14_05": {
+      "metric_id": "workforce.recordable_accident_rate",
+      "label_zh": "自有劳动力可记录工伤事故率",
+      "value_type": "numeric",
+      "canonical_unit": "rate",
+      "unit_dimension": "accident_rate",
+      "required_dimensions": [
+        "population",
+        "accident_definition",
+        "denominator_unit",
+        "rate_multiplier"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "accident_definition",
+        "denominator_unit",
+        "rate_multiplier"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "自有劳动力可记录工伤事故率",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "事故率不是百分数；可记录事故率与误工事故频率不能互换。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S1-16_01": {
+      "metric_id": "workforce.gender_pay_gap",
+      "label_zh": "性别薪酬差距",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "population",
+        "pay_definition",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "pay_definition",
+        "denominator_scope"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "性别薪酬差距",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S2-1_05": {
+      "metric_id": "value_chain_worker.forced_child_labour_policy",
+      "label_zh": "价值链劳工政策对人口贩卖、强迫及童工的覆盖",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "policy_scope",
+        "worker_population"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "价值链劳工政策对人口贩卖、强迫及童工的覆盖",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S2-3_02": {
+      "metric_id": "value_chain_worker.grievance_channels",
+      "label_zh": "价值链劳动者申诉渠道",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "worker_population",
+        "channel_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "价值链劳动者申诉渠道",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S2-3_06": {
+      "metric_id": "value_chain_worker.anti_retaliation_policy",
+      "label_zh": "价值链劳动者申诉反报复政策",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "worker_population",
+        "policy_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "价值链劳动者申诉反报复政策",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S2-4_11": {
+      "metric_id": "value_chain_worker.severe_human_rights_issues",
+      "label_zh": "价值链严重人权问题和事件",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "worker_population",
+        "value_chain_stage",
+        "incident_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "价值链严重人权问题和事件",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S3-1_01": {
+      "metric_id": "community.indigenous_policy",
+      "label_zh": "原住民影响预防和应对政策",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "community_scope",
+        "policy_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "原住民影响预防和应对政策",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S3-3_11": {
+      "metric_id": "community.grievance_channels",
+      "label_zh": "受影响社区申诉渠道",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "community_scope",
+        "channel_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "受影响社区申诉渠道",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S3-4_02": {
+      "metric_id": "community.remedy_actions",
+      "label_zh": "对社区实际重大影响的补救行动",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "community_scope",
+        "impact_scope",
+        "remedy_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "对社区实际重大影响的补救行动",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S3-4_11": {
+      "metric_id": "community.severe_human_rights_issues",
+      "label_zh": "受影响社区严重人权问题和事件",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "community_scope",
+        "incident_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "受影响社区严重人权问题和事件",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S4-1_01": {
+      "metric_id": "consumer.impact_policies",
+      "label_zh": "消费者及终端用户重大影响、风险和机遇政策",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "consumer_population",
+        "policy_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "消费者及终端用户重大影响、风险和机遇政策",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S4-3_02": {
+      "metric_id": "consumer.grievance_channels",
+      "label_zh": "消费者及终端用户申诉渠道",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "consumer_population",
+        "channel_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "消费者及终端用户申诉渠道",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "S4-3_13": {
+      "metric_id": "consumer.complaint_count",
+      "label_zh": "消费者及终端用户投诉数量",
+      "value_type": "numeric",
+      "canonical_unit": "count",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "consumer_population",
+        "complaint_definition",
+        "channel_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "consumer_population",
+        "complaint_definition",
+        "channel_scope",
+        "business_scale_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "consumer_population": {
+          "allowed_values": [
+            "consumers"
+          ]
+        },
+        "complaint_definition": {
+          "allowed_values": [
+            "complaint"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "消费者及终端用户投诉数量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "投诉总量缺少业务规模和渠道覆盖时不能排名。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "S4-4_11": {
+      "metric_id": "consumer.severe_human_rights_issues",
+      "label_zh": "消费者及终端用户严重人权问题和事件",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "consumer_population",
+        "incident_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "消费者及终端用户严重人权问题和事件",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated"
+    },
+    "G1-1_03": {
+      "metric_id": "business.anti_corruption_policy_absence",
+      "label_zh": "未制定符合联合国反腐败公约的反腐败或反贿赂政策",
+      "value_type": "statement",
+      "canonical_unit": null,
+      "unit_dimension": null,
+      "required_dimensions": [
+        "policy_scope"
+      ],
+      "comparison_dimensions": [],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "未制定符合联合国反腐败公约的反腐败或反贿赂政策",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "原条款为未制定政策；不得反转为已制定政策。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "context",
+      "comparison_mode": "structured_display",
+      "unresolved_dimension_policy": "not_stated",
+      "statement_polarity": "negative_absence"
+    },
+    "G1-4_01": {
+      "metric_id": "business.corruption_conviction_count",
+      "label_zh": "违反反腐败及反贿赂法律的定罪数量",
+      "value_type": "numeric",
+      "canonical_unit": "count",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "legal_scope",
+        "counting_basis"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "legal_scope",
+        "counting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "违反反腐败及反贿赂法律的定罪数量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "内部处分、指控和确认事件不能当法律定罪。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "G1-4_02": {
+      "metric_id": "business.corruption_fines",
+      "label_zh": "违反反腐败及反贿赂法律的罚款金额",
+      "value_type": "numeric",
+      "canonical_unit": null,
+      "unit_dimension": "monetary",
+      "required_dimensions": [
+        "legal_scope",
+        "currency",
+        "fine_basis"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "legal_scope",
+        "currency",
+        "fine_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "违反反腐败及反贿赂法律的罚款金额",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "保留原币种；不按当前汇率隐式转换。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "G1-4_04": {
+      "metric_id": "business.confirmed_corruption_count",
+      "label_zh": "已确认腐败或贿赂事件数量",
+      "value_type": "numeric",
+      "canonical_unit": "count",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "incident_definition",
+        "counting_basis"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "incident_definition",
+        "counting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "incident_definition": {
+          "allowed_values": [
+            "confirmed_corruption"
+          ]
+        },
+        "counting_basis": {
+          "allowed_values": [
+            "count"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "已确认腐败或贿赂事件数量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "G1-6_01": {
+      "metric_id": "business.average_payment_days",
+      "label_zh": "自合同或法定付款起算日计的平均付款天数",
+      "value_type": "numeric",
+      "canonical_unit": "day",
+      "unit_dimension": "duration",
+      "required_dimensions": [
+        "payment_start_definition",
+        "invoice_scope",
+        "averaging_basis"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "payment_start_definition",
+        "invoice_scope",
+        "averaging_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "自合同或法定付款起算日计的平均付款天数",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric"
+    },
+    "E1-5_02": {
+      "metric_id": "energy.fossil_consumption",
+      "label_zh": "化石能源消费总量",
+      "value_type": "numeric",
+      "canonical_unit": "MWh",
+      "unit_dimension": "energy",
+      "required_dimensions": [
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role",
+        "energy_accounting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "energy_source": {
+          "allowed_values": [
+            "fossil"
+          ]
+        },
+        "energy_flow": {
+          "allowed_values": [
+            "consumption"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "化石能源消费总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "发电量、装机容量、强度和减排量不能作为消费量。",
+        "不能将总量和其成员重复求和。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "自身运营能源口径一致；可再生比例的分子分母必须同期间、同边界。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E1-6_12": {
+      "metric_id": "ghg.total_location_based",
+      "label_zh": "范围1＋位置法范围2＋范围3温室气体排放总量",
+      "value_type": "numeric",
+      "canonical_unit": "tCO2e",
+      "unit_dimension": "ghg_emissions",
+      "required_dimensions": [
+        "ghg_scope",
+        "aggregation_role",
+        "consolidation_approach"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "ghg_scope",
+        "aggregation_role",
+        "consolidation_approach",
+        "amount_basis",
+        "gwp_basis",
+        "accounting_standard"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "ghg_scope": {
+          "allowed_values": [
+            "total"
+          ]
+        },
+        "aggregation_role": {
+          "allowed_values": [
+            "total"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "范围1＋位置法范围2＋范围3温室气体排放总量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "范围1、范围2、范围3与合计不能相互替代；强度、减排量与抵消量不属于绝对排放量。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "GWP依据、合并方法与核算标准经审核一致。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "E1-6_30": {
+      "metric_id": "ghg.intensity_location_based",
+      "label_zh": "基于位置法的温室气体排放强度",
+      "value_type": "numeric",
+      "canonical_unit": "tCO2e-per-10k-cny",
+      "unit_dimension": "ghg-intensity",
+      "required_dimensions": [
+        "intensity_numerator_scope",
+        "intensity_denominator",
+        "consolidation_approach"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "intensity_numerator_scope",
+        "intensity_denominator",
+        "consolidation_approach",
+        "revenue_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {},
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "基于位置法的温室气体排放强度",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "绝对排放总量不能与排放强度互换；净收入、营业收入与产值是不同的分母。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。",
+        "分子范围与分母定义经审核一致；不同分母的强度不相加。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "S1-13_04": {
+      "metric_id": "workforce.training_hours_per_person",
+      "label_zh": "员工人均培训小时数",
+      "value_type": "numeric",
+      "canonical_unit": "hour/person",
+      "unit_dimension": "training_intensity",
+      "required_dimensions": [
+        "population",
+        "training_scope",
+        "denominator_scope"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "training_scope",
+        "denominator_scope"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "training_scope": {
+          "allowed_values": [
+            "all_employees"
+          ]
+        },
+        "denominator_scope": {
+          "allowed_values": [
+            "per_employee"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "员工人均培训小时数",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "培训总时长不能代替人均时长；专题培训不能当作全员人均培训。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "S1-17_02": {
+      "metric_id": "workforce.discrimination_incidents",
+      "label_zh": "歧视事件数量",
+      "value_type": "numeric",
+      "canonical_unit": "count",
+      "unit_dimension": "count",
+      "required_dimensions": [
+        "population",
+        "incident_definition",
+        "counting_basis"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "population",
+        "incident_definition",
+        "counting_basis"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "population": {
+          "allowed_values": [
+            "employees"
+          ]
+        },
+        "incident_definition": {
+          "allowed_values": [
+            "discrimination"
+          ]
+        },
+        "counting_basis": {
+          "allowed_values": [
+            "count"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "歧视事件数量",
+      "aggregation": "do_not_sum",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "已确认事件、投诉与内部处分分别计数，不能互相替代。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "compatible_unit_only",
+      "value_constraints": {
+        "minimum": "0"
+      }
+    },
+    "GOV-1_06": {
+      "metric_id": "governance.board_gender_ratio",
+      "label_zh": "董事会性别多样性比例",
+      "value_type": "numeric",
+      "canonical_unit": "ratio",
+      "unit_dimension": "ratio",
+      "required_dimensions": [
+        "gender",
+        "board_definition"
+      ],
+      "comparison_dimensions": [
+        "entity_kind",
+        "gender",
+        "board_definition"
+      ],
+      "fixed_dimensions": {},
+      "dimension_constraints": {
+        "gender": {
+          "allowed_values": [
+            "female"
+          ]
+        },
+        "board_definition": {
+          "allowed_values": [
+            "board_of_directors"
+          ]
+        }
+      },
+      "required_context_fields": [],
+      "typed_context_constraints": {},
+      "description": "董事会性别多样性比例",
+      "aggregation": "ratio_recompute",
+      "exclusions": [
+        "标题、目录、空白和缺失状态不能替代有值事实；显式零单独保留。",
+        "目标值、预测值和基准值不能充当本期实际值。",
+        "董事会与管理层是不同人群；占比不能与人数互换。"
+      ],
+      "comparison_conditions": [
+        "主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。",
+        "原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。",
+        "缺少比较维度的记录可以展示，但不进入符合口径的比较集合。"
+      ],
+      "value_role": "actual",
+      "comparison_mode": "conditional_numeric",
+      "normalization": "percent_to_ratio",
+      "value_constraints": {
+        "minimum": "0",
+        "maximum": "1"
+      }
+    }
+  }
+}

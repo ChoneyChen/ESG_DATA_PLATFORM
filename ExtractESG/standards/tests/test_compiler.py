@@ -12,16 +12,16 @@ from esg_standard_packages.errors import PackageIntegrityError
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = ROOT / "core/1.0.0/core.json"
-MODULE = ROOT / "packages/esrs/2023-set1/e2-4/1.0.0"
+MODULE = ROOT / "history/authoring/esrs/2023-set1/e2-4/1.0.0"
 COMPILED = ROOT / "dist/esrs.2023-set1.e2-4/1.0.0/package.json"
 if not COMPILED.is_file():
     COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e2-4/1.0.0/package.json"
 CORE_1_1 = ROOT / "core/1.1.0/core.json"
-E1_5_MODULE = ROOT / "packages/esrs/2023-set1/e1-5/1.0.0"
-E1_6_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.0.0"
-E1_6_130_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.3.0"
-E1_6_140_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.4.0"
-E1_6_150_MODULE = ROOT / "packages/esrs/2023-set1/e1-6/1.5.0"
+E1_5_MODULE = ROOT / "history/authoring/esrs/2023-set1/e1-5/1.0.0"
+E1_6_MODULE = ROOT / "history/authoring/esrs/2023-set1/e1-6/1.0.0"
+E1_6_130_MODULE = ROOT / "history/authoring/esrs/2023-set1/e1-6/1.3.0"
+E1_6_140_MODULE = ROOT / "history/authoring/esrs/2023-set1/e1-6/1.4.0"
+E1_6_150_MODULE = ROOT / "history/authoring/esrs/2023-set1/e1-6/1.5.0"
 E1_5_COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e1-5/1.0.0/package.json"
 E1_6_COMPILED = ROOT / "dist/.retired/esrs.2023-set1.e1-6/1.0.0/package.json"
 

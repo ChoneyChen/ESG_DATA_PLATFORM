@@ -158,11 +158,11 @@ def test_v2_packages_compile_and_pollution_anchors_keep_original_elements():
     compiler = StandardPackageCompiler()
     for module, count in [("e1-6", 35), ("e1-5", 23), ("e2-4", 20)]:
         core = root / ("core/1.0.0/core.json" if module == "e2-4" else "core/1.1.0/core.json")
-        package = compiler.compile(core_path=core, module_dir=root / "packages/esrs/2023-set1" / module / "2.0.0")
+        package = compiler.compile(core_path=core, module_dir=root / "history/authoring/esrs/2023-set1" / module / "2.0.0")
         assert len(package.metrics) == count
         assert all(m.disclosure_topic and m.disclosure_role for m in package.metrics)
         if module == "e2-4":
-            original = compiler.compile(core_path=core, module_dir=root / "packages/esrs/2023-set1/e2-4/1.0.0")
+            original = compiler.compile(core_path=core, module_dir=root / "history/authoring/esrs/2023-set1/e2-4/1.0.0")
             for number in (2, 3, 4):
                 mid = f"esrs.2023-set1.e2-4.dp{number:02d}"
                 assert [e for e in package.elements if e.metric_id == mid] == [e for e in original.elements if e.metric_id == mid]
@@ -187,7 +187,7 @@ def test_workflow_projects_one_shared_source_without_changing_core_layout(tmp_pa
     root = standard_dist_root().parent
     package = StandardPackageCompiler().compile(
         core_path=root / "core/1.0.0/core.json",
-        module_dir=root / "packages/esrs/2023-set1/e2-4/2.0.0",
+        module_dir=root / "history/authoring/esrs/2023-set1/e2-4/2.0.0",
     )
     ids = ["esrs.2023-set1.e2-4.dp02", "esrs.2023-set1.e2-4.dp03"]
     # Standalone compatibility needs an explicit shared topic. A modern report
