@@ -3,42 +3,28 @@ import {ClauseLifecyclePanel} from "../components/ClauseLifecyclePanel";
 import {ClauseProfiles} from "../components/ClauseProfiles";
 import {ClauseEditor} from "../components/ClauseEditor";
 import {useState} from 'react';
-import {post,type Row} from '../api';
+import {type Row} from '../api';
 import {useResource,useWorkspace} from '../state';
 import {Badge,Diagnostics,Field,Notice,ResourceState,Section} from '../components/ui';
 const relationLabels:Record<string,string>={decomposes:'总量与组成',uses_context:'使用背景',depends_on:'必要依赖',conditional_activation:'按条件激活',derived_from:'派生关系',presentation_of:'展示关系',alternative_to:'替代关系'};
 const lifecycleLabels:Record<string,string>={draft:'草稿',compiled:'未试提取',trialed:'试提取未通过',accepted:'已验收',publishable:'可发布',retired:'已退役'};
+
+/** Only the standard version the platform currently reads. Older releases stay readable through the API, not here. */
 export function Standards(){
  const catalog=useResource('document','/api/pipeline/standards/catalog');
  const profile=useResource('document','/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3');
  const lifecycleView=useResource('document','/api/pipeline/clause-lifecycle');
- const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false),
-  [activateMessage,setActivateMessage]=useState(''),[activating,setActivating]=useState('');
-  async function switchStandard(targetVersion:string){
-   if(!selected)return;
-   setActivating(targetVersion);setActivateMessage('');
-   try{
-    const result=await post('document',`/api/pipeline/standards/${encodeURIComponent(selected.package_id)}/${encodeURIComponent(targetVersion)}/activate`,{reason:'按条款中心决定切换当前标准'}) as Row;
-    setActivateMessage(`已切换 ${result.package_id}：${result.from_version} → ${result.to_version}（摘要 ${String(result.source_digest||'').slice(0,12)}…）。新任务从下一份开始读取新版本。`);
-    catalog.retry();profile.retry();detail.retry();
-   }catch(error){setActivateMessage((error as Error).message);}finally{setActivating('');}
-  }
+ const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false);
  const detail=useResource('document',selected?`/api/pipeline/standards/${encodeURIComponent(selected.package_id)}/${encodeURIComponent(selected.package_version)}`:null);
  const packages:Row[]=catalog.data?.packages || [],major=new Set<string>(profile.data?.overall_source_datapoint_ids || []);
  const manifest=detail.data?.manifest;
  const identityMismatch=!!manifest&&!!selected&&(manifest.package_id!==selected.package_id||manifest.package_version!==selected.package_version);
  const verifiedManifest=identityMismatch?undefined:manifest;
- const historical=selected?.is_historical===true;
- const coreIds:string[]=verifiedManifest?.core_source_datapoint_ids || (historical?[]:selected?.core_source_datapoint_ids || []);
- const metrics:Row[]=identityMismatch?[]:detail.data?.metrics || (historical?[]:selected?.metric_summaries || []);
+ const coreIds:string[]=verifiedManifest?.core_source_datapoint_ids || selected?.core_source_datapoint_ids || [];
+ const metrics:Row[]=identityMismatch?[]:detail.data?.metrics || selected?.metric_summaries || [];
  const relations:Row[]=identityMismatch?[]:detail.data?.relations || [];
  const lifecycle:Row[]=identityMismatch?[]:detail.data?.lifecycle || [];
  const lifecycleBySource=new Map<string,Row>(lifecycle.map(row=>[String(row.clause).split(':').pop() as string,row]));
- const versions=[...new Set<string>([
-  ...packages.filter(p=>p.package_id===selected?.package_id).map((p:Row)=>String(p.package_version)),
-  ...((catalog.data?.releases || []) as Row[]).filter(r=>r.package_id===selected?.package_id).map(r=>String(r.package_version)),
-  ...((catalog.data?.historical || []) as Row[]).filter(h=>h.package_id===selected?.package_id).map(h=>String(h.package_version))])];
- const otherReleases=((catalog.data?.releases || []) as Row[]).filter(r=>r.package_id===selected?.package_id&&String(r.package_version)!==selected?.package_version&&r.state!=='retired');
  const workspace=useWorkspace();
  const lifecycleSummaries:Row[]=lifecycleView.data?.packages || [];
  const publishableTotal=lifecycleSummaries.reduce((sum,row)=>sum+Number(row.publishable_count || 0),0);
@@ -50,25 +36,19 @@ export function Standards(){
   <div className="standard-layout"><aside className="panel standard-index">
    <Field label="查找标准包"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="E1-5 / MDR / 原编号"/></Field>
    <ResourceState error={catalog.error || profile.error} loading={catalog.loading&&!packages.length}/>
-   {packages.filter(p=>`${p.disclosure_requirement} ${(p.metric_summaries || []).map((m:Row)=>m.source_datapoint_id).join(' ')}`.toLowerCase().includes(query.toLowerCase())).map(p=><button className={`standard-item ${selected?.package_id===p.package_id&&selected?.package_version===p.package_version?'selected':''}`} key={`${p.package_id}@${p.package_version}`} onClick={()=>setSelected({...p,is_historical:false})}><strong>{p.disclosure_requirement}</strong><small>{p.metric_count} 条 · v{p.package_version}</small><Badge value={p.status}/></button>)}
+   {packages.filter(p=>`${p.disclosure_requirement} ${(p.metric_summaries || []).map((m:Row)=>m.source_datapoint_id).join(' ')}`.toLowerCase().includes(query.toLowerCase())).map(p=><button className={`standard-item ${selected?.package_id===p.package_id?'selected':''}`} key={p.package_id} onClick={()=>setSelected(p)}><strong>{p.disclosure_requirement}</strong><small>{p.metric_count} 条 · v{p.package_version}</small><Badge value={p.status}/></button>)}
   </aside><div>{selected?<>
-   <Section title={`${name} · v${selected.package_version}`} action={<Badge value={historical?'历史只读':verifiedManifest?.status || selected.status}/>}>
-    {historical&&<Notice>正在只读查看此历史固定版本，供既有任务与来源查证。此操作不会启用、升级或改写标准包。“当前平台主要”仅表示当前平台清单，历史包的核心条款以该版本原合同为准。</Notice>}
-    <dl className="facts"><dt>固定版本</dt><dd>{selected.package_id} @ {selected.package_version}</dd>
+   <Section title={`${name} · v${selected.package_version}`} action={<Badge value={verifiedManifest?.status || selected.status}/>}>
+    <dl className="facts"><dt>当前版本</dt><dd>{selected.package_id} @ {selected.package_version}</dd>
      <dt>包内核心</dt><dd>{coreIds.join('、') || (detail.loading?'正在读取该版本合同':'此版本未记录核心条款')}</dd>
      <dt>当前平台主要</dt><dd>{metrics.filter(m=>major.has(m.source_datapoint_id)).map(m=>m.source_datapoint_id).join('、') || '本包未进入当前主要清单'}</dd>
-     <dt>结构</dt><dd>{historical?'历史合同按原版本读取':selected.validation_state==='structurally_valid'?'校验通过':'需检查'}</dd>
-     <dt>真实提取验收</dt><dd>{historical?'历史合同不继承当前版本验收':selected.real_extraction_validation==='not_assessed'?'尚未评估':selected.real_extraction_validation || '尚未记录'}</dd>
-     <dt>业务批准</dt><dd>{historical?'历史合同不继承当前版本批准':selected.business_approval==='not_assessed'?'尚未评估':selected.business_approval || '尚未记录'}</dd>
-    </dl>
-    {otherReleases.length>0&&<p className="muted">同包其他已登记版本：{otherReleases.map(release=><span key={release.package_version}>
-      <button className="text-button" onClick={()=>setSelected({...selected,package_version:release.package_version,is_historical:false})}>v{release.package_version}{release.active?'（当前）':'（非当前版本）'}</button>
-      {!release.active&&<button className="text-button" disabled={!!activating} onClick={()=>void switchStandard(String(release.package_version))}>切换为当前标准</button>}
-      {' '}</span>)}</p>}
-    {activateMessage&&<Notice>{activateMessage}</Notice>}<ResourceState error={detail.error} loading={detail.loading}/>
-    {identityMismatch&&<Notice tone="error">详情返回的包身份与所选固定版本不一致，已停止展示条款。请核对服务，不能用当前版本替代历史合同。</Notice>}
+     <dt>结构</dt><dd>{selected.validation_state==='structurally_valid'?'校验通过':'需检查'}</dd>
+     <dt>真实提取验收</dt><dd>{selected.real_extraction_validation==='not_assessed'?'尚未评估':selected.real_extraction_validation || '尚未记录'}</dd>
+     <dt>业务批准</dt><dd>{selected.business_approval==='not_assessed'?'尚未评估':selected.business_approval || '尚未记录'}</dd>
+    </dl><ResourceState error={detail.error} loading={detail.loading}/>
+    {identityMismatch&&<Notice tone="error">详情返回的包身份与所选版本不一致，已停止展示条款。请核对服务。</Notice>}
    </Section>
-   {!identityMismatch&&detail.data?.semantic_diagnostics?.length>0&&<Notice tone="warning">此版本有 {detail.data?.semantic_diagnostics.length} 条语义诊断，按原合同保留。诊断不修改既有任务的标准身份。<Diagnostics value={detail.data?.semantic_diagnostics} title="历史语义诊断"/></Notice>}
+   {!identityMismatch&&detail.data?.semantic_diagnostics?.length>0&&<Notice tone="warning">此版本有 {detail.data?.semantic_diagnostics.length} 条语义诊断，按原合同保留。<Diagnostics value={detail.data?.semantic_diagnostics} title="语义诊断"/></Notice>}
    <Section title="条款与条件"><div className="table-scroll"><table><thead><tr><th>原编号 / 名称</th><th>核心</th><th>当前平台主要</th><th>生命周期</th><th>语义角色</th><th>披露条件</th></tr></thead><tbody>{metrics.map(m=><tr key={m.metric_id}>
     <td><strong>{m.source_datapoint_id}</strong><p>{m.labels?.zh || m.labels?.en}</p></td><td>{coreIds.includes(m.source_datapoint_id)?'是':'否'}</td><td>{major.has(m.source_datapoint_id)?'是':'否'}</td>
     <td>{lifecycleBySource.has(m.source_datapoint_id)?<Badge value={lifecycleLabels[lifecycleBySource.get(m.source_datapoint_id)!.state] || '未试提取'}/>:'—'}</td>
@@ -79,14 +59,13 @@ export function Standards(){
    {!identityMismatch&&selected&&<div className="button-row"><button className="secondary" onClick={()=>setEditing(!editing)}>{editing?'收起条款编辑':'编辑条款'}</button></div>}
    {!identityMismatch&&editing&&selected&&<ClauseEditor packageId={selected.package_id} version={selected.package_version} profiles={detail.data?.profiles || []} onClose={()=>setEditing(false)}/>}
    {!identityMismatch&&lifecycle.length>0&&<Section title="条款生命周期与真实验收" action={<Badge value={`${lifecycle.filter(row=>row.state==='publishable').length}/${lifecycle.length} 可发布`}/>}>
-    <ClauseLifecyclePanel packageId={selected.package_id} version={selected.package_version} rows={lifecycle} versions={versions} refresh={()=>{workspace.refresh();detail.retry();lifecycleView.retry();}}/>
+    <ClauseLifecyclePanel packageId={selected.package_id} version={selected.package_version} rows={lifecycle} refresh={()=>{workspace.refresh();detail.retry();lifecycleView.retry();}}/>
    </Section>}
    <Section title="条款关系与必要依赖"><RelationshipGraph metrics={metrics} relations={relations}/>{relations.map(r=><article className="relation" key={r.relation_id}><strong>{relationLabels[r.relation_type] || r.relation_type}</strong><p>{r.description}</p><p>{(r.source_metric_ids || []).map((id:string)=>metrics.find(m=>m.metric_id===id)?.source_datapoint_id || id).join('、')} → {(r.target_metric_ids || r.member_metric_ids || []).map((id:string)=>metrics.find(m=>m.metric_id===id)?.source_datapoint_id || id).join('、')}</p><Diagnostics value={r.activation_predicate} title="适用条件"/></article>)}{!relations.length&&<p className="muted">详细合同加载后展示关系；无关系的包不生成额外依赖。</p>}</Section>
    {!identityMismatch&&<Diagnostics value={{manifest:verifiedManifest,compilation:detail.data?.compilation}} title="格式、Core、固定来源版本与摘要"/>}
   </>:<Section title="选择一个标准包"><p className="muted">查看原编号、核心与主要、关系、依赖及建设状态。详情按需加载，单包故障不会隐藏全部目录。</p></Section>}</div></div>
   <ExtensionManagement/>
-  <Section title="后续建设与历史引用"><details><summary>占位包（{catalog.data?.planned?.length || 0}）</summary>{catalog.data?.planned?.map((p:Row)=><article className="relation" key={p.package_id}><strong>{p.disclosure_requirement} · 待建设</strong><p>{p.source_datapoint_ids?.join('、')}</p><p>主要条款：{p.major_source_datapoint_ids?.join('、') || '无'}</p></article>)}</details>
-   <details><summary>历史版本（{catalog.data?.historical?.length || 0}）</summary><ul>{catalog.data?.historical?.map((h:Row)=><li key={`${h.package_id}@${h.package_version}`}><span>{h.package_id} · {h.package_version} · 保留既有任务引用 </span><button className="text-button" onClick={()=>setSelected({...h,is_historical:true})} aria-label={`只读查看历史包 ${h.package_id} ${h.package_version}`}>只读查看固定版本</button></li>)}</ul></details>
+  <Section title="后续建设"><details><summary>占位包（{catalog.data?.planned?.length || 0}）</summary>{catalog.data?.planned?.map((p:Row)=><article className="relation" key={p.package_id}><strong>{p.disclosure_requirement} · 待建设</strong><p>{p.source_datapoint_ids?.join('、')}</p><p>主要条款：{p.major_source_datapoint_ids?.join('、') || '无'}</p></article>)}</details>
    {profile.data&&<details><summary>完整 {profile.data.overall_source_datapoint_ids.length} 项主要原编号 · {profile.data.pending_source_datapoint_ids.length} 项待建设</summary><div className="chips">{profile.data.overall_source_datapoint_ids.map((id:string)=><span className="clause-chip" key={id}>{id}{profile.data?.pending_source_datapoint_ids?.includes(id)?' · 待建':''}</span>)}</div></details>}
   </Section>
  </>;

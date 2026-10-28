@@ -37,9 +37,12 @@ def test_generated_artifacts_preserve_public_semantics_and_compile_scientific_so
     assert intensity['aggregation'] == 'ratio_recompute'
 
 
-def test_default_build_rejects_unapproved_aggregation_change():
+def test_a_rebuild_without_the_flag_rejects_an_unapproved_aggregation_change():
+    # The shipped dictionary already carries the approved change; the guard is
+    # checked against the sealed previous version it was approved over.
+    previous = json.loads((PLATFORM / 'catalog/history/metric-dictionary.1.4.5.json').read_text())
     with pytest.raises(ValueError, match='E1-6_30'):
-        builder.build_dictionary()
+        builder.build_dictionary(dictionary_version='1.5.0', previous_dictionary=previous)
 
 
 def test_all_major_ids_preserved_in_original_order_with_explicit_pending(artifacts):
