@@ -7,7 +7,7 @@ let localOperator = false;
 let operator = '';
 let operatorRoles:string[] = [];
 const secrets:Record<string,string> = {};
-export const credentials = {get token(){return token;},get operator(){return operator;},get roles(){return [...operatorRoles];},get ready(){return !!token || localOperator;},set(value:string,actor:string,roles:string[]=[]){token=value.trim();operator=actor.trim();operatorRoles=[...roles];},clear(){token='';localOperator=false;operator='';operatorRoles=[];Object.keys(secrets).forEach(k=>delete secrets[k]);},setLocal(actor:string,roles:string[]){localOperator=true;token='';operator=actor.trim();operatorRoles=[...roles];},secret:(name:string)=>secrets[name] || null,setSecret:(name:string,value:string)=>{secrets[name]=value.trim();}};
+export const credentials = {get token(){return token;},get operator(){return operator;},get roles(){return [...operatorRoles];},get ready(){return !!token || localOperator;},set(value:string,actor:string,roles:string[]=[]){token=value.trim();operator=actor.trim();operatorRoles=[...roles];},clear(){token='';localOperator=false;operator='';operatorRoles=[];Object.keys(secrets).forEach(k=>delete secrets[k]);clearReadCache();},setLocal(actor:string,roles:string[]){localOperator=true;token='';operator=actor.trim();operatorRoles=[...roles];},secret:(name:string)=>secrets[name] || null,setSecret:(name:string,value:string)=>{secrets[name]=value.trim();}};
 export type ApiErrorContext={service:Service;path:string;kind:'http'|'network'|'response_format';requestId?:string;code?:string;layer?:string};
 export class ApiError extends Error {constructor(message:string,public status:number,public detail:unknown,public context?:ApiErrorContext){super(message);this.name='ApiError';}}
 export function errorText(value:unknown):string {if(typeof value==='string')return value;if(Array.isArray(value))return value.map(errorText).join('；');if(value && typeof value==='object'){const x=value as Row;return x.message || x.msg || x.reason || Object.values(x).map(errorText).join('；');}return String(value ?? '请求失败');}
@@ -33,6 +33,24 @@ function responseMessage(detail:unknown,status:number):string {
 }
 function contextualMessage(message:string,status:number,context:ApiErrorContext):string {
  return `${serviceLabels[context.service]} ${context.path}（${status?`HTTP ${status}`:'连接失败'}）：${message}${context.requestId?` · 问题编号 ${context.requestId}`:''}`;
+}
+
+// Several panels read the same projection (library row, sidebar monitor, report
+// detail). A short shared read cache keeps that one request per view instead of
+// one per component, and is cleared whenever identity changes.
+const READ_CACHE = new Map<string,{at:number,promise:Promise<unknown>}>();
+const READ_TTL_MS = 1200;
+// Tests assert the exact request each panel makes; the cache is a runtime concern.
+const READ_CACHE_ENABLED = (import.meta as {env?:{MODE?:string}}).env?.MODE !== 'test';
+export function clearReadCache(){READ_CACHE.clear();}
+export function readCached<T=Row>(service:Service,path:string):Promise<T>{
+ if(!READ_CACHE_ENABLED)return request<T>(service,path);
+ const key=`${service}${path}`;const now=Date.now();const hit=READ_CACHE.get(key);
+ if(hit&&now-hit.at<READ_TTL_MS)return hit.promise as Promise<T>;
+ if(READ_CACHE.size>64)READ_CACHE.clear();
+ const promise=request<T>(service,path).catch(error=>{READ_CACHE.delete(key);throw error;});
+ READ_CACHE.set(key,{at:now,promise});
+ return promise;
 }
 export async function request<T=Row>(service:Service,path:string,options:RequestInit={}):Promise<T>{
   if(!path.startsWith('/') || path.startsWith('//'))throw new Error('接口路径必须是当前服务中的绝对路径');

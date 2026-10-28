@@ -3,7 +3,8 @@ import {createPortal} from 'react-dom';
 import {items,navigate,type Row} from '../api';
 import {useResource,useWorkspace} from '../state';
 import {Badge,Progress,ResourceState,stageLabel,Actions} from './ui';
-import {useLibraryResource} from '../library-resource';
+import {useReportRuns} from '../useReportRuns';
+import {stageChips,type ReportRun} from '../reportRun';
 
 /**
  * The run monitor sits at the bottom of the sidebar as a single live line.
@@ -11,7 +12,7 @@ import {useLibraryResource} from '../library-resource';
  * the workspace or covers an action the operator is about to take.
  */
 export function SidebarMonitor(){
- const resource=useLibraryResource('status');
+ const {status:resource,runs,unlinkedTasks}=useReportRuns();
  const {connected}=useWorkspace();
  const [open,setOpen]=useState(false),[planId,setPlanId]=useState('');
  const plan=useResource('document',open&&planId?`/api/production-automations/${encodeURIComponent(planId)}`:null,true);
@@ -22,8 +23,11 @@ export function SidebarMonitor(){
  const queued=resource.data?.queued_count ?? active.filter(task=>task.status==='queued').length;
  const count=running+queued;
  const failures=recent.filter(task=>['failed','interrupted'].includes(String(task.status))).length;
- const current=active[0];
- const groups=groupTasks(active);
+ // Reports with work in flight are the monitor's unit; unlinked tasks stay separate.
+ const reportGroups=runs.filter(run=>run.activeTasks.length>0);
+ const unattributed=active.filter(task=>unlinkedTasks.some(candidate=>candidate.task_id===task.task_id));
+ const current=runs.find(run=>run.activeTasks.length>0)?.activeTasks[0] || active[0];
+ const groups=groupTasks(unattributed);
  return (
   <>
    <button type="button" className={`side-monitor ${count?'busy':''}`} aria-label="打开处理状态" aria-haspopup="dialog" onClick={()=>setOpen(true)}>
@@ -59,6 +63,16 @@ export function SidebarMonitor(){
         </section>
        )}
        <ResourceState error={plan.error}/>
+       {reportGroups.map(run=>{const task=currentTask(run);return (
+        <article className="monitor-report" key={run.assetId}>
+         <header><strong>{run.title}</strong><Badge value={task?.status}/><small>{run.activeTasks.length>1?`${run.activeTasks.length} 个内部步骤`:''}</small></header>
+         <div className="monitor-stage-chips">{stageChips(run).map(chip=><span key={chip.key} className={`monitor-run-axis ${chip.state}`}>{chip.label}</span>)}</div>
+         {task&&<Progress task={task} compact/>}
+         <p className="monitor-report-next">{run.blockingReason || `${run.nextAction.label} · ${run.activeTasks.map(item=>stageLabel(item.stage)).join(' → ')}`}</p>
+         {task&&<Actions actions={(task.available_actions||[]).filter((action:Row)=>action.action==='cancel')}/>}
+         <button type="button" className="text-button" onClick={()=>{setOpen(false);navigate(`/reports/${encodeURIComponent(run.assetId)}`);}}>打开报告</button>
+        </article>
+       );})}
        {groups.map(group=>(
         <article className="monitor-report" key={group.key}>
          <header><strong>{group.title}</strong><Badge value={group.current.status}/><small>{group.tasks.length>1?`${group.tasks.length} 个内部步骤`:''}</small></header>
@@ -67,8 +81,7 @@ export function SidebarMonitor(){
          <Actions actions={(group.current.available_actions||[]).filter((action:Row)=>action.action==='cancel')}/>
         </article>
        ))}
-       {!active.length&&resource.data&&<p className="monitor-empty">当前没有执行中的任务。</p>}
-       {recent.length>0&&(
+       {!active.length&&resource.data&&<p className="monitor-empty">当前没有执行中的任务。</p>}       {recent.length>0&&(
         <details className="monitor-recent">
          <summary>最近完成或失败</summary>
          {recent.map(task=>(<div key={task.task_id}><strong>{task.title}</strong><Badge value={task.status}/>{task.error_detail?.message&&<small>{task.error_detail.message}</small>}</div>))}
@@ -106,4 +119,8 @@ function taskSummary(task:Row){
  if(typeof progress.current==='number'&&typeof progress.total==='number'&&progress.total>0)return `${progress.current} / ${progress.total} ${progress.unit||''}`.trim();
  if(call?.label||call?.stage_label)return call.label||call.stage_label;
  return progress.message || stageLabel(task.stage) || '等待阶段信息';
+}
+
+function currentTask(run:ReportRun):Row|undefined{
+ return run.activeTasks.find(task=>['running','queued'].includes(String(task.status))) || run.activeTasks[run.activeTasks.length-1];
 }

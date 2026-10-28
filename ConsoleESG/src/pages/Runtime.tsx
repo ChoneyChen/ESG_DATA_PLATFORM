@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {credentials,items,type Row} from '../api';
+import {credentials,items,navigate,type Row} from '../api';
 import {useResource,useWorkspace} from '../state';
 import {Actions,Badge,Diagnostics,Field,Notice,Progress,ResourceState,Section} from '../components/ui';
 import {RecordManagement} from '../components/RecordManagement';
@@ -11,7 +11,7 @@ export function Runtime(){
  const [tab,setTab]=useState(()=>new URLSearchParams(window.location.hash.split('?')[1] || '').get('tab')==='storage'?'storage':'queue');
  const compatibility=useResource('document','/api/pipeline/compatibility'),queue=useResource('document','/api/pipeline/tasks?include_archived=true'),models=useResource('document',tab==='models'?'/api/models/status':null),status=useResource('document',tab==='models'?'/api/pipeline/status':null),storage=useResource('document',tab==='storage'?'/api/storage/inventory':null);
  const tasks=items(queue.data,'tasks').filter(task=>!statusFilter||task.status===statusFilter);
- return <><div className="page-heading"><div><span className="eyebrow">执行与资源</span><h1>系统运行</h1><p>查看执行队列和处理问题。</p></div><button className="secondary" onClick={refresh}>刷新</button></div>
+ return <><div className="page-heading"><div><span className="eyebrow">执行与资源</span><h1>运行中心</h1><p>执行队列、模型资源与存储引用。页面读取与结构证据的逐对象修复从报告详情和下方入口进入。</p></div><div className="button-row"><button className="secondary" onClick={()=>navigate('/processing')}>报告处理</button><button className="secondary" onClick={refresh}>刷新</button></div></div>
   <div className="tabs" role="tablist">{[['queue','执行队列'],['models','模型与资源'],['storage','存储引用']].map(([code,title])=><button role="tab" aria-selected={tab===code} key={code} onClick={()=>setTab(code)}>{title}</button>)}</div>
   {tab==='queue'&&<Section title="执行队列"><div className="filter-bar"><select aria-label="筛选队列状态" value={statusFilter} onChange={e=>setStatusFilter(e.target.value)}><option value="">全部状态</option><option value="queued">等待执行</option><option value="running">正在执行</option><option value="failed">失败</option><option value="interrupted">已中断</option><option value="cancelled">已取消</option><option value="completed">已完成</option></select><BatchRecordDelete rows={endedRecords(tasks)} kind="queue" idKey="task_id"/></div>
    <ResourceState error={queue.error} loading={queue.loading&&!tasks.length} empty={!tasks.length}/>

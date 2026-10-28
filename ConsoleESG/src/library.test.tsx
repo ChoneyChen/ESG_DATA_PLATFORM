@@ -34,7 +34,8 @@ it('报告库只展示提取状态，读取与结构版本留在报告详情',as
  expect(screen.queryByText('ocr-synthetic')).toBeNull();expect(screen.queryByText('ocr-second')).toBeNull();
  expect(screen.queryByText(/来源 PDF → 页面读取版本/)).toBeNull();
  expect(screen.queryByText(/这份 PDF 还没有读取版本/)).toBeNull();
- expect(screen.queryByText('显示已归档')).toBeNull();expect(calls.some(c=>c.url.includes('/console/reports')||c.url.includes('/report-sessions'))).toBe(false);
+ expect(screen.queryByText('显示已归档')).toBeNull();expect(calls.some(c=>c.url.includes('/console/reports'))).toBe(false);
+ expect(calls.filter(c=>c.url.includes('/report-sessions')).every(c=>c.url.includes('view=summary'))).toBe(true);
  cleanup();
  mount(<ReportDetail assetId="pdf-synthetic"/>);await screen.findByText('ocr-synthetic');
  expect(screen.getByText('ocr-second')).toBeTruthy();expect(screen.getByText('ir-synthetic')).toBeTruthy();

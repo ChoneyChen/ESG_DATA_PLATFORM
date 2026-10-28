@@ -30,9 +30,12 @@ const MAIN = [
 const TOOLS = [
   ['automation', '批量生产', '▷'],
   ['standards', '标准中心', '▦'],
-  ['processing', '读取详情', '◫'],
-  ['runtime', '系统运行', '⚙'],
+  ['runtime', '运行中心', '⚙'],
 ] as const;
+
+// Advanced readers stay reachable from the run center and report detail without
+// becoming a destination of their own on the production line.
+const DIAGNOSTIC_TITLES: Record<string, string> = {processing: '报告处理', ocr: '页面读取结果'};
 
 export function parseRoute(hash: string) {
   const [raw, search = ''] = hash.replace(/^#/, '').split('?');
@@ -41,7 +44,7 @@ export function parseRoute(hash: string) {
 }
 
 function sectionTitle(section: string) {
-  return [...MAIN, ...TOOLS].find(item => item[0] === section)?.[1] || '数据工作台';
+  return [...MAIN, ...TOOLS].find(item => item[0] === section)?.[1] || DIAGNOSTIC_TITLES[section] || '数据工作台';
 }
 
 export default function App() {
@@ -74,7 +77,7 @@ export default function App() {
   }
 
   const active = (key: string) => route.section === key || (key === 'extractions' && ['ocr', 'processing'].includes(route.section));
-  const toolsOpen = TOOLS.some(([key]) => key === route.section);
+  const toolsOpen = TOOLS.some(([key]) => key === route.section) || ['processing', 'ocr'].includes(route.section);
   return (
     <div className="app-shell">
       <aside className="app-sidebar">

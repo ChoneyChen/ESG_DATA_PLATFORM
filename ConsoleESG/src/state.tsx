@@ -1,5 +1,5 @@
 import {createContext,useCallback,useContext,useEffect,useRef,useState,type ReactNode} from 'react';
-import {credentials,request,type Row,type Service} from './api';
+import {credentials,readCached,request,type Row,type Service} from './api';
 const Context=createContext({epoch:0,auth:0,refresh:()=>{},authChanged:()=>{},connected:false});
 export function WorkspaceProvider({children}:{children:ReactNode}){
   const [epoch,setEpoch]=useState(0),[auth,setAuth]=useState(0),[connected,setConnected]=useState(false);
@@ -61,7 +61,7 @@ export function useResource<T=Row>(service:Service,path:string|null,authenticate
     clearTimeout(retry.current);
     setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:'',loading:true}));
     const mine=key;
-    request<T>(service,path)
+    readCached<T>(service,path)
       .then(value=>{if(pending.current!==mine)return;pending.current='';failures.current=0;setState({key,data:value,error:'',loading:false});})
       .catch(e=>{if(pending.current!==mine)return;pending.current='';setState(previous=>({key,data:previous.key===key?previous.data:undefined,error:e.message,loading:false}));
         // Only transient failures recover on their own. A missing resource or a
