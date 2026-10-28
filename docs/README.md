@@ -13,6 +13,7 @@
 | [阶段 1 科学合同](PHASE1_SCIENTIFIC_CONTRACT.md) | 标准包驱动平台字典、foundation 规格与审核归一；候选字典与真实回放 |
 | [阶段 2 中立事实](PHASE2_NEUTRAL_FACTS.md) | 全期 SourceFact、不可变解释版本、字段证据与公开 Observation |
 | [阶段 3 增量证据](PHASE3_INCREMENTAL_EVIDENCE.md) | 共享文字层、合同选页、报告级中立缓存与覆盖决策 |
+| [阶段 4 科学产品](PHASE4_SCIENTIFIC_PRODUCTS.md) | 规范观测/维度/证据/来源/覆盖科学表与 CSV/Parquet |
 | [更新日志](CHANGELOG.md) | 按日期倒序的每轮实际变化 |
 | [系统状态](SYSTEM_STATE.md) | 服务、端口、数据位置、实测质量、测试结果与已知问题 |
 | [全链路体检](AUDIT_2026-10-23.md) | 2026-10-23 的未完成/待测试/待修复清单与逐轮修复台账 |

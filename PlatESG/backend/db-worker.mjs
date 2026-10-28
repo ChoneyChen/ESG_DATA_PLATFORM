@@ -1,6 +1,7 @@
 import { createInterface } from 'node:readline';
 import { openPlatformDatabase, applyPlatformMigrations } from './database.mjs';
 import { dispatch, dictionaryFile } from './service.mjs';
+import { scientificProduct } from './scientific_products.mjs';
 import { applyMigrations } from '../../database/scripts/db.mjs';
 import { seedMetricDictionary, processOutbox } from '../../database/scripts/publication.mjs';
 
@@ -21,7 +22,8 @@ try {
     let request;
     try {
       request = JSON.parse(line);
-      const result = await dispatch(db, request.method, request.params || {});
+      const result = request.method === 'scientific_product' ? await scientificProduct(request.params || {})
+        : await dispatch(db, request.method, request.params || {});
       protocolWrite(JSON.stringify({ id: request.id, result }) + '\n');
     } catch (error) {
       protocolWrite(JSON.stringify({ id: request?.id, error: {

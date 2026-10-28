@@ -810,6 +810,28 @@ def create_app(environment: dict[str, str] | None = None):
         payload["report_ref"] = request.report_ref
         return bridge.call("delete_report", payload)
 
+    @app.get("/v1/scientific/tables", dependencies=[Depends(permission("read"))])
+    def scientific_tables():
+        from database.scripts.scientific_products import TABLES
+        return {"schema_version": "platesg-scientific-product-v1", "tables": sorted(TABLES)}
+
+    @app.get("/v1/scientific/{table}", dependencies=[Depends(permission("read"))])
+    def scientific_table(table: str, format: Literal["json", "csv", "parquet"] = "json", limit: int = Query(100000, ge=1, le=100000)):
+        from database.scripts.scientific_products import scientific_export, scientific_export_csv, scientific_export_parquet
+        if table not in __import__('database.scripts.scientific_products', fromlist=['TABLES']).TABLES:
+            raise HTTPException(404, "科学数据表不存在")
+        if format == "csv":
+            result = bridge.call("scientific_product", {"table": table, "format": "csv", "limit": limit})
+            import base64
+            return Response(base64.b64decode(result["content_base64"]), media_type="text/csv; charset=utf-8",
+                            headers={"Content-Disposition": f'attachment; filename="{table}.csv"'})
+        if format == "parquet":
+            result = bridge.call("scientific_product", {"table": table, "format": "parquet", "limit": limit})
+            import base64
+            return Response(base64.b64decode(result["content_base64"]), media_type="application/octet-stream",
+                            headers={"Content-Disposition": f'attachment; filename="{table}.parquet"'})
+        return bridge.call("scientific_product", {"table": table, "format": "json", "limit": limit})
+
     @app.get("/v1/reports")
     def public_reports():
         return bridge.call("published_reports", {})
