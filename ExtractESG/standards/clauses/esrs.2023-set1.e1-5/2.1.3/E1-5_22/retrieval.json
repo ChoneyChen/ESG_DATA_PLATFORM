@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_22",
+  "negative_terms": [],
+  "positive_terms": [
+    "Net revenue from activities in high climate impact sectors",
+    "高气候影响行业活动的净收入",
+    "High climate impact sector",
+    "高气候影响行业",
+    "high climate impact sectors",
+    "高气候影响部门",
+    "Net revenue",
+    "净收入"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

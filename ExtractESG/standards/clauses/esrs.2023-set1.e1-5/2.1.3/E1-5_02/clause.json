@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "MWh",
+  "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_02",
+  "contract_digest": "da1691c91abb189fcc1b44d064fdbd8a2544c6eeaf6c26a13dd94ed0128c944c",
+  "description": "企业自身运营消耗的化石来源能源总量，包括适用的煤炭、石油、天然气和其他化石来源及化石来源购入能源。载体分项或直接能源子总计不自动等同完整化石能源总量；区分总量、子总计、组成项、消费和生产，以及数量、变化率、比例和强度。",
+  "disclosure_requirement": "E1-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Total energy consumption from fossil sources",
+    "zh": "化石能源消费总量"
+  },
+  "metric_id": "esrs.2023-set1.e1-5.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-5",
+  "package_version": "2.1.3",
+  "positive_definition": "化石能源消费总量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-5_02",
+  "unit_dimension": "extractesg.core.unit-dimension.energy",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

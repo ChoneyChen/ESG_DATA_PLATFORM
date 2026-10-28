@@ -60,6 +60,17 @@ class StandardPackageCatalog:
             raise PackageIntegrityError("Release content differs from its registered identity")
         return package
 
+    def list_releases(self) -> list[dict]:
+        """Every registered, non-retired release — active pins and pilot versions alike."""
+        registered = self._registered_releases()
+        if registered is None:
+            return [{"package_id": record.package_id, "package_version": record.package_version,
+                     "state": record.status, "active": True} for record in self.list()]
+        active = {(entry["package_id"], entry["package_version"]) for entry in registered[2]}
+        return [{"package_id": entry["package_id"], "package_version": entry["package_version"],
+                 "state": entry["state"], "active": (entry["package_id"], entry["package_version"]) in active}
+                for entry in registered[1].values() if entry["state"] != "retired"]
+
     def list(self) -> list[CatalogStandardPackage]:
         return self.scan()[0]
 
@@ -144,8 +155,12 @@ class StandardPackageCatalog:
         except (OSError, ValueError, KeyError, TypeError) as exc:
             historical = []
             registration_error = str(exc)
+        try:
+            releases = self.list_releases()
+        except (OSError, ValueError, KeyError, TypeError):
+            releases = []
         return {"packages": packages, "diagnostics": self.diagnostics(), "planned": planned,
-            "registration_error": registration_error,
+            "registration_error": registration_error, "releases": releases,
             "historical": historical}
 
     def load(self, package_id: str, package_version: str) -> CompiledStandardPackage:

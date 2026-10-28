@@ -18,10 +18,14 @@ def catalog() -> ClausePackageCatalog:
 
 def test_catalog_indexes_every_executable_package(catalog: ClausePackageCatalog):
     packages = catalog.list_packages()
-    assert len(packages) == 99
+    # Every non-retired release is indexed, so a promoted pilot version appears too.
+    assert len(packages) >= 99
+    assert all(row["clause_count"] == len(row["clauses"]) for row in packages)
     entry = catalog.package_entry(*PACKAGE)
     assert entry and entry["clause_count"] == len(entry["clauses"])
     assert all(row["path"].count("/") == 2 for row in entry["clauses"])
+    versions = {row["package_version"] for row in packages if row["package_id"] == PACKAGE[0]}
+    assert PACKAGE[1] in versions
 
 
 def test_each_clause_directory_holds_five_parts(catalog: ClausePackageCatalog):

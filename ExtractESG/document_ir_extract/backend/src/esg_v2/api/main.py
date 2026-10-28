@@ -611,6 +611,16 @@ def _targeted_write(path: str, body: dict | None, method: str = "POST") -> dict:
         raise HTTPException(503, "无法连接定向后端，条款操作暂不可用") from exc
 
 
+@app.get("/api/pipeline/clause-drafts/{draft_id}/promotion-plan")
+def pipeline_clause_promotion_plan(draft_id: str):
+    return _targeted_catalog_request(f"/api/clause-drafts/{quote(draft_id, safe='')}/promotion-plan")
+
+
+@app.post("/api/pipeline/clause-drafts/{draft_id}/promote")
+def pipeline_clause_promote(draft_id: str, request: dict = Body(...)):
+    return _targeted_write(f"/api/clause-drafts/{quote(draft_id, safe='')}/promote", request)
+
+
 @app.get("/api/pipeline/clause-drafts")
 def pipeline_clause_drafts():
     return _targeted_catalog_request("/api/clause-drafts")

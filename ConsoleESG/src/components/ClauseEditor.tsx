@@ -14,7 +14,8 @@ export function ClauseEditor({packageId,version,profiles,onClose}:{packageId:str
  const draftsResource=useResource('document','/api/pipeline/clause-drafts');
  const [draftId,setDraftId]=useState(''),[parts,setParts]=useState<Row|null>(null),[meta,setMeta]=useState<Row>({}),
   [author,setAuthor]=useState(credentials.operator || 'local-operator'),[note,setNote]=useState(''),[source,setSource]=useState(''),
-  [busy,setBusy]=useState(false),[message,setMessage]=useState(''),[validation,setValidation]=useState<Row|null>(null);
+  [busy,setBusy]=useState(false),[message,setMessage]=useState(''),[validation,setValidation]=useState<Row|null>(null),
+  [promotion,setPromotion]=useState<Row|null>(null),[promoted,setPromoted]=useState<Row|null>(null);
  const drafts=((draftsResource.data?.drafts as Row[]) || []).filter(row=>row.base?.package_id===packageId&&row.base?.package_version===version);
 
  async function run(action:()=>Promise<unknown>,success:string){setBusy(true);setMessage('');try{const result=await action() as Row;if(result?.validation)setValidation(result.validation);setMessage(success);draftsResource.retry();return result;}catch(error){setMessage((error as Error).message);return null;}finally{setBusy(false);}}
@@ -50,6 +51,9 @@ export function ClauseEditor({packageId,version,profiles,onClose}:{packageId:str
  }
 
  async function validateNow(){await run(()=>request('document',`/api/pipeline/clause-drafts/${encodeURIComponent(draftId)}/validate`,{method:'POST'}),'已重新校验。');}
+ async function loadPlan(){await run(async()=>{const body=await request<Row>('document',`/api/pipeline/clause-drafts/${encodeURIComponent(draftId)}/promotion-plan`);setPromotion(body);return body;},'已生成提升预览。');}
+ async function promote(){await run(async()=>{const body=await request<Row>('document',`/api/pipeline/clause-drafts/${encodeURIComponent(draftId)}/promote`,{method:'POST',
+   body:JSON.stringify({version:null,register_release:true,activate:false,reason:note||'由条款编辑器提升为试点版本'})});setPromoted(body);return body;},'已编译并登记新包版本，可用于试点提取；平台当前标准未切换。');}
  async function discard(){if(!draftId)return;await run(()=>request('document',`/api/pipeline/clause-drafts/${encodeURIComponent(draftId)}`,{method:'DELETE'}),'草稿已丢弃。');setParts(null);setDraftId('');}
 
  const scopes=(parts?.clause?.output_scopes as Row[]) || [];
@@ -99,7 +103,11 @@ export function ClauseEditor({packageId,version,profiles,onClose}:{packageId:str
    <h4>验收样例</h4>
    <ul>{samples.map((sample,index)=><li key={index}>{sample.run_ref}{sample.expected_absent?' · 期望未披露':` · 期望 ${sample.expected_value_raw}`}<button className="text-button" onClick={()=>editPart('acceptance','samples',samples.filter((_,position)=>position!==index))}>删除</button></li>)}{!samples.length&&<li>尚无样例；没有样例的条款无法通过真实验收。</li>}</ul>
    <button className="secondary" onClick={()=>editPart('acceptance','samples',[...samples,{run_ref:'',report_label:'',expected_value_raw:'',expected_absent:false}])}>添加样例</button>
-   <div className="button-row"><button disabled={busy} onClick={()=>void save()}>保存草稿</button><button className="secondary" disabled={busy} onClick={()=>void validateNow()}>重新校验</button><button className="secondary" disabled={busy} onClick={()=>void discard()}>丢弃草稿</button><span className="muted mono">摘要 {String(meta.digest||'').slice(0,16)}…</span></div>
+   <div className="button-row"><button disabled={busy} onClick={()=>void save()}>保存草稿</button><button className="secondary" disabled={busy} onClick={()=>void validateNow()}>重新校验</button><button className="secondary" disabled={busy} onClick={()=>void loadPlan()}>提升预览</button>{promotion&&meta.status==='validated'&&<button disabled={busy} onClick={()=>void promote()}>编译为新包版本</button>}<button className="secondary" disabled={busy} onClick={()=>void discard()}>丢弃草稿</button><span className="muted mono">摘要 {String(meta.digest||'').slice(0,16)}…</span></div>
+   {promotion&&<Notice>提升预览：{promotion.package_id} {promotion.current_version} → <strong>{promotion.new_version}</strong>；可进入包的改动：{Object.keys(promotion.changes||{}).join('、') || '无'}。检索词与口径属编译产物，不在包内改写。</Notice>}
+   {promoted&&<Notice tone="info">已生成 {promoted.package_id}@{promoted.new_version}（摘要 {String(promoted.source_digest||'').slice(0,12)}…），
+    释放路径 {promoted.release_path}；登记：{promoted.registered?'是':'否'}，切换平台当前标准：{promoted.activated?'是':'否'}。
+    下一步用该版本跑试点提取，验收通过后再决定是否切换。</Notice>}
   </>}
  </Section>;
 }

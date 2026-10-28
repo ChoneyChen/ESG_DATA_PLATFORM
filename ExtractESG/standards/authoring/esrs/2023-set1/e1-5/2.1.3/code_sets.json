@@ -1,0 +1,207 @@
+[
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.energy-source",
+    "extensible": false,
+    "values": [
+      {
+        "code": "total",
+        "labels": {
+          "en": "Total energy",
+          "zh": "全部能源"
+        }
+      },
+      {
+        "code": "fossil",
+        "labels": {
+          "en": "Fossil",
+          "zh": "化石能源"
+        }
+      },
+      {
+        "code": "nuclear",
+        "labels": {
+          "en": "Nuclear",
+          "zh": "核能"
+        }
+      },
+      {
+        "code": "renewable",
+        "labels": {
+          "en": "Renewable",
+          "zh": "可再生能源"
+        }
+      },
+      {
+        "code": "non_renewable",
+        "labels": {
+          "en": "Non-renewable",
+          "zh": "非可再生能源"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.energy-flow",
+    "extensible": false,
+    "values": [
+      {
+        "code": "consumption",
+        "labels": {
+          "en": "Consumption",
+          "zh": "消费"
+        }
+      },
+      {
+        "code": "production",
+        "labels": {
+          "en": "Production",
+          "zh": "生产"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.energy-carrier",
+    "extensible": false,
+    "values": [
+      {
+        "code": "coal",
+        "labels": {
+          "en": "Coal and coal products",
+          "zh": "煤炭及煤炭制品"
+        }
+      },
+      {
+        "code": "petroleum",
+        "labels": {
+          "en": "Crude oil and petroleum products",
+          "zh": "原油及石油产品"
+        }
+      },
+      {
+        "code": "gasoline",
+        "labels": {
+          "en": "Gasoline",
+          "zh": "汽油"
+        }
+      },
+      {
+        "code": "diesel",
+        "labels": {
+          "en": "Diesel",
+          "zh": "柴油"
+        }
+      },
+      {
+        "code": "kerosene",
+        "labels": {
+          "en": "Kerosene",
+          "zh": "煤油"
+        }
+      },
+      {
+        "code": "fuel_oil",
+        "labels": {
+          "en": "Fuel oil",
+          "zh": "燃料油"
+        }
+      },
+      {
+        "code": "lpg",
+        "labels": {
+          "en": "Liquefied petroleum gas",
+          "zh": "液化石油气"
+        }
+      },
+      {
+        "code": "natural_gas",
+        "labels": {
+          "en": "Natural gas",
+          "zh": "天然气"
+        }
+      },
+      {
+        "code": "other_fossil",
+        "labels": {
+          "en": "Other fossil sources",
+          "zh": "其他化石来源"
+        }
+      },
+      {
+        "code": "renewable_fuel",
+        "labels": {
+          "en": "Renewable fuel",
+          "zh": "可再生燃料"
+        }
+      },
+      {
+        "code": "purchased_electricity_heat_steam_cooling",
+        "labels": {
+          "en": "Purchased electricity, heat, steam and cooling",
+          "zh": "外购电力、热力、蒸汽和冷却"
+        }
+      },
+      {
+        "code": "self_generated_non_fuel",
+        "labels": {
+          "en": "Self-generated non-fuel energy",
+          "zh": "自产非燃料能源"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.aggregation-role",
+    "extensible": false,
+    "values": [
+      {
+        "code": "total",
+        "labels": {
+          "en": "Metric total",
+          "zh": "指标总量"
+        }
+      },
+      {
+        "code": "subtotal",
+        "labels": {
+          "en": "Metric subtotal",
+          "zh": "指标子总计"
+        }
+      },
+      {
+        "code": "component",
+        "labels": {
+          "en": "Metric component",
+          "zh": "指标组成项"
+        }
+      }
+    ]
+  },
+  {
+    "code_set_id": "esrs.2023-set1.e1-5.codeset.revenue-scope",
+    "extensible": false,
+    "values": [
+      {
+        "code": "high_climate_impact",
+        "labels": {
+          "en": "High climate impact sector activities",
+          "zh": "高气候影响行业活动"
+        }
+      },
+      {
+        "code": "other",
+        "labels": {
+          "en": "Other activities",
+          "zh": "其他活动"
+        }
+      },
+      {
+        "code": "total",
+        "labels": {
+          "en": "Total net revenue",
+          "zh": "总净收入"
+        }
+      }
+    ]
+  }
+]

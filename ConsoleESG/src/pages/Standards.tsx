@@ -26,7 +26,9 @@ export function Standards(){
  const lifecycleBySource=new Map<string,Row>(lifecycle.map(row=>[String(row.clause).split(':').pop() as string,row]));
  const versions=[...new Set<string>([
   ...packages.filter(p=>p.package_id===selected?.package_id).map((p:Row)=>String(p.package_version)),
+  ...((catalog.data?.releases || []) as Row[]).filter(r=>r.package_id===selected?.package_id).map(r=>String(r.package_version)),
   ...((catalog.data?.historical || []) as Row[]).filter(h=>h.package_id===selected?.package_id).map(h=>String(h.package_version))])];
+ const otherReleases=((catalog.data?.releases || []) as Row[]).filter(r=>r.package_id===selected?.package_id&&String(r.package_version)!==selected?.package_version&&r.state!=='retired');
  const workspace=useWorkspace();
  const lifecycleSummaries:Row[]=lifecycleView.data?.packages || [];
  const publishableTotal=lifecycleSummaries.reduce((sum,row)=>sum+Number(row.publishable_count || 0),0);
@@ -48,7 +50,8 @@ export function Standards(){
      <dt>结构</dt><dd>{historical?'历史合同按原版本读取':selected.validation_state==='structurally_valid'?'校验通过':'需检查'}</dd>
      <dt>真实提取验收</dt><dd>{historical?'历史合同不继承当前版本验收':selected.real_extraction_validation==='not_assessed'?'尚未评估':selected.real_extraction_validation || '尚未记录'}</dd>
      <dt>业务批准</dt><dd>{historical?'历史合同不继承当前版本批准':selected.business_approval==='not_assessed'?'尚未评估':selected.business_approval || '尚未记录'}</dd>
-    </dl><ResourceState error={detail.error} loading={detail.loading}/>
+    </dl>
+    {otherReleases.length>0&&<p className="muted">同包其他已登记版本：{otherReleases.map(release=><button key={release.package_version} className="text-button" onClick={()=>setSelected({...selected,package_version:release.package_version,is_historical:false})}>v{release.package_version}{release.active?'（当前）':'（试点/草稿）'}</button>)}</p>}<ResourceState error={detail.error} loading={detail.loading}/>
     {identityMismatch&&<Notice tone="error">详情返回的包身份与所选固定版本不一致，已停止展示条款。请核对服务，不能用当前版本替代历史合同。</Notice>}
    </Section>
    {!identityMismatch&&detail.data?.semantic_diagnostics?.length>0&&<Notice tone="warning">此版本有 {detail.data?.semantic_diagnostics.length} 条语义诊断，按原合同保留。诊断不修改既有任务的标准身份。<Diagnostics value={detail.data?.semantic_diagnostics} title="历史语义诊断"/></Notice>}

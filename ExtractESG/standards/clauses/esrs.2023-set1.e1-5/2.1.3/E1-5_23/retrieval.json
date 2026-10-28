@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_23",
+  "negative_terms": [],
+  "positive_terms": [
+    "Other net revenue",
+    "其他净收入",
+    "Net revenue",
+    "净收入",
+    "revenue used for intensity",
+    "营业净收入",
+    "Reconciliation",
+    "对账"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

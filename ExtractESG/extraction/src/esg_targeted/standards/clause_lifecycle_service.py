@@ -92,17 +92,18 @@ class ClauseLifecycleService:
         ledger = load_ledger(self.ledger_path)
         approvals = self._business_approvals()
         states, summaries, errors = [], [], []
-        for record in self.catalog.list():
+        for record in self.catalog.list_releases():
             try:
-                package = self.catalog.load(record.package_id, record.package_version)
+                package = self.catalog.load(record["package_id"], record["package_version"])
                 rows = self.package_states(package, ledger, approvals)
             except (FileNotFoundError, ValueError, KeyError) as exc:
-                errors.append({"code": "package_lifecycle_unavailable", "package_id": record.package_id,
+                errors.append({"code": "package_lifecycle_unavailable", "package_id": record["package_id"],
                                "message": str(exc)})
                 continue
             states.extend(rows)
             publishable = sum(1 for row in rows if row["publishable"])
-            summaries.append({"package_id": record.package_id, "package_version": record.package_version,
+            summaries.append({"package_id": record["package_id"], "package_version": record["package_version"],
+                              "active": record.get("active", True),
                               "clause_count": len(rows), "publishable_count": publishable,
                               "accepted_count": sum(1 for row in rows if row["state"] in {"accepted", "publishable"}),
                               "unmeasured_count": sum(1 for row in rows if row["state"] in {"compiled", "draft"}),

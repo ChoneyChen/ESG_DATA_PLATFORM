@@ -11,7 +11,7 @@ from pathlib import Path
 from .clause_profile import ClauseExtractionProfile, compile_clause_profile, profile_digest, validate_profile
 from .retrieval_contract import clause_retrieval_terms
 from .scientific_contract import UNIT_IDS
-from .scope import load_registry
+from .compiler import StandardPackageCompiler
 
 MAX_TERMS = 8
 COMPOSITE_UNITS = {
@@ -92,15 +92,25 @@ def apply_override(profile: dict, override: dict) -> dict:
     return updated
 
 
+def indexed_packages(standards_root: Path):
+    """Every non-retired release, so a pilot version has clause packages too."""
+    root = Path(standards_root)
+    index = json.loads((root / "registry/releases.json").read_text(encoding="utf-8"))
+    compiler = StandardPackageCompiler()
+    for row in index.get("releases", []):
+        if row.get("state") == "retired":
+            continue
+        path = root / row["path"]
+        if not path.is_file():
+            continue
+        yield compiler.validate_compiled(path)
+
+
 def build_profiles(standards_root: Path, dictionary: dict | None,
                    overrides: dict[tuple[str, str, str], dict] | None = None) -> list[dict]:
-    registry, _, packages = load_registry(standards_root)
     terms = clause_retrieval_terms(standards_root)
     outputs = []
-    for module in registry["modules"]:
-        if not module["executable"]:
-            continue
-        package = packages[module["disclosure_requirement"]]
+    for package in indexed_packages(standards_root):
         profiles, skipped = [], []
         for metric in package.metrics:
             contract = metric.measurement_contract

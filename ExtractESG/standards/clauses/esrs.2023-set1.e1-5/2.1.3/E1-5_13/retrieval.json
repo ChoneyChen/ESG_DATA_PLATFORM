@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_13",
+  "negative_terms": [],
+  "positive_terms": [
+    "Fuel consumption from other fossil sources",
+    "其他化石能源燃料消费量",
+    "Energy consumption",
+    "能源消费",
+    "energy use",
+    "energy consumed",
+    "能源消耗",
+    "能源使用"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

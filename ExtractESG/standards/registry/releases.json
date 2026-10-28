@@ -230,6 +230,18 @@
     },
     {
       "business_approval": "not_assessed",
+      "core_schema_version": "1.2.0",
+      "format_version": "2.1",
+      "package_id": "esrs.2023-set1.e1-5",
+      "package_version": "2.1.3",
+      "path": "releases/esrs.2023-set1.e1-5/2.1.3/package.json",
+      "real_extraction_validation": "not_assessed",
+      "sha256": "e123b9ef4a374e2ccb6293630cb79ae0dcd129e67dc83d18eb02bb5ff29f9304",
+      "source_digest": "a94737a6c1360b6ffcde448a8e8e25491868763f93a13904d9e9cc8b32718388",
+      "state": "compiled_draft"
+    },
+    {
+      "business_approval": "not_assessed",
       "core_schema_version": "1.1.0",
       "format_version": "1.1",
       "package_id": "esrs.2023-set1.e1-6",

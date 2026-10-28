@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_20",
+  "negative_terms": [],
+  "positive_terms": [
+    "High climate impact sectors used to determine energy intensity",
+    "用于确定能源强度的高气候影响行业清单",
+    "Energy intensity",
+    "能源强度",
+    "energy consumption intensity",
+    "能耗强度",
+    "High climate impact sector",
+    "高气候影响行业"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -25,6 +25,7 @@ from esg_targeted.standards.catalog import StandardPackageCatalog
 from esg_targeted.standards.clause_lifecycle_service import ClauseLifecycleService
 from esg_standard_packages.clause_package import ClausePackageCatalog
 from esg_standard_packages.clause_drafts import ClauseDraftStore
+from esg_standard_packages.clause_promotion import plan as promotion_plan, promote as promote_draft
 from esg_targeted.standards.runtime_snapshot import registered_extensions, freeze_extraction_request
 from esg_targeted.runtime_compatibility import compatibility_snapshot, require_runtime_ready, RuntimeCompatibilityError
 from esg_targeted.storage.artifacts import ArtifactStore
@@ -589,6 +590,33 @@ class ClauseDraftSave(BaseModel):
     author: str
     note: str = ""
     expected_digest: str | None = None
+
+
+class ClausePromotion(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    version: str | None = None
+    register_release: bool = True
+    activate: bool = False
+    reason: str
+
+
+@app.get("/api/clause-drafts/{draft_id}/promotion-plan")
+def clause_promotion_plan(draft_id: str) -> dict:
+    try:
+        return promotion_plan(clause_drafts, draft_id)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
+
+
+@app.post("/api/clause-drafts/{draft_id}/promote")
+def clause_promote(draft_id: str, request: ClausePromotion) -> dict:
+    if not request.reason.strip():
+        raise HTTPException(409, "提升为新包版本需要写明原因")
+    try:
+        return promote_draft(clause_drafts, draft_id, version=request.version,
+                             register=request.register_release, activate=request.activate)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(409, str(exc)) from exc
 
 
 @app.get("/api/clause-drafts")

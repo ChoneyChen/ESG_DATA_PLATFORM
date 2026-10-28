@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "MWh",
+  "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_06",
+  "contract_digest": "0b640e3dd11ec701981e912a9b1ebeafecaf62dccd3e29aefb4230d1c4ca3958",
+  "description": "可再生燃料消费量",
+  "disclosure_requirement": "E1-5",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Fuel consumption from renewable sources",
+    "zh": "可再生燃料消费量"
+  },
+  "metric_id": "esrs.2023-set1.e1-5.dp06",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-5",
+  "package_version": "2.1.3",
+  "positive_definition": "可再生燃料消费量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "energy_carrier",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-5_06",
+  "unit_dimension": "extractesg.core.unit-dimension.energy",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

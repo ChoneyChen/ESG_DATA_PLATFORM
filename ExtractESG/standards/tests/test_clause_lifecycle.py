@@ -220,3 +220,23 @@ def test_ledger_is_append_only_for_a_run(tmp_path: Path):
     retire_and_save(path, clause=clause(), contract_digest_value=CONTRACT, reason="被替代",
                     retired_by="operator", impact=RetirementImpact())
     assert load_ledger(path).retirements[0].clause.key() == clause().key()
+
+
+def test_a_partial_task_that_bound_the_value_is_evidence():
+    result = bundle(found="partial")
+    record = evaluate_run(result, clause=clause(), metric_ids=[METRIC], contract_digest_value=CONTRACT,
+                          run_ref="tx-partial", recorded_by="operator", reason="部分任务仍绑定到原值")
+    checks = {check.check: check.outcome for check in record.checks}
+    assert checks["facts_bound"] == "pass" and checks["current_period"] == "pass"
+    assert record.outcome == "accepted"
+
+
+def test_facts_from_an_earlier_year_do_not_satisfy_the_current_report():
+    result = bundle()
+    result["summary"]["configuration"] = {"reporting_period": {"year": 2025}}
+    result["records"]["quantitative_observations"][0]["reporting_year"] = 2024
+    record = evaluate_run(result, clause=clause(), metric_ids=[METRIC], contract_digest_value=CONTRACT,
+                          run_ref="tx-old", recorded_by="operator", reason="只有上一年度的分项")
+    checks = {check.check: check.outcome for check in record.checks}
+    assert checks["current_period"] == "fail"
+    assert record.outcome == "rejected"

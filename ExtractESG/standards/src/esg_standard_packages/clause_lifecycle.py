@@ -38,7 +38,7 @@ LEDGER_SCHEMA = "clause-lifecycle-ledger-1.0"
 # Checks that must pass before a run can support a publishable clause. A bound
 # fact additionally needs its physical anchor; established non-disclosure has no
 # anchor to check. Optional checks add evidence but never replace these.
-REQUIRED_CHECKS = ("task_executed", "facts_bound")
+REQUIRED_CHECKS = ("task_executed", "facts_bound", "current_period")
 
 EXPLAINED_ABSENCE = {"confirmed_not_disclosed"}
 UNEXPLAINED_ABSENCE = {"not_covered", "unmapped", "insufficient_evidence"}
@@ -97,15 +97,16 @@ class TrialReference(StrictModel):
 
 
 class AcceptanceCheck(StrictModel):
-    check: Literal["task_executed", "facts_bound", "evidence_anchored", "unit_and_period",
-                   "gold_match", "single_interpretation"]
+    check: Literal["task_executed", "facts_bound", "current_period", "evidence_anchored",
+                   "unit_and_period", "gold_match", "single_interpretation"]
     outcome: Literal["pass", "fail", "not_applicable"]
     observed: int | None = None
     detail: str = Field(min_length=1)
 
 
 class ClauseAcceptance(StrictModel):
-    schema_version: Literal["clause-acceptance-1.0"] = "clause-acceptance-1.0"
+    # 1.0 records predate the current-period check; they stay valid history.
+    schema_version: Literal["clause-acceptance-1.0", "clause-acceptance-1.1"] = "clause-acceptance-1.0"
     acceptance_id: str = Field(min_length=1)
     clause: ClauseRef
     contract_digest: Sha256
@@ -128,7 +129,14 @@ class ClauseAcceptance(StrictModel):
         by_check = {check.check: check for check in self.checks}
         bound = (by_check.get("facts_bound").observed or 0) if "facts_bound" in by_check else 0
         anchored = "evidence_anchored" not in by_check or by_check["evidence_anchored"].outcome == "pass"
-        if self.outcome == "accepted" and (failed or not set(REQUIRED_CHECKS) <= passed or (bound and not anchored)):
+        # A required check may be not_applicable only when the run could not supply
+        # the evidence it needs (for example an unknown report period).
+        required = (REQUIRED_CHECKS if self.schema_version == "clause-acceptance-1.1"
+                    else ("task_executed", "facts_bound"))
+        required_ok = all(check in passed or by_check.get(check, AcceptanceCheck(
+            check=check, outcome="fail", detail="missing")).outcome == "not_applicable"
+            for check in required)
+        if self.outcome == "accepted" and (failed or not required_ok or (bound and not anchored)):
             raise ValueError("An accepted clause requires every required check to pass, anchored facts, and no failure")
         if self.outcome == "rejected" and not failed:
             raise ValueError("A rejected clause requires at least one failing check")
@@ -257,26 +265,33 @@ def evaluate_run(
 
     checks: list[AcceptanceCheck] = []
 
+    # ``partial`` means the task ran and bound what it could; only a task that
+    # never ran (or failed) is not execution evidence.
+    finished = {"completed", "partial"}
     if not tasks:
         checks.append(AcceptanceCheck(check="task_executed", outcome="fail", observed=0,
                                       detail="本次运行没有该条款的报告任务"))
-    elif all(task.get("task_status") == "completed" for task in tasks):
+    elif all(str(task.get("task_status")) in finished for task in tasks):
         checks.append(AcceptanceCheck(check="task_executed", outcome="pass", observed=len(tasks),
-                                      detail=f"{len(tasks)} 个条款任务已完成"))
+                                      detail=f"{len(tasks)} 个条款任务已执行"))
     else:
-        statuses = sorted({str(task.get("task_status")) for task in tasks})
+        statuses = sorted({str(task.get("task_status")) for task in tasks
+                           if str(task.get("task_status")) not in finished})
         checks.append(AcceptanceCheck(check="task_executed", outcome="fail", observed=len(tasks),
                                       detail=f"条款任务未完成：{', '.join(statuses)}"))
 
+    # Facts count when the run bound a printed value, whatever status the task
+    # ended with. A partial run that still bound the clause's total is evidence,
+    # not an absence.
+    bound = [row for row in observations
+             if (row.get("value_raw") or "").strip() or (row.get("statement_raw") or "").strip()]
     reported = [task for task in tasks if task.get("found_status") == "reported"]
-    if reported:
-        bound = [row for row in observations if (row.get("value_raw") or "").strip() or (row.get("statement_raw") or "").strip()]
-        if bound:
-            checks.append(AcceptanceCheck(check="facts_bound", outcome="pass", observed=len(bound),
-                                          detail=f"{len(bound)} 条事实已绑定印刷原值"))
-        else:
-            checks.append(AcceptanceCheck(check="facts_bound", outcome="fail", observed=0,
-                                          detail="任务判定为已披露，但没有绑定任何印刷原值"))
+    if bound:
+        checks.append(AcceptanceCheck(check="facts_bound", outcome="pass", observed=len(bound),
+                                      detail=f"{len(bound)} 条事实已绑定印刷原值"))
+    elif reported:
+        checks.append(AcceptanceCheck(check="facts_bound", outcome="fail", observed=0,
+                                      detail="任务判定为已披露，但没有绑定任何印刷原值"))
     elif gap_kinds & EXPLAINED_ABSENCE:
         checks.append(AcceptanceCheck(check="facts_bound", outcome="pass", observed=0,
                                       detail="已覆盖的来源对象确认按本条款口径未披露"))
@@ -286,6 +301,18 @@ def evaluate_run(
     else:
         checks.append(AcceptanceCheck(check="facts_bound", outcome="fail", observed=0,
                                       detail="既无披露事实，也没有覆盖决策说明结果"))
+
+    year = _first_year(result, observations)
+    current = [row for row in bound if isinstance(row.get("reporting_year"), int) and row["reporting_year"] == year]
+    if year is None:
+        checks.append(AcceptanceCheck(check="current_period", outcome="not_applicable", observed=0,
+                                      detail="报告期未识别，无法比对事实期间"))
+    elif current:
+        checks.append(AcceptanceCheck(check="current_period", outcome="pass", observed=len(current),
+                                      detail=f"{len(current)} 条事实属于报告当期 {year}"))
+    else:
+        checks.append(AcceptanceCheck(check="current_period", outcome="fail", observed=0,
+                                      detail=f"绑定事实均不属于报告当期 {year}"))
 
     unanchored = [row.get("observation_id") for row in observations
                   if not any(item.get("ir_object_id") and item.get("pdf_page_index") is not None
@@ -331,20 +358,25 @@ def evaluate_run(
         checks.append(_gold_check(gold, observations))
 
     failed = [check for check in checks if check.outcome == "fail"]
-    passed = {check.check for check in checks if check.outcome == "pass"}
-    outcome = "rejected" if failed or not set(REQUIRED_CHECKS) <= passed else "accepted"
+    by_check = {check.check: check for check in checks}
+    required_ok = all(by_check.get(name) is not None
+                      and by_check[name].outcome in ("pass", "not_applicable")
+                      for name in REQUIRED_CHECKS)
+    outcome = "rejected" if failed or not required_ok else "accepted"
     return ClauseAcceptance(
+        schema_version="clause-acceptance-1.1",
         acceptance_id=f"acceptance-{uuid4().hex}", clause=clause, contract_digest=contract_digest_value, trial=trial,
         checks=checks, outcome=outcome, computed_at=datetime.now(timezone.utc),
         recorded_by=recorded_by, reason=reason)
 
 
 def _first_year(result: dict, observations: list[dict]) -> int | None:
-    years = [row.get("reporting_year") for row in observations if isinstance(row.get("reporting_year"), int)]
-    if years:
-        return max(years)
+    """The run's declared reporting period wins over whatever the facts carry."""
     period = ((result.get("summary") or {}).get("configuration") or {}).get("reporting_period") or {}
-    return period.get("year") if isinstance(period.get("year"), int) else None
+    if isinstance(period.get("year"), int):
+        return period["year"]
+    years = [row.get("reporting_year") for row in observations if isinstance(row.get("reporting_year"), int)]
+    return max(years) if years else None
 
 
 def _gold_check(gold: dict, observations: list[dict]) -> AcceptanceCheck:
