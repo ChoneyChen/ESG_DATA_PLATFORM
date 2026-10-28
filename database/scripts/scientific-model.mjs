@@ -31,20 +31,27 @@ export async function projectClauseVersions(tx, clauses) {
   let written = 0;
   for (const clause of clauses) {
     const row = clauseVersionFromPackage(clause);
-    const existing = (await tx.query('SELECT contract_digest FROM esg.clause_versions WHERE clause_version_id=$1',
+    const existing = (await tx.query(
+      'SELECT contract_digest, package_source_digest FROM esg.clause_versions WHERE clause_version_id=$1',
       [row.clause_version_id])).rows[0];
-    // A clause id is a version identity: different content under the same id is
-    // a new version, never an edit in place.
-    if (existing && existing.contract_digest !== row.contract_digest)
+    // A clause id is a package version. When that package is unchanged, a new
+    // contract digest only means the projection was recompiled; when the package
+    // itself changed, the same id would be a different clause and is refused.
+    if (existing && existing.contract_digest !== row.contract_digest
+        && existing.package_source_digest && clause.package_source_digest
+        && existing.package_source_digest !== clause.package_source_digest)
       throw new Error(`Clause version content differs from its digest: ${row.clause_version_id}`);
     await tx.query(`INSERT INTO esg.clause_versions(
         clause_version_id,package_id,package_version,source_datapoint_id,metric_id,contract_digest,
-        label_zh,value_type,canonical_unit,scopes,evidence,status,acceptance_state)
-      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'active',COALESCE($12,'untested'))
-      ON CONFLICT (clause_version_id) DO UPDATE SET projected_at=CURRENT_TIMESTAMP`,
+        label_zh,value_type,canonical_unit,scopes,evidence,status,acceptance_state,package_source_digest)
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'active',COALESCE($12,'untested'),$13)
+      ON CONFLICT (clause_version_id) DO UPDATE SET contract_digest=excluded.contract_digest,
+        label_zh=excluded.label_zh, value_type=excluded.value_type, canonical_unit=excluded.canonical_unit,
+        scopes=excluded.scopes, evidence=excluded.evidence, package_source_digest=excluded.package_source_digest,
+        projected_at=CURRENT_TIMESTAMP`,
       [row.clause_version_id, row.package_id, row.package_version, row.source_datapoint_id, row.metric_id,
        row.contract_digest, row.label_zh, row.value_type, row.canonical_unit, row.scopes, row.evidence,
-       clause.acceptance_state ?? null]);
+       clause.acceptance_state ?? null, clause.package_source_digest ?? null]);
     written += 1;
   }
   return {clauses: written};

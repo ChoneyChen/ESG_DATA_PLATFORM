@@ -17,7 +17,7 @@ export async function readClauseCatalog(standardsRoot = defaultStandardsRoot()) 
   for (const entry of catalog.packages || []) {
     for (const clause of entry.clauses || []) {
       const body = JSON.parse(await readFile(path.join(root, clause.path, 'clause.json'), 'utf8'));
-      clauses.push(body);
+      clauses.push({...body, package_source_digest: entry.source_digest});
     }
   }
   return { schema_version: catalog.schema_version, packages: (catalog.packages || []).length, clauses };

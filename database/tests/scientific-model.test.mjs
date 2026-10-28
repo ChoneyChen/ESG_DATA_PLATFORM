@@ -12,6 +12,7 @@ const metadata = {upstream_system: 'science-test', organization_ref: 'science-en
   report_period_start: '2025-01-01', report_period_end: '2025-12-31'};
 
 const CLAUSE = {clause_id: 'esrs.test@1.0.0:E1-6_07', package_id: 'esrs.test', package_version: '1.0.0',
+  package_source_digest: '5'.repeat(64),
   source_datapoint_id: 'E1-6_07', metric_id: 'metric-1', contract_digest: '3'.repeat(64),
   labels: {zh: '范围一排放'}, value_type: 'numeric', canonical_unit: 'tCO2e',
   output_scopes: [{scope_id: 'scope-a', label_zh: '年度 · 集团合并', period: 'annual', entity: 'group',
@@ -118,14 +119,20 @@ test('reconciliation reports a value that differs from the legacy observation', 
   } finally { await db.close(); }
 });
 
-test('a clause version may not change content under the same identity', async () => {
+test('a clause version may not change content while its package is unchanged', async () => {
   const db = await PGlite.create();
   try {
     await applyMigrations(db);
     await applyPlatformMigrations(db);
     await projectClauseVersions(db, [CLAUSE]);
-    await assert.rejects(() => projectClauseVersions(db, [{...CLAUSE, contract_digest: '4'.repeat(64)}]),
-      /content differs from its digest/);
+    // Same package, recompiled projection: allowed and updated in place.
+    await projectClauseVersions(db, [{...CLAUSE, contract_digest: '4'.repeat(64)}]);
+    const after = (await db.query(`SELECT contract_digest FROM esg.clause_versions
+      WHERE clause_version_id='esrs.test@1.0.0:E1-6_07'`)).rows[0];
+    assert.equal(after.contract_digest, '4'.repeat(64));
+    // A different package under the same clause id is a different clause.
+    await assert.rejects(() => projectClauseVersions(db, [{...CLAUSE, contract_digest: '6'.repeat(64),
+      package_source_digest: '7'.repeat(64)}]), /content differs from its digest/);
   } finally { await db.close(); }
 });
 
