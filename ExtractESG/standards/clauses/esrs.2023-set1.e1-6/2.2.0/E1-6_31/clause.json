@@ -1,14 +1,23 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "cca1a4e89101ff24e14b9f8f7b3b385de5131c5769fc121262bb537de3d3646c",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_31",
-  "contract_digest": "94bb4e2e7fc286357306cff69e3dd23199e062b65dd63f9c1bdea051b2f6abac",
+  "clause_key": "E1-6_31",
+  "contract_digest": "1a465f929faddf744d2314322136da55ec223daaef93b0acd35c4691a9d8c530",
+  "data_kind": "quantitative",
   "description": "以采用市场法范围2的温室气体总量为分子、净收入为分母的排放强度。没有市场法总量或净收入分母时不得借用位置法或其他强度。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "derived",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Market-based GHG intensity",
     "zh": "基于市场法的温室气体排放强度"
@@ -68,8 +77,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-intensity"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_31",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-intensity",
   "value_origin": "reported",
   "value_type": "numeric"

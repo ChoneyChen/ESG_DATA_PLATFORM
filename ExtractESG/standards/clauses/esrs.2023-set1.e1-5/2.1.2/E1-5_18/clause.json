@@ -1,14 +1,23 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "7a47b8430805cdc820e07cce527cb0e3b50bf87a31e133ba7aaf3d146a2c4460",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_18",
-  "contract_digest": "c6ae3e1f1b7928751af0677bf7c9b953a7676aa132ff76268cc3f531ce295272",
+  "clause_key": "E1-5_18",
+  "contract_digest": "6bc46b81d9dc4c919e6d890ceade3a87345fbd4254a8fe866bd2fac47e9ec9fe",
+  "data_kind": "quantitative",
   "description": "以高气候影响行业的能源消费量除以相应净收入形成能源强度；法规计量语义为 MWh/货币单位。",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Energy intensity in high climate impact sectors",
     "zh": "高气候影响行业的能源强度"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "energy-intensity"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_18",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.energy-intensity",
   "value_origin": "reported",
   "value_type": "numeric"

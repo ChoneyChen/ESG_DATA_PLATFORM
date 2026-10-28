@@ -1,17 +1,41 @@
 {
   "canonical_unit": "person",
+  "clause_digest": "2a0cd6019385be6d69b548605253fe35f3462be807fac84028231f2baf3a880f",
   "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_02",
-  "contract_digest": "79f6b1f210bb747367b0886038590c75aad10c236c6dd96ac2999cd538dfa4d5",
+  "clause_key": "S1-14_02",
+  "contract_digest": "f0a43b6ae25d37565f26c29edd0fe409ec5324efce9f1931f1f1442115cc627d",
+  "data_kind": "quantitative",
   "description": "报告期内自有劳动力因工伤或职业病导致死亡的人数。",
   "disclosure_requirement": "S1-14",
   "disclosure_role": "anchor",
+  "display_definition": "Number of own-workforce deaths from work-related injuries or illness (工亡/因工伤死亡人数). A fatality rate, lost days or commuting deaths are different measures.",
+  "display_label": "工伤或职业病死亡人数 Work-related fatalities",
   "distinguish_from": [
     "承包商工亡人数",
     "可记录工伤事故率"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "承包商与其他价值链劳动者的死亡人数不属于自有劳动力；死亡人数与事故率不能互换。"
+  ],
+  "group": "workforce_safety",
+  "group_terms": [
+    "工伤",
+    "事故",
+    "可记录",
+    "accident",
+    "injury",
+    "ltifr",
+    "trifr",
+    "recordable"
+  ],
+  "group_unit_terms": [
+    "率",
+    "每百万工时",
+    "人数",
+    "起",
+    "rate"
   ],
   "labels": {
     "en": "Number of fatalities in own workforce as result of work-related injuries and work-related ill health",
@@ -51,8 +75,100 @@
       "population": "employees"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "工亡",
+          "死亡人数",
+          "死亡事故",
+          "因工伤死亡",
+          "fatalit"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_other_concept",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "率",
+          "rate",
+          "天数",
+          "days",
+          "交通事故",
+          "traffic",
+          "承包商",
+          "contractor"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-14_02",
+  "text_group": "workforce",
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

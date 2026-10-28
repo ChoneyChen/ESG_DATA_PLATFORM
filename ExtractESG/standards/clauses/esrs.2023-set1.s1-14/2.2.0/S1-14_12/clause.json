@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "fe8b83b739445a6262d14c2d2211f66c890de507ee5319c3bda8d48c9a40e4cc",
   "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_12",
-  "contract_digest": "ea1341173026fa82d6aeaf14a3bbc93a683e89adf58d381d2cb8aa1ff318af25",
+  "clause_key": "S1-14_12",
+  "contract_digest": "0bc5c5b52a73ee7aef32c55ad89575124389aaed60cf4a389cfe64b9d89c7ed3",
+  "data_kind": "quantitative",
   "description": "Number of cases of recordable work-related ill health detected among former own workforce。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "S1-14",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of cases of recordable work-related ill health detected among former own workforce",
     "zh": "Number of cases of recordable work-related ill health detected among former own workforce"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-14_12",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

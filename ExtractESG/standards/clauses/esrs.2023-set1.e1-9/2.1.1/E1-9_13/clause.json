@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "54b52127009d85e317c0c8c91950aa522deef9d913b3f22989b8a96a9ea41167",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_13",
-  "contract_digest": "eb508bbc0d9a6489545183283320c0c7b317cca4db561d0bf46f12a048f74130",
+  "clause_key": "E1-9_13",
+  "contract_digest": "f210b93430a7f42d0613b8e429809e367908e29442907189d714f0d26ffb966e",
+  "data_kind": "qualitative",
   "description": "Disclosure of magnitude of anticipated financial effects in terms of margin erosion for business activities at material physical risk。物理风险业务利润侵蚀。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of magnitude of anticipated financial effects in terms of margin erosion for business activities at material physical risk",
     "zh": "物理风险业务利润侵蚀"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_13",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e10c1d4fa434722e7a4e31740b27ef240198139839415b49c77454d9b4fc91d9",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_08",
-  "contract_digest": "91fdc7a5ea886cd99e0aa4a0a1a3f33f73482c1a10b7b3b8bfa3e778b7a65e80",
+  "clause_key": "GOV-1_08",
+  "contract_digest": "6faa448607448149ebe188aa47af6067b344bc736b292d94e822a37b7e2a81df",
+  "data_kind": "qualitative",
   "description": "Information about identity of administrative, management and supervisory bodies or individual(s) within body responsible for oversight of impacts, risks and opportunities。可持续监督责任机构和人员。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about identity of administrative, management and supervisory bodies or individual(s) within body responsible for oversight of impacts, risks and opportunities",
     "zh": "可持续监督责任机构和人员"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-1_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

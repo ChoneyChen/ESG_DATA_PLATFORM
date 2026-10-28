@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4cf1cde34eb1edb56ebf1e1be74c248edfe6b3790317a0b8fe629ed19ec66d64",
   "clause_id": "esrs.2023-set1.s3-sbm-3@2.3.0:S3.SBM-3_03",
-  "contract_digest": "7f07f929af6bab18567dcbf01c2f0f32ddbfb2cda4e5dd769643e9b75f2f2c03",
+  "clause_key": "S3.SBM-3_03",
+  "contract_digest": "bd3e1f18f1b7f3586e3d126078e6bcfdae9a9bbe877f2d65b44849ce78f866cc",
+  "data_kind": "qualitative",
   "description": "说明因主体自身运营或通过价值链而受重大影响的社区类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Type of communities subject to material impacts by own operations or through value chain",
     "zh": "因自身运营或价值链而受影响的社区类型"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3.SBM-3_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

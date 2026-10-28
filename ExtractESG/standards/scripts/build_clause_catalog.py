@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from esg_standard_packages.clause_build import build_profiles, load_dictionary  # noqa: E402
+from esg_standard_packages.clause_package import PROFILE_FIELDS  # noqa: E402
 from esg_standard_packages.io import pretty_json_bytes  # noqa: E402
 
 GENERATOR = "clause-package-builder-1.0"
@@ -31,11 +32,7 @@ def clause_id(package_id: str, version: str, source_id: str) -> str:
 def split_profile(entry: dict, *, package_id: str, version: str, source_digest: str,
                   standard: dict, generated_at: str) -> dict[str, dict]:
     profile = entry["profile"]
-    clause = {key: profile[key] for key in (
-        "schema_version", "clause_id", "package_id", "package_version", "source_datapoint_id",
-        "metric_id", "labels", "description", "positive_definition", "distinguish_from",
-        "exclusions", "value_type", "canonical_unit", "unit_dimension", "value_origin",
-        "output_scopes", "publication", "contract_digest")}
+    clause = {key: profile[key] for key in PROFILE_FIELDS}
     clause["disclosure_requirement"] = entry["disclosure_requirement"]
     clause["obligation_class"] = entry["obligation_class"]
     clause["disclosure_role"] = entry["disclosure_role"]
@@ -104,9 +101,14 @@ def main() -> int:
                         target.parent.mkdir(parents=True, exist_ok=True)
                         target.write_bytes(content)
                         written += 1
-            clauses.append({"source_datapoint_id": profile["source_datapoint_id"],
+            clauses.append({"clause_key": profile["clause_key"],
+                            "source_datapoint_id": profile["source_datapoint_id"],
                             "metric_id": profile["metric_id"],
+                            "package_id": item["package_id"],
+                            "package_version": item["package_version"],
+                            "data_kind": profile["data_kind"],
                             "path": str(relative.as_posix()),
+                            "clause_digest": profile["clause_digest"],
                             "contract_digest": profile["contract_digest"]})
         catalog_packages.append({"package_id": item["package_id"],
                                  "package_version": item["package_version"],
@@ -114,9 +116,15 @@ def main() -> int:
                                  "clause_count": len(clauses),
                                  "skipped": item["skipped"],
                                  "clauses": clauses})
-    catalog = {"schema_version": "clause-catalog-1.0", "generated_by": GENERATOR,
+    catalog = {"schema_version": "clause-catalog-1.1", "generated_by": GENERATOR,
                "generated_at": generated_at, "drafts_applied": sorted(
-                   f"{key[0]}@{key[1]}:{key[2]}" for key in overrides), "packages": catalog_packages}
+                   f"{key[0]}@{key[1]}:{key[2]}" for key in overrides),
+               "packages": catalog_packages,
+               # The clause, not the package, is the selectable unit. The flat
+               # index is the interface searches and selectors read; packages
+               # remain provenance for versioning and source digests.
+               "clauses": sorted((clause for package in catalog_packages for clause in package["clauses"]),
+                                 key=lambda row: row["clause_key"])}
     catalog_path = out / "catalog.json"
     content = pretty_json_bytes(catalog)
     if not catalog_path.exists() or catalog_path.read_bytes() != content:

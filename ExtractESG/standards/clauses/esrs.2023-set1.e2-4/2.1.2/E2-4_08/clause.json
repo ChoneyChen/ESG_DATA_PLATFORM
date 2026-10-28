@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c4c33cddeef1ff60cbd972369d89c1cbf3f90283de26de07bf5863373f263964",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_08",
-  "contract_digest": "41fd39a17cd8fe96fa7aae526070e81258a271ef3bae79730cbb54b69a1a1e20",
+  "clause_key": "E2-4_08",
+  "contract_digest": "2e5e7ff51cc7e23d4a0a64a5e88551f85c6531deb44423d7bca7d67fdae567b1",
+  "data_kind": "qualitative",
   "description": "企业应将量化披露置于背景中并描述随时间的变化。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of changes over time (pollution of air, water and soil)",
     "zh": "空气、水和土壤污染随时间变化描述"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

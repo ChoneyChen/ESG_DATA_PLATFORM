@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "82fec9dc006290e810af3b65ba875b9c52736b5cdc3d750ec7b618e42e8c3b52",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_05",
-  "contract_digest": "7b540ff8ae304442b9e972409262570d9802c8679eefa0b30d2367cfa52deedc",
+  "clause_key": "E1-1_05",
+  "contract_digest": "e643745bc6d168db7e03a3650a71997a3e9098496718923e6f14bf6d00589eec",
+  "data_kind": "quantitative",
   "description": "Financial resources allocated to action plan (OpEx)。行动运营支出资源。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Financial resources allocated to action plan (OpEx)",
     "zh": "行动运营支出资源"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_05",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

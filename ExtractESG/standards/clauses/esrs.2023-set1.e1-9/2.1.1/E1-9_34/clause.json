@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "3a0e30313b679f58a3d40265d03dcf68c8b1e3da8056edcfe4593f039292e966",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_34",
-  "contract_digest": "287c4ef085987d420f511fa432e91d7ff28bf5d59d943016c4fbdb3c38382705",
+  "clause_key": "E1-9_34",
+  "contract_digest": "1a7688d6e41482d411999b005aebdd7998ca83bda876737ce9e2262031240135",
+  "data_kind": "quantitative",
   "description": "Percentage of net revenue from customers operating in oil-related activities。石油活动客户净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of net revenue from customers operating in oil-related activities",
     "zh": "石油活动客户净收入比例"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_34",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

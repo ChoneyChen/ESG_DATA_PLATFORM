@@ -343,14 +343,15 @@ class OcrWorkflow:
         if request.page_indices is not None:
             self._log(log, f"Page-targeted OCR: {len(request.page_indices)} explicitly selected source pages")
             return list(request.page_indices), None
-        if request.page_selection != "foundation16" or not request.file_path:
+        if request.page_selection not in {"foundation16", "clauses"} or not request.file_path:
             return None, None
         prescan = None
         if self.settings.ocr_vision_prescan_enabled and vision_prescan.available():
             def prescan(path: Path, page_count: int) -> list[str]:
                 self._log(log, f"No usable text layer; reading {page_count} pages on-device to choose OCR targets")
                 return vision_prescan.page_texts(path, page_count, log=lambda message: self._log(log, message))
-        selection = Foundation16PageSelector().select(request.file_path, prescan=prescan)
+        selection = Foundation16PageSelector(profile=request.clause_profile or "universal").select(
+            request.file_path, prescan=prescan)
         writer.write_page_selection(selection.report())
         if not selection.targeted:
             self._log(

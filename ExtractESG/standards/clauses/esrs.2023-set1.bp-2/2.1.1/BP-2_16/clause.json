@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b4f65fa4bfeca227acbf95ae950bd7a09e324ca634d5b42929b7e086414acfc0",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_16",
-  "contract_digest": "95e5b1a149fe81a0bc81c346cacd6fcca8f100e3bc41b97be2487251b147c5f4",
+  "clause_key": "BP-2_16",
+  "contract_digest": "459bc999ef1e6a94c1a0c41216836ab62d7ca6173c5af45423168c51bc1b418b",
+  "data_kind": "qualitative",
   "description": "Disclosure of other legislation or generally accepted sustainability reporting standards and frameworks based on which information has been included in sustainability statement。采用的其他标准或法规。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of other legislation or generally accepted sustainability reporting standards and frameworks based on which information has been included in sustainability statement",
     "zh": "采用的其他标准或法规"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_16",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

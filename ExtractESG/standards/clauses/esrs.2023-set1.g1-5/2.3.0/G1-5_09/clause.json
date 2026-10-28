@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e9853fe68bf6e124823d24d50aa1fc16398131738b3032e063826728ba4788d1",
   "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_09",
-  "contract_digest": "d38ce8cd3f5d578e9639890120469af18c8baca0d6defc75f2dd220a4775d043",
+  "clause_key": "G1-5_09",
+  "contract_digest": "ebc012102b915dbc1c57b8bfcc43d60199afa1623e50fe8fc407557c76c37a00",
+  "data_kind": "qualitative",
   "description": "披露游说活动覆盖的主要议题以及主体在这些议题上的主要立场。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of main topics covered by lobbying activities and undertaking's main positions on these topics",
     "zh": "游说活动的主要议题与主体立场"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-5_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

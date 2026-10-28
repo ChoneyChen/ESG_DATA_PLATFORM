@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "fc4f4f41bba970355a7d53ea841d5067d043015d35971cd15af238dc04998262",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_16",
-  "contract_digest": "42ed809873cf99c746e75689158ab807b2571aebeb2089df85b8dfafc2ee2781",
+  "clause_key": "E1-1_16",
+  "contract_digest": "734f0cb2ad2962c37a4e29bc38fa9111d8d20bf68d1d6c42225b65b0e6d9a9df",
+  "data_kind": "qualitative",
   "description": "Date of adoption of transition plan for undertakings not having adopted transition plan yet。尚无转型计划时的计划采纳年份。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Date of adoption of transition plan for undertakings not having adopted transition plan yet",
     "zh": "尚无转型计划时的计划采纳年份"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_16",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "744278d8bfab6767e13856f8309fd0d7d233ac9c6bfa928667bc3a10a91f5e20",
   "clause_id": "esrs.2023-set1.s3-1@2.3.0:S3-1_05",
-  "contract_digest": "4e0b6f4c0f92b2099e18f12d93d4bf23c9a65b76c49cd281622e533497fb7dd0",
+  "clause_key": "S3-1_05",
+  "contract_digest": "3ab6de72b614a7e56294fdf012af232cd75109bc667214dd2d886340a2a0b3db",
+  "data_kind": "qualitative",
   "description": "说明主体为受影响社区人权影响提供或促成补救的总体方法与机制。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts",
     "zh": "提供或促成补救的总体方法（受影响社区）"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-1_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

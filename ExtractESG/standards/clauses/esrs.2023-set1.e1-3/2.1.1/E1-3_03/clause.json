@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "b680a4327bac9651d75a1b0eb8469e2ed4b4a05ef6c904965af411ae7b08a0cb",
   "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_03",
-  "contract_digest": "54889a51abe2f328eb55e36203ef4ec4ee73c1c63f316e7adcc9c8d605ce7d80",
+  "clause_key": "E1-3_03",
+  "contract_digest": "2f335dfadf7f8b1967fd425a1ca31a8d4c2c0e36eaf8fc4f54cad7169eca8298",
+  "data_kind": "quantitative",
   "description": "Achieved GHG emission reductions。已实现温室气体减排量。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
   "disclosure_requirement": "E1-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Achieved GHG emission reductions",
     "zh": "已实现温室气体减排量"
@@ -44,8 +53,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-emissions"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-3_03",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

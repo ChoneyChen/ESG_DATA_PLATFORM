@@ -1,19 +1,37 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3c12c59abaff2e55b4a3897eed58faf6d9279281ce58e3c02e5772a4e0b8d429",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_09",
-  "contract_digest": "a4fd216a4be48542186208021b5401c255ce9aa7499f7bdd2997242da1cf4fdb",
+  "clause_key": "E2-4_09",
+  "contract_digest": "cd4b2b7a9a8a9f75df03c2a7230c222f6eba8619657bb1d5885b683a38c1829d",
+  "data_kind": "qualitative",
   "description": "AR 26 给出方法优先顺序；AR 27 要求考虑 BREF/基准、AMS 校准和独立实验室验证。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "context",
+  "display_definition": "Statement of how pollutant emission amounts are measured, monitored, calculated or estimated.",
+  "display_label": "污染物测量方法 Pollutant measurement methodology",
   "distinguish_from": [
     "污染物排放数值本身",
     "监测设施数量",
     "无具体测量说明的认证名称"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "不能以污染物排放数值本身、监测设施数量、无具体测量说明的认证名称替代本条款所定义的测量或说明。"
   ],
+  "group": "pollution_method",
+  "group_terms": [
+    "Description of measurement methodologies (pollution of air, water and soil)",
+    "空气、水和土壤污染测量方法描述",
+    "Measurement methodology",
+    "污染测量方法",
+    "measurement",
+    "monitoring method",
+    "estimation method",
+    "calculation method"
+  ],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of measurement methodologies (pollution of air, water and soil)",
     "zh": "空气、水和土壤污染测量方法描述"
@@ -46,8 +64,97 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_a_measurement_method",
+        "rule": "require_any",
+        "scope": "text",
+        "terms": [
+          "监测",
+          "检测",
+          "在线",
+          "测量",
+          "测算",
+          "估算",
+          "计算",
+          "核算",
+          "排放因子",
+          "物料衡算",
+          "系数",
+          "统计口径",
+          "monitor",
+          "measur",
+          "estimat",
+          "calculat",
+          "emission factor",
+          "mass balance",
+          "methodolog"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_about_pollutants",
+        "rule": "require_any",
+        "scope": "all",
+        "terms": [
+          "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|lead|arsenic|particulate|dust|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))",
+          "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|nh\\s*3\\s*-?\\s*n|总氮|总磷|石油类|悬浮物|(?<![a-z0-9])ss(?![a-z0-9])|氰化物|氟化物|硫化物|挥发酚|重金属|铜|锌|铅|镉|汞|砷|铬|镍|ammonia|chemical\\s+oxygen|nitrogen|phosph|heavy\\s+metal|水污染物|废水污染物)"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "air_pollutant": [
+        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|lead|arsenic|particulate|dust|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
+      ],
+      "method_terms": [
+        "监测",
+        "检测",
+        "在线",
+        "测量",
+        "测算",
+        "估算",
+        "计算",
+        "核算",
+        "排放因子",
+        "物料衡算",
+        "系数",
+        "统计口径",
+        "monitor",
+        "measur",
+        "estimat",
+        "calculat",
+        "emission factor",
+        "mass balance",
+        "methodolog"
+      ],
+      "water_pollutant": [
+        "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|nh\\s*3\\s*-?\\s*n|总氮|总磷|石油类|悬浮物|(?<![a-z0-9])ss(?![a-z0-9])|氰化物|氟化物|硫化物|挥发酚|重金属|铜|锌|铅|镉|汞|砷|铬|镍|ammonia|chemical\\s+oxygen|nitrogen|phosph|heavy\\s+metal|水污染物|废水污染物)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_09",
+  "text_group": "pollution",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

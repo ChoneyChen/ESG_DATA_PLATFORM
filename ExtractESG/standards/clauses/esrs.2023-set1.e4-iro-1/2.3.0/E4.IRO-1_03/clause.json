@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b7313c1c41348db4364179918e9bae5b2d152d556d4a0bbec537ef220650cad7",
   "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_03",
-  "contract_digest": "8a9755f4b2cc279a1213e374b90b9370120e2b28b76968d288b233f771be693e",
+  "clause_key": "E4.IRO-1_03",
+  "contract_digest": "e5017bdbc8ead707066c14c5a1e153a3e00d293135c706cf79bb2618617d2ecb",
+  "data_kind": "qualitative",
   "description": "说明主体是否以及如何识别和评估与生物多样性和生态系统相关的转型风险、物理风险及机遇。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how transition and physical risks and opportunities related to biodiversity and ecosystems have been identified and assessed",
     "zh": "生物多样性和生态系统相关转型风险、物理风险与机遇的识别与评估"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.IRO-1_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

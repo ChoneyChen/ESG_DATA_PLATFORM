@@ -1,14 +1,23 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "655add232483a1b1a159ed67ecca2d9f57ae0c10b1fa14378625bce14358e517",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_12",
-  "contract_digest": "fc0bc5e311bef1ccc62e60221ba25f06182998c581e7c6d29a1ddac63f92fdf3",
+  "clause_key": "E2-4_12",
+  "contract_digest": "1bcbbde9f64df48b7c04efbd5236527cd27e3363d8002c87bd68b6de04008721",
+  "data_kind": "quantitative",
   "description": "AR 23(c) 的可选背景信息；高水压力属于水风险的特定类别。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of total emissions of pollutants to water occurring in areas of high-water stress",
     "zh": "高水压力地区水污染物排放占比"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_12",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

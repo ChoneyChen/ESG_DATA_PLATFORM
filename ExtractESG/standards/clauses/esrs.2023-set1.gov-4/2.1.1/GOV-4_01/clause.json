@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "075aa6db502e4e340c0d3cfbf85e0b5e5c7862db61157f72caa9184f445b433f",
   "clause_id": "esrs.2023-set1.gov-4@2.1.1:GOV-4_01",
-  "contract_digest": "5f8989700f9999a230a577b72d8a5992dfc31d90d36c0579830b6d2ae343c8f4",
+  "clause_key": "GOV-4_01",
+  "contract_digest": "8671419a7d7935a566161c00a9eaea3d1f98fa8c044f5b85122680c089b52a24",
+  "data_kind": "qualitative",
   "description": "Disclosure of mapping of information provided in sustainability statement about due diligence process。可持续声明中的尽职调查信息映射。该条款是尽职调查披露的映射索引；需要保留所引用披露，不将索引自身判为所有活动都已实施。",
   "disclosure_requirement": "GOV-4",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "该条款是尽职调查披露的映射索引；需要保留所引用披露，不将索引自身判为所有活动都已实施。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of mapping of information provided in sustainability statement about due diligence process",
     "zh": "可持续声明中的尽职调查信息映射"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-4_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

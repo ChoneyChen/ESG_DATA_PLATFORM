@@ -1,0 +1,76 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "S1-13_03",
+  "group": "workforce_training",
+  "text_group": "workforce",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "培训",
+        "training"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "商业道德",
+        "合规培训",
+        "ehs",
+        "安全培训",
+        "leadership",
+        "专题"
+      ],
+      "reason": "label_is_other_concept"
+    },
+    {
+      "rule": "require_any",
+      "terms": [
+        "男性",
+        "女性",
+        "按性别",
+        "male",
+        "female",
+        "by gender"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_group_scope"
+    }
+  ],
+  "display_label": "按性别划分的平均培训小时数 Average training hours by gender",
+  "display_definition": "Average training hours per employee reported separately for women and men (按性别划分的人均培训时数). The workforce-wide average is another clause; a topic-specific course is not this."
+}

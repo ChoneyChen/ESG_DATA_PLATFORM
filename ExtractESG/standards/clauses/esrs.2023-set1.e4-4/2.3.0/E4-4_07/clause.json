@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "86207f2fb768221ca4ba0fcb4c8fa77213f128ec2256f3ec051c3acb2980fa31",
   "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_07",
-  "contract_digest": "b1d7f8a979306dcacf05dd2726d7f83cf39af2b0257e2054de3536f74e8da468",
+  "clause_key": "E4-4_07",
+  "contract_digest": "83f54fb8d286cbc29772767f9bbd8ad2c706dd4f502d8f16e7898ac7aeaea35e",
+  "data_kind": "qualitative",
   "description": "披露目标覆盖的地理范围，包括国家、区域或场址层级。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of the geographical scope of the targets",
     "zh": "目标的地理范围"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-4_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

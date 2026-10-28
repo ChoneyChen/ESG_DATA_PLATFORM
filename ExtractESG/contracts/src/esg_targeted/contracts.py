@@ -384,6 +384,8 @@ class QueryIntent(StrictModel):
 
 class MetricQuery(StrictModel):
     metric_id: str
+    clause_key: str | None = None
+    clause_digest: str | None = None
     query_text: str
     lexical_text: str
     semantic_text: str

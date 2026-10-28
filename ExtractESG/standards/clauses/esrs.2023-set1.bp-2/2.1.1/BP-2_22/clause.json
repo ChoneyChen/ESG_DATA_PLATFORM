@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "2fae901228584f60368a8d4b87315ad181b0408f03a1d65672b2753cdac2f9a4",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_22",
-  "contract_digest": "133e582329d685a756f1572638c1ca75102efc60008346ed78cc018318cd56e9",
+  "clause_key": "BP-2_22",
+  "contract_digest": "1347c0869c69112962ccc24244f988c10e90fdcf80acb3ed831e649203de30b1",
+  "data_kind": "qualitative",
   "description": "List of sustainability matters assessed to be material (phase-in)。阶段安排的重要可持续事项。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "List of sustainability matters assessed to be material (phase-in)",
     "zh": "阶段安排的重要可持续事项"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_22",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

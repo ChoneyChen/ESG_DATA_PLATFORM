@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4aac1aee5b77900a40addd9a27f2b9fd4a7dc555cf45ef823991d85734021333",
   "clause_id": "esrs.2023-set1.mdr-t@2.1.1:MDR-T_19",
-  "contract_digest": "13687fce94f1592aaad321e4d30bedb58be9def2419ecab5331fc1cd15619d9c",
+  "clause_key": "MDR-T_19",
+  "contract_digest": "4e6c1db6ff57955d93a8d62ecc4e288ec47567f5bd8fc06cbf8c03d7905cc8f7",
+  "data_kind": "qualitative",
   "description": "Base year from which progress is measured。进展测量基准年。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
   "disclosure_requirement": "MDR-T",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Base year from which progress is measured",
     "zh": "进展测量基准年"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-T_19",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

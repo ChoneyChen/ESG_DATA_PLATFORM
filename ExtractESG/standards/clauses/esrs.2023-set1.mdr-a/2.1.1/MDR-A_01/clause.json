@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "dc3efb6694a9b6bc0415748d8fc8fdd1f6a4c4d33698e7c7cc9aba92c6b3102a",
   "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_01",
-  "contract_digest": "4d9c28089ab55bea1ade23b2fb27bcc478b79879592f273297f28e0468933a8e",
+  "clause_key": "MDR-A_01",
+  "contract_digest": "6b3a08475ceaf127ff1490f2b2cd7d92a18f9246cf0d7dbfeb982a78d0949e82",
+  "data_kind": "qualitative",
   "description": "Disclosure of key action。关键行动。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
   "disclosure_requirement": "MDR-A",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of key action",
     "zh": "关键行动"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-A_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "05e79fc28c500d7450f21e418f6b512dfcd1b624eb6df9bb0710d94eae2b81ad",
   "clause_id": "esrs.2023-set1.s1-2@2.3.0:S1-2_02",
-  "contract_digest": "8bf0d628582958a7a4899c139ac5798640795d52f2cfbf9cc80200e31235cfec",
+  "clause_key": "S1-2_02",
+  "contract_digest": "fea542d0fb097b9b06f9bce1d71933cbdc8f3b84e8f0af618a36903235d31800",
+  "data_kind": "qualitative",
   "description": "说明主体是否与自身劳动力或其代表开展接触，并指出接触对象与形式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Engagement occurs with own workforce  or their representatives",
     "zh": "与自身劳动力或其代表的接触"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-2_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

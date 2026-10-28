@@ -1,0 +1,65 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E2-4_03",
+  "group": "water_pollutants",
+  "text_group": "pollution",
+  "operator": "pollutant",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "化学需氧量",
+      "cod",
+      "氨氮",
+      "总氮",
+      "总磷",
+      "重金属",
+      "悬浮物"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": [
+      "E2-4_03",
+      "E2-4_02"
+    ]
+  },
+  "exact_labels": [],
+  "uses": [
+    "air_only",
+    "air_pollutant",
+    "change",
+    "intensity",
+    "pollutant_exclude",
+    "ratio_word",
+    "water_only",
+    "water_pollutant"
+  ],
+  "rules": [
+    {
+      "rule": "pollutant_medium",
+      "params": {
+        "medium": "water"
+      }
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@pollutant_exclude",
+        "@intensity",
+        "@change"
+      ],
+      "scope": "text",
+      "reason": "label_is_concentration_intensity_ghg_or_change"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "mass"
+      ],
+      "params": {
+        "ratio_review": "pollutant_unit_printed_as_percent"
+      }
+    }
+  ],
+  "display_label": "向水体排放污染物 Pollutants emitted to water",
+  "display_definition": "Mass of each pollutant discharged to water (COD, ammonia nitrogen, total N/P, heavy metals such as Cu/Zn/Pb); map every pollutant row. Not wastewater volume, not concentration, not intensity."
+}

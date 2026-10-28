@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "20be2c9943a1b8179ea107659cde1d8a991dd9812bae8fc5952b91ceb12059ea",
   "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_09",
-  "contract_digest": "0cb66c20eb9184d20927311f46aa921b46832383e52f657056be9301817d51c3",
+  "clause_key": "SBM-1_09",
+  "contract_digest": "c4409e71986addd5a8385bcb5072be71b24e5ad2696a014c903cb7ec38166dee",
+  "data_kind": "qualitative",
   "description": "Undertaking is active in fossil fuel (coal, oil and gas) sector。化石燃料行业活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
   "disclosure_requirement": "SBM-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Undertaking is active in fossil fuel (coal, oil and gas) sector",
     "zh": "化石燃料行业活动"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-92477e5a7415f135",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-1_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

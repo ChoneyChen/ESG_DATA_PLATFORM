@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "998666b465cad67ba303c10d38a7c8063da903211f9dabb0ab9830d99c7267fd",
   "clause_id": "esrs.2023-set1.s2-sbm-3@2.3.0:S2.SBM-3_04",
-  "contract_digest": "e24d5902e0be308824f3ef86cbcc60692553a9277ed375282beec4d0fdae2f4c",
+  "clause_key": "S2.SBM-3_04",
+  "contract_digest": "afe8710df3aebc39437a4777cdc37e9d9fc682c5d8c2101d375d25e635b0db2a",
+  "data_kind": "qualitative",
   "description": "披露价值链中存在童工或强迫劳动重大风险的地理区域或商品。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of geographies or commodities for which there is significant risk of child labour, or of forced or compulsory labour, among workers in undertaking’s value chain",
     "zh": "童工或强迫劳动重大风险的地理区域与商品"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2.SBM-3_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

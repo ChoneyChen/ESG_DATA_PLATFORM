@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "8d40b4977e3cf838bcb2c7880c93287849494499daae6104f2e0311dbc9b94c7",
   "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_03",
-  "contract_digest": "f375f5e988c090eb927f22a3bbbeac905b1e1d616b90ea87f9f30a927c9003a8",
+  "clause_key": "MDR-A_03",
+  "contract_digest": "86d4d28b801742d476e04ec5aeaaa5145087e231d26a7014bdb1026422d5fbbf",
+  "data_kind": "qualitative",
   "description": "Time horizon under which key action is to be completed。关键行动完成时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
   "disclosure_requirement": "MDR-A",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Time horizon under which key action is to be completed",
     "zh": "关键行动完成时间"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-A_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

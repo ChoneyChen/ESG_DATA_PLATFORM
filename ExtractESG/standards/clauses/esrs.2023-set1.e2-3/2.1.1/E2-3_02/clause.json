@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "88cb5286649bba8219ea94b53b70ec4999b7abbc60bb737f216df6c5523cc242",
   "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_02",
-  "contract_digest": "0295ae83eb9bca4a1aa1f03a87c238e0bb0c6a8612db50fbb7fbf45403a4967f",
+  "clause_key": "E2-3_02",
+  "contract_digest": "960f8ccc107b9eeafe59b3b0291db0521b776a20f39dd645cf67a8d51874c6e0",
+  "data_kind": "qualitative",
   "description": "Disclosure of  whether and how target relates to prevention and control of emissions to water and respective specific loads。目标与水体污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
   "disclosure_requirement": "E2-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of  whether and how target relates to prevention and control of emissions to water and respective specific loads",
     "zh": "目标与水体污染防控关系"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-3_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b46fa545c87bb95c1c80ab9e9bc1c9673ed6fe4a25c4cbd5c715b5e8d2292081",
   "clause_id": "esrs.2023-set1.mdr-t@2.1.1:MDR-T_08",
-  "contract_digest": "b552f3a0849249296d6412db762a1ed38db7bf54512d8948a7d48bbf3174cae3",
+  "clause_key": "MDR-T_08",
+  "contract_digest": "44403a19c7d35e87e96137aa9881e4d633e95f26747afbb4c35fafc5b4f014f5",
+  "data_kind": "qualitative",
   "description": "Indication of milestones or interim targets。里程碑和中期目标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
   "disclosure_requirement": "MDR-T",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Indication of milestones or interim targets",
     "zh": "里程碑和中期目标"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-T_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

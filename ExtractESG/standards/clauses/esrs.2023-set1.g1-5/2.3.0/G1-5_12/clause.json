@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "be0e36b643b836b3264c9eae21fd91450b9096478ed83c7f5059928209fa9044",
   "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_12",
-  "contract_digest": "c2d11bd6a927a84a91d206a158e546828a066ddea9197df2ee1235baa6a70742",
+  "clause_key": "G1-5_12",
+  "contract_digest": "9e8c2069aee1fb192335dc2fe1c23e60902e160a30bcb85e8186770272f18a3f",
+  "data_kind": "qualitative",
   "description": "说明主体是否因法律义务而必须加入商会或其他代表其利益的组织，并指出相关法律依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "The entity is legally obliged to be a member of a chamber of commerce or other organisation that represents its interests",
     "zh": "依法强制加入商会或其他利益代表组织"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-5_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -10,7 +10,7 @@ from esg_v2.utils.sanitization import sanitize_remote_url
 
 # "foundation16" OCRs only the original pages whose text layer can carry the
 # 16 ESRS foundation datapoints; "all" keeps whole-document OCR.
-PageSelectionMode = Literal["all", "foundation16"]
+PageSelectionMode = Literal["all", "foundation16", "clauses"]
 
 
 def validate_page_indices(value: list[int] | None) -> list[int] | None:
@@ -42,6 +42,7 @@ class OcrRunRequest(BaseModel):
     optional_payload: OptionalPayload = Field(default_factory=OptionalPayload)
     poll_interval_seconds: float = Field(default=5, ge=0.5)
     page_selection: PageSelectionMode = "all"
+    clause_profile: str | None = None
     page_indices: list[int] | None = None
 
     @field_validator("page_indices")

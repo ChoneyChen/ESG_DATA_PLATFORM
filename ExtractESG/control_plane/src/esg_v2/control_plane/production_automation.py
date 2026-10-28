@@ -113,7 +113,8 @@ def _automation_plan_matches(plan: dict, key: str) -> bool:
     return (plan.get("report_request") or {}).get("name") == "自动生产:" + key
 
 
-def foundation_processing_config(processing, source_sha256: str, config: ProcessingConfig) -> ProcessingConfig:
+def foundation_processing_config(processing, source_sha256: str, config: ProcessingConfig,
+                                 metric_profile: str | None = None) -> ProcessingConfig:
     """Preparation for a foundation16 extraction of one PDF.
 
     A compatible full IR is reused as is; a compatible full OCR is built into a
@@ -121,7 +122,8 @@ def foundation_processing_config(processing, source_sha256: str, config: Process
     """
     fast = {"execute_required_reviews": False, "execute_optional_reviews": False, "allow_limited_evidence": True}
     review_free = config.model_copy(update=fast)
-    targeted = config.model_copy(update={**fast, "page_selection": "foundation16"})
+    targeted = config.model_copy(update={**fast, "page_selection": "clauses",
+                                         "clause_profile": metric_profile or "universal"})
 
     def reusable(candidate: ProcessingConfig, stage: str) -> bool:
         state = {"source_sha256": source_sha256, "engine_versions": processing.engine_versions,
@@ -378,7 +380,9 @@ class ProductionAutomationCoordinator:
                 route = getattr(request.extraction, "extraction_route", "standard") if request.extraction else "standard"
                 config = request.processing.config
                 if route == "foundation16" and request.processing.mode == "auto":
-                    config = foundation_processing_config(self.processing, item["source_sha256"], config)
+                    config = foundation_processing_config(
+                        self.processing, item["source_sha256"], config,
+                        getattr(request.extraction, "metric_profile", None))
                 # Pinned before submission so a resumed item resubmits the identical request.
                 item["processing_config"] = config.model_dump(mode="json")
             processed = self.processing.create(ProcessingRequest(asset_id=item["asset_id"], source_sha256=item["source_sha256"],

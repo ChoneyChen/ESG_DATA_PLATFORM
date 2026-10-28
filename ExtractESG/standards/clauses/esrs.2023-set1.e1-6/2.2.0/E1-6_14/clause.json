@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5b3de87f022d633080212e81ce4e0172e0f505125a2795f177ecd02e3780e6c8",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_14",
-  "contract_digest": "24a3ca009644a68efeb0350fc669bf01f5302b80bb19c2bf31a1931d7b56d6f6",
+  "clause_key": "E1-6_14",
+  "contract_digest": "d90c85c5a7f9283754192d3a5e7ee1cd4990e64b7af097dc73c5be00ef17b2fc",
+  "data_kind": "qualitative",
   "description": "报告边界、核算方法、数据来源或排放因子的实际变更及其可比性影响。每个变更形成可读、可举证的陈述；年份、百分比或排放量本身不是变更说明。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Changes in reporting boundary, methods, data or emission factors",
     "zh": "报告边界、方法、数据或排放因子的变更及可比性"
@@ -40,8 +49,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_14",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

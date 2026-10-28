@@ -1,18 +1,42 @@
 {
   "canonical_unit": "hour/person",
+  "clause_digest": "a75e9c0771453eb660d0ad82be8db4d402a48b74a5436819d40ce69319c40f8b",
   "clause_id": "esrs.2023-set1.s1-13@2.2.0:S1-13_04",
-  "contract_digest": "b232e50e6099577a7251eb4796cf157d9eaa7f7077799811d3952299fd723212",
+  "clause_key": "S1-13_04",
+  "contract_digest": "446ac255a78344a334e36e4a535a724ea4f88286eca32f9ff7bcfe1ecb8cf7b8",
+  "data_kind": "quantitative",
   "description": "报告期内员工人均接受培训的小时数。",
   "disclosure_requirement": "S1-13",
   "disclosure_role": "anchor",
+  "display_definition": "Average training hours per employee (人均培训时长/人均培训小时数). Total training hours, a participation percentage or training spend is not this.",
+  "display_label": "人均培训时长 Average training hours per person",
   "distinguish_from": [
     "培训总时长",
     "专题培训时长",
     "按性别划分的平均培训小时数"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "商业道德、数据安全等专题培训不能当作全员人均培训；培训总时长不是人均时长。"
+  ],
+  "group": "workforce_training",
+  "group_terms": [
+    "培训",
+    "受训",
+    "培训时长",
+    "培训小时",
+    "人均受训",
+    "training",
+    "training hours",
+    "trained"
+  ],
+  "group_unit_terms": [
+    "小时",
+    "学时",
+    "人均",
+    "hours",
+    "per employee"
   ],
   "labels": {
     "en": "Average number of training hours per person for employees",
@@ -22,19 +46,19 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": "share",
       "axes": {
         "denominator_scope": "per_employee",
         "population": "employees",
         "training_scope": "all_employees"
       },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量 · population=employees · training_scope=all_employees · denominator_scope=per_employee",
+      "label_zh": "年度 · 集团合并 · 占比 · population=employees · training_scope=all_employees · denominator_scope=per_employee",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-0c45c5de275c9970",
+      "scope_id": "scope-b07ba3e2d9cbdf0a",
       "value_role": "actual"
     }
   ],
@@ -54,8 +78,174 @@
       "training_scope": "all_employees"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_training_hours",
+        "rule": "require_all",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:培训|受训|training|trained)",
+          "re:(?:小时|学时|课时|时长|时数|hours?)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_topic_specific_training",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:商业道德|反腐败|合规|信息安全|数据安全|隐私|网络安全|ehs|安全培训|领导力|管理层|新员工|供应商|ethics|compliance|leadership|contractor)"
+        ],
+        "unless_terms": [
+          "re:(?:全员|全体员工|全部员工|员工人均|人均受训|all\\s+employees|per\\s+employee|workforce)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_population_subset",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "其中",
+          "男性",
+          "女性",
+          "按性别",
+          "按年龄",
+          "岁以下",
+          "岁以上",
+          "管理者",
+          "管理层",
+          "职级",
+          "岗位",
+          "地区",
+          "区域",
+          "基层",
+          "中层",
+          "高层",
+          "普通员工",
+          "劳务",
+          "派遣",
+          "by gender",
+          "by age",
+          "岁",
+          "年龄",
+          "以上",
+          "以下",
+          "基层员工",
+          "中层管理",
+          "高层管理"
+        ],
+        "unless_terms": [
+          "re:(?:全员|全体员工|全部员工|员工人均|人均受训|all\\s+employees|per\\s+employee|workforce)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_ratio",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "hours": [
+        "re:(?:小时|学时|课时|时长|时数|hours?)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "topic_training": [
+        "re:(?:商业道德|反腐败|合规|信息安全|数据安全|隐私|网络安全|ehs|安全培训|领导力|管理层|新员工|供应商|ethics|compliance|leadership|contractor)"
+      ],
+      "training": [
+        "re:(?:培训|受训|training|trained)"
+      ],
+      "training_subset": [
+        "其中",
+        "男性",
+        "女性",
+        "按性别",
+        "按年龄",
+        "岁以下",
+        "岁以上",
+        "管理者",
+        "管理层",
+        "职级",
+        "岗位",
+        "地区",
+        "区域",
+        "基层",
+        "中层",
+        "高层",
+        "普通员工",
+        "劳务",
+        "派遣",
+        "by gender",
+        "by age",
+        "岁",
+        "年龄",
+        "以上",
+        "以下",
+        "基层员工",
+        "中层管理",
+        "高层管理"
+      ],
+      "whole_workforce": [
+        "re:(?:全员|全体员工|全部员工|员工人均|人均受训|all\\s+employees|per\\s+employee|workforce)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-13_04",
+  "text_group": "workforce",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

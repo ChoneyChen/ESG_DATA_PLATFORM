@@ -27,6 +27,7 @@ class MetricQueryCompiler:
         self,
         package: CompiledStandardPackage,
         metric: MetricDefinition,
+        clause=None,
     ) -> MetricQuery:
         elements_by_id = {item.element_id: item for item in package.elements}
         element_ids = package.elements_by_metric[metric.metric_id]
@@ -41,6 +42,18 @@ class MetricQueryCompiler:
             metric.reporting_requirement,
             metric.paragraph,
         ]
+        if clause is not None:
+            # The clause contract is the extraction interface: its own labels,
+            # definition, exclusions and retrieval terms join the query.
+            semantic_parts.extend([
+                *clause.labels.values(),
+                clause.description,
+                clause.positive_definition or "",
+                *clause.distinguish_from,
+                *clause.exclusions,
+                *clause.retrieval.positive_terms,
+                *clause.retrieval.negative_terms,
+            ])
         for element in elements:
             semantic_parts.extend(
                 [
@@ -93,8 +106,8 @@ class MetricQueryCompiler:
 
         base_text = "\n".join(part.strip() for part in semantic_parts if part and part.strip())
         subject_parts = [
-            metric.labels.get("zh", ""),
-            metric.labels.get("en", ""),
+            clause.labels.get("zh", "") if clause is not None else metric.labels.get("zh", ""),
+            clause.labels.get("en", "") if clause is not None else metric.labels.get("en", ""),
         ]
         subject_text = "\n".join(part for part in subject_parts if part)
         matched = self._matched_categories(subject_text)
@@ -106,6 +119,8 @@ class MetricQueryCompiler:
             and not category.startswith(ROLE_CATEGORY_PREFIX)
         }
         topic_groups = self._subject_concept_groups(package, metric)
+        if clause is not None and clause.retrieval.positive_terms:
+            topic_groups = [*topic_groups, list(clause.retrieval.positive_terms)]
         if not topic_groups:
             topic_groups = [
                 self._group_terms(category) for category in sorted(topic_categories)
@@ -175,6 +190,8 @@ class MetricQueryCompiler:
             query_text += "\n检索扩展: " + " | ".join(expanded_terms)
         return MetricQuery(
             metric_id=metric.metric_id,
+            clause_key=clause.clause_key if clause is not None else None,
+            clause_digest=clause.clause_digest if clause is not None else None,
             query_text=query_text,
             lexical_text=lexical_text,
             semantic_text=semantic_text,

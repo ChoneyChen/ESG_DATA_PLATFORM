@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "948f08b766097bc5944198a514255645e55b23ae5c38d3f73889c85b23e31d4b",
   "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_04",
-  "contract_digest": "6396d1ace89a7fed84803a1573697e3e2b67e5308b4c30901a720b42a9a406c3",
+  "clause_key": "E5-4_04",
+  "contract_digest": "47dcce4a22c0bbda951754e1ac9c96e1221f1b74e745d180d130f4b8de39a387",
+  "data_kind": "quantitative",
   "description": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "E5-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)",
     "zh": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-4_04",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,14 +1,23 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "58bdd58764e7453a64fde891af52ed23b75b51126d5cd897f0b022c6477bf17f",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_34",
-  "contract_digest": "a548c63f649e3c0035addccfd75f10ce0931119502991b993aad570992605174",
+  "clause_key": "E1-6_34",
+  "contract_digest": "b0b6d79f6f51fb4ab9a672bf5f0172205a9ae2cfb8b7d30c2e853fd2914afa28",
+  "data_kind": "quantitative",
   "description": "企业实际用于温室气体强度分母的净收入。必须由强度计算说明或对账表明确支持；工业增加值、利润或一般营业收入不能在缺少关联证据时自动采用。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Net revenue used to calculate GHG intensity",
     "zh": "用于计算温室气体强度的净收入"
@@ -17,15 +26,15 @@
   "obligation_class": "conditional_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-c39bf98d4af7f268",
       "value_role": "actual"
     }
   ],
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_34",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

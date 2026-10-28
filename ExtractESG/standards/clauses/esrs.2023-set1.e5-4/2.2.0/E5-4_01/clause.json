@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e4a19e43ec6049441a95b39144c44b3c78cb41b21f881bc3a69cc24039217356",
   "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_01",
-  "contract_digest": "8991971a48db7dcdb8f60b9493c54f38c62bab5e06acc7c3398d9f02f81f7060",
+  "clause_key": "E5-4_01",
+  "contract_digest": "776e912032a5c7af2c2b8001502f7717715cefa869a5c6cede8d21e703fdd37c",
+  "data_kind": "qualitative",
   "description": "Disclosure of information on material resource inflows。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
   "disclosure_requirement": "E5-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of information on material resource inflows",
     "zh": "Disclosure of information on material resource inflows"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-4_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

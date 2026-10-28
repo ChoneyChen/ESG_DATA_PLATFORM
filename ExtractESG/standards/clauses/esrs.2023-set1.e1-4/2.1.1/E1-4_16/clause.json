@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "bc10720b8f08ed3a89a45db4f10eb7e62fc77ee54cd945db0ce726708dc6ad22",
   "clause_id": "esrs.2023-set1.e1-4@2.1.1:E1-4_16",
-  "contract_digest": "e32039ede25aed78a5c9344b52ad762fe7d2e0a2cf58249b08a3e98258d9ba11",
+  "clause_key": "E1-4_16",
+  "contract_digest": "816e1d6f4ca704cdcbeda2b8ef9101632e51a7d7d9800cc0082e3032fefb7166",
+  "data_kind": "quantitative",
   "description": "Percentage of Scope 3 Greenhouse gas emissions reduction (as of emissions of base year)。范围3减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
   "disclosure_requirement": "E1-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of Scope 3 Greenhouse gas emissions reduction (as of emissions of base year)",
     "zh": "范围3减排比例目标"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-4_16",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

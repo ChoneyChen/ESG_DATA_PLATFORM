@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "a4f5e43ef8f1c2e0bc90451a38a76ca8544cd84892c36c382cf9e357cbfcf564",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_24",
-  "contract_digest": "637bcf604be80d26dfbf8f97d6a3bd88b471c038776ae2b7312011b19b877107",
+  "clause_key": "E1-9_24",
+  "contract_digest": "3d21475b36787f97a408816dc057ac59dac940c19af115a7fb3f4a3f58dfc7e3",
+  "data_kind": "quantitative",
   "description": "Number of Scope 1 GHG emission allowances within regulated emission trading schemes。受监管交易机制范围1配额数。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of Scope 1 GHG emission allowances within regulated emission trading schemes",
     "zh": "受监管交易机制范围1配额数"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_24",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

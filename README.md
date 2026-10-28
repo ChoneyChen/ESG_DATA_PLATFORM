@@ -1,6 +1,6 @@
 # ESG Data Platform · 当前项目手册
 
-本文件是项目级唯一当前事实入口，更新于 **2026-10-23**。每轮变化见[更新日志](docs/CHANGELOG.md)，
+本文件是项目级唯一当前事实入口，更新于 **2026-10-29**。每轮变化见[更新日志](docs/CHANGELOG.md)，
 服务与实测状态见[系统状态](docs/SYSTEM_STATE.md)，历史实施报告已移出工作树（用 `git log --all -- <原路径>` 追溯）。
 
 ## 1. 这个系统做什么
@@ -109,7 +109,7 @@ PDF 只是检验链路是否成立的样本：规则来自可推广的类别（�
 
 - **标准包**：1,126 个独立原编号编译为 99 个草稿包；承载重点条款的 11 个包已按条款撰写并发布 2.2.0。
 - **平台范围**：55 个原编号（用户原 49 条按原顺序保留 + 重点条款中不在该清单的 6 项）。
-- **平台字典 1.4.5**：55 条全部就绪；重点条款 32 条与其余主要条款均可提取、审核并发布。
+- **平台字典 1.5.0**（绑定 E1-5@2.1.3）：55 条全部就绪；重点条款 32 条与其余主要条款均可提取、审核并发布。
 
 ## 6. 目录
 
@@ -141,14 +141,14 @@ Python 包名仍是 `esg_v2`、`esg_targeted`；业务目录已经真实迁移�
 
 | 套件 | 命令 | 结果（2026-10-25） |
 |---|---|---|
-| ConsoleESG | `cd ConsoleESG && npm test` | 228 通过 |
-| Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 674 通过 |
-| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 763 通过、6 跳过 |
-| 标准包 | `pytest ExtractESG/standards/tests` | 118 通过 |
-| PlatESG | `pytest PlatESG/tests` | 77 通过 |
+| ConsoleESG | `cd ConsoleESG && npm test` | 240 通过 |
+| Document 后端 | `pytest ExtractESG/document_ir_extract/backend/tests` | 676 通过 |
+| 提取后端 | `pytest ExtractESG/targeted_table_extract/backend/tests` | 787 通过、12 跳过 |
+| 标准包 | `pytest ExtractESG/standards/tests` | 184 通过 |
+| PlatESG | `pytest PlatESG/tests` | 79 通过 |
 | 公开前端 | `cd PlatESG/frontend && npm test` | 82 通过 |
-| 数据库 | `cd database && npm test` | 57 个测试：55 通过、2 跳过 |
-| PlatESG Node | `database/scripts/run-node.sh --test PlatESG/backend/tests/*.test.mjs` | 70 个测试：60 通过、10 跳过 |
+| 数据库 | `cd database && npm test` | 64 个测试：62 通过、2 跳过 |
+| PlatESG Node | `database/scripts/run-node.sh --test PlatESG/backend/tests/*.test.mjs` | 72 个测试：62 通过、10 跳过 |
 | 金标回归（9 份报告，只重跑提取） | `.local/foundation-lab/reg_only.sh` | 158/159、0 错 0 漏、1 项已知误报 |
 
 工程通过不等于提取准确：金标与未见报告核验（宁德、越秀、紫金、隆基、航空工业、中华煤气、法拉电子）

@@ -1,17 +1,37 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "6b25349a81dcc98f7228c792f5bc396290055db6f111d66d072154c13d4fb347",
   "clause_id": "esrs.2023-set1.s1-16@2.2.0:S1-16_01",
-  "contract_digest": "432fc21d999d63ebaff72905afc25c90f79fa8cf55162dd0f878ef7b805f804d",
+  "clause_key": "S1-16_01",
+  "contract_digest": "f5a16db8f1f69c5087d81a7a7edecfb39b74ee92352fb02c03534794b318be9e",
+  "data_kind": "quantitative",
   "description": "男女员工薪酬水平之差相对于男性薪酬水平的比例。",
   "disclosure_requirement": "S1-16",
   "disclosure_role": "anchor",
+  "display_definition": "Gender pay gap as a percentage (性别薪酬差距/男女薪酬差异). A remuneration ratio between the CEO and median employee is a different clause, not this.",
+  "display_label": "性别薪酬差距 Gender pay gap",
   "distinguish_from": [
     "同工同酬比例",
     "男女薪酬比"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "同工同酬比例与薪酬差距是不同指标；薪酬口径（基本工资或总薪酬）须一致。"
+  ],
+  "group": "workforce_pay",
+  "group_terms": [
+    "薪酬差距",
+    "薪酬差异",
+    "男女薪酬",
+    "gender pay gap",
+    "pay gap",
+    "remuneration gap"
+  ],
+  "group_unit_terms": [
+    "%",
+    "比率",
+    "ratio"
   ],
   "labels": {
     "en": "Gender pay gap",
@@ -45,8 +65,104 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_gender_pay_gap",
+        "rule": "require_any",
+        "scope": "subject",
+        "terms": [
+          "re:(?:薪酬差距|薪酬差异|男女薪酬|gender\\s+pay\\s+gap|pay\\s+gap)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_remuneration_ratio",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:薪酬比|薪酬倍数|总薪酬比|remuneration\\s+ratio|pay\\s+ratio)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "unit_dimension_not_ratio",
+        "rule": "ratio_required",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "paygap": [
+        "re:(?:薪酬差距|薪酬差异|男女薪酬|gender\\s+pay\\s+gap|pay\\s+gap)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "remun_ratio": [
+        "re:(?:薪酬比|薪酬倍数|总薪酬比|remuneration\\s+ratio|pay\\s+ratio)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-16_01",
+  "text_group": "workforce",
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

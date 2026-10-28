@@ -1,18 +1,38 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "9765b21beb7b0236ca8c1cf605c0aa2be1a4f28db6976fb6a88ece0815b4f5e5",
   "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_02",
-  "contract_digest": "ef179c28b4d190a4f4cfa7a136649baa3de7aab788c99246f99f705ce7d98e96",
+  "clause_key": "S1-17_02",
+  "contract_digest": "765e950edc33078a14bf23fa985e469243ad71d5d85eb8132be11b213c17bb93",
+  "data_kind": "quantitative",
   "description": "报告期内报告的歧视事件数量。",
   "disclosure_requirement": "S1-17",
   "disclosure_role": "anchor",
+  "display_definition": "Number of incidents of discrimination, including harassment (歧视事件数量/歧视投诉件数). Complaints about other matters or fines amounts are different clauses.",
+  "display_label": "歧视事件数量 Incidents of discrimination",
   "distinguish_from": [
     "已确认歧视事件",
     "投诉数量",
     "内部处分数量"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "已确认事件、投诉与内部处分分别计数，不能互相替代。"
+  ],
+  "group": "workforce_incidents",
+  "group_terms": [
+    "歧视",
+    "骚扰",
+    "discrimination",
+    "harassment"
+  ],
+  "group_unit_terms": [
+    "事件",
+    "投诉",
+    "件",
+    "incident",
+    "complaint"
   ],
   "labels": {
     "en": "Number of incidents of discrimination",
@@ -54,8 +74,99 @@
       "population": "employees"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_discrimination_incident",
+        "rule": "require_any",
+        "scope": "subject",
+        "terms": [
+          "re:(?:歧视|骚扰|discrimination|harassment)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_fine_not_incident_count",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "罚款",
+          "罚金",
+          "fine",
+          "penalt"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "discrim": [
+        "re:(?:歧视|骚扰|discrimination|harassment)"
+      ],
+      "fine": [
+        "罚款",
+        "罚金",
+        "fine",
+        "penalt"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-17_02",
+  "text_group": "workforce",
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

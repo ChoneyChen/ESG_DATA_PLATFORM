@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f570074278f9611674f9f02ee94e4739afc664315f8dc4a984998d1a83889ac6",
   "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_17",
-  "contract_digest": "e0f12c1b88e75753b0377f3570159abc5f0015a2f0076abddd76eedcfa553eae",
+  "clause_key": "S1-1_17",
+  "contract_digest": "9c5d7de62c8351a7dd2e7de72a409edbcaf4c188172fba568c4f3fbb5a2f0ad9",
+  "data_kind": "qualitative",
   "description": "披露主体是否已开展反歧视政策和实践方面的员工培训，并说明覆盖范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Staff training on non-discrimination policies and practices are in place",
     "zh": "反歧视政策与实践的员工培训"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-1_17",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

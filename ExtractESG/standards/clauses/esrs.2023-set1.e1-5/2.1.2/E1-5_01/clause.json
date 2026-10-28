@@ -1,19 +1,72 @@
 {
   "canonical_unit": "MWh",
+  "clause_digest": "8705776f462a03ac9dbcdc54b17db03f0be1e11a6cb9a587187aeded37c82834",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_01",
-  "contract_digest": "40c4310f9ff46bce286a0ae661b531c53651eb0e8bf0f2439974f43efd7dd14e",
+  "clause_key": "E1-5_01",
+  "contract_digest": "a8d921f4431bd7b1bec0cc35b7369ea8418f9cdecda62099929075bf58a14ce2",
+  "data_kind": "quantitative",
   "description": "自身运营的能源消费总量",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "anchor",
+  "display_definition": "Absolute total energy consumed by own operations (能源消耗总量/综合能耗/能耗总量). Not one carrier or sub-total (direct/indirect only), not intensity, not energy generated or saved.",
+  "display_label": "总能源消耗 Total energy consumption",
   "distinguish_from": [
     "能源节约量",
     "能源生产量",
     "能源强度",
     "装机容量"
   ],
+  "exact_labels": [
+    "能源消耗总量",
+    "总能源消耗量",
+    "能源总消耗量",
+    "综合能源消耗量",
+    "综合能源消耗总量",
+    "总能耗",
+    "totalenergyconsumption",
+    "totalenergyconsumed"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "不能以能源节约量、能源生产量、能源强度、装机容量替代本条款所定义的测量或说明。"
+  ],
+  "group": "energy",
+  "group_terms": [
+    "能源消耗",
+    "能源消费",
+    "能耗",
+    "能源耗",
+    "综合能源",
+    "能源使用",
+    "耗能",
+    "用能",
+    "用电",
+    "可再生能源",
+    "清洁能源",
+    "非化石能源",
+    "energy"
+  ],
+  "group_unit_terms": [
+    "gwh",
+    "mwh",
+    "kwh",
+    "千瓦时",
+    "兆瓦时",
+    "吨标准煤",
+    "标准煤",
+    "tce",
+    "吉焦",
+    "gj",
+    "tj",
+    "电力",
+    "天然气",
+    "柴油",
+    "汽油",
+    "煤炭",
+    "electricity",
+    "natural gas",
+    "diesel",
+    "fuel"
   ],
   "labels": {
     "en": "Total energy consumption from own operations",
@@ -54,8 +107,163 @@
       "energy_flow": "consumption"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_total_energy_consumption",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s+(?:consumption|consumed|use)|total\\s+energy)",
+          "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_energy_component_or_carrier",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)"
+        ],
+        "unless_terms": [
+          "总能",
+          "能源总",
+          "能耗总",
+          "总耗能",
+          "综合能耗",
+          "total energy"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_ratio_intensity_or_change",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "component_row",
+        "rule": "reject_component",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "energy"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "change": [
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+      ],
+      "energy_subset": [
+        "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)"
+      ],
+      "energy_total": [
+        "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s+(?:consumption|consumed|use)|total\\s+energy)"
+      ],
+      "explicit_total": [
+        "总能",
+        "能源总",
+        "能耗总",
+        "总耗能",
+        "综合能耗",
+        "total energy"
+      ],
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "total": [
+        "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "风能",
+      "风电",
+      "风力",
+      "太阳能",
+      "光伏",
+      "水能",
+      "水电",
+      "生物质",
+      "地热",
+      "海洋能",
+      "可再生",
+      "化石",
+      "煤炭",
+      "原煤",
+      "煤",
+      "天然气",
+      "石油",
+      "柴油",
+      "汽油",
+      "燃料油",
+      "焦炭",
+      "蒸汽",
+      "其他能源",
+      "wind",
+      "solar",
+      "hydro",
+      "biomass",
+      "geothermal",
+      "renewable",
+      "coal",
+      "natural gas",
+      "oil",
+      "diesel",
+      "steam"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": [
+      "E1-5_01",
+      "E1-5_05",
+      "E1-5_09"
+    ]
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_01",
+  "text_group": "energy",
   "unit_dimension": "extractesg.core.unit-dimension.energy",
   "value_origin": "reported",
   "value_type": "numeric"

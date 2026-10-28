@@ -9,7 +9,6 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from esg_targeted.foundation.catalog import BY_CODE
 from esg_targeted.foundation.textnorm import fold
 
 TOTAL_RE = re.compile(r"(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\s+sources)", re.I)
@@ -185,17 +184,259 @@ def normalize(text: str | None) -> str:
     return " › ".join(parts)
 
 
+def _match(terms, text: str | None) -> bool:
+    """A declared term matches by its own rule: substring or ``re:`` pattern."""
+    folded = fold(text or "")
+    for term in terms or ():
+        if not term:
+            continue
+        if term.startswith("re:"):
+            if re.search(term[3:], folded, re.I):
+                return True
+        elif term.casefold() in folded:
+            return True
+    return False
+
+
+def _vocab(reading, name: str) -> list[str]:
+    return list((getattr(reading, "vocabulary", {}) or {}).get(name, []))
+
+
+def _rule_scope(rule, *, text: str, subject: str, scope_text: str,
+                evidence_text: str, unit: str) -> str:
+    return {"text": text, "subject": subject, "scope_text": scope_text,
+            "evidence": evidence_text, "unit": unit or "",
+            "all": " ".join(part for part in (scope_text, evidence_text, unit or "") if part)}.get(
+        rule.scope, text)
+
+
+def _unit_rule(rule, *, dimension: str | None, scope_text: str, text: str,
+               metric, flags: list[str]) -> GuardResult | None:
+    allowed = set(rule.allowed)
+    params = rule.params or {}
+    if dimension is None:
+        if params.get("allow_missing", True):
+            return None
+        return _reject("unit_missing")
+    if dimension in allowed:
+        if params.get("ratio_review") and dimension == "ratio":
+            flags.append(str(params["ratio_review"]))
+        return None
+    intensity_metric = bool(metric and ((metric.dimension or "").endswith("intensity")
+                                        or metric.dimension == "ratio"))
+    if dimension.endswith("intensity") and not intensity_metric:
+        return _reject("unit_is_intensity")
+    if params.get("mass_label_review") and dimension == "mass" and _match(_vocab(metric.reading, "ghg_label"), scope_text):
+        flags.append("co2e_implied_by_label_mass_unit")
+        return None
+    return _reject(f"unit_dimension_{dimension}_not_{'_or_'.join(sorted(allowed))}")
+
+
+def _ghg_scope(rule, *, reading, text: str, subject: str, scope_text: str,
+               evidence_text: str, dimension: str | None, unit: str | None,
+               flags: list[str]) -> GuardResult | None:
+    params = rule.params or {}
+    scope = params.get("scope", "any")
+    combined = _match(_vocab(reading, "combined_scope"), subject if subject != text else scope_text)
+    if scope == "scope_1":
+        if not _match(_vocab(reading, "scope1"), subject):
+            return _reject("label_not_this_scope")
+        if combined:
+            return _reject("label_is_combined_scopes")
+    elif scope == "scope_2":
+        if not _match(_vocab(reading, "scope2"), subject):
+            return _reject("label_not_this_scope")
+        if combined:
+            return _reject("label_is_combined_scopes")
+        if _match(_vocab(reading, "scope3"), text):
+            return _reject("label_is_scope3")
+    elif scope == "scope_3":
+        target = subject if subject != text else scope_text
+        if not _match(_vocab(reading, "scope3"), target):
+            return _reject("label_not_scope3")
+        if combined:
+            return _reject("label_is_combined_scopes")
+    else:
+        if params.get("single_scope_forbidden"):
+            has = {name for name in ("scope1", "scope2", "scope3") if _match(_vocab(reading, name), scope_text)}
+            if has and len(has) < 3:
+                return _reject("label_single_scope_intensity_not_total")
+    if params.get("method_check"):
+        method_text = f"{scope_text} {evidence_text}"
+        market = _match(_vocab(reading, "market_method"), method_text)
+        location = _match(_vocab(reading, "location_method"), method_text)
+        wanted = params.get("method")
+        if wanted == "location_based":
+            if market and not location:
+                return _reject("method_not_location_based")
+            if market and location:
+                flags.append("scope2_method_ambiguous")
+        elif wanted == "market_based":
+            if location and not market:
+                return _reject("method_not_market_based")
+            if market and location:
+                flags.append("scope2_method_ambiguous")
+    return None
+
+
+def _ghg_composition(rule, *, reading, text: str, scope_text: str, evidence_text: str,
+                     flags: list[str]) -> GuardResult | None:
+    if not _match(_vocab(reading, "ghg_label"), text):
+        return _reject("label_not_ghg_emissions")
+    has_scope_words = any(_match(_vocab(reading, name), text) for name in ("scope1", "scope2", "scope3"))
+    evidence = text if has_scope_words else f"{text} {evidence_text}"
+    has_12 = bool((_match(_vocab(reading, "scope1"), evidence)
+                   and _match(_vocab(reading, "scope2"), evidence))
+                  or _match(_vocab(reading, "combined_scope"), evidence))
+    has_3 = _match(_vocab(reading, "scope3"), evidence)
+    total = _match(_vocab(reading, "total"), text)
+    if has_12 and not has_3:
+        return _reject("label_missing_scope3_for_total")
+    if has_3 and not has_12 and (total or _match(_vocab(reading, "scope1"), evidence)
+                                 or _match(_vocab(reading, "scope2"), evidence)):
+        return _reject("label_scope3_total_not_all_scopes")
+    if (_match(_vocab(reading, "scope1"), evidence) or _match(_vocab(reading, "scope2"), evidence)) \
+            and not has_12 and not has_3:
+        return _reject("label_single_scope_not_all_scopes")
+    method_text = f"{scope_text} {evidence_text}"
+    market = _match(_vocab(reading, "market_method"), method_text)
+    location = _match(_vocab(reading, "location_method"), method_text)
+    if market and not location:
+        return _reject("method_not_location_based")
+    if market and location:
+        flags.append("scope2_method_ambiguous")
+    if _match(_vocab(reading, "consolidation_boundary"), text):
+        flags.append("consolidation_boundary_differs")
+    return None
+
+
+def _pollutant_medium(rule, *, reading, text: str, subject: str) -> GuardResult | None:
+    medium = (rule.params or {}).get("medium", "air")
+    allowed_name, other_name = (("air_pollutant", "water_pollutant") if medium == "air"
+                                else ("water_pollutant", "air_pollutant"))
+    own_only, other_only = (("air_only", "water_only") if medium == "air"
+                            else ("water_only", "air_only"))
+    if not _match(_vocab(reading, allowed_name), subject):
+        return _reject("label_not_a_pollutant_for_medium")
+    if _match(_vocab(reading, other_only), text) and not _match(_vocab(reading, own_only), text):
+        return _reject("pollutant_belongs_to_other_medium")
+    return None
+
+
+def _water_concept(rule, *, reading, text: str, subject: str, scope_text: str,
+                   component: bool, total: bool, flags: list[str]) -> GuardResult | None:
+    concept = (rule.params or {}).get("concept", "consumption")
+    if _match(_vocab(reading, "intensity"), text) or _match(_vocab(reading, "ratio_word"), text) \
+            or _match(_vocab(reading, "change"), text):
+        return _reject("label_is_ratio_intensity_or_change")
+    if _match(_vocab(reading, "not_water"), text) and not _match(_vocab(reading, "water_word"), text):
+        return _reject("label_not_about_water")
+    consumption = _match(_vocab(reading, "water_consumption"), scope_text)
+    withdrawal = _match(_vocab(reading, "withdrawal"), text)
+    discharge = _match(_vocab(reading, "discharge"), text)
+    recycle = _match(_vocab(reading, "recycle"), text)
+    risk = _match(_vocab(reading, "risk_area"), text)
+    if concept == "consumption":
+        if not _match(_vocab(reading, "water_consumption"), subject):
+            return _reject("label_not_water_consumption")
+        if withdrawal and not consumption:
+            return _reject("label_is_withdrawal")
+        if risk:
+            return _reject("label_is_risk_area_subset")
+        if discharge or recycle:
+            return _reject("label_is_discharge_or_recycling")
+    elif concept == "risk_area":
+        if not (consumption and risk):
+            return _reject("label_not_water_consumption_in_risk_areas")
+        if withdrawal:
+            return _reject("label_is_withdrawal_in_risk_areas")
+    elif concept == "recycled":
+        if not _match(_vocab(reading, "recycle"), subject):
+            return _reject("label_not_recycled_or_reused_water")
+        if _match(_vocab(reading, "waste_solid"), scope_text) and not _match(
+                _vocab(reading, "recycled_water"), text):
+            return _reject("label_is_solid_waste_not_water")
+        if _match(_vocab(reading, "alternative_source"), text) and _match(
+                _vocab(reading, "consumption_terms"), text):
+            flags.append("reclaimed_water_as_alternative_source")
+    elif concept == "withdrawal":
+        if not _match(_vocab(reading, "withdrawal"), subject):
+            return _reject("label_not_water_withdrawal")
+        if discharge or recycle or risk or consumption:
+            return _reject("label_is_other_water_concept")
+        if _match(_vocab(reading, "water_use_only"), text) and not _match(
+                _vocab(reading, "withdrawal"), text):
+            flags.append("water_use_reported_as_withdrawal")
+    elif concept == "discharge":
+        if not _match(_vocab(reading, "discharge"), scope_text):
+            return _reject("label_not_water_discharge")
+        if risk or recycle:
+            return _reject("label_is_other_water_concept")
+    if concept in {"consumption", "withdrawal", "discharge", "recycled"}:
+        qualifier = (_match(_vocab(reading, "freshwater"), text)
+                     or _match(_vocab(reading, "non_fresh"), text)
+                     or _match(_vocab(reading, "water_source"), text)
+                     or (concept == "discharge" and _match(_vocab(reading, "water_dest"), text)))
+        if component and not total:
+            return _reject("component_row")
+        if qualifier:
+            if total or consumption:
+                return None
+            return _reject("component_by_source_or_destination")
+    return None
+
+
+def _waste_concept(rule, *, reading, text: str, subject: str, scope_text: str,
+                   flags: list[str]) -> GuardResult | None:
+    hazardous = (rule.params or {}).get("hazardous")
+    total = _match(_vocab(reading, "total"), text)
+    if hazardous is True:
+        if not (_match(_vocab(reading, "waste"), subject)
+                and _match(_vocab(reading, "hazardous"), text)):
+            return _reject("label_not_hazardous_waste")
+        if _match(_vocab(reading, "non_hazardous"), text) and not _match(_vocab(reading, "hazardous"), text):
+            return _reject("label_is_non_hazardous_waste")
+        if _match(_vocab(reading, "waste_dest"), text) and not _match(_vocab(reading, "generated"), text):
+            return _reject("label_is_treatment_route_not_generated")
+        return None
+    if not _match(_vocab(reading, "waste"), subject):
+        return _reject("label_not_waste")
+    if _match(_vocab(reading, "waste_category"), text):
+        return _reject("label_is_waste_category")
+    if _match(_vocab(reading, "waste_solid"), text) and not total:
+        return _reject("label_is_waste_category")
+    if _match(_vocab(reading, "ratio_word"), text) or _match(_vocab(reading, "intensity"), text):
+        return _reject("label_is_ratio_or_intensity")
+    if _match(_vocab(reading, "hazardous"), text) and not total:
+        return _reject("label_is_hazardous_subset")
+    if _match(_vocab(reading, "waste_dest"), text) and not _match(_vocab(reading, "generated"), text):
+        return _reject("label_is_treatment_route_not_generated")
+    return None
+
+
 def check(code: str, label: str, section: str | None, unit: str | None, dimension: str | None, *, evidence: str | None = None) -> GuardResult:
-    """Apply concept rules for one datapoint to one mapped source row."""
+    """Apply the clause's own reading rules to one mapped source row.
+
+    The function contains no clause list and no clause-specific branch. All
+    concept terms, exclusions, units and scope rules are read from the clause
+    contract's ``reading`` declaration.
+    """
+    from esg_targeted.foundation.catalog import BY_CODE
+    if code not in BY_CODE:
+        raise KeyError(f"Clause has no contract: {code}")
+    metric = BY_CODE[code]
+    reading = getattr(metric, "reading", None)
     text = normalize(label)
     section = normalize(section)
     unit = normalize(unit) if unit else unit
     scope_text = f"{section or ''} {text}"
     evidence_text = normalize(evidence) if evidence else ""
+    if reading is None:
+        return GuardResult(True, None, ())
     flags: list[str] = []
-    # Applied before every concept rule: no disclosure of an actual amount is a
-    # permit, quota or regulatory ceiling, whatever metric it is mapped to.
-    if not code.startswith("E1-8") and REGULATORY_LIMIT_RE.search(text):
+    # Generic pre-rules: an index row, a target/delta row or a regulatory
+    # ceiling is not the reported amount under any clause.
+    if not getattr(reading, "allow_regulatory_limit", False) and REGULATORY_LIMIT_RE.search(text):
         return _reject("label_is_regulatory_limit_not_actual")
     if INDEX_ENTRY_RE.search(text):
         return _reject("label_is_index_entry")
@@ -205,408 +446,83 @@ def check(code: str, label: str, section: str | None, unit: str | None, dimensio
         return _reject("label_is_target_or_relative_change")
     review = False
     last = text.split(" › ")[-1]
-    # A bare total or method-only row takes its subject from the section and table title.
     subject = scope_text if GENERIC_TOTAL_RE.fullmatch(last.strip()) or QUALIFIER_ONLY_RE.match(last) else text
     component = bool(COMPONENT_PREFIX_RE.match(last))
     other_item = bool(re.search(r"(?:其他|其它|^other\b|others)", last, re.I))
-    # An intensity unit belongs only to a metric declared as an intensity; the
-    # rule follows the catalog rather than naming codes here.
-    declared = BY_CODE.get(code)
-    intensity_metric = bool(declared and ((declared.dimension or "").endswith("intensity") or declared.dimension == "ratio"))
-    # Judge by the resolved dimension: a unit like "m3 (m3 per employee)" prints
-    # a conversion note, not a denominator of its own.
-    if unit and (dimension or "").endswith("intensity") and code != "E1-5_09" and not intensity_metric:
+    intensity_metric = bool(metric and ((metric.dimension or "").endswith("intensity")
+                                        or metric.dimension == "ratio"))
+    if unit and (dimension or "").endswith("intensity") and not intensity_metric:
         return _reject("unit_is_intensity")
-
-    if code == "E1-5_01":
-        if not ENERGY_TOTAL_RE.search(scope_text) and not TOTAL_RE.search(text):
-            return _reject("label_not_total_energy_consumption")
-        # "direct and indirect" together is the whole; either alone is a part.
-        whole = DIRECT_AND_INDIRECT_RE.sub(" ", text)
-        if ENERGY_SUBSET_RE.search(whole) and not re.search(r"(?:总能|能源总|能耗总|总耗能|综合能耗|total\s+energy)", text, re.I):
-            return _reject("label_is_energy_component_or_carrier")
-        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text) or CHANGE_RE.search(text):
-            return _reject("label_is_ratio_intensity_or_change")
-        if component or other_item:
-            return _reject("component_row")
-        if dimension not in (None, "energy"):
-            return _reject(f"unit_dimension_{dimension}_not_energy")
-    elif code == "E1-5_05":
-        if not RENEWABLE_RE.search(subject):
-            return _reject("label_not_renewable")
-        if (component or other_item) and not TOTAL_RE.search(last):
-            return _reject("component_row")
-        if re.search(r"采购|购买|购入|purchas|现场|自发|自建|自产|on[-\s]?site|self[-\s]?generat", text) and not re.search(
-                r"消耗|消费|使用|用量|consum|\buse", text):
-            return _reject("renewable_source_component")
-        if RENEWABLE_COMPONENT_RE.search(text) and not TOTAL_RE.search(text):
-            # Wind/solar/hydro rows are evidence for a component, not proof that
-            # the renewable total is absent. Keep them for review as components.
-            flags.append("renewable_component_not_total")
-            review = True
-        if RATIO_WORD_RE.search(text) or GENERATION_RE.search(text) or INTENSITY_RE.search(text) or CHANGE_RE.search(text):
-            return _reject("label_is_ratio_generation_or_change")
-        if FOSSIL_RE.search(text):
-            return _reject("label_mentions_fossil_or_grid")
-        if dimension not in (None, "energy"):
-            return _reject(f"unit_dimension_{dimension}_not_energy")
-        if ELECTRICITY_RE.search(text):
-            flags.append("renewable_electricity_only")
-            review = True
-        if re.search(r"清洁|clean", text) and not re.search(r"可再生|renewable", text):
-            flags.append("clean_energy_may_include_non_renewable")
-            review = True
-    elif code == "E1-5_09":
-        if not RENEWABLE_RE.search(subject):
-            return _reject("label_not_renewable")
-        if FOSSIL_RE.search(text):
-            return _reject("label_mentions_fossil_or_grid")
-        if GENERATION_RE.search(text) and not re.search(r"(?:消耗|消费|使用|用能|consum|use)", text, re.I):
-            return _reject("label_is_generation_share")
-        if dimension not in (None, "ratio") or not (dimension == "ratio" or RATIO_WORD_RE.search(text)):
-            return _reject("not_a_ratio")
-        if ELECTRICITY_RE.search(text) and not re.search(r"(?:能源|energy)", text, re.I):
-            flags.append("renewable_share_of_electricity_only")
-            review = True
-        if re.search(r"清洁|clean", text) and not re.search(r"可再生|renewable", text):
-            flags.append("clean_energy_may_include_non_renewable")
-            review = True
-    elif code in ("E1-6_07", "E1-6_09", "E1-6_10", "SCOPE2"):
-        wanted = SCOPE1_RE if code == "E1-6_07" else SCOPE2_RE
-        if not wanted.search(subject):
-            return _reject("label_not_this_scope")
-        if COMBINED_SCOPE_RE.search(subject):
-            return _reject("label_is_combined_scopes")
-        if code != "E1-6_07" and SCOPE3_RE.search(text):
-            return _reject("label_is_scope3")
-        if INTENSITY_RE.search(text) or CHANGE_RE.search(text) or RATIO_WORD_RE.search(text):
-            return _reject("label_is_intensity_ratio_or_change")
-        if NET_RE.search(text):
-            return _reject("label_is_net_after_offsets")
-        if unit and dimension != "ghg-emissions" and not GHG_UNIT_RE.search(unit):
-            if dimension == "mass" and GHG_LABEL_RE.search(scope_text):
-                flags.append("co2e_implied_by_label_mass_unit")
+    for rule in getattr(reading, "rules", ()):
+        target = _rule_scope(rule, text=text, subject=subject, scope_text=scope_text,
+                             evidence_text=evidence_text, unit=unit or "")
+        if rule.rule == "require_any":
+            if not _match(rule.terms, target):
+                return _reject(rule.reason or "concept")
+        elif rule.rule == "require_all":
+            if not all(_match([term], target) for term in rule.terms):
+                return _reject(rule.reason or "concept")
+        elif rule.rule in {"forbid_any", "forbid_any_unless"}:
+            if _match(rule.terms, target) and not (rule.unless_terms and _match(rule.unless_terms, target)):
+                return _reject(rule.reason or "concept")
+        elif rule.rule == "forbid_if_all":
+            if _match(rule.if_terms, target) and _match(rule.terms, target):
+                return _reject(rule.reason or "concept")
+        elif rule.rule == "reject_component":
+            hit = _match(rule.terms, text) if rule.terms else (component or other_item)
+            if hit and not (rule.unless_terms and _match(rule.unless_terms, target)):
+                return _reject(rule.reason or "component_row")
+        elif rule.rule == "flag_review":
+            if _match(rule.terms, target) and not (rule.unless_terms and _match(rule.unless_terms, target)):
+                flags.append(rule.flag or "review")
                 review = True
-            else:
-                return _reject("unit_not_co2e")
-    elif code == "E1-6_11":
-        if not SCOPE3_RE.search(subject if subject is not text else scope_text):
-            return _reject("label_not_scope3")
-        if SCOPE3_CATEGORY_RE.search(text) or re.search(r"other\s+categor|categor(?:y|ies)\b", text, re.I):
-            return _reject("label_is_scope3_category")
-        if COMBINED_SCOPE_RE.search(text) or INTENSITY_RE.search(text) or CHANGE_RE.search(text) or RATIO_WORD_RE.search(text):
-            return _reject("label_is_combined_intensity_ratio_or_change")
-        if NET_RE.search(text):
-            return _reject("label_is_net_after_offsets")
-        if SCOPE3_NAMED_RE.search(text) and not TOTAL_RE.search(text):
-            # A named category (waste paper, business travel) is a component of
-            # Scope 3, never the total.
-            return _reject("label_is_scope3_category")
-        if unit and dimension != "ghg-emissions" and not GHG_UNIT_RE.search(unit):
-            if dimension == "mass" and GHG_LABEL_RE.search(scope_text):
-                flags.append("co2e_implied_by_label_mass_unit")
-                review = True
-            else:
-                return _reject("unit_not_co2e")
-    elif code in ("E2-4_02", "E2-4_03"):
-        allowed = AIR_POLLUTANT_RE if code == "E2-4_02" else WATER_POLLUTANT_RE
-        other_only = WATER_ONLY_RE if code == "E2-4_02" else AIR_ONLY_RE
-        if not allowed.search(subject):
-            return _reject("label_not_a_pollutant_for_medium")
-        if other_only.search(text) and not (AIR_ONLY_RE if code == "E2-4_02" else WATER_ONLY_RE).search(text):
-            return _reject("pollutant_belongs_to_other_medium")
-        if POLLUTANT_EXCLUDE_RE.search(text) or INTENSITY_RE.search(text) or CHANGE_RE.search(text):
-            return _reject("label_is_concentration_intensity_ghg_or_change")
-        if dimension == "ratio":
-            flags.append("pollutant_unit_printed_as_percent")
-            review = True
-        elif dimension not in (None, "mass"):
-            return _reject(f"unit_dimension_{dimension}_not_mass")
-    elif code == "E2-5_02":
-        if not SUBSTANCE_RE.search(scope_text):
-            return _reject("label_not_substances_of_concern")
-        if WASTE_RE.search(text):
-            return _reject("label_is_waste")
-        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
-            return _reject("label_is_ratio_or_intensity")
-    elif code.startswith("E3-4"):
-        if INTENSITY_RE.search(text) or RATIO_WORD_RE.search(text) or CHANGE_RE.search(text):
-            return _reject("label_is_ratio_intensity_or_change")
-        if NOT_WATER_RE.search(text) and not WATER_WORD_RE.search(text):
-            return _reject("label_not_about_water")
-        if dimension not in (None, "volume", "mass"):
-            return _reject(f"unit_dimension_{dimension}_not_volume")
-        if code == "E3-4_01":
-            if not CONSUMPTION_RE.search(subject):
-                return _reject("label_not_water_consumption")
-            if WITHDRAWAL_RE.search(text) and not CONSUMPTION_RE.search(text):
-                return _reject("label_is_withdrawal")
-            if RISK_AREA_RE.search(text):
-                return _reject("label_is_risk_area_subset")
-            if DISCHARGE_RE.search(text) or RECYCLE_RE.search(text):
-                return _reject("label_is_discharge_or_recycling")
-        elif code == "E3-4_02":
-            if not (CONSUMPTION_RE.search(scope_text) and RISK_AREA_RE.search(scope_text)):
-                return _reject("label_not_water_consumption_in_risk_areas")
-            if re.search(r"取水|withdraw", text, re.I):
-                return _reject("label_is_withdrawal_in_risk_areas")
-        elif code == "E3-4_03":
-            if not RECYCLE_RE.search(subject):
-                return _reject("label_not_recycled_or_reused_water")
-            if re.search(r"固体废弃物|固废|废物|垃圾|solid\s+waste", scope_text, re.I) and not re.search(
-                    r"循环水|回用水|重复利用水|再生水|中水|recycled\s+water|reused\s+water", text, re.I):
-                return _reject("label_is_solid_waste_not_water")
-            # Reclaimed water taken in as an alternative source is a supply
-            # choice; the clause asks for the volume the company recycled or
-            # reused. Keep the value, but as a reviewed reading.
-            if re.search(r"替代水源|替代水|alternative\s+(?:water\s+)?source", text, re.I) \
-                    and re.search(r"使用|用量|consum|\buse", text, re.I):
-                flags.append("reclaimed_water_as_alternative_source")
-                review = True
-        elif code == "E3-4_11":
-            if not WITHDRAWAL_RE.search(subject):
-                return _reject("label_not_water_withdrawal")
-            if DISCHARGE_RE.search(text) or RECYCLE_RE.search(text) or RISK_AREA_RE.search(text) or CONSUMPTION_RE.search(text):
-                return _reject("label_is_other_water_concept")
-            if WATER_USE_ONLY_RE.search(text) and not re.search(r"取水|withdraw|abstract", text, re.I):
-                flags.append("water_use_reported_as_withdrawal")
-                review = True
-        elif code == "E3-4_12":
-            if not DISCHARGE_RE.search(scope_text):
-                return _reject("label_not_water_discharge")
-            if RISK_AREA_RE.search(text) or RECYCLE_RE.search(text):
-                return _reject("label_is_other_water_concept")
-        if code in ("E3-4_01", "E3-4_11", "E3-4_12", "E3-4_03"):
-            qualifier = (FRESHWATER_RE.search(text) or NON_FRESH_RE.search(text) or WATER_SOURCE_RE.search(text)
-                         or (code == "E3-4_12" and WATER_DEST_RE.search(text)))
-            if component and not TOTAL_RE.search(text):
-                return _reject("component_row")
-            if qualifier:
-                if TOTAL_RE.search(text) or CONSUMPTION_RE.search(text):
-                    flags.append("subset_scope_" + ("freshwater" if FRESHWATER_RE.search(text) else "source_or_destination"))
+        elif rule.rule == "unit_dimension":
+            rejected = _unit_rule(rule, dimension=dimension, scope_text=scope_text, text=text,
+                                  metric=metric, flags=flags)
+            if rejected is not None:
+                return rejected
+        elif rule.rule == "ratio_required":
+            if dimension != "ratio" and not (_match(_vocab(reading, "ratio_word"), scope_text)
+                                            or _match(_vocab(reading, "ratio_word"), unit or "")):
+                return _reject(rule.reason or "not_a_ratio")
+        elif rule.rule == "ghg_unit":
+            if unit and dimension != "ghg-emissions" and not _match(_vocab(reading, "ghg_unit"), unit):
+                if dimension == "mass" and _match(_vocab(reading, "ghg_label"), scope_text):
+                    flags.append("co2e_implied_by_label_mass_unit")
                     review = True
                 else:
-                    return _reject("component_by_source_or_destination")
-    elif code == "E1-5_02":
-        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
-            return _reject("label_is_ratio_or_intensity")
-        if not FOSSIL_FUEL_RE.search(subject):
-            return _reject("label_not_fossil_energy")
-        # One fuel is a component of fossil energy, not the total.
-        if SINGLE_FUEL_RE.search(text) and not TOTAL_RE.search(text):
-            return _reject("label_is_fossil_carrier")
-        if RECYCLE_RE.search(text) or CHANGE_RE.search(text):
-            return _reject("label_is_change_or_offset")
-        if dimension not in (None, "energy"):
-            return _reject(f"unit_dimension_{dimension}_not_energy")
-    elif code == "E1-6_12":
-        if INTENSITY_RE.search(text) or RATIO_WORD_RE.search(text) or CHANGE_RE.search(text):
-            return _reject("label_is_ratio_intensity_or_change")
-        # The declared total is Scope 1 + location-based Scope 2 + Scope 3.
-        # A total of one or two scopes, or a market-based total, is a different
-        # datapoint even when the row literally says "total".
-        if not re.search(r"温室气体|温室氣體|碳排放|二氧化碳|排放|ghg|co2", text, re.I):
-            return _reject("label_not_ghg_emissions")
-        has_scope_words = bool(SCOPE1_RE.search(text) or SCOPE2_RE.search(text) or SCOPE3_RE.search(text))
-        scope_evidence = text if has_scope_words else f"{text} {evidence_text}"
-        has_12 = (bool(SCOPE1_RE.search(scope_evidence) and SCOPE2_RE.search(scope_evidence)) or bool(COMBINED_SCOPE_RE.search(scope_evidence)))
-        has_3 = bool(SCOPE3_RE.search(scope_evidence))
-        if has_12 and not has_3:
-            return _reject("label_missing_scope3_for_total")
-        if has_3 and not has_12 and (TOTAL_RE.search(text) or SCOPE1_RE.search(scope_evidence) or SCOPE2_RE.search(scope_evidence)):
-            return _reject("label_scope3_total_not_all_scopes")
-        if (SCOPE1_RE.search(scope_evidence) or SCOPE2_RE.search(scope_evidence)) and not has_12 and not has_3:
-            return _reject("label_single_scope_not_all_scopes")
-        method_text = f"{scope_text} {evidence_text}"
-        has_market = bool(MARKET_METHOD_RE.search(method_text))
-        has_location = bool(LOCATION_METHOD_RE.search(method_text))
-        if has_market and not has_location:
-            return _reject("method_not_location_based")
-        if has_market and has_location:
-            flags.append("scope2_method_ambiguous")
-            review = True
-        # The same total under another consolidation boundary (operational
-        # control vs financial control) is an alternative view, not a rival value.
-        if CONSOLIDATION_BOUNDARY_RE.search(text):
-            flags.append("consolidation_boundary_differs")
-            review = True
-        if dimension not in (None, "ghg-emissions"):
-            return _reject("unit_not_co2e")
-    elif code == "E1-6_30":
-        if not (INTENSITY_RE.search(text) or INTENSITY_UNIT_RE.search(unit or "")):
-            return _reject("label_not_intensity")
-        if not REVENUE_RE.search(f"{scope_text} {unit or ''}"):
-            return _reject("label_not_revenue_intensity")
-        if (SCOPE1_RE.search(text) or SCOPE2_RE.search(text) or SCOPE3_RE.search(text)) and not (
-                SCOPE1_RE.search(text) and SCOPE2_RE.search(text) and SCOPE3_RE.search(text)):
-            return _reject("label_single_scope_intensity_not_total")
-        method_text = f"{scope_text} {evidence_text}"
-        if MARKET_METHOD_RE.search(method_text) and not LOCATION_METHOD_RE.search(method_text):
-            return _reject("method_not_location_based")
-        if MARKET_METHOD_RE.search(method_text) and LOCATION_METHOD_RE.search(method_text):
-            flags.append("scope2_method_ambiguous")
-            review = True
-        if dimension not in (None, "ghg-intensity"):
-            return _reject(f"unit_dimension_{dimension}_not_ghg_intensity")
-    elif code == "E5-5_07":
-        if not WASTE_RE.search(subject):
-            return _reject("label_not_waste")
-        # A category (hazardous / non-hazardous / general industrial / construction)
-        # is a component of the total, not the total itself.
-        if re.search(r"一般|无害|無害|生活|建筑|建築|危险|危險|有害", text):
-            return _reject("label_is_waste_category")
-        # "固体废弃物量" without a total word is the solid-waste stream, not the
-        # overall generated total (a report also prints hazardous and liquid).
-        if re.search(r"固废|固体废弃物|固体废物", text) and not TOTAL_RE.search(text):
-            return _reject("label_is_waste_category")
-        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
-            return _reject("label_is_ratio_or_intensity")
-        if HAZARDOUS_RE.search(text) and not TOTAL_RE.search(text):
-            return _reject("label_is_hazardous_subset")
-        if WASTE_DEST_RE.search(text) and not re.search(r"产生|生成|generated|generation", text, re.I):
-            return _reject("label_is_treatment_route_not_generated")
-        if dimension not in (None, "mass"):
-            return _reject(f"unit_dimension_{dimension}_not_mass")
-    elif code == "E5-5_15":
-        if not (WASTE_RE.search(subject) and HAZARDOUS_RE.search(text)):
-            return _reject("label_not_hazardous_waste")
-        if re.search(r"无害|非有害|non-hazardous", text, re.I) and not re.search(r"有害|危险", text):
-            return _reject("label_is_non_hazardous_waste")
-        if WASTE_DEST_RE.search(text) and not re.search(r"产生|生成|generated|generation", text, re.I):
-            return _reject("label_is_treatment_route_not_generated")
-        if dimension not in (None, "mass"):
-            return _reject(f"unit_dimension_{dimension}_not_mass")
-    elif code == "E5-4_02":
-        immediate = text.split("，")[-1] if "，" in text else text
-        if WASTE_RE.search(immediate):
-            return _reject("label_is_waste_not_inflow")
-        if not MATERIAL_RE.search(subject):
-            return _reject("label_not_materials_used")
-        if re.search(r"废旧|回收量|回收率|再生量|recovered|recovery|recycled\s+amount", text, re.I) \
-                and not re.search(r"资源投入|原材料.{0,8}(?:使用|投入)|materials?\s+used", text, re.I):
-            return _reject("label_is_recycled_material_not_inflow")
-        if RATIO_WORD_RE.search(text) or INTENSITY_RE.search(text):
-            return _reject("label_is_ratio_or_intensity")
-        # A hazardous/toxic portion of the material inflow is a subset of the
-        # total weight, even when the report calls it a total.
-        if re.search(r"有毒|有害|危險|危险|hazardous|toxic", text, re.I):
-            return _reject("label_is_hazardous_materials_subset")
-        if dimension not in (None, "mass"):
-            return _reject(f"unit_dimension_{dimension}_not_mass")
-    elif code == "S1-6_02":
-        if re.search(r"非员工|非雇员|劳务派遣|外包|non-employee|contractor", text, re.I):
-            return _reject("label_is_non_employees")
-        # A subgroup count (minority, disabled, women, expatriates, local staff)
-        # is a breakdown of the workforce, not the headcount.
-        if re.search(r"少数民族|少数族裔|残疾|殘疾|女性员工|男性员工|外籍|外派|本地员工|退伍|复员", text, re.I):
-            return _reject("label_is_population_subset")
-        if TURNOVER_RE.search(text) or re.search(r"入职率|新入职|新进员工|招聘人数|离职|解雇|解僱|hiring|new hires|new employees|leavers?|dismiss", text, re.I):
-            return _reject("label_is_turnover_or_hiring")
-        if AVERAGE_RE.search(text):
-            return _reject("label_is_average_not_period_end")
-        # Person-times ("人次") count participation, never people.
-        if "人次" in text or re.search(r"参与|参加|演练|演練|活动人数|person[-\s]?times", text, re.I):
-            return _reject("label_is_participation_count_not_headcount")
-        # An accident/incident count is a safety event, not a head count.
-        if re.search(r"事故|事件|工伤|工傷|伤亡|傷亡|accident|incident", text, re.I):
-            return _reject("label_is_incident_count_not_headcount")
-        if not EMPLOYEE_RE.search(subject):
-            return _reject("label_not_employees")
-        if dimension not in (None, "count"):
-            return _reject(f"unit_dimension_{dimension}_not_count")
-    elif code == "S1-6_12":
-        if not TURNOVER_RE.search(subject):
-            return _reject("label_not_turnover_rate")
-        # A rate for men, women or one age band is a population subset, not the
-        # workforce-wide turnover the clause asks for.
-        if component or re.search(
-                r"其中|男性|女性|按性别|按年龄|岁以下|岁以上|\d+\s*[-–—~至]\s*\d+\s*岁|\d+\s*岁|"
-                r"管理者|管理层|职级|岗位|地区|区域|基层|中层|高层|普通员工|劳务|派遣|"
-                r"by\s+(?:gender|age|region|level|job)", text):
-            return _reject("label_is_population_subset")
-        if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
-            return _reject(f"unit_dimension_{dimension}_not_ratio")
-    elif code == "S1-9_02":
-        if not (GENDER_RE.search(text) and TOPMGMT_RE.search(text)):
-            return _reject("label_not_top_management_gender")
-        if LOWER_MANAGEMENT_RE.search(text) and not TOP_MANAGEMENT_RE.search(text):
-            return _reject("label_not_top_management_level")
-        if BOARD_RE.search(text) and not TOPMGMT_RE.search(text):
-            return _reject("label_is_board_scope")
-        if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
-            return _reject(f"unit_dimension_{dimension}_not_ratio")
-    elif code == "S1-13_04":
-        # The section heading ("培训") supplies the subject for a table whose
-        # row is only "Average (per employee)".
-        if not (TRAINING_RE.search(scope_text) and HOURS_RE.search(scope_text)):
-            return _reject("label_not_training_hours")
-        # Business-ethics, EHS or leadership training is a topic, not the
-        # workforce-wide average this clause asks for.
-        if TOPIC_TRAINING_RE.search(text) and not WHOLE_WORKFORCE_RE.search(text):
-            return _reject("label_is_topic_specific_training")
-        if re.search(r"总(?:培训)?(?:时长|小时|学时)", text) and not re.search(r"人均|每人|per\s+(?:employee|person)|average", text, re.I):
-            return _reject("label_is_total_hours_not_per_person")
-        # A breakdown by gender, category, level or region describes a
-        # sub-population, not the workforce-wide average.
-        if re.search(r"按(?:性别|雇员类别|职级|地区|年龄)|男性|女性", text) and not WHOLE_WORKFORCE_RE.search(text):
-            return _reject("label_is_population_subset")
-        if RATIO_WORD_RE.search(text):
-            return _reject("label_is_ratio")
-    elif code == "S1-14_05":
-        if not SAFETY_RE.search(subject):
-            return _reject("label_not_work_related_accident")
-        # Insurance or training coverage of workers is not an accident rate.
-        if re.search(r"覆盖|coverage", text, re.I):
-            return _reject("label_is_coverage_not_rate")
-        # A per-100-employee rate has a different denominator from the declared
-        # per-million-work-hours rate and cannot be compared as the same field.
-        if PER_HUNDRED_WORKERS_RE.search(text):
-            return _reject("label_is_per_employee_rate_not_work_hours")
-        # A lost-hours or fatality count is a different clause; this one is a rate.
-        if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
-            return _reject(f"unit_dimension_{dimension}_not_ratio")
-    elif code == "S1-16_01":
-        if not PAYGAP_RE.search(subject):
-            return _reject("label_not_gender_pay_gap")
-        if REMUN_RATIO_RE.search(text):
-            return _reject("label_is_remuneration_ratio")
-        if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
-            return _reject(f"unit_dimension_{dimension}_not_ratio")
-    elif code == "S1-17_02":
-        if not DISCRIM_RE.search(subject):
-            return _reject("label_not_discrimination_incident")
-        if re.search(r"罚款|赔偿|罚金|fines?|penalt", text, re.I):
-            return _reject("label_is_fine_not_incident_count")
-        if dimension not in (None, "count"):
-            return _reject(f"unit_dimension_{dimension}_not_count")
-    elif code == "GOV-1_06":
-        if not (BOARD_RE.search(text) and GENDER_RE.search(text)):
-            return _reject("label_not_board_gender")
-        if dimension != "ratio" and not RATE_UNIT_RE.search(unit or ""):
-            return _reject(f"unit_dimension_{dimension}_not_ratio")
-    elif code == "G1-4_01":
-        if not (CORRUPTION_RE.search(text) and CONVICTION_RE.search(text)):
-            return _reject("label_not_corruption_conviction")
-        if re.search(r"罚款|罚金|fines?|penalt", text, re.I) and not CONVICTION_RE.search(text):
-            return _reject("label_is_fine_not_conviction")
-        if dimension not in (None, "count"):
-            return _reject(f"unit_dimension_{dimension}_not_count")
-    elif code == "G1-6_01":
-        if not (PAYDAYS_RE.search(text) and DAYS_RE.search(text)):
-            return _reject("label_not_payment_days")
-        if re.search(r"标准账期|标准付款期限|standard\s+terms|on-time|按时付款", text, re.I):
-            return _reject("label_is_terms_or_share_not_average_days")
-    else:
-        # No bespoke branch for this code: fall back to its declared spec, so a
-        # datapoint outside the sixteen still gets concept and unit checks
-        # instead of passing unconditionally.
-        from esg_targeted.foundation.specs import evaluate_spec
-        declared = evaluate_spec(code, label, section, unit, dimension)
-        if declared is not None:
-            ok, reason = declared
-            if not ok:
-                return _reject(reason or "concept")
-    return GuardResult(True, "review" if review else None, tuple(flags))
+                    return _reject("unit_not_co2e")
+        elif rule.rule == "ghg_scope":
+            rejected = _ghg_scope(rule, reading=reading, text=text, subject=subject,
+                                  scope_text=scope_text, evidence_text=evidence_text,
+                                  dimension=dimension, unit=unit, flags=flags)
+            if rejected is not None:
+                return rejected
+        elif rule.rule == "ghg_scope_composition":
+            rejected = _ghg_composition(rule, reading=reading, text=text, scope_text=scope_text,
+                                        evidence_text=evidence_text, flags=flags)
+            if rejected is not None:
+                return rejected
+        elif rule.rule == "pollutant_medium":
+            rejected = _pollutant_medium(rule, reading=reading, text=text, subject=subject)
+            if rejected is not None:
+                return rejected
+        elif rule.rule == "water_concept":
+            rejected = _water_concept(rule, reading=reading, text=text, subject=subject,
+                                      scope_text=scope_text, component=component,
+                                      total=_match(_vocab(reading, "total"), text), flags=flags)
+            if rejected is not None:
+                return rejected
+        elif rule.rule == "waste_concept":
+            rejected = _waste_concept(rule, reading=reading, text=text, subject=subject,
+                                      scope_text=scope_text, flags=flags)
+            if rejected is not None:
+                return rejected
+    if any(flag == "scope2_method_ambiguous" for flag in flags):
+        review = True
+    if any(flag in {"consolidation_boundary_differs", "co2e_implied_by_label_mass_unit"} for flag in flags):
+        review = True
+    return GuardResult(True, "review" if review or flags else None, tuple(dict.fromkeys(flags)))
 
 
 POLLUTANT_SYNONYMS = (

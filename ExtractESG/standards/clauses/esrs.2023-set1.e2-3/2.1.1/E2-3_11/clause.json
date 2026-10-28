@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5a81c0e92cb7b3b605ab44d9bad66372f7ed675c972b34c525ca40ec0d8d4107",
   "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_11",
-  "contract_digest": "b83c73c2b0ce01e718b7681bcd6d2afeb01489b71bdb150b85a8efcc9feebfbb",
+  "clause_key": "E2-3_11",
+  "contract_digest": "c2b687cfe53255aa9bbc58122b78f8ac139f55feb1f93b4531ff7edc92b57748",
+  "data_kind": "qualitative",
   "description": "Information about targets that have been implemented at site-level (pollution)。场址污染目标。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
   "disclosure_requirement": "E2-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about targets that have been implemented at site-level (pollution)",
     "zh": "场址污染目标"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-3_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

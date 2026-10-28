@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "392bfbb8d3ca59713bbbb6fbd1a24e33db17e1d550591b3e8ef9b243202c3d39",
   "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_19",
-  "contract_digest": "a8cf6c3e4c0da40647b636d0974a588d14453f97a48de1eee9551dde8455c6f9",
+  "clause_key": "S1-1_19",
+  "contract_digest": "dcd94dadd0b7646af18cb05f982b911605c9ec206aa90721d61d4c4154647bef",
+  "data_kind": "qualitative",
   "description": "说明主体是否已评估岗位要求的设定方式是否存在系统性不利于特定群体的风险。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Has evaluated whether a there is a risk that job requirements have been defined in a way that would systematically disadvantage certain groups",
     "zh": "岗位要求是否系统性不利于特定群体的评估"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-1_19",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

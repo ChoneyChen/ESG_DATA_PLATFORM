@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c8b8f417c0ffcf60baafcb5b5c0ecd93b1f1b11e1b9f9237029b9d5a2706da9e",
   "clause_id": "esrs.2023-set1.s3-1@2.3.0:S3-1_04",
-  "contract_digest": "942ebd44dcce9d8a842211c19ca60812ad4fabc05e7c671b73f440653c029353",
+  "clause_key": "S3-1_04",
+  "contract_digest": "c414728337da41aeb13de2d696be04d727af0eb4f96c0ae572e65a3a933b3002",
+  "data_kind": "qualitative",
   "description": "说明主体与受影响社区开展接触和沟通的总体方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of general approach in relation to engagement with affected communities",
     "zh": "与受影响社区接触的总体方法"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-1_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

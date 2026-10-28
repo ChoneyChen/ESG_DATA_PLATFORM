@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "dde8dace286599e1bf3099bbbe59b79f2b0171d64ab1d503229e2ef0ea526dc7",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_13",
-  "contract_digest": "c909b77676fa5d2bbc50f1c1cbe5d498fbac101abe5ab8126ec897144d7bfeba",
+  "clause_key": "BP-2_13",
+  "contract_digest": "fc26704061c813580086bc699aeea6d79daa30146d4bbbc171146da700c02672",
+  "data_kind": "qualitative",
   "description": "Disclosure of nature of prior period material errors。前期重大差错性质。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of nature of prior period material errors",
     "zh": "前期重大差错性质"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_13",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

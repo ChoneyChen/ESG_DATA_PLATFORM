@@ -1,14 +1,35 @@
 {
   "canonical_unit": null,
+  "clause_digest": "38d89318748d396e91d86f0b5204d6cd00af5fa3d488b463e8a24720f5ec722a",
   "clause_id": "esrs.2023-set1.s4-4@2.3.0:S4-4_11",
-  "contract_digest": "08a946fe26e09b4421b76d95cba4b9034c36bccfe647976513ceb1350498c553",
+  "clause_key": "S4-4_11",
+  "contract_digest": "658bd297df1cdcf6b661d5a8da15a3d162c3ce75e431c2e5d6bf90bebb00b561",
+  "data_kind": "qualitative",
   "description": "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-4",
   "disclosure_role": "anchor",
+  "display_definition": "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。",
+  "display_label": "与消费者和终端用户相关的严重人权问题与事件",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group": "consumer",
+  "group_terms": [
+    "消费者投诉",
+    "客户投诉",
+    "投诉数量",
+    "consumer complaint",
+    "customer complaint",
+    "complaints received"
+  ],
+  "group_unit_terms": [
+    "件",
+    "起",
+    "count",
+    "complaints"
   ],
   "labels": {
     "en": "Disclosure of severe human rights issues and incidents connected to consumers and/or end-users",
@@ -43,8 +64,66 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "严重人权",
+          "severe human rights"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_group_scope",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "消费者",
+          "consumer",
+          "客户",
+          "customer"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "消费者",
+      "客户",
+      "用户",
+      "投诉",
+      "complaint",
+      "consumer",
+      "customer"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-4_11",
+  "text_group": "consumer",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

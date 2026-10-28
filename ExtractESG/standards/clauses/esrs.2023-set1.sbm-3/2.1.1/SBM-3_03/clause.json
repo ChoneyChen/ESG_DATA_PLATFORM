@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7fb61673f76475d800a0bf29d43c58756c8324a756811d412dfc01afc0d474ef",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_03",
-  "contract_digest": "7cc1b68ef0c2a6d23fd30a4ff46880d1b41662a93dc21bede9c4658a678443fa",
+  "clause_key": "SBM-3_03",
+  "contract_digest": "bedbb659041659a033661ab3e24cb80411831cffe070b017241bf20a1a236c05",
+  "data_kind": "qualitative",
   "description": "Disclosure of current and anticipated effects of material impacts, risks and opportunities on business model, value chain, strategy and decision-making, and how undertaking has responded or plans to respond to these effects。重要事项对业务价值链战略的影响及回应。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of current and anticipated effects of material impacts, risks and opportunities on business model, value chain, strategy and decision-making, and how undertaking has responded or plans to respond to these effects",
     "zh": "重要事项对业务价值链战略的影响及回应"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

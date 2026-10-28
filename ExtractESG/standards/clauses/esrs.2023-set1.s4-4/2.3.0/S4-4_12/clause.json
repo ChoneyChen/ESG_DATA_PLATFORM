@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3e6895dfc65f132c1e2261956794b11c308a895130cac15fb66a756c6d3da521",
   "clause_id": "esrs.2023-set1.s4-4@2.3.0:S4-4_12",
-  "contract_digest": "6b1b093768baf0d14c4f98303211f48ee650e17c3486004262676a717b8c99e9",
+  "clause_key": "S4-4_12",
+  "contract_digest": "abca42e137ae51c6245e61d6d7743de4b4d58726de6ff605d12ff94f21cdfbab",
+  "data_kind": "qualitative",
   "description": "披露为管理消费者和终端用户重大影响所分配的资源，包括人员、预算和管理层投入。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of resources allocated to management of material impacts",
     "zh": "管理消费者重大影响的资源分配"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-4_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

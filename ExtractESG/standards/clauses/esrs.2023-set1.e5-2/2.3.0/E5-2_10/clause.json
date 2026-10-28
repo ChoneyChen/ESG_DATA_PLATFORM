@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4e64ff384159acdeb0a0d7470c09a93c4064e9318167a78e6dc802b68c62bca5",
   "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_10",
-  "contract_digest": "764091bd718d87547b2062d1ad8fbb96927866add1d1de46fa9773075fee8946",
+  "clause_key": "E5-2_10",
+  "contract_digest": "eec5ad04fc1d383fe764d4413c7289027e50bfe973e2ef63f7900324e4cd73b6",
+  "data_kind": "qualitative",
   "description": "说明资源利用与循环经济相关项目的组织方式，包括治理结构、责任分工和资源投入。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of organisation of project (resource use and circular economy)",
     "zh": "项目的组织方式"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-2_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

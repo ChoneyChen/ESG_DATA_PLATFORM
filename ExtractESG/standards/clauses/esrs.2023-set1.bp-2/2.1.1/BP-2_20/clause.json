@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "6c98e76e3a7d306ee4b9532f387ca1a2c3f462455f193d9ed46039768a0f4995",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_20",
-  "contract_digest": "751b6d33830312cd7326d47470b32bc394850c14ea23206d8849cd3d529ba4a8",
+  "clause_key": "BP-2_20",
+  "contract_digest": "e3668efe4d2b15103d6a962618e8592d5acbfc96a566032d5ff81948b34faab0",
+  "data_kind": "qualitative",
   "description": "List of DRs or DPs incorporated by reference。以引用方式纳入的条款清单。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "List of DRs or DPs incorporated by reference",
     "zh": "以引用方式纳入的条款清单"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_20",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

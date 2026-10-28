@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "93d01f867f070510c9c4fdb3ee62c24a38e7db4c28403e6dab25e4ea36d4ff5d",
   "clause_id": "esrs.2023-set1.gov-2@2.1.1:GOV-2_01",
-  "contract_digest": "7643501b364d0f90d96defe2a785c193b20f57e00ffb39a07563281e24b4cbd9",
+  "clause_key": "GOV-2_01",
+  "contract_digest": "bab2de373b415eab62c41b969249ba8e8ee174ac34cbfadff081c94016b6cf38",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them。治理机构获得可持续信息的方式与频率。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
   "disclosure_requirement": "GOV-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them",
     "zh": "治理机构获得可持续信息的方式与频率"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-2_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

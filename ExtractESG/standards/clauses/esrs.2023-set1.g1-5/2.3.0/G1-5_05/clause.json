@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "c7be9516b0568cdc92da50056c07cee1c583c43370b040d0109cc45a5b620fd9",
   "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_05",
-  "contract_digest": "be3e6a6dc38cce844aafe564c8b28a3f876c3ba585b43c65a71c995d6c7c37c9",
+  "clause_key": "G1-5_05",
+  "contract_digest": "caa16d0932fe4c7e5243d5daa0b252ff64b4252e605cea12669b113a1cc031fa",
+  "data_kind": "quantitative",
   "description": "披露主体为加入游说协会所支付的会员费金额。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "G1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Amount paid for membership to lobbying associations",
     "zh": "游说协会会员费金额"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-5_05",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

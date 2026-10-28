@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3c595d5a6d2ab9230090bc23721eea1d302da634125f091b90cc81ad247832c2",
   "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_05",
-  "contract_digest": "b71cc8e74f2cdfc5eaeac08837bd259583e35317af48823b7c0dd38a6cefc119",
+  "clause_key": "SBM-1_05",
+  "contract_digest": "8337f4c8e7ae30d5d9a92f2bd494af98ce19ec27ced89723e6da6b256a39a530",
+  "data_kind": "qualitative",
   "description": "Description of products and services that are banned in certain markets。特定市场禁售产品服务。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
   "disclosure_requirement": "SBM-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of products and services that are banned in certain markets",
     "zh": "特定市场禁售产品服务"
@@ -18,15 +27,15 @@
   "obligation_class": "conditional",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-92477e5a7415f135",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-1_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

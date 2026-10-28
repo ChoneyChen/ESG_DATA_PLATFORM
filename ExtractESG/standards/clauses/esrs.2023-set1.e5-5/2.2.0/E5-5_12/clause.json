@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "1e8716e3e1471a36905eef2115d43cec0437bc807f77a1ff75242710c52321a9",
   "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_12",
-  "contract_digest": "a76756a528bc71a32c7752e6db767b7e46195a79640815d1e75596e6f912feaa",
+  "clause_key": "E5-5_12",
+  "contract_digest": "fbaeb29e5e67a9f705a8ddc9f975c24cd675db1bb641621dbc3459cefb19cab9",
+  "data_kind": "qualitative",
   "description": "Disclosure of composition of waste。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
   "disclosure_requirement": "E5-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of composition of waste",
     "zh": "Disclosure of composition of waste"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-5_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

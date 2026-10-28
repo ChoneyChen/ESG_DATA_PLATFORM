@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "1c7bdd6cb230193d06c706543c806a0994ae0f974b9d7eb583f0ee042bbbd4eb",
   "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_05",
-  "contract_digest": "e1eb8f1146dc1c5269127967e839974121ee361860479368b4f32bb2d6d859a9",
+  "clause_key": "E5-2_05",
+  "contract_digest": "2915504c4bacf7e532b4080a68a3b5e16a03b95752f5fae841cb262e0bbe364b",
+  "data_kind": "qualitative",
   "description": "说明为在上游和下游价值链中预防废弃物产生所采取的行动及其效果。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of actions taken to prevent waste generation in the undertaking's upstream and downstram value chain",
     "zh": "上下游价值链废弃物预防行动"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-2_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

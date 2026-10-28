@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7da7cbbe7fa8383597cfe9ed8e25582aeefd1d1078351e7fc76293e8c9395607",
   "clause_id": "esrs.2023-set1.s1-5@2.3.0:S1-5_06",
-  "contract_digest": "742d516b89626b7666caaa33658f7847f7cf7e897284773b861b856d031700e0",
+  "clause_key": "S1-5_06",
+  "contract_digest": "1f86da288672e799295796731fa50f1d24682d41ab91fefc49b611a7a3a0e606",
+  "data_kind": "qualitative",
   "description": "披露目标所依据的标准、倡议或主体承诺，并指出对应关系。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of references to standards or commitments which targets are based on",
     "zh": "目标所依据的标准或承诺"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-5_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

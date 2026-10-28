@@ -1,14 +1,23 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "de56a122d15c3734a1b4504471447c2fd520235208158c312996e9d14708b377",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_15",
-  "contract_digest": "63159814b45b69f43551d69871f290530478b423887f5dbd6f1dbc76a272bfe5",
+  "clause_key": "E1-5_15",
+  "contract_digest": "57735b4e3cc0efe691f8b0cbf065ff239e5500d4e18f079e477f1ef3f576d6ab",
+  "data_kind": "quantitative",
   "description": "化石能源占能源消费总量的比例",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Share of fossil sources in total energy consumption",
     "zh": "化石能源占能源消费总量的比例"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_15",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

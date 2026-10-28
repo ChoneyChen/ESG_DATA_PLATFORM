@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "85afce5befdaff25de3a47a91107332e37e3a7e2826ecf5eb697f56f8f9c9a84",
   "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_06",
-  "contract_digest": "828351d2f3c78f1612dd94d0b84b2e84b6bec3e3c8570af73f94645f9051f910",
+  "clause_key": "E4-4_06",
+  "contract_digest": "ebe477f7ea1b577d4849666a9d7db887adec627d1ace2a75d85afe698701d91d",
+  "data_kind": "qualitative",
   "description": "说明目标如何与自身运营及上下游价值链中识别的生物多样性和生态系统影响、依赖、风险和机遇相关联。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how the targets relate to the biodiversity and ecosystem impacts, dependencies, risks and opportunities identified in relation to own operations and upstream and downstream value chain",
     "zh": "目标与已识别影响、依赖、风险和机遇的关联"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-4_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "6301c04b52789f5e4c9e04dba9aeb75e16faad3717009c51c8935f12cd0be68b",
   "clause_id": "esrs.2023-set1.e3-1@2.1.1:E3-1_05",
-  "contract_digest": "611c036bb918df8345d6fee1c6d2e7e23936b2211b971ef8193049b9619cff2b",
+  "clause_key": "E3-1_05",
+  "contract_digest": "9bb32fe985dd22bc4f58422785500c6d674d0fdcd9ca77cbb3015337c72e0a0b",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether and how policy adresses product and service design in view of addressing water-related issues and preservation of marine resources。产品服务设计的水与海洋保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
   "disclosure_requirement": "E3-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how policy adresses product and service design in view of addressing water-related issues and preservation of marine resources",
     "zh": "产品服务设计的水与海洋保护政策"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-1_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

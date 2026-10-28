@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9d1881a8d40d5f4426c781cc7b6677f8de5837930087dfc636f8cf951cb55b8b",
   "clause_id": "esrs.2023-set1.g1-2@2.3.0:G1-2_01",
-  "contract_digest": "30302ea1d9b3b5589db3051eb79a96eb4523aa5adce039d4046b90f4a428c1a7",
+  "clause_key": "G1-2_01",
+  "contract_digest": "8b58f3cc7840c3e5135d379f239024b026c680c4be2f38bc971634dda3173794",
+  "data_kind": "qualitative",
   "description": "说明主体为防止逾期付款、尤其是对中小企业逾期付款所制定的政策与措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of policy to prevent late payments, especially to SMEs",
     "zh": "防止逾期付款（尤其是对中小企业）的政策"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-2_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "385cff230ea5bb4fd460f7c4ef4d7cc7594d84bf997487eb07c0d44dd25acbbe",
   "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_09",
-  "contract_digest": "56aec434e55f96e189793713b6b252c8474f1097427705ff14c00c0747a2c663",
+  "clause_key": "IRO-1_09",
+  "contract_digest": "aa2d669b2e6ac1f7bd9907524e795b68a6ccca7defc434557c5ccf8a24ea8e1d",
+  "data_kind": "qualitative",
   "description": "Description of how likelihood, magnitude, and nature of effects of identified risks and opportunities have been assessed。财务影响的概率量级性质评估。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
   "disclosure_requirement": "IRO-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how likelihood, magnitude, and nature of effects of identified risks and opportunities have been assessed",
     "zh": "财务影响的概率量级性质评估"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "IRO-1_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

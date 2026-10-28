@@ -1,0 +1,65 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E5-4_05",
+  "group": "materials",
+  "text_group": "materials",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "可再生",
+      "不可再生",
+      "生物材料",
+      "技术材料",
+      "包装",
+      "原材料",
+      "材料"
+    ],
+    "parent_clause": "E5-4_02",
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "再生材料",
+        "回收材料",
+        "二次使用",
+        "再生组分",
+        "recycled content",
+        "secondary material",
+        "recycled material"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "未回收",
+        "吨",
+        "tonnes",
+        "weight",
+        "废弃物",
+        "waste"
+      ],
+      "reason": "label_is_other_concept"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "ratio"
+      ],
+      "params": {
+        "allow_missing": true
+      }
+    }
+  ],
+  "display_label": "二次使用或再生材料占比 Share of secondary or recycled materials",
+  "display_definition": "Percentage of material inputs that are secondary, reused or recycled (再生材料/回收材料/二次使用材料占比). Not an absolute weight, not recyclability of products, not waste diverted."
+}

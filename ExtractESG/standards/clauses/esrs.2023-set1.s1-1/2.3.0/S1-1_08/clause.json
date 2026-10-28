@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "77b208dca1cd78fddd75c2f005382ed0ff429ee85a1c0e52eb504a78d971db99",
   "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_08",
-  "contract_digest": "cd1e1f7bb2a5486ed25544bea4b501d254340f4658ee310c268c678b897c96fc",
+  "clause_key": "S1-1_08",
+  "contract_digest": "d211b3a43c7e656bf91ed93ea7898dfb15c90b904796d5dd50ee774c5a9a1ef1",
+  "data_kind": "qualitative",
   "description": "说明政策是否明确处理人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour",
     "zh": "政策对人口贩运、强迫劳动和童工的明确覆盖"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-1_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

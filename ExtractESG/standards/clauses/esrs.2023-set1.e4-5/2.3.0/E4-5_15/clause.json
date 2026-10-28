@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "26842da3ed2ca401cb71808c2170d4eb7d205f36fc10fc9ffb2c6490bde1a694",
   "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_15",
-  "contract_digest": "0799743e3f08f013c230c5f46e5be63394e9fb963d955fdb74081a6ce5270b8e",
+  "clause_key": "E4-5_15",
+  "contract_digest": "f1dc33338ea2e016ee6c0a2079dd0397c8f6fbc668bd8148db5838742c675b01",
+  "data_kind": "quantitative",
   "description": "披露在主体运营范围内出现的外来入侵物种数量，并说明识别与统计口径。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "E4-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of invasive alien species",
     "zh": "外来入侵物种数量"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-5_15",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

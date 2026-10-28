@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d49b07646c77b2c6037681f6e881a291a52851b1aae4b617bc7be466c0c30f18",
   "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_01",
-  "contract_digest": "bb608a464f30b3f9a85955fa9b2444a4c8af10940ddcc46282734196c6ffa468",
+  "clause_key": "G1-3_01",
+  "contract_digest": "f1d8c191146bce353223c0b7ede18c0298b3aacf314d29f398c9f068d491a4b1",
+  "data_kind": "qualitative",
   "description": "说明主体为预防、发现和处理腐败或贿赂指控或事件所建立的程序。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about procedures in place to prevent, detect, and address allegations or incidents of corruption or bribery",
     "zh": "预防、发现和处理腐败或贿赂指控的程序"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-3_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

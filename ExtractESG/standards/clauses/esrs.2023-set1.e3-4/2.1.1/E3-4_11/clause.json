@@ -1,14 +1,76 @@
 {
   "canonical_unit": "m3",
+  "clause_digest": "44162b8f9325f84e6084bc95126d51c1e1390bb28f875dd422dc9d672a4812de",
   "clause_id": "esrs.2023-set1.e3-4@2.1.1:E3-4_11",
-  "contract_digest": "3757b878f519cca45178025aca8e758ae7deca515da31e08c036ac8743995115",
+  "clause_key": "E3-4_11",
+  "contract_digest": "2e103fe45c6fb866a9f1f7808651da1ee803d4a0c06cd84025db81151d4bd05f",
+  "data_kind": "quantitative",
   "description": "Total water withdrawals。取水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
   "disclosure_requirement": "E3-4",
   "disclosure_role": "anchor",
+  "display_definition": "Total water withdrawn from all sources (取水总量/总取水量). One source (groundwater, municipal, surface) is a component, not the total.",
+  "display_label": "取水总量 Total water withdrawal",
   "distinguish_from": [],
+  "exact_labels": [
+    "取水总量",
+    "总取水量",
+    "totalwaterwithdrawal",
+    "totalwaterwithdrawn",
+    "waterwithdrawal"
+  ],
   "exclusions": [
     "耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group": "water",
+  "group_terms": [
+    "取水",
+    "耗水",
+    "用水",
+    "排水",
+    "水资源",
+    "循环水",
+    "循环利用",
+    "重复利用",
+    "回用",
+    "新鲜水",
+    "新水",
+    "淡水",
+    "水风险",
+    "缺水",
+    "水压力",
+    "water withdrawal",
+    "water consumption",
+    "water discharge",
+    "water recycled",
+    "recycled water",
+    "water use",
+    "water withdrawn",
+    "water stress",
+    "water management",
+    "water resources",
+    "water intake",
+    "water sources",
+    "total water",
+    "ground water",
+    "groundwater",
+    "surface water"
+  ],
+  "group_unit_terms": [
+    "立方米",
+    "m3",
+    "m³",
+    "万吨",
+    "百万吨",
+    "吨",
+    "megalitre",
+    "ml",
+    "地下水",
+    "地表水",
+    "市政",
+    "groundwater",
+    "surface water",
+    "municipal"
   ],
   "labels": {
     "en": "Total water withdrawals",
@@ -51,8 +113,177 @@
       "water_measure": "withdrawal"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "water",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "concept": "withdrawal"
+        },
+        "reason": null,
+        "rule": "water_concept",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "volume",
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "alternative_source": [
+        "替代水源",
+        "替代水",
+        "alternative source"
+      ],
+      "change": [
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+      ],
+      "consumption_terms": [
+        "消耗",
+        "消费",
+        "使用",
+        "用量",
+        "consum",
+        "use"
+      ],
+      "discharge": [
+        "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|discharg|effluent)"
+      ],
+      "freshwater": [
+        "re:(?:淡水|新水|新鲜水|取新水|fresh\\s*water|freshwater)"
+      ],
+      "geography": [
+        "数据中心",
+        "生产基地",
+        "基地",
+        "工厂",
+        "厂区",
+        "园区",
+        "办公",
+        "分公司",
+        "子公司",
+        "事业部",
+        "板块",
+        "门店",
+        "电站",
+        "自有",
+        "租赁",
+        "境内",
+        "境外",
+        "海外",
+        "data cent",
+        "production base",
+        "plant",
+        "site",
+        "office",
+        "subsidiar",
+        "segment",
+        "domestic",
+        "overseas",
+        "leased",
+        "owned"
+      ],
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "non_fresh": [
+        "re:(?:非淡水|non[-\\s]?fresh)"
+      ],
+      "not_water": [
+        "re:(?:设备|废弃物|废物|固废|材料|物料|包装|电池|电子|产品|纸|equipment|device|waste|material|packag|product|batter|paper)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "recycle": [
+        "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
+      ],
+      "recycled_water": [
+        "循环水",
+        "回用水",
+        "重复利用水",
+        "再生水",
+        "中水",
+        "recycled water",
+        "reused water"
+      ],
+      "risk_area": [
+        "re:(?:风险|缺水|水压力|水资源压力|高水|stress|scarc|risk)"
+      ],
+      "total": [
+        "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+      ],
+      "waste_solid": [
+        "固废",
+        "固体废弃物",
+        "固体废物"
+      ],
+      "water_consumption": [
+        "re:(?:耗水|(?:水|water)\\S{0,4}消耗|消耗\\S{0,4}水|水资源消耗|water\\s+consum|consumption\\s+of\\s+water|consumed)"
+      ],
+      "water_dest": [
+        "re:(?:地表|地下|外送|管网|海洋|市政|surface|ground|third[-\\s]party|ocean|sea|marine|sewage|sewer|river|public\\s+sewer|municipal)"
+      ],
+      "water_source": [
+        "re:(?:地下水|地表水|市政|自来水|第三方|海水|雨水|矿井|矿坑|外购水|河|湖|groundwater|surface\\s+water|municipal|third[-\\s]party|sea\\s*water|rain)"
+      ],
+      "water_use_only": [
+        "re:(?:用水|water\\s+use)"
+      ],
+      "water_word": [
+        "re:(?:水|water|h2o|effluent)"
+      ],
+      "withdrawal": [
+        "re:(?:取水|withdraw|abstract|新鲜水|新水|用水总量|总用水量|用水量|water\\s+(?:intake|use)|water\\s+withdrawn)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "地表水",
+      "地下水",
+      "市政",
+      "自来水",
+      "海水",
+      "淡水",
+      "循环",
+      "再生水",
+      "雨水",
+      "取水",
+      "排水",
+      "耗水"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": [
+      "E3-4_01",
+      "E3-4_02",
+      "E3-4_03",
+      "E3-4_11",
+      "E3-4_12"
+    ]
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-4_11",
+  "text_group": "water",
   "unit_dimension": "extractesg.core.unit-dimension.volume",
   "value_origin": "reported",
   "value_type": "numeric"

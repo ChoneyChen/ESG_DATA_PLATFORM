@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5225dcb5036a9f7978fe85bc40458aba79199e16df975480d7d69f1e058f3116",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_15",
-  "contract_digest": "9a3a9e12047125296796bb99c57fdfd62409ff35f1e5b2d1d0fd7a1b2bf03668",
+  "clause_key": "E2-4_15",
+  "contract_digest": "17b257baad7cf2bf9da108d09e53430959f868e40c38702a1f947c5bb83650db",
+  "data_kind": "qualitative",
   "description": "仅在采用低于直接测量的量化方法时适用；使用估算还应披露依据、可能不确定性程度和估算范围。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of reasons for choosing inferior methodology to quantify emissions",
     "zh": "选择低于直接测量优先级方法的原因"
@@ -41,8 +50,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

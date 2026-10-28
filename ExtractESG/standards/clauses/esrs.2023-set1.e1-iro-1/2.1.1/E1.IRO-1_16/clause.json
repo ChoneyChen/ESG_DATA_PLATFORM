@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0dac63ea105c731fc53de464ef35aa16e688995c39c6a76b85aa1dad3ed7ee8e",
   "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_16",
-  "contract_digest": "58d76d9627bd35daa1313365c224a1a40964942b04cc441d02d3efc6490dbe6e",
+  "clause_key": "E1.IRO-1_16",
+  "contract_digest": "80523c65370769a3a8e2950886b8d41558742c1f240b2071c6c3b46d6ef06d31",
+  "data_kind": "qualitative",
   "description": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements。气候情景与财务假设一致性。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
   "disclosure_requirement": "E1.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements",
     "zh": "气候情景与财务假设一致性"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1.IRO-1_16",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "8bd5b8c0727995e2234d1c03cfc0c569811c74fbd758c8626514fe837b5fd9ec",
   "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_06",
-  "contract_digest": "38b27cc7aaad7f1f19b388a58fed15512fd4a7430c99024717ccf51f2f550598",
+  "clause_key": "S1.SBM-3_06",
+  "contract_digest": "8920d980b5aecf53e3d88144dab8b2e55246ba747d8c93654c18715a1f73629b",
+  "data_kind": "qualitative",
   "description": "描述为减少环境负面影响、实现绿色气候中性运营的转型计划可能对员工造成的重大影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of material impacts on workers that may arise from transition plans for reducing negative impacts on environment and achieving greener and climate-neutral operations",
     "zh": "环境转型计划对员工的重大影响"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1.SBM-3_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

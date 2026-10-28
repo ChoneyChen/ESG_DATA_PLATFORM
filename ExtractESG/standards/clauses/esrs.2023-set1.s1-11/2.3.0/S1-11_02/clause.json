@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a395768b6f40302ae6afe1ab56c266bbed5dea32053dc2dba21b7593580a5f2b",
   "clause_id": "esrs.2023-set1.s1-11@2.3.0:S1-11_02",
-  "contract_digest": "f1b38b4bfa1c72f1fb682ec00b8ddb1fae58f2f82a98c6e6f78d35be2bb59bac",
+  "clause_key": "S1-11_02",
+  "contract_digest": "75ed0e62b3dfe26e0378ec7e8d9430ed9ca99ac3d1f884bc23dcb3390f0eabe6",
+  "data_kind": "qualitative",
   "description": "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-11",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "All employees in own workforce are covered by social protection, through public programs or through benefits offered, against loss of income due to unemployment starting from when own worker is working for undertaking",
     "zh": "员工因失业失去收入的社保覆盖"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-11_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

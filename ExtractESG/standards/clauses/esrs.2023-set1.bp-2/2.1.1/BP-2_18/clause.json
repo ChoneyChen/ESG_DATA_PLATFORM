@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d4a5bdf2a5eff9b556351eecf5dca3da44346d3823d4e5117b0166cec3571139",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_18",
-  "contract_digest": "6c347d1b43e2bace4d692a8fe0f10d25abeb14948c7236b3183d475065f514a6",
+  "clause_key": "BP-2_18",
+  "contract_digest": "77b81f96e631e4b9318677b8be8d3efe1a85fa82673316a79391ec3cc923aecf",
+  "data_kind": "qualitative",
   "description": "European standards approved by European Standardisation System (ISO/IEC or CEN/CENELEC standards) have been relied on。使用欧洲标准。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "European standards approved by European Standardisation System (ISO/IEC or CEN/CENELEC standards) have been relied on",
     "zh": "使用欧洲标准"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_18",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

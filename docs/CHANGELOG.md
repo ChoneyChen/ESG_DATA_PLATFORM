@@ -4,6 +4,27 @@
 
 上一次提交为 `7ac8408`（2026-09-19）。2026-10-17 的推送一次性收录此后全部工作树改动（`CrawlESG/` 保护区除外）；`794c9b2` 收录文字层直读与 16 项绑定加固。
 
+## 2026-10-29（第六十八轮）：条款即单位，提取链路只读条款合同
+
+- **条款合同 v2**：`clause-extraction-profile-2.0` 新增 `clause_key`、`clause_digest`、`data_kind`、
+  `reading`（算子+规则+词表）、`group`/`text_group`、`relationships`、`exact_labels`；作者源改为
+  一条条款一个文件 `clause-authoring/<clause_key>.json`，共享词表与选择清单在 profiles；
+  条款目录新增扁平 `clauses` 视图（包只保留来源/版本）。
+- **提取去条款化**：foundation 指标目录、31 个 guard 分支、29 条 spec、17 组选页词、占比/同族/精确行名
+  全部改为读取条款包；`foundation/specs.py` 移出运行时，`guards.py` 成为通用规则求值器；
+  standard 查询编译加入条款标签/定义/排除/检索词并记录 `clause_key`。
+- **条款选页**：Document 新增 `page_selection=clauses`（`foundation16` 兼容别名），按所选条款的
+  `retrieval.json` 生成页面关键词；人工与批量准备传入实际 `metric_profile`。
+- **定量/定性两份数据合同**：新增 `data_contracts.py`，成果包校验对两类记录执行数值/区间/陈述形状检查。
+- **按用户要求清除跨条款中立理解复用**：删除 `report_cache.py`、共享 `sources/` 读写与会话聚合来源；
+  同一对象在不同条款目标下重新阅读。
+- **修正口径聚合误判**：聚合类型改由包 `measurement_contract` 推导；E1-5_02/05、E1-6_07/10 恢复为
+  `total`，E1-6_10 不再生成带相反方法轴的口径；目录分布 total 976→1060、intensity 73→6、share 98→81。
+- **单条身份稳定**：E1-5 2.1.2→2.1.3 仅 E1-5_01 的 `clause_digest` 变化，其余 21 条不变（新增守护测试）。
+- 验证：条款目录 100 包/1,147 条 0 stale；字典重建与 1.5.0 字节一致 `c4d73f54…`；
+  标准 184、提取 787/12、Document 676、Console 240、数据库 62/2、PlatESG Python 79、Node 62/10。
+  详见[阶段 18](PHASE18_CLAUSE_CONTRACT_UNIT.md)。
+
 ## 2026-10-28（第六十七轮）：全链路只读筛查
 
 - 按用户目标（条款合同独立可变更、提取按数据种类成合同、输出独立存储、模块内聚）做了一次全局只读核验，

@@ -1,14 +1,23 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "192acf3cb145c1cc91416c40291321424ee50356c2a70272675327c2a429a339",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_33",
-  "contract_digest": "e61ee205f7a743f13e4e35280fd81a920eab4cae53d0f6bb02bdc49763c65c44",
+  "clause_key": "E1-6_33",
+  "contract_digest": "96e7faa61de4badce5d2c465706c8e24565854476b8b7ea1c471b988287e9cc3",
+  "data_kind": "quantitative",
   "description": "财务报表口径的净收入总额。只提取直接表示净收入或营业收入总额的期间/实体值；利润、资产、产量、资源量及其他经济指标不属于本指标。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total net revenue",
     "zh": "净收入总额"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_33",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

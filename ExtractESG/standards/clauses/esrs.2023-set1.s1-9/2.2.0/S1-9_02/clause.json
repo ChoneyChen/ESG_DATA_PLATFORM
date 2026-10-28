@@ -1,17 +1,40 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "369869e033698e0bff9c755e5844180619450e9603f269fb8c8ed74797575598",
   "clause_id": "esrs.2023-set1.s1-9@2.2.0:S1-9_02",
-  "contract_digest": "0830c2dcb7cc5419160ebd7559181163cd888617450f9ce568a96d5f4e094aea",
+  "clause_key": "S1-9_02",
+  "contract_digest": "a663c5768cea37a82723f57e57d5f5896460df4b7742300a823fe207691bf408",
+  "data_kind": "quantitative",
   "description": "最高管理层员工按性别划分的人数占比。",
   "disclosure_requirement": "S1-9",
   "disclosure_role": "anchor",
+  "display_definition": "Percentage of top-management members by gender (管理层/高管性别比例, 女性管理者占比). Head-count numbers, board-only figures or overall workforce gender share are different scopes.",
+  "display_label": "高管性别比例 Gender distribution at top management",
   "distinguish_from": [
     "董事会性别比例",
     "管理层人数"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "最高管理层与董事会是不同人群；占比不能与人数互换。"
+  ],
+  "group": "workforce_gender",
+  "group_terms": [
+    "高管",
+    "管理层",
+    "女性管理者",
+    "性别比例",
+    "top management",
+    "senior management",
+    "gender distribution"
+  ],
+  "group_unit_terms": [
+    "%",
+    "女性",
+    "男性",
+    "female",
+    "male"
   ],
   "labels": {
     "en": "Gender distribution in percentage of employees at top management level",
@@ -53,8 +76,131 @@
       "population": "management"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_top_management_gender",
+        "rule": "require_all",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:性别|女性|男性|female|male|gender)",
+          "re:(?:高管|高级管理|管理层|管理者|top\\s+management|senior\\s+management)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_top_management_level",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:初级管理|中级管理|基层管理|一线管理|非管理层|创收职能|entry[-\\s]?level|middle\\s+management|first[-\\s]?line|non[-\\s]?management)"
+        ],
+        "unless_terms": [
+          "re:(?:高级管理|最高管理|执行管理|高管|top\\s+management|senior\\s+management|executive)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_board_scope",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:董事会|女性董事|董事|治理机构|board|supervisory)"
+        ],
+        "unless_terms": [
+          "re:(?:高管|高级管理|管理层|管理者|top\\s+management|senior\\s+management)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "unit_dimension_not_ratio",
+        "rule": "ratio_required",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "board": [
+        "re:(?:董事会|女性董事|董事|治理机构|board|supervisory)"
+      ],
+      "gender": [
+        "re:(?:性别|女性|男性|female|male|gender)"
+      ],
+      "lower_management": [
+        "re:(?:初级管理|中级管理|基层管理|一线管理|非管理层|创收职能|entry[-\\s]?level|middle\\s+management|first[-\\s]?line|non[-\\s]?management)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "top_management": [
+        "re:(?:高级管理|最高管理|执行管理|高管|top\\s+management|senior\\s+management|executive)"
+      ],
+      "topmgmt": [
+        "re:(?:高管|高级管理|管理层|管理者|top\\s+management|senior\\s+management)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-9_02",
+  "text_group": "workforce",
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

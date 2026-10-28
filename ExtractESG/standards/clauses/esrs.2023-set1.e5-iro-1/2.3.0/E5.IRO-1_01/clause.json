@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "8c7cb40ab81e1c07a42287bf24394f4f828e5f7a331459ec9c3c8560047a988d",
   "clause_id": "esrs.2023-set1.e5-iro-1@2.3.0:E5.IRO-1_01",
-  "contract_digest": "df893a199be1e5c39c3e522d207c0879e2ce7e737d3d3a5c44bba668099d8b56",
+  "clause_key": "E5.IRO-1_01",
+  "contract_digest": "236ed6998175b38cc6a18fd1f0c678e6add49e48a1f0278c7017a31725677478",
+  "data_kind": "qualitative",
   "description": "说明主体是否已筛查其资产和活动，以识别自身运营及上下游价值链中的实际和潜在影响、风险与机遇，并说明所用方法、假设和工具。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5.IRO-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether the undertaking has screened its assets and activities in order to identify actual and potential impacts, risks and opportunities in own operations and upstream and downstream value chain, and if so, methodologies, assumptions and tools used",
     "zh": "资产与活动的筛查方法"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5.IRO-1_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

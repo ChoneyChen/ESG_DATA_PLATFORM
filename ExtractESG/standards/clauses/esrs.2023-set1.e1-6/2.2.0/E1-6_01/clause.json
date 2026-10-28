@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "98db98832a6829f1e4d49142c3dc49638d6911fef9b4cf3d5098ea792c5798c9",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_01",
-  "contract_digest": "75fd27a6264f9be644bf651e0f5474ab008a6d318e168aaa4aa47c106850d13a",
+  "clause_key": "E1-6_01",
+  "contract_digest": "dd16b74f134221c13590fa8fc7aebfbceb5500ac607323c22d66c8bfdfa36c0b",
+  "data_kind": "qualitative",
   "description": "范围1、范围2、范围3及温室气体总量披露的结构。识别报告实际采用的行主题、期间列、实体列、单位和总计层级；输出结构成员或说明，不把表内所有数字复制成结构事实。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Gross Scope 1, 2, 3 and total GHG emissions table",
     "zh": "范围1、2、3及温室气体排放总量的披露结构"
@@ -40,8 +49,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

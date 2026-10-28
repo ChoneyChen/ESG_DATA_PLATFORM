@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "69c786c298b387ae6a5bdcac1395a4b610ebdc006e198c12e056872d8bde55e4",
   "clause_id": "esrs.2023-set1.e2-5@2.1.1:E2-5_08",
-  "contract_digest": "5f9cdbac579ac8cdf61ac8aac57836a6611277895f3ca4069ca90db0affa655c",
+  "clause_key": "E2-5_08",
+  "contract_digest": "f6908462302b84738d2bbea56fd8a76216d79ce1a913c2274c3d4f86df3d6ad8",
+  "data_kind": "quantitative",
   "description": "Total amount of substances of very high concern that are generated or used during production or that are procured by main hazard classes of substances of concern。生产生成使用或采购的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
   "disclosure_requirement": "E2-5",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total amount of substances of very high concern that are generated or used during production or that are procured by main hazard classes of substances of concern",
     "zh": "生产生成使用或采购的高度关注物质量"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-5_08",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3e3cee74b2c79730d0c9a22c9ef5f0470e05c9ac2766f8ec6feb93deb56dca29",
   "clause_id": "esrs.2023-set1.gov-3@2.1.1:GOV-3_04",
-  "contract_digest": "c23d612b491101a95310656f5d1d389542ccb3e0aa81b2098e7360435386ca12",
+  "clause_key": "GOV-3_04",
+  "contract_digest": "baef5c152d1154f585e9eb975b9e4625ea3d3526a7f0314f548371a0e985b2e6",
+  "data_kind": "qualitative",
   "description": "Disclosure of how sustainability-related performance metrics are considered as performance benchmarks or included in remuneration policies。可持续绩效与薪酬基准关系。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
   "disclosure_requirement": "GOV-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how sustainability-related performance metrics are considered as performance benchmarks or included in remuneration policies",
     "zh": "可持续绩效与薪酬基准关系"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-034cdbfd5ad10b8a",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-3_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

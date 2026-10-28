@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9c55f5ec9ad603f7f9e086e3a15f128005a81fd96d04462f200deec700177d09",
   "clause_id": "esrs.2023-set1.s2-sbm-3@2.3.0:S2.SBM-3_02",
-  "contract_digest": "9385b144ece6b528763f3b1aa4d9b95550250de7e57556ba30dd75a43a14a5cc",
+  "clause_key": "S2.SBM-3_02",
+  "contract_digest": "7f46d37efa0d0f0088531f14c2cdfb280c64b1c29775123ff2a336bd9016a4be",
+  "data_kind": "qualitative",
   "description": "描述价值链中受重大影响的劳动者类型，包括就业形态和所处环节。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of types of value chain workers subject to material impacts",
     "zh": "受重大影响的价值链劳动者类型"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2.SBM-3_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d68243b98237cfefbed02dbf869f6a40fdac6a1a66f8b17cc243f358632a6015",
   "clause_id": "esrs.2023-set1.mdr-p@2.1.1:MDR-P_01",
-  "contract_digest": "f8f629b60cd7d4245abc37fb7322c970808a15b10fac2a83db50d7c9e7109222",
+  "clause_key": "MDR-P_01",
+  "contract_digest": "bd7402f97d3201c1fb559412bc16c885156685f6b1758c3dab822822eabb5d89",
+  "data_kind": "qualitative",
   "description": "Description of key contents of policy。政策关键内容。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
   "disclosure_requirement": "MDR-P",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of key contents of policy",
     "zh": "政策关键内容"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-P_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

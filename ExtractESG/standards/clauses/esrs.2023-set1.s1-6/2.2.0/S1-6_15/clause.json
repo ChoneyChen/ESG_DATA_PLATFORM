@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d2742b4fbcfc46a8d2c6efcb38c7ff38a10df824022307efebeeaec77a6a0728",
   "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_15",
-  "contract_digest": "34298094cc7765ef21f3619c64ee4edf2041836721d98f0e8e57af905d8bfa1c",
+  "clause_key": "S1-6_15",
+  "contract_digest": "8963e9f60a07792318ff844bf86cf878978fce7be92dcc6a137c2509d3217fa6",
+  "data_kind": "qualitative",
   "description": "Employees numbers are reported at end of reporting period/average/other methodology。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
   "disclosure_requirement": "S1-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Employees numbers are reported at end of reporting period/average/other methodology",
     "zh": "Employees numbers are reported at end of reporting period/average/other methodology"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-6_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

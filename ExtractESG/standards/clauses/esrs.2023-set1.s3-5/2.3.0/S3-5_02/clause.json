@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "cbac98593b67d1dde3dbf00a3cb764740abbb54c0a57f255d4df75392d235969",
   "clause_id": "esrs.2023-set1.s3-5@2.3.0:S3-5_02",
-  "contract_digest": "fbace46c2bcfa1a67aa2d12e2ba25e57e8f55b575d409f83bf06016ca65d54f2",
+  "clause_key": "S3-5_02",
+  "contract_digest": "ed43090584a27e143e3870ad6a47bcad4c6ced8d8c597803da129d195380bc4a",
+  "data_kind": "qualitative",
   "description": "说明受影响社区是否以及如何直接参与对照目标跟踪绩效。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how affected communities  were engaged directly in tracking performance against targets",
     "zh": "受影响社区参与目标绩效跟踪"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-5_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

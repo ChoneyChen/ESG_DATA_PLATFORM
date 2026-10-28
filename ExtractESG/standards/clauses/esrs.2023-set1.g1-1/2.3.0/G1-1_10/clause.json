@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "31de6554a223a0af8f5ffdf4aa71b4bbfed5288fe2cae9e18885ba96b4f527d2",
   "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_10",
-  "contract_digest": "6fd1160b7f5f6dd1a40dc0aa958757f1c70a7ffa0048035e562a3307f7a6ac6b",
+  "clause_key": "G1-1_10",
+  "contract_digest": "ba1056bfa75e8b09859a5901e036ef9965780ce6f07046b9734aaa0e2a060965",
+  "data_kind": "qualitative",
   "description": "说明主体关于商业行为内部培训的政策，包括培训对象、内容与频率。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about policy for training within organisation on business conduct",
     "zh": "商业行为内部培训政策"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-1_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

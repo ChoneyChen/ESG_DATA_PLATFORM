@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "47eba18d3e04868803a59c29fd5676962902523aebb04a2c5d11746cf6f0f7c5",
   "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_08",
-  "contract_digest": "e029a6a938c2c6520871fbebf0b28487c879c9ad4c491d1714650df80a444417",
+  "clause_key": "MDR-A_08",
+  "contract_digest": "1a83c050682f0801acb7801df94f169e182e70c340adb59ae3679d2d4e1fc340",
+  "data_kind": "quantitative",
   "description": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources。行动资源按时间和类型分解。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
   "disclosure_requirement": "MDR-A",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources",
     "zh": "行动资源按时间和类型分解"
@@ -44,8 +53,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-A_08",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

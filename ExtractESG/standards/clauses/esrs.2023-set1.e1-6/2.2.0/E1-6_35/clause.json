@@ -1,14 +1,23 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "df15da5d6c91a1c8536985a86f8e4fad5e01c5483a606c600ba62d190f475d6b",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_35",
-  "contract_digest": "d0b459f5949218fcbc9051580ed3e1fece4e2996dfc5e2e571ac0490035891bd",
+  "clause_key": "E1-6_35",
+  "contract_digest": "90920097c7404b3deae1cc4307a81261260db6683cef8b005c7dc8cda62112b1",
+  "data_kind": "quantitative",
   "description": "净收入对账中的其他净收入或调整项。只提取明确标记为对账其他项的货币值；利润、资产、产量和资源量不得纳入。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Other net revenue",
     "zh": "其他净收入"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_35",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

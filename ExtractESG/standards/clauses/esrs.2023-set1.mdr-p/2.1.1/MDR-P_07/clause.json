@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "37bc54e361290febdedffa9b5e7846c9a118409423dde633b7657bed1dceb392",
   "clause_id": "esrs.2023-set1.mdr-p@2.1.1:MDR-P_07",
-  "contract_digest": "73b673447a1c64a452a279b18bb4b4636ba98066a03456d3b400ae98fba49591",
+  "clause_key": "MDR-P_07",
+  "contract_digest": "efa79114fa24cf76ab49e11f6f16b8cd897905b2c16744d0aa401e25150d073c",
+  "data_kind": "qualitative",
   "description": "Disclosure of reasons for not having adopted policies。未采纳政策的原因。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
   "disclosure_requirement": "MDR-P",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of reasons for not having adopted policies",
     "zh": "未采纳政策的原因"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-P_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

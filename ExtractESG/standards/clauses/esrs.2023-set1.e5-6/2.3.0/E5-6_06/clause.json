@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "cc9f0a139421ba5999979cf8a53855a84d36a9039cf21731674177400a1595ea",
   "clause_id": "esrs.2023-set1.e5-6@2.3.0:E5-6_06",
-  "contract_digest": "9b17ef1f898468ae73afc735604be6a58bcc69f3e8fbcea05b87b41b88c22594",
+  "clause_key": "E5-6_06",
+  "contract_digest": "36ae9f0ba4a5d5e78cf6a2a5c41a92b3859cde99e58ab22ec13cfdca718c56d4",
+  "data_kind": "qualitative",
   "description": "说明时间范围如何定义、财务金额如何估计，以及所采用的关键假设。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of how time horizons are defined, financial amounts are estimated and of critical assumptions made (resource use and circular economy)",
     "zh": "时间范围、金额估计方法与关键假设"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-6_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

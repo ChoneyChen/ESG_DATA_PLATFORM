@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4c7744295fa8edfc1f41db53a4cf55494b2c38c87ce623ee65b59aea6b37ab97",
   "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_02",
-  "contract_digest": "8f7877421359e5c75cd40d29ed340999321dd8e7adc34f29f921d6f3f1343538",
+  "clause_key": "E5-3_02",
+  "contract_digest": "ead276f2fe7d825f161edb91f1f3d274397d2b23869b35ea8b18870929864cc7",
+  "data_kind": "qualitative",
   "description": "说明目标如何与循环设计应用范围的扩大相关联，并给出衡量方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how target relates to increase of circular design",
     "zh": "目标与循环设计提升的关系"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-3_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

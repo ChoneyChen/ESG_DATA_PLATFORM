@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d6762ff7feda2248b7cea086175f6cfadc134fd3b8209d2229cce7b52c6ebfe2",
   "clause_id": "esrs.2023-set1.gov-3@2.1.1:GOV-3_01",
-  "contract_digest": "0aa410896329640b1aeaf1a698ff1ac86f1e7c48449761cd7d328b99acf91913",
+  "clause_key": "GOV-3_01",
+  "contract_digest": "478da4605136609652326d48d9780c3fde394ab426a0f460401403ef5030e717",
+  "data_kind": "qualitative",
   "description": "Incentive schemes and remuneration policies linked to sustainability matters for members of administrative, management and supervisory bodies exist。可持续挂钩激励薪酬机制是否存在。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
   "disclosure_requirement": "GOV-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Incentive schemes and remuneration policies linked to sustainability matters for members of administrative, management and supervisory bodies exist",
     "zh": "可持续挂钩激励薪酬机制是否存在"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-034cdbfd5ad10b8a",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-3_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

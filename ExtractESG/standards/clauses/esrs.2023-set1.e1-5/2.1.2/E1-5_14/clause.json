@@ -1,14 +1,23 @@
 {
   "canonical_unit": "MWh",
+  "clause_digest": "08af0e712aa75ba2947fb957f300bec9260f879d8af544a7421f314580638eab",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_14",
-  "contract_digest": "b9c358390e0032ef623212e81e3236f038456dd593c67f5a6be68ee9a3f8715c",
+  "clause_key": "E1-5_14",
+  "contract_digest": "9127e18363cd4f11cbe9dc081beb54f56b6af0d22ff831a513cfe1af0eaf1623",
+  "data_kind": "quantitative",
   "description": "外购或购入的化石电力、热力、蒸汽和冷却能源",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Purchased or acquired electricity, heat, steam and cooling from fossil sources",
     "zh": "外购或购入的化石电力、热力、蒸汽和冷却能源"
@@ -45,8 +54,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "energy"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_14",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.energy",
   "value_origin": "reported",
   "value_type": "numeric"

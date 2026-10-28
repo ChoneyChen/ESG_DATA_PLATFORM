@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b33a31d1940421be758cf1027169b2eb12540a300a78b8c401905b8771f31024",
   "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_05",
-  "contract_digest": "9477fe651cda628be6a6ae43617586b79561bc39f041e88ac5070adb2ad89b19",
+  "clause_key": "S1-7_05",
+  "contract_digest": "1bb9bfbcc1399f93a8a9009db9c5512a9aa4d2537416c3d7379295cc5b6f285b",
+  "data_kind": "qualitative",
   "description": "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-7",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of the most common types of non-employees (for example, self-employed people, people provided by undertakings primarily engaged in employment activities, and other types relevant to the undertaking), their relationship with the undertaking, and the type of work that they perform.",
     "zh": "非员工的主要类型、关系与工作内容"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-7_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

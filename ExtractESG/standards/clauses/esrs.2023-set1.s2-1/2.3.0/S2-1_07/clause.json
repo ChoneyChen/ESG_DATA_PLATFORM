@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a62f9b37a5978d09af0b468d581ee1d1d0e7c1bf1c37d7c49283e4857f4ce8c9",
   "clause_id": "esrs.2023-set1.s2-1@2.3.0:S2-1_07",
-  "contract_digest": "4e6c549e4f9a7a9d596bd823a5ef108ca4b56dd8b263a8450a6831554437be2f",
+  "clause_key": "S2-1_07",
+  "contract_digest": "68da32d46905cb809abd86873455ed10a747e922a43f999b67dfb33a1776a583",
+  "data_kind": "qualitative",
   "description": "说明供应商行为准则的条款是否完全符合适用的国际劳工组织标准，并指出对应标准。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Provisions in supplier codes of conudct are fully in line with applicable ILO standards",
     "zh": "供应商行为准则与ILO标准的一致性"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-1_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

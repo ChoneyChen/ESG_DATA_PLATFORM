@@ -1,14 +1,23 @@
 {
   "canonical_unit": "MWh",
+  "clause_digest": "f8e2b78e142ec5e99c740810d937c8cf3c7cdb5ca2ce45d8d3da01840768df25",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_17",
-  "contract_digest": "934ee8da302a4ebbc78ffd05f2074833e0a23efbdfebc3afa6df86afae93a28f",
+  "clause_key": "E1-5_17",
+  "contract_digest": "3f4bec8572cc20811780409b524bb5e5c80d5fb0c4f87b0208bb7d1b02c18fed",
+  "data_kind": "quantitative",
   "description": "可再生能源生产量",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Renewable energy production",
     "zh": "可再生能源生产量"
@@ -44,8 +53,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "energy"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_17",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.energy",
   "value_origin": "reported",
   "value_type": "numeric"

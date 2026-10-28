@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f2d05245abf482e9f91f1dd6772e6a48007e8815b2791f6072087122bc0e68de",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_14",
-  "contract_digest": "fb51326bfbd0f85ef5cbaacc76dcccf6bf7de5df95a04f2e04861e85ed6a07de",
+  "clause_key": "GOV-1_14",
+  "contract_digest": "ab4321dfba1c85a3adc2f95e73031824862632b2e911665306679e46954dd8c3",
+  "data_kind": "qualitative",
   "description": "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored。目标设定和进展监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored",
     "zh": "目标设定和进展监督"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-1_14",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

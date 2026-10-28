@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "67a202bbdff875a7435da98efcf543c521da3810cda4a5ac7da7b458c53cc3cd",
   "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_02",
-  "contract_digest": "c3f356ec642a5afedeb4db42ea568a42ab92e2b93a52e485ba5065f7f8cf6811",
+  "clause_key": "E5-2_02",
+  "contract_digest": "f072525d42fff5b692b6f98221162c83a92c175375cca32557aeadf70a36903a",
+  "data_kind": "qualitative",
   "description": "说明提高二次原材料使用比例的措施、目标与报告期内的进展。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of higher rates of use of secondary raw materials",
     "zh": "二次原材料使用比例提升"
@@ -18,15 +27,15 @@
   "obligation_class": "voluntary_if_material",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-034cdbfd5ad10b8a",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-2_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

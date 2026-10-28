@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "ba819a9b17b9586986f7be2dbf441aee3d83e5cbfe680571d5fe4a8bb6f5ed69",
   "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_15",
-  "contract_digest": "7096d23b8020f054c7dba3e0a06706b523820e185b5724f3977e79c17f17539d",
+  "clause_key": "IRO-1_15",
+  "contract_digest": "29200c04d4296c29ff2e625fb437038dc3ccb49c54580f57439de8539b84f7b2",
+  "data_kind": "qualitative",
   "description": "Description of how process to identify, assess and manage impacts, risks and opportunities has changed compared to prior reporting period。识别评估流程跨期变更。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
   "disclosure_requirement": "IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how process to identify, assess and manage impacts, risks and opportunities has changed compared to prior reporting period",
     "zh": "识别评估流程跨期变更"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "IRO-1_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

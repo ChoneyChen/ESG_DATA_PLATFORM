@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f8a59c2b589f62203fecd0a96f979a64ef0b2f923683b8bc3098e8874efeeedc",
   "clause_id": "esrs.2023-set1.s2-3@2.3.0:S2-3_12",
-  "contract_digest": "cd2ea7c7ce4721fd0d020bd1617822ab0f3fb818ef335f9bfdb6b7aa809d6166",
+  "clause_key": "S2-3_12",
+  "contract_digest": "36cd6905320a91b988c51451c42235d260a72b5febcd1971c3f4743f9800ae87",
+  "data_kind": "qualitative",
   "description": "说明提出关切或需求的渠道是否允许价值链劳动者匿名使用。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Channels to raise concerns or needs allow for value chain workers to use them anonymously",
     "zh": "价值链劳动者匿名提出关切的渠道"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-3_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

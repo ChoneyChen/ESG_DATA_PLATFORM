@@ -1,14 +1,23 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "1a5c8ada9148dd5dc192b3e1b4db25cc77a1f0a3d53119e6654d66ee0538cfeb",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_11",
-  "contract_digest": "8277af1a45b354a984ab9094e36f159a44262b051a10c40a709cb4525557d691",
+  "clause_key": "E2-4_11",
+  "contract_digest": "e8a572d117f3d7b1da79160db5e1640f04a3acb9b4ce72f2f39b8e5dc280cb26",
+  "data_kind": "quantitative",
   "description": "AR 23(c) 的可选背景信息。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of total emissions of pollutants to water occurring in areas at water risk",
     "zh": "水风险地区水污染物排放占比"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_11",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

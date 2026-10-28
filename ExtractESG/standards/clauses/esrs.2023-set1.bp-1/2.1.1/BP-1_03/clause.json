@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "becebf31f5b78984bb48de46077ff3b014f6f97ac38cac2f6cc5c49caa052b2e",
   "clause_id": "esrs.2023-set1.bp-1@2.1.1:BP-1_03",
-  "contract_digest": "72c24e8ee026188e4befdd307de93f839f2558cc470d647204cab31dbfbf1f2a",
+  "clause_key": "BP-1_03",
+  "contract_digest": "b328b9e86fb70507d3f3425b948c5a667f5c0b467f76e4c6128425e295222984",
+  "data_kind": "qualitative",
   "description": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting。纳入合并但豁免独立披露的子公司。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
   "disclosure_requirement": "BP-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting",
     "zh": "纳入合并但豁免独立披露的子公司"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-1_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

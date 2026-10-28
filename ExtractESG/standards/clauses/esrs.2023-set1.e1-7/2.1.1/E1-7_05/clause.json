@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "e64764c89fb233b6092f1606fe0e1b95ed2eba9eb3b5f21172a07e35f5661afe",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_05",
-  "contract_digest": "bf518afd0d0355fd786c44e12731531af5df75e8728867457e9512ee8af06b97",
+  "clause_key": "E1-7_05",
+  "contract_digest": "07e6710dedf7196399d79553ef7c14cb51ccc11d05098f795d0786f7836d1ceb",
+  "data_kind": "quantitative",
   "description": "Total GHG removals and storage。温室气体移除与储存量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total GHG removals and storage",
     "zh": "温室气体移除与储存量"
@@ -46,8 +55,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-emissions"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_05",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

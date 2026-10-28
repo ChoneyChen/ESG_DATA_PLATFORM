@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5cfb87349dc36bca6d9cb6da88c68eec972981679cd7c85cf804b4fbaa9f8776",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_18",
-  "contract_digest": "76978df1f507f56437f115141547ef0a967f879f6e5f1a36996465306b362995",
+  "clause_key": "E1-9_18",
+  "contract_digest": "047ffe4230764e01df3663c1619eb731e05ef1f5cdfbc2d1595f6c052cabd1d4",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether and how potential effects on future financial performance and position for assets and business activities at material transition risk have been assessed。转型风险财务影响评估方法。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how potential effects on future financial performance and position for assets and business activities at material transition risk have been assessed",
     "zh": "转型风险财务影响评估方法"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_18",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

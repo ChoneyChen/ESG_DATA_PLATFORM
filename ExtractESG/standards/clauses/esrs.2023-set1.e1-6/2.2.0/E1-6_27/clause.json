@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e8ff4fa7c1f0c4fbb2c518dbed3df1d71f0d2fbbf1fa7f2448ffbcbd5e77f8c9",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_27",
-  "contract_digest": "aea1ff57d6ff0212eef78c0ac81a2dfb96cfb275778c891765a07129e805daab",
+  "clause_key": "E1-6_27",
+  "contract_digest": "08f2d04e5e221198bb0dd1d7190458f7db96181f61bdebb9b749f1ecee9692d5",
+  "data_kind": "qualitative",
   "description": "纳入温室气体盘查的范围3类别清单。每个类别形成独立列表事实并保留证据；总计、年份、单位和类别排放数字不是清单成员。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Scope 3 categories included in the inventory",
     "zh": "纳入盘查的范围3类别清单"
@@ -41,8 +50,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_27",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

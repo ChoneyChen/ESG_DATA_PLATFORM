@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "45437817e73d3aabf96f22900d6d85faf01f0fe9e7ef4342d8423dd21837ca12",
   "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_04",
-  "contract_digest": "5b1301983522411dae0ccb88981179c28c1912f45ef0a0c4d1045c3bc5818898",
+  "clause_key": "E4-1_04",
+  "contract_digest": "1d8d1eb8ed99c488abe7163b8ad80fadeea58d91ca5b863c22d89a1f945f45c0",
+  "data_kind": "qualitative",
   "description": "说明韧性分析采用的短期、中期和长期时间范围及其划分依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of time horizons used for analysis (biodiversity and ecosystems)",
     "zh": "韧性分析采用的时间范围"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-1_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

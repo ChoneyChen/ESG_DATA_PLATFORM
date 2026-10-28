@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9192449c4786d80d960530050511b8def9c140443a888f736960a3da038d4df5",
   "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_11",
-  "contract_digest": "c229868c9656baa39c322c2960e27a87bba1fe65fff897156f0372f184eb9343",
+  "clause_key": "E4.IRO-1_11",
+  "contract_digest": "ec8d49c126dd629bb8eb2d317ef6bad8f2055be2877993fad346d6c7a3823046",
+  "data_kind": "qualitative",
   "description": "说明主体为何选择所考虑的生物多样性和生态系统情景，以及这些情景与自身风险和机遇的相关性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of why considered scenarios were taken into consideration",
     "zh": "采用特定情景的理由"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.IRO-1_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

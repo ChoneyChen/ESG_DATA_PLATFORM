@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5d8377b48b4796153df6562bf9e9ab61969fc0f7db5186ab51dcd5718debbdaf",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_05",
-  "contract_digest": "8e067d05de1b8debce9b9170d1e9f13bd849d536a7698761fce99b337d2bcc86",
+  "clause_key": "SBM-3_05",
+  "contract_digest": "f7e6f34e3a41d282f7b2c838433f22a9027ec4f8be19d2a24dfe8d35b0224660",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether and how material impacts originate from or are connected to strategy and business model。影响与战略业务来源关系。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how material impacts originate from or are connected to strategy and business model",
     "zh": "影响与战略业务来源关系"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

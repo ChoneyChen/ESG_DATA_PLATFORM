@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9aa79ad6fe2e5c704330b4bb829adf5d9064bff40c4e6f96f0ccdbbd534aacc8",
   "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_04",
-  "contract_digest": "ba8afb512d47e11f5ada343019b5d5723d1d07edf7762049358caaa6e20371b6",
+  "clause_key": "G1-1_04",
+  "contract_digest": "b2f0fa20f6bdb4ad161f9ebf3df4e714f26225da4888a9df046ec903d2fd0e6c",
+  "data_kind": "qualitative",
   "description": "披露符合《联合国反腐败公约》的反腐败或反贿赂政策的实施时间表，包括里程碑与责任部门。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Timetable for implementation of policies on anti-corruption or anti-bribery consistent with United Nations Convention against Corruption",
     "zh": "反腐败或反贿赂政策的实施时间表"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-1_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

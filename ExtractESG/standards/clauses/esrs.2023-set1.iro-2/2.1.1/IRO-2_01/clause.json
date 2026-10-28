@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7f9c5daeccd16dd6dc960d3a25b56a41d6131c8253e6e1a2b05ff8965eb4757b",
   "clause_id": "esrs.2023-set1.iro-2@2.1.1:IRO-2_01",
-  "contract_digest": "e1247ec67ae74889e2b3540cdfbd8855ba965b44924c6f344b10a7e4a5992b37",
+  "clause_key": "IRO-2_01",
+  "contract_digest": "a0ecc19b8b706cd5c70dc338d11cccd44a06a41102970713639d85ff382f7b15",
+  "data_kind": "qualitative",
   "description": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement。其他欧盟法规数据点位置清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
   "disclosure_requirement": "IRO-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement",
     "zh": "其他欧盟法规数据点位置清单"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "IRO-2_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

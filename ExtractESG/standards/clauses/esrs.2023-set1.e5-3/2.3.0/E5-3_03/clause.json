@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a6c5302bb50b75313e1547569917c29a7e8f741d78e448d130c74a94cc097ac8",
   "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_03",
-  "contract_digest": "1ef8764384190076b01994aff2dc618c3b8a62957bbc8f6fbf7f254dab2af353",
+  "clause_key": "E5-3_03",
+  "contract_digest": "83c043e984220daaf84697f25383541051dd6e7bb4e3e8e1fd6e3e1efe7ca393",
+  "data_kind": "qualitative",
   "description": "说明目标如何与循环材料使用率的提升相关联，包括基准值和目标值。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how target relates to increase of circular material use rate",
     "zh": "目标与循环材料使用率提升的关系"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-3_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

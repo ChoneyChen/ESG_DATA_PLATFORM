@@ -1,15 +1,37 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c108eb74aa9f15964f2f506f8ccd2e145a8587457d2d926139e3808beffad461",
   "clause_id": "esrs.2023-set1.s3-4@2.3.0:S3-4_11",
-  "contract_digest": "188decebdfb8b8ec7d1920b48bd1ea126c5edbfa8e2366d8e46b93b65eacdcb7",
+  "clause_key": "S3-4_11",
+  "contract_digest": "d0e8275d9f6530b38049d4baf0b2f9506edc4cd637752472a31e46c26660db62",
+  "data_kind": "qualitative",
   "description": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-4",
   "disclosure_role": "anchor",
+  "display_definition": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。",
+  "display_label": "与受影响社区相关的严重人权问题与事件",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": "communities",
+  "group_terms": [
+    "Disclosure of any  any particular policy provisions for preventing and addressing impacts on indigenous peoples",
+    "防止和应对原住民影响的政策条款",
+    "披露主体政策中用于防止和应对对原住民影响的特定条款，包括自由、事先和知情同意安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed",
+    "受影响社区直接提出关切或需求的渠道",
+    "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Description of whether and how the undertaking has taken action to provide or enable remedy in relation to an actual material impact",
+    "对实际重大影响提供或促成补救的行动（社区）",
+    "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Disclosure of severe human rights issues and incidents connected to affected communities",
+    "与受影响社区相关的严重人权问题与事件",
+    "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of severe human rights issues and incidents connected to affected communities",
     "zh": "与受影响社区相关的严重人权问题与事件"
@@ -43,8 +65,56 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "严重人权",
+          "severe human rights"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_group_scope",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "社区",
+          "community"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-4_11",
+  "text_group": "communities",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

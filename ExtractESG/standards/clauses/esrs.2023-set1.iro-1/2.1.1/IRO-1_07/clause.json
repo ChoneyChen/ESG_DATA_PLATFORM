@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "58c6219b15715f0ade32fc61563014b70450cde9da017bd754e7c7699cec7075",
   "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_07",
-  "contract_digest": "13164d112629296502c54ad81fb10dc2b5020fd77f9f33e9641d124251daf334",
+  "clause_key": "IRO-1_07",
+  "contract_digest": "e7139cd1363badff52a8598b226f96c064f9034da39c460e14c4328695452440",
+  "data_kind": "qualitative",
   "description": "Description of process used to identify, assess, prioritise and monitor risks and opportunities that have or may have financial effects。财务风险机会识别评估流程。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
   "disclosure_requirement": "IRO-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of process used to identify, assess, prioritise and monitor risks and opportunities that have or may have financial effects",
     "zh": "财务风险机会识别评估流程"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "IRO-1_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,14 +1,23 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "f16586f7dce230579deee683fcfdbca68a05da32a2d0f1434f7ba6d99d6a2ce4",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_07",
-  "contract_digest": "c593e311fe49def5393e75da3f06eff73d6d935e49bcf3123d64ec6a564e5c85",
+  "clause_key": "E2-4_07",
+  "contract_digest": "661929f2c3386f89d28067296d3b930710cfbc7e48c80b6d78a7d8e27eb6aaf6",
+  "data_kind": "quantitative",
   "description": "微塑料使用包括生产过程使用或采购且按 AR 20 离开设施的相关量。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Microplastics used",
     "zh": "使用的微塑料量"
@@ -44,8 +53,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_07",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

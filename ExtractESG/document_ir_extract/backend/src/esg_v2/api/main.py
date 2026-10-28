@@ -412,6 +412,7 @@ def _dispatch_plan_step(name, config, document, secrets):
             model=preparation.get("ocr_model", "PaddleOCR-VL-1.6"),
             allow_api_fallback=preparation.get("allow_cloud_ocr", config["ocr_provider"] != "local_paddleocr"),
             page_selection=preparation.get("page_selection", "all"),
+            clause_profile=preparation.get("clause_profile"),
             token=secrets.get("ocr_token")))
     if name == "ir":
         return queue_document_ir_task(DocumentIrPipelineTaskRequest(build_request=DocumentIrBuildRequest(
@@ -489,7 +490,8 @@ def _dispatch_processing_step(stage, config, state, secrets):
         return queue_ocr_task(OcrPipelineTaskRequest(asset_id=state["asset_id"],
             ocr_provider=config["ocr_provider"], model=config["ocr_model"],
             allow_api_fallback=config["allow_cloud_ocr"], token=secrets.get("ocr_token"),
-            page_selection=config.get("page_selection", "all")))
+            page_selection=config.get("page_selection", "all"),
+            clause_profile=config.get("clause_profile")))
     if stage == "ir":
         return queue_document_ir_task(DocumentIrPipelineTaskRequest(build_request=DocumentIrBuildRequest(
             ocr_run_id=state["ocr_run_id"], document_label=state["file_name"],
@@ -1472,6 +1474,7 @@ def queue_ocr_task(request: OcrPipelineTaskRequest = Body(...)) -> PipelineTask:
         optional_payload=request.optional_payload,
         poll_interval_seconds=request.poll_interval_seconds,
         page_selection=request.page_selection,
+        clause_profile=request.clause_profile,
         page_indices=request.page_indices,
     )
     state = OcrJobState(
@@ -1869,6 +1872,7 @@ async def create_ocr_job(
     useChartRecognition: Annotated[bool, Form()] = False,
     poll_interval_seconds: Annotated[float, Form()] = settings.poll_interval_seconds,
     page_selection: Annotated[str, Form()] = "all",
+    clause_profile: Annotated[str | None, Form(description="Clause selection profile for page targeting")] = None,
     page_indices: Annotated[str | None, Form(description="Comma-separated original 0-based PDF page indices")] = None,
 ) -> OcrJobState:
     _require_processing_ready()
@@ -1883,7 +1887,7 @@ async def create_ocr_job(
             status_code=400,
             detail="A URL source requires API fallback in local-first mode; upload the PDF for local OCR",
         )
-    if page_selection not in {"all", "foundation16"}:
+    if page_selection not in {"all", "foundation16", "clauses"}:
         raise HTTPException(status_code=400, detail=f"Unsupported page selection: {page_selection}")
     try:
         target_pages = [int(item) for item in page_indices.split(",") if item.strip()] if page_indices else None
@@ -1921,6 +1925,7 @@ async def create_ocr_job(
         ),
         poll_interval_seconds=poll_interval_seconds,
         page_selection=page_selection,
+        clause_profile=clause_profile,
         page_indices=target_pages,
     )
 

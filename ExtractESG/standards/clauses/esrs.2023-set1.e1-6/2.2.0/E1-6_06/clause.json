@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a41ee6d53b01ab8aa8995d09a195a0258de1be64a34d23f739c752307c113250",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_06",
-  "contract_digest": "7ab718a6e0bd7db42950f7b31882eae2a2737a4be7f1783f241b3d589832cac3",
+  "clause_key": "E1-6_06",
+  "contract_digest": "79be3e7223baf2a47373768c37e9b4b40bf95472b4eb6148bfbab67fb84eee5d",
+  "data_kind": "qualitative",
   "description": "企业对范围3排放所作的价值链阶段分解。上游和下游等实际披露阶段分别形成独立清单事实并保留证据；合计、标题和注释不是价值链阶段。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Scope 3 value-chain disaggregation",
     "zh": "范围3价值链分解结构"
@@ -40,8 +49,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

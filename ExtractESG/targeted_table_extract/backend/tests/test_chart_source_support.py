@@ -341,7 +341,7 @@ def test_identity_evidence_dto_uses_frozen_source_identity_and_preserves_conflic
     assert "source_identity" not in bind_source_row(expanded, physical, {})["identity_evidence"]["reporting_entity"][0]
 
 
-def test_real_understanding_path_emits_frozen_dto_and_shared_source_reuses_it(tmp_path):
+def test_real_understanding_path_emits_frozen_dto_and_is_read_per_clause(tmp_path):
     _, _, _, package, metric = build_pipeline(tmp_path / "package")
     ir = chart_ir(tmp_path, "exact_text", category="Example Group")
     _, obj, _ = chart_packet(ir)
@@ -372,4 +372,6 @@ def test_real_understanding_path_emits_frozen_dto_and_shared_source_reuses_it(tm
     assert item["evidence_contract_version"] == "bound-identity-evidence-v1" and item["locators"][0]["ir_object_id"] == "point-text"
     assert "ir_revision" not in item["locators"][0]  # the real SourceLocator is retained, not rewritten
     second = session("second")._understand(obj, Model(), lambda: False)
-    assert len(calls) == 1 and second["facts"] == first["facts"]
+    # A neutral understanding is not reused across clause targets: the second
+    # session reads again, and its frozen DTO is identical for the same input.
+    assert len(calls) == 2 and second["facts"] == first["facts"]

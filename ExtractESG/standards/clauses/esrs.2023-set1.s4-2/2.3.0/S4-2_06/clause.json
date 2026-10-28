@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "39e1cda58ac39afa26e70c0d0649f85b5b5d8de3cb8fe67f0af5b0424836b432",
   "clause_id": "esrs.2023-set1.s4-2@2.3.0:S4-2_06",
-  "contract_digest": "c6863b10ebd6fd7907654b6c5b8e9f554b10d4721ab7f67f7b7a91e9b88e9ddf",
+  "clause_key": "S4-2_06",
+  "contract_digest": "28c6d4bd818712ca70dfe349dced2a896793bb3650131447ce2c08ae5b2af25e",
+  "data_kind": "qualitative",
   "description": "说明主体为深入了解尤其易受伤害或边缘化的消费者和终端用户观点所采取的步骤。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of steps taken to gain insight into perspectives of  consumers and end-users  / consumers and end-users that may be particularly vulnerable to impacts and (or) marginalised",
     "zh": "了解易受伤害或边缘化消费者观点的步骤"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-2_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d7f3886f4b4bc2a75843dca714d639b3d6ad3b5416d7340511af923512b23bf4",
   "clause_id": "esrs.2023-set1.mdr-m@2.1.1:MDR-M_03",
-  "contract_digest": "f1dca925bebc375c93d7a5ca22ca34a9c59844477602746bd34e25bd18838104",
+  "clause_key": "MDR-M_03",
+  "contract_digest": "a5f99f9c388eb77c89b384300e382e0bcd3e1916388070a28a5a5cad4e1680b8",
+  "data_kind": "qualitative",
   "description": "Type of external body other than assurance provider that provides validation。指标外部验证机构。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
   "disclosure_requirement": "MDR-M",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Type of external body other than assurance provider that provides validation",
     "zh": "指标外部验证机构"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-M_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

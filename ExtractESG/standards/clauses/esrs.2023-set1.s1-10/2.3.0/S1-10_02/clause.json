@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "87654f04177eb896382e867b8470ee1975d829ce52ca7ad83dd741bc6292e06b",
   "clause_id": "esrs.2023-set1.s1-10@2.3.0:S1-10_02",
-  "contract_digest": "b6e99efc8d701ab56a7cc9558d844c32388ffd8b7b168a470e1b7a0c7b25fdcd",
+  "clause_key": "S1-10_02",
+  "contract_digest": "ff3ec511d2f6055e7ee286a9cbc2d8acd515361692802cdee030964b9a66259a",
+  "data_kind": "qualitative",
   "description": "以表格披露员工工资低于适用足额工资基准的国家，以及涉及的员工范围。表结构只承载成员与列的定义，不单独形成带值事实。",
   "disclosure_requirement": "S1-10",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "表结构只承载成员与列的定义，不单独形成带值事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Countries where employees earn below the applicable adequate wage benchmark [table]",
     "zh": "员工工资低于适用足额工资基准的国家表"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-10_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

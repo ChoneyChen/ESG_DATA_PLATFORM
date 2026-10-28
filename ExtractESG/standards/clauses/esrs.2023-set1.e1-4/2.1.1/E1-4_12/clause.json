@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "579b24c975053ed33a83e621586de243dfd415c72329ced7b81586409aad6a36",
   "clause_id": "esrs.2023-set1.e1-4@2.1.1:E1-4_12",
-  "contract_digest": "9554fd4271775e46857054cf3060063128b1d4bd8c4b1cc97217e7c760c33f22",
+  "clause_key": "E1-4_12",
+  "contract_digest": "1855c14530f3f28847c1d82157eba48014f80753990831e5b405c9cedd168323",
+  "data_kind": "quantitative",
   "description": "Absolute value of market-based Scope 2 Greenhouse gas emissions reduction。范围2市场法绝对减排目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
   "disclosure_requirement": "E1-4",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Absolute value of market-based Scope 2 Greenhouse gas emissions reduction",
     "zh": "范围2市场法绝对减排目标"
@@ -18,15 +27,15 @@
   "obligation_class": "conditional_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "目标期 · 集团合并 · 强度",
+      "label_zh": "目标期 · 集团合并 · 总量",
       "method": null,
       "period": "target_period",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-0b765dc8d99dc1dd",
+      "scope_id": "scope-d53d74e3be096220",
       "value_role": "target"
     }
   ],
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-emissions"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-4_12",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

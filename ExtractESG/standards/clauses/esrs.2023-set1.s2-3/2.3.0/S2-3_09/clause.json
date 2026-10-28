@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a81112751e0d491c5d73b254d3e261c58fe4ebbf61dff3e8437b75b4fe6c0feb",
   "clause_id": "esrs.2023-set1.s2-3@2.3.0:S2-3_09",
-  "contract_digest": "2472ab948afced188e2772322b19d9394b6df750391b45627c8597c81bd77dd1",
+  "clause_key": "S2-3_09",
+  "contract_digest": "1115de39a59214f1e28e45391ecd6493d91005b3b12cfee1e6d72609c129206f",
+  "data_kind": "qualitative",
   "description": "说明价值链劳动者是否以及如何在其受雇或签约主体的层级使用申诉渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how value chain workers are able to access channels at level of undertaking they are employed by or contracted to work for",
     "zh": "价值链劳动者在其受雇或签约层级使用渠道的能力"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-3_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

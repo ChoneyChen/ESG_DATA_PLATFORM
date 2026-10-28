@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "6087a7992c11fff6207521dd311ee2a2a5bdce4c023e1ab6739683ae9f89c854",
   "clause_id": "esrs.2023-set1.s1-5@2.3.0:S1-5_03",
-  "contract_digest": "578cbd864e1bbff3f8298ad45ef91b4e4abd113bda4a7b71c957cd494fa8a237",
+  "clause_key": "S1-5_03",
+  "contract_digest": "a3a635dc22cca6ca1f5db3c6b3ab1e1b23924e9582a96b9cf303f688d7fe9fdb",
+  "data_kind": "qualitative",
   "description": "说明员工或员工代表是否以及如何直接参与识别主体绩效带来的经验教训或改进机会。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how own workforce or workforce' representatives were engaged directly in identifying lessons or improvements as result of undertakings performance",
     "zh": "员工或其代表参与经验与改进识别"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-5_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

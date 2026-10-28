@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "efc12893b6837133b029dd960882de7afbfdda191136c60609abd988bca47245",
   "clause_id": "esrs.2023-set1.s3-sbm-3@2.3.0:S3.SBM-3_08",
-  "contract_digest": "3a9c2b37e1c55d7a55218a2c2074d409722e92bec2038fbeaccc1cc0ee79f625",
+  "clause_key": "S3.SBM-3_08",
+  "contract_digest": "0173479af164237d205076f8fa812ed19d207223bc646d6a211c92614ff78690",
+  "data_kind": "qualitative",
   "description": "说明社区相关重大风险与机遇中，哪些涉及特定群体。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of which of material risks and opportunities arising from impacts and dependencies on affected communities are impacts on specific groups",
     "zh": "重大风险与机遇对应的特定社区群体"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3.SBM-3_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

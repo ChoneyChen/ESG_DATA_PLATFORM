@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "1f9cb9859d8711a183d6ceb4bcaa4d9a62cedabb9487300c8526ce87d1c1361c",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_16",
-  "contract_digest": "7fc0150dd8dddbc0ff0137aa2a0ef86385f01bb7c9381d47acf61abf98fce80f",
+  "clause_key": "S1-4_16",
+  "contract_digest": "561b20e825a2fb9c615b086146555c866cd000af89a1d2fb42cc2e1ccdba03d3",
+  "data_kind": "qualitative",
   "description": "说明员工和员工代表是否以及如何参与以积极影响为主要目的的项目或流程的设计与实施决策。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how workers and workers' representatives play role in decisions regarding design and implementation of programmes or processes whose primary aim is to deliver positive impacts for workers",
     "zh": "员工在设计实施积极影响项目中的参与"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_16",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

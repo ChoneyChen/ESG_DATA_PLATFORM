@@ -36,7 +36,7 @@ def main() -> int:
     ocr.add_argument("--use-chart-recognition", action="store_true")
     ocr.add_argument(
         "--page-selection",
-        choices=("all", "foundation16"),
+        choices=("all", "foundation16", "clauses"),
         default="all",
         help="foundation16 OCRs only the pages a text-layer selector picks for the ESRS foundation datapoints",
     )

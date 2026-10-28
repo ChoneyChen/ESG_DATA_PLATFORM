@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "6fe064b05fd2984d980b169fae0c9a4843b28005c610562a297b7fb65b107c6f",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_11",
-  "contract_digest": "5dbeb473cdb9991f958f1fc610a4febb60c28d9a74027ab7aaaddfe75235ab96",
+  "clause_key": "SBM-3_11",
+  "contract_digest": "5840615392c5069c9a66e193964537acc54fb08a32968e329ed86adaebfbe2bb",
+  "data_kind": "qualitative",
   "description": "Disclosure of changes to material impacts, risks and opportunities compared to previous reporting period。重要事项跨期变更。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of changes to material impacts, risks and opportunities compared to previous reporting period",
     "zh": "重要事项跨期变更"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

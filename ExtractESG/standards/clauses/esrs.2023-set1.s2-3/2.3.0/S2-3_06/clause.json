@@ -1,15 +1,37 @@
 {
   "canonical_unit": null,
+  "clause_digest": "77ca49e39474966425c0c9c3f72ff67cc22ca61527a894447ac09962166ce0f0",
   "clause_id": "esrs.2023-set1.s2-3@2.3.0:S2-3_06",
-  "contract_digest": "bec75e4d3565a14f88e7f5aa9a756e8bf198c0b82c6778e202c195b072056d8a",
+  "clause_key": "S2-3_06",
+  "contract_digest": "3b90fe5b6adf5b006aaf18922bd512badc5c928cb857f98d7a5522a769353186",
+  "data_kind": "qualitative",
   "description": "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-3",
   "disclosure_role": "anchor",
+  "display_definition": "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。",
+  "display_label": "防止报复的政策（价值链劳动者）",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": "value_chain",
+  "group_terms": [
+    "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour",
+    "政策对人口贩运、强迫劳动和童工的明确覆盖（价值链）",
+    "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Disclosure of specific channels in place for value chain workers to raise concerns or needs directly with undertaking and have them addressed",
+    "价值链劳动者直接提出关切或需求的渠道",
+    "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
+    "防止报复的政策（价值链劳动者）",
+    "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Disclosure of severe human rights issues and incidents connected to upstream and downstream value chain",
+    "价值链中的严重人权问题与事件",
+    "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "group_unit_terms": [],
   "labels": {
     "en": "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
     "zh": "防止报复的政策（价值链劳动者）"
@@ -42,8 +64,58 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "报复",
+          "retaliation"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_group_scope",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "价值链",
+          "value chain",
+          "供应商",
+          "supplier"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-3_06",
+  "text_group": "value_chain",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

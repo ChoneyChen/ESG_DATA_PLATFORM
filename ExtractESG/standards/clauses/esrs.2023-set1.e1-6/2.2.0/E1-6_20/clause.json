@@ -1,14 +1,23 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "f53a3a0e5b2a0271b0ab0431b3d92b1b9defff5a82b1b7f8c47e254557563d21",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_20",
-  "contract_digest": "f2ced272b7264d2993b0e6b7244f9f646f1d784384f46e4379141bec676786c1",
+  "clause_key": "E1-6_20",
+  "contract_digest": "c4ea952a3614947a36ecad3e4ada98190f54ed2902fbb7e20648efe9ec7aaedf",
+  "data_kind": "quantitative",
   "description": "基于市场法范围2排放中与捆绑合同工具相关的比例。需同时支持市场法、范围2、捆绑工具和比例语义；不能用一般绿电比例替代。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Share of market-based Scope 2 emissions linked to bundled instruments",
     "zh": "基于市场法且关联捆绑工具的范围2排放比例"
@@ -68,8 +77,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_20",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

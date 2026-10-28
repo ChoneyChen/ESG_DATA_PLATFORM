@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4c01b52c51c92d1c8b4c52e63cafc3b91c644703a904cd18a833a7b3bee4057b",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_04",
-  "contract_digest": "11cf8021d65b7734d1c2dbe2a3bde66111c4ccba799e34b94090fe0e3bb64f03",
+  "clause_key": "E1-7_04",
+  "contract_digest": "6883dc4cbf446474da973852bb3fdadb417e6ca9804aad6618ebba517f010cbe",
+  "data_kind": "qualitative",
   "description": "GHG Removals and storage Activity by undertaking scope (breakdown by own operations and value chain) and by removal and storage activity。移除储存活动的披露结构。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "GHG Removals and storage Activity by undertaking scope (breakdown by own operations and value chain) and by removal and storage activity",
     "zh": "移除储存活动的披露结构"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

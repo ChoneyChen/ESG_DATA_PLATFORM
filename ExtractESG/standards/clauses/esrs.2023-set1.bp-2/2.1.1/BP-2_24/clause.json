@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "37b39e2edaceccd07784026f5cdb2b140022b57de2e918a5422891bc64c24273",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_24",
-  "contract_digest": "cd560759612c1dd85aeb49488adedaa19436477ad6b9db73e6f1e3bfb25a0fcd",
+  "clause_key": "BP-2_24",
+  "contract_digest": "1c535041b7c61f6056dfe48f1fb68e2b9d1c2d60cfb9d6a4aa8b6d83aa5b5737",
+  "data_kind": "qualitative",
   "description": "Description of any time-bound targets set related to sustainability matters assessed to be material (phase-in) and progress made towards achieving those targets。阶段安排的期限目标及进展。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of any time-bound targets set related to sustainability matters assessed to be material (phase-in) and progress made towards achieving those targets",
     "zh": "阶段安排的期限目标及进展"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_24",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,14 +1,39 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "023d9e9021e6de29d3fb43be2b2537b63c113a1a7be483747fd4dc97969bbc31",
   "clause_id": "esrs.2023-set1.e2-5@2.1.1:E2-5_02",
-  "contract_digest": "653d50a454d992f2edf314f92a73ab8ae84e9bd9080e9bcb78423e0ada5755a5",
+  "clause_key": "E2-5_02",
+  "contract_digest": "8ae638e622943bdff24a4192e7b533dd0a8e85ba0d8e439459c4d559af75d510",
+  "data_kind": "quantitative",
   "description": "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
   "disclosure_requirement": "E2-5",
   "disclosure_role": "anchor",
+  "display_definition": "Total amount of substances of concern / substances of very high concern (SVHC) generated, used or procured. Not hazardous waste, not pollutant emissions, not general chemicals use unless stated as substances of concern.",
+  "display_label": "关注物质总量 Substances of concern",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group": "substances",
+  "group_terms": [
+    "关注物质",
+    "高度关注物质",
+    "高关注物质",
+    "svhc",
+    "substances of concern",
+    "substance of concern",
+    "有毒有害物质",
+    "有害物质",
+    "危险化学品",
+    "hazardous substances"
+  ],
+  "group_unit_terms": [
+    "化学品",
+    "chemicals",
+    "使用量",
+    "采购量"
   ],
   "labels": {
     "en": "Total amount of substances of concern that are generated or used during production or that are procured",
@@ -51,8 +76,82 @@
       "concern_class": "substances_of_concern"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_substances_of_concern",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:关注物质|高度关注|高关注|svhc|substances?\\s+of\\s+(?:very\\s+high\\s+)?concern|有毒有害物质|有害物质|危险化学品|hazardous\\s+substance)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_waste",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:废物|废弃物|固废|垃圾|waste)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_ratio_or_intensity",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "substance": [
+        "re:(?:关注物质|高度关注|高关注|svhc|substances?\\s+of\\s+(?:very\\s+high\\s+)?concern|有毒有害物质|有害物质|危险化学品|hazardous\\s+substance)"
+      ],
+      "waste": [
+        "re:(?:废物|废弃物|固废|垃圾|waste)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "关注物质",
+      "有害物质",
+      "危险物质",
+      "substance"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-5_02",
+  "text_group": "substances",
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

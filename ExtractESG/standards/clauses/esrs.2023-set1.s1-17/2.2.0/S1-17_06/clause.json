@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "11840a2719dc2df7654e05c3140b76966e934d413cdaa3c9923d248ca1555201",
   "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_06",
-  "contract_digest": "a23476b6f142bd3508b8f8b31287be950a6c223adad008e77659c6b751504a2b",
+  "clause_key": "S1-17_06",
+  "contract_digest": "253d416130540b0a5f8ddff3f92b68a54b5f862b038cae3ce3f741fd410f575e",
+  "data_kind": "qualitative",
   "description": "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
   "disclosure_requirement": "S1-17",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements",
     "zh": "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-17_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "c8de947f68d9cf76ca762e7ff81b0d0a3a69c59da82c93075bb0fc4c09b8ce03",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_18",
-  "contract_digest": "0fcbae3c08e1d2f04310114007cf20f3bd774bfba785dc7aad221dd316e9ebc6",
+  "clause_key": "E1-7_18",
+  "contract_digest": "41d9bf135153a9f3e35f7c616bc3e0fa43f359718f742ff09106ca84eff6d22d",
+  "data_kind": "quantitative",
   "description": "Percentage that qualifies as corresponding adjustment。符合相应调整的比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage that qualifies as corresponding adjustment",
     "zh": "符合相应调整的比例"
@@ -46,8 +55,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_18",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

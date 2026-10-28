@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0be52920b19aad3908bfb7559b4790f13984a051ac63cde1cb04295b3f61f3d5",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_15",
-  "contract_digest": "7822ec9abd1cf9a0e1c720fc27d4662516d03ab9e18e25954f7d428544e7d49a",
+  "clause_key": "E1-7_15",
+  "contract_digest": "0afc82dfe41b743a9cf2b26d95df935dcd19ceb048f93bec75575c3e162f93db",
+  "data_kind": "qualitative",
   "description": "Type of carbon credits from removal projects。移除项目碳信用类型。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Type of carbon credits from removal projects",
     "zh": "移除项目碳信用类型"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

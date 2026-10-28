@@ -6,9 +6,10 @@ from pathlib import Path
 
 from .clause_profile import ClauseExtractionProfile, profile_digest, validate_profile
 
-PROFILE_FIELDS = ("schema_version", "clause_id", "package_id", "package_version", "source_datapoint_id",
-                  "metric_id", "labels", "description", "positive_definition", "distinguish_from",
-                  "exclusions", "value_type", "canonical_unit", "unit_dimension", "value_origin",
+PROFILE_FIELDS = ("schema_version", "clause_id", "clause_key", "clause_digest", "package_id", "package_version",
+                  "source_datapoint_id", "metric_id", "labels", "description", "display_label", "display_definition", "positive_definition",
+                  "distinguish_from", "exclusions", "data_kind", "value_type", "group", "text_group", "group_terms", "group_unit_terms", "relationships",
+                  "exact_labels", "reading", "canonical_unit", "unit_dimension", "value_origin",
                   "output_scopes", "publication", "contract_digest")
 PART_FILES = ("clause", "retrieval", "evidence", "acceptance", "provenance")
 

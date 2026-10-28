@@ -1,15 +1,37 @@
 {
   "canonical_unit": "ha",
+  "clause_digest": "87115422e36335d61a63b6cba5d62e8f93f1e9afa3a10f0c4d0a89fbc3d303d1",
   "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_02",
-  "contract_digest": "2cb9fdbca866e6aba345635cf95d818924a7482d1120197896342d6d24edbd25",
+  "clause_key": "E4-5_02",
+  "contract_digest": "e97e604d4192101faf12e3ee32e02103b61b1dd7b8ba23373fbc0166e96c9558",
+  "data_kind": "quantitative",
   "description": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "E4-5",
   "disclosure_role": "anchor",
+  "display_definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。",
+  "display_label": "受负面影响的保护区内或附近场址面积",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": "biodiversity",
+  "group_terms": [
+    "Number of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+    "受负面影响的保护区内或附近场址数量",
+    "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址数量。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+    "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+    "受负面影响的保护区内或附近场址面积",
+    "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+    "Undertaking has sites located in or near biodiversity-sensitive areas",
+    "位于或邻近生物多样性敏感区域的场址",
+    "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+    "Disclosure of biodiversity-sensitive areas impacted",
+    "受到影响的生物多样性敏感区域",
+    "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "group_unit_terms": [],
   "labels": {
     "en": "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
     "zh": "受负面影响的保护区内或附近场址面积"
@@ -42,8 +64,57 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "面积",
+          "area"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "area"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-5_02",
+  "text_group": "biodiversity",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

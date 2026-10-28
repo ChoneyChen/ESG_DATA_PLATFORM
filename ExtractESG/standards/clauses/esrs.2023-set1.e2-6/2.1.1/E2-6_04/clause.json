@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "557be5767fb0324f7bb386beb2102f110db846bdb742eed356ba609735252071",
   "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_04",
-  "contract_digest": "75ca124b9489c3ef2b3e65a425e376cb1d656064b1ce0156d84e7c130987985a",
+  "clause_key": "E2-6_04",
+  "contract_digest": "97913d2a352f85ba3ab56e044e682cfe76e0a044a9f1579ca1bfd976af2d1bfd",
+  "data_kind": "quantitative",
   "description": "Operating expenditures (OpEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的运营支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
   "disclosure_requirement": "E2-6",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Operating expenditures (OpEx) in conjunction with major incidents and deposits (pollution)",
     "zh": "重大污染事故和沉积的运营支出"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-b54d375c97d98703",
+      "scope_id": "scope-da98b6fe61fc3708",
       "value_role": "forecast"
     }
   ],
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-6_04",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "3e506736b8ad43cc95e4bfd44ae589c6ec5cb8445412d324c21898ad00482c1e",
   "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_11",
-  "contract_digest": "d954e62cecbc49f0b23321ff48cb24a5243e4ff8ee6e37e021cc052e06939d83",
+  "clause_key": "S1-17_11",
+  "contract_digest": "8322cad486f914ee0846dd1168a934f49cd5e9ca6621a13ba5827f7e875fc0ff",
+  "data_kind": "quantitative",
   "description": "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "S1-17",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce",
     "zh": "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-17_11",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

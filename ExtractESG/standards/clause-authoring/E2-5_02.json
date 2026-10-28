@@ -1,0 +1,55 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E2-5_02",
+  "group": "substances",
+  "text_group": "substances",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "关注物质",
+      "有害物质",
+      "危险物质",
+      "substance"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "intensity",
+    "ratio_word",
+    "substance",
+    "waste"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "@substance"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_substances_of_concern"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@waste"
+      ],
+      "scope": "text",
+      "reason": "label_is_waste"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@ratio_word",
+        "@intensity"
+      ],
+      "scope": "text",
+      "reason": "label_is_ratio_or_intensity"
+    }
+  ],
+  "display_label": "关注物质总量 Substances of concern",
+  "display_definition": "Total amount of substances of concern / substances of very high concern (SVHC) generated, used or procured. Not hazardous waste, not pollutant emissions, not general chemicals use unless stated as substances of concern."
+}

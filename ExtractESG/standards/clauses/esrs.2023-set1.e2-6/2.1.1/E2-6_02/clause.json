@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "2649bf4d1ecba7de82cd4cdc80f6a275a3fade8d379b71d841e4c4bdd46a45a4",
   "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_02",
-  "contract_digest": "78a524f385c6156de8293652268b580807289d0efc6f0223d8a5e609e734d7ac",
+  "clause_key": "E2-6_02",
+  "contract_digest": "c9248deb92f6ca8aed6211d56ceee57a8c1474032c6f51d5fa1b790ba055ee40",
+  "data_kind": "quantitative",
   "description": "Percentage of net revenue made with products and services that are or that contain substances of concern。含关注物质产品服务的收入比例。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
   "disclosure_requirement": "E2-6",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of net revenue made with products and services that are or that contain substances of concern",
     "zh": "含关注物质产品服务的收入比例"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-6_02",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

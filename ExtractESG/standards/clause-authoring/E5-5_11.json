@@ -1,0 +1,64 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E5-5_11",
+  "group": "waste",
+  "text_group": "waste",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "有害",
+      "无害",
+      "危险",
+      "一般",
+      "回收",
+      "填埋",
+      "焚烧",
+      "处置",
+      "资源化",
+      "废弃物"
+    ],
+    "parent_clause": "E5-5_07",
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "未回收",
+        "未资源化",
+        "未循环利用",
+        "non-recycled",
+        "not recycled"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "回收率",
+        "回收利用比例",
+        "recycling rate",
+        "回收量"
+      ],
+      "reason": "label_is_other_concept"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "ratio"
+      ],
+      "params": {
+        "allow_missing": true
+      }
+    }
+  ],
+  "display_label": "未回收废弃物占比 Share of waste not recycled",
+  "display_definition": "Percentage of generated waste that is NOT recycled or reused (未回收/未资源化废弃物占比). A recycling rate names the complementary quantity, not this one."
+}

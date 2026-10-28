@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "13ef2bdbf4b2febd04f74cc31d56241cdcd9479d542e3f201e0f4ebfc763eb09",
   "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_06",
-  "contract_digest": "adb222d7f0a5881ec8e6737842ab252079b9d5e062d9cb17c5f453164e581417",
+  "clause_key": "E5-2_06",
+  "contract_digest": "7aac7b9eadd81f373366342087b1c221f904f74504ad3bf3b1b303536b1e9b5e",
+  "data_kind": "qualitative",
   "description": "说明主体如何优化废弃物管理，包括分类、收集、回收和处置环节的改进。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of Optimistation of waste management",
     "zh": "废弃物管理优化"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-2_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

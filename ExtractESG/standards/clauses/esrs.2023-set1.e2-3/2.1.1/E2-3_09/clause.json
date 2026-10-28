@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a972c11134a536d2cedcf5f3ade13397affa4190c42f475e2e2f33c799286201",
   "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_09",
-  "contract_digest": "e7609b07d7c9835020e09a74412bf12a84fa1138979308e56c0394196b776e44",
+  "clause_key": "E2-3_09",
+  "contract_digest": "2e49272343192acda506906377d0ebba8ed4fe23e618f5f9b96b27eba0eff91b",
+  "data_kind": "qualitative",
   "description": "Pollution-related target is mandatory (required by legislation)/voluntary。污染目标的法定或自愿性质。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
   "disclosure_requirement": "E2-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Pollution-related target is mandatory (required by legislation)/voluntary",
     "zh": "污染目标的法定或自愿性质"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-3_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

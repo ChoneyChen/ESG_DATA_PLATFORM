@@ -528,6 +528,7 @@ def test_old_complete_neutral_cache_is_preserved_but_cannot_complete_new_span_re
     old.update(version=prior_semantics, source_key="historical-" + prior_semantics, complete=True)
     old["source_identity"]["interpretation_version"] = prior_semantics
     shared = store.report_session_dir(session.request.report_session_id) / ("sources/historical-" + prior_semantics + ".json")
+    shared.parent.mkdir(parents=True, exist_ok=True)
     shared.write_text(json.dumps(old)); original = shared.read_bytes()
     store.write_json(session.job_id, "agent/sources/original-page.json", old)
     store.write_json(session.job_id, "agent/state.json", {"version": prior_agent, "planning_rounds": 99})

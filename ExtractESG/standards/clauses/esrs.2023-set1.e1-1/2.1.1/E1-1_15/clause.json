@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "534342986548c1e89157a58514d6814e80568387342a2cb143ac1eac252f1453",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_15",
-  "contract_digest": "e3ffe72a14ebb4cea51c7d2a500436b9da3c2f6df6d9d8a54101eb2e103d9c5c",
+  "clause_key": "E1-1_15",
+  "contract_digest": "770c0b8aacd224cfdc15d67cf1ed9e1083f677f44df1fcb8e5947006846f2b66",
+  "data_kind": "qualitative",
   "description": "Explanation of progress in implementing transition plan。转型计划实施进展。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of progress in implementing transition plan",
     "zh": "转型计划实施进展"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

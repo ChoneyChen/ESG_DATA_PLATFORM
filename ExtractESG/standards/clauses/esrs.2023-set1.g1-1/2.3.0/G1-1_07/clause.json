@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7704e541c6770053045f027721dff7ae9652e3713f2ba4f5fca2345e79fe118d",
   "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_07",
-  "contract_digest": "8c650c205eb663fc2e0f36e99d2bd5d11945eca0f7de2aeb4abd8ee382d273e4",
+  "clause_key": "G1-1_07",
+  "contract_digest": "ab5c842f1e7e8e024d0a5cf4369c6ed2c8e9907202ad91c1028a93b90b12e7ea",
+  "data_kind": "qualitative",
   "description": "披露举报人保护政策的实施时间表，包括制度发布、培训与运行节点。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Timetable for implementation of policies on protection of whistle-blowers",
     "zh": "举报人保护政策的实施时间表"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-1_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

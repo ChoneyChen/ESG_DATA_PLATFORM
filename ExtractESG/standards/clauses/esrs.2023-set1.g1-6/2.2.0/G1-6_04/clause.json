@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "2a7a8fbbb2dbf07c0240edd21fe908133f6214cd29b4052c8d8282e06e8bf908",
   "clause_id": "esrs.2023-set1.g1-6@2.2.0:G1-6_04",
-  "contract_digest": "6e85818b7e914920784c0ee92216b08cd9562d56bc7edc058e63aec5d8504bad",
+  "clause_key": "G1-6_04",
+  "contract_digest": "9bdf216f022d4c22e32b9df292674853bdd35b0d53758e611047b7979040c350",
+  "data_kind": "quantitative",
   "description": "Number of outstanding legal proceedings for late payments。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "G1-6",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of outstanding legal proceedings for late payments",
     "zh": "Number of outstanding legal proceedings for late payments"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-6_04",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

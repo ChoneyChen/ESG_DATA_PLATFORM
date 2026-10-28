@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b45dfb5323083046878f41bb3739cca79d6370a72e62a0e42afd97543ca5c75e",
   "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_20",
-  "contract_digest": "037293fa40469c1c770177fa527ac894db520ec2a924f9260f381149f5154724",
+  "clause_key": "S1-1_20",
+  "contract_digest": "2aa100d67eef00441c2a8a9a78f85efe080da76b9557f8b3dc38983e0420aacd",
+  "data_kind": "qualitative",
   "description": "说明主体是否保存最新的招聘、培训和晋升记录，以透明呈现员工机会与晋升路径。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Keeping an up-to-date records on recruitment, training and promotion that provide a transparent view of opportunities for employees and their progression",
     "zh": "招聘、培训和晋升的最新记录"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-1_20",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

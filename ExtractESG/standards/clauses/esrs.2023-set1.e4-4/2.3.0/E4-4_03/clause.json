@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "17e030cd0b178a58b98adea38d9779b373a99371fb1d691e252b3c602913d65b",
   "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_03",
-  "contract_digest": "2d358ddc9e05a6ce670ee0ea4b754e04a40fb69d2cf38a0c500e795f73827951",
+  "clause_key": "E4-4_03",
+  "contract_digest": "89c7f76a9be796395c60af22a1f8fff878f39b7397e64c6d64310f7431e43975",
+  "data_kind": "qualitative",
   "description": "说明主体特定生态阈值如何确定，包括本地化调整和科学依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how entity-specific threshold was determined (biodiversity and ecosystems)",
     "zh": "主体特定生态阈值的确定方式"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-4_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

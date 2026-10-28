@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "858a0b206fe4dc38cefddb5b457822f14bae1256e8afff336690c85cbb6eb1f6",
   "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_17",
-  "contract_digest": "db5eb2f1888110e1f592b482658b2fdfdc5eda101ef45a502726eb76214d3598",
+  "clause_key": "E4-1_17",
+  "contract_digest": "096518bd2ed11bbeaff6ac5deb6bf2ae3ace73999b0ac2aca8910b7e2d3b3e4e",
+  "data_kind": "qualitative",
   "description": "说明行政、管理和监督机构是否以及何时批准了转型计划。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Administrative, management and supervisory bodies have approved transition plan",
     "zh": "管理层与监督机构对转型计划的批准"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-1_17",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

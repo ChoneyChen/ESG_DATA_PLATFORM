@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7fe42399576429e2b30b4b1079c960dfac401f055b8edeeacde045cc7ab10d03",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_12",
-  "contract_digest": "c663f6519e49cd1c8cf9b694a4c96b0d7c636c90d0c64d6e93c779f75a06ccd8",
+  "clause_key": "SBM-3_12",
+  "contract_digest": "04419b3459d3620936496d2acd57440009ea8066174de85aecef5dfd2234cb9c",
+  "data_kind": "qualitative",
   "description": "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures。标准覆盖与企业特有事项区分。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures",
     "zh": "标准覆盖与企业特有事项区分"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

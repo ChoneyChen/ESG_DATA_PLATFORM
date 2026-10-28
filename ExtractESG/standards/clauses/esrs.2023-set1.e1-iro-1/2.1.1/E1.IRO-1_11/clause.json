@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "862e79e5101763742bbaddd30b456290a1ddd51c7004bb3114228ded83de35a1",
   "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_11",
-  "contract_digest": "ab41f75126b91b114e3db7de889e8040ff3d95a2614ddd7afb65c45d84791f59",
+  "clause_key": "E1.IRO-1_11",
+  "contract_digest": "a58224d0556ed6f3f320554335e8a5bb2accfd5a330388bc32f90f9f513cc914",
+  "data_kind": "qualitative",
   "description": "Undertaking has screened whether assets and business activities may be exposed to transition events。资产活动的转型事件暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
   "disclosure_requirement": "E1.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Undertaking has screened whether assets and business activities may be exposed to transition events",
     "zh": "资产活动的转型事件暴露筛查"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1.IRO-1_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

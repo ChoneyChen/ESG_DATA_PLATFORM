@@ -43,19 +43,6 @@ FALLBACK_DIMENSIONS = (
     ("mass", ("吨", "噸", "kg", "千克", "公斤", "tonne")),
     ("count", ("件", "次", "个", "家", "项", "起", "台", "辆", "宗", "人", "number", "cases", "no.")),
 )
-# A quantity datapoint whose share sibling sits beside it as "<same label> 占比".
-SHARE_PARTNERS = {"E1-5_05": "E1-5_09"}
-SHARE_WORD_RE = re.compile(r"(?:占比|比例|比重|占总|share|percentage|proportion|ratio|%|％)", re.I)
-UNIT_PAREN_RE = re.compile(r"[（(][^（）()]*[)）]")
-GROUP_SIBLINGS = {
-    "energy": ("E1-5_01", "E1-5_05", "E1-5_09"),
-    "ghg": ("E1-6_07", "SCOPE2", "E1-6_11"),
-    "water": ("E3-4_01", "E3-4_02", "E3-4_03", "E3-4_11", "E3-4_12"),
-    "air": ("E2-4_02", "E2-4_03"),
-    "water_pollutants": ("E2-4_03", "E2-4_02"),
-}
-
-
 NEGATED_METHOD_RE = re.compile(
     r"(?:instead\s+of|rather\s+than|not)\s+(?:the\s+|a\s+)?(?:location|market)[\s-]*based(?:\s+(?:method|approach))?"
     r"|(?:而非|而不是|不采用|未采用|并非)\s*(?:基于)?(?:市场|地点|位置)(?:法|的方法)?", re.I)
@@ -351,23 +338,8 @@ def scope2_partner_items(task: TableTask, items: list[dict]) -> list[dict]:
     return extra
 
 
-# Row labels that name exactly one datapoint (folded, without spaces,
-# brackets or footnote marks). A row printed under one of them is that
-# datapoint even when the table call left it out; it is proposed for review.
-EXACT_LABELS = {
-    "E1-5_01": ("能源消耗总量", "总能源消耗量", "能源总消耗量", "综合能源消耗量", "综合能源消耗总量", "总能耗",
-                "totalenergyconsumption", "totalenergyconsumed"),
-    "E1-6_07": ("范围一温室气体排放量", "范围一温室气体排放总量", "温室气体排放量范围一", "范围一排放量", "范围1温室气体排放量",
-                "直接温室气体排放总量范围一", "直接温室气体排放量范围一",
-                "scope1ghgemissions", "scope1emissions", "scope1greenhousegasemissions"),
-    "E1-6_11": ("范围三温室气体排放量", "范围三温室气体排放总量", "温室气体排放量范围三", "范围三排放量", "范围3温室气体排放量",
-                "scope3ghgemissions", "scope3emissions", "scope3greenhousegasemissions"),
-    "E3-4_01": ("耗水总量", "总耗水量", "耗水量", "totalwaterconsumption", "waterconsumption"),
-    "E3-4_11": ("取水总量", "总取水量", "totalwaterwithdrawal", "totalwaterwithdrawn", "waterwithdrawal"),
-    "E3-4_12": ("排水总量", "总排水量", "废水排放总量", "totalwaterdischarge", "totalwaterdischarged", "waterdischarge"),
-}
-
-
+# Exact row labels come from each clause's contract (``exact_labels``); the
+# engine only normalises the printed label before comparing it.
 def _exact_stem(label: str) -> str:
     last = TRAILING_MARK_RE.sub("", label.split(" › ")[-1])
     return re.sub(r"[\s（）()\[\]【】:：\-–—_/]+", "", fold(last))
@@ -386,7 +358,8 @@ def exact_label_items(task: TableTask, items: list[dict], payload: dict) -> list
     mapped_rows = {item.get("row") for item in items}
     extra = []
     for code in task.codes:
-        names = EXACT_LABELS.get(code)
+        metric = BY_CODE.get(code)
+        names = metric.exact_labels if metric else ()
         if not names:
             continue
         named = any(_exact_stem(by_rid[item["row"]].label) in names
@@ -493,7 +466,8 @@ def share_partner_items(task: TableTask, items: list[dict]) -> list[dict]:
     targets = {item.get("target") for item in items}
     extra = []
     for item in items:
-        partner = SHARE_PARTNERS.get(item.get("target"))
+        target_metric = BY_CODE.get(item.get("target"))
+        partner = target_metric.share_partner if target_metric else None
         line = next((l for l in task.lines if l.rid == item.get("row")), None)
         if partner is None or partner in targets or line is None:
             continue
@@ -629,9 +603,9 @@ def bind(task: TableTask, payload: dict, reporting_year: int | None,
         guard = concept_check(guard_code(proposed), label, context, unit_raw, dimension, evidence=guard_evidence)
         reassigned = None
         if not guard.ok:
-            group = BY_CODE["E1-6_09" if proposed == SCOPE2_UNSPECIFIED else proposed].group
+            base = BY_CODE["E1-6_09" if proposed == SCOPE2_UNSPECIFIED else proposed]
             passing = []
-            for sibling in GROUP_SIBLINGS.get(group, ()):
+            for sibling in base.siblings:
                 if sibling == guard_code(proposed):
                     continue
                 result = concept_check(sibling, label, context, unit_raw, dimension, evidence=guard_evidence)

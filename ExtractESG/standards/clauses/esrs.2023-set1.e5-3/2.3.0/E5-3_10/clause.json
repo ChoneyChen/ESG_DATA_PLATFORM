@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5e666bd7cc7e39b979fa64d844c618eec08bfbe6297221b68154c9b11e19b065",
   "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_10",
-  "contract_digest": "a3983647fb455fc45d1e36721cc1a84746918c1a55c814cd9cf55aac369cd7c5",
+  "clause_key": "E5-3_10",
+  "contract_digest": "854b5351b8298ae048906c754eb08081573d22e7e4c5546d8486d8532f7bf62e",
+  "data_kind": "qualitative",
   "description": "披露资源利用与循环经济目标所依据的生态阈值及其识别方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (resource use and circular economy)",
     "zh": "生态阈值的识别与方法（资源利用与循环经济）"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-3_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "2f54dba57ecb8213c0b0fd08c15967cef97b419e5dc0e2f7a27763c9b53e2eea",
   "clause_id": "esrs.2023-set1.e1-4@2.1.1:E1-4_20",
-  "contract_digest": "b6d31dd39d22698c565328d12d0d3c41070388cd74ee35ec9a1f9a0486ec1714",
+  "clause_key": "E1-4_20",
+  "contract_digest": "fa93cca4184b37c21b22e2ef7a53fd0f17cf2a860a94ea38d5258b3971521bce",
+  "data_kind": "qualitative",
   "description": "Description of how it has been ensured that baseline value is representative in terms of activities covered and influences from external factors。基准值代表性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
   "disclosure_requirement": "E1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how it has been ensured that baseline value is representative in terms of activities covered and influences from external factors",
     "zh": "基准值代表性"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "目标期 · 集团合并 · 强度",
+      "label_zh": "目标期 · 集团合并 · 总量",
       "method": null,
       "period": "target_period",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-0b765dc8d99dc1dd",
+      "scope_id": "scope-d53d74e3be096220",
       "value_role": "target"
     }
   ],
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-4_20",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

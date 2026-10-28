@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "95c98045746d5abbe30e5d57ed39c24bb2e8bbca0dd359b169855078f77d922f",
   "clause_id": "esrs.2023-set1.mdr-p@2.1.1:MDR-P_04",
-  "contract_digest": "e2dead1c6a1b46f4d1ccc1b626a32ccb2c642ed87bb804a7a747e9c1c38e9dff",
+  "clause_key": "MDR-P_04",
+  "contract_digest": "7114a9a743813f9a4c7bce453eb2582be4f474f51709722a0e02c29647d60570",
+  "data_kind": "qualitative",
   "description": "Disclosure of third-party standards or initiatives that are respected through implementation of policy。政策尊重的第三方标准倡议。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
   "disclosure_requirement": "MDR-P",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of third-party standards or initiatives that are respected through implementation of policy",
     "zh": "政策尊重的第三方标准倡议"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-P_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c6360e9e0a22c17de3b73f967b6c7ca1249685bedd48c29dd4d6c8474d492472",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_06",
-  "contract_digest": "440164da372f2492c3141f00fa6116b710fc6966a53f87c114f0dac4d608f01d",
+  "clause_key": "BP-2_06",
+  "contract_digest": "b9ddabf748c8c9ba1bbaf44f0cb1f1641bc57aaea362cbe0e2c5ebf57b6ce892",
+  "data_kind": "qualitative",
   "description": "Description of planned actions to improve accuracy in future of metrics that include value chain data estimated using indirect sources。估计准确度改善计划。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of planned actions to improve accuracy in future of metrics that include value chain data estimated using indirect sources",
     "zh": "估计准确度改善计划"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

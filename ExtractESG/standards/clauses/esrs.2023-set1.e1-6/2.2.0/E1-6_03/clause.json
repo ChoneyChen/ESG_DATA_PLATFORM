@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0bd3c1f8a122ef2d312b3f5ad8ab9a5565af3b311140e40a1290fdb5108b4529",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_03",
-  "contract_digest": "a1a7f44a88a9e41054ffb727f71df85ab4b47582a967305f71bc6bd677338a9f",
+  "clause_key": "E1-6_03",
+  "contract_digest": "be5fea4fc2bd8b48573fe796de709e59578cb239edadb08328b3472d81f46a60",
+  "data_kind": "qualitative",
   "description": "企业对温室气体排放采用的分解维度，例如国家、经营分部、经济活动、子公司、设施或排放源。输出实际披露的分解轴，不输出这些轴下的每个数值单元格。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "GHG emissions disaggregation",
     "zh": "温室气体排放分解维度"
@@ -40,8 +49,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

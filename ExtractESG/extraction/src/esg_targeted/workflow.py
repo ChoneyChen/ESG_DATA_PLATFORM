@@ -11,6 +11,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Callable
 
+from esg_standard_packages.clause_package import ClausePackageCatalog, ClausePackageError
 from esg_standard_packages.contracts import CompiledStandardPackage
 
 from esg_targeted.config import Settings
@@ -96,6 +97,7 @@ class TargetedExtractionWorkflow:
         self.artifact_store = artifact_store
         self.ir_catalog = DocumentIrCatalog(settings.ir_roots)
         self.standard_catalog = StandardPackageCatalog(settings.standard_dist_root)
+        self.clause_catalog = ClausePackageCatalog(Path(settings.standard_dist_root).parent)
         self.semantic_index_assets = SemanticIndexAssetCatalog(
             settings.index_cache_root
         )
@@ -306,7 +308,17 @@ class TargetedExtractionWorkflow:
             )
 
             query_compiler = MetricQueryCompiler()
-            queries = {metric.metric_id: query_compiler.compile(package, metric) for metric in metrics}
+            def clause_for(metric):
+                if not metric.source_datapoint_id:
+                    return None
+                try:
+                    return self.clause_catalog.profile(package.manifest.package_id,
+                                                       package.manifest.package_version,
+                                                       metric.source_datapoint_id)
+                except (ClausePackageError, OSError, KeyError, ValueError):
+                    return None
+            queries = {metric.metric_id: query_compiler.compile(package, metric, clause_for(metric))
+                       for metric in metrics}
             embedding_matrix = None
             query_vectors: dict[str, np.ndarray] = {}
             if request.semantic_search:

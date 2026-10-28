@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "051f24f146ba5e11fc7e2e5d035dd71cefc0b2ce238af5efeda762b205f4b383",
   "clause_id": "esrs.2023-set1.gov-2@2.1.1:GOV-2_02",
-  "contract_digest": "4aa7a165899264de42fc8f62def49934df4b7980aa5d25d14bf3e6976ae0f5ad",
+  "clause_key": "GOV-2_02",
+  "contract_digest": "cd55eac4a2258d6d47c18ef4bcb969a8a8b2b232cd46d783e11e68a4e37b8fb1",
+  "data_kind": "qualitative",
   "description": "Disclosure of how administrative, management and supervisory bodies consider impacts, risks and opportunities when overseeing strategy, decisions on major transactions and risk management process。重大事项在战略交易风险管理中的考虑。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
   "disclosure_requirement": "GOV-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how administrative, management and supervisory bodies consider impacts, risks and opportunities when overseeing strategy, decisions on major transactions and risk management process",
     "zh": "重大事项在战略交易风险管理中的考虑"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-2_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "11740ef5b90e7d0f120668ac81fc437eea3c19c861eeb92558a2a1630371b1f3",
   "clause_id": "esrs.2023-set1.e4-6@2.3.0:E4-6_06",
-  "contract_digest": "ecc151227c73216c6ff5d2d656bb4b4f5084d51c3b675448ab1404354af05577",
+  "clause_key": "E4-6_06",
+  "contract_digest": "fc922d5fb7990fad5c08877fb593b24e99073aeaa026375c5a6dc3616cadb61c",
+  "data_kind": "qualitative",
   "description": "说明财务金额如何估计，以及所采用的关键假设和参数。定量与定性信息分别保留，不以定性描述替代数值。",
   "disclosure_requirement": "E4-6",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of how financial amounts are estimated and critical assumptions made (biodiversity and ecosystems)",
     "zh": "财务金额的估计方法与关键假设"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-6_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

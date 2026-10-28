@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d26917aaa2027bad1ace0e09bc20faa6e8c9fac5637a511e8d19dc8389b01246",
   "clause_id": "esrs.2023-set1.gov-5@2.1.1:GOV-5_04",
-  "contract_digest": "04bfc4b6db73e7d746f0876bdd651456566af349cee5fb3bcba12ffe8becad69",
+  "clause_key": "GOV-5_04",
+  "contract_digest": "7df7e91cf3fd484fc4560144b544b4431fe659d5c578ec2cf00fd8bb7e3ad95f",
+  "data_kind": "qualitative",
   "description": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes。披露风控内控结果融入职能。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
   "disclosure_requirement": "GOV-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes",
     "zh": "披露风控内控结果融入职能"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-5_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

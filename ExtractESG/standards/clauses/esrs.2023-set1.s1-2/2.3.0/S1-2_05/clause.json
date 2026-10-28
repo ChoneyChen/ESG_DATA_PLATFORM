@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "00b38a10771030de004f76eb82957d945b1a4fe2cb384e9939d06a120958376c",
   "clause_id": "esrs.2023-set1.s1-2@2.3.0:S1-2_05",
-  "contract_digest": "a92620b1e42aeb10265e5ba6a009ae5b706e0ef5dfb6054128b61b2609c031d6",
+  "clause_key": "S1-2_05",
+  "contract_digest": "17844e16f1ae872c923d5caec85be5ba1d6b211833ca6b0a5075e5bb3c6489fa",
+  "data_kind": "qualitative",
   "description": "披露主体是否签订全球框架协议或其他与尊重劳动者人权相关的协议，并说明主要内容。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of Global Framework Agreement or other agreements related to respect of human rights of workers",
     "zh": "全球框架协议或其他劳工权利协议"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-2_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

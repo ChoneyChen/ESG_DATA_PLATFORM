@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "99605d4f7db4a1a6ac23e945d190da16f48538fa4c45eb75e7fac79b18164758",
   "clause_id": "esrs.2023-set1.s2-sbm-3@2.3.0:S2.SBM-3_01",
-  "contract_digest": "eca29b2befe999e7a7eb1127414f32025c98ed5d55f2d8e020ca140153dd0b75",
+  "clause_key": "S2.SBM-3_01",
+  "contract_digest": "31740a19b41c405dbfef37dd9e692f35433b592c53642662087bdaaee8028e07",
+  "data_kind": "qualitative",
   "description": "说明所有可能受主体重大影响的价值链劳动者是否已纳入ESRS 2披露范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2.SBM-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "All value chain workers  who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2",
     "zh": "可能受重大影响的价值链劳动者纳入披露范围"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2.SBM-3_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

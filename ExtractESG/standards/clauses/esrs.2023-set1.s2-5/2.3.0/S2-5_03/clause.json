@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "19f980cd740a46a2b72fbafd3141e3fb92ebcb35a48b1519074aac0c70cc667b",
   "clause_id": "esrs.2023-set1.s2-5@2.3.0:S2-5_03",
-  "contract_digest": "2b1cefbed1637bf365f643ab6784e5a607454fdd051a2b80f3869eaafe98631b",
+  "clause_key": "S2-5_03",
+  "contract_digest": "eab86723536bbaa897c50fc9be4ecea61be828a50b29da3e7d7e8b858c3616e9",
+  "data_kind": "qualitative",
   "description": "说明价值链劳动者、其合法代表或可信代理是否以及如何直接参与识别绩效带来的经验教训或改进机会。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in identifying lessons or improvements as result of undertaking’s performance",
     "zh": "价值链劳动者参与经验与改进识别"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-5_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

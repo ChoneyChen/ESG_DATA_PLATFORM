@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0385f2ff1cbc6c3473e7556612e117b6c44ddbe8882a2f46fc96f942fec3a984",
   "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_25",
-  "contract_digest": "e279113c5713808da0b4533a499df22c73f4fa6c93bd1f48c006068f5cf1442d",
+  "clause_key": "E4-5_25",
+  "contract_digest": "13248fa384036c7f032095dd88e09963c20112567abba1c42a348c58c996d6b7",
+  "data_kind": "qualitative",
   "description": "披露生态系统质量相对于预先确定参考状态的情况，并说明参考状态的选择依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of quality of ecosystems relative to pre-determined reference state",
     "zh": "相对于参考状态的生态系统质量"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-5_25",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

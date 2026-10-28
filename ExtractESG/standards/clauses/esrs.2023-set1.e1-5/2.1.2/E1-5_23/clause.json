@@ -1,14 +1,23 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "fb69e355fe442f1bfce1c6934b9ccd500a84a54890ab5ff4ebb050c7503a636b",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_23",
-  "contract_digest": "9679573253d38a6b0cc1d4d812966a4c250ec53c26236fc82170387ff032df9b",
+  "clause_key": "E1-5_23",
+  "contract_digest": "bc8a9611784706d779ff6856c2b6400228d80d18126ab2bf6f8642c75b3fc9e5",
+  "data_kind": "quantitative",
   "description": "其他净收入",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Other net revenue",
     "zh": "其他净收入"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_23",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

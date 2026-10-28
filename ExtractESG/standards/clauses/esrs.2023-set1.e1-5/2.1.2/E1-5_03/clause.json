@@ -1,14 +1,23 @@
 {
   "canonical_unit": "MWh",
+  "clause_digest": "5febca3190e46bc8b5236d6e4b7a4f0cf8a7649890402f9650d1b5bccca7df9d",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_03",
-  "contract_digest": "e0bba42298bcaabdef2ffb237855f7206431667cdae73a5001b393dc814c602d",
+  "clause_key": "E1-5_03",
+  "contract_digest": "b09924c7724c1f3ae6546fd01c0370bdb11330ca2730de6c8a6aa2c800e855c5",
+  "data_kind": "quantitative",
   "description": "核能消费量",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Energy consumption from nuclear sources",
     "zh": "核能消费量"
@@ -44,8 +53,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "energy"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_03",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.energy",
   "value_origin": "reported",
   "value_type": "numeric"

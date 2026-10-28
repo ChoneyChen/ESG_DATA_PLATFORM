@@ -1,17 +1,49 @@
 {
   "canonical_unit": "day",
+  "clause_digest": "a5176972be396c342048490f4807b086e609c7d95adfc1ea7666d2d1e209c2c5",
   "clause_id": "esrs.2023-set1.g1-6@2.2.0:G1-6_01",
-  "contract_digest": "f0984bf3ae0c7d4adc1d8d66add97ef87c5a9868640d26f7cfe17c197d15aaf4",
+  "clause_key": "G1-6_01",
+  "contract_digest": "3086686b2d7840368a1bf41ab69e706cf5b1f87534a365b56e94335192ee3074",
+  "data_kind": "quantitative",
   "description": "自合同或法定付款条件起算日起，向供应商付款的平均天数。",
   "disclosure_requirement": "G1-6",
   "disclosure_role": "anchor",
+  "display_definition": "Average number of days to pay an invoice from the contractual or statutory due date (平均付款天数/平均账期). Standard payment terms or the share of on-time payments is not this.",
+  "display_label": "平均付款天数 Average payment days",
   "distinguish_from": [
     "合同付款账期",
     "逾期付款金额"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "付款天数不是合同账期；平均值与中位数分别保留。"
+  ],
+  "group": "governance",
+  "group_terms": [
+    "董事会",
+    "治理机构",
+    "女性董事",
+    "董事会多元化",
+    "腐败",
+    "贿赂",
+    "定罪",
+    "付款天数",
+    "账期",
+    "board",
+    "corruption",
+    "bribery",
+    "conviction",
+    "payment days"
+  ],
+  "group_unit_terms": [
+    "%",
+    "件",
+    "天",
+    "人",
+    "女性",
+    "days",
+    "cases"
   ],
   "labels": {
     "en": "Average number of days to pay invoice from date when contractual or statutory term of payment starts to be calculated",
@@ -21,15 +53,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": "share",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 占比",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-616c01af2f7bcf2f",
       "value_role": "actual"
     }
   ],
@@ -45,8 +77,83 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_payment_days",
+        "rule": "require_all",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:付款|支付|账期|payment)",
+          "re:(?:天|日|days?)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_terms_or_share_not_average_days",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "标准账期",
+          "标准付款期限",
+          "standard terms",
+          "on-time",
+          "按时付款"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "days": [
+        "re:(?:天|日|days?)"
+      ],
+      "paydays": [
+        "re:(?:付款|支付|账期|payment)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "standard_terms": [
+        "标准账期",
+        "标准付款期限",
+        "standard terms",
+        "on-time",
+        "按时付款"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "董事",
+      "董事会",
+      "女性",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款",
+      "投诉",
+      "罚",
+      "案件"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-6_01",
+  "text_group": "governance",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

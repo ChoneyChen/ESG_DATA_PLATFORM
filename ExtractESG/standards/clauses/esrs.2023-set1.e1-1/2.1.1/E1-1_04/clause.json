@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "cf5f8a91c6ceb007cf4fa9d5a9d6a909eed24393aa012c0992e3171fe56fb1c9",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_04",
-  "contract_digest": "eae970b180495004742ca67503db806f872777a461c26320b822a870c8f404e7",
+  "clause_key": "E1-1_04",
+  "contract_digest": "0e4e3d924e840d15fd0709ab5799d2071d1220f563fc4cf429392c31183f0921",
+  "data_kind": "qualitative",
   "description": "Disclosure of significant operational expenditures (Opex) and (or) capital expenditures (Capex) required for implementation of action plan。转型行动所需重大资本和运营支出。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of significant operational expenditures (Opex) and (or) capital expenditures (Capex) required for implementation of action plan",
     "zh": "转型行动所需重大资本和运营支出"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

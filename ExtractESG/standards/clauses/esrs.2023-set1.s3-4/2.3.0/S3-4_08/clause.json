@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "97bbda6f1a407bfd3f1aff6fc4f5b9269e83cddff2141e5d3c9a105081f8f404",
   "clause_id": "esrs.2023-set1.s3-4@2.3.0:S3-4_08",
-  "contract_digest": "420ade4a0cdbae2f7f662e024f56ecb072ded0d2e003f7f787aa5f145f97aaac",
+  "clause_key": "S3-4_08",
+  "contract_digest": "3cf329aa24d7e8b1937f1bba4fbfc82b9b0b3a084b206de51cc60f002bc6a740",
+  "data_kind": "qualitative",
   "description": "描述为缓解因对社区的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of what action is planned or underway to mitigate material risks arising from impacts and dependencies on affected communities and how effectiveness is tracked",
     "zh": "缓解社区重大风险的行动"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-4_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

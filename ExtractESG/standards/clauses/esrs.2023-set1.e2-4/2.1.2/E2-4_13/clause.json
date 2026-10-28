@@ -1,14 +1,23 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "2e5c66c9a435e395a733b9bdb93237fa3a322ab92c390c3a67895f19f9754dde",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_13",
-  "contract_digest": "00e562cbe32fa674453c140639275c6b4ef8bb8c52f6cb3e9637cf4b30ffc6da",
+  "clause_key": "E2-4_13",
+  "contract_digest": "78647f693a393804885e1e699c9f208a1fc4421e4bad92b1b9c61d70f10cd7a8",
+  "data_kind": "quantitative",
   "description": "AR 23(c) 的可选背景信息。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of total emissions of pollutants to soil occurring in areas at water risk",
     "zh": "水风险地区土壤污染物排放占比"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_13",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

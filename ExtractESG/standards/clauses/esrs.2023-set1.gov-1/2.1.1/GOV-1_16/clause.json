@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e6cb5d4c7cf9fdcbe56d5e537c2716a8d25b4903ccec9a555260bee49159d180",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_16",
-  "contract_digest": "f9dd0ba8304d24ad3ab234823c0832cefd04e562d7388348271ad9ce92e5b60f",
+  "clause_key": "GOV-1_16",
+  "contract_digest": "3cbf8c22bbf86c1f242bc630daaef2f3f5e5473ddb1c7d01390f119209fb71e7",
+  "data_kind": "qualitative",
   "description": "Information about sustainability-related expertise that bodies either directly possess or can leverage。治理机构可持续专业能力。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about sustainability-related expertise that bodies either directly possess or can leverage",
     "zh": "治理机构可持续专业能力"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-1_16",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

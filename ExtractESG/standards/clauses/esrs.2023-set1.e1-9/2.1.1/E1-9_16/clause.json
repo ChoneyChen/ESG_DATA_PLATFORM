@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "3d67ac94010a9c52f5e0745246c2918d96a788f3a6b329c85394c2a3a6a8edb0",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_16",
-  "contract_digest": "4fd7228bdd7e65c48bbc9049b20f8ebd7627397098093a2533ed5d45c511b003",
+  "clause_key": "E1-9_16",
+  "contract_digest": "7e2d5c6f73faa7328fc8fb48adfa6eb84f4e275988fb43c4f70ffb43115d0ce5",
+  "data_kind": "quantitative",
   "description": "Percentage of assets at material transition risk addressed by climate change mitigation actions。缓解行动覆盖的转型风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of assets at material transition risk addressed by climate change mitigation actions",
     "zh": "缓解行动覆盖的转型风险资产比例"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_16",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

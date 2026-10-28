@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "11e8deda0f68b939adcb6bab7f4620ecd4447f986d9c15d2b078329cf4dff3d6",
   "clause_id": "esrs.2023-set1.e2-iro-1@2.1.1:E2.IRO-1_03",
-  "contract_digest": "54e7e36b91b1dc1bfa1f384365c2352aa7c8d82fe7c5bdea0f4f34aab8aaf5e9",
+  "clause_key": "E2.IRO-1_03",
+  "contract_digest": "7b8f5996555ab0d93b92ab9a2a3ea9f41bc54f2a66dfd7b31c66b054a1c0a743",
+  "data_kind": "qualitative",
   "description": "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
   "disclosure_requirement": "E2.IRO-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of results of materiality assessment (pollution)",
     "zh": "污染重要性评估结果"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2.IRO-1_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b8eef47c7ebf9a18ab89d71a5a92805b5b2d6d368eb26c9ab6e5deaf6b82b3fa",
   "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_03",
-  "contract_digest": "2b4820b9a6892ea1eff8cde96256b6de1a29d4546c0c340e9d7a4858e249f06f",
+  "clause_key": "E4-5_03",
+  "contract_digest": "dbb8d8bc99b0b575244768573ca8266aae2d552d6edea71320ff8cbd4ec996de",
+  "data_kind": "qualitative",
   "description": "披露基于生命周期评估方法确定的土地利用情况，包括评估边界与数据来源。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of land-use based on Life Cycle Assessment",
     "zh": "基于生命周期评估的土地利用"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-5_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

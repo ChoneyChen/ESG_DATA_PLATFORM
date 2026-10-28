@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "98a5ff0c85fa87aaec316ca2961729a670ccef5e72c8cfc896da5e3d84fee99d",
   "clause_id": "esrs.2023-set1.s3-2@2.3.0:S3-2_08",
-  "contract_digest": "977aacb8f51b1989dc486d0f842b07b35e8554d0f93e47c0f224bd95f205a52b",
+  "clause_key": "S3-2_08",
+  "contract_digest": "a6f6a350d07b20fb9b4c80978e7e7805babed3b7b60ddda9ad7410323d12c967",
+  "data_kind": "qualitative",
   "description": "说明主体是否尚未建立与受影响社区接触的一般性流程；若未建立，披露现状与原因。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Statement in case the undertaking has not adopted a general process to engage with affected communities",
     "zh": "未建立社区接触流程时的说明"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-2_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

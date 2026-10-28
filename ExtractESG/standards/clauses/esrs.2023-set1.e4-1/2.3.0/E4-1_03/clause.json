@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "031ac7da0807674afe4a7c2563c67077db603812102127118e8bc3a7db6c2cea",
   "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_03",
-  "contract_digest": "d66f40684c98fdf18a1c3f0df210ee218ce2453c2dc7d5497e9c6e22da7c6b4e",
+  "clause_key": "E4-1_03",
+  "contract_digest": "d9042466367809313bd39588560746474ace13cb6a8961f1a6d7ab3af02dd0ca",
+  "data_kind": "qualitative",
   "description": "列出生物多样性和生态系统韧性分析所依赖的关键假设，并说明这些假设的依据与不确定性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of key assumptions made (biodiversity and ecosystems)",
     "zh": "韧性分析的关键假设"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-1_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "19106ab2179b78e1492cbab4ae3e862c4bdd2ed3ba79fa99db859b1b72033c8a",
   "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_07",
-  "contract_digest": "85457d73537225dc166893885b2c83304912175b8d49fedde8cbd2678fed7120",
+  "clause_key": "G1-3_07",
+  "contract_digest": "fac806f543fba4eaf341949d5321c2d63b6f5353f255a35f6187a4ee993c841a",
+  "data_kind": "quantitative",
   "description": "披露高风险职能中受反腐败或反贿赂培训覆盖的比例，并说明统计口径。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "G1-3",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of functions-at-risk covered by training programmes",
     "zh": "受培训覆盖的高风险职能比例"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-3_07",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

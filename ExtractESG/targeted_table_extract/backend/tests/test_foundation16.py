@@ -481,19 +481,33 @@ def test_pollutant_rows_the_call_left_unmapped_are_proposed_by_label():
     assert not any("节能量" in o.row_label for o in observations)
 
 
-def test_an_unseen_clause_is_judged_by_its_declared_spec_without_new_code():
-    from esg_targeted.foundation.specs import SPECS, ClauseSpec
-    SPECS["E1-5_03_test"] = ClauseSpec(
-        "E1-5_03_test", "能源强度",
-        require_terms=("能源强度", "energy intensity"),
-        exclude_terms=("总量", "total"),
-        dimension="ratio",
-    )
-    ok, reason = SPECS["E1-5_03_test"].evaluate("能源强度（兆瓦时/百万元）", None, "MWh/CNY m", "ratio")
-    assert ok and reason is None
-    rejected, reason = SPECS["E1-5_03_test"].evaluate("能源消耗总量（兆瓦时）", None, "MWh", "energy")
-    assert not rejected and reason == "label_not_this_concept"
-    del SPECS["E1-5_03_test"]
+def test_an_unseen_clause_is_judged_by_its_reading_contract_without_new_code():
+    from esg_standard_packages.clause_profile import ReadingContract, ReadingRule
+    from esg_targeted.foundation.catalog import FoundationMetric, runtime_catalog
+    from esg_targeted.foundation.guards import check
+
+    reading = ReadingContract(operator="numeric_label", rules=[
+        ReadingRule(rule="require_any", terms=["能源强度", "energy intensity"], scope="scope_text",
+                    reason="label_not_this_concept"),
+        ReadingRule(rule="forbid_any", terms=["总量", "total"], reason="label_is_other_concept"),
+        ReadingRule(rule="unit_dimension", allowed=["ratio"]),
+    ])
+    metric = FoundationMetric(
+        code="E1-5_03_test", metric_id="esrs.2023-set1.e1-5.dp03.test",
+        package_id="esrs.2023-set1.e1-5", group="energy", text_group="energy",
+        kind="percentage", dimension="ratio", label="能源强度", definition="能源强度",
+        reading=reading)
+    catalog = runtime_catalog().by_code
+    catalog["E1-5_03_test"] = metric
+    try:
+        ok = check("E1-5_03_test", "能源强度（兆瓦时/百万元）", None, "MWh/CNY", "ratio")
+        assert ok.ok and not ok.flags
+        rejected = check("E1-5_03_test", "能源消耗总量（兆瓦时）", None, "MWh", "energy")
+        assert not rejected.ok and rejected.flags == ("label_not_this_concept",)
+        forbidden = check("E1-5_03_test", "能源强度总量（兆瓦时/百万元）", None, "MWh/CNY", "ratio")
+        assert not forbidden.ok and forbidden.flags == ("label_is_other_concept",)
+    finally:
+        catalog.pop("E1-5_03_test", None)
 
 
 def test_metric_sets_are_data_and_never_refer_to_a_report():
@@ -536,26 +550,12 @@ def test_extended_clause_guards_reject_the_confusable_neighbour():
         assert g.check(code, label, None, unit, dimension).ok is expected, (code, label)
 
 
-def test_declared_spec_judges_a_clause_without_a_bespoke_guard():
-    """Adding a concept is a data change: the spec is authoritative here."""
-    from esg_targeted.foundation import specs
+def test_a_clause_without_a_contract_is_not_silently_judged():
+    """New concepts enter through a clause contract, never an inline spec."""
+    import pytest
 
-    specs.SPECS["E9-9_01"] = specs.ClauseSpec(
-        "E9-9_01", "合成物质排放量",
-        require_terms=("合成物质",), exclude_terms=("强度",), dimension="mass",
-    )
-    original_evaluate = specs.evaluate_spec
-    try:
-        from esg_targeted.foundation.specs import evaluate_contract_spec
-        def evaluate_synthetic(code, label, section, unit, dimension):
-            return evaluate_contract_spec(specs.SPECS["E9-9_01"], dimension="mass").evaluate(label, section, unit, dimension)
-        specs.evaluate_spec = evaluate_synthetic
-        assert check("E9-9_01", "合成物质排放量", None, "吨", "mass").ok is True
-        rejected = check("E9-9_01", "合成物质排放强度", None, "吨/人", "mass")
-        assert rejected.ok is False and rejected.flags
-    finally:
-        specs.SPECS.pop("E9-9_01", None)
-        specs.evaluate_spec = original_evaluate
+    with pytest.raises(KeyError):
+        check("E9-9_01", "合成物质排放量", None, "吨", "mass")
 
 
 def test_platform_major_specs_keep_each_new_clause_distinct():

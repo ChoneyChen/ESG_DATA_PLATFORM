@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "651d6a14b698c0a3ee26bc8b79e57d20c13932908166c18520013ee2dc3e89de",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_01",
-  "contract_digest": "b3391dcc68f5c2c54995df0fb74a08ba55aa2f3a2411ac8f2cf623e24dbe76f6",
+  "clause_key": "SBM-3_01",
+  "contract_digest": "36baedadd44ab15ca9d3eb5450f8074ceab45ad4c3ab5702f81bbcc626d752df",
+  "data_kind": "qualitative",
   "description": "Description of material impacts resulting from materiality assessment。重要影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of material impacts resulting from materiality assessment",
     "zh": "重要影响"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

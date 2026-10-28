@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a1e94ee06fa189adb9c15cdc3852c632d4143a1ad34b0b9d0131965d538efd87",
   "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_06",
-  "contract_digest": "94b3344c6bd40cb605bc95f7af6b0545b12db82ac6972a48ebdacc2b6547fe4b",
+  "clause_key": "E4-5_06",
+  "contract_digest": "fa0537e95c40e4ed881fc3669105bc1208c36023c05934a53aae18adb2241a80",
+  "data_kind": "qualitative",
   "description": "披露生态系统管理方式随时间发生的变化，包括管理措施及其对生态条件的影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of changes over time in management of ecosystem",
     "zh": "生态系统管理方式随时间的变化"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-5_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

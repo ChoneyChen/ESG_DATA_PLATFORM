@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b0b84faf91d7d9c435ac7118acfb0332b993d49b71a5b8fd65e50aae69feb123",
   "clause_id": "esrs.2023-set1.s2-3@2.3.0:S2-3_05",
-  "contract_digest": "619fe02b3370d67987944ea01da672e7663e04bbdd5a0b4b099685a7ee059d65",
+  "clause_key": "S2-3_05",
+  "contract_digest": "22a6f801068b6b938016a8b13abf7aa3d394546277731d12efb44bb412fc55e5",
+  "data_kind": "qualitative",
   "description": "说明主体是否以及如何评估价值链劳动者知晓并信任相关结构或流程，以提出关切和需求。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how it is assessed that value chain workers are aware of and trust structures or processes as way to raise their concerns or needs and have them addressed",
     "zh": "价值链劳动者对渠道的知晓与信任评估"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-3_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

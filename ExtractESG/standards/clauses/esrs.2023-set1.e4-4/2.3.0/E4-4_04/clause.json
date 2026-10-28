@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7905e7f1175b263f5843984bd94ee1ff017c8fe9311ee9e8d645e702c2a32c44",
   "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_04",
-  "contract_digest": "cc29c5c10888b2ef3ef7bc292d39217c5eb35303a4b7eb0329b0560c41d248cc",
+  "clause_key": "E4-4_04",
+  "contract_digest": "b003b22d95c50fb0014aacf9a3664a2e0dac4f099126d6717d0f76be7be2d3a6",
+  "data_kind": "qualitative",
   "description": "说明尊重所识别生态阈值的责任如何在主体内部及价值链相关方之间分配。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (biodiversity and ecosystems)",
     "zh": "尊重生态阈值的责任分配"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-4_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

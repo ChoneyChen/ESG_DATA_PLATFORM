@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "84896b4c99b6fc1c06dce531f4d111fcc776018f09a1758f692bf790e2c3f208",
   "clause_id": "esrs.2023-set1.s1-2@2.3.0:S1-2_07",
-  "contract_digest": "72d7013a900b1d905e30e43fdfbe2ef60b34926a57bb7049a11cb53452d3871b",
+  "clause_key": "S1-2_07",
+  "contract_digest": "5b25c095e815b02aa101f50bf7277b87e400d9af0bf81ab0244f6372c21a0b86",
+  "data_kind": "qualitative",
   "description": "说明主体为深入了解尤其易受伤害或边缘化员工观点所采取的步骤。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of steps taken to gain insight into perspectives of people in its own workforce that may be particularly vulnerable to impacts and (or) marginalised",
     "zh": "了解易受伤害或边缘化员工观点的步骤"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-2_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

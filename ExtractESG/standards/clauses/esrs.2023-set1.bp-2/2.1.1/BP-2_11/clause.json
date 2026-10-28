@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5ab3153e5554de23f0cecbbdd40202d8419ece6ce2a0b86816825a441c96f06a",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_11",
-  "contract_digest": "31aeafb2bb32d10fb3281443018839123357d5f77ccb40b2f417655675b9a00a",
+  "clause_key": "BP-2_11",
+  "contract_digest": "250d1c2da46bbae81cdb9d69d59ed16d589ab55794771a933c0069339abe59cd",
+  "data_kind": "qualitative",
   "description": "Adjustment of comparative information for one or more prior periods is impracticable。比较信息调整不可行。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Adjustment of comparative information for one or more prior periods is impracticable",
     "zh": "比较信息调整不可行"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

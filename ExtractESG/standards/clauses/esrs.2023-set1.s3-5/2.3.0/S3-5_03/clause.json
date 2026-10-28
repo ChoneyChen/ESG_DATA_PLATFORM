@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "836644e6885fa5b7adc234ddb2322a1b65778dc49cf59d20e8726c7fbea5fadf",
   "clause_id": "esrs.2023-set1.s3-5@2.3.0:S3-5_03",
-  "contract_digest": "fe9c9f516e1cd29796ba8f985614b2c0f7a9802c5d04102ec3f32064b94cf81a",
+  "clause_key": "S3-5_03",
+  "contract_digest": "9ae55e2334aff28e950afc984ab075975f25f8b923c6c8a1edf3f186e433df8c",
+  "data_kind": "qualitative",
   "description": "说明受影响社区是否以及如何直接参与识别绩效带来的经验教训或改进机会。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how affected communities  were engaged directly in identifying lessons or improvements as result of undertaking’s performance",
     "zh": "受影响社区参与经验与改进识别"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-5_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

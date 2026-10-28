@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "84dbc010b12718961aa0ce1c955d525f5559b51fd9c176f1a3ae8440e47fb697",
   "clause_id": "esrs.2023-set1.e2-5@2.1.1:E2-5_01",
-  "contract_digest": "34e5d40ec69a32055031c68abfb6057386c674cd25a20e30ddc12b46d6c114dc",
+  "clause_key": "E2-5_01",
+  "contract_digest": "ef565981e1654ec98804f3f6a510fdb7783eb922d527e339eba1a11a21b1ccfb",
+  "data_kind": "qualitative",
   "description": "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern。关注物质按危害类别分解的披露结构。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
   "disclosure_requirement": "E2-5",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern",
     "zh": "关注物质按危害类别分解的披露结构"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-5_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

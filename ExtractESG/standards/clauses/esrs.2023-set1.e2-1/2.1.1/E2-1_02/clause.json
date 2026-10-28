@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9852780b30d0c91d90b9a96ead436eb2cd9a562917580a5d7a612f0267314a4c",
   "clause_id": "esrs.2023-set1.e2-1@2.1.1:E2-1_02",
-  "contract_digest": "7f84798826f19156ccc61122ce9ed42b510c518cc1cd428bc4ebb823c051e0f7",
+  "clause_key": "E2-1_02",
+  "contract_digest": "5032900fa4f8ba345b81807a3ace6bfb840945fbef20cfcba18a2a61c3aaf845",
+  "data_kind": "qualitative",
   "description": "Disclosure of  whether and how policy addresses substituting and minimising use of substances of concern and phasing out substances of very high concern。关注物质与高度关注物质政策。污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。",
   "disclosure_requirement": "E2-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of  whether and how policy addresses substituting and minimising use of substances of concern and phasing out substances of very high concern",
     "zh": "关注物质与高度关注物质政策"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-1_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

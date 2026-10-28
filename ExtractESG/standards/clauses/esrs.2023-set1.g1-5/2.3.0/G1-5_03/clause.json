@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "60f91f35c0ebf553d764cab106d3083ab31aae0a1f1dace1f70bb286ab954238",
   "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_03",
-  "contract_digest": "5ce8c8989cc57be1fd5d3bb0373fbd6931771e99ff2a17ce5ba202cf40ae39a8",
+  "clause_key": "G1-5_03",
+  "contract_digest": "e95eb11ac812c77f7842fa4557861bbcdefb20c24fdc6f6f09cdfe2668feebe9",
+  "data_kind": "quantitative",
   "description": "披露报告期内主体提供的财务政治捐赠金额，并说明计量口径。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "G1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Financial political contributions made",
     "zh": "财务政治捐赠金额"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-5_03",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

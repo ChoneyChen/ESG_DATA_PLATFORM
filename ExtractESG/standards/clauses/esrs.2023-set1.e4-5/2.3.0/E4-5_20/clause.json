@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9b7a2871ed1871c58d22f27f8b8b48e3e5d7fdf02bb8a49ca67add3d8cbd2b62",
   "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_20",
-  "contract_digest": "8825e7679ff998890725de94170879ee626ef02d824a36e17e7dbebea78fa4f5",
+  "clause_key": "E4-5_20",
+  "contract_digest": "0fe293892f50a21533028417505f1d2f3186b2c6ef98f886a3236329822f4d84",
+  "data_kind": "qualitative",
   "description": "披露特定区域内物种个体数量随时间的变化，包括变化幅度与监测方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of changes in number of individuals of species within specific area",
     "zh": "特定区域内物种个体数量变化"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-5_20",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

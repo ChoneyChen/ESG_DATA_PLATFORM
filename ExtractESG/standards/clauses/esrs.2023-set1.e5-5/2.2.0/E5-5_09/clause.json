@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "ac3bee1d57e6b87e7322a1dd76f069ae5dcad8a0a73722dfd7e5aa00227d5c79",
   "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_09",
-  "contract_digest": "8f5ae8bc69eff698b940bc94dec7aca8883b0505867b49c283c2b6c09214f6c9",
+  "clause_key": "E5-5_09",
+  "contract_digest": "a7c57dc882aea4826eae1188317c1f5033982912daedc4b393c0b52ad8ff0b7f",
+  "data_kind": "quantitative",
   "description": "Waste directed to disposal, breakdown by hazardous and non-hazardous waste and treatment type。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "E5-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Waste directed to disposal, breakdown by hazardous and non-hazardous waste and treatment type",
     "zh": "Waste directed to disposal, breakdown by hazardous and non-hazardous waste and treatment type"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-5_09",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f7e62fc1f6c8f2efd69599afebd1e9e3ac9f5bb7f91cf399a8c1510d9a00aebf",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_12",
-  "contract_digest": "addcf29c15402b4ef4cd6325292813870056fb20f76d81c59b50d4cbe7c0c3c4",
+  "clause_key": "S1-4_12",
+  "contract_digest": "1a5c9da9ac269a672a113d7982749dc37f141f6d1b589137e0eaf4599a01a979",
+  "data_kind": "qualitative",
   "description": "说明报告期内主体在相关行动和举措上的进展程度。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how far undertaking has progressed in efforts during reporting period",
     "zh": "报告期内的进展程度"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

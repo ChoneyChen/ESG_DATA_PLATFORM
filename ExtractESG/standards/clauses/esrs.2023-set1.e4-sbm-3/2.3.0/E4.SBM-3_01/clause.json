@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0c9823cb44bf8a541a0e5899aeb30096a49fe2a1550ec6e3e00c71c2e02573c8",
   "clause_id": "esrs.2023-set1.e4-sbm-3@2.3.0:E4.SBM-3_01",
-  "contract_digest": "e7626431387c85de5e2738dc74c9af8a2a1772cd11a13588b029e7f9153153ef",
+  "clause_key": "E4.SBM-3_01",
+  "contract_digest": "ca69258a530b6d984cd0f5248c81251138d998a1af7bb7dfa86b47ae7dab9181",
+  "data_kind": "qualitative",
   "description": "列明自身运营中与生物多样性和生态系统影响相关的重大场址清单。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "List of material sites in own operation",
     "zh": "自身运营中的重大场址清单"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.SBM-3_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

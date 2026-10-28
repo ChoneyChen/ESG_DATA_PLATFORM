@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e55e57e9a135625a18fdc15c8826b92fe2565308c70e46f493464845570f1d7b",
   "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_03",
-  "contract_digest": "dc9d8e9abbf58aaae4ddd157e574d72c65db7e4b720eb1aacb905c35804dbe7a",
+  "clause_key": "E2-3_03",
+  "contract_digest": "555b90d5777c7928b6fc420f965f43ba0b1e05a09179faa6b5d1a6fe95afeee5",
+  "data_kind": "qualitative",
   "description": "Disclosure of  whether and how target relates to prevention and control of pollution to soil and respective specific loads。目标与土壤污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
   "disclosure_requirement": "E2-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of  whether and how target relates to prevention and control of pollution to soil and respective specific loads",
     "zh": "目标与土壤污染防控关系"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-3_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

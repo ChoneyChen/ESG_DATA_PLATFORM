@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3de7d1019bd2343e605adfb5abf10917ee71d11c74593851047a56684d239c54",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_12",
-  "contract_digest": "37f407957d21ce249eec33df8a945ca9dd8c5e104846120bb0851bd417dfaefa",
+  "clause_key": "E1-1_12",
+  "contract_digest": "72d141fd91a99be63e5f7ef23ec4da3b92d0c1f5f20148284936c4105d60f54d",
+  "data_kind": "qualitative",
   "description": "Undertaking is excluded from EU Paris-aligned Benchmarks。是否被排除在巴黎协定基准之外。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Undertaking is excluded from EU Paris-aligned Benchmarks",
     "zh": "是否被排除在巴黎协定基准之外"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

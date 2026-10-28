@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c9269711f8eb53c77c9d82ee2b7a6541fe9a3ba944ec3ee5678861a16abf7ce8",
   "clause_id": "esrs.2023-set1.s3-3@2.3.0:S3-3_17",
-  "contract_digest": "ae506ac38c1213e6b8d92446c7565016452ad778c9983ec1f253993d0e15c609",
+  "clause_key": "S3-3_17",
+  "contract_digest": "d3e9a7d6dbc5b5bc67a5ca0e7f59e17c30f8ee719708414407bfc73c49c797bb",
+  "data_kind": "qualitative",
   "description": "披露主体计划建立面向受影响社区申诉渠道或流程的时间表。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of timeframe for channel or processes for raising concerns to be in place",
     "zh": "建立社区申诉渠道的时间表"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-3_17",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

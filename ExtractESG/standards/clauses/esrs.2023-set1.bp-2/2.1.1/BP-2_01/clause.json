@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b5b92bf2f5987d914a76fba24685fd19fe92ef17481b79554c39e5004ef871ac",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_01",
-  "contract_digest": "672167823ed11fbd311f8038f25479b7ab831414425fdd30135b3f7de72a73f6",
+  "clause_key": "BP-2_01",
+  "contract_digest": "64b7dfdc28a8caa5d6b3a208c2af27f09ae47ee80ca9034be0a2f1cb4ac68e82",
+  "data_kind": "qualitative",
   "description": "Disclosure of definitions of medium- or long-term time horizons。中长期时间范围定义。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of definitions of medium- or long-term time horizons",
     "zh": "中长期时间范围定义"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

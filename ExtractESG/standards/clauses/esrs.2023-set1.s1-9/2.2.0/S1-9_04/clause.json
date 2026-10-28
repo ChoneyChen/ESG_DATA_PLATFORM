@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "19423a70d4201b9b132a4e0d858442a39ae8acce090cbad63f1b880054c7df67",
   "clause_id": "esrs.2023-set1.s1-9@2.2.0:S1-9_04",
-  "contract_digest": "0ef102509579b85942abaa9e9fc7645261b2bb223b2ac818af32cab1dee73faf",
+  "clause_key": "S1-9_04",
+  "contract_digest": "46880641bdcd82de69323426cc1fd3dde317982c0323a04a1275422171ab2b2d",
+  "data_kind": "quantitative",
   "description": "Distribution of employees (head count) between 30 and 50 years old。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "S1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Distribution of employees (head count) between 30 and 50 years old",
     "zh": "Distribution of employees (head count) between 30 and 50 years old"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "share",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 占比",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-616c01af2f7bcf2f",
       "value_role": "actual"
     }
   ],
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-9_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

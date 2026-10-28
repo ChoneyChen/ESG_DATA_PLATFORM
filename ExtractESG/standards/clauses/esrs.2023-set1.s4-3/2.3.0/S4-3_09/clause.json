@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "2f76a87f5226d3478b81bea5aed7c1683b187562c280a79d94b3abd2927559b9",
   "clause_id": "esrs.2023-set1.s4-3@2.3.0:S4-3_09",
-  "contract_digest": "05793a5a96853c094e4ed4cd3ecf7bb8bc15afc1f75086f80f60d1bb1b0f0f73",
+  "clause_key": "S4-3_09",
+  "contract_digest": "b63b7e2507d5ecb8f6c85ae0aee489fa644f9c076d30cb024fe8c0202204962b",
+  "data_kind": "qualitative",
   "description": "说明消费者和终端用户是否以及如何在其受影响主体的层级使用申诉渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how consumers and/or end-users are able to access channels at level of undertaking they are affected by",
     "zh": "消费者在其受影响层级使用渠道的能力"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-3_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

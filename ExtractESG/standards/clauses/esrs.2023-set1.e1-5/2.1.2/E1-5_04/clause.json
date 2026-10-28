@@ -1,14 +1,23 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "fcd0ab1ef469167061a5e310a5205c7003567f7a25a8d89337ca0a87c50bbe8c",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_04",
-  "contract_digest": "3057f312a8583c622a625ceb00d0247e8d6cf5893fdde54e48fa2b55d1147f8c",
+  "clause_key": "E1-5_04",
+  "contract_digest": "a80774cecb67cfef98401aeda9e78ab4626dfa8b7a20ab5c9f3b485d838c23f1",
+  "data_kind": "quantitative",
   "description": "核能占能源消费总量的比例",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Share of nuclear sources in total energy consumption",
     "zh": "核能占能源消费总量的比例"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_04",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

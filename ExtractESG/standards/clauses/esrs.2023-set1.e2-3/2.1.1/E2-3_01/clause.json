@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "810930d20fa4ba4e69fec511c9d75b58180eb2b650235b34cf2459a4e5902ac1",
   "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_01",
-  "contract_digest": "6f31df6f63cebe23ba810ae07f83e5f450d4eaa8b781f878663fd6487973b808",
+  "clause_key": "E2-3_01",
+  "contract_digest": "95ff3e81f3f1466ca5b85a41c46a24528a0a4371f77099c05c974f720124f909",
+  "data_kind": "qualitative",
   "description": "Disclosure of  whether and  how target relates to prevention and control of air pollutants and respective specific loads。目标与空气污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
   "disclosure_requirement": "E2-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of  whether and  how target relates to prevention and control of air pollutants and respective specific loads",
     "zh": "目标与空气污染防控关系"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-3_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "72ea5791c9bccbd79e3920cdd3d5c0a5ecab4cb92030522b4cbe368c0afe9434",
   "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_09",
-  "contract_digest": "550b0074d13af85ed83c026f2ad9e9260dbe572a64c8841e609a6ea0e34bf32b",
+  "clause_key": "S1-1_09",
+  "contract_digest": "a473ca9738e65469f35c9af1b4685a3c8db780fc39c3a1a7d1a07d7f6cbf8f9e",
+  "data_kind": "qualitative",
   "description": "披露主体是否已建立工作场所事故预防政策或管理体系，并说明其主要内容。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Workplace accident prevention policy or management system is in place",
     "zh": "工作场所事故预防政策或管理体系"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-1_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

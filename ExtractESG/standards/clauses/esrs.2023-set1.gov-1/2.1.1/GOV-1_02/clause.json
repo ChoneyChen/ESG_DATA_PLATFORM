@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "3150520be6b27666048dd8c2eed884e50e49b79dc4f3992c9a785638bf6fd28f",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_02",
-  "contract_digest": "d510c038e6e092dea320c2b610a527590b8c96578394744c2ad3381c5908f574",
+  "clause_key": "GOV-1_02",
+  "contract_digest": "c480a60cc39dc782d3e1ecde74b7d25e2f3581de6035b9f4e0152001106a3e8f",
+  "data_kind": "quantitative",
   "description": "Number of non-executive members。非执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of non-executive members",
     "zh": "非执行成员数量"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-1_02",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

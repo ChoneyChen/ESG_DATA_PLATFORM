@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c18ebc872ea0e19eaad2a3bdae80915304df4d174f7f6f823190d1044590f054",
   "clause_id": "esrs.2023-set1.sbm-2@2.1.1:SBM-2_04",
-  "contract_digest": "ccb0517ba1eae0a223af9a474c90186ac0a4ca60a78701ba4dc4921fef765388",
+  "clause_key": "SBM-2_04",
+  "contract_digest": "25431d65869808c60e725339f08e62609a1a6f8289f4cdb5c71449a24a2f64b6",
+  "data_kind": "qualitative",
   "description": "Description of how stakeholder engagement is organised。利益方参与组织方式。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
   "disclosure_requirement": "SBM-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how stakeholder engagement is organised",
     "zh": "利益方参与组织方式"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-2_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

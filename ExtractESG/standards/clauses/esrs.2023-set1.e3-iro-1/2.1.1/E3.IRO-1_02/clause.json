@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "495d8bd552510425fc0a32ad8926ce5369fb3be1f0850aa13cd6d4c25ebf31e2",
   "clause_id": "esrs.2023-set1.e3-iro-1@2.1.1:E3.IRO-1_02",
-  "contract_digest": "aa59acac058b6f5cf37bcf7329ec53efb868121f1df97e4162583149c8fa5715",
+  "clause_key": "E3.IRO-1_02",
+  "contract_digest": "b02251a9dba072a8c9c9f3bf433e36cc1e079c2ea33b259987dd766ccb39d4dc",
+  "data_kind": "qualitative",
   "description": "Disclosure of how consultations have been conducted (water and marine resources) [text block]。水及海洋资源利益方咨询。区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。",
   "disclosure_requirement": "E3.IRO-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how consultations have been conducted (water and marine resources) [text block]",
     "zh": "水及海洋资源利益方咨询"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3.IRO-1_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

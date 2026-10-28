@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3979067cd1089539aacd02d96631f78e3018f16507c355f7a6862a19017de826",
   "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_10",
-  "contract_digest": "7f0bc6d3fb8c432bb7f076771e7a40e45e9d9ed3a35e374b6732e0f09bc8a680",
+  "clause_key": "S1.SBM-3_10",
+  "contract_digest": "3563a33c06119c888726d01af4acdf02305b366a88b678aefe73f8aecd1b5813",
+  "data_kind": "qualitative",
   "description": "提供被认为存在童工事件重大风险的国家或地理区域信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about countries or geographic areas with operations considered at significant risk of incidents of child labour",
     "zh": "存在童工重大风险的国家或地区"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1.SBM-3_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

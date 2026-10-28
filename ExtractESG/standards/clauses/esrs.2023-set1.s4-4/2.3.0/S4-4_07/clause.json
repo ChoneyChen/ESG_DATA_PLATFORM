@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "183dedb1c74d9936570ffdebf1d30dcfe8000d079e72eb13ba262b8db7a1311e",
   "clause_id": "esrs.2023-set1.s4-4@2.3.0:S4-4_07",
-  "contract_digest": "9d55ab8fbc4d920c7804bf7dceb1ec9e902c5f24e2ad46e5c707b692f943bd9d",
+  "clause_key": "S4-4_07",
+  "contract_digest": "29a59ed0a788deb4f4342e2ac79dc9c062419b717b96dc1d8a998ce752ba3a1d",
+  "data_kind": "qualitative",
   "description": "描述主体如何确保在消费者和终端用户发生重大负面影响时，补救流程可得、可实施且结果有效。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of approach to ensuring that processes to provide or enable remedy in event of material negative impacts on  consumers and end-users are available and effective in their implementation and outcomes",
     "zh": "确保消费者补救流程可用有效的机制"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-4_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

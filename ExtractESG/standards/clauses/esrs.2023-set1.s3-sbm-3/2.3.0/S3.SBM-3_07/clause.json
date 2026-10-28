@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "49e87998a1338a9b3004c8cff0218f428f0ba0cb80e87b02038cba4cbfdd2947",
   "clause_id": "esrs.2023-set1.s3-sbm-3@2.3.0:S3.SBM-3_07",
-  "contract_digest": "81dcc03771f5e9a72f4de4afea5062a83064ba51e1c7745bedbb03b29bb2819e",
+  "clause_key": "S3.SBM-3_07",
+  "contract_digest": "4f65f5116b3fe7436b64c14202832fc6fc0b07edf7111d9840fd4d6a64d2633e",
+  "data_kind": "qualitative",
   "description": "说明主体是否以及如何形成对特定特征、特定情境或特定活动的社区群体可能面临更高伤害风险的理解。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how the undertaking has developed an understanding of how affected communities with particular characteristics or those living in particular contexts, or those undertaking particular activities may be at greater risk of harm",
     "zh": "特定特征或情境社区更高风险的理解"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3.SBM-3_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

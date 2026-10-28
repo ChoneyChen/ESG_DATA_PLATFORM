@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "2c8668af910f113d5aee2bf7e8643be4b368e9bd73be951edeb8b2fc3e1295a0",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_10",
-  "contract_digest": "d6d1b1585aea783438d42d514fbc6beb8cae762b2dee9d6f1bfc0cf44147a154",
+  "clause_key": "SBM-3_10",
+  "contract_digest": "38d89ed7d102173dd200acb033aef2a76f002aa15b1652058402846b820b3934",
+  "data_kind": "qualitative",
   "description": "Information about resilience of strategy and business model regarding capacity to address material impacts and risks and to take advantage of material opportunities。战略商业模式韧性。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about resilience of strategy and business model regarding capacity to address material impacts and risks and to take advantage of material opportunities",
     "zh": "战略商业模式韧性"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "718f328c7c58329f512e6767f1da118ea8ee43dff3a0440fe01758b6ae0277fc",
   "clause_id": "esrs.2023-set1.e3-5@2.1.1:E3-5_06",
-  "contract_digest": "358f0e8c8f958105736f6582f55910041bdde5b11087ff6f59fa915ea1b799bf",
+  "clause_key": "E3-5_06",
+  "contract_digest": "66d49b6090c8560d159cae5fac0e2ba24e39e5a5f62c58afc3e9e9527f468dc2",
+  "data_kind": "qualitative",
   "description": "Explanation of how time horizons are defined, financial amounts are estimated and critical assumptions made (water and marine resources)。水财务估计时间范围与金额方法。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
   "disclosure_requirement": "E3-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of how time horizons are defined, financial amounts are estimated and critical assumptions made (water and marine resources)",
     "zh": "水财务估计时间范围与金额方法"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-5_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,0 +1,77 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E1-6_10",
+  "group": "ghg",
+  "text_group": "ghg",
+  "operator": "ghg_scope",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "范围一",
+      "范围二",
+      "范围三",
+      "scope 1",
+      "scope 2",
+      "scope 3",
+      "直接排放",
+      "间接排放"
+    ],
+    "parent_clause": "E1-6_12",
+    "share_partner": null,
+    "siblings": [
+      "E1-6_07",
+      "E1-6_11"
+    ]
+  },
+  "exact_labels": [],
+  "uses": [
+    "change",
+    "combined_scope",
+    "consolidation_boundary",
+    "ghg_label",
+    "ghg_unit",
+    "intensity",
+    "location_method",
+    "market_method",
+    "net",
+    "ratio_word",
+    "scope1",
+    "scope2",
+    "scope3",
+    "scope3_category",
+    "scope3_named",
+    "total"
+  ],
+  "rules": [
+    {
+      "rule": "ghg_scope",
+      "params": {
+        "scope": "scope_2",
+        "method": "market_based"
+      }
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@intensity",
+        "@ratio_word",
+        "@change"
+      ],
+      "scope": "text",
+      "reason": "label_is_intensity_ratio_or_change"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@net"
+      ],
+      "scope": "text",
+      "reason": "label_is_net_after_offsets"
+    },
+    {
+      "rule": "ghg_unit"
+    }
+  ],
+  "display_label": "范围2市场法排放 Scope 2 market-based",
+  "display_definition": "Scope 2 GHG emissions ONLY when the table or a note states the market-based method (市场法/基于市场/market-based/contractual instruments or supplier-specific factors)."
+}

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "b04308017581e663a2ed1aa9780b4a4f6161b248c327e5340349ac66977dcdb7",
   "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_11",
-  "contract_digest": "f09460b7a1a36d0936d547b67cedd69b1c6004b9248ebec9c5937653abcb181e",
+  "clause_key": "SBM-1_11",
+  "contract_digest": "1ef810922517cb0e51df5ee0aeec383cec5c2a305d56d6f4840845a39db73c6d",
+  "data_kind": "quantitative",
   "description": "Revenue from coal。煤炭收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
   "disclosure_requirement": "SBM-1",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Revenue from coal",
     "zh": "煤炭收入"
@@ -18,15 +27,15 @@
   "obligation_class": "conditional",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-c39bf98d4af7f268",
       "value_role": "actual"
     }
   ],
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-1_11",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

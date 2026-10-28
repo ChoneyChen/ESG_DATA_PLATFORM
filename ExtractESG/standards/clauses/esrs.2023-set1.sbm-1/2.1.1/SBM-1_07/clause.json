@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "d8a5ee1115eca86fcd66155c79ad89f4700ad33d349f59f5527ba7b3b01615a8",
   "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_07",
-  "contract_digest": "46a90eb8bf4a5bf857b221538b2b4c5efd304e02caceec1e2d793a4a2d00479a",
+  "clause_key": "SBM-1_07",
+  "contract_digest": "7c8d76378a0bd4d8c7faa6a1d4ceeaac1ad18a1e95b559cf5af4d1489053b715",
+  "data_kind": "quantitative",
   "description": "Revenue by significant ESRS Sectors。重要ESRS行业收入分解。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
   "disclosure_requirement": "SBM-1",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Revenue by significant ESRS Sectors",
     "zh": "重要ESRS行业收入分解"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-c39bf98d4af7f268",
       "value_role": "actual"
     }
   ],
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-1_07",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

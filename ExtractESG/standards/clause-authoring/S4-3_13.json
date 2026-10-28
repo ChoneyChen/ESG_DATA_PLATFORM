@@ -1,0 +1,70 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "S4-3_13",
+  "group": "consumer",
+  "text_group": "consumer",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "消费者",
+      "客户",
+      "用户",
+      "投诉",
+      "complaint",
+      "consumer",
+      "customer"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "投诉",
+        "complaint"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "率",
+        "%",
+        "比例",
+        "rate",
+        "share"
+      ],
+      "reason": "label_is_other_concept"
+    },
+    {
+      "rule": "require_any",
+      "terms": [
+        "消费者",
+        "consumer",
+        "客户",
+        "customer"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_group_scope"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "count"
+      ],
+      "params": {
+        "allow_missing": true
+      }
+    }
+  ],
+  "display_label": "消费者投诉数量 Consumer complaints",
+  "display_definition": "Number of complaints received from consumers and end-users (客户/消费者投诉数量). A complaint rate, resolved share or supplier grievance count is not this."
+}

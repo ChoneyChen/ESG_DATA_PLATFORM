@@ -1,0 +1,74 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "G1-4_02",
+  "group": "governance",
+  "text_group": "governance",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "董事",
+      "董事会",
+      "女性",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款",
+      "投诉",
+      "罚",
+      "案件"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "罚款",
+        "罚金",
+        "fine",
+        "penalt"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "数量",
+        "number",
+        "件数",
+        "事件数"
+      ],
+      "reason": "label_is_other_concept"
+    },
+    {
+      "rule": "require_any",
+      "terms": [
+        "腐败",
+        "贿赂",
+        "corruption",
+        "bribery"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_group_scope"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "currency"
+      ],
+      "params": {
+        "allow_missing": true
+      }
+    }
+  ],
+  "display_label": "反腐败罚款金额 Fines for corruption and bribery",
+  "display_definition": "Total amount of fines for violations of anti-corruption and anti-bribery laws (腐败/贿赂罚款金额). The number of convictions or incidents, and other legal fines, are different clauses."
+}

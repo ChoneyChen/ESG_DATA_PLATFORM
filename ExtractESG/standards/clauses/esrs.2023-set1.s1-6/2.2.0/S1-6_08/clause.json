@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "8f4114ff59af3d94111abb238c8ec0bedccc9108299fe77ce837f74c149bdfaa",
   "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_08",
-  "contract_digest": "1e7ced7b1675a373872a3aff57c74b61729b8bbf1a711f0050f92d472f0e2bf3",
+  "clause_key": "S1-6_08",
+  "contract_digest": "88c229d657e5efafbb1f6edb75840e63f7c57ac6353a629c5d82d524f80efa12",
+  "data_kind": "qualitative",
   "description": "Characteristics of undertaking's employees - information on employees by region [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
   "disclosure_requirement": "S1-6",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "表结构只承载成员与列的定义，不单独形成带值事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Characteristics of undertaking's employees - information on employees by region [table]",
     "zh": "Characteristics of undertaking's employees - information on employees by region [table]"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-6_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

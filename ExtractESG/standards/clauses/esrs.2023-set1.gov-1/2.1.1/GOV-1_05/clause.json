@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "23d1e9b0c7d59907f31312169b6743e96f0dc1aa10bb5b719895a310bd55615f",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_05",
-  "contract_digest": "3ae3000e0d8164462f75474507e08589ae83ef82cb05c660ebe790e86e5d8dd6",
+  "clause_key": "GOV-1_05",
+  "contract_digest": "aa19d8d6418d16a71991062b0eeebf18872b1c48db616bb1b2f9ea889eda4fff",
+  "data_kind": "quantitative",
   "description": "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity。治理成员性别等多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity",
     "zh": "治理成员性别等多样性比例"
@@ -43,8 +52,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-1_05",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

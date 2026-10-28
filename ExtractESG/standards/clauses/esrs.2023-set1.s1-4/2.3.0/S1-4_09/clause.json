@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9b2eea09ea1b126c63458b4b44f3885826b983de838f8584ca9eaf0413874b7e",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_09",
-  "contract_digest": "4f79ea16fbd59a025a28dc96c8ff1453e6a0a0392d905895ab4ac98efe67be23",
+  "clause_key": "S1-4_09",
+  "contract_digest": "8efc3215b13bba37cefde1912e8cd91c9c0ee41225a9acdf7f0714aef93289da",
+  "data_kind": "qualitative",
   "description": "披露为管理重大影响所分配的资源，包括人员、预算和管理层投入。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of resources are allocated to the management of material impacts",
     "zh": "管理重大影响的资源分配"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

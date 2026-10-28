@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "fafffe6917ecc8baac48b610077eff463e3bf0a4e4ac9d1b2d73d6c07a49a437",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_17",
-  "contract_digest": "1e23d774aae827dc602873a281597a813ac9eae7ceb124c48b8fc10b1729631a",
+  "clause_key": "S1-4_17",
+  "contract_digest": "5c44d637df9bdf248ae9b6b81e2bf8527eaee2e27059b01635972972425cd635",
+  "data_kind": "qualitative",
   "description": "提供针对自身劳动力的项目或流程的预期或已实现积极结果信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about intended or achieved positive outcomes of programmes or processes for own workforce",
     "zh": "项目或流程的预期或已实现积极结果"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_17",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

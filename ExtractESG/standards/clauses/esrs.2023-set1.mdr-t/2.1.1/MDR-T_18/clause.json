@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "82cf13b7ba6285611508b817237f99fa18f7e26810cb6ee9fdc146ec6bbe9138",
   "clause_id": "esrs.2023-set1.mdr-t@2.1.1:MDR-T_18",
-  "contract_digest": "08a84490e2f8ad4bd3b381e5b5505d9d7fcc8276cfc65fd121260cc466b8ef6b",
+  "clause_key": "MDR-T_18",
+  "contract_digest": "4688c73b482d77d03456581bcba0f4d92f83626b04ecbaeea94f34bc80ce43cd",
+  "data_kind": "qualitative",
   "description": "Description of defined level of ambition to be achieved and of any qualitative or quantitative indicators used to evaluate progress。效果评估的预期水平与指标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
   "disclosure_requirement": "MDR-T",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of defined level of ambition to be achieved and of any qualitative or quantitative indicators used to evaluate progress",
     "zh": "效果评估的预期水平与指标"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-T_18",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

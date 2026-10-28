@@ -1,17 +1,47 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "767d5dec02b42b0d87f77533db2c4dec3009b451364747865471b87e402f2b7b",
   "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_12",
-  "contract_digest": "bb6df257fd6cf766355ea379ccf5691aca71e0e86153d72d2a680d2b8e49b406",
+  "clause_key": "S1-6_12",
+  "contract_digest": "b7f37197b61da1336125976404dffeade8b103cae6df18b3aa53cac09346da04",
+  "data_kind": "quantitative",
   "description": "报告期内离开本主体的员工占平均员工人数的比例。",
   "disclosure_requirement": "S1-6",
   "disclosure_role": "anchor",
+  "display_definition": "Percentage of employees who left during the reporting period (员工流失率/离职率). A head count of leavers or a hiring rate is not this.",
+  "display_label": "员工流失率 Employee turnover rate",
   "distinguish_from": [
     "离职员工人数",
     "员工人数"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "流失人数不能代替流失率；流失率与人力流动率的定义必须一致。"
+  ],
+  "group": "workforce",
+  "group_terms": [
+    "员工总数",
+    "员工总人数",
+    "员工人数",
+    "雇员人数",
+    "在职员工",
+    "总人数",
+    "员工流失率",
+    "离职率",
+    "employee turnover",
+    "number of employees",
+    "headcount",
+    "head count"
+  ],
+  "group_unit_terms": [
+    "人",
+    "人数",
+    "期末",
+    "平均",
+    "%",
+    "turnover",
+    "employees"
   ],
   "labels": {
     "en": "Percentage of employee turnover",
@@ -45,8 +75,169 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_turnover_rate",
+        "rule": "require_any",
+        "scope": "subject",
+        "terms": [
+          "re:(?:流失率|流失比率|离职率|离职比率|turnover)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_population_subset",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "其中",
+          "男性",
+          "女性",
+          "按性别",
+          "按年龄",
+          "岁以下",
+          "岁以上",
+          "管理者",
+          "管理层",
+          "职级",
+          "岗位",
+          "地区",
+          "区域",
+          "基层",
+          "中层",
+          "高层",
+          "普通员工",
+          "劳务",
+          "派遣",
+          "by gender",
+          "by age",
+          "岁",
+          "年龄",
+          "以上",
+          "以下",
+          "基层员工",
+          "中层管理",
+          "高层管理"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_population_subset",
+        "rule": "reject_component",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "unit_dimension_not_ratio",
+        "rule": "ratio_required",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "training_subset": [
+        "其中",
+        "男性",
+        "女性",
+        "按性别",
+        "按年龄",
+        "岁以下",
+        "岁以上",
+        "管理者",
+        "管理层",
+        "职级",
+        "岗位",
+        "地区",
+        "区域",
+        "基层",
+        "中层",
+        "高层",
+        "普通员工",
+        "劳务",
+        "派遣",
+        "by gender",
+        "by age",
+        "岁",
+        "年龄",
+        "以上",
+        "以下",
+        "基层员工",
+        "中层管理",
+        "高层管理"
+      ],
+      "turnover": [
+        "re:(?:流失率|流失比率|离职率|离职比率|turnover)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-6_12",
+  "text_group": "workforce",
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "eafbd6143b97d0b2bba25f9d6f99f06b5d17b6aebf41a87e5ce3d752f56896ad",
   "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_04",
-  "contract_digest": "96b8f2013e87b5514014bf4acb8ac11f340b917253a5820f5bf80d5fbc39344c",
+  "clause_key": "SBM-3_04",
+  "contract_digest": "df3d0c6d0600395ec766e0e0aa8a41d9acf853da3ed238f3f2eac8f82807c612",
+  "data_kind": "qualitative",
   "description": "Disclosure of how material negative and positive impacts affect (or are likely to affect) people or environment。对人和环境的影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
   "disclosure_requirement": "SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how material negative and positive impacts affect (or are likely to affect) people or environment",
     "zh": "对人和环境的影响"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-3_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

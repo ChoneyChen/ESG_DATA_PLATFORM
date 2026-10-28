@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "fd742505bbb78219e6e7f541865f8f61ca76f9eddda0aad7244e3c0e8892b2c9",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_15",
-  "contract_digest": "ed8b900af1ffae82fe1fe8ea732cfc5ad6b56e8cdb5170e09e34ca9875236b7b",
+  "clause_key": "S1-4_15",
+  "contract_digest": "344dda8762c4621339cbe5715deca1da88bd3a1a06e071b13819f7ea7c3034e3",
+  "data_kind": "qualitative",
   "description": "说明相关举措以及主体自身的参与如何针对所涉重大影响发挥作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how the initiative, and its own involvement, is aiming to address the material impact concerned",
     "zh": "举措及主体参与如何应对重大影响"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

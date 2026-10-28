@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9ea308272874e7d67b0dc07bab64bf22219e46f39185525e202e525003230f17",
   "clause_id": "esrs.2023-set1.e3-1@2.1.1:E3-1_04",
-  "contract_digest": "3da17ca1f2d068e68da16ead1cc669440d9b3e821ff6222c9945925b4601b246",
+  "clause_key": "E3-1_04",
+  "contract_digest": "71e040b2be1b54c1757408aa1c529743fb9f7dfe505c91d9fe14ea5b3d79d834",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether and how policy adresses prevention and abatment of water pollution。水污染预防减缓政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
   "disclosure_requirement": "E3-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how policy adresses prevention and abatment of water pollution",
     "zh": "水污染预防减缓政策"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-1_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "2cfb4995419ebbe852b12476678c4d759f3040ae1c7315650148c2f98d016f1d",
   "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_01",
-  "contract_digest": "a4a2a747bca083c7533ab2af68c77b758bf14b8a099982ef4ed57c8c159e4a8a",
+  "clause_key": "E4.IRO-1_01",
+  "contract_digest": "d8149427b06c0036282bd56872ff916538ba587c34968736fb573d16a7d40698",
+  "data_kind": "qualitative",
   "description": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how actual and potential impacts on biodiversity and ecosystems at own site locations and in value chain have been identified and assessed",
     "zh": "自身场址与价值链中生物多样性和生态系统影响的识别与评估"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.IRO-1_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c86054db6e020236ceab60ed17de9f501f71f79f8d20f2f37bfe9de3aeb60ec7",
   "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_10",
-  "contract_digest": "4dcc5dab9597f0f09cec4b021f35ce26ffd4ddc4f0af0a43bd086c069b48c14e",
+  "clause_key": "E4.IRO-1_10",
+  "contract_digest": "4d4a4257d654ce2c245fb290206fa2b8c42e6bb664de816a5efdb45fadc24967",
+  "data_kind": "qualitative",
   "description": "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how tthe business model(s) has been verified using range of biodiversity and ecosystems scenarios, or other scenarios with modelling of biodiversity and ecosystems related consequences, with different possible pathways",
     "zh": "使用生物多样性和生态系统情景验证商业模式"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.IRO-1_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

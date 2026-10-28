@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "d2e691753e085291f290ea323cc2550095ce98d8525956d7ab1ad87d91be8f9c",
   "clause_id": "esrs.2023-set1.s1-12@2.3.0:S1-12_02",
-  "contract_digest": "bdf584a63a4a14815ebef74787caacfdc74d9a2cfd51dc5f247dca8debcd6b6a",
+  "clause_key": "S1-12_02",
+  "contract_digest": "00a283dcfe2b73db12e8b9ff0a8ba972d11a550a23bf31002745e61d362069a4",
+  "data_kind": "quantitative",
   "description": "以表格披露自身劳动力中按性别划分的残障员工比例。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "S1-12",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of employees with disabilities in own workforce breakdown by gender [table]",
     "zh": "按性别划分的残障员工比例表"
@@ -18,15 +27,15 @@
   "obligation_class": "voluntary_if_material",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-616c01af2f7bcf2f",
+      "scope_id": "scope-c39bf98d4af7f268",
       "value_role": "actual"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-12_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "177084f32b1db27b4b64debf278d5f4177067dce7f4775346c31d360fc57c66a",
   "clause_id": "esrs.2023-set1.s1-8@2.3.0:S1-8_07",
-  "contract_digest": "53f6cff398eafd2e024e979b1bdfa7c5835f5d4a9d51b103b29bc162048b1dd1",
+  "clause_key": "S1-8_07",
+  "contract_digest": "d1a5d69035fc72df9aa7d7daf7e05a8f9e47cdae4d649a6ab3a8d8403da88532",
+  "data_kind": "qualitative",
   "description": "披露主体是否与员工签订由欧洲工程委员会、欧洲公司工程委员会或欧洲合作社工程委员会代表的协议。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-8",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of existence of any agreement with employees for representation by European Works Council (EWC), Societas Europaea (SE) Works Council, or Societas Cooperativa Europaea (SCE) Works Council",
     "zh": "欧洲工程委员会或类似员工代表协议"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-8_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

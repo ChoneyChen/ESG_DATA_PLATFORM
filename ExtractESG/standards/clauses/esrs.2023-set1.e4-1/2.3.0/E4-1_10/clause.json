@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "640abca81c178acc44d8f21e0e9f28f6ce8d219130ddd103ff6e48ca2e765483",
   "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_10",
-  "contract_digest": "ab687288e3473dea6ca5341986ee0db6112b4f28664daf7bbfd2a17279e894d9",
+  "clause_key": "E4-1_10",
+  "contract_digest": "fec5e74035a03aa52fc1c133df446a73becd68188c4cbeb5d6d9a927485a972c",
+  "data_kind": "qualitative",
   "description": "说明生物多样性和生态系统战略与转型计划之间如何相互作用、相互支持。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of how b strategy interacts with  transition plan",
     "zh": "战略与转型计划的相互作用"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-1_10",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

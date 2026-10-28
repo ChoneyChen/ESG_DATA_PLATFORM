@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "49c8ff6b418a4dd45ca263f7803c0b1e2d310c322fd6d1d9026abc9b06b32418",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_01",
-  "contract_digest": "36878d8abf55174b015e74f2eeb7aac20cf6ac306290822534387d66541d5f38",
+  "clause_key": "E2-4_01",
+  "contract_digest": "7a5ef2db4f21f738d31aa9a8ff797e230184fa49c5043d8a4ce57dfa44946a96",
+  "data_kind": "qualitative",
   "description": "用于声明量化披露采用的分解维度；Table 表示多维结构，不要求报告版式必须是表格。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Pollution of air, water and soil [multiple dimensions: at site level or by type of source, by sector or by geographical area]",
     "zh": "空气、水和土壤污染披露维度结构"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

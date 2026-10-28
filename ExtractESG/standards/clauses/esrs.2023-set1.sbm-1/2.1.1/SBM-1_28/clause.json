@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "2bd2a3cab3a998661620e7ebee52a465986d7604ecb564dffab6ec4b6694395d",
   "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_28",
-  "contract_digest": "4ee2ff33a0deb311ad68c6474f05a4f8d3ca814e6fe48dfaf9cd96e2c5446e5c",
+  "clause_key": "SBM-1_28",
+  "contract_digest": "3cb2789caa78c3c2f45670b502e1c8b84c8677c40def9bfa204c3a401354474d",
+  "data_kind": "qualitative",
   "description": "Description of main features of upstream and downstream value chain and undertakings position in value chain。上下游价值链与企业位置。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
   "disclosure_requirement": "SBM-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of main features of upstream and downstream value chain and undertakings position in value chain",
     "zh": "上下游价值链与企业位置"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-92477e5a7415f135",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "SBM-1_28",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

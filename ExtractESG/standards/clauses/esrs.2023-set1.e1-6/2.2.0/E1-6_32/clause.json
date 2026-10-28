@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "841847f060d5b516fe607bf38e918c0fb32c41772095b6fc5f799e3838dfa194",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_32",
-  "contract_digest": "1bd7fad117aa3e620556464518d0b4a9c8a2c4b93aa954bdcc739cc68de18d66",
+  "clause_key": "E1-6_32",
+  "contract_digest": "d05926a9635e728a94a564b44e444c48f17e1b78961c9f675b9872804dfb9f00",
+  "data_kind": "qualitative",
   "description": "用于温室气体强度计算的净收入与财务报表净收入之间的对账说明。需有明确的对账关系、差异或一致性陈述；整张经济绩效表不是对账说明。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Reconciliation of net revenue used for GHG intensity",
     "zh": "温室气体强度所用净收入的对账说明"
@@ -17,15 +26,15 @@
   "obligation_class": "conditional_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-92477e5a7415f135",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -40,8 +49,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_32",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

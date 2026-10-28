@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "43009cc81696ed7aea4ca82b17d7dc5d7511bba96953c9b07c06bebd1cc8950b",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_38",
-  "contract_digest": "b26810f5c6ed6691c84279946361777a8d2b20339f2bffd66bb2ac14434c5675",
+  "clause_key": "E1-9_38",
+  "contract_digest": "b3ff789295cea2d4447a3d0db6b391e65aca3caf68fbbbf23e300d73d7c10ba2",
+  "data_kind": "qualitative",
   "description": "Disclosure of anticipated financial effects in terms of margin erosion for business activities at material transition risk。转型风险业务预期利润侵蚀。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of anticipated financial effects in terms of margin erosion for business activities at material transition risk",
     "zh": "转型风险业务预期利润侵蚀"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_38",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

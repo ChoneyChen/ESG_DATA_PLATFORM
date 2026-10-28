@@ -1,17 +1,40 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "d72f9489c085964ea00ee28548780a3ac321314d8d948f05e5e4bffb2d25706b",
   "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_05",
-  "contract_digest": "57624414c5537baf320df28dbc0550c4325f98f3bafe1e91b750f6d035e2820a",
+  "clause_key": "E5-4_05",
+  "contract_digest": "65b77d62966a1c11be2d164bde9fe8d46d8495584cb17cd8fcfd20536a621077",
+  "data_kind": "quantitative",
   "description": "二次使用或再生的部件、中间产品与材料占材料投入的比例。",
   "disclosure_requirement": "E5-4",
   "disclosure_role": "anchor",
+  "display_definition": "Percentage of material inputs that are secondary, reused or recycled (再生材料/回收材料/二次使用材料占比). Not an absolute weight, not recyclability of products, not waste diverted.",
+  "display_label": "二次使用或再生材料占比 Share of secondary or recycled materials",
   "distinguish_from": [
     "再生材料重量",
     "材料投入总重量"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "占比与绝对重量不能互换；二次使用部件与再生材料分别保留。"
+  ],
+  "group": "materials",
+  "group_terms": [
+    "原材料",
+    "资源投入",
+    "物料使用",
+    "材料使用",
+    "materials used",
+    "resource inflow",
+    "material inflow"
+  ],
+  "group_unit_terms": [
+    "吨",
+    "重量",
+    "采购量",
+    "tonnes",
+    "weight"
   ],
   "labels": {
     "en": "Percentage of secondary reused or recycled components, secondary intermediary products and secondary materials",
@@ -50,8 +73,88 @@
       "material_scope": "secondary"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "再生材料",
+          "回收材料",
+          "二次使用",
+          "再生组分",
+          "recycled content",
+          "secondary material",
+          "recycled material"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_other_concept",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "未回收",
+          "吨",
+          "tonnes",
+          "weight",
+          "废弃物",
+          "waste"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "可再生",
+      "不可再生",
+      "生物材料",
+      "技术材料",
+      "包装",
+      "原材料",
+      "材料"
+    ],
+    "parent_clause": "E5-4_02",
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-4_05",
+  "text_group": "materials",
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

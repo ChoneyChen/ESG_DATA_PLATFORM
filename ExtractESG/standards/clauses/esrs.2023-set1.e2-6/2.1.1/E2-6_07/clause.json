@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0e3cdf9645845cc36e8903b4edfecbd763843015730cf128e29d693b3f829804",
   "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_07",
-  "contract_digest": "a828090e35657185a18a1343c5d4bb6c31bf9ce11fe01bfb23783ac3efd2a1a9",
+  "clause_key": "E2-6_07",
+  "contract_digest": "81d1030c743bebe910221a84631e26047d7bfb3af5b0ea5970e6545c60bda329",
+  "data_kind": "qualitative",
   "description": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
   "disclosure_requirement": "E2-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts",
     "zh": "污染相关预期财务影响说明"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-b54d375c97d98703",
+      "scope_id": "scope-da98b6fe61fc3708",
       "value_role": "forecast"
     }
   ],
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-6_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

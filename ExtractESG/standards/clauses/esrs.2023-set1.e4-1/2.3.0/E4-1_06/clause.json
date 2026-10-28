@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "e628760e45b0ea881cdd5b83d76137e5cd22e14b3df2bb8ea7e325e3049c167d",
   "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_06",
-  "contract_digest": "bbfb48bf49c3e78d153248d2ba540c9a5999051d157d80fadc10e9947553c93f",
+  "clause_key": "E4-1_06",
+  "contract_digest": "db4cc829c1a9c313768c644c4672f3e7cb18ab8d1f98c1b6dae7b6dee24e1f7e",
+  "data_kind": "qualitative",
   "description": "说明在生物多样性和生态系统韧性分析中参与了哪些利益相关方，以及参与方式和所起作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of involvement of stakeholders (biodiversity and ecosystems)",
     "zh": "韧性分析中的利益相关方参与"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-1_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

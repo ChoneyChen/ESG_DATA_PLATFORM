@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "8b4de59ca7cab86bd7288dacbb599cd7542bb33eac217560d7d67379387c1c37",
   "clause_id": "esrs.2023-set1.e4-6@2.3.0:E4-6_02",
-  "contract_digest": "4ef8202e1f010d346599363e4d3ba4206c92a99067cbb80133b5f2e24fee05e3",
+  "clause_key": "E4-6_02",
+  "contract_digest": "68954f7b7c81f7580a7923ea3a04d7fd0eacd6605b11967fe22eb2861fe8062f",
+  "data_kind": "qualitative",
   "description": "以定性方式说明生物多样性和生态系统相关影响与依赖所产生的重大风险和机遇的预期财务影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from biodiversity- and ecosystem-related impacts and dependencies",
     "zh": "生物多样性和生态系统相关重大风险与机遇的预期财务影响（定性）"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-6_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

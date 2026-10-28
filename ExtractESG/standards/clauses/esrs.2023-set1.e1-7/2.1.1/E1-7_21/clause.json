@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b3b35c76f66b716e64354b48ce8d32ed021a02c87ea078d28cf17d9c61f80724",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_21",
-  "contract_digest": "33f79d9544822839b160d5c6ef3a48e27f9c4cace06cc39d5e9737a66a4aafb2",
+  "clause_key": "E1-7_21",
+  "contract_digest": "dee46fe1d825e2a44c9f3f0f2ee91df76f995e502535a08f156c649a0752a4df",
+  "data_kind": "qualitative",
   "description": "Public claims of GHG neutrality that involve use of carbon credits have been made。使用碳信用的温室气体中和声明。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Public claims of GHG neutrality that involve use of carbon credits have been made",
     "zh": "使用碳信用的温室气体中和声明"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_21",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

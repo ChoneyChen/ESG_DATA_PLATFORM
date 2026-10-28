@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5a8740dde48bd0f7929de03f3f92ad1ed2e47c0a6ce9f9d0d1fcb846505f26aa",
   "clause_id": "esrs.2023-set1.e5-6@2.3.0:E5-6_02",
-  "contract_digest": "ec38df65cc8e72ccb336616decdfb56c84a0cc53372cd188bc5f6071ea968431",
+  "clause_key": "E5-6_02",
+  "contract_digest": "02de981786021697fdcf3e4d021fb44bfd3b57d332c8a684baef74d4953793d4",
+  "data_kind": "qualitative",
   "description": "以定性方式说明资源利用与循环经济相关影响所产生的重大风险和机遇的预期财务影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of qualitative information of anticipated financial effects of material risks and opportunities arising from resource use and circular economy-related impacts",
     "zh": "资源利用与循环经济相关重大风险与机遇的预期财务影响（定性）"
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-6_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

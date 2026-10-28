@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "5f9a91beefa5f83760eef9fee9bd144ea703495047342544538039abb95fd994",
   "clause_id": "esrs.2023-set1.s1-9@2.2.0:S1-9_03",
-  "contract_digest": "af957de7e5212f735dd119ec46be1b4f3ba8398ab96e40cb85e3a9f63eab5f16",
+  "clause_key": "S1-9_03",
+  "contract_digest": "7aa930635e3bebf6391794f6c2b8878c0ddc15d5a20ac7c6172cdd6bf0eb5286",
+  "data_kind": "quantitative",
   "description": "Distribution of employees (head count) under 30 years old。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "S1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Distribution of employees (head count) under 30 years old",
     "zh": "Distribution of employees (head count) under 30 years old"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "share",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 占比",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-616c01af2f7bcf2f",
       "value_role": "actual"
     }
   ],
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-9_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

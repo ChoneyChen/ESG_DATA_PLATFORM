@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "152ee62d38c1e723d016dffb42358db98df1b7efa5ccc1356271677aa8d9d2b1",
   "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_08",
-  "contract_digest": "54d6da39a1b5ee65ca7482a4ed36f415e017f94a2d2d4aeb0c074d252eaf7aba",
+  "clause_key": "E1-3_08",
+  "contract_digest": "f897e607eadcbdb40b2a1431f42cdafb36ed557e63ddf88dee2e3a8a2ee35941",
+  "data_kind": "qualitative",
   "description": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to CapEx plan required by Commission Delegated Regulation (EU) 2021/2178。行动支出与分类法资本支出计划关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
   "disclosure_requirement": "E1-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to CapEx plan required by Commission Delegated Regulation (EU) 2021/2178",
     "zh": "行动支出与分类法资本支出计划关联"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-3_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

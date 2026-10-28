@@ -775,10 +775,6 @@ class ReportSessionService:
                         variants.append({**fact, "artifact_origin": origin})
                 else:
                     facts[identity] = fact
-        for path in sorted((self.artifacts.report_session_path(session_id) / "sources").glob("*.json")):
-            source = json.loads(path.read_text(encoding="utf-8"))
-            objects.append(source)
-            collect(source.get("facts", []), path.name)
         for projection in state["projections"]:
             root = self.artifacts.job_dir(projection["job_id"])
             exported = root / "results/source-facts.json"

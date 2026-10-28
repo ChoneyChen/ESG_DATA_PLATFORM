@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3ebcfa4e772245e2e593cee21799806359a0e28624cb79e2821bab2f580e090b",
   "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_05",
-  "contract_digest": "949c75764b7c72752f960748c5a135b780cf99606a99ab1f78e958780fc7254a",
+  "clause_key": "E1-3_05",
+  "contract_digest": "226e2891f6db4ed2a2510827fa7f5737bfdc96e52d365940b732f40c88b82fee",
+  "data_kind": "qualitative",
   "description": "Explanation of extent to which ability to implement action depends on availability and allocation of resources。行动实施对资源的依赖。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
   "disclosure_requirement": "E1-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of extent to which ability to implement action depends on availability and allocation of resources",
     "zh": "行动实施对资源的依赖"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-3_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

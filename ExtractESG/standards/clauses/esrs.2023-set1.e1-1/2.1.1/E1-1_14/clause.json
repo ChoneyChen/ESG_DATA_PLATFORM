@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "6996ec152e221378e21343f0f11dc3fb2cca0021020664452a57f38cf76524cc",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_14",
-  "contract_digest": "9bdf35f80429a010406db5b4d5650b0bfecebc7858eab582f97a5350fae4ac68",
+  "clause_key": "E1-1_14",
+  "contract_digest": "c628ae7371d31f8cddf48750aab0cd5acc1e05236160c351492c78da1a2e486f",
+  "data_kind": "qualitative",
   "description": "Transition plan is approved by administrative, management and supervisory bodies。转型计划获治理机构批准。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Transition plan is approved by administrative, management and supervisory bodies",
     "zh": "转型计划获治理机构批准"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_14",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "469f3694af1258fd39c523676a5c7fea87d4a2d3b9a7fbae9f966aa3cccc9489",
   "clause_id": "esrs.2023-set1.s4-1@2.3.0:S4-1_08",
-  "contract_digest": "22a643ec6b7c04fd8f15911bbac8f3e0110b3e34bfd6a46e8153e37d3cd69ce0",
+  "clause_key": "S4-1_08",
+  "contract_digest": "8f76cba2f090ee4b1d0caa43f81eec219c3c44576ebfa0a5a37616a594f6b0f6",
+  "data_kind": "qualitative",
   "description": "说明报告年度内对消费者和终端用户相关政策作出的重大变化及其原因和影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of explanations of significant changes to policies adopted during reporting year",
     "zh": "报告年度政策重大变化的说明（消费者）"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-1_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,17 +1,49 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "ec983a7260e4f37998f55dab9626b417cd715fcaf048f6a62662c5b9be3813c2",
   "clause_id": "esrs.2023-set1.g1-4@2.2.0:G1-4_04",
-  "contract_digest": "50369603c028a9400711aa754d9f97835219edfe1440aee0a958aca342ff22a4",
+  "clause_key": "G1-4_04",
+  "contract_digest": "252ab9fb054984e8be17dba3a367813d7f654f631c6b0177e4d43f36198a11e8",
+  "data_kind": "quantitative",
   "description": "报告期内经确认的腐败或贿赂事件数量。",
   "disclosure_requirement": "G1-4",
   "disclosure_role": "anchor",
+  "display_definition": "Number of confirmed incidents of corruption or bribery (已确认腐败/贿赂事件数量). Convictions, dismissals and fines are different clauses.",
+  "display_label": "已确认腐败事件数量 Confirmed corruption incidents",
   "distinguish_from": [
     "定罪数量",
     "举报数量"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "法律定罪、内部处分与举报线索分别计数，不能互相替代。"
+  ],
+  "group": "governance",
+  "group_terms": [
+    "董事会",
+    "治理机构",
+    "女性董事",
+    "董事会多元化",
+    "腐败",
+    "贿赂",
+    "定罪",
+    "付款天数",
+    "账期",
+    "board",
+    "corruption",
+    "bribery",
+    "conviction",
+    "payment days"
+  ],
+  "group_unit_terms": [
+    "%",
+    "件",
+    "天",
+    "人",
+    "女性",
+    "days",
+    "cases"
   ],
   "labels": {
     "en": "Number of confirmed incidents of corruption or bribery",
@@ -50,8 +82,103 @@
       "incident_definition": "confirmed_corruption"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "已确认",
+          "确认的",
+          "confirmed"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_other_concept",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "定罪",
+          "conviction",
+          "罚款",
+          "fine",
+          "金额",
+          "amount"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_group_scope",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "腐败",
+          "贿赂",
+          "corruption",
+          "bribery"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "董事",
+      "董事会",
+      "女性",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款",
+      "投诉",
+      "罚",
+      "案件"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-4_04",
+  "text_group": "governance",
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

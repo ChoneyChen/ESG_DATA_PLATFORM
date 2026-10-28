@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f04f08ad0236f45630681eea78b23614e2e4ebdb0d0f67602fa95f52ea6cca20",
   "clause_id": "esrs.2023-set1.e3-1@2.1.1:E3-1_03",
-  "contract_digest": "09fcb59cb4a9550cc1d0a0f0749834f5646fe7b1891ef96850aa0bfdf16fb7ef",
+  "clause_key": "E3-1_03",
+  "contract_digest": "ff3b77b259002e498741e74c47b4257fe4f688c29fcc0de96903bbb68bc2101a",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether and  how policy adresses water treatment。水处理政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
   "disclosure_requirement": "E3-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and  how policy adresses water treatment",
     "zh": "水处理政策"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-1_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

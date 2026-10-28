@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f6b38060a74fb71c19af4fc3cfbb76617d280aa75e270449856cce27703b85b1",
   "clause_id": "esrs.2023-set1.bp-1@2.1.1:BP-1_01",
-  "contract_digest": "bb366857e20a1c8432bbc0c5417261c423b9e79c6f770ab4a65469a0b0fb96b9",
+  "clause_key": "BP-1_01",
+  "contract_digest": "912ac41c12622d662678a591b66b54c47d43074aed56900a724c8b0c3bad9329",
+  "data_kind": "qualitative",
   "description": "Basis for preparation of sustainability statement。可持续声明编制基础。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
   "disclosure_requirement": "BP-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Basis for preparation of sustainability statement",
     "zh": "可持续声明编制基础"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-1_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

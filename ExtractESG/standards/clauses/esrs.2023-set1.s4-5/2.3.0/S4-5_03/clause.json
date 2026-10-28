@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "bf1fa3ff3c16a2e4f1d94cfdbcd60e45a466b158e9ccff1676caa7c9acbb2495",
   "clause_id": "esrs.2023-set1.s4-5@2.3.0:S4-5_03",
-  "contract_digest": "4ddf9eefa164d68baa48d60945bbeadc8ad5cf8e6d7d5ef56087575f3890e196",
+  "clause_key": "S4-5_03",
+  "contract_digest": "3d1a8e771eb068049af120d595897cc07f1ff27366a953ac1dfd60f531b7dff1",
+  "data_kind": "qualitative",
   "description": "说明消费者和终端用户是否以及如何直接参与识别绩效带来的经验教训或改进机会。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how consumers and end-users were engaged directly in identifying lessons or improvements as result of undertaking’s performance",
     "zh": "消费者和终端用户参与经验与改进识别"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-5_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

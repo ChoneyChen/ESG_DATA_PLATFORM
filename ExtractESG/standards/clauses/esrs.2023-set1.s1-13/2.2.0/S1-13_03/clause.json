@@ -1,18 +1,42 @@
 {
   "canonical_unit": "hour/person",
+  "clause_digest": "099cbe74ad5a144694c6d0ccc7da01c941db4b8388d170c42ed179a1f4200b31",
   "clause_id": "esrs.2023-set1.s1-13@2.2.0:S1-13_03",
-  "contract_digest": "bc732269baf4bf1d576cab611e5edf8a9f37a88bd48dda09ebafbe4654cc6995",
+  "clause_key": "S1-13_03",
+  "contract_digest": "e2fe61c963a73cb431b24ce04c97d092d84bee53599f95ce5cc45cc0563ef143",
+  "data_kind": "quantitative",
   "description": "报告期内员工按性别划分的人均培训小时数。",
   "disclosure_requirement": "S1-13",
   "disclosure_role": "anchor",
+  "display_definition": "Average training hours per employee reported separately for women and men (按性别划分的人均培训时数). The workforce-wide average is another clause; a topic-specific course is not this.",
+  "display_label": "按性别划分的平均培训小时数 Average training hours by gender",
   "distinguish_from": [
     "培训总时长",
     "受训员工人数",
     "人均培训小时数"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "培训总时长不能代替人均时长；外部培训与内部培训的口径须一致。"
+  ],
+  "group": "workforce_training",
+  "group_terms": [
+    "培训",
+    "受训",
+    "培训时长",
+    "培训小时",
+    "人均受训",
+    "training",
+    "training hours",
+    "trained"
+  ],
+  "group_unit_terms": [
+    "小时",
+    "学时",
+    "人均",
+    "hours",
+    "per employee"
   ],
   "labels": {
     "en": "Average number of training hours  by gender [table]",
@@ -22,19 +46,19 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": "share",
       "axes": {
         "denominator_scope": "per_employee",
         "population": "employees",
         "training_scope": "by_gender"
       },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量 · population=employees · training_scope=by_gender · denominator_scope=per_employee",
+      "label_zh": "年度 · 集团合并 · 占比 · population=employees · training_scope=by_gender · denominator_scope=per_employee",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-33f932b8d24ba15a",
+      "scope_id": "scope-47e95c3494dae94a",
       "value_role": "actual"
     }
   ],
@@ -55,8 +79,98 @@
       "training_scope": "by_gender"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "培训",
+          "training"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_other_concept",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "商业道德",
+          "合规培训",
+          "ehs",
+          "安全培训",
+          "leadership",
+          "专题"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_group_scope",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "男性",
+          "女性",
+          "按性别",
+          "male",
+          "female",
+          "by gender"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-13_03",
+  "text_group": "workforce",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

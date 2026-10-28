@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3af6ded5d5c1beb615c1355bcc7a893dc7ddcb9049cf67f15ca84cfcdf14de46",
   "clause_id": "esrs.2023-set1.s3-3@2.3.0:S3-3_20",
-  "contract_digest": "df6a9e1574da5cb2d841651910d0ec01824b234e9a87c9b3ca2a879c075ba5fd",
+  "clause_key": "S3-3_20",
+  "contract_digest": "09a1193a428dcf3cb871cad849be007a762cee30b4af78ba2bf711925c06177b",
+  "data_kind": "qualitative",
   "description": "说明社区申诉如何保密处理，并尊重隐私权和数据保护要求。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Grievances are treated confidentially and with respect to rights of privacy and data protection",
     "zh": "申诉的保密、隐私与数据保护（社区）"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-3_20",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

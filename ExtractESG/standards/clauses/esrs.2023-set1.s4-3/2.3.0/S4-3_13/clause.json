@@ -1,14 +1,35 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "2c6994c5ab10e244ccd05f51e1fdf58a817e73fe50a0129ac2b61b7fdc6e3807",
   "clause_id": "esrs.2023-set1.s4-3@2.3.0:S4-3_13",
-  "contract_digest": "8ce14c96856e5ac9445118c82506299afdfd3dad14335ee18b0f31d9b37e7dcc",
+  "clause_key": "S4-3_13",
+  "contract_digest": "24f05c17c192a4f6ed2f81c5004157c9ccecd5becf7764b88b09bce1db182176",
+  "data_kind": "quantitative",
   "description": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "S4-3",
   "disclosure_role": "anchor",
+  "display_definition": "Number of complaints received from consumers and end-users (客户/消费者投诉数量). A complaint rate, resolved share or supplier grievance count is not this.",
+  "display_label": "消费者投诉数量 Consumer complaints",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group": "consumer",
+  "group_terms": [
+    "消费者投诉",
+    "客户投诉",
+    "投诉数量",
+    "consumer complaint",
+    "customer complaint",
+    "complaints received"
+  ],
+  "group_unit_terms": [
+    "件",
+    "起",
+    "count",
+    "complaints"
   ],
   "labels": {
     "en": "Number of complaints received from consumers and/or end users during the reporting period",
@@ -48,8 +69,98 @@
       "consumer_population": "consumers"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "投诉",
+          "complaint"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_other_concept",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "率",
+          "%",
+          "比例",
+          "rate",
+          "share"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_group_scope",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "消费者",
+          "consumer",
+          "客户",
+          "customer"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "消费者",
+      "客户",
+      "用户",
+      "投诉",
+      "complaint",
+      "consumer",
+      "customer"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-3_13",
+  "text_group": "consumer",
   "unit_dimension": "extractesg.core.unit-dimension.count",
   "value_origin": "reported",
   "value_type": "numeric"

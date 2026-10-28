@@ -57,7 +57,7 @@ export function preparationText(preparation: Row | undefined): string {
   if (!preparation) return '';
   if (preparation.ir_reused) return `直接使用已有结构证据 ${preparation.ir_run_id || ''}，本次不再读取页面。`;
   if (preparation.ocr_reused) return '复用这份报告已有的页面读取成果，只重建结构证据后提取。';
-  if (preparation.page_selection === 'foundation16') {
+  if (['foundation16', 'clauses'].includes(String(preparation.page_selection))) {
     return '先在 PDF 文字层选出可能含 16 项数据的页面（约 25 页），按版面区域直读文字并重建表格；'
       + '扫描页、图片表格等文字层不可用的页才调用视觉识别。';
   }

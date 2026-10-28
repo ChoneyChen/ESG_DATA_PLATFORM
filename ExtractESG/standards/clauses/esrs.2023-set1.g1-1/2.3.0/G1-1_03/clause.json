@@ -1,14 +1,46 @@
 {
   "canonical_unit": null,
+  "clause_digest": "60367d08caabdd77f2ac4179aad8eabe124cd43140473d46bf087064425dfa7b",
   "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_03",
-  "contract_digest": "e81262b17fd42754174b0f063bcacd1fb66195adc4ec1051538198b6f2460551",
+  "clause_key": "G1-1_03",
+  "contract_digest": "9adf666ee07225b9dc893ea79fcdfe4831f9709631a2cfe710b5acb1ec85dad4",
+  "data_kind": "qualitative",
   "description": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "G1-1",
   "disclosure_role": "anchor",
+  "display_definition": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。",
+  "display_label": "未制定符合《联合国反腐败公约》的反腐败或反贿赂政策",
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group": "governance",
+  "group_terms": [
+    "董事会",
+    "治理机构",
+    "女性董事",
+    "董事会多元化",
+    "腐败",
+    "贿赂",
+    "定罪",
+    "付款天数",
+    "账期",
+    "board",
+    "corruption",
+    "bribery",
+    "conviction",
+    "payment days"
+  ],
+  "group_unit_terms": [
+    "%",
+    "件",
+    "天",
+    "人",
+    "女性",
+    "days",
+    "cases"
   ],
   "labels": {
     "en": "No policies on anti-corruption or anti-bribery consistent with United Nations Convention against Corruption are in place",
@@ -43,8 +75,76 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_this_concept",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "反腐败",
+          "反贿赂",
+          "anti-corruption",
+          "anti-bribery",
+          "corruption"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_other_concept",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "培训",
+          "training",
+          "定罪",
+          "conviction",
+          "罚款",
+          "fine",
+          "事件",
+          "incident"
+        ],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "董事",
+      "董事会",
+      "女性",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款",
+      "投诉",
+      "罚",
+      "案件"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-1_03",
+  "text_group": "governance",
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

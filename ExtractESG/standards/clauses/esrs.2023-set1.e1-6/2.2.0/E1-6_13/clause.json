@@ -1,14 +1,23 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "ac0f86c1ee0a0eaa5df5b31a58d70820ec664c79a0fed1766f5e381664c35796",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_13",
-  "contract_digest": "abd933bc53deee7eb468e3608d455f72242f7fc457f7beb6b2ca1ef4ad6912e6",
+  "clause_key": "E1-6_13",
+  "contract_digest": "832fc4b6561510095f79583cc52ed1faed5dbe5d724c93016eb4d246f2b91608",
+  "data_kind": "quantitative",
   "description": "采用市场法范围2口径的温室气体总量，即范围1、市场法范围2及范围3的合计。优先提取明确披露值；缺少市场法范围2时不得借用位置法数值或形成派生总量。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "derived",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total GHG emissions using market-based Scope 2",
     "zh": "范围1＋市场法范围2＋范围3温室气体排放总量"
@@ -68,8 +77,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-emissions"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_13",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

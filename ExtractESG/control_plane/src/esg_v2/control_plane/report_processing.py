@@ -62,9 +62,10 @@ class ProcessingConfig(BaseModel):
     ocr_provider: Literal["local_first", "local_paddleocr", "paddle_api"] = "local_paddleocr"
     ocr_model: str = Field(default="PaddleOCR-VL-1.6", min_length=1, max_length=160)
     allow_cloud_ocr: bool = False
-    # "foundation16" OCRs only the pages its text-layer selector picks for the
-    # 16 ESRS foundation datapoints; such sparse runs never serve "all" requests.
-    page_selection: Literal["all", "foundation16"] = "all"
+    # "clauses" OCRs only the pages the selected clause retrieval terms pick;
+    # "foundation16" remains a compatibility alias for the same behaviour.
+    page_selection: Literal["all", "foundation16", "clauses"] = "all"
+    clause_profile: str | None = None
     execute_optional_reviews: bool = False
     execute_required_reviews: bool = True
     review_provider: Literal["local_qwen", "local_nuextract", "qiniu"] = "local_qwen"
@@ -315,6 +316,7 @@ class ReportProcessingCoordinator:
         # Whole-document digests stay unchanged; only a targeted selection is keyed in.
         if stage == "ocr" and config.get("page_selection", "all") != "all":
             values["page_selection"] = config["page_selection"]
+            values["clause_profile"] = config.get("clause_profile") or "universal"
         return digest({"contract": PROCESSING_CONTRACT, "engine": state["engine_versions"][stage],
                        "config": values,
                        **({"ocr_config_digest": self._config_digest(state, "ocr")} if stage == "ir" else {})})

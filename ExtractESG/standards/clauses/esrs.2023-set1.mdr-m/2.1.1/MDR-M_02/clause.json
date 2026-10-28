@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "ae01f006e9b1588018639fba582c5d9f68f8dc9982089096017c65d73696c32c",
   "clause_id": "esrs.2023-set1.mdr-m@2.1.1:MDR-M_02",
-  "contract_digest": "46cf1197530ac02b96f0631889fca63fb410096909586420688ea14a6c9fe148",
+  "clause_key": "MDR-M_02",
+  "contract_digest": "0248bdd3677cff95b521921e434437a0796f7b3354a6aef5b2ec634d6238459b",
+  "data_kind": "qualitative",
   "description": "Disclosure of methodologies and significant assumptions behind metric。指标方法与重大假设。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
   "disclosure_requirement": "MDR-M",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of methodologies and significant assumptions behind metric",
     "zh": "指标方法与重大假设"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "MDR-M_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

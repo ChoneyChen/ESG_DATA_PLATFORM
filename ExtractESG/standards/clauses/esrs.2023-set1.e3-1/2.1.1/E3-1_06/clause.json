@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "39e115f15ac60929c86adeb09a3bfaae3b5024f4640642d41cc416af6e1eea03",
   "clause_id": "esrs.2023-set1.e3-1@2.1.1:E3-1_06",
-  "contract_digest": "19a96787f36e177b8b0d00d9270e955626810071a64511f2a7f96de7c79572e2",
+  "clause_key": "E3-1_06",
+  "contract_digest": "cf276f24bfb6938cc6da842cd198062657f5f9c9517507a2ac586f9ec6676b0c",
+  "data_kind": "qualitative",
   "description": "Disclosure of whether and how policy adresses commitment to reduce material water consumption in areas at water risk。水风险地区耗水减量承诺。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
   "disclosure_requirement": "E3-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how policy adresses commitment to reduce material water consumption in areas at water risk",
     "zh": "水风险地区耗水减量承诺"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-1_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

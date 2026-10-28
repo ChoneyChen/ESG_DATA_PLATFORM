@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "b66973e2aedca8ee0a6f382d6ae96f60feecb6e1aa02341cdd41a934102f234f",
   "clause_id": "esrs.2023-set1.s3-3@2.3.0:S3-3_19",
-  "contract_digest": "d1622e585e76c27b8f214f2f0dc7c36b3b28874c45dcc784a858f79508213dde",
+  "clause_key": "S3-3_19",
+  "contract_digest": "f58784996ea24eb516c3e6ecccf13d23d962879dc39c0d947c73d7eccb74e926",
+  "data_kind": "qualitative",
   "description": "说明第三方机制是否向所有受影响社区开放，以及可及性安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S3-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Third-party mechanisms are accessible to all affected communities",
     "zh": "面向所有受影响社区的第三方机制"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S3-3_19",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -6,6 +6,7 @@ from decimal import Decimal, InvalidOperation
 import re
 from typing import Any
 
+from esg_targeted.data_contracts import validate_records
 from esg_targeted.results.spec import RECORD_ID_PREFIXES, RECORD_LAYOUT
 
 
@@ -29,6 +30,8 @@ class ResultContractValidator:
         errors: list[str] = []
         record_ids: dict[str, set[str]] = defaultdict(set)
         total = 0
+
+        errors.extend(validate_records(records))
 
         for collection, layout in RECORD_LAYOUT.items():
             rows = records.get(collection, [])
@@ -171,6 +174,7 @@ class ResultContractValidator:
                 "fact_has_evidence",
                 "evidence_set_consistency",
                 "task_record_counts",
+                "data_kind_contract",
             ],
         }
 

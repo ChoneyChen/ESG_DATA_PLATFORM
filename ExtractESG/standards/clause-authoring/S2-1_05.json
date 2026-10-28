@@ -1,0 +1,46 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "S2-1_05",
+  "group": "value_chain",
+  "text_group": "value_chain",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "贩运",
+        "trafficking",
+        "强迫劳动",
+        "forced labour",
+        "forced labor",
+        "童工",
+        "child labour",
+        "child labor"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "申诉",
+        "channel",
+        "grievance"
+      ],
+      "reason": "label_is_other_concept"
+    }
+  ],
+  "display_label": "政策对人口贩运、强迫劳动和童工的明确覆盖（价值链）",
+  "display_definition": "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。"
+}

@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0efe37b3438929f596abc0f35469fc683e158afc6c2ba6ef354d929936a97923",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_19",
-  "contract_digest": "92763756b77379654fb4413676e8c19eca9ac43fa6cb123128ac0d928807311d",
+  "clause_key": "E2-4_19",
+  "contract_digest": "68046bc2495f994713cb0950b5daeac83361111066a282072a8046ee004aa294",
+  "data_kind": "qualitative",
   "description": "仅在 BAT-AEPL 适用于相应行业和设施时。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of actual performance against environmental performance levels associated with best available techniques (BAT-AEPLs) applicable to sector and installation",
     "zh": "实际环境绩效与 BAT-AEPL 比较"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-4_19",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

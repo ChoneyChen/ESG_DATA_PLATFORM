@@ -1,0 +1,89 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "S1-9_02",
+  "group": "workforce_gender",
+  "text_group": "workforce",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "board",
+    "gender",
+    "lower_management",
+    "ratio_word",
+    "top_management",
+    "topmgmt"
+  ],
+  "rules": [
+    {
+      "rule": "require_all",
+      "terms": [
+        "@gender",
+        "@topmgmt"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_top_management_gender"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@lower_management"
+      ],
+      "scope": "text",
+      "reason": "label_not_top_management_level",
+      "unless_terms": [
+        "@top_management"
+      ]
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@board"
+      ],
+      "scope": "text",
+      "reason": "label_is_board_scope",
+      "unless_terms": [
+        "@topmgmt"
+      ]
+    },
+    {
+      "rule": "ratio_required",
+      "reason": "unit_dimension_not_ratio"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "ratio"
+      ],
+      "params": {}
+    }
+  ],
+  "display_label": "高管性别比例 Gender distribution at top management",
+  "display_definition": "Percentage of top-management members by gender (管理层/高管性别比例, 女性管理者占比). Head-count numbers, board-only figures or overall workforce gender share are different scopes."
+}

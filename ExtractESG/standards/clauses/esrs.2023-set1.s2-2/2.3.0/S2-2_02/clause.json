@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7c895807c9886a868b33bd2c3eea08844f53eea99a5b2953f98bafebdd537615",
   "clause_id": "esrs.2023-set1.s2-2@2.3.0:S2-2_02",
-  "contract_digest": "fa7273b6a8c753147411c6ba7dadcba190cd5183808bb7efd318b876f11190ee",
+  "clause_key": "S2-2_02",
+  "contract_digest": "22924395460c3a4be5b5724ab29ada6736ac44bac5d2b7f52669c00ce181882d",
+  "data_kind": "qualitative",
   "description": "说明主体是否与价值链劳动者或其合法代表、可信代理直接开展接触，并指出接触形式。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Engagement occurs with value chain workers or their legitimate\nrepresentatives directly, or with credible proxies",
     "zh": "与价值链劳动者或其代表的接触"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-2_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

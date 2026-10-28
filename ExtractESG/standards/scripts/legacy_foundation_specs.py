@@ -1,15 +1,7 @@
-"""Declarative concept specs for datapoints beyond the hand-written guards.
+"""Legacy declarative specs used only by the one-time authoring migration.
 
-The sixteen foundation datapoints carry bespoke guards because their edge
-cases were learned one by one. A standard package holds hundreds of other
-datapoints; adding each one as another branch would make the extractor grow
-with the clause list instead of with the problem. A spec is data: a label
-must name the concept, must not name an excluded one, must carry a unit of
-the right dimension, and a total concept must not be satisfied by a part.
-
-`guards.check` consults these specs only for codes that have no hand-written
-branch, so the sixteen keep their learned behaviour while a new clause can be
-extracted by declaring it here.
+Runtime extraction reads clause contracts; this file is standards-side
+migration data and is not imported by any service.
 """
 from __future__ import annotations
 
@@ -60,33 +52,6 @@ class ClauseSpec:
         return True, None
 
 
-from esg_targeted.foundation.catalog import scientific_contracts
-
-
-def compile_dimensions() -> dict[str, str | None]:
-    return {code: contract['reading_dimension'] for code, contract in scientific_contracts().items()}
-
-
-def evaluate_contract_spec(spec: ClauseSpec, *, dimension: str | None) -> ClauseSpec:
-    from dataclasses import replace
-    return replace(spec, dimension=dimension)
-
-
-def spec_for(code: str) -> ClauseSpec | None:
-    spec = SPECS.get(code)
-    if spec is None:
-        return None
-    contracts = compile_dimensions()
-    if code not in contracts:
-        raise ValueError(f'Clause spec has no scientific contract: {code}')
-    from dataclasses import replace
-    return replace(spec, dimension=contracts[code])
-
-
-# Rules learned from the foundation datapoints, written once and reused by any
-# clause that names the same concept. A code that also has a bespoke guard keeps
-# that branch for applicability; its spec still supplies the declared dimension,
-# and any code without a bespoke branch is judged by its spec.
 SPECS: dict[str, ClauseSpec] = {
     "E1-5_01": ClauseSpec(
         "E1-5_01", "总能源消耗",
@@ -259,9 +224,3 @@ SPECS: dict[str, ClauseSpec] = {
         exclude_terms=("培训", "training", "定罪", "conviction", "罚款", "fine", "事件", "incident"),
     ),
 }
-
-
-def evaluate_spec(code: str, label: str, section: str | None, unit: str | None,
-                  dimension: str | None) -> tuple[bool, str | None] | None:
-    """Evaluate a declared spec; None when the code declares none."""
-    return spec_for(code).evaluate(label, section, unit, dimension)

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "cebab8c33408f193690827b183b60d65b4de8bb73b1f47b64fe5fe64c2eab24a",
   "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_09",
-  "contract_digest": "dd8fb99d9280fc105d662c4b0ef558a675bcb4b883376076ba2ae45d2cb64be8",
+  "clause_key": "S1-6_09",
+  "contract_digest": "cd6f42ed9c9a7244c84ddb6930a288633685113eebe5896c56f9c0e7d67b43ac",
+  "data_kind": "quantitative",
   "description": "Number of employees (head count or full-time equivalent)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "S1-6",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of employees (head count or full-time equivalent)",
     "zh": "Number of employees (head count or full-time equivalent)"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-6_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

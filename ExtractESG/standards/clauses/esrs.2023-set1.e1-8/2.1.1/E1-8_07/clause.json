@@ -1,15 +1,24 @@
 {
   "canonical_unit": "ratio",
+  "clause_digest": "93008ad92ecb5f87ef1b77c75cb4c641e6dd1b0cdbbda78c3b2882862d4641c0",
   "clause_id": "esrs.2023-set1.e1-8@2.1.1:E1-8_07",
-  "contract_digest": "c0a6101fadf21d04fc4aa82858d5d3eda67de66259939a0d9428a5f810c064f4",
+  "clause_key": "E1-8_07",
+  "contract_digest": "983337199b3e6bf325a9c6b35eac29cfdbbc4c943c6104f5324f4356c1f3b2b2",
+  "data_kind": "quantitative",
   "description": "Percentage of gross Scope 2 greenhouse gas emissions covered by internal carbon pricing scheme。内部碳定价覆盖的范围2比例。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
   "disclosure_requirement": "E1-8",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Percentage of gross Scope 2 greenhouse gas emissions covered by internal carbon pricing scheme",
     "zh": "内部碳定价覆盖的范围2比例"
@@ -45,8 +54,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ratio"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-8_07",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ratio",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "38bedd7ad1b36eaf0feef404459e32316f48d5fe74ad7583e6dab5692abcb0a2",
   "clause_id": "esrs.2023-set1.gov-3@2.1.1:GOV-3_03",
-  "contract_digest": "66a9f7f95688aeda8d4cd7fd94e077db0af89211f327eb451a6d0378ffc2076d",
+  "clause_key": "GOV-3_03",
+  "contract_digest": "91fb5c0e1cfe74e6bd431289a7190aa9c169978aa227a724d1d0b4280cfb359e",
+  "data_kind": "qualitative",
   "description": "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies。可持续绩效考核目标和影响。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
   "disclosure_requirement": "GOV-3",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies",
     "zh": "可持续绩效考核目标和影响"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-034cdbfd5ad10b8a",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-3_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

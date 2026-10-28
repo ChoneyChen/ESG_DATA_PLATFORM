@@ -165,7 +165,7 @@ def test_shared_retirement_invalidates_other_projection_without_local_retirement
         assert stage["source_facts"]["facts"] == []
 
 
-def test_saved_mapping_is_vetoed_and_latest_shared_reading_reused(tmp_path, monkeypatch):
+def test_saved_mapping_is_vetoed_and_a_shared_reading_is_not_reused(tmp_path, monkeypatch):
     session, packet, ids, store = setup_session(tmp_path)
     session_id = "report-" + "2" * 32
     session.request = session.request.model_copy(update={"report_session_id": session_id})
@@ -177,6 +177,7 @@ def test_saved_mapping_is_vetoed_and_latest_shared_reading_reused(tmp_path, monk
     latest["facts"] = source_facts(latest, latest["source_identity"], obj)
     old_id, new_id = first["facts"][0]["source_fact_id"], latest["facts"][0]["source_fact_id"]
     assert old_id != new_id
+    (store.report_session_dir(session_id) / "sources").mkdir(parents=True, exist_ok=True)
     write_json(store.report_session_dir(session_id) / "sources" / f"{first['source_key']}.json", latest)
     write_json(store.report_session_dir(session_id) / "source-invalidations.json", {"source_fact_ids": [old_id]})
     store.write_json("job", "agent/topics/test.topic.json", {"version": session.agent["version"], "complete": True,
@@ -198,10 +199,12 @@ def test_saved_mapping_is_vetoed_and_latest_shared_reading_reused(tmp_path, monk
     assert result["mappings"] == {} and calls
     before_read = session.agent["model_calls"]
     reused = session._understand(obj, RereadModel([]), lambda: False)
-    assert reused["facts"][0]["source_fact_id"] == new_id
+    # The shared reading is never consulted: the job's own frozen reading is
+    # returned, and the newer shared revision stays where it was written.
+    assert reused["facts"][0]["source_fact_id"] == old_id
     assert session.agent["model_calls"] == before_read
-    assert session.sources[obj["object_id"]]["facts"][0]["source_fact_id"] == new_id
-    assert store.read_json("job", "agent/sources/page-0001.json")["facts"][0]["source_fact_id"] == new_id
+    assert session.sources[obj["object_id"]]["facts"][0]["source_fact_id"] == old_id
+    assert store.read_json("job", "agent/sources/page-0001.json")["facts"][0]["source_fact_id"] == old_id
 
 
 def test_physical_quantity_anchors_survive_semantic_row_order_and_keep_equal_cells_distinct():

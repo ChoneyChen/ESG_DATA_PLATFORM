@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "5d7e43320a570dff05a5de4b9e1953e10f34719b2072a77ac2c9b4354bbb3edf",
   "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_04",
-  "contract_digest": "d043d5794e408c73995fee019686e9aada546b993913abb86260f6fadf5365c9",
+  "clause_key": "IRO-1_04",
+  "contract_digest": "72032e6a855109aafdddddfbb965fc688d85871ddfe3bce84451b637975b98c7",
+  "data_kind": "qualitative",
   "description": "Description of how process considers impacts with which undertaking is involved through own operations or as result of business relationships。运营及业务关系影响覆盖。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
   "disclosure_requirement": "IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how process considers impacts with which undertaking is involved through own operations or as result of business relationships",
     "zh": "运营及业务关系影响覆盖"
@@ -46,8 +55,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "IRO-1_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

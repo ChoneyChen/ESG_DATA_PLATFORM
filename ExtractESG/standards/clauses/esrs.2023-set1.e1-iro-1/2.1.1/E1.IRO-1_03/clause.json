@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "975d6ccf0b82bcfc3ceffc9382880aa389327b9411641a982ff0613d1ed0b0e8",
   "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_03",
-  "contract_digest": "eb7536780d0aaf788b85ad9aa3587df86841f17c956ea637c51efe366bf29e5c",
+  "clause_key": "E1.IRO-1_03",
+  "contract_digest": "a70cbacf3f0d393ffb95d67e354ee84965e86fcdd476df73460da9d50b007629",
+  "data_kind": "qualitative",
   "description": "Climate-related hazards have been identified over short-, medium- and long-term time horizons。气候灾害识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
   "disclosure_requirement": "E1.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Climate-related hazards have been identified over short-, medium- and long-term time horizons",
     "zh": "气候灾害识别"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1.IRO-1_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

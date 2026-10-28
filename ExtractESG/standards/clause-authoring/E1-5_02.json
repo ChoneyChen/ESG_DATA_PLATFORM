@@ -1,0 +1,128 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E1-5_02",
+  "group": "energy",
+  "text_group": "energy",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [
+      "可再生",
+      "风能",
+      "风电",
+      "太阳能",
+      "光伏",
+      "水能",
+      "水电",
+      "生物质",
+      "地热",
+      "海洋能",
+      "renewable",
+      "wind",
+      "solar",
+      "hydro",
+      "biomass",
+      "geothermal"
+    ],
+    "child_terms": [
+      "风能",
+      "风电",
+      "风力",
+      "太阳能",
+      "光伏",
+      "水能",
+      "水电",
+      "生物质",
+      "地热",
+      "海洋能",
+      "可再生",
+      "化石",
+      "煤炭",
+      "原煤",
+      "煤",
+      "天然气",
+      "石油",
+      "柴油",
+      "汽油",
+      "燃料油",
+      "焦炭",
+      "蒸汽",
+      "其他能源",
+      "wind",
+      "solar",
+      "hydro",
+      "biomass",
+      "geothermal",
+      "renewable",
+      "coal",
+      "natural gas",
+      "oil",
+      "diesel",
+      "steam"
+    ],
+    "parent_clause": "E1-5_01",
+    "share_partner": null,
+    "siblings": [
+      "E1-5_01",
+      "E1-5_05",
+      "E1-5_09"
+    ]
+  },
+  "exact_labels": [],
+  "uses": [
+    "change",
+    "fossil_fuel",
+    "intensity",
+    "ratio_word",
+    "recycle",
+    "single_fuel",
+    "total"
+  ],
+  "rules": [
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@ratio_word",
+        "@intensity"
+      ],
+      "scope": "text",
+      "reason": "label_is_ratio_or_intensity"
+    },
+    {
+      "rule": "require_any",
+      "terms": [
+        "@fossil_fuel"
+      ],
+      "scope": "subject",
+      "reason": "label_not_fossil_energy"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@single_fuel"
+      ],
+      "scope": "text",
+      "reason": "label_is_fossil_carrier",
+      "unless_terms": [
+        "@total"
+      ]
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@recycle",
+        "@change"
+      ],
+      "scope": "text",
+      "reason": "label_is_change_or_offset"
+    },
+    {
+      "rule": "unit_dimension",
+      "allowed": [
+        "energy"
+      ],
+      "params": {}
+    }
+  ],
+  "display_label": "化石能源消耗量 Fossil energy consumption",
+  "display_definition": "Total energy consumed from fossil sources (化石能源消耗/煤炭+石油+天然气合计). One fossil carrier (coal only, natural gas only) is a component, not the total."
+}

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "49b7440df3df0423cdecdfd521e7039ccf36c522cdcf0894d51e243dbbc941c6",
   "clause_id": "esrs.2023-set1.s2-5@2.3.0:S2-5_04",
-  "contract_digest": "58563dd1da0fc8a5c3221c9b47851e8bc724b11d50cf33483c46bc5466e5edd3",
+  "clause_key": "S2-5_04",
+  "contract_digest": "31fb7dcd068f8c304fe07584790a7ecbd6e9d2f0b761515e9989b57788bb24a3",
+  "data_kind": "qualitative",
   "description": "披露价值链劳动者相关目标拟在其生活中产生的预期结果。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of intended outcomes to be achieved in lives of  value chain workers",
     "zh": "目标拟对价值链劳动者生活产生的预期结果"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-5_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

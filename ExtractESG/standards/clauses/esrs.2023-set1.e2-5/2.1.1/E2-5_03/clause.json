@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "72336ea7874fb115e13f84c36bb899482af779697e56e0395f3fff5bfcc5ca2a",
   "clause_id": "esrs.2023-set1.e2-5@2.1.1:E2-5_03",
-  "contract_digest": "1d00852c94139c97b376749a39c505dbd35f42f5ac7508dde69e073ed5813a49",
+  "clause_key": "E2-5_03",
+  "contract_digest": "a1c50707198d29f5090c2193a8ee5203d118d93d35bfe956d05a4e127d79df27",
+  "data_kind": "quantitative",
   "description": "Total amount of substances of concern that leave facilities as emissions, as products, or as part of products or services。离开设施的关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
   "disclosure_requirement": "E2-5",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total amount of substances of concern that leave facilities as emissions, as products, or as part of products or services",
     "zh": "离开设施的关注物质总量"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-5_03",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "017c1311d4ad3ac3d3ffd9adc534d24ec2222c8a7d7b43af6827da5e2be121d1",
   "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_09",
-  "contract_digest": "f30dbe6a1ead55d2e679a8ebd94964444b510c285c1357dd0d407e94d7b73fcf",
+  "clause_key": "E1-1_09",
+  "contract_digest": "4ee814bef4b87b7acd9e37bd83423a92036aadbb88e4964c0ab5bb72e7045524",
+  "data_kind": "quantitative",
   "description": "Significant CapEx for coal-related economic activities。煤炭活动重大资本支出。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
   "disclosure_requirement": "E1-1",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Significant CapEx for coal-related economic activities",
     "zh": "煤炭活动重大资本支出"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-1_09",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

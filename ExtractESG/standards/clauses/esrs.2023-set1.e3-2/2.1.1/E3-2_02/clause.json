@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c9368ba0109cb16cf0c053ba756deb0c677a586a4d794fa01257f0d8c53bfc93",
   "clause_id": "esrs.2023-set1.e3-2@2.1.1:E3-2_02",
-  "contract_digest": "313ca7eb9ef1578813d9a7fad231e1f90835020298437e5fb3a5db827f9e8604",
+  "clause_key": "E3-2_02",
+  "contract_digest": "4dcfdc22e8f576cd12dd0ecc5b29fc0235819f3a2347adc2f5f4a2350a231701",
+  "data_kind": "qualitative",
   "description": "Information about specific collective action for water and marine resources。水及海洋资源集体行动。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
   "disclosure_requirement": "E3-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Information about specific collective action for water and marine resources",
     "zh": "水及海洋资源集体行动"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-2_02",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

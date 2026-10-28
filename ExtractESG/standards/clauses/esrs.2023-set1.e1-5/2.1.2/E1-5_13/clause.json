@@ -1,14 +1,23 @@
 {
   "canonical_unit": "MWh",
+  "clause_digest": "aa751ea37396adc1319fcec7f4731f3ce688e31898a08504dc266b067776a038",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_13",
-  "contract_digest": "ab28cc55784a5bf9a2042b518ba468ac1d93acfe9050cff3b22033c9d6fb5fe2",
+  "clause_key": "E1-5_13",
+  "contract_digest": "dc93c2a455b07607aa178c4cea59e23106610d2c0fe38adba80afc0d24f0d0f5",
+  "data_kind": "quantitative",
   "description": "其他化石能源燃料消费量",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Fuel consumption from other fossil sources",
     "zh": "其他化石能源燃料消费量"
@@ -45,8 +54,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "energy"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-5_13",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.energy",
   "value_origin": "reported",
   "value_type": "numeric"

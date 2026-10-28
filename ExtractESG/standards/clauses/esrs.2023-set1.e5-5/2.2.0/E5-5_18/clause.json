@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0cc8fd6e35ecf2996bc884e4db05f4c24ef3362f1041df6d1845c4ec50f3c341",
   "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_18",
-  "contract_digest": "24ff3bd66d666ab65fe0e286deff12fb3c81f237626d4558ed125ff755b0937b",
+  "clause_key": "E5-5_18",
+  "contract_digest": "92a89b8fcd0dce468de293cd8afcf3a1cbb8dfe9df8bc906d4d294aa4214d999",
+  "data_kind": "qualitative",
   "description": "Disclosure of its engagement in product end-of-life waste management。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
   "disclosure_requirement": "E5-5",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of its engagement in product end-of-life waste management",
     "zh": "Disclosure of its engagement in product end-of-life waste management"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-5_18",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

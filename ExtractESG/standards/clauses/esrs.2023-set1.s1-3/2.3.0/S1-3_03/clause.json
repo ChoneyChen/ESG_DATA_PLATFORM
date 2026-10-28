@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "87a402f154171e7d02da93025edd0538cee2ccf0949597e776f5c7ee3d1b2f7a",
   "clause_id": "esrs.2023-set1.s1-3@2.3.0:S1-3_03",
-  "contract_digest": "9ea77c4de78f76217b5f1717a629674191464e54de1f912c300fc5d69ca087fb",
+  "clause_key": "S1-3_03",
+  "contract_digest": "9f3bbd55b08f4067c8cdde212c87562900583517c677ceedb2ea3aaabe1ab450",
+  "data_kind": "qualitative",
   "description": "说明第三方机制是否向全体自身劳动力开放，以及可及性安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Third-party mechanisms are accessible to all own workforce",
     "zh": "面向全体员工的第三方机制"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-3_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

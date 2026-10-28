@@ -1,14 +1,23 @@
 {
   "canonical_unit": null,
+  "clause_digest": "40ce39cb53f280803b0182125dd2e94e9c0ded372c9346030b4fae0222434ac6",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_29",
-  "contract_digest": "00e66e0462715bd70f37134ab886cbc13af47f31cddff0c1c65c7cc1287fc19f",
+  "clause_key": "E1-6_29",
+  "contract_digest": "25487fc136b768a3d6f7a6ce89e4745e81f04d6576fa91f61ddf2d2898062b0e",
+  "data_kind": "qualitative",
   "description": "范围3盘查边界、计算方法、关键假设、数据来源和工具。输出实际方法陈述并分别举证，不能以类别数字或单位代替。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Scope 3 boundaries, methods, assumptions and tools",
     "zh": "范围3边界、方法、假设与工具"
@@ -40,8 +49,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_29",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "m3/currency",
+  "clause_digest": "810198d47cea79b7da383e1f1dae1d66836db7edbd50afe471833986000dbf2b",
   "clause_id": "esrs.2023-set1.e3-4@2.1.1:E3-4_08",
-  "contract_digest": "33aa55bced8b9998f852ea3eb7917f5e49ed22b009a3424a98622bac0ed982d3",
+  "clause_key": "E3-4_08",
+  "contract_digest": "5bb242389f2d5a47d9096381ed9eed288dbbe158d74222765fa36625255faeb7",
+  "data_kind": "quantitative",
   "description": "Water intensity ratio。按净收入计算的耗水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
   "disclosure_requirement": "E3-4",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Water intensity ratio",
     "zh": "按净收入计算的耗水强度"
@@ -49,8 +58,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "water-intensity"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-4_08",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.water-intensity",
   "value_origin": "reported",
   "value_type": "numeric"

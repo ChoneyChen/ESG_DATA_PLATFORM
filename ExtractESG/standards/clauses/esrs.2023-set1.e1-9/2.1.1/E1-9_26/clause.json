@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "1a8854aca5904c9e33631f94e55bada9a67b1c31004a22aa97f2b99beeff50e1",
   "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_26",
-  "contract_digest": "28131c7313354a3b198f52ad0442f09824b87241245c1e25d67d49e280a72204",
+  "clause_key": "E1-9_26",
+  "contract_digest": "21bc79ea9792da8e6ce69bb37c69f548bc6d5178939a4895f56425b5368f7de4",
+  "data_kind": "quantitative",
   "description": "Potential future liabilities, based on existing contractual agreements, associated with carbon credits planned to be cancelled in near future。计划核销碳信用的潜在未来负债。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
   "disclosure_requirement": "E1-9",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Potential future liabilities, based on existing contractual agreements, associated with carbon credits planned to be cancelled in near future",
     "zh": "计划核销碳信用的潜在未来负债"
@@ -47,8 +56,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-9_26",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

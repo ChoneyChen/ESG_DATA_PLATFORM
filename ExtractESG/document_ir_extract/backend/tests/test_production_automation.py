@@ -190,9 +190,9 @@ def test_extraction_plan_pins_the_preparation_actually_used(tmp_path):
     state = create(engine, AutomationRequest.model_validate(body))
     engine.tick(); finish_processing(engine, processing, store)
     item = engine.get(state["automation_id"])["items"][0]
-    assert item["processing_config"]["page_selection"] == "foundation16"
+    assert item["processing_config"]["page_selection"] == "clauses"
     assert plans.created == 1
-    assert plans._plans[-1]["documents"][0]["processing_config"]["page_selection"] == "foundation16"
+    assert plans._plans[-1]["documents"][0]["processing_config"]["page_selection"] == "clauses"
     assert plans._plans[-1]["documents"][0]["automation_key"] == state["automation_id"] + ":item-1"
     assert plans._plans[-1]["report_request"]["name"].startswith("批量报告生产 · ")
     assert "自动生产:" not in plans._plans[-1]["report_request"]["name"]

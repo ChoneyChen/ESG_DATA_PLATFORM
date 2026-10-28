@@ -8,7 +8,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .clause_profile import ClauseExtractionProfile, compile_clause_profile, profile_digest, validate_profile
+from .clause_profile import (ClauseExtractionProfile, ClauseRelationships, ReadingContract, ReadingRule,
+                             compile_clause_profile, profile_digest, validate_profile)
 from .retrieval_contract import clause_retrieval_terms
 from .scientific_contract import UNIT_IDS
 from .compiler import StandardPackageCompiler
@@ -20,6 +21,8 @@ COMPOSITE_UNITS = {
     "extractesg.core.unit.cubic-metre-per-million-eur": "m3/currency",
 }
 IGNORED_FIXED = {"all", "unknown", "unspecified", "not_reported"}
+AUTHORING_ROOT = Path("clause-authoring")
+CLAUSE_LEXICON = Path("profiles/esrs/2023-set1/clause-lexicon.json")
 
 
 def unit_from_data_type(official: str) -> str | None:
@@ -37,14 +40,69 @@ def unit_from_data_type(official: str) -> str | None:
 
 
 def aggregation_for(metric, unit: str | None) -> str:
-    text = f"{metric.labels.get('zh', '')} {metric.labels.get('en', '')} {metric.description}".lower()
-    if any(term in text for term in ("占比", "比例", "share", "percentage", "ratio of")):
+    """Output-scope aggregation from the measurement contract, never from prose.
+
+    A description that says "not an intensity" must not make an absolute amount
+    an intensity. The contract's measurement kind, unit dimension and declared
+    aggregation are the only inputs.
+    """
+    contract = metric.measurement_contract
+    kind = (metric.measurement_kind or "").lower()
+    family = (metric.value_family or "").lower()
+    dimension = (contract.unit_dimension or "").rsplit(".", 1)[-1].lower() if contract else ""
+    aggregation = contract.aggregation if contract else "none"
+    if kind in {"intensity", "rate"} or "intensity" in dimension:
+        return "intensity"
+    if kind in {"percentage", "share"} or family in {"percentage", "share"} or aggregation == "ratio_recompute":
         return "share"
-    if any(term in text for term in ("强度", "intensity", "per unit", "每单位")):
-        return "intensity"
-    if metric.measurement_kind in {"ratio", "rate", "percentage"} or unit == "ratio":
-        return "intensity"
+    if unit == "ratio" and kind not in {"count", "quantity"}:
+        return "share"
     return "total"
+
+
+def _reading_terms(terms: list[str], vocabulary: dict[str, list[str]]) -> list[str]:
+    resolved: list[str] = []
+    for term in terms or []:
+        if isinstance(term, str) and term.startswith("@"):
+            resolved.extend(vocabulary.get(term[1:], []))
+        else:
+            resolved.append(term)
+    return list(dict.fromkeys(item for item in resolved if item))
+
+
+def load_clause_lexicon(standards_root: Path) -> dict[str, list[str]]:
+    path = Path(standards_root) / CLAUSE_LEXICON
+    if not path.is_file():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {key: [str(item) for item in value] for key, value in (payload.get("terms") or {}).items()}
+
+
+def load_clause_authoring(standards_root: Path, source_datapoint_id: str) -> dict | None:
+    """The clause's own authored reading declaration, one file per clause."""
+    path = Path(standards_root) / AUTHORING_ROOT / f"{source_datapoint_id}.json"
+    if not path.is_file():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def compile_reading(authoring: dict, lexicon: dict[str, list[str]]) -> ReadingContract:
+    vocabulary = {**lexicon, **(authoring.get("vocabulary") or {})}
+    rules = []
+    for raw in authoring.get("rules") or []:
+        rule = dict(raw)
+        for key in ("terms", "unless_terms", "if_terms", "allowed"):
+            if key in rule:
+                rule[key] = _reading_terms(rule[key], vocabulary)
+        rules.append(ReadingRule(**rule))
+    referenced = sorted(set(authoring.get("uses") or []) | {
+        term[1:] for raw in authoring.get("rules") or []
+        for key in ("terms", "unless_terms", "if_terms")
+        for term in raw.get(key) or [] if isinstance(term, str) and term.startswith("@")})
+    return ReadingContract(operator=authoring.get("operator") or "numeric_label",
+                           rules=rules,
+                           vocabulary={name: vocabulary[name] for name in referenced if name in vocabulary},
+                           allow_regulatory_limit=bool(authoring.get("allow_regulatory_limit")))
 
 
 def _dictionary_metric(dictionary: dict | None, source_datapoint_id: str) -> dict:
@@ -88,7 +146,8 @@ def apply_override(profile: dict, override: dict) -> dict:
     """
     clause = override.get("clause") or {}
     updated = dict(profile)
-    for field in ("positive_definition", "distinguish_from", "exclusions", "output_scopes", "publication"):
+    for field in ("positive_definition", "distinguish_from", "exclusions", "output_scopes", "publication",
+                  "data_kind", "group", "relationships", "exact_labels", "reading"):
         if field in clause:
             updated[field] = clause[field]
     for part, keys in (("retrieval", ("positive_terms", "negative_terms", "structural_anchors")),
@@ -100,10 +159,15 @@ def apply_override(profile: dict, override: dict) -> dict:
     requirements = (override.get("evidence") or {}).get("requirements")
     if requirements is not None:
         updated["evidence"] = requirements
-    # The merged contract is a new contract: its digest must describe the edit,
-    # not the package it came from.
+    # The merged contract is a new contract: both digests must describe the
+    # edit, not the package it came from.
+    updated["clause_digest"] = "0" * 64
     updated["contract_digest"] = "0" * 64
-    updated["contract_digest"] = profile_digest(ClauseExtractionProfile.model_validate(updated))
+    draft = ClauseExtractionProfile.model_validate(updated)
+    from .clause_profile import clause_content_digest
+    updated["clause_digest"] = clause_content_digest(draft)
+    draft = ClauseExtractionProfile.model_validate(updated)
+    updated["contract_digest"] = profile_digest(draft)
     return updated
 
 
@@ -125,6 +189,7 @@ def build_profiles(standards_root: Path, dictionary: dict | None,
                    overrides: dict[tuple[str, str, str], dict] | None = None,
                    clause_fixed_axes: dict[str, dict] | None = None) -> list[dict]:
     terms = clause_retrieval_terms(standards_root)
+    lexicon = load_clause_lexicon(standards_root)
     if clause_fixed_axes is None:
         clause_fixed_axes = load_clause_fixed_axes(standards_root)
     outputs = []
@@ -139,8 +204,23 @@ def build_profiles(standards_root: Path, dictionary: dict | None,
                 continue
             source_id = metric.source_datapoint_id
             axes, role = fixed_axes_for(dictionary, source_id, clause_fixed_axes)
-            value_type = ("statement" if role == "statement"
+            authoring = load_clause_authoring(standards_root, source_id) or {}
+            data_kind = authoring.get("data_kind")
+            value_type = ("statement" if data_kind == "qualitative" else
+                          "numeric" if data_kind == "quantitative" else
+                          "statement" if role == "statement"
                           else "numeric" if metric.data_class == "quantitative" else "statement")
+            reading = compile_reading(authoring, lexicon) if authoring else None
+            if value_type == "statement" and reading is not None and reading.operator != "statement":
+                # A qualitative package may reuse concept terms written for the
+                # same family; unit and ratio rules do not apply to a statement.
+                keep = {"require_any", "require_all", "forbid_any", "forbid_any_unless",
+                        "forbid_if_all", "reject_component", "flag_review"}
+                reading = ReadingContract(operator="statement",
+                                          rules=[rule for rule in reading.rules if rule.rule in keep],
+                                          vocabulary=reading.vocabulary,
+                                          allow_regulatory_limit=reading.allow_regulatory_limit)
+            relationships = ClauseRelationships(**(authoring.get("relationships") or {}))
             positive = (terms.get(source_id) or {}).get("positive_terms") or []
             dimension = (contract.unit_dimension or "").rsplit(".", 1)[-1]
             unit = (canonical_unit_for(dictionary, source_id) or UNIT_IDS.get(contract.canonical_unit_id)
@@ -166,7 +246,16 @@ def build_profiles(standards_root: Path, dictionary: dict | None,
                     },
                     package_id=package.manifest.package_id, package_version=package.manifest.package_version,
                     retrieval_terms=list(dict.fromkeys(term for term in positive if term.strip()))[:MAX_TERMS],
-                    fixed_axes=axes, value_type=value_type, aggregation=aggregation_for(metric, unit))
+                    fixed_axes=axes, value_type=value_type, aggregation=aggregation_for(metric, unit),
+                    data_kind=data_kind, reading=reading,
+                    display_label=authoring.get("display_label"),
+                    display_definition=authoring.get("display_definition"),
+                    group=authoring.get("group"),
+                    text_group=authoring.get("text_group"),
+                    group_terms=lexicon.get(f"group:{authoring.get('group')}:strong") or [],
+                    group_unit_terms=lexicon.get(f"group:{authoring.get('group')}:weak") or [],
+                    relationships=relationships,
+                    exact_labels=authoring.get("exact_labels"))
                 validate_profile(profile)
             except ValueError as error:
                 skipped.append({"metric_id": metric.metric_id, "source_datapoint_id": source_id,

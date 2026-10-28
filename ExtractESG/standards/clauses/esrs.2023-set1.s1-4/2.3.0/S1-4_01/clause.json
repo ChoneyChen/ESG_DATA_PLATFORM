@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "75e72f876548d88d77fdce0e87c17faeeec5009676a24ab5b78cf1ec0864c9c9",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_01",
-  "contract_digest": "6fcbd2cf395fafb3b889dd72c8d97e50128cfffca5e98e9bbb704b6579373a8f",
+  "clause_key": "S1-4_01",
+  "contract_digest": "6698f2598ce0a1c52316f5ca384347918e3d0a11076ee24200b19644acef8db6",
+  "data_kind": "qualitative",
   "description": "描述主体为预防或减轻对自身劳动力负面影响而已采取、计划或正在进行的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of action taken, planned or underway to prevent or mitigate negative impacts on own workforce",
     "zh": "预防或减轻对自身劳动力负面影响的行动"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

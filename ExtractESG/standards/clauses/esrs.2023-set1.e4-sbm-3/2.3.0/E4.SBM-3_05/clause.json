@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a7b6f27925129706143095319ff825a446a99c3b007e11b92f250172ad1a945b",
   "clause_id": "esrs.2023-set1.e4-sbm-3@2.3.0:E4.SBM-3_05",
-  "contract_digest": "6918dfd7992a62295616e96f442461707570e94f5d25bc2132cf963b58711629",
+  "clause_key": "E4.SBM-3_05",
+  "contract_digest": "397c478a5c0fa0e6590aefce634a94db69c083532deedc22bff9f023c136118a",
+  "data_kind": "qualitative",
   "description": "披露已识别的与土地退化、荒漠化或土壤封固相关的重大负面影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Material negative impacts with regards to land degradation, desertification or soil sealing have been identified",
     "zh": "土地退化、荒漠化或土壤封固的重大负面影响"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.SBM-3_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

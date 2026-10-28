@@ -1,0 +1,44 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E4.SBM-3_04",
+  "group": "biodiversity",
+  "text_group": "biodiversity",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "敏感区域",
+        "sensitive area",
+        "sensitive areas"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "数量",
+        "number of",
+        "面积",
+        "area of",
+        "场址清单",
+        "list of sites"
+      ],
+      "reason": "label_is_other_concept"
+    }
+  ],
+  "display_label": "受到影响的生物多样性敏感区域",
+  "display_definition": "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。"
+}

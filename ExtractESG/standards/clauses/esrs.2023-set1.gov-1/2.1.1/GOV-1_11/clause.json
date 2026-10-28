@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c89c3bd3add42955117d9b8bb76ecd6ed5568e2ec66311ce0fff187cbbdafc2e",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_11",
-  "contract_digest": "5a90daf1878e4336dd368cfc22f58f36067f0332a212ec04134aa7dfd168b239",
+  "clause_key": "GOV-1_11",
+  "contract_digest": "3f67b42abc7efc28394caa956c9d61574a42b65ff5f82c4dea7f00b80d6dbb00",
+  "data_kind": "qualitative",
   "description": "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to。治理机构对授权管理职责的监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to",
     "zh": "治理机构对授权管理职责的监督"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "GOV-1_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

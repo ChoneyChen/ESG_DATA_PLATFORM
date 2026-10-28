@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "571e78602f38e9fdaa8bc5d589284a0b687a1de0eea78ab965572d561c5b332e",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_17",
-  "contract_digest": "037eb7fc6e696c5df31f3f11330d9876007d8dc53f90dd447892a1fbf534cc0d",
+  "clause_key": "BP-2_17",
+  "contract_digest": "2eecdc04a5f2b107bdcf92097fdc7b944ed7f341b11f060ecc1c6402e826bf29",
+  "data_kind": "qualitative",
   "description": "Disclosure of reference to paragraphs of standard or framework applied。其他标准条款引用。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of reference to paragraphs of standard or framework applied",
     "zh": "其他标准条款引用"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_17",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

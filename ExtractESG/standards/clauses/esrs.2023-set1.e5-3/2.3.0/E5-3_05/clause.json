@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "ca25a03cd186ba2c4cf3ee0dc2614ef9b7e0d27642199da68002c4d2a620f669",
   "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_05",
-  "contract_digest": "755671ea78ea329d9f9098936d6c77dfc666b72302cfdfad1382469c22c6ffe4",
+  "clause_key": "E5-3_05",
+  "contract_digest": "4a69243406cfa1c70d33dfda5cd94594b11f84abf00fd1ffdccf1afd8dbb4da9",
+  "data_kind": "qualitative",
   "description": "说明目标如何与逆转可再生资源存量耗竭相关联，包括再生速率与消耗速率的关系。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how target relates to reversal of depletion of stock of renewable resources",
     "zh": "目标与可再生资源存量耗竭逆转的关系"
@@ -44,8 +53,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-3_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

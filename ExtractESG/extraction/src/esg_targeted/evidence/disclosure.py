@@ -566,12 +566,11 @@ class DisclosureSession:
             identity["chart_reading_policy"] = CHART_READING_VERSION
         source_key = stable_id("source", identity)
         path = f"agent/sources/{safe_filename(object_id)}.json"
-        session_id = getattr(self.request, "report_session_id", None)
-        shared_path = (self.store.report_session_dir(session_id) / "sources" / f"{source_key}.json") if session_id else None
+        # A neutral understanding is never reused across clause targets: the
+        # clause contract under extraction decides what is read and how.
         saved = self.sources.get(object_id)
         if not saved or saved.get("source_identity") != identity:
-            saved = read_json(shared_path) if shared_path and shared_path.is_file() else (
-                self.store.read_json(self.job_id, path) if self.store.exists(self.job_id, path) else None)
+            saved = self.store.read_json(self.job_id, path) if self.store.exists(self.job_id, path) else None
         if saved and (saved.get("version") != INTERPRETATION_VERSION or saved.get("source_identity") != identity):
             saved = None
         explicit_read = bool(group_ids or cell_ids or context_kind)
@@ -615,15 +614,8 @@ class DisclosureSession:
                     previous = self.store.read_json(self.job_id, "agent/source-invalidations.json") if self.store.exists(self.job_id, "agent/source-invalidations.json") else {"source_fact_ids": []}
                     previous["source_fact_ids"] = sorted((set(previous["source_fact_ids"]) | set(retired)) - new_ids)
                     self.store.write_json(self.job_id, "agent/source-invalidations.json", previous)
-                    if session_id:
-                        shared_invalidations = self.store.report_session_dir(session_id) / "source-invalidations.json"
-                        shared = read_json(shared_invalidations) if shared_invalidations.is_file() else {"source_fact_ids": []}
-                        shared["source_fact_ids"] = sorted((set(shared["source_fact_ids"]) | set(retired)) - new_ids)
-                        write_json(shared_invalidations, shared)
             self.sources[object_id] = source
             self.store.write_json(self.job_id, path, source)
-            if shared_path:
-                write_json(shared_path, source)
             self._stage()
             return source
         pending_rows = [r for r in obj["rows"] if explicit_read or r["group_id"] not in processed]
@@ -1132,14 +1124,6 @@ class DisclosureSession:
                 if not any(s.get("version") != INTERPRETATION_VERSION or legacy_chart_source(s) for s in cached_sources.values()) and not any(f["source_fact_id"] in self._retired_source_ids() for s in cached_sources.values() for f in s.get("facts", [])):
                     self.sources.update(cached_sources)
                     return {**saved, "mappings": mappings}
-                if self.request.report_session_id:
-                    for oid, old in cached_sources.items():
-                        shared_path = self.store.report_session_path(self.request.report_session_id) / "sources" / f"{old.get('source_key')}.json"
-                        if shared_path.is_file():
-                            latest = read_json(shared_path)
-                            if latest.get("source_identity") == old.get("source_identity") and not any(f["source_fact_id"] in self._retired_source_ids() for f in latest.get("facts", [])):
-                                self.sources[oid] = latest
-                                self.store.write_json(self.job_id, f"agent/sources/{safe_filename(oid)}.json", latest)
         members = self.pools[topic]["members"]
         obsolete = set(self.agent.setdefault("topic_gap_ids", {}).pop(topic, []))
         self.agent["gaps"] = [g for g in self.agent.get("gaps", []) if g["gap_id"] not in obsolete]

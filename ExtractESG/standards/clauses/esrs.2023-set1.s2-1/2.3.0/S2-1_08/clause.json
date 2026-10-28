@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0bec6ca1197000c43919269d9033fe2c8ba45407d0f8d83a9017ab283a01393d",
   "clause_id": "esrs.2023-set1.s2-1@2.3.0:S2-1_08",
-  "contract_digest": "3ef16510be308f56a7c906c4ee807b27b9cf1145a7ae3f620c1a114dbf9737ee",
+  "clause_key": "S2-1_08",
+  "contract_digest": "a7094be468f58044086c5ddfe4c03bec92c181a385279b85dc892d184488eb0d",
+  "data_kind": "qualitative",
   "description": "说明政策是否以及如何与相关国际公认文书保持一致，并指出对应文书。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how policies are aligned with relevant internationally recognised instruments",
     "zh": "政策与国际公认文书的一致性（价值链劳动者）"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-1_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

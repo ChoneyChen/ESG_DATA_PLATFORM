@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4700df0ff14200e928ba789682cfbde582588785569a1d5ee96c70c57ecc0274",
   "clause_id": "esrs.2023-set1.s2-3@2.3.0:S2-3_04",
-  "contract_digest": "990e992420c8409fcf64c9c1a3d72bc8dfa1025e9f5d7a0993e272d65fcf0dd5",
+  "clause_key": "S2-3_04",
+  "contract_digest": "71f7a670af8186558f374a4c873fe62193578193b46a93f69e9109a55fdbf06d",
+  "data_kind": "qualitative",
   "description": "说明价值链劳动者提出的问题如何被跟踪和处理，以及如何确保渠道的有效性。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured",
     "zh": "问题的跟踪、监测与渠道有效性保障（价值链）"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-3_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

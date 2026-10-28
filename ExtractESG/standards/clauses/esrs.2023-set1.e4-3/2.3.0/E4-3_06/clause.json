@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "4c73d6abaa6aa4b517b9fda70c92d0e69c9832eb4c629d3f32832d7c598cf9c7",
   "clause_id": "esrs.2023-set1.e4-3@2.3.0:E4-3_06",
-  "contract_digest": "c95393a59c48ee420be84eb3d1b69914d1cc878b69ee3a209cf26dd16709a282",
+  "clause_key": "E4-3_06",
+  "contract_digest": "03a82d66d55a08d18db3459017f848d51f7f82544638f52171638df0858e4b0d",
+  "data_kind": "qualitative",
   "description": "说明实施行动所需的重大资本支出和运营支出与欧盟委托条例(EU) 2021/2178所要求关键绩效指标的对应关系。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of rekationship of significant Capex and Opex required to impelement actions taken or planned to key  performance indicators required under Commission Delegated Regulation (EU) 2021/2178",
     "zh": "资本支出与运营支出同欧盟分类法关键绩效指标的对应关系"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4-3_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

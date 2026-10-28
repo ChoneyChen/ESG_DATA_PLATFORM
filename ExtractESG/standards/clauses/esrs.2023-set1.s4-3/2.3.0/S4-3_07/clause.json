@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "09cb08bbaa6a2567d6a685e142099384898539c127eeb6a541112e10fcb93926",
   "clause_id": "esrs.2023-set1.s4-3@2.3.0:S4-3_07",
-  "contract_digest": "5bd6963b585644dd6f5382d62670a1235193f16287071087b8d889d69017b522",
+  "clause_key": "S4-3_07",
+  "contract_digest": "c9ca75d33c7c376a843b90b05a35a349eb7d3a1a40c3dbad19b5bb1443c61ec2",
+  "data_kind": "qualitative",
   "description": "说明主体是否尚未建立面向消费者和终端用户的申诉流程；若未建立，披露现状与原因。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Statement in case the undertaking has not adopted a general process to engage with consumers and/or end-users",
     "zh": "未建立消费者申诉流程时的说明"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-3_07",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

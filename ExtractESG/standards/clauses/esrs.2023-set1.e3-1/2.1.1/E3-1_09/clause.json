@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d8105e9220e7a35db988eb8f63ed265134314b058293a5cc661ab793a3da32fc",
   "clause_id": "esrs.2023-set1.e3-1@2.1.1:E3-1_09",
-  "contract_digest": "50b6eb70c0b88fa80b0620b8315de9927681e7f6605f8f082d90b1a4d1c470c9",
+  "clause_key": "E3-1_09",
+  "contract_digest": "7a08b3a078a5b271b9a49382d46172071ae26c8cd09a7744ee14027f65517085",
+  "data_kind": "qualitative",
   "description": "Policies or practices related to sustainable oceans and seas have been adopted。可持续海洋政策实践。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
   "disclosure_requirement": "E3-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Policies or practices related to sustainable oceans and seas have been adopted",
     "zh": "可持续海洋政策实践"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E3-1_09",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": "count",
+  "clause_digest": "579b1513ebb433bd1a398d08ba5b07beb604ffc9b80661f0f79d1d83f4b40f46",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_12",
-  "contract_digest": "1df02db7fb607ac9f8a7653e835c84f394f6bbddc9d63d35d39f0e7eaee583d4",
+  "clause_key": "BP-2_12",
+  "contract_digest": "2e4af5eca2076d851475344e302ffc0a757858dd3c6100cc53081e242328de7b",
+  "data_kind": "quantitative",
   "description": "Disclosure of difference between figures disclosed in preceding period and revised comparative figures。前期与重述比较值差额。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of difference between figures disclosed in preceding period and revised comparative figures",
     "zh": "前期与重述比较值差额"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_12",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "numeric"

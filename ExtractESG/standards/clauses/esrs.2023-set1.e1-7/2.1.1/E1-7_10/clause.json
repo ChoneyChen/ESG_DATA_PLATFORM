@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "c40a2457f961ab7c701587c145fbd22471e16d325a1dc0a9cd82782d15e07a31",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_10",
-  "contract_digest": "c92d483c14aed65bb7e4766c820c828fe3610b98b4de4dd7ab5454a4aca48276",
+  "clause_key": "E1-7_10",
+  "contract_digest": "2483fa8607aac6bdf830487e6ec56cae243845036842106ce83ac1b7a29758b4",
+  "data_kind": "quantitative",
   "description": "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled。已核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled",
     "zh": "已核销的价值链外碳信用量"
@@ -46,8 +55,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-emissions"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_10",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

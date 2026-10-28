@@ -18,52 +18,96 @@ from esg_targeted.foundation.tables import GROUP_SCOPE_RE, SUBSET_SCOPE_RE, clea
 from esg_targeted.foundation.textnorm import fold
 from esg_targeted.evidence.units import canonical_unit_id
 
-TEXT_GROUPS = {
-    "energy": ("E1-5_01", "E1-5_02", "E1-5_05", "E1-5_09"),
-    "ghg": ("E1-6_07", "E1-6_09", "E1-6_10", "E1-6_11", "E1-6_12"),
-    "ghg_intensity": ("E1-6_30",),
-    "water": ("E3-4_01", "E3-4_02", "E3-4_03", "E3-4_11", "E3-4_12"),
-    "pollution": ("E2-4_02", "E2-4_03", "E2-4_09"),
-    "substances": ("E2-5_02",),
-    "waste": ("E5-5_07", "E5-5_15"),
-    "materials": ("E5-4_02",),
-    "workforce": ("S1-6_02", "S1-6_12", "S1-9_02", "S1-13_04", "S1-14_05", "S1-16_01", "S1-17_02"),
-    "governance": ("GOV-1_06", "G1-4_01", "G1-6_01"),
-}
-RETRIEVAL = {
-    "E1-5_01": (g.ENERGY_TOTAL_RE,),
-    "E1-5_05": (g.RENEWABLE_RE,),
-    "E1-5_09": (g.RENEWABLE_RE,),
-    "E1-6_07": (g.SCOPE1_RE,),
-    "E1-6_09": (g.SCOPE2_RE,),
-    "E1-6_10": (g.SCOPE2_RE,),
-    "E1-6_11": (g.SCOPE3_RE,),
-    "E2-4_02": (g.AIR_POLLUTANT_RE,),
-    "E2-4_03": (g.WATER_POLLUTANT_RE,),
-    "E2-4_09": (g.POLLUTION_METHOD_RE,),
-    "E2-5_02": (g.SUBSTANCE_RE,),
-    "E3-4_01": (g.CONSUMPTION_RE,),
-    "E3-4_02": (g.RISK_AREA_RE,),
-    "E3-4_03": (g.RECYCLE_RE,),
-    "E3-4_11": (g.WITHDRAWAL_RE,),
-    "E3-4_12": (g.DISCHARGE_RE,),
-    "E1-5_02": (g.FOSSIL_FUEL_RE,),
-    "E1-6_12": (g.GHG_LABEL_RE,),
-    "E1-6_30": (g.INTENSITY_RE,),
-    "E5-5_07": (g.WASTE_RE,),
-    "E5-5_15": (g.HAZARDOUS_RE,),
-    "E5-4_02": (g.MATERIAL_RE,),
-    "S1-6_02": (g.EMPLOYEE_RE,),
-    "S1-6_12": (g.TURNOVER_RE,),
-    "S1-9_02": (g.TOPMGMT_RE,),
-    "S1-13_04": (g.TRAINING_RE,),
-    "S1-14_05": (g.SAFETY_RE,),
-    "S1-16_01": (g.PAYGAP_RE,),
-    "S1-17_02": (g.DISCRIM_RE,),
-    "GOV-1_06": (g.GENDER_RE,),
-    "G1-4_01": (g.CORRUPTION_RE,),
-    "G1-6_01": (g.PAYDAYS_RE,),
-}
+def _compile_term(term: str) -> re.Pattern:
+    return re.compile(term[3:], re.I) if term.startswith("re:") else re.compile(re.escape(term), re.I)
+
+
+_RUNTIME = None
+
+
+def _metrics():
+    global _RUNTIME
+    if _RUNTIME is None:
+        from esg_targeted.foundation.catalog import runtime_catalog
+        _RUNTIME = runtime_catalog()
+    return _RUNTIME
+
+
+def _text_groups() -> dict[str, tuple[str, ...]]:
+    groups: dict[str, list[str]] = {}
+    for metric in _metrics().metrics:
+        groups.setdefault(metric.text_group, []).append(metric.code)
+    return {key: tuple(codes) for key, codes in groups.items()}
+
+
+def _retrieval() -> dict[str, tuple[re.Pattern, ...]]:
+    return {metric.code: tuple(_compile_term(term) for term in metric.retrieval_terms)
+            for metric in _metrics().metrics}
+
+
+class _LazyGroups(dict):
+    def _ensure(self):
+        if not self:
+            self.update(_text_groups())
+
+    def __getitem__(self, key):
+        self._ensure()
+        return super().__getitem__(key)
+
+    def __iter__(self):
+        self._ensure()
+        return super().__iter__()
+
+    def items(self):
+        self._ensure()
+        return super().items()
+
+
+class _LazyRetrieval(dict):
+    def _ensure(self):
+        if not self:
+            self.update(_retrieval())
+
+    def get(self, key, default=None):
+        self._ensure()
+        return super().get(key, default)
+
+    def __getitem__(self, key):
+        self._ensure()
+        return super().__getitem__(key)
+
+    def __len__(self):
+        self._ensure()
+        return super().__len__()
+
+
+TEXT_GROUPS = _LazyGroups()
+RETRIEVAL = _LazyRetrieval()
+
+
+def _group_of() -> dict[str, str]:
+    return {code: group for group, codes in _text_groups().items() for code in codes}
+
+
+class _LazyGroupOf(dict):
+    def get(self, key, default=None):
+        if not self:
+            self.update(_group_of())
+        return super().get(key, default)
+
+    def __getitem__(self, key):
+        if not self:
+            self.update(_group_of())
+        return super().__getitem__(key)
+
+    def __len__(self):
+        if not self:
+            self.update(_group_of())
+        return super().__len__()
+
+
+GROUP_OF = _LazyGroupOf()
+
 # A value statement prints a number with a unit of the datapoint's kind; a
 # paragraph with only years or counts cannot state one of these values.
 _UNITS = {

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "8bbbfcc085fe14a3b62e6ab6196c0fa3832d32d29c53db2d8a199c816bfee265",
   "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_13",
-  "contract_digest": "aa36d90decf9ada5a1fc8bf28c93ef8756759ef0451182a95539107c2f9fedfc",
+  "clause_key": "E1.IRO-1_13",
+  "contract_digest": "3f80072dfce7a6e93c9f8d734838fafa4abbcb02407ee7c8e157c31dbf4af6d2",
+  "data_kind": "qualitative",
   "description": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis。情景分析用于转型暴露评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
   "disclosure_requirement": "E1.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis",
     "zh": "情景分析用于转型暴露评估"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1.IRO-1_13",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

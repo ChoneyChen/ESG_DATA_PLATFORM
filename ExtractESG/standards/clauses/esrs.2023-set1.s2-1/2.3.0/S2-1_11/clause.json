@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "7af7b754cd425e6bb611db4eda7224caf29b23ad057571b4f7f5527170bb3492",
   "clause_id": "esrs.2023-set1.s2-1@2.3.0:S2-1_11",
-  "contract_digest": "74f312f3b99f19eec541e5bc87675c11b4302b61242bff7be3593c78d4c4d375",
+  "clause_key": "S2-1_11",
+  "contract_digest": "f41a9693e47618d5549556b8337ad8926c8fb339e6a2284879ad078cf106b4a2",
+  "data_kind": "qualitative",
   "description": "举例说明政策如何向价值链中的相关个人、群体或实体传达，包括渠道和语言。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant",
     "zh": "政策向相关人员传达的方式示例（价值链）"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-1_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,18 +1,43 @@
 {
   "canonical_unit": "tCO2e-per-10k-cny",
+  "clause_digest": "d88487ff2fd95e1f84503762c0ef7cd34a266761ec619b53fad7f4eb1e682a13",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_30",
-  "contract_digest": "d503f1acba6a3e8b0c462b01c0b79a7dd00faf8b50eff94bcebc5cac97f16b3b",
+  "clause_key": "E1-6_30",
+  "contract_digest": "1bb644d090edeb21d815ce49b526c9d7a39c0dc6e0414e9a2c35634908f0b09a",
+  "data_kind": "quantitative",
   "description": "范围 1＋位置法范围 2 的温室气体排放总量除以净收入的强度；分子分母须同期间、同边界。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
+  "display_definition": "Total location-based GHG emissions per unit of net revenue (吨CO2e/百万元营收). An absolute emission total, an energy intensity or a per-product intensity is not this.",
+  "display_label": "温室气体排放强度（位置法） GHG intensity, location-based",
   "distinguish_from": [
     "绝对排放总量",
     "单位产品排放强度",
     "营业收入总额"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "绝对排放总量不能与排放强度互换；净收入、营业收入与产值是不同的分母。"
+  ],
+  "group": "ghg_intensity",
+  "group_terms": [
+    "温室气体排放强度",
+    "排放强度",
+    "碳强度",
+    "ghg intensity",
+    "emission intensity",
+    "carbon intensity",
+    "每百万元营收",
+    "per million revenue",
+    "per revenue"
+  ],
+  "group_unit_terms": [
+    "tco2e",
+    "co2e",
+    "吨二氧化碳当量",
+    "万元",
+    "百万元"
   ],
   "labels": {
     "en": "Location-based GHG intensity",
@@ -50,8 +75,98 @@
       "intensity_numerator_scope": "scope_1_2_location_based"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_intensity",
+        "rule": "require_any",
+        "scope": "all",
+        "terms": [
+          "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
+          "re:(?:/|／|\\bper\\b|每)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_not_revenue_intensity",
+        "rule": "require_any",
+        "scope": "all",
+        "terms": [
+          "re:(?:营收|营业收入|营业额|收入|revenue|net\\s+sales)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "method": "location_based",
+          "method_check": true,
+          "scope": "any",
+          "single_scope_forbidden": true
+        },
+        "reason": null,
+        "rule": "ghg_scope",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "ghg-intensity"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "intensity_unit": [
+        "re:(?:/|／|\\bper\\b|每)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "revenue": [
+        "re:(?:营收|营业收入|营业额|收入|revenue|net\\s+sales)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "强度",
+      "intensity",
+      "每兆瓦时",
+      "per mwh"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_30",
+  "text_group": "ghg_intensity",
   "unit_dimension": "extractesg.core.unit-dimension.ghg-intensity",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c15d9fcd5c56f01d89bc25c89de141195767f937c9055739b0d5d6fec954a03b",
   "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_08",
-  "contract_digest": "021f601c4c4895442dffcbcb652913249321b862bfca8358138d6cc8596c8e4d",
+  "clause_key": "E1.IRO-1_08",
+  "contract_digest": "2fd6fcd01a2189a60b8a5f16693b1f35fa3883dfe94b8f3028ed8bad78001e61",
+  "data_kind": "qualitative",
   "description": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term。物理风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
   "disclosure_requirement": "E1.IRO-1",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term",
     "zh": "物理风险识别中的情景分析"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1.IRO-1_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

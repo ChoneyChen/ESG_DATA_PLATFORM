@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "a84deee88fb747f52622a8858d4459ff7273ad6fcf8263eb4f47cb973ed851fd",
   "clause_id": "esrs.2023-set1.s1-15@2.3.0:S1-15_04",
-  "contract_digest": "c46fd017aa2e022c6c719a3db741a6df74d5d439c147eff515bc2c39e4a20974",
+  "clause_key": "S1-15_04",
+  "contract_digest": "5a481aafdffdcd107aea0937a45faf55a1e52a94a5b99d194e10bf5632f6daef",
+  "data_kind": "qualitative",
   "description": "说明所有员工是否通过社会政策和集体谈判协议享有家庭相关假期。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-15",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "All employees are entitled to family-related leaves through social policy and (or) collective bargaining agreements",
     "zh": "通过社会政策或集体协议保障家庭相关假期"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-15_04",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c64c9d1ff7fc1a8a686e305f831b86f646d090040eb7b31d672d779250f109be",
   "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_03",
-  "contract_digest": "ff5049590d39b899b75ecc0e566ae2d6422eecca5e931a602146d3b4cde34048",
+  "clause_key": "BP-2_03",
+  "contract_digest": "170383a236f2e357ef33ec86e0788ab5033aea195dd49fad36a5ae04e59b0ea2",
+  "data_kind": "qualitative",
   "description": "Disclosure of metrics that include value chain data estimated using indirect sources。使用间接来源估计的价值链指标。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
   "disclosure_requirement": "BP-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of metrics that include value chain data estimated using indirect sources",
     "zh": "使用间接来源估计的价值链指标"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "BP-2_03",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

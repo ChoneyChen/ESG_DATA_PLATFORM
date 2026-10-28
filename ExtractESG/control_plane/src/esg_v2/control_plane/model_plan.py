@@ -35,8 +35,9 @@ def report_processing_candidates(request):
     if getattr(request, "extraction_route", "standard") != "foundation16":
         return [standard]
     fast = {"execute_required_reviews": False, "execute_optional_reviews": False, "allow_limited_evidence": True}
+    profile = getattr(request, "metric_profile", None) or "universal"
     return [standard, standard.model_copy(update=fast),
-            standard.model_copy(update={**fast, "page_selection": "foundation16"})]
+            standard.model_copy(update={**fast, "page_selection": "clauses", "clause_profile": profile})]
 
 
 def report_processing_config(request):

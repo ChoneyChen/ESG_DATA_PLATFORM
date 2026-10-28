@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "f1f30e2a6aacd509f99b4e81ea4b4528040db8989701f08e03198e862fa416d9",
   "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_01",
-  "contract_digest": "f600b8dc92843819b05df0ff847df047041014c82ddc4d15308da2a95ade907e",
+  "clause_key": "E5-2_01",
+  "contract_digest": "4a040f1b16aa20b533891477e2fd2bebf981332b180b9a870db3239038df0a3b",
+  "data_kind": "qualitative",
   "description": "说明在技术材料、生物材料和水资源使用方面提高资源效率的具体做法与成效。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E5-2",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of higher levels of resource efficiency in use of technical and biological materials and water",
     "zh": "技术与生物材料及水的资源效率提升"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-2_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

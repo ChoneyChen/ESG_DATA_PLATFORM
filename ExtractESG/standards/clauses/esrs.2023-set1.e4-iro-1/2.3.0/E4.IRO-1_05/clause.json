@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "69e9e4184c85d0cfd2678a371569a2e073e03346c02b47a4c81a17d5621677fd",
   "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_05",
-  "contract_digest": "a2f13bcadd4cc0dd0f2ea590680a5ba8a1d1f13cdc5fe42ca0123aae43041ddc",
+  "clause_key": "E4.IRO-1_05",
+  "contract_digest": "b3920c76e83f6d405d6afc4355fe26fed9d47d634c05973ac95cd4efdabb8dc4",
+  "data_kind": "qualitative",
   "description": "说明主体是否以及如何就共享生物资源和生态系统的可持续性评估与受影响社区开展协商。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "E4.IRO-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of whether and how consultations with affected communities on sustainability assessments of shared biological resources and ecosystems have been conducted",
     "zh": "对共享生物资源与生态系统评估的社区协商"
@@ -18,15 +27,15 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-034cdbfd5ad10b8a",
+      "scope_id": "scope-665e87999ed0b6d4",
       "value_role": "context"
     }
   ],
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E4.IRO-1_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

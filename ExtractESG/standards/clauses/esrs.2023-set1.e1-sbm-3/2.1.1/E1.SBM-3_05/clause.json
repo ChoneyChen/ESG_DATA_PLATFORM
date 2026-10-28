@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "83cbe44d82fc1c0ce0913f9e55c02979c2d5194d5bdca0e64eb8e8e389ab9423",
   "clause_id": "esrs.2023-set1.e1-sbm-3@2.1.1:E1.SBM-3_05",
-  "contract_digest": "1977f86944dfafa8bd6cbb048b71a5ab64ff93015783545ea337706df6279704",
+  "clause_key": "E1.SBM-3_05",
+  "contract_digest": "151140ca53d33ca89104062d59dfeeedecaa71896aee30f27a2e8edbff4472eb",
+  "data_kind": "qualitative",
   "description": "Time horizons applied for resilience analysis。韧性分析时间范围。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
   "disclosure_requirement": "E1.SBM-3",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Time horizons applied for resilience analysis",
     "zh": "韧性分析时间范围"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1.SBM-3_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

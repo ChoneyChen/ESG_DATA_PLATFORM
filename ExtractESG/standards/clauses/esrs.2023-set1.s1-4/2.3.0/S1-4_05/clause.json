@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "0134549cecf748cb1f45c0649539fba196f45e9dd6e28d01acb8a0cfb9232776",
   "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_05",
-  "contract_digest": "2e559cc133bfd8eb0c3dfc710739542541f522f5f5c2afea5cc6786fe304b738",
+  "clause_key": "S1-4_05",
+  "contract_digest": "bdbb6e294f2866a5da65cf2a6d30e8a5cd46860b26d7a3544489c4b9e44cbe54",
+  "data_kind": "qualitative",
   "description": "描述主体针对特定实际或潜在负面影响确定所需适当行动的流程。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of process through which it identifies what action is needed and appropriate in response to particular actual or potential negative impact on own workforce",
     "zh": "确定所需行动的流程"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-4_05",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

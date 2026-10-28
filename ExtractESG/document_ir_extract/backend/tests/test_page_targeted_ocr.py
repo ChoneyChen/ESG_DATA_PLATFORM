@@ -370,7 +370,9 @@ def test_foundation16_selection_targets_data_pages_and_records_provenance(tmp_pa
     assert [row["page_index"] for row in manifest["page_selection"]["selector"]["selected_pages"]] == [0, 1, 2, 8, 9, 10, 19]
     assert manifest["entrypoints"]["source_page_selection"] == "source/page-selection.json"
     scores = json.loads((ocr.output_dir / "source" / "page-selection.json").read_text(encoding="utf-8"))
-    assert len(scores["pages"]) == 30 and scores["pages"][9]["group_scores"]["ghg"] > 0
+    assert len(scores["pages"]) == 30 and any(
+        key.startswith("E1-6") and value > 0
+        for key, value in scores["pages"][9]["group_scores"].items())
     assert router.calls[0]["pages"] == 7
 
 
@@ -499,4 +501,5 @@ def test_foundation16_automation_reuses_full_preparation_before_targeting_pages(
     review_free_ocr = foundation_processing_config(Processing({("ocr", "all", False)}), "s", base)
     assert (review_free_ocr.page_selection, review_free_ocr.execute_required_reviews) == ("all", False)
     fresh = foundation_processing_config(Processing(set()), "s", base)
-    assert (fresh.page_selection, fresh.execute_required_reviews, fresh.allow_limited_evidence) == ("foundation16", False, True)
+    assert (fresh.page_selection, fresh.execute_required_reviews, fresh.allow_limited_evidence) == ("clauses", False, True)
+    assert fresh.clause_profile == "universal"

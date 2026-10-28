@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "3b3589a652494388f7292ca5583436c3fcaadc9ee7fd3e8bf2ef8fc8a3c603ca",
   "clause_id": "esrs.2023-set1.s4-2@2.3.0:S4-2_08",
-  "contract_digest": "ad088ed269abbd2ca593bc77e241bceddc37a6038928f90beedc0fa8af11404b",
+  "clause_key": "S4-2_08",
+  "contract_digest": "02c40733ec4465512ee3242da58f2d0079f50edca41482d272be8fa583ab5414",
+  "data_kind": "qualitative",
   "description": "披露主体计划建立与消费者和终端用户一般性接触流程的时间表。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S4-2",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of timeframe for adoption of general process to engage with  consumers and end-users   in case the undertaking has not adopted a general process for engageme",
     "zh": "建立消费者接触流程的时间表"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S4-2_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

@@ -26,113 +26,63 @@ class KeywordGroup:
     key: str
     strong: tuple[str, ...]
     weak: tuple[str, ...]
+    method: bool = False
 
 
-# Mirrors the foundation-16 source groups of the downstream extractor. Terms are
-# matched against simplified, case-folded text; ASCII terms need word edges.
-GROUPS: tuple[KeywordGroup, ...] = (
-    KeywordGroup(
-        "energy",
-        ("能源消耗", "能源消费", "能耗", "能源耗", "综合能源", "能源使用", "耗能", "用能", "用电", "可再生能源",
-         "清洁能源", "非化石能源", "energy"),
-        ("gwh", "mwh", "kwh", "千瓦时", "兆瓦时", "吨标准煤", "标准煤", "tce", "吉焦", "gj", "tj", "电力", "天然气",
-         "柴油", "汽油", "煤炭", "electricity", "natural gas", "diesel", "fuel"),
-    ),
-    KeywordGroup(
-        "ghg",
-        ("范围一", "范围1", "范围二", "范围2", "范围三", "范围3", "范畴一", "范畴二", "范畴三", "scope 1", "scope 2",
-         "scope 3", "scope1", "scope2", "scope3", "温室气体", "greenhouse gas", "ghg", "直接排放", "间接排放"),
-        ("co2e", "tco2e", "co2eq", "二氧化碳当量", "碳排放", "emissions", "排放总量"),
-    ),
-    KeywordGroup(
-        "air",
-        ("氮氧化物", "二氧化硫", "硫氧化物", "颗粒物", "烟尘", "粉尘", "挥发性有机", "vocs", "voc", "nox", "sox", "so2",
-         "particulate", "废气", "大气污染物", "air emissions", "air pollutant"),
-        ("排放量", "排放", "吨", "tonnes", "emissions"),
-    ),
-    KeywordGroup(
-        "water_pollutants",
-        ("化学需氧量", "cod", "氨氮", "总氮", "总磷", "生化需氧量", "bod", "水污染物", "废水污染物", "重金属", "总铜",
-         "总锌", "总铅", "总镉", "总汞", "总砷", "ammonia nitrogen", "chemical oxygen demand"),
-        ("废水", "排放量", "吨", "wastewater", "discharge"),
-    ),
-    KeywordGroup(
-        "water",
-        ("取水", "耗水", "用水", "排水", "水资源", "循环水", "循环利用", "重复利用", "回用", "新鲜水", "新水", "淡水",
-         "水风险", "缺水", "水压力", "water withdrawal", "water consumption", "water discharge", "water recycled",
-         "recycled water", "water use", "water withdrawn", "water stress", "water management", "water resources",
-         "water intake", "water sources", "total water", "ground water", "groundwater", "surface water"),
-        ("立方米", "m3", "万吨", "百万吨", "吨", "megalitre", "ml", "地下水", "地表水", "市政", "groundwater",
-         "surface water", "municipal"),
-    ),
-    KeywordGroup(
-        "substances",
-        ("关注物质", "高度关注物质", "高关注物质", "svhc", "substances of concern", "substance of concern",
-         "有毒有害物质", "有害物质", "危险化学品", "hazardous substances"),
-        ("化学品", "chemicals", "使用量", "采购量"),
-    ),
-    KeywordGroup(
-        'ghg_intensity',
-        ('温室气体排放强度', '排放强度', '碳强度', 'ghg intensity', 'emission intensity', 'carbon intensity', '每百万元营收', 'per million revenue', 'per revenue'),
-        ('tco2e', 'co2e', '吨二氧化碳当量', '万元', '百万元'),
-    ),
-    KeywordGroup(
-        'waste',
-        ('废弃物', '废物', '固废', '危险废物', '有害废弃物', 'waste', 'solid waste', 'hazardous waste'),
-        ('产生量', '总量', '处置', '回收', '有害', '无害', '吨', 'tonnes', 'generated', 'disposed', 'diverted'),
-    ),
-    KeywordGroup(
-        'materials',
-        ('原材料', '资源投入', '物料使用', '材料使用', 'materials used', 'resource inflow', 'material inflow'),
-        ('吨', '重量', '采购量', 'tonnes', 'weight'),
-    ),
-    KeywordGroup(
-        'workforce',
-        ('员工总数', '员工总人数', '员工人数', '雇员人数', '在职员工', '总人数', '员工流失率', '离职率', 'employee turnover', 'number of employees', 'headcount', 'head count'),
-        ('人', '人数', '期末', '平均', '%', 'turnover', 'employees'),
-    ),
-    KeywordGroup(
-        'workforce_training',
-        ('培训', '受训', '培训时长', '培训小时', '人均受训', 'training', 'training hours', 'trained'),
-        ('小时', '学时', '人均', 'hours', 'per employee'),
-    ),
-    KeywordGroup(
-        'workforce_safety',
-        ('工伤', '事故', '可记录', 'accident', 'injury', 'ltifr', 'trifr', 'recordable'),
-        ('率', '每百万工时', '人数', '起', 'rate'),
-    ),
-    KeywordGroup(
-        'workforce_pay',
-        ('薪酬差距', '薪酬差异', '男女薪酬', 'gender pay gap', 'pay gap', 'remuneration gap'),
-        ('%', '比率', 'ratio'),
-    ),
-    KeywordGroup(
-        'workforce_incidents',
-        ('歧视', '骚扰', 'discrimination', 'harassment'),
-        ('事件', '投诉', '件', 'incident', 'complaint'),
-    ),
-    KeywordGroup(
-        'workforce_gender',
-        ('高管', '管理层', '女性管理者', '性别比例', 'top management', 'senior management', 'gender distribution'),
-        ('%', '女性', '男性', 'female', 'male'),
-    ),
-    KeywordGroup(
-        'consumer',
-        ('消费者投诉', '客户投诉', '投诉数量', 'consumer complaint', 'customer complaint', 'complaints received',
-         '投诉处理', '消费者权益', '客户满意度', '满意度', 'consumer protection', 'customer satisfaction',
-         'complaints', '投诉'),
-        ('件', '起', 'count', 'complaints', '率', '%', 'cases', 'complaint'),
-    ),
-    KeywordGroup(
-        'governance',
-        ('董事会', '治理机构', '女性董事', '董事会多元化', '腐败', '贿赂', '定罪', '付款天数', '账期', 'board', 'corruption', 'bribery', 'conviction', 'payment days'),
-        ('%', '件', '天', '人', '女性', 'days', 'cases'),
-    ),
+def _page_terms(terms) -> list[str]:
+    """Turn clause retrieval terms into page-search keywords.
+
+    A clause may print a whole description sentence as a retrieval term; a
+    page selector needs short lexical anchors, so sentences are split and
+    over-long fragments are dropped.
+    """
+    out: list[str] = []
+    for term in terms or ():
+        for part in re.split(r"[。；;，,、|/\n]", str(term)):
+            part = part.strip()
+            if 2 <= len(part) <= 40:
+                out.append(part)
+    return list(dict.fromkeys(out))[:16]
+
+
+def clause_groups(profile: str = "universal", *, standards_root=None) -> tuple[KeywordGroup, ...]:
+    """Build selector groups from the selected clauses' own retrieval terms.
+
+    This is the only source of page-selection vocabulary: the document layer
+    reads the clause contracts, never a keyword table of its own.
+    """
+    import json
+    from pathlib import Path
+    from esg_standard_packages.clause_package import ClausePackageCatalog
+    from esg_runtime.layout import STANDARDS_ROOT
+
+    root = Path(standards_root or STANDARDS_ROOT)
+    profiles = json.loads((root / "profiles/esrs/2023-set1/metric-profiles.json").read_text(encoding="utf-8"))
+    codes = profiles.get("profiles", {}).get(profile) or profiles.get("profiles", {}).get("universal") or []
+    registry = json.loads((root / "registry/esrs/2023-set1/registry.json").read_text(encoding="utf-8"))
+    modules = {source: module for module in registry.get("modules", []) if module.get("executable")
+               for source in module.get("source_datapoint_ids", [])}
+    catalog = ClausePackageCatalog(root)
+    groups = []
+    for code in codes:
+        module = modules.get(code)
+        if module is None:
+            continue
+        clause = catalog.profile(module["package_id"], module["package_version"], code)
+        terms = _page_terms(clause.retrieval.positive_terms)
+        if terms:
+            groups.append(KeywordGroup(
+                code, tuple(terms), tuple(_page_terms(clause.group_unit_terms))[:6],
+                method=clause.group in {"air", "water_pollutants", "pollution_method"}))
+    if not groups:
+        raise ValueError(f"Clause profile {profile} has no page-selection terms")
+    return tuple(groups)
+
+
+METHOD_TERMS = (
+    "监测", "检测", "在线", "测量", "测算", "估算", "计算", "核算", "排放因子", "物料衡算", "系数", "统计口径",
+    "monitor", "measur", "estimat", "calculat", "emission factor", "mass balance", "methodolog",
 )
-# Measurement-method wording (E2-4_09) only matters beside pollutant figures.
-METHOD_TERMS = ("监测", "检测", "在线", "测量", "测算", "估算", "核算", "排放因子", "物料衡算", "monitoring",
-                "measured", "estimated", "calculated", "emission factor", "mass balance", "methodology")
-POLLUTANT_GROUPS = ("air", "water_pollutants")
 
 _PERIOD_RANGE = re.compile(
     r"(?:19|20)\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*(?:至|到|－|—|-|~|～)\s*(?:19|20)\d{2}\s*年"
@@ -176,10 +126,6 @@ def _matcher(term: str) -> tuple[str, Any]:
     return term, term
 
 
-_GROUP_MATCHERS = {
-    group.key: ([_matcher(term) for term in group.strong], [_matcher(term) for term in group.weak])
-    for group in GROUPS
-}
 _METHOD_MATCHERS = [_matcher(term) for term in METHOD_TERMS]
 
 
@@ -283,6 +229,8 @@ class Foundation16PageSelector:
         *,
         keyword_groups: tuple[KeywordGroup, ...] | None = None,
         clause_contracts: dict | None = None,
+        profile: str = "universal",
+        standards_root=None,
         top_n: int = 18,
         per_group_pages: int = 2,
         front_pages: int = 3,
@@ -293,7 +241,8 @@ class Foundation16PageSelector:
         min_text_page_ratio: float = 0.5,
         max_coverage_ratio: float = 0.8,
     ):
-        self.keyword_groups = keyword_groups or GROUPS
+        self.keyword_groups = keyword_groups or clause_groups(profile, standards_root=standards_root)
+        self.pollutant_groups = tuple(group.key for group in self.keyword_groups if group.method)
         self.clause_contracts = clause_contracts
         self.matchers = {group.key: ([_matcher(term) for term in group.strong],
                                     [_matcher(term) for term in group.weak]) for group in self.keyword_groups}
@@ -419,7 +368,7 @@ class Foundation16PageSelector:
             group_scores[key] = float(3 * len(strong) + min(4, len(weak)))
             group_hits[key] = strong + weak
         method_hits = len(_hits(_METHOD_MATCHERS, compact, spaced)) if any(
-            key in group_scores for key in POLLUTANT_GROUPS
+            key in group_scores for key in self.pollutant_groups
         ) else 0
         numeric_tokens = len(_NUMBER.findall(spaced))
         # Many figures mark data tables; keyword-rich narrative pages weigh less.

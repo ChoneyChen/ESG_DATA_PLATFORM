@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "9f042db39a35dfc9ca76a5a2b6ff6b69002ab3dbfcd09623bc972474d7ccec8c",
   "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_11",
-  "contract_digest": "32f245bdadf261645a9d6ea70891a9ab826c58f0f1f962d2bfcfb625ec6f3bed",
+  "clause_key": "E2-6_11",
+  "contract_digest": "c3d1dad7141f575f685c79a55eb7f3eff8e070813ec740f9b311a23b55fd3e84",
+  "data_kind": "qualitative",
   "description": "Disclosure of assessment of related products and services at risk and explanation how time horizon is defined, financial amounts are estimated, and which critical assumptions are made (pollution)。风险产品服务的财务估计方法。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
   "disclosure_requirement": "E2-6",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Disclosure of assessment of related products and services at risk and explanation how time horizon is defined, financial amounts are estimated, and which critical assumptions are made (pollution)",
     "zh": "风险产品服务的财务估计方法"
@@ -18,15 +27,15 @@
   "obligation_class": "voluntary_if_material",
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": "total",
       "axes": {},
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 总量",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-b54d375c97d98703",
+      "scope_id": "scope-da98b6fe61fc3708",
       "value_role": "forecast"
     }
   ],
@@ -47,8 +56,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E2-6_11",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

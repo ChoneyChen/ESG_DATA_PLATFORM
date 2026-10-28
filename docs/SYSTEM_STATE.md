@@ -143,6 +143,14 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
   `ExtractESG/standards/contracts/platform-policy.esrs-2023-set1.json`；字典重建与封存版本字节一致。
   删除 `compat/packages` 与 `packages` 旧路径链接；新增仓库内规范
   [标准条款合同](../ExtractESG/standards/docs/STANDARD_CONTRACT.md)。
+- **条款即单位（2026-10-29）**：条款合同升级为 `clause-extraction-profile-2.0`，显式声明
+  `data_kind`、`reading`（算子与规则）、`group`、`relationships`、`exact_labels` 与稳定
+  `clause_key` / `clause_digest`。提取链路不再含条款清单或条款分支：foundation 指标、guard、行名恢复、
+  占比/同族行全部从条款包构建；standard 查询编译加入条款检索词；选页改为
+  `page_selection=clauses` 读取所选条款的检索词。新增定量/定性两份数据合同并在成果包校验时执行；
+  按用户要求删除跨条款中立理解缓存。规范见
+  [标准条款合同](../ExtractESG/standards/docs/STANDARD_CONTRACT.md)，实施记录见
+  [阶段 18](PHASE18_CLAUSE_CONTRACT_UNIT.md)。
 - 全链路到发布（2026-10-23，历史记录）：法拉电子、宁德时代、紫金矿业、香港中华煤气曾各跑通“提取 → 交付 → 审核 → 发布”。
   2026-10-24 清理后公开 `/v1` 为空数据集（versions 0），上述观测已随产物清除；链路定义与实体保留，重新交付即可恢复。
 
@@ -163,12 +171,12 @@ IR/OCR 来源、页码、导入批次 `bundle_ref` 与 PDF 资产；`POST /inter
 
 | 套件 | 结果 |
 |---|---|
-| ConsoleESG | 242 通过 |
-| Document 后端 | **677 通过、0 失败** |
-| Targeted 提取后端 | **791 通过、6 跳过、0 失败**（模型运行时 venv） |
+| ConsoleESG | 240 通过 |
+| Document 后端 | **676 通过、0 失败** |
+| Targeted 提取后端 | **787 通过、12 跳过、0 失败**（模型运行时 venv） |
 | 阶段 0 基线 | Python 7 通过；Node 隔离审核 6 通过 |
-| 数据库（pglite） | 63 个测试：61 通过、2 跳过 |
-| 标准包 | 169 通过 |
+| 数据库（pglite） | 64 个测试：62 通过、2 跳过 |
+| 标准包 | 184 通过 |
 | PlatESG | Python 79 通过；Node **72 个测试：62 通过、10 跳过**（含自动审核、报告级发布、产物定位与删除、延伸验收门禁、科学模型清理） |
 | 运维脚本 | Python 29 通过；Node 6 通过 |
 

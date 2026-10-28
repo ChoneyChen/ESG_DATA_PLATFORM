@@ -1,0 +1,87 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "E1-6_07",
+  "group": "ghg",
+  "text_group": "ghg",
+  "operator": "ghg_scope",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "范围一",
+      "范围二",
+      "范围三",
+      "scope 1",
+      "scope 2",
+      "scope 3",
+      "直接排放",
+      "间接排放"
+    ],
+    "parent_clause": "E1-6_12",
+    "share_partner": null,
+    "siblings": [
+      "E1-6_07",
+      "E1-6_11"
+    ]
+  },
+  "exact_labels": [
+    "范围一温室气体排放量",
+    "范围一温室气体排放总量",
+    "温室气体排放量范围一",
+    "范围一排放量",
+    "范围1温室气体排放量",
+    "直接温室气体排放总量范围一",
+    "直接温室气体排放量范围一",
+    "scope1ghgemissions",
+    "scope1emissions",
+    "scope1greenhousegasemissions"
+  ],
+  "uses": [
+    "change",
+    "combined_scope",
+    "consolidation_boundary",
+    "ghg_label",
+    "ghg_unit",
+    "intensity",
+    "location_method",
+    "market_method",
+    "net",
+    "ratio_word",
+    "scope1",
+    "scope2",
+    "scope3",
+    "scope3_category",
+    "scope3_named",
+    "total"
+  ],
+  "rules": [
+    {
+      "rule": "ghg_scope",
+      "params": {
+        "scope": "scope_1"
+      }
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@intensity",
+        "@ratio_word",
+        "@change"
+      ],
+      "scope": "text",
+      "reason": "label_is_intensity_ratio_or_change"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "@net"
+      ],
+      "scope": "text",
+      "reason": "label_is_net_after_offsets"
+    },
+    {
+      "rule": "ghg_unit"
+    }
+  ],
+  "display_label": "范围1排放 Scope 1 GHG emissions",
+  "display_definition": "Absolute Scope 1 (direct) GHG emissions in CO2e. Not Scope 1+2 combined, not intensity, not reductions or targets."
+}

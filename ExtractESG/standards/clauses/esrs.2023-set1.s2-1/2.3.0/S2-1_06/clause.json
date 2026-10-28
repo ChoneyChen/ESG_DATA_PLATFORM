@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d228385211db4073b16a329e50d270644bbadcbd8b6c2dec8e014cd12c21f923",
   "clause_id": "esrs.2023-set1.s2-1@2.3.0:S2-1_06",
-  "contract_digest": "ea6cc82517efffa1e2f0cf903c54520495f00dc7b5b3f7aa6e321ee662e660b0",
+  "clause_key": "S2-1_06",
+  "contract_digest": "f4876c56513a61884db951f03e09219b95d7686e4a97df33867186016a7fa416",
+  "data_kind": "qualitative",
   "description": "说明主体是否已制定供应商行为准则，并说明其覆盖范围与主要内容。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S2-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Undertaking has supplier code of conduct",
     "zh": "供应商行为准则"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S2-1_06",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

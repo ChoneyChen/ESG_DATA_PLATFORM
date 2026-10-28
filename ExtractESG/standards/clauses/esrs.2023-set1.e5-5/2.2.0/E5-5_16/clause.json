@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tonne",
+  "clause_digest": "5f5aae08724f29f30c0bc05133cb4b40107a84f8a6441cafca66aaf2095edc04",
   "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_16",
-  "contract_digest": "f0814143a31ecf91cb752c484b131ab3999262c083b92d68f5be94dab51cbf9f",
+  "clause_key": "E5-5_16",
+  "contract_digest": "5080927af193ee94d3740180785bbe6980040f7ff982c15632f4573814dca0f2",
+  "data_kind": "quantitative",
   "description": "Total amount of radioactive waste。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
   "disclosure_requirement": "E5-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total amount of radioactive waste",
     "zh": "Total amount of radioactive waste"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-5_16",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.mass",
   "value_origin": "reported",
   "value_type": "numeric"

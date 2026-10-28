@@ -1,10 +1,15 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "5abe5d3d9355059465bc32e31663763b72356856feb7e0d2e862639df02b4fe0",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_07",
-  "contract_digest": "3234ae298155d60a5274b724ed1b8a58c9eb11671fe6d132f9b5d8f5f66d39a5",
+  "clause_key": "E1-6_07",
+  "contract_digest": "ca1f8fda92738518e71c68c66a21798424654204f9b8ec5acf2d588d5f4d1b12",
+  "data_kind": "quantitative",
   "description": "企业在报告期间因拥有或控制的排放源产生的范围1温室气体绝对排放量，以报告原有二氧化碳当量单位披露。直接排放、范围一、范畴一可表达同一范围；不要求出现‘总量’字样。范围1与2合计、强度、减排量、抵消或目标不属于此测量。逐一保留报告的实体和期间。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
+  "display_definition": "Absolute Scope 1 (direct) GHG emissions in CO2e. Not Scope 1+2 combined, not intensity, not reductions or targets.",
+  "display_label": "范围1排放 Scope 1 GHG emissions",
   "distinguish_from": [
     "范围1与范围2合计",
     "范围2或范围3排放",
@@ -13,9 +18,53 @@
     "排放强度",
     "目标值"
   ],
+  "exact_labels": [
+    "范围一温室气体排放量",
+    "范围一温室气体排放总量",
+    "温室气体排放量范围一",
+    "范围一排放量",
+    "范围1温室气体排放量",
+    "直接温室气体排放总量范围一",
+    "直接温室气体排放量范围一",
+    "scope1ghgemissions",
+    "scope1emissions",
+    "scope1greenhousegasemissions"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "不能以范围1与范围2合计、范围2或范围3排放、减排量、抵消量、排放强度、目标值替代本条款所定义的测量或说明。"
+  ],
+  "group": "ghg",
+  "group_terms": [
+    "范围一",
+    "范围1",
+    "范围二",
+    "范围2",
+    "范围三",
+    "范围3",
+    "范畴一",
+    "范畴二",
+    "范畴三",
+    "scope 1",
+    "scope 2",
+    "scope 3",
+    "scope1",
+    "scope2",
+    "scope3",
+    "温室气体",
+    "greenhouse gas",
+    "ghg",
+    "直接排放",
+    "间接排放"
+  ],
+  "group_unit_terms": [
+    "co2e",
+    "co₂e",
+    "co_{{2}}e",
+    "二氧化碳当量",
+    "碳排放",
+    "emissions",
+    "排放总量"
   ],
   "labels": {
     "en": "Gross Scope 1 GHG emissions",
@@ -25,17 +74,17 @@
   "obligation_class": "mandatory_if_material",
   "output_scopes": [
     {
-      "aggregation": "intensity",
+      "aggregation": "total",
       "axes": {
         "ghg_scope": "scope_1"
       },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度 · ghg_scope=scope_1",
+      "label_zh": "年度 · 集团合并 · 总量 · ghg_scope=scope_1",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-1281658cb0d4efcd",
+      "scope_id": "scope-87f0a67185e7f66e",
       "value_role": "actual"
     }
   ],
@@ -55,8 +104,137 @@
       "ghg_scope": "scope_1"
     }
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "ghg_scope",
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "scope": "scope_1"
+        },
+        "reason": null,
+        "rule": "ghg_scope",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_intensity_ratio_or_change",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
+          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_net_after_offsets",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:净排放|淨排放|净额|\\bnet\\s+(?:ghg\\s+)?emission|after\\s+offset)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "ghg_unit",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "change": [
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+      ],
+      "combined_scope": [
+        "re:(?:(?:范围|范畴|scope)\\s*[一1]\\s*(?:\\+|＋|和|与|及|&|and|,|、)\\s*(?:范围|范畴|scope)?\\s*[二2]|1\\s*\\+\\s*2|1\\s*&\\s*2)"
+      ],
+      "consolidation_boundary": [
+        "re:(?:运营范围|运营边界|财务控制|operational\\s+control|operational\\s+boundary|financial\\s+control)"
+      ],
+      "ghg_label": [
+        "re:(?:温室气体|ghg|greenhouse|碳排放|二氧化碳|co2|carbon\\s+emission)"
+      ],
+      "ghg_unit": [
+        "re:(?:co\\s*[_{$\\\\]*\\s*\\{*\\s*[2₂]|二氧化碳|碳当量|co2e)"
+      ],
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "location_method": [
+        "re:(?:位置法|地点法|基于位置|基于地点|location[\\s-]*based|average\\s+grid\\s+emission\\s+factor)"
+      ],
+      "market_method": [
+        "re:(?:市场法|基于市场|market[\\s-]*based|supplier[\\s-]*specific|contractual\\s+instruments)"
+      ],
+      "net": [
+        "re:(?:净排放|淨排放|净额|\\bnet\\s+(?:ghg\\s+)?emission|after\\s+offset)"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "scope1": [
+        "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"
+      ],
+      "scope2": [
+        "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:ghg\\s+)?emission)"
+      ],
+      "scope3": [
+        "re:(?:范围\\s*[三3](?![0-9])|范畴\\s*[三3]|scope\\s*3(?![0-9])|scope\\s*iii\\b|其他间接|other\\s+indirect|价值链排放|value\\s+chain\\s+emission)"
+      ],
+      "scope3_category": [
+        "re:(?:类别\\s*\\d|category\\s*\\d|\\bcat\\.?\\s*\\d|外购商品|上游|下游|upstream|downstream|商务差旅|雇员通勤|purchased\\s+goods|business\\s+travel|commuting)"
+      ],
+      "scope3_named": [
+        "re:(?:纸张|差旅|通勤|废弃物|废物|运输|租赁|paper|travel|commut|(?<![a-z])waste|transport|leased)"
+      ],
+      "total": [
+        "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "范围一",
+      "范围二",
+      "范围三",
+      "scope 1",
+      "scope 2",
+      "scope 3",
+      "直接排放",
+      "间接排放"
+    ],
+    "parent_clause": "E1-6_12",
+    "share_partner": null,
+    "siblings": [
+      "E1-6_07",
+      "E1-6_11"
+    ]
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-6_07",
+  "text_group": "ghg",
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

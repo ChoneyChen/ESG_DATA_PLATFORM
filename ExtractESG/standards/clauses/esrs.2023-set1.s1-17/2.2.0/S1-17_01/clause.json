@@ -1,18 +1,27 @@
 {
   "canonical_unit": null,
+  "clause_digest": "d82fe90ae2f2b8995f1442cf93b3190f59ae080c4182afb094d44d4e55892c8d",
   "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_01",
-  "contract_digest": "bdb82e3c6220cf8cd5527bf44d293857cb2e6dcd3394d9a426db94412165e710",
+  "clause_key": "S1-17_01",
+  "contract_digest": "76b94dd667d2a1ca8885dd988cc1c290faefdb8d577cff9965b2f18869a57295",
+  "data_kind": "qualitative",
   "description": "按歧视类型划分的歧视事件数量表；表结构只承载类型与计数列，不单独形成带值事实。",
   "disclosure_requirement": "S1-17",
   "disclosure_role": "presentation",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [
     "歧视事件数量",
     "投诉数量"
   ],
+  "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "表格结构本身不是事件数量；已确认事件与投诉分别计数。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Number of incidents of discrimination [table]",
     "zh": "按类型划分的歧视事件数量（表）"
@@ -45,8 +54,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-17_01",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

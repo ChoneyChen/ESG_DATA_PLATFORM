@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "c9d69641c7d5f85a81ce5ec47f172836a3fdde0f173d2dee161387bd103c1ff3",
   "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_08",
-  "contract_digest": "f0182af2b67df726cfc2933a863cb0e5d8b48531bfd44e92a496e44447edc32d",
+  "clause_key": "E5-4_08",
+  "contract_digest": "c468b8554532c4a6bb37158b6c2ff9dadd57a40f9354a4c40fc654e624197d4a",
+  "data_kind": "qualitative",
   "description": "Description of how double counting was avoided and of choices made。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
   "disclosure_requirement": "E5-4",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Description of how double counting was avoided and of choices made",
     "zh": "Description of how double counting was avoided and of choices made"
@@ -42,8 +51,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E5-4_08",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"

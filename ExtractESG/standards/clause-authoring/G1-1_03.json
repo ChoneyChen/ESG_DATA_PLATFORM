@@ -1,0 +1,59 @@
+{
+  "schema_version": "clause-reading-authoring-1.0",
+  "clause_key": "G1-1_03",
+  "group": "governance",
+  "text_group": "governance",
+  "operator": "numeric_label",
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "董事",
+      "董事会",
+      "女性",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款",
+      "投诉",
+      "罚",
+      "案件"
+    ],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "exact_labels": [],
+  "uses": [
+    "ratio_word"
+  ],
+  "rules": [
+    {
+      "rule": "require_any",
+      "terms": [
+        "反腐败",
+        "反贿赂",
+        "anti-corruption",
+        "anti-bribery",
+        "corruption"
+      ],
+      "scope": "scope_text",
+      "reason": "label_not_this_concept"
+    },
+    {
+      "rule": "forbid_any",
+      "terms": [
+        "培训",
+        "training",
+        "定罪",
+        "conviction",
+        "罚款",
+        "fine",
+        "事件",
+        "incident"
+      ],
+      "reason": "label_is_other_concept"
+    }
+  ],
+  "display_label": "未制定符合《联合国反腐败公约》的反腐败或反贿赂政策",
+  "display_definition": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。"
+}

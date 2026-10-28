@@ -28,7 +28,7 @@ from tests.test_report_agent_loop import setup_session
 from tests.test_shared_disclosure import ReportModel
 
 
-def test_two_standard_jobs_share_actual_neutral_understanding_and_independent_mappings(tmp_path):
+def test_two_standard_jobs_read_independently_and_keep_independent_mappings(tmp_path):
     inventory, base_packet, _, _, _ = build_pipeline(tmp_path / "ir")
     catalog = StandardPackageCatalog(standard_dist_root())
     store = ArtifactStore(tmp_path / "output")
@@ -61,11 +61,14 @@ def test_two_standard_jobs_share_actual_neutral_understanding_and_independent_ma
         all_mappings.append({c["metric_id"] for c in mapping["coverage"]})
         assert all("standard" not in key and "package" not in key for key in source["source_identity"])
         assert "scope" in store.read_json(module, "agent/calls/0002-source_understanding.json")["input"]["field_definitions"] if module == "e1-5" else True
-    assert calls == ["table-0001"]
+    # No neutral understanding is shared across clause targets: each job reads
+    # the object for its own selected clauses.
+    assert calls == ["table-0001", "table-0001"]
     assert all_facts[0] == all_facts[1]
     assert all_facts[0] and all(f["source_fact_id"] for f in all_facts[0])
     assert not all_mappings[0].intersection(all_mappings[1])
-    assert len(list((store.report_session_dir("report-" + "a" * 32) / "sources").glob("*.json"))) == 1
+    shared = store.report_session_dir("report-" + "a" * 32) / "sources"
+    assert not shared.exists() or not list(shared.glob("*.json"))
 
 
 def test_omitted_rows_are_not_marked_processed_and_resume_only_missing_row(tmp_path):

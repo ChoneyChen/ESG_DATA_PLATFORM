@@ -1,15 +1,24 @@
 {
   "canonical_unit": "currency",
+  "clause_digest": "c7056fec0226cd91f3b1a123191b6a374832f9927bc4f5fb4fba124612dc4994",
   "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_04",
-  "contract_digest": "a062534091803a4f9c612100aead8247bf6adeafebe68c8b45e77b44c5660bdd",
+  "clause_key": "G1-5_04",
+  "contract_digest": "a1a5fb62947e9bf52f0b055ea3ebf2625e439be98104ff94c2cd9d7160fe6a99",
+  "data_kind": "quantitative",
   "description": "披露报告期内主体发生的内部和外部游说费用金额，并说明费用范围。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "G1-5",
   "disclosure_role": "detail",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Amount of internal and external lobbying expenses",
     "zh": "内部与外部游说费用金额"
@@ -42,8 +51,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "currency"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "G1-5_04",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.currency",
   "value_origin": "reported",
   "value_type": "numeric"

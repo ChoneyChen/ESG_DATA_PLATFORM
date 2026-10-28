@@ -1,0 +1,1183 @@
+{
+  "schema_version": "clause-lexicon-1.0",
+  "description": "Shared clause vocabulary authored once in the standard tree; compiled clause files embed the terms they use.",
+  "terms": {
+    "total": [
+      "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+    ],
+    "explicit_total": [
+      "总能",
+      "能源总",
+      "能耗总",
+      "总耗能",
+      "综合能耗",
+      "total energy"
+    ],
+    "ratio_word": [
+      "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+    ],
+    "intensity": [
+      "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+    ],
+    "intensity_unit": [
+      "re:(?:/|／|\\bper\\b|每)"
+    ],
+    "change": [
+      "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+    ],
+    "energy_total": [
+      "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s+(?:consumption|consumed|use)|total\\s+energy)"
+    ],
+    "energy_subset": [
+      "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)"
+    ],
+    "direct_and_indirect": [
+      "re:(?:直接(?:及|和|与|、|\\+|＋)间接|direct\\s+(?:and|&|\\+)\\s+indirect)"
+    ],
+    "renewable": [
+      "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+    ],
+    "electricity": [
+      "re:(?:电力|电量|用电|绿电|electricity|power)"
+    ],
+    "fossil": [
+      "re:(?:(?<!非)化石|(?<!non-)(?<!non )fossil|电网|grid|灰电)"
+    ],
+    "generation": [
+      "re:(?:发电量|装机|产生|生产|出售|售出|上网|generat|capacity|installed|sold|produced|exported)"
+    ],
+    "renewable_component": [
+      "re:(?:风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+    ],
+    "purchase_terms": [
+      "采购",
+      "购买",
+      "购入",
+      "purchas",
+      "现场",
+      "自发",
+      "自建",
+      "自产",
+      "on-site",
+      "on site",
+      "self-generat",
+      "self generat"
+    ],
+    "consumption_terms": [
+      "消耗",
+      "消费",
+      "使用",
+      "用量",
+      "consum",
+      "use"
+    ],
+    "clean": [
+      "清洁",
+      "clean"
+    ],
+    "scope1": [
+      "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"
+    ],
+    "scope2": [
+      "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:ghg\\s+)?emission)"
+    ],
+    "scope3": [
+      "re:(?:范围\\s*[三3](?![0-9])|范畴\\s*[三3]|scope\\s*3(?![0-9])|scope\\s*iii\\b|其他间接|other\\s+indirect|价值链排放|value\\s+chain\\s+emission)"
+    ],
+    "combined_scope": [
+      "re:(?:(?:范围|范畴|scope)\\s*[一1]\\s*(?:\\+|＋|和|与|及|&|and|,|、)\\s*(?:范围|范畴|scope)?\\s*[二2]|1\\s*\\+\\s*2|1\\s*&\\s*2)"
+    ],
+    "scope3_category": [
+      "re:(?:类别\\s*\\d|category\\s*\\d|\\bcat\\.?\\s*\\d|外购商品|上游|下游|upstream|downstream|商务差旅|雇员通勤|purchased\\s+goods|business\\s+travel|commuting)"
+    ],
+    "scope3_named": [
+      "re:(?:纸张|差旅|通勤|废弃物|废物|运输|租赁|paper|travel|commut|(?<![a-z])waste|transport|leased)"
+    ],
+    "net": [
+      "re:(?:净排放|淨排放|净额|\\bnet\\s+(?:ghg\\s+)?emission|after\\s+offset)"
+    ],
+    "ghg_unit": [
+      "re:(?:co\\s*[_{$\\\\]*\\s*\\{*\\s*[2₂]|二氧化碳|碳当量|co2e)"
+    ],
+    "ghg_label": [
+      "re:(?:温室气体|ghg|greenhouse|碳排放|二氧化碳|co2|carbon\\s+emission)"
+    ],
+    "market_method": [
+      "re:(?:市场法|基于市场|market[\\s-]*based|supplier[\\s-]*specific|contractual\\s+instruments)"
+    ],
+    "location_method": [
+      "re:(?:位置法|地点法|基于位置|基于地点|location[\\s-]*based|average\\s+grid\\s+emission\\s+factor)"
+    ],
+    "revenue": [
+      "re:(?:营收|营业收入|营业额|收入|revenue|net\\s+sales)"
+    ],
+    "air_pollutant": [
+      "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|lead|arsenic|particulate|dust|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
+    ],
+    "water_pollutant": [
+      "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|nh\\s*3\\s*-?\\s*n|总氮|总磷|石油类|悬浮物|(?<![a-z0-9])ss(?![a-z0-9])|氰化物|氟化物|硫化物|挥发酚|重金属|铜|锌|铅|镉|汞|砷|铬|镍|ammonia|chemical\\s+oxygen|nitrogen|phosph|heavy\\s+metal|水污染物|废水污染物)"
+    ],
+    "air_only": [
+      "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)"
+    ],
+    "water_only": [
+      "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|总磷|总氮|悬浮物|石油类)"
+    ],
+    "pollutant_exclude": [
+      "re:(?:浓度|concentration|mg\\s*/|达标|compliance|去除|removal|减排|reduction|温室|ghg|二氧化碳(?!硫)|\\bco\\s*2\\b|co₂|废水量|废水排放量|wastewater\\s+(?:volume|discharge))"
+    ],
+    "pollutant_specific": [
+      "re:(?:氮氧化|二氧化硫|硫氧化|颗粒|烟尘|粉尘|挥发性有机|化学需氧量|氨氮|总磷|总氮|重金属|(?<![a-z0-9])(?:cod|nox|sox|so2|vocs?|pm10|pm2\\.5|bod)(?![a-z0-9])|particulate|ammonia)"
+    ],
+    "fossil_fuel": [
+      "re:(?:化石|煤炭|原煤|煤|石油|原油|汽油|柴油|燃料油|天然气|液化石油气|fossil|coal|petroleum|crude\\s*oil|gasoline|diesel|natural\\s+gas|lpg)"
+    ],
+    "single_fuel": [
+      "re:(?:天然气|natural\\s+gas|柴油|diesel|汽油|petrol|gasoline|煤油|kerosene|液化石油气|lpg|合成天然气|synthetic\\s+natural\\s+gas|sng|填埋气|landfill\\s+gas|燃料油|fuel\\s+oil|(?<![a-z])coal(?![a-z])|煤炭|原煤|原油|石油|crude\\s*oil|petroleum)"
+    ],
+    "hazardous": [
+      "re:(?:有害|危险废物|危险废弃物|hazardous)"
+    ],
+    "waste_dest": [
+      "re:(?:处置|处理|回收|填埋|焚烧|利用|dispos|treat|divert|recycl|landfill|incinerat)"
+    ],
+    "material": [
+      "re:(?:原材料|物料|材料|资源投入|materials?|resource\\s+inflow)"
+    ],
+    "employee": [
+      "re:(?:员工|雇员|职工|从业人数|employee|staff)"
+    ],
+    "turnover": [
+      "re:(?:流失率|流失比率|离职率|离职比率|turnover)"
+    ],
+    "average": [
+      "re:(?:平均|average|mean)"
+    ],
+    "training": [
+      "re:(?:培训|受训|training|trained)"
+    ],
+    "topic_training": [
+      "re:(?:商业道德|反腐败|合规|信息安全|数据安全|隐私|网络安全|ehs|安全培训|领导力|管理层|新员工|供应商|ethics|compliance|leadership|contractor)"
+    ],
+    "whole_workforce": [
+      "re:(?:全员|全体员工|全部员工|员工人均|人均受训|all\\s+employees|per\\s+employee|workforce)"
+    ],
+    "consolidation_boundary": [
+      "re:(?:运营范围|运营边界|财务控制|operational\\s+control|operational\\s+boundary|financial\\s+control)"
+    ],
+    "hours": [
+      "re:(?:小时|学时|课时|时长|时数|hours?)"
+    ],
+    "safety": [
+      "re:(?:工伤|事故|accident|injur|ltifr|trifr)"
+    ],
+    "paygap": [
+      "re:(?:薪酬差距|薪酬差异|男女薪酬|gender\\s+pay\\s+gap|pay\\s+gap)"
+    ],
+    "remun_ratio": [
+      "re:(?:薪酬比|薪酬倍数|总薪酬比|remuneration\\s+ratio|pay\\s+ratio)"
+    ],
+    "discrim": [
+      "re:(?:歧视|骚扰|discrimination|harassment)"
+    ],
+    "gender": [
+      "re:(?:性别|女性|男性|female|male|gender)"
+    ],
+    "topmgmt": [
+      "re:(?:高管|高级管理|管理层|管理者|top\\s+management|senior\\s+management)"
+    ],
+    "board": [
+      "re:(?:董事会|女性董事|董事|治理机构|board|supervisory)"
+    ],
+    "corruption": [
+      "re:(?:腐败|贿赂|corruption|bribery)"
+    ],
+    "conviction": [
+      "re:(?:定罪|判决|判定有罪|conviction|convicted)"
+    ],
+    "rate_unit": [
+      "re:[/／]|\\bper\\b|每|%|％|人次|work-hours"
+    ],
+    "paydays": [
+      "re:(?:付款|支付|账期|payment)"
+    ],
+    "days": [
+      "re:(?:天|日|days?)"
+    ],
+    "substance": [
+      "re:(?:关注物质|高度关注|高关注|svhc|substances?\\s+of\\s+(?:very\\s+high\\s+)?concern|有毒有害物质|有害物质|危险化学品|hazardous\\s+substance)"
+    ],
+    "waste": [
+      "re:(?:废物|废弃物|固废|垃圾|waste)"
+    ],
+    "water_consumption": [
+      "re:(?:耗水|(?:水|water)\\S{0,4}消耗|消耗\\S{0,4}水|水资源消耗|water\\s+consum|consumption\\s+of\\s+water|consumed)"
+    ],
+    "risk_area": [
+      "re:(?:风险|缺水|水压力|水资源压力|高水|stress|scarc|risk)"
+    ],
+    "withdrawal": [
+      "re:(?:取水|withdraw|abstract|新鲜水|新水|用水总量|总用水量|用水量|water\\s+(?:intake|use)|water\\s+withdrawn)"
+    ],
+    "water_use_only": [
+      "re:(?:用水|water\\s+use)"
+    ],
+    "recycle": [
+      "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
+    ],
+    "discharge": [
+      "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|discharg|effluent)"
+    ],
+    "water_word": [
+      "re:(?:水|water|h2o|effluent)"
+    ],
+    "not_water": [
+      "re:(?:设备|废弃物|废物|固废|材料|物料|包装|电池|电子|产品|纸|equipment|device|waste|material|packag|product|batter|paper)"
+    ],
+    "freshwater": [
+      "re:(?:淡水|新水|新鲜水|取新水|fresh\\s*water|freshwater)"
+    ],
+    "non_fresh": [
+      "re:(?:非淡水|non[-\\s]?fresh)"
+    ],
+    "water_source": [
+      "re:(?:地下水|地表水|市政|自来水|第三方|海水|雨水|矿井|矿坑|外购水|河|湖|groundwater|surface\\s+water|municipal|third[-\\s]party|sea\\s*water|rain)"
+    ],
+    "water_dest": [
+      "re:(?:地表|地下|外送|管网|海洋|市政|surface|ground|third[-\\s]party|ocean|sea|marine|sewage|sewer|river|public\\s+sewer|municipal)"
+    ],
+    "lower_management": [
+      "re:(?:初级管理|中级管理|基层管理|一线管理|非管理层|创收职能|entry[-\\s]?level|middle\\s+management|first[-\\s]?line|non[-\\s]?management)"
+    ],
+    "top_management": [
+      "re:(?:高级管理|最高管理|执行管理|高管|top\\s+management|senior\\s+management|executive)"
+    ],
+    "per_hundred_workers": [
+      "re:(?:每\\s*百\\s*人|每\\s*百\\s*名|per\\s+100\\s+employees?|per\\s+hundred\\s+employees?)"
+    ],
+    "non_hazardous": [
+      "无害",
+      "非有害",
+      "一般工业",
+      "non-hazardous"
+    ],
+    "waste_category": [
+      "一般",
+      "无害",
+      "無害",
+      "生活",
+      "建筑",
+      "建築",
+      "危险",
+      "危險",
+      "有害"
+    ],
+    "waste_solid": [
+      "固废",
+      "固体废弃物",
+      "固体废物"
+    ],
+    "generated": [
+      "产生",
+      "生成",
+      "generated",
+      "generation"
+    ],
+    "non_employees": [
+      "非员工",
+      "非雇员",
+      "劳务派遣",
+      "外包",
+      "non-employee",
+      "contractor"
+    ],
+    "population_subset": [
+      "少数民族",
+      "少数族裔",
+      "残疾",
+      "殘疾",
+      "女性员工",
+      "男性员工",
+      "外籍",
+      "外派",
+      "本地员工",
+      "退伍",
+      "复员"
+    ],
+    "turnover_or_hiring": [
+      "入职率",
+      "新入职",
+      "新进员工",
+      "招聘人数",
+      "离职",
+      "解雇",
+      "解僱",
+      "hiring",
+      "new hires",
+      "new employees",
+      "leavers",
+      "dismiss"
+    ],
+    "participation": [
+      "人次",
+      "参与",
+      "参加",
+      "演练",
+      "演練",
+      "活动人数",
+      "person-times"
+    ],
+    "incident": [
+      "事故",
+      "事件",
+      "工伤",
+      "工傷",
+      "伤亡",
+      "傷亡",
+      "accident",
+      "incident"
+    ],
+    "training_subset": [
+      "其中",
+      "男性",
+      "女性",
+      "按性别",
+      "按年龄",
+      "岁以下",
+      "岁以上",
+      "管理者",
+      "管理层",
+      "职级",
+      "岗位",
+      "地区",
+      "区域",
+      "基层",
+      "中层",
+      "高层",
+      "普通员工",
+      "劳务",
+      "派遣",
+      "by gender",
+      "by age",
+      "岁",
+      "年龄",
+      "以上",
+      "以下",
+      "基层员工",
+      "中层管理",
+      "高层管理"
+    ],
+    "material_inflow": [
+      "资源投入",
+      "原材料使用",
+      "原材料投入",
+      "材料投入使用",
+      "materials used",
+      "material inflow",
+      "resource inflow"
+    ],
+    "recycle_content": [
+      "废旧",
+      "回收量",
+      "回收率",
+      "再生量",
+      "recovered",
+      "recovery",
+      "recycled amount"
+    ],
+    "geography": [
+      "数据中心",
+      "生产基地",
+      "基地",
+      "工厂",
+      "厂区",
+      "园区",
+      "办公",
+      "分公司",
+      "子公司",
+      "事业部",
+      "板块",
+      "门店",
+      "电站",
+      "自有",
+      "租赁",
+      "境内",
+      "境外",
+      "海外",
+      "data cent",
+      "production base",
+      "plant",
+      "site",
+      "office",
+      "subsidiar",
+      "segment",
+      "domestic",
+      "overseas",
+      "leased",
+      "owned"
+    ],
+    "regulatory_limit": [
+      "re:(?:核定(?:的)?[^，。；]{0,20}(?:总量|排放量|量|配额|额度)|许可[^，。；]{0,16}排放|排污许可|排放许可证|排放(?:配额|额度|限额|上限)|允许排放|总量控制指标|(?:approved|permitted|allowed)\\s+(?:annual\\s+)?(?:emission|discharge)|(?:emission|discharge)\\s+(?:limit|cap|allowance|quota|ceiling)|(?:regulatory|permitted)\\s+limit)"
+    ],
+    "index_entry": [
+      "re:(?:gri\\s*\\d{1,3}|disclosure\\s*\\d{2,3}|指标\\s*\\d{3}|esrs\\s+[a-z]\\d|实质性议题|一般披露|关键绩效指标\\s*[a-z]?\\d|层面\\s*[a-z]\\d|(?:^|[\\s（(])\\d{1,3}[-–]\\d{1,2}(?![\\d.%])(?!\\s*(?:岁|年|月|日|吨|噸|人|小时|小時|万元|%|％)))"
+    ],
+    "narrative_question": [
+      "re:(?:如何|是否|怎样|為何|为什么|何时|how\\s+|why\\s+)"
+    ],
+    "change_or_target": [
+      "re:(?:相比|较|比|compared\\s+(?:with|to))\\s*(?:19|20)\\d{2}\\s*年?[^。；;]{0,24}?(?:下降|降低|减少|增加|增长|提升)|(?:下降|降低|减少|增加|增长|提升)\\s*\\d+(?:\\.\\d+)?\\s*[%％]|(?:下降率|降低率|减少率|增长率|变化率|降幅|增幅)|(?:到|至|by)\\s*(?:19|20)\\d{2}\\s*年?[^。；;]{0,20}?(?:目标|计划|规划|实现|达成|承诺)"
+    ],
+    "qualifier_only": [
+      "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
+    ],
+    "recycled_water": [
+      "循环水",
+      "回用水",
+      "重复利用水",
+      "再生水",
+      "中水",
+      "recycled water",
+      "reused water"
+    ],
+    "alternative_source": [
+      "替代水源",
+      "替代水",
+      "alternative source"
+    ],
+    "method_terms": [
+      "监测",
+      "检测",
+      "在线",
+      "测量",
+      "测算",
+      "估算",
+      "计算",
+      "核算",
+      "排放因子",
+      "物料衡算",
+      "系数",
+      "统计口径",
+      "monitor",
+      "measur",
+      "estimat",
+      "calculat",
+      "emission factor",
+      "mass balance",
+      "methodolog"
+    ],
+    "fine": [
+      "罚款",
+      "罚金",
+      "fine",
+      "penalt"
+    ],
+    "coverage": [
+      "覆盖",
+      "coverage"
+    ],
+    "standard_terms": [
+      "标准账期",
+      "标准付款期限",
+      "standard terms",
+      "on-time",
+      "按时付款"
+    ],
+    "group:energy:strong": [
+      "能源消耗",
+      "能源消费",
+      "能耗",
+      "能源耗",
+      "综合能源",
+      "能源使用",
+      "耗能",
+      "用能",
+      "用电",
+      "可再生能源",
+      "清洁能源",
+      "非化石能源",
+      "energy"
+    ],
+    "group:energy:weak": [
+      "gwh",
+      "mwh",
+      "kwh",
+      "千瓦时",
+      "兆瓦时",
+      "吨标准煤",
+      "标准煤",
+      "tce",
+      "吉焦",
+      "gj",
+      "tj",
+      "电力",
+      "天然气",
+      "柴油",
+      "汽油",
+      "煤炭",
+      "electricity",
+      "natural gas",
+      "diesel",
+      "fuel"
+    ],
+    "group:energy:children": [
+      "风能",
+      "风电",
+      "风力",
+      "太阳能",
+      "光伏",
+      "水能",
+      "水电",
+      "生物质",
+      "地热",
+      "海洋能",
+      "可再生",
+      "化石",
+      "煤炭",
+      "原煤",
+      "煤",
+      "天然气",
+      "石油",
+      "柴油",
+      "汽油",
+      "燃料油",
+      "焦炭",
+      "蒸汽",
+      "其他能源",
+      "wind",
+      "solar",
+      "hydro",
+      "biomass",
+      "geothermal",
+      "renewable",
+      "coal",
+      "natural gas",
+      "oil",
+      "diesel",
+      "steam"
+    ],
+    "group:ghg:strong": [
+      "范围一",
+      "范围1",
+      "范围二",
+      "范围2",
+      "范围三",
+      "范围3",
+      "范畴一",
+      "范畴二",
+      "范畴三",
+      "scope 1",
+      "scope 2",
+      "scope 3",
+      "scope1",
+      "scope2",
+      "scope3",
+      "温室气体",
+      "greenhouse gas",
+      "ghg",
+      "直接排放",
+      "间接排放"
+    ],
+    "group:ghg:weak": [
+      "co2e",
+      "co₂e",
+      "co_{{2}}e",
+      "二氧化碳当量",
+      "碳排放",
+      "emissions",
+      "排放总量"
+    ],
+    "group:ghg:children": [
+      "范围一",
+      "范围二",
+      "范围三",
+      "scope 1",
+      "scope 2",
+      "scope 3",
+      "直接排放",
+      "间接排放"
+    ],
+    "group:ghg_intensity:strong": [
+      "温室气体排放强度",
+      "排放强度",
+      "碳强度",
+      "ghg intensity",
+      "emission intensity",
+      "carbon intensity",
+      "每百万元营收",
+      "per million revenue",
+      "per revenue"
+    ],
+    "group:ghg_intensity:weak": [
+      "tco2e",
+      "co2e",
+      "吨二氧化碳当量",
+      "万元",
+      "百万元"
+    ],
+    "group:ghg_intensity:children": [
+      "强度",
+      "intensity",
+      "每兆瓦时",
+      "per mwh"
+    ],
+    "group:air:strong": [
+      "氮氧化物",
+      "二氧化硫",
+      "硫氧化物",
+      "颗粒物",
+      "烟尘",
+      "粉尘",
+      "挥发性有机",
+      "vocs",
+      "nox",
+      "sox",
+      "so2",
+      "particulate",
+      "废气",
+      "大气污染物",
+      "air emissions",
+      "air pollutant"
+    ],
+    "group:air:weak": [
+      "排放量",
+      "排放",
+      "吨",
+      "tonnes",
+      "emissions"
+    ],
+    "group:air:children": [
+      "氮氧化",
+      "硫氧化",
+      "二氧化硫",
+      "颗粒物",
+      "颗粒",
+      "烟尘",
+      "粉尘",
+      "挥发性有机",
+      "vocs",
+      "nox",
+      "sox"
+    ],
+    "group:water_pollutants:strong": [
+      "化学需氧量",
+      "cod",
+      "氨氮",
+      "总氮",
+      "总磷",
+      "生化需氧量",
+      "bod",
+      "水污染物",
+      "废水污染物",
+      "重金属",
+      "总铜",
+      "总锌",
+      "总铅",
+      "总镉",
+      "总汞",
+      "总砷",
+      "ammonia nitrogen",
+      "chemical oxygen demand"
+    ],
+    "group:water_pollutants:weak": [
+      "废水",
+      "排放量",
+      "吨",
+      "wastewater",
+      "discharge"
+    ],
+    "group:water_pollutants:children": [
+      "化学需氧量",
+      "cod",
+      "氨氮",
+      "总氮",
+      "总磷",
+      "重金属",
+      "悬浮物"
+    ],
+    "group:pollution_method:strong": [
+      "Description of measurement methodologies (pollution of air, water and soil)",
+      "空气、水和土壤污染测量方法描述",
+      "Measurement methodology",
+      "污染测量方法",
+      "measurement",
+      "monitoring method",
+      "estimation method",
+      "calculation method"
+    ],
+    "group:substances:strong": [
+      "关注物质",
+      "高度关注物质",
+      "高关注物质",
+      "svhc",
+      "substances of concern",
+      "substance of concern",
+      "有毒有害物质",
+      "有害物质",
+      "危险化学品",
+      "hazardous substances"
+    ],
+    "group:substances:weak": [
+      "化学品",
+      "chemicals",
+      "使用量",
+      "采购量"
+    ],
+    "group:substances:children": [
+      "关注物质",
+      "有害物质",
+      "危险物质",
+      "substance"
+    ],
+    "group:water:strong": [
+      "取水",
+      "耗水",
+      "用水",
+      "排水",
+      "水资源",
+      "循环水",
+      "循环利用",
+      "重复利用",
+      "回用",
+      "新鲜水",
+      "新水",
+      "淡水",
+      "水风险",
+      "缺水",
+      "水压力",
+      "water withdrawal",
+      "water consumption",
+      "water discharge",
+      "water recycled",
+      "recycled water",
+      "water use",
+      "water withdrawn",
+      "water stress",
+      "water management",
+      "water resources",
+      "water intake",
+      "water sources",
+      "total water",
+      "ground water",
+      "groundwater",
+      "surface water"
+    ],
+    "group:water:weak": [
+      "立方米",
+      "m3",
+      "m³",
+      "万吨",
+      "百万吨",
+      "吨",
+      "megalitre",
+      "ml",
+      "地下水",
+      "地表水",
+      "市政",
+      "groundwater",
+      "surface water",
+      "municipal"
+    ],
+    "group:water:children": [
+      "地表水",
+      "地下水",
+      "市政",
+      "自来水",
+      "海水",
+      "淡水",
+      "循环",
+      "再生水",
+      "雨水",
+      "取水",
+      "排水",
+      "耗水"
+    ],
+    "group:biodiversity:strong": [
+      "Number of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+      "受负面影响的保护区内或附近场址数量",
+      "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址数量。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+      "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+      "受负面影响的保护区内或附近场址面积",
+      "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+      "Undertaking has sites located in or near biodiversity-sensitive areas",
+      "位于或邻近生物多样性敏感区域的场址",
+      "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Disclosure of biodiversity-sensitive areas impacted",
+      "受到影响的生物多样性敏感区域",
+      "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+    ],
+    "group:materials:strong": [
+      "原材料",
+      "资源投入",
+      "物料使用",
+      "材料使用",
+      "materials used",
+      "resource inflow",
+      "material inflow"
+    ],
+    "group:materials:weak": [
+      "吨",
+      "重量",
+      "采购量",
+      "tonnes",
+      "weight"
+    ],
+    "group:materials:children": [
+      "可再生",
+      "不可再生",
+      "生物材料",
+      "技术材料",
+      "包装",
+      "原材料",
+      "材料"
+    ],
+    "group:waste:strong": [
+      "废弃物",
+      "废物",
+      "固废",
+      "危险废物",
+      "有害废弃物",
+      "waste",
+      "solid waste",
+      "hazardous waste"
+    ],
+    "group:waste:weak": [
+      "产生量",
+      "总量",
+      "处置",
+      "回收",
+      "有害",
+      "无害",
+      "吨",
+      "tonnes",
+      "generated",
+      "disposed",
+      "diverted"
+    ],
+    "group:waste:children": [
+      "有害",
+      "无害",
+      "危险",
+      "一般",
+      "回收",
+      "填埋",
+      "焚烧",
+      "处置",
+      "资源化",
+      "废弃物"
+    ],
+    "group:governance:strong": [
+      "董事会",
+      "治理机构",
+      "女性董事",
+      "董事会多元化",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款天数",
+      "账期",
+      "board",
+      "corruption",
+      "bribery",
+      "conviction",
+      "payment days"
+    ],
+    "group:governance:weak": [
+      "%",
+      "件",
+      "天",
+      "人",
+      "女性",
+      "days",
+      "cases"
+    ],
+    "group:governance:children": [
+      "董事",
+      "董事会",
+      "女性",
+      "腐败",
+      "贿赂",
+      "定罪",
+      "付款",
+      "投诉",
+      "罚",
+      "案件"
+    ],
+    "group:workforce_training:strong": [
+      "培训",
+      "受训",
+      "培训时长",
+      "培训小时",
+      "人均受训",
+      "training",
+      "training hours",
+      "trained"
+    ],
+    "group:workforce_training:weak": [
+      "小时",
+      "学时",
+      "人均",
+      "hours",
+      "per employee"
+    ],
+    "group:workforce_training:children": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "group:workforce_safety:strong": [
+      "工伤",
+      "事故",
+      "可记录",
+      "accident",
+      "injury",
+      "ltifr",
+      "trifr",
+      "recordable"
+    ],
+    "group:workforce_safety:weak": [
+      "率",
+      "每百万工时",
+      "人数",
+      "起",
+      "rate"
+    ],
+    "group:workforce_safety:children": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "group:workforce_pay:strong": [
+      "薪酬差距",
+      "薪酬差异",
+      "男女薪酬",
+      "gender pay gap",
+      "pay gap",
+      "remuneration gap"
+    ],
+    "group:workforce_pay:weak": [
+      "%",
+      "比率",
+      "ratio"
+    ],
+    "group:workforce_pay:children": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "group:workforce_incidents:strong": [
+      "歧视",
+      "骚扰",
+      "discrimination",
+      "harassment"
+    ],
+    "group:workforce_incidents:weak": [
+      "事件",
+      "投诉",
+      "件",
+      "incident",
+      "complaint"
+    ],
+    "group:workforce_incidents:children": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "group:workforce:strong": [
+      "员工总数",
+      "员工总人数",
+      "员工人数",
+      "雇员人数",
+      "在职员工",
+      "总人数",
+      "员工流失率",
+      "离职率",
+      "employee turnover",
+      "number of employees",
+      "headcount",
+      "head count"
+    ],
+    "group:workforce:weak": [
+      "人",
+      "人数",
+      "期末",
+      "平均",
+      "%",
+      "turnover",
+      "employees"
+    ],
+    "group:workforce:children": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "group:workforce_gender:strong": [
+      "高管",
+      "管理层",
+      "女性管理者",
+      "性别比例",
+      "top management",
+      "senior management",
+      "gender distribution"
+    ],
+    "group:workforce_gender:weak": [
+      "%",
+      "女性",
+      "男性",
+      "female",
+      "male"
+    ],
+    "group:workforce_gender:children": [
+      "女性",
+      "男性",
+      "员工",
+      "高管",
+      "管理层",
+      "董事会",
+      "培训",
+      "事故",
+      "工伤",
+      "流失",
+      "薪酬",
+      "残疾",
+      "歧视",
+      "供应商",
+      "小时",
+      "人次",
+      "死亡",
+      "工亡",
+      "死亡人数"
+    ],
+    "group:value_chain:strong": [
+      "Policies explicitly address trafficking in human beings, forced labour or compulsory labour and child labour",
+      "政策对人口贩运、强迫劳动和童工的明确覆盖（价值链）",
+      "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Disclosure of specific channels in place for value chain workers to raise concerns or needs directly with undertaking and have them addressed",
+      "价值链劳动者直接提出关切或需求的渠道",
+      "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Policies regarding protection against retaliation for individuals that use channels to raise concerns or needs are in place",
+      "防止报复的政策（价值链劳动者）",
+      "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Disclosure of severe human rights issues and incidents connected to upstream and downstream value chain",
+      "价值链中的严重人权问题与事件",
+      "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+    ],
+    "group:communities:strong": [
+      "Disclosure of any  any particular policy provisions for preventing and addressing impacts on indigenous peoples",
+      "防止和应对原住民影响的政策条款",
+      "披露主体政策中用于防止和应对对原住民影响的特定条款，包括自由、事先和知情同意安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed",
+      "受影响社区直接提出关切或需求的渠道",
+      "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Description of whether and how the undertaking has taken action to provide or enable remedy in relation to an actual material impact",
+      "对实际重大影响提供或促成补救的行动（社区）",
+      "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+      "Disclosure of severe human rights issues and incidents connected to affected communities",
+      "与受影响社区相关的严重人权问题与事件",
+      "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+    ],
+    "group:consumer:strong": [
+      "消费者投诉",
+      "客户投诉",
+      "投诉数量",
+      "consumer complaint",
+      "customer complaint",
+      "complaints received"
+    ],
+    "group:consumer:weak": [
+      "件",
+      "起",
+      "count",
+      "complaints"
+    ],
+    "group:consumer:children": [
+      "消费者",
+      "客户",
+      "用户",
+      "投诉",
+      "complaint",
+      "consumer",
+      "customer"
+    ]
+  }
+}

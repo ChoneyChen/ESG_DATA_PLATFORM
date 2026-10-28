@@ -1,15 +1,24 @@
 {
   "canonical_unit": "tCO2e",
+  "clause_digest": "16f8ea6b6188afb923a98f949ac3b7d7588b426aa94b8d4761eafe2f298107f8",
   "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_11",
-  "contract_digest": "6d58aad90e2fe73f8c79ea12ca5ee3020b3b85c83494f889b574c4f8c33affd8",
+  "clause_key": "E1-7_11",
+  "contract_digest": "907ca61f53e006bd7b4b61e82c948ab675f21c2dd18a594548d0187dccdabdd6",
+  "data_kind": "quantitative",
   "description": "Total amount of carbon credits outside value chain planned to be cancelled in future。计划核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
   "disclosure_requirement": "E1-7",
   "disclosure_role": "anchor",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Total amount of carbon credits outside value chain planned to be cancelled in future",
     "zh": "计划核销的价值链外碳信用量"
@@ -46,8 +55,39 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "numeric_label",
+    "rules": [
+      {
+        "allowed": [
+          "ghg-emissions"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "E1-7_11",
+  "text_group": null,
   "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
   "value_origin": "reported",
   "value_type": "numeric"

@@ -1,15 +1,24 @@
 {
   "canonical_unit": null,
+  "clause_digest": "ce99468899125b7d3989e2c0410182b4e20fe7d51a3b3ebe3889022d67fe9826",
   "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_15",
-  "contract_digest": "5bffa1916ebc438d87892a0c269457b2ffe775c41f58d993bd14018edc901e34",
+  "clause_key": "S1-1_15",
+  "contract_digest": "e5e9c0072f15cb468f90b85c664102d3ea6e45d51ad96b7107df237468be2528",
+  "data_kind": "qualitative",
   "description": "说明主体是否已建立以资格、技能和经验为基础的招聘、安置、培训和晋升政策与程序。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
   "disclosure_requirement": "S1-1",
   "disclosure_role": "context",
+  "display_definition": null,
+  "display_label": null,
   "distinguish_from": [],
+  "exact_labels": [],
   "exclusions": [
     "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
   ],
+  "group": null,
+  "group_terms": [],
+  "group_unit_terms": [],
   "labels": {
     "en": "Policies and procedures which make qualifications, skills and experience the basis for the recruitment, placement, training and advancement are in place",
     "zh": "以资格、技能和经验为基础的招聘、安置、培训和晋升政策"
@@ -43,8 +52,23 @@
     ],
     "fixed_axes": {}
   },
-  "schema_version": "clause-extraction-profile-1.0",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {}
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "schema_version": "clause-extraction-profile-2.0",
   "source_datapoint_id": "S1-1_15",
+  "text_group": null,
   "unit_dimension": null,
   "value_origin": "reported",
   "value_type": "statement"
