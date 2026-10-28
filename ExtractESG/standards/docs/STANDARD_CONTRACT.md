@@ -28,6 +28,10 @@ Core Schema（跨标准通用记录）
 | 固定口径 | `profiles/esrs/2023-set1/clause-fixed-axes.json` | 条款固定取值 | 平台策略 |
 | 包简述名 | `profiles/esrs/2023-set1/package-titles.json` | 目录显示名 | 合同语义 |
 
+固定口径分两种视图：字典需要**完整**固定维度（含 `all`、`aggregation_role`），
+条款包 `publication.fixed_axes` 只保留与输出范围有关的子集。完整值以
+`clause-fixed-axes.json` 为唯一来源，条款包是它的编译结果，两者不重复撰写。
+
 ## 2. 一个条款的合同是什么
 
 `clauses/<package_id>/<version>/<原编号>/clause.json` 是该条款的唯一合同，包含：
