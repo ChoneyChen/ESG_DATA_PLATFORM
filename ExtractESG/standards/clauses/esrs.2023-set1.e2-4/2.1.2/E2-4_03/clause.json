@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tonne",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_03",
-  "contract_digest": "774a0a31f1f872dfc530ffd7476743601a76729a4bf9373ebf2bb9cce135ec33",
+  "contract_digest": "d43f8cb168c210899c60d45e84171540f6a74a33a3c1009f916d066f6eb550a8",
   "description": "披露 E-PRTR 附件 II 所列污染物排入水体的量。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "anchor",
@@ -25,14 +25,16 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "pollution_medium": "water"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · pollution_medium=water",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-b7867604e0886360",
       "value_role": "actual"
     }
   ],
@@ -48,7 +50,9 @@
       "pollution_medium",
       "pollutant"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "pollution_medium": "water"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E2-4_03",

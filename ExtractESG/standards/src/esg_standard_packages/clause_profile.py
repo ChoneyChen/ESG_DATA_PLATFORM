@@ -137,7 +137,10 @@ def _scope_for_contract(contract: dict, *, fixed_axes: dict[str, str],
     comparison = set(contract.get("comparison_axes") or [])
     period = {"target": "target_period", "baseline": "baseline_period"}.get(role, "annual")
     entity = "group"
-    base_axes = {key: value for key, value in fixed_axes.items() if key in {"energy_carrier", "pollutant", "category", "gender", "region"}}
+    # Fixed values are part of the output scope: a clause fixed to
+    # energy_source=renewable must declare that in the scope it emits, or the
+    # publication contract would fix an axis no scope carries.
+    base_axes = dict(fixed_axes)
     scope = make_scope(_scope_label(period, entity, aggregation, base_axes), period=period, entity=entity,
                        value_role="context" if role == "context" else role, aggregation=aggregation,
                        axes=base_axes)

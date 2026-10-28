@@ -419,6 +419,8 @@ class Observation(BaseModel):
     dimensions: dict
     reported_dimensions: dict = Field(default_factory=dict)
     source_row_label: str | None = None
+    context_sources: dict[str, str] = Field(default_factory=dict)
+    period_source: str | None = None
     reported_properties: list[ReportedPropertyResponse] = Field(default_factory=list)
     canonical_unit: str | None = None
     value_numeric: str | None = None
@@ -542,6 +544,18 @@ def export_evidence(rows: list[dict], version: int) -> list[dict]:
                             "source_quote": reference.get("source_quote"), "bbox_x0": bbox.get("x0"),
                             "bbox_y0": bbox.get("y0"), "bbox_x1": bbox.get("x1"), "bbox_y1": bbox.get("y1"),
                             "raw_value_text": None, "raw_unit": prop.get("unit_raw")})
+        # Fields without a printed carrier still have a provenance: inherited
+        # from the report identity, entered in review, or fixed by the clause.
+        evidenced = {row_key for row_key in (row.get("identity_evidence") or {})}
+        evidenced |= {prop.get("field_key") for prop in row.get("reported_properties") or []}
+        for field_key, level in (row.get("context_sources") or {}).items():
+            if field_key in evidenced:
+                continue
+            out.append({"dataset_version": version, "observation_id": row["observation_id"],
+                        "evidence_kind": "context", "field_key": field_key, "evidence_role": level,
+                        "page_number": None, "printed_page_label": None, "source_quote": None,
+                        "bbox_x0": None, "bbox_y0": None, "bbox_x1": None, "bbox_y1": None,
+                        "raw_value_text": None, "raw_unit": None})
     return out
 
 

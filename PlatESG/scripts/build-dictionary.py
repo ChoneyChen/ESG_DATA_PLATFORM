@@ -27,6 +27,18 @@ VERSION = '1.5.0'
 # live 1.3.0 is 1.2.0 plus an approved extension), so the next changed file
 # dictionary must take a version above every sealed one.
 PREVIOUS = 'catalog/metric-dictionary.v1.json'
+CLAUSE_FIXED_AXES = Path('profiles/esrs/2023-set1/clause-fixed-axes.json')
+
+
+def load_clause_fixed_axes(path: Path | None = None, *, standard_root: Path = STANDARD_ROOT) -> dict[str, dict]:
+    """A clause's fixed values are authored once, next to the standard.
+
+    The dictionary and the clause catalog both read this file; neither writes
+    its own copy, so a clause fixed to 可再生 is fixed in exactly one place.
+    """
+    resolved = path or (Path(standard_root) / CLAUSE_FIXED_AXES)
+    payload = json.loads(Path(resolved).read_text(encoding='utf-8'))
+    return {key: dict(value) for key, value in (payload.get('axes') or {}).items()}
 COMMON_CONDITIONS = [
     '主体、实际期间、报告边界和证据已审核；未知口径不默认为相同。',
     '原披露值和原单位保留；精确单位换算不改变主体、定义或测量方法。',
@@ -39,19 +51,17 @@ COMMON_EXCLUSIONS = [
 
 
 def spec(metric_id, label, value_type='numeric', unit=None, dimension=None,
-         required=(), comparison=(), fixed=None, allowed=None, description='',
+         required=(), comparison=(), allowed=None, description='',
          exclusions=(), conditions=(), aggregation='do_not_sum', unresolved=None, **extra):
     # Comparison needs the axes that change what the number means. A
     # measurement method only belongs here when the clause itself declares one;
     # requiring it for a head count made every record incomparable.
     axes = ['entity_kind', *required, *comparison]
-    if 'measurement_method' in (fixed or {}):
-        axes.append('measurement_method')
     result = dict(metric_id=metric_id, label_zh=label, value_type=value_type,
                   canonical_unit=unit, unit_dimension=dimension,
                   required_dimensions=list(required),
                   comparison_dimensions=list(dict.fromkeys(axes)) if value_type == 'numeric' else [],
-                  fixed_dimensions=fixed or {},
+                  fixed_dimensions={},
                   dimension_constraints={k: {'allowed_values': v} for k, v in (allowed or {}).items()},
                   required_context_fields=[], typed_context_constraints={},
                   description=description or label,
@@ -79,7 +89,7 @@ def energy(metric_id, label, source, *, ratio=False):
         required += ['aggregation_role']
         fixed['aggregation_role'] = 'total'
     return spec(metric_id, label, unit='ratio' if ratio else 'MWh', dimension='ratio' if ratio else 'energy',
-                required=required, comparison=['energy_accounting_basis'], fixed=fixed,
+                required=required, comparison=['energy_accounting_basis'],
                 allowed={k: [v] for k, v in fixed.items()},
                 exclusions=['发电量、装机容量、强度和减排量不能作为消费量。', '不能将总量和其成员重复求和。'],
                 conditions=['自身运营能源口径一致；可再生比例的分子分母必须同期间、同边界。'],
@@ -90,7 +100,6 @@ def energy(metric_id, label, source, *, ratio=False):
 
 def ghg(metric_id, label, scope, method=None, *, extra_fixed=None):
     required = ['ghg_scope', 'aggregation_role']
-    fixed = {'ghg_scope': scope}
     allowed = {'ghg_scope': [scope], 'aggregation_role': ['total']}
     comparison = ['gwp_basis', 'consolidation_approach', 'amount_basis', 'accounting_standard']
     if scope == 'scope_3':
@@ -98,7 +107,7 @@ def ghg(metric_id, label, scope, method=None, *, extra_fixed=None):
         allowed['aggregation_role'] = ['total', 'subtotal', 'category']
         comparison += ['category_coverage', 'estimation_method']
     result = spec(metric_id, label, unit='tCO2e', dimension='ghg_emissions',
-                  required=required, comparison=comparison, fixed=fixed, allowed=allowed,
+                  required=required, comparison=comparison, allowed=allowed,
                   exclusions=['范围1、范围2、范围3及范围1+2合计独立，不能相互替换。', '减排量、抵消量、目标和排放强度不属于绝对毛排放量。'],
                   conditions=['GWP依据、核算边界与合并方法经审核一致。', '范围3总量、类别和小计分别展示；类别覆盖与估计方法相同才可比较。'] if scope == 'scope_3' else ['GWP依据、核算边界与合并方法经审核一致。'],
                   normalization='compatible_unit_only', value_constraints={'minimum': '0'})
@@ -106,21 +115,19 @@ def ghg(metric_id, label, scope, method=None, *, extra_fixed=None):
     # Unknown gross/net basis can remain disclosed, but cannot meet the comparison contract.
     result['comparison_allowed_values'] = {'amount_basis': ['gross']}
     if method:
-        result['fixed_dimensions']['measurement_method'] = method
         result['required_context_fields'] = ['measurement_method']
         result['comparison_dimensions'] = list(dict.fromkeys([*result['comparison_dimensions'], 'measurement_method']))
         result['typed_context_constraints'] = {'measurement_method': {'allowed_values': [method]}}
         result['comparison_conditions'].append('地点法与市场法独立；方法必须由来源支持，不能根据指标名补造。')
     # Axes the clause itself fixes (a "total" metric cannot be a category).
     for key, value in (extra_fixed or {}).items():
-        result['fixed_dimensions'][key] = value
         result['dimension_constraints'][key] = {'allowed_values': [value]}
     return result
 
 
 def pollution(metric_id, label, medium):
     return spec(metric_id, label, unit='tonne', dimension='mass',
-                required=['pollutant', 'pollution_medium'], fixed={'pollution_medium': medium},
+                required=['pollutant', 'pollution_medium'],
                 allowed={'pollution_medium': [medium]}, comparison=['pollutant_definition', 'release_boundary'],
                 conditions=['污染物种类、介质、排放边界和测量方法相同；不同污染物不相加。'],
                 exclusions=['温室气体、排放浓度和污染削减量不属于本污染物排放质量。'],
@@ -135,7 +142,7 @@ def water(metric_id, label, measure, *, risk=False):
         required += ['geography', 'water_risk_class']
         comparison += ['risk_classification_method']
     return spec(metric_id, label, unit='m3', dimension='volume', required=required,
-                comparison=comparison, fixed=fixed, allowed={k: [v] for k, v in fixed.items()},
+                comparison=comparison, allowed={k: [v] for k, v in fixed.items()},
                 exclusions=['耗水、取水、排水和循环利用水量相互独立。', '储水是存量；循环利用量可能包含多次利用，不能与取水相加。'],
                 conditions=['水量定义与运营边界经审核一致。', '水风险地区需保留地域、风险分类及分类方法。'] if risk else ['水量定义与运营边界经审核一致。'],
                 normalization='compatible_unit_only', value_constraints={'minimum': '0'})
@@ -160,7 +167,6 @@ SPECS = {
     'E2-5_02': spec('substances.concern_input_quantity', '生产生成、使用或采购的关注物质量', unit='tonne', dimension='mass',
                        required=['substance', 'hazard_class', 'concern_class', 'material_flow', 'aggregation_role'],
                        allowed={'concern_class': ['substances_of_concern'], 'material_flow': ['generated', 'used', 'procured', 'generated_used_procured_combined'], 'aggregation_role': ['total', 'hazard_class', 'substance']},
-                       fixed={'concern_class': 'substances_of_concern'},
                        comparison=['classification_basis'],
                        conditions=['物质、危害类别、关注分类和生成/使用/采购口径相同。'],
                        exclusions=['生成、使用、采购量可能重叠，不能盲目相加。', '高度关注物质的单独数量与关注物质全量不能混同。'],
@@ -177,35 +183,29 @@ SPECS = {
     'E5-4_02': spec('materials.total_input_weight', '产品及技术和生物材料投入总重量', unit='tonne', dimension='mass', required=['material_scope', 'material_flow', 'aggregation_role'], exclusions=['产品重量与投入材料若重叠，不能重复求和。']),
     'E5-4_05': spec('materials.secondary_share', '二次使用或再生组分及材料占比', unit='ratio', dimension='ratio',
                        required=['material_scope', 'denominator_scope'],
-                       fixed={'material_scope': 'secondary', 'denominator_scope': 'total_material_input'},
                        allowed={'material_scope': ['secondary'], 'denominator_scope': ['total_material_input']},
                        aggregation='ratio_recompute'),
-    'E5-5_07': spec('waste.generated', '废弃物产生总量', unit='tonne', dimension='mass', required=['waste_scope', 'waste_flow', 'aggregation_role'], fixed={'waste_flow': 'generated', 'aggregation_role': 'total'}),
+    'E5-5_07': spec('waste.generated', '废弃物产生总量', unit='tonne', dimension='mass', required=['waste_scope', 'waste_flow', 'aggregation_role']),
     'E5-5_11': spec('waste.non_recycled_share', '未回收废弃物占比', unit='ratio', dimension='ratio',
                        required=['waste_scope', 'denominator_scope'],
-                       fixed={'waste_scope': 'total', 'denominator_scope': 'total_waste_generated'},
                        allowed={'waste_scope': ['total'], 'denominator_scope': ['total_waste_generated']},
                        aggregation='ratio_recompute', exclusions=['未回收不能直接等同于处置、填埋或危险废物。']),
     'E5-5_15': spec('waste.hazardous', '危险废弃物总量', unit='tonne', dimension='mass',
                        required=['waste_scope', 'hazard_classification', 'aggregation_role'],
-                       fixed={'waste_scope': 'total', 'hazard_classification': 'hazardous', 'aggregation_role': 'total'},
                        allowed={'waste_scope': ['total'], 'hazard_classification': ['hazardous'], 'aggregation_role': ['total']},
                        comparison=['classification_basis']),
-    'S1-6_02': spec('workforce.employee_headcount', '员工人头数', unit='person', dimension='count', required=['population', 'count_basis', 'statistical_time_basis'], fixed={'population': 'employees', 'count_basis': 'headcount'}, exclusions=['员工人头数、全职当量和全部自有劳动力不可互换。']),
+    'S1-6_02': spec('workforce.employee_headcount', '员工人头数', unit='person', dimension='count', required=['population', 'count_basis', 'statistical_time_basis'], exclusions=['员工人头数、全职当量和全部自有劳动力不可互换。']),
     'S1-6_12': spec('workforce.turnover_rate', '员工流动率', unit='ratio', dimension='ratio', required=['population', 'turnover_definition', 'denominator_scope'], aggregation='ratio_recompute'),
     'S1-9_02': spec('workforce.top_management_gender_share', '最高管理层员工性别分布占比', unit='ratio', dimension='ratio',
                        required=['population', 'gender', 'management_level_definition'],
-                       fixed={'population': 'management', 'gender': 'female', 'management_level_definition': 'top_management'},
                        allowed={'population': ['management'], 'gender': ['female'], 'management_level_definition': ['top_management']},
                        aggregation='ratio_recompute'),
     'S1-13_03': spec('workforce.training_hours', '按性别划分的平均培训小时数', unit='hour/person', dimension='training_intensity',
                         required=['population', 'gender', 'training_scope', 'denominator_scope'],
-                        fixed={'population': 'employees', 'training_scope': 'by_gender', 'denominator_scope': 'per_employee'},
                         allowed={'population': ['employees'], 'training_scope': ['by_gender'], 'denominator_scope': ['per_employee']},
                         aggregation='ratio_recompute'),
     'S1-14_02': spec('workforce.work_related_fatalities', '自有劳动力因工伤或职业病死亡人数', unit='person', dimension='count',
                         required=['population', 'fatality_cause_scope', 'aggregation_role'],
-                        fixed={'population': 'employees', 'fatality_cause_scope': 'work_related', 'aggregation_role': 'total'},
                         allowed={'population': ['employees'], 'fatality_cause_scope': ['work_related'], 'aggregation_role': ['total']}),
     'S1-14_05': spec('workforce.recordable_accident_rate', '自有劳动力可记录工伤事故率', unit='rate', dimension='accident_rate', required=['population', 'accident_definition', 'denominator_unit', 'rate_multiplier'], aggregation='ratio_recompute', exclusions=['事故率不是百分数；可记录事故率与误工事故频率不能互换。']),
     'S1-16_01': spec('workforce.gender_pay_gap', '性别薪酬差距', unit='ratio', dimension='ratio', required=['population', 'pay_definition', 'denominator_scope'], aggregation='ratio_recompute'),
@@ -221,7 +221,6 @@ SPECS = {
     'S4-3_02': spec('consumer.grievance_channels', '消费者及终端用户申诉渠道', 'statement', required=['consumer_population', 'channel_scope']),
     'S4-3_13': spec('consumer.complaint_count', '消费者及终端用户投诉数量', unit='count', dimension='count',
                        required=['consumer_population', 'complaint_definition', 'channel_scope'],
-                       fixed={'consumer_population': 'consumers', 'complaint_definition': 'complaint'},
                        allowed={'consumer_population': ['consumers'], 'complaint_definition': ['complaint']},
                        comparison=['business_scale_basis'], exclusions=['投诉总量缺少业务规模和渠道覆盖时不能排名。']),
     'S4-4_11': spec('consumer.severe_human_rights_issues', '消费者及终端用户严重人权问题和事件', 'statement', required=['consumer_population', 'incident_scope']),
@@ -230,12 +229,11 @@ SPECS = {
     'G1-4_02': spec('business.corruption_fines', '违反反腐败及反贿赂法律的罚款金额', unit=None, dimension='monetary', required=['legal_scope', 'currency', 'fine_basis'], comparison=['currency'], exclusions=['保留原币种；不按当前汇率隐式转换。']),
     'G1-4_04': spec('business.confirmed_corruption_count', '已确认腐败或贿赂事件数量', unit='count', dimension='count',
                        required=['incident_definition', 'counting_basis'],
-                       fixed={'incident_definition': 'confirmed_corruption', 'counting_basis': 'count'},
                        allowed={'incident_definition': ['confirmed_corruption'], 'counting_basis': ['count']}),
     'G1-6_01': spec('business.average_payment_days', '自合同或法定付款起算日计的平均付款天数', unit='day', dimension='duration', required=['payment_start_definition', 'invoice_scope', 'averaging_basis'], aggregation='ratio_recompute'),
     'E1-5_02': energy('energy.fossil_consumption', '化石能源消费总量', 'fossil'),
     'E1-6_12': spec('ghg.total_location_based', '范围1＋位置法范围2＋范围3温室气体排放总量', unit='tCO2e', dimension='ghg_emissions',
-                       required=['ghg_scope', 'aggregation_role', 'consolidation_approach'], fixed={'ghg_scope': 'total', 'aggregation_role': 'total'},
+                       required=['ghg_scope', 'aggregation_role', 'consolidation_approach'],
                        allowed={'ghg_scope': ['total'], 'aggregation_role': ['total']},
                        comparison=['amount_basis', 'gwp_basis', 'accounting_standard'],
                        exclusions=['范围1、范围2、范围3与合计不能相互替代；强度、减排量与抵消量不属于绝对排放量。'],
@@ -243,27 +241,23 @@ SPECS = {
                        normalization='compatible_unit_only', value_constraints={'minimum': '0'}),
     'E1-6_30': spec('ghg.intensity_location_based', '基于位置法的温室气体排放强度', unit='tCO2e-per-10k-cny', dimension='ghg-intensity',
                        required=['intensity_numerator_scope', 'intensity_denominator', 'consolidation_approach'],
-                       fixed={'intensity_numerator_scope': 'scope_1_2_location_based'},
                        comparison=['revenue_definition'],
                        exclusions=['绝对排放总量不能与排放强度互换；净收入、营业收入与产值是不同的分母。'],
                        conditions=['分子范围与分母定义经审核一致；不同分母的强度不相加。'],
                        normalization='compatible_unit_only', value_constraints={'minimum': '0'}),
     'S1-13_04': spec('workforce.training_hours_per_person', '员工人均培训小时数', unit='hour/person', dimension='training_intensity',
                         required=['population', 'training_scope', 'denominator_scope'],
-                        fixed={'population': 'employees', 'training_scope': 'all_employees', 'denominator_scope': 'per_employee'},
                         allowed={'population': ['employees'], 'training_scope': ['all_employees'], 'denominator_scope': ['per_employee']},
                         aggregation='ratio_recompute',
                         exclusions=['培训总时长不能代替人均时长；专题培训不能当作全员人均培训。'],
                         normalization='compatible_unit_only', value_constraints={'minimum': '0'}),
     'S1-17_02': spec('workforce.discrimination_incidents', '歧视事件数量', unit='count', dimension='count',
                         required=['population', 'incident_definition', 'counting_basis'],
-                        fixed={'population': 'employees', 'incident_definition': 'discrimination', 'counting_basis': 'count'},
                         allowed={'population': ['employees'], 'incident_definition': ['discrimination'], 'counting_basis': ['count']},
                         exclusions=['已确认事件、投诉与内部处分分别计数，不能互相替代。'],
                         normalization='compatible_unit_only', value_constraints={'minimum': '0'}),
     'GOV-1_06': spec('governance.board_gender_ratio', '董事会性别多样性比例', unit='ratio', dimension='ratio',
                         required=['gender', 'board_definition'],
-                        fixed={'gender': 'female', 'board_definition': 'board_of_directors'},
                         allowed={'gender': ['female'], 'board_definition': ['board_of_directors']},
                         aggregation='ratio_recompute',
                         exclusions=['董事会与管理层是不同人群；占比不能与人数互换。'],
@@ -291,7 +285,10 @@ def _next_definition_version(previous, current):
 
 
 def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
-                     previous_dictionary=None, allow_contract_changes=False):
+                     previous_dictionary=None, allow_contract_changes=False,
+                     clause_fixed: dict[str, dict] | None = None):
+    if clause_fixed is None:
+        clause_fixed = load_clause_fixed_axes(standard_root=standard_root)
     if previous_dictionary is None:
         previous_path = PLATFORM_ROOT / PREVIOUS
         previous_dictionary = json.loads(previous_path.read_text()) if previous_path.is_file() else None
@@ -315,6 +312,8 @@ def build_dictionary(standard_root=STANDARD_ROOT, *, dictionary_version=VERSION,
         contract = compiled['source_measurement_contract']
         previous = previous_metrics.get(original)
         metric = compiled
+        # The clause owns its fixed values; this builder only reads them.
+        metric['fixed_dimensions'] = dict((clause_fixed or {}).get(original, {}))
         source_row_hash = source_metric.provenance.row_sha256 if source_metric else hashlib.sha256(
             canonical_json_bytes(record['raw_values'])).hexdigest()
         if previous:

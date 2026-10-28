@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tonne",
   "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_07",
-  "contract_digest": "47b0ce6e897d431f39bbc471f3b1965ff32d1902cdda75d75c6e0f05f3a1276d",
+  "contract_digest": "ea8d3d6cab5206ac4d638fc678d610bdc5310940f5d5d3ecc1566860b68b9bf5",
   "description": "报告期内产生的废弃物总量（吨），包含无害废弃物与危险废弃物。",
   "disclosure_requirement": "E5-5",
   "disclosure_role": "anchor",
@@ -24,14 +24,16 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "waste_flow": "generated"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · waste_flow=generated",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-ac26edaffd6fdd23",
       "value_role": "actual"
     }
   ],
@@ -45,7 +47,9 @@
       "waste_flow",
       "aggregation_role"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "waste_flow": "generated"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E5-5_07",

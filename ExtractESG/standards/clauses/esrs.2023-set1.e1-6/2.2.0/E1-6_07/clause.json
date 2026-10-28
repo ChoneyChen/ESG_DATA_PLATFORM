@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_07",
-  "contract_digest": "20afa6afe08ec0d2fc39b2fc3fbccbe6237ba2adf25bf670fdf6f069b054a18d",
+  "contract_digest": "3234ae298155d60a5274b724ed1b8a58c9eb11671fe6d132f9b5d8f5f66d39a5",
   "description": "企业在报告期间因拥有或控制的排放源产生的范围1温室气体绝对排放量，以报告原有二氧化碳当量单位披露。直接排放、范围一、范畴一可表达同一范围；不要求出现‘总量’字样。范围1与2合计、强度、减排量、抵消或目标不属于此测量。逐一保留报告的实体和期间。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
@@ -26,14 +26,16 @@
   "output_scopes": [
     {
       "aggregation": "intensity",
-      "axes": {},
+      "axes": {
+        "ghg_scope": "scope_1"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 强度 · ghg_scope=scope_1",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-1281658cb0d4efcd",
       "value_role": "actual"
     }
   ],
@@ -49,7 +51,9 @@
       "entity_aggregation_role",
       "ghg_scope"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "ghg_scope": "scope_1"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-6_07",

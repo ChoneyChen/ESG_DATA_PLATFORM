@@ -1,6 +1,11 @@
 /** Public values are built from an explicit schema, never from internal row spreads. */
 import {scientificFieldKey} from '../../database/scripts/scientific-properties.mjs';
 const pick = (value, keys) => Object.fromEntries(keys.filter(k => value[k] !== undefined).map(k => [k, value[k]]));
+// Evidence roles name the printed object that carries a field. A context level
+// is coarser on purpose: callers need to know whether a value came from a cell,
+// a header, a row, a table, a footnote, the report identity, review, or nowhere.
+const EVIDENCE_LEVEL = {cell: 'cell', record: 'cell', column_header: 'header', row: 'row',
+  row_context: 'row', table: 'table', footnote: 'footnote'};
 export function publicMetric(metric) {
   return pick(metric, ['metric_id','source_datapoint_id','label_zh','topic','canonical_unit','value_type',
     'clause_kind','extension_id','related_source_datapoint_ids','parent_package_id','parent_package_version','allowed_value_origins',
@@ -35,6 +40,24 @@ export function publicObservation(row, metric, publishedAt) {
       evidence_role: evidence.evidence_role, raw_text: evidence.raw_text,
     })))]));
   result.source_fact_refs = [...new Set((row.sources || []).map(source => source.source_fact_ref).filter(Boolean))].sort();
+  // How each context field was obtained. A report that prints no period is not
+  // evidence of absence: the period is inherited from the report identity and
+  // must be readable as such, separately from a cell that prints it.
+  result.period_source = row.period_source ?? (row.sources || []).map(source => source.period_source).find(Boolean) ?? null;
+  const levels = {};
+  for (const [field, references] of Object.entries(result.identity_evidence)) {
+    const role = references.map(reference => reference.evidence_role).find(Boolean);
+    levels[field] = EVIDENCE_LEVEL[role] || 'source';
+  }
+  if (result.period_source === 'report_identity') {
+    levels.period_start ??= 'report_identity';
+    levels.period_end ??= 'report_identity';
+  }
+  levels.entity_kind ??= 'registry';
+  levels.value_role ??= 'clause';
+  if (!levels.measurement_method && row.measurement_method) levels.measurement_method = 'review';
+  if (!levels.reporting_boundary && row.boundary_code) levels.reporting_boundary = 'review';
+  result.context_sources = levels;
   // Publication time belongs to the frozen dataset version, not to the row's
   // import time, so list and detail views agree on the same observation.
   result.published_at = publishedAt || row.created_at;

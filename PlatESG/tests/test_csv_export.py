@@ -18,7 +18,8 @@ def test_csv_keeps_extension_and_original_identity_exact_decimal_and_fixed_versi
               'period_end': '2024-12-31', 'boundary_code': 'own_operations', 'measurement_method': None,
               'value_role': 'actual', 'canonical_unit': 'tCO2e', 'dimensions': {'scope_2_method': 'location_based'},
               'lower_bound': None, 'upper_bound': None, 'statement_text': '@fixture statement',
-              'comparison_eligibility': 'comparable', 'comparison_reasons': [], 'publication_status': 'published'}
+              'comparison_eligibility': 'comparable', 'comparison_reasons': [], 'publication_status': 'published',
+              'context_sources': {'period_start': 'report_identity', 'value_role': 'clause'}}
     extension = {**common, 'observation_id': 'fixture-derived', 'metric_id': 'project.scope1-scope2-total',
                  'source_datapoint_id': None, 'clause_kind': 'project_extension',
                  'extension_id': 'project.extension.scope1-scope2-total',
@@ -87,3 +88,6 @@ def test_csv_keeps_extension_and_original_identity_exact_decimal_and_fixed_versi
     evidence = client.get('/v1/exports', params={**params, 'table': 'evidence'})
     assert evidence.status_code == 200, evidence.text
     assert evidence.headers['content-disposition'] == f'attachment; filename="platesg-v{version}-evidence.csv"'
+    evidence_rows = list(csv.DictReader(io.StringIO(evidence.text.removeprefix('﻿'))))
+    assert {(row['field_key'], row['evidence_kind'], row['evidence_role']) for row in evidence_rows} == {
+        ('period_start', 'context', 'report_identity'), ('value_role', 'context', 'clause')}

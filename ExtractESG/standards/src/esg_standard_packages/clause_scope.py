@@ -263,8 +263,10 @@ def scope_match(scope: OutputScope, fact: dict[str, Any]) -> Literal["match", "c
         return "unknown"
     for key, value in scope.axes.items():
         observed = (fact.get("axes") or {}).get(key)
+        # A clause-fixed axis describes the clause, not a field the report must
+        # print. Silence is not a contradiction; a stated different value is.
         if observed in (None, ""):
-            return "unknown"
+            continue
         if observed != value:
             return "conflict"
     if scope.qualifier and scope.qualifier not in (fact.get("qualifier") or []):

@@ -9,12 +9,33 @@ import {Badge,Diagnostics,Field,Notice,ResourceState,Section} from '../component
 const relationLabels:Record<string,string>={decomposes:'总量与组成',uses_context:'使用背景',depends_on:'必要依赖',conditional_activation:'按条件激活',derived_from:'派生关系',presentation_of:'展示关系',alternative_to:'替代关系'};
 const lifecycleLabels:Record<string,string>={draft:'草稿',compiled:'未试提取',trialed:'试提取未通过',accepted:'已验收',publishable:'可发布',retired:'已退役'};
 
+/** Four ways to read the same catalogue; every view shows only the current version. */
+const VIEWS:[string,string][]=[['concept','业务概念'],['level','标准层级'],['maturity','成熟度'],['dependency','依赖关系']];
+const CONCEPTS:[string,string][]=[['E1','气候变化'],['E2','污染'],['E3','水资源与海洋'],['E4','生物多样性与生态系统'],['E5','资源利用与循环经济'],
+ ['S1','自有劳动力'],['S2','价值链中的工人'],['S3','受影响社区'],['S4','消费者与终端用户'],['G1','商业行为'],['GOV','治理'],
+ ['BP','基础包'],['IRO','影响、风险与机会'],['MDR','最低披露要求'],['SBM','战略与商业模式']];
+function conceptOf(requirement:string){const code=(requirement.match(/^[ES]\d/)?.[0]) || (requirement.match(/^(G1|GOV|BP|IRO|MDR|SBM)/)?.[0]) || 'OTHER';return CONCEPTS.find(([key])=>key===code)?.[1] || '其他';}
+function levelOf(requirement:string){if(/^E\d/.test(requirement))return '环境';if(/^S\d/.test(requirement))return '社会';if(/^(G1|GOV)/.test(requirement))return '治理';return '通用与交叉';}
+function groupPackages(packages:Row[],view:string,lifecycle:Map<string,Row>){
+ const groups=new Map<string,Row[]>();
+ for(const item of packages){
+  let key:string;
+  if(view==='concept')key=conceptOf(item.disclosure_requirement);
+  else if(view==='level')key=levelOf(item.disclosure_requirement);
+  else if(view==='maturity'){const row=lifecycle.get(item.package_id);const accepted=Number(row?.accepted_count||0),publishable=Number(row?.publishable_count||0);key=publishable?'可发布':accepted?'已验收 · 待业务批准':'仅编译 · 未验收';}
+  else key=Number(item.relation_count||0)>0?'有依赖关系':'无依赖关系';
+  const bucket=groups.get(key) || [];bucket.push(item);groups.set(key,bucket);
+ }
+ const order=(view==='concept'?CONCEPTS.map(([,name])=>name):view==='level'?['环境','社会','治理','通用与交叉']:view==='maturity'?['可发布','已验收 · 待业务批准','仅编译 · 未验收']:['有依赖关系','无依赖关系']);
+ return [...groups.entries()].sort((a,b)=>{const ia=order.indexOf(a[0]),ib=order.indexOf(b[0]);return (ia<0?99:ia)-(ib<0?99:ib) || a[0].localeCompare(b[0],'zh');});
+}
+
 /** Only the standard version the platform currently reads. Older releases stay readable through the API, not here. */
 export function Standards(){
  const catalog=useResource('document','/api/pipeline/standards/catalog');
  const profile=useResource('document','/api/pipeline/extraction-profiles/platform-major?topics=E1,E2,E3');
  const lifecycleView=useResource('document','/api/pipeline/clause-lifecycle');
- const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false);
+ const [selected,setSelected]=useState<Row>(),[query,setQuery]=useState(''),[editing,setEditing]=useState(false),[view,setView]=useState('concept');
  const detail=useResource('document',selected?`/api/pipeline/standards/${encodeURIComponent(selected.package_id)}/${encodeURIComponent(selected.package_version)}`:null);
  const packages:Row[]=catalog.data?.packages || [],major=new Set<string>(profile.data?.overall_source_datapoint_ids || []);
  const manifest=detail.data?.manifest;
@@ -29,14 +50,23 @@ export function Standards(){
  const lifecycleSummaries:Row[]=lifecycleView.data?.packages || [];
  const publishableTotal=lifecycleSummaries.reduce((sum,row)=>sum+Number(row.publishable_count || 0),0);
  const acceptedTotal=lifecycleSummaries.reduce((sum,row)=>sum+Number(row.accepted_count || 0),0);
+ const lifecycleByPackage=new Map<string,Row>(lifecycleSummaries.map(row=>[String(row.package_id),row]));
  const name=verifiedManifest?.standard?.disclosure_requirement || selected?.disclosure_requirement || selected?.package_id;
  return <>
   <div className="page-heading"><div><span className="eyebrow">标准体系</span><h1>标准中心</h1><p>一披露小号一包，完整保留原条款编号、语义关系、建设与验收状态。</p></div><div className="count">当前 {packages.length} 包 · 主要 {profile.data?.overall_source_datapoint_ids?.length ?? '…'} 项 · 已验收 {acceptedTotal} 条 · 可发布 {publishableTotal} 条</div></div>
   <Notice>结构校验、真实报告验收与业务批准分别记录。已编译草稿不自动等同于提取质量已验收。</Notice>
   <div className="standard-layout"><aside className="panel standard-index">
+   <div className="chips visible-switch" role="group" aria-label="标准目录视图">{VIEWS.map(([key,title])=><button type="button" key={key} className={view===key?'secondary selected':'ghost'} aria-pressed={view===key} onClick={()=>setView(key)}>{title}</button>)}</div>
    <Field label="查找标准包"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="E1-5 / MDR / 原编号"/></Field>
    <ResourceState error={catalog.error || profile.error} loading={catalog.loading&&!packages.length}/>
-   {packages.filter(p=>`${p.disclosure_requirement} ${(p.metric_summaries || []).map((m:Row)=>m.source_datapoint_id).join(' ')}`.toLowerCase().includes(query.toLowerCase())).map(p=><button className={`standard-item ${selected?.package_id===p.package_id?'selected':''}`} key={p.package_id} onClick={()=>setSelected(p)}><strong>{p.disclosure_requirement}</strong><small>{p.metric_count} 条 · v{p.package_version}</small><Badge value={p.status}/></button>)}
+   {groupPackages(packages.filter(p=>`${p.disclosure_requirement} ${(p.metric_summaries || []).map((m:Row)=>m.source_datapoint_id).join(' ')}`.toLowerCase().includes(query.toLowerCase())),view,lifecycleByPackage).map(([group,rows])=><section className="standard-group" key={group}>
+    <h3 className="standard-group-title">{group}<small>{rows.length}</small></h3>
+    {rows.map(p=><button className={`standard-item ${selected?.package_id===p.package_id?'selected':''}`} key={p.package_id} onClick={()=>setSelected(p)}>
+     <strong>{p.disclosure_requirement}</strong>
+     <small>{p.metric_count} 条 · v{p.package_version}{view==='dependency'&&Number(p.relation_count||0)>0?` · ${p.relation_count} 条关系`:''}</small>
+     <Badge value={p.status}/>
+    </button>)}
+   </section>)}
   </aside><div>{selected?<>
    <Section title={`${name} · v${selected.package_version}`} action={<Badge value={verifiedManifest?.status || selected.status}/>}>
     <dl className="facts"><dt>当前版本</dt><dd>{selected.package_id} @ {selected.package_version}</dd>

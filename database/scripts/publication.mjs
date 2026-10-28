@@ -365,6 +365,9 @@ async function reconcile(tx) {
         WHERE c.context_id=$1`,[source.row.context_id])).rows[0];
       snapshot.unit_conversion=source.value.unit_conversion || null;
       snapshot.identity_evidence=source.row.source_identity?.identity_evidence || {};
+      // Keep how the period was obtained: printed by the report, or inherited
+      // from the report's own identity. The public product shows the level.
+      snapshot.period_source=source.row.source_identity?.period_source || (source.row.period_start ? 'fact' : null);
       snapshot.source_fact_ref=source.row.source_fact_ref || null;
       delete snapshot.source_identity;
       await tx.query(`INSERT INTO esg.observation_sources(observation_id,context_id,disclosure_id,mapping_id,source_snapshot) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING`,
@@ -452,6 +455,7 @@ async function hydrateObservations(db, observations) {
     o.reported_dimensions=Object.fromEntries(Object.entries(merged).map(([key,values])=>[key,[...new Set(values)]]));
     const labels=[...new Set((o.sources || []).map(source=>source.raw_indicator_name).filter(Boolean))];
     o.source_row_label=labels.length===1?labels[0]:null;
+    o.period_source=(o.sources || []).map(source=>source.period_source).find(Boolean) || null;
   }
   return observations;
 }

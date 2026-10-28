@@ -1,7 +1,7 @@
 {
   "canonical_unit": "count",
   "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_02",
-  "contract_digest": "8e3449a10baf309ea2ba32fea28ea2bc514b597acade9de7b4fd66f7940a64f4",
+  "contract_digest": "ef179c28b4d190a4f4cfa7a136649baa3de7aab788c99246f99f705ce7d98e96",
   "description": "报告期内报告的歧视事件数量。",
   "disclosure_requirement": "S1-17",
   "disclosure_role": "anchor",
@@ -23,14 +23,18 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "counting_basis": "count",
+        "incident_definition": "discrimination",
+        "population": "employees"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · population=employees · incident_definition=discrimination · counting_basis=count",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-dc7d6eb2346030ac",
       "value_role": "actual"
     }
   ],
@@ -44,7 +48,11 @@
       "incident_definition",
       "counting_basis"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "counting_basis": "count",
+      "incident_definition": "discrimination",
+      "population": "employees"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "S1-17_02",

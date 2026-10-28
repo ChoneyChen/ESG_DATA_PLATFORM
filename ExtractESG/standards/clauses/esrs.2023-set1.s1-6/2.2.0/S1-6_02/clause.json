@@ -1,7 +1,7 @@
 {
-  "canonical_unit": "count",
+  "canonical_unit": "person",
   "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_02",
-  "contract_digest": "da6d4832c4c4b8b1a748621b653626ac991e715ee161eeb3324ec3dd233d23a5",
+  "contract_digest": "1f2c137a44262cdad179728c10d9dc8873307fe235ef9aeb834e72d92c4cbd5b",
   "description": "报告期末受雇于本主体的员工人头数。",
   "disclosure_requirement": "S1-6",
   "disclosure_role": "anchor",
@@ -23,14 +23,17 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "count_basis": "headcount",
+        "population": "employees"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · population=employees · count_basis=headcount",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-8b2a2e8fec3fcdf0",
       "value_role": "actual"
     }
   ],
@@ -44,7 +47,10 @@
       "count_basis",
       "statistical_time_basis"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "count_basis": "headcount",
+      "population": "employees"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "S1-6_02",

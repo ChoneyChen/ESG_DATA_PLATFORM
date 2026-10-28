@@ -1,7 +1,7 @@
 {
   "canonical_unit": "m3",
   "clause_id": "esrs.2023-set1.e3-4@2.1.1:E3-4_01",
-  "contract_digest": "ef9f1b0eedd54989ba162433b56530e804f1c4db6702bf66a5984261e2bc8765",
+  "contract_digest": "d44f232a65357ebbbac196065fa7721eaf8347cfe878e64125d4c56fb0c449c4",
   "description": "Total water consumption。耗水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
   "disclosure_requirement": "E3-4",
   "disclosure_role": "anchor",
@@ -19,14 +19,16 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "water_measure": "consumption"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · water_measure=consumption",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-789008eb645a3cce",
       "value_role": "actual"
     }
   ],
@@ -45,7 +47,9 @@
       "measurement_method",
       "aggregation_role"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "water_measure": "consumption"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E3-4_01",

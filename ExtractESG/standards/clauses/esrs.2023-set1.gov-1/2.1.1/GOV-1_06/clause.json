@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_06",
-  "contract_digest": "38dd07bf654e65ee9b254116f28b631e32eadc5487b8a7f78fcce5f4cbc2d2d1",
+  "contract_digest": "c44e61f9450f3ed917a3c5163d800e2e2d3eea41401f377f4432123c57fef58e",
   "description": "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
   "disclosure_requirement": "GOV-1",
   "disclosure_role": "anchor",
@@ -19,14 +19,17 @@
   "output_scopes": [
     {
       "aggregation": "share",
-      "axes": {},
+      "axes": {
+        "board_definition": "board_of_directors",
+        "gender": "female"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 占比 · gender=female · board_definition=board_of_directors",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-616c01af2f7bcf2f",
+      "scope_id": "scope-d4b397b9748f5181",
       "value_role": "actual"
     }
   ],
@@ -41,7 +44,10 @@
       "reporting_boundary",
       "sustainability_topic"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "board_definition": "board_of_directors",
+      "gender": "female"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "GOV-1_06",

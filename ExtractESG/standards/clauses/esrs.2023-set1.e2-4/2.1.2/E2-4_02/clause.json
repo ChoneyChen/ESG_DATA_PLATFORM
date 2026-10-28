@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tonne",
   "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_02",
-  "contract_digest": "8be5603ac34c49e02315fdb05cf630957d362f44b1e2f5d8d6c683a99b14dcbd",
+  "contract_digest": "fccb0f6d02096274d609ae0d92b279a3d50a3e4a58839da9fbbee2bc8df07d54",
   "description": "披露 E-PRTR 附件 II 所列污染物排入空气的量；排除按 ESRS E1 披露的温室气体。",
   "disclosure_requirement": "E2-4",
   "disclosure_role": "anchor",
@@ -24,14 +24,16 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "pollution_medium": "air"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · pollution_medium=air",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-06e0f4a4c0316f48",
       "value_role": "actual"
     }
   ],
@@ -47,7 +49,9 @@
       "pollution_medium",
       "pollutant"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "pollution_medium": "air"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E2-4_02",

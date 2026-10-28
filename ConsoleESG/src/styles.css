@@ -796,6 +796,11 @@ blockquote footer { font-size: 10.5px; color: #87997c; margin-top: 10px; display
 .standard-item:hover:not(:disabled) { background: #f6faf3; transform: none; box-shadow: none; }
 .standard-item small { width: 100%; font-size: 10px; }
 .standard-item.selected { background: #eaf4e6; border-color: #b9d0b2; color: #2d632f; }
+.visible-switch { margin-bottom: 10px; }
+.visible-switch button { font-size: 11px; padding: 4px 9px; }
+.standard-group { margin-top: 10px; }
+.standard-group-title { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 4px; font-size: 11px; letter-spacing: .04em; color: #6d7f6a; text-transform: none; }
+.standard-group-title small { font-weight: 400; font-size: 10px; color: #93a08f; }
 .relation-graph { max-height: 390px; overflow: auto; background: #fcfdfb; border: 1px solid #edf2e9; border-radius: var(--r-sm); }
 .relation-graph svg { width: 100%; min-width: 600px; }
 .batch-select { max-height: 290px; overflow: auto; }

@@ -50,6 +50,8 @@ export interface Observation {
   dimensions: Record<string, unknown>;
   reported_dimensions?: Record<string, string[]>;
   source_row_label?: string | null;
+  context_sources?: Record<string, string>;
+  period_source?: string | null;
   reported_properties?: ReportedProperty[];
   canonical_unit: string | null;
   value_numeric: string | null;

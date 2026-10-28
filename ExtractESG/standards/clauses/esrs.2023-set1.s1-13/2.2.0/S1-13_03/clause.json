@@ -1,7 +1,7 @@
 {
-  "canonical_unit": "count",
+  "canonical_unit": "hour/person",
   "clause_id": "esrs.2023-set1.s1-13@2.2.0:S1-13_03",
-  "contract_digest": "8eb715370ff3fe0c109c774e6e058ae2da706211b2a3940c55dc215a786bf0be",
+  "contract_digest": "bc732269baf4bf1d576cab611e5edf8a9f37a88bd48dda09ebafbe4654cc6995",
   "description": "报告期内员工按性别划分的人均培训小时数。",
   "disclosure_requirement": "S1-13",
   "disclosure_role": "anchor",
@@ -23,14 +23,18 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "denominator_scope": "per_employee",
+        "population": "employees",
+        "training_scope": "by_gender"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · population=employees · training_scope=by_gender · denominator_scope=per_employee",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-33f932b8d24ba15a",
       "value_role": "actual"
     }
   ],
@@ -45,7 +49,11 @@
       "training_scope",
       "denominator_scope"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "denominator_scope": "per_employee",
+      "population": "employees",
+      "training_scope": "by_gender"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "S1-13_03",

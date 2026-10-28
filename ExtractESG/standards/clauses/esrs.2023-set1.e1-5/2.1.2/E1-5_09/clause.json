@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_09",
-  "contract_digest": "eff636cf64087bad9480b42d7f9d9480c7e91859c8a9c6987392317fe09d3611",
+  "contract_digest": "ccdfc08cec088754a023c36aaae5b2ceb53390fb134fdd12cd796df522332761",
   "description": "可再生能源占能源消费总量的比例",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "detail",
@@ -23,14 +23,18 @@
   "output_scopes": [
     {
       "aggregation": "share",
-      "axes": {},
+      "axes": {
+        "denominator_scope": "total_energy_consumption_same_boundary",
+        "energy_flow": "consumption",
+        "energy_source": "renewable"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 占比 · energy_source=renewable · energy_flow=consumption · denominator_scope=total_energy_consumption_same_boundary",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-616c01af2f7bcf2f",
+      "scope_id": "scope-efa51fbe6bd37a8c",
       "value_role": "actual"
     }
   ],
@@ -46,7 +50,11 @@
       "energy_source",
       "energy_flow"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "denominator_scope": "total_energy_consumption_same_boundary",
+      "energy_flow": "consumption",
+      "energy_source": "renewable"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-5_09",

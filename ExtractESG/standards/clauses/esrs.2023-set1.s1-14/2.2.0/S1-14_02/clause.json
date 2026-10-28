@@ -1,7 +1,7 @@
 {
-  "canonical_unit": "count",
+  "canonical_unit": "person",
   "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_02",
-  "contract_digest": "ccfb8f225d488674b5f4f1b862d24ea37395f2a09fa28b5c87fa1e3a6ff3f2ba",
+  "contract_digest": "79f6b1f210bb747367b0886038590c75aad10c236c6dd96ac2999cd538dfa4d5",
   "description": "报告期内自有劳动力因工伤或职业病导致死亡的人数。",
   "disclosure_requirement": "S1-14",
   "disclosure_role": "anchor",
@@ -22,14 +22,17 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "fatality_cause_scope": "work_related",
+        "population": "employees"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · population=employees · fatality_cause_scope=work_related",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-94192496afdb83f2",
       "value_role": "actual"
     }
   ],
@@ -43,7 +46,10 @@
       "fatality_cause_scope",
       "aggregation_role"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "fatality_cause_scope": "work_related",
+      "population": "employees"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "S1-14_02",

@@ -1,7 +1,7 @@
 {
   "canonical_unit": "count",
   "clause_id": "esrs.2023-set1.g1-4@2.2.0:G1-4_04",
-  "contract_digest": "f0e9b1ccbadc2f2fd4461c3e23ea46105e1469d6765cb97e3cc04e8d955bba81",
+  "contract_digest": "50369603c028a9400711aa754d9f97835219edfe1440aee0a958aca342ff22a4",
   "description": "报告期内经确认的腐败或贿赂事件数量。",
   "disclosure_requirement": "G1-4",
   "disclosure_role": "anchor",
@@ -22,14 +22,17 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "counting_basis": "count",
+        "incident_definition": "confirmed_corruption"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · incident_definition=confirmed_corruption · counting_basis=count",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-36879df45eed6b93",
       "value_role": "actual"
     }
   ],
@@ -42,7 +45,10 @@
       "incident_definition",
       "counting_basis"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "counting_basis": "count",
+      "incident_definition": "confirmed_corruption"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "G1-4_04",

@@ -1,7 +1,7 @@
 {
   "canonical_unit": "ratio",
   "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_11",
-  "contract_digest": "2912574cee99ce3ba0c66118c6b41e3e3a8dda29b0eb57cfc4a8655b2185a9a6",
+  "contract_digest": "a93d5422c63c791d1f982d8b461bc6981dc01561cb7f18ebd3b3af9d2d7423e2",
   "description": "未回收废弃物占全部废弃物的比例。",
   "disclosure_requirement": "E5-5",
   "disclosure_role": "anchor",
@@ -22,14 +22,17 @@
   "output_scopes": [
     {
       "aggregation": "share",
-      "axes": {},
+      "axes": {
+        "denominator_scope": "total_waste_generated",
+        "waste_scope": "total"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 占比 · waste_scope=total · denominator_scope=total_waste_generated",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-616c01af2f7bcf2f",
+      "scope_id": "scope-bb8176fd9edd5f65",
       "value_role": "actual"
     }
   ],
@@ -42,7 +45,10 @@
       "waste_scope",
       "denominator_scope"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "denominator_scope": "total_waste_generated",
+      "waste_scope": "total"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E5-5_11",

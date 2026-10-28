@@ -375,5 +375,6 @@ test('a report keeps its printed classification beside the clause classification
     assert.deepEqual(published.reported_dimensions.energy_carrier,['风能']);
     assert.deepEqual(published.reported_dimensions.energy_source,['风能']);
     assert.ok(published.source_row_label);
+    assert.equal(published.period_source,'fact');
   }finally{await db.close();}
 });

@@ -54,8 +54,23 @@ def _dictionary_metric(dictionary: dict | None, source_datapoint_id: str) -> dic
                  if item.get("source_datapoint_id") == source_datapoint_id), {}) or {}
 
 
-def fixed_axes_for(dictionary: dict | None, source_datapoint_id: str) -> tuple[dict[str, str], str | None]:
+def load_clause_fixed_axes(standards_root: Path) -> dict[str, dict]:
+    """Fixed clause values declared next to the standard, not by the platform."""
+    path = Path(standards_root) / "profiles/esrs/2023-set1/clause-fixed-axes.json"
+    if not path.is_file():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {key: dict(value) for key, value in (payload.get("axes") or {}).items()}
+
+
+def fixed_axes_for(dictionary: dict | None, source_datapoint_id: str,
+                   clause_fixed_axes: dict[str, dict] | None = None) -> tuple[dict[str, str], str | None]:
     metric = _dictionary_metric(dictionary, source_datapoint_id)
+    declared = (clause_fixed_axes or {}).get(source_datapoint_id)
+    if declared is not None:
+        axes = {key: value for key, value in declared.items()
+                if value and value not in IGNORED_FIXED and key not in {"aggregation_role", "value_role"}}
+        return axes, metric.get("value_role")
     axes = {key: value for key, value in (metric.get("fixed_dimensions") or {}).items()
             if value and value not in IGNORED_FIXED and key not in {"aggregation_role", "value_role"}}
     return axes, metric.get("value_role")
@@ -107,8 +122,11 @@ def indexed_packages(standards_root: Path):
 
 
 def build_profiles(standards_root: Path, dictionary: dict | None,
-                   overrides: dict[tuple[str, str, str], dict] | None = None) -> list[dict]:
+                   overrides: dict[tuple[str, str, str], dict] | None = None,
+                   clause_fixed_axes: dict[str, dict] | None = None) -> list[dict]:
     terms = clause_retrieval_terms(standards_root)
+    if clause_fixed_axes is None:
+        clause_fixed_axes = load_clause_fixed_axes(standards_root)
     outputs = []
     for package in indexed_packages(standards_root):
         profiles, skipped = [], []
@@ -120,7 +138,7 @@ def build_profiles(standards_root: Path, dictionary: dict | None,
                                 "reason": "metric has no scientific contract"})
                 continue
             source_id = metric.source_datapoint_id
-            axes, role = fixed_axes_for(dictionary, source_id)
+            axes, role = fixed_axes_for(dictionary, source_id, clause_fixed_axes)
             value_type = ("statement" if role == "statement"
                           else "numeric" if metric.data_class == "quantitative" else "statement")
             positive = (terms.get(source_id) or {}).get("positive_terms") or []

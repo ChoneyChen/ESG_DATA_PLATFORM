@@ -1,7 +1,7 @@
 {
-  "canonical_unit": "tCO2e/currency",
+  "canonical_unit": "tCO2e-per-10k-cny",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_30",
-  "contract_digest": "6d53e55f0114f5c2b948c3e0e943bf77c05c054ca69254c34df93b04c424d078",
+  "contract_digest": "d503f1acba6a3e8b0c462b01c0b79a7dd00faf8b50eff94bcebc5cac97f16b3b",
   "description": "范围 1＋位置法范围 2 的温室气体排放总量除以净收入的强度；分子分母须同期间、同边界。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
@@ -23,14 +23,16 @@
   "output_scopes": [
     {
       "aggregation": "intensity",
-      "axes": {},
+      "axes": {
+        "intensity_numerator_scope": "scope_1_2_location_based"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 强度 · intensity_numerator_scope=scope_1_2_location_based",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-f42f168d9f2d8421",
       "value_role": "actual"
     }
   ],
@@ -44,7 +46,9 @@
       "intensity_denominator",
       "consolidation_approach"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "intensity_numerator_scope": "scope_1_2_location_based"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-6_30",

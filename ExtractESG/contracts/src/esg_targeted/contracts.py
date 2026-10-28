@@ -301,6 +301,8 @@ class CatalogStandardPackage(StrictModel):
     business_approval: str = "not_assessed"
     core_source_datapoint_ids: list[str] = Field(default_factory=list)
     metric_summaries: list[dict[str, object]] = Field(default_factory=list)
+    relation_count: int = 0
+    relation_types: list[str] = Field(default_factory=list)
 
 
 class SourceLocator(StrictModel):

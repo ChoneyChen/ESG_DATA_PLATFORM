@@ -150,6 +150,7 @@ export default function EvidenceDrawer({
                 </dl>
                 <Dimensions values={item.dimensions} />
                 <PrintedDimensions item={item} />
+                <ContextSources item={item} />
                 {!!item.comparison_reasons?.length && (
                   <p className="reason-box">
                     {item.comparison_reasons.map(reasonLabel).join("；")}
@@ -304,6 +305,44 @@ function PrintedDimensions({ item }: { item: Evidence }) {
       {printed.map(([key, values]) => (
         <span key={key}>
           {Object.hasOwn(dimensionLabels, key) ? dimensionLabels[key] : key}：{values.join("、")}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+const CONTEXT_FIELD_LABELS: Record<string, string> = {
+  period_start: "期间",
+  period_end: "期间",
+  entity_kind: "主体类型",
+  value_role: "值角色",
+  measurement_method: "计量方法",
+  reporting_boundary: "披露边界",
+};
+const CONTEXT_LEVEL_LABELS: Record<string, string> = {
+  cell: "单元格原文",
+  header: "表头",
+  row: "行标签",
+  table: "表格",
+  footnote: "脚注",
+  report_identity: "报告身份继承",
+  review: "审核确认",
+  registry: "主体登记",
+  clause: "条款固定",
+  not_stated: "未陈述",
+};
+/** Where each context field came from; inherited values never look printed. */
+function ContextSources({ item }: { item: Evidence }) {
+  const entries = Object.entries(item.context_sources || {}).filter(
+    ([, level]) => level && level !== "source",
+  );
+  if (!entries.length) return null;
+  return (
+    <div className="dimension-tags">
+      <span>口径来源：</span>
+      {entries.map(([field, level]) => (
+        <span key={field}>
+          {CONTEXT_FIELD_LABELS[field] || field}：{CONTEXT_LEVEL_LABELS[level] || level}
         </span>
       ))}
     </div>

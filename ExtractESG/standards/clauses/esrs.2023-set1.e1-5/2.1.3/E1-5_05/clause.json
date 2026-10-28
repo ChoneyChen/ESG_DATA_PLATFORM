@@ -1,7 +1,7 @@
 {
   "canonical_unit": "MWh",
   "clause_id": "esrs.2023-set1.e1-5@2.1.3:E1-5_05",
-  "contract_digest": "b690d4c139fe7c065bafae5fe2acb3f2c0727242d81991615edcdacec5b42b2c",
+  "contract_digest": "3234a688a2c315629130dae5223ea07ec727b86141bf9707d569e8e71c9710ad",
   "description": "企业自身运营消耗的可再生来源能源总量，包括可再生燃料及适用的外购、自发自用可再生能源；发电量不必然等于消费量。百分比、装机功率、能源强度、增长/减少量不是能源消费绝对总量。",
   "disclosure_requirement": "E1-5",
   "disclosure_role": "anchor",
@@ -24,14 +24,17 @@
   "output_scopes": [
     {
       "aggregation": "intensity",
-      "axes": {},
+      "axes": {
+        "energy_flow": "consumption",
+        "energy_source": "renewable"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 强度",
+      "label_zh": "年度 · 集团合并 · 强度 · energy_source=renewable · energy_flow=consumption",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-63ef76cd75e7057b",
+      "scope_id": "scope-beddbeb5b8234440",
       "value_role": "actual"
     }
   ],
@@ -48,7 +51,10 @@
       "energy_flow",
       "aggregation_role"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "energy_flow": "consumption",
+      "energy_source": "renewable"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-5_05",

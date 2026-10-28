@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_09",
-  "contract_digest": "3fc5445e809aac3e975cf1cc89925c3aef70f59fb576bcfebe87d3edd1e11aa0",
+  "contract_digest": "60cb9066ecb85f9dc8e60101ba729f8e65645c08d4f6c694cb3cd598cb27107d",
   "description": "基于位置法核算的范围2温室气体绝对排放量。位置法依据能源消费所在地电网的平均排放因子；方法可能写在表注、核算政策或另一页。‘间接排放/范围2’本身没有声明方法；未说明时方法未知，不能同时认作位置法和市场法。与另一方法数值相同只有在报告确实声明两种方法时才可分别归属。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
@@ -24,38 +24,47 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "ghg_scope": "scope_2",
+        "measurement_method": "location_based"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · ghg_scope=scope_2 · measurement_method=location_based",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-23434389ce0316d0",
       "value_role": "actual"
     },
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "ghg_scope": "scope_2",
+        "measurement_method": "location_based"
+      },
       "entity": "group",
       "label_zh": "位置法口径",
       "method": "location_based",
       "period": "annual",
       "qualifier": null,
       "required": false,
-      "scope_id": "scope-6f3b7df5c73c57a1",
+      "scope_id": "scope-d7811aa1d6d8f75f",
       "value_role": "actual"
     },
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "ghg_scope": "scope_2",
+        "measurement_method": "location_based"
+      },
       "entity": "group",
       "label_zh": "市场法口径",
       "method": "market_based",
       "period": "annual",
       "qualifier": null,
       "required": false,
-      "scope_id": "scope-00e50fe5ed68561d",
+      "scope_id": "scope-b30f1260066cb3c5",
       "value_role": "actual"
     }
   ],
@@ -72,7 +81,10 @@
       "ghg_scope",
       "scope_2_method"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "ghg_scope": "scope_2",
+      "measurement_method": "location_based"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-6_09",

@@ -553,13 +553,13 @@
       "clause_count": 22,
       "clauses": [
         {
-          "contract_digest": "befae8fe03e5f4af30fbcda15846f5c127cf2c0bf04de2af0ba541a672291721",
+          "contract_digest": "40c4310f9ff46bce286a0ae661b531c53651eb0e8bf0f2439974f43efd7dd14e",
           "metric_id": "esrs.2023-set1.e1-5.dp01",
           "path": "esrs.2023-set1.e1-5/2.1.2/E1-5_01",
           "source_datapoint_id": "E1-5_01"
         },
         {
-          "contract_digest": "33956d91de6951d10d5bd06ddcd494cec6f519513b6fd4d6a97f73f6624ec247",
+          "contract_digest": "ef6495f92579b63a8870e6aa0dae97397f428416fbe41eec26a3e2bdb4bfa0eb",
           "metric_id": "esrs.2023-set1.e1-5.dp02",
           "path": "esrs.2023-set1.e1-5/2.1.2/E1-5_02",
           "source_datapoint_id": "E1-5_02"
@@ -577,7 +577,7 @@
           "source_datapoint_id": "E1-5_04"
         },
         {
-          "contract_digest": "25ad96d73afd72a1fdd7a03f77f5ca2e77d9bffbd335eb685aca70dced023beb",
+          "contract_digest": "87a2e2ea01f647d69f9420702c1fe9e802b6c804b38eb50b09c08eea77558655",
           "metric_id": "esrs.2023-set1.e1-5.dp05",
           "path": "esrs.2023-set1.e1-5/2.1.2/E1-5_05",
           "source_datapoint_id": "E1-5_05"
@@ -601,7 +601,7 @@
           "source_datapoint_id": "E1-5_08"
         },
         {
-          "contract_digest": "eff636cf64087bad9480b42d7f9d9480c7e91859c8a9c6987392317fe09d3611",
+          "contract_digest": "ccdfc08cec088754a023c36aaae5b2ceb53390fb134fdd12cd796df522332761",
           "metric_id": "esrs.2023-set1.e1-5.dp09",
           "path": "esrs.2023-set1.e1-5/2.1.2/E1-5_09",
           "source_datapoint_id": "E1-5_09"
@@ -700,13 +700,13 @@
       "clause_count": 22,
       "clauses": [
         {
-          "contract_digest": "abf709d52358ca8dc9668ca5917a12f6d2bcefdf0d2d8c00803773c3c15f297d",
+          "contract_digest": "ee24c55a340005c7781538e5d13f62651df89f0e01811f12e663c61a773ce67d",
           "metric_id": "esrs.2023-set1.e1-5.dp01",
           "path": "esrs.2023-set1.e1-5/2.1.3/E1-5_01",
           "source_datapoint_id": "E1-5_01"
         },
         {
-          "contract_digest": "da1691c91abb189fcc1b44d064fdbd8a2544c6eeaf6c26a13dd94ed0128c944c",
+          "contract_digest": "90ff9e032ff88be3337932110b15a202512ca81ef97834992be07cc8d9304ef5",
           "metric_id": "esrs.2023-set1.e1-5.dp02",
           "path": "esrs.2023-set1.e1-5/2.1.3/E1-5_02",
           "source_datapoint_id": "E1-5_02"
@@ -724,7 +724,7 @@
           "source_datapoint_id": "E1-5_04"
         },
         {
-          "contract_digest": "b690d4c139fe7c065bafae5fe2acb3f2c0727242d81991615edcdacec5b42b2c",
+          "contract_digest": "3234a688a2c315629130dae5223ea07ec727b86141bf9707d569e8e71c9710ad",
           "metric_id": "esrs.2023-set1.e1-5.dp05",
           "path": "esrs.2023-set1.e1-5/2.1.3/E1-5_05",
           "source_datapoint_id": "E1-5_05"
@@ -748,7 +748,7 @@
           "source_datapoint_id": "E1-5_08"
         },
         {
-          "contract_digest": "18b831757843f658029f8fcf8e62d48a3a0ba723c9db2bf193ab4081c03833e8",
+          "contract_digest": "f5b47f818ac7c7acc76444dc49ea089d3155734181c423af85e1111262185292",
           "metric_id": "esrs.2023-set1.e1-5.dp09",
           "path": "esrs.2023-set1.e1-5/2.1.3/E1-5_09",
           "source_datapoint_id": "E1-5_09"
@@ -883,7 +883,7 @@
           "source_datapoint_id": "E1-6_06"
         },
         {
-          "contract_digest": "20afa6afe08ec0d2fc39b2fc3fbccbe6237ba2adf25bf670fdf6f069b054a18d",
+          "contract_digest": "3234ae298155d60a5274b724ed1b8a58c9eb11671fe6d132f9b5d8f5f66d39a5",
           "metric_id": "esrs.2023-set1.e1-6.dp07",
           "path": "esrs.2023-set1.e1-6/2.2.0/E1-6_07",
           "source_datapoint_id": "E1-6_07"
@@ -895,25 +895,25 @@
           "source_datapoint_id": "E1-6_08"
         },
         {
-          "contract_digest": "3fc5445e809aac3e975cf1cc89925c3aef70f59fb576bcfebe87d3edd1e11aa0",
+          "contract_digest": "60cb9066ecb85f9dc8e60101ba729f8e65645c08d4f6c694cb3cd598cb27107d",
           "metric_id": "esrs.2023-set1.e1-6.dp09",
           "path": "esrs.2023-set1.e1-6/2.2.0/E1-6_09",
           "source_datapoint_id": "E1-6_09"
         },
         {
-          "contract_digest": "e1cb3da60171a4fd8f4da192b50d72b7cc5a43349fc745fef1b9f330072346ae",
+          "contract_digest": "a605aac306d0ee1bc46efb4e815e24429e6fbf4cf5ee2a1fe7cba77e33ab203f",
           "metric_id": "esrs.2023-set1.e1-6.dp10",
           "path": "esrs.2023-set1.e1-6/2.2.0/E1-6_10",
           "source_datapoint_id": "E1-6_10"
         },
         {
-          "contract_digest": "59ee0361e6abdb90856357c39a7de471a1f5750c60626227de77bb0b00f27c44",
+          "contract_digest": "96860cc32dfdcebd9cc9f8cf5954a90dd2600459eaddcc97006b2bf26b22fb57",
           "metric_id": "esrs.2023-set1.e1-6.dp11",
           "path": "esrs.2023-set1.e1-6/2.2.0/E1-6_11",
           "source_datapoint_id": "E1-6_11"
         },
         {
-          "contract_digest": "da096b1bd09fb6ae7d1a1028257b7a469d1e72bf9b19049dc8740e03249994f9",
+          "contract_digest": "fbf72b016fdea811b4e331abba8682ad7015b76118b4a4effd8b897818e604bb",
           "metric_id": "esrs.2023-set1.e1-6.dp12",
           "path": "esrs.2023-set1.e1-6/2.2.0/E1-6_12",
           "source_datapoint_id": "E1-6_12"
@@ -1021,7 +1021,7 @@
           "source_datapoint_id": "E1-6_29"
         },
         {
-          "contract_digest": "6d53e55f0114f5c2b948c3e0e943bf77c05c054ca69254c34df93b04c424d078",
+          "contract_digest": "d503f1acba6a3e8b0c462b01c0b79a7dd00faf8b50eff94bcebc5cac97f16b3b",
           "metric_id": "esrs.2023-set1.e1-6.dp30",
           "path": "esrs.2023-set1.e1-6/2.2.0/E1-6_30",
           "source_datapoint_id": "E1-6_30"
@@ -1891,13 +1891,13 @@
           "source_datapoint_id": "E2-4_01"
         },
         {
-          "contract_digest": "8be5603ac34c49e02315fdb05cf630957d362f44b1e2f5d8d6c683a99b14dcbd",
+          "contract_digest": "fccb0f6d02096274d609ae0d92b279a3d50a3e4a58839da9fbbee2bc8df07d54",
           "metric_id": "esrs.2023-set1.e2-4.dp02",
           "path": "esrs.2023-set1.e2-4/2.1.2/E2-4_02",
           "source_datapoint_id": "E2-4_02"
         },
         {
-          "contract_digest": "774a0a31f1f872dfc530ffd7476743601a76729a4bf9373ebf2bb9cce135ec33",
+          "contract_digest": "d43f8cb168c210899c60d45e84171540f6a74a33a3c1009f916d066f6eb550a8",
           "metric_id": "esrs.2023-set1.e2-4.dp03",
           "path": "esrs.2023-set1.e2-4/2.1.2/E2-4_03",
           "source_datapoint_id": "E2-4_03"
@@ -2020,7 +2020,7 @@
           "source_datapoint_id": "E2-5_01"
         },
         {
-          "contract_digest": "76ca4f84264abbb641c3da4c30a2274ed581ea6f071866ba99c561670685015d",
+          "contract_digest": "653d50a454d992f2edf314f92a73ab8ae84e9bd9080e9bcb78423e0ada5755a5",
           "metric_id": "esrs.2023-set1.e2-5.dp02",
           "path": "esrs.2023-set1.e2-5/2.1.1/E2-5_02",
           "source_datapoint_id": "E2-5_02"
@@ -2380,19 +2380,19 @@
       "clause_count": 12,
       "clauses": [
         {
-          "contract_digest": "ef9f1b0eedd54989ba162433b56530e804f1c4db6702bf66a5984261e2bc8765",
+          "contract_digest": "d44f232a65357ebbbac196065fa7721eaf8347cfe878e64125d4c56fb0c449c4",
           "metric_id": "esrs.2023-set1.e3-4.dp01",
           "path": "esrs.2023-set1.e3-4/2.1.1/E3-4_01",
           "source_datapoint_id": "E3-4_01"
         },
         {
-          "contract_digest": "2dc069aaf7befb04b82f4601afa47738ca752c62f4888bffdbb42735662e8b8a",
+          "contract_digest": "2b28bd5f30afd685e5352e58080d2ebe24ee31938f35d47624133ef00d40ad66",
           "metric_id": "esrs.2023-set1.e3-4.dp02",
           "path": "esrs.2023-set1.e3-4/2.1.1/E3-4_02",
           "source_datapoint_id": "E3-4_02"
         },
         {
-          "contract_digest": "75da1c11a3b5bf8108dcbf6c3a2eb7399e3b3d31d02f43a0dfebcffc935382d0",
+          "contract_digest": "3f1806c6c0c5bd40d31096ae86726b3fad9fc05df401c29573a37a5db6ab1efd",
           "metric_id": "esrs.2023-set1.e3-4.dp03",
           "path": "esrs.2023-set1.e3-4/2.1.1/E3-4_03",
           "source_datapoint_id": "E3-4_03"
@@ -2440,13 +2440,13 @@
           "source_datapoint_id": "E3-4_10"
         },
         {
-          "contract_digest": "185d45ab521813ef096fa01bc517b93e19435e040e7a31b78d230a4dee9803b2",
+          "contract_digest": "3757b878f519cca45178025aca8e758ae7deca515da31e08c036ac8743995115",
           "metric_id": "esrs.2023-set1.e3-4.dp11",
           "path": "esrs.2023-set1.e3-4/2.1.1/E3-4_11",
           "source_datapoint_id": "E3-4_11"
         },
         {
-          "contract_digest": "b12117461b55ab6c27e70017c4f7908659204e9819b9cf573dc76382025b8c6d",
+          "contract_digest": "3c1bf75e7c6df8a56f658c093c486b045876a2111e541f9b63cd41cf046f194f",
           "metric_id": "esrs.2023-set1.e3-4.dp12",
           "path": "esrs.2023-set1.e3-4/2.1.1/E3-4_12",
           "source_datapoint_id": "E3-4_12"
@@ -2953,7 +2953,7 @@
           "source_datapoint_id": "E4-5_01"
         },
         {
-          "contract_digest": "fb22febd309545c54dddf411ba2386e4d07b27927c33d6bd202e0537629f8c96",
+          "contract_digest": "2cb9fdbca866e6aba345635cf95d818924a7482d1120197896342d6d24edbd25",
           "metric_id": "esrs.2023-set1.e4-5.dp02",
           "path": "esrs.2023-set1.e4-5/2.3.0/E4-5_02",
           "source_datapoint_id": "E4-5_02"
@@ -3526,7 +3526,7 @@
           "source_datapoint_id": "E5-4_04"
         },
         {
-          "contract_digest": "038a77da62e14f3e1daf0ba3d78cb0aebedbebb0611865501cb6f54061544926",
+          "contract_digest": "57624414c5537baf320df28dbc0550c4325f98f3bafe1e91b750f6d035e2820a",
           "metric_id": "esrs.2023-set1.e5-4.dp05",
           "path": "esrs.2023-set1.e5-4/2.2.0/E5-4_05",
           "source_datapoint_id": "E5-4_05"
@@ -3595,7 +3595,7 @@
           "source_datapoint_id": "E5-5_06"
         },
         {
-          "contract_digest": "47b0ce6e897d431f39bbc471f3b1965ff32d1902cdda75d75c6e0f05f3a1276d",
+          "contract_digest": "ea8d3d6cab5206ac4d638fc678d610bdc5310940f5d5d3ecc1566860b68b9bf5",
           "metric_id": "esrs.2023-set1.e5-5.dp07",
           "path": "esrs.2023-set1.e5-5/2.2.0/E5-5_07",
           "source_datapoint_id": "E5-5_07"
@@ -3619,7 +3619,7 @@
           "source_datapoint_id": "E5-5_10"
         },
         {
-          "contract_digest": "2912574cee99ce3ba0c66118c6b41e3e3a8dda29b0eb57cfc4a8655b2185a9a6",
+          "contract_digest": "a93d5422c63c791d1f982d8b461bc6981dc01561cb7f18ebd3b3af9d2d7423e2",
           "metric_id": "esrs.2023-set1.e5-5.dp11",
           "path": "esrs.2023-set1.e5-5/2.2.0/E5-5_11",
           "source_datapoint_id": "E5-5_11"
@@ -3643,7 +3643,7 @@
           "source_datapoint_id": "E5-5_14"
         },
         {
-          "contract_digest": "bed9cd01844649382ff068fb3b86eafe162b47d907999be26969aaa7ca9a487f",
+          "contract_digest": "a5054301906304fdbf2543d2dfc52784913ce8679bd189f119d9d7797ccaee2d",
           "metric_id": "esrs.2023-set1.e5-5.dp15",
           "path": "esrs.2023-set1.e5-5/2.2.0/E5-5_15",
           "source_datapoint_id": "E5-5_15"
@@ -3931,7 +3931,7 @@
           "source_datapoint_id": "G1-4_03"
         },
         {
-          "contract_digest": "f0e9b1ccbadc2f2fd4461c3e23ea46105e1469d6765cb97e3cc04e8d955bba81",
+          "contract_digest": "50369603c028a9400711aa754d9f97835219edfe1440aee0a958aca342ff22a4",
           "metric_id": "esrs.2023-set1.g1-4.dp04",
           "path": "esrs.2023-set1.g1-4/2.2.0/G1-4_04",
           "source_datapoint_id": "G1-4_04"
@@ -4051,7 +4051,7 @@
       "clause_count": 5,
       "clauses": [
         {
-          "contract_digest": "87a1980abc973125fd9c1e84b47da4275900e7cb457e1c91dfcb731d0ac033ef",
+          "contract_digest": "f0984bf3ae0c7d4adc1d8d66add97ef87c5a9868640d26f7cfe17c197d15aaf4",
           "metric_id": "esrs.2023-set1.g1-6.dp01",
           "path": "esrs.2023-set1.g1-6/2.2.0/G1-6_01",
           "source_datapoint_id": "G1-6_01"
@@ -4141,7 +4141,7 @@
           "source_datapoint_id": "GOV-1_05"
         },
         {
-          "contract_digest": "38dd07bf654e65ee9b254116f28b631e32eadc5487b8a7f78fcce5f4cbc2d2d1",
+          "contract_digest": "c44e61f9450f3ed917a3c5163d800e2e2d3eea41401f377f4432123c57fef58e",
           "metric_id": "esrs.2023-set1.gov-1.dp06",
           "path": "esrs.2023-set1.gov-1/2.1.1/GOV-1_06",
           "source_datapoint_id": "GOV-1_06"
@@ -5128,13 +5128,13 @@
           "source_datapoint_id": "S1-13_02"
         },
         {
-          "contract_digest": "8eb715370ff3fe0c109c774e6e058ae2da706211b2a3940c55dc215a786bf0be",
+          "contract_digest": "bc732269baf4bf1d576cab611e5edf8a9f37a88bd48dda09ebafbe4654cc6995",
           "metric_id": "esrs.2023-set1.s1-13.dp03",
           "path": "esrs.2023-set1.s1-13/2.2.0/S1-13_03",
           "source_datapoint_id": "S1-13_03"
         },
         {
-          "contract_digest": "f0ef0484927310b77c0bcd95080ff65a9d53974837c1972ac8219bcd4559d870",
+          "contract_digest": "b232e50e6099577a7251eb4796cf157d9eaa7f7077799811d3952299fd723212",
           "metric_id": "esrs.2023-set1.s1-13.dp04",
           "path": "esrs.2023-set1.s1-13/2.2.0/S1-13_04",
           "source_datapoint_id": "S1-13_04"
@@ -5173,7 +5173,7 @@
           "source_datapoint_id": "S1-14_01"
         },
         {
-          "contract_digest": "ccfb8f225d488674b5f4f1b862d24ea37395f2a09fa28b5c87fa1e3a6ff3f2ba",
+          "contract_digest": "79f6b1f210bb747367b0886038590c75aad10c236c6dd96ac2999cd538dfa4d5",
           "metric_id": "esrs.2023-set1.s1-14.dp02",
           "path": "esrs.2023-set1.s1-14/2.2.0/S1-14_02",
           "source_datapoint_id": "S1-14_02"
@@ -5191,7 +5191,7 @@
           "source_datapoint_id": "S1-14_04"
         },
         {
-          "contract_digest": "a19749893eecab45c148a1d1a205e2ca7d919e027a6726088e2dade7f89efdaf",
+          "contract_digest": "7fdeec5e2b0a6cd1e057dd30630918eeebfd069f1bab821d7295b98c7554668e",
           "metric_id": "esrs.2023-set1.s1-14.dp05",
           "path": "esrs.2023-set1.s1-14/2.2.0/S1-14_05",
           "source_datapoint_id": "S1-14_05"
@@ -5338,7 +5338,7 @@
           "source_datapoint_id": "S1-17_01"
         },
         {
-          "contract_digest": "8e3449a10baf309ea2ba32fea28ea2bc514b597acade9de7b4fd66f7940a64f4",
+          "contract_digest": "ef179c28b4d190a4f4cfa7a136649baa3de7aab788c99246f99f705ce7d98e96",
           "metric_id": "esrs.2023-set1.s1-17.dp02",
           "path": "esrs.2023-set1.s1-17/2.2.0/S1-17_02",
           "source_datapoint_id": "S1-17_02"
@@ -5779,7 +5779,7 @@
           "source_datapoint_id": "S1-6_01"
         },
         {
-          "contract_digest": "da6d4832c4c4b8b1a748621b653626ac991e715ee161eeb3324ec3dd233d23a5",
+          "contract_digest": "1f2c137a44262cdad179728c10d9dc8873307fe235ef9aeb834e72d92c4cbd5b",
           "metric_id": "esrs.2023-set1.s1-6.dp02",
           "path": "esrs.2023-set1.s1-6/2.2.0/S1-6_02",
           "source_datapoint_id": "S1-6_02"
@@ -6034,7 +6034,7 @@
           "source_datapoint_id": "S1-9_01"
         },
         {
-          "contract_digest": "f1873d507d29f947d4cff88b3085447e4340114c0fec98bab454806aae7c12c4",
+          "contract_digest": "0830c2dcb7cc5419160ebd7559181163cd888617450f9ce568a96d5f4e094aea",
           "metric_id": "esrs.2023-set1.s1-9.dp02",
           "path": "esrs.2023-set1.s1-9/2.2.0/S1-9_02",
           "source_datapoint_id": "S1-9_02"
@@ -7228,7 +7228,7 @@
           "source_datapoint_id": "S4-3_12"
         },
         {
-          "contract_digest": "e9e0aab0efeba41878cf2fcd54a5ba2942a86957cbd660e8840d5820ac8b5920",
+          "contract_digest": "8ce14c96856e5ac9445118c82506299afdfd3dad14335ee18b0f31d9b37e7dcc",
           "metric_id": "esrs.2023-set1.s4-3.dp13",
           "path": "esrs.2023-set1.s4-3/2.3.0/S4-3_13",
           "source_datapoint_id": "S4-3_13"

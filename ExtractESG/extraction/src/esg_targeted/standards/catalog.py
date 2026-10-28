@@ -201,4 +201,6 @@ class StandardPackageCatalog:
             metric_summaries=[{key: metric.model_dump(mode="json").get(key)
                 for key in ("metric_id", "source_datapoint_id", "labels", "disclosure_role", "disclosure_topic", "obligation_class", "paragraph")}
                 for metric in package.metrics],
+            relation_count=len(package.relations),
+            relation_types=sorted({relation.relation_type for relation in package.relations}),
         )

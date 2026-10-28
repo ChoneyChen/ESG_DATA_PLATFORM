@@ -62,7 +62,8 @@ def split_profile(entry: dict, *, package_id: str, version: str, source_digest: 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--standards-root", default=str(ROOT))
-    parser.add_argument("--dictionary", default=str(ROOT.parent / "PlatESG/catalog/metric-dictionary.v1.json"))
+    parser.add_argument("--dictionary",
+                        default=str(ROOT.parents[1] / "PlatESG/catalog/metric-dictionary.v1.json"))
     parser.add_argument("--out", default=str(ROOT / "clauses"))
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--include-drafts", action="store_true",

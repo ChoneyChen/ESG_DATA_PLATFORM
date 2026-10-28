@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_12",
-  "contract_digest": "da096b1bd09fb6ae7d1a1028257b7a469d1e72bf9b19049dc8740e03249994f9",
+  "contract_digest": "fbf72b016fdea811b4e331abba8682ad7015b76118b4a4effd8b897818e604bb",
   "description": "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量（吨二氧化碳当量）。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
@@ -25,14 +25,16 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "ghg_scope": "total"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · ghg_scope=total",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-241586db0ff3d12b",
       "value_role": "actual"
     }
   ],
@@ -46,7 +48,9 @@
       "aggregation_role",
       "consolidation_approach"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "ghg_scope": "total"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-6_12",

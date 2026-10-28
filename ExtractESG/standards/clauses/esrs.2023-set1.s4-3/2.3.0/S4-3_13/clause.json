@@ -1,7 +1,7 @@
 {
   "canonical_unit": "count",
   "clause_id": "esrs.2023-set1.s4-3@2.3.0:S4-3_13",
-  "contract_digest": "e9e0aab0efeba41878cf2fcd54a5ba2942a86957cbd660e8840d5820ac8b5920",
+  "contract_digest": "8ce14c96856e5ac9445118c82506299afdfd3dad14335ee18b0f31d9b37e7dcc",
   "description": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
   "disclosure_requirement": "S4-3",
   "disclosure_role": "anchor",
@@ -19,14 +19,17 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "complaint_definition": "complaint",
+        "consumer_population": "consumers"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · consumer_population=consumers · complaint_definition=complaint",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-7a9f6b7f50379401",
       "value_role": "actual"
     }
   ],
@@ -40,7 +43,10 @@
       "reporting_period",
       "reporting_boundary"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "complaint_definition": "complaint",
+      "consumer_population": "consumers"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "S4-3_13",

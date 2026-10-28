@@ -1,7 +1,7 @@
 {
-  "canonical_unit": "count",
+  "canonical_unit": "hour/person",
   "clause_id": "esrs.2023-set1.s1-13@2.2.0:S1-13_04",
-  "contract_digest": "f0ef0484927310b77c0bcd95080ff65a9d53974837c1972ac8219bcd4559d870",
+  "contract_digest": "b232e50e6099577a7251eb4796cf157d9eaa7f7077799811d3952299fd723212",
   "description": "报告期内员工人均接受培训的小时数。",
   "disclosure_requirement": "S1-13",
   "disclosure_role": "anchor",
@@ -23,14 +23,18 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "denominator_scope": "per_employee",
+        "population": "employees",
+        "training_scope": "all_employees"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · population=employees · training_scope=all_employees · denominator_scope=per_employee",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-0c45c5de275c9970",
       "value_role": "actual"
     }
   ],
@@ -44,7 +48,11 @@
       "training_scope",
       "denominator_scope"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "denominator_scope": "per_employee",
+      "population": "employees",
+      "training_scope": "all_employees"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "S1-13_04",

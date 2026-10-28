@@ -1,7 +1,7 @@
 {
   "canonical_unit": "m3",
   "clause_id": "esrs.2023-set1.e3-4@2.1.1:E3-4_03",
-  "contract_digest": "75da1c11a3b5bf8108dcbf6c3a2eb7399e3b3d31d02f43a0dfebcffc935382d0",
+  "contract_digest": "3f1806c6c0c5bd40d31096ae86726b3fad9fc05df401c29573a37a5db6ab1efd",
   "description": "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
   "disclosure_requirement": "E3-4",
   "disclosure_role": "anchor",
@@ -19,14 +19,16 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "water_measure": "recycled_reused"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · water_measure=recycled_reused",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-576919044b5c4366",
       "value_role": "actual"
     }
   ],
@@ -45,7 +47,9 @@
       "measurement_method",
       "aggregation_role"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "water_measure": "recycled_reused"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E3-4_03",

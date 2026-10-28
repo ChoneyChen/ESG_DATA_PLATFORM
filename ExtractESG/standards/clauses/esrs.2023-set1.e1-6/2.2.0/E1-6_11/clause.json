@@ -1,7 +1,7 @@
 {
   "canonical_unit": "tCO2e",
   "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_11",
-  "contract_digest": "59ee0361e6abdb90856357c39a7de471a1f5750c60626227de77bb0b00f27c44",
+  "contract_digest": "96860cc32dfdcebd9cc9f8cf5954a90dd2600459eaddcc97006b2bf26b22fb57",
   "description": "范围3温室气体绝对排放总量及重大类别分解。保留总量、小计和类别各自的源行身份，不能把合计当类别，也不能将总量与成员重复相加。各期间和实体分别成事实。",
   "disclosure_requirement": "E1-6",
   "disclosure_role": "anchor",
@@ -23,14 +23,17 @@
   "output_scopes": [
     {
       "aggregation": "total",
-      "axes": {},
+      "axes": {
+        "ghg_scope": "scope_3",
+        "scope3_category": "total"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "label_zh": "年度 · 集团合并 · 总量 · ghg_scope=scope_3 · scope3_category=total",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
+      "scope_id": "scope-c251aeaa6fa557a5",
       "value_role": "actual"
     }
   ],
@@ -47,7 +50,10 @@
       "ghg_scope",
       "scope3_category"
     ],
-    "fixed_axes": {}
+    "fixed_axes": {
+      "ghg_scope": "scope_3",
+      "scope3_category": "total"
+    }
   },
   "schema_version": "clause-extraction-profile-1.0",
   "source_datapoint_id": "E1-6_11",
