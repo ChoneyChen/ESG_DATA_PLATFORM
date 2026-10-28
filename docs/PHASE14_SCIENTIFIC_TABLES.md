@@ -23,6 +23,10 @@
 公开站观测详情显示「报告行名」与「报告原印分类」，只列出与条款口径不同的轴；
 比较、筛选仍只用 `dimensions`，报告原词是证据而不是新契约。
 
+旧接口视图 `esg_api.v_disclosure_dimensions` 保持 `COALESCE(canonical_value, raw_value)` 不变，
+以免冻结行改变比较身份；迁移 0018 另加 `esg_api.v_reported_disclosure_dimensions`，
+按披露给出未经改写的原印值，供旧接口消费者按需联接。
+
 ## 2. 导出改为科学表，不再把 JSON 塞进单元格
 
 `/v1/exports` 新增 `table` 参数：

@@ -367,6 +367,9 @@ test('a report keeps its printed classification beside the clause classification
       VALUES(gen_random_uuid(),$1,'energy_carrier',1,'风能',NULL),(gen_random_uuid(),$1,'energy_source',1,'风能','renewable')`,[item.disclosure_id]);
     await saveMeasurementContext(db,context(item));
     await approve(db,item);await processOutbox(db);
+    const view=(await db.query('SELECT reported_dimensions FROM esg_api.v_reported_disclosure_dimensions WHERE disclosure_id=$1',[item.disclosure_id])).rows[0];
+    assert.deepEqual(view.reported_dimensions.energy_carrier,['风能']);
+    assert.deepEqual(view.reported_dimensions.energy_source,['风能']);
     const published=(await readDataset(db)).observations[0];
     assert.equal(published.dimensions.entity_kind,'group');
     assert.deepEqual(published.reported_dimensions.energy_carrier,['风能']);
