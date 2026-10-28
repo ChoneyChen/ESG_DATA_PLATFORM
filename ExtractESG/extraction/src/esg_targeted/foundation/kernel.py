@@ -152,7 +152,8 @@ def _has_method_scope(task: TableTask) -> bool:
     return any(g in task.groups for g in ("air", "water_pollutants", "pollution_method"))
 
 
-def build_request(task: TableTask, reporting_year: int | None) -> tuple[str, str, dict, int]:
+def build_request(task: TableTask, reporting_year: int | None,
+                  decided_col: int | None = None) -> tuple[str, str, dict, int]:
     view = task.view
     year_text = str(reporting_year) if reporting_year else "the latest actual period shown"
     method = _has_method_scope(task)
@@ -179,6 +180,9 @@ def build_request(task: TableTask, reporting_year: int | None) -> tuple[str, str
     ]
     if method:
         rules.append("6. method_notes: NOTE ids that state how pollutant emission amounts are measured, monitored or estimated ([] if none).")
+    if decided_col is not None:
+        rules.insert(3, f"The value column is already decided for this table: c{decided_col}. "
+                        "Do not choose another column; map rows only.")
     rules.append("If no row matches, items is []. Output only the JSON object.")
     instructions = "\n".join(rules)
     context = render_table(view, task.lines)
@@ -736,13 +740,13 @@ def request_digest(instructions: str, context: str, schema: dict) -> str:
     return hashlib.sha256(text.encode()).hexdigest()[:16]
 
 
-def task_digest(task: TableTask, reporting_year: int | None) -> str:
-    instructions, context, schema, _ = build_request(task, reporting_year)
+def task_digest(task: TableTask, reporting_year: int | None, decided_col: int | None = None) -> str:
+    instructions, context, schema, _ = build_request(task, reporting_year, decided_col)
     return request_digest(instructions, context, schema)
 
 
-def run_task(model, task: TableTask, reporting_year: int | None) -> dict:
-    instructions, context, schema, max_tokens = build_request(task, reporting_year)
+def run_task(model, task: TableTask, reporting_year: int | None, decided_col: int | None = None) -> dict:
+    instructions, context, schema, max_tokens = build_request(task, reporting_year, decided_col)
     started = time.perf_counter()
     record = {"task_id": task.task_id, "table_id": task.view.table_id, "page_number": task.view.page_number,
               "groups": task.groups, "codes": task.codes, "lines": len(task.lines), "context_chars": len(context),
@@ -769,6 +773,10 @@ def run_task(model, task: TableTask, reporting_year: int | None) -> dict:
     except (json.JSONDecodeError, ValueError, TypeError) as exc:
         record.update(status="invalid_json", error=str(exc))
         return record
+    if decided_col is not None and isinstance(payload, dict):
+        # The column is the table's own arithmetic, not a semantic judgement.
+        payload["current_col"] = f"c{decided_col}"
+        record["column_decided_by"] = "structure"
     observations, extras = bind(task, payload, reporting_year)
     record.update(status="ok", payload=payload, observations=[o.to_dict() for o in observations], **extras)
     return record

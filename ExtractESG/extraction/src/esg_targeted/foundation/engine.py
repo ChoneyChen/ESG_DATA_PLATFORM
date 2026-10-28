@@ -9,6 +9,7 @@ from typing import Callable
 from esg_targeted.foundation.catalog import METRICS, metrics_for, validate_contract_catalog
 from esg_targeted.foundation.consolidate import NOT_FOUND_STATUSES, consolidate
 from esg_targeted.foundation.kernel import TableTask, bind, plan_table_tasks, run_task, task_digest
+from esg_targeted.foundation.structural import structural_column, structural_decision
 from esg_targeted.foundation.period import detect_reporting_period
 from esg_targeted.foundation.retrieval import select_tables
 from esg_targeted.foundation.tables import build_table_view, composed_tables
@@ -118,7 +119,8 @@ class FoundationEngine:
         for index, task in enumerate(self.tasks, 1):
             if cancel_check and cancel_check():
                 return records
-            saved, origin = saved_answer(task.task_id, lambda: task_digest(task, self.period.year))
+            column = structural_column(task, self.period.year)
+            saved, origin = saved_answer(task.task_id, lambda: task_digest(task, self.period.year, column))
             if saved is not None:
                 observations, extras = bind(task, saved["payload"], self.period.year, self.selected_codes)
                 record = {**saved, "task_id": task.task_id, "observations": [o.to_dict() for o in observations],
@@ -127,7 +129,18 @@ class FoundationEngine:
                 if on_start:
                     on_start({"kind": "table", "index": index, "total": total, "task_id": task.task_id,
                               "table_id": task.view.table_id, "page_number": task.view.page_number, "groups": task.groups})
-                record = run_task(model, task, self.period.year)
+                decision = structural_decision(task, self.period.year)
+                if decision is not None:
+                    observations, extras = bind(task, decision.payload, self.period.year, self.selected_codes)
+                    record = {"task_id": task.task_id, "table_id": task.view.table_id,
+                              "page_number": task.view.page_number, "groups": task.groups, "codes": task.codes,
+                              "lines": len(task.lines), "status": "ok", "payload": decision.payload,
+                              "decided_by": "structure", "decision_reason": decision.reason,
+                              "raw_output": None, "input_tokens": 0, "output_tokens": 0,
+                              "elapsed_seconds": 0.0, "observations": [o.to_dict() for o in observations],
+                              **extras}
+                else:
+                    record = run_task(model, task, self.period.year, column)
             records.append(record)
             if on_record:
                 on_record(record)
@@ -188,13 +201,16 @@ class FoundationEngine:
     def conclude(self, records: list[dict], *, elapsed_seconds: float) -> dict:
         answered = [r for r in records if r.get("status") not in ("no_candidates",)]
         fresh = [r for r in answered if not r.get("reused")]
+        decided = [r for r in fresh if r.get("decided_by") == "structure"]
+        model = [r for r in fresh if r.get("decided_by") != "structure"]
         return {
             **self.plan(),
             "elapsed_seconds": round(elapsed_seconds, 2),
-            "model_calls": len(fresh),
+            "model_calls": len(model),
+            "structural_decisions": len(decided),
             "reused_answers": len(answered) - len(fresh),
-            "input_tokens": sum(r.get("input_tokens") or 0 for r in fresh),
-            "output_tokens": sum(r.get("output_tokens") or 0 for r in fresh),
+            "input_tokens": sum(r.get("input_tokens") or 0 for r in model),
+            "output_tokens": sum(r.get("output_tokens") or 0 for r in model),
             "failed_calls": [r["task_id"] for r in records if r["status"] not in ("ok", "no_candidates")],
             "conclusions": consolidate(records, self.period.year, self.metrics),
         }
