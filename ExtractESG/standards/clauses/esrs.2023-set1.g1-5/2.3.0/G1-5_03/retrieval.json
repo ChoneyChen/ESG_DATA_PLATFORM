@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Financial political contributions made",
+    "财务政治捐赠金额",
+    "披露报告期内主体提供的财务政治捐赠金额，并说明计量口径。数值须来自报告原文，保留原值与单位；未披露与显式零分开。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

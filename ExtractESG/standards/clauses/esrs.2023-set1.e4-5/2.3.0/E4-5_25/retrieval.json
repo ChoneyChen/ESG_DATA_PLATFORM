@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_25",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of quality of ecosystems relative to pre-determined reference state",
+    "相对于参考状态的生态系统质量",
+    "披露生态系统质量相对于预先确定参考状态的情况，并说明参考状态的选择依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

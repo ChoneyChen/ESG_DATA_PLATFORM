@@ -1,0 +1,56 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_09",
+  "contract_digest": "eff636cf64087bad9480b42d7f9d9480c7e91859c8a9c6987392317fe09d3611",
+  "description": "可再生能源占能源消费总量的比例",
+  "disclosure_requirement": "E1-5",
+  "disclosure_role": "detail",
+  "distinguish_from": [
+    "可再生能源绝对消费量",
+    "能源消费降幅",
+    "可再生发电占比"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以可再生能源绝对消费量、能源消费降幅、可再生发电占比替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Share of renewable sources in total energy consumption",
+    "zh": "可再生能源占能源消费总量的比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-5.dp09",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-5",
+  "package_version": "2.1.2",
+  "positive_definition": "可再生能源占能源消费总量的比例",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-5_09",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

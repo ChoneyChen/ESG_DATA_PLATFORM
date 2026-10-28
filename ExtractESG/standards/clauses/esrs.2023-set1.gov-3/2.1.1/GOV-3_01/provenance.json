@@ -1,0 +1,19 @@
+{
+  "clause_id": "esrs.2023-set1.gov-3@2.1.1:GOV-3_01",
+  "contract_digest": "0aa410896329640b1aeaf1a698ff1ac86f1e7c48449761cd7d328b99acf91913",
+  "generated_at": "2026-10-28T00:00:00+00:00",
+  "generated_by": "clause-package-builder-1.0",
+  "package_id": "esrs.2023-set1.gov-3",
+  "package_source_digest": "74dddda157e554980a4d8449125fbc8880c089ecc72d1e14c8d18f3a0cee1eca",
+  "package_version": "2.1.1",
+  "paragraph": "29",
+  "schema_version": "clause-provenance-1.0",
+  "source_refs": [
+    "esrs.2023-set1.gov-3.source.law",
+    "esrs.2023-set1.gov-3.source.ig3"
+  ],
+  "standard_ref": {
+    "disclosure_requirement": "GOV-3",
+    "standard_family": null
+  }
+}

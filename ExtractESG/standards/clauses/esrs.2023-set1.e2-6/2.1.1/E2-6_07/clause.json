@@ -1,0 +1,55 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_07",
+  "contract_digest": "a828090e35657185a18a1343c5d4bb6c31bf9ce11fe01bfb23783ac3efd2a1a9",
+  "description": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+  "disclosure_requirement": "E2-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts",
+    "zh": "污染相关预期财务影响说明"
+  },
+  "metric_id": "esrs.2023-set1.e2-6.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-b54d375c97d98703",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-6",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-6_07",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

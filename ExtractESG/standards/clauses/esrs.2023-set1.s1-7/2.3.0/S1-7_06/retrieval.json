@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of methodologies and assumptions used to compile data (non-employees)",
+    "非员工数据编制方法与假设",
+    "描述编制非员工数据所采用的方法和假设，包括估算与去重方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

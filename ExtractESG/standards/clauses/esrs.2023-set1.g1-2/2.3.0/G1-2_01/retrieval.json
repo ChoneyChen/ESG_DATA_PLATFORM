@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-2@2.3.0:G1-2_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of policy to prevent late payments, especially to SMEs",
+    "防止逾期付款（尤其是对中小企业）的政策",
+    "说明主体为防止逾期付款、尤其是对中小企业逾期付款所制定的政策与措施。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

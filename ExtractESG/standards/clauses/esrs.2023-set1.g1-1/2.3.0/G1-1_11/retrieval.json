@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_11",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of the functions that are most at risk in respect of corruption and bribery",
+    "腐败和贿赂风险最高的职能",
+    "披露在腐败和贿赂方面风险最高的职能或部门，并说明风险识别依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

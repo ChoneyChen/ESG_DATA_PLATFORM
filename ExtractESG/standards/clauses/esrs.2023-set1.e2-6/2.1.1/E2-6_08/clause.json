@@ -1,0 +1,55 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_08",
+  "contract_digest": "152a7d774ae3eae7e9f35c74df2e0c5238d601c5c642db822c558e0fcdb0da05",
+  "description": "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)。污染财务影响的对象与时间范围。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+  "disclosure_requirement": "E2-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)",
+    "zh": "污染财务影响的对象与时间范围"
+  },
+  "metric_id": "esrs.2023-set1.e2-6.dp08",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-b54d375c97d98703",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-6",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-6_08",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

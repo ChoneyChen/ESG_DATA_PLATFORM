@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.gov-5@2.1.1:GOV-5_03",
+  "contract_digest": "bd0485dc544254c64a7f295e336d1a8680a611e3ec74617908a0e2e94429fd32",
+  "description": "Description of main risks identified and their mitigation strategies。主要披露风险与缓解策略。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+  "disclosure_requirement": "GOV-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of main risks identified and their mitigation strategies",
+    "zh": "主要披露风险与缓解策略"
+  },
+  "metric_id": "esrs.2023-set1.gov-5.dp03",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-5",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-5_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-3@2.3.0:S1-3_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Statement in case the undertaking has not adopted a channel for raising concerns",
+    "未建立申诉渠道时的说明",
+    "说明主体是否尚未建立提出关切的渠道；若未建立，披露现状与原因。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

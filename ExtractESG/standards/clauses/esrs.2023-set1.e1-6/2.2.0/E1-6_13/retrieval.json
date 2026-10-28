@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_13",
+  "negative_terms": [],
+  "positive_terms": [
+    "Total GHG emissions using market-based Scope 2",
+    "范围1＋市场法范围2＋范围3温室气体排放总量",
+    "Total GHG emissions",
+    "温室气体排放合计",
+    "total scope 1 2 and 3 emissions",
+    "范围1、2、3排放总和",
+    "Market-based",
+    "基于市场法"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

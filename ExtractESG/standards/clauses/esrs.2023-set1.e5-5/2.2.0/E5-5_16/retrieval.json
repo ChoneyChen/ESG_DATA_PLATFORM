@@ -1,0 +1,10 @@
+{
+  "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_16",
+  "negative_terms": [],
+  "positive_terms": [
+    "Total amount of radioactive waste",
+    "Total amount of radioactive waste。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_14",
+  "negative_terms": [],
+  "positive_terms": [
+    "Biodiversity offsets are part of transition plan",
+    "转型计划中的生物多样性抵消",
+    "说明生物多样性抵消是否以及如何构成转型计划的一部分，并指出抵消在减缓层级中的位置。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

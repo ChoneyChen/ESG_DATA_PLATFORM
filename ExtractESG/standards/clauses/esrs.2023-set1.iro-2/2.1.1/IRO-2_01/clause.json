@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.iro-2@2.1.1:IRO-2_01",
+  "contract_digest": "e1247ec67ae74889e2b3540cdfbd8855ba965b44924c6f344b10a7e4a5992b37",
+  "description": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement。其他欧盟法规数据点位置清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+  "disclosure_requirement": "IRO-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement",
+    "zh": "其他欧盟法规数据点位置清单"
+  },
+  "metric_id": "esrs.2023-set1.iro-2.dp01",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.iro-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "IRO-2_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

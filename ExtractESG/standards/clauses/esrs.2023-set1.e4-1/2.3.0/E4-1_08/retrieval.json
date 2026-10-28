@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of how strategy and business model will be adjusted to improve and, ultimately, achieve alignment with relevant local, national and global public policy goals",
+    "战略与商业模式为对齐公共政策目标将作出的调整",
+    "说明战略和商业模式将如何调整，以改善并最终实现与相关地方、国家和全球公共政策目标的对齐。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

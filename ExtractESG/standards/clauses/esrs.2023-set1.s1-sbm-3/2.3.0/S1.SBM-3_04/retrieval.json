@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of activities that result in positive impacts and types of employees and non-employees in its own workforce that are positively affected or could be positively affected",
+    "产生积极影响的活动及受益人员类型",
+    "描述产生积极影响的活动，以及受到或可能受到积极影响的员工与非员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

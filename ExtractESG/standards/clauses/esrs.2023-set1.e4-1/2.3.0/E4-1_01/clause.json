@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_01",
+  "contract_digest": "d83436a421654f5b8d8d0e48c48fb67764c70d2973b77f06ddb1847fb2d78844",
+  "description": "说明当前商业模式和战略在生物多样性与生态系统相关的物理风险、转型风险和系统性风险及机遇下的韧性，包括分析结论及其对战略的含义。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "E4-1",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of resilience of current business model(s) and strategy to biodiversity and ecosystems-related physical, transition and systemic risks and opportunities",
+    "zh": "商业模式与战略对生物多样性和生态系统风险的韧性"
+  },
+  "metric_id": "esrs.2023-set1.e4-1.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-1",
+  "package_version": "2.3.0",
+  "positive_definition": "说明当前商业模式和战略在生物多样性与生态系统相关的物理风险、转型风险和系统性风险及机遇下的韧性，包括分析结论及其对战略的含义。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-1_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

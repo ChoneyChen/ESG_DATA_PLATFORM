@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Include information about  its own operations and  explain how it is responding to material impacts in its related value chain",
+    "自身运营对价值链重大影响的应对",
+    "说明自身运营的情况，以及主体如何应对其相关价值链中的重大生物多样性和生态系统影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

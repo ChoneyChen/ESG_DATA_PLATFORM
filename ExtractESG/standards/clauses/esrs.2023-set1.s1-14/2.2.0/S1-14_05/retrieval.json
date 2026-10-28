@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Rate of recordable work-related accidents for own workforce",
+    "自有劳动力可记录工伤事故率",
+    "按每百万工时计算的自有劳动力可记录工伤事故率。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

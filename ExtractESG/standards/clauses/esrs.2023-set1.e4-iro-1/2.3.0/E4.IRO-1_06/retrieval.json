@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how specific sites, raw materials production or sourcing with negative or potential negative impacts on affected communities",
+    "对受影响社区有负面影响的场址与原料来源识别",
+    "说明主体是否以及如何识别对受影响社区产生实际或潜在负面影响的特定场址、原材料生产或采购来源。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

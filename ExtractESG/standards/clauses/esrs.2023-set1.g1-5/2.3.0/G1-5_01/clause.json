@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_01",
+  "contract_digest": "969759f0589d45be2612c068241638ee0f53e1d0d3b43ab2f35c5f4f2fcd0a88",
+  "description": "说明行政、管理和监督机构中负责监督政治影响和游说活动的代表及其职责。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "G1-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Information about representative(s) responsible in administrative, management and supervisory bodies for oversight of political influence and lobbying activities",
+    "zh": "负责政治影响与游说监督的机构代表"
+  },
+  "metric_id": "esrs.2023-set1.g1-5.dp01",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-5",
+  "package_version": "2.3.0",
+  "positive_definition": "说明行政、管理和监督机构中负责监督政治影响和游说活动的代表及其职责。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-5_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

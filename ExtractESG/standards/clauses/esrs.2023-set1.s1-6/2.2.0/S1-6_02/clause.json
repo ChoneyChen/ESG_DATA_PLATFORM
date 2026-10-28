@@ -1,0 +1,54 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_02",
+  "contract_digest": "da6d4832c4c4b8b1a748621b653626ac991e715ee161eeb3324ec3dd233d23a5",
+  "description": "报告期末受雇于本主体的员工人头数。",
+  "disclosure_requirement": "S1-6",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "全职当量人数",
+    "全部自有劳动力人数",
+    "员工流失率"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "员工人头数、全职当量与全部自有劳动力人数不可互换。"
+  ],
+  "labels": {
+    "en": "Number of employees (head count)",
+    "zh": "员工人数（人头数）"
+  },
+  "metric_id": "esrs.2023-set1.s1-6.dp02",
+  "obligation_class": "alternative_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期末属于本主体的员工人头数。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "population",
+      "count_basis",
+      "statistical_time_basis"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-6_02",
+  "unit_dimension": "extractesg.core.unit-dimension.count",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

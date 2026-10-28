@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_08",
+  "contract_digest": "e029a6a938c2c6520871fbebf0b28487c879c9ad4c491d1714650df80a444417",
+  "description": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources。行动资源按时间和类型分解。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+  "disclosure_requirement": "MDR-A",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources",
+    "zh": "行动资源按时间和类型分解"
+  },
+  "metric_id": "esrs.2023-set1.mdr-a.dp08",
+  "obligation_class": "conditional_voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.mdr-a",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "MDR-A_08",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

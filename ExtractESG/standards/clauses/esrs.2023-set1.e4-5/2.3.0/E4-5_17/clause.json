@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_17",
+  "contract_digest": "e3d79277058c6b25bf51b02a41086cc0fd9401a532c90c1e0d35addf5138bd35",
+  "description": "披露主体认为与物种状态相关的指标，包括指标定义、单位和监测频率。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "E4-5",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of metrics considered relevant (state of species)",
+    "zh": "物种状态相关指标"
+  },
+  "metric_id": "esrs.2023-set1.e4-5.dp17",
+  "obligation_class": "conditional_voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-5",
+  "package_version": "2.3.0",
+  "positive_definition": "披露主体认为与物种状态相关的指标，包括指标定义、单位和监测频率。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-5_17",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

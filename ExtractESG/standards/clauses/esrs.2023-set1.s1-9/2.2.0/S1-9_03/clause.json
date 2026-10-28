@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.s1-9@2.2.0:S1-9_03",
+  "contract_digest": "af957de7e5212f735dd119ec46be1b4f3ba8398ab96e40cb85e3a9f63eab5f16",
+  "description": "Distribution of employees (head count) under 30 years old。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+  "disclosure_requirement": "S1-9",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Distribution of employees (head count) under 30 years old",
+    "zh": "Distribution of employees (head count) under 30 years old"
+  },
+  "metric_id": "esrs.2023-set1.s1-9.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-9",
+  "package_version": "2.2.0",
+  "positive_definition": "Distribution of employees (head count) under 30 years old",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-9_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

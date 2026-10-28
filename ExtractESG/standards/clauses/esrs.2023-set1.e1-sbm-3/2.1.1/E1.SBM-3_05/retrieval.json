@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-sbm-3@2.1.1:E1.SBM-3_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Time horizons applied for resilience analysis",
+    "韧性分析时间范围",
+    "Time horizons applied for resilience analysis。韧性分析时间范围。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

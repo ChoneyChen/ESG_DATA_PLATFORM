@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-10@2.3.0:S1-10_03",
+  "contract_digest": "d94295be783d46f6703a2d6efe382a5e182bd61092d81e45fc783bb0a4aefd3a",
+  "description": "披露工资低于适用足额工资基准的员工占员工总数的比例。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+  "disclosure_requirement": "S1-10",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of  employees paid below the applicable adequate wage benchmark",
+    "zh": "工资低于足额工资基准的员工比例"
+  },
+  "metric_id": "esrs.2023-set1.s1-10.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-10",
+  "package_version": "2.3.0",
+  "positive_definition": "披露工资低于适用足额工资基准的员工占员工总数的比例。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-10_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

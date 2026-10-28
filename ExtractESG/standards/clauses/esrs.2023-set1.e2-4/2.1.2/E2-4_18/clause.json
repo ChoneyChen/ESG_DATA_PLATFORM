@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_18",
+  "contract_digest": "2efcd9c43d3ab1d95da72ffa305f7c47f2c9450e0429345510944092824f0be5",
+  "description": "适用 IED/BREF 时可披露。官方类型为 narrative，但实际比较通常包含结构化数值。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of actual performance and comparison of environmental performance against emission levels associated with best available techniques (BAT-AEL) as described in EU-BAT conclusions",
+    "zh": "实际环境绩效与 BAT-AEL 比较"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp18",
+  "obligation_class": "conditional_voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "实际环境绩效与 BAT-AEL 比较",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name",
+      "parameter_or_pollutant"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_18",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

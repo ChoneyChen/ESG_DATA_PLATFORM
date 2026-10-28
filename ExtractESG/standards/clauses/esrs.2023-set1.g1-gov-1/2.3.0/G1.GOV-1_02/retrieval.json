@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-gov-1@2.3.0:G1.GOV-1_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of expertise of administrative, management and supervisory bodies on business conduct matters",
+    "行政、管理和监督机构在商业行为方面的专长",
+    "披露行政、管理和监督机构在商业行为事项方面的专长、经验及获取方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

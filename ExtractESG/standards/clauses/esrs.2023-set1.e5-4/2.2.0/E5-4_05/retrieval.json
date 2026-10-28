@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of secondary reused or recycled components, secondary intermediary products and secondary materials",
+    "二次使用或再生组分及材料占比",
+    "二次使用或再生的部件、中间产品与材料占材料投入的比例。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

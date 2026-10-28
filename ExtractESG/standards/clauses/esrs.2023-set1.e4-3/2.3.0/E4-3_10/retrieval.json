@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-3@2.3.0:E4-3_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of key stakeholders involved and how they are involved, key stakeholders negatively or positively impacted by action and how they are impacted",
+    "关键利益相关方及其受影响方式",
+    "披露行动涉及的关键利益相关方、参与方式，以及受到正面或负面影响的群体及其受影响方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

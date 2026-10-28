@@ -1,0 +1,76 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_20",
+  "contract_digest": "f2ced272b7264d2993b0e6b7244f9f646f1d784384f46e4379141bec676786c1",
+  "description": "基于市场法范围2排放中与捆绑合同工具相关的比例。需同时支持市场法、范围2、捆绑工具和比例语义；不能用一般绿电比例替代。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Share of market-based Scope 2 emissions linked to bundled instruments",
+    "zh": "基于市场法且关联捆绑工具的范围2排放比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp20",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "位置法口径",
+      "method": "location_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-ffc0a9deb11efb4f",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "市场法口径",
+      "method": "market_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-8d9806689f524b69",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "基于市场法且关联捆绑工具的范围2排放比例",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_20",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

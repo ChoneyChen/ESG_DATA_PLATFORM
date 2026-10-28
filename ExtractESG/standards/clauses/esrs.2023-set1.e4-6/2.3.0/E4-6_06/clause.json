@@ -1,0 +1,55 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-6@2.3.0:E4-6_06",
+  "contract_digest": "ecc151227c73216c6ff5d2d656bb4b4f5084d51c3b675448ab1404354af05577",
+  "description": "说明财务金额如何估计，以及所采用的关键假设和参数。定量与定性信息分别保留，不以定性描述替代数值。",
+  "disclosure_requirement": "E4-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Explanation of how financial amounts are estimated and critical assumptions made (biodiversity and ecosystems)",
+    "zh": "财务金额的估计方法与关键假设"
+  },
+  "metric_id": "esrs.2023-set1.e4-6.dp06",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-da98b6fe61fc3708",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-6",
+  "package_version": "2.3.0",
+  "positive_definition": "说明财务金额如何估计，以及所采用的关键假设和参数。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-6_06",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

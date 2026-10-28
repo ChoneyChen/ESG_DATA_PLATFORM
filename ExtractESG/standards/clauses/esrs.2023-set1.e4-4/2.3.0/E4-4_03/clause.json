@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_03",
+  "contract_digest": "2d358ddc9e05a6ce670ee0ea4b754e04a40fb69d2cf38a0c500e795f73827951",
+  "description": "说明主体特定生态阈值如何确定，包括本地化调整和科学依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "E4-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of how entity-specific threshold was determined (biodiversity and ecosystems)",
+    "zh": "主体特定生态阈值的确定方式"
+  },
+  "metric_id": "esrs.2023-set1.e4-4.dp03",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-4",
+  "package_version": "2.3.0",
+  "positive_definition": "说明主体特定生态阈值如何确定，包括本地化调整和科学依据。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-4_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

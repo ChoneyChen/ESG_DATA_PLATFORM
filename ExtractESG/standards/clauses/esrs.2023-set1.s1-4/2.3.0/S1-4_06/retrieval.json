@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of what action is planned or underway to mitigate material risks arising from impacts and dependencies on own workforce  and how effectiveness is tracked",
+    "缓解自身劳动力重大风险的行动与有效性跟踪",
+    "描述为缓解因对自身劳动力的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

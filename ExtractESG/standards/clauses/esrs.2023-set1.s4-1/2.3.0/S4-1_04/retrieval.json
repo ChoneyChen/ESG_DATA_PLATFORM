@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-1@2.3.0:S4-1_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of general approach in relation to engagement with consumers and/or end-users",
+    "与消费者和终端用户接触的总体方法",
+    "说明主体与消费者和终端用户开展接触和沟通的总体方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

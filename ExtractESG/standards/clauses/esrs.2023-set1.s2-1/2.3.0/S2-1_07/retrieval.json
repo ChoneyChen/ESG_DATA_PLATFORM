@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s2-1@2.3.0:S2-1_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Provisions in supplier codes of conudct are fully in line with applicable ILO standards",
+    "供应商行为准则与ILO标准的一致性",
+    "说明供应商行为准则的条款是否完全符合适用的国际劳工组织标准，并指出对应标准。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

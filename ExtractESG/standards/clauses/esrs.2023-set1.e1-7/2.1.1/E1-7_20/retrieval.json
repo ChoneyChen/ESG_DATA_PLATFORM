@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_20",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of scope, methodologies and frameworks applied and how residual GHG emissions are intended to be neutralised",
+    "残余排放中和的范围与方法",
+    "Explanation of scope, methodologies and frameworks applied and how residual GHG emissions are intended to be neutralised。残余排放中和的范围与方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

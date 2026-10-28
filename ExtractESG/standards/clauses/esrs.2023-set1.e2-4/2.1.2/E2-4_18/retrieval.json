@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_18",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of actual performance and comparison of environmental performance against emission levels associated with best available techniques (BAT-AEL) as described in EU-BAT conclusions",
+    "实际环境绩效与 BAT-AEL 比较",
+    "BAT-associated emission level",
+    "BAT相关排放水平",
+    "BAT AEL",
+    "best available techniques associated emission level",
+    "最佳可行技术相关排放水平",
+    "Environmental performance"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s3-4@2.3.0:S3-4_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of action taken, planned or underway to prevent, mitigate or remediate material negative impacts on affected communities",
+    "预防、减轻或补救社区负面影响的行动",
+    "描述主体为预防、减轻或补救受影响社区重大负面影响而已采取、计划或正在进行的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

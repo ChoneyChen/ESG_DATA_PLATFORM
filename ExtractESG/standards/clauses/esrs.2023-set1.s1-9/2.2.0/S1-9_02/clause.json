@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.s1-9@2.2.0:S1-9_02",
+  "contract_digest": "f1873d507d29f947d4cff88b3085447e4340114c0fec98bab454806aae7c12c4",
+  "description": "最高管理层员工按性别划分的人数占比。",
+  "disclosure_requirement": "S1-9",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "董事会性别比例",
+    "管理层人数"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "最高管理层与董事会是不同人群；占比不能与人数互换。"
+  ],
+  "labels": {
+    "en": "Gender distribution in percentage of employees at top management level",
+    "zh": "最高管理层员工性别分布占比"
+  },
+  "metric_id": "esrs.2023-set1.s1-9.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-9",
+  "package_version": "2.2.0",
+  "positive_definition": "最高管理层员工中按性别划分的占比。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "population",
+      "gender",
+      "management_level_definition"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-9_02",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

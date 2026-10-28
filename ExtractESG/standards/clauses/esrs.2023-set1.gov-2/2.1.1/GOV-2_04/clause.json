@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.gov-2@2.1.1:GOV-2_04",
+  "contract_digest": "b81380155f8451e395b51f00bf9b3b2287a7660736582ae59734bfaed6301b91",
+  "description": "Disclosure of how governance bodies ensure that appropriate mechanism for performance monitoring is in place。绩效监测机制。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
+  "disclosure_requirement": "GOV-2",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of how governance bodies ensure that appropriate mechanism for performance monitoring is in place",
+    "zh": "绩效监测机制"
+  },
+  "metric_id": "esrs.2023-set1.gov-2.dp04",
+  "obligation_class": "voluntary",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-2_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about type of operations at significant risk of incidents of child labour",
+    "存在童工重大风险的运营类型",
+    "提供存在童工事件重大风险的运营类型信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

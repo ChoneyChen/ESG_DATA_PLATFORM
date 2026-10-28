@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Scope 3 categories using the GHG Protocol",
+    "采用《温室气体核算体系》的范围3类别结构",
+    "Scope 3 emissions",
+    "范围3排放",
+    "scope3",
+    "scope III",
+    "other indirect GHG emissions",
+    "范围3"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

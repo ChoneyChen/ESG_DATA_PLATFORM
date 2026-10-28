@@ -1,0 +1,82 @@
+{
+  "canonical_unit": "tCO2e",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_10",
+  "contract_digest": "7325b62e19594c43bdfd4d6ebecbcf934b614b82cbc12afebe685490d6e23011",
+  "description": "基于市场法核算的范围2温室气体绝对排放量。市场法体现能源采购合同工具、供应商/产品特定排放属性及适用的剩余组合；方法可由报告核算说明支持，不要求逐字标签。仅披露用电、绿电比例或电网平均因子并不能独自证明市场法。方法未明的范围2测量应保留待确认，明确为位置法的不能贴上市方法标签。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "范围2位置法排放",
+    "方法未知的范围2排放",
+    "范围1与范围2合计",
+    "绿电消费比例"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以范围2位置法排放、方法未知的范围2排放、范围1与范围2合计、绿电消费比例替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Gross market-based Scope 2 GHG emissions",
+    "zh": "基于市场法的范围2温室气体排放总量"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp10",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "位置法口径",
+      "method": "location_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-ffc0a9deb11efb4f",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "市场法口径",
+      "method": "market_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-8d9806689f524b69",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "基于市场法的范围2温室气体排放总量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_10",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

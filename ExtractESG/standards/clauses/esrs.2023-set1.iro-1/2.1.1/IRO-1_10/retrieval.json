@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of how sustainability-related risks relative to other types of risks have been prioritised",
+    "可持续风险相对其他风险的排序",
+    "Description of how sustainability-related risks relative to other types of risks have been prioritised。可持续风险相对其他风险的排序。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

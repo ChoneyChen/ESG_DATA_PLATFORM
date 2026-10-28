@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-sbm-3@2.1.1:E1.SBM-3_07",
+  "contract_digest": "5ffa06a663bba7f14a5f49d8553214b5882b68917e772b6cc9f9dcbe3d5807af",
+  "description": "Description of ability to adjust or adapt strategy and business model to climate change。战略和商业模式调整能力。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
+  "disclosure_requirement": "E1.SBM-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of ability to adjust or adapt strategy and business model to climate change",
+    "zh": "战略和商业模式调整能力"
+  },
+  "metric_id": "esrs.2023-set1.e1-sbm-3.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-sbm-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1.SBM-3_07",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Purchased or acquired renewable electricity, heat, steam and cooling",
+    "外购或购入的可再生电力、热力、蒸汽和冷却能源",
+    "Energy consumption",
+    "能源消费",
+    "energy use",
+    "energy consumed",
+    "能源消耗",
+    "能源使用"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

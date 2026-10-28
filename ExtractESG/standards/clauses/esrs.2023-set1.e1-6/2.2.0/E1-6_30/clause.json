@@ -1,0 +1,54 @@
+{
+  "canonical_unit": "tCO2e/currency",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_30",
+  "contract_digest": "6d53e55f0114f5c2b948c3e0e943bf77c05c054ca69254c34df93b04c424d078",
+  "description": "范围 1＋位置法范围 2 的温室气体排放总量除以净收入的强度；分子分母须同期间、同边界。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "绝对排放总量",
+    "单位产品排放强度",
+    "营业收入总额"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "绝对排放总量不能与排放强度互换；净收入、营业收入与产值是不同的分母。"
+  ],
+  "labels": {
+    "en": "Location-based GHG intensity",
+    "zh": "基于位置法的温室气体排放强度（每单位净收入）"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp30",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "intensity_numerator_scope",
+      "intensity_denominator",
+      "consolidation_approach"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_30",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-intensity",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

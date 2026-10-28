@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_17",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of list of any non-compliance incidents or enforcement actions necessary to ensure compliance in case of breaches of permit conditions",
+    "许可条件违规事件或执法行动清单",
+    "Enforcement action",
+    "执法措施",
+    "enforcement",
+    "regulatory action",
+    "执法行动",
+    "监管行动"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

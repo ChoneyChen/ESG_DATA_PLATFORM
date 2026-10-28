@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.gov-2@2.1.1:GOV-2_01",
+  "contract_digest": "7643501b364d0f90d96defe2a785c193b20f57e00ffb39a07563281e24b4cbd9",
+  "description": "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them。治理机构获得可持续信息的方式与频率。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
+  "disclosure_requirement": "GOV-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them",
+    "zh": "治理机构获得可持续信息的方式与频率"
+  },
+  "metric_id": "esrs.2023-set1.gov-2.dp01",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-2_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

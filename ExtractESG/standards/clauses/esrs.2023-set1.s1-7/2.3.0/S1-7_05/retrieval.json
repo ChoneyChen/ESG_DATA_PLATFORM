@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of the most common types of non-employees (for example, self-employed people, people provided by undertakings primarily engaged in employment activities, and other types relevant to the undertaking), their relationship with the undertaking, and the type of work that they perform.",
+    "非员工的主要类型、关系与工作内容",
+    "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

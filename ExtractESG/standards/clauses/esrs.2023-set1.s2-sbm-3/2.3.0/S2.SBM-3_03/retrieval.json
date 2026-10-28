@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s2-sbm-3@2.3.0:S2.SBM-3_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Type of value chain workers subject to material impacts by own operations or through value chain",
+    "因自身运营或价值链而受影响的价值链劳动者类型",
+    "说明因主体自身运营或通过价值链而受重大影响的价值链劳动者类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

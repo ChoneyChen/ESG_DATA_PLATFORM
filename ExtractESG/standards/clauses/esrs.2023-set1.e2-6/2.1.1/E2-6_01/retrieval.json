@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of quantitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts",
+    "污染相关预期财务影响金额",
+    "Disclosure of quantitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响金额。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

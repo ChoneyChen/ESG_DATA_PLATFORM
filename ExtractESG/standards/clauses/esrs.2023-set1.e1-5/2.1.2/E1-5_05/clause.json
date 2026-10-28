@@ -1,0 +1,58 @@
+{
+  "canonical_unit": "MWh",
+  "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_05",
+  "contract_digest": "25ad96d73afd72a1fdd7a03f77f5ca2e77d9bffbd335eb685aca70dced023beb",
+  "description": "企业自身运营消耗的可再生来源能源总量，包括可再生燃料及适用的外购、自发自用可再生能源；发电量不必然等于消费量。百分比、装机功率、能源强度、增长/减少量不是能源消费绝对总量。",
+  "disclosure_requirement": "E1-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "可再生发电量",
+    "可再生能源占比",
+    "装机容量",
+    "能源节约量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以可再生发电量、可再生能源占比、装机容量、能源节约量替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Total energy consumption from renewable sources",
+    "zh": "可再生能源消费总量"
+  },
+  "metric_id": "esrs.2023-set1.e1-5.dp05",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-5",
+  "package_version": "2.1.2",
+  "positive_definition": "可再生能源消费总量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-5_05",
+  "unit_dimension": "extractesg.core.unit-dimension.energy",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

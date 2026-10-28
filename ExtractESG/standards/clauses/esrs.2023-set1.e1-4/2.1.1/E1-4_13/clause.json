@@ -1,0 +1,55 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-4@2.1.1:E1-4_13",
+  "contract_digest": "ad2223416eec0d218aae508067a628f4423dfeb82b2d947efc6d3df3518a7452",
+  "description": "Percentage of market-based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year)。范围2市场法减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
+  "disclosure_requirement": "E1-4",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of market-based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year)",
+    "zh": "范围2市场法减排比例目标"
+  },
+  "metric_id": "esrs.2023-set1.e1-4.dp13",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 占比",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-6fcd6a400a0c5c4f",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-4",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "baseline_year",
+      "target_year",
+      "ghg_scope",
+      "accounting_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-4_13",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

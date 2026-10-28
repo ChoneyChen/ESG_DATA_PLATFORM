@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Number of incidents of discrimination",
+    "歧视事件数量",
+    "报告期内报告的歧视事件数量。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

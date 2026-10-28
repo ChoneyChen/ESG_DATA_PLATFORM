@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of material risks and opportunities arising from impacts and dependencies on own workforce",
+    "自身劳动力相关重大风险与机遇",
+    "描述因对自身劳动力的影响和依赖所产生的重大风险与机遇。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

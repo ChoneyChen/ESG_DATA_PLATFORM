@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about how policies are communicated to those for whom they are relevant (prevention and detection of corruption or bribery)",
+    "政策向相关人员的传达方式",
+    "说明反腐败或反贿赂政策如何传达给相关人员，包括渠道、语言和确认机制。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

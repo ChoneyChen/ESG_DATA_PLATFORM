@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Number of employees (head count)",
+    "员工人数（人头数）",
+    "报告期末受雇于本主体的员工人头数。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

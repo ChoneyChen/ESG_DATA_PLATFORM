@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_35",
+  "contract_digest": "d0b459f5949218fcbc9051580ed3e1fece4e2996dfc5e2e571ac0490035891bd",
+  "description": "净收入对账中的其他净收入或调整项。只提取明确标记为对账其他项的货币值；利润、资产、产量和资源量不得纳入。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Other net revenue",
+    "zh": "其他净收入"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp35",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "其他净收入",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_35",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

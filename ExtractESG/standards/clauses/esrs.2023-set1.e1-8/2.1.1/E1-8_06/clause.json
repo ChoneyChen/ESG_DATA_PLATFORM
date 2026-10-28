@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-8@2.1.1:E1-8_06",
+  "contract_digest": "bde846bd70445059bddc2c15efca0501c2fd2727d296c7c86034632d09a0b4c2",
+  "description": "Percentage of gross Scope 1 greenhouse gas emissions covered by internal carbon pricing scheme。内部碳定价覆盖的范围1比例。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
+  "disclosure_requirement": "E1-8",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of gross Scope 1 greenhouse gas emissions covered by internal carbon pricing scheme",
+    "zh": "内部碳定价覆盖的范围1比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-8.dp06",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-8",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pricing_scheme",
+      "ghg_scope",
+      "accounting_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-8_06",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

@@ -1,0 +1,20 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_06",
+  "contract_digest": "d0bb560451f93e7497e1fd1b241d4ce9377298812065397f319ba92d5304b34d",
+  "generated_at": "2026-10-28T00:00:00+00:00",
+  "generated_by": "clause-package-builder-1.0",
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_source_digest": "5a6c89cef4ba720333bde0cdfa5337b21878b99a3b1bce466c89d83ad00d4870",
+  "package_version": "2.1.2",
+  "paragraph": "28(b)",
+  "schema_version": "clause-provenance-1.0",
+  "source_refs": [
+    "esrs.2023-set1.e2-4.source.eu-2023-2772",
+    "esrs.2023-set1.e2-4.source.efrag-ig3-2025",
+    "esrs.2023-set1.e2-4.source.efrag-qa-microplastics"
+  ],
+  "standard_ref": {
+    "disclosure_requirement": "E2-4",
+    "standard_family": null
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_24",
+  "contract_digest": "cd560759612c1dd85aeb49488adedaa19436477ad6b9db73e6f1e3bfb25a0fcd",
+  "description": "Description of any time-bound targets set related to sustainability matters assessed to be material (phase-in) and progress made towards achieving those targets。阶段安排的期限目标及进展。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
+  "disclosure_requirement": "BP-2",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of any time-bound targets set related to sustainability matters assessed to be material (phase-in) and progress made towards achieving those targets",
+    "zh": "阶段安排的期限目标及进展"
+  },
+  "metric_id": "esrs.2023-set1.bp-2.dp24",
+  "obligation_class": "conditional",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.bp-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "BP-2_24",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

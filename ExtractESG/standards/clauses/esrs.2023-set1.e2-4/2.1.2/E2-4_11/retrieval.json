@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_11",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of total emissions of pollutants to water occurring in areas at water risk",
+    "水风险地区水污染物排放占比",
+    "Water pollution",
+    "水体污染排放",
+    "emissions to water",
+    "discharge to water",
+    "effluent discharge",
+    "水污染"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

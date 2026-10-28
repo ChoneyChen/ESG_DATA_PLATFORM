@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_26",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of multiple species within ecosystem",
+    "生态系统内的多物种信息",
+    "披露同一生态系统内多个物种的状况，以反映生态群落而非单一物种。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

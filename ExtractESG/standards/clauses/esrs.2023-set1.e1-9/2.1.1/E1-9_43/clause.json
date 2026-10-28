@@ -1,0 +1,55 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_43",
+  "contract_digest": "34c1b8d7bf698162072d0d6a29bf81c36ceb8f315ae0dac2eb6ae9c9250efec5",
+  "description": "Potential market size of low-carbon products and services or adaptation solutions to which undertaking has or may have access。低碳产品或适应服务的潜在市场规模。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+  "disclosure_requirement": "E1-9",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Potential market size of low-carbon products and services or adaptation solutions to which undertaking has or may have access",
+    "zh": "低碳产品或适应服务的潜在市场规模"
+  },
+  "metric_id": "esrs.2023-set1.e1-9.dp43",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-da98b6fe61fc3708",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-9",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-9_43",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

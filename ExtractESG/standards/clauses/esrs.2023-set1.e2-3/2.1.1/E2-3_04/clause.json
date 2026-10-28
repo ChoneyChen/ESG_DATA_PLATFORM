@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_04",
+  "contract_digest": "b18376fe9861acd2fd05373b62fb79ca57d5d99a1d5722563eae395057a6b9ac",
+  "description": "Disclosure of  whether and how target relates to prevention and control of  substances of concern and substances of very high concern。目标与关注物质防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
+  "disclosure_requirement": "E2-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of  whether and how target relates to prevention and control of  substances of concern and substances of very high concern",
+    "zh": "目标与关注物质防控关系"
+  },
+  "metric_id": "esrs.2023-set1.e2-3.dp04",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-3_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

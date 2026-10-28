@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "hectare",
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_02",
+  "contract_digest": "fb22febd309545c54dddf411ba2386e4d07b27927c33d6bd202e0537629f8c96",
+  "description": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+  "disclosure_requirement": "E4-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Area of sites owned, leased or managed in or near protected areas or key biodiversity areas that undertaking is negatively affecting",
+    "zh": "受负面影响的保护区内或附近场址面积"
+  },
+  "metric_id": "esrs.2023-set1.e4-5.dp02",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-5",
+  "package_version": "2.3.0",
+  "positive_definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-5_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

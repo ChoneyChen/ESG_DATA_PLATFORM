@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s3-1@2.3.0:S3-1_04",
+  "contract_digest": "942ebd44dcce9d8a842211c19ca60812ad4fabc05e7c671b73f440653c029353",
+  "description": "说明主体与受影响社区开展接触和沟通的总体方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S3-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of general approach in relation to engagement with affected communities",
+    "zh": "与受影响社区接触的总体方法"
+  },
+  "metric_id": "esrs.2023-set1.s3-1.dp04",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s3-1",
+  "package_version": "2.3.0",
+  "positive_definition": "说明主体与受影响社区开展接触和沟通的总体方法。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S3-1_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

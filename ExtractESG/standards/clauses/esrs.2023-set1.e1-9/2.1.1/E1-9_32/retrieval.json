@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_32",
+  "negative_terms": [],
+  "positive_terms": [
+    "Net revenue from customers operating in gas-related activities",
+    "天然气活动客户净收入",
+    "Net revenue from customers operating in gas-related activities。天然气活动客户净收入。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

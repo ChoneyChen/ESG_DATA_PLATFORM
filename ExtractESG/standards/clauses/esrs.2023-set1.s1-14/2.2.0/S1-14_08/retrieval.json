@@ -1,0 +1,10 @@
+{
+  "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Number of cases of recordable work-related ill health of non-employees",
+    "Number of cases of recordable work-related ill health of non-employees。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

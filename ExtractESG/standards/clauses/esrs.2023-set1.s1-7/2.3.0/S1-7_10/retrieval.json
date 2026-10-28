@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of basis of preparation of non-employees estimated number",
+    "非员工估计人数的编制基础",
+    "描述非员工估计人数的编制基础，包括数据来源、抽样方法和不确定性。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

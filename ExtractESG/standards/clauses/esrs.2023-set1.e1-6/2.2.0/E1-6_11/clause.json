@@ -1,0 +1,57 @@
+{
+  "canonical_unit": "tCO2e",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_11",
+  "contract_digest": "6823f2c726e47e83d62d3fff04f358a961eecb2b7c5cd92fb0dc91d83e577d1d",
+  "description": "范围3温室气体绝对排放总量及重大类别分解。保留总量、小计和类别各自的源行身份，不能把合计当类别，也不能将总量与成员重复相加。各期间和实体分别成事实。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "范围1与范围2合计",
+    "碳信用或抵消量",
+    "类别与总计的重复加总"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以范围1与范围2合计、碳信用或抵消量、类别与总计的重复加总替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Gross Scope 3 GHG emissions by significant category",
+    "zh": "按重大类别划分的范围3温室气体排放总量"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp11",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "按重大类别划分的范围3温室气体排放总量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope3_category"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_11",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

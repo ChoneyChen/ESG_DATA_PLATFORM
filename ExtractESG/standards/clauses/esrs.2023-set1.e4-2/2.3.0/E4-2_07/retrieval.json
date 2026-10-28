@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-2@2.3.0:E4-2_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of how policy refers to production, sourcing or consumption of raw materials",
+    "政策对原材料生产、采购与消费的规定",
+    "披露政策如何规定原材料的生产、采购或消费，包括适用范围和限制条件。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_22",
+  "contract_digest": "bec91219e66052fe6b9938477ddbfc46dfca2b4d85479f38134c0165ea0cd2f3",
+  "description": "范围2排放中关联非捆绑能源属性声明的比例。必须有非捆绑属性或证书的明确证据，不能从绿证名称推断比例。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Share linked to unbundled energy attribute claims",
+    "zh": "关联非捆绑能源属性声明的比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp22",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "关联非捆绑能源属性声明的比例",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_22",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

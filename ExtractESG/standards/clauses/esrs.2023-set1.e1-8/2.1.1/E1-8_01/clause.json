@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-8@2.1.1:E1-8_01",
+  "contract_digest": "66f8648cd6b895674a53c7a73aae3230ef83587ea90a8f472b3568f924b299cb",
+  "description": "Carbon pricing scheme by type。内部碳定价机制的披露结构。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
+  "disclosure_requirement": "E1-8",
+  "disclosure_role": "presentation",
+  "distinguish_from": [],
+  "exclusions": [
+    "每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Carbon pricing scheme by type",
+    "zh": "内部碳定价机制的披露结构"
+  },
+  "metric_id": "esrs.2023-set1.e1-8.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-ffccfa58cacc4ecd",
+      "value_role": "structure"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-8",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pricing_scheme",
+      "ghg_scope",
+      "accounting_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-8_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-6@2.3.0:E4-6_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of how financial amounts are estimated and critical assumptions made (biodiversity and ecosystems)",
+    "财务金额的估计方法与关键假设",
+    "说明财务金额如何估计，以及所采用的关键假设和参数。定量与定性信息分别保留，不以定性描述替代数值。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

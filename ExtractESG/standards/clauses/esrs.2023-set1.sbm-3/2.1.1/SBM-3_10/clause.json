@@ -1,0 +1,54 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_10",
+  "contract_digest": "d6d1b1585aea783438d42d514fbc6beb8cae762b2dee9d6f1bfc0cf44147a154",
+  "description": "Information about resilience of strategy and business model regarding capacity to address material impacts and risks and to take advantage of material opportunities。战略商业模式韧性。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+  "disclosure_requirement": "SBM-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Information about resilience of strategy and business model regarding capacity to address material impacts and risks and to take advantage of material opportunities",
+    "zh": "战略商业模式韧性"
+  },
+  "metric_id": "esrs.2023-set1.sbm-3.dp10",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.sbm-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "SBM-3_10",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

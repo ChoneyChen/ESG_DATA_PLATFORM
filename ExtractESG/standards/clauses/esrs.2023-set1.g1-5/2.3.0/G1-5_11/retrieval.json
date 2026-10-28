@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_11",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about appointment of any members of administrative, management and supervisory bodies who held comparable position in public administration in two years preceding such appointment",
+    "曾在公共部门任职的机构成员信息",
+    "说明行政、管理和监督机构中是否有成员在任命前两年内曾在公共部门担任可比职位。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

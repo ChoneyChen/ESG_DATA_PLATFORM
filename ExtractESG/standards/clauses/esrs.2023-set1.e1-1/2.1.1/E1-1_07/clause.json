@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_07",
+  "contract_digest": "d1141bafd6089eec33cfe7e6aeea53e50d14ddcf86e596816cd0cb41710c877c",
+  "description": "Explanation of potential locked-in GHG emissions from key assets and products and of how locked-in GHG emissions may jeopardise achievement of GHG emission reduction targets and drive transition risk。资产和产品的锁定排放。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
+  "disclosure_requirement": "E1-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Explanation of potential locked-in GHG emissions from key assets and products and of how locked-in GHG emissions may jeopardise achievement of GHG emission reduction targets and drive transition risk",
+    "zh": "资产和产品的锁定排放"
+  },
+  "metric_id": "esrs.2023-set1.e1-1.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-1_07",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

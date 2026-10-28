@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_08",
+  "contract_digest": "c6d1ff8d7b4e168d1a010ff43002b54482c2471329c6ed784929721d16e91936",
+  "description": "范围1温室气体排放中受受监管排放交易体系覆盖的比例；分母应为范围1排放。碳价情景、碳敞口、另一公司的 ETS 项目或一般排放限制比例不能仅因出现百分号而等同此指标。结合报告对交易机制和覆盖口径的说明判断。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of Scope 1 GHG emissions from regulated emission trading schemes",
+    "zh": "受监管排放交易体系覆盖的范围1排放比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp08",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "受监管排放交易体系覆盖的范围1排放比例",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_08",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

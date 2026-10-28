@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Non-employees numbers are reported in head count/full time equivalent",
+    "非员工人数按人头或全职当量报告",
+    "说明非员工人数是以人头数还是全职当量报告，并给出换算方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

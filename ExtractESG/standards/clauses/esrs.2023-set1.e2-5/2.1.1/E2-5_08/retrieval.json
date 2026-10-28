@@ -1,0 +1,13 @@
+{
+  "clause_id": "esrs.2023-set1.e2-5@2.1.1:E2-5_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Total amount of substances of very high concern that are generated or used during production or that are procured by main hazard classes of substances of concern",
+    "生产生成使用或采购的高度关注物质量",
+    "substances of very high concern input",
+    "高度关注物质投入量",
+    "Total amount of substances of very high concern that are generated or used during production or that are procured by main hazard classes of substances of concern。生产生成使用或采购的高度关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s2-sbm-3@2.3.0:S2.SBM-3_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of geographies or commodities for which there is significant risk of child labour, or of forced or compulsory labour, among workers in undertaking’s value chain",
+    "童工或强迫劳动重大风险的地理区域与商品",
+    "披露价值链中存在童工或强迫劳动重大风险的地理区域或商品。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

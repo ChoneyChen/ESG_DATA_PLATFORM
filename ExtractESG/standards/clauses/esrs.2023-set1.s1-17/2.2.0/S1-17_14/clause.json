@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_14",
+  "contract_digest": "7c1259c961726d99c12c3d2591da77ed43dab1c05b8460b12431717a4a693780",
+  "description": "Number of severe human rights cases where undertaking played role securing remedy for those affected。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+  "disclosure_requirement": "S1-17",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Number of severe human rights cases where undertaking played role securing remedy for those affected",
+    "zh": "Number of severe human rights cases where undertaking played role securing remedy for those affected"
+  },
+  "metric_id": "esrs.2023-set1.s1-17.dp14",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-17",
+  "package_version": "2.2.0",
+  "positive_definition": "Number of severe human rights cases where undertaking played role securing remedy for those affected",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-17_14",
+  "unit_dimension": "extractesg.core.unit-dimension.count",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

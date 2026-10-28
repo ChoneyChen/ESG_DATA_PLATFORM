@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.e4-3@2.3.0:E4-3_04",
+  "contract_digest": "6aff937ae6e2c532065b552aabcced47ced2e4bc21fee473b96b29fbfcaea189",
+  "description": "量化生物多样性抵消产生的直接和间接成本，并说明其确认与计量基础。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+  "disclosure_requirement": "E4-3",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Financing effects (direct and indirect costs) of biodiversity offsets",
+    "zh": "生物多样性抵消的财务影响"
+  },
+  "metric_id": "esrs.2023-set1.e4-3.dp04",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-3",
+  "package_version": "2.3.0",
+  "positive_definition": "量化生物多样性抵消产生的直接和间接成本，并说明其确认与计量基础。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-3_04",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

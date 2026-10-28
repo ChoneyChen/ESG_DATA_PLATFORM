@@ -1,0 +1,55 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_34",
+  "contract_digest": "287c4ef085987d420f511fa432e91d7ff28bf5d59d943016c4fbdb3c38382705",
+  "description": "Percentage of net revenue from customers operating in oil-related activities。石油活动客户净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+  "disclosure_requirement": "E1-9",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of net revenue from customers operating in oil-related activities",
+    "zh": "石油活动客户净收入比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-9.dp34",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-9",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-9_34",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

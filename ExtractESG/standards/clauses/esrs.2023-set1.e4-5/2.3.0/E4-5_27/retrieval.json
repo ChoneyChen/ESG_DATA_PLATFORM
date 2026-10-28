@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_27",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of structural components of ecosystem condition",
+    "生态系统状况的结构性组成部分",
+    "披露生态系统状况的结构性组成部分，如植被结构、土壤和水文条件。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

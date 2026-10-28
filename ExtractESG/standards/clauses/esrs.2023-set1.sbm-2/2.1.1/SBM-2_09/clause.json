@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.sbm-2@2.1.1:SBM-2_09",
+  "contract_digest": "c19f6622d920c5fd71ee8cb380db6bea02e4974eb4f9747a3384c0e91127bcff",
+  "description": "Description of how strategy and (or) business model have been amended or are expected to be amended to address interests and views of stakeholders。回应利益方的战略业务变更。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
+  "disclosure_requirement": "SBM-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of how strategy and (or) business model have been amended or are expected to be amended to address interests and views of stakeholders",
+    "zh": "回应利益方的战略业务变更"
+  },
+  "metric_id": "esrs.2023-set1.sbm-2.dp09",
+  "obligation_class": "conditional",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.sbm-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "SBM-2_09",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

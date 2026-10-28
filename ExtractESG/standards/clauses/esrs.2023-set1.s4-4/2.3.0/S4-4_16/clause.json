@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s4-4@2.3.0:S4-4_16",
+  "contract_digest": "a49ecef56e4cbcdab69345504294d61480a3e735dbd9566dd48346e4866cdbf3",
+  "description": "提供面向消费者和终端用户的项目或流程的预期或已实现积极结果信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S4-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Information about intended or achieved positive outcomes of programmes or processes for consumers and end-users",
+    "zh": "面向消费者的项目预期或已实现结果"
+  },
+  "metric_id": "esrs.2023-set1.s4-4.dp16",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s4-4",
+  "package_version": "2.3.0",
+  "positive_definition": "提供面向消费者和终端用户的项目或流程的预期或已实现积极结果信息。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S4-4_16",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

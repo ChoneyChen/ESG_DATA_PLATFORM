@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_17",
+  "negative_terms": [],
+  "positive_terms": [
+    "Renewable energy production",
+    "可再生能源生产量",
+    "Renewable energy",
+    "可再生能源",
+    "renewable sources",
+    "绿色能源",
+    "Energy production",
+    "能源生产"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

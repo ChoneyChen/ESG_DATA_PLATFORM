@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_13",
+  "contract_digest": "3bf1b75dd703c3db7d3ee11cbafdabeb3f456920524133e7d231c02a3fdde035",
+  "description": "说明政策如何通过具体程序落实，以预防、减轻并在发现后处理歧视，同时推进多元与包容。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S1-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of whether and how policies are implemented through specific procedures to ensure discrimination is prevented, mitigated and acted upon once detected, as well as to advance diversity and inclusion",
+    "zh": "政策通过具体程序防止和处理歧视的实施方式"
+  },
+  "metric_id": "esrs.2023-set1.s1-1.dp13",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-1",
+  "package_version": "2.3.0",
+  "positive_definition": "说明政策如何通过具体程序落实，以预防、减轻并在发现后处理歧视，同时推进多元与包容。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-1_13",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

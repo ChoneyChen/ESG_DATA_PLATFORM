@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of an analysis of its training activities by, for example, region of training or category",
+    "培训活动的分析",
+    "披露按地区、类别等维度对反腐败或反贿赂培训活动所作的分析。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

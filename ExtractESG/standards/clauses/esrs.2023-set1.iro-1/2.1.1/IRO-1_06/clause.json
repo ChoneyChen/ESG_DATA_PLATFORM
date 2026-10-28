@@ -1,0 +1,54 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_06",
+  "contract_digest": "8e782045cf11e836a87bf2aaa938a722d5d26d503a63e62885f9dabaf91e6804",
+  "description": "Description of how process prioritises negative impacts based on their relative severity and likelihood and positive impacts based on their relative scale, scope and likelihood and determines which sustainability matters are material for reporting purposes。影响重要性判断排序。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
+  "disclosure_requirement": "IRO-1",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of how process prioritises negative impacts based on their relative severity and likelihood and positive impacts based on their relative scale, scope and likelihood and determines which sustainability matters are material for reporting purposes",
+    "zh": "影响重要性判断排序"
+  },
+  "metric_id": "esrs.2023-set1.iro-1.dp06",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.iro-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "IRO-1_06",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

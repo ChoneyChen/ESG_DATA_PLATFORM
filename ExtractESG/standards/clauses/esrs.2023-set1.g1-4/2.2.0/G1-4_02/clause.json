@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.g1-4@2.2.0:G1-4_02",
+  "contract_digest": "eb4d6419051f1b8837f3e147aa1fba359b1d302404cf88a257f51a02285002a6",
+  "description": "报告期内因违反反腐败及反贿赂法律被判处的罚款金额，保留原币种。",
+  "disclosure_requirement": "G1-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "定罪数量",
+    "已确认腐败事件数量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "保留原币种；不按当前汇率隐式转换；罚款金额与定罪数量分别保留。"
+  ],
+  "labels": {
+    "en": "Amount of fines for violation of anti-corruption and anti- bribery laws",
+    "zh": "违反反腐败及反贿赂法律的罚款金额"
+  },
+  "metric_id": "esrs.2023-set1.g1-4.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-4",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期内违反反腐败及反贿赂法律的罚款金额。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "legal_scope",
+      "currency",
+      "fine_basis"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-4_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

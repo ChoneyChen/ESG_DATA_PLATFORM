@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s3-5@2.3.0:S3-5_01",
+  "contract_digest": "c1f6a5ce82a62bf4743769552ca931b93804a3637579854c53478e2925a81cdf",
+  "description": "说明受影响社区是否以及如何直接参与相关目标的设定。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S3-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of whether and how affected communities were engaged directly in setting targets",
+    "zh": "受影响社区参与目标设定"
+  },
+  "metric_id": "esrs.2023-set1.s3-5.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s3-5",
+  "package_version": "2.3.0",
+  "positive_definition": "说明受影响社区是否以及如何直接参与相关目标的设定。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S3-5_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

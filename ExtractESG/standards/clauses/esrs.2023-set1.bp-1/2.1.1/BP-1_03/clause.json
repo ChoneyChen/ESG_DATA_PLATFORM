@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.bp-1@2.1.1:BP-1_03",
+  "contract_digest": "72c24e8ee026188e4befdd307de93f839f2558cc470d647204cab31dbfbf1f2a",
+  "description": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting。纳入合并但豁免独立披露的子公司。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+  "disclosure_requirement": "BP-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting",
+    "zh": "纳入合并但豁免独立披露的子公司"
+  },
+  "metric_id": "esrs.2023-set1.bp-1.dp03",
+  "obligation_class": "conditional",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.bp-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "BP-1_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

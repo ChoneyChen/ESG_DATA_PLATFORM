@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-3@2.3.0:E4-3_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure on how the mitigation hierarchy has been applied with regard to biodiversity and ecosystem actions",
+    "减缓层级在生物多样性和生态系统行动中的应用",
+    "说明生物多样性和生态系统相关行动如何应用避免、最小化、恢复和抵消的减缓层级。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s3-1@2.3.0:S3-1_09",
+  "contract_digest": "fc571655cf5d1ca6536c486115724c4f29fca6d0bf3e3c2afc0fa17faa3cdf06",
+  "description": "举例说明政策如何向受影响社区中的相关个人、群体或实体传达，包括渠道和语言。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S3-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant",
+    "zh": "政策向相关人员传达的方式示例（受影响社区）"
+  },
+  "metric_id": "esrs.2023-set1.s3-1.dp09",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s3-1",
+  "package_version": "2.3.0",
+  "positive_definition": "举例说明政策如何向受影响社区中的相关个人、群体或实体传达，包括渠道和语言。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S3-1_09",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

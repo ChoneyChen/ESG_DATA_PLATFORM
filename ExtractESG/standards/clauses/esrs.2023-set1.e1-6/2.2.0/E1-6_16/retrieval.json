@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_16",
+  "negative_terms": [],
+  "positive_terms": [
+    "Significant events and changes between reporting dates",
+    "报告日期之间的重大事件和变化",
+    "Reporting period",
+    "报告期",
+    "reporting year",
+    "报告年度",
+    "Comparability change",
+    "可比性变更"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

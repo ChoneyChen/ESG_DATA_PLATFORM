@@ -610,6 +610,24 @@ def _targeted_write(path: str, body: dict) -> dict:
         raise HTTPException(503, "无法连接定向后端，条款操作暂不可用") from exc
 
 
+@app.get("/api/pipeline/clause-catalog")
+def pipeline_clause_catalog():
+    return _targeted_catalog_request("/api/clause-catalog")
+
+
+@app.get("/api/pipeline/clause-catalog/{package_id}/{package_version}/{source_datapoint_id}")
+def pipeline_clause_package(package_id: str, package_version: str, source_datapoint_id: str):
+    return _targeted_catalog_request(
+        f"/api/clause-catalog/{quote(package_id, safe='')}/{quote(package_version, safe='')}"
+        f"/{quote(source_datapoint_id, safe='')}")
+
+
+@app.get("/api/pipeline/clause-profiles/{package_id}/{package_version}")
+def pipeline_clause_profiles(package_id: str, package_version: str):
+    return _targeted_catalog_request(
+        f"/api/clause-profiles/{quote(package_id, safe='')}/{quote(package_version, safe='')}")
+
+
 @app.get("/api/pipeline/clause-lifecycle")
 def pipeline_clause_lifecycle():
     return _targeted_catalog_request("/api/clause-lifecycle")

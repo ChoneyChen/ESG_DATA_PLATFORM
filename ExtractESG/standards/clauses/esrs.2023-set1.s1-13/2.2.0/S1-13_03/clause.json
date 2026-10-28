@@ -1,0 +1,55 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-13@2.2.0:S1-13_03",
+  "contract_digest": "8eb715370ff3fe0c109c774e6e058ae2da706211b2a3940c55dc215a786bf0be",
+  "description": "报告期内员工按性别划分的人均培训小时数。",
+  "disclosure_requirement": "S1-13",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "培训总时长",
+    "受训员工人数",
+    "人均培训小时数"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "培训总时长不能代替人均时长；外部培训与内部培训的口径须一致。"
+  ],
+  "labels": {
+    "en": "Average number of training hours  by gender [table]",
+    "zh": "按性别划分的平均培训小时数"
+  },
+  "metric_id": "esrs.2023-set1.s1-13.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-13",
+  "package_version": "2.2.0",
+  "positive_definition": "按性别划分的员工人均培训小时数。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "population",
+      "gender",
+      "training_scope",
+      "denominator_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-13_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

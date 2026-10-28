@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-6@2.2.0:G1-6_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Average number of days to pay invoice from date when contractual or statutory term of payment starts to be calculated",
+    "自合同或法定付款起算日计的平均付款天数",
+    "自合同或法定付款条件起算日起，向供应商付款的平均天数。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

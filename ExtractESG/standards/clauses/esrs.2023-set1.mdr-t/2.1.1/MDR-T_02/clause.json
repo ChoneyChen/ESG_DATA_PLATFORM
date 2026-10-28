@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.mdr-t@2.1.1:MDR-T_02",
+  "contract_digest": "965dbd52d0f9e6dc682b6dee69a0f28549a0ac33b77216aa10f01bb107393174",
+  "description": "Measurable target。可量化目标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
+  "disclosure_requirement": "MDR-T",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Measurable target",
+    "zh": "可量化目标"
+  },
+  "metric_id": "esrs.2023-set1.mdr-t.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 强度",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-0b765dc8d99dc1dd",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.mdr-t",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "target_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "MDR-T_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

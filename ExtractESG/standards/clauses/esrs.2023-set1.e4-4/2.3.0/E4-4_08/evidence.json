@@ -1,0 +1,30 @@
+{
+  "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_08",
+  "requirements": [
+    {
+      "field": "value",
+      "level": "cell",
+      "note": "陈述文本必须可回读",
+      "required": false
+    },
+    {
+      "field": "source_row_label",
+      "level": "row",
+      "note": null,
+      "required": true
+    },
+    {
+      "field": "reporting_period",
+      "level": "column_header",
+      "note": null,
+      "required": true
+    },
+    {
+      "field": "reporting_boundary",
+      "level": "row",
+      "note": "边界可由表题或章节说明给出",
+      "required": false
+    }
+  ],
+  "schema_version": "clause-evidence-1.0"
+}

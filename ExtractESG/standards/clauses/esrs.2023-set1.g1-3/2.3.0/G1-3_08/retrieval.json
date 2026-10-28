@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about members of administrative, supervisory and management bodies relating to anti-corruption or anti-bribery training",
+    "行政、监督与管理机构成员的反腐败培训",
+    "说明行政、监督和管理机构成员参与反腐败或反贿赂培训的情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

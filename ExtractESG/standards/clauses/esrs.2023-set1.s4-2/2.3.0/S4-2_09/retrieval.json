@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-2@2.3.0:S4-2_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Type of role or function handling with engagement",
+    "负责消费者接触的角色或职能类型",
+    "说明主体内部负责处理消费者和终端用户接触的角色或职能类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

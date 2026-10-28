@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-12@2.3.0:S1-12_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of persons with disabilities amongst employees, subject to legal restrictions on collection of data",
+    "残障员工比例",
+    "披露残障员工占员工总数的比例，并说明在数据收集法律限制下的统计方式。数值须来自报告原文，保留原值与单位；未披露与显式零分开。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

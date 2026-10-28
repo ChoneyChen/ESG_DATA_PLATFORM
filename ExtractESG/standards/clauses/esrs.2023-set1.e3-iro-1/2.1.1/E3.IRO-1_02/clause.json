@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e3-iro-1@2.1.1:E3.IRO-1_02",
+  "contract_digest": "aa59acac058b6f5cf37bcf7329ec53efb868121f1df97e4162583149c8fa5715",
+  "description": "Disclosure of how consultations have been conducted (water and marine resources) [text block]。水及海洋资源利益方咨询。区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。",
+  "disclosure_requirement": "E3.IRO-1",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of how consultations have been conducted (water and marine resources) [text block]",
+    "zh": "水及海洋资源利益方咨询"
+  },
+  "metric_id": "esrs.2023-set1.e3-iro-1.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e3-iro-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E3.IRO-1_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

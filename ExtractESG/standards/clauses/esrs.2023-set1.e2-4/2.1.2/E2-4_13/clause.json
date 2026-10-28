@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_13",
+  "contract_digest": "00e562cbe32fa674453c140639275c6b4ef8bb8c52f6cb3e9637cf4b30ffc6da",
+  "description": "AR 23(c) 的可选背景信息。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of total emissions of pollutants to soil occurring in areas at water risk",
+    "zh": "水风险地区土壤污染物排放占比"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp13",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "水风险地区土壤污染物排放占比",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "water_risk_class"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_13",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

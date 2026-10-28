@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s2-2@2.3.0:S2-2_01",
+  "contract_digest": "7c0ab635afe1ad6933ac9af8f016f43bf7a06cb59a31aeaa635f8279385a8ed8",
+  "description": "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S2-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential  impacts",
+    "zh": "价值链劳动者观点对决策的影响"
+  },
+  "metric_id": "esrs.2023-set1.s2-2.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s2-2",
+  "package_version": "2.3.0",
+  "positive_definition": "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S2-2_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-sbm-3@2.3.0:E4.SBM-3_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Own operations affect threatened species",
+    "自身运营对受威胁物种的影响",
+    "说明自身运营是否以及如何影响受威胁物种，并指出涉及的物种与影响方式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

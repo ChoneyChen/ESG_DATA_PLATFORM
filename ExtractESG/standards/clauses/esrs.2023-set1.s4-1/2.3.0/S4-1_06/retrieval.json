@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-1@2.3.0:S4-1_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of whether and how policies are aligned with relevant internationally recognised instruments",
+    "政策与国际公认文书的一致性（消费者）",
+    "说明政策是否以及如何与相关国际公认文书保持一致，并指出对应文书。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

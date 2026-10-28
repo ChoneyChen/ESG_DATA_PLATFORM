@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_11",
+  "negative_terms": [],
+  "positive_terms": [
+    "Gross Scope 3 GHG emissions by significant category",
+    "按重大类别划分的范围3温室气体排放总量",
+    "Scope 3 emissions",
+    "范围3排放",
+    "scope3",
+    "scope III",
+    "other indirect GHG emissions",
+    "范围3"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

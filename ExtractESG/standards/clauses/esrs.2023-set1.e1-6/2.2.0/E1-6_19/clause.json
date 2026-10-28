@@ -1,0 +1,48 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_19",
+  "contract_digest": "a61e9c3cdf4a721eff21a2dd85063e971bbb6c0f41e86040c7d5a1953ababb2a",
+  "description": "企业实际使用的合同工具类型清单，例如购电协议、能源属性证书或供应商特定工具。每类工具为独立清单成员；比例和范围2排放量不是工具类型。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Types of contractual instruments",
+    "zh": "合同工具类型"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp19",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "合同工具类型",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_19",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

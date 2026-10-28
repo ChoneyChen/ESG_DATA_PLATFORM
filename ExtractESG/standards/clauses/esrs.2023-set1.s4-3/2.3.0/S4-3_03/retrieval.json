@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-3@2.3.0:S4-3_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of processes through which undertaking supports or requires availability of channels",
+    "支持或要求提供渠道的流程（消费者）",
+    "说明主体通过哪些流程支持或要求提供消费者申诉渠道，包括对业务伙伴的要求。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

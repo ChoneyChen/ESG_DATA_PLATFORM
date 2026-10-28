@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-8@2.1.1:E1-8_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of gross Scope 1 greenhouse gas emissions covered by internal carbon pricing scheme",
+    "内部碳定价覆盖的范围1比例",
+    "Percentage of gross Scope 1 greenhouse gas emissions covered by internal carbon pricing scheme。内部碳定价覆盖的范围1比例。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

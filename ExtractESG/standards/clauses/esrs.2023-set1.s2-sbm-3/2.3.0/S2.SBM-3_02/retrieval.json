@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s2-sbm-3@2.3.0:S2.SBM-3_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of types of value chain workers subject to material impacts",
+    "受重大影响的价值链劳动者类型",
+    "描述价值链中受重大影响的劳动者类型，包括就业形态和所处环节。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

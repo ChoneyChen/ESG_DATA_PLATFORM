@@ -1,0 +1,54 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.iro-1@2.1.1:IRO-1_13",
+  "contract_digest": "334884ecb8cd1d300df44ec71902b2e0c379c4e379cd45a8d2e1f9bc486b22da",
+  "description": "Description of extent to which and how process to identify, assess and manage opportunities is integrated into overall management process。机会识别与管理流程整合。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
+  "disclosure_requirement": "IRO-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of extent to which and how process to identify, assess and manage opportunities is integrated into overall management process",
+    "zh": "机会识别与管理流程整合"
+  },
+  "metric_id": "esrs.2023-set1.iro-1.dp13",
+  "obligation_class": "conditional",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.iro-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "IRO-1_13",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

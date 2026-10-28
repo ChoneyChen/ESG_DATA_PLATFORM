@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (resource use and circular economy)",
+    "生态阈值的识别与方法（资源利用与循环经济）",
+    "披露资源利用与循环经济目标所依据的生态阈值及其识别方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

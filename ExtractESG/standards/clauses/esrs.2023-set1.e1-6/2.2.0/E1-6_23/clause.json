@@ -1,0 +1,48 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_23",
+  "contract_digest": "7653972dbebf62c2ea23d2f1159758c561b72ef8c11c7497f52114973a0c9fc6",
+  "description": "合同工具的类型和组合方式说明。输出可读的工具组合陈述，不把范围2表中的数字、年份或单位转成定性断言。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Types and mix of contractual instruments",
+    "zh": "合同工具的类型与组合说明"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp23",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "合同工具的类型与组合说明",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_23",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

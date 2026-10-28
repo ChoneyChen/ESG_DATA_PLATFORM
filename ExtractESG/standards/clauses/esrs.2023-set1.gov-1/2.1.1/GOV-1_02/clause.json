@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.gov-1@2.1.1:GOV-1_02",
+  "contract_digest": "d510c038e6e092dea320c2b610a527590b8c96578394744c2ad3381c5908f574",
+  "description": "Number of non-executive members。非执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+  "disclosure_requirement": "GOV-1",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Number of non-executive members",
+    "zh": "非执行成员数量"
+  },
+  "metric_id": "esrs.2023-set1.gov-1.dp02",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-1_02",
+  "unit_dimension": "extractesg.core.unit-dimension.count",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

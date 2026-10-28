@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e3-4@2.1.1:E3-4_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates",
+    "水量测量方法所占比例",
+    "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates。水量测量方法所占比例。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

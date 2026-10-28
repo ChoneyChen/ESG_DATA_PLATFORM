@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s2-4@2.3.0:S2-4_07",
+  "contract_digest": "049d943a0a1b481244e7960a013258151cd78f2b94180c190ec23ec0e6782f9f",
+  "description": "描述主体如何确保在价值链劳动者发生重大负面影响时，补救流程可得、可实施且结果有效。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of approach to ensuring that processes to provide or enable remedy in event of material negative impacts on  value chain workers  are available and effective in their implementation and outcomes",
+    "zh": "确保补救流程可用有效的机制"
+  },
+  "metric_id": "esrs.2023-set1.s2-4.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s2-4",
+  "package_version": "2.3.0",
+  "positive_definition": "描述主体如何确保在价值链劳动者发生重大负面影响时，补救流程可得、可实施且结果有效。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S2-4_07",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

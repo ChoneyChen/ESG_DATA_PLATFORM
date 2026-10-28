@@ -1,0 +1,49 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_15",
+  "contract_digest": "ab726ae31aa0f32541b5a10da4b18375f58877f47fad45276e99596e2513cf3a",
+  "description": "仅在采用低于直接测量的量化方法时适用；使用估算还应披露依据、可能不确定性程度和估算范围。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of reasons for choosing inferior methodology to quantify emissions",
+    "zh": "选择低于直接测量优先级方法的原因"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp15",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "选择低于直接测量优先级方法的原因",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_15",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_17",
+  "contract_digest": "df6d4d5a9fe14e7d39d6c9bf74e6ebaaf86c1a623f6578f7dc5dce383ff77611",
+  "description": "适用 IED/BREF 时可披露；明确零事件也是有效披露。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of list of any non-compliance incidents or enforcement actions necessary to ensure compliance in case of breaches of permit conditions",
+    "zh": "许可条件违规事件或执法行动清单"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp17",
+  "obligation_class": "conditional_voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "许可条件违规事件或执法行动清单",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_17",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

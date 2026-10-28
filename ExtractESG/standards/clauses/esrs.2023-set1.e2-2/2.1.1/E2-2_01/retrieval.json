@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e2-2@2.1.1:E2-2_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Layer in mitigation hierarchy to which action can be allocated to (pollution)",
+    "污染行动在缓解层级中的位置",
+    "Layer in mitigation hierarchy to which action can be allocated to (pollution)。污染行动在缓解层级中的位置。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

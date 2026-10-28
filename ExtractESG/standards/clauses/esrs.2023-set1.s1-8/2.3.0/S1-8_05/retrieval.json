@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-8@2.3.0:S1-8_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of extent to which working conditions and terms of employment of non-employees in own workforce are determined or influenced by collective bargaining agreements",
+    "非员工的就业条件受集体谈判影响的程度",
+    "描述自身劳动力中非员工的就业条件和工作条款在多大程度上由集体谈判协议决定或影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

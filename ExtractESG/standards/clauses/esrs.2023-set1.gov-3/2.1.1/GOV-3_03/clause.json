@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.gov-3@2.1.1:GOV-3_03",
+  "contract_digest": "66a9f7f95688aeda8d4cd7fd94e077db0af89211f327eb451a6d0378ffc2076d",
+  "description": "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies。可持续绩效考核目标和影响。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
+  "disclosure_requirement": "GOV-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies",
+    "zh": "可持续绩效考核目标和影响"
+  },
+  "metric_id": "esrs.2023-set1.gov-3.dp03",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-034cdbfd5ad10b8a",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-3_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Total Waste generated",
+    "废弃物产生总量",
+    "报告期内产生的废弃物总量（吨），包含无害废弃物与危险废弃物。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

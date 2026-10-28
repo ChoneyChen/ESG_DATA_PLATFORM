@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-gov-3@2.1.1:E1.GOV-3_02",
+  "contract_digest": "b95eb7f4f7d33221e16bcd6e4cc13ace32d1f6c29e46174eb3aa4833a78cf2f6",
+  "description": "Percentage of remuneration recognised that is linked to climate related considerations。与气候因素挂钩的薪酬比例。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
+  "disclosure_requirement": "E1.GOV-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of remuneration recognised that is linked to climate related considerations",
+    "zh": "与气候因素挂钩的薪酬比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-gov-3.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-gov-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1.GOV-3_02",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

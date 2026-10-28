@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-3@2.3.0:S1-3_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how own workforce and their workers' representatives are able to access channels at level of undertaking they are employed by or contracted to work for",
+    "员工在其受雇或签约层级使用渠道的能力",
+    "说明自身劳动力及其代表是否以及如何在其受雇或签约主体的层级使用申诉渠道。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

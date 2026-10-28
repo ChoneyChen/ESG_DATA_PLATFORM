@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_18",
+  "negative_terms": [],
+  "positive_terms": [
+    "Share of Scope 2 emissions linked to contractual instruments",
+    "与合同工具相关的范围2排放比例",
+    "Scope 2 emissions",
+    "范围2排放",
+    "scope2",
+    "scope II",
+    "energy indirect GHG emissions",
+    "范围2"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

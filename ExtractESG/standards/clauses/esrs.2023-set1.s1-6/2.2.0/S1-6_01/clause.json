@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_01",
+  "contract_digest": "bd6638defcca9ea6dc1d5cc61bf38081e07852ee4a01924c9609ccf5e2aa6ffb",
+  "description": "Characteristics of undertaking's employees - number of employees by gender [table]。表结构只承载成员与列的定义，不单独形成带值事实。",
+  "disclosure_requirement": "S1-6",
+  "disclosure_role": "presentation",
+  "distinguish_from": [],
+  "exclusions": [
+    "表结构只承载成员与列的定义，不单独形成带值事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Characteristics of undertaking's employees - number of employees by gender [table]",
+    "zh": "Characteristics of undertaking's employees - number of employees by gender [table]"
+  },
+  "metric_id": "esrs.2023-set1.s1-6.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-a859ef3029fef91e",
+      "value_role": "structure"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "Characteristics of undertaking's employees - number of employees by gender [table]",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-6_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

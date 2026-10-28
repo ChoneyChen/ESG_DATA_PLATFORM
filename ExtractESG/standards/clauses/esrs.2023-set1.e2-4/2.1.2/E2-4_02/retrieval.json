@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Emissions to air by pollutant",
+    "按污染物划分的空气排放量",
+    "Air pollution",
+    "空气污染排放",
+    "air emissions",
+    "emissions to air",
+    "air pollutant emissions",
+    "flue gas emissions"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

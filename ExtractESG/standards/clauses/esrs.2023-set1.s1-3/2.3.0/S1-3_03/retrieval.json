@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-3@2.3.0:S1-3_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Third-party mechanisms are accessible to all own workforce",
+    "面向全体员工的第三方机制",
+    "说明第三方机制是否向全体自身劳动力开放，以及可及性安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

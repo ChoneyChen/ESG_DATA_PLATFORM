@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_11",
+  "contract_digest": "ab41f75126b91b114e3db7de889e8040ff3d95a2614ddd7afb65c45d84791f59",
+  "description": "Undertaking has screened whether assets and business activities may be exposed to transition events。资产活动的转型事件暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+  "disclosure_requirement": "E1.IRO-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Undertaking has screened whether assets and business activities may be exposed to transition events",
+    "zh": "资产活动的转型事件暴露筛查"
+  },
+  "metric_id": "esrs.2023-set1.e1-iro-1.dp11",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-iro-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1.IRO-1_11",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

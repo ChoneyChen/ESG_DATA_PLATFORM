@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "All people in its own workforce who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2",
+    "可能受重大影响的自身劳动力纳入披露范围",
+    "说明所有可能受主体重大影响的自身劳动力人员是否已纳入ESRS 2披露范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

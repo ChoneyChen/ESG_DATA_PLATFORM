@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.mdr-p@2.1.1:MDR-P_02",
+  "contract_digest": "f2e631f74d3b13cf89512c733cac2270506a592122de53c1e0272cc7bfe64592",
+  "description": "Description of scope of policy or of its exclusions。政策适用范围和排除。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+  "disclosure_requirement": "MDR-P",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of scope of policy or of its exclusions",
+    "zh": "政策适用范围和排除"
+  },
+  "metric_id": "esrs.2023-set1.mdr-p.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.mdr-p",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "MDR-P_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

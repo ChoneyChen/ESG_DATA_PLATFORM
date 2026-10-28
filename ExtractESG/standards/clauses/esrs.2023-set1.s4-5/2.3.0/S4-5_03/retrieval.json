@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-5@2.3.0:S4-5_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how consumers and end-users were engaged directly in identifying lessons or improvements as result of undertaking’s performance",
+    "消费者和终端用户参与经验与改进识别",
+    "说明消费者和终端用户是否以及如何直接参与识别绩效带来的经验教训或改进机会。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

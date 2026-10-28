@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_25",
+  "contract_digest": "07ab0b6378b0b0f50054f8dcd868d25802fa0f719ace9223d856860911beb5c0",
+  "description": "使用供应商或其他价值链伙伴一手数据计算的范围3排放比例。需明确连接一手数据、范围3计算及比例口径。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of Scope 3 emissions calculated using primary data",
+    "zh": "使用从供应商或价值链伙伴取得的一手数据计算的范围3排放比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp25",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "使用从供应商或价值链伙伴取得的一手数据计算的范围3排放比例",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_25",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

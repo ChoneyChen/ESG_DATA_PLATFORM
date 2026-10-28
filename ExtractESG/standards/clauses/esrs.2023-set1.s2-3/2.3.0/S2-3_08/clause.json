@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s2-3@2.3.0:S2-3_08",
+  "contract_digest": "6c2460efc369d4b5bc1b5df2b3f843bc0b415e43378465799283d76cc0d23b65",
+  "description": "披露主体计划建立面向价值链劳动者的申诉渠道的时间表。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S2-3",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of timeframe for channel for raising concerns to be in place",
+    "zh": "建立价值链申诉渠道的时间表"
+  },
+  "metric_id": "esrs.2023-set1.s2-3.dp08",
+  "obligation_class": "conditional_voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s2-3",
+  "package_version": "2.3.0",
+  "positive_definition": "披露主体计划建立面向价值链劳动者的申诉渠道的时间表。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S2-3_08",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

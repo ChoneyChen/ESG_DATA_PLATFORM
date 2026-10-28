@@ -1,0 +1,56 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e3-4@2.1.1:E3-4_07",
+  "contract_digest": "99c2b0b6fd7cacc45fbc3b9ad1762aa8f7dc94212973863e0a045667b3409d17",
+  "description": "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates。水量测量方法所占比例。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+  "disclosure_requirement": "E3-4",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates",
+    "zh": "水量测量方法所占比例"
+  },
+  "metric_id": "esrs.2023-set1.e3-4.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e3-4",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "water_measure",
+      "geography",
+      "water_risk_class",
+      "measurement_method",
+      "aggregation_role",
+      "measurement_basis"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E3-4_07",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

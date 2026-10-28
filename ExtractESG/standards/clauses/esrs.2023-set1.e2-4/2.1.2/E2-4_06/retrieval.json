@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Microplastics generated",
+    "产生的微塑料量",
+    "Microplastics",
+    "微塑料",
+    "microplastic",
+    "micro-plastics",
+    "微塑料颗粒",
+    "微塑料可能在生产中有意或无意产生；范围按 AR 20 判断。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

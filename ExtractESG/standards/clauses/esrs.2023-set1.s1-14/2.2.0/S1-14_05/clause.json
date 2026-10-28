@@ -1,0 +1,55 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_05",
+  "contract_digest": "a19749893eecab45c148a1d1a205e2ca7d919e027a6726088e2dade7f89efdaf",
+  "description": "按每百万工时计算的自有劳动力可记录工伤事故率。",
+  "disclosure_requirement": "S1-14",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "工伤保险覆盖率",
+    "误工事故频率",
+    "工亡人数"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "工伤保险覆盖率不是事故率；可记录事故率与误工事故频率不能互换。"
+  ],
+  "labels": {
+    "en": "Rate of recordable work-related accidents for own workforce",
+    "zh": "自有劳动力可记录工伤事故率"
+  },
+  "metric_id": "esrs.2023-set1.s1-14.dp05",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-14",
+  "package_version": "2.2.0",
+  "positive_definition": "自有劳动力每百万工时的可记录工伤事故数。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "population",
+      "accident_definition",
+      "denominator_unit",
+      "rate_multiplier"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-14_05",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

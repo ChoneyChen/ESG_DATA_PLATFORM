@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_02",
+  "contract_digest": "e382cd1f868f978d53f5b3ac3650f3adc61fe5c56477966666c13d40bfd17719",
+  "description": "Description of significant markets and (or) customer groups served。主要市场客户群。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+  "disclosure_requirement": "SBM-1",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of significant markets and (or) customer groups served",
+    "zh": "主要市场客户群"
+  },
+  "metric_id": "esrs.2023-set1.sbm-1.dp02",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-92477e5a7415f135",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.sbm-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "SBM-1_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

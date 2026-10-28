@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.s1-16@2.2.0:S1-16_01",
+  "contract_digest": "432fc21d999d63ebaff72905afc25c90f79fa8cf55162dd0f878ef7b805f804d",
+  "description": "男女员工薪酬水平之差相对于男性薪酬水平的比例。",
+  "disclosure_requirement": "S1-16",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "同工同酬比例",
+    "男女薪酬比"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "同工同酬比例与薪酬差距是不同指标；薪酬口径（基本工资或总薪酬）须一致。"
+  ],
+  "labels": {
+    "en": "Gender pay gap",
+    "zh": "性别薪酬差距"
+  },
+  "metric_id": "esrs.2023-set1.s1-16.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-16",
+  "package_version": "2.2.0",
+  "positive_definition": "男女员工薪酬水平之差占男性薪酬水平的比例。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "population",
+      "pay_definition",
+      "denominator_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-16_01",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

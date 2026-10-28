@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_11",
+  "contract_digest": "ea7c7439d2a6db1cecf11bbbf37c1921ae082f0d654f2ee5b6eaa35b3dd89dd2",
+  "description": "披露在腐败和贿赂方面风险最高的职能或部门，并说明风险识别依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "G1-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of the functions that are most at risk in respect of corruption and bribery",
+    "zh": "腐败和贿赂风险最高的职能"
+  },
+  "metric_id": "esrs.2023-set1.g1-1.dp11",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-1",
+  "package_version": "2.3.0",
+  "positive_definition": "披露在腐败和贿赂方面风险最高的职能或部门，并说明风险识别依据。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-1_11",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

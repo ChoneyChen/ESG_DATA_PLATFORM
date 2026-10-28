@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.gov-3@2.1.1:GOV-3_05",
+  "contract_digest": "b772073dd4ed15c203135cf289bc284aadc8ee9d277227cc7682d21a31c10c62",
+  "description": "Percentage of variable remuneration dependent on sustainability-related targets and (or) impacts。依赖可持续目标的浮动薪酬比例。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
+  "disclosure_requirement": "GOV-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of variable remuneration dependent on sustainability-related targets and (or) impacts",
+    "zh": "依赖可持续目标的浮动薪酬比例"
+  },
+  "metric_id": "esrs.2023-set1.gov-3.dp05",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-3_05",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

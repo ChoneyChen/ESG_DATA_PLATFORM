@@ -1,0 +1,76 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_31",
+  "contract_digest": "94bb4e2e7fc286357306cff69e3dd23199e062b65dd63f9c1bdea051b2f6abac",
+  "description": "以采用市场法范围2的温室气体总量为分子、净收入为分母的排放强度。没有市场法总量或净收入分母时不得借用位置法或其他强度。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "derived",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Market-based GHG intensity",
+    "zh": "基于市场法的温室气体排放强度"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp31",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "位置法口径",
+      "method": "location_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-ddbfde6075f61fa6",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "市场法口径",
+      "method": "market_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-b01eb8f4f83cde33",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "基于市场法的温室气体排放强度",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_31",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-intensity",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

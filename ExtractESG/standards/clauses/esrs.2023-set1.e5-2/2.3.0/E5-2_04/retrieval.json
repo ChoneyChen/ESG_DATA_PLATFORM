@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of application of circular business practices",
+    "循环商业实践的应用",
+    "说明主体采用哪些循环商业实践，如产品即服务、共享、再制造或翻新，并说明其规模。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

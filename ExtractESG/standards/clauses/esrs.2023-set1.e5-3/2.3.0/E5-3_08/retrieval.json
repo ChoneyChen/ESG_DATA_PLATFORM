@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of how target relates to other matters related to resource use or circular economy",
+    "目标与其他资源利用或循环经济事项的关系",
+    "说明目标如何与除废弃物管理外的其他资源利用或循环经济事项相关联。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

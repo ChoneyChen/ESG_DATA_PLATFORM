@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_19",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of actual performance against environmental performance levels associated with best available techniques (BAT-AEPLs) applicable to sector and installation",
+    "实际环境绩效与 BAT-AEPL 比较",
+    "Environmental performance",
+    "环境绩效",
+    "actual performance",
+    "实际绩效",
+    "环境表现",
+    "BAT-associated environmental performance level"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

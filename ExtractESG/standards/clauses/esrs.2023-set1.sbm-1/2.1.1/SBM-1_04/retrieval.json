@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Number of employees (head count)",
+    "员工人头细分",
+    "Number of employees (head count)。员工人头细分。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

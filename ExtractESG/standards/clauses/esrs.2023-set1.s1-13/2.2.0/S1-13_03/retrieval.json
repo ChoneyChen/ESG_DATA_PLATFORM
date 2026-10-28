@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-13@2.2.0:S1-13_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Average number of training hours  by gender [table]",
+    "按性别划分的平均培训小时数",
+    "报告期内员工按性别划分的人均培训小时数。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

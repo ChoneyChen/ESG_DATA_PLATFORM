@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-8@2.3.0:S1-8_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Own workforce in region (non-EEA) covered by collective bargaining and social dialogue agreements by coverage rate and by region",
+    "欧洲经济区外受集体谈判与社会对话覆盖的劳动力",
+    "按覆盖率和地区披露欧洲经济区外受集体谈判和社会对话协议覆盖的自身劳动力。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

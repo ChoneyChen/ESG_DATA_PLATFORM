@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.gov-2@2.1.1:GOV-2_02",
+  "contract_digest": "4aa7a165899264de42fc8f62def49934df4b7980aa5d25d14bf3e6976ae0f5ad",
+  "description": "Disclosure of how administrative, management and supervisory bodies consider impacts, risks and opportunities when overseeing strategy, decisions on major transactions and risk management process。重大事项在战略交易风险管理中的考虑。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
+  "disclosure_requirement": "GOV-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of how administrative, management and supervisory bodies consider impacts, risks and opportunities when overseeing strategy, decisions on major transactions and risk management process",
+    "zh": "重大事项在战略交易风险管理中的考虑"
+  },
+  "metric_id": "esrs.2023-set1.gov-2.dp02",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-2_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

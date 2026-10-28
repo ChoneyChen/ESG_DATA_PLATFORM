@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_15",
+  "contract_digest": "834c38dd53a5495ae5246fff9ee0f7a763888443dca56479e0d1532eb826f423",
+  "description": "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "E4.IRO-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Activities related to sites located in or near biodiversity-sensitive areas negatively affect these areas by leading to deterioration of natural habitats and habitats of species and to disturbance of species for which protected area has been designated",
+    "zh": "敏感区域场址活动造成的栖息地退化与物种干扰"
+  },
+  "metric_id": "esrs.2023-set1.e4-iro-1.dp15",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-iro-1",
+  "package_version": "2.3.0",
+  "positive_definition": "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4.IRO-1_15",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

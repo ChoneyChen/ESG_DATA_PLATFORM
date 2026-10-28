@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Achieved GHG emission reductions",
+    "已实现温室气体减排量",
+    "Achieved GHG emission reductions。已实现温室气体减排量。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

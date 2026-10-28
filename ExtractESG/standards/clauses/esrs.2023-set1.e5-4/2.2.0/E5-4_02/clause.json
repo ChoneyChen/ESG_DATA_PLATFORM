@@ -1,0 +1,54 @@
+{
+  "canonical_unit": "tonne",
+  "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_02",
+  "contract_digest": "5054a5820c0e54318a46aa76ad6184f3441a3832779ba97e591c39b3003abff4",
+  "description": "报告期内用于生产的产品、技术材料和生物材料的投入总重量（吨）。",
+  "disclosure_requirement": "E5-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "再生材料占比",
+    "产品重量",
+    "包装材料重量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "产品重量与投入材料重叠时不能重复求和；再生材料占比不能替代投入总量。"
+  ],
+  "labels": {
+    "en": "Overall total weight of products and technical and biological materials used during the reporting period",
+    "zh": "产品及技术和生物材料投入总重量"
+  },
+  "metric_id": "esrs.2023-set1.e5-4.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e5-4",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期内产品、技术材料与生物材料的投入总重量。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "material_scope",
+      "material_flow",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E5-4_02",
+  "unit_dimension": "extractesg.core.unit-dimension.mass",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

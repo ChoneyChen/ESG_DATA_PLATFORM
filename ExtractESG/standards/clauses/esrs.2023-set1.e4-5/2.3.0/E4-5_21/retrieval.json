@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_21",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about species at global extinction risk",
+    "处于全球灭绝风险的物种信息",
+    "提供与主体活动相关的、处于全球灭绝风险物种的信息，包括物种名称与风险等级。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e2-3@2.1.1:E2-3_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of how ecological entity-specific thresholds were determined (pollution)",
+    "企业污染阈值分配方法",
+    "Disclosure of how ecological entity-specific thresholds were determined (pollution)。企业污染阈值分配方法。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

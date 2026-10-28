@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Overall total weight of products and technical and biological materials used during the reporting period",
+    "产品及技术和生物材料投入总重量",
+    "报告期内用于生产的产品、技术材料和生物材料的投入总重量（吨）。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

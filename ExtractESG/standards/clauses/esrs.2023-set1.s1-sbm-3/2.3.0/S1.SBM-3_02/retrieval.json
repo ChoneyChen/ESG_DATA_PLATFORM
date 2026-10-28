@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of types of employees and non-employees in its own workforce subject to material impacts",
+    "受重大影响的员工与非员工类型",
+    "描述自身劳动力中受重大影响的员工和非员工类型。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

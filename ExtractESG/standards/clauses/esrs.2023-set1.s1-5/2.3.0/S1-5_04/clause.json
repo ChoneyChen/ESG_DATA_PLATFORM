@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-5@2.3.0:S1-5_04",
+  "contract_digest": "9a52e6f1d4cf806ae48a2bfa6f7d536067bce1f2de765c6db3158e68cc112b42",
+  "description": "披露自身劳动力相关目标拟在员工生活中产生的预期结果。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S1-5",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of intended outcomes to be achieved in lives of people in its own workforce",
+    "zh": "目标拟对员工生活产生的预期结果"
+  },
+  "metric_id": "esrs.2023-set1.s1-5.dp04",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-5",
+  "package_version": "2.3.0",
+  "positive_definition": "披露自身劳动力相关目标拟在员工生活中产生的预期结果。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-5_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

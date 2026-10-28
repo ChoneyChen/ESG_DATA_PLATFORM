@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of process through which it identifies what action is needed and appropriate in response to particular actual or potential negative impact on own workforce",
+    "确定所需行动的流程",
+    "描述主体针对特定实际或潜在负面影响确定所需适当行动的流程。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

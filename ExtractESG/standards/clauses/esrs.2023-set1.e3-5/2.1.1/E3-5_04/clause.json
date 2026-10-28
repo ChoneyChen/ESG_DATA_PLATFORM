@@ -1,0 +1,55 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e3-5@2.1.1:E3-5_04",
+  "contract_digest": "76ed3ad93d5724086f9471bf81311c2c488b092bfd1fed266c85037d607e2f7f",
+  "description": "Disclosure of critical assumptions used in estimates of financial effects of material risks and opportunities arising from water and marine resources-related impacts。水财务估计的关键假设。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
+  "disclosure_requirement": "E3-5",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of critical assumptions used in estimates of financial effects of material risks and opportunities arising from water and marine resources-related impacts",
+    "zh": "水财务估计的关键假设"
+  },
+  "metric_id": "esrs.2023-set1.e3-5.dp04",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-da98b6fe61fc3708",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e3-5",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E3-5_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

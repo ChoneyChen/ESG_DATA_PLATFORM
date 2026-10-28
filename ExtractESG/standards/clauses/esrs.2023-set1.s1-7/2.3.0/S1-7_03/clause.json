@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_03",
+  "contract_digest": "0111474bcc52e3b6730bf9f7bb61cd0880a254b886fad4ecde11a3ccaa77ba2a",
+  "description": "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+  "disclosure_requirement": "S1-7",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Number of non-employees in own workforce - people provided by undertakings primarily engaged in employment activities",
+    "zh": "由就业活动机构提供的人员数量"
+  },
+  "metric_id": "esrs.2023-set1.s1-7.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-7",
+  "package_version": "2.3.0",
+  "positive_definition": "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-7_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

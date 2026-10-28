@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-2@2.3.0:S1-2_13",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of any conflicting interests that have arisen among different workers and how these conflicting interests have been resolved",
+    "员工之间利益冲突及解决方式",
+    "披露不同员工之间出现的利益冲突以及主体如何解决这些冲突。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

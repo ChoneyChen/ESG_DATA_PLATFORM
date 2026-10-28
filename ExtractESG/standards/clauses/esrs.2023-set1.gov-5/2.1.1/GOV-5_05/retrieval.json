@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.gov-5@2.1.1:GOV-5_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies",
+    "治理机构的定期风控内控报告",
+    "Description of periodic reporting of findings of risk assessment and internal controls to administrative, management and supervisory bodies。治理机构的定期风控内控报告。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

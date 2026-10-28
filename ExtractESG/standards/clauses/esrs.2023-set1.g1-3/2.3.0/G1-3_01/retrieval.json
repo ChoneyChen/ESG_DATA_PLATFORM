@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about procedures in place to prevent, detect, and address allegations or incidents of corruption or bribery",
+    "预防、发现和处理腐败或贿赂指控的程序",
+    "说明主体为预防、发现和处理腐败或贿赂指控或事件所建立的程序。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

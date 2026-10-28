@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.g1-6@2.2.0:G1-6_01",
+  "contract_digest": "87a1980abc973125fd9c1e84b47da4275900e7cb457e1c91dfcb731d0ac033ef",
+  "description": "自合同或法定付款条件起算日起，向供应商付款的平均天数。",
+  "disclosure_requirement": "G1-6",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "合同付款账期",
+    "逾期付款金额"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "付款天数不是合同账期；平均值与中位数分别保留。"
+  ],
+  "labels": {
+    "en": "Average number of days to pay invoice from date when contractual or statutory term of payment starts to be calculated",
+    "zh": "自合同或法定付款起算日计的平均付款天数"
+  },
+  "metric_id": "esrs.2023-set1.g1-6.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "自合同或法定付款起算日计算的供应商平均付款天数。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "payment_start_definition",
+      "invoice_scope",
+      "averaging_basis"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-6_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

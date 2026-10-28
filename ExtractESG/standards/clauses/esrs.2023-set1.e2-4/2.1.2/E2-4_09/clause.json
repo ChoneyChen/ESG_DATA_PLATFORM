@@ -1,0 +1,54 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_09",
+  "contract_digest": "d5ddb2454a2da11e7e3ee1e33e47be50d5e045d494def26aa18e20b45be9717c",
+  "description": "AR 26 给出方法优先顺序；AR 27 要求考虑 BREF/基准、AMS 校准和独立实验室验证。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [
+    "污染物排放数值本身",
+    "监测设施数量",
+    "无具体测量说明的认证名称"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以污染物排放数值本身、监测设施数量、无具体测量说明的认证名称替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Description of measurement methodologies (pollution of air, water and soil)",
+    "zh": "空气、水和土壤污染测量方法描述"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp09",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "空气、水和土壤污染测量方法描述",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_09",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-1@2.3.0:S1-1_09",
+  "contract_digest": "550b0074d13af85ed83c026f2ad9e9260dbe572a64c8841e609a6ea0e34bf32b",
+  "description": "披露主体是否已建立工作场所事故预防政策或管理体系，并说明其主要内容。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S1-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Workplace accident prevention policy or management system is in place",
+    "zh": "工作场所事故预防政策或管理体系"
+  },
+  "metric_id": "esrs.2023-set1.s1-1.dp09",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-1",
+  "package_version": "2.3.0",
+  "positive_definition": "披露主体是否已建立工作场所事故预防政策或管理体系，并说明其主要内容。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-1_09",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

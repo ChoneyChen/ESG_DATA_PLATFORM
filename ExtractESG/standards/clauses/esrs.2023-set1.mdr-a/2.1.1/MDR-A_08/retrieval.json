@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Current and future financial resources allocated to action plan, breakdown by time horizon and resources",
+    "行动资源按时间和类型分解",
+    "Current and future financial resources allocated to action plan, breakdown by time horizon and resources。行动资源按时间和类型分解。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

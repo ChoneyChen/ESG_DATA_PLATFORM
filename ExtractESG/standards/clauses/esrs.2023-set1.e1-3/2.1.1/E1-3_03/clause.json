@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "tCO2e",
+  "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_03",
+  "contract_digest": "54889a51abe2f328eb55e36203ef4ec4ee73c1c63f316e7adcc9c8d605ce7d80",
+  "description": "Achieved GHG emission reductions。已实现温室气体减排量。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+  "disclosure_requirement": "E1-3",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Achieved GHG emission reductions",
+    "zh": "已实现温室气体减排量"
+  },
+  "metric_id": "esrs.2023-set1.e1-3.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref",
+      "value_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-3_03",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

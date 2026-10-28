@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_02",
+  "contract_digest": "d437157cc733874c5dec3bac93838606ef3a5d987d43f693fee7a1cc6c8c2654",
+  "description": "Adaptation solution type。适应解决方案类型。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+  "disclosure_requirement": "E1-3",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Adaptation solution type",
+    "zh": "适应解决方案类型"
+  },
+  "metric_id": "esrs.2023-set1.e1-3.dp02",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref",
+      "value_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-3_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

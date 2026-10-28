@@ -1,0 +1,19 @@
+{
+  "clause_id": "esrs.2023-set1.mdr-p@2.1.1:MDR-P_05",
+  "contract_digest": "dfbbaa19399d231cc3e653b3f8e537a904069f6b44ac501f8abffb92aacee9a9",
+  "generated_at": "2026-10-28T00:00:00+00:00",
+  "generated_by": "clause-package-builder-1.0",
+  "package_id": "esrs.2023-set1.mdr-p",
+  "package_source_digest": "f537f4d42081d33210dbb71b6ab6f542bcda0e5c7571b6aceff342d692128537",
+  "package_version": "2.1.1",
+  "paragraph": "65 e",
+  "schema_version": "clause-provenance-1.0",
+  "source_refs": [
+    "esrs.2023-set1.mdr-p.source.law",
+    "esrs.2023-set1.mdr-p.source.ig3"
+  ],
+  "standard_ref": {
+    "disclosure_requirement": "MDR-P",
+    "standard_family": null
+  }
+}

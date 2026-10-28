@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s3-4@2.3.0:S3-4_12",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of resources allocated to management of material impacts",
+    "管理社区重大影响的资源分配",
+    "披露为管理受影响社区重大影响所分配的资源，包括人员、预算和管理层投入。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

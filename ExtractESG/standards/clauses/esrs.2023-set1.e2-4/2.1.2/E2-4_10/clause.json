@@ -1,0 +1,49 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_10",
+  "contract_digest": "41a3cc02ae4a747a75f0d2472a6a84ea2088750d0225bcedca9ebe56a2ffc188",
+  "description": "应描述收集污染核算与报告数据的流程，包括所需数据类型和信息来源。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of process(es) to collect data for pollution-related accounting and reporting",
+    "zh": "污染相关核算与报告的数据收集流程"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp10",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "污染相关核算与报告的数据收集流程",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_10",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

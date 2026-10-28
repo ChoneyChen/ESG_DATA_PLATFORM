@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-2@2.1.1:E1-2_01",
+  "contract_digest": "fc8a9ea07a8a3a17b1850b9bd455575d7be841a3aec9ca93a075e2ee43f9db0f",
+  "description": "Sustainability matters addressed by policy for climate change。气候政策覆盖的可持续事项。政策是否存在、政策覆盖事项与未来采纳安排分开；没有证据不能推断已采纳。",
+  "disclosure_requirement": "E1-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "政策是否存在、政策覆盖事项与未来采纳安排分开；没有证据不能推断已采纳。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Sustainability matters addressed by policy for climate change",
+    "zh": "气候政策覆盖的可持续事项"
+  },
+  "metric_id": "esrs.2023-set1.e1-2.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-2_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

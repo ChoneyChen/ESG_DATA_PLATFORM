@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-3@2.3.0:E4-3_12",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of whether key action may induce significant negative sustainability impacts (biodiversity and ecosystems)",
+    "关键行动可能引发的重大负面影响",
+    "说明关键行动是否可能引发重大负面可持续性影响，包括影响的类型与范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

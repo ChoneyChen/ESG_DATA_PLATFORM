@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-iro-1@2.3.0:E5.IRO-1_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how the undertaking has conducted consultations (resource and circular economy)",
+    "资源利用与循环经济的协商",
+    "说明主体是否以及如何就资源利用与循环经济事项开展利益相关方协商。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

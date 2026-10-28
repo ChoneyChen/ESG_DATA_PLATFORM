@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-4@2.3.0:S4-4_17",
+  "negative_terms": [],
+  "positive_terms": [
+    "Initiatives or processes whose primary aim is to deliver positive impacts for consumers and/or end-users are designed also to support achievement of one or more of Sustainable Development Goals",
+    "项目与可持续发展目标的衔接（消费者）",
+    "说明以积极影响消费者和终端用户为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

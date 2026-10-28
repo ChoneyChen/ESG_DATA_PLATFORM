@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.mdr-t@2.1.1:MDR-T_19",
+  "contract_digest": "13687fce94f1592aaad321e4d30bedb58be9def2419ecab5331fc1cd15619d9c",
+  "description": "Base year from which progress is measured。进展测量基准年。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
+  "disclosure_requirement": "MDR-T",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Base year from which progress is measured",
+    "zh": "进展测量基准年"
+  },
+  "metric_id": "esrs.2023-set1.mdr-t.dp19",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "基准期 · 集团合并 · 总量",
+      "method": null,
+      "period": "baseline_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-a28401562d273fde",
+      "value_role": "baseline"
+    }
+  ],
+  "package_id": "esrs.2023-set1.mdr-t",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "target_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "MDR-T_19",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

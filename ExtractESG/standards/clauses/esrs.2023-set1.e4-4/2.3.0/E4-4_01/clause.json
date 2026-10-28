@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_01",
+  "contract_digest": "5b3b87a6f8e4ae3adc0f447bfbd27a661e720f5fdc1797448d89fc12308ab9d7",
+  "description": "说明设定生物多样性和生态系统目标时如何采用生态阈值，并将影响分配给主体。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "E4-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Ecological threshold and allocation of impacts to undertaking were applied when setting target (biodiversity and ecosystems)",
+    "zh": "设定目标时采用的生态阈值与影响分配"
+  },
+  "metric_id": "esrs.2023-set1.e4-4.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-4",
+  "package_version": "2.3.0",
+  "positive_definition": "说明设定生物多样性和生态系统目标时如何采用生态阈值，并将影响分配给主体。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-4_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

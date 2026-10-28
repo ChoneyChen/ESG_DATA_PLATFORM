@@ -1,5 +1,6 @@
 import {ExtensionManagement} from "../components/ExtensionManagement";
 import {ClauseLifecyclePanel} from "../components/ClauseLifecyclePanel";
+import {ClauseProfiles} from "../components/ClauseProfiles";
 import {useState} from 'react';
 import {type Row} from '../api';
 import {useResource,useWorkspace} from '../state';
@@ -56,6 +57,7 @@ export function Standards(){
     <td>{m.disclosure_role==='anchor'?'锚点条款':m.disclosure_role==='context'?'方法 / 说明':m.disclosure_role==='derived'?'派生条款':m.disclosure_role==='presentation'?'展示条款':'延伸披露'}</td>
     <td>{m.obligation_class}<details><summary>身份与证据合同</summary><dl className="facts"><dt>正向定义</dt><dd>{m.measurement_contract?.positive_definition || m.description || m.labels?.zh || '详见合同'}</dd><dt>阅读说明</dt><dd>{(m.measurement_contract?.interpretation_guidance || []).join('；') || '无补充说明'}</dd><dt>易混概念</dt><dd>{(m.measurement_contract?.distinguish_from || []).join('、') || '详见合同'}</dd><dt>身份轴</dt><dd>{(m.measurement_contract?.identity_axes || []).join('、') || '详见合同'}</dd><dt>排除条件</dt><dd>{(m.measurement_contract?.exclusions || []).join('；') || '详见合同'}</dd></dl><Diagnostics value={m} title="完整合同"/></details></td>
    </tr>)}</tbody></table></div></Section>
+   {!identityMismatch&&<ClauseProfiles profiles={detail.data?.profiles || []} skipped={detail.data?.profile_skipped || []}/>}
    {!identityMismatch&&lifecycle.length>0&&<Section title="条款生命周期与真实验收" action={<Badge value={`${lifecycle.filter(row=>row.state==='publishable').length}/${lifecycle.length} 可发布`}/>}>
     <ClauseLifecyclePanel packageId={selected.package_id} version={selected.package_version} rows={lifecycle} versions={versions} refresh={()=>{workspace.refresh();detail.retry();lifecycleView.retry();}}/>
    </Section>}

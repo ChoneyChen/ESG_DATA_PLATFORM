@@ -1,0 +1,55 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e4-6@2.3.0:E4-6_05",
+  "contract_digest": "cce512ba7bf17abb817018f820ed6cd4992668b2f49d8ff1315afe1033390e39",
+  "description": "描述在短期、中期和长期内因生物多样性和生态系统相关风险而受影响的产品和服务。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "E4-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of related products and services at risk (biodiversity and ecosystems) over the short-, medium- and long-term",
+    "zh": "短期、中期和长期面临风险的产品与服务"
+  },
+  "metric_id": "esrs.2023-set1.e4-6.dp05",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-da98b6fe61fc3708",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e4-6",
+  "package_version": "2.3.0",
+  "positive_definition": "描述在短期、中期和长期内因生物多样性和生态系统相关风险而受影响的产品和服务。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E4-6_05",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

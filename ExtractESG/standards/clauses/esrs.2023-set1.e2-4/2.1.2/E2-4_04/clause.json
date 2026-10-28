@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "tonne",
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_04",
+  "contract_digest": "c643ee35bd3816fe4977ab96c2f6d751cc67d9cb279249ef3d3331725a41edb1",
+  "description": "披露 E-PRTR 附件 II 所列污染物排入土壤的量。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Emissions to soil by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+    "zh": "按污染物划分的土壤排放量"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp04",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "按污染物划分的土壤排放量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "pollutant"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_04",
+  "unit_dimension": "extractesg.core.unit-dimension.mass",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

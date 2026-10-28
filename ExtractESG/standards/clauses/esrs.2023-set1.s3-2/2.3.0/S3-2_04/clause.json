@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s3-2@2.3.0:S3-2_04",
+  "contract_digest": "3fb1a35fe1c18cb84346cc5dbf5474f2ac1a12d9287640ae39b05c3dc9ea85e5",
+  "description": "说明主体内部负责确保社区接触发生并使结果影响主体方法的职能和最资深角色。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S3-2",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of function and most senior role within undertaking that has operational responsibility for ensuring that engagement happens and that results inform undertakings approach",
+    "zh": "负责确保接触发生并反馈结果的高级职能与角色（社区）"
+  },
+  "metric_id": "esrs.2023-set1.s3-2.dp04",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s3-2",
+  "package_version": "2.3.0",
+  "positive_definition": "说明主体内部负责确保社区接触发生并使结果影响主体方法的职能和最资深角色。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S3-2_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

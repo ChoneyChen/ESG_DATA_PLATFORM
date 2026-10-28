@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s2-4@2.3.0:S2-4_13",
+  "contract_digest": "2672b8a964f26df93dbee7a486acb848f8d5f2415ecf8c704d52a3103d77897a",
+  "description": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响价值链劳动者的重大负面影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of whether and how undertaking seeks to use leverage with relevant business relationships to manage material negative impacts affecting value chain workers",
+    "zh": "利用业务关系杠杆管理价值链负面影响"
+  },
+  "metric_id": "esrs.2023-set1.s2-4.dp13",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s2-4",
+  "package_version": "2.3.0",
+  "positive_definition": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响价值链劳动者的重大负面影响。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S2-4_13",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-2@2.3.0:E4-2_12",
+  "negative_terms": [],
+  "positive_terms": [
+    "Third-party standard of conduct used in policy is objective and achievable based on scientific approach to identifying issues and realistic in assessing how these issues can be addressed under variety of practical circumstances",
+    "政策所用第三方行为标准的科学性与可实现性",
+    "说明政策采用的第三方行为标准是否基于科学方法识别问题，并在多种实际情形下可客观实现。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

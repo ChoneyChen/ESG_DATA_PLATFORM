@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-16@2.2.0:S1-16_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Gender pay gap",
+    "性别薪酬差距",
+    "男女员工薪酬水平之差相对于男性薪酬水平的比例。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

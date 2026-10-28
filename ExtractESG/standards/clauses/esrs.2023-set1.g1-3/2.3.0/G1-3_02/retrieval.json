@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-3@2.3.0:G1-3_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Investigators or investigating committee are separate from chain of management involved in prevention and detection of corruption or bribery",
+    "调查人员或调查委员会的独立性",
+    "说明调查人员或调查委员会是否独立于参与预防和发现腐败或贿赂的管理链条，并说明其报告关系。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

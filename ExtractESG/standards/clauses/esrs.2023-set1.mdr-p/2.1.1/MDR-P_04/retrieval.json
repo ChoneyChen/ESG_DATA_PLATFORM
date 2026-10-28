@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.mdr-p@2.1.1:MDR-P_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of third-party standards or initiatives that are respected through implementation of policy",
+    "政策尊重的第三方标准倡议",
+    "Disclosure of third-party standards or initiatives that are respected through implementation of policy。政策尊重的第三方标准倡议。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

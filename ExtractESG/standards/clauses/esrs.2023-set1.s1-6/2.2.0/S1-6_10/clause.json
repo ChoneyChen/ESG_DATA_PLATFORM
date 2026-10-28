@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_10",
+  "contract_digest": "6629c4d154191405a18d9ab61c3aba1bb23dc4b4ae63b76630fe6b633ef13552",
+  "description": "Average number of employees (head count or full-time equivalent)。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+  "disclosure_requirement": "S1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Average number of employees (head count or full-time equivalent)",
+    "zh": "Average number of employees (head count or full-time equivalent)"
+  },
+  "metric_id": "esrs.2023-set1.s1-6.dp10",
+  "obligation_class": "alternative_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "Average number of employees (head count or full-time equivalent)",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-6_10",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

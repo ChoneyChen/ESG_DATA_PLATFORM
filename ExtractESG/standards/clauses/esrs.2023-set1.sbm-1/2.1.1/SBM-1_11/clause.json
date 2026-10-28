@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.sbm-1@2.1.1:SBM-1_11",
+  "contract_digest": "f09460b7a1a36d0936d547b67cedd69b1c6004b9248ebec9c5937653abcb181e",
+  "description": "Revenue from coal。煤炭收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+  "disclosure_requirement": "SBM-1",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Revenue from coal",
+    "zh": "煤炭收入"
+  },
+  "metric_id": "esrs.2023-set1.sbm-1.dp11",
+  "obligation_class": "conditional",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.sbm-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "SBM-1_11",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

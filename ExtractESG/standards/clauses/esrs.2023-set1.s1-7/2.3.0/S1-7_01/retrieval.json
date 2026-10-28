@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Number of non-employees in own workforce",
+    "自身劳动力中的非员工人数",
+    "披露自身劳动力中非员工的总人数，并说明统计口径与报告时点。数值须来自报告原文，保留原值与单位；未披露与显式零分开。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

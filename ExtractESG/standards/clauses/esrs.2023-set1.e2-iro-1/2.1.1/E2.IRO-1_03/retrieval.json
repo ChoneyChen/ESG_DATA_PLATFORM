@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e2-iro-1@2.1.1:E2.IRO-1_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of results of materiality assessment (pollution)",
+    "污染重要性评估结果",
+    "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

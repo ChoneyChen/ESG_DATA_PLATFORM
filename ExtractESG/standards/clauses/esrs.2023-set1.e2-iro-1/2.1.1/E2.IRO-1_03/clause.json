@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-iro-1@2.1.1:E2.IRO-1_03",
+  "contract_digest": "54e7e36b91b1dc1bfa1f384365c2352aa7c8d82fe7c5bdea0f4f34aab8aaf5e9",
+  "description": "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+  "disclosure_requirement": "E2.IRO-1",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of results of materiality assessment (pollution)",
+    "zh": "污染重要性评估结果"
+  },
+  "metric_id": "esrs.2023-set1.e2-iro-1.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-iro-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "time_horizon",
+      "scenario"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2.IRO-1_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

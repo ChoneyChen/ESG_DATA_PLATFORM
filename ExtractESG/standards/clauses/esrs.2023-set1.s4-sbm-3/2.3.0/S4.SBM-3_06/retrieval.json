@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s4-sbm-3@2.3.0:S4.SBM-3_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of material risks and opportunities arising from impacts and dependencies on  consumers and end-users",
+    "消费者相关重大风险与机遇",
+    "描述因对消费者和终端用户的影响和依赖所产生的重大风险与机遇。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-2@2.3.0:E4-2_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of whether and  how biodiversity and ecosystems-related policy relates to material dependencies and material physical and transition risks and opportunities",
+    "政策与依赖、风险和机遇的关联",
+    "说明生物多样性和生态系统相关政策与重大依赖、物理风险和转型风险及机遇是否以及如何相关。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

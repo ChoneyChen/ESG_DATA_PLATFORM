@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_17",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about intended or achieved positive outcomes of programmes or processes for own workforce",
+    "项目或流程的预期或已实现积极结果",
+    "提供针对自身劳动力的项目或流程的预期或已实现积极结果信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s2-4@2.3.0:S2-4_16",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about intended or achieved positive outcomes of programmes or processes for  value chain workers",
+    "面向价值链劳动者的项目预期或已实现结果",
+    "提供针对价值链劳动者的项目或流程的预期或已实现积极结果信息。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.bp-2@2.1.1:BP-2_21",
+  "negative_terms": [],
+  "positive_terms": [
+    "Topics (E4, S1, S2, S3, S4) have been assessed to be material",
+    "阶段安排主题的重要性结论",
+    "Topics (E4, S1, S2, S3, S4) have been assessed to be material。阶段安排主题的重要性结论。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

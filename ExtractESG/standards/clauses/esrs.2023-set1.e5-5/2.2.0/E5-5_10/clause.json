@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "tonne",
+  "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_10",
+  "contract_digest": "6e5f0c2e594c8825546a35b0460db51320755468b1d9612e8f0521aea9472136",
+  "description": "Non-recycled waste。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+  "disclosure_requirement": "E5-5",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Non-recycled waste",
+    "zh": "Non-recycled waste"
+  },
+  "metric_id": "esrs.2023-set1.e5-5.dp10",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e5-5",
+  "package_version": "2.2.0",
+  "positive_definition": "Non-recycled waste",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E5-5_10",
+  "unit_dimension": "extractesg.core.unit-dimension.mass",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

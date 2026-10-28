@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_20",
+  "negative_terms": [],
+  "positive_terms": [
+    "Share of market-based Scope 2 emissions linked to bundled instruments",
+    "基于市场法且关联捆绑工具的范围2排放比例",
+    "Bundled contractual instrument",
+    "捆绑合同工具",
+    "bundled instruments",
+    "Market-based",
+    "基于市场法",
+    "market based method"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

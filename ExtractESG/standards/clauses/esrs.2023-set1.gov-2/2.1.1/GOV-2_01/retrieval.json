@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.gov-2@2.1.1:GOV-2_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them",
+    "治理机构获得可持续信息的方式与频率",
+    "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them。治理机构获得可持续信息的方式与频率。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

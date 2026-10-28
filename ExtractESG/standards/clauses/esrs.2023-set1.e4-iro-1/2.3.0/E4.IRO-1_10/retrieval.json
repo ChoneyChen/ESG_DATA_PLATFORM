@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how tthe business model(s) has been verified using range of biodiversity and ecosystems scenarios, or other scenarios with modelling of biodiversity and ecosystems related consequences, with different possible pathways",
+    "使用生物多样性和生态系统情景验证商业模式",
+    "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

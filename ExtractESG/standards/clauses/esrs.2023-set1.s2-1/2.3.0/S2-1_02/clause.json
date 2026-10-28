@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s2-1@2.3.0:S2-1_02",
+  "contract_digest": "f94d33b11ab67b4173498e7b5d3fae1291f66328a81f5ca8aa0e8caaf289c9dd",
+  "description": "说明主体在尊重价值链劳动者人权方面的总体方法与责任安排。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S2-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of general approach in relation to respect for human rights relevant to value chain workers",
+    "zh": "尊重价值链劳动者人权的总体方法"
+  },
+  "metric_id": "esrs.2023-set1.s2-1.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s2-1",
+  "package_version": "2.3.0",
+  "positive_definition": "说明主体在尊重价值链劳动者人权方面的总体方法与责任安排。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "policy_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S2-1_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

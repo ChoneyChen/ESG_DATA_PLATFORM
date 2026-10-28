@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e3-2@2.1.1:E3-2_02",
+  "contract_digest": "313ca7eb9ef1578813d9a7fad231e1f90835020298437e5fb3a5db827f9e8604",
+  "description": "Information about specific collective action for water and marine resources。水及海洋资源集体行动。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
+  "disclosure_requirement": "E3-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Information about specific collective action for water and marine resources",
+    "zh": "水及海洋资源集体行动"
+  },
+  "metric_id": "esrs.2023-set1.e3-2.dp02",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e3-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E3-2_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "tonne",
+  "clause_id": "esrs.2023-set1.e5-5@2.2.0:E5-5_15",
+  "contract_digest": "bed9cd01844649382ff068fb3b86eafe162b47d907999be26969aaa7ca9a487f",
+  "description": "报告期内产生的危险废弃物总量（吨）。",
+  "disclosure_requirement": "E5-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "废弃物产生总量",
+    "危险废弃物处置量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "危险废弃物是废弃物的分项，不能当作全部废弃物；处置路线不是产生量。"
+  ],
+  "labels": {
+    "en": "Total amount of hazardous waste",
+    "zh": "危险废弃物总量"
+  },
+  "metric_id": "esrs.2023-set1.e5-5.dp15",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e5-5",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期内产生的危险废弃物重量。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "waste_scope",
+      "hazard_classification",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E5-5_15",
+  "unit_dimension": "extractesg.core.unit-dimension.mass",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

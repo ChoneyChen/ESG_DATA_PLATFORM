@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "tCO2e",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_17",
+  "contract_digest": "5fea06c7ef89b5e95afc73c0f1492d09c151a0139674eff9dbbb8d11f7958355",
+  "description": "从范围1排放中排除并单独披露的生物源二氧化碳绝对量。必须有明确的生物源或生物质 CO2 语义；普通范围1、其他温室气体或污染物排放不能替代。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Biogenic CO2 emissions excluded from Scope 1",
+    "zh": "范围1中单独披露的生物源二氧化碳排放"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp17",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "范围1中单独披露的生物源二氧化碳排放",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_17",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

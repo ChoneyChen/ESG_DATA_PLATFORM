@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-sbm-3@2.3.0:S1.SBM-3_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of material impacts on workers that may arise from transition plans for reducing negative impacts on environment and achieving greener and climate-neutral operations",
+    "环境转型计划对员工的重大影响",
+    "描述为减少环境负面影响、实现绿色气候中性运营的转型计划可能对员工造成的重大影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

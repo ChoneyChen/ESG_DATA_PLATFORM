@@ -1,0 +1,57 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.e1-4@2.1.1:E1-4_08",
+  "contract_digest": "386e18ed6aa303ac00b023b816055027a4d7b93054a37232e5fd97801c588765",
+  "description": "Intensity value of Scope 1 Greenhouse gas emissions reduction。范围1减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
+  "disclosure_requirement": "E1-4",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Intensity value of Scope 1 Greenhouse gas emissions reduction",
+    "zh": "范围1减排强度目标"
+  },
+  "metric_id": "esrs.2023-set1.e1-4.dp08",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 强度",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-0b765dc8d99dc1dd",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-4",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "baseline_year",
+      "target_year",
+      "ghg_scope",
+      "accounting_method",
+      "denominator",
+      "denominator_scale"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-4_08",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

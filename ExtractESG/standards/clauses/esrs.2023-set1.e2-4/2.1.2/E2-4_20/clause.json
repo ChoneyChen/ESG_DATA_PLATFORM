@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_20",
+  "contract_digest": "d107e4fda64526b45fa6a1cbfb530e0cefc03489678833b63f1f7772bf0b0365",
+  "description": "适用 IED/BREF 时可披露的附加信息。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of list of any compliance schedules or derogations granted by competent authorities according to Article 15(4) IED that are associated with implementation of BAT-AELs",
+    "zh": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp20",
+  "obligation_class": "conditional_voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "facility_name",
+      "item_type"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_20",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

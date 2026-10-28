@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of how the undertaking establishes, develops, promotes and evaluates its corporate culture",
+    "企业文化的建立、发展、推广与评估",
+    "说明主体如何建立、发展、推广和评估其企业文化，包括价值观、行为准则和落地机制。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

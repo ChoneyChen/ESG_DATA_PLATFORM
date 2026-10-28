@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of changes over time (pollution of air, water and soil)",
+    "空气、水和土壤污染随时间变化描述",
+    "Change over time",
+    "时间变化",
+    "trend",
+    "year-on-year change",
+    "change during the period",
+    "变化趋势"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

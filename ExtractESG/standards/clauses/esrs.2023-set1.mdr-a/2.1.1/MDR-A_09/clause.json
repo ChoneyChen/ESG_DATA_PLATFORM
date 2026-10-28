@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_09",
+  "contract_digest": "8440fbedd71cc27bd151497ab597d78ec367ab183c824b8280412674f2397328",
+  "description": "Current financial resources allocated to action plan (Capex)。当前行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+  "disclosure_requirement": "MDR-A",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Current financial resources allocated to action plan (Capex)",
+    "zh": "当前行动资本支出"
+  },
+  "metric_id": "esrs.2023-set1.mdr-a.dp09",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.mdr-a",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "MDR-A_09",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

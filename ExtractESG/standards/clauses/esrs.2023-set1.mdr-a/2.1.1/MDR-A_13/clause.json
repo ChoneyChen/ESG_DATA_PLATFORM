@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.mdr-a@2.1.1:MDR-A_13",
+  "contract_digest": "4359fda91a294522c0a062e2c96571b3946fcb1ad1ef5731c61bbddcc8ef270a",
+  "description": "Disclosure of reasons for not having adopted actions。未采纳行动的原因。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+  "disclosure_requirement": "MDR-A",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of reasons for not having adopted actions",
+    "zh": "未采纳行动的原因"
+  },
+  "metric_id": "esrs.2023-set1.mdr-a.dp13",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.mdr-a",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "MDR-A_13",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

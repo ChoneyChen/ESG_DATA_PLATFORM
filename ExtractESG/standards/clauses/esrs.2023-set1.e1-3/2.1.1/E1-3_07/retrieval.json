@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to key performance indicators required under Commission Delegated Regulation (EU) 2021/2178",
+    "行动支出与分类法绩效指标关联",
+    "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to key performance indicators required under Commission Delegated Regulation (EU) 2021/2178。行动支出与分类法绩效指标关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

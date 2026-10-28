@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s3-1@2.3.0:S3-1_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure on an illustration of the types of communication of its policies to those individuals, group of individuals or entities for whom they are relevant",
+    "政策向相关人员传达的方式示例（受影响社区）",
+    "举例说明政策如何向受影响社区中的相关个人、群体或实体传达，包括渠道和语言。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

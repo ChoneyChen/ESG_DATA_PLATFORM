@@ -1,0 +1,51 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-15@2.3.0:S1-15_03",
+  "contract_digest": "afbe14698e6d4a87a72ce8ae67c2ae25d0bb1bb1101fd83ad11ab2ad4ab9b9e7",
+  "description": "以表格披露有权的男女员工分别实际使用家庭相关假期的比例。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+  "disclosure_requirement": "S1-15",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of entitled employees that took family-related leave by gender [table]",
+    "zh": "按性别划分的家庭相关假期使用比例表"
+  },
+  "metric_id": "esrs.2023-set1.s1-15.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-15",
+  "package_version": "2.3.0",
+  "positive_definition": "以表格披露有权的男女员工分别实际使用家庭相关假期的比例。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-15_03",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

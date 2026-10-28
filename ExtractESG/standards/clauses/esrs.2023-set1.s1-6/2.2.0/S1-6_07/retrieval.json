@@ -1,0 +1,10 @@
+{
+  "clause_id": "esrs.2023-set1.s1-6@2.2.0:S1-6_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]",
+    "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]。表结构只承载成员与列的定义，不单独形成带值事实。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

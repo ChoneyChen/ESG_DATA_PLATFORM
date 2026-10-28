@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of measurement methodologies (pollution of air, water and soil)",
+    "空气、水和土壤污染测量方法描述",
+    "Pollution",
+    "污染",
+    "environmental pollution",
+    "环境污染",
+    "Measurement methodology",
+    "污染测量方法"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

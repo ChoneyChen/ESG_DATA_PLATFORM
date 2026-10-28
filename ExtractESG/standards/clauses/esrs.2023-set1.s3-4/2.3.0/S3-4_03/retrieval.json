@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s3-4@2.3.0:S3-4_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of additional initiatives or processes with primary purpose of delivering positive impacts for affected communities",
+    "为社区带来积极影响的其他举措",
+    "描述以向受影响社区传递积极影响为主要目的的其他举措或流程。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

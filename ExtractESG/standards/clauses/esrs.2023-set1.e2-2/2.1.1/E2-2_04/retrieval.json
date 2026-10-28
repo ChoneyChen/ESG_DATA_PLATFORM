@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e2-2@2.1.1:E2-2_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Information about action plans that have been implemented at site-level (pollution)",
+    "场址污染行动计划",
+    "Information about action plans that have been implemented at site-level (pollution)。场址污染行动计划。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

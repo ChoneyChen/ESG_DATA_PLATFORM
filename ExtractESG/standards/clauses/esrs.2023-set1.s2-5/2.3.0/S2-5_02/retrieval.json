@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s2-5@2.3.0:S2-5_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how value chain workers , their legitimate representatives or credible proxies were engaged directly in tracking performance against targets",
+    "价值链劳动者参与目标绩效跟踪",
+    "说明价值链劳动者、其合法代表或可信代理是否以及如何直接参与对照目标跟踪绩效。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

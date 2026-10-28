@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-4@2.3.0:S1-4_15",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of how the initiative, and its own involvement, is aiming to address the material impact concerned",
+    "举措及主体参与如何应对重大影响",
+    "说明相关举措以及主体自身的参与如何针对所涉重大影响发挥作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.g1-4@2.2.0:G1-4_04",
+  "contract_digest": "f0e9b1ccbadc2f2fd4461c3e23ea46105e1469d6765cb97e3cc04e8d955bba81",
+  "description": "报告期内经确认的腐败或贿赂事件数量。",
+  "disclosure_requirement": "G1-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "定罪数量",
+    "举报数量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "法律定罪、内部处分与举报线索分别计数，不能互相替代。"
+  ],
+  "labels": {
+    "en": "Number of confirmed incidents of corruption or bribery",
+    "zh": "已确认腐败或贿赂事件数量"
+  },
+  "metric_id": "esrs.2023-set1.g1-4.dp04",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-4",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期内已确认的腐败或贿赂事件数量。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "incident_definition",
+      "counting_basis"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-4_04",
+  "unit_dimension": "extractesg.core.unit-dimension.count",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

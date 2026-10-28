@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-6@2.3.0:E5-6_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of effects considered and related impacts (resource use and circular economy)",
+    "已考虑的财务影响类型及相关影响",
+    "说明财务影响估计中考虑的影响类型，以及其对应的资源利用与循环经济影响。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e3-5@2.1.1:E3-5_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of effects considered and related impacts (water and marine resources)",
+    "水财务影响的对象与相关影响",
+    "Description of effects considered and related impacts (water and marine resources)。水财务影响的对象与相关影响。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

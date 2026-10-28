@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Gross location-based Scope 2 GHG emissions",
+    "基于位置法的范围2温室气体排放总量",
+    "Scope 2 emissions",
+    "范围2排放",
+    "scope2",
+    "scope II",
+    "energy indirect GHG emissions",
+    "范围2"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

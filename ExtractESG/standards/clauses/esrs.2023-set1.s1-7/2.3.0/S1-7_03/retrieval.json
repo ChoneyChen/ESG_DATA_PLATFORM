@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-7@2.3.0:S1-7_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Number of non-employees in own workforce - people provided by undertakings primarily engaged in employment activities",
+    "由就业活动机构提供的人员数量",
+    "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。数值须来自报告原文，保留原值与单位；未披露与显式零分开。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

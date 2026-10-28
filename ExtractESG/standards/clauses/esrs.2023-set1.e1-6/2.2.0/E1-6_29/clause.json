@@ -1,0 +1,48 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_29",
+  "contract_digest": "0bda7fbe21057a22072eed84545d30e4390a270a1aba8306d9d8824a42dd4a18",
+  "description": "范围3盘查边界、计算方法、关键假设、数据来源和工具。输出实际方法陈述并分别举证，不能以类别数字或单位代替。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Scope 3 boundaries, methods, assumptions and tools",
+    "zh": "范围3边界、方法、假设与工具"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp29",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "范围3边界、方法、假设与工具",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_29",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

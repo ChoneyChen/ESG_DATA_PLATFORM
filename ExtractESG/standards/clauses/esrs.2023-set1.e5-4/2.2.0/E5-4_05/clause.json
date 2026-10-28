@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e5-4@2.2.0:E5-4_05",
+  "contract_digest": "038a77da62e14f3e1daf0ba3d78cb0aebedbebb0611865501cb6f54061544926",
+  "description": "二次使用或再生的部件、中间产品与材料占材料投入的比例。",
+  "disclosure_requirement": "E5-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "再生材料重量",
+    "材料投入总重量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "占比与绝对重量不能互换；二次使用部件与再生材料分别保留。"
+  ],
+  "labels": {
+    "en": "Percentage of secondary reused or recycled components, secondary intermediary products and secondary materials",
+    "zh": "二次使用或再生组分及材料占比"
+  },
+  "metric_id": "esrs.2023-set1.e5-4.dp05",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e5-4",
+  "package_version": "2.2.0",
+  "positive_definition": "二次使用或再生材料占材料投入的比例。",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "material_scope",
+      "denominator_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E5-4_05",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

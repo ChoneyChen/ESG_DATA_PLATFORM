@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of nature of activities or business relationships through which undertaking is involved with material impacts",
+    "涉及影响的活动和商业关系",
+    "Description of nature of activities or business relationships through which undertaking is involved with material impacts。涉及影响的活动和商业关系。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

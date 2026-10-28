@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-iro-1@2.3.0:E4.IRO-1_15",
+  "negative_terms": [],
+  "positive_terms": [
+    "Activities related to sites located in or near biodiversity-sensitive areas negatively affect these areas by leading to deterioration of natural habitats and habitats of species and to disturbance of species for which protected area has been designated",
+    "敏感区域场址活动造成的栖息地退化与物种干扰",
+    "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

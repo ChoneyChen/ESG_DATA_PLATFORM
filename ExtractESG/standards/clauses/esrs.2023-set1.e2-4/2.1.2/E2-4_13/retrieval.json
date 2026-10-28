@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_13",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of total emissions of pollutants to soil occurring in areas at water risk",
+    "水风险地区土壤污染物排放占比",
+    "Percentage",
+    "百分比指标",
+    "share",
+    "proportion",
+    "percentage of total",
+    "占比"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

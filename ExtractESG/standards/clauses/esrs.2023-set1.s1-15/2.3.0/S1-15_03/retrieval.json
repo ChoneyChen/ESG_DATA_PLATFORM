@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-15@2.3.0:S1-15_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of entitled employees that took family-related leave by gender [table]",
+    "按性别划分的家庭相关假期使用比例表",
+    "以表格披露有权的男女员工分别实际使用家庭相关假期的比例。数值须来自报告原文，保留原值与单位；未披露与显式零分开。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

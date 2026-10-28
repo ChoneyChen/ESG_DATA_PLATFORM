@@ -1,0 +1,52 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-3@2.1.1:E1-3_07",
+  "contract_digest": "a7568371e9a6ca0cf5ab0484a7141a8760228e3056f0390b5cabe7d38d39554b",
+  "description": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to key performance indicators required under Commission Delegated Regulation (EU) 2021/2178。行动支出与分类法绩效指标关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+  "disclosure_requirement": "E1-3",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to key performance indicators required under Commission Delegated Regulation (EU) 2021/2178",
+    "zh": "行动支出与分类法绩效指标关联"
+  },
+  "metric_id": "esrs.2023-set1.e1-3.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref",
+      "value_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-3_07",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

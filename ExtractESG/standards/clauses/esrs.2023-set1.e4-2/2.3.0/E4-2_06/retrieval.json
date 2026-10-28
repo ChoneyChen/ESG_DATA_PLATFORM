@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-2@2.3.0:E4-2_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of whether and how biodiversity and ecosystems-related policy addresses social consequences of biodiversity and ecosystems-related impacts",
+    "政策对生物多样性影响社会后果的处理",
+    "说明政策是否以及如何处理生物多样性和生态系统影响所引发的社会后果。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

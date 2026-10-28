@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-2@2.3.0:E5-2_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of application of circular design",
+    "循环设计的应用",
+    "说明循环设计原则在产品、部件和材料设计中的应用方式与覆盖范围。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

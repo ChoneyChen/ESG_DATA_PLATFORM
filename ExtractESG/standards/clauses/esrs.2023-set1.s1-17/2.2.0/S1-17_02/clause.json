@@ -1,0 +1,54 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_02",
+  "contract_digest": "8e3449a10baf309ea2ba32fea28ea2bc514b597acade9de7b4fd66f7940a64f4",
+  "description": "报告期内报告的歧视事件数量。",
+  "disclosure_requirement": "S1-17",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "已确认歧视事件",
+    "投诉数量",
+    "内部处分数量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "已确认事件、投诉与内部处分分别计数，不能互相替代。"
+  ],
+  "labels": {
+    "en": "Number of incidents of discrimination",
+    "zh": "歧视事件数量"
+  },
+  "metric_id": "esrs.2023-set1.s1-17.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-17",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期内报告的歧视事件数量。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "population",
+      "incident_definition",
+      "counting_basis"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-17_02",
+  "unit_dimension": "extractesg.core.unit-dimension.count",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

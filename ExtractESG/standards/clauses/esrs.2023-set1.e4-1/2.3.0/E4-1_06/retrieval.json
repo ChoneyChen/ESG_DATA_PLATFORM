@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of involvement of stakeholders (biodiversity and ecosystems)",
+    "韧性分析中的利益相关方参与",
+    "说明在生物多样性和生态系统韧性分析中参与了哪些利益相关方，以及参与方式和所起作用。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

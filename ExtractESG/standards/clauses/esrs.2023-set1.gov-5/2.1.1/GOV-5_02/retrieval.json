@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.gov-5@2.1.1:GOV-5_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of risk assessment approach followed",
+    "可持续披露风险评估方法",
+    "Description of risk assessment approach followed。可持续披露风险评估方法。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

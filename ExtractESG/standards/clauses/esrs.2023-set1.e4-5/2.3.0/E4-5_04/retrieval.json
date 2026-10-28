@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of metrics considered relevant (land-use change, freshwater-use change and (or) sea-use change)",
+    "与土地利用变化相关的指标",
+    "披露主体认为相关的土地利用变化、淡水利用变化或海洋利用变化指标及其选择依据。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

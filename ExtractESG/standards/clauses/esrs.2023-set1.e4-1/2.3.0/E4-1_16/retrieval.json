@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-1@2.3.0:E4-1_16",
+  "negative_terms": [],
+  "positive_terms": [
+    "Indication of metrics and related tools used to measure progress that are integrated in measurement approach (biodiversity and ecosystems)",
+    "衡量进展的指标与工具",
+    "列明用于衡量转型计划进展的指标及相关工具，并说明它们如何纳入主体的计量方法。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

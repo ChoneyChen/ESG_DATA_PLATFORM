@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-4@2.3.0:E4-4_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Layer in mitigation hierarchy to which target can be allocated (biodiversity and ecosystems)",
+    "目标对应的减缓层级",
+    "说明目标可归属于减缓层级的哪一层，即避免、最小化、恢复或抵消。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

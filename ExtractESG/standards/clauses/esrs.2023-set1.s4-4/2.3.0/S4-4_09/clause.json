@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s4-4@2.3.0:S4-4_09",
+  "contract_digest": "7d0f5f399c150fdbd4c86f00820b1f76e06d27973e0942a1822d0db43d22ed53",
+  "description": "描述为把握与消费者和终端用户相关的重大机遇而计划或正在进行的行动。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S4-4",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of what action is planned or underway to pursue material opportunities in relation to consumers and end-users",
+    "zh": "把握消费者相关重大机遇的行动"
+  },
+  "metric_id": "esrs.2023-set1.s4-4.dp09",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s4-4",
+  "package_version": "2.3.0",
+  "positive_definition": "描述为把握与消费者和终端用户相关的重大机遇而计划或正在进行的行动。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "action_ref"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S4-4_09",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

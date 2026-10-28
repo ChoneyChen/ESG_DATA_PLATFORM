@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.gov-5@2.1.1:GOV-5_04",
+  "contract_digest": "04bfc4b6db73e7d746f0876bdd651456566af349cee5fb3bcba12ffe8becad69",
+  "description": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes。披露风控内控结果融入职能。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+  "disclosure_requirement": "GOV-5",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes",
+    "zh": "披露风控内控结果融入职能"
+  },
+  "metric_id": "esrs.2023-set1.gov-5.dp04",
+  "obligation_class": "mandatory",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.gov-5",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "sustainability_topic"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "GOV-5_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

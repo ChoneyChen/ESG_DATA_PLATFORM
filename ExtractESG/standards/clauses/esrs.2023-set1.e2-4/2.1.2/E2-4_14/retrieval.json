@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_14",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of total emissions of pollutants to soil occurring in areas of high-water stress",
+    "高水压力地区土壤污染物排放占比",
+    "High water stress",
+    "高水压力",
+    "high-water-stress area",
+    "area of high water stress",
+    "水压力",
+    "高水压力地区"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

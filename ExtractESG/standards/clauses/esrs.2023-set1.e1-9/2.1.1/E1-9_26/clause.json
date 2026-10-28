@@ -1,0 +1,55 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.e1-9@2.1.1:E1-9_26",
+  "contract_digest": "28131c7313354a3b198f52ad0442f09824b87241245c1e25d67d49e280a72204",
+  "description": "Potential future liabilities, based on existing contractual agreements, associated with carbon credits planned to be cancelled in near future。计划核销碳信用的潜在未来负债。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+  "disclosure_requirement": "E1-9",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Potential future liabilities, based on existing contractual agreements, associated with carbon credits planned to be cancelled in near future",
+    "zh": "计划核销碳信用的潜在未来负债"
+  },
+  "metric_id": "esrs.2023-set1.e1-9.dp26",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-da98b6fe61fc3708",
+      "value_role": "forecast"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-9",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "risk_type",
+      "scenario",
+      "forecast_horizon",
+      "financial_item",
+      "currency"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-9_26",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

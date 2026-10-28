@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e3-1@2.1.1:E3-1_04",
+  "contract_digest": "3da17ca1f2d068e68da16ead1cc669440d9b3e821ff6222c9945925b4601b246",
+  "description": "Disclosure of whether and how policy adresses prevention and abatment of water pollution。水污染预防减缓政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+  "disclosure_requirement": "E3-1",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of whether and how policy adresses prevention and abatment of water pollution",
+    "zh": "水污染预防减缓政策"
+  },
+  "metric_id": "esrs.2023-set1.e3-1.dp04",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e3-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E3-1_04",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s3-4@2.3.0:S3-4_11",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of severe human rights issues and incidents connected to affected communities",
+    "与受影响社区相关的严重人权问题与事件",
+    "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

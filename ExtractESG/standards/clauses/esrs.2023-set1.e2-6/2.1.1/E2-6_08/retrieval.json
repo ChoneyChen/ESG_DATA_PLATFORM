@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e2-6@2.1.1:E2-6_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)",
+    "污染财务影响的对象与时间范围",
+    "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)。污染财务影响的对象与时间范围。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

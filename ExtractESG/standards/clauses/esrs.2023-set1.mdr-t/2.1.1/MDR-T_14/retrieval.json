@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.mdr-t@2.1.1:MDR-T_14",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of timeframe for setting of measurable outcome-oriented targets",
+    "可量化成果目标的计划设定时间",
+    "Disclosure of timeframe for setting of measurable outcome-oriented targets。可量化成果目标的计划设定时间。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

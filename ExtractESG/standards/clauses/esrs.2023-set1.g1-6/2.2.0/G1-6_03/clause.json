@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.g1-6@2.2.0:G1-6_03",
+  "contract_digest": "889b49bd615977843a8a020fd45c195345b66451e6095b84684ffc9749f45668",
+  "description": "Percentage of payments aligned with standard payment terms。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+  "disclosure_requirement": "G1-6",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of payments aligned with standard payment terms",
+    "zh": "Percentage of payments aligned with standard payment terms"
+  },
+  "metric_id": "esrs.2023-set1.g1-6.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "Percentage of payments aligned with standard payment terms",
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-6_03",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_08",
+  "contract_digest": "eca71f2ba670420aa92385cfbdfbaf1f89f42ae4b3de3139192dfb891519ef21",
+  "description": "以表格形式披露财务和实物政治捐赠的明细，包括类型、对象、金额或价值。表结构只承载成员与列的定义，不单独形成带值事实。",
+  "disclosure_requirement": "G1-5",
+  "disclosure_role": "presentation",
+  "distinguish_from": [],
+  "exclusions": [
+    "表结构只承载成员与列的定义，不单独形成带值事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Financial and in-kind political contributions made [table]",
+    "zh": "财务与实物政治捐赠表"
+  },
+  "metric_id": "esrs.2023-set1.g1-5.dp08",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-a859ef3029fef91e",
+      "value_role": "structure"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-5",
+  "package_version": "2.3.0",
+  "positive_definition": "以表格形式披露财务和实物政治捐赠的明细，包括类型、对象、金额或价值。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-5_08",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

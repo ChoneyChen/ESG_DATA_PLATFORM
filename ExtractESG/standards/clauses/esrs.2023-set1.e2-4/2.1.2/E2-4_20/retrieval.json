@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_20",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of list of any compliance schedules or derogations granted by competent authorities according to Article 15(4) IED that are associated with implementation of BAT-AELs",
+    "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单",
+    "BAT-associated emission level",
+    "BAT相关排放水平",
+    "BAT AEL",
+    "best available techniques associated emission level",
+    "最佳可行技术相关排放水平",
+    "IED derogation"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

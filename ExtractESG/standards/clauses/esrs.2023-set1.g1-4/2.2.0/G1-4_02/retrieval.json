@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-4@2.2.0:G1-4_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Amount of fines for violation of anti-corruption and anti- bribery laws",
+    "违反反腐败及反贿赂法律的罚款金额",
+    "报告期内因违反反腐败及反贿赂法律被判处的罚款金额，保留原币种。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

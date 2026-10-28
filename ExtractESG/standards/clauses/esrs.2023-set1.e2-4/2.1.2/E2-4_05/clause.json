@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "tonne",
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_05",
+  "contract_digest": "9c7cb38286665aacaa61a0caca8898b16818b042d970722a2f5110438e88f051",
+  "description": "IG 3 将 05、06、07 标为相互替代数据点；AR 20 还要求关注离开设施的排放、产品、产品组成或服务。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Microplastics generated and used",
+    "zh": "产生和使用的微塑料量（合并披露形式）"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp05",
+  "obligation_class": "alternative_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "产生和使用的微塑料量（合并披露形式）",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "microplastic_flow",
+      "exit_pathway",
+      "intentionality"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_05",
+  "unit_dimension": "extractesg.core.unit-dimension.mass",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

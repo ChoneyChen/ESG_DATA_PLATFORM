@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-8@2.3.0:S1-8_08",
+  "contract_digest": "c886a38985e709925274511eed8972a1b4f33aa81dab4cb714834546a5808094",
+  "description": "按覆盖率和地区披露欧洲经济区外受集体谈判和社会对话协议覆盖的自身劳动力。须说明适用主体、期间与报告边界；泛泛表述不能替代。",
+  "disclosure_requirement": "S1-8",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Own workforce in region (non-EEA) covered by collective bargaining and social dialogue agreements by coverage rate and by region",
+    "zh": "欧洲经济区外受集体谈判与社会对话覆盖的劳动力"
+  },
+  "metric_id": "esrs.2023-set1.s1-8.dp08",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-8",
+  "package_version": "2.3.0",
+  "positive_definition": "按覆盖率和地区披露欧洲经济区外受集体谈判和社会对话协议覆盖的自身劳动力。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-8_08",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

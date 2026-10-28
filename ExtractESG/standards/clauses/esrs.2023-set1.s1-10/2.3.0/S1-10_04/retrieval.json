@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-10@2.3.0:S1-10_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Percentage of non-employees paid below adequate wage",
+    "工资低于足额工资的非员工比例",
+    "披露工资低于足额工资的非员工占非员工总数的比例。数值须来自报告原文，保留原值与单位；未披露与显式零分开。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

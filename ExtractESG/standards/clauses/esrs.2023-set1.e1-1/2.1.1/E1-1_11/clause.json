@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.e1-1@2.1.1:E1-1_11",
+  "contract_digest": "198040c5dd9d71cb7f49b031100ce0378fd93cf9e971e6d4a6b41ec33b6c1dc1",
+  "description": "Significant CapEx for gas-related economic activities。天然气活动重大资本支出。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
+  "disclosure_requirement": "E1-1",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Significant CapEx for gas-related economic activities",
+    "zh": "天然气活动重大资本支出"
+  },
+  "metric_id": "esrs.2023-set1.e1-1.dp11",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-1",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-1_11",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

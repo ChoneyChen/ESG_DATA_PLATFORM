@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "GHG emissions disaggregation",
+    "温室气体排放分解维度",
+    "GHG emissions",
+    "温室气体排放",
+    "greenhouse gas emissions",
+    "温室气体排放量",
+    "溫室氣體排放",
+    "溫室氣體排放量"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

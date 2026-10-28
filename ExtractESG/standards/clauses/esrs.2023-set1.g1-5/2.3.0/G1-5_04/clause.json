@@ -1,0 +1,50 @@
+{
+  "canonical_unit": "currency",
+  "clause_id": "esrs.2023-set1.g1-5@2.3.0:G1-5_04",
+  "contract_digest": "a062534091803a4f9c612100aead8247bf6adeafebe68c8b45e77b44c5660bdd",
+  "description": "披露报告期内主体发生的内部和外部游说费用金额，并说明费用范围。数值须来自报告原文，保留原值与单位；未披露与显式零分开。",
+  "disclosure_requirement": "G1-5",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Amount of internal and external lobbying expenses",
+    "zh": "内部与外部游说费用金额"
+  },
+  "metric_id": "esrs.2023-set1.g1-5.dp04",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.g1-5",
+  "package_version": "2.3.0",
+  "positive_definition": "披露报告期内主体发生的内部和外部游说费用金额，并说明费用范围。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "G1-5_04",
+  "unit_dimension": "extractesg.core.unit-dimension.currency",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

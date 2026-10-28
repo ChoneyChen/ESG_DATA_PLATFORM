@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_08",
+  "negative_terms": [],
+  "positive_terms": [
+    "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term",
+    "物理风险识别中的情景分析",
+    "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term。物理风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

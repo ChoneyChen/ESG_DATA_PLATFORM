@@ -1,0 +1,10 @@
+{
+  "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_05",
+  "negative_terms": [],
+  "positive_terms": [
+    "Amount of fines, penalties, and compensation for damages as result of incidents of discrimination, including harassment and complaints filed",
+    "Amount of fines, penalties, and compensation for damages as result of incidents of discrimination, including harassment and complaints filed。实际值须为该期间实际发生或存量值；目标、预测、基准及其他数据点不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

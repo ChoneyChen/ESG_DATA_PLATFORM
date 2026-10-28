@@ -1,0 +1,10 @@
+{
+  "clause_id": "esrs.2023-set1.g1-4@2.2.0:G1-4_03",
+  "negative_terms": [],
+  "positive_terms": [
+    "Prevention and detection of corruption or bribery - anti-corruption and bribery training table",
+    "Prevention and detection of corruption or bribery - anti-corruption and bribery training table。表结构只承载成员与列的定义，不单独形成带值事实。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

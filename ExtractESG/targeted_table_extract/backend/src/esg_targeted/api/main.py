@@ -23,6 +23,7 @@ from esg_targeted.models.capabilities import NUEXTRACT3_CAPABILITIES
 from esg_targeted.results.spec import result_contract
 from esg_targeted.standards.catalog import StandardPackageCatalog
 from esg_targeted.standards.clause_lifecycle_service import ClauseLifecycleService
+from esg_standard_packages.clause_package import ClausePackageCatalog
 from esg_targeted.standards.runtime_snapshot import registered_extensions, freeze_extraction_request
 from esg_targeted.runtime_compatibility import compatibility_snapshot, require_runtime_ready, RuntimeCompatibilityError
 from esg_targeted.storage.artifacts import ArtifactStore
@@ -51,6 +52,7 @@ semantic_index_assets = SemanticIndexAssetCatalog(settings.index_cache_root)
 ir_catalog = DocumentIrCatalog(settings.ir_roots)
 standard_catalog = StandardPackageCatalog(settings.standard_dist_root)
 clause_lifecycle = ClauseLifecycleService(standard_catalog)
+clause_profiles = ClausePackageCatalog(settings.standard_dist_root.parent)
 workflow = TargetedExtractionWorkflow(settings, job_store, artifact_store)
 inspection_service = ResultInspectionService(artifact_store)
 report_sessions = ReportSessionService(settings, job_store, artifact_store)
@@ -564,7 +566,36 @@ def get_standard(package_id: str, package_version: str) -> dict:
         "derivations": [item.model_dump(mode="json") for item in package.derivations],
         "semantic_diagnostics": standard_catalog.compiler.semantic_diagnostics(package),
         "lifecycle": clause_lifecycle.package_lifecycle(package_id, package_version, package),
+        "profiles": [profile.model_dump(mode="json")
+                     for profile in clause_profiles.for_package(package_id, package_version).values()],
+        "profile_skipped": clause_profiles.skipped(package_id, package_version),
     }
+
+
+@app.get("/api/clause-catalog")
+def get_clause_catalog() -> dict:
+    """One clause is one directory; this index is what the console and editor read."""
+    return {"schema_version": "clause-catalog-view-1.0", "packages": clause_profiles.list_packages()}
+
+
+@app.get("/api/clause-catalog/{package_id}/{package_version}/{source_datapoint_id}")
+def get_clause_package(package_id: str, package_version: str, source_datapoint_id: str) -> dict:
+    try:
+        parts = clause_profiles.clause_parts(package_id, package_version, source_datapoint_id)
+        profile = clause_profiles.profile(package_id, package_version, source_datapoint_id)
+    except ValueError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    return {"schema_version": "clause-package-view-1.0", **parts,
+            "profile": profile.model_dump(mode="json")}
+
+
+@app.get("/api/clause-profiles/{package_id}/{package_version}")
+def get_clause_profiles(package_id: str, package_version: str) -> dict:
+    profiles = clause_profiles.for_package(package_id, package_version)
+    return {"schema_version": "clause-profile-set-view-1.0", "package_id": package_id,
+            "package_version": package_version,
+            "profiles": [profile.model_dump(mode="json") for profile in profiles.values()],
+            "skipped": clause_profiles.skipped(package_id, package_version)}
 
 
 @app.get("/api/standards/{package_id}/{package_version}/diff/{other_version}")

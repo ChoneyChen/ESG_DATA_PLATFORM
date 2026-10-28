@@ -1,0 +1,54 @@
+{
+  "canonical_unit": "ratio",
+  "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_13",
+  "contract_digest": "1247f7d82ff26730d2f504c92752467a3806b84312de80727d7b979066ac8344",
+  "description": "Percentage of reduction projects。减排项目比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+  "disclosure_requirement": "E1-7",
+  "disclosure_role": "detail",
+  "distinguish_from": [],
+  "exclusions": [
+    "移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Percentage of reduction projects",
+    "zh": "减排项目比例"
+  },
+  "metric_id": "esrs.2023-set1.e1-7.dp13",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "share",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 占比",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-616c01af2f7bcf2f",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-7",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "ratio_recompute",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "project_ref",
+      "value_chain_boundary",
+      "removal_activity",
+      "credit_status"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-7_13",
+  "unit_dimension": "extractesg.core.unit-dimension.ratio",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

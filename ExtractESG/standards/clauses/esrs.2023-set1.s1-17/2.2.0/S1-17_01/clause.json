@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-17@2.2.0:S1-17_01",
+  "contract_digest": "bdb82e3c6220cf8cd5527bf44d293857cb2e6dcd3394d9a426db94412165e710",
+  "description": "按歧视类型划分的歧视事件数量表；表结构只承载类型与计数列，不单独形成带值事实。",
+  "disclosure_requirement": "S1-17",
+  "disclosure_role": "presentation",
+  "distinguish_from": [
+    "歧视事件数量",
+    "投诉数量"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "表格结构本身不是事件数量；已确认事件与投诉分别计数。"
+  ],
+  "labels": {
+    "en": "Number of incidents of discrimination [table]",
+    "zh": "按类型划分的歧视事件数量（表）"
+  },
+  "metric_id": "esrs.2023-set1.s1-17.dp01",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-17",
+  "package_version": "2.2.0",
+  "positive_definition": "按歧视类型划分的歧视事件数量表。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "population",
+      "incident_definition",
+      "incident_type"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-17_01",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

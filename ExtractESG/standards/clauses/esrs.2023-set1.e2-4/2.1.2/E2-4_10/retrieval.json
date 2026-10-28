@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_10",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of process(es) to collect data for pollution-related accounting and reporting",
+    "污染相关核算与报告的数据收集流程",
+    "Pollution data collection process",
+    "污染数据收集流程",
+    "data collection process",
+    "information collection process",
+    "数据收集流程",
+    "数据采集流程"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

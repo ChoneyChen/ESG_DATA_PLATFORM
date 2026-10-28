@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-7@2.1.1:E1-7_21",
+  "negative_terms": [],
+  "positive_terms": [
+    "Public claims of GHG neutrality that involve use of carbon credits have been made",
+    "使用碳信用的温室气体中和声明",
+    "Public claims of GHG neutrality that involve use of carbon credits have been made。使用碳信用的温室气体中和声明。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

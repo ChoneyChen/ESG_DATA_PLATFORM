@@ -1,0 +1,50 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e2-2@2.1.1:E2-2_02",
+  "contract_digest": "c7367019610fae3740caa1d7ed7701dedad0d02b93552d1b7c17e88b183e2369",
+  "description": "Action related to pollution extends to upstream/downstream value chain engagements。污染行动的上下游价值链覆盖。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。",
+  "disclosure_requirement": "E2-2",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Action related to pollution extends to upstream/downstream value chain engagements",
+    "zh": "污染行动的上下游价值链覆盖"
+  },
+  "metric_id": "esrs.2023-set1.e2-2.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-665e87999ed0b6d4",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-2",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-2_02",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

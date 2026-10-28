@@ -23,7 +23,9 @@ from esg_targeted.report_facts import adapt_direct_core_facts
 from esg_targeted.results.exporter import ResultExporter
 from esg_targeted.results.spec import RESULT_BUNDLE_LAYOUT_VERSION, RESULT_SCHEMA_VERSION
 from esg_targeted.results.validation import ResultContractValidator
+from esg_standard_packages.clause_scope import scope_coverage
 from esg_targeted.standards.catalog import StandardPackageCatalog
+from esg_standard_packages.clause_package import ClausePackageCatalog
 from esg_targeted.standards.profiles import platform_major_profile
 
 ROUTE = "foundation16-table-understanding-v1"
@@ -95,6 +97,7 @@ class BundleWriter:
         self.routes = {route["package_id"]: route for route in self.profile["routes"]}
         self.model_label = model_label
         self.dist_root = settings.project_root.parent / "standard_packages" / "dist"
+        self.clause_profiles = ClausePackageCatalog(self.dist_root.parent)
 
     def write_all(self, summary: dict, ir, *, session_id: str | None = None, job_ids: dict[str, str] | None = None,
                   out_root: Path | None = None) -> list[dict]:
@@ -123,6 +126,7 @@ class BundleWriter:
         """Write one importable bundle; a session's frozen child request is kept as-is."""
         package = self.catalog.load(package_id, package_version)
         records, gaps = self.build_records(package, conclusions, ir)
+        scope_rows, scope_gaps = self._scope_coverage(package, records)
         validation = ResultContractValidator(package.core).validate(records)
         metric_ids = [c["metric_id"] for c in conclusions]
         frozen_request = request is not None
@@ -157,7 +161,8 @@ class BundleWriter:
         shutil.copyfile(self.dist_root / package_id / package_version / "package.json", output_dir / "input" / "standard-package.json")
         shutil.copyfile(ir.root / "manifest.json", output_dir / "input" / "ir-manifest.json")
         (output_dir / "results" / "source-facts.json").write_text(json.dumps(
-            {"schema_version": "report-source-facts-v2", "facts": facts, "reported_facts": neutral, "gaps": gaps, "source_objects": []},
+            {"schema_version": "report-source-facts-v2", "facts": facts, "reported_facts": neutral, "gaps": gaps,
+             "scope_coverage": scope_rows, "scope_gaps": scope_gaps, "source_objects": []},
             ensure_ascii=False, indent=2, sort_keys=True))
         (output_dir / "results" / "metric-source-mappings.json").write_text(json.dumps(
             {"schema_version": "metric-source-mappings-v4", "mappings": [], "core_bindings": bindings},
@@ -189,6 +194,10 @@ class BundleWriter:
             "report_session_id": session_id,
             "roles": roles.model_dump(mode="json"),
             "evidence_gap_count": len(gaps), "neutral_source_fact_count": len(neutral),
+            "scope_coverage_summary": {
+                state: sum(1 for row in scope_rows if row["state"] == state)
+                for state in ("covered", "unconfirmed", "out_of_scope", "missing")},
+            "scope_gap_count": len(scope_gaps),
             "execution_status": "completed",
             "outcomes": self._outcomes(records, conclusions),
             "unfinished_metric_ids": [], "processing_metric_ids": [], "not_executed_metric_ids": [],
@@ -270,6 +279,51 @@ class BundleWriter:
                 "task_status": task_status, "uncertainty_reason": coded("reporting_task", "uncertainty_reason", reason),
             })
         return records, gaps
+
+    def _scope_coverage(self, package, records: dict) -> tuple[list[dict], list[dict]]:
+        """Compare each clause's declared output scopes with the facts this run bound.
+
+        A required scope that the run did not cover becomes an explicit gap, so the
+        absence is attributed to the clause's own scope list instead of a generic
+        "not found".
+        """
+        profiles = self.clause_profiles.for_package(package.manifest.package_id, package.manifest.package_version)
+        if not profiles:
+            return [], []
+        metric_of_task = {task["task_id"]: task["metric_id"] for task in records["reporting_tasks"]}
+        facts_by_task: dict[str, list[dict]] = {}
+        for observation in records["quantitative_observations"]:
+            facts_by_task.setdefault(observation["task_id"], []).append({
+                "observation_id": observation["observation_id"],
+                "identity_raw": {
+                    "reporting_period": observation.get("reporting_period_raw")
+                    or (str(observation["reporting_year"]) if observation.get("reporting_year") else None),
+                    "period_start": observation.get("period_start"),
+                    "period_end": observation.get("period_end"),
+                    "entity_basis": "subset" if observation.get("reporting_boundary") else "unknown",
+                    "reporting_boundary": observation.get("reporting_boundary"),
+                    "source_row_label": observation.get("source_row_label"),
+                    "value_qualifier": observation.get("comparator"),
+                },
+                "value_role": "actual",
+            })
+        rows, gaps = [], []
+        for task_id, metric_id in metric_of_task.items():
+            profile = profiles.get(metric_id)
+            if profile is None:
+                continue
+            for row in scope_coverage(profile.output_scopes, facts_by_task.get(task_id, [])):
+                rows.append({"task_id": task_id, "metric_id": metric_id, **row})
+                if row["required"] and row["state"] != "covered":
+                    gaps.append({
+                        "gap_id": stable_id("scope-gap", task_id, row["scope_id"]),
+                        "kind": "scope_not_covered", "metric_ids": [metric_id],
+                        "scope_id": row["scope_id"], "scope_state": row["state"],
+                        "reason": f"{row['label_zh']}：{row['reason']}",
+                        "next_action": "review_source_pages", "status": "open",
+                        "column_ids": [], "row_ids": [], "object_ids": [],
+                    })
+        return rows, gaps
 
     @staticmethod
     def _outcomes(records: dict, conclusions: list[dict]) -> list[dict]:

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e5-3@2.3.0:E5-3_06",
+  "negative_terms": [],
+  "positive_terms": [
+    "Target relates to waste management",
+    "与废弃物管理相关的目标",
+    "披露与废弃物管理相关的目标，包括减量、回收或处置方式的目标值。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

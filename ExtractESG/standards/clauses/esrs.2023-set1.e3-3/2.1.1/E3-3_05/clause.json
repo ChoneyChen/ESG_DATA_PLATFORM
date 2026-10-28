@@ -1,0 +1,53 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e3-3@2.1.1:E3-3_05",
+  "contract_digest": "99bd9d3f7af2d2e577e84229225dd282338a51d3aaa7d5dcfa580481c41f7aa6",
+  "description": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)。水生态阈值及识别方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+  "disclosure_requirement": "E3-3",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)",
+    "zh": "水生态阈值及识别方法"
+  },
+  "metric_id": "esrs.2023-set1.e3-3.dp05",
+  "obligation_class": "voluntary_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e3-3",
+  "package_version": "2.1.1",
+  "positive_definition": null,
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "geography",
+      "target_year"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E3-3_05",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

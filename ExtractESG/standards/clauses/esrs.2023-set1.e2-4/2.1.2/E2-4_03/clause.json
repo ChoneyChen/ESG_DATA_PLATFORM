@@ -1,0 +1,58 @@
+{
+  "canonical_unit": "tonne",
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_03",
+  "contract_digest": "67db2cb31f5223f72210f5a4f6abb2b77d4bfd6c54b3557967dd39e114f45c39",
+  "description": "披露 E-PRTR 附件 II 所列污染物排入水体的量。",
+  "disclosure_requirement": "E2-4",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "空气污染物排放量",
+    "耗水量",
+    "取水量",
+    "排水体积",
+    "污染物浓度"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以空气污染物排放量、耗水量、取水量、排水体积、污染物浓度替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Emissions to water by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+    "zh": "按污染物划分的水体排放量"
+  },
+  "metric_id": "esrs.2023-set1.e2-4.dp03",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e2-4",
+  "package_version": "2.1.2",
+  "positive_definition": "按污染物划分的水体排放量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "pollution_medium",
+      "pollutant"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E2-4_03",
+  "unit_dimension": "extractesg.core.unit-dimension.mass",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

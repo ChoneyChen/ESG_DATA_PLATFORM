@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-iro-1@2.1.1:E1.IRO-1_07",
+  "negative_terms": [],
+  "positive_terms": [
+    "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios",
+    "高排放情景用于物理风险评估",
+    "Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios。高排放情景用于物理风险评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

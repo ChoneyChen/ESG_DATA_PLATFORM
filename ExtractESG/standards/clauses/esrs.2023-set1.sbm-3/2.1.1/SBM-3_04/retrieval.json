@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.sbm-3@2.1.1:SBM-3_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of how material negative and positive impacts affect (or are likely to affect) people or environment",
+    "对人和环境的影响",
+    "Disclosure of how material negative and positive impacts affect (or are likely to affect) people or environment。对人和环境的影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

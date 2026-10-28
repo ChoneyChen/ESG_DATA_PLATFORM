@@ -1,0 +1,52 @@
+{
+  "canonical_unit": "MWh",
+  "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_16",
+  "contract_digest": "a5f261451ab616c12f44aa60df6c64f9f45c4e2e2443594561ca14c2116755a4",
+  "description": "非可再生能源生产量",
+  "disclosure_requirement": "E1-5",
+  "disclosure_role": "anchor",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Non-renewable energy production",
+    "zh": "非可再生能源生产量"
+  },
+  "metric_id": "esrs.2023-set1.e1-5.dp16",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-5",
+  "package_version": "2.1.2",
+  "positive_definition": "非可再生能源生产量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "energy_source",
+      "energy_flow",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-5_16",
+  "unit_dimension": "extractesg.core.unit-dimension.energy",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

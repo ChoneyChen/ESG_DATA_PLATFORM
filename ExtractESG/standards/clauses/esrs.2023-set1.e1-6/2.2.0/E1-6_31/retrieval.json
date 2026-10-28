@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_31",
+  "negative_terms": [],
+  "positive_terms": [
+    "Market-based GHG intensity",
+    "基于市场法的温室气体排放强度",
+    "GHG intensity",
+    "温室气体排放强度",
+    "greenhouse gas intensity",
+    "碳排放强度",
+    "Market-based",
+    "基于市场法"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

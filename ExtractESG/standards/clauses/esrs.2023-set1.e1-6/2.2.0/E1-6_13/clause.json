@@ -1,0 +1,76 @@
+{
+  "canonical_unit": "tCO2e",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_13",
+  "contract_digest": "f6acc313127b04f0f9f813f5defee143f64dccbab008302cdc5420342d21436c",
+  "description": "采用市场法范围2口径的温室气体总量，即范围1、市场法范围2及范围3的合计。优先提取明确披露值；缺少市场法范围2时不得借用位置法数值或形成派生总量。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "derived",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Total GHG emissions using market-based Scope 2",
+    "zh": "范围1＋市场法范围2＋范围3温室气体排放总量"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp13",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "位置法口径",
+      "method": "location_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-6f3b7df5c73c57a1",
+      "value_role": "actual"
+    },
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "市场法口径",
+      "method": "market_based",
+      "period": "annual",
+      "qualifier": null,
+      "required": false,
+      "scope_id": "scope-00e50fe5ed68561d",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "范围1＋市场法范围2＋范围3温室气体排放总量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_13",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e3-3@2.1.1:E3-3_09",
+  "negative_terms": [],
+  "positive_terms": [
+    "Target relates to reduction of water withdrawals",
+    "目标与取水减少关系",
+    "Target relates to reduction of water withdrawals。目标与取水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

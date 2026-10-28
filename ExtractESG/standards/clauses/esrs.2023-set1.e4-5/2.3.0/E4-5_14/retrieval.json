@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e4-5@2.3.0:E4-5_14",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of how pathways of introduction and spread of invasive alien species and risks posed by invasive alien species are managed",
+    "外来入侵物种引入与扩散路径的管理",
+    "说明主体如何管理外来入侵物种的引入和扩散路径，以及由此产生的风险。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

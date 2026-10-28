@@ -1,0 +1,59 @@
+{
+  "canonical_unit": "tCO2e",
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_07",
+  "contract_digest": "20afa6afe08ec0d2fc39b2fc3fbccbe6237ba2adf25bf670fdf6f069b054a18d",
+  "description": "企业在报告期间因拥有或控制的排放源产生的范围1温室气体绝对排放量，以报告原有二氧化碳当量单位披露。直接排放、范围一、范畴一可表达同一范围；不要求出现‘总量’字样。范围1与2合计、强度、减排量、抵消或目标不属于此测量。逐一保留报告的实体和期间。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "范围1与范围2合计",
+    "范围2或范围3排放",
+    "减排量",
+    "抵消量",
+    "排放强度",
+    "目标值"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以范围1与范围2合计、范围2或范围3排放、减排量、抵消量、排放强度、目标值替代本条款所定义的测量或说明。"
+  ],
+  "labels": {
+    "en": "Gross Scope 1 GHG emissions",
+    "zh": "范围1温室气体排放总量"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp07",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-63ef76cd75e7057b",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "范围1温室气体排放总量",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_07",
+  "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

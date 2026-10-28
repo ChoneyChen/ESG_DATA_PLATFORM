@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.e1-gov-3@2.1.1:E1.GOV-3_01",
+  "negative_terms": [],
+  "positive_terms": [
+    "Disclosure of whether and how climate-related considerations are factored into remuneration of members of administrative, management and supervisory bodies",
+    "气候因素纳入管理层薪酬",
+    "Disclosure of whether and how climate-related considerations are factored into remuneration of members of administrative, management and supervisory bodies。气候因素纳入管理层薪酬。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

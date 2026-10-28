@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.g1-1@2.3.0:G1-1_02",
+  "negative_terms": [],
+  "positive_terms": [
+    "Description of the mechanisms for identifying, reporting and investigating concerns about unlawful behaviour or behaviour in contradiction of its code of conduct or similar internal rules",
+    "违法或违反行为准则行为的识别、报告与调查机制",
+    "说明用于识别、报告和调查违法或违反行为准则及类似内部规则行为的机制。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

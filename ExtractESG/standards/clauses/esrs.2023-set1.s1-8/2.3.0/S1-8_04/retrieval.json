@@ -1,0 +1,11 @@
+{
+  "clause_id": "esrs.2023-set1.s1-8@2.3.0:S1-8_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Working conditions and terms of employment for employees not covered by collective bargaining agreements are determined based on collective bargaining agreements that cover other employees or based on collective bargaining agreements from other undertakings",
+    "未受集体谈判覆盖员工的就业条件确定方式",
+    "说明未受集体谈判协议覆盖员工的就业条件和工作条款是否参照其他员工的集体协议或其他主体的协议确定。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

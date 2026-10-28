@@ -1,0 +1,16 @@
+{
+  "clause_id": "esrs.2023-set1.e2-4@2.1.2:E2-4_04",
+  "negative_terms": [],
+  "positive_terms": [
+    "Emissions to soil by pollutant [+ by sectors/Geographical Area/Type of source/Site location]",
+    "按污染物划分的土壤排放量",
+    "Emission amount",
+    "污染排放量",
+    "emissions",
+    "discharges",
+    "releases",
+    "released amount"
+  ],
+  "schema_version": "clause-retrieval-1.0",
+  "structural_anchors": []
+}

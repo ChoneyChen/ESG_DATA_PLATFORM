@@ -1,0 +1,48 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.e1-6@2.2.0:E1-6_32",
+  "contract_digest": "fdbe20f749c9a809efe8edc277294e8817c90714526e7e2c3cf6b1537fec6b39",
+  "description": "用于温室气体强度计算的净收入与财务报表净收入之间的对账说明。需有明确的对账关系、差异或一致性陈述；整张经济绩效表不是对账说明。",
+  "disclosure_requirement": "E1-6",
+  "disclosure_role": "context",
+  "distinguish_from": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Reconciliation of net revenue used for GHG intensity",
+    "zh": "温室气体强度所用净收入的对账说明"
+  },
+  "metric_id": "esrs.2023-set1.e1-6.dp32",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "intensity",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 强度",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-92477e5a7415f135",
+      "value_role": "context"
+    }
+  ],
+  "package_id": "esrs.2023-set1.e1-6",
+  "package_version": "2.2.0",
+  "positive_definition": "温室气体强度所用净收入的对账说明",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "source_row_topic",
+      "reporting_period"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "E1-6_32",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}

@@ -1,0 +1,19 @@
+{
+  "clause_id": "esrs.2023-set1.e1-5@2.1.2:E1-5_13",
+  "contract_digest": "ab28cc55784a5bf9a2042b518ba468ac1d93acfe9050cff3b22033c9d6fb5fe2",
+  "generated_at": "2026-10-28T00:00:00+00:00",
+  "generated_by": "clause-package-builder-1.0",
+  "package_id": "esrs.2023-set1.e1-5",
+  "package_source_digest": "0ae216b3cbb45320ed965f738e6abc642e5c3fc22dd405dbf9c0deaeab1bde1d",
+  "package_version": "2.1.2",
+  "paragraph": "38(d)",
+  "schema_version": "clause-provenance-1.0",
+  "source_refs": [
+    "esrs.2023-set1.e1-5.source.eu-2023-2772",
+    "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
+  ],
+  "standard_ref": {
+    "disclosure_requirement": "E1-5",
+    "standard_family": null
+  }
+}

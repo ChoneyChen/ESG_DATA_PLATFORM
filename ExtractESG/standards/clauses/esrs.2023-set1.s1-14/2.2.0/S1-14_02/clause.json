@@ -1,0 +1,53 @@
+{
+  "canonical_unit": "count",
+  "clause_id": "esrs.2023-set1.s1-14@2.2.0:S1-14_02",
+  "contract_digest": "ccfb8f225d488674b5f4f1b862d24ea37395f2a09fa28b5c87fa1e3a6ff3f2ba",
+  "description": "报告期内自有劳动力因工伤或职业病导致死亡的人数。",
+  "disclosure_requirement": "S1-14",
+  "disclosure_role": "anchor",
+  "distinguish_from": [
+    "承包商工亡人数",
+    "可记录工伤事故率"
+  ],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "承包商与其他价值链劳动者的死亡人数不属于自有劳动力；死亡人数与事故率不能互换。"
+  ],
+  "labels": {
+    "en": "Number of fatalities in own workforce as result of work-related injuries and work-related ill health",
+    "zh": "自有劳动力因工伤或职业病死亡人数"
+  },
+  "metric_id": "esrs.2023-set1.s1-14.dp02",
+  "obligation_class": "mandatory_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-c39bf98d4af7f268",
+      "value_role": "actual"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-14",
+  "package_version": "2.2.0",
+  "positive_definition": "报告期内自有劳动力因工伤或职业病死亡的人数。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "population",
+      "fatality_cause_scope",
+      "aggregation_role"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-14_02",
+  "unit_dimension": "extractesg.core.unit-dimension.count",
+  "value_origin": "reported",
+  "value_type": "numeric"
+}

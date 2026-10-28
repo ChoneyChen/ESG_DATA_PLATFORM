@@ -1,0 +1,19 @@
+{
+  "clause_id": "esrs.2023-set1.s3-2@2.3.0:S3-2_09",
+  "contract_digest": "ed97016588352a38fd81cbedc8e869660c1510259bfbe9f768d0cea1a70ea070",
+  "generated_at": "2026-10-28T00:00:00+00:00",
+  "generated_by": "clause-package-builder-1.0",
+  "package_id": "esrs.2023-set1.s3-2",
+  "package_source_digest": "f542f9f5b8465c5716bdf175467165aff76e6ea6a131e4fbe8a175fb15f51c04",
+  "package_version": "2.3.0",
+  "paragraph": "24",
+  "schema_version": "clause-provenance-1.0",
+  "source_refs": [
+    "esrs.2023-set1.s3-2.source.law",
+    "esrs.2023-set1.s3-2.source.ig3"
+  ],
+  "standard_ref": {
+    "disclosure_requirement": "S3-2",
+    "standard_family": null
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "canonical_unit": null,
+  "clause_id": "esrs.2023-set1.s1-11@2.3.0:S1-11_06",
+  "contract_digest": "ff4ec7bc995d5651b2955153be0d70e18e17cc5932d60ca3a5b00b4e644fb3d8",
+  "description": "以表格披露按国家、事件类型和员工类型（含非员工）划分的社会保护覆盖情况。表结构只承载成员与列的定义，不单独形成带值事实。",
+  "disclosure_requirement": "S1-11",
+  "disclosure_role": "presentation",
+  "distinguish_from": [],
+  "exclusions": [
+    "表结构只承载成员与列的定义，不单独形成带值事实。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "labels": {
+    "en": "Social protection employees by country [table] by types of events and type of employees [including non employees]",
+    "zh": "按国家、事件类型与员工类型划分的社保覆盖表"
+  },
+  "metric_id": "esrs.2023-set1.s1-11.dp06",
+  "obligation_class": "conditional_if_material",
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-a859ef3029fef91e",
+      "value_role": "structure"
+    }
+  ],
+  "package_id": "esrs.2023-set1.s1-11",
+  "package_version": "2.3.0",
+  "positive_definition": "以表格披露按国家、事件类型和员工类型（含非员工）划分的社会保护覆盖情况。",
+  "publication": {
+    "aggregation": "do_not_sum",
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "breakdown_member"
+    ],
+    "fixed_axes": {}
+  },
+  "schema_version": "clause-extraction-profile-1.0",
+  "source_datapoint_id": "S1-11_06",
+  "unit_dimension": null,
+  "value_origin": "reported",
+  "value_type": "statement"
+}
