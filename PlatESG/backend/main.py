@@ -816,13 +816,12 @@ def create_app(environment: dict[str, str] | None = None):
 
     @app.get("/v1/scientific/tables", dependencies=[Depends(permission("read"))])
     def scientific_tables():
-        from database.scripts.scientific_products import TABLES
-        return {"schema_version": "platesg-scientific-product-v1", "tables": sorted(TABLES)}
+        # One table registry lives with the database worker; Python only proxies it.
+        return bridge.call("scientific_product", {"op": "list"})
 
     @app.get("/v1/scientific/{table}", dependencies=[Depends(permission("read"))])
     def scientific_table(table: str, format: Literal["json", "csv", "parquet"] = "json", limit: int = Query(100000, ge=1, le=100000)):
-        from database.scripts.scientific_products import scientific_export, scientific_export_csv, scientific_export_parquet
-        if table not in __import__('database.scripts.scientific_products', fromlist=['TABLES']).TABLES:
+        if table not in bridge.call("scientific_product", {"op": "list"})["tables"]:
             raise HTTPException(404, "科学数据表不存在")
         if format == "csv":
             result = bridge.call("scientific_product", {"table": table, "format": "csv", "limit": limit})
@@ -835,6 +834,14 @@ def create_app(environment: dict[str, str] | None = None):
             return Response(base64.b64decode(result["content_base64"]), media_type="application/octet-stream",
                             headers={"Content-Disposition": f'attachment; filename="{table}.parquet"'})
         return bridge.call("scientific_product", {"table": table, "format": "json", "limit": limit})
+
+    @app.post("/internal/v1/scientific-model/project", dependencies=[Depends(permission("admin"))])
+    def scientific_model_project(limit: int = Query(100000, ge=1, le=100000)):
+        return bridge.call("scientific_model_project", {"limit": limit})
+
+    @app.get("/internal/v1/scientific-model/reconciliation", dependencies=[Depends(permission("read"))])
+    def scientific_model_reconciliation():
+        return bridge.call("scientific_model_reconcile", {})
 
     @app.get("/v1/reports")
     def public_reports():

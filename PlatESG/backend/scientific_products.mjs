@@ -6,6 +6,13 @@ const TABLES = {
   observation_evidence: 'scientific_observation_evidence', observation_sources: 'scientific_observation_sources',
   metric_definitions: 'scientific_metric_definitions', report_publication_members: 'scientific_report_publication_members',
   coverage_decisions: 'scientific_coverage_decisions',
+  // Phase 10 scientific model: clause versions are first-class rows and the
+  // observations read from the model rather than from the candidate tables.
+  clause_versions: 'scientific_clause_versions', observations_v2: 'scientific_observations_v2',
+  observation_dimensions_v2: 'scientific_observation_dimensions_v2',
+  observation_evidence_v2: 'scientific_observation_evidence_v2',
+  observation_sources_v2: 'scientific_observation_sources_v2',
+  coverage_decisions_v2: 'scientific_coverage_decisions_v2',
 };
 
 export async function scientificExport(db, {table, limit = 100000} = {}) {
@@ -26,7 +33,8 @@ export function scientificCsv(result) {
   return '﻿' + [fields.map(csvValue).join(','), ...result.rows.map(row => fields.map(field => csvValue(row[field])).join(','))].join('\n') + '\n';
 }
 
-export async function scientificProduct({table, format = 'json', limit = 100000} = {}) {
+export async function scientificProduct({op, table, format = 'json', limit = 100000} = {}) {
+  if (op === 'list') return {schema_version: 'platesg-scientific-product-v1', tables: Object.keys(TABLES).sort()};
   const db = await openPlatformDatabase();
   try {
     const result = await scientificExport(db, {table, limit});
