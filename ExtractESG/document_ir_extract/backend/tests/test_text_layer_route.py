@@ -124,6 +124,39 @@ def test_text_layer_pages_skip_visual_ocr_and_keep_page_order(tmp_path: Path) ->
     assert {"Energy GWh", "12", "13", "Water m3", "45", "46"} <= cells
 
 
+def test_clause_contract_selects_only_new_metric_pages_without_full_ocr():
+    selector = Foundation16PageSelector.for_clauses({
+        "E1-6_30": {"positive_terms": ["温室气体排放强度", "吨二氧化碳当量/百万元营收"],
+                    "reading_dimension": "ghg_intensity"},
+    })
+    result = selector.select_texts([
+        "Sustainability report 2025: reporting period and organizational boundary of the reporting group",
+        "能源消耗总量 1000 兆瓦时，报告主体合并范围内全部经营活动实际能源消耗情况",
+        "温室气体排放强度 4.65 吨二氧化碳当量/百万元营收，按本报告期净收入计算的实际结果",
+        "范围一温室气体排放 200 吨二氧化碳当量，全部生产基地合并披露的实际排放数据表",
+        "报告期 2025 年 1 月 1 日至 2025 年 12 月 31 日 能源消耗与温室气体排放情况及报告主体范围说明",
+        "员工总数 1200 人，报告期末全部受雇员工的实际人数统计结果",
+    ])
+    assert result.page_indices == (0, 1, 2, 4)
+    assert 2 in result.page_indices
+    assert 5 not in result.page_indices
+
+
+def test_full_document_can_use_shared_text_layer_before_visual_ocr(tmp_path: Path) -> None:
+    pages = [(595.0, 842.0, [f"Report page {index}", "Total energy consumption GWh 2,340"], index == 3)
+             for index in range(6)]
+    pdf_path = tmp_path / "whole.pdf"
+    _write_text_pdf(pdf_path, pages)
+    router = HybridRouter(pages)
+    settings = _settings(tmp_path, ocr_text_layer_enabled=True)
+    ocr = OcrWorkflow(settings, provider_router=router).run(
+        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", allow_api_fallback=False),
+        run_id=OCR_RUN_ID)
+    manifest = json.loads(ocr.manifest_path.read_text(encoding="utf-8"))
+    assert router.calls == []
+    assert manifest["text_layer"]["text_layer_pages"] == [0, 1, 2, 3, 4, 5]
+
+
 def test_explicit_pages_can_use_text_layer_without_clause_selection(tmp_path: Path) -> None:
     pages = [(595.0, 842.0, [f"Report page {index}", "Total energy consumption GWh 2,340"], index == 3)
              for index in range(6)]

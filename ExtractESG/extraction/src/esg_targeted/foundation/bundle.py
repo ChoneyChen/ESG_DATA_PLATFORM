@@ -141,6 +141,10 @@ class BundleWriter:
         from esg_targeted.foundation.source_facts import neutral_facts
         neutral = neutral_facts(self.source_tasks, summary.get("reporting_period", {}).get("year"),
                                 document={"document_id": ir.document_id, "ir_run_id": ir.run_id, "ir_revision": ir.ir_revision})
+        from esg_targeted.retrieval.report_cache import ReportEvidenceStore
+        evidence_store = ReportEvidenceStore(self.settings.index_cache_root / "report-evidence",
+                                              document_id=ir.document_id, ir_run_id=ir.run_id, ir_revision=ir.ir_revision)
+        neutral = evidence_store.neutral_facts(neutral)
         for binding in bindings:
             binding["route"] = ROUTE
         self._attach_children(conclusions, facts, bindings)
@@ -246,8 +250,11 @@ class BundleWriter:
             results = len(records["quantitative_observations"]) + len(records["qualitative_assertions"]) - facts_before
             evidence = len(records["evidence_references"]) - evidence_before
             if results == 0:
+                from esg_targeted.retrieval.coverage import coverage_decision
                 found_status, task_status, reason = "uncertain", "completed", "insufficient_evidence"
-                gaps.append(not_covered_gap(task_id, metric_id, conclusion["code"]))
+                decision = coverage_decision(metric_id, evidence_object_ids=[], candidate_count=0,
+                                             accepted_count=0, evidence_sufficient=False)
+                gaps.append({**not_covered_gap(task_id, metric_id, conclusion["code"]), "coverage_decision": decision})
             else:
                 found_status = FOUND_STATUS.get(status, "partial")
                 task_status = "completed"

@@ -266,6 +266,20 @@ METRICS: tuple[FoundationMetric, ...] = (
 BY_CODE = {item.code: item for item in METRICS}
 
 
+def retrieval_contracts():
+    from esg_runtime.layout import EXTRACT_ROOT
+    from esg_standard_packages.retrieval_contract import clause_retrieval_terms
+    return clause_retrieval_terms(EXTRACT_ROOT / "standard_packages")
+
+
+def contract_keyword_groups() -> dict[str, tuple[str, ...]]:
+    """Use the clause's authored positive terms for incremental source lookup."""
+    groups = {}
+    for code, contract in retrieval_contracts().items():
+        groups[code] = tuple(dict.fromkeys(contract["positive_terms"]))
+    return groups
+
+
 def scientific_contracts():
     """Read the same immutable clause contracts consumed by review and PlatESG."""
     from esg_runtime.layout import EXTRACT_ROOT

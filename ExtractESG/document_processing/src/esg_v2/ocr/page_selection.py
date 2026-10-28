@@ -281,6 +281,8 @@ class Foundation16PageSelector:
     def __init__(
         self,
         *,
+        keyword_groups: tuple[KeywordGroup, ...] | None = None,
+        clause_contracts: dict | None = None,
         top_n: int = 18,
         per_group_pages: int = 2,
         front_pages: int = 3,
@@ -291,6 +293,10 @@ class Foundation16PageSelector:
         min_text_page_ratio: float = 0.5,
         max_coverage_ratio: float = 0.8,
     ):
+        self.keyword_groups = keyword_groups or GROUPS
+        self.clause_contracts = clause_contracts
+        self.matchers = {group.key: ([_matcher(term) for term in group.strong],
+                                    [_matcher(term) for term in group.weak]) for group in self.keyword_groups}
         self.top_n = max(1, int(top_n))
         self.per_group_pages = max(0, int(per_group_pages))
         self.front_pages = max(0, int(front_pages))
@@ -300,6 +306,18 @@ class Foundation16PageSelector:
         self.min_text_chars = max(1, int(min_text_chars))
         self.min_text_page_ratio = float(min_text_page_ratio)
         self.max_coverage_ratio = float(max_coverage_ratio)
+
+    @classmethod
+    def for_clauses(cls, clause_contracts: dict, **kwargs) -> "Foundation16PageSelector":
+        """Build a targeted selector from versioned standard retrieval contracts."""
+        groups = []
+        for code, contract in clause_contracts.items():
+            terms = tuple(term for term in contract["positive_terms"] if term)
+            if terms:
+                groups.append(KeywordGroup(code, terms, ()))
+        if not groups:
+            raise ValueError("Clause retrieval contract has no positive terms")
+        return cls(keyword_groups=tuple(groups), clause_contracts=clause_contracts, **kwargs)
 
     @property
     def parameters(self) -> dict[str, Any]:
@@ -348,8 +366,8 @@ class Foundation16PageSelector:
             reason = "insufficient_text_layer" if source == "text_layer" else f"insufficient_{source}_text"
             return self._result(page_count, None, reason, started, scores=scores, source=source)
         ranked = sorted((item for item in scores if item.score > 0), key=lambda item: (-item.score, item.page_index))
-        if len(ranked) < 2:
-            return self._result(page_count, None, "no_foundation_keyword_pages", started, scores=scores, source=source)
+        if len(ranked) < 1:
+            return self._result(page_count, None, "no_clause_keyword_pages", started, scores=scores, source=source)
 
         reasons: dict[int, list[str]] = {}
 
@@ -368,7 +386,7 @@ class Foundation16PageSelector:
         # Each family gets its best pages before the global ranking fills the
         # rest: a fixed top-N lets one family crowd the others out as the
         # metric set grows.
-        for group in GROUPS:
+        for group in self.keyword_groups:
             family = sorted((item for item in ranked if item.group_scores.get(group.key, 0) > 0),
                             key=lambda item: (-item.group_scores[group.key], -item.numeric_tokens, item.page_index))
             for item in family[: self.per_group_pages]:
@@ -393,7 +411,7 @@ class Foundation16PageSelector:
         compact = _WHITESPACE.sub("", folded)
         group_scores: dict[str, float] = {}
         group_hits: dict[str, list[str]] = {}
-        for key, (strong_matchers, weak_matchers) in _GROUP_MATCHERS.items():
+        for key, (strong_matchers, weak_matchers) in self.matchers.items():
             strong = _hits(strong_matchers, compact, spaced)
             if not strong:
                 continue
