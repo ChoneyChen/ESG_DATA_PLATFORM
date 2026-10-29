@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7900bc929400890901f6d3c79863663af4a7aff20ef80106f3544ba7a15e17d4",
+  "clause_digest": "5f6a702843dffcbe3878638853b9009c7d7f8de3e9e620fb6911091e30b0c8db",
   "clause_key": "E1-5_01",
   "data_kind": "quantitative",
   "definition": "自身运营的能源消费总量",
@@ -71,6 +71,474 @@
     "en": "Total energy consumption from own operations",
     "zh": "总能源消耗 Total energy consumption"
   },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "energy_source",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_energy_source",
+        "label": "能源分类",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "energy_flow",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_energy_flow",
+        "label": "能源流向",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "aggregation_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_aggregation_role",
+        "label": "聚合角色",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "energy_carrier",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_energy_carrier",
+        "label": "实际能源载体",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "business_segment",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_business_segment",
+        "label": "实际业务板块",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "aggregation_role",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_aggregation_role",
+        "label": "目标口径·聚合角色",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "energy_flow",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_energy_flow",
+        "label": "目标口径·能源流向",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "energy_source",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_energy_source",
+        "label": "目标口径·能源分类",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_energy_source",
+        "observed_energy_flow",
+        "observed_energy_carrier",
+        "observed_business_segment",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "table"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_energy_source",
+      "observed_energy_flow",
+      "observed_energy_carrier",
+      "observed_business_segment"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "总能源消耗 Total energy consumption"
+  },
   "output_scopes": [
     {
       "aggregation": "total",
@@ -102,6 +570,10 @@
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "读取本企业运营能源消费总量；综合能源消耗量属于总量。相关分项和强度若被读取，必须分别判为不同测量，不能代替总量。",
+      "原值由后端从所选物理单元格取回，主体、边界、方法只能用实际原文支持，不能填入条款预设值。"
+    ],
     "operator": "numeric_label",
     "options": {
       "text_unit_pattern": "[mgkt]wh|千瓦时|千瓦時|兆瓦时|兆瓦時|吉瓦时|度电|度電|亿度|億度|万度|萬度|[gtp]j|吉焦|焦耳|标准煤|標準煤|标煤|tce|toe|%|％",
@@ -221,7 +693,7 @@
         "unless_terms": []
       }
     ],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "change": [
         "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
@@ -303,6 +775,7 @@
       "steam"
     ],
     "parent_clause": null,
+    "related_clauses": [],
     "share_partner": null,
     "siblings": [
       "E1-5_01",
@@ -330,6 +803,7 @@
       "统计范围",
       "财政年度"
     ],
+    "excluded_object_terms": [],
     "expected_candidate_types": [
       "quantity",
       "number"
@@ -352,6 +826,7 @@
       "能源消费总量",
       "能源消费量"
     ],
+    "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
       "table",
@@ -378,7 +853,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

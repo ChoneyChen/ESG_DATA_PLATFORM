@@ -120,7 +120,7 @@ class ClauseCoverage(FrozenModel):
 class PipelineBudget(FrozenModel):
     max_model_calls: int = Field(default=128,ge=1,le=2000)
     max_objects_per_clause: int = Field(default=8,ge=1,le=100)
-    max_output_tokens: int = Field(default=2048,ge=128,le=8192)
+    max_output_tokens: int = Field(default=4096,ge=128,le=8192)
     timeout_seconds: float = Field(default=14400,ge=1,le=86400)
 
 class RunRequest(FrozenModel):

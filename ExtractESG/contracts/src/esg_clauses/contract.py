@@ -6,6 +6,7 @@ from .base import StrictModel, digest
 from .parts import (ReadingContract, RetrievalProfile, EvidenceRequirement,
                     AcceptanceProfile, ClauseRelationships)
 from .scope import OutputScope
+from esg_data.organization import OrganizationSpec
 
 class ValueContract(StrictModel):
     canonical_unit: str | None = None
@@ -19,7 +20,7 @@ class ValueContract(StrictModel):
     aggregation: Literal['none','sum_disjoint_members','ratio_recompute','do_not_sum'] = 'none'
 
 class ClauseContract(StrictModel):
-    schema_version: Literal['clause-contract-1.0'] = 'clause-contract-1.0'
+    schema_version: Literal['clause-contract-1.1'] = 'clause-contract-1.1'
     clause_key: str = Field(min_length=1, pattern=r'^[A-Za-z0-9][A-Za-z0-9_.-]*$')
     group_id: str = Field(min_length=1, pattern=r'^[A-Za-z0-9][A-Za-z0-9_.-]*$')
     labels: dict[str,str]
@@ -32,6 +33,7 @@ class ClauseContract(StrictModel):
     reading: ReadingContract
     retrieval: RetrievalProfile
     evidence: list[EvidenceRequirement] = Field(min_length=1)
+    organization: OrganizationSpec
     acceptance: AcceptanceProfile = Field(default_factory=AcceptanceProfile)
     relationships: ClauseRelationships = Field(default_factory=ClauseRelationships)
     exact_labels: list[str] = Field(default_factory=list)
@@ -42,6 +44,7 @@ class ClauseContract(StrictModel):
 
     @model_validator(mode='after')
     def coherent(self):
+        self.organization.validate_kind(self.data_kind)
         if (self.readiness=='blocked') != bool(self.blocking_reasons):
             raise ValueError('Blocked clauses require explicit unresolved requirements')
         if self.data_kind=='qualitative':
@@ -75,3 +78,13 @@ class ClauseContract(StrictModel):
 
     def seal(self):
         return self.model_copy(update={'clause_digest':self.semantic_digest()})
+
+    def reading_card(self):
+        """The reading port excludes presentation mechanics and resource metadata."""
+        body=self.model_dump(mode='json',exclude={'organization','relationships','retrieval','reading','acceptance','provenance','group_id','readiness','blocking_reasons'})
+        body['clause_schema_version']=body.pop('schema_version')
+        body['schema_version']='clause-reading-card-1.0'
+        body['reading']={'schema_version':self.reading.schema_version,'operator':self.reading.operator,
+                         'instructions':self.reading.instructions,'allow_regulatory_limit':self.reading.allow_regulatory_limit}
+        body['requested_identity_fields']=self.organization.reading_fields()
+        return body

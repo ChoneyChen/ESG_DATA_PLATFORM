@@ -11,11 +11,13 @@ from .decisions import QuantitativeDecision,QualitativeDecision,decision_schema
 from .binding import numeric_fact,qualitative_fact
 from .structure import period_columns
 from .ports import DocumentPort,ModelPort,ArtifactPort
+from .organization import build_organized_dataset
 
-ENGINE_VERSION='clause-backbone-1.0'
+ENGINE_VERSION='clause-backbone-1.1'
 QUANTITATIVE_INSTRUCTIONS='''Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return only row IDs and column IDs that directly report the requested measurement. Never output, compute or convert values.
+Select EVERY relevant row, not one example. Each selected row must use its exact visible row_id; one response may contain many matches. Follow target.reading.instructions, and keep unrelated measurement types out of the selection.
 When physical_period_columns is provided, the period column is already determined by structure; select rows and use those columns.
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
 Place shared frame identity in the top-level identity list ONCE; put only supported row-specific overrides in each match. Omit unsupported axes entirely; do not enumerate missing fields. An empty identity list is valid. Keep each reason to one short phrase.
@@ -25,6 +27,7 @@ measurement_method, value_role (actual/target/baseline/context), aggregation_rol
 denominator and dimensions explicitly stated in the source. Do not repeat a physically determined reporting period in model identity.
 Do not copy fixed clause axes into the report identity. A clause defines what to seek; it is not evidence of what the report says.
 Missing identity, unit, period, or other metadata MUST NOT remove a relevant physically reported value. Select it as uncertain; the raw source is admitted separately from clause compliance.
+requested_identity_fields declares this clause's result columns and any local vocabulary. Read those fields only from cited report evidence. A target definition or report-resource company is not a measured identity. Unlisted categories stay literal and uncertain; never force them into a known code.
 When relevance or identity is ambiguous, use uncertain. No supported rows means matches=[].'''
 QUALITATIVE_INSTRUCTIONS='''Read ONE bounded evidence frame for ONE independent qualitative clause.
 Return span IDs containing directly reported statements that satisfy the clause definition and reading rules.
@@ -32,6 +35,7 @@ You may quote an exact substring; the receiver must find it uniquely in that spa
 A heading, index entry, or mere occurrence of the topic name does not establish a substantive statement. Prefer a complete paragraph or sentence with actual plan/policy/action content. Partial evidence must be uncertain.
 Never paraphrase or invent report text. Numerical values and units are not qualitative value fields.
 State identity fields only with an exact supporting quote and source_id. Omit unsupported axes entirely, never enumerate missing fields; keep each reason to one short phrase. Missing evidence is not a negative assertion.
+requested_identity_fields declares this clause's actual result fields and local vocabulary. Read them from the report only; never fill them from target definitions or report-resource metadata. Preserve unlisted categories literally and mark uncertainty.
 Do not claim non-disclosure from a search miss. No supported statements means matches=[].'''
 
 class PipelineCancelled(RuntimeError):pass
@@ -57,7 +61,7 @@ class ExtractionBackbone:
             intent=SearchIntent(target_id=key,contract_digest=clause.clause_digest,data_kind=clause.data_kind,
                 positive_terms=clause.retrieval.positive_terms,negative_terms=clause.retrieval.negative_terms,exact_terms=clause.exact_labels,source_priority=clause.retrieval.source_priority,
                 structural_anchors=clause.retrieval.structural_anchors,limit=budget.max_objects_per_clause)
-            intent=intent.model_copy(update={name:getattr(clause.retrieval,name) for name in ('topic_term_groups','role_term_groups','context_terms')})
+            intent=intent.model_copy(update={name:getattr(clause.retrieval,name) for name in ('topic_term_groups','role_term_groups','required_term_groups','excluded_object_terms','context_terms')})
             try:candidates=self.documents.search(request.ir_run_id,intent)
             except Exception as exc:
                 errors.append({'clause_key':key,'error':f'{type(exc).__name__}: {str(exc)[:400]}'})
@@ -82,7 +86,7 @@ class ExtractionBackbone:
                         reasons.append('object_has_no_bindable_statements');continue
                     frame_body=frame.model_dump(mode='json')
                     self.artifacts.write(run_id,f'evidence/{digest([key,frame.object_id,chunk])}.json',frame_body)
-                    context={'target':clause.model_dump(mode='json'),
+                    context={'target':clause.reading_card(),
                         'document':document.model_dump(mode='json'),'frame':frame_body}
                     if clause.data_kind=='quantitative':
                         # Cells already occur in rows and explicit header/label sources.
@@ -157,7 +161,7 @@ class ExtractionBackbone:
 
     def _write_outputs(self,run_id,document,clauses,facts,mappings,coverage,calls,started,errors):
         # Every record crosses a typed, value-only boundary before persistence.
-        body={'schema_version':'extraction-fact-bundle-2.0','engine_version':ENGINE_VERSION,'engine_identity':self.engine_identity,'run_id':run_id,
+        body={'schema_version':'extraction-fact-bundle-2.1','engine_version':ENGINE_VERSION,'engine_identity':self.engine_identity,'run_id':run_id,
             'document':document.model_dump(mode='json'),'clause_targets':{k:c.clause_digest for k,c in clauses.items()},
             'facts':[f.model_dump(mode='json') for f in facts],
             'clause_mappings':[m.model_dump(mode='json') for m in mappings],
@@ -166,5 +170,15 @@ class ExtractionBackbone:
                 'quantitative':sum(f.kind=='quantitative' for f in facts),'qualitative':sum(f.kind=='assertion' for f in facts),
                 'model_calls':calls,'elapsed_seconds':round(time.monotonic()-started,3),'errors':errors}}
         for fact in body['facts']:self.artifacts.write(run_id,f"facts/{fact['source_fact_id']}.json",fact)
+        body['organization']={'schema_version':'organized-extraction-1.0','status':'pending','url':f'/api/runs/{run_id}/organized'}
+        # Raw output is committed before optional table organization. Layout
+        # problems must never erase a correctly bound source value.
+        self.artifacts.write(run_id,'results/facts.json',body)
+        try:
+            organized=build_organized_dataset(run_id,document,clauses,facts,mappings)
+            self.artifacts.write(run_id,'results/organized.json',organized.model_dump(mode='json'))
+            body['organization'].update(status=organized.status,table_count=len(organized.tables),unorganized_fact_count=len(organized.unorganized_fact_ids))
+        except Exception as exc:
+            body['organization'].update(status='failed',error=f'{type(exc).__name__}: {str(exc)[:400]}')
         self.artifacts.write(run_id,'results/facts.json',body)
         return body

@@ -1,6 +1,6 @@
 # 独立条款、数据合同与报告资源
 
-本文件说明 2026-10-29 这一轮的当前模块接口。逐项审计与实际验证见仓库根目录《模块化重构与逐条核验报告.md》。原升级规划保留为需求依据，不再作为旧运行入口说明。
+本文件说明 2026-10-30 这一轮的当前模块接口。逐项审计与实际验证见仓库根目录《模块化重构与逐条核验报告.md》。原升级规划保留为需求依据，不再作为旧运行入口说明。
 
 ## 所有权
 
@@ -35,7 +35,7 @@ flowchart LR
 - `group.json` 只有组号、名称、成员列表；不决定检索或读取。
 - `_catalog.json` 是可重建索引，不是第二份科学定义。
 - `selections.json` 只是 ID 列表：16、32、38、34、55 条集合均无专用执行路线。
-- 单条拥有 `data_kind`、`definition`、`exclusions`、`value`、`output_scopes`、`retrieval`、`reading`、`evidence`、`acceptance`、`relationships`。
+- 单条拥有 `data_kind`、`definition`、`exclusions`、`value`、`output_scopes`、`retrieval`、`reading`、`evidence`、`organization`、`acceptance`、`relationships`。
 - 标签、词典、排除、规则、范围等任何合同内容变化都会改变 `clause_digest`。
 - `readiness` 是技术可选状态，不能冒充真实提取验收或业务批准。
 
@@ -81,6 +81,8 @@ flowchart LR
 
 每次运行冻结条款、文档引用、预算及引擎指纹。代码或文档身份发生变化时，待执行任务拒绝静默改用新输入。原值产物在 `facts/<事实ID>.json`；`results/facts.json` 汇集事实、映射、覆盖及摘要。消费者通过 `/api/runs/{id}/facts` 或 `/api/runs/{id}/facts/{fact_id}` 读取。模型可用的来源编号按当前证据生成枚举，不能引用目标或资源元数据当作物理证据。
 
+`GET /api/runs/{id}/targets` 返回本次冻结条款，区别于可编辑的当前条款。`retrieval.required_term_groups` 可由条款声明组间同时满足、组内替代的词组要求；它贯穿 PDF 选页与对象检索。ASCII 词按边界匹配，PM 不会匹配 company；限制只用于召回，不能代替事实与匹配核验。
+
 ## 创建运行
 
 文档服务 `POST /api/report-sessions`：
@@ -90,7 +92,7 @@ flowchart LR
   "input": {"kind":"pdf", "asset_id":"pdf-..."},
   "clause_keys": ["E1-5_01", "E1-1_01"],
   "name": "报告条款提取",
-  "budget": {"max_model_calls":128, "max_objects_per_clause":8, "max_output_tokens":2048, "timeout_seconds":14400}
+  "budget": {"max_model_calls":128, "max_objects_per_clause":8, "max_output_tokens":4096, "timeout_seconds":14400}
 }
 ```
 
@@ -112,8 +114,17 @@ flowchart LR
 
 Console 仍使用上轮界面。本轮按要求未重建；旧标准和创建表单所用的版本接口不再是生产接口，当前使用两服务的 `/docs` 调用新链路，不能把旧表单当作本轮验收入口。
 
-校验入口：`scripts/check_contracts.py`；结构改动后以 `--write` 更新模式与索引，再运行普通校验。导出的六份模式覆盖条款、两种值、来源事实、报告资源与批量提交。
+校验入口：`scripts/check_contracts.py`；结构改动后以 `--write` 更新模式与索引，再运行普通校验。导出的八份模式覆盖条款、两种值、来源事实、报告资源、批量提交、组织定义与组织结果。
 
 条款仓储读写使用共同锁和原子文件替换，更新必须匹配上一摘要。必需证据声明由条款 SDK 实际核验；失败降级条款匹配，不拒收已绑定原文。
 
 当前运行更新范围是文档及提取后端。PlatESG 源码退役入口在隔离库验证，现有发布进程未重启；新事实接收器及该进程的维护不在本轮 PDF 生产验收内。
+
+
+## 条款个性化结果组织
+
+`clause-contract-1.1` 中必需 `organization`。主结构在 `esg_data/organization.py`；每条声明自己的实际字段、局部词典、行轴和表格/陈述/矩阵。模型阅读卡只接收应从报告读取的字段，组织器接收完整布局。关系仅是元数据，不会自动读取关联条款。
+
+运行产物采用 `extraction-fact-bundle-2.1`。`GET /api/runs/{id}/organized` 返回 `organized-extraction-1.0`，原始事实另存；矩阵仅引用事实行，不求和、不取首值、不填零。组织失败不删除原值；未知类别保留原词。当前 32 条为个性化样本，其他条款是同结构模板，样本状态不是验收批准。
+
+完整规范与接口见 [组织合同](EXTRACTION_ORGANIZATION_CONTRACT.md)；下一阶段只作方案的 [审核、发布、数据库对接方向](EXTRACTION_EXIT_DIRECTION.md)。

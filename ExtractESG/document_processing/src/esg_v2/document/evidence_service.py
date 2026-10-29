@@ -106,6 +106,8 @@ class DocumentEvidenceService:
     @staticmethod
     def _intent_score(intent,text,score):
         if score<=0:return score
+        if DocumentEvidenceService._score(intent.excluded_object_terms,text):return 0
+        if any(not DocumentEvidenceService._score(group,text) for group in intent.required_term_groups):return 0
         groups=[*intent.topic_term_groups,*intent.role_term_groups]
         score+=sum(2 for group in groups if DocumentEvidenceService._score(group,text))
         score+=0.1*DocumentEvidenceService._score(intent.context_terms,text)
@@ -116,8 +118,19 @@ class DocumentEvidenceService:
 
     @staticmethod
     def _score(terms,text):
-        folded=_fold(text)
-        return sum(min(6,len(term)/3) for term in terms if _fold(term) in folded)
+        from esg_data.normalize import fold
+        import unicodedata
+        spaced=unicodedata.normalize('NFKC',fold(text));compact=re.sub(r'\s+','',spaced)
+        score=0
+        for term in terms:
+            normalized=unicodedata.normalize('NFKC',fold(term)).strip()
+            if not normalized:continue
+            if normalized.isascii():
+                pattern=r'(?<![a-z0-9])'+r'\s*'.join(re.escape(part) for part in normalized.split())+r'(?![a-z0-9])'
+                hit=bool(re.search(pattern,spaced))
+            else:hit=re.sub(r'\s+','',normalized) in compact
+            if hit:score+=min(6,len(term)/3)
+        return score
 
     def read(self,ir_run_id,reference,chunk_index=0):
         reference=ObjectReference.model_validate(reference)

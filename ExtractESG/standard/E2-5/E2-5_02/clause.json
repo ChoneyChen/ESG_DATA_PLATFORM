@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "607cc65c2af2f885f588afb410079d8911d4c0ceec5b44881494ec96ddbc01de",
+  "clause_digest": "44898f68594184ba5d9dbd850abe69b6270b6842366636eda69a2e9deba0cbc5",
   "clause_key": "E2-5_02",
   "data_kind": "quantitative",
   "definition": "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -56,6 +56,478 @@
     "en": "Total amount of substances of concern that are generated or used during production or that are procured",
     "zh": "关注物质总量 Substances of concern"
   },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "substance",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_substance",
+        "label": "实际物质",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "hazard_class",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_hazard_class",
+        "label": "危害类别",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "concern_class",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_concern_class",
+        "label": "关注物质分类",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "material_flow",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_material_flow",
+        "label": "物料流向",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "aggregation_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_aggregation_role",
+        "label": "聚合角色",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "site",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_site",
+        "label": "实际场址",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "geography",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_geography",
+        "label": "实际地区",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "concern_class",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_concern_class",
+        "label": "目标口径·关注物质分类",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_substance",
+        "observed_hazard_class",
+        "observed_concern_class",
+        "observed_material_flow",
+        "observed_site",
+        "observed_geography",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "table"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_substance",
+      "observed_hazard_class",
+      "observed_concern_class",
+      "observed_material_flow",
+      "observed_site",
+      "observed_geography"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "关注物质总量 Substances of concern"
+  },
   "output_scopes": [
     {
       "aggregation": "total",
@@ -87,6 +559,9 @@
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
+    ],
     "operator": "numeric_label",
     "options": {
       "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|种|種|项|項",
@@ -173,7 +648,7 @@
         "unless_terms": []
       }
     ],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
@@ -211,6 +686,7 @@
       "substance"
     ],
     "parent_clause": null,
+    "related_clauses": [],
     "share_partner": null,
     "siblings": []
   },
@@ -229,6 +705,7 @@
       "统计范围",
       "财政年度"
     ],
+    "excluded_object_terms": [],
     "expected_candidate_types": [
       "quantity",
       "number"
@@ -241,6 +718,7 @@
       "关注物质投入量",
       "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
     ],
+    "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
       "table",
@@ -256,7 +734,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

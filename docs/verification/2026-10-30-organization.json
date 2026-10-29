@@ -1,0 +1,565 @@
+{
+  "date": "2026-10-30",
+  "scope": "PDF to independent facts and clause-owned organization; no review/publication/database receiver",
+  "plan_id": "extract-plan-14239990a9894cf0abc2872b304c3d48",
+  "run_id": "extract-6ce92fb689890d38dfa3af3402e789ac",
+  "processing_id": "processing-bb04a7d8d0b7430a96202abe35968b91",
+  "ir_run_id": "ir-20261029T165942Z-9491fb3022bc",
+  "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+  "engine": {
+    "fingerprint": "01d37ee73f0063b1e49ccb3063d0e37ba11c74e189a17e3dc8dd0ad09c01340f",
+    "version": "clause-backbone-1.1"
+  },
+  "contracts": {
+    "clause": "clause-contract-1.1",
+    "data": "extraction-data-2.0",
+    "facts": "extraction-fact-bundle-2.1",
+    "organization": "organized-extraction-1.0",
+    "report_resource": "report-resource-1.0",
+    "source_validation": "digest_and_bound_evidence"
+  },
+  "summary": {
+    "elapsed_seconds": 409.69,
+    "errors": [],
+    "model_calls": 4,
+    "processed_clauses": 4,
+    "qualitative": 1,
+    "quantitative": 11,
+    "selected_clauses": 4,
+    "source_facts": 12
+  },
+  "status": "partial",
+  "organization_status": "needs_confirmation",
+  "coverage": [
+    {
+      "candidate_objects": 1,
+      "clause_digest": "5f6a702843dffcbe3878638853b9009c7d7f8de3e9e620fb6911091e30b0c8db",
+      "clause_key": "E1-5_01",
+      "covered_scopes": [],
+      "fact_count": 1,
+      "inspected_objects": 1,
+      "reasons": [],
+      "required_scopes": [
+        "scope-996fe31319c9026f"
+      ],
+      "state": "unconfirmed"
+    },
+    {
+      "candidate_objects": 1,
+      "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+      "clause_key": "E2-4_02",
+      "covered_scopes": [],
+      "fact_count": 5,
+      "inspected_objects": 1,
+      "reasons": [],
+      "required_scopes": [
+        "scope-06e0f4a4c0316f48"
+      ],
+      "state": "unconfirmed"
+    },
+    {
+      "candidate_objects": 1,
+      "clause_digest": "3829034d12b588c9e28b89678cff2f0e197a9f1340ab62718bdc45ebc79962d7",
+      "clause_key": "E2-4_03",
+      "covered_scopes": [],
+      "fact_count": 5,
+      "inspected_objects": 1,
+      "reasons": [],
+      "required_scopes": [
+        "scope-b7867604e0886360"
+      ],
+      "state": "unconfirmed"
+    },
+    {
+      "candidate_objects": 1,
+      "clause_digest": "2d46caa6e0da01e5d8bc00052f357177b0424209081446a3d2301a5b08f4b78e",
+      "clause_key": "E2-4_09",
+      "covered_scopes": [],
+      "fact_count": 1,
+      "inspected_objects": 1,
+      "reasons": [
+        "reporting_period",
+        "geography"
+      ],
+      "required_scopes": [
+        "scope-665e87999ed0b6d4"
+      ],
+      "state": "unconfirmed"
+    }
+  ],
+  "tables": [
+    {
+      "clause_key": "E1-5_01",
+      "curation": "sample",
+      "data_kind": "quantitative",
+      "status": "needs_confirmation",
+      "rows": 1,
+      "groups": 0,
+      "matrix_cells": null
+    },
+    {
+      "clause_key": "E2-4_02",
+      "curation": "sample",
+      "data_kind": "quantitative",
+      "status": "needs_confirmation",
+      "rows": 5,
+      "groups": 4,
+      "matrix_cells": 4
+    },
+    {
+      "clause_key": "E2-4_03",
+      "curation": "sample",
+      "data_kind": "quantitative",
+      "status": "needs_confirmation",
+      "rows": 5,
+      "groups": 1,
+      "matrix_cells": 1
+    },
+    {
+      "clause_key": "E2-4_09",
+      "curation": "sample",
+      "data_kind": "qualitative",
+      "status": "needs_confirmation",
+      "rows": 1,
+      "groups": 0,
+      "matrix_cells": null
+    }
+  ],
+  "verification": {
+    "independent_fact_api_roundtrips": 12,
+    "raw_literals_physically_bound": 12,
+    "field_evidence_references_checked": 144,
+    "organized_rows": 12,
+    "matrix_cells": 5,
+    "unorganized_facts": 0,
+    "separate_air_water_model_calls_same_physical_table": true,
+    "organized_proxy_roundtrip": true,
+    "frozen_targets_equal_current_clauses": true,
+    "engine_fingerprint_equal_current_code": true,
+    "resource_count_unchanged": 18,
+    "no_aggregation": true,
+    "no_database_import_or_publication": true,
+    "target_literal_baseline": {
+      "E1-5_01": [
+        "24,767,519.69"
+      ],
+      "E2-4_02": [
+        "1,530.14",
+        "5,856.94",
+        "1,161.80"
+      ],
+      "E2-4_03": [
+        "175.61",
+        "20.36"
+      ]
+    },
+    "cross_medium_rows_retained_as_different": 5,
+    "distinct_physical_anchors": 7
+  },
+  "calls": [
+    {
+      "call_index": 1,
+      "clause_key": "E1-5_01",
+      "object_id": "table-p0072-0003",
+      "status": "ok"
+    },
+    {
+      "call_index": 2,
+      "clause_key": "E2-4_02",
+      "object_id": "table-p0073-0004",
+      "status": "ok"
+    },
+    {
+      "call_index": 3,
+      "clause_key": "E2-4_03",
+      "object_id": "table-p0073-0004",
+      "status": "ok"
+    },
+    {
+      "call_index": 4,
+      "clause_key": "E2-4_09",
+      "object_id": "block-p0056-0032",
+      "status": "ok"
+    }
+  ],
+  "representations": [
+    {
+      "clause_key": "E1-5_01",
+      "fact_id": "c9fd3a2f39a684d56bafdd918e549742fb7426a12651b31de243a9a9e2a07a1d",
+      "raw": "24,767,519.69",
+      "unit_raw": "兆瓦时",
+      "pages": [
+        72
+      ],
+      "match": "uncertain",
+      "pollutant": null
+    },
+    {
+      "clause_key": "E2-4_02",
+      "fact_id": "e0ee63f44d5684650880652472b316963c284e93509215667651fec3ec5ffcf0",
+      "raw": "5,856.94",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "uncertain",
+      "pollutant": {
+        "state": "available",
+        "origin": "dimension",
+        "value": "SO2",
+        "raw_text": "二氧化硫（SO2）",
+        "reported_state": "stated",
+        "classification": {
+          "state": "recognized",
+          "code": "SO2",
+          "label": "二氧化硫",
+          "definition_source": "clause_vocabulary"
+        },
+        "evidence": [
+          {
+            "source_fact_id": "e0ee63f44d5684650880652472b316963c284e93509215667651fec3ec5ffcf0",
+            "container": "dimension",
+            "field_key": "pollutant",
+            "index": 0
+          }
+        ],
+        "flags": [],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_02",
+      "fact_id": "fb84868fe8f2a36ac788565e9fec40619d861fa6aa869ca356bfb2b592e830ab",
+      "raw": "175.61",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "different",
+      "pollutant": {
+        "state": "not_stated",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": "not_stated",
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant",
+          "required_output_field_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_02",
+      "fact_id": "f15346a0d9e1aa6232e9517fc4227a935c96f94923ed9062f7a090da33d63cb7",
+      "raw": "1,161.80",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "uncertain",
+      "pollutant": {
+        "state": "available",
+        "origin": "dimension",
+        "value": "VOCs",
+        "raw_text": "挥发性有机物（VOCs）",
+        "reported_state": "stated",
+        "classification": {
+          "state": "recognized",
+          "code": "VOCs",
+          "label": "挥发性有机物",
+          "definition_source": "clause_vocabulary"
+        },
+        "evidence": [
+          {
+            "source_fact_id": "f15346a0d9e1aa6232e9517fc4227a935c96f94923ed9062f7a090da33d63cb7",
+            "container": "dimension",
+            "field_key": "pollutant",
+            "index": 0
+          }
+        ],
+        "flags": [],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_02",
+      "fact_id": "6db9dfb7ab2f66729ce4f9faa53801d27db45b0202cc8951122685a7f1e451e0",
+      "raw": "20.36",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "different",
+      "pollutant": {
+        "state": "not_stated",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": "not_stated",
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant",
+          "required_output_field_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_02",
+      "fact_id": "68fff1c26d245d56884bd4d606ae1e8f7efee6b46191d029b65512e4bd53f062",
+      "raw": "1,530.14",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "uncertain",
+      "pollutant": {
+        "state": "available",
+        "origin": "dimension",
+        "value": "NOx",
+        "raw_text": "氮氧化物（NOx）",
+        "reported_state": "stated",
+        "classification": {
+          "state": "recognized",
+          "code": "NOx",
+          "label": "氮氧化物",
+          "definition_source": "clause_vocabulary"
+        },
+        "evidence": [
+          {
+            "source_fact_id": "68fff1c26d245d56884bd4d606ae1e8f7efee6b46191d029b65512e4bd53f062",
+            "container": "dimension",
+            "field_key": "pollutant",
+            "index": 0
+          }
+        ],
+        "flags": [],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_03",
+      "fact_id": "488436ccecd8eab9a8c04b6f41f22afcb98866d4c7e93811cd939519f2e96274",
+      "raw": "5,856.94",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "different",
+      "pollutant": {
+        "state": "not_read",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": null,
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_03",
+      "fact_id": "d1ed6f42d288ee2647855182dfb7fc442913213f79b4815670e0773030dac2f7",
+      "raw": "175.61",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "uncertain",
+      "pollutant": {
+        "state": "not_read",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": null,
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_03",
+      "fact_id": "b4c954857cce5e40a953ca8b6ac51176d6766bb3a584e3db74a58080d818f23d",
+      "raw": "1,161.80",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "different",
+      "pollutant": {
+        "state": "not_read",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": null,
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_03",
+      "fact_id": "5023490bb10fc2aa1390c3e6536a6d82a04e82ba34d6a07e61776cbdd07bef50",
+      "raw": "20.36",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "uncertain",
+      "pollutant": {
+        "state": "not_read",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": null,
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_03",
+      "fact_id": "8debb49d5844b0105265bbf5ab04e2ca7d4f34b6930c52b31457f67eb8bd75a3",
+      "raw": "1,530.14",
+      "unit_raw": "吨",
+      "pages": [
+        73
+      ],
+      "match": "different",
+      "pollutant": {
+        "state": "not_read",
+        "origin": "dimension",
+        "value": null,
+        "raw_text": null,
+        "reported_state": null,
+        "classification": null,
+        "evidence": [],
+        "flags": [
+          "output_identity_missing:observed_pollutant"
+        ],
+        "extensions": {}
+      }
+    },
+    {
+      "clause_key": "E2-4_09",
+      "fact_id": "dd23d7d3b2d65cc8d6952527f42160fa3150f67449b3088a1264d67772c6369c",
+      "raw": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
+      "unit_raw": null,
+      "pages": [
+        56
+      ],
+      "match": "uncertain",
+      "pollutant": null
+    }
+  ],
+  "tests": {
+    "backbone_organization_boundaries": 64,
+    "document_regression": 460,
+    "schemas": 8,
+    "python_ast_sources": 194
+  },
+  "model_usage": {
+    "source_pages": 92,
+    "selected_pages": 22,
+    "layout_model": "PP-DocLayoutV3",
+    "layout_processed_pages": 22,
+    "visual_ocr_pages": 0,
+    "vision_region_read_pages": 0,
+    "vision_prescan_used": false,
+    "ir_review_calls": 0,
+    "embedding_calls": 0,
+    "cloud_calls": 0,
+    "reader_calls": 4,
+    "reader_quantitative_calls": 3,
+    "reader_qualitative_calls": 1,
+    "input_tokens": 40943,
+    "generation_tokens": 4724,
+    "calls": [
+      {
+        "clause_key": "E1-5_01",
+        "provider": "local_qwen",
+        "model_id": "Qwen3.5-9B-4bit",
+        "input_tokens": 7109,
+        "generation_tokens": 819,
+        "output_token_budget": 4096,
+        "elapsed_seconds": 50.76,
+        "schema_enforcement": "grammar_schema",
+        "actual_input_modality": "text"
+      },
+      {
+        "clause_key": "E2-4_02",
+        "provider": "local_qwen",
+        "model_id": "Qwen3.5-9B-4bit",
+        "input_tokens": 15752,
+        "generation_tokens": 1817,
+        "output_token_budget": 4096,
+        "elapsed_seconds": 158.117,
+        "schema_enforcement": "grammar_schema",
+        "actual_input_modality": "text"
+      },
+      {
+        "clause_key": "E2-4_03",
+        "provider": "local_qwen",
+        "model_id": "Qwen3.5-9B-4bit",
+        "input_tokens": 15787,
+        "generation_tokens": 1687,
+        "output_token_budget": 4096,
+        "elapsed_seconds": 165.837,
+        "schema_enforcement": "grammar_schema",
+        "actual_input_modality": "text"
+      },
+      {
+        "clause_key": "E2-4_09",
+        "provider": "local_qwen",
+        "model_id": "Qwen3.5-9B-4bit",
+        "input_tokens": 2295,
+        "generation_tokens": 401,
+        "output_token_budget": 4096,
+        "elapsed_seconds": 33.984,
+        "schema_enforcement": "grammar_schema",
+        "actual_input_modality": "text"
+      }
+    ]
+  },
+  "cleanup": {
+    "deleted_rows": {
+      "pipeline_events": 689,
+      "pipeline_tasks": 12,
+      "ir_input_pins": 12,
+      "report_processing_events": 95,
+      "report_processing_artifacts": 8,
+      "report_processing_runs": 4,
+      "clause_extraction_plans": 4,
+      "native_runs": 4
+    },
+    "preserved": {
+      "plan": "extract-plan-14239990a9894cf0abc2872b304c3d48",
+      "run": "extract-6ce92fb689890d38dfa3af3402e789ac",
+      "ir": "ir-20261029T165942Z-9491fb3022bc",
+      "ocr": "ocr-20261029T165912Z-56bc0f80e4d5",
+      "tasks": [
+        "pt-20261029T165912Z-34ec17424f",
+        "pt-20261029T165942Z-3213255a72",
+        "pt-20261029T165953Z-3c33bd477f"
+      ]
+    },
+    "raw_pdf_library_untouched": true,
+    "platform_databases_untouched": true
+  }
+}

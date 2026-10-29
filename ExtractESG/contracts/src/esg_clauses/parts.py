@@ -18,6 +18,8 @@ class RetrievalProfile(StrictModel):
     structural_anchors: list[str] = Field(default_factory=list)
     topic_term_groups: list[list[str]] = Field(default_factory=list)
     role_term_groups: list[list[str]] = Field(default_factory=list)
+    required_term_groups: list[list[str]] = Field(default_factory=list)
+    excluded_object_terms: list[str] = Field(default_factory=list)
     context_terms: list[str] = Field(default_factory=list)
     expected_candidate_types: list[str] = Field(default_factory=list)
 
@@ -27,6 +29,8 @@ class RetrievalProfile(StrictModel):
             raise ValueError("Retrieval terms cannot be blank")
         if set(self.positive_terms) & set(self.negative_terms):
             raise ValueError("A term cannot be both required and excluded")
+        if any(not group or any(not term.strip() for term in group) for group in self.required_term_groups):
+            raise ValueError("Required search groups need nonblank alternatives")
         return self
 
 
@@ -95,8 +99,9 @@ class ReadingRule(StrictModel):
 class ReadingContract(StrictModel):
     """The clause's reading semantics: operator, rules and resolved vocabulary."""
 
-    schema_version: Literal["clause-reading-1.0"] = "clause-reading-1.0"
+    schema_version: Literal["clause-reading-1.1"] = "clause-reading-1.1"
     operator: Literal["numeric_label", "ghg_scope", "pollutant", "water", "waste", "statement"] = "numeric_label"
+    instructions: list[str] = Field(min_length=1)
     rules: list[ReadingRule] = Field(default_factory=list)
     vocabulary: dict[str, list[str]] = Field(default_factory=dict)
     allow_regulatory_limit: bool = False
@@ -107,5 +112,6 @@ class ClauseRelationships(StrictModel):
     parent_clause: str | None = None
     share_partner: str | None = None
     siblings: list[str] = Field(default_factory=list)
+    related_clauses: list[str] = Field(default_factory=list)
     child_terms: list[str] = Field(default_factory=list)
     child_excludes: list[str] = Field(default_factory=list)

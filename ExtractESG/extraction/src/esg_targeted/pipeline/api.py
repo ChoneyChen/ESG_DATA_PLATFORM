@@ -6,6 +6,7 @@ from pydantic import BaseModel,Field,ConfigDict
 from esg_clauses.contract import ClauseContract
 from esg_clauses.repository import ClauseRepository,ClauseRepositoryError
 from esg_targeted.pipeline_contracts import RunRequest
+from esg_data.organization import OrganizationSpec,OrganizedDataset
 from esg_runtime.local_operator import install_loopback_marker
 from .runtime import resources,engine_digest
 from .engine import ENGINE_VERSION
@@ -22,7 +23,7 @@ class SaveClause(BaseModel):
     expected_digest:str | None=None
 
 def create_app(resource_factory=resources):
-    app=FastAPI(title='Clause extraction backbone',version='1.0.0');install_loopback_marker(app)
+    app=FastAPI(title='Clause extraction backbone',version='1.1.0');install_loopback_marker(app)
     app.add_middleware(CORSMiddleware,allow_origins=['http://127.0.0.1:18081','http://localhost:18081'],allow_methods=['GET','POST','PUT'],allow_headers=['Content-Type','Authorization'])
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request,exc):
@@ -48,6 +49,9 @@ def create_app(resource_factory=resources):
         body=release.snapshot();body['readiness']={'ready':not body['restart_required'],'blockers':['Extraction service requires restart'] if body['restart_required'] else []};return body
     @app.get('/health')
     def health():return {'status':'ok','service':'clause-backbone','engine_version':ENGINE_VERSION,'capabilities':{'independent_clauses':True,'raw_values_first':True,'data_contract':'extraction-data-2.0','cross_clause_reading_reuse':False}}
+    @app.get('/api/organization-contract')
+    def organization_contract():
+        return {'definition':OrganizationSpec.model_json_schema(),'dataset':OrganizedDataset.model_json_schema(),'facts_contract':'source-fact-2.0','aggregation_performed':False}
     @app.get('/api/clauses')
     def clauses():return resource_factory()[0].catalog()
     @app.get('/api/clause-groups')
@@ -56,6 +60,13 @@ def create_app(resource_factory=resources):
     def selections():return {'selections':resource_factory()[0].selections()}
     @app.get('/api/clauses/{key}')
     def clause(key:str):return resource_factory()[0].get(key)
+    @app.get('/api/clauses/{key}/organization')
+    def clause_organization(key:str):
+        clause=resource_factory()[0].get(key)
+        return {'clause_key':key,'clause_digest':clause.clause_digest,'data_kind':clause.data_kind,
+                'organization':clause.organization,'relationships':clause.relationships,'relationships_are_execution_dependencies':False}
+    @app.get('/api/clauses/{key}/reading-card')
+    def reading_card(key:str):return resource_factory()[0].get(key).reading_card()
     @app.put('/api/clauses/{key}')
     def save(key:str,request:SaveClause):
         require_current_engine()
@@ -86,6 +97,11 @@ def create_app(resource_factory=resources):
     @app.get('/api/runs/{run_id}')
     def run(run_id:str):
         store=resource_factory()[1];return store.public(store.get(run_id))
+    @app.get('/api/runs/{run_id}/targets')
+    def run_targets(run_id:str):
+        snapshot=resource_factory()[1].get(run_id)['targets']
+        ClauseRepository.thaw(snapshot)
+        return snapshot
     @app.post('/api/runs/{run_id}/cancel')
     def cancel(run_id:str):
         store=resource_factory()[1];state=store.get(run_id)
@@ -102,6 +118,13 @@ def create_app(resource_factory=resources):
     def facts(run_id:str):
         repo,store,artifacts,documents=resource_factory();store.get(run_id)
         try:return artifacts.read(run_id,'results/facts.json')
-        except FileNotFoundError:return {'schema_version':'extraction-fact-bundle-2.0','facts':[],'clause_mappings':[],'coverage':[],'summary':{}}
+        except FileNotFoundError:return {'schema_version':'extraction-fact-bundle-2.1','facts':[],'clause_mappings':[],'coverage':[],'summary':{},'organization':{'status':'pending'}}
+    @app.get('/api/runs/{run_id}/organized')
+    def organized(run_id:str):
+        repo,store,artifacts,documents=resource_factory();state=store.get(run_id)
+        try:return artifacts.read(run_id,'results/organized.json')
+        except FileNotFoundError:
+            from fastapi.responses import JSONResponse
+            return JSONResponse(status_code=202,content={'schema_version':'organized-extraction-1.0','run_id':run_id,'status':'pending' if state['status'] in {'queued','running'} else 'unavailable','tables':[]})
     return app
 app=create_app()

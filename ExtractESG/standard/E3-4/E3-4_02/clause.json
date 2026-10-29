@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4f1bba31a20277a1959637b3cad6a874e3aecaa62a8730d616d042ae05fd6ccb",
+  "clause_digest": "02e4772fede6b5fa0b6bd402c19250d54261006653f2e7292767034b941410fa",
   "clause_key": "E3-4_02",
   "data_kind": "quantitative",
   "definition": "Total water consumption in areas at water risk, including areas of high-water stress。水风险地区耗水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -56,6 +56,459 @@
     "en": "Total water consumption in areas at water risk, including areas of high-water stress",
     "zh": "水风险地区耗水量 Water consumption in areas at water risk"
   },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "water_measure",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_water_measure",
+        "label": "水量类型",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "geography",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_geography",
+        "label": "实际地区",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "water_risk_class",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_water_risk_class",
+        "label": "水风险等级",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "aggregation_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_aggregation_role",
+        "label": "聚合角色",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "site",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_site",
+        "label": "实际场址",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "aggregation_role",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_aggregation_role",
+        "label": "目标口径·聚合角色",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "water_measure",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_water_measure",
+        "label": "目标口径·水量类型",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_water_measure",
+        "observed_geography",
+        "observed_water_risk_class",
+        "observed_site",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "table"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_water_measure",
+      "observed_geography",
+      "observed_water_risk_class",
+      "observed_site"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "水风险地区耗水量 Water consumption in areas at water risk"
+  },
   "output_scopes": [
     {
       "aggregation": "total",
@@ -87,6 +540,9 @@
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "Total water consumption in areas at water risk, including areas of high-water stress。水风险地区耗水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+    ],
     "operator": "water",
     "options": {
       "text_unit_pattern": "立方米|m3|m³|吨|噸|升|ml\\b|megalit|liter|litre|gallon",
@@ -160,7 +616,7 @@
         "unless_terms": []
       }
     ],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "alternative_source": [
         "替代水源",
@@ -300,6 +756,7 @@
       "耗水"
     ],
     "parent_clause": null,
+    "related_clauses": [],
     "share_partner": null,
     "siblings": [
       "E3-4_01",
@@ -333,6 +790,7 @@
       "计算方法",
       "财政年度"
     ],
+    "excluded_object_terms": [],
     "expected_candidate_types": [
       "quantity",
       "number"
@@ -345,6 +803,7 @@
       "水风险地区耗水",
       "Total water consumption in areas at water risk, including areas of high-water stress。水风险地区耗水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
+    "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
       "table",
@@ -360,7 +819,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "m3",

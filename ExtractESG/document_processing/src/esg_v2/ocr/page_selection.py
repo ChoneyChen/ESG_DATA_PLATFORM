@@ -202,6 +202,7 @@ class ClausePageSelector:
     ):
         self.search_targets = search_targets or []
         self._negative_matchers = {}
+        self._required_matchers = {}
         if self.search_targets:
             from esg_v2.document.search import PageSearchIntent
             targets = [PageSearchIntent.model_validate(v) for v in self.search_targets]
@@ -209,6 +210,7 @@ class ClausePageSelector:
                 tuple(_page_terms(t.supporting_terms)), bool(t.method_terms), t.data_kind) for t in targets)
             self._method_matchers = [_matcher(term) for target in targets for term in target.method_terms]
             self._negative_matchers = {t.target_id:[_matcher(term) for term in _page_terms(t.negative_terms)] for t in targets}
+            self._required_matchers = {t.target_id:[[_matcher(term) for term in group] for group in t.required_term_groups] for t in targets}
         else:
             self._method_matchers = []
         if not keyword_groups:
@@ -323,6 +325,8 @@ class ClausePageSelector:
         for key, (strong_matchers, weak_matchers) in self.matchers.items():
             strong = _hits(strong_matchers, compact, spaced)
             if not strong:
+                continue
+            if any(not _hits(group,compact,spaced) for group in self._required_matchers.get(key,[])):
                 continue
             weak = _hits(weak_matchers, compact, spaced)
             group_scores[key] = float(3 * len(strong) + min(4, len(weak)))

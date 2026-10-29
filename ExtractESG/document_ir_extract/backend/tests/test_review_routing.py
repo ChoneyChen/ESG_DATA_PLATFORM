@@ -39,8 +39,7 @@ from esg_v2.document.convergence_engine import ConvergenceEngine
 from esg_v2.document.transaction_coordinator import TransactionCoordinator
 from esg_v2.document.validator import DocumentIrValidator
 from esg_v2.models.contracts import CloudChatResult, CloudModelInfo
-from esg_v2.models.model_registry import ModelHealthRegistry
-from esg_v2.models.model_router import QiniuVisionModelRouter
+from esg_v2.models.model_registry import ModelHealthRegistry, QiniuModelRegistry
 from esg_v2.models.qiniu_adapter import QiniuApiError
 from esg_v2.models.vision_input import QiniuVisionInputResolver
 
@@ -367,16 +366,16 @@ def test_vision_input_prefers_cloud_addressable_reference(tmp_path: Path) -> Non
     assert resolver.resolve([str(image_path)])[0].startswith("data:image/jpeg;base64,")
 
 
-def test_vision_model_router_uses_current_non_retired_models(tmp_path: Path) -> None:
+def test_review_registry_uses_current_non_retired_models(tmp_path: Path) -> None:
     ModelHealthRegistry.reset()
     settings = Settings(output_root=tmp_path, document_ir_output_root=tmp_path, upload_root=tmp_path, qiniu_vlm_model=None)
-    router = QiniuVisionModelRouter(settings, CatalogAdapter())
-    assert router.candidates() == [
+    registry = QiniuModelRegistry(settings, CatalogAdapter())
+    assert [profile.model_id for profile in registry.candidates('reviewer',limit=3)] == [
         "qwen/qwen3.5-plus",
         "doubao-seed-2.0-pro",
         "stepfun/step-3.7-flash",
     ]
-    assert router.candidates(role="verifier", exclude_family="qwen") == [
+    assert [profile.model_id for profile in registry.candidates(role="verifier", exclude_family="qwen",limit=3)] == [
         "doubao-seed-2.0-pro",
         "stepfun/step-3.7-flash",
         "moonshotai/kimi-k2.6",

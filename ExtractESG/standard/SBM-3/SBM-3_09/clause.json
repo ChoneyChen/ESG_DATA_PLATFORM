@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "577a5399e8b8633c9f3190cc82a07e97691f91ed5907d0cbc809f43ec3183f18",
+  "clause_digest": "737888e17f2bc38b6bad855b95e0e8dde3ec4cacda5507b3cf1f9d64f76415b1",
   "clause_key": "SBM-3_09",
   "data_kind": "qualitative",
   "definition": "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term。短中长期预期财务影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
@@ -29,6 +29,255 @@
   "labels": {
     "en": "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term",
     "zh": "短中长期预期财务影响"
+  },
+  "organization": {
+    "curation": "template",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "statement_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原文陈述",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "source_label",
+        "raw_value",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "statements"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "短中长期预期财务影响"
   },
   "output_scopes": [
     {
@@ -59,12 +308,15 @@
   "readiness": "blocked",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term。短中长期预期财务影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
+    ],
     "operator": "statement",
     "options": {
       "value_role": "forecast"
     },
     "rules": [],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
@@ -85,6 +337,7 @@
     "child_excludes": [],
     "child_terms": [],
     "parent_clause": null,
+    "related_clauses": [],
     "share_partner": null,
     "siblings": []
   },
@@ -103,6 +356,7 @@
       "统计范围",
       "财政年度"
     ],
+    "excluded_object_terms": [],
     "expected_candidate_types": [
       "quantity",
       "number"
@@ -113,6 +367,7 @@
       "短中长期预期财务影响",
       "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term。短中长期预期财务影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
     ],
+    "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
       "text",
@@ -126,7 +381,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

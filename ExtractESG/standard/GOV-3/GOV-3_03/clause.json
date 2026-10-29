@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "16bbb44f1973205c891097a1b28bdc1556a05b1119ba4055872476ec87a63ead",
+  "clause_digest": "fdb54d85a4e08966e5b992500331cd0b3453836875354baf1a066664b5431281",
   "clause_key": "GOV-3_03",
   "data_kind": "qualitative",
   "definition": "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies。可持续绩效考核目标和影响。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
@@ -27,6 +27,255 @@
   "labels": {
     "en": "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies",
     "zh": "可持续绩效考核目标和影响"
+  },
+  "organization": {
+    "curation": "template",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "statement_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原文陈述",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "source_label",
+        "raw_value",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "statements"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "可持续绩效考核目标和影响"
   },
   "output_scopes": [
     {
@@ -57,12 +306,15 @@
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies。可持续绩效考核目标和影响。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。"
+    ],
     "operator": "statement",
     "options": {
       "value_role": "context"
     },
     "rules": [],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
@@ -83,6 +335,7 @@
     "child_excludes": [],
     "child_terms": [],
     "parent_clause": null,
+    "related_clauses": [],
     "share_partner": null,
     "siblings": []
   },
@@ -101,6 +354,7 @@
       "统计范围",
       "财政年度"
     ],
+    "excluded_object_terms": [],
     "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
@@ -108,6 +362,7 @@
       "可持续绩效考核目标和影响",
       "Description of specific sustainability-related targets and (or) impacts used to assess performance of members of administrative, management and supervisory bodies。可持续绩效考核目标和影响。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。"
     ],
+    "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
       "text",
@@ -121,7 +376,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -12,3 +12,4 @@ class PageSearchIntent(BaseModel):
     negative_terms: list[str] = Field(default_factory=list)
     supporting_terms: list[str] = Field(default_factory=list)
     method_terms: list[str] = Field(default_factory=list)
+    required_term_groups: list[list[str]] = Field(default_factory=list)

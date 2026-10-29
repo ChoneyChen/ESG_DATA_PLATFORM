@@ -30,6 +30,15 @@ def extraction_router(coordinator,require_ready=lambda:None):
     def clauses():return call(coordinator.remote,'GET','/api/clauses')
     @router.get('/api/pipeline/clauses/{key}')
     def clause(key:str):return call(coordinator.remote,'GET',f'/api/clauses/{key}')
+    @router.get('/api/pipeline/clauses/{key}/organization')
+    def organization(key:str):return call(coordinator.remote,'GET',f'/api/clauses/{key}/organization')
+    @router.get('/api/pipeline/organization-contract')
+    def organization_contract():return call(coordinator.remote,'GET','/api/organization-contract')
+    @router.get('/api/report-sessions/{key}/organized')
+    def organized(key:str):
+        state=call(coordinator.get,key)
+        if not state.get('run_id'):return {'schema_version':'organized-extraction-1.0','status':'pending','tables':[]}
+        return call(coordinator.remote,'GET',f"/api/runs/{state['run_id']}/organized")
     @router.get('/api/pipeline/clause-groups')
     def groups():return call(coordinator.remote,'GET','/api/clause-groups')
     @router.get('/api/pipeline/clause-selections')

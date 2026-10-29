@@ -1,6 +1,9 @@
 # 当前文档
 
 - [模块边界、合同、API 与目录导入](CLAUSE_BACKBONE_REBUILD.md)
+- [原值事实与条款个性化组织合同](EXTRACTION_ORGANIZATION_CONTRACT.md)
+- [审核、发布和数据库出口方向（仅规划）](EXTRACTION_EXIT_DIRECTION.md)
+- [模型使用合同与标准化建议](MODEL_USAGE_CONTRACT_AUDIT.md)
 - [本轮逐项核验报告](../模块化重构与逐条核验报告.md)
 - [系统状态](SYSTEM_STATE.md)
 - [更新日志](CHANGELOG.md)

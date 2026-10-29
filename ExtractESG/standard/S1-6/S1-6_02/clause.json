@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a6cf05e53adccdfe69cde646a8157393bd40c768ed796f0f920d2fbf364698bf",
+  "clause_digest": "b50cbdadb882c65787cf992d15c435968b6e7d77d83642ede22590d6391853f9",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -60,6 +60,461 @@
     "en": "Number of employees (head count)",
     "zh": "员工人数 Employees (head count)"
   },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "population",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_population",
+        "label": "实际人群",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "count_basis",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_count_basis",
+        "label": "人数计量基础",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "statistical_time_basis",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_statistical_time_basis",
+        "label": "统计时点／期间",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "gender",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_gender",
+        "label": "实际性别",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "country",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_country",
+        "label": "实际国家／地区",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "count_basis",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_count_basis",
+        "label": "目标口径·人数计量基础",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "population",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_population",
+        "label": "目标口径·实际人群",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_population",
+        "observed_count_basis",
+        "observed_statistical_time_basis",
+        "observed_gender",
+        "observed_country",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "table"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_population",
+      "observed_count_basis",
+      "observed_statistical_time_basis",
+      "observed_gender",
+      "observed_country"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "员工人数 Employees (head count)"
+  },
   "output_scopes": [
     {
       "aggregation": "total",
@@ -92,6 +547,9 @@
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "报告期末属于本主体的员工人头数。"
+    ],
     "operator": "numeric_label",
     "options": {
       "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
@@ -281,7 +739,7 @@
         "unless_terms": []
       }
     ],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "average": [
         "re:(?:平均|average|mean)"
@@ -385,6 +843,7 @@
       "死亡人数"
     ],
     "parent_clause": null,
+    "related_clauses": [],
     "share_partner": null,
     "siblings": []
   },
@@ -403,6 +862,7 @@
       "统计范围",
       "财政年度"
     ],
+    "excluded_object_terms": [],
     "expected_candidate_types": [
       "quantity",
       "number"
@@ -413,6 +873,7 @@
       "员工人数（人头数）",
       "报告期末受雇于本主体的员工人头数。"
     ],
+    "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
       "table",
@@ -425,7 +886,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "person",

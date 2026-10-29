@@ -24,7 +24,7 @@ def engine_digest():
 def execute(run_id,*,model=None):
     from esg_targeted.pipeline_contracts import RunRequest
     from .adapters.local_model import LocalQwenModel
-    from .engine import ExtractionBackbone,PipelineCancelled
+    from .engine import ExtractionBackbone,PipelineCancelled,ENGINE_VERSION
     repo,store,artifacts,documents=resources();state=store.claim(run_id)
     model=model or LocalQwenModel(Path(os.getenv('QWEN_VLM_MODEL_PATH',str(Path.home()/'Desktop/model/Qwen3.5-9B-4bit'))))
     model.progress_callback=lambda event:store.update(run_id,current_call=event)
@@ -33,9 +33,9 @@ def execute(run_id,*,model=None):
         if state.get('engine_fingerprint')!=fingerprint:raise ValueError('Extraction code changed after run creation; submit a new run')
         actual=documents.document(state['request']['ir_run_id']).model_dump(mode='json')
         if actual!=state['document']:raise ValueError('Document evidence changed after run creation; submit a new run')
-        body=ExtractionBackbone(documents,model,artifacts,engine_identity={"version":"clause-backbone-1.0","fingerprint":fingerprint}).run(run_id,RunRequest.model_validate(state['request']),repo.thaw(state['targets']),
+        body=ExtractionBackbone(documents,model,artifacts,engine_identity={"version":ENGINE_VERSION,"fingerprint":fingerprint}).run(run_id,RunRequest.model_validate(state['request']),repo.thaw(state['targets']),
             cancel_check=lambda:store.get(run_id)['cancel_requested'],on_progress=lambda event:store.update(run_id,progress=event))
-        status='completed' if all(c['state']=='covered' for c in body['coverage']) else 'partial'
+        status='completed' if all(c['state']=='covered' for c in body['coverage']) and body['organization']['status']=='organized' else 'partial'
         return store.update(run_id,status=status,summary=body['summary'],finished_at=__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat())
     except PipelineCancelled:
         return store.update(run_id,status='cancelled')

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d64e88b9c467c11c3f2b0c640c77dc94a2de6003b20e5101cd0a129a324c0d58",
+  "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
   "clause_key": "E2-4_02",
   "data_kind": "quantitative",
   "definition": "按污染物划分的空气排放量",
@@ -61,6 +61,477 @@
     "en": "Emissions to air by pollutant",
     "zh": "向空气排放污染物 Pollutants emitted to air"
   },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pollution_medium",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_pollution_medium",
+        "label": "实际排放介质",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pollutant",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_pollutant",
+        "label": "实际污染物",
+        "required_for_confirmation": true,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": [
+          {
+            "aliases": [
+              "SO₂"
+            ],
+            "code": "SO2",
+            "label": "二氧化硫"
+          },
+          {
+            "aliases": [
+              "NOₓ"
+            ],
+            "code": "NOx",
+            "label": "氮氧化物"
+          },
+          {
+            "aliases": [
+              "particulate matter"
+            ],
+            "code": "PM",
+            "label": "颗粒物"
+          },
+          {
+            "aliases": [
+              "VOC"
+            ],
+            "code": "VOCs",
+            "label": "挥发性有机物"
+          }
+        ]
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "site",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_site",
+        "label": "实际场址",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "geography",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_geography",
+        "label": "实际地区",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "pollution_medium",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_pollution_medium",
+        "label": "目标口径·实际排放介质",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_pollution_medium",
+        "observed_pollutant",
+        "observed_site",
+        "observed_geography",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [
+        "observed_pollutant"
+      ],
+      "matrix": {
+        "column_axes": [
+          "reporting_period"
+        ],
+        "row_axes": [
+          "observed_pollutant",
+          "reporting_entity",
+          "reporting_boundary",
+          "unit_raw"
+        ],
+        "value_fields": [
+          "raw_value",
+          "value_numeric",
+          "value_lower",
+          "value_upper",
+          "comparator"
+        ]
+      },
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "matrix"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_pollution_medium",
+      "observed_pollutant",
+      "observed_site",
+      "observed_geography"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "向空气排放污染物 Pollutants emitted to air"
+  },
   "output_scopes": [
     {
       "aggregation": "total",
@@ -92,10 +563,13 @@
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
+    "instructions": [
+      "读取空气污染物排放量，选择表内所有符合的污染物行，不只举一个例子。常见项目为氮氧化物 NOx、二氧化硫 SO2、颗粒物 PM、挥发性有机物 VOCs、非甲烷总烃 NMHC。其他实际空气污染物也可保留原词。",
+      "化学需氧量 COD、氨氮 NH3-N、总氮 TN、总磷 TP 是水体污染物，不能选为本条空气排放。温室气体、浓度、固废数量、限额和削减量也不属于本条。",
+      "对每个选中的行，pollutant 轴应引用该行原始标签的可见 source_id，保留原词或本条局部识别码；不能从另一行借用证据。单位与期间由实际表头/单元格决定。"
+    ],
     "operator": "pollutant",
     "options": {
-      "method_note_clause": "E2-4_09",
-      "retrieval_needs_method": true,
       "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|mg|tonne",
       "value_role": "actual"
     },
@@ -183,7 +657,7 @@
         "unless_terms": []
       }
     ],
-    "schema_version": "clause-reading-1.0",
+    "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "air_only": [
         "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)"
@@ -240,6 +714,9 @@
       "sox"
     ],
     "parent_clause": null,
+    "related_clauses": [
+      "E2-4_09"
+    ],
     "share_partner": null,
     "siblings": [
       "E2-4_02",
@@ -265,6 +742,15 @@
       "核算边界",
       "统计范围",
       "财政年度"
+    ],
+    "excluded_object_terms": [
+      "英文缩写",
+      "术语释义",
+      "缩略语表",
+      "释义",
+      "GRI标准/",
+      "Glossary",
+      "Acronyms"
     ],
     "expected_candidate_types": [
       "quantity",
@@ -388,6 +874,31 @@
       "颗粒物",
       "颗粒物排放"
     ],
+    "required_term_groups": [
+      [
+        "NOx",
+        "SO2",
+        "SO₂",
+        "VOC",
+        "VOCs",
+        "NMHC",
+        "颗粒物",
+        "烟尘",
+        "氮氧化物",
+        "二氧化硫",
+        "非甲烷总烃"
+      ],
+      [
+        "排放",
+        "吨",
+        "千克",
+        "公斤",
+        "tonne",
+        "kg",
+        "discharge",
+        "emission"
+      ]
+    ],
     "role_term_groups": [],
     "source_priority": [
       "table",
@@ -468,7 +979,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.0",
+  "schema_version": "clause-contract-1.1",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

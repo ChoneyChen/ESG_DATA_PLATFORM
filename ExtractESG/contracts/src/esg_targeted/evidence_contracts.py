@@ -29,6 +29,8 @@ class SearchIntent(ProtocolModel):
     structural_anchors: list[str] = Field(default_factory=list)
     topic_term_groups: list[list[str]] = Field(default_factory=list)
     role_term_groups: list[list[str]] = Field(default_factory=list)
+    required_term_groups: list[list[str]] = Field(default_factory=list)
+    excluded_object_terms: list[str] = Field(default_factory=list)
     context_terms: list[str] = Field(default_factory=list)
     limit: int = Field(default=8,ge=1,le=100)
 

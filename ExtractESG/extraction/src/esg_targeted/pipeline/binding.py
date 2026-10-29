@@ -178,6 +178,7 @@ def mapping_for(clause,document,fact,match,reason):
     for name in ('reporting_period','reporting_boundary'):
         fields[name]=[item.model_dump(mode='json') for item in getattr(fact.identity,name).evidence]
     flags.extend(check_evidence(clause,fields))
+    flags.extend(clause.organization.confirmation_flags(fact.identity.model_dump(mode='json')))
     axes={'entity':fact.identity.entity_aggregation_role,'method':fact.identity.measurement_method,
           'value_role':fact.identity.value_role,'aggregation':fact.identity.aggregation_role}
     for scope in clause.output_scopes:

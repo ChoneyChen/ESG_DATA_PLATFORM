@@ -10,6 +10,7 @@ from esg_clauses.contract import ClauseContract
 from esg_targeted.pipeline_contracts import SourceFact
 from esg_targeted.data_kinds.quantitative import QuantitativeValue
 from esg_targeted.data_kinds.qualitative import QualitativeValue
+from esg_data.organization import OrganizationSpec,OrganizedDataset
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--write',action='store_true');args=parser.parse_args()
@@ -17,7 +18,7 @@ def main():
     if args.write:repo.reindex()
     rows=repo.catalog()['clauses']
     for row in rows:repo.get(row['clause_key']).verify()
-    schemas={'report-resource':ReportResource,'report-resource-batch':BatchManifest,'clause':ClauseContract,'quantitative':QuantitativeValue,'qualitative':QualitativeValue,'source-fact':SourceFact}
+    schemas={'report-resource':ReportResource,'report-resource-batch':BatchManifest,'clause':ClauseContract,'quantitative':QuantitativeValue,'qualitative':QualitativeValue,'source-fact':SourceFact,'organization-definition':OrganizationSpec,'organized-extraction':OrganizedDataset}
     target=ROOT/'contracts/schemas';target.mkdir(exist_ok=True)
     for name,model in schemas.items():
         body=json.dumps(model.model_json_schema(),ensure_ascii=False,indent=2,sort_keys=True)+'\n';path=target/(name+'.schema.json')

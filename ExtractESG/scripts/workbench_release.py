@@ -72,8 +72,8 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
         digests[group] = digest.hexdigest()
     identity = {"protocol_version": PROTOCOL_VERSION, "components": digests,
                 "build_fingerprint": hashlib.sha256(json.dumps(digests, sort_keys=True).encode()).hexdigest(),
-                "contracts": {"clause": "clause-contract-1.0", "data": "extraction-data-2.0",
-                              "facts": "extraction-fact-bundle-2.0", "report_resource": "report-resource-1.0",
+                "contracts": {"clause": "clause-contract-1.1", "data": "extraction-data-2.0",
+                              "facts": "extraction-fact-bundle-2.1", "organization": "organized-extraction-1.0", "report_resource": "report-resource-1.0",
                               "source_validation": "digest_and_bound_evidence"}}
     _CACHE.clear()
     _CACHE[key] = identity

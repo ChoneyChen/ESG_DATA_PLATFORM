@@ -90,7 +90,7 @@ class ExtractionCoordinator:
         if not state['ir_run_id']:
             if not state['processing_id']:
                 clauses=state['target_snapshot']['clauses']
-                targets=[PageSearchIntent(target_id=k,contract_digest=c['clause_digest'],data_kind=c['data_kind'],positive_terms=c['retrieval']['positive_terms'],negative_terms=c['retrieval']['negative_terms'],supporting_terms=c['retrieval']['context_terms']) for k,c in clauses.items()]
+                targets=[PageSearchIntent(target_id=k,contract_digest=c['clause_digest'],data_kind=c['data_kind'],positive_terms=c['retrieval']['positive_terms'],negative_terms=c['retrieval']['negative_terms'],supporting_terms=c['retrieval']['context_terms'],required_term_groups=c['retrieval']['required_term_groups']) for k,c in clauses.items()]
                 process=self.processing.create(ProcessingRequest(asset_id=request.input.asset_id,mode='reprocess',source_sha256=state['source_sha256'],submission_key=state['session_id'],config=ProcessingConfig(page_selection='clauses',page_search_targets=targets,ocr_provider='local_paddleocr',allow_cloud_ocr=False,execute_required_reviews=False,execute_optional_reviews=False,review_provider='local_qwen')))
                 state['processing_id']=process['processing_id'];state['status']='running';self.save(state)
             process=self.processing.get(state['processing_id'])
