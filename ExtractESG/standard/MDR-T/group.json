@@ -1,0 +1,25 @@
+{
+  "clauses": [
+    "MDR-T_01",
+    "MDR-T_02",
+    "MDR-T_03",
+    "MDR-T_04",
+    "MDR-T_05",
+    "MDR-T_06",
+    "MDR-T_07",
+    "MDR-T_08",
+    "MDR-T_09",
+    "MDR-T_10",
+    "MDR-T_11",
+    "MDR-T_12",
+    "MDR-T_13",
+    "MDR-T_14",
+    "MDR-T_15",
+    "MDR-T_16",
+    "MDR-T_17",
+    "MDR-T_18",
+    "MDR-T_19"
+  ],
+  "group_id": "MDR-T",
+  "title": "目标"
+}

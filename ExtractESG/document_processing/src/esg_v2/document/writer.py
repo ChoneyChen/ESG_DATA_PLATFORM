@@ -431,6 +431,7 @@ class DocumentIrWriter:
                 "ocr_run_id": document.metadata.ocr_run_id,
                 "display_name": document.metadata.document_label,
             },
+            "report_resource": document.metadata.source_artifacts.get("report_resource"),
             "entrypoints": entrypoints,
             "counts": counts,
             "review_retry_result": document.quality_report.get("review_retry_result"),

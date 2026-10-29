@@ -1,6 +1,0 @@
-{
-  "executable": false,
-  "framework_id": "ifrs-s2",
-  "next_step": "登记版本化原始标准目录，再按披露小号构造独立包。",
-  "state": "awaiting_source_catalog"
-}

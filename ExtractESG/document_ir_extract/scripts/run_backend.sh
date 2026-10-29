@@ -34,7 +34,7 @@ if [ "${ESG_SKIP_DEPENDENCY_INSTALL:-0}" != "1" ]; then
   python -m pip install -e .
 fi
 
-export PYTHONPATH="$ROOT/backend/src:$ROOT/../standards/src:$ROOT/../shared_runtime/src"
+export PYTHONPATH="$ROOT/backend/src:$ROOT/../document_processing/src:$ROOT/../control_plane/src:$ROOT/../contracts/src:$ROOT/../shared_runtime/src"
 UVICORN_ARGS=(esg_v2.api.main:app --host 127.0.0.1 --port 18080)
 if [ "${ESG_V2_DEV_RELOAD:-0}" = "1" ]; then
   UVICORN_ARGS+=(--reload)

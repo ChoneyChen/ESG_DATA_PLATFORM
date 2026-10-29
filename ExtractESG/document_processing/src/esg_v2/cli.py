@@ -36,10 +36,11 @@ def main() -> int:
     ocr.add_argument("--use-chart-recognition", action="store_true")
     ocr.add_argument(
         "--page-selection",
-        choices=("all", "foundation16", "clauses"),
+        choices=("all", "clauses"),
         default="all",
-        help="foundation16 OCRs only the pages a text-layer selector picks for the ESRS foundation datapoints",
+        help="clauses requires explicit page search intents in --page-search-targets",
     )
+    ocr.add_argument("--page-search-targets", default=None, help="JSON file containing an array of explicit search intents")
     ocr.add_argument(
         "--page-indices",
         default=None,
@@ -79,6 +80,7 @@ def main() -> int:
                 useChartRecognition=args.use_chart_recognition,
             ),
             page_selection=args.page_selection,
+            page_search_targets=json.loads(Path(args.page_search_targets).read_text()) if args.page_search_targets else [],
             page_indices=[int(item) for item in args.page_indices.split(",") if item.strip()] if args.page_indices else None,
         )
         data = {"file_url": request.file_url, "token": request.token, "model": request.model,

@@ -1,0 +1,99 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "comparator": {
+      "default": "unknown",
+      "enum": [
+        "exact",
+        "range",
+        "greater_than",
+        "less_than",
+        "at_least",
+        "at_most",
+        "approx",
+        "unknown"
+      ],
+      "title": "Comparator",
+      "type": "string"
+    },
+    "extensions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Extensions",
+      "type": "object"
+    },
+    "parse_status": {
+      "default": "unparsed",
+      "enum": [
+        "parsed",
+        "unparsed",
+        "ambiguous",
+        "conflict"
+      ],
+      "title": "Parse Status",
+      "type": "string"
+    },
+    "unit_raw": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit Raw"
+    },
+    "value_lower": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value Lower"
+    },
+    "value_numeric": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value Numeric"
+    },
+    "value_raw": {
+      "minLength": 1,
+      "title": "Value Raw",
+      "type": "string"
+    },
+    "value_upper": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value Upper"
+    }
+  },
+  "required": [
+    "value_raw"
+  ],
+  "title": "QuantitativeValue",
+  "type": "object"
+}

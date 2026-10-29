@@ -1,0 +1,151 @@
+{
+  "acceptance": {
+    "minimum_reports": 1,
+    "samples": []
+  },
+  "blocking_reasons": [],
+  "clause_digest": "d9d3c15cf562a7f21d01466b359f738a917a06f11d283a129cb40c345bddf671",
+  "clause_key": "S3-5_04",
+  "data_kind": "qualitative",
+  "definition": "披露受影响社区相关目标拟在社区生活中产生的预期结果。",
+  "distinguish_from": [],
+  "evidence": [
+    {
+      "field": "statement_context",
+      "level": "text",
+      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "purpose": "target_confirmation",
+      "required": true
+    }
+  ],
+  "exact_labels": [],
+  "exclusions": [
+    "目标值、目标年和基准须分别举证；实际进展不能替代目标本身。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group_id": "S3-5",
+  "labels": {
+    "en": "Disclosure of intended outcomes to be achieved in lives of  affected communities",
+    "zh": "目标拟对社区产生的预期结果"
+  },
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {},
+      "entity": "group",
+      "label_zh": "目标期 · 集团合并 · 总量",
+      "method": null,
+      "period": "target_period",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-d53d74e3be096220",
+      "value_role": "target"
+    }
+  ],
+  "provenance": {
+    "original_id": "S3-5_04",
+    "paragraph": "AR 44 a",
+    "source_refs": [
+      "esrs.2023-set1.s3-5.source.law",
+      "esrs.2023-set1.s3-5.source.ig3"
+    ],
+    "standard_ref": {
+      "disclosure_requirement": "S3-5",
+      "standard_family": null
+    }
+  },
+  "readiness": "ready",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "operator": "statement",
+    "options": {
+      "value_role": "target"
+    },
+    "rules": [],
+    "schema_version": "clause-reading-1.0",
+    "vocabulary": {
+      "component_prefix": [
+        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
+      ],
+      "other_member": [
+        "其他",
+        "其它",
+        "re:^other\\b",
+        "others"
+      ],
+      "subject_generic": [
+        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
+        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [],
+    "parent_clause": null,
+    "share_partner": null,
+    "siblings": []
+  },
+  "retrieval": {
+    "context_terms": [
+      "consolidation scope",
+      "reporting boundary",
+      "reporting period",
+      "reporting scope",
+      "reporting year",
+      "合并范围",
+      "报告期",
+      "报告边界",
+      "本年度",
+      "核算边界",
+      "统计范围",
+      "财政年度"
+    ],
+    "expected_candidate_types": [],
+    "negative_terms": [],
+    "positive_terms": [
+      "Disclosure of intended outcomes to be achieved in lives of  affected communities",
+      "目标拟对社区产生的预期结果",
+      "披露受影响社区相关目标拟在社区生活中产生的预期结果。须说明适用主体、期间与报告边界；泛泛表述不能替代。"
+    ],
+    "role_term_groups": [],
+    "source_priority": [
+      "text",
+      "table"
+    ],
+    "structural_anchors": [],
+    "topic_term_groups": [
+      [
+        "Disclosure of intended outcomes to be achieved in lives of  affected communities",
+        "目标拟对社区产生的预期结果"
+      ]
+    ]
+  },
+  "schema_version": "clause-contract-1.0",
+  "value": {
+    "aggregation": "do_not_sum",
+    "canonical_unit": null,
+    "comparison_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "comparison_requirements": [
+      "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+      "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+    ],
+    "fixed_axes": {},
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "target_ref",
+      "target_year"
+    ],
+    "unit_dimension": null,
+    "value_origin": "reported",
+    "value_role": "target"
+  }
+}

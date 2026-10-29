@@ -6,10 +6,10 @@ import pytest
 
 from esg_v2.control_plane.contracts import DocumentIrPipelineTaskRequest, OcrPipelineTaskRequest
 from esg_v2.control_plane.native_dispatch import reserve_native_run
-from esg_v2.control_plane.plans import dispatch_key
+from esg_v2.control_plane.context import dispatch_key
 from esg_v2.control_plane.store import PipelineQueueStore
 from esg_v2.document.contracts import DocumentIrBuildRequest
-from test_report_session_control_plane import prepare_api
+from current_api_fixture import prepare_api
 
 
 @contextmanager
@@ -23,7 +23,7 @@ def fixed_step(key):
 
 @pytest.mark.parametrize("kind", ["ocr", "ir"])
 def test_native_created_before_queue_crash_reuses_same_native_identity(tmp_path, monkeypatch, kind):
-    api, queue, _, _, _ = prepare_api(tmp_path, monkeypatch)
+    api, queue = prepare_api(tmp_path, monkeypatch)
     monkeypatch.setattr(api, "_require_processing_ready", lambda: None)
     if kind == "ocr":
         monkeypatch.setattr(api.report_assets, "get", lambda _: {"file_name": "source.pdf", "sha256": "a" * 64}, raising=False)

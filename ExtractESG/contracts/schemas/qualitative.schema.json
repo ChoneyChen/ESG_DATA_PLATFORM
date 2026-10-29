@@ -1,0 +1,25 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Extensions",
+      "type": "object"
+    },
+    "statement_raw": {
+      "minLength": 1,
+      "title": "Statement Raw",
+      "type": "string"
+    }
+  },
+  "required": [
+    "statement_raw"
+  ],
+  "title": "QualitativeValue",
+  "type": "object"
+}

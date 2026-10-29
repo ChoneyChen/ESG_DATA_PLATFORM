@@ -1,13 +1,14 @@
 """A real persisted adapter restart must not consume a held publication event."""
 from PlatESG.backend.bridge import DatabaseBridge
+from PlatESG.tests.frozen_fixture import seed_frozen_database
 
 
 def test_restart_preserves_pending_reviews_until_explicit_publication(tmp_path):
     bridge=DatabaseBridge({"PLATESG_DATA_DIR":str(tmp_path/"data"),"PLATESG_AUTO_PUBLISH":"0",
                            "PLATESG_ALLOW_DEMO_SEED":"1","PLATESG_AUTO_IMPORT":"0"})
+    seed_frozen_database(bridge.environment)
     bridge.start()
     try:
-        bridge.call("seed_demo",timeout=120)
         original=bridge.call("observations",{"limit":1000})
         internal=bridge.call("internal_detail",{"observation_id":original["items"][0]["observation_id"]})
         bridge.call("review",{"disclosure_id":internal["sources"][0]["disclosure_id"],"decision":"rejected",

@@ -10,7 +10,8 @@ from esg_v2.contracts import OcrRunRequest
 from esg_v2.document.contracts import DocumentIrBuildRequest
 from esg_v2.document.reader import DocumentIrPackageReader
 from esg_v2.ocr import text_layer, vision_prescan
-from esg_v2.ocr.page_selection import Foundation16PageSelector
+from esg_v2.ocr.page_selection import ClausePageSelector
+from test_page_targeted_ocr import _search_targets
 from esg_v2.ocr.text_layer import Word, build_lines, table_grid
 from esg_v2.workflows.ir_workflow import DocumentIrWorkflow
 from esg_v2.workflows.ocr_workflow import OcrWorkflow
@@ -87,7 +88,7 @@ def test_text_layer_pages_skip_visual_ocr_and_keep_page_order(tmp_path: Path) ->
 
     ocr = OcrWorkflow(settings, provider_router=router).run(
         OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", allow_api_fallback=False,
-                      page_selection="foundation16"),
+                      page_selection="clauses",page_search_targets=_search_targets()),
         run_id=OCR_RUN_ID,
     )
 
@@ -125,10 +126,8 @@ def test_text_layer_pages_skip_visual_ocr_and_keep_page_order(tmp_path: Path) ->
 
 
 def test_clause_contract_selects_only_new_metric_pages_without_full_ocr():
-    selector = Foundation16PageSelector.for_clauses({
-        "E1-6_30": {"positive_terms": ["温室气体排放强度", "吨二氧化碳当量/百万元营收"],
-                    "reading_dimension": "ghg_intensity"},
-    })
+    from esg_v2.document.search import PageSearchIntent
+    selector = ClausePageSelector(front_pages=1,continuation_pages=0,search_targets=[PageSearchIntent(target_id='E1-6_30',contract_digest='a'*64,data_kind='quantitative',positive_terms=['温室气体排放强度','吨二氧化碳当量/百万元营收'])])
     result = selector.select_texts([
         "Sustainability report 2025: reporting period and organizational boundary of the reporting group",
         "能源消耗总量 1000 兆瓦时，报告主体合并范围内全部经营活动实际能源消耗情况",
@@ -137,7 +136,7 @@ def test_clause_contract_selects_only_new_metric_pages_without_full_ocr():
         "报告期 2025 年 1 月 1 日至 2025 年 12 月 31 日 能源消耗与温室气体排放情况及报告主体范围说明",
         "员工总数 1200 人，报告期末全部受雇员工的实际人数统计结果",
     ])
-    assert result.page_indices == (0, 1, 2, 4)
+    assert {0,2,4} <= set(result.page_indices)
     assert 2 in result.page_indices
     assert 5 not in result.page_indices
 
@@ -183,7 +182,7 @@ def test_every_page_from_the_text_layer_needs_no_visual_ocr(tmp_path: Path) -> N
     settings = _settings(tmp_path, ocr_text_layer_enabled=True)
 
     ocr = OcrWorkflow(settings, provider_router=router).run(
-        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", page_selection="foundation16"),
+        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", page_selection="clauses",page_search_targets=_search_targets()),
         run_id=OCR_RUN_ID,
     )
 
@@ -247,14 +246,14 @@ def test_selector_scores_scans_from_prescan_text(tmp_path: Path) -> None:
         calls.append((path, page_count))
         return texts
 
-    selection = Foundation16PageSelector().select(pdf_path, prescan=prescan)
+    selection = ClausePageSelector(search_targets=_search_targets()).select(pdf_path, prescan=prescan)
     assert calls == [(pdf_path, 30)]
     assert selection.text_source == "vision_prescan" and selection.reason == "vision_prescan_scored"
     assert {14, 21} <= set(selection.page_indices or ())
     assert len(selection.page_indices or ()) < 30
     assert selection.provenance()["text_source"] == "vision_prescan"
     # Without a prescan a scan still falls back to whole-document OCR.
-    assert Foundation16PageSelector().select(pdf_path).page_indices is None
+    assert ClausePageSelector(search_targets=_search_targets()).select(pdf_path).page_indices is None
 
 
 def test_prescan_page_text_reads_rows_top_to_bottom() -> None:

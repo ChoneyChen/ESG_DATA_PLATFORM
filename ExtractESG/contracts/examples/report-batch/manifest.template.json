@@ -1,0 +1,17 @@
+{
+  "schema_version": "report-resource-batch-1.0",
+  "reports": [
+    {
+      "pdf_id": "PDF-001",
+      "file": "pdf/report-001.pdf",
+      "sha256": null,
+      "company": {"name": null, "company_id": null},
+      "publication_year": null,
+      "industry": {"name": null, "code": null, "taxonomy": null},
+      "reporting_year": null,
+      "title": null,
+      "metadata_sources": {},
+      "extensions": {}
+    }
+  ]
+}

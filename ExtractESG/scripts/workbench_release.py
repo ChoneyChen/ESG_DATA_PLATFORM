@@ -15,84 +15,32 @@ from urllib.error import HTTPError, URLError
 from urllib.request import ProxyHandler, build_opener
 
 PROTOCOL_VERSION = "workbench-compatibility-v1"
-SUPPORTED_PACKAGE_FORMATS = ["1.0", "1.1", "2.0", "2.1"]
-SUPPORTED_CORE_VERSIONS = ["1.0.0", "1.1.0", "1.2.0"]
 _CACHE: dict[tuple, dict] = {}
 
 SERVICE_GROUPS = {
-    "document-backend": ("document_backend", "standard_contracts", "catalog", "startup"),
-    "targeted-backend": ("targeted_backend", "standard_contracts", "catalog", "startup"),
+    "document-backend": ("document_backend", "document_contracts", "startup"),
+    "targeted-backend": ("targeted_backend", "standard_contracts", "startup"),
     "workbench-frontend": ("frontend", "startup"),
-    "publication-backend": ("publication_backend", "product_frontend", "standard_contracts", "catalog", "startup"),
+    "publication-backend": ("publication_backend", "product_frontend", "publication_catalog"),
 }
 
 
-def release_files(extract_root: Path) -> dict[str, list[Path]]:
-    root = extract_root.resolve()
-    standards = root / "standards" if (root / "standards").is_dir() else root / "standard_packages"
-    groups = {
-        "document_backend": list((root / "document_ir_extract/backend/src/esg_v2/api").rglob("*.py"))
-            + [root / "document_ir_extract/backend/src/esg_v2/__init__.py"]
-            + list((root / "document_processing/src").rglob("*.py"))
-            + list((root / "control_plane/src").rglob("*.py"))
-            + list((root / "contracts/src/esg_v2").rglob("*.py")),
-        "targeted_backend": list((root / "targeted_table_extract/backend/src/esg_targeted/api").rglob("*.py"))
-            + [root / "targeted_table_extract/backend/src/esg_targeted/__init__.py"]
-            + list((root / "extraction/src").rglob("*.py"))
-            + list((root / "contracts/src/esg_targeted").rglob("*.py")),
-        "standard_contracts": list((root / "standards/src").rglob("*.py"))
-            + list((root / "standards/schemas").rglob("*.json"))
-            + list((root / "standards/extensions/schemas").rglob("*.json"))
-            + list((root / "shared_runtime/src").rglob("*.py")),
-        "frontend": [p for p in (root.parent / "ConsoleESG/src").rglob("*") if p.suffix in {".tsx",".ts",".css"}]
-            + [root.parent / "ConsoleESG" / f for f in ("package.json","package-lock.json","vite.config.ts","tsconfig.json","index.html")],
-        "publication_backend": list((root.parent / "PlatESG/backend").glob("*.py"))
-            + list((root.parent / "PlatESG/backend").glob("*.mjs"))
-            + list((root.parent / "PlatESG/backend/migrations").glob("*.sql"))
-            + list((root.parent / "database/scripts").glob("*.mjs"))
-            + list((root.parent / "database/scripts").glob("*.json"))
-            + list((root.parent / "database/migrations").glob("*.sql")),
-        "product_frontend": [p for p in (root.parent / "PlatESG/frontend/src").rglob("*") if p.suffix in {".tsx",".ts",".css"}]
-            + [root.parent / "PlatESG/frontend" / f for f in ("package.json","package-lock.json","vite.config.ts","index.html")],
-        "catalog": list((root / "standards/releases").rglob("package.json"))
-            + list((root / "standards/catalog").rglob("*.json"))
-            + list((root / "standards/registry").rglob("*.json"))
-            + list((root / "standards/profiles").rglob("*.json"))
-            + [root / "standards/extensions/registry.json"]
-            + list((root / "standards/extensions/releases").rglob("*.json"))
-            + [root.parent / "PlatESG/catalog/metric-dictionary.v1.json"],
-        "startup": [root / "scripts/workbench_release.py", root / "scripts/bootstrap_extension_runtime.py",
-            root / "scripts/serve_workbench_frontend.py", root / "document_ir_extract/scripts/run_backend.sh",
-            root / "document_ir_extract/scripts/run_frontend.sh", root / "targeted_table_extract/scripts/run_backend.sh",
-            root.parent / "PlatESG/scripts/run.sh"],
+def release_files(extract_root: Path) -> dict[str,list[Path]]:
+    root=extract_root.resolve()
+    shared=list((root/'contracts/src').rglob('*.py'))+list((root/'shared_runtime/src').rglob('*.py'))
+    groups={
+      'document_backend':list((root/'document_ir_extract/backend/src/esg_v2/api').rglob('*.py'))+list((root/'document_processing/src').rglob('*.py'))+list((root/'control_plane/src').rglob('*.py')),
+      'targeted_backend':list((root/'extraction/src').rglob('*.py')),
+      'standard_contracts':shared,
+      'document_contracts':list((root/'contracts/src/esg_v2').rglob('*.py'))+[root/'contracts/src/esg_targeted/evidence_contracts.py',root/'contracts/src/esg_targeted/pipeline_contracts.py']+list((root/'contracts/src/esg_targeted/data_kinds').glob('*.py'))+list((root/'contracts/src/esg_data').rglob('*.py'))+list((root/'contracts/src/esg_reports').rglob('*.py'))+list((root/'shared_runtime/src').rglob('*.py')),
+      'publication_catalog':[root.parent/'PlatESG/catalog/metric-dictionary.v1.json']+list((root.parent/'PlatESG/catalog/import-contracts').rglob('*.json')),
+      'catalog':list((root/'standard').rglob('*.json'))+[root.parent/'PlatESG/catalog/metric-dictionary.v1.json'],
+      'frontend':[p for p in (root.parent/'ConsoleESG/src').rglob('*') if p.suffix in {'.tsx','.ts','.css'}],
+      'publication_backend':list((root.parent/'PlatESG/backend').glob('*.py'))+list((root.parent/'PlatESG/backend').glob('*.mjs'))+list((root.parent/'database/scripts').glob('*.mjs'))+list((root.parent/'database/migrations').glob('*.sql')),
+      'product_frontend':[p for p in (root.parent/'PlatESG/frontend/src').rglob('*') if p.suffix in {'.tsx','.ts','.css'}],
+      'startup':[root/'scripts/workbench_release.py',root/'scripts/serve_workbench_frontend.py',root/'document_ir_extract/scripts/run_backend.sh',root/'targeted_table_extract/scripts/run_backend.sh'],
     }
-    if not (root / "document_processing/src").is_dir():
-        groups["document_backend"] = list((root / "document_ir_extract/backend/src").rglob("*.py"))
-    if not (root / "extraction/src").is_dir():
-        groups["targeted_backend"] = list((root / "targeted_table_extract/backend/src").rglob("*.py"))
-    if not (root / "standards").is_dir():
-        groups["standard_contracts"] = list((standards / "src").rglob("*.py")) + list((standards / "schemas").rglob("*.json")) + list((root / "shared_runtime/src").rglob("*.py"))
-        groups["catalog"] = list((standards / "dist").rglob("package.json")) + list((standards / "catalogs").rglob("*.json")) + list((standards / "profiles").rglob("*.json")) + [root.parent / "PlatESG/catalog/metric-dictionary.v1.json"]
-    # Import-only historical contracts are executable authority as well. They
-    # must participate in coordinated restarts without becoming active product
-    # dictionaries. Runtime DB registrations remain mutable state, not source.
-    groups["catalog"].extend((root.parent / "PlatESG/catalog/import-contracts").rglob("*.json"))
-    groups["catalog"].extend((root.parent / "PlatESG/catalog/history").rglob("*.json"))
-    registry_path = standards / "registry/esrs/2023-set1/registry.json"
-    if not registry_path.is_file():
-        registry_path = standards / "catalogs/esrs/2023-set1/registry.json"
-    if registry_path.is_file():
-        try:
-            modules = json.loads(registry_path.read_text(encoding="utf-8"))["modules"]
-            for module in modules:
-                if module.get("executable") and module.get("source_directory"):
-                    source = (standards / module["source_directory"]).resolve()
-                    if root in source.parents:
-                        groups["catalog"].extend(source.rglob("*.json"))
-        except (ValueError, KeyError):
-            pass  # Invalid registrations are diagnosed by catalog readiness.
-    # Resolve aliases before hashing: a compatibility link is never another source.
-    return {name: sorted({path.resolve() for path in paths}) for name, paths in groups.items()}
+    return {name:sorted({p.resolve() for p in paths if p.is_file()}) for name,paths in groups.items()}
 
 
 def release_identity(extract_root: Path, service: str | None = None) -> dict:
@@ -124,10 +72,9 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
         digests[group] = digest.hexdigest()
     identity = {"protocol_version": PROTOCOL_VERSION, "components": digests,
                 "build_fingerprint": hashlib.sha256(json.dumps(digests, sort_keys=True).encode()).hexdigest(),
-                "contracts": {"standard_package_formats": SUPPORTED_PACKAGE_FORMATS,
-                              "core_schema_versions": SUPPORTED_CORE_VERSIONS,
-                              "extraction_profiles": ["platform_major"],
-                              "standard_validation": "structural_only"}}
+                "contracts": {"clause": "clause-contract-1.0", "data": "extraction-data-2.0",
+                              "facts": "extraction-fact-bundle-2.0", "report_resource": "report-resource-1.0",
+                              "source_validation": "digest_and_bound_evidence"}}
     _CACHE.clear()
     _CACHE[key] = identity
     return json.loads(json.dumps(identity))
@@ -165,7 +112,7 @@ def check_peer(payload: dict, expected: dict, service: str, groups=("standard_co
     if payload.get("source_changed_since_start") or payload.get("restart_required"):
         errors.append("服务启动后项目已更新，需要协调重启")
     if payload.get("contracts") != expected["contracts"]:
-        errors.append("标准包、Core 或范围合同不一致")
+        errors.append("条款、数据或报告资源合同不一致")
     if not payload.get("readiness", {}).get("ready", False):
         errors.append("业务未就绪：" + "；".join(payload.get("readiness", {}).get("blockers", ["未返回就绪诊断"])))
     return errors
@@ -182,7 +129,7 @@ def check_compatibility(payload: dict, expected: dict, service: str) -> list[str
     if payload.get("source_changed_since_start") or payload.get("restart_required"):
         errors.append("服务启动后项目已更新，需要协调重启")
     if payload.get("contracts") != expected["contracts"]:
-        errors.append("标准包、Core 或范围合同不一致")
+        errors.append("条款、数据或报告资源合同不一致")
     if not payload.get("readiness", {}).get("ready", False):
         errors.append("业务未就绪：" + "；".join(payload.get("readiness", {}).get("blockers", ["未返回就绪诊断"])))
     return errors

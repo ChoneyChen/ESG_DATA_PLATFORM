@@ -1,8 +1,8 @@
-import { readFile, realpath } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
-import { loadBundle, importBundle, reviewRecord } from '../../database/scripts/import-bundle.mjs';
+import { reviewRecord } from '../../database/scripts/import-bundle.mjs';
 import { readDataset, readPublished, reportPublications, publishedReports, publishReport, withdrawReport, deleteReport,
   saveMeasurementContext, processOutbox, seedMetricDictionary, measurementDefinitionForMapping, scientificDimensionKeys } from '../../database/scripts/publication.mjs';
 import {saveExtensionProposal,recordExtensionDefinitionDecision,registerExtensionRelease,listExtensionRegistry,
@@ -14,9 +14,8 @@ import {candidateProposal,candidateProposals,machineVerify} from '../../database
 import {autoReview} from '../../database/scripts/auto-review.mjs';
 import {reportArtifacts,deleteReportCandidates,deleteReportArtifacts} from '../../database/scripts/report-artifacts.mjs';
 import {artifactInventory,purgeArtifacts} from '../../database/scripts/purge-artifacts.mjs';
-import {resolveImportCatalog,validateMajorImportScope,registerImportContract,listImportContracts} from './import_contracts.mjs';
-import {lifecycleReferences,lifecycleReserve,lifecycleReservation,assertImportSourcesAvailable} from './lifecycle.mjs';
-import {readDeliveryStatus,deliveryDescriptor} from './delivery_status.mjs';
+import {lifecycleReferences,lifecycleReserve,lifecycleReservation} from './lifecycle.mjs';
+import {readDeliveryStatus} from './delivery_status.mjs';
 
 export const platformRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const hash = data => createHash('sha256').update(data).digest('hex');
@@ -375,106 +374,6 @@ async function context(db, input) {
     ...(definition && scientificDimensionKeys(definition).has('entity_kind') ? {entity_kind:entity.entity_kind} : {}) } });
 }
 
-async function importCandidate(db, input) {
-  const target = await realpath(input.bundle_path);
-  const configured = process.env.PLATESG_IMPORT_ROOTS?.split(path.delimiter).filter(Boolean)
-    || [path.join(platformRoot, '..', 'ExtractESG'), path.join(platformRoot, '.local')];
-  const allowed = await Promise.all(configured.map(root => realpath(root)));
-  if (!allowed.some(root => target === root || target.startsWith(root + path.sep)))
-    throw error('Bundle is outside configured import roots', 'import_path_forbidden');
-  if (!(await db.query('SELECT 1 FROM plat.entities WHERE entity_ref=$1', [input.report_metadata.organization_ref])).rows.length)
-    throw error('Import organization_ref must reference a verified registered entity', 'entity_not_registered');
-  const bundle = await loadBundle(target);
-  const dict = await dictionaryFile();
-  const profile = JSON.parse(await readFile(path.join(platformRoot, 'catalog/extraction-profile.e1-e3.json'), 'utf8'));
-  const selected = bundle.request.metric_ids || [];
-  const knownIds=new Set((bundle.executionMetrics || bundle.standard.metrics).map(m=>m.metric_id));
-  if (!selected.length || new Set(selected).size!==selected.length || selected.some(id=>!knownIds.has(id)))
-    throw error('Bundle requires valid explicit selected output metrics');
-  for (const row of [...bundle.selectedRecords.quantitative_observations,...bundle.selectedRecords.qualitative_assertions])
-    {
-      if (!selected.includes(row.metric_id)) throw error('Bundle contains an output fact outside its selected scope', 'output_scope_mismatch');
-      const extension=bundle.runtimeSnapshot?.selections.find(selection=>selection.extension_id===row.metric_id);
-      if(extension&&!extension.value_origins.includes('reported'))throw error('Derived-only selection cannot claim a PDF-reported Core value','output_origin_mismatch');
-    }
-  const originalIds = bundle.standard.metrics.filter(metric => selected.includes(metric.metric_id)).map(metric => metric.source_datapoint_id);
-  const activePath = path.join(platformRoot, '../ExtractESG/standard_packages/dist', bundle.request.package_id,
-    bundle.request.package_version, 'package.json');
-  let expected;
-  try { expected = JSON.parse(await readFile(activePath, 'utf8')); }
-  catch { throw error('Import requires an available immutable compiled standard snapshot', 'standard_snapshot_missing'); }
-  if (stable(expected) !== stable(bundle.standard)) throw error('Bundle standard content differs from the compiled snapshot', 'standard_snapshot_mismatch');
-  if(input.selection_snapshot && bundle.request.selection_snapshot
-      && stable(input.selection_snapshot)!==stable(bundle.request.selection_snapshot))
-    throw error('Delivery scope differs from the original frozen Bundle scope','import_scope_conflict');
-  const scope = structuredClone(input.selection_snapshot || bundle.request.selection_snapshot || {
-    profile_id: 'explicit_bundle_selection', profile_version: '1.0.0', profile_digest: hash(stable(originalIds)),
-    dictionary_version: 'unassigned', source_datapoint_ids: originalIds,
-    selection_kind: 'explicit', package_id: bundle.request.package_id, package_version: bundle.request.package_version,
-    scope_provenance:'legacy_explicit_without_frozen_catalog',
-  });
-  const scopeProvenance=bundle.request.selection_snapshot ? 'bundle_frozen'
-    : input.selection_snapshot ? 'externally_declared' : 'legacy_explicit_without_frozen_catalog';
-  if(scopeProvenance==='externally_declared')scope.scope_provenance=scopeProvenance;
-  if(bundle.runtimeSnapshot) {
-    if(scope.extension_selections && stable(scope.extension_selections)!==stable(bundle.runtimeSnapshot.selections))
-      throw error('Import extension scope differs from the frozen task','extension_scope_mismatch');
-    scope.extension_selections=bundle.runtimeSnapshot.selections;
-    scope.runtime_standard_digest=bundle.runtimeSnapshot.runtime_digest;
-    scope.original_output_count=originalIds.length;scope.extension_output_count=bundle.runtimeSnapshot.selections.length;
-  }
-  if(bundle.internalScope)scope.internal_dependency_scope={metric_ids:bundle.internalScope.metric_ids,
-    source_datapoint_ids:bundle.internalScope.source_datapoint_ids,required_by_extensions:bundle.internalScope.required_by_extensions,
-    scope_role:'internal_dependency',output_policy:'excluded_from_selected_output_and_coverage'};
-  if (!scope.profile_id || !scope.profile_version || !/^[0-9a-f]{64}$/.test(scope.profile_digest || '')
-      || !Array.isArray(scope.source_datapoint_ids) || (!scope.source_datapoint_ids.length&&!bundle.runtimeSnapshot?.selections.length))
-    throw error('Import requires an explicit versioned output selection');
-  if ((!originalIds.length&&!bundle.runtimeSnapshot?.selections.length) || originalIds.some(id => !scope.source_datapoint_ids.includes(id)))
-    throw error('Bundle output selection differs from its scope snapshot');
-  if(new Set(scope.source_datapoint_ids).size!==scope.source_datapoint_ids.length) throw error('Duplicate original ID in scope');
-  let importCatalog={permission:'legacy_explicit',contract_id:null,dictionary_version:null};
-  if(scope.profile_id===dict.profile_id) {
-    const profileBytes=await readFile(path.join(platformRoot,'../ExtractESG/standard_packages/profiles/esrs/2023-set1/platform-major.json'),'utf8');
-    const {file_sha256,...currentDictionary}=dict;
-    importCatalog=await resolveImportCatalog(db,scope,{dictionary:currentDictionary,dictionary_file_sha256:file_sha256,
-      profile:JSON.parse(profileBytes),profile_file_sha256:hash(profileBytes)});
-    validateMajorImportScope(scope,importCatalog,bundle,originalIds);
-  } else if(scope.profile_id==='explicit_bundle_selection') {
-    if(scope.profile_digest!==hash(stable(originalIds)) || stable(scope.source_datapoint_ids)!==stable(originalIds))
-      throw error('Explicit bundle selection identity is invalid');
-    if(scope.dictionary_version && scope.dictionary_version!=='unassigned') {
-      const profileBytes=await readFile(path.join(platformRoot,'../ExtractESG/standard_packages/profiles/esrs/2023-set1/platform-major.json'),'utf8');
-      const {file_sha256,...currentDictionary}=dict;
-      importCatalog=await resolveImportCatalog(db,scope,{dictionary:currentDictionary,dictionary_file_sha256:file_sha256,
-        profile:JSON.parse(profileBytes),profile_file_sha256:hash(profileBytes)});
-    } else if(scope.dictionary_digest) throw error('Unassigned explicit scope cannot claim a frozen dictionary digest','import_scope_conflict');
-  } else throw error('Unregistered extraction profile');
-  const delivery_identity=await deliveryDescriptor(bundle,input.report_metadata);
-  return db.transaction(async tx=>{
-    await assertImportSourcesAvailable(tx,{job_ids:[bundle.manifest.job_id || path.basename(bundle.root)],
-      ir_run_ids:[bundle.request.ir_run_id],source_sha256:input.report_metadata.source_sha256});
-    const imported=await importBundle(tx,bundle,input.report_metadata,{inTransaction:true});
-    const execution_status=bundle.manifest.execution_status || bundle.manifest.status || 'unknown';
-    const result_state=execution_status==='completed' && !bundle.manifest.is_partial
-      && !bundle.manifest.unfinished_metric_ids?.length && !bundle.manifest.not_executed_metric_ids?.length
-      && !bundle.manifest.processing_metric_ids?.length && !bundle.manifest.evidence_gap_count ? 'complete':'partial';
-    const saved = await tx.query('SELECT scope_snapshot FROM plat.extraction_scopes WHERE import_batch_id=$1', [imported.import_batch_id]);
-    if (saved.rows.length && stable(saved.rows[0].scope_snapshot) !== stable(scope))
-      throw error('Import scope cannot change for an existing batch', 'import_scope_conflict');
-    await tx.query(`INSERT INTO plat.extraction_scopes VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT DO NOTHING`,
-      [imported.import_batch_id,scope.profile_id,scope.profile_version,scope.profile_digest,scope.dictionary_version,
-        scope.source_datapoint_ids,result_state,scope]);
-    await tx.query(`UPDATE plat.extraction_scopes SET result_state=$1 WHERE import_batch_id=$2`,[result_state,imported.import_batch_id]);
-    await tx.query(`INSERT INTO plat.import_stage_events VALUES($1,$2,$3,$4,$5,DEFAULT) ON CONFLICT DO NOTHING`,
-      [imported.import_batch_id,hash(stable(bundle.manifest)),execution_status,result_state,bundle.manifest]);
-    return { ...imported, result_state, selection_snapshot: scope,
-      ...(delivery_identity?{delivery_identity}:{}),
-      import_contract:{contract_id:importCatalog.contract_id,permission:importCatalog.permission,
-        dictionary_version:importCatalog.dictionary?.dictionary_version || null,scope_provenance:scopeProvenance},
-      platform_major_count: dict.metrics.length,executable_major_count: profile.source_datapoint_ids.length };
-  }).catch(failure=>{if(delivery_identity)failure.delivery_identity=delivery_identity;throw failure;});
-}
-
 async function receipt(db, params) {
   if (!params.status) {
     const original=(await db.query('SELECT * FROM plat.import_receipts WHERE receipt_id=$1',[params.receipt_id])).rows[0];
@@ -488,49 +387,6 @@ async function receipt(db, params) {
   return (await db.query(`INSERT INTO plat.import_receipts(receipt_id,status,import_batch_id,detail)
     VALUES($1,$2,$3,$4) ON CONFLICT(receipt_id) DO NOTHING RETURNING *`,
     [params.receipt_id,params.status,params.import_batch_id || null,params.detail || {}])).rows[0] || null;
-}
-
-async function retryReceipt(db, params) {
-  const original=await receipt(db,params);
-  if(!original)throw error('Import receipt not found','not_found');
-  if(original.current_status==='imported')return original;
-  if(!original.detail.request)throw error('Invalid descriptor must be corrected and delivered with a new content ID');
-  let status='imported',detail;
-  try{detail=await importCandidate(db,original.detail.request);}catch(failure){status='failed';detail={message:failure.message,code:failure.code || 'database_error',
-    ...(failure.delivery_identity?{delivery_identity:failure.delivery_identity}:{})};}
-  const attempt=(await db.query(`INSERT INTO plat.import_receipt_attempts VALUES($1,$2,$3,$4,$5,$6,DEFAULT) RETURNING *`,
-    [randomUUID(),params.receipt_id,status,params.operator_ref,params.reason,detail])).rows[0];
-  return {receipt_id:params.receipt_id,current_status:status,attempt};
-}
-
-async function autoReviewDelivery(db,input) {
-  const report_ref=input.report_metadata?.report_ref;
-  if(!report_ref) return {status:'skipped',reason:'交付未携带报告引用'};
-  if(process.env.PLATESG_AUTO_REVIEW==='0') return {status:'disabled'};
-  try { return {status:'completed',...await autoReview(db,{report_ref,apply:true})}; }
-  catch(error) { return {status:'failed',message:error.message}; }
-}
-
-async function deliverCandidate(db,input) {
-  const receipt_id=hash(stable(input));
-  const existing=await receipt(db,{receipt_id});
-  if(existing?.current_status==='imported') return {receipt_id,status:'imported',...(existing.current_detail || existing.detail),idempotent:true,
-    auto_review:await autoReviewDelivery(db,input)};
-  try {
-    const imported=await importCandidate(db,input);
-    if(existing) {
-      const attempt=await db.query(`INSERT INTO plat.import_receipt_attempts VALUES($1,$2,'imported','delivery-service','幂等交付恢复',$3,DEFAULT) RETURNING *`,
-        [randomUUID(),receipt_id,imported]);
-      return {receipt_id,status:'imported',...imported,attempt:attempt.rows[0],auto_review:await autoReviewDelivery(db,input)};
-    }
-    await receipt(db,{receipt_id,status:'imported',import_batch_id:imported.import_batch_id,detail:imported});
-    return {receipt_id,status:'imported',...imported,auto_review:await autoReviewDelivery(db,input)};
-  } catch(failure) {
-    const detail={request:input,message:failure.message,code:failure.code || 'database_error',
-      ...(failure.delivery_identity?{delivery_identity:failure.delivery_identity}:{})};
-    await receipt(db,{receipt_id,status:'failed',detail});
-    return {receipt_id,status:'failed',detail};
-  }
 }
 
 async function candidateList(db, params) {
@@ -582,8 +438,8 @@ export async function dispatch(db, method, params) {
   switch (method) {
     case 'delivery_status': return readDeliveryStatus(db,params,{importRoots:process.env.PLATESG_IMPORT_ROOTS?.split(path.delimiter).filter(Boolean)
       || [path.join(platformRoot,'../ExtractESG'),path.join(platformRoot,'.local')]});
-    case 'import_catalogs': return listImportContracts(db);
-    case 'register_import_catalog': return registerImportContract(db,params);
+    case 'import_catalogs': return {allowed:[],items:(await db.query('SELECT contract_id,permission,dictionary_version,created_at FROM plat.import_contract_releases ORDER BY created_at')).rows};
+    case 'register_import_catalog': throw error('Legacy package catalog registration is retired','legacy_production_retired');
     case 'source_facts': return readReportSourceFacts(db,params);
     case 'lifecycle_references': return lifecycleReferences(db,params);
     case 'lifecycle_reserve': return lifecycleReserve(db,params);
@@ -627,8 +483,8 @@ export async function dispatch(db, method, params) {
     case 'datasets': return datasets(db);
     case 'register_entity': return registerEntity(db, params);
     case 'context': return context(db, params);
-    case 'import': return importCandidate(db, params);
-    case 'deliver': return deliverCandidate(db,params);
+    case 'import':
+    case 'deliver': throw error('Legacy bundle ingress is retired; a new facts receiver is outside this release','legacy_production_retired');
     case 'candidates': return candidateList(db, params);
     case 'candidate_proposal': return candidateProposal(db, params);
     case 'candidate_proposals': return candidateProposals(db, params);
@@ -654,12 +510,8 @@ export async function dispatch(db, method, params) {
     case 'review': return reviewRecord(db, params);
     case 'coverage_decision': return coverageDecision(db, params);
     case 'receipt': return receipt(db, params);
-    case 'retry_receipt': return retryReceipt(db,params);
-    case 'seed_demo': {
-      if (process.env.PLATESG_ALLOW_DEMO_SEED !== '1') throw error('Synthetic fixture loading is disabled');
-      const { seedDemo } = await import('./demo.mjs');
-      return seedDemo(db);
-    }
+    case 'retry_receipt':
+    case 'seed_demo': throw error('Legacy producer and synthetic seed commands are retired','legacy_production_retired');
     case 'publish': return processOutbox(db, { limit: params.limit || 100 });
     default: throw error('Unsupported database operation', 'unknown_operation');
   }

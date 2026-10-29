@@ -7,7 +7,6 @@ WORKSPACE_ROOT="$(cd "$EXTRACTESG_ROOT/../.." && pwd)"
 DOCUMENT_ROOT="${ESG_DOCUMENT_IR_APP_ROOT:-$EXTRACTESG_ROOT/document_ir_extract}"
 TARGETED_ROOT="${ESG_TARGETED_APP_ROOT:-$EXTRACTESG_ROOT/targeted_table_extract}"
 RUNTIME_ROOT="${ESG_PLATFORM_RUNTIME_ROOT:-$WORKSPACE_ROOT/.local/platform-runtime}"
-export ESG_EXTENSION_ROOT="${ESG_EXTENSION_ROOT:-$EXTRACTESG_ROOT/.local/extensions}"
 
 DOC_BACKEND_URL="${ESG_DOCUMENT_BACKEND_URL:-http://127.0.0.1:18080}"
 PLATFORM_FRONTEND_URL="${ESG_PLATFORM_FRONTEND_URL:-http://127.0.0.1:18081}"
@@ -26,7 +25,6 @@ LOGS[targeted_backend]="$RUNTIME_ROOT/targeted-backend.log"
 RELEASE_PYTHON="${ESG_RELEASE_PYTHON:-$DOCUMENT_ROOT/backend/.venv/bin/python}"
 [[ -x "$RELEASE_PYTHON" ]] || RELEASE_PYTHON="${ESG_MODEL_PYTHON:-$HOME/Desktop/model/.runtime/venv/bin/python}"
 [[ -x "$RELEASE_PYTHON" ]] || RELEASE_PYTHON="$(command -v python3)"
-"$RELEASE_PYTHON" "$SCRIPT_DIR/bootstrap_extension_runtime.py" --root "$ESG_EXTENSION_ROOT" || exit 1
 typeset -A READINESS_ERRORS
 
 service_ready() {
@@ -104,7 +102,7 @@ is_our_service() {
   # The workspace path is the surest identity; fall back to the three
   # entrypoints in case a process was started through a relative path.
   [[ "$command" == *"$WORKSPACE_ROOT"* ]] && return 0
-  [[ "$command" == *"esg_v2.api.main"* || "$command" == *"esg_targeted.api.main"* \
+  [[ "$command" == *"esg_v2.api.main"* || "$command" == *"esg_targeted.pipeline.api"* \
     || "$command" == *"serve_workbench_frontend.py"* ]]
 }
 
@@ -214,7 +212,7 @@ print "\nConsoleESG 数据生产工作台"
 print "Document IR：$DOCUMENT_ROOT"
 print "抽取填表：  $TARGETED_ROOT"
 print "读取链路：  文字层直读（版面区域 + 原生文字 + 表格重建）；仅文字层不可用的页走本机视觉识别"
-print "提取链路：  每张候选表一次本地模型调用 → 确定性绑定 → 跨页表续接与显式 Total 列\n"
+print "提取链路：  独立条款词典检索 → 结构定列＋本地语义选行 → 两类原值事实\n"
 
 for service in $SERVICE_ORDER; do
   start_service "$service"

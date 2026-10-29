@@ -3,11 +3,16 @@ import logging
 from uuid import uuid4
 
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 
 logger = logging.getLogger(__name__)
 
 
 def register_api_errors(app, layer):
+    @app.exception_handler(RequestValidationError)
+    async def invalid_request(request,exc):
+        return JSONResponse(status_code=422,content={'detail':[{k:error[k] for k in ('loc','type','msg') if k in error} for error in exc.errors()]})
+
     @app.exception_handler(Exception)
     async def internal_error(request, exc):
         identity = "error-" + uuid4().hex

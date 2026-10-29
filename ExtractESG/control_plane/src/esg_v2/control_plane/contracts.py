@@ -5,6 +5,7 @@ from enum import Enum
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
+from esg_v2.document.search import PageSearchIntent
 
 from esg_v2.contracts import OptionalPayload, PageSelectionMode, validate_page_indices
 from esg_v2.control_plane.progress import BusinessProgress, ExecutionTiming, TaskError
@@ -78,7 +79,7 @@ class OcrPipelineTaskRequest(BaseModel):
     optional_payload: OptionalPayload = Field(default_factory=OptionalPayload)
     poll_interval_seconds: float = Field(default=5, ge=0.5)
     page_selection: PageSelectionMode = "all"
-    clause_profile: str | None = None
+    page_search_targets: list[PageSearchIntent] = Field(default_factory=list)
     page_indices: list[int] | None = None
 
     @field_validator("page_indices")
@@ -118,87 +119,6 @@ class DocumentIrPipelineTaskRequest(BaseModel):
         if self.operation == "review_retry" and not self.parent_run_id:
             raise ValueError("parent_run_id is required for review_retry")
         return self
-
-
-class TargetedExtractionPipelineTaskRequest(BaseModel):
-    ir_run_id: str
-    package_id: str
-    package_version: str
-    metric_ids: list[str] = Field(default_factory=list)
-    semantic_search: bool = True
-    semantic_fill: bool = True
-    semantic_provider: Literal["local_nuextract", "local_qwen", "qiniu_vlm"] = "local_nuextract"
-    semantic_model: str | None = None
-    retrieval_object_top_n: int = Field(default=3, ge=1, le=5)
-    extraction_mode: Literal["auto", "per_metric"] = "auto"
-    shared_object_budget: int = Field(default=3, ge=1, le=8)
-    agent_max_steps: int = Field(default=8, ge=1, le=24)
-    qiniu_api_key: str | None = Field(default=None, exclude=True)
-    visual_fallback: bool = True
-    force_unready_ir: bool = False
-
-    @model_validator(mode="after")
-    def semantic_execution_is_explicit(self) -> "TargetedExtractionPipelineTaskRequest":
-        self.metric_ids = list(
-            dict.fromkeys(metric_id.strip() for metric_id in self.metric_ids if metric_id.strip())
-        )
-        if self.semantic_model is not None:
-            self.semantic_model = self.semantic_model.strip() or None
-        if self.semantic_provider in {"local_nuextract", "local_qwen"}:
-            self.semantic_model = None
-        return self
-
-
-class TargetedExtractionBatchPipelineTaskRequest(BaseModel):
-    requests: list[TargetedExtractionPipelineTaskRequest] = Field(
-        min_length=1,
-        max_length=20,
-    )
-
-    @model_validator(mode="after")
-    def packages_are_unique_and_execution_is_shared(
-        self,
-    ) -> "TargetedExtractionBatchPipelineTaskRequest":
-        package_keys: set[tuple[str, str]] = set()
-        shared_signature: tuple[Any, ...] | None = None
-        for request in self.requests:
-            if not request.metric_ids:
-                raise ValueError("Each batch package must select at least one metric")
-            package_key = (request.package_id, request.package_version)
-            if package_key in package_keys:
-                raise ValueError(
-                    f"Duplicate standard package in batch: {request.package_id}@{request.package_version}"
-                )
-            package_keys.add(package_key)
-            signature = (
-                request.ir_run_id,
-                request.semantic_search,
-                request.semantic_fill,
-                request.semantic_provider,
-                request.semantic_model,
-                request.retrieval_object_top_n,
-                request.extraction_mode,
-                request.shared_object_budget,
-                request.agent_max_steps,
-                request.visual_fallback,
-                request.force_unready_ir,
-            )
-            if shared_signature is None:
-                shared_signature = signature
-            elif signature != shared_signature:
-                raise ValueError(
-                    "All batch packages must share one IR and one execution configuration"
-                )
-        return self
-
-
-class TargetedExtractionResumeRequest(BaseModel):
-    qiniu_api_key: str | None = Field(default=None, exclude=True)
-
-
-class ExistingPipelineTaskRequest(BaseModel):
-    qiniu_api_key: str | None = Field(default=None, exclude=True)
-    ocr_token: str | None = Field(default=None, exclude=True)
 
 
 class PipelineOrderRequest(BaseModel):

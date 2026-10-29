@@ -153,8 +153,7 @@ def _run_worker() -> int:
 
 def main() -> int:
     # Share the same owner-scoped assertion as extraction projection workers.
-    from esg_v2.control_plane import shared_contracts  # ensures shared runtime is importable
-    from esg_targeted.storage.power import idle_sleep_assertion
+    from esg_runtime.power import idle_sleep_assertion
     with idle_sleep_assertion(lambda detail: emit("log", stage="resource_lifecycle",
             message=str(detail["kind"]), detail=detail)):
         return _run_worker()

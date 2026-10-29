@@ -1,0 +1,190 @@
+{
+  "$defs": {
+    "Company": {
+      "additionalProperties": false,
+      "properties": {
+        "company_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Company Id"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Company",
+      "type": "object"
+    },
+    "Industry": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "taxonomy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Taxonomy"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Industry",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "pattern": "^pdf-[a-f0-9]{24}$",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "company": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Company"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "extensions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Extensions",
+      "type": "object"
+    },
+    "industry": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Industry"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "metadata_sources": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Metadata Sources",
+      "type": "object"
+    },
+    "original_filename": {
+      "minLength": 1,
+      "title": "Original Filename",
+      "type": "string"
+    },
+    "pdf_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$",
+      "title": "Pdf Id",
+      "type": "string"
+    },
+    "publication_year": {
+      "anyOf": [
+        {
+          "maximum": 2200,
+          "minimum": 1900,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Publication Year"
+    },
+    "reporting_year": {
+      "anyOf": [
+        {
+          "maximum": 2200,
+          "minimum": 1900,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reporting Year"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "report-resource-1.0",
+      "default": "report-resource-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    }
+  },
+  "required": [
+    "pdf_id",
+    "asset_id",
+    "sha256",
+    "original_filename"
+  ],
+  "title": "ReportResource",
+  "type": "object"
+}

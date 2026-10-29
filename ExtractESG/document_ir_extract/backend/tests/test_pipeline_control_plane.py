@@ -5,6 +5,7 @@ import json
 import os
 import sqlite3
 import sys
+import pytest
 import time
 from pathlib import Path
 from types import SimpleNamespace
@@ -13,8 +14,6 @@ from esg_v2.assets.report_catalog import CATALOG_FILENAME, ReportAssetCatalog
 from esg_v2.control_plane.contracts import (
     PipelineTaskStatus,
     PipelineTaskType,
-    TargetedExtractionBatchPipelineTaskRequest,
-    TargetedExtractionPipelineTaskRequest,
 )
 from esg_v2.control_plane.scheduler import PipelineScheduler, PipelineTaskHooks, WorkerCommand
 from esg_v2.control_plane.hooks import PlatformTaskHooks
@@ -374,146 +373,20 @@ def test_scheduler_leaves_task_queued_while_shared_slot_is_busy(tmp_path: Path) 
         scheduler.stop()
 
 
-def test_targeted_cloud_secret_is_not_persisted_and_restart_requires_environment(
-    tmp_path: Path, monkeypatch
-) -> None:
-    request = TargetedExtractionPipelineTaskRequest(
-        ir_run_id="ir-1",
-        package_id="package-1",
-        package_version="1.0.0",
-        semantic_provider="qiniu_vlm",
-        semantic_model="qwen3.5-397b-a17b",
-        qiniu_api_key="secret-value",
-    )
-    payload = request.model_dump(mode="json")
-    assert "qiniu_api_key" not in payload
-    assert payload["semantic_provider"] == "qiniu_vlm"
-    assert payload["semantic_model"] == "qwen3.5-397b-a17b"
-
-    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
-    task = store.create(
-        task_id="pt-targeted-cloud",
-        task_type=PipelineTaskType.TARGETED_EXTRACTION,
-        operation="run",
-        title="targeted",
-        payload=payload,
-        native_job_id="tx-1",
-        requires_runtime_secret=True,
-    )
-    monkeypatch.delenv("QINIU_API_KEY", raising=False)
-    assert not PipelineScheduler._configured_secret_available(task)
-    monkeypatch.setenv("QINIU_API_KEY", "environment-secret")
-    assert PipelineScheduler._configured_secret_available(task)
 
 
-def test_targeted_batch_requires_unique_packages_and_shared_execution() -> None:
-    shared = {
-        "ir_run_id": "ir-shared",
-        "package_version": "1.0.0",
-        "semantic_provider": "local_nuextract",
-    }
-    batch = TargetedExtractionBatchPipelineTaskRequest(
-        requests=[
-            TargetedExtractionPipelineTaskRequest(
-                **shared,
-                package_id="esrs.e1-5",
-                metric_ids=["e1-5.dp01", "e1-5.dp01", "e1-5.dp02"],
-            ),
-            TargetedExtractionPipelineTaskRequest(
-                **shared,
-                package_id="esrs.e1-6",
-                metric_ids=["e1-6.dp07"],
-            ),
-            TargetedExtractionPipelineTaskRequest(
-                **shared,
-                package_id="esrs.e2-4",
-                metric_ids=["e2-4.dp02"],
-            ),
-        ]
-    )
-    assert [len(item.metric_ids) for item in batch.requests] == [2, 1, 1]
-
-    for requests, message in (
-        (
-            [
-                TargetedExtractionPipelineTaskRequest(
-                    **shared, package_id="esrs.e1-5", metric_ids=["metric-1"]
-                ),
-                TargetedExtractionPipelineTaskRequest(
-                    **shared, package_id="esrs.e1-5", metric_ids=["metric-2"]
-                ),
-            ],
-            "Duplicate standard package",
-        ),
-        (
-            [
-                TargetedExtractionPipelineTaskRequest(
-                    **shared, package_id="esrs.e1-5", metric_ids=["metric-1"]
-                ),
-                TargetedExtractionPipelineTaskRequest(
-                    **{**shared, "ir_run_id": "ir-other"},
-                    package_id="esrs.e1-6",
-                    metric_ids=["metric-2"],
-                ),
-            ],
-            "share one IR",
-        ),
-        (
-            [
-                TargetedExtractionPipelineTaskRequest(
-                    **shared, package_id="esrs.e1-5", metric_ids=[]
-                )
-            ],
-            "select at least one metric",
-        ),
-    ):
-        try:
-            TargetedExtractionBatchPipelineTaskRequest(requests=requests)
-        except ValueError as exc:
-            assert message in str(exc)
-        else:
-            raise AssertionError(f"batch validation should fail: {message}")
 
 
-def test_targeted_cloud_provider_survives_queue_to_worker_command(tmp_path: Path) -> None:
-    request = TargetedExtractionPipelineTaskRequest(
-        ir_run_id="ir-cloud",
-        package_id="esrs.test",
-        package_version="1.0.0",
-        metric_ids=["metric-1"],
-        semantic_provider="qiniu_vlm",
-        semantic_model="qwen-cloud-vlm",
-        retrieval_object_top_n=5,
-        extraction_mode="per_metric",
-        shared_object_budget=6,
-        qiniu_api_key="runtime-only",
-    )
-    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
-    task = store.create(
-        task_id="pt-cloud-command",
-        task_type=PipelineTaskType.TARGETED_EXTRACTION,
-        operation="run",
-        title="cloud extraction",
-        payload=request.model_dump(mode="json"),
-        native_job_id="tx-cloud",
-        requires_runtime_secret=True,
-    )
-    hooks = object.__new__(PlatformTaskHooks)
-    hooks.settings = SimpleNamespace(
-        targeted_runtime_python=Path(sys.executable),
-        targeted_app_root=tmp_path / "targeted_table_extract",
-    )
 
-    command = hooks.command(task, {"QINIU_API_KEY": "runtime-only"})
 
-    provider_index = command.argv.index("--semantic-provider")
-    model_index = command.argv.index("--semantic-model")
-    object_top_n_index = command.argv.index("--retrieval-object-top-n")
-    assert command.argv[provider_index + 1] == "qiniu_vlm"
-    assert command.argv[model_index + 1] == "qwen-cloud-vlm"
-    assert command.argv[object_top_n_index + 1] == "5"
-    assert command.argv[command.argv.index("--extraction-mode") + 1] == "per_metric"
-    assert command.argv[command.argv.index("--shared-object-budget") + 1] == "6"
-    assert command.environment["QINIU_API_KEY"] == "runtime-only"
-    assert "--worker" in command.argv
-    assert "runtime-only" not in json.dumps(task.payload)
+def test_backbone_worker_has_only_run_identity_and_local_runtime(tmp_path):
+    hooks=object.__new__(PlatformTaskHooks)
+    hooks.settings=SimpleNamespace(targeted_runtime_python=Path(sys.executable),targeted_app_root=tmp_path/'targeted_table_extract')
+    store=PipelineQueueStore(tmp_path/'queue.db')
+    task=store.create(task_id='pt-one',task_type=PipelineTaskType.TARGETED_EXTRACTION,operation='clause_extraction',title='提取',payload={'run_id':'extract-one'},native_job_id='extract-one')
+    command=hooks.command(task,{})
+    assert command.argv[-2:]==['esg_targeted.pipeline.worker','extract-one']
+    assert command.environment['HF_HUB_OFFLINE']=='1'
+    assert 'standards' not in command.environment['PYTHONPATH']
+    task.operation='run'
+    with pytest.raises(ValueError,match='Retired'):hooks.command(task,{})

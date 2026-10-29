@@ -19,15 +19,6 @@ class ModelCapabilities:
         return asdict(self)
 
 
-NUEXTRACT3_CAPABILITIES = ModelCapabilities(
-    model_id="numind/NuExtract3-mlx-4bits",
-    supports_vision=True,
-    supports_structured_output=True,
-    supports_thinking=False,
-    enable_thinking=False,
-    min_output_tokens=512,
-)
-
 QWEN35_CAPABILITIES = ModelCapabilities(
     model_id="local/Qwen3.5-9B-4bit",
     supports_vision=True,

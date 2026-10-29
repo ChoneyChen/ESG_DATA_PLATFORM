@@ -10,7 +10,7 @@ import pytest
 from esg_v2.api.report_processing import processing_router
 from esg_v2.assets.report_catalog import ReportAssetCatalog
 from esg_v2.control_plane.contracts import PipelineTaskStatus, PipelineTaskType
-from esg_v2.control_plane.plans import dispatch_key
+from esg_v2.control_plane.context import dispatch_key
 from esg_v2.control_plane.report_processing import (
     EvidenceTransitionRequest, ProcessingActionRequest, ProcessingConfig, ProcessingRequest,
     ReportMetadata, ReportMetadataPatch, ReportProcessingCoordinator,

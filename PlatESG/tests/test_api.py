@@ -12,6 +12,7 @@ from fastapi.testclient import TestClient
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT))
 from PlatESG.backend.main import create_app
+from PlatESG.tests.frozen_fixture import seed_frozen_database
 
 
 @pytest.fixture(scope="module")
@@ -19,8 +20,8 @@ def client(tmp_path_factory):
     directory=tmp_path_factory.mktemp("platform-api")
     app=create_app({"PLATESG_DATA_DIR":str(directory/"data"),"PLATESG_AUTO_PUBLISH":"0",
         "PLATESG_REVIEW_TOKEN":"integration-review-token","PLATESG_ALLOW_DEMO_SEED":"1","PLATESG_LIFECYCLE_STORE_SCOPE":"isolated"})
+    seed_frozen_database(app.state.bridge.environment)
     with TestClient(app) as client:
-        client.app.state.bridge.call("seed_demo",timeout=120)
         yield client
 
 
@@ -177,37 +178,14 @@ def test_cursor_and_export_freeze_dataset_and_do_not_turn_missing_into_zero(clie
     assert client.get("/v1/observations",params={"dataset_version":999999}).status_code==404
 
 
-def test_failed_delivery_retry_is_audited_and_does_not_reapprove_facts(client):
-    """Simulate a lost delivery acknowledgement after the candidate commit."""
-    auth={"Authorization":"Bearer integration-review-token"}
-    # The canonical compiled package name comes from the dictionary, not a
-    # fixture-specific assumption about naming conventions.
-    metric=next(m for m in client.get("/internal/v1/metrics",headers=auth).json()["items"] if m["source_datapoint_id"]=="E1-5_01")
-    bundle=ROOT/"PlatESG/.local/demo-bundles/demo-alpha-2024"/metric["standard_binding"]["package_id"]
-    body={"bundle_path":str(bundle),"report_metadata":{"upstream_system":"synthetic-demo","organization_ref":"demo-alpha",
-        "report_ref":"synthetic-report-demo-alpha-2024","report_version_ref":"synthetic-report-demo-alpha-2024",
-        "source_artifact_ref":"demo://synthetic/synthetic-report-demo-alpha-2024",
-        "source_sha256":hashlib.sha256(b"synthetic-report-demo-alpha-2024").hexdigest(),
-        "report_title":"合成测试报告（虚构）demo-alpha 2024","language_code":"zh",
-        "report_period_start":"2024-01-01","report_period_end":"2024-12-31"}}
-    receipt_id=hashlib.sha256(json.dumps(body,sort_keys=True).encode()).hexdigest()
-    client.app.state.bridge.call("receipt",{"receipt_id":receipt_id,"status":"failed",
-        "detail":{"message":"synthetic acknowledgement loss after candidate commit","request":body}})
-    baseline=client.get("/v1/observations").json()
-    url=f"/internal/v1/import-receipts/{receipt_id}/retry"
-    request={"operator_ref":"delivery-reviewer","reason":"核验合成批次后重试候选交付"}
-    assert client.post(url,json=request).status_code==401
-    response=client.post(url,json=request,headers=auth)
-    assert response.status_code==200,response.text
-    assert response.json()["current_status"]=="imported"
-    receipt=client.get("/internal/v1/import-receipts",params={"receipt_id":receipt_id},headers=auth).json()
-    assert receipt["status"]=="failed" and receipt["current_status"]=="imported"
-    assert len(receipt["attempts"])==1
-    assert receipt["attempts"][0]["reason"]==request["reason"]
-    assert receipt["attempts"][0]["detail"]["idempotent"] is True
-    assert client.post(url,json=request,headers=auth).status_code==200
-    assert len(client.get("/internal/v1/import-receipts",params={"receipt_id":receipt_id},headers=auth).json()["attempts"])==1
-    assert client.get("/v1/observations").json()==baseline
+def test_retired_delivery_retry_does_not_change_published_data(client):
+    auth={'Authorization':'Bearer integration-review-token'}
+    before=client.get('/v1/observations').json()
+    url='/internal/v1/import-receipts/'+'0'*64+'/retry'
+    assert client.post(url,json={'reason':'retired route'}).status_code==401
+    response=client.post(url,json={'reason':'retired route'},headers=auth)
+    assert response.status_code==410
+    assert client.get('/v1/observations').json()==before
 
 
 def test_frontend_api_prefix_and_local_review_page(client):

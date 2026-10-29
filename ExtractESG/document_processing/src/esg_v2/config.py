@@ -198,7 +198,7 @@ class Settings:
     ocr_text_layer_enabled: bool = field(
         default_factory=lambda: env_bool("ESG_V2_OCR_TEXT_LAYER", True)
     )
-    # Scans: choose the foundation16 OCR pages from on-device (macOS Vision)
+    # Scans: choose clause-targeted OCR pages from on-device (macOS Vision)
     # page text instead of sending every page to the VLM.
     ocr_vision_prescan_enabled: bool = field(
         default_factory=lambda: env_bool("ESG_V2_OCR_VISION_PRESCAN", True)

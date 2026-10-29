@@ -1,8 +1,7 @@
 """Text-layer page selection for page-targeted OCR.
 
 Every original PDF page is scored from its embedded text layer only (no
-rendering, no OCR) against the source groups of the 16 ESRS foundation
-datapoints, so the OCR provider receives just the pages that can carry them.
+rendering, no OCR) against the explicit dictionaries of selected clauses, so the OCR provider receives just the pages that can carry them.
 Scanned PDFs, unreadable text layers and short documents fall back to
 whole-document OCR instead of guessing.
 """
@@ -17,8 +16,8 @@ from typing import Any, Callable
 import pypdfium2 as pdfium
 
 
-SELECTOR_NAME = "foundation16"
-SELECTOR_VERSION = "foundation16-text-layer-v4"
+SELECTOR_NAME = "clauses"
+SELECTOR_VERSION = "clause-search-text-layer-v1"
 
 
 @dataclass(frozen=True)
@@ -27,6 +26,7 @@ class KeywordGroup:
     strong: tuple[str, ...]
     weak: tuple[str, ...]
     method: bool = False
+    data_kind: str = "quantitative"
 
 
 def _page_terms(terms) -> list[str]:
@@ -44,45 +44,6 @@ def _page_terms(terms) -> list[str]:
                 out.append(part)
     return list(dict.fromkeys(out))[:16]
 
-
-def clause_groups(profile: str = "universal", *, standards_root=None) -> tuple[KeywordGroup, ...]:
-    """Build selector groups from the selected clauses' own retrieval terms.
-
-    This is the only source of page-selection vocabulary: the document layer
-    reads the clause contracts, never a keyword table of its own.
-    """
-    import json
-    from pathlib import Path
-    from esg_standard_packages.clause_package import ClausePackageCatalog
-    from esg_runtime.layout import STANDARDS_ROOT
-
-    root = Path(standards_root or STANDARDS_ROOT)
-    profiles = json.loads((root / "profiles/esrs/2023-set1/metric-profiles.json").read_text(encoding="utf-8"))
-    codes = profiles.get("profiles", {}).get(profile) or profiles.get("profiles", {}).get("universal") or []
-    registry = json.loads((root / "registry/esrs/2023-set1/registry.json").read_text(encoding="utf-8"))
-    modules = {source: module for module in registry.get("modules", []) if module.get("executable")
-               for source in module.get("source_datapoint_ids", [])}
-    catalog = ClausePackageCatalog(root)
-    groups = []
-    for code in codes:
-        module = modules.get(code)
-        if module is None:
-            continue
-        clause = catalog.profile(module["package_id"], module["package_version"], code)
-        terms = _page_terms(clause.retrieval.positive_terms)
-        if terms:
-            groups.append(KeywordGroup(
-                code, tuple(terms), tuple(_page_terms(clause.group_unit_terms))[:6],
-                method=clause.group in {"air", "water_pollutants", "pollution_method"}))
-    if not groups:
-        raise ValueError(f"Clause profile {profile} has no page-selection terms")
-    return tuple(groups)
-
-
-METHOD_TERMS = (
-    "监测", "检测", "在线", "测量", "测算", "估算", "计算", "核算", "排放因子", "物料衡算", "系数", "统计口径",
-    "monitor", "measur", "estimat", "calculat", "emission factor", "mass balance", "methodolog",
-)
 
 _PERIOD_RANGE = re.compile(
     r"(?:19|20)\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*(?:至|到|－|—|-|~|～)\s*(?:19|20)\d{2}\s*年"
@@ -126,7 +87,7 @@ def _matcher(term: str) -> tuple[str, Any]:
     return term, term
 
 
-_METHOD_MATCHERS = [_matcher(term) for term in METHOD_TERMS]
+
 
 
 def _hits(matchers: list[tuple[str, Any]], compact: str, spaced: str) -> list[str]:
@@ -221,16 +182,14 @@ class PageSelection:
         }
 
 
-class Foundation16PageSelector:
-    """Ranks pages by foundation keyword evidence weighted by numeric density."""
+class ClausePageSelector:
+    """Ranks pages from explicit clause search intents."""
 
     def __init__(
         self,
         *,
         keyword_groups: tuple[KeywordGroup, ...] | None = None,
-        clause_contracts: dict | None = None,
-        profile: str = "universal",
-        standards_root=None,
+        search_targets=None,
         top_n: int = 18,
         per_group_pages: int = 2,
         front_pages: int = 3,
@@ -241,9 +200,22 @@ class Foundation16PageSelector:
         min_text_page_ratio: float = 0.5,
         max_coverage_ratio: float = 0.8,
     ):
-        self.keyword_groups = keyword_groups or clause_groups(profile, standards_root=standards_root)
+        self.search_targets = search_targets or []
+        self._negative_matchers = {}
+        if self.search_targets:
+            from esg_v2.document.search import PageSearchIntent
+            targets = [PageSearchIntent.model_validate(v) for v in self.search_targets]
+            keyword_groups = tuple(KeywordGroup(t.target_id, tuple(_page_terms(t.positive_terms)),
+                tuple(_page_terms(t.supporting_terms)), bool(t.method_terms), t.data_kind) for t in targets)
+            self._method_matchers = [_matcher(term) for target in targets for term in target.method_terms]
+            self._negative_matchers = {t.target_id:[_matcher(term) for term in _page_terms(t.negative_terms)] for t in targets}
+        else:
+            self._method_matchers = []
+        if not keyword_groups:
+            raise ValueError("Page selection requires explicit search targets from selected clause contracts")
+        self.keyword_groups = keyword_groups
+        self.qualitative_groups = {g.key for g in keyword_groups if g.data_kind == "qualitative"}
         self.pollutant_groups = tuple(group.key for group in self.keyword_groups if group.method)
-        self.clause_contracts = clause_contracts
         self.matchers = {group.key: ([_matcher(term) for term in group.strong],
                                     [_matcher(term) for term in group.weak]) for group in self.keyword_groups}
         self.top_n = max(1, int(top_n))
@@ -255,18 +227,6 @@ class Foundation16PageSelector:
         self.min_text_chars = max(1, int(min_text_chars))
         self.min_text_page_ratio = float(min_text_page_ratio)
         self.max_coverage_ratio = float(max_coverage_ratio)
-
-    @classmethod
-    def for_clauses(cls, clause_contracts: dict, **kwargs) -> "Foundation16PageSelector":
-        """Build a targeted selector from versioned standard retrieval contracts."""
-        groups = []
-        for code, contract in clause_contracts.items():
-            terms = tuple(term for term in contract["positive_terms"] if term)
-            if terms:
-                groups.append(KeywordGroup(code, terms, ()))
-        if not groups:
-            raise ValueError("Clause retrieval contract has no positive terms")
-        return cls(keyword_groups=tuple(groups), clause_contracts=clause_contracts, **kwargs)
 
     @property
     def parameters(self) -> dict[str, Any]:
@@ -366,14 +326,16 @@ class Foundation16PageSelector:
                 continue
             weak = _hits(weak_matchers, compact, spaced)
             group_scores[key] = float(3 * len(strong) + min(4, len(weak)))
+            if _hits(self._negative_matchers.get(key,[]),compact,spaced):
+                group_scores[key] *= 0.25
             group_hits[key] = strong + weak
-        method_hits = len(_hits(_METHOD_MATCHERS, compact, spaced)) if any(
+        method_hits = len(_hits(self._method_matchers, compact, spaced)) if any(
             key in group_scores for key in self.pollutant_groups
         ) else 0
         numeric_tokens = len(_NUMBER.findall(spaced))
         # Many figures mark data tables; keyword-rich narrative pages weigh less.
         density_factor = round(0.4 + min(1.6, numeric_tokens / 25), 4)
-        base = sum(group_scores.values()) + min(3, method_hits)
+        base = sum(score * (1.0 if key in self.qualitative_groups else density_factor) for key, score in group_scores.items()) + min(3, method_hits)
         return PageScore(
             page_index=page_index,
             text_chars=len(compact),
@@ -382,7 +344,7 @@ class Foundation16PageSelector:
             group_hits=group_hits,
             method_hits=method_hits,
             density_factor=density_factor,
-            score=round(base * density_factor, 2) if group_scores else 0.0,
+            score=round(base, 2) if group_scores else 0.0,
             reporting_period=bool(_PERIOD_RANGE.search(spaced) or _PERIOD_STATEMENT.search(spaced)),
         )
 

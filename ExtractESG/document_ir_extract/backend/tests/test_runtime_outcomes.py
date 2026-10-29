@@ -81,7 +81,7 @@ def test_event_fingerprint_preserves_partition_evidence_errors_and_actions():
 
 def test_suspended_scheduler_records_wall_overdue_without_claiming_inference(tmp_path, monkeypatch):
     from datetime import datetime, timezone
-    from esg_targeted.storage.power import WatchdogClock
+    from esg_runtime.power import WatchdogClock
     from esg_v2.control_plane.scheduler import PipelineScheduler, PipelineTaskHooks
     from esg_v2.control_plane.secrets import RuntimeSecretVault
 

@@ -1,0 +1,176 @@
+{
+  "$defs": {
+    "BatchItem": {
+      "additionalProperties": false,
+      "properties": {
+        "company": {
+          "$ref": "#/$defs/Company"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "file": {
+          "minLength": 1,
+          "title": "File",
+          "type": "string"
+        },
+        "industry": {
+          "$ref": "#/$defs/Industry"
+        },
+        "metadata_sources": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Metadata Sources",
+          "type": "object"
+        },
+        "pdf_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$",
+          "title": "Pdf Id",
+          "type": "string"
+        },
+        "publication_year": {
+          "maximum": 2200,
+          "minimum": 1900,
+          "title": "Publication Year",
+          "type": "integer"
+        },
+        "reporting_year": {
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reporting Year"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        }
+      },
+      "required": [
+        "pdf_id",
+        "file",
+        "sha256",
+        "company",
+        "publication_year",
+        "industry"
+      ],
+      "title": "BatchItem",
+      "type": "object"
+    },
+    "Company": {
+      "additionalProperties": false,
+      "properties": {
+        "company_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Company Id"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Company",
+      "type": "object"
+    },
+    "Industry": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "taxonomy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Taxonomy"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Industry",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "reports": {
+      "items": {
+        "$ref": "#/$defs/BatchItem"
+      },
+      "maxItems": 10000,
+      "minItems": 1,
+      "title": "Reports",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "report-resource-batch-1.0",
+      "default": "report-resource-batch-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reports"
+  ],
+  "title": "BatchManifest",
+  "type": "object"
+}

@@ -1,0 +1,134 @@
+{
+  "schema_version": "backbone-verification-1.0",
+  "date": "2026-10-29",
+  "run_id": "extract-d2fa21ef8a55d52ec2a2b94a66caaada",
+  "plan_id": "extract-plan-96150bc0b371431d94915a21e6707886",
+  "engine_identity": {
+    "fingerprint": "b47b5112bb9e7a51cb97ac48f09e3ef08fa7abc48219e37f1e6358ef97bdf4a1",
+    "version": "clause-backbone-1.0"
+  },
+  "document": {
+    "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+    "ir_run_id": "ir-20261029T145541Z-9f3c462a2ed5",
+    "content_digest": "97576a9163f6d8a22c16cd68f0b6129764a5cab177718539fc88b682663cd587",
+    "reporting_year": 2025,
+    "limited_evidence": true
+  },
+  "summary": {
+    "elapsed_seconds": 125.901,
+    "errors": [],
+    "model_calls": 2,
+    "processed_clauses": 2,
+    "qualitative": 1,
+    "quantitative": 4,
+    "selected_clauses": 2,
+    "source_facts": 5
+  },
+  "coverage": [
+    {
+      "candidate_objects": 1,
+      "clause_digest": "7900bc929400890901f6d3c79863663af4a7aff20ef80106f3544ba7a15e17d4",
+      "clause_key": "E1-5_01",
+      "covered_scopes": [],
+      "fact_count": 4,
+      "inspected_objects": 1,
+      "reasons": [],
+      "required_scopes": [
+        "scope-996fe31319c9026f"
+      ],
+      "state": "unconfirmed"
+    },
+    {
+      "candidate_objects": 1,
+      "clause_digest": "2f635364956d3583826d0887f6a6339100600bf5d3d9bbbde9882c3e01fcc811",
+      "clause_key": "E1-1_01",
+      "covered_scopes": [],
+      "fact_count": 1,
+      "inspected_objects": 1,
+      "reasons": [],
+      "required_scopes": [
+        "scope-665e87999ed0b6d4"
+      ],
+      "state": "unconfirmed"
+    }
+  ],
+  "quantitative_values": [
+    {
+      "comparator": "exact",
+      "extensions": {},
+      "kind": "quantitative",
+      "parse_status": "parsed",
+      "unit_raw": "兆瓦时",
+      "value_lower": null,
+      "value_numeric": "24767519.69",
+      "value_raw": "24,767,519.69",
+      "value_upper": null
+    },
+    {
+      "comparator": "exact",
+      "extensions": {},
+      "kind": "quantitative",
+      "parse_status": "parsed",
+      "unit_raw": "兆瓦时",
+      "value_lower": null,
+      "value_numeric": "8802461.06",
+      "value_raw": "8,802,461.06",
+      "value_upper": null
+    },
+    {
+      "comparator": "exact",
+      "extensions": {},
+      "kind": "quantitative",
+      "parse_status": "parsed",
+      "unit_raw": "兆瓦时",
+      "value_lower": null,
+      "value_numeric": "15965058.63",
+      "value_raw": "15,965,058.63",
+      "value_upper": null
+    },
+    {
+      "comparator": "exact",
+      "extensions": {},
+      "kind": "quantitative",
+      "parse_status": "parsed",
+      "unit_raw": "兆瓦时/兆瓦时",
+      "value_lower": null,
+      "value_numeric": "33.11",
+      "value_raw": "33.11",
+      "value_upper": null
+    }
+  ],
+  "individual_fact_api_verified": true,
+  "primary_literals_equal_saved_ir": true,
+  "published": false,
+  "database_ingress": false,
+  "tests": {
+    "backbone": 48,
+    "document_regression": 460,
+    "platform_python": 49,
+    "platform_node": 35,
+    "console_build": "passed"
+  },
+  "clauses": {
+    "total": 1126,
+    "blocked": 37
+  },
+  "resources": {
+    "pdfs": 18,
+    "declared_company_and_reporting_year": 18,
+    "publication_year_or_industry_not_inferred": true,
+    "synthetic_metadata_removed": 14,
+    "test_store_isolation_verified": true
+  },
+  "post_run_format_cleanup": {
+    "files": [
+      "ExtractESG/contracts/src/esg_clauses/parts.py",
+      "ExtractESG/contracts/src/esg_clauses/scope.py",
+      "ExtractESG/contracts/src/esg_data/literals.py",
+      "ExtractESG/contracts/src/esg_data/units.py",
+      "ExtractESG/extraction/src/esg_targeted/pipeline/binding.py"
+    ],
+    "ast_unchanged": true,
+    "reason": "staged whitespace check"
+  }
+}

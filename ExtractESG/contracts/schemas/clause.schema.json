@@ -1,0 +1,729 @@
+{
+  "$defs": {
+    "AcceptanceProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "minimum_reports": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Minimum Reports",
+          "type": "integer"
+        },
+        "samples": {
+          "items": {
+            "$ref": "#/$defs/AcceptanceSample"
+          },
+          "title": "Samples",
+          "type": "array"
+        }
+      },
+      "title": "AcceptanceProfile",
+      "type": "object"
+    },
+    "AcceptanceSample": {
+      "additionalProperties": false,
+      "description": "An expectation bound to a real run; it is evidence of behaviour, not a value source.",
+      "properties": {
+        "expected_absent": {
+          "default": false,
+          "title": "Expected Absent",
+          "type": "boolean"
+        },
+        "expected_value_raw": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Value Raw"
+        },
+        "report_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Report Label"
+        },
+        "run_ref": {
+          "minLength": 1,
+          "title": "Run Ref",
+          "type": "string"
+        },
+        "scope_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope Id"
+        }
+      },
+      "required": [
+        "run_ref"
+      ],
+      "title": "AcceptanceSample",
+      "type": "object"
+    },
+    "ClauseRelationships": {
+      "additionalProperties": false,
+      "properties": {
+        "child_excludes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Child Excludes",
+          "type": "array"
+        },
+        "child_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Child Terms",
+          "type": "array"
+        },
+        "parent_clause": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Clause"
+        },
+        "share_partner": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Share Partner"
+        },
+        "siblings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Siblings",
+          "type": "array"
+        }
+      },
+      "title": "ClauseRelationships",
+      "type": "object"
+    },
+    "EvidenceRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "minLength": 1,
+          "title": "Field",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "cell",
+            "row",
+            "column_header",
+            "table",
+            "footnote",
+            "text",
+            "report"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "purpose": {
+          "const": "target_confirmation",
+          "default": "target_confirmation",
+          "title": "Purpose",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "field",
+        "level"
+      ],
+      "title": "EvidenceRequirement",
+      "type": "object"
+    },
+    "OutputScope": {
+      "additionalProperties": false,
+      "description": "One expected output of a clause, expressed entirely in controlled codes.",
+      "properties": {
+        "aggregation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Aggregation"
+        },
+        "axes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Axes",
+          "type": "object"
+        },
+        "entity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity"
+        },
+        "label_zh": {
+          "minLength": 1,
+          "title": "Label Zh",
+          "type": "string"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Method"
+        },
+        "period": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period"
+        },
+        "qualifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Qualifier"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "scope_id": {
+          "minLength": 3,
+          "title": "Scope Id",
+          "type": "string"
+        },
+        "value_role": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value Role"
+        }
+      },
+      "required": [
+        "scope_id",
+        "label_zh"
+      ],
+      "title": "OutputScope",
+      "type": "object"
+    },
+    "ReadingContract": {
+      "additionalProperties": false,
+      "description": "The clause's reading semantics: operator, rules and resolved vocabulary.",
+      "properties": {
+        "allow_regulatory_limit": {
+          "default": false,
+          "title": "Allow Regulatory Limit",
+          "type": "boolean"
+        },
+        "operator": {
+          "default": "numeric_label",
+          "enum": [
+            "numeric_label",
+            "ghg_scope",
+            "pollutant",
+            "water",
+            "waste",
+            "statement"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "options": {
+          "additionalProperties": true,
+          "title": "Options",
+          "type": "object"
+        },
+        "rules": {
+          "items": {
+            "$ref": "#/$defs/ReadingRule"
+          },
+          "title": "Rules",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "clause-reading-1.0",
+          "default": "clause-reading-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "vocabulary": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Vocabulary",
+          "type": "object"
+        }
+      },
+      "title": "ReadingContract",
+      "type": "object"
+    },
+    "ReadingRule": {
+      "additionalProperties": false,
+      "description": "One declarative concept rule; all clause-specific language lives in terms.",
+      "properties": {
+        "allowed": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed",
+          "type": "array"
+        },
+        "flag": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Flag"
+        },
+        "if_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "If Terms",
+          "type": "array"
+        },
+        "params": {
+          "additionalProperties": true,
+          "title": "Params",
+          "type": "object"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "rule": {
+          "minLength": 1,
+          "title": "Rule",
+          "type": "string"
+        },
+        "scope": {
+          "default": "text",
+          "enum": [
+            "text",
+            "subject",
+            "scope_text",
+            "evidence",
+            "unit",
+            "all"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Terms",
+          "type": "array"
+        },
+        "unless_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unless Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "rule"
+      ],
+      "title": "ReadingRule",
+      "type": "object"
+    },
+    "RetrievalProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "context_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Context Terms",
+          "type": "array"
+        },
+        "expected_candidate_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Candidate Types",
+          "type": "array"
+        },
+        "negative_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Negative Terms",
+          "type": "array"
+        },
+        "positive_terms": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Positive Terms",
+          "type": "array"
+        },
+        "role_term_groups": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Role Term Groups",
+          "type": "array"
+        },
+        "source_priority": {
+          "items": {
+            "enum": [
+              "text",
+              "table"
+            ],
+            "type": "string"
+          },
+          "title": "Source Priority",
+          "type": "array"
+        },
+        "structural_anchors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Structural Anchors",
+          "type": "array"
+        },
+        "topic_term_groups": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Topic Term Groups",
+          "type": "array"
+        }
+      },
+      "required": [
+        "positive_terms"
+      ],
+      "title": "RetrievalProfile",
+      "type": "object"
+    },
+    "ValueContract": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "default": "none",
+          "enum": [
+            "none",
+            "sum_disjoint_members",
+            "ratio_recompute",
+            "do_not_sum"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "canonical_unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Canonical Unit"
+        },
+        "comparison_axes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Comparison Axes",
+          "type": "array"
+        },
+        "comparison_requirements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Comparison Requirements",
+          "type": "array"
+        },
+        "fixed_axes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Fixed Axes",
+          "type": "object"
+        },
+        "identity_axes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Identity Axes",
+          "type": "array"
+        },
+        "unit_dimension": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Dimension"
+        },
+        "value_origin": {
+          "default": "reported",
+          "enum": [
+            "reported",
+            "derived",
+            "either"
+          ],
+          "title": "Value Origin",
+          "type": "string"
+        },
+        "value_role": {
+          "default": "actual",
+          "title": "Value Role",
+          "type": "string"
+        }
+      },
+      "title": "ValueContract",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "acceptance": {
+      "$ref": "#/$defs/AcceptanceProfile"
+    },
+    "blocking_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blocking Reasons",
+      "type": "array"
+    },
+    "clause_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Clause Digest",
+      "type": "string"
+    },
+    "clause_key": {
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$",
+      "title": "Clause Key",
+      "type": "string"
+    },
+    "data_kind": {
+      "enum": [
+        "quantitative",
+        "qualitative"
+      ],
+      "title": "Data Kind",
+      "type": "string"
+    },
+    "definition": {
+      "minLength": 1,
+      "title": "Definition",
+      "type": "string"
+    },
+    "distinguish_from": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Distinguish From",
+      "type": "array"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRequirement"
+      },
+      "minItems": 1,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "exact_labels": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Exact Labels",
+      "type": "array"
+    },
+    "exclusions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Exclusions",
+      "type": "array"
+    },
+    "group_id": {
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$",
+      "title": "Group Id",
+      "type": "string"
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Labels",
+      "type": "object"
+    },
+    "output_scopes": {
+      "items": {
+        "$ref": "#/$defs/OutputScope"
+      },
+      "minItems": 1,
+      "title": "Output Scopes",
+      "type": "array"
+    },
+    "provenance": {
+      "additionalProperties": true,
+      "title": "Provenance",
+      "type": "object"
+    },
+    "readiness": {
+      "default": "ready",
+      "enum": [
+        "ready",
+        "blocked"
+      ],
+      "title": "Readiness",
+      "type": "string"
+    },
+    "reading": {
+      "$ref": "#/$defs/ReadingContract"
+    },
+    "relationships": {
+      "$ref": "#/$defs/ClauseRelationships"
+    },
+    "retrieval": {
+      "$ref": "#/$defs/RetrievalProfile"
+    },
+    "schema_version": {
+      "const": "clause-contract-1.0",
+      "default": "clause-contract-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "value": {
+      "$ref": "#/$defs/ValueContract"
+    }
+  },
+  "required": [
+    "clause_key",
+    "group_id",
+    "labels",
+    "definition",
+    "exclusions",
+    "data_kind",
+    "value",
+    "output_scopes",
+    "reading",
+    "retrieval",
+    "evidence",
+    "clause_digest"
+  ],
+  "title": "ClauseContract",
+  "type": "object"
+}

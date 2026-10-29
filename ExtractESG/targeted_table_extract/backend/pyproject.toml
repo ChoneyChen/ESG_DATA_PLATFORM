@@ -1,10 +1,11 @@
 [project]
 name = "extractesg-targeted-table"
 version = "0.6.0"
-description = "Evidence-grounded targeted ESG extraction from Document IR and compiled standard packages."
+description = "Clause-driven extraction backbone with independent quantitative and qualitative data contracts."
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.116,<1",
+  "requests>=2.32,<3",
   "numpy>=2.0,<3",
   "openpyxl>=3.1,<4",
   "Pillow>=10,<13",
@@ -24,18 +25,15 @@ dev = [
 ]
 
 [project.scripts]
-esg-targeted = "esg_targeted.cli:main"
+esg-targeted = "esg_targeted.pipeline.worker:main"
 
 [build-system]
 requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-data]
-esg_targeted = ["resources/*.json"]
+where = ["../../extraction/src", "../../contracts/src", "../../shared_runtime/src"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src", "../../standard_packages/src", "../../shared_runtime/src", "../../standards/src"]
-testpaths = ["tests"]
+pythonpath = ["../../extraction/src", "../../contracts/src", "../../shared_runtime/src", "../../document_processing/src"]
+testpaths = ["../../extraction/tests"]

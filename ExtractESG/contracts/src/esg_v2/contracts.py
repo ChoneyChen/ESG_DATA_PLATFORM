@@ -4,13 +4,13 @@ from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
+from esg_v2.document.search import PageSearchIntent
 
 from esg_v2.utils.sanitization import sanitize_remote_url
 
 
-# "foundation16" OCRs only the original pages whose text layer can carry the
-# 16 ESRS foundation datapoints; "all" keeps whole-document OCR.
-PageSelectionMode = Literal["all", "foundation16", "clauses"]
+# "clauses" consumes explicit target dictionaries; "all" reads the whole PDF.
+PageSelectionMode = Literal["all", "clauses"]
 
 
 def validate_page_indices(value: list[int] | None) -> list[int] | None:
@@ -42,7 +42,7 @@ class OcrRunRequest(BaseModel):
     optional_payload: OptionalPayload = Field(default_factory=OptionalPayload)
     poll_interval_seconds: float = Field(default=5, ge=0.5)
     page_selection: PageSelectionMode = "all"
-    clause_profile: str | None = None
+    page_search_targets: list[PageSearchIntent] = Field(default_factory=list)
     page_indices: list[int] | None = None
 
     @field_validator("page_indices")

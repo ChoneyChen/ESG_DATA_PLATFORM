@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, model_validator
 
 
 STAGE_LABELS = {
+    "retrieving":"检索条款证据", "reading":"阅读条款证据", "extracting":"绑定条款事实", "clause_extraction":"逐条条款提取",
     "queued": "等待执行", "starting": "启动执行", "running": "正在执行",
     "stopping": "正在取消", "completed": "执行完成", "partial": "执行结束，有待处理成果",
     "failed": "执行失败", "cancelled": "已取消", "interrupted": "执行中断",
@@ -207,26 +208,10 @@ def progress_from_event(task: Any, event: dict[str, Any]) -> BusinessProgress:
         current = sum(s.get("status") in {"done", "completed"} for s in stages)
         unit = "steps"
     elif task.task_type.value == "targeted_extraction":
-        children = event.get("jobs") or []
-        if not counts and children:
-            child_counts = [(j.get("summary") or {}).get("counts") or {} for j in children]
-            counts = {key: sum(int(c.get(key) or 0) for c in child_counts)
-                      for key in ("selected_metrics", "processed_metrics", "core_facts", "unfinished_metrics")}
-        if counts.get("selected_metrics"):
-            current = max(0, int(counts.get("processed_metrics") or 0))
-            total = int(counts["selected_metrics"])
-            unit = "requirements"
-        running = [c for c in children if str(c.get("status")) in {"running", "JobStatus.RUNNING"}] or children
-        for child in running:
-            agent = (child.get("summary") or {}).get("agent") or {}
-            if agent.get("current_call"):
-                call = agent["current_call"]
-                stage = call.get("tool") or stage
-                if call.get("route") == "foundation16" and call.get("total"):
-                    current = max(0, int(call.get("index") or 1) - 1)
-                    total = int(call["total"])
-                    unit = "objects"
-                break
+        if counts.get("selected_clauses"):
+            current=max(0,int(counts.get("processed_clauses") or 0))
+            total=int(counts["selected_clauses"])
+            unit="requirements"
     if current is None and stage == previous.get("stage_code"):
         current, total, unit = previous.get("current"), previous.get("total"), previous.get("unit", "unknown")
         counts = counts or previous.get("counts", {})

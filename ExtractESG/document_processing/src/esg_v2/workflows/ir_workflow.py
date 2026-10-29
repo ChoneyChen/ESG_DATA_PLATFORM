@@ -191,6 +191,7 @@ class DocumentIrWorkflow:
             document,
             expected_page_count=int(expected_page_count) if isinstance(expected_page_count, (int, float, str)) and str(expected_page_count).isdigit() else None,
         )
+        document.metadata.source_artifacts['report_resource']=artifact.manifest.get('report_resource')
         paths = DocumentIrWriter(output_dir).write(document)
         retention = DocumentIrRetentionManager(
             ir_output_root=self.settings.document_ir_output_root,

@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from PlatESG.backend.main import create_app
+from PlatESG.tests.frozen_fixture import seed_frozen_database
 
 HEADERS = {"Authorization": "Bearer purge-review-token"}
 
@@ -19,8 +20,8 @@ def client(tmp_path_factory):
     app = create_app({"PLATESG_DATA_DIR": str(directory / "data"), "PLATESG_AUTO_PUBLISH": "0",
                       "PLATESG_REVIEW_TOKEN": "purge-review-token", "PLATESG_ALLOW_DEMO_SEED": "1",
                       "PLATESG_LIFECYCLE_STORE_SCOPE": "isolated"})
+    seed_frozen_database(app.state.bridge.environment)
     with TestClient(app) as client:
-        client.app.state.bridge.call("seed_demo", timeout=120)
         yield client
 
 

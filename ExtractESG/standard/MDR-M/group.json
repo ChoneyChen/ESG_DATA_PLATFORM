@@ -1,0 +1,9 @@
+{
+  "clauses": [
+    "MDR-M_01",
+    "MDR-M_02",
+    "MDR-M_03"
+  ],
+  "group_id": "MDR-M",
+  "title": "指标"
+}

@@ -33,7 +33,7 @@ from esg_v2.document.reader import DocumentIrPackageReader
 from esg_v2.document.revision_service import DocumentIrRevisionService
 from esg_v2.document.validator import DocumentIrValidator
 from esg_v2.ocr.output_writer import OcrOutputWriter
-from esg_v2.ocr.page_selection import Foundation16PageSelector
+from esg_v2.ocr.page_selection import ClausePageSelector
 from esg_v2.ocr.pdf_preflight import PdfCanvasPreflight
 from esg_v2.ocr.providers import OcrProviderExecution, OcrProviderSelection
 from esg_v2.ocr.resources import LocalOcrResourceReader
@@ -207,10 +207,10 @@ def test_page_targets_are_validated_at_every_request_boundary() -> None:
     with pytest.raises(ValidationError, match="remote file_url"):
         OcrRunRequest(file_url="https://example.test/report.pdf", page_indices=[1])
     with pytest.raises(ValidationError, match="remote file_url"):
-        OcrRunRequest(file_url="https://example.test/report.pdf", page_selection="foundation16")
+        OcrRunRequest(file_url="https://example.test/report.pdf", page_selection="clauses", page_search_targets=_search_targets())
     with pytest.raises(ValidationError, match="not both"):
-        OcrRunRequest(file_path="report.pdf", page_indices=[1], page_selection="foundation16")
-    assert OcrPipelineTaskRequest(asset_id="asset-1", page_selection="foundation16").page_selection == "foundation16"
+        OcrRunRequest(file_path="report.pdf", page_indices=[1], page_selection="clauses", page_search_targets=_search_targets())
+    assert OcrPipelineTaskRequest(asset_id="asset-1", page_selection="clauses", page_search_targets=_search_targets()).page_selection == "clauses"
     with pytest.raises(ValidationError, match="report asset"):
         OcrPipelineTaskRequest(file_url="https://example.test/report.pdf", page_indices=[2])
     with pytest.raises(ValidationError):
@@ -332,7 +332,7 @@ def test_page_targeted_ocr_and_ir_keep_original_page_identity(tmp_path: Path) ->
     assert revised.validation_report.metrics["source_page_count"] == 50
 
 
-def test_foundation16_selection_targets_data_pages_and_records_provenance(tmp_path: Path) -> None:
+def test_clause_selection_targets_data_pages_and_records_provenance(tmp_path: Path) -> None:
     pages: list[tuple[float, float, list[str], bool]] = []
     for index in range(30):
         lines = [f"Chapter page {index + 1}", "Our people, culture and community programmes."]
@@ -352,7 +352,7 @@ def test_foundation16_selection_targets_data_pages_and_records_provenance(tmp_pa
     pdf_path = tmp_path / "foundation.pdf"
     _write_text_pdf(pdf_path, pages)
 
-    selection = Foundation16PageSelector().select(pdf_path)
+    selection = ClausePageSelector(search_targets=_search_targets()).select(pdf_path)
     assert selection.reason == "text_layer_scored"
     # Keyword pages, front matter, and the numeric-dense neighbours of the best page.
     assert selection.page_indices == (0, 1, 2, 8, 9, 10, 19)
@@ -361,12 +361,12 @@ def test_foundation16_selection_targets_data_pages_and_records_provenance(tmp_pa
 
     settings, router, ocr = _targeted_ocr(
         tmp_path,
-        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", page_selection="foundation16"),
+        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", page_selection="clauses", page_search_targets=_search_targets()),
     )
     manifest = json.loads(ocr.manifest_path.read_text(encoding="utf-8"))
     assert manifest["page_selection"]["mode"] == "targeted"
     assert manifest["page_selection"]["page_indices"] == [0, 1, 2, 8, 9, 10, 19]
-    assert manifest["page_selection"]["selector"]["name"] == "foundation16"
+    assert manifest["page_selection"]["selector"]["name"] == "clauses"
     assert [row["page_index"] for row in manifest["page_selection"]["selector"]["selected_pages"]] == [0, 1, 2, 8, 9, 10, 19]
     assert manifest["entrypoints"]["source_page_selection"] == "source/page-selection.json"
     scores = json.loads((ocr.output_dir / "source" / "page-selection.json").read_text(encoding="utf-8"))
@@ -376,14 +376,14 @@ def test_foundation16_selection_targets_data_pages_and_records_provenance(tmp_pa
     assert router.calls[0]["pages"] == 7
 
 
-def test_foundation16_falls_back_to_full_ocr_without_a_text_layer(tmp_path: Path) -> None:
+def test_clause_falls_back_to_full_ocr_without_a_text_layer(tmp_path: Path) -> None:
     pdf_path = tmp_path / "scanned.pdf"
     images = [Image.new("RGB", (300, 400), "white") for _ in range(8)]
     images[0].save(pdf_path, "PDF", save_all=True, append_images=images[1:], resolution=72)
 
     settings, router, ocr = _targeted_ocr(
         tmp_path,
-        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", page_selection="foundation16"),
+        OcrRunRequest(file_path=str(pdf_path), ocr_provider="local_paddleocr", page_selection="clauses", page_search_targets=_search_targets()),
     )
     manifest = json.loads(ocr.manifest_path.read_text(encoding="utf-8"))
 
@@ -455,14 +455,14 @@ def test_renderer_validator_and_fusion_work_on_covered_pages_only(tmp_path: Path
 
 def test_targeted_ocr_is_never_reused_for_a_full_document_request(tmp_path: Path) -> None:
     engine, store, asset, calls, _ = fixture(tmp_path)
-    targeted_config = ProcessingConfig(page_selection="foundation16", execute_required_reviews=False)
+    targeted_config = ProcessingConfig(page_selection="clauses", page_search_targets=_search_targets(), execute_required_reviews=False)
     targeted = engine.create(ProcessingRequest(asset_id=asset["asset_id"], config=targeted_config))
     engine.tick()
     task = finish(engine, store, "ocr")
     manifest_path = engine.roots["ocr"] / task.native_job_id / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
     manifest["page_selection"] = {"mode": "targeted", "source_page_count": 40, "page_indices": [0, 1, 2, 12],
-                                  "selector": {"name": "foundation16"}}
+                                  "selector": {"name": "clauses"}}
     manifest_path.write_text(json.dumps(manifest))
     engine.tick()
     finish(engine, store, "ir")
@@ -481,25 +481,10 @@ def test_targeted_ocr_is_never_reused_for_a_full_document_request(tmp_path: Path
         engine._verify_manifest(full_state, "ocr", manifest)
 
 
-def test_foundation16_automation_reuses_full_preparation_before_targeting_pages() -> None:
-    from esg_v2.control_plane.production_automation import foundation_processing_config
-    from esg_v2.control_plane.report_processing import ProcessingConfig
 
-    class Processing:
-        engine_versions = {"ocr": "o", "ir": "i"}
 
-        def __init__(self, available):
-            self.available = available
-
-        def _find_reusable(self, state, stage):
-            config = state["request"]["config"]
-            key = (stage, config["page_selection"], config["execute_required_reviews"])
-            return {"run_id": "x"} if key in self.available else None
-
-    base = ProcessingConfig(execute_required_reviews=True)
-    assert foundation_processing_config(Processing({("ir", "all", True)}), "s", base) == base
-    review_free_ocr = foundation_processing_config(Processing({("ocr", "all", False)}), "s", base)
-    assert (review_free_ocr.page_selection, review_free_ocr.execute_required_reviews) == ("all", False)
-    fresh = foundation_processing_config(Processing(set()), "s", base)
-    assert (fresh.page_selection, fresh.execute_required_reviews, fresh.allow_limited_evidence) == ("clauses", False, True)
-    assert fresh.clause_profile == "universal"
+def _search_targets():
+    from esg_clauses.repository import ClauseRepository
+    from esg_v2.document.search import PageSearchIntent
+    repository=ClauseRepository(Path(__file__).resolve().parents[4]/'ExtractESG/standard')
+    return [PageSearchIntent(target_id=key,contract_digest=c.clause_digest,data_kind=c.data_kind,positive_terms=c.retrieval.positive_terms,negative_terms=c.retrieval.negative_terms) for key in ['E1-6_07','E1-5_01','E3-4_03'] for c in [repository.get(key)]]

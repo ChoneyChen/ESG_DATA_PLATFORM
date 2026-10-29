@@ -1,0 +1,20 @@
+{
+  "clauses": [
+    "MDR-A_01",
+    "MDR-A_02",
+    "MDR-A_03",
+    "MDR-A_04",
+    "MDR-A_05",
+    "MDR-A_06",
+    "MDR-A_07",
+    "MDR-A_08",
+    "MDR-A_09",
+    "MDR-A_10",
+    "MDR-A_11",
+    "MDR-A_12",
+    "MDR-A_13",
+    "MDR-A_14"
+  ],
+  "group_id": "MDR-A",
+  "title": "行动与资源"
+}

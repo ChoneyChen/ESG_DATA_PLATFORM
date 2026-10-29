@@ -1,0 +1,14 @@
+{
+  "clauses": [
+    "MDR-P_01",
+    "MDR-P_02",
+    "MDR-P_03",
+    "MDR-P_04",
+    "MDR-P_05",
+    "MDR-P_06",
+    "MDR-P_07",
+    "MDR-P_08"
+  ],
+  "group_id": "MDR-P",
+  "title": "政策"
+}

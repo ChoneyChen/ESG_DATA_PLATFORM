@@ -7,7 +7,8 @@ import time
 from typing import Callable
 
 from esg_targeted.models.errors import ModelCancelled, ModelTimedOut, ModelRunFailure
-from esg_targeted.models.preflight import PromptBudgetExceeded
+class PromptBudgetExceeded(ValueError):
+    pass
 
 
 class MlxVlmRuntime:
@@ -46,31 +47,6 @@ class MlxVlmRuntime:
             return sum(len(row) if isinstance(row, (list, tuple)) else 1 for row in ids)
         return None
 
-    def input_admission(self, *, context, instructions, template, image_path=None):
-        """Ready model count; never load weights for a preview or cold estimate."""
-        if getattr(self, "_model", None) is None or getattr(self, "_processor", None) is None:
-            return None
-        from esg_targeted.models.token_admission import InputAdmission
-        from esg_targeted.models.structured_template import json_schema, nuextract_template
-        context = context if isinstance(context, str) else json.dumps(context, ensure_ascii=False, separators=(",", ":"))
-        if isinstance(template, str):
-            template = json.loads(template)
-        if getattr(self, "provider_name", "") == "local_qwen":
-            template = json_schema(template)
-        elif getattr(self, "provider_name", "") == "local_nuextract":
-            template = nuextract_template(template)
-        images = [str(image_path)] if image_path else []
-        prompt = self._render_prompt(context=context, instructions=instructions,
-                                    template=json.dumps(template, ensure_ascii=False), images=images)
-        count = self._prepared_token_count(self._prepare_runtime_inputs(prompt, images))
-        if count is not None:
-            return InputAdmission(count, "prepared_engine_input_tokens", True,
-                                  count if not images else None, 0 if not images else None)
-        # A text tokenizer does not prove expanded image-token usage.
-        if images:
-            return None
-        count = self._token_count(prompt)
-        return InputAdmission(count, "rendered_text_tokens", True, count, 0) if count is not None else None
 
     def _ensure_loaded(self) -> float:
         if self._model is not None:
@@ -121,18 +97,6 @@ class MlxVlmRuntime:
                     f"rendered prompt exceeds token limit: {input_tokens} > "
                     f"{self.max_input_tokens}"
                 )
-
-            admission_guard = getattr(self, "_input_admission_callback", None)
-            if callable(admission_guard):
-                from esg_targeted.models.token_admission import InputAdmission, estimate_input_tokens
-                if exact_input:
-                    admission = InputAdmission(input_tokens, "prepared_engine_input_tokens", True,
-                                               input_tokens if not images else None, 0 if not images else None)
-                elif input_tokens is not None and not images:
-                    admission = InputAdmission(input_tokens, "rendered_text_tokens", True, input_tokens, 0)
-                else:
-                    admission = estimate_input_tokens(prompt, image_count=len(images))
-                admission_guard(admission)
 
             # These checks run before inference. A failure here consumes a
             # request attempt, but no model prompt or generation tokens.

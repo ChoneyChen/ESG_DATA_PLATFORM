@@ -15,9 +15,10 @@ from typing import Literal
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from esg_v2.document.search import PageSearchIntent
 
 from esg_v2.control_plane.contracts import utc_now
-from esg_v2.control_plane.plans import dispatch_key
+from esg_v2.control_plane.context import dispatch_key
 
 
 PROCESSING_CONTRACT = "report-processing-v1"
@@ -63,9 +64,8 @@ class ProcessingConfig(BaseModel):
     ocr_model: str = Field(default="PaddleOCR-VL-1.6", min_length=1, max_length=160)
     allow_cloud_ocr: bool = False
     # "clauses" OCRs only the pages the selected clause retrieval terms pick;
-    # "foundation16" remains a compatibility alias for the same behaviour.
-    page_selection: Literal["all", "foundation16", "clauses"] = "all"
-    clause_profile: str | None = None
+    page_selection: Literal["all", "clauses"] = "all"
+    page_search_targets: list[PageSearchIntent] = Field(default_factory=list)
     execute_optional_reviews: bool = False
     execute_required_reviews: bool = True
     review_provider: Literal["local_qwen", "local_nuextract", "qiniu"] = "local_qwen"
@@ -166,8 +166,8 @@ class ReportProcessingCoordinator:
 
     @staticmethod
     def _engine_versions():
-        from esg_runtime.layout import DOCUMENT_COMPAT_SOURCE
-        base = DOCUMENT_COMPAT_SOURCE
+        from esg_runtime.layout import DOCUMENT_API_SOURCE
+        base = DOCUMENT_API_SOURCE
         def fingerprint(paths):
             return digest({str(path.relative_to(base)): sha256(path.read_bytes()).hexdigest() for path in sorted(paths)})
         return {"ocr": fingerprint([*base.joinpath("ocr").glob("*.py"), base / "workflows/ocr_workflow.py", base / "contracts.py", base / "config.py"]),
@@ -316,7 +316,7 @@ class ReportProcessingCoordinator:
         # Whole-document digests stay unchanged; only a targeted selection is keyed in.
         if stage == "ocr" and config.get("page_selection", "all") != "all":
             values["page_selection"] = config["page_selection"]
-            values["clause_profile"] = config.get("clause_profile") or "universal"
+            values["page_search_targets"] = config.get("page_search_targets") or []
         return digest({"contract": PROCESSING_CONTRACT, "engine": state["engine_versions"][stage],
                        "config": values,
                        **({"ocr_config_digest": self._config_digest(state, "ocr")} if stage == "ir" else {})})

@@ -23,8 +23,6 @@ from .bridge import DatabaseBridge, DatabaseError
 from .runtime import release
 from .public_pdf import published_pdf
 from .evidence_location import candidate_locations
-from .extension_control import ExtensionControl
-from esg_standard_packages.extensions import ExtensionProposal
 
 ROOT = Path(__file__).resolve().parents[1]
 Text = Annotated[str, Field(min_length=1, max_length=240)]
@@ -264,10 +262,6 @@ class ReportMetadata(StrictRequest):
     publication_date: date | None = None
 
 
-class ImportRequest(StrictRequest):
-    bundle_path: Annotated[str, Field(min_length=1, max_length=4096)]
-    report_metadata: ReportMetadata
-    selection_snapshot: dict | None = None
 
 
 class CompareRequest(StrictRequest):
@@ -309,26 +303,10 @@ class ImportCatalogRegistrationRequest(StrictRequest):
     reason: Annotated[str, Field(min_length=1, max_length=4000)]
 
 
-class ExtensionDecisionRequest(StrictRequest):
-    proposal_id: Text
-    decision: Literal['approved','rejected']
-    reason: Annotated[str, Field(min_length=1, max_length=4000)]
 
 
-class ExtensionRegistrationRequest(StrictRequest):
-    proposal_id: Text
-    approval_id: Text
 
 
-class ExtensionPlatformSelection(StrictRequest):
-    dictionary_version: Annotated[str, Field(pattern=r'^\d+\.\d+\.\d+$')]
-    extension_ids: list[Text] = Field(default_factory=list, max_length=100)
-
-    @model_validator(mode='after')
-    def unique(self):
-        if len(set(self.extension_ids)) != len(self.extension_ids):
-            raise ValueError('Duplicate platform extension selection')
-        return self
 
 
 class DerivationOperandRequest(StrictRequest):
@@ -578,10 +556,6 @@ def csv_table(rows: list[dict], fields: list[str], filename: str, *, exact: set[
 def create_app(environment: dict[str, str] | None = None):
     config = {**os.environ, **(environment or {})}
     bridge = DatabaseBridge(config)
-    extensions = ExtensionControl(bridge, standards_root=ROOT.parent/'ExtractESG/standards',
-        runtime_root=Path(config.get('ESG_EXTENSION_ROOT',str(ROOT.parent/'ExtractESG/.local/extensions'))),
-        ledger_path=(Path(config['ESG_CLAUSE_LIFECYCLE_LEDGER']) if config.get('ESG_CLAUSE_LIFECYCLE_LEDGER') else None))
-    import_roots=[Path(value) for value in config.get('PLATESG_IMPORT_ROOTS',os.pathsep.join([str(ROOT.parent/'ExtractESG'),str(ROOT/'.local')])).split(os.pathsep) if value]
     running_release=release()
     token = config.get("PLATESG_REVIEW_TOKEN")
     operators = json.loads(config.get("PLATESG_OPERATORS_JSON", "[]"))
@@ -590,39 +564,10 @@ def create_app(environment: dict[str, str] | None = None):
     if any(not p.get("token") or not p.get("operator_ref") or not set(p.get("roles",[])) <= {"read","review","publish","admin"} for p in operators):
         raise ValueError("Invalid server operator configuration")
 
-    def process_inbox():
-        inbox = Path(config.get("PLATESG_INBOX", ROOT / ".local/inbox"))
-        inbox.mkdir(parents=True, exist_ok=True)
-        new_count=0
-        for file in sorted(inbox.glob("*.json")):
-            raw = file.read_bytes()
-            if len(raw) > 100000:
-                continue
-            receipt_id = hashlib.sha256(raw).hexdigest()
-            if bridge.call("receipt", {"receipt_id": receipt_id}):
-                continue
-            new_count+=1
-            try:
-                request = ImportRequest.model_validate_json(raw)
-                extensions.validate_bundle(request.bundle_path,import_roots)
-                result = bridge.call("import", request.model_dump(mode="json"))
-                bridge.call("receipt", {"receipt_id": receipt_id, "status": "imported", "import_batch_id": result["import_batch_id"], "detail": result})
-            except (ValueError, DatabaseError) as exc:
-                detail={"message":str(exc),"file":file.name}
-                try:
-                    detail["request"]=ImportRequest.model_validate_json(raw).model_dump(mode="json")
-                except ValueError:
-                    pass
-                bridge.call("receipt", {"receipt_id": receipt_id, "status": "failed", "detail":detail})
-            if new_count>=20:
-                break
-
     async def publisher():
         while True:
             try:
                 await asyncio.to_thread(bridge.call, "publish", {"limit": 100})
-                if config.get("PLATESG_AUTO_IMPORT", "1") == "1":
-                    await asyncio.to_thread(process_inbox)
             except DatabaseError as exc:
                 logger.error("Publication processor failed: %s", exc.code)
             await asyncio.sleep(2)
@@ -630,7 +575,7 @@ def create_app(environment: dict[str, str] | None = None):
     @asynccontextmanager
     async def lifespan(app):
         await asyncio.to_thread(bridge.start)
-        task = asyncio.create_task(publisher()) if config.get("PLATESG_AUTO_PUBLISH", "1") == "1" else None
+        task = asyncio.create_task(publisher()) if config.get("PLATESG_AUTO_PUBLISH", "0") == "1" else None
         try:
             yield
         finally:
@@ -778,7 +723,7 @@ def create_app(environment: dict[str, str] | None = None):
 
     @app.post('/internal/v1/import-catalogs/register')
     def register_import_catalog(request: ImportCatalogRegistrationRequest, principal=Depends(permission('admin'))):
-        return bridge.call('register_import_catalog',operator_payload(request,principal))
+        raise HTTPException(410,{'code':'legacy_production_retired','message':'旧包导入登记已退役；本轮不接入新事实数据库接收器'})
 
     @app.get("/v1/exports")
     def export(format: Literal["csv", "json"] = "csv",
@@ -829,42 +774,6 @@ def create_app(environment: dict[str, str] | None = None):
     @app.get("/internal/v1/metrics", dependencies=[Depends(permission("read"))])
     def internal_metrics(dataset_version: DatasetVersion = None):
         return bridge.call("internal_metrics",{"dataset_version":dataset_version})
-
-    def extension_action(callback):
-        try:
-            return callback()
-        except (ValueError, OSError) as exc:
-            raise HTTPException(409, {'code':'extension_contract_error','message':str(exc)}) from exc
-
-    @app.get('/internal/v1/extensions', dependencies=[Depends(permission('read'))])
-    def extension_catalog():
-        return extension_action(extensions.catalog_view)
-
-    @app.post('/internal/v1/extensions/proposals')
-    def extension_propose(request: ExtensionProposal, principal=Depends(permission('review'))):
-        return extension_action(lambda: extensions.propose(request, principal))
-
-    @app.post('/internal/v1/extensions/decisions')
-    def extension_decide(request: ExtensionDecisionRequest, principal=Depends(permission('admin'))):
-        return extension_action(lambda: extensions.decide(request.proposal_id,decision=request.decision,reason=request.reason,principal=principal))
-
-    @app.post('/internal/v1/extensions/register', dependencies=[Depends(permission('admin'))])
-    def extension_register(request: ExtensionRegistrationRequest):
-        return extension_action(lambda: extensions.register(request.proposal_id,request.approval_id))
-
-    @app.post('/internal/v1/extensions/sync', dependencies=[Depends(permission('admin'))])
-    def extension_sync():
-        return extension_action(extensions.sync)
-
-    @app.post('/internal/v1/extensions/platform-selection', dependencies=[Depends(permission('admin'))])
-    def extension_platform_selection(request: ExtensionPlatformSelection):
-        from .extension_dictionary import build_extension_dictionary
-        def select():
-            extensions.require_accepted(request.extension_ids, purpose='平台主要配置')
-            dictionary = build_extension_dictionary(json.loads((ROOT/'catalog/metric-dictionary.v1.json').read_text()),
-                extensions.catalog_view()['releases'], request.extension_ids, request.dictionary_version)
-            return bridge.call('extension_platform_selection', {'dictionary': dictionary})
-        return extension_action(select)
 
     @app.get('/internal/v1/extensions/calculations', dependencies=[Depends(permission('read'))])
     def extension_calculations():
@@ -979,14 +888,12 @@ def create_app(environment: dict[str, str] | None = None):
         return bridge.call("lifecycle_reservation", {"reservation_id":str(reservation_id), **request.model_dump(mode="json")})
 
     @app.post("/internal/v1/import-batches", dependencies=[Depends(permission("review"))])
-    def import_batch(request: ImportRequest):
-        extension_action(lambda: extensions.validate_bundle(request.bundle_path,import_roots))
-        return bridge.call("import", request.model_dump(mode="json"))
+    def import_batch(request: dict):
+        raise HTTPException(410,{"code":"legacy_production_retired","message":"旧标准包/Core 产物入口已退役；新事实接收器尚未启用。"})
 
     @app.post("/internal/v1/deliveries", dependencies=[Depends(permission("review"))])
-    def deliver_batch(request: ImportRequest):
-        extension_action(lambda: extensions.validate_bundle(request.bundle_path,import_roots))
-        return bridge.call("deliver", request.model_dump(mode="json"))
+    def deliver_batch(request: dict):
+        raise HTTPException(410,{"code":"legacy_production_retired","message":"旧标准包/Core 交付入口已退役；新事实接收器尚未启用。"})
 
     @app.get("/internal/v1/candidates", dependencies=[Depends(permission("read"))])
     def candidates(entity_ref: str | None = Query(None, max_length=240), report_ref: str | None = Query(None,max_length=240),
@@ -1080,7 +987,7 @@ def create_app(environment: dict[str, str] | None = None):
 
     @app.post("/internal/v1/import-receipts/{receipt_id}/retry")
     def retry_import(receipt_id: Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")],request:RetryRequest, principal=Depends(permission("review"))):
-        return bridge.call("retry_receipt",{"receipt_id":receipt_id,**operator_payload(request,principal)})
+        raise HTTPException(410,{'code':'legacy_production_retired','message':'旧包交付重试已退役'})
 
     app.mount("/review",StaticFiles(directory=ROOT / "review",html=True),name="review-workbench")
 

@@ -1,48 +1,11 @@
-# 文档入口
+# 当前文档
 
-项目当前事实唯一维护于 [根 README](../README.md)。本页只列当前有效的文档；历史实施报告已删除，
-需要追溯时用 `git log --all -- <原路径>` 取回，不再占据工作树。
+- [模块边界、合同、API 与目录导入](CLAUSE_BACKBONE_REBUILD.md)
+- [本轮逐项核验报告](../模块化重构与逐条核验报告.md)
+- [系统状态](SYSTEM_STATE.md)
+- [更新日志](CHANGELOG.md)
+- [原升级规划与检查依据](../全链路检查报告与升级规划.md)
 
-## 当前文档
+数据库与公开产品文档独立维护：[科学数据存储](SCIENTIFIC_DATA_STORAGE.md)、[科学产品](PHASE4_SCIENTIFIC_PRODUCTS.md)、[数据库科学模型](PHASE10_SCIENTIFIC_MODEL.md)、[科学表格](PHASE14_SCIENTIFIC_TABLES.md)。这些文档不表示新提取格式已接入数据库。
 
-| 文档 | 内容 |
-|---|---|
-| [根 README](../README.md) | 系统定位、Console 与 Extract 的关系、数据流、目录、测试与约定；新对话先读这一份 |
-| [全链路检查报告与升级规划](../全链路检查报告与升级规划.md) | 2026-10-28 只读架构研究：模型、检索、条款、科学数据与 Console 的分阶段升级 |
-| [全链路筛查（第三轮）](CHAIN_SCREENING_2026-10-28.md) | 2026-10-28 只读复核：条款合同、数据种类合同、两条路线、存储发布与状态投影的现状、缺陷与改进优先级 |
-| [阶段 18 条款即单位](PHASE18_CLAUSE_CONTRACT_UNIT.md) | 2026-10-29 大修：条款合同 v2、提取链路去条款化、定量/定性数据合同、条款选页、单条身份 |
-| [阶段 0 真实基线](PHASE0_BASELINE.md) | 固定报告/正反例、全字段与模型对照、自动审核、资源与七阶段实施入口 |
-| [阶段 1 科学合同](PHASE1_SCIENTIFIC_CONTRACT.md) | 标准包驱动平台字典、foundation 规格与审核归一；候选字典与真实回放 |
-| [阶段 2 中立事实](PHASE2_NEUTRAL_FACTS.md) | 全期 SourceFact、不可变解释版本、字段证据与公开 Observation |
-| [阶段 3 增量证据](PHASE3_INCREMENTAL_EVIDENCE.md) | 共享文字层、合同选页、报告级中立缓存与覆盖决策 |
-| [阶段 4 科学产品](PHASE4_SCIENTIFIC_PRODUCTS.md) | 规范观测/维度/证据/来源/覆盖科学表与 CSV/Parquet |
-| [更新日志](CHANGELOG.md) | 按日期倒序的每轮实际变化 |
-| [系统状态](SYSTEM_STATE.md) | 服务、端口、数据位置、实测质量、测试结果与已知问题 |
-| [全链路体检](AUDIT_2026-10-23.md) | 2026-10-23 的未完成/待测试/待修复清单与逐轮修复台账 |
-| [定量条款审核](EXTRACTION_QUANTITATIVE_AUDIT_2026-10-24.md) | 29 份结果中未完全通过的原因分类与子表/区间/表外属性增强 |
-| [数据生产工作台](PRODUCTION_WORKBENCH_20261010.md) | 日常操作、权限、恢复与本地模型边界 |
-| [科学数据存储](SCIENTIFIC_DATA_STORAGE.md) | 事实、测量口径、版本与发布的存储合同 |
-| [结构迁移](STRUCTURE_MIGRATION.md) | 物理职责、旧路径兼容与回滚依据 |
-
-## 模块手册（各自单一职责）
-
-| 模块 | 入口 | 角色 |
-|---|---|---|
-| 操作台 | [ConsoleESG/README](../ConsoleESG/README.md) | 唯一人工界面：报告、提取、审核、发布 |
-| 文档读取 | [document_ir_extract/README](../ExtractESG/document_ir_extract/README.md) | PDF→OCR→DocumentIR 服务与合同（无自带前端） |
-| 定向提取 | [targeted_table_extract/README](../ExtractESG/targeted_table_extract/README.md) | 条款投影、事实与成果包 |
-| 标准系统 | [ExtractESG/standards/README](../ExtractESG/standards/README.md) | 作者源、编译、发布与版本不可变 |
-| 数据库合同 | [database/README](../database/README.md) | 存储、审核与发布 SQL |
-| 产品网站 | [PlatESG/README](../PlatESG/README.md) | 公开 `/v1`、内部接口与发布库 |
-
-## 标准与来源材料
-
-| 材料 | 入口 |
-|---|---|
-| 原表数据点目录 | [ESRS_DATAPOINT_CATALOG](../ExtractESG/docs/ESRS_DATAPOINT_CATALOG.md) |
-| 标准包建设 | [ESRS_STANDARD_PACKAGE_BUILD](../ExtractESG/docs/ESRS_STANDARD_PACKAGE_BUILD.md) |
-| 结构证据审阅合同 | [IR_REVIEW_REFERENCE_STATE_CONTRACT](../ExtractESG/docs/IR_REVIEW_REFERENCE_STATE_CONTRACT.md) |
-| 报告输入与任务模型 | [REPORT_INPUT_AND_TASK_MODELS](../ExtractESG/docs/REPORT_INPUT_AND_TASK_MODELS.md) |
-| 原始需求 | [更新要求](../更新要求.md) |
-
-`docs/migrations/` 保存迁移前的原件副本，只读，不作为可编辑来源。
+旧聚合标准、两路提取、草稿包提升、历史会话适配的实施说明已随对应入口退役。Git 保留提交记录，不把旧生产说明作为当前操作指南。

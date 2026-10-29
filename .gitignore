@@ -5,3 +5,7 @@ __pycache__/
 *.py[cod]
 node_modules/
 .pytest_cache/
+
+# Clause repository transaction lock and interrupted atomic writes
+ExtractESG/standard/.repository.lock
+ExtractESG/standard/**/.clause-*.tmp

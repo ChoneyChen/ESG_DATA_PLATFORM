@@ -13,7 +13,6 @@ if [[ ! -x "$PYTHON" || ! -x "$UV" ]]; then
 fi
 
 "$UV" pip install --python "$PYTHON" \
-  -e "$ROOT/../standard_packages" \
   -e "$ROOT/backend[models,dev]"
 
 "$PYTHON" - <<'PY'
@@ -26,7 +25,7 @@ checks = {
 }
 for name, path in checks.items():
     print(f"{name}: {'OK' if path.is_file() else 'MISSING'} ({path})")
-for module in ("esg_targeted", "esg_standard_packages", "mlx_vlm", "mlx_embeddings"):
+for module in ("esg_targeted", "esg_clauses", "mlx_vlm"):
     importlib.import_module(module)
     print(f"Python module: OK ({module})")
 PY

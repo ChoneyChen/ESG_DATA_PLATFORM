@@ -109,39 +109,18 @@ class PlatformTaskHooks(PipelineTaskHooks):
             state.updated_at = utc_now()
             self.ir_store.put(state)
 
-    def probe(self, task: PipelineTask) -> dict[str, Any] | None:
-        if task.task_type != PipelineTaskType.TARGETED_EXTRACTION or not task.native_job_id:
-            return None
+    def probe(self,task):
+        if task.task_type!=PipelineTaskType.TARGETED_EXTRACTION:return None
         try:
             with requests.Session() as session:
-                session.trust_env = False
-                namespace = "report-sessions" if task.operation in {"report_session", "report_session_resume"} else "jobs"
-                response = session.get(
-                    f"{self.settings.targeted_backend_url}/api/{namespace}/{task.native_job_id}",
-                    timeout=2,
-                )
-            if response.status_code != 200:
-                return None
-            record = response.json()
-        except (requests.RequestException, ValueError):
-            return None
-        if task.operation in {"report_session", "report_session_resume"}:
-            state = record.get("execution_status")
-            status = ("partial" if record.get("result_status") != "usable" else "completed") if state == "finished" else state
-            counts = record.get("counts") or {}
-            return {**record, "status": status, "stage": "report_session",
-                "message": "报告理解与标准投影", "progress_current": int(counts.get("processed_metrics") or 0),
-                "progress_total": int(counts.get("selected_metrics") or 0)}
-        return {
-            **{key: record[key] for key in ("result_status", "artifacts", "gaps", "errors", "available_actions") if key in record},
-            "status": record.get("status"),
-            "error": record.get("error"),
-            "summary": record.get("summary") or {},
-            "stage": str(record.get("stage") or "targeted_extraction"),
-            "message": f"定向抽取 · {record.get('stage') or record.get('status')}",
-            "progress_current": int(record.get("progress_current") or 0),
-            "progress_total": int(record.get("progress_total") or 0),
-        }
+                session.trust_env=False
+                response=session.get(f'{self.settings.targeted_backend_url}/api/runs/{task.native_job_id}',timeout=3)
+                response.raise_for_status();record=response.json()
+            progress=record.get('progress') or {}
+            return {**record,'stage':progress.get('stage','clause_extraction'),'message':'逐条条款提取',
+                'counts':{'selected_clauses':progress.get('total',0),'processed_clauses':progress.get('current',0),'source_facts':progress.get('fact_count',0)},
+                'progress_current':progress.get('current',0),'progress_total':progress.get('total',0)}
+        except (requests.RequestException,ValueError):return None
 
     def completed(self, task: PipelineTask, result: dict[str, Any]) -> None:
         if task.task_type == PipelineTaskType.OCR:
@@ -233,118 +212,18 @@ class PlatformTaskHooks(PipelineTaskHooks):
                 state.updated_at = state.finished_at
                 self.ir_store.put(state)
 
-    def _targeted_command(
-        self,
-        task: PipelineTask,
-        environment: dict[str, str],
-    ) -> WorkerCommand:
-        if not self.settings.targeted_runtime_python.is_file():
-            raise FileNotFoundError(
-                f"Targeted extraction Python not found: {self.settings.targeted_runtime_python}"
-            )
-        backend_root = self.settings.targeted_app_root / "backend"
-        payload = task.payload
-        if task.operation == "targeted_existing":
-            environment["PYTHONPATH"] = os.pathsep.join([
-                str(backend_root / "src"),
-                str(self.settings.targeted_app_root.parent / "standard_packages" / "src"),
-                environment.get("PYTHONPATH", "")]).rstrip(os.pathsep)
-            return WorkerCommand(argv=[str(self.settings.targeted_runtime_python), "-m", "esg_targeted.cli",
-                "existing", "--job-id", str(task.native_job_id), "--worker"], cwd=backend_root, environment=environment)
-        if task.operation in {"report_session", "report_session_resume"}:
-            environment["PYTHONPATH"] = os.pathsep.join([
-                str(backend_root / "src"),
-                str(self.settings.targeted_app_root.parent / "standard_packages" / "src"),
-                environment.get("PYTHONPATH", "")]).rstrip(os.pathsep)
-            return WorkerCommand(argv=[str(self.settings.targeted_runtime_python), "-m", "esg_targeted.cli",
-                "report-session", "--session-id", str(task.native_job_id), "--worker"], cwd=backend_root, environment=environment)
-        if task.operation == "resume":
-            environment["PYTHONPATH"] = os.pathsep.join(
-                [
-                    str(backend_root / "src"),
-                    str(self.settings.targeted_app_root.parent / "standard_packages" / "src"),
-                    environment.get("PYTHONPATH", ""),
-                ]
-            ).rstrip(os.pathsep)
-            return WorkerCommand(
-                argv=[
-                    str(self.settings.targeted_runtime_python),
-                    "-m",
-                    "esg_targeted.cli",
-                    "resume",
-                    "--worker",
-                    "--job-id",
-                    str(task.native_job_id),
-                ],
-                cwd=backend_root,
-                environment=environment,
-            )
-        argv = [
-            str(self.settings.targeted_runtime_python),
-            "-m",
-            "esg_targeted.cli",
-            "run",
-            "--worker",
-            "--job-id",
-            str(task.native_job_id),
-            "--ir-run-id",
-            str(payload["ir_run_id"]),
-            "--package-id",
-            str(payload["package_id"]),
-            "--package-version",
-            str(payload["package_version"]),
-        ]
-        for metric_id in payload.get("metric_ids") or []:
-            argv.extend(["--metric", str(metric_id)])
-        if payload.get("standard_snapshot_path"):
-            argv.extend(["--standard-snapshot", str(payload["standard_snapshot_path"])])
-        if not payload.get("semantic_search", True):
-            argv.append("--no-semantic-search")
-        if not payload.get("semantic_fill", True):
-            argv.append("--retrieval-only")
-        semantic_provider = payload.get("semantic_provider")
-        if semantic_provider not in {"local_nuextract", "local_qwen", "qiniu_vlm"}:
-            raise ValueError(
-                "Targeted extraction task lost its explicit semantic_provider contract"
-            )
-        argv.extend(["--semantic-provider", str(semantic_provider)])
-        if payload.get("semantic_model"):
-            argv.extend(["--semantic-model", str(payload["semantic_model"])])
-        argv.extend(
-            [
-                "--retrieval-object-top-n",
-                str(payload.get("retrieval_object_top_n", 3)),
-                "--extraction-mode", str(payload.get("extraction_mode", "auto")),
-                "--shared-object-budget", str(payload.get("shared_object_budget", 3)),
-                "--agent-max-steps", str(payload.get("agent_max_steps", 8)),
-            ]
-        )
-        if not payload.get("visual_fallback", True):
-            argv.append("--no-visual-fallback")
-        if payload.get("force_unready_ir"):
-            argv.append("--force-unready-ir")
-        python_paths = [
-            str(backend_root / "src"),
-            str(self.settings.targeted_app_root.parent / "standard_packages" / "src"),
-        ]
-        if environment.get("PYTHONPATH"):
-            python_paths.append(environment["PYTHONPATH"])
-        environment["PYTHONPATH"] = os.pathsep.join(python_paths)
-        return WorkerCommand(argv=argv, cwd=backend_root, environment=environment)
+    def _targeted_command(self,task,environment):
+        if task.operation!='clause_extraction':raise ValueError('Retired extraction operation')
+        source=self.settings.targeted_app_root.parent
+        environment['PYTHONPATH']=os.pathsep.join(str(source/name/'src') for name in ('extraction','contracts','shared_runtime'))
+        environment.update(HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1')
+        return WorkerCommand(argv=[str(self.settings.targeted_runtime_python),'-m','esg_targeted.pipeline.worker',str(task.native_job_id)],
+            cwd=source,environment=environment)
 
-    def _targeted_terminal(self, task: PipelineTask, *, terminal_status: str) -> None:
-        if not task.native_job_id:
-            return
-        if task.operation in {"report_session", "report_session_resume"} and terminal_status != "cancelled":
-            return  # Session ledger derives interruption from its vanished owner and preserves failures.
+    def _targeted_terminal(self,task,*,terminal_status):
+        if not task.native_job_id:return
         try:
             with requests.Session() as session:
-                session.trust_env = False
-                namespace = "report-sessions" if task.operation in {"report_session", "report_session_resume"} else "jobs"
-                session.post(
-                    f"{self.settings.targeted_backend_url}/api/{namespace}/{task.native_job_id}/cancel",
-                    params={"terminal": "true", "terminal_status": terminal_status},
-                    timeout=3,
-                )
-        except requests.RequestException:
-            return
+                session.trust_env=False
+                session.post(f'{self.settings.targeted_backend_url}/api/runs/{task.native_job_id}/cancel',timeout=3)
+        except requests.RequestException:pass

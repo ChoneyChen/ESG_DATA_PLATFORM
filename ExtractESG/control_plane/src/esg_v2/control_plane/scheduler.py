@@ -572,8 +572,7 @@ class PipelineScheduler:
 
     @staticmethod
     def _runtime_clock():
-        from esg_v2.control_plane import shared_contracts  # shared runtime path
-        from esg_targeted.storage.power import WatchdogClock
+        from esg_runtime.power import WatchdogClock
         return WatchdogClock(time.time(), time.monotonic())
 
     def _observe_clock(self, task, clock):

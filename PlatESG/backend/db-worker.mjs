@@ -17,7 +17,7 @@ const { file_sha256, ...dictionary } = await dictionaryFile();
 await seedMetricDictionary(db, dictionary);
 // A restart must respect a deliberate hold on publication. Decisions and
 // pending events remain durable until the configured processor is enabled.
-if (process.env.PLATESG_AUTO_PUBLISH !== '0') await processOutbox(db, { limit: 100 });
+if (process.env.PLATESG_AUTO_PUBLISH === '1') await processOutbox(db, { limit: 100 });
 async function projectModel(db, params) {
   const catalog = await readClauseCatalog(params.standards_root);
   const clauses = await projectClauseVersions(db, catalog.clauses);

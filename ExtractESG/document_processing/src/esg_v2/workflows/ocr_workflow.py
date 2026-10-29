@@ -9,7 +9,7 @@ from esg_v2.config import Settings
 from esg_v2.contracts import OcrRunRequest, OcrRunResult
 from esg_v2.ocr import text_layer, vision_prescan
 from esg_v2.ocr.output_writer import OcrOutputWriter
-from esg_v2.ocr.page_selection import Foundation16PageSelector, PageSelection
+from esg_v2.ocr.page_selection import ClausePageSelector, PageSelection
 from esg_v2.ocr.pdf_preflight import PdfCanvasPreflight, PreparedPdfInput
 from esg_v2.ocr.providers import OcrProviderRouter
 from esg_v2.ocr.resources import LocalOcrResourceReader
@@ -156,6 +156,9 @@ class OcrWorkflow:
             manifest["page_selection"] = page_selection
         if read:
             manifest["text_layer"] = read.report(targets)
+        if source.get('sha256'):
+            from esg_reports.repository import ReportRepository
+            manifest['report_resource']=ReportRepository(self.settings.report_asset_root).ensure_source(source['sha256'],Path(request.file_path).name if request.file_path else source.get('display_name','report.pdf')).model_dump(mode='json')
         manifest_path = writer.write_manifest(manifest)
 
         return OcrRunResult(
@@ -343,14 +346,14 @@ class OcrWorkflow:
         if request.page_indices is not None:
             self._log(log, f"Page-targeted OCR: {len(request.page_indices)} explicitly selected source pages")
             return list(request.page_indices), None
-        if request.page_selection not in {"foundation16", "clauses"} or not request.file_path:
+        if request.page_selection not in {"clauses"} or not request.file_path:
             return None, None
         prescan = None
         if self.settings.ocr_vision_prescan_enabled and vision_prescan.available():
             def prescan(path: Path, page_count: int) -> list[str]:
                 self._log(log, f"No usable text layer; reading {page_count} pages on-device to choose OCR targets")
                 return vision_prescan.page_texts(path, page_count, log=lambda message: self._log(log, message))
-        selection = Foundation16PageSelector(profile=request.clause_profile or "universal").select(
+        selection = ClausePageSelector(search_targets=request.page_search_targets).select(
             request.file_path, prescan=prescan)
         writer.write_page_selection(selection.report())
         if not selection.targeted:
