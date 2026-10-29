@@ -130,5 +130,11 @@
     ],
     "ast_unchanged": true,
     "reason": "staged whitespace check"
+  },
+  "runtime_scope": {
+    "document_and_extraction_services_restarted": true,
+    "publication_service_restarted": false,
+    "existing_publication_legacy_authoring_path_count": 1,
+    "platform_retirement_verified_in_isolated_tests_only": true
   }
 }
