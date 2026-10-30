@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
-import {applyMigrations} from '../scripts/db.mjs';
+import {applyMigrations} from '../runtime/frozen_schema.mjs';
 import {importBundle} from '../scripts/frozen-bundle.mjs';
 import {reviewRecord} from '../scripts/review-decisions.mjs';
 import {seedMetricDictionary,saveMeasurementContext,processOutbox,readDataset,NORMALIZATION_RULE_VERSION} from '../scripts/publication.mjs';

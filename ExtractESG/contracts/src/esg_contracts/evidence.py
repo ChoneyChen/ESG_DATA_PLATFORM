@@ -130,6 +130,12 @@ class TextEvidence(ProtocolModel):
     bbox: dict[str, float | None] | None = None
 
 
+class FrameFragment(ProtocolModel):
+    parent_digest: str
+    reason: Literal["input_budget", "generation_incomplete"]
+    completeness: Literal["fragment"] = "fragment"
+
+
 class EvidenceFrame(ProtocolModel):
     object_id: str
     kind: Literal["table", "text"]
@@ -143,6 +149,14 @@ class EvidenceFrame(ProtocolModel):
     chunk_index: int = 0
     chunk_count: int = 1
     digest: str
+    fragment: FrameFragment | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if self.fragment is None:
+            body.pop("fragment", None)
+        return body
 
 
 class ColumnSemantics(ProtocolModel):

@@ -16,6 +16,7 @@ from .decisions import QuantitativeDecision, QualitativeDecision, NumericMatch, 
 from .binding import numeric_fact, qualitative_fact
 from .structure import period_columns, column_structure, period_coverage
 from .retrieval import retrieve_candidates
+from .frames import split_frame
 from .ports import DocumentPort, ModelPort, ArtifactPort
 from .organization import build_organized_dataset
 
@@ -150,6 +151,7 @@ class ExtractionBackbone:
             read_frames = []
             reasons = ["object_budget_exhausted"] if search_observation["truncated"] else []
             inspected = 0
+            inspected_ids = set()
             complete = not search_observation["truncated"]
             for candidate in candidates:
                 for chunk in range(candidate.chunk_count):
@@ -177,250 +179,263 @@ class ExtractionBackbone:
                             }
                         )
                         continue
-                    if clause.data_kind == "quantitative":
-                        rows = []
-                        for row in frame.rows:
-                            if row.row_role == "header":
-                                continue
-                            cells = []
-                            for cell in row.cells:
-                                if cell.candidate_kind in {"measurement", "unresolved"}:
-                                    cells.append(cell)
-                                else:
-                                    rejected_candidates.append({
-                                        "clause_key": key, "object_id": frame.object_id,
-                                        "row_id": row.row_id, "cell_id": cell.cell_id,
-                                        "value_raw": cell.raw_text, "page_index": frame.page_index,
-                                        "candidate_kind": cell.candidate_kind,
-                                        "selection": "nonmeasurement", "reason": "physical_literal_type",
-                                    })
-                            if cells:
-                                rows.append(row.model_copy(update={"cells": cells}))
-                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
-                        frame = frame.model_copy(
-                            update={"rows": rows}
-                        )
-                    if clause.data_kind == "quantitative" and not frame.rows:
-                        reasons.append("object_has_no_bindable_quantitative_cells")
-                        continue
-                    if clause.data_kind == "qualitative" and not frame.texts:
-                        reasons.append("object_has_no_bindable_statements")
-                        continue
-                    frame_body = frame.model_dump(mode="json")
-                    self.artifacts.write(
-                        run_id,
-                        f"evidence/{digest([key, frame.object_id, chunk])}.json",
-                        frame_body,
-                    )
-                    context = {
-                        "target": clause.reading_card(),
-                        "document": document.model_dump(mode="json"),
-                        "frame": frame_body,
-                        "execution": {"run_id": run_id, "task_type": "clause_" + clause.data_kind,
-                            "evidence_ids": [frame.object_id], "remaining_seconds": max(0.001, budget.timeout_seconds - (time.monotonic() - started))},
-                    }
-                    if clause.data_kind == "quantitative":
-                        # Cells already occur in rows and explicit header/label sources.
-                        # Do not ask the model to read a second copy of every cell.
-                        context["frame"] = {
-                            **frame_body,
-                            "texts": [
-                                t
-                                for t in frame_body["texts"]
-                                if t["object_type"] != "cell"
-                            ],
-                        }
-                    structure = column_structure(frame) if clause.data_kind == "quantitative" else None
-                    decided_columns = period_columns(frame) if structure else None
-                    if structure:
-                        context["physical_structure"] = structure.model_dump(mode="json")
-                    decision_type = (
-                        QuantitativeDecision
-                        if clause.data_kind == "quantitative"
-                        else QualitativeDecision
-                    )
-                    instructions = (
-                        QUANTITATIVE_INSTRUCTIONS
-                        if clause.data_kind == "quantitative"
-                        else QUALITATIVE_INSTRUCTIONS
-                    )
-                    on_progress(
-                        {
-                            "stage": "reading",
-                            "clause_key": key,
-                            "object_id": frame.object_id,
-                            "current": index - 1,
-                            "total": len(clauses),
-                            "model_calls": calls,
-                        }
-                    )
-                    calls += 1
-                    call = {
-                        "call_index": calls,
-                        "clause_key": key,
-                        "clause_digest": clause.clause_digest,
-                        "object_id": frame.object_id,
-                        "frame_digest": frame.digest,
-                        "data_kind": clause.data_kind,
-                    }
-                    try:
-                        raw, telemetry = self.model.complete(
-                            instructions=instructions,
-                            context=context,
-                            schema=decision_schema(clause.data_kind, frame),
-                            max_tokens=budget.max_output_tokens,
-                            cancel_check=cancel_check,
-                        )
-                        decision = decision_type.model_validate(
-                            raw if isinstance(raw, dict) else json.loads(raw)
-                        )
-                        model_decision = decision.model_dump(mode="json")
-                        supplements = []
-                        if clause.data_kind == "quantitative":
-                            supplements = adjacent_table_quantities(frame, decided_columns, decision.matches)
-                            if supplements:
-                                decision = decision.model_copy(update={"matches": [*decision.matches, *supplements]})
-                        if telemetry.get("execution"):
-                            telemetry["execution"]["output_validation"] = "passed"
-                        call.update(
-                            status="ok",
-                            telemetry=telemetry,
-                            model_decision=model_decision,
-                            structural_supplements=[item.model_dump(mode="json") for item in supplements],
-                            decision=decision.model_dump(mode="json"),
-                        )
-                        interpretation = digest(
-                            {
-                                "engine": self.engine_identity,
-                                "clause": clause.clause_digest,
-                                "frame": frame.digest,
-                                "decision": decision.model_dump(mode="json"),
-                            }
-                        )
-                        for match in decision.matches:
-                            match = match.model_copy(
-                                update={
-                                    "identity": [*decision.identity, *match.identity]
-                                }
-                            )
-                            try:
-                                if clause.data_kind == "quantitative":
-                                    row = next(
-                                        (
-                                            r
-                                            for r in frame.rows
-                                            if r.row_id == match.row_id
-                                        ),
-                                        None,
-                                    )
-                                    if row is None:
-                                        raise ValueError("Unknown physical source row")
-                                    cells = [
-                                        cell
-                                        for cell in row.cells
-                                        if cell.column_id in match.columns
-                                    ]
-                                    if {cell.column_id for cell in cells} != set(
-                                        match.columns
-                                    ):
-                                        raise ValueError(
-                                            "Unknown physical source column"
-                                        )
-                                    accepted = []
-                                    for cell in cells:
-                                        if match.selection != "measurement" or cell.candidate_kind not in {"measurement", "unresolved"}:
-                                            rejected_candidates.append({
-                                                "clause_key": key, "object_id": frame.object_id,
-                                                "row_id": row.row_id, "cell_id": cell.cell_id,
-                                                "value_raw": cell.raw_text, "page_index": frame.page_index,
-                                                "candidate_kind": cell.candidate_kind,
-                                                "selection": match.selection, "reason": match.reason,
-                                            })
-                                        else:
-                                            accepted.append(cell)
-                                    self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
-                                    results = [
-                                        numeric_fact(
-                                            clause,
-                                            document,
-                                            frame,
-                                            match,
-                                            row,
-                                            cell,
-                                            interpretation,
-                                        )
-                                        for cell in accepted
-                                    ]
-                                else:
-                                    results = [
-                                        qualitative_fact(
-                                            clause,
-                                            document,
-                                            frame,
-                                            match,
-                                            interpretation,
-                                        )
-                                    ]
-                                for fact, mapping, rejected in results:
-                                    if rejected:
-                                        reasons.append(rejected)
-                                        rejected_candidates.append({"clause_key": key, "object_id": frame.object_id,
-                                            "candidate_kind": "unresolved", "selection": "nonmeasurement", "reason": rejected})
-                                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
-                                        continue
-                                    local_facts[fact.source_fact_id] = fact
-                                    local_mappings[fact.source_fact_id] = mapping
-                            except (ValueError, TypeError, KeyError) as exc:
-                                reasons.append("binding_rejected:" + str(exc))
-                        reasons.extend(decision.missing_context)
-                        inspected += 1
-                    except Exception as exc:
+                    pending_frames = [(frame, None, 0)]
+                    while pending_frames:
                         if cancel_check():
-                            raise PipelineCancelled("Extraction cancelled") from exc
-                        if telemetry.get("execution"):
-                            telemetry["execution"]["output_validation"] = "failed"
-                            call["telemetry"] = telemetry
-                        call.update(
-                            status="failed",
-                            error=f"{type(exc).__name__}: {str(exc)[:400]}",
+                            raise PipelineCancelled("Extraction cancelled")
+                        if calls >= budget.max_model_calls or time.monotonic() - started >= budget.timeout_seconds:
+                            complete = False
+                            reasons.append("execution_budget_exhausted")
+                            break
+                        frame, parent_call, attempt = pending_frames.pop(0)
+                        telemetry = {}
+                        if clause.data_kind == "quantitative":
+                            rows = []
+                            for row in frame.rows:
+                                if row.row_role == "header":
+                                    continue
+                                cells = []
+                                for cell in row.cells:
+                                    if cell.candidate_kind in {"measurement", "unresolved"}:
+                                        cells.append(cell)
+                                    else:
+                                        rejected_candidates.append({
+                                            "clause_key": key, "object_id": frame.object_id,
+                                            "row_id": row.row_id, "cell_id": cell.cell_id,
+                                            "value_raw": cell.raw_text, "page_index": frame.page_index,
+                                            "candidate_kind": cell.candidate_kind,
+                                            "selection": "nonmeasurement", "reason": "physical_literal_type",
+                                        })
+                                if cells:
+                                    rows.append(row.model_copy(update={"cells": cells}))
+                            self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
+                            frame = frame.model_copy(
+                                update={"rows": rows}
+                            )
+                        if clause.data_kind == "quantitative" and not frame.rows:
+                            reasons.append("object_has_no_bindable_quantitative_cells")
+                            continue
+                        if clause.data_kind == "qualitative" and not frame.texts:
+                            reasons.append("object_has_no_bindable_statements")
+                            continue
+                        frame_body = frame.model_dump(mode="json")
+                        self.artifacts.write(
+                            run_id,
+                            f"evidence/{digest([key, frame.object_id, chunk, frame.digest])}.json",
+                            frame_body,
                         )
-                        if hasattr(exc, "telemetry"):
-                            call["telemetry"] = exc.telemetry
-                        if getattr(exc, "raw_output", None):
-                            call["incomplete_output"] = exc.raw_output
-                        if hasattr(exc, "category"):
-                            call["failure_category"] = exc.category
-                        reasons.append("model_or_contract_failure")
-                        errors.append(
+                        context = {
+                            "target": clause.reading_card(),
+                            "document": document.model_dump(mode="json"),
+                            "frame": frame_body,
+                            "execution": {"run_id": run_id, "task_type": "clause_" + clause.data_kind,
+                                "evidence_ids": [frame.object_id], "attempt": attempt, "parent_task_id": f"{run_id}/calls/{parent_call}" if parent_call else None, "remaining_seconds": max(0.001, budget.timeout_seconds - (time.monotonic() - started))},
+                        }
+                        if clause.data_kind == "quantitative":
+                            # Cells already occur in rows and explicit header/label sources.
+                            # Do not ask the model to read a second copy of every cell.
+                            context["frame"] = {
+                                **frame_body,
+                                "texts": [
+                                    t
+                                    for t in frame_body["texts"]
+                                    if t["object_type"] != "cell"
+                                ],
+                            }
+                        structure = column_structure(frame) if clause.data_kind == "quantitative" else None
+                        decided_columns = period_columns(frame) if structure else None
+                        if structure:
+                            context["physical_structure"] = structure.model_dump(mode="json")
+                        decision_type = (
+                            QuantitativeDecision
+                            if clause.data_kind == "quantitative"
+                            else QualitativeDecision
+                        )
+                        instructions = (
+                            QUANTITATIVE_INSTRUCTIONS
+                            if clause.data_kind == "quantitative"
+                            else QUALITATIVE_INSTRUCTIONS
+                        )
+                        on_progress(
                             {
+                                "stage": "reading",
                                 "clause_key": key,
                                 "object_id": frame.object_id,
-                                "error": call["error"],
+                                "current": index - 1,
+                                "total": len(clauses),
+                                "model_calls": calls,
                             }
                         )
-                        complete = False
-                    trace.append(call)
-                    self.artifacts.write(run_id, "diagnostics/model-calls.json", trace)
-                    active = ClauseCoverage(
-                        clause_key=key,
-                        clause_digest=clause.clause_digest,
-                        state="not_covered",
-                        candidate_objects=len(candidates),
-                        inspected_objects=inspected,
-                        fact_count=len(local_facts),
-                        reasons=["reading_in_progress"],
-                    )
-                    self._write_outputs(
-                        run_id,
-                        document,
-                        clauses,
-                        [*facts, *local_facts.values()],
-                        [*mappings, *local_mappings.values()],
-                        [*coverage, active],
-                        calls,
-                        started,
-                        errors,
-                    )
+                        calls += 1
+                        call = {
+                            "call_index": calls,
+                            "clause_key": key,
+                            "clause_digest": clause.clause_digest,
+                            "object_id": frame.object_id,
+                            "frame_digest": frame.digest,
+                            "parent_call_index": parent_call, "attempt": attempt,
+                            "data_kind": clause.data_kind,
+                        }
+                        try:
+                            raw, telemetry = self.model.complete(
+                                instructions=instructions,
+                                context=context,
+                                schema=decision_schema(clause.data_kind, frame),
+                                max_tokens=budget.max_output_tokens,
+                                cancel_check=cancel_check,
+                            )
+                            decision = decision_type.model_validate(
+                                raw if isinstance(raw, dict) else json.loads(raw)
+                            )
+                            model_decision = decision.model_dump(mode="json")
+                            supplements = []
+                            if clause.data_kind == "quantitative":
+                                supplements = adjacent_table_quantities(frame, decided_columns, decision.matches)
+                                if supplements:
+                                    decision = decision.model_copy(update={"matches": [*decision.matches, *supplements]})
+                            if telemetry.get("execution"):
+                                telemetry["execution"]["output_validation"] = "passed"
+                            call.update(
+                                status="ok",
+                                telemetry=telemetry,
+                                model_decision=model_decision,
+                                structural_supplements=[item.model_dump(mode="json") for item in supplements],
+                                decision=decision.model_dump(mode="json"),
+                            )
+                            interpretation = digest(
+                                {
+                                    "engine": self.engine_identity,
+                                    "clause": clause.clause_digest,
+                                    "frame": frame.digest,
+                                    "decision": decision.model_dump(mode="json"),
+                                }
+                            )
+                            for match in decision.matches:
+                                match = match.model_copy(
+                                    update={
+                                        "identity": [*decision.identity, *match.identity]
+                                    }
+                                )
+                                try:
+                                    if clause.data_kind == "quantitative":
+                                        row = next(
+                                            (
+                                                r
+                                                for r in frame.rows
+                                                if r.row_id == match.row_id
+                                            ),
+                                            None,
+                                        )
+                                        if row is None:
+                                            raise ValueError("Unknown physical source row")
+                                        cells = [
+                                            cell
+                                            for cell in row.cells
+                                            if cell.column_id in match.columns
+                                        ]
+                                        if {cell.column_id for cell in cells} != set(
+                                            match.columns
+                                        ):
+                                            raise ValueError(
+                                                "Unknown physical source column"
+                                            )
+                                        accepted = []
+                                        for cell in cells:
+                                            if match.selection != "measurement" or cell.candidate_kind not in {"measurement", "unresolved"}:
+                                                rejected_candidates.append({
+                                                    "clause_key": key, "object_id": frame.object_id,
+                                                    "row_id": row.row_id, "cell_id": cell.cell_id,
+                                                    "value_raw": cell.raw_text, "page_index": frame.page_index,
+                                                    "candidate_kind": cell.candidate_kind,
+                                                    "selection": match.selection, "reason": match.reason,
+                                                })
+                                            else:
+                                                accepted.append(cell)
+                                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
+                                        results = [
+                                            numeric_fact(
+                                                clause,
+                                                document,
+                                                frame,
+                                                match,
+                                                row,
+                                                cell,
+                                                interpretation,
+                                            )
+                                            for cell in accepted
+                                        ]
+                                    else:
+                                        results = [
+                                            qualitative_fact(
+                                                clause,
+                                                document,
+                                                frame,
+                                                match,
+                                                interpretation,
+                                            )
+                                        ]
+                                    for fact, mapping, rejected in results:
+                                        if rejected:
+                                            reasons.append(rejected)
+                                            rejected_candidates.append({"clause_key": key, "object_id": frame.object_id,
+                                                "candidate_kind": "unresolved", "selection": "nonmeasurement", "reason": rejected})
+                                            self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
+                                            continue
+                                        local_facts[fact.source_fact_id] = fact
+                                        local_mappings[fact.source_fact_id] = mapping
+                                except (ValueError, TypeError, KeyError) as exc:
+                                    reasons.append("binding_rejected:" + str(exc))
+                            reasons.extend(decision.missing_context)
+                            inspected_ids.add(candidate.object_id)
+                            inspected = len(inspected_ids)
+                        except Exception as exc:
+                            if cancel_check():
+                                raise PipelineCancelled("Extraction cancelled") from exc
+                            if telemetry.get("execution"):
+                                telemetry["execution"]["output_validation"] = "failed"
+                                call["telemetry"] = telemetry
+                            call.update(
+                                status="failed",
+                                error=f"{type(exc).__name__}: {str(exc)[:400]}",
+                            )
+                            if hasattr(exc, "telemetry"):
+                                call["telemetry"] = exc.telemetry
+                            if getattr(exc, "raw_output", None):
+                                call["incomplete_output"] = exc.raw_output
+                            if hasattr(exc, "category"):
+                                call["failure_category"] = exc.category
+                            pieces = split_frame(frame, exc.category) if getattr(exc, "category", None) in {"generation_incomplete", "input_budget"} else []
+                            if pieces:
+                                call["status"] = "split_retry"
+                                call["retry_frames"] = [piece.digest for piece in pieces]
+                                pending_frames[0:0] = [(piece, calls, attempt + 1) for piece in pieces]
+                                reasons.append("bounded_frame_split")
+                            else:
+                                reasons.append("model_or_contract_failure")
+                                errors.append({"clause_key": key, "object_id": frame.object_id, "error": call["error"]})
+                                complete = False
+                        trace.append(call)
+                        self.artifacts.write(run_id, "diagnostics/model-calls.json", trace)
+                        active = ClauseCoverage(
+                            clause_key=key,
+                            clause_digest=clause.clause_digest,
+                            state="not_covered",
+                            candidate_objects=len(candidates),
+                            inspected_objects=inspected,
+                            fact_count=len(local_facts),
+                            reasons=["reading_in_progress"],
+                        )
+                        self._write_outputs(
+                            run_id,
+                            document,
+                            clauses,
+                            [*facts, *local_facts.values()],
+                            [*mappings, *local_mappings.values()],
+                            [*coverage, active],
+                            calls,
+                            started,
+                            errors,
+                        )
                 if not complete and (
                     calls >= budget.max_model_calls
                     or time.monotonic() - started >= budget.timeout_seconds
@@ -576,15 +591,18 @@ def adjacent_table_quantities(frame, decided_columns, matches):
     plain_periods = {column.column_id for column in column_structure(frame).columns if column.period_only}
     result = []
     for row in frame.rows:
-        if row.row_role != "data" or not row.label.strip() or not row.unit_raw or not row.unit_sources:
+        row_relations = {match.match for match in matches if match.row_id == row.row_id and match.selection == "measurement"}
+        if row.row_role == "header" or not row.label.strip():
             continue
-        if not any(row.unit_raw in source.text for source in row.unit_sources):
+        # A model-confirmed measurement row can have unitless counts. A wholly
+        # unselected row still needs the stronger printed data-row/unit proof.
+        unit_grounded = bool(row.unit_raw and any(row.unit_raw in source.text for source in row.unit_sources))
+        if not row_relations and (row.row_role != "data" or not unit_grounded):
             continue
         columns = [cell.column_id for cell in row.cells if cell.column_id in decided_columns
             and (row.row_id, cell.column_id) not in selected and cell.candidate_kind == "measurement"
             and re.fullmatch(r"\s*[-+−]?\d[\d,，]*(?:\.\d+)?\s*", cell.raw_text)]
         if columns:
-            row_relations = {match.match for match in matches if match.row_id == row.row_id and match.selection == "measurement"}
             for column in columns:
                 relation = next(iter(row_relations)) if len(row_relations) == 1 and column in plain_periods else "uncertain"
                 result.append(NumericMatch(row_id=row.row_id, columns=[column], selection="measurement", match=relation,

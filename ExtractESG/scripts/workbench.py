@@ -85,7 +85,7 @@ def health(name):
     try:
         body=get(port,path)
         if name=='database':
-            ready=body.get('status')=='ok' and body.get('export_contract')=='extraction-export-1.0' and not body.get('restart_required')
+            ready=body.get('status')=='ok' and body.get('export_contract') in {'extraction-export-1.0','extraction-export-1.1'} and not body.get('restart_required')
         else:
             ready=not check_compatibility(body,release_identity(ROOT/'ExtractESG',service),service)
         return {'port':port,'ready':ready,'restart_required':bool(body.get('restart_required'))}

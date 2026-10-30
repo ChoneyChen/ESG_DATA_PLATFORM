@@ -94,7 +94,7 @@ export type ReportList_JsonValue = unknown;
 export type ReportList_ReportListItem = { "schema_version"?: "report-resource-1.0"; "pdf_id": string; "asset_id": string; "sha256": string; "original_filename": string; "company"?: (ReportList_Company | null); "publication_year"?: (number | null); "industry"?: (ReportList_Industry | null); "reporting_year"?: (number | null); "title"?: (string | null); "metadata_sources"?: Record<string, string>; "extensions"?: Record<string, ReportList_JsonValue>; "revision"?: number; "asset_available": boolean; "missing_metadata": Array<string> };
 export type ReportList = { "schema_version"?: "report-resource-list-1.0"; "reports": Array<ReportList_ReportListItem> };
 
-export type ReportBatch_BatchItem = { "pdf_id": string; "file": string; "sha256": string; "company": ReportBatch_Company; "publication_year": number; "industry": ReportBatch_Industry; "reporting_year"?: (number | null); "title"?: (string | null); "metadata_sources"?: Record<string, string>; "extensions"?: Record<string, ReportBatch_JsonValue> };
+export type ReportBatch_BatchItem = { "pdf_id": string; "file": string; "sha256": string; "company"?: (ReportBatch_Company | null); "publication_year"?: (number | null); "industry"?: (ReportBatch_Industry | null); "reporting_year"?: (number | null); "title"?: (string | null); "metadata_sources"?: Record<string, string>; "extensions"?: Record<string, ReportBatch_JsonValue> };
 export type ReportBatch_Company = { "name": string; "company_id"?: (string | null) };
 export type ReportBatch_Industry = { "name": string; "code"?: (string | null); "taxonomy"?: (string | null) };
 export type ReportBatch_JsonValue = unknown;

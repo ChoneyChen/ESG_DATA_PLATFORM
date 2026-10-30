@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
-import {applyMigrations} from '../scripts/db.mjs';
+import {applyMigrations} from '../runtime/frozen_schema.mjs';
 import {importBundle,loadBundle} from '../scripts/frozen-bundle.mjs';
 import {readReportSourceFacts} from '../scripts/report-source-facts.mjs';
 import {applyPlatformMigrations} from '../runtime/connection.mjs';

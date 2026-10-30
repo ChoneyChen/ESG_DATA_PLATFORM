@@ -170,7 +170,7 @@ it("keeps report edits open on a revision conflict and submits only the original
   await open("#/reports/%E7%94%B2");
   fireEvent.click(await screen.findByText("编辑身份"));
   const dialog = screen.getByRole("dialog");
-  fireEvent.change(within(dialog).getByLabelText("企业"), {
+  fireEvent.change(within(dialog).getByLabelText("企业（选填）"), {
     target: { value: "改名" },
   });
   fireEvent.submit(dialog.querySelector("form")!);

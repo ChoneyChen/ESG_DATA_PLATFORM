@@ -29,21 +29,18 @@ const initial = (resource?: ReportResource): Metadata => ({
 function MetadataFields({
   value,
   set,
-  required = false,
 }: {
   value: Metadata;
   set: (value: Metadata) => void;
-  required?: boolean;
 }) {
   const update = (key: keyof Metadata, text: string) =>
     set({ ...value, [key]: text });
   return (
     <div className="form-grid">
-      <Field label="企业">
+      <Field label="企业（选填）">
         <input
           value={value.company}
           onChange={(e) => update("company", e.target.value)}
-          required={required}
         />
       </Field>
       <Field label="企业编号（选填）">
@@ -52,14 +49,13 @@ function MetadataFields({
           onChange={(e) => update("companyId", e.target.value)}
         />
       </Field>
-      <Field label="发表年份">
+      <Field label="发表年份（选填）">
         <input
           type="number"
           min="1900"
           max="2200"
           value={value.publication}
           onChange={(e) => update("publication", e.target.value)}
-          required={required}
         />
       </Field>
       <Field label="报告覆盖年度（选填）">
@@ -71,11 +67,10 @@ function MetadataFields({
           onChange={(e) => update("period", e.target.value)}
         />
       </Field>
-      <Field label="所属行业">
+      <Field label="所属行业（选填）">
         <input
           value={value.industry}
           onChange={(e) => update("industry", e.target.value)}
-          required={required}
         />
       </Field>
       <Field label="行业代码（选填）">
@@ -317,7 +312,7 @@ export function ImportReportDialog({
                 onChange={(e) => setFile(e.target.files?.[0])}
               />
             </Field>
-            <MetadataFields value={value} set={setValue} required />
+            <MetadataFields value={value} set={setValue} />
             <p className="field-help">
               只登记报告身份；文档处理在创建提取任务后执行。
             </p>

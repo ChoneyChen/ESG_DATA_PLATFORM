@@ -7,7 +7,7 @@ export async function receiptFor(db, exportId) {
 }
 export async function ingestExport(db, payload) {
   const {manifest,digest,facts,relations,targets,coverage,diagnostics}=payload;
-  if (manifest?.schema_version !== 'extraction-export-1.0' || !Array.isArray(facts)) throw fault('unsupported_export','Unsupported extraction export');
+  if (!['extraction-export-1.0','extraction-export-1.1'].includes(manifest?.schema_version) || !Array.isArray(facts)) throw fault('unsupported_export','Unsupported extraction export');
   return db.transaction(async tx=>{
     // The unique row serializes concurrent retries, including an uncertain RPC outcome.
     await tx.query(`INSERT INTO esg.capture_exports(export_id,input_digest,manifest,receipt,coverage,diagnostics)

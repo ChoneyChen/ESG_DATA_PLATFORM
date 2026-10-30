@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PGlite} from '@electric-sql/pglite';
-import {applyMigrations} from '../scripts/db.mjs';
+import {applyMigrations} from '../runtime/frozen_schema.mjs';
 import {ingestExport,receiptFor} from '../queries/ingestion.mjs';
 
 test('sparse captures, exact decimals, qualitative text, idempotent receipts and conflicts',async()=>{

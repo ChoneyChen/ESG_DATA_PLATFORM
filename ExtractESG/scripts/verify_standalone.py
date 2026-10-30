@@ -7,11 +7,15 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import argparse
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--output',type=Path,default=ROOT/'docs/verification/standalone.json')
+    output=parser.parse_args().output
     with tempfile.TemporaryDirectory(prefix='esg-standalone-') as td:
         work = Path(td)
         env = dict(os.environ)
@@ -37,7 +41,7 @@ def main():
         env.update(PYTHONPATH=str(target)+os.pathsep+str(work), ESG_DATABASE_MODULE_ROOT=str(assets),
                    ESG_DATABASE_DATA_DIR=str(work/'capture-db'),PLATESG_DATA_DIR=str(work/'capture-db'),PLATESG_AUTO_PUBLISH='0',
                    PLATESG_LOCAL_OPERATOR='0',PLATESG_REVIEW_TOKEN='isolated-test-only-token')
-        subprocess.run([str(ROOT/'database/scripts/run-node.sh'),str(assets/'runtime/manage.mjs'),'init'],check=True,
+        subprocess.run([str(ROOT/'database/scripts/run-node.sh'),str(assets/'runtime/manage.mjs'),'init','--profile','frozen_publication'],check=True,
                        capture_output=True,cwd=work,env=env)
         script = '''
 import json
@@ -62,7 +66,7 @@ print(json.dumps({'clause_sdk_import':esg_clauses.__file__, 'database_sdk_import
         body['installed_sdk_modules'] = [p.name for p in wheels.glob('*.whl')]
         body['deployment_boundary'] = 'SDK wheels + independent DB Node assets/dependencies; Plat consumer copied outside checkout'
         body.pop('clause_sdk_import');body.pop('database_sdk_import')
-        output=ROOT/'docs/implementation/2026-10-30/standalone.json'
+        output.parent.mkdir(parents=True,exist_ok=True)
         output.write_text(json.dumps(body,ensure_ascii=False,indent=2)+'\n')
         print(json.dumps(body,ensure_ascii=False))
 

@@ -4,8 +4,6 @@ import { dispatch } from '../queries/service.mjs';
 import { scientificProduct } from '../queries/scientific_products.mjs';
 import { reconcileScientificModel } from '../scripts/scientific-model.mjs';
 import { processOutbox } from '../scripts/publication.mjs';
-import {ingestExport, receiptFor} from '../queries/ingestion.mjs';
-import {capturedFacts} from '../queries/captures.mjs';
 
 const protocolWrite = process.stdout.write.bind(process.stdout);
 // Migration diagnostics cannot corrupt the JSON-lines RPC protocol.
@@ -27,11 +25,7 @@ try {
     try {
       request = JSON.parse(line);
       const params = request.params || {};
-      const result = request.method === 'ingest_export' ? await ingestExport(db, params)
-        : request.method === 'ingestion_health' ? {ready:!!(await db.query("SELECT to_regclass('esg.capture_exports') AS name")).rows[0].name}
-        : request.method === 'capture_facts' ? await capturedFacts(db,params)
-        : request.method === 'export_receipt' ? await receiptFor(db, params.export_id)
-        : request.method === 'scientific_product' ? await scientificProduct(params, db)
+      const result = request.method === 'scientific_product' ? await scientificProduct(params, db)
         : request.method === 'scientific_model_reconcile' ? await reconcileScientificModel(db)
         : await dispatch(db, request.method, params);
       protocolWrite(JSON.stringify({ id: request.id, result }) + '\n');

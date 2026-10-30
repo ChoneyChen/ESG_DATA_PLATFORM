@@ -27,6 +27,9 @@ def deliver(run_id, store, artifacts, base_url):
             receipt = IngestionReceipt.model_validate(response.json())
             if receipt.export_id != export_id or receipt.input_digest != sha256(json_bytes(manifest.model_dump(mode="json"))).hexdigest():
                 raise ValueError("Receiver receipt differs from this sealed export")
+            expected = next(member.records for member in manifest.files if member.role == "facts")
+            if receipt.accepted_facts + receipt.rejected_facts != expected:
+                raise ValueError("Receipt did not account for every exported source fact")
             artifacts.write(run_id, f"exports/{export_id}/receipt.json", receipt.model_dump(mode="json"))
             return store.update(run_id, delivery={"export_id": export_id,
                 "state": {"accepted":"delivered", "partial":"partial", "rejected":"failed"}[receipt.status],

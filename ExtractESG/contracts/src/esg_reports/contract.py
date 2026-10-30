@@ -53,9 +53,9 @@ class BatchItem(Model):
     pdf_id: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$")
     file: str = Field(min_length=1)
     sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
-    company: Company
-    publication_year: int = Field(ge=1900, le=2200)
-    industry: Industry
+    company: Company | None = None
+    publication_year: int | None = Field(default=None, ge=1900, le=2200)
+    industry: Industry | None = None
     reporting_year: int | None = Field(default=None, ge=1900, le=2200)
     title: str | None = None
     metadata_sources: dict[str, str] = Field(default_factory=dict)

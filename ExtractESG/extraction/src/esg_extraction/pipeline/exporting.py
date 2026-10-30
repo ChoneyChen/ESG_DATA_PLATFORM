@@ -6,27 +6,11 @@ import json
 from zipfile import ZipFile, ZIP_DEFLATED
 from esg_contracts.results import FactBundle
 from esg_contracts.exports import ExportManifest, ExportFile
+from esg_contracts.annotations import property_tables
 
 
 def json_bytes(value):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
-
-
-def property_tables(facts):
-    properties, evidence = [], []
-    for fact in facts:
-        fact_id = fact["source_fact_id"]
-        for index, location in enumerate(fact["evidence"]):
-            evidence.append({"source_fact_id": fact_id, "container": "fact", "field": None, "index": index, **location})
-        identity = fact.get("identity", {})
-        for container, fields in (("identity", {key: value for key, value in identity.items() if key != "dimensions"}), ("dimension", identity.get("dimensions", {}))):
-            for key, field in fields.items():
-                if field["state"] == "not_read" and field.get("value") is None:
-                    continue
-                properties.append({"source_fact_id": fact_id, "container": container, "field": key, **field})
-                for index, location in enumerate(field.get("evidence", [])):
-                    evidence.append({"source_fact_id": fact_id, "container": container, "field": key, "index": index, **location})
-    return properties, evidence
 
 
 def seal_export(run_id, store, artifacts):
@@ -51,14 +35,14 @@ def seal_export(run_id, store, artifacts):
     for role, content in sorted(members.items()):
         data = json_bytes(content)
         files.append(ExportFile(name=role + ".json", role=role, sha256=sha256(data).hexdigest(), bytes=len(data), records=len(content) if role != "document" else 1))
-    identity = json_bytes(["extraction-export-1.0", run_id, *[f.sha256 for f in files]])
+    identity = json_bytes(["extraction-export-1.1", run_id, *[f.sha256 for f in files]])
     export_id = "export-" + sha256(identity).hexdigest()
     name = f"exports/{export_id}/manifest.json"
     try:
         return ExportManifest.model_validate(artifacts.read(run_id, name))
     except FileNotFoundError:
         pass
-    manifest = ExportManifest(export_id=export_id, run_id=run_id, engine_version=bundle.engine_version, engine_identity=bundle.engine_identity,
+    manifest = ExportManifest(authority="facts", export_id=export_id, run_id=run_id, engine_version=bundle.engine_version, engine_identity=bundle.engine_identity,
         document=bundle.document, clause_targets=bundle.clause_targets,
         execution_state="completed" if state["status"] == "completed" else "interrupted",
         sealed_at=datetime.now(timezone.utc).isoformat(), files=files)

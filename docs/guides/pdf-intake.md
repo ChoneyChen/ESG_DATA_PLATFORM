@@ -4,7 +4,7 @@
 
 ## 1. 单份报告
 
-在Console“报告”上传完整原PDF，填写报告企业、发表年份、行业；报告名称、企业ID等按已知情况补充。当前上传合同要求前述三项资源元数据，不知道时不要编造；这项导入要求与“测量事实可缺少业务属性”是两件事。
+在Console“报告”上传完整原PDF，按已知情况填写报告企业、发表年份、行业、报告名称和企业ID。上述业务元数据均可选，不知道时留空；系统以实际文件摘要建立资源身份，不从文件名猜企业或年份。
 
 发表年份指报告实际发布年份；报告覆盖年度指主要报告期。它们都不能代替每条测量的实际年份。历史表格、子公司、脚注、附录和方法说明应随原PDF保留。扫描报告也交原件，不需人工OCR或转Word。
 
@@ -43,7 +43,7 @@ manifest = {"schema_version": "report-resource-batch-1.0", "reports": [{
     json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 ```
 
-当前格式中`pdf_id/file/sha256/company/publication_year/industry`必填；`reporting_year/title/metadata_sources/extensions`选填。`reporting_year`目前只能填一个主要年度，不表示限制提取范围，也不需要为每个历史年重复登记。将来增加多期间资源说明时仍以测量自身期间为准。
+当前格式中仅`pdf_id/file/sha256`必填；`company/publication_year/industry/reporting_year/title/metadata_sources/extensions`选填。`reporting_year`只填主要年度，不限制提取范围，也不需要为每个历史年重复登记。
 
 `pdf_id`用稳定的英数字、点、下划线或短横线，最长160字符；文件名可以中文。一个批次内编号、文件路径和PDF摘要均不能重复；同一PDF已登记其他编号时复用原资源。修改已登记元数据通过编辑并产生修订，不重新上传来覆盖身份。完整格式见[报告合同](../../ExtractESG/contracts/src/esg_reports/contract.py)。
 

@@ -5,6 +5,7 @@
   "additionalProperties": false,
   "properties": {
     "accepted_facts": {
+      "minimum": 0,
       "title": "Accepted Facts",
       "type": "integer"
     },
@@ -40,6 +41,7 @@
       "type": "string"
     },
     "rejected_facts": {
+      "minimum": 0,
       "title": "Rejected Facts",
       "type": "integer"
     },

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { PGlite } from '@electric-sql/pglite';
-import { applyMigrations } from '../scripts/db.mjs';
+import { applyMigrations } from '../runtime/frozen_schema.mjs';
 import { loadBundle, importBundle } from '../scripts/frozen-bundle.mjs';
 
 // The integration run supplies an actual ResultExporter output created with

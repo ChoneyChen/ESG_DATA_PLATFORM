@@ -19,4 +19,4 @@ def initialize_empty_database(environment):
     configured={**os.environ,**environment,'PLATESG_AUTO_PUBLISH':'0'}
     configured.pop('ESG_DATABASE_URL',None)
     configured.pop('PLATESG_DATABASE_URL',None)
-    subprocess.run([shutil.which('node'),str(root/'database/runtime/manage.mjs'),'init'],env=configured,check=True,stdout=subprocess.DEVNULL,timeout=120)
+    subprocess.run([shutil.which('node'),str(root/'database/runtime/manage.mjs'),'init','--profile','frozen_publication'],env=configured,check=True,stdout=subprocess.DEVNULL,timeout=120)

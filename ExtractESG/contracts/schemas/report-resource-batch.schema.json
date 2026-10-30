@@ -4,7 +4,15 @@
       "additionalProperties": false,
       "properties": {
         "company": {
-          "$ref": "#/$defs/Company"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Company"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "extensions": {
           "additionalProperties": {
@@ -19,7 +27,15 @@
           "type": "string"
         },
         "industry": {
-          "$ref": "#/$defs/Industry"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Industry"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "metadata_sources": {
           "additionalProperties": {
@@ -34,10 +50,18 @@
           "type": "string"
         },
         "publication_year": {
-          "maximum": 2200,
-          "minimum": 1900,
-          "title": "Publication Year",
-          "type": "integer"
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publication Year"
         },
         "reporting_year": {
           "anyOf": [
@@ -74,10 +98,7 @@
       "required": [
         "pdf_id",
         "file",
-        "sha256",
-        "company",
-        "publication_year",
-        "industry"
+        "sha256"
       ],
       "title": "BatchItem",
       "type": "object"

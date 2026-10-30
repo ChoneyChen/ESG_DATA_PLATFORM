@@ -6,6 +6,7 @@ from zipfile import ZipFile
 from esg_contracts.exports import ExportManifest
 from esg_contracts.facts import SourceFact, ClauseMapping, ClauseCoverage
 from esg_data.hashing import digest as contract_digest
+from esg_contracts.annotations import property_tables
 
 MAX_ARCHIVE_BYTES = 128 * 1024 * 1024
 
@@ -34,6 +35,8 @@ def decode_archive(data):
             if (len(value) if member.role != "document" else 1) != member.records:
                 raise ValueError("Export member count differs from its manifest")
             members[member.role] = value
+    if any(not isinstance(members[role], list) for role in ("facts", "properties", "evidence", "relations", "coverage", "diagnostics")) or not isinstance(members["targets"], dict):
+        raise ValueError("Export member shape differs from its declared role")
     identity = canonical([manifest.schema_version, manifest.run_id, *[file.sha256 for file in sorted(manifest.files, key=lambda file: file.role)]])
     if manifest.export_id != "export-" + sha256(identity).hexdigest():
         raise ValueError("Export identity differs from its sealed members")
@@ -61,6 +64,13 @@ def decode_archive(data):
                 "code": "invalid_source_fact"})
     relations = []
     relation_diagnostics = []
+    projections = property_tables([row["fact"] for row in rows])
+    admitted = {row["fact"]["source_fact_id"] for row in rows}
+    for role, authoritative in zip(("properties", "evidence"), projections):
+        received = members[role]
+        usable = [row for row in received if isinstance(row, dict) and row.get("source_fact_id") in admitted] if isinstance(received, list) else []
+        if canonical(usable) != canonical(authoritative):
+            relation_diagnostics.append({"code": "annotation_projection_rebuilt", "member": role, "authority": "facts"})
     for body in members["relations"]:
         try:
             link = ClauseMapping.model_validate(body)
@@ -77,4 +87,5 @@ def decode_archive(data):
             raise ValueError("Coverage refers to a different frozen target")
     return {"manifest": manifest.model_dump(mode="json"), "digest": sha256(canonical(manifest.model_dump(mode="json"))).hexdigest(),
         "facts": rows, "rejected": rejected, "relations": relations, "targets": members["targets"],
-        "coverage": members["coverage"], "diagnostics": [*members["diagnostics"], *relation_diagnostics]}
+        "coverage": members["coverage"], "projections": {"properties": projections[0], "evidence": projections[1]},
+        "diagnostics": [*members["diagnostics"], *relation_diagnostics]}

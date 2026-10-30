@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
 
-import { applyMigrations, openDatabase } from "./db.mjs";
+import { openPlatformDatabase as openDatabase } from "../runtime/connection.mjs";
+
+if (!process.env.ESG_DATABASE_DATA_DIR && !process.env.ESG_DATABASE_URL && !process.env.PLATESG_DATA_DIR && !process.env.PLATESG_DATABASE_URL) throw new Error("Configure the frozen read-only database explicitly");
 
 const db = await openDatabase();
 
 try {
-  await applyMigrations(db);
 
   const invalidApproved = await db.query(`
     SELECT count(*)::integer AS count

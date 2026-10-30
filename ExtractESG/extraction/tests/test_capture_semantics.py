@@ -121,9 +121,10 @@ def test_other_real_measurement_survives_the_model_boundary(documents, repositor
     result = ExtractionBackbone(documents, Reader(), FileArtifactPort(tmp_path/'out')).run(
         'other-measurements', RunRequest(ir_run_id='ir-example', clause_keys=[clause.clause_key]),
         {clause.clause_key: clause})
-    assert len(result['facts']) == 2
+    assert len(result['facts']) == 3
+    assert any(fact['identity']['reporting_period']['value']=='2024' for fact in result['facts'])
     assert all(link['match'] == 'different' for link in result['clause_mappings'])
-    assert result['summary']['assessment']['other_facts'] == 2
+    assert result['summary']['assessment']['other_facts'] == 3
     assert result['summary']['assessment']['execution_state'] == 'completed'
 
 

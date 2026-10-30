@@ -1,0 +1,403 @@
+{
+  "$defs": {
+    "EvidenceCell": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "candidate_kind": {
+          "default": "measurement",
+          "enum": [
+            "measurement",
+            "formula",
+            "identifier",
+            "footnote",
+            "date",
+            "unresolved"
+          ],
+          "title": "Candidate Kind",
+          "type": "string"
+        },
+        "cell_id": {
+          "title": "Cell Id",
+          "type": "string"
+        },
+        "char_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char End"
+        },
+        "char_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char Start"
+        },
+        "column_id": {
+          "title": "Column Id",
+          "type": "string"
+        },
+        "page_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Index"
+        },
+        "raw_text": {
+          "title": "Raw Text",
+          "type": "string"
+        },
+        "source_object_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Object Id"
+        },
+        "source_object_type": {
+          "default": "cell",
+          "enum": [
+            "cell",
+            "text_block"
+          ],
+          "title": "Source Object Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cell_id",
+        "column_id",
+        "raw_text"
+      ],
+      "title": "EvidenceCell",
+      "type": "object"
+    },
+    "EvidenceRow": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/EvidenceCell"
+          },
+          "title": "Cells",
+          "type": "array"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "label_sources": {
+          "items": {
+            "$ref": "#/$defs/TextEvidence"
+          },
+          "title": "Label Sources",
+          "type": "array"
+        },
+        "row_id": {
+          "title": "Row Id",
+          "type": "string"
+        },
+        "row_role": {
+          "default": "unknown",
+          "enum": [
+            "data",
+            "header",
+            "unknown"
+          ],
+          "title": "Row Role",
+          "type": "string"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "unit_raw": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Raw"
+        },
+        "unit_sources": {
+          "items": {
+            "$ref": "#/$defs/TextEvidence"
+          },
+          "title": "Unit Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "row_id",
+        "label",
+        "cells"
+      ],
+      "title": "EvidenceRow",
+      "type": "object"
+    },
+    "FrameFragment": {
+      "additionalProperties": false,
+      "properties": {
+        "completeness": {
+          "const": "fragment",
+          "default": "fragment",
+          "title": "Completeness",
+          "type": "string"
+        },
+        "parent_digest": {
+          "title": "Parent Digest",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "input_budget",
+            "generation_incomplete"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parent_digest",
+        "reason"
+      ],
+      "title": "FrameFragment",
+      "type": "object"
+    },
+    "TextEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "char_start": {
+          "default": 0,
+          "title": "Char Start",
+          "type": "integer"
+        },
+        "object_id": {
+          "title": "Object Id",
+          "type": "string"
+        },
+        "object_type": {
+          "default": "text_block",
+          "enum": [
+            "cell",
+            "text_block",
+            "table"
+          ],
+          "title": "Object Type",
+          "type": "string"
+        },
+        "page_index": {
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "span_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Span Id"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "object_id",
+        "text",
+        "page_index"
+      ],
+      "title": "TextEvidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "chunk_count": {
+      "default": 1,
+      "title": "Chunk Count",
+      "type": "integer"
+    },
+    "chunk_index": {
+      "default": 0,
+      "title": "Chunk Index",
+      "type": "integer"
+    },
+    "column_sources": {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/TextEvidence"
+        },
+        "type": "array"
+      },
+      "title": "Column Sources",
+      "type": "object"
+    },
+    "columns": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "title": "Columns",
+      "type": "object"
+    },
+    "digest": {
+      "title": "Digest",
+      "type": "string"
+    },
+    "fragment": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FrameFragment"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "kind": {
+      "enum": [
+        "table",
+        "text"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "object_id": {
+      "title": "Object Id",
+      "type": "string"
+    },
+    "page_index": {
+      "title": "Page Index",
+      "type": "integer"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRow"
+      },
+      "title": "Rows",
+      "type": "array"
+    },
+    "texts": {
+      "items": {
+        "$ref": "#/$defs/TextEvidence"
+      },
+      "title": "Texts",
+      "type": "array"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    },
+    "title_sources": {
+      "items": {
+        "$ref": "#/$defs/TextEvidence"
+      },
+      "title": "Title Sources",
+      "type": "array"
+    }
+  },
+  "required": [
+    "object_id",
+    "kind",
+    "page_index",
+    "digest"
+  ],
+  "title": "EvidenceFrame",
+  "type": "object"
+}

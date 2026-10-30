@@ -11,7 +11,7 @@ from esg_extraction.models.errors import ModelCancelled, ModelTimedOut, ModelRun
 
 
 class PromptBudgetExceeded(ValueError):
-    pass
+    category = "input_budget"
 
 
 class MlxVlmRuntime:

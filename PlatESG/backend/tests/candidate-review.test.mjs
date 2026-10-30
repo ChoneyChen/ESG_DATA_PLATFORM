@@ -4,7 +4,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 import {applyPlatformMigrations} from '../../../database/runtime/connection.mjs';
-import {applyMigrations} from '../../../database/scripts/db.mjs';
+import {applyMigrations} from '../../../database/runtime/frozen_schema.mjs';
 import {importBundle} from '../../../database/scripts/frozen-bundle.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 import {publishReport,withdrawReport,deleteReport,reportPublications,readPublished} from '../../../database/scripts/publication.mjs';

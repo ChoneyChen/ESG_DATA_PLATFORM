@@ -10,7 +10,7 @@ import { processOutbox } from '../../../database/scripts/publication.mjs';
 const sha = value => createHash('sha256').update(value).digest('hex');
 import {importBundle} from '../../../database/scripts/frozen-bundle.mjs';
 import {openPlatformDatabase,applyPlatformMigrations} from '../../../database/runtime/connection.mjs';
-import {applyMigrations} from '../../../database/scripts/db.mjs';
+import {applyMigrations} from '../../../database/runtime/frozen_schema.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 // Keep the displayed energy subtotal and disclosed ratio consistent without
 // passing decimal fixture values through floating point arithmetic.

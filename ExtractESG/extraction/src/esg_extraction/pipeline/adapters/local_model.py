@@ -126,6 +126,7 @@ class LocalQwenModel(MlxVlmRuntime):
         configured_timeout = self.timeout_seconds
         receipt = prepare_call(ModelCallRequest(
             run_id=execution_context.get("run_id"), evidence_ids=execution_context.get("evidence_ids", []),
+            attempt=execution_context.get("attempt", 0), parent_task_id=execution_context.get("parent_task_id"),
             task_type=execution_context.get("task_type", "structured_reading"), input_modalities=["text", "image"] if image_path else ["text"],
             prompt_digest=content_digest([instructions, context]), schema_digest=content_digest(json_schema(template)),
             requested_output_tokens=max_tokens, requested_timeout_seconds=execution_context.get("remaining_seconds", configured_timeout),

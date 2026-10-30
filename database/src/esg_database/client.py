@@ -10,13 +10,20 @@ import threading
 from pathlib import Path
 
 
-def module_release():
+def module_release(profile="frozen_publication"):
     from esg_runtime.release import ModuleRelease
     root = Path(os.getenv("ESG_DATABASE_MODULE_ROOT", str(Path(__file__).resolve().parents[2])))
-    return ModuleRelease(root, "database-module", (
+    patterns = (
         "src/**/*.py", "runtime/*.mjs", "queries/**/*.mjs", "scripts/*.mjs",
         "migrations/**/*.sql", "catalog/**/*.json",
-    ))
+    ) if profile == "frozen_publication" else (
+        "src/**/*.py", "runtime/capture_worker.mjs", "runtime/rpc.mjs", "runtime/connection.mjs", "runtime/schema.mjs",
+        "queries/capture*.mjs", "queries/ingestion.mjs", "migrations/0019*.sql", "migrations/0020*.sql",
+    )
+    from esg_contracts import facts
+    sdk = ModuleRelease(Path(facts.__file__).resolve().parents[1], "contracts-sdk", (
+        "esg_contracts/**/*.py", "esg_data/**/*.py", "esg_reports/**/*.py"))
+    return ModuleRelease(root, "database-module", patterns, dependencies=(("contracts", sdk),))
 
 
 class DatabaseError(RuntimeError):
@@ -28,6 +35,9 @@ class DatabaseError(RuntimeError):
 class DatabaseBridge:
     def __init__(self, environment: dict[str, str] | None = None):
         self.environment = {**os.environ, **(environment or {})}
+        if self.environment.get("ESG_DATABASE_PROFILE") == "capture":
+            for key in ("PLATESG_DATA_DIR", "PLATESG_DATABASE_URL", "PLATESG_REVIEW_TOKEN", "PLATESG_OPERATORS_JSON"):
+                self.environment.pop(key, None)
         self.lock = threading.Lock()
         self.sequence = 0
         self.process = None
@@ -40,8 +50,9 @@ class DatabaseBridge:
             node = str(candidate) if candidate.exists() else None
         if not node:
             raise RuntimeError("Node.js 20+ is required by the PostgreSQL adapter")
+        worker = "capture_worker.mjs" if self.environment.get("ESG_DATABASE_PROFILE") == "capture" else "worker.mjs"
         self.process = subprocess.Popen(
-            [node, self.environment.get("ESG_DATABASE_WORKER", str(Path(self.environment.get("ESG_DATABASE_MODULE_ROOT", str(Path(__file__).resolve().parents[2]))) / "runtime/worker.mjs"))],
+            [node, self.environment.get("ESG_DATABASE_WORKER", str(Path(self.environment.get("ESG_DATABASE_MODULE_ROOT", str(Path(__file__).resolve().parents[2]))) / "runtime" / worker))],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=None,
             text=True, encoding="utf-8", bufsize=1, env=self.environment,
         )

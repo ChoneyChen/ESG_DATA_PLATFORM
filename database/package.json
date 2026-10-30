@@ -1,16 +1,12 @@
 {
-  "name": "extract-esg-result-database",
-  "version": "0.1.0",
+  "name": "esg-database",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "PostgreSQL schema prototype for final ESG disclosures extracted from reports.",
+  "description": "Independent capture storage and frozen publication consumers.",
   "scripts": {
-    "db:init": "./scripts/run-node.sh scripts/db.mjs init",
-    "db:demo": "./scripts/run-node.sh scripts/db.mjs demo",
-    "db:status": "./scripts/run-node.sh scripts/db.mjs status",
-    "db:verify": "./scripts/run-node.sh scripts/verify.mjs",
-    "db:reset": "./scripts/run-node.sh scripts/db.mjs reset",
-    "db:review": "./scripts/run-node.sh scripts/db.mjs review",
+    "db:init": "./scripts/run-node.sh runtime/manage.mjs init --profile capture",
+    "db:status": "./scripts/run-node.sh runtime/manage.mjs status --profile capture",
     "test": "./scripts/run-node.sh --test tests/*.test.mjs"
   },
   "dependencies": {

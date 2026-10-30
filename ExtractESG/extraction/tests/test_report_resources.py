@@ -55,6 +55,24 @@ def test_incomplete_raw_pdf_metadata_is_explicit_not_guessed(tmp_path):
     assert r.pdf_id==r.asset_id
     assert not repo.list(company='Invented')
 
+
+def test_upload_and_batch_accept_pdf_without_business_metadata(tmp_path):
+    from esg_reports.importer import import_upload
+    root,reports=folder(tmp_path,1)
+    reports[0]={key:reports[0][key] for key in ('pdf_id','file','sha256')}
+    (root/'manifest.json').write_text(json.dumps({'reports':reports}))
+    batch_library=tmp_path/'batch-library'
+    import_folder(root,batch_library)
+    resource=ReportRepository(batch_library).get('PDF-0')
+    assert set(resource.missing_metadata)=={'company','publication_year','industry'}
+    assert resource.reporting_year is None
+    with (root/'pdf/r0.pdf').open('rb') as source:
+        result=import_upload(source,'original.pdf',{},tmp_path/'upload-library')
+    assert result['resource']['company'] is None
+    assert result['resource']['publication_year'] is None
+    assert result['resource']['industry'] is None
+    assert result['resource']['sha256']==reports[0]['sha256']
+
 def test_report_identity_reaches_each_fact_without_becoming_measurement_identity(documents,repository):
     c=quantitative(repository);document=documents.document('ir-example')
     resource=ReportResource(pdf_id='PDF-2026-001',asset_id='pdf-'+'1'*24,sha256='1'*64,original_filename='report.pdf',company=Company(name='档案企业'),publication_year=2026,industry=Industry(name='电池制造'),reporting_year=2025)

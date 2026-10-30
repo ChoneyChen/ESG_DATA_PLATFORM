@@ -8,12 +8,14 @@ from fastapi import FastAPI, Request, HTTPException, Query
 from fastapi.responses import JSONResponse
 from .client import DatabaseBridge, DatabaseError, module_release
 from .ingestion import decode_archive, MAX_ARCHIVE_BYTES
+from .contracts import CaptureFactPage
+from esg_contracts.exports import IngestionReceipt
 
 
 def create_app(bridge=None):
     owned = bridge is None
-    bridge = bridge or DatabaseBridge()
-    release = module_release()
+    bridge = bridge or DatabaseBridge({"ESG_DATABASE_PROFILE": "capture"})
+    release = module_release("capture")
 
     @asynccontextmanager
     async def lifespan(app):
@@ -35,9 +37,10 @@ def create_app(bridge=None):
         ready = bridge.call("ingestion_health", {}).get("ready")
         if not ready:
             raise HTTPException(503, "Install the capture schema with the explicit management command")
-        return {**release.snapshot(), "status": "ok", "export_contract": "extraction-export-1.0", "auto_publish": False}
+        return {**release.snapshot(), "status": "ok", "export_contract": "extraction-export-1.1",
+                "supported_export_contracts": ["extraction-export-1.0", "extraction-export-1.1"], "auto_publish": False}
 
-    @app.post("/v1/ingestion/exports")
+    @app.post("/v1/ingestion/exports", response_model=IngestionReceipt)
     async def ingest(request: Request):
         if release.snapshot()["restart_required"]:
             raise HTTPException(503, "Restart the updated receiver before ingesting")
@@ -54,7 +57,7 @@ def create_app(bridge=None):
         except (ValueError, KeyError, TypeError, BadZipFile) as exc:
             raise HTTPException(422, "Export archive is invalid: " + str(exc)[:200]) from exc
 
-    @app.get("/v1/ingestion/receipts/{export_id}")
+    @app.get("/v1/ingestion/receipts/{export_id}", response_model=IngestionReceipt)
     def receipt(export_id: str):
         import re
         if not re.fullmatch(r"export-[a-f0-9]{64}", export_id):
@@ -64,7 +67,7 @@ def create_app(bridge=None):
             raise HTTPException(404, "Receipt not found")
         return result
 
-    @app.get("/v1/ingestion/exports/{export_id}/facts")
+    @app.get("/v1/ingestion/exports/{export_id}/facts", response_model=CaptureFactPage)
     def facts(export_id: str, limit: int = Query(200, ge=1, le=1000), cursor: str | None = Query(None, max_length=2048),
               period: str | None = Query(None, max_length=160), clause_key: str | None = Query(None, max_length=160),
               relation: str | None = Query(None, pattern="^(match|different|uncertain)$")):

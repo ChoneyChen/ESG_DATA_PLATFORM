@@ -414,6 +414,19 @@
   },
   "additionalProperties": false,
   "properties": {
+    "authority": {
+      "anyOf": [
+        {
+          "const": "facts",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authority"
+    },
     "clause_targets": {
       "additionalProperties": {
         "type": "string"
@@ -472,8 +485,11 @@
       "type": "string"
     },
     "schema_version": {
-      "const": "extraction-export-1.0",
-      "default": "extraction-export-1.0",
+      "default": "extraction-export-1.1",
+      "enum": [
+        "extraction-export-1.0",
+        "extraction-export-1.1"
+      ],
       "title": "Schema Version",
       "type": "string"
     },

@@ -28,7 +28,9 @@ def test_sealed_export_survives_producer_independent_reception(tmp_path,document
     assert seal_export(run,store,artifacts)==manifest
     payload=decode_archive(export_archive(run,manifest,artifacts))
     assert payload['manifest']['export_id']==manifest.export_id
-    assert len(payload['facts'])==2 and not payload['rejected']
+    assert len(payload['facts'])==3 and not payload['rejected']
+    assert any(row['fact']['identity']['reporting_period']['value']=='2024' and row['fact']['value']['value_raw']=='1,100' for row in payload['facts'])
+    assert manifest.authority=='facts' and manifest.schema_version=='extraction-export-1.1'
     assert any(row['fact']['value']['value_raw']=='1,234.50' for row in payload['facts'])
     assert all(row['fact']['identity']['reporting_entity']['value'] is None for row in payload['facts'])
     assert payload['manifest']['publication_status']=='not_evaluated'
@@ -55,7 +57,7 @@ def test_receiver_keeps_good_rows_when_another_fact_has_wrong_document(tmp_path,
     with ZipFile(stream,'w',compression=ZIP_DEFLATED) as zip:
         for name,body in members.items():zip.writestr(name,json_bytes(body))
     result=decode_archive(stream.getvalue())
-    assert len(result['facts'])==1 and len(result['rejected'])==1
+    assert len(result['facts'])==2 and len(result['rejected'])==1
 
 
 def test_unknown_delivery_checks_receipt_before_replaying_a_write(tmp_path, documents, repository, monkeypatch):
@@ -75,7 +77,7 @@ def test_unknown_delivery_checks_receipt_before_replaying_a_write(tmp_path, docu
     assert state['delivery']['state']=='unknown'
     receipt={'schema_version':'extraction-receipt-1.0','export_id':manifest.export_id,
         'input_digest':sha256(json_bytes(manifest.model_dump(mode='json'))).hexdigest(),
-        'receipt_id':'receipt','status':'accepted','accepted_facts':2,'rejected_facts':0,
+        'receipt_id':'receipt','status':'accepted','accepted_facts':3,'rejected_facts':0,
         'dispositions':[],'publication_status':'not_evaluated','received_at':'2026-10-30T00:00:00Z'}
     class Recovered(Client):
         def get(self,*args,**kwargs):
@@ -101,3 +103,38 @@ def test_permanent_receiver_rejection_does_not_retry_forever(tmp_path, documents
     monkeypatch.setattr(requests,'Session',Client)
     delivery=deliver(run,store,artifacts,'http://127.0.0.1:18280')['delivery']
     assert delivery['state']=='failed' and not delivery['retryable']
+
+
+def repack(members):
+    descriptor=members['manifest.json']
+    for member in descriptor['files']:
+        body=json_bytes(members[member['name']])
+        member['bytes']=len(body);member['sha256']=sha256(body).hexdigest()
+    descriptor['export_id']='export-'+sha256(json_bytes([descriptor['schema_version'],descriptor['run_id'],
+        *[member['sha256'] for member in sorted(descriptor['files'],key=lambda row:row['role'])]])).hexdigest()
+    output=io.BytesIO()
+    with ZipFile(output,'w',compression=ZIP_DEFLATED) as archive:
+        for name,body in members.items():archive.writestr(name,json_bytes(body))
+    return output.getvalue()
+
+
+def test_conflicting_annotation_view_is_rebuilt_without_losing_true_facts(tmp_path,documents,repository):
+    run,_,artifacts,manifest=finished_export(tmp_path,documents,repository)
+    with ZipFile(io.BytesIO(export_archive(run,manifest,artifacts))) as archive:
+        members={name:json.loads(archive.read(name)) for name in archive.namelist()}
+    members['properties.json'][0]['value']='2099'
+    received=decode_archive(repack(members))
+    assert len(received['facts'])==3 and not received['rejected']
+    assert {'code':'annotation_projection_rebuilt','member':'properties','authority':'facts'} in received['diagnostics']
+    assert not any(row.get('value')=='2099' for row in received['projections']['properties'])
+
+
+def test_frozen_export_10_does_not_gain_an_authority_field(tmp_path,documents,repository):
+    run,_,artifacts,manifest=finished_export(tmp_path,documents,repository)
+    with ZipFile(io.BytesIO(export_archive(run,manifest,artifacts))) as archive:
+        members={name:json.loads(archive.read(name)) for name in archive.namelist()}
+    members['manifest.json']['schema_version']='extraction-export-1.0'
+    members['manifest.json'].pop('authority')
+    received=decode_archive(repack(members))
+    assert received['manifest']['schema_version']=='extraction-export-1.0'
+    assert 'authority' not in received['manifest'] and len(received['facts'])==3
