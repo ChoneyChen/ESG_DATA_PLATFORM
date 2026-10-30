@@ -388,6 +388,7 @@ def test_backbone_worker_has_only_run_identity_and_local_runtime(tmp_path):
     assert command.argv[-2:]==['esg_extraction.pipeline.worker','extract-one']
     assert command.environment['HF_HUB_OFFLINE']=='1'
     assert 'standards' not in command.environment['PYTHONPATH']
+    assert str(tmp_path.parent/'ClauseESG/src') in command.environment['PYTHONPATH']
     task.operation='run'
     with pytest.raises(ValueError,match='Retired'):hooks.command(task,{})
 

@@ -232,8 +232,17 @@ def _number(raw):
 
 
 def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
+    if match.selection != "measurement" or cell.candidate_kind not in {"measurement", "unresolved"}:
+        return None, None, "not_a_reported_measurement"
     if re.fullmatch(r"\s*(?:[-—–－]+|N/?A|不适用|未披露|未提供|无数据|not\s+(?:disclosed|available))\s*", cell.raw_text, re.I):
         return None, None, "not_a_reported_measurement"
+    raw = cell.raw_text.strip()
+    if re.fullmatch(r"[A-Za-z][A-Za-z0-9_.-]*", raw) and re.search(r"\d", raw):
+        return None, None, "identifier_is_not_a_measurement"
+    if not re.search(r"[\d〇零一二三四五六七八九十百千万亿兩两壹贰叁肆伍陆柒捌玖拾佰仟]", raw) and not re.search(
+        r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|hundred|thousand|million|billion|nil|none)\b", raw, re.I
+    ):
+        return None, None, "label_or_unit_is_not_a_measurement"
     try:
         parsed, comparator, suffix = _number(cell.raw_text)
         parse_status = "parsed"
@@ -562,12 +571,19 @@ def mapping_for(clause, document, fact, match, reason):
         scope_conflicts.append(known_conflicts)
     if not covered:
         flags.append("scope_requires_confirmation")
-    relation = "uncertain" if flags or match == "uncertain" else "match"
+    if clause.purposes:
+        for axis in clause.purposes.comparison.required_axes:
+            field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
+            if field is None or field.state not in {"stated", "inherited"}:
+                flags.append("comparison_axis_missing:" + axis)
+    relation = "different" if match == "different" else "uncertain" if flags or match == "uncertain" else "match"
     if discriminators is not None:
         # Missing context affects comparison completeness, never raw admission or
         # an otherwise supported target relation. Explicit semantic conflict wins.
         different = bool(scope_conflicts) and all(set(axes) & discriminators for axes in scope_conflicts)
-        relation = "different" if different else match
+        ambiguous = any((axes.get(axis) or fact.identity.dimensions.get(axis)) is not None and
+            (axes.get(axis) or fact.identity.dimensions.get(axis)).state == "conflict" for axis in discriminators)
+        relation = "different" if different else "uncertain" if ambiguous else match
     return ClauseMapping(
         clause_key=clause.clause_key,
         clause_digest=clause.clause_digest,
@@ -598,7 +614,7 @@ def apply_reading(mapping, reading):
                 "flags": flags,
             }
         )
-    if reading.status or reading.flags:
+    if (reading.status or reading.flags) and mapping.match != "different":
         return mapping.model_copy(update={"match": "uncertain", "flags": flags})
     return mapping
 

@@ -1,0 +1,13 @@
+[project]
+name = "esg-contracts"
+version = "2.1.0"
+description = "Value-only report, evidence and extraction interface SDK"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.11,<3"]
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

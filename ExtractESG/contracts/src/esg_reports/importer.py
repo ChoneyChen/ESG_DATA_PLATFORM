@@ -11,7 +11,7 @@ from .contract import (
 from .repository import ReportRepository, file_digest
 
 
-def import_upload(stream, filename, metadata, library, *, max_bytes=100 * 1024 * 1024):
+def import_upload(stream, filename, metadata, library, *, max_bytes=100 * 1024 * 1024, repository=None):
     """A browser upload enters through exactly the same validated batch contract."""
     name = Path(str(filename).replace("\\", "/")).name
     if not name or Path(name).suffix.lower() != ".pdf":
@@ -43,8 +43,9 @@ def import_upload(stream, filename, metadata, library, *, max_bytes=100 * 1024 *
         (root / "manifest.json").write_text(
             manifest.model_dump_json(), encoding="utf-8"
         )
-        result = import_folder(root, library)
-        resource = ReportRepository(library).get(item["pdf_id"])
+        repo = repository or ReportRepository(library)
+        result = import_folder(root, library, repository=repo)
+        resource = repo.get(item["pdf_id"])
         return ReportUploadResult(result=result, resource=resource).model_dump(
             mode="json"
         )
@@ -82,9 +83,9 @@ def prepare(folder):
     return prepared
 
 
-def import_folder(folder, library, *, preview=False):
+def import_folder(folder, library, *, preview=False, repository=None):
     prepared = prepare(folder)
-    repo = ReportRepository(library)
+    repo = repository or ReportRepository(library)
     results = []
     # Validate the entire batch before copying any PDF or registering any metadata.
     for path, resource in prepared:

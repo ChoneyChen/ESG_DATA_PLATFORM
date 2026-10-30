@@ -1,0 +1,105 @@
+{
+  "schema_version": "recoverable-cleanup-1.0",
+  "created_at": "2026-10-30T15:26:48.524504+00:00",
+  "total_bytes_removed_from_working_directories": 993598675,
+  "publication_databases_touched": false,
+  "original_pdfs_retained": true,
+  "rollback": "Move the recorded Trash directories back to their source paths. Active canonical copies remain in ESG_DATA_ROOT.",
+  "entries": [
+    {
+      "source": "ESG_DATA_PLATFORM/ExtractESG/document_ir_extract/ocr_output",
+      "files": 628,
+      "bytes": 67271778
+    },
+    {
+      "source": "ESG_DATA_PLATFORM/ExtractESG/document_ir_extract/document_ir_output",
+      "files": 1078,
+      "bytes": 309405776
+    },
+    {
+      "source": "ESG_DATA_PLATFORM/ExtractESG/extraction/.local/artifacts",
+      "files": 93,
+      "bytes": 1617611
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/product/internal-api-final-20261005T184926/test_reported_extension_bundle0/data",
+      "files": 1224,
+      "bytes": 43712552
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/product/internal-api-final-20261005T184926/test_authenticated_extension_d0/data",
+      "files": 1224,
+      "bytes": 43130920
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/product/internal-api-final-20261005T184926/test_actual_internal_operand_b0/data",
+      "files": 1224,
+      "bytes": 43614248
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/product/internal-api-final-20261005T184721/test_reported_extension_bundle0/data",
+      "files": 1224,
+      "bytes": 43712552
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/product/internal-api-final-20261005T184721/test_authenticated_extension_d0/data",
+      "files": 1224,
+      "bytes": 43130920
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/product/internal-api-final-20261005T184721/test_actual_internal_operand_b0/data",
+      "files": 1224,
+      "bytes": 43614248
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/test_reported_extension_bundle0/data",
+      "files": 1241,
+      "bytes": 43991080
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/test_restart_preserves_pending0/data",
+      "files": 1255,
+      "bytes": 44900392
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/test_source_cursor_query_is_re0/data",
+      "files": 1240,
+      "bytes": 43139112
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/test_authenticated_extension_d0/data",
+      "files": 1241,
+      "bytes": 43343912
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/test_import_only_registry_uses0/data",
+      "files": 1241,
+      "bytes": 43237416
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/test_actual_internal_operand_b0/data",
+      "files": 1241,
+      "bytes": 43892776
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/independent-empty-platform0/database",
+      "files": 1241,
+      "bytes": 43311144
+    },
+    {
+      "source": ".local/platform-runtime/acceptance/p4-p7-20261005/delivery-status-span-20261008/platform-test-data/platform-api0/data",
+      "files": 1255,
+      "bytes": 44949544
+    },
+    {
+      "source": "ESG_DATA_PLATFORM/ExtractESG/document_ir_extract",
+      "files": 36,
+      "bytes": 3213094
+    },
+    {
+      "source": "ESG_DATA_PLATFORM/ExtractESG/extraction/.local",
+      "files": 1,
+      "bytes": 409600
+    }
+  ]
+}

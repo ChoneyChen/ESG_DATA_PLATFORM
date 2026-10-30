@@ -232,6 +232,19 @@
           ],
           "default": null,
           "title": "Search Scope"
+        },
+        "source_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Sha256"
         }
       },
       "required": [
@@ -429,8 +442,11 @@
           "title": "Error"
         },
         "schema_version": {
-          "const": "organized-extraction-1.0",
-          "default": "organized-extraction-1.0",
+          "default": "organized-extraction-1.1",
+          "enum": [
+            "organized-extraction-1.0",
+            "organized-extraction-1.1"
+          ],
           "title": "Schema Version",
           "type": "string"
         },
@@ -1164,8 +1180,11 @@
       "type": "string"
     },
     "schema_version": {
-      "const": "extraction-fact-bundle-2.1",
-      "default": "extraction-fact-bundle-2.1",
+      "default": "extraction-fact-bundle-2.2",
+      "enum": [
+        "extraction-fact-bundle-2.1",
+        "extraction-fact-bundle-2.2"
+      ],
       "title": "Schema Version",
       "type": "string"
     },

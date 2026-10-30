@@ -83,3 +83,85 @@ def test_matrix_coordinates_ignore_inherited_vs_stated_without_losing_rows(docum
     assert len(table.matrix.columns)==1
     assert len(table.matrix.cells[0].row_ids)==2
     assert len(table.rows)==2
+
+
+@pytest.mark.parametrize('raw', ['吨','SF6','CO2','排放量','—','未披露'])
+def test_even_a_selected_table_label_cannot_become_a_quantity(raw,documents,repository):
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch
+    clause=quantitative(repository)
+    cell=EvidenceCell(cell_id='cell',column_id='value',raw_text=raw)
+    row=EvidenceRow(row_id='row',label='指标',cells=[cell])
+    frame=EvidenceFrame(object_id='table',kind='table',page_index=0,rows=[row],digest='frame')
+    result=numeric_fact(clause,documents.document('ir-example'),frame,NumericMatch(row_id='row',columns=['value'],reason='proposed',selection='measurement'),row,cell,'test')
+    assert result[0] is None and result[2]
+
+
+def test_unit_from_a_physical_table_title_is_accepted(documents,repository):
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch
+    clause=quantitative(repository)
+    cell=EvidenceCell(cell_id='cell',column_id='value',raw_text='12.3')
+    row=EvidenceRow(row_id='row',label='综合能源消耗量',cells=[cell])
+    title=TextEvidence(object_id='printed-title',text='能源消耗（MWh）',page_index=0)
+    frame=EvidenceFrame(object_id='table',kind='table',page_index=0,title=title.text,title_sources=[title],rows=[row],digest='frame')
+    fact,link,_=numeric_fact(clause,documents.document('ir-example'),frame,NumericMatch(row_id='row',columns=['value'],reason='direct value',selection='measurement'),row,cell,'test')
+    assert fact.value.unit_raw=='MWh'
+    assert not any(flag.startswith('clause_evidence_missing:unit:') for flag in link.flags)
+
+
+def test_other_real_measurement_survives_the_model_boundary(documents, repository, tmp_path):
+    clause = quantitative(repository)
+    class Reader(Model):
+        def complete(self, **kwargs):
+            rows = kwargs['context']['frame']['rows']
+            return {'matches': [{'row_id': row['row_id'], 'columns': ['c1'],
+                'selection': 'measurement', 'match': 'different',
+                'reason': 'A real measurement outside this target'} for row in rows]}, {}
+    result = ExtractionBackbone(documents, Reader(), FileArtifactPort(tmp_path/'out')).run(
+        'other-measurements', RunRequest(ir_run_id='ir-example', clause_keys=[clause.clause_key]),
+        {clause.clause_key: clause})
+    assert len(result['facts']) == 2
+    assert all(link['match'] == 'different' for link in result['clause_mappings'])
+    assert result['summary']['assessment']['other_facts'] == 2
+    assert result['summary']['assessment']['execution_state'] == 'completed'
+
+
+def test_metadata_completeness_consumes_enrichment_without_display_columns(documents, repository):
+    from esg_extraction.pipeline.engine import assess_results
+    clause = repository.get('E2-4_02')
+    clause = clause.model_copy(update={'purposes': clause.purposes.model_copy(update={
+        'enrichment': clause.purposes.enrichment.model_copy(update={'identity_axes': ['new_optional_axis']})})}).seal()
+    source = fact(documents.document('ir-example'), 'sparse', '12.3')
+    result = assess_results([source], [mapping(clause, source)], [], {clause.clause_key: clause}, [], True)
+    assert result['metadata_completeness'] == 'partial'
+    assert source.value.value_raw == '12.3'
+
+
+def test_constrained_schema_cannot_call_another_target_measurement_nonmeasurement(documents, repository):
+    import jsonschema
+    from pydantic import ValidationError
+    from esg_extraction.pipeline.decisions import NumericMatch, decision_schema
+    from esg_contracts.evidence import SearchIntent
+    clause=quantitative(repository)
+    frame=documents.read('ir-example',documents.search('ir-example',SearchIntent(target_id=clause.clause_key,
+        contract_digest=clause.clause_digest,data_kind='quantitative',positive_terms=['能源']))[0])
+    item={'row_id':frame.rows[0].row_id,'columns':['c1'],'reason':'real other quantity','match':'different','selection':'nonmeasurement'}
+    with pytest.raises(ValidationError):NumericMatch.model_validate(item)
+    with pytest.raises(jsonschema.ValidationError):jsonschema.validate({'matches':[item]},decision_schema('quantitative',frame))
+    item['selection']='measurement'
+    jsonschema.validate({'matches':[item]},decision_schema('quantitative',frame))
+
+
+def test_adjacent_quantity_capture_requires_physical_table_unit_and_period():
+    from esg_extraction.pipeline.engine import adjacent_table_quantities
+    source=TextEvidence(object_id='unit',object_type='cell',text='吨',page_index=0)
+    row=EvidenceRow(row_id='other',label='其他实测项目',row_role='data',unit_raw='吨',unit_sources=[source],
+        cells=[EvidenceCell(cell_id='value',column_id='2025',raw_text='175.61')])
+    frame=EvidenceFrame(object_id='table',kind='table',page_index=0,digest='x',rows=[row])
+    extra=adjacent_table_quantities(frame,['2025'],[])
+    assert len(extra)==1 and extra[0].match=='uncertain' and extra[0].selection=='measurement'
+    assert not adjacent_table_quantities(frame,None,[])
+    assert not adjacent_table_quantities(frame.model_copy(update={'kind':'text'}),['2025'],[])
+    assert not adjacent_table_quantities(frame,['2025'],extra)
+    assert not adjacent_table_quantities(frame.model_copy(update={'rows':[row.model_copy(update={'unit_sources':[]})]}),['2025'],[])

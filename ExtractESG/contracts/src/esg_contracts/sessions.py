@@ -5,6 +5,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from .facts import PipelineBudget, RunRequest
 from .evidence import DocumentReference
 from .results import RunSummary
+from .exports import DeliveryStatus
 
 RunStatus = Literal[
     "queued", "running", "completed", "partial", "failed", "cancelled", "interrupted"
@@ -115,6 +116,8 @@ class NativeRun(View):
     cancel_requested: bool = False
     summary: RunSummary | None = None
     error: str | None = None
+    delivery: DeliveryStatus | None = None
+    export_download_url: str | None = None
     artifacts_url: str | None = None
     current_phase: str = "queued"
     phase_label: str = "等待执行"

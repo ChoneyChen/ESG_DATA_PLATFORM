@@ -55,7 +55,7 @@ class FactCollection(FrozenModel):
 
 
 class OrganizationResult(FrozenModel):
-    schema_version: Literal["organized-extraction-1.0"] = "organized-extraction-1.0"
+    schema_version: Literal["organized-extraction-1.0", "organized-extraction-1.1"] = "organized-extraction-1.1"
     status: Literal["pending", "organized", "needs_confirmation", "partial", "failed"]
     url: str
     table_count: int | None = None
@@ -64,7 +64,7 @@ class OrganizationResult(FrozenModel):
 
 
 class FactBundle(FactCollection):
-    schema_version: Literal["extraction-fact-bundle-2.1"] = "extraction-fact-bundle-2.1"
+    schema_version: Literal["extraction-fact-bundle-2.1", "extraction-fact-bundle-2.2"] = "extraction-fact-bundle-2.2"
     engine_version: str
     engine_identity: dict[str, JsonValue]
     run_id: str

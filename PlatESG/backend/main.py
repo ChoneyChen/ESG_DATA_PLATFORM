@@ -19,7 +19,7 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from .bridge import DatabaseBridge, DatabaseError
+from esg_database.client import DatabaseBridge, DatabaseError
 from .runtime import release
 from .public_pdf import published_pdf
 from .evidence_location import candidate_locations
@@ -555,7 +555,11 @@ def csv_table(rows: list[dict], fields: list[str], filename: str, *, exact: set[
 
 def create_app(environment: dict[str, str] | None = None):
     config = {**os.environ, **(environment or {})}
+    config.setdefault("ESG_DATABASE_DATA_DIR", config.get("PLATESG_DATA_DIR", str(ROOT / ".local/data")))
+    config.setdefault("PLATESG_IMPORT_ROOTS", str(ROOT / ".local"))
     bridge = DatabaseBridge(config)
+    from .evidence_resolver import EvidenceResolver
+    evidence_resolver = EvidenceResolver(config.get("ESG_DOCUMENT_BACKEND_URL", "http://127.0.0.1:18080"))
     running_release=release()
     token = config.get("PLATESG_REVIEW_TOKEN")
     operators = json.loads(config.get("PLATESG_OPERATORS_JSON", "[]"))
@@ -715,7 +719,7 @@ def create_app(environment: dict[str, str] | None = None):
 
     @app.get("/internal/v1/extraction-profiles", dependencies=[Depends(permission("read"))])
     def profile():
-        return json.loads((ROOT / "catalog/extraction-profile.e1-e3.json").read_text(encoding="utf-8"))
+        raise HTTPException(410, {"code": "legacy_production_retired", "message": "条款选择由独立条款模块管理。"})
 
     @app.get('/internal/v1/import-catalogs', dependencies=[Depends(permission('read'))])
     def import_catalogs():
@@ -900,8 +904,7 @@ def create_app(environment: dict[str, str] | None = None):
                    source_datapoint_id: str | None = Query(None,max_length=100), limit: int = Query(200, ge=1, le=1000)):
         result = bridge.call("candidates", {"entity_ref": entity_ref,"report_ref":report_ref,"source_datapoint_id":source_datapoint_id,"limit": limit})
         pdf_roots = [Path(value) for value in config.get("PLATESG_PUBLIC_PDF_ROOTS", str(ROOT.parent.parent/"pdf")).split(os.pathsep) if value]
-        ir_root = Path(config.get("PLATESG_IR_ROOT", str(ROOT.parent/"ExtractESG/document_ir_extract/document_ir_output")))
-        candidate_locations(result["items"], pdf_roots, ir_root)
+        candidate_locations(result["items"], pdf_roots, evidence_resolver.resolve)
         return result
 
     @app.get("/internal/v1/candidate-proposals", dependencies=[Depends(permission("read"))])
@@ -955,8 +958,7 @@ def create_app(environment: dict[str, str] | None = None):
                             cursor: str | None = Query(None,min_length=1,max_length=2048)):
         result = bridge.call("source_facts", {"report_ref": report_ref, "limit": limit, "cursor": cursor})
         pdf_roots = [Path(value) for value in config.get("PLATESG_PUBLIC_PDF_ROOTS", str(ROOT.parent.parent/"pdf")).split(os.pathsep) if value]
-        ir_root = Path(config.get("PLATESG_IR_ROOT", str(ROOT.parent/"ExtractESG/document_ir_extract/document_ir_output")))
-        candidate_locations(result["items"], pdf_roots, ir_root)
+        candidate_locations(result["items"], pdf_roots, evidence_resolver.resolve)
         return result
 
     @app.post("/internal/v1/reviews")

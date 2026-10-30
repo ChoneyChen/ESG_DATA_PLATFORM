@@ -221,11 +221,11 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     _write_ocr_run(ocr_root, "ocr-layout", pdf_path)
     monkeypatch.setenv("ESG_PIPELINE_QUEUE_DB", str(tmp_path / "queue.sqlite3"))
     monkeypatch.setenv("ESG_PIPELINE_TASK_DIR", str(tmp_path / "pipeline_tasks"))
-    monkeypatch.setenv("ESG_V2_OCR_OUTPUT_DIR", str(ocr_root))
-    monkeypatch.setenv("ESG_V2_DOCUMENT_IR_OUTPUT_DIR", str(ir_root))
-    monkeypatch.setenv("ESG_V2_UPLOAD_DIR", str(upload_root))
-    monkeypatch.setenv("ESG_V2_OCR_JOB_STATE_DIR", str(tmp_path / "jobs" / "ocr"))
-    monkeypatch.setenv("ESG_V2_DOCUMENT_IR_JOB_STATE_DIR", str(tmp_path / "jobs" / "document-ir"))
+    monkeypatch.setenv("ESG_DOCUMENT_OCR_OUTPUT_DIR", str(ocr_root))
+    monkeypatch.setenv("ESG_DOCUMENT_IR_OUTPUT_DIR", str(ir_root))
+    monkeypatch.setenv("ESG_DOCUMENT_UPLOAD_DIR", str(upload_root))
+    monkeypatch.setenv("ESG_DOCUMENT_OCR_JOB_STATE_DIR", str(tmp_path / "jobs" / "ocr"))
+    monkeypatch.setenv("ESG_DOCUMENT_IR_JOB_STATE_DIR", str(tmp_path / "jobs" / "document-ir"))
 
     import esg_document.api.main as api_main
 

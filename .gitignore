@@ -7,8 +7,8 @@ node_modules/
 .pytest_cache/
 
 # Clause repository transaction lock and interrupted atomic writes
-ExtractESG/standard/.repository.lock
-ExtractESG/standard/**/.clause-*.tmp
+ClauseESG/clauses/.repository.lock
+ClauseESG/clauses/**/.clause-*.tmp
 .env.local
 # Legacy runtime data is retained after its source wrappers were retired.
 ExtractESG/document_ir_extract/

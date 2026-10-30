@@ -5,6 +5,7 @@ from pathlib import Path
 import argparse, json, sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT.parent / "ClauseESG/src"))
 sys.path.insert(0, str(ROOT / "contracts/src"))
 sys.path.insert(0, str(ROOT.parent / "ConsoleESG/backend/src"))
 from esg_console.monitor import MonitorSnapshot
@@ -124,7 +125,7 @@ def generate():
 
 
 def check(write=False):
-    path = ROOT.parent / "ConsoleESG/src/shared/contracts.ts"
+    path = ROOT.parent / "ConsoleESG/frontend/src/shared/contracts.ts"
     body = generate()
     if write:
         path.parent.mkdir(parents=True, exist_ok=True)

@@ -14,10 +14,11 @@ def file_digest(path):
 
 
 class ReportRepository:
-    def __init__(self, library):
+    def __init__(self, library, *, registry=None):
         self.library = Path(library).resolve()
         self.library.mkdir(parents=True, exist_ok=True)
-        self.db_path = self.library / ".report-resources.sqlite3"
+        self.db_path = Path(registry) if registry is not None else self.library / ".report-resources.sqlite3"
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS resources (pdf_id TEXT PRIMARY KEY, sha256 TEXT UNIQUE NOT NULL, body TEXT NOT NULL)"

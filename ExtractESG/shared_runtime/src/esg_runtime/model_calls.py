@@ -28,6 +28,8 @@ class ModelCallRequest(BaseModel):
     call_id: str = Field(default_factory=lambda: "call-" + uuid4().hex)
     run_id: str | None = None
     task_type: str
+    attempt: int = 0
+    parent_task_id: str | None = None
     input_modalities: list[Literal["text", "image"]]
     evidence_ids: list[str] = Field(default_factory=list)
     prompt_digest: str
@@ -48,6 +50,7 @@ class ModelCallReceipt(BaseModel):
     output_tokens: int | None = None
     failure_category: str | None = None
     output_constraint: str
+    output_validation: Literal["passed", "failed", "not_evaluated"] = "not_evaluated"
 
 
 def prepare_call(request: ModelCallRequest, capabilities: ModelCapabilities):

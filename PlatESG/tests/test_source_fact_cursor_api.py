@@ -4,11 +4,13 @@ import json
 from fastapi.testclient import TestClient
 
 from PlatESG.backend.main import create_app
+from PlatESG.tests.frozen_fixture import initialize_empty_database
 
 
 def test_source_cursor_query_is_read_authorized_bounded_and_forwarded_without_rewriting(tmp_path,monkeypatch):
     app=create_app({'PLATESG_DATA_DIR':str(tmp_path/'data'),'PLATESG_AUTO_PUBLISH':'0',
                     'PLATESG_REVIEW_TOKEN':'fixture-read-cursor','PLATESG_LIFECYCLE_STORE_SCOPE':'isolated'})
+    initialize_empty_database(app.state.bridge.environment)
     cursor=base64.urlsafe_b64encode(json.dumps({'v':1,'report_ref':'synthetic-report',
         'created_at':'2026-10-07T01:02:03.123456Z','snapshot_id':'00000000-0000-5000-a000-000000000001'},
         separators=(',',':')).encode()).decode().rstrip('=')

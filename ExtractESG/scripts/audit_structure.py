@@ -52,9 +52,9 @@ def role(path):
     parts = path.relative_to(ROOT).parts
     if "migrations" in parts:
         return "immutable_schema_history"
-    if "catalog" in parts and parts[0] == "PlatESG":
+    if "catalog" in parts and parts[0] == "database":
         return "frozen_product_contract"
-    if "standard" in parts:
+    if parts[0] == "ClauseESG" and "clauses" in parts:
         return (
             "clause_source"
             if path.name == "clause.json"

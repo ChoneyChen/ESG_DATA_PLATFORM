@@ -3,7 +3,7 @@ import json
 from fastapi.testclient import TestClient
 
 from PlatESG.backend.main import create_app
-from PlatESG.backend.bridge import DatabaseError
+from esg_database.client import DatabaseError
 
 
 def scope():

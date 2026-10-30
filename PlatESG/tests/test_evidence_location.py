@@ -16,12 +16,7 @@ def fixture(tmp_path):
     digest = hashlib.sha256(document.read_bytes()).hexdigest()
     asset = "pdf-" + digest[:24]
     (pdfs / "report-catalog.json").write_text(json.dumps({"assets": [{"sha256": digest, "relative_path": "report.pdf"}]}))
-    directory = irs / "ir-fixed"
-    (directory / "canonical").mkdir(parents=True)
-    for name in ["document.json", "pages.json"]:
-        (directory / "canonical" / name).write_text("{}")
-    (directory / "manifest.json").write_text(json.dumps({"run_id": "ir-fixed", "ir_revision": 2,
-        "source": {"pdf_sha256": digest}, "entrypoints": {"canonical_document": "canonical/document.json", "pages": "canonical/pages.json"}}))
+    irs = lambda run: {"ir_run_id":"ir-fixed", "ir_revision":2,"report_resource":{"sha256":digest}}
     return {"upstream_system": "ExtractESG", "source_sha256": digest, "source_artifact_ref": asset,
             "source_ir_run_id": "ir-fixed", "source_ir_revision": 2}, pdfs, irs
 

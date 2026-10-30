@@ -25,7 +25,7 @@ from .report_processing import (
 from .context import dispatch_key
 
 
-class ExtractionServiceUnavailable(RuntimeError):
+class ExtractionServiceUnavailable(ConnectionError):
     pass
 
 
@@ -96,11 +96,29 @@ class ExtractionCoordinator:
                 "SELECT body FROM clause_extraction_plans ORDER BY rowid DESC"
             ).fetchall()
         states = [json.loads(row[0]) for row in rows]
+        states = [state for state in states if not state.get("archived_at")]
         if terminal_limit is not None:
             active = [state for state in states if state["status"] not in TERMINAL]
             recent = [state for state in states if state["status"] in TERMINAL][:terminal_limit]
             states = [*active, *recent]
         return [self.detail(state) for state in states]
+
+    def archive(self, key):
+        with self._lock:
+            state = self.get(key)
+            observed = self.detail(state)
+            if observed["status"] not in TERMINAL:
+                raise ValueError("Cannot archive an active extraction")
+            state["archived_at"] = datetime.now(timezone.utc).isoformat()
+            self.save(state)
+            return {"session_id": key, "archived": True, "facts_retained": True}
+
+    def restore(self, key):
+        with self._lock:
+            state = self.get(key)
+            state.pop("archived_at", None)
+            self.save(state)
+            return {"session_id": key, "archived": False, "facts_retained": True}
 
     def preview(self, request):
         native = request.native(

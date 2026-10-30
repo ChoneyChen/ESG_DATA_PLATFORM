@@ -6,11 +6,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { DATABASE_PATHS } from '../scripts/db.mjs';
+import {databaseDataDir} from '../runtime/connection.mjs';
 
-test('canonical module owns code and retains the registered runtime data path', async () => {
+test('canonical module owns code and uses one explicit data-root resolver', async () => {
   const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
   assert.equal(DATABASE_PATHS.projectRoot,path.join(root,'database'));
-  if(!process.env.ESG_DATABASE_DATA_DIR) {const old=path.join(root,'ExtractESG/esg_database/.local/pglite');assert.equal(DATABASE_PATHS.dataDir,existsSync(old)?old:path.join(root,'database/.local/pglite'));}
+  assert.equal(DATABASE_PATHS.dataDir,databaseDataDir());
+  assert.equal(databaseDataDir({ESG_DATA_ROOT:'/isolated/root'}),'/isolated/root/databases/capture');
+  assert.equal(databaseDataDir({ESG_DATABASE_DATA_DIR:'/explicit/db',ESG_DATA_ROOT:'/unused'}),'/explicit/db');
+  assert.equal(databaseDataDir({}),path.join(root,'.local/data/databases/capture'));
 });
 
 test('canonical CLI uses an explicitly isolated store', () => {

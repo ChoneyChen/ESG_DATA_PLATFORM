@@ -15,6 +15,7 @@ class DocumentReference(ProtocolModel):
     ir_run_id: str
     ir_revision: int
     content_digest: str
+    source_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     reporting_year: int | None = None
     reporting_period_raw: str | None = None
     limited_evidence: bool = False

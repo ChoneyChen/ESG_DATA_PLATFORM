@@ -113,6 +113,7 @@ class DocumentEvidenceService:
             ir_run_id=ir.run_id,
             ir_revision=ir.ir_revision,
             content_digest=fingerprint.hexdigest(),
+            source_sha256=ir.manifest.get("source", {}).get("pdf_sha256"),
             reporting_year=period.year,
             reporting_period_raw=str(period.year) if period.year else None,
             report_resource=ir.manifest.get("report_resource"),

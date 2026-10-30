@@ -32,7 +32,7 @@ def main() -> int:
         "--provider",
         choices=("local_first", "local_paddleocr", "paddle_api"),
         default=None,
-        help="OCR execution provider (default: ESG_V2_OCR_PROVIDER or local_first)",
+        help="OCR execution provider (default: ESG_DOCUMENT_OCR_PROVIDER or local_first)",
     )
     ocr.add_argument("--no-api-fallback", action="store_true")
     ocr.add_argument("--poll-interval", type=float, default=5)

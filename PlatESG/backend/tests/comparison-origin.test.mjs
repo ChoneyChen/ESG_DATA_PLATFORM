@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {preferEquivalentOrigins} from '../service.mjs';
+import {preferEquivalentOrigins} from '../../../database/queries/service.mjs';
 
 const metric={clause_kind:'project_extension'};
 const row={observation_id:'reported',entity_ref:'a',entity_name:'企业A',metric_id:'project.total',definition_version:'1.0.0',period_start:'2024-01-01',period_end:'2024-12-31',boundary_code:'group',value_role:'actual',measurement_method:null,canonical_unit:'tCO2e',dimensions:{amount_basis:'gross',scope_2_method:'location_based'},value_numeric:'9007199254740993.000001',value_origin:'reported'};

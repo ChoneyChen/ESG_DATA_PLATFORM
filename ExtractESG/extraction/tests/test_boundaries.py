@@ -47,7 +47,7 @@ def test_reading_rejection_preserves_raw_value_as_a_different_mapping(documents,
     intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0]
     cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(row_id=row.row_id,columns=['c1'],reason='test'),row,cell,'interpretation')
+    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='test'),row,cell,'interpretation')
     assert fact.value.value_raw=='1,234.50'
     assert mapping.match=='different'
     assert 'rejected' not in fact.flags and 'unit_is_intensity' not in fact.flags
@@ -60,7 +60,7 @@ def test_invented_identity_does_not_pollute_source_facts(documents,repository):
     c=quantitative(repository)
     intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    match=NumericMatch(row_id=row.row_id,columns=['c1'],reason='test',identity=[{'axis':'reporting_entity','value':'Invented Group','quote':'not printed','source_id':row.row_id}])
+    match=NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='test',identity=[{'axis':'reporting_entity','value':'Invented Group','quote':'not printed','source_id':row.row_id}])
     fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,match,row,cell,'interpretation')
     assert fact.identity.reporting_entity.state=='not_read'
     assert fact.identity.reporting_period.value=='2025'
@@ -137,7 +137,7 @@ def test_literal_binding_preserves_whitespace_and_actual_cell_page(documents,rep
     c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=next(r for r in frame.rows if r.row_id.endswith(':r1')) if any(r.row_id.endswith(':r1') for r in frame.rows) else frame.rows[0]
     value=next(v for v in row.cells if v.cell_id=='t:r1c1')
-    fact,_,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(row_id=row.row_id,columns=['c1'],reason='literal'),row,value,'test')
+    fact,_,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='literal'),row,value,'test')
     assert fact.value.value_raw==' 1,234.50\n'
     assert fact.evidence[0].page_index==1 and fact.evidence[0].object_id=='t:r1c1'
     assert fact.identity.reporting_period.evidence[0].object_id=='t:r0c1'
@@ -153,7 +153,7 @@ def test_quarter_headers_are_not_annualized(documents,repository,header,quarter)
     path.write_text(json.dumps(table))
     c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(row_id=row.row_id,columns=['c1'],reason='period'),row,cell,'test')
+    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='period'),row,cell,'test')
     assert fact.identity.reporting_period.value=={'kind':'quarter','year':'2025','quarter':quarter}
     assert not mapping.scope_ids
 
@@ -179,9 +179,9 @@ def test_comparators_keep_open_and_closed_bounds_distinct(raw,comparator):
 def test_clause_evidence_is_evaluated_without_dropping_raw_facts(documents,repository):
     c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(row_id=row.row_id,columns=['c1'],reason='literal'),row,cell,'test')
+    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='literal'),row,cell,'test')
     assert fact.value.value_raw=='1,234.50'
-    assert 'clause_evidence_missing:unit:row' in mapping.flags
+    assert 'clause_evidence_missing:unit:row' in mapping.flags  # This fixture has no physically bound unit.
     assert mapping.match=='match'  # Comparison proof is independent of reception.
 
 
@@ -221,7 +221,7 @@ def test_model_reference_schema_excludes_target_and_resource_metadata(documents,
     ids=schema['$defs']['IdentityProposal']['properties']['source_id']['enum']
     assert 'target' not in ids and 'frame' not in ids and 'doc-example' not in ids
     assert 't:r0c1' in ids and 't:r1c1' in ids
-    assert schema['$defs']['NumericMatch']['properties']['row_id']['enum']==[r.row_id for r in frame.rows]
+    assert all(branch['properties']['row_id']['enum']==[r.row_id for r in frame.rows] for branch in schema['$defs']['NumericMatch']['anyOf'])
 
 
 def test_mutable_report_labels_do_not_replace_the_frozen_reading_context(documents,repository,tmp_path,monkeypatch):

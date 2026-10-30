@@ -1,0 +1,918 @@
+{
+  "acceptance": {
+    "minimum_reports": 1,
+    "samples": []
+  },
+  "blocking_reasons": [],
+  "clause_digest": "2faf526d453bb432a63bc8eaca81fbab39669c6e7e72e016726d4a98e936fde8",
+  "clause_key": "E3-4_03",
+  "data_kind": "quantitative",
+  "definition": "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+  "distinguish_from": [],
+  "evidence": [
+    {
+      "field": "value",
+      "level": "cell",
+      "note": "原值来自真实单元格",
+      "purpose": "target_confirmation",
+      "required": true
+    },
+    {
+      "field": "source_row_label",
+      "level": "row",
+      "note": null,
+      "purpose": "target_confirmation",
+      "required": true
+    },
+    {
+      "field": "reporting_period",
+      "level": "column_header",
+      "note": null,
+      "purpose": "target_confirmation",
+      "required": true
+    },
+    {
+      "field": "reporting_boundary",
+      "level": "row",
+      "note": "边界可由表题或章节说明给出",
+      "purpose": "target_confirmation",
+      "required": false
+    },
+    {
+      "field": "unit",
+      "level": "row",
+      "note": null,
+      "purpose": "target_confirmation",
+      "required": true
+    }
+  ],
+  "exact_labels": [],
+  "exclusions": [
+    "耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+  ],
+  "group_id": "E3-4",
+  "labels": {
+    "en": "Total water recycled and reused",
+    "zh": "循环及重复利用水量 Water recycled and reused"
+  },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "water_measure",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_water_measure",
+        "label": "水量类型",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "geography",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_geography",
+        "label": "实际地区",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "water_risk_class",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_water_risk_class",
+        "label": "水风险等级",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "aggregation_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_aggregation_role",
+        "label": "聚合角色",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "site",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_site",
+        "label": "实际场址",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "aggregation_role",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_aggregation_role",
+        "label": "目标口径·聚合角色",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "water_measure",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_water_measure",
+        "label": "目标口径·水量类型",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_water_measure",
+        "observed_geography",
+        "observed_water_risk_class",
+        "observed_site",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "table"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_water_measure",
+      "observed_geography",
+      "observed_water_risk_class",
+      "observed_site"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "循环及重复利用水量 Water recycled and reused"
+  },
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {
+        "water_measure": "recycled_reused"
+      },
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量 · water_measure=recycled_reused",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-576919044b5c4366",
+      "value_role": "actual"
+    }
+  ],
+  "provenance": {
+    "original_id": "E3-4_03",
+    "paragraph": "28 c",
+    "source_refs": [
+      "esrs.2023-set1.e3-4.source.law",
+      "esrs.2023-set1.e3-4.source.ig3"
+    ],
+    "standard_ref": {
+      "disclosure_requirement": "E3-4",
+      "standard_family": null
+    }
+  },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "water_measure",
+        "geography",
+        "water_risk_class",
+        "measurement_method",
+        "aggregation_role"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "water_measure",
+        "geography",
+        "water_risk_class",
+        "aggregation_role",
+        "site"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "water_measure"
+      ],
+      "missing_action": "retain"
+    }
+  },
+  "readiness": "ready",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "instructions": [
+      "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+    ],
+    "operator": "water",
+    "options": {
+      "text_unit_pattern": "立方米|m3|m³|吨|噸|升|ml\\b|megalit|liter|litre|gallon",
+      "value_role": "actual"
+    },
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_regulatory_limit_not_actual",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:核定(?:的)?[^，。；]{0,20}(?:总量|排放量|量|配额|额度)|许可[^，。；]{0,16}排放|排污许可|排放许可证|排放(?:配额|额度|限额|上限)|允许排放|总量控制指标|(?:approved|permitted|allowed)\\s+(?:annual\\s+)?(?:emission|discharge)|(?:emission|discharge)\\s+(?:limit|cap|allowance|quota|ceiling)|(?:regulatory|permitted)\\s+limit)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_target_or_relative_change",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:相比|较|比|compared\\s+(?:with|to))\\s*(?:19|20)\\d{2}\\s*年?[^。；;]{0,24}?(?:下降|降低|减少|增加|增长|提升)|(?:下降|降低|减少|增加|增长|提升)\\s*\\d+(?:\\.\\d+)?\\s*[%％]|(?:下降率|降低率|减少率|增长率|变化率|降幅|增幅)|(?:到|至|by)\\s*(?:19|20)\\d{2}\\s*年?[^。；;]{0,20}?(?:目标|计划|规划|实现|达成|承诺)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_index_entry",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:gri\\s*\\d{1,3}|disclosure\\s*\\d{2,3}|指标\\s*\\d{3}|esrs\\s+[a-z]\\d|实质性议题|一般披露|关键绩效指标\\s*[a-z]?\\d|层面\\s*[a-z]\\d|(?:^|[\\s（(])\\d{1,3}[-–]\\d{1,2}(?![\\d.%])(?!\\s*(?:岁|年|月|日|吨|噸|人|小时|小時|万元|%|％)))"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "concept": "recycled"
+        },
+        "reason": null,
+        "rule": "water_concept",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [
+          "volume",
+          "mass"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.1",
+    "vocabulary": {
+      "alternative_source": [
+        "替代水源",
+        "替代水",
+        "alternative source"
+      ],
+      "change": [
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+      ],
+      "component_prefix": [
+        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
+      ],
+      "consumption_terms": [
+        "消耗",
+        "消费",
+        "使用",
+        "用量",
+        "consum",
+        "use"
+      ],
+      "discharge": [
+        "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|discharg|effluent)"
+      ],
+      "freshwater": [
+        "re:(?:淡水|新水|新鲜水|取新水|fresh\\s*water|freshwater)"
+      ],
+      "geography": [
+        "数据中心",
+        "生产基地",
+        "基地",
+        "工厂",
+        "厂区",
+        "园区",
+        "办公",
+        "分公司",
+        "子公司",
+        "事业部",
+        "板块",
+        "门店",
+        "电站",
+        "自有",
+        "租赁",
+        "境内",
+        "境外",
+        "海外",
+        "data cent",
+        "production base",
+        "plant",
+        "site",
+        "office",
+        "subsidiar",
+        "segment",
+        "domestic",
+        "overseas",
+        "leased",
+        "owned"
+      ],
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "non_fresh": [
+        "re:(?:非淡水|non[-\\s]?fresh)"
+      ],
+      "not_water": [
+        "re:(?:设备|废弃物|废物|固废|材料|物料|包装|电池|电子|产品|纸|equipment|device|waste|material|packag|product|batter|paper)"
+      ],
+      "other_member": [
+        "其他",
+        "其它",
+        "re:^other\\b",
+        "others"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "recycle": [
+        "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
+      ],
+      "recycled_water": [
+        "循环水",
+        "回用水",
+        "重复利用水",
+        "再生水",
+        "中水",
+        "recycled water",
+        "reused water"
+      ],
+      "risk_area": [
+        "re:(?:风险|缺水|水压力|水资源压力|高水|stress|scarc|risk)"
+      ],
+      "subject_generic": [
+        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
+        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
+      ],
+      "total": [
+        "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+      ],
+      "waste_solid": [
+        "固废",
+        "固体废弃物",
+        "固体废物"
+      ],
+      "water_consumption": [
+        "re:(?:耗水|(?:水|water)\\S{0,4}消耗|消耗\\S{0,4}水|水资源消耗|water\\s+consum|consumption\\s+of\\s+water|consumed)"
+      ],
+      "water_dest": [
+        "re:(?:地表|地下|外送|管网|海洋|市政|surface|ground|third[-\\s]party|ocean|sea|marine|sewage|sewer|river|public\\s+sewer|municipal)"
+      ],
+      "water_source": [
+        "re:(?:地下水|地表水|市政|自来水|第三方|海水|雨水|矿井|矿坑|外购水|河|湖|groundwater|surface\\s+water|municipal|third[-\\s]party|sea\\s*water|rain)"
+      ],
+      "water_use_only": [
+        "re:(?:用水|water\\s+use)"
+      ],
+      "water_word": [
+        "re:(?:水|water|h2o|effluent)"
+      ],
+      "withdrawal": [
+        "re:(?:取水|withdraw|abstract|新鲜水|新水|用水总量|总用水量|用水量|water\\s+(?:intake|use)|water\\s+withdrawn)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "地表水",
+      "地下水",
+      "市政",
+      "自来水",
+      "海水",
+      "淡水",
+      "循环",
+      "再生水",
+      "雨水",
+      "取水",
+      "排水",
+      "耗水"
+    ],
+    "parent_clause": null,
+    "related_clauses": [],
+    "share_partner": null,
+    "siblings": [
+      "E3-4_01",
+      "E3-4_02",
+      "E3-4_03",
+      "E3-4_11",
+      "E3-4_12"
+    ]
+  },
+  "retrieval": {
+    "context_terms": [
+      "calculation",
+      "consolidation scope",
+      "estimation",
+      "measurement",
+      "measurement method",
+      "reporting boundary",
+      "reporting period",
+      "reporting scope",
+      "reporting year",
+      "估算",
+      "合并范围",
+      "报告期",
+      "报告边界",
+      "本年度",
+      "核算边界",
+      "测量方法",
+      "监测方法",
+      "直接测量",
+      "统计范围",
+      "计算方法",
+      "财政年度"
+    ],
+    "excluded_object_terms": [],
+    "expected_candidate_types": [
+      "quantity",
+      "number"
+    ],
+    "negative_terms": [
+      "Changes in water storage",
+      "Total water consumption",
+      "Total water discharges",
+      "Total water stored",
+      "Total water withdrawals",
+      "water consumption",
+      "water discharge",
+      "water storage change",
+      "water stored",
+      "water withdrawal",
+      "储水变化量",
+      "储水增减",
+      "储水总量",
+      "取水总量",
+      "取水量",
+      "排水总量",
+      "排水量",
+      "新鲜水取用量",
+      "水排放量",
+      "消耗水量",
+      "耗水总量",
+      "耗水量",
+      "蓄水量"
+    ],
+    "positive_terms": [
+      "Total water recycled and reused",
+      "循环利用和重复使用水量",
+      "recycled and reused water",
+      "循环用水",
+      "重复使用水",
+      "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+    ],
+    "required_term_groups": [],
+    "role_term_groups": [],
+    "source_priority": [
+      "table",
+      "text"
+    ],
+    "structural_anchors": [],
+    "topic_term_groups": [
+      [
+        "Total water recycled and reused",
+        "recycled and reused water",
+        "循环利用和重复使用水量",
+        "循环用水",
+        "重复使用水"
+      ]
+    ]
+  },
+  "schema_version": "clause-contract-1.2",
+  "value": {
+    "aggregation": "do_not_sum",
+    "canonical_unit": "m3",
+    "comparison_requirements": [
+      "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+      "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。",
+      "水量概念、运营边界、水风险判定和方法相同；耗水、取水、排水分别比较。"
+    ],
+    "fixed_axes": {
+      "aggregation_role": "total",
+      "water_measure": "recycled_reused"
+    },
+    "identity_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "water_measure",
+      "geography",
+      "water_risk_class",
+      "measurement_method",
+      "aggregation_role"
+    ],
+    "unit_dimension": "volume",
+    "value_origin": "reported",
+    "value_role": "actual"
+  }
+}

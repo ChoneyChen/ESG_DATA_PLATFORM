@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 import time
+import threading
 from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
 from typing import Any, Callable, TypeVar
 
@@ -70,6 +71,7 @@ class ModelRunner:
         self.telemetry = telemetry
         self.rate_limits = rate_limits
         self.verification_policy = verification_policy
+        self._call_context = threading.local()
 
     def run(
         self,
@@ -107,6 +109,7 @@ class ModelRunner:
             attempts = profile.transient_retries + 1
             attempt_context = context
             for retry_index in range(attempts):
+                self._call_context.receipt = None
                 try:
                     request = self.build_request(
                         task,
@@ -156,6 +159,7 @@ class ModelRunner:
                     )
                     execution = prepare_call(ModelCallRequest(
                         call_id=request.request_id, run_id=document.metadata.run_id, task_type="document_" + role,
+                        parent_task_id=task.task_id, attempt=retry_index,
                         input_modalities=["text", "image"] if images else ["text"], evidence_ids=[task.task_id],
                         prompt_digest=content_digest(request.messages), schema_digest=content_digest(request.output_template),
                         requested_output_tokens=request.max_tokens, requested_timeout_seconds=request.timeout_seconds or 600,
@@ -165,12 +169,15 @@ class ModelRunner:
                         output_constraint="prompt_schema_and_server_validation"))
                     request = request.model_copy(update={"max_tokens": execution.effective_output_tokens, "timeout_seconds": execution.effective_timeout_seconds})
                     call_started = time.perf_counter()
+                    self._call_context.receipt = execution.model_dump(mode="json")
                     try:
                         result = self.adapter.chat_completions(request)
                     except Exception as exc:
                         exc.telemetry = {**getattr(exc, "telemetry", {}), "execution": finish_call(execution, call_started, error=exc)}
+                        self._call_context.receipt = exc.telemetry["execution"]
                         raise
                     result.execution = finish_call(execution, call_started, result.usage)
+                    self._call_context.receipt = result.execution
                     payload_dict = self.response_adapter.message_json(
                         result.raw_response
                     )
@@ -186,6 +193,7 @@ class ModelRunner:
                             payload_dict
                         )
                     payload = payload_type.model_validate(payload_dict)
+                    result.execution["output_validation"] = "passed"
                     ModelHealthRegistry.record_success(
                         profile.model_id, result.latency_ms
                     )
@@ -575,7 +583,7 @@ class ModelRunner:
                 if task.review_plan
                 else None,
                 "schema_delivery_requested": "prompt_schema_and_server_validation",
-                "execution": result.execution if result else None,
+                "execution": result.execution if result else getattr(self._call_context, "receipt", None),
             }
         )
         if role == "reviewer" and status == "succeeded" and payload is not None:

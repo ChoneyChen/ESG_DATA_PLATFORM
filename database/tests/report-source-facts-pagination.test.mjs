@@ -4,7 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
 import {readReportSourceFacts} from '../scripts/report-source-facts.mjs';
-import {dispatch} from '../../PlatESG/backend/service.mjs';
+import {dispatch} from '../queries/service.mjs';
 
 const encode=payload=>Buffer.from(JSON.stringify(payload)).toString('base64url');
 const anchor={v:1,report_ref:'synthetic-report-a',created_at:'2026-10-07T01:02:03.123456Z',snapshot_id:'00000000-0000-5000-a000-000000000001'};

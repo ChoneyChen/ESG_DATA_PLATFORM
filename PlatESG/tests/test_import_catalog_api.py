@@ -1,9 +1,11 @@
 from fastapi.testclient import TestClient
 from PlatESG.backend.main import create_app
+from PlatESG.tests.frozen_fixture import initialize_empty_database
 
 
 def test_retired_ingress_cannot_reactivate_package_catalogs(tmp_path):
     app=create_app({'PLATESG_DATA_DIR':str(tmp_path/'data'),'PLATESG_AUTO_PUBLISH':'0','PLATESG_REVIEW_TOKEN':'fixture-admin'})
+    initialize_empty_database(app.state.bridge.environment)
     with TestClient(app) as client:
         auth={'Authorization':'Bearer fixture-admin'}
         before=client.get('/v1/datasets').json()

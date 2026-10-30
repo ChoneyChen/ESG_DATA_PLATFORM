@@ -1,5 +1,5 @@
 """A real persisted adapter restart must not consume a held publication event."""
-from PlatESG.backend.bridge import DatabaseBridge
+from esg_database.client import DatabaseBridge
 from PlatESG.tests.frozen_fixture import seed_frozen_database
 
 

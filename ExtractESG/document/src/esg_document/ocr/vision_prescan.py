@@ -12,8 +12,10 @@ import json
 import platform
 import shutil
 import subprocess
+import time
 from pathlib import Path
 from typing import Callable
+from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
 
 SOURCE = Path(__file__).with_name("vision_ocr.swift")
 CACHE = Path.home() / "Library" / "Caches" / "ESG_DATA_PLATFORM"
@@ -80,10 +82,24 @@ def read_pages(
     ]
     if words:
         command.append("--words")
-    completed = subprocess.run(
-        command, check=True, capture_output=True, text=True, timeout=timeout
-    )
-    return [json.loads(line) for line in completed.stdout.splitlines() if line.strip()]
+    receipt = prepare_call(ModelCallRequest(task_type="document_system_ocr", input_modalities=["image"],
+        evidence_ids=[f"page-{index}" for index in page_indices or []],
+        prompt_digest=content_digest({"helper":hashlib.sha256(SOURCE.read_bytes()).hexdigest(), "pages":pages,
+            "scale":scale,"languages":LANGUAGES,"words":words}), requested_timeout_seconds=timeout),
+        ModelCapabilities(provider="apple_vision",model="VNRecognizeTextRequest:system-managed",
+            input_modalities=["image"],timeout_seconds=timeout,output_constraint="ocr_jsonl"))
+    started=time.perf_counter()
+    try:
+        completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=receipt.effective_timeout_seconds)
+        result = [json.loads(line) for line in completed.stdout.splitlines() if line.strip()]
+    except Exception as exc:
+        exc.telemetry={**getattr(exc,"telemetry",{}),"execution":finish_call(receipt,started,error=exc)}
+        if log:log(json.dumps({"model_execution":exc.telemetry["execution"]},ensure_ascii=False))
+        raise
+    execution=finish_call(receipt,started)
+    execution["output_validation"]="passed"
+    if log:log(json.dumps({"model_execution":execution},ensure_ascii=False))
+    return result
 
 
 def page_text(result: dict) -> str:

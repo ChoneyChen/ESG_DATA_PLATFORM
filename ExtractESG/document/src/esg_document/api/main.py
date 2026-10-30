@@ -171,6 +171,7 @@ report_assets = ReportAssetCatalog(
     settings.report_asset_root,
     settings.output_root,
     pipeline_queue_db=settings.pipeline_queue_db,
+    metadata_root=settings.report_metadata_root,
 )
 
 
@@ -1337,7 +1338,7 @@ from esg_document.api.evidence import evidence_router
 from esg_reports.repository import ReportRepository
 from esg_document.api.report_resources import resource_router
 
-report_resources = ReportRepository(settings.report_asset_root)
+report_resources = ReportRepository(settings.report_asset_root, registry=settings.report_registry_db)
 app.include_router(resource_router(report_assets, report_resources))
 
 
@@ -1372,42 +1373,6 @@ def start_current_pipeline():
 def stop_current_pipeline():
     report_processing.stop()
     pipeline_scheduler.stop()
-
-
-from esg_pipeline.extraction import ExtractionCoordinator
-from esg_console.sessions import extraction_router
-
-
-def _queue_clause_run(run_id, name, timeout):
-    return _queue_task(
-        task_type=PipelineTaskType.TARGETED_EXTRACTION,
-        operation="clause_extraction",
-        title=name,
-        native_job_id=run_id,
-        payload={"run_id": run_id, "_total_timeout_seconds": timeout},
-        deduplicate_native=True,
-    )
-
-
-extraction_plans = ExtractionCoordinator(
-    pipeline_store,
-    report_processing,
-    _queue_clause_run,
-    cancel_pipeline_task,
-    settings.extraction_backend_url,
-)
-app.include_router(extraction_router(extraction_plans, _require_processing_ready))
-
-
-@app.on_event("startup")
-def start_clause_plans():
-    if not os.getenv("PYTEST_CURRENT_TEST"):
-        extraction_plans.start()
-
-
-@app.on_event("shutdown")
-def stop_clause_plans():
-    extraction_plans.stop()
 
 
 @app.get("/api/pipeline/status")

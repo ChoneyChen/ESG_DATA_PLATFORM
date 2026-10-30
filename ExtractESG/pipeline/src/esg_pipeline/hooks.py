@@ -218,7 +218,7 @@ class PlatformTaskHooks(PipelineTaskHooks):
 
     def failed(self, task: PipelineTask, error: str) -> None:
         if task.task_type == PipelineTaskType.TARGETED_EXTRACTION:
-            self._targeted_terminal(task, terminal_status="failed")
+            self._targeted_terminal(task, terminal_status="failed", error=error)
             return
         self._terminal_native(task, "failed", "Task failed", error)
 
@@ -269,8 +269,8 @@ class PlatformTaskHooks(PipelineTaskHooks):
             raise ValueError("Retired extraction operation")
         source = self.settings.extraction_root.parent
         environment["PYTHONPATH"] = os.pathsep.join(
-            str(source / name / "src")
-            for name in ("extraction", "contracts", "shared_runtime")
+            [*(str(source / name / "src") for name in ("extraction", "contracts", "shared_runtime")),
+             str(source.parent / "ClauseESG/src"), environment.get("PYTHONPATH", "")]
         )
         environment.update(HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
         return WorkerCommand(
@@ -284,14 +284,17 @@ class PlatformTaskHooks(PipelineTaskHooks):
             environment=environment,
         )
 
-    def _targeted_terminal(self, task, *, terminal_status):
+    def _targeted_terminal(self, task, *, terminal_status, error=None):
         if not task.native_job_id:
             return
         try:
             with requests.Session() as session:
                 session.trust_env = False
                 session.post(
-                    f"{self.settings.extraction_backend_url}/api/runs/{task.native_job_id}/cancel",
+                    f"{self.settings.extraction_backend_url}/api/runs/{task.native_job_id}/cancel"
+                    if terminal_status == "cancelled"
+                    else f"{self.settings.extraction_backend_url}/api/runs/{task.native_job_id}/execution-terminal",
+                    json=None if terminal_status == "cancelled" else {"status": terminal_status, "error": (error or task.error or "Extraction worker did not finish")[:1000]},
                     timeout=3,
                 )
         except requests.RequestException:

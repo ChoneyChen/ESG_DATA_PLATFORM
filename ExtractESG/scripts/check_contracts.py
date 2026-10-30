@@ -5,6 +5,7 @@ import argparse, json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT.parent / "ClauseESG/src"))
 for name in ("contracts", "shared_runtime"):
     sys.path.insert(0, str(ROOT / name / "src"))
 from esg_reports.contract import ReportResource, BatchManifest
@@ -12,6 +13,7 @@ from esg_clauses.repository import ClauseRepository
 from esg_clauses.contract import ClauseContract
 from esg_contracts.facts import SourceFact
 from esg_contracts.results import FactBundle
+from esg_contracts.exports import ExportManifest, IngestionReceipt
 from esg_contracts.data_kinds.quantitative import QuantitativeValue
 from esg_contracts.data_kinds.qualitative import QualitativeValue
 from esg_data.organization import OrganizationSpec, OrganizedDataset
@@ -22,13 +24,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true")
     args = parser.parse_args()
-    repo = ClauseRepository(ROOT / "standard")
+    repo = ClauseRepository(ROOT.parent / "ClauseESG/clauses")
     if args.write:
         repo.reindex()
     rows = repo.catalog()["clauses"]
     for row in rows:
         repo.get(row["clause_key"]).verify()
     schemas = {
+        "extraction-export": ExportManifest,
+        "extraction-receipt": IngestionReceipt,
         "fact-bundle": FactBundle,
         "report-resource": ReportResource,
         "report-resource-batch": BatchManifest,
@@ -48,7 +52,7 @@ def main():
             )
             + "\n"
         )
-        path = target / (name + ".schema.json")
+        path = ROOT.parent / "ClauseESG/schemas/clause.schema.json" if name == "clause" else target / (name + ".schema.json")
         if args.write:
             path.write_text(body, encoding="utf-8")
         elif not path.is_file() or path.read_text() != body:

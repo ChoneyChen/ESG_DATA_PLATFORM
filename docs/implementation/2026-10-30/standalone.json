@@ -1,0 +1,17 @@
+{
+  "consumer_health": {
+    "status": "ok",
+    "service": "platesg",
+    "database": "pglite",
+    "dataset_version": 1
+  },
+  "requires_extract_checkout": false,
+  "live_database_opened": false,
+  "installed_sdk_modules": [
+    "esg_database-1.0.0-py3-none-any.whl",
+    "esg_clauses-1.2.0-py3-none-any.whl",
+    "esg_contracts-2.1.0-py3-none-any.whl",
+    "esg_runtime-1.2.0-py3-none-any.whl"
+  ],
+  "deployment_boundary": "SDK wheels + independent DB Node assets/dependencies; Plat consumer copied outside checkout"
+}

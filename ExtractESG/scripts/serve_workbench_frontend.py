@@ -125,5 +125,5 @@ class WorkbenchHandler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     ThreadingHTTPServer(
         ("127.0.0.1", 18081),
-        partial(WorkbenchHandler, directory=str(ROOT.parent / "ConsoleESG/dist")),
+        partial(WorkbenchHandler, directory=str(ROOT.parent / "ConsoleESG/frontend/dist")),
     ).serve_forever()

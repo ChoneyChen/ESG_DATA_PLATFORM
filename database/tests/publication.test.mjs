@@ -7,7 +7,7 @@ import {importBundle} from '../scripts/frozen-bundle.mjs';
 import {reviewRecord} from '../scripts/review-decisions.mjs';
 import {seedMetricDictionary,saveMeasurementContext,processOutbox,readDataset,NORMALIZATION_RULE_VERSION,scientificDimensionKeys} from '../scripts/publication.mjs';
 
-const dictionary=JSON.parse(await readFile(new URL('../../PlatESG/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));
+const dictionary=JSON.parse(await readFile(new URL('../../database/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));
 const definition=id=>dictionary.metrics.find(m=>m.source_datapoint_id===id);
 async function database() {const db=await PGlite.create(); await applyMigrations(db); await seedMetricDictionary(db,dictionary); return db;}
 let sequence=0;

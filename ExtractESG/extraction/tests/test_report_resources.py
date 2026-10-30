@@ -61,7 +61,7 @@ def test_report_identity_reaches_each_fact_without_becoming_measurement_identity
     document=document.model_copy(update={'report_resource':resource})
     intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,_,_=numeric_fact(c,document,frame,NumericMatch(row_id=row.row_id,columns=['c1'],reason='test'),row,cell,'i')
+    fact,_,_=numeric_fact(c,document,frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='test'),row,cell,'i')
     assert fact.report_resource==resource
     assert fact.identity.reporting_entity.state=='not_read'
     assert fact.identity.reporting_period.value=='2025' # Publication year must not overwrite measurement period.

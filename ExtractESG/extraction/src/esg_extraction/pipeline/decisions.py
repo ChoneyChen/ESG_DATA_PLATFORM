@@ -1,7 +1,8 @@
 """Model proposals name evidence; they cannot supply numerical values."""
 
 from typing import Literal, Annotated
-from pydantic import BaseModel, ConfigDict, Field, JsonValue, BeforeValidator
+from pydantic import BaseModel, ConfigDict, Field, JsonValue, BeforeValidator, model_validator
+from copy import deepcopy
 
 
 class DecisionModel(BaseModel):
@@ -36,10 +37,16 @@ IdentityClaims = Annotated[list[IdentityProposal], BeforeValidator(identity_clai
 class NumericMatch(DecisionModel):
     row_id: str
     columns: list[str] = Field(min_length=1)
-    match: Literal["match", "uncertain"] = "match"
+    match: Literal["match", "different", "uncertain"] = "match"
     reason: str
-    selection: Literal["measurement", "nonmeasurement", "unresolved"] = "measurement"
+    selection: Literal["measurement", "nonmeasurement", "unresolved"]
     identity: IdentityClaims = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def coherent_measurement_relation(self):
+        if self.match == "different" and self.selection != "measurement":
+            raise ValueError("A different-target measurement is still a measurement")
+        return self
 
 
 class QuantitativeDecision(DecisionModel):
@@ -95,6 +102,14 @@ def decision_schema(data_kind, frame):
                 {cell.column_id for row in frame.rows for cell in row.cells}
             ),
         }
+        # Enforce the semantic combination during constrained decoding, not by
+        # retrying an already generated contradictory table result.
+        measurement = deepcopy(schema["$defs"]["NumericMatch"])
+        measurement["properties"]["selection"] = {"const": "measurement", "type": "string"}
+        other = deepcopy(schema["$defs"]["NumericMatch"])
+        other["properties"]["selection"] = {"enum": ["nonmeasurement", "unresolved"], "type": "string"}
+        other["properties"]["match"] = {"enum": ["match", "uncertain"], "type": "string"}
+        schema["$defs"]["NumericMatch"] = {"anyOf": [measurement, other]}
     else:
         schema["$defs"]["StatementMatch"]["properties"]["span_id"] = {
             "type": "string",

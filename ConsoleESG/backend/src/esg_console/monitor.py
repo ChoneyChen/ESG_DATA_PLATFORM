@@ -23,6 +23,7 @@ class MonitorRun(BaseModel):
     observation: Literal["fresh", "unavailable"] = "fresh"
     updated_at: str | None = None
     can_cancel: bool = False
+    preparation: list[dict[str, str | int | None]] = Field(default_factory=list)
 
 
 class MonitorSnapshot(BaseModel):
@@ -48,13 +49,15 @@ def monitor_snapshot(sessions):
             report_id=state.get("request", {}).get("input", {}).get("asset_id"),
             name=state["name"], status=state["status"],
             current_phase=state["current_phase"], phase_label=state["phase_label"],
-            current=progress.get("current", 0), total=progress.get("total", 0),
+            current=progress.get("current", 0), total=progress.get("total", 0) or len(state.get("clause_keys", [])),
             facts=summary.get("source_facts", progress.get("fact_count", 0)),
             model_calls=summary.get("model_calls", progress.get("model_calls", 0)),
             model_phase=call.get("phase"), generated_tokens=call.get("generation_tokens"),
             elapsed_seconds=call.get("elapsed_seconds"), observation=state.get("observation", "fresh"),
             updated_at=state.get("updated_at"),
             can_cancel=any(a.get("action") == "cancel" for a in state.get("available_actions", [])),
+            preparation=[{key: step.get(key) for key in ("stage", "label", "status", "current", "total", "unit")}
+                for step in (state.get("preparation") or {}).get("steps", [])],
         ))
     body = [run.model_dump(mode="json") for run in runs]
     return MonitorSnapshot(

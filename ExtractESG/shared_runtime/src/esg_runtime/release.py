@@ -35,22 +35,24 @@ def release_files(extract_root: Path) -> dict[str, list[Path]]:
     shared = list((root / "contracts/src").rglob("*.py")) + list(
         (root / "shared_runtime/src").rglob("*.py")
     )
+    shared += list((root.parent / "ClauseESG/src").rglob("*.py"))
     groups = {
         "document_backend": list((root / "document/src").rglob("*.py"))
         + list((root / "document/src").rglob("*.swift"))
-        + list((root / "pipeline/src").rglob("*.py")),
+        + list((root / "pipeline/src").rglob("*.py"))
+        + list((root.parent / "ConsoleESG/backend/src").rglob("*.py")),
         "extraction_backend": list((root / "extraction/src").rglob("*.py")),
         "standard_contracts": shared,
         "document_contracts": shared,
         "publication_catalog": [
-            root.parent / "PlatESG/catalog/metric-dictionary.v1.json"
+            root.parent / "database/catalog/metric-dictionary.v1.json"
         ]
-        + list((root.parent / "PlatESG/catalog/import-contracts").rglob("*.json")),
-        "catalog": list((root / "standard").rglob("*.json"))
-        + [root.parent / "PlatESG/catalog/metric-dictionary.v1.json"],
+        + list((root.parent / "database/catalog/import-contracts").rglob("*.json")),
+        "catalog": list((root.parent / "ClauseESG/clauses").rglob("*.json"))
+        + [root.parent / "database/catalog/metric-dictionary.v1.json"],
         "frontend": [
             p
-            for p in (root.parent / "ConsoleESG/src").rglob("*")
+            for p in (root.parent / "ConsoleESG/frontend/src").rglob("*")
             if p.suffix in {".tsx", ".ts", ".css"} and ".test." not in p.name
         ],
         "publication_backend": list((root.parent / "PlatESG/backend").glob("*.py"))
@@ -114,10 +116,10 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
             json.dumps(digests, sort_keys=True).encode()
         ).hexdigest(),
         "contracts": {
-            "clause": "clause-contract-1.1",
+            "clause": "clause-contract-1.2",
             "data": "extraction-data-2.0",
-            "facts": "extraction-fact-bundle-2.1",
-            "organization": "organized-extraction-1.0",
+            "facts": "extraction-fact-bundle-2.2",
+            "organization": "organized-extraction-1.1",
             "report_resource": "report-resource-1.0",
             "source_validation": "digest_and_bound_evidence",
         },
@@ -125,6 +127,33 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
     _CACHE.clear()
     _CACHE[key] = identity
     return json.loads(json.dumps(identity))
+
+
+class ModuleRelease:
+    """A deployable module fingerprints only its owned files, without a checkout."""
+    def __init__(self, root: Path, service: str, patterns, dependencies=()):
+        self.root, self.service, self.patterns = root.resolve(), service, patterns
+        self.dependencies = dependencies
+        self.started = self.identity()
+
+    def identity(self):
+        value = hashlib.sha256()
+        for path in sorted({path for pattern in self.patterns for path in self.root.glob(pattern) if path.is_file()}):
+            value.update(path.relative_to(self.root).as_posix().encode())
+            value.update(b"\0")
+            value.update(path.read_bytes())
+        for name, dependency in self.dependencies:
+            value.update(name.encode())
+            value.update(dependency.identity()["build_fingerprint"].encode())
+        fingerprint = value.hexdigest()
+        return {"service": self.service, "protocol_version": PROTOCOL_VERSION,
+            "build_fingerprint": fingerprint, "components": {self.service: fingerprint}}
+
+    def snapshot(self):
+        current = self.identity()
+        changed = current["build_fingerprint"] != self.started["build_fingerprint"]
+        return {**self.started, "current_disk_fingerprint": current["build_fingerprint"],
+            "source_changed_since_start": changed, "restart_required": changed}
 
 
 class RuntimeRelease:

@@ -80,7 +80,7 @@ def resource_router(assets, repository):
     def intake(request: Import, http: Request):
         require_local_origin(http)
         result = call(
-            import_folder, request.folder, repository.library, preview=request.preview
+            import_folder, request.folder, repository.library, preview=request.preview, repository=repository
         )
         if not request.preview:
             assets.refresh()
@@ -94,7 +94,7 @@ def resource_router(assets, repository):
         except (ValueError, TypeError) as exc:
             raise HTTPException(422, "Report metadata must be valid JSON") from exc
         result = call(
-            import_upload, file.file, file.filename, fields, repository.library
+            import_upload, file.file, file.filename, fields, repository.library, repository=repository
         )
         assets.refresh()
         return result

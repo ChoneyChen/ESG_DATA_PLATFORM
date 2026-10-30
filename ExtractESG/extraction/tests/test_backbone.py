@@ -14,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[3]
 
 @pytest.fixture
 def repository():
-    return ClauseRepository(ROOT/'ExtractESG/standard')
+    return ClauseRepository(ROOT/'ClauseESG/clauses')
 
 @pytest.fixture
 def documents(tmp_path):
@@ -40,7 +40,7 @@ class Model:
         if target['data_kind']=='qualitative':
             spans=[t for t in frame['texts'] if '管理制度' in t['text']]
             return {'matches':[{'span_id':t['span_id'],'reason':'direct disclosure'} for t in spans]},{}
-        return {'matches':[{'row_id':r['row_id'],'columns':['c1'],'reason':'source cell','identity':[{'bad':'optional metadata'}]}
+        return {'matches':[{'selection':'measurement','row_id':r['row_id'],'columns':['c1'],'reason':'source cell','identity':[{'bad':'optional metadata'}]}
                            for r in frame['rows'] if any(c['column_id']=='c1' for c in r['cells'])]},{}
     def close(self):pass
 

@@ -7,11 +7,11 @@ import {importBundle} from '../scripts/frozen-bundle.mjs';
 import {reviewRecord} from '../scripts/review-decisions.mjs';
 import {seedMetricDictionary,saveMeasurementContext,processOutbox,readDataset} from '../scripts/publication.mjs';
 import {availableReportedProperties,resolveReportedProperties} from '../scripts/scientific-properties.mjs';
-import {dispatch} from '../../PlatESG/backend/service.mjs';
-import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
-import {publicReportedProperty} from '../../PlatESG/backend/public_contracts.mjs';
+import {dispatch} from '../queries/service.mjs';
+import {applyPlatformMigrations} from '../runtime/connection.mjs';
+import {publicReportedProperty} from '../queries/public_contracts.mjs';
 
-const dictionary=JSON.parse(await readFile(new URL('../../PlatESG/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));
+const dictionary=JSON.parse(await readFile(new URL('../../database/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));
 const metric=dictionary.metrics.find(item=>item.source_datapoint_id==='E1-6_07');
 const locator={ir_object_id:'synthetic-note',pdf_page_index:1,document_id:'synthetic-doc',ir_run_id:'synthetic-ir',
   bbox_x0:10,bbox_y0:20,bbox_x1:30,bbox_y1:40};

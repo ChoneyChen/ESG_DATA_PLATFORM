@@ -1,0 +1,13 @@
+[project]
+name = "esg-runtime"
+version = "1.2.0"
+description = "Runtime execution envelopes, process identity and explicit storage configuration"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.11,<3", "requests>=2.32,<3"]
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,16 @@
+[project]
+name = "esg-database"
+version = "1.0.0"
+description = "Independent database adapter, ingestion and receipts"
+requires-python = ">=3.11"
+dependencies = ["esg-contracts>=2.1,<3"]
+
+[project.optional-dependencies]
+server = ["fastapi>=0.116,<1", "uvicorn>=0.35,<1", "esg-runtime>=1.2,<2"]
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

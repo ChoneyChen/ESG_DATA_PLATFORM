@@ -1,16 +1,14 @@
 """Read-only locator availability, separate from evidence quality and review."""
 from __future__ import annotations
 
-import json
 import re
 from pathlib import Path
 
 from .public_pdf import published_pdf
 
 
-def candidate_locations(rows: list[dict], pdf_roots: list[Path], ir_root: Path) -> list[dict]:
+def candidate_locations(rows: list[dict], pdf_roots: list[Path], resolver=None) -> list[dict]:
     pdfs, versions = {}, {}
-    root = ir_root.expanduser().resolve()
     for row in rows:
         location = {"state": "unknown", "asset_id": None, "ir_run_id": None,
                     "ir_revision": row.get("source_ir_revision"), "pdf_available": False,
@@ -40,24 +38,19 @@ def candidate_locations(rows: list[dict], pdf_roots: list[Path], ir_root: Path) 
         if key not in versions:
             valid = False
             if isinstance(run, str) and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,159}", run):
-                directory = (root / run).resolve()
-                if directory.is_relative_to(root):
+                if resolver is not None:
                     try:
-                        manifest = json.loads((directory / "manifest.json").read_text(encoding="utf-8"))
-                        valid = (manifest.get("run_id") == run and manifest.get("ir_revision") == revision
-                                 and manifest.get("source", {}).get("pdf_sha256") == digest)
-                        for kind in ("canonical_document", "pages"):
-                            entry = manifest.get("entrypoints", {}).get(kind)
-                            target = (directory / entry).resolve() if isinstance(entry, str) else directory
-                            valid = valid and bool(entry) and target.is_relative_to(directory) and target.is_file()
-                    except (OSError, ValueError, TypeError):
+                        reference = resolver(run)
+                        resource = reference.get("report_resource") or {}
+                        valid = reference.get("ir_run_id") == run and reference.get("ir_revision") == revision and (reference.get("source_sha256") or resource.get("sha256")) == digest
+                    except (OSError, ValueError, TypeError, KeyError):
                         valid = False
             versions[key] = bool(valid)
         location["ir_available"] = versions[key]
         if versions[key]:
             location["ir_run_id"] = run
         if location["asset_id"] or versions[key]:
-            location.update(state="verified", reason="来源定位与固定指纹、修订及入口文件一致；证据质量仍须独立核对")
+            location.update(state="verified", reason="来源定位与固定指纹、修订及证据服务一致；证据质量仍须独立核对")
         else:
-            location.update(state="unavailable", reason="固定来源未在配置的本地报告或IR集合中验证通过")
+            location.update(state="unavailable", reason="固定来源暂时无法通过资源或证据接口读取")
     return rows

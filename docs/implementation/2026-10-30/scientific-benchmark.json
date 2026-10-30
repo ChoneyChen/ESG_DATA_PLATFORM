@@ -1,0 +1,68 @@
+{
+  "schema_version": "scientific-benchmark-result-1.0",
+  "run_id": "extract-1099dd301a241c409a0ab052027c689c",
+  "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+  "expected_measurements": 5,
+  "retained_measurements": 5,
+  "correct_target_relations": 3,
+  "correct_other_relations": 2,
+  "false_formula_or_footnote_facts": [],
+  "rows": [
+    {
+      "label": "氮氧化物",
+      "value_raw": "1,530.14",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "match",
+      "retained": true,
+      "unit_correct": true,
+      "period_correct": true,
+      "relation_correct": true
+    },
+    {
+      "label": "二氧化硫",
+      "value_raw": "5,856.94",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "match",
+      "retained": true,
+      "unit_correct": true,
+      "period_correct": true,
+      "relation_correct": true
+    },
+    {
+      "label": "挥发性有机物",
+      "value_raw": "1,161.80",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "match",
+      "retained": true,
+      "unit_correct": true,
+      "period_correct": true,
+      "relation_correct": true
+    },
+    {
+      "label": "化学需氧量",
+      "value_raw": "175.61",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "different",
+      "retained": true,
+      "unit_correct": true,
+      "period_correct": true,
+      "relation_correct": true
+    },
+    {
+      "label": "氨氮",
+      "value_raw": "20.36",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "different",
+      "retained": true,
+      "unit_correct": true,
+      "period_correct": true,
+      "relation_correct": true
+    }
+  ],
+  "limits": "Metrics concern this annotated table and two counterexamples only, never full-report recall or global model precision."
+}

@@ -16,6 +16,7 @@ from esg_contracts.sessions import NativeRun
 from esg_contracts.results import FactBundle, FactCollection, CandidateRejection
 from esg_contracts.facts import SourceFact
 from typing import Literal
+from contextlib import asynccontextmanager
 
 
 class CreateRun(BaseModel):
@@ -42,8 +43,21 @@ class ClauseTemplate(BaseModel):
     title: str = Field(min_length=1, max_length=300)
 
 
+class ExecutionTerminal(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    status: Literal["failed", "interrupted"]
+    error: str = Field(max_length=1000)
+
+
 def create_app(resource_factory=resources):
-    app = FastAPI(title="Clause extraction backbone", version="1.1.0")
+    from .delivery import DeliveryOutbox
+    outbox = DeliveryOutbox(resource_factory)
+    @asynccontextmanager
+    async def lifespan(app):
+        outbox.start()
+        yield
+        outbox.stop()
+    app = FastAPI(title="Clause extraction backbone", version="1.2.0", lifespan=lifespan)
     install_loopback_marker(app)
     app.add_middleware(
         CORSMiddleware,
@@ -304,6 +318,16 @@ def create_app(resource_factory=resources):
             **({"status": "cancelled"} if state["status"] == "queued" else {}),
         )
 
+    @app.post("/api/runs/{run_id}/execution-terminal")
+    def execution_terminal(run_id: str, request: ExecutionTerminal) -> NativeRun:
+        store = resource_factory()[1]
+        state = store.get(run_id)
+        if state["status"] not in {"queued", "running"}:
+            return store.public(state)
+        from datetime import datetime, timezone
+        return store.update(run_id, status=request.status, error=request.error,
+            finished_at=datetime.now(timezone.utc).isoformat())
+
     @app.get("/api/runs/{run_id}/facts/{fact_id}")
     def fact(run_id: str, fact_id: str):
         import re
@@ -366,6 +390,31 @@ def create_app(resource_factory=resources):
             return artifacts.read(run_id, "diagnostics/candidates.json")
         except FileNotFoundError:
             return []
+
+    @app.post("/api/runs/{run_id}/exports")
+    def export(run_id: str):
+        from .exporting import seal_export
+        _, store, artifacts, _ = resource_factory()
+        try:
+            return seal_export(run_id, store, artifacts)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+
+    @app.get("/api/runs/{run_id}/exports/{export_id}")
+    def download_export(run_id: str, export_id: str):
+        from esg_contracts.exports import ExportManifest
+        from .exporting import export_archive
+        from fastapi.responses import Response
+        _, store, artifacts, _ = resource_factory()
+        store.get(run_id)
+        if not __import__("re").fullmatch(r"export-[a-f0-9]{64}", export_id):
+            raise HTTPException(404, "Export does not exist")
+        try:
+            manifest = ExportManifest.model_validate(artifacts.read(run_id, f"exports/{export_id}/manifest.json"))
+            return Response(export_archive(run_id, manifest, artifacts), media_type="application/zip",
+                headers={"Content-Disposition": f'attachment; filename="{export_id}.zip"'})
+        except FileNotFoundError:
+            raise HTTPException(404, "Export does not exist")
 
     return app
 

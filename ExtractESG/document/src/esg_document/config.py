@@ -5,20 +5,23 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from esg_runtime.layout import (
     DOCUMENT_DATA_ROOT,
+    DATA_ROOT,
+    CONTROL_ROOT,
+    REPORTS_ROOT,
     EXTRACT_ROOT,
     WORKSPACE_ROOT as STABLE_WORKSPACE_ROOT,
 )
 
 
 DOCUMENT_IR_APP_ROOT = DOCUMENT_DATA_ROOT
-OCR_OUTPUT_ROOT = DOCUMENT_IR_APP_ROOT / "ocr_output"
-DOCUMENT_IR_OUTPUT_ROOT = DOCUMENT_IR_APP_ROOT / "document_ir_output"
-UPLOAD_ROOT = DOCUMENT_IR_APP_ROOT / ".local" / "uploads"
-OCR_JOB_STATE_ROOT = DOCUMENT_IR_APP_ROOT / ".local" / "jobs" / "ocr"
-DOCUMENT_IR_JOB_STATE_ROOT = DOCUMENT_IR_APP_ROOT / ".local" / "jobs" / "document-ir"
+OCR_OUTPUT_ROOT = DOCUMENT_IR_APP_ROOT / "ocr"
+DOCUMENT_IR_OUTPUT_ROOT = DOCUMENT_IR_APP_ROOT / "ir"
+UPLOAD_ROOT = DOCUMENT_IR_APP_ROOT / "uploads"
+OCR_JOB_STATE_ROOT = CONTROL_ROOT / "jobs" / "ocr"
+DOCUMENT_IR_JOB_STATE_ROOT = CONTROL_ROOT / "jobs" / "ir"
 WORKSPACE_ROOT = STABLE_WORKSPACE_ROOT
-PLATFORM_RUNTIME_ROOT = WORKSPACE_ROOT / ".local" / "platform-runtime"
-REPORT_ASSET_ROOT = WORKSPACE_ROOT / "pdf"
+PLATFORM_RUNTIME_ROOT = CONTROL_ROOT
+REPORT_ASSET_ROOT = REPORTS_ROOT / "blobs"
 EXTRACTION_ROOT = EXTRACT_ROOT / "extraction"
 
 
@@ -56,17 +59,25 @@ def load_default_env_files() -> None:
 
 
 def default_storage_cleanup_root() -> Path:
-    explicit = os.getenv("ESG_V2_STORAGE_CLEANUP_DIR")
+    explicit = os.getenv("ESG_DOCUMENT_STORAGE_CLEANUP_DIR")
     if explicit:
         return Path(explicit)
     state_root = Path(
-        os.getenv("ESG_V2_DOCUMENT_IR_JOB_STATE_DIR", str(DOCUMENT_IR_JOB_STATE_ROOT))
+        os.getenv("ESG_DOCUMENT_IR_JOB_STATE_DIR", str(DOCUMENT_IR_JOB_STATE_ROOT))
     )
     return state_root.parent.parent / "storage-cleanup"
 
 
 @dataclass(frozen=True)
 class Settings:
+    @property
+    def report_metadata_root(self):
+        return REPORTS_ROOT if self.report_asset_root.resolve() == REPORT_ASSET_ROOT.resolve() else self.report_asset_root
+
+    @property
+    def report_registry_db(self):
+        return self.report_metadata_root / "registry.sqlite3" if self.report_metadata_root == REPORTS_ROOT else self.report_metadata_root / ".report-resources.sqlite3"
+
     report_asset_root: Path = field(
         default_factory=lambda: Path(
             os.getenv("ESG_REPORT_ASSET_DIR", str(REPORT_ASSET_ROOT))
@@ -76,7 +87,7 @@ class Settings:
         default_factory=lambda: Path(
             os.getenv(
                 "ESG_PIPELINE_QUEUE_DB",
-                str(PLATFORM_RUNTIME_ROOT / "pipeline-queue.sqlite3"),
+                str(PLATFORM_RUNTIME_ROOT / "queue.sqlite3"),
             )
         ).expanduser()
     )
@@ -118,7 +129,7 @@ class Settings:
         default_factory=lambda: float(os.getenv("ESG_PIPELINE_POLL_INTERVAL", "0.5"))
     )
     default_ocr_provider: str = field(
-        default_factory=lambda: os.getenv("ESG_V2_OCR_PROVIDER", "local_paddleocr")
+        default_factory=lambda: os.getenv("ESG_DOCUMENT_OCR_PROVIDER", "local_paddleocr")
     )
     paddle_job_url: str = field(
         default_factory=lambda: os.getenv(
@@ -134,32 +145,32 @@ class Settings:
     )
     output_root: Path = field(
         default_factory=lambda: Path(
-            os.getenv("ESG_V2_OCR_OUTPUT_DIR", str(OCR_OUTPUT_ROOT))
+            os.getenv("ESG_DOCUMENT_OCR_OUTPUT_DIR", str(OCR_OUTPUT_ROOT))
         )
     )
     document_ir_output_root: Path = field(
         default_factory=lambda: Path(
-            os.getenv("ESG_V2_DOCUMENT_IR_OUTPUT_DIR", str(DOCUMENT_IR_OUTPUT_ROOT))
+            os.getenv("ESG_DOCUMENT_IR_OUTPUT_DIR", str(DOCUMENT_IR_OUTPUT_ROOT))
         )
     )
     upload_root: Path = field(
-        default_factory=lambda: Path(os.getenv("ESG_V2_UPLOAD_DIR", str(UPLOAD_ROOT)))
+        default_factory=lambda: Path(os.getenv("ESG_DOCUMENT_UPLOAD_DIR", str(UPLOAD_ROOT)))
     )
     ocr_job_state_root: Path = field(
         default_factory=lambda: Path(
-            os.getenv("ESG_V2_OCR_JOB_STATE_DIR", str(OCR_JOB_STATE_ROOT))
+            os.getenv("ESG_DOCUMENT_OCR_JOB_STATE_DIR", str(OCR_JOB_STATE_ROOT))
         )
     )
     document_ir_job_state_root: Path = field(
         default_factory=lambda: Path(
             os.getenv(
-                "ESG_V2_DOCUMENT_IR_JOB_STATE_DIR", str(DOCUMENT_IR_JOB_STATE_ROOT)
+                "ESG_DOCUMENT_IR_JOB_STATE_DIR", str(DOCUMENT_IR_JOB_STATE_ROOT)
             )
         )
     )
     storage_cleanup_root: Path = field(default_factory=default_storage_cleanup_root)
     document_ir_best_only_retention: bool = field(
-        default_factory=lambda: env_bool("ESG_V2_DOCUMENT_IR_BEST_ONLY", True)
+        default_factory=lambda: env_bool("ESG_DOCUMENT_IR_BEST_ONLY", True)
     )
     poll_interval_seconds: float = field(
         default_factory=lambda: float(os.getenv("PADDLEOCR_VL_POLL_INTERVAL", "5"))
@@ -239,33 +250,33 @@ class Settings:
         )
     )
     ocr_pdf_canvas_normalization_enabled: bool = field(
-        default_factory=lambda: env_bool("ESG_V2_OCR_PDF_CANVAS_NORMALIZATION", True)
+        default_factory=lambda: env_bool("ESG_DOCUMENT_OCR_PDF_CANVAS_NORMALIZATION", True)
     )
     # Page-targeted OCR reads clean digital pages from the PDF text layer
     # (layout model only) and sends just the remaining pages to the VLM.
     ocr_text_layer_enabled: bool = field(
-        default_factory=lambda: env_bool("ESG_V2_OCR_TEXT_LAYER", True)
+        default_factory=lambda: env_bool("ESG_DOCUMENT_OCR_TEXT_LAYER", True)
     )
     # Scans: choose clause-targeted OCR pages from on-device (macOS Vision)
     # page text instead of sending every page to the VLM.
     ocr_vision_prescan_enabled: bool = field(
-        default_factory=lambda: env_bool("ESG_V2_OCR_VISION_PRESCAN", True)
+        default_factory=lambda: env_bool("ESG_DOCUMENT_OCR_VISION_PRESCAN", True)
     )
     ocr_provider_max_canvas_points: float = field(
         default_factory=lambda: float(
-            os.getenv("ESG_V2_OCR_PROVIDER_MAX_CANVAS_POINTS", "1200")
+            os.getenv("ESG_DOCUMENT_OCR_PROVIDER_MAX_CANVAS_POINTS", "1200")
         )
     )
     ocr_provider_max_local_file_bytes: int = field(
         default_factory=lambda: int(
             os.getenv(
-                "ESG_V2_OCR_PROVIDER_MAX_LOCAL_FILE_BYTES", str(100 * 1024 * 1024)
+                "ESG_DOCUMENT_OCR_PROVIDER_MAX_LOCAL_FILE_BYTES", str(100 * 1024 * 1024)
             )
         )
     )
     ocr_provider_max_pdf_pages: int = field(
         default_factory=lambda: int(
-            os.getenv("ESG_V2_OCR_PROVIDER_MAX_PDF_PAGES", "1000")
+            os.getenv("ESG_DOCUMENT_OCR_PROVIDER_MAX_PDF_PAGES", "1000")
         )
     )
     qiniu_api_key: str | None = field(
@@ -297,7 +308,7 @@ class Settings:
         default_factory=lambda: os.getenv("QINIU_VLM_MODEL")
     )
     default_review_provider: str = field(
-        default_factory=lambda: os.getenv("ESG_V2_REVIEW_PROVIDER", "local_qwen")
+        default_factory=lambda: os.getenv("ESG_DOCUMENT_REVIEW_PROVIDER", "local_qwen")
     )
     nuextract_model_path: Path = field(
         default_factory=lambda: Path(
@@ -354,24 +365,24 @@ class Settings:
         default_factory=lambda: float(os.getenv("QWEN_VLM_TIMEOUT_SECONDS", "600"))
     )
     max_vlm_reviews_per_ir_run: int = field(
-        default_factory=lambda: int(os.getenv("ESG_V2_MAX_VLM_REVIEWS_PER_IR_RUN", "0"))
+        default_factory=lambda: int(os.getenv("ESG_DOCUMENT_MAX_VLM_REVIEWS_PER_IR_RUN", "0"))
     )
     max_blocking_vlm_reviews_per_ir_run: int = field(
         default_factory=lambda: int(
-            os.getenv("ESG_V2_MAX_BLOCKING_VLM_REVIEWS_PER_IR_RUN", "64")
+            os.getenv("ESG_DOCUMENT_MAX_BLOCKING_VLM_REVIEWS_PER_IR_RUN", "64")
         )
     )
     max_optional_vlm_reviews_per_ir_run: int = field(
         default_factory=lambda: int(
-            os.getenv("ESG_V2_MAX_OPTIONAL_VLM_REVIEWS_PER_IR_RUN", "64")
+            os.getenv("ESG_DOCUMENT_MAX_OPTIONAL_VLM_REVIEWS_PER_IR_RUN", "64")
         )
     )
     review_completeness_mode: bool = field(
-        default_factory=lambda: env_bool("ESG_V2_REVIEW_COMPLETENESS_MODE", True)
+        default_factory=lambda: env_bool("ESG_DOCUMENT_REVIEW_COMPLETENESS_MODE", True)
     )
     pdf_render_timeout_seconds: float = field(
         default_factory=lambda: float(
-            os.getenv("ESG_V2_PDF_RENDER_TIMEOUT_SECONDS", "1800")
+            os.getenv("ESG_DOCUMENT_PDF_RENDER_TIMEOUT_SECONDS", "1800")
         )
     )
 

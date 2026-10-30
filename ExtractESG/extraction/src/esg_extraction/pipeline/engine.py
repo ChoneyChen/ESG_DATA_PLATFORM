@@ -10,7 +10,7 @@ from esg_contracts.facts import ClauseCoverage
 from esg_contracts.results import FactBundle
 from esg_data.normalize import fold
 from esg_clauses.search import compile_search_plan
-from .decisions import QuantitativeDecision, QualitativeDecision, decision_schema
+from .decisions import QuantitativeDecision, QualitativeDecision, NumericMatch, decision_schema
 from .binding import numeric_fact, qualitative_fact
 from .structure import period_columns
 from .ports import DocumentPort, ModelPort, ArtifactPort
@@ -19,9 +19,9 @@ from .organization import build_organized_dataset
 ENGINE_VERSION = "clause-backbone-1.2"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
-Return only row IDs and column IDs that directly report the requested measurement. Never output, compute or convert values.
+Return row IDs and column IDs for real measurements in this bounded evidence frame. Never output, compute or convert values.
 Set selection=measurement only for a real reported quantity. Formula digits (SF6, CO2), identifiers, years, dates, reference/footnote numbers are NOT quantities. Reject them with selection=nonmeasurement. Use selection=unresolved when measurement meaning itself is unsupported; these remain diagnostics, never facts. A real count may have no printed unit.
-Select EVERY relevant row, not one example. Each selected row must use its exact visible row_id; one response may contain many matches. Follow target.reading.instructions, and keep unrelated measurement types out of the selection.
+Select EVERY relevant row, not one example. Each selected row must use its exact visible row_id; one response may contain many matches. Follow target.reading.instructions. A real measurement outside the target remains selection=measurement with match=different, never nonmeasurement. Preserve such rows from the same candidate table separately from target rows. For example, a table may contain both the requested category and another real category; the latter is still a measurement. Do not select identifier/year/header/footnote cells as measurements.
 When physical_period_columns is provided, the period column is already determined by structure; select rows and use those columns.
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
 Place shared frame identity in the top-level identity list ONCE; put only supported row-specific overrides in each match. Omit unsupported axes entirely; do not enumerate missing fields. An empty identity list is valid. Keep each reason to one short phrase.
@@ -30,9 +30,9 @@ reporting_entity (literal company name), entity_aggregation_role (group/subsidia
 measurement_method, value_role (actual/target/baseline/context), aggregation_role (total/subtotal/component/share/intensity),
 denominator and dimensions explicitly stated in the source. Do not repeat a physically determined reporting period in model identity.
 Do not copy fixed clause axes into the report identity. A clause defines what to seek; it is not evidence of what the report says.
-Missing identity, unit, period, or other metadata MUST NOT remove a relevant physically reported value. Select it as uncertain; the raw source is admitted separately from clause compliance.
+Missing identity, unit, period, or other optional metadata MUST NOT remove a relevant physically reported value or demote its target match. Use match=match when measurement meaning fits the target; leave unsupported attributes absent. Comparison completeness is assessed separately.
 requested_identity_fields declares this clause's result columns and any local vocabulary. Read those fields only from cited report evidence. A target definition or report-resource company is not a measured identity. Unlisted categories stay literal and uncertain; never force them into a known code.
-When relevance or identity is ambiguous, use uncertain. No supported rows means matches=[]."""
+Use match=uncertain only when measurement meaning or target relevance itself is ambiguous. No supported rows means matches=[]."""
 QUALITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent qualitative clause.
 Return span IDs containing directly reported statements that satisfy the clause definition and reading rules.
 You may quote an exact substring; the receiver must find it uniquely in that span. Otherwise select the entire span.
@@ -158,6 +158,7 @@ class ExtractionBackbone:
                         complete = False
                         reasons.append("execution_budget_exhausted")
                         break
+                    telemetry = {}
                     try:
                         frame = self.documents.read(request.ir_run_id, candidate, chunk)
                     except Exception as exc:
@@ -275,9 +276,19 @@ class ExtractionBackbone:
                         decision = decision_type.model_validate(
                             raw if isinstance(raw, dict) else json.loads(raw)
                         )
+                        model_decision = decision.model_dump(mode="json")
+                        supplements = []
+                        if clause.data_kind == "quantitative":
+                            supplements = adjacent_table_quantities(frame, decided_columns, decision.matches)
+                            if supplements:
+                                decision = decision.model_copy(update={"matches": [*decision.matches, *supplements]})
+                        if telemetry.get("execution"):
+                            telemetry["execution"]["output_validation"] = "passed"
                         call.update(
                             status="ok",
                             telemetry=telemetry,
+                            model_decision=model_decision,
+                            structural_supplements=[item.model_dump(mode="json") for item in supplements],
                             decision=decision.model_dump(mode="json"),
                         )
                         interpretation = digest(
@@ -372,6 +383,9 @@ class ExtractionBackbone:
                     except Exception as exc:
                         if cancel_check():
                             raise PipelineCancelled("Extraction cancelled") from exc
+                        if telemetry.get("execution"):
+                            telemetry["execution"]["output_validation"] = "failed"
+                            call["telemetry"] = telemetry
                         call.update(
                             status="failed",
                             error=f"{type(exc).__name__}: {str(exc)[:400]}",
@@ -496,7 +510,7 @@ class ExtractionBackbone:
     ):
         # Every record crosses a typed, value-only boundary before persistence.
         body = {
-            "schema_version": "extraction-fact-bundle-2.1",
+            "schema_version": "extraction-fact-bundle-2.2",
             "engine_version": ENGINE_VERSION,
             "engine_identity": self.engine_identity,
             "run_id": run_id,
@@ -518,7 +532,7 @@ class ExtractionBackbone:
             },
         }
         body["organization"] = {
-            "schema_version": "organized-extraction-1.0",
+            "schema_version": "organized-extraction-1.1",
             "status": "pending",
             "url": f"/api/runs/{run_id}/organized",
         }
@@ -553,6 +567,31 @@ class ExtractionBackbone:
         return body
 
 
+def adjacent_table_quantities(frame, decided_columns, matches):
+    """Retain explicit quantities in a selected table independently of relevance.
+
+    Only data rows with a physically printed unit and a structurally selected
+    period qualify. Ambiguous prose, unitless counts and headers remain model
+    decisions. Relevance is still evaluated from the clause, never guessed here.
+    """
+    if frame.kind != "table" or not decided_columns:
+        return []
+    selected = {(match.row_id, col) for match in matches if match.selection == "measurement" for col in match.columns}
+    result = []
+    for row in frame.rows:
+        if row.row_role != "data" or not row.label.strip() or not row.unit_raw or not row.unit_sources:
+            continue
+        if not any(row.unit_raw in source.text for source in row.unit_sources):
+            continue
+        columns = [cell.column_id for cell in row.cells if cell.column_id in decided_columns
+            and (row.row_id, cell.column_id) not in selected and cell.candidate_kind == "measurement"
+            and re.fullmatch(r"\s*[-+−]?\d[\d,，]*(?:\.\d+)?\s*", cell.raw_text)]
+        if columns:
+            result.append(NumericMatch(row_id=row.row_id, columns=columns, selection="measurement", match="uncertain",
+                reason="Printed table quantity retained independently of target selection"))
+    return result
+
+
 def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count=0):
     """One result projection, independent of views and publication decisions."""
     interrupted = bool(errors) or len(coverage) != len(clauses) or any(
@@ -560,26 +599,33 @@ def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_c
         for c in coverage
     )
     required = {
-        (key, field.binding.source, field.binding.key)
-        for key, clause in clauses.items() for field in clause.organization.fields
-        if field.binding.source in {"identity", "dimension"}
+        key: clause.purposes.enrichment.identity_axes if clause.purposes else [
+            field.binding.key for field in clause.organization.fields
+            if field.binding.source in {"identity", "dimension"}
+        ]
+        for key, clause in clauses.items()
     }
     by_id = {fact.source_fact_id: fact for fact in facts}
     incomplete = False
+    comparable = bool(mappings) and {f.source_fact_id for f in facts} <= {m.source_fact_id for m in mappings}
     for link in mappings:
         fact = by_id[link.source_fact_id]
-        for key, source, axis in required:
-            if key != link.clause_key:
-                continue
-            field = fact.identity.dimensions.get(axis) if source == "dimension" else getattr(fact.identity, axis, None)
+        clause = clauses[link.clause_key]
+        policy = clause.purposes.comparison if clause.purposes else None
+        if link.match != "match" or any(flag.startswith(("comparison_axis_missing:", "clause_evidence_missing:", "output_vocabulary_", "identity_conflict:", "unit_source_unconfirmed")) for flag in link.flags):
+            comparable = False
+        if (policy is None or policy.require_complete_scopes) and not {s.scope_id for s in clause.output_scopes if s.required} <= set(link.scope_ids):
+            comparable = False
+        for axis in required[link.clause_key]:
+            field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
             if field is None or field.state not in {"stated", "inherited"}:
                 incomplete = True
     return {
         "execution_state": "running" if not final else "interrupted" if interrupted else "completed",
         "search_coverage": "in_progress" if not final else "incomplete" if interrupted else "bounded_complete",
         "capture_result": "usable" if facts else "empty",
-        "metadata_completeness": "not_requested" if not required or not facts else "partial" if incomplete else "complete",
-        "comparison_status": "not_evaluated" if not facts else "eligible" if coverage and all(c.state == "covered" for c in coverage) and not any(m.flags for m in mappings) else "insufficient_context",
+        "metadata_completeness": "not_requested" if not any(required.values()) or not facts else "partial" if incomplete else "complete",
+        "comparison_status": "not_evaluated" if not facts else "eligible" if comparable else "insufficient_context",
         "target_facts": len({m.source_fact_id for m in mappings if m.match == "match"}),
         "other_facts": len({m.source_fact_id for m in mappings if m.match == "different"}),
         "unresolved_facts": len({m.source_fact_id for m in mappings if m.match == "uncertain"}),

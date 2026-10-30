@@ -1,0 +1,75 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "accepted_facts": {
+      "title": "Accepted Facts",
+      "type": "integer"
+    },
+    "dispositions": {
+      "items": {
+        "additionalProperties": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "type": "object"
+      },
+      "title": "Dispositions",
+      "type": "array"
+    },
+    "export_id": {
+      "title": "Export Id",
+      "type": "string"
+    },
+    "input_digest": {
+      "title": "Input Digest",
+      "type": "string"
+    },
+    "publication_status": {
+      "const": "not_evaluated",
+      "title": "Publication Status",
+      "type": "string"
+    },
+    "receipt_id": {
+      "title": "Receipt Id",
+      "type": "string"
+    },
+    "received_at": {
+      "title": "Received At",
+      "type": "string"
+    },
+    "rejected_facts": {
+      "title": "Rejected Facts",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "extraction-receipt-1.0",
+      "default": "extraction-receipt-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "accepted",
+        "partial",
+        "rejected"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "export_id",
+    "input_digest",
+    "receipt_id",
+    "status",
+    "accepted_facts",
+    "rejected_facts",
+    "dispositions",
+    "publication_status",
+    "received_at"
+  ],
+  "title": "IngestionReceipt",
+  "type": "object"
+}

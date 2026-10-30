@@ -3,23 +3,20 @@ import { mkdir, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { PGlite } from "@electric-sql/pglite";
+import {openPlatformDatabase, databaseDataDir} from "../runtime/connection.mjs";
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
 );
-// Source layout migration must not move or silently replace the runtime store.
-const legacyDataRoot = path.resolve(projectRoot, "..", "ExtractESG", "esg_database");
-const dataDir = path.resolve(process.env.ESG_DATABASE_DATA_DIR || (existsSync(path.join(legacyDataRoot,".local","pglite")) ? path.join(legacyDataRoot,".local","pglite") : path.join(projectRoot,".local","pglite")));
+const dataDir = databaseDataDir();
 const migrationsDir = path.join(projectRoot, "migrations");
 const demoFile = path.join(projectRoot, "examples", "0001_demo_disclosures.sql");
 
 export const DATABASE_PATHS = Object.freeze({ projectRoot, dataDir, migrationsDir, demoFile });
 
 export async function openDatabase() {
-  await mkdir(path.dirname(dataDir), { recursive: true });
-  return PGlite.create(dataDir);
+  return openPlatformDatabase();
 }
 
 

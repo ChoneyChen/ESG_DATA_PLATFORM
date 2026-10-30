@@ -1,37 +1,28 @@
 # ESG Data Platform
 
-当前生产链路：**报告资源 → 条款词典驱动的 PDF 证据 → 单一提取骨干 → 独立原值、映射与组织结果**。Console 已按当前模块重建，审核、发布和新数据库接收器本轮仅规划。
+当前链路：**报告资源 → 条款搜索 → PDF 物理证据 → 单一提取骨干 → 独立原值 → 封存导出 → 独立数据库接收**。接收不等于审核或发布。
 
-| 模块 | 唯一职责 |
+| 模块 | 所有权 |
 |---|---|
-| `ExtractESG/standard/<组>/<条款>/clause.json` | 每条定义、定性/定量、词典、口径、阅读、证据与输出结构 |
-| `ExtractESG/contracts` | 公共合同与条款 SDK；不反向导入执行器 |
-| `ExtractESG/document` | PDF、文字层、本地 OCR、IR 与物理证据 |
-| `ExtractESG/pipeline` | PDF 准备、队列、冻结目标、取消与状态观测 |
-| `ExtractESG/extraction` | 单一提取骨干和文档/模型/产物端口 |
-| `ExtractESG/shared_runtime` | 本机进程、代码指纹、路径与资源引用保护 |
-| `ConsoleESG` | 报告、提取、条款、运行四类父子页面与操作窗口 |
-| `PlatESG` / `database` | 既有冻结产品与数据库消费者；不接收本轮新产物 |
-
-条款组只用于展示；16/32 等集合只是编号列表。新增条款信息扩展条款声明。原值、目标口径、报告身份与数值实际身份分别保存，缺失不填零，模型理解不跨条款复用。
+| `ClauseESG/` | 一条一整体：定义、定性/定量、词典、读取、用途、证据、展示及验收声明 |
+| `ExtractESG/contracts/` | 两类原值、字段证据、报告资源、运行和交接 DTO；独立轻量 SDK |
+| `ExtractESG/document/` | 原生文字、布局、本地 OCR、IR、证据对象 |
+| `ExtractESG/extraction/` | 检索、局部阅读、原值绑定、目标关系与输出；不写条款专用词典 |
+| `ExtractESG/pipeline/` | PDF 准备、冻结输入、队列、取消和运行状态 |
+| `ExtractESG/shared_runtime/` | 调用信封、部署指纹与本机组合配置；独立基础包 |
+| `ConsoleESG/frontend/`、`backend/` | 对象导航、结果表和常驻运行窗；后端安全展示投影与应用组合 |
+| `database/` | 原值接收、SQL、精确数值、证据与冻结产品；连接和迁移由本模块拥有 |
+| `PlatESG/frontend/`、`backend/` | 已发布数据产品及权限接口；通过文档证据端口定位原文 |
 
 ```sh
+bash ExtractESG/scripts/install_local.sh
 ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ExtractESG/scripts/start.sh
 ```
 
-Console 为 `http://127.0.0.1:18081/`，文档与编排 API 为 `http://127.0.0.1:18080/docs`，条款与提取 API 为 `http://127.0.0.1:18180/docs`。启动器先构建 Console，再核对三个服务的实际代码身份。条款数据修改由摘要跟踪；执行代码变化要求重启。
+本地服务：Console 18081、文档/Console 组合 API 18080、提取 18180、独立原值接收 18280。Plat 8765 独立维护。启动器只为不存在的新原值库初始化模式，不迁移活动正式/演示库。
 
-首次安装见 [ExtractESG 手册](ExtractESG/README.md)。[目录批量导入](ExtractESG/contracts/examples/report-batch/README.md) 使用 `manifest.json + pdf/`；Console 也支持上传 PDF 并登记身份。
+业务数据集中在 `$ESG_DATA_ROOT`（默认 `.local/data`）；报告、文档证据、提取结果、控制记录、日志和数据库分别存放。原 PDF 不变，旧运行按冻结版本读取。模型理解不跨条款/运行复用，物理 OCR/IR 可按内容和配置复用。
 
-```sh
-ExtractESG/.local/python/bin/python ExtractESG/scripts/check_contracts.py
-ExtractESG/.local/python/bin/python ExtractESG/scripts/audit_structure.py
-ExtractESG/.local/python/bin/python -m pytest ExtractESG/document/tests ExtractESG/extraction/tests -q
-npm test --prefix ConsoleESG
-```
+[当前升级与逐项验收](docs/implementation/2026-10-30/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
 
-[架构与接口](docs/ARCHITECTURE.md) · [组织合同](docs/ORGANIZATION.md) · [Console](ConsoleESG/README.md) · [模型边界](docs/MODELS.md) · [本轮全项目审查](docs/PROJECT_AUDIT.md) · [出口方案，仅规划](docs/EXIT_PLAN.md)
-
-条款共 99 个展示组、1,126 条，37 项内容未决明确阻塞；priority32 是 32 个个性化组织样本，其余仍需内容校核。可选状态和执行完成都不等于科学验收或可发布。
-
-原始[升级规划](全链路检查报告与升级规划.md)与[补充要求](更新要求.md)作为需求依据保留。既有 PDF、报告身份和正式/演示数据库不重置、不迁移；`PLATESG_AUTO_PUBLISH=0`。`CrawlESG/` 是保护区，本链路不读取、不修改。
+1,126 条声明、99 展示组、273 定量、853 定性；37 条内容未决阻塞。16/32 等集合只有编号，不产生专用路线。技术就绪、科学样本验收、可比较、可发布分别表达。`PLATESG_AUTO_PUBLISH=0`；CrawlESG 是保护区，本链路不接入。

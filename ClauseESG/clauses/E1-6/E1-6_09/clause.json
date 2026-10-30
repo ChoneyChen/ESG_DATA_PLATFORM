@@ -1,0 +1,904 @@
+{
+  "acceptance": {
+    "minimum_reports": 1,
+    "samples": []
+  },
+  "blocking_reasons": [],
+  "clause_digest": "b99973610e36e0439b96521fef4b88065caf90f11997f90b342448cfd3c2b8db",
+  "clause_key": "E1-6_09",
+  "data_kind": "quantitative",
+  "definition": "基于位置法的范围2温室气体排放总量",
+  "distinguish_from": [
+    "范围2市场法排放",
+    "方法未知的范围2排放",
+    "范围1与范围2合计",
+    "电力消费量"
+  ],
+  "evidence": [
+    {
+      "field": "value",
+      "level": "cell",
+      "note": "原值来自真实单元格",
+      "purpose": "target_confirmation",
+      "required": true
+    },
+    {
+      "field": "source_row_label",
+      "level": "row",
+      "note": null,
+      "purpose": "target_confirmation",
+      "required": true
+    },
+    {
+      "field": "reporting_period",
+      "level": "column_header",
+      "note": null,
+      "purpose": "target_confirmation",
+      "required": true
+    },
+    {
+      "field": "reporting_boundary",
+      "level": "row",
+      "note": "边界可由表题或章节说明给出",
+      "purpose": "target_confirmation",
+      "required": false
+    },
+    {
+      "field": "unit",
+      "level": "row",
+      "note": null,
+      "purpose": "target_confirmation",
+      "required": true
+    }
+  ],
+  "exact_labels": [],
+  "exclusions": [
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "不能以范围2市场法排放、方法未知的范围2排放、范围1与范围2合计、电力消费量替代本条款所定义的测量或说明。"
+  ],
+  "group_id": "E1-6",
+  "labels": {
+    "en": "Gross location-based Scope 2 GHG emissions",
+    "zh": "范围2地点法排放 Scope 2 location-based"
+  },
+  "organization": {
+    "curation": "sample",
+    "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
+    "extensions": {},
+    "fields": [
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pdf_id",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "pdf_id",
+        "label": "PDF 编号",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "company",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_company",
+        "label": "报告企业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "publication_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "publication_year",
+        "label": "发表年份（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_year",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "report_coverage_year",
+        "label": "覆盖年度（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "integer",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "name",
+          "key": "industry",
+          "source": "resource"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "industry",
+        "label": "行业（资源声明）",
+        "required_for_confirmation": false,
+        "role": "resource_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_entity",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_entity",
+        "label": "实际统计主体",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_period",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_period",
+        "label": "实际测量期间",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "reporting_boundary",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "reporting_boundary",
+        "label": "实际统计边界",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "measurement_method",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "measurement_method",
+        "label": "测量方法",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_row_label",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_label",
+        "label": "原始行标签",
+        "required_for_confirmation": false,
+        "role": "source_label",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "entity_aggregation_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_entity_aggregation_role",
+        "label": "entity_aggregation_role",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "ghg_scope",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_ghg_scope",
+        "label": "温室气体范围",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "scope_2_method",
+          "source": "dimension"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "observed_scope_2_method",
+        "label": "范围2核算方法",
+        "required_for_confirmation": false,
+        "role": "reported_dimension",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "ghg_scope",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_ghg_scope",
+        "label": "目标口径·温室气体范围",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": "measurement_method",
+          "key": "fixed_axes",
+          "source": "target"
+        },
+        "description": "条款目标定义，不能填补或覆盖报告实际维度。",
+        "extensions": {},
+        "key": "target_measurement_method",
+        "label": "目标口径·测量方法",
+        "required_for_confirmation": false,
+        "role": "target_definition",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "raw_value",
+        "label": "原值",
+        "required_for_confirmation": true,
+        "role": "raw_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_numeric",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_numeric",
+        "label": "解析点值",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_lower",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_lower",
+        "label": "原文下界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_upper",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_upper",
+        "label": "原文上界",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "decimal",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "comparator",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "comparator",
+        "label": "比较符",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parse_status",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parse_status",
+        "label": "解析状态",
+        "required_for_confirmation": false,
+        "role": "parsed_value",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "match",
+          "source": "mapping"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "match",
+        "label": "条款匹配",
+        "required_for_confirmation": false,
+        "role": "match_state",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "pages",
+          "source": "evidence"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_pages",
+        "label": "原始 PDF 页码",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "json",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "source_fact_id",
+          "source": "fact"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "source_fact_id",
+        "label": "事实编号",
+        "required_for_confirmation": false,
+        "role": "provenance",
+        "type_hint": "text",
+        "vocabulary": []
+      }
+    ],
+    "include_additional_dimensions": true,
+    "include_extensions": true,
+    "presentation": {
+      "columns": [
+        "reporting_entity",
+        "reporting_period",
+        "observed_ghg_scope",
+        "observed_scope_2_method",
+        "source_label",
+        "raw_value",
+        "unit_raw",
+        "match",
+        "source_pages"
+      ],
+      "group_by": [],
+      "matrix": null,
+      "sort_by": [
+        {
+          "direction": "ascending",
+          "field": "reporting_period"
+        },
+        {
+          "direction": "ascending",
+          "field": "source_label"
+        }
+      ],
+      "view": "table"
+    },
+    "row_axes": [
+      "reporting_entity",
+      "reporting_period",
+      "reporting_boundary",
+      "observed_ghg_scope",
+      "observed_scope_2_method"
+    ],
+    "schema_version": "clause-organization-1.0",
+    "title": "范围2地点法排放 Scope 2 location-based"
+  },
+  "output_scopes": [
+    {
+      "aggregation": "total",
+      "axes": {
+        "ghg_scope": "scope_2",
+        "measurement_method": "location_based"
+      },
+      "entity": "group",
+      "label_zh": "年度 · 集团合并 · 总量 · ghg_scope=scope_2 · measurement_method=location_based",
+      "method": null,
+      "period": "annual",
+      "qualifier": null,
+      "required": true,
+      "scope_id": "scope-23434389ce0316d0",
+      "value_role": "actual"
+    }
+  ],
+  "provenance": {
+    "original_id": "E1-6_09",
+    "paragraph": "49(a), 52(a)",
+    "source_refs": [
+      "esrs.2023-set1.e1-6.source.eu-2023-2772",
+      "esrs.2023-set1.e1-6.source.efrag-ig3-2025"
+    ],
+    "standard_ref": {
+      "disclosure_requirement": "E1-6",
+      "standard_family": null
+    }
+  },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "source_row_topic",
+        "reporting_period",
+        "reporting_entity",
+        "entity_aggregation_role",
+        "ghg_scope",
+        "scope_2_method"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "entity_aggregation_role",
+        "ghg_scope",
+        "scope_2_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "ghg_scope",
+        "measurement_method"
+      ],
+      "missing_action": "retain"
+    }
+  },
+  "readiness": "ready",
+  "reading": {
+    "allow_regulatory_limit": false,
+    "instructions": [
+      "基于位置法的范围2温室气体排放总量"
+    ],
+    "operator": "ghg_scope",
+    "options": {
+      "guard_alias": "SCOPE2",
+      "method": "location_based",
+      "method_family": "scope2",
+      "method_partner": "E1-6_10",
+      "table_instructions": [
+        "E1-6_09 requires the stated location_based method; a row label or cited note must support that method. If neither method is stated, use SCOPE2_METHOD_UNSTATED."
+      ],
+      "text_unit_pattern": "吨|噸|t\\b|tco|co2|co₂|二氧化碳|碳当量|kt|mt\\b|万吨|萬噸",
+      "unresolved_target": "SCOPE2_METHOD_UNSTATED",
+      "value_role": "actual"
+    },
+    "rules": [
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_regulatory_limit_not_actual",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:核定(?:的)?[^，。；]{0,20}(?:总量|排放量|量|配额|额度)|许可[^，。；]{0,16}排放|排污许可|排放许可证|排放(?:配额|额度|限额|上限)|允许排放|总量控制指标|(?:approved|permitted|allowed)\\s+(?:annual\\s+)?(?:emission|discharge)|(?:emission|discharge)\\s+(?:limit|cap|allowance|quota|ceiling)|(?:regulatory|permitted)\\s+limit)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_target_or_relative_change",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:相比|较|比|compared\\s+(?:with|to))\\s*(?:19|20)\\d{2}\\s*年?[^。；;]{0,24}?(?:下降|降低|减少|增加|增长|提升)|(?:下降|降低|减少|增加|增长|提升)\\s*\\d+(?:\\.\\d+)?\\s*[%％]|(?:下降率|降低率|减少率|增长率|变化率|降幅|增幅)|(?:到|至|by)\\s*(?:19|20)\\d{2}\\s*年?[^。；;]{0,20}?(?:目标|计划|规划|实现|达成|承诺)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_index_entry",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:gri\\s*\\d{1,3}|disclosure\\s*\\d{2,3}|指标\\s*\\d{3}|esrs\\s+[a-z]\\d|实质性议题|一般披露|关键绩效指标\\s*[a-z]?\\d|层面\\s*[a-z]\\d|(?:^|[\\s（(])\\d{1,3}[-–]\\d{1,2}(?![\\d.%])(?!\\s*(?:岁|年|月|日|吨|噸|人|小时|小時|万元|%|％)))"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "method": "location_based",
+          "scope": "scope_2"
+        },
+        "reason": null,
+        "rule": "ghg_scope",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_intensity_ratio_or_change",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
+          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_net_after_offsets",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:净排放|淨排放|净额|\\bnet\\s+(?:ghg\\s+)?emission|after\\s+offset)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "ghg_unit",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
+    "schema_version": "clause-reading-1.1",
+    "vocabulary": {
+      "change": [
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+      ],
+      "combined_scope": [
+        "re:(?:(?:范围|范畴|scope)\\s*[一1]\\s*(?:\\+|＋|和|与|及|&|and|,|、)\\s*(?:范围|范畴|scope)?\\s*[二2]|1\\s*\\+\\s*2|1\\s*&\\s*2)"
+      ],
+      "component_prefix": [
+        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
+      ],
+      "consolidation_boundary": [
+        "re:(?:运营范围|运营边界|财务控制|operational\\s+control|operational\\s+boundary|financial\\s+control)"
+      ],
+      "ghg_label": [
+        "re:(?:温室气体|ghg|greenhouse|碳排放|二氧化碳|co2|carbon\\s+emission)"
+      ],
+      "ghg_unit": [
+        "re:(?:co\\s*[_{$\\\\]*\\s*\\{*\\s*[2₂]|二氧化碳|碳当量|co2e)"
+      ],
+      "intensity": [
+        "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "location_method": [
+        "re:(?:位置法|地点法|基于位置|基于地点|location[\\s-]*based|average\\s+grid\\s+emission\\s+factor)"
+      ],
+      "market_method": [
+        "re:(?:市场法|基于市场|market[\\s-]*based|supplier[\\s-]*specific|contractual\\s+instruments)"
+      ],
+      "net": [
+        "re:(?:净排放|淨排放|净额|\\bnet\\s+(?:ghg\\s+)?emission|after\\s+offset)"
+      ],
+      "other_member": [
+        "其他",
+        "其它",
+        "re:^other\\b",
+        "others"
+      ],
+      "ratio_word": [
+        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+      ],
+      "scope1": [
+        "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"
+      ],
+      "scope2": [
+        "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:ghg\\s+)?emission)"
+      ],
+      "scope3": [
+        "re:(?:范围\\s*[三3](?![0-9])|范畴\\s*[三3]|scope\\s*3(?![0-9])|scope\\s*iii\\b|其他间接|other\\s+indirect|价值链排放|value\\s+chain\\s+emission)"
+      ],
+      "scope3_category": [
+        "re:(?:类别\\s*\\d|category\\s*\\d|\\bcat\\.?\\s*\\d|外购商品|上游|下游|upstream|downstream|商务差旅|雇员通勤|purchased\\s+goods|business\\s+travel|commuting)"
+      ],
+      "scope3_named": [
+        "re:(?:纸张|差旅|通勤|废弃物|废物|运输|租赁|paper|travel|commut|(?<![a-z])waste|transport|leased)"
+      ],
+      "subject_generic": [
+        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
+        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
+      ],
+      "total": [
+        "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+      ]
+    }
+  },
+  "relationships": {
+    "child_excludes": [],
+    "child_terms": [
+      "范围一",
+      "范围二",
+      "范围三",
+      "scope 1",
+      "scope 2",
+      "scope 3",
+      "直接排放",
+      "间接排放"
+    ],
+    "parent_clause": "E1-6_12",
+    "related_clauses": [],
+    "share_partner": null,
+    "siblings": [
+      "E1-6_07",
+      "E1-6_11"
+    ]
+  },
+  "retrieval": {
+    "context_terms": [
+      "Reporting boundary",
+      "Reporting period",
+      "consolidation scope",
+      "organisational boundary",
+      "reporting boundary",
+      "reporting period",
+      "reporting scope",
+      "reporting year",
+      "合并范围",
+      "报告年度",
+      "报告期",
+      "报告范围",
+      "报告边界",
+      "本年度",
+      "核算边界",
+      "统计范围",
+      "财政年度"
+    ],
+    "excluded_object_terms": [],
+    "expected_candidate_types": [
+      "quantity",
+      "number"
+    ],
+    "negative_terms": [
+      "Avoided emission",
+      "Carbon credit",
+      "Carbon removal",
+      "GHG removal",
+      "Market-based",
+      "Scope 1 emissions",
+      "Scope 3 emissions",
+      "avoided GHG emissions",
+      "carbon offset",
+      "direct GHG emissions",
+      "market based method",
+      "other indirect GHG emissions",
+      "scope I",
+      "scope III",
+      "scope1",
+      "scope3",
+      "其他间接温室气体排放",
+      "减排量",
+      "基于市场法",
+      "市场法",
+      "温室气体移除",
+      "直接温室气体排放",
+      "直接溫室氣體排放",
+      "碳信用",
+      "碳抵消",
+      "碳移除",
+      "範圍1",
+      "範圍3",
+      "範圍一",
+      "範圍三",
+      "範疇1",
+      "範疇一",
+      "范围1",
+      "范围1排放",
+      "范围3",
+      "范围3排放",
+      "范围一",
+      "范围三",
+      "范畴1",
+      "范畴3",
+      "范畴一",
+      "范畴三",
+      "避免排放"
+    ],
+    "positive_terms": [
+      "Gross location-based Scope 2 GHG emissions",
+      "基于位置法的范围2温室气体排放总量",
+      "Gross GHG emissions",
+      "温室气体排放总量",
+      "gross greenhouse gas emissions",
+      "温室气体总排放",
+      "Location-based",
+      "基于位置法",
+      "Scope 2 emissions",
+      "energy indirect GHG emissions",
+      "location based method",
+      "scope II",
+      "scope2",
+      "位置法",
+      "範圍2",
+      "範圍二",
+      "范围2",
+      "范围2排放",
+      "范围二",
+      "范畴2",
+      "范畴二",
+      "购入能源间接排放"
+    ],
+    "required_term_groups": [],
+    "role_term_groups": [],
+    "source_priority": [
+      "table",
+      "text"
+    ],
+    "structural_anchors": [],
+    "topic_term_groups": [
+      [
+        "Gross GHG emissions",
+        "gross greenhouse gas emissions",
+        "温室气体总排放",
+        "温室气体排放总量"
+      ],
+      [
+        "Scope 2 emissions",
+        "energy indirect GHG emissions",
+        "scope II",
+        "scope2",
+        "範圍2",
+        "範圍二",
+        "范围2",
+        "范围2排放",
+        "范围二",
+        "范畴2",
+        "范畴二",
+        "购入能源间接排放"
+      ],
+      [
+        "Location-based",
+        "location based method",
+        "位置法",
+        "基于位置法"
+      ]
+    ]
+  },
+  "schema_version": "clause-contract-1.2",
+  "value": {
+    "aggregation": "do_not_sum",
+    "canonical_unit": "tCO2e",
+    "comparison_requirements": [
+      "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
+      "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
+    ],
+    "fixed_axes": {
+      "ghg_scope": "scope_2",
+      "measurement_method": "location_based"
+    },
+    "identity_axes": [
+      "source_row_topic",
+      "reporting_period",
+      "reporting_entity",
+      "entity_aggregation_role",
+      "ghg_scope",
+      "scope_2_method"
+    ],
+    "unit_dimension": "ghg-emissions",
+    "value_origin": "reported",
+    "value_role": "actual"
+  }
+}

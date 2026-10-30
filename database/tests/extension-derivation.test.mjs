@@ -7,15 +7,15 @@ import {applyMigrations} from '../scripts/db.mjs';
 import {importBundle} from '../scripts/frozen-bundle.mjs';
 import {reviewRecord} from '../scripts/review-decisions.mjs';
 import {seedMetricDictionary,saveMeasurementContext,processOutbox,readDataset,NORMALIZATION_RULE_VERSION} from '../scripts/publication.mjs';
-import {dispatch} from '../../PlatESG/backend/service.mjs';
-import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
+import {dispatch} from '../queries/service.mjs';
+import {applyPlatformMigrations} from '../runtime/connection.mjs';
 import {saveExtensionProposal,recordExtensionDefinitionDecision,registerExtensionRelease,listExtensionRegistry,
   extensionContractDigest,requestExtensionDerivation,retryExtensionDerivation,reviewDerivedCandidate,
   projectDerivedCandidates,exactDecimalSum,exactUnitConversion} from '../scripts/extension-derivation.mjs';
 
 // The registered 1.0.0 extension pins its original 2.1.1 parent. Keep that
 // immutable package/operand fixture; new-parent releases need separate approval.
-const dictionary=JSON.parse(await readFile(new URL('../../PlatESG/catalog/history/metric-dictionary.1.0.0.json',import.meta.url),'utf8'));
+const dictionary=JSON.parse(await readFile(new URL('../../database/catalog/history/metric-dictionary.1.0.0.json',import.meta.url),'utf8'));
 // These isolated derivation fixtures explicitly register a new scientific
 // definition. Extra operand axes cannot be smuggled into the older contract.
 dictionary.dictionary_version='synthetic-scientific-axes-1.1.0';

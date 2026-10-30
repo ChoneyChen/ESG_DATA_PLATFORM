@@ -1,8 +1,10 @@
-"""Publication's own boot-frozen code identity, independent of extraction data."""
-import sys
+"""Publication owns its release; no extraction source tree or sys.path mutation."""
 from pathlib import Path
-EXTRACT_ROOT=Path(__file__).resolve().parents[2]/"ExtractESG"
-sys.path.insert(0,str(EXTRACT_ROOT/"shared_runtime/src"))
-from esg_runtime.release import RuntimeRelease
+from esg_runtime.release import ModuleRelease
+from esg_database.client import module_release
 
-def release():return RuntimeRelease(EXTRACT_ROOT,"publication-backend")
+def release():
+    return ModuleRelease(Path(__file__).resolve().parents[1], "publication-backend", (
+        "backend/*.py", "backend/*.mjs", "frontend/src/**/*.ts", "frontend/src/**/*.tsx",
+        "frontend/src/**/*.css",
+    ), dependencies=(("database", module_release()),))

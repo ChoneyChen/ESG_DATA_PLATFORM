@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from esg_contracts.sessions import ExtractionPlanRequest
-from esg_pipeline.extraction import ExtractionServiceUnavailable
 from .monitor import MonitorSnapshot, monitor_snapshot
 
 
@@ -12,14 +11,22 @@ def extraction_router(coordinator, require_ready=lambda: None):
             return fn(*args)
         except KeyError as exc:
             raise HTTPException(404, "Current extraction does not exist") from exc
-        except ExtractionServiceUnavailable as exc:
+        except ConnectionError as exc:
             raise HTTPException(503, str(exc)) from exc
         except ValueError as exc:
             raise HTTPException(409, str(exc)) from exc
 
     @router.get("/api/console/monitor", response_model=MonitorSnapshot)
     def monitor():
-        return monitor_snapshot(coordinator.list(terminal_limit=8))
+        return monitor_snapshot(coordinator.list(terminal_limit=3))
+
+    @router.post("/api/report-sessions/{key}/archive")
+    def archive(key: str):
+        return call(coordinator.archive, key)
+
+    @router.post("/api/report-sessions/{key}/restore")
+    def restore(key: str):
+        return call(coordinator.restore, key)
 
     @router.get("/api/report-sessions/{key}/candidates")
     def candidates(key: str):

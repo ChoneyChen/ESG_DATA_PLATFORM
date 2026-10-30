@@ -16,6 +16,7 @@ from pydantic import ValidationError
 REPOSITORY = Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(REPOSITORY))
 from PlatESG.backend.main import create_app
+from PlatESG.tests.frozen_fixture import initialize_empty_database
 
 
 
@@ -41,6 +42,7 @@ def empty_platform(tmp_path_factory):
                       'PLATESG_IMPORT_ROOTS': str(directory),
                       'PLATESG_REVIEW_TOKEN': 'independent-boundary-token'})
     app.state.test_import_root = directory
+    initialize_empty_database(app.state.bridge.environment)
     with TestClient(app) as client:
         yield client
 
@@ -58,9 +60,9 @@ def test_empty_platform_preserves_definitions_but_creates_no_facts(empty_platfor
     coverage_response = empty_platform.get('/v1/coverage')
     assert coverage_response.status_code == 200, coverage_response.text
     assert coverage_response.json()['items'] == []
-    snapshot = empty_platform.get('/internal/v1/extraction-profiles', headers={'Authorization':'Bearer independent-boundary-token'}).json()
-    assert snapshot['output_count'] == 19
-    assert len(snapshot['overall_source_datapoint_ids']) == 55
+    response = empty_platform.get('/internal/v1/extraction-profiles', headers={'Authorization':'Bearer independent-boundary-token'})
+    assert response.status_code == 410
+    assert response.json()['detail']['code'] == 'legacy_production_retired'
 
 
 @pytest.mark.parametrize('endpoint', ['/v1/metrics', '/v1/entities', '/v1/observations', '/v1/coverage', '/v1/exports'])

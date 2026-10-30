@@ -4,12 +4,12 @@ import { realpath } from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
-import { dictionaryFile, dispatch, platformRoot } from '../../backend/service.mjs';
+import { dictionaryFile, dispatch, platformRoot } from '../../../database/queries/service.mjs';
 import { processOutbox } from '../../../database/scripts/publication.mjs';
 
 const sha = value => createHash('sha256').update(value).digest('hex');
 import {importBundle} from '../../../database/scripts/frozen-bundle.mjs';
-import {openPlatformDatabase,applyPlatformMigrations} from '../../backend/database.mjs';
+import {openPlatformDatabase,applyPlatformMigrations} from '../../../database/runtime/connection.mjs';
 import {applyMigrations} from '../../../database/scripts/db.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 // Keep the displayed energy subtotal and disclosed ratio consistent without

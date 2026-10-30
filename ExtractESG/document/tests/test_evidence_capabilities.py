@@ -165,9 +165,9 @@ def test_http_table_list_detail_and_page_use_identical_capability_projection(tmp
     from fastapi.testclient import TestClient
     for key, relative in {
         "ESG_PIPELINE_QUEUE_DB": "queue.sqlite3", "ESG_PIPELINE_TASK_DIR": "tasks",
-        "ESG_V2_OCR_OUTPUT_DIR": "ocr", "ESG_V2_DOCUMENT_IR_OUTPUT_DIR": "ir",
-        "ESG_V2_UPLOAD_DIR": "uploads", "ESG_V2_OCR_JOB_STATE_DIR": "jobs/ocr",
-        "ESG_V2_DOCUMENT_IR_JOB_STATE_DIR": "jobs/ir", "ESG_V2_STORAGE_CLEANUP_DIR": "cleanup",
+        "ESG_DOCUMENT_OCR_OUTPUT_DIR": "ocr", "ESG_DOCUMENT_IR_OUTPUT_DIR": "ir",
+        "ESG_DOCUMENT_UPLOAD_DIR": "uploads", "ESG_DOCUMENT_OCR_JOB_STATE_DIR": "jobs/ocr",
+        "ESG_DOCUMENT_IR_JOB_STATE_DIR": "jobs/ir", "ESG_DOCUMENT_STORAGE_CLEANUP_DIR": "cleanup",
         "ESG_REPORT_ASSET_DIR": "assets",
     }.items():
         monkeypatch.setenv(key, str(tmp_path / relative))

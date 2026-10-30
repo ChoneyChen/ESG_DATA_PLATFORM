@@ -1,0 +1,2028 @@
+{
+  "schema_version": "modularity-recheck-1.0",
+  "observed_at": "2026-10-30T12:12:22.119191+00:00",
+  "git_head": "96c4b1b2275c1b2f0a9bd8c19fc958845b7e4b41",
+  "working_tree_changes_by_top_level": {
+    ".gitignore": 1,
+    "ConsoleESG": 34,
+    "CrawlESG": 1,
+    "ExtractESG": 1291,
+    "PlatESG": 42,
+    "database": 17,
+    "docs": 3,
+    ".claude": 1,
+    "ClauseESG": 1
+  },
+  "scope": "Read-only source/API/UI/PDF audit. Report files only. No new inference, restart, migration or business-data cleanup.",
+  "health": {
+    "document": {
+      "status": "ok",
+      "service": "esg-v2-backend",
+      "version": "1.1.0",
+      "compatibility": {
+        "service": "document-backend",
+        "protocol_version": "workbench-compatibility-v1",
+        "components": {
+          "document_backend": "1c3946f47f86b7b5f9f81e4b3b212ae8c3111c93cdd827d4217a2632c92e01d1",
+          "document_contracts": "db60476c66a515c4c213960379cb5c711f74008ec6439bb6112d29c2133b00bc",
+          "startup": "26d3328eef9072081db654bf0498d178631d404e0ed571356b49105d2defd0c4"
+        },
+        "build_fingerprint": "fcbe08dece328de2bbde0b9fdc2a32944d2bb4bb3e40c0639488a2d9d7f37fbd",
+        "contracts": {
+          "clause": "clause-contract-1.2",
+          "data": "extraction-data-2.0",
+          "facts": "extraction-fact-bundle-2.2",
+          "organization": "organized-extraction-1.1",
+          "report_resource": "report-resource-1.0",
+          "source_validation": "digest_and_bound_evidence"
+        },
+        "current_disk_fingerprint": "184a67fc08550903a2a87b208ad58c2d2b93d1d692429da15f6d40ada0cbee26",
+        "source_changed_since_start": true,
+        "restart_required": true,
+        "readiness": {
+          "ready": false,
+          "blockers": [
+            "项目代码已更新，需协调重启服务"
+          ],
+          "scope": "document_backend"
+        }
+      },
+      "capabilities": {
+        "clause_runs_v1": true,
+        "unified_queue_only": true,
+        "evidence_availability_v2": true,
+        "compatibility_v1": true,
+        "independent_clause_targets": true
+      }
+    },
+    "extraction": {
+      "service": "extraction-backend",
+      "protocol_version": "workbench-compatibility-v1",
+      "components": {
+        "extraction_backend": "4664ae803252dc32ef9a50b72f140c1e837ac798ee27fa559f45b688ce7dcd88",
+        "standard_contracts": "db60476c66a515c4c213960379cb5c711f74008ec6439bb6112d29c2133b00bc",
+        "startup": "26d3328eef9072081db654bf0498d178631d404e0ed571356b49105d2defd0c4"
+      },
+      "build_fingerprint": "960cccc4b1f67275ef6867e575ce2ef9adf3e642ad700769f85f11490efb0733",
+      "contracts": {
+        "clause": "clause-contract-1.2",
+        "data": "extraction-data-2.0",
+        "facts": "extraction-fact-bundle-2.2",
+        "organization": "organized-extraction-1.1",
+        "report_resource": "report-resource-1.0",
+        "source_validation": "digest_and_bound_evidence"
+      },
+      "current_disk_fingerprint": "21b5820a964286c1d003436480467556463ab2b4c7238c484960b4d971ddcda7",
+      "source_changed_since_start": true,
+      "restart_required": true,
+      "readiness": {
+        "ready": false,
+        "blockers": [
+          "Extraction service requires restart"
+        ]
+      }
+    },
+    "database": {
+      "service": "database-ingestion",
+      "protocol_version": "workbench-compatibility-v1",
+      "build_fingerprint": "89fe0d845a13f271c8d7b94929f7a052aef14de8d7750aea6793a9686b559a5c",
+      "components": {
+        "database-ingestion": "89fe0d845a13f271c8d7b94929f7a052aef14de8d7750aea6793a9686b559a5c"
+      },
+      "current_disk_fingerprint": "89fe0d845a13f271c8d7b94929f7a052aef14de8d7750aea6793a9686b559a5c",
+      "source_changed_since_start": false,
+      "restart_required": false,
+      "status": "ok",
+      "export_contract": "extraction-export-1.0",
+      "auto_publish": false
+    },
+    "plat": {
+      "status": "ok",
+      "service": "platesg",
+      "database": "pglite",
+      "dataset_version": 0
+    }
+  },
+  "runs": {
+    "original": {
+      "run_id": "extract-c8adbfa8d23a8b65e5c8e73aa6c17237",
+      "state": {
+        "status": "partial",
+        "created_at": "2026-10-30T06:30:54.679035+00:00",
+        "started_at": "2026-10-30T06:30:54.835434+00:00",
+        "finished_at": "2026-10-30T06:35:17.072069+00:00",
+        "delivery": null,
+        "export_id": null
+      },
+      "schema_version": "extraction-fact-bundle-2.1",
+      "summary": {
+        "selected_clauses": 1,
+        "processed_clauses": 1,
+        "source_facts": 7,
+        "quantitative": 7,
+        "qualitative": 0,
+        "model_calls": 5,
+        "elapsed_seconds": 262.212,
+        "errors": [],
+        "assessment": null
+      },
+      "document": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "ir_run_id": "ir-20261030T063046Z-7b514577891d",
+        "ir_revision": 1,
+        "content_digest": "c50fdebfff1ce0012d0c23d89df13cf9e9ef9a1ea56bb27f869c7af0451e2237",
+        "source_sha256": null,
+        "reporting_year": 2025,
+        "reporting_period_raw": "2025",
+        "limited_evidence": false,
+        "label": "2025 宁德时代ESG.pdf",
+        "report_resource": {
+          "schema_version": "report-resource-1.0",
+          "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "original_filename": "2025 宁德时代ESG.pdf",
+          "company": {
+            "name": "宁德时代新能源科技股份有限公司",
+            "company_id": "org:catl"
+          },
+          "publication_year": null,
+          "industry": null,
+          "reporting_year": 2025,
+          "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+          "metadata_sources": {
+            "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+            "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+            "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+          },
+          "extensions": {},
+          "revision": 2
+        },
+        "search_scope": null
+      },
+      "coverage": [
+        {
+          "clause_key": "E2-4_02",
+          "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+          "state": "unconfirmed",
+          "candidate_objects": 5,
+          "inspected_objects": 5,
+          "fact_count": 7,
+          "required_scopes": [
+            "scope-06e0f4a4c0316f48"
+          ],
+          "covered_scopes": [],
+          "reasons": [
+            "No table rows contain quantitative values for air pollutants (SO2, NOx, PM, VOCs) as required by the clause; provided rows describe management procedures and monitoring standards without emission data.",
+            "row_role is unknown and does not match a data table row required for quantitative measurement",
+            "row label describes a reduction target intensity rather than an actual emission quantity",
+            "row unit is percentage rather than mass (tonne) required by the target definition",
+            "row contains no numeric value in the 'value' column to report",
+            "row lacks required identity axes (reporting_entity, reporting_period, reporting_boundary, pollutant) in a structured format"
+          ]
+        }
+      ],
+      "organization": {
+        "schema_version": "organized-extraction-1.0",
+        "status": "needs_confirmation",
+        "url": "/api/runs/extract-c8adbfa8d23a8b65e5c8e73aa6c17237/organized",
+        "table_count": 1,
+        "unorganized_fact_count": 0,
+        "error": null
+      },
+      "rows": [
+        {
+          "fact_id": "da63bad2478e6939b6377e9c05fecb7ea4e1245d568d513776fcd5f285a5f4c0",
+          "label": "氮氧化物（NOx）²",
+          "value": {
+            "value_raw": "1,530.14",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1530.14",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "氮氧化物（NOx）",
+                "value": "NOx",
+                "evidence": [
+                  {
+                    "object_id": "cell-p0073-t0004-r0005-c0001",
+                    "object_type": "cell",
+                    "page_index": 72,
+                    "excerpt": "氮氧化物（NOx）",
+                    "role": "table",
+                    "bbox": null,
+                    "row_id": "r4",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_period",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0005-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "1,530.14",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r4",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0005-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "氮氧化物（NOx）²",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r4",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0005-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r4",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "da63bad2478e6939b6377e9c05fecb7ea4e1245d568d513776fcd5f285a5f4c0",
+              "match": "uncertain",
+              "reason": "Row label matches target vocabulary for NOx",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_period",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "scope_requires_confirmation"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "4911704f54bb7b4bdef25a6151e3a3d3afd37f09886e102dac02ce36fdc8caa1",
+          "label": "二氧化硫（SO2）²",
+          "value": {
+            "value_raw": "5,856.94",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "5856.94",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "二氧化硫（SO2）",
+                "value": "SO2",
+                "evidence": [
+                  {
+                    "object_id": "cell-p0073-t0004-r0006-c0001",
+                    "object_type": "cell",
+                    "page_index": 72,
+                    "excerpt": "二氧化硫（SO2）",
+                    "role": "table",
+                    "bbox": null,
+                    "row_id": "r5",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_period",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0006-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "5,856.94",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r5",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0006-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "二氧化硫（SO2）²",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r5",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0006-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r5",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "4911704f54bb7b4bdef25a6151e3a3d3afd37f09886e102dac02ce36fdc8caa1",
+              "match": "uncertain",
+              "reason": "Row label matches target vocabulary for SO2",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_period",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "scope_requires_confirmation"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "f15cade4e4201261c379d15f3d822e7f6c0187de38bc2d018c58b3983bf600b9",
+          "label": "挥发性有机物（VOCs）³",
+          "value": {
+            "value_raw": "1,161.80",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1161.80",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "挥发性有机物（VOCs）",
+                "value": "VOCs",
+                "evidence": [
+                  {
+                    "object_id": "cell-p0073-t0004-r0007-c0001",
+                    "object_type": "cell",
+                    "page_index": 72,
+                    "excerpt": "挥发性有机物（VOCs）",
+                    "role": "table",
+                    "bbox": null,
+                    "row_id": "r6",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_period",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0007-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "1,161.80",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r6",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0007-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "挥发性有机物（VOCs）³",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r6",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0007-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r6",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "f15cade4e4201261c379d15f3d822e7f6c0187de38bc2d018c58b3983bf600b9",
+              "match": "uncertain",
+              "reason": "Row label matches target vocabulary for VOCs",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_period",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "scope_requires_confirmation"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "113903958401ec65a9027c38693b4e0417dec341568612561594bd87108ee800",
+          "label": "化学需氧量（COD）",
+          "value": {
+            "value_raw": "175.61",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "175.61",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "not_stated",
+                "raw_text": null,
+                "value": null,
+                "evidence": []
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_period",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0003-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "175.61",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "化学需氧量（COD）",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0003-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "113903958401ec65a9027c38693b4e0417dec341568612561594bd87108ee800",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_period",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "output_identity_missing:observed_pollutant",
+                "scope_requires_confirmation",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "ae85453ad9fc440bb6667bc05610e48308dea91bc237e7eaa1fc3f480b40a2f7",
+          "label": "氨氮（NH3 -N）",
+          "value": {
+            "value_raw": "20.36",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "20.36",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "not_stated",
+                "raw_text": null,
+                "value": null,
+                "evidence": []
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_period",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0004-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "20.36",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r3",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0004-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "氨氮（NH3 -N）",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r3",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0004-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r3",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "ae85453ad9fc440bb6667bc05610e48308dea91bc237e7eaa1fc3f480b40a2f7",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_period",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "output_identity_missing:observed_pollutant",
+                "scope_requires_confirmation",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "b888e831885df14405c89ed1a22218e271c179fc0c3dab735f8e1017f5983538",
+          "label": "公司亦关注氟化物等特定气体的逸散排放，针对所有基地高压开关设备的六氟化硫（SF6）气体设置低压报警装置，实现气体逸散的早发现、早处理",
+          "value": {
+            "value_raw": "6",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "6",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": null,
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "not_stated",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_entity": {
+              "state": "not_stated",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_stated",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_stated",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "not_stated",
+                "raw_text": null,
+                "value": null,
+                "evidence": []
+              },
+              "pollution_medium": {
+                "state": "not_stated",
+                "raw_text": null,
+                "value": null,
+                "evidence": []
+              }
+            }
+          },
+          "flags": [
+            "unit_not_stated"
+          ],
+          "evidence": [
+            {
+              "object_id": "block-p0056-0021",
+              "object_type": "text_block",
+              "page_index": 55,
+              "excerpt": "6",
+              "role": "value",
+              "bbox": {
+                "x0": 662.749523403062,
+                "x1": 1123.0755498391254,
+                "y0": 126.48027718421257,
+                "y1": 206.96772630143874
+              },
+              "row_id": "block-p0056-0021:literal:224",
+              "column_id": "value",
+              "char_start": 224,
+              "char_end": 225
+            },
+            {
+              "object_id": "block-p0056-0021",
+              "object_type": "text_block",
+              "page_index": 55,
+              "excerpt": "公司亦关注氟化物等特定气体的逸散排放，针对所有基地高压开关设备的六氟化硫（SF6）气体设置低压报警装置，实现气体逸散的早发现、早处理",
+              "role": "row",
+              "bbox": {
+                "x0": 662.749523403062,
+                "x1": 1123.0755498391254,
+                "y0": 126.48027718421257,
+                "y1": 206.96772630143874
+              },
+              "row_id": "block-p0056-0021:literal:224",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "b888e831885df14405c89ed1a22218e271c179fc0c3dab735f8e1017f5983538",
+              "match": "uncertain",
+              "reason": "SF6 is a greenhouse gas, not an air pollutant per target exclusions",
+              "scope_ids": [],
+              "flags": [
+                "unit_not_stated",
+                "clause_evidence_missing:value:cell",
+                "clause_evidence_missing:reporting_period:column_header",
+                "clause_evidence_missing:unit:row",
+                "output_identity_missing:observed_pollutant",
+                "scope_requires_confirmation",
+                "unit_dimension_not_confirmed",
+                "review"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "b5cb921876164e4cf2351e53e0a3d1651da8a572bd2c9005cef9cf45d217653d",
+          "label": "2由于子公司印尼蓝天推进清洁能源改进，报告期内氮氧化物、二氧化硫排放量数",
+          "value": {
+            "value_raw": "2",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "2",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": null,
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "inherited",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+                  "object_type": "report",
+                  "page_index": null,
+                  "excerpt": "2025",
+                  "role": "report",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_stated",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "氮氧化物、二氧化硫",
+                "value": "NOx, SO2",
+                "evidence": [
+                  {
+                    "object_id": "block-p0074-0016",
+                    "object_type": "text_block",
+                    "page_index": 73,
+                    "excerpt": "氮氧化物、二氧化硫",
+                    "role": "table",
+                    "bbox": {
+                      "x0": 66.47487678175509,
+                      "x1": 388.3532275144639,
+                      "y0": 335.94761370668317,
+                      "y1": 347.4458207234298
+                    },
+                    "row_id": "block-p0074-0016:literal:0",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_period",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unit_not_stated"
+          ],
+          "evidence": [
+            {
+              "object_id": "block-p0074-0016",
+              "object_type": "text_block",
+              "page_index": 73,
+              "excerpt": "2",
+              "role": "value",
+              "bbox": {
+                "x0": 66.47487678175509,
+                "x1": 388.3532275144639,
+                "y0": 335.94761370668317,
+                "y1": 347.4458207234298
+              },
+              "row_id": "block-p0074-0016:literal:0",
+              "column_id": "value",
+              "char_start": 0,
+              "char_end": 1
+            },
+            {
+              "object_id": "block-p0074-0016",
+              "object_type": "text_block",
+              "page_index": 73,
+              "excerpt": "2由于子公司印尼蓝天推进清洁能源改进，报告期内氮氧化物、二氧化硫排放量数",
+              "role": "row",
+              "bbox": {
+                "x0": 66.47487678175509,
+                "x1": 388.3532275144639,
+                "y0": 335.94761370668317,
+                "y1": 347.4458207234298
+              },
+              "row_id": "block-p0074-0016:literal:0",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "7121473456a5ea564fc286923267383892b02a65a33a3bdfd903a0d7e651bbdf",
+              "source_fact_id": "b5cb921876164e4cf2351e53e0a3d1651da8a572bd2c9005cef9cf45d217653d",
+              "match": "uncertain",
+              "reason": "Row contains narrative text about NOx/SO2 but lacks a dedicated pollutant row with a numeric value cell; the '2' is part of a sentence fragment.",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_period",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unit_not_stated",
+                "clause_evidence_missing:value:cell",
+                "clause_evidence_missing:reporting_period:column_header",
+                "clause_evidence_missing:unit:row",
+                "output_vocabulary_unlisted:observed_pollutant",
+                "scope_requires_confirmation",
+                "unit_dimension_not_confirmed",
+                "review"
+              ]
+            }
+          ]
+        }
+      ],
+      "candidates": [],
+      "matrix_columns": [
+        {
+          "table_key": "E2-4_02",
+          "column_count": 3
+        }
+      ]
+    },
+    "recheck_v2": {
+      "run_id": "extract-c74e59fe8ff7af8654e77c7d29ed4871",
+      "state": {
+        "status": "completed",
+        "created_at": "2026-10-30T11:46:56.796000+00:00",
+        "started_at": "2026-10-30T11:46:56.955788+00:00",
+        "finished_at": "2026-10-30T11:49:15.520812+00:00",
+        "delivery": {
+          "export_id": "export-b25974d82c15894cdd12ee2112eed2904abe054de6dc7e195e70f39a69e9251f",
+          "state": "delivered",
+          "accepted_facts": 3,
+          "rejected_facts": 0,
+          "message": null,
+          "retryable": false
+        },
+        "export_id": null
+      },
+      "schema_version": "extraction-fact-bundle-2.2",
+      "summary": {
+        "selected_clauses": 1,
+        "processed_clauses": 1,
+        "source_facts": 3,
+        "quantitative": 3,
+        "qualitative": 0,
+        "model_calls": 3,
+        "elapsed_seconds": 138.537,
+        "errors": [],
+        "assessment": {
+          "execution_state": "completed",
+          "search_coverage": "bounded_complete",
+          "capture_result": "usable",
+          "metadata_completeness": "partial",
+          "comparison_status": "insufficient_context",
+          "target_facts": 3,
+          "other_facts": 0,
+          "unresolved_facts": 0,
+          "rejected_candidates": 6
+        }
+      },
+      "document": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "ir_run_id": "ir-20261030T113659Z-783c1bc972bc",
+        "ir_revision": 1,
+        "content_digest": "40e652bc5bfd417c870e08835d4eb93f2a706af4feae7d1d435f293e063a8d5e",
+        "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "reporting_year": 2025,
+        "reporting_period_raw": "2025",
+        "limited_evidence": true,
+        "label": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a.pdf",
+        "report_resource": {
+          "schema_version": "report-resource-1.0",
+          "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "original_filename": "2025 宁德时代ESG.pdf",
+          "company": {
+            "name": "宁德时代新能源科技股份有限公司",
+            "company_id": "org:catl"
+          },
+          "publication_year": null,
+          "industry": null,
+          "reporting_year": 2025,
+          "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+          "metadata_sources": {
+            "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+            "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+            "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+          },
+          "extensions": {},
+          "revision": 2
+        },
+        "search_scope": {
+          "available_pages": [
+            0,
+            1,
+            2,
+            53,
+            54,
+            55,
+            56,
+            71,
+            72,
+            73,
+            74,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87
+          ],
+          "mode": "targeted",
+          "report_wide_absence_proven": false,
+          "source_page_count": 92
+        }
+      },
+      "coverage": [
+        {
+          "clause_key": "E2-4_02",
+          "clause_digest": "a7b9b11e648244f22ecad355fb2cb1d8ba965e6118db25f31b43874f21b5c0f5",
+          "state": "unconfirmed",
+          "candidate_objects": 5,
+          "inspected_objects": 3,
+          "fact_count": 3,
+          "required_scopes": [
+            "scope-06e0f4a4c0316f48"
+          ],
+          "covered_scopes": [],
+          "reasons": [
+            "object_has_no_bindable_quantitative_cells",
+            "No rows contain quantitative values for air pollutants (SO2, NOx, PM, VOCs) in the provided text; all rows describe procedural text or contain non-measurement numbers (e.g., '37', '1204-2021').",
+            "The target requires 'actual' reported emissions values, but the evidence only contains narrative descriptions of management programs and monitoring schemes without specific emission quantities.",
+            "measurement_meaning_unsupported",
+            "nonmeasurement_target"
+          ]
+        }
+      ],
+      "organization": {
+        "schema_version": "organized-extraction-1.1",
+        "status": "organized",
+        "url": "/api/runs/extract-c74e59fe8ff7af8654e77c7d29ed4871/organized",
+        "table_count": 1,
+        "unorganized_fact_count": 0,
+        "error": null
+      },
+      "rows": [
+        {
+          "fact_id": "b1c7397c02015ba68a2cc436dd79b9394f656a12c3d236ae397041954c494918",
+          "label": "氮氧化物（NOx）²",
+          "value": {
+            "value_raw": "1,530.14",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1530.14",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "氮氧化物（NOx）",
+                "value": "NOx",
+                "evidence": [
+                  {
+                    "object_id": "cell-p0073-t0004-r0005-c0001",
+                    "object_type": "cell",
+                    "page_index": 72,
+                    "excerpt": "氮氧化物（NOx）",
+                    "role": "table",
+                    "bbox": null,
+                    "row_id": "r4",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0005-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "1,530.14",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r4",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0005-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "氮氧化物（NOx）²",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r4",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0005-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r4",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "a7b9b11e648244f22ecad355fb2cb1d8ba965e6118db25f31b43874f21b5c0f5",
+              "source_fact_id": "b1c7397c02015ba68a2cc436dd79b9394f656a12c3d236ae397041954c494918",
+              "match": "match",
+              "reason": "氮氧化物 (NOx) 属于空气污染物",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "bdfb8500b718851b18bb7fd98db5987804c159fb159bfe83aa323358de9bbff3",
+          "label": "二氧化硫（SO2）²",
+          "value": {
+            "value_raw": "5,856.94",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "5856.94",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "二氧化硫（SO2）",
+                "value": "SO2",
+                "evidence": [
+                  {
+                    "object_id": "cell-p0073-t0004-r0006-c0001",
+                    "object_type": "cell",
+                    "page_index": 72,
+                    "excerpt": "二氧化硫（SO2）",
+                    "role": "table",
+                    "bbox": null,
+                    "row_id": "r5",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0006-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "5,856.94",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r5",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0006-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "二氧化硫（SO2）²",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r5",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0006-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r5",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "a7b9b11e648244f22ecad355fb2cb1d8ba965e6118db25f31b43874f21b5c0f5",
+              "source_fact_id": "bdfb8500b718851b18bb7fd98db5987804c159fb159bfe83aa323358de9bbff3",
+              "match": "match",
+              "reason": "二氧化硫 (SO2) 属于空气污染物",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "1e830fe61298df54c784218743ba654406ff431ac8148d51fe2436547a9ed9c4",
+          "label": "挥发性有机物（VOCs）³",
+          "value": {
+            "value_raw": "1,161.80",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1161.80",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "identity": {
+            "reporting_period": {
+              "state": "stated",
+              "raw_text": "2025",
+              "value": "2025",
+              "evidence": [
+                {
+                  "object_id": "cell-p0073-t0004-r0001-c0005",
+                  "object_type": "cell",
+                  "page_index": 72,
+                  "excerpt": "2025",
+                  "role": "column_header",
+                  "bbox": null,
+                  "row_id": null,
+                  "column_id": null,
+                  "char_start": null,
+                  "char_end": null
+                }
+              ]
+            },
+            "reporting_entity": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "entity_aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "reporting_boundary": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "measurement_method": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "value_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "aggregation_role": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "denominator": {
+              "state": "not_read",
+              "raw_text": null,
+              "value": null,
+              "evidence": []
+            },
+            "dimensions": {
+              "pollutant": {
+                "state": "stated",
+                "raw_text": "挥发性有机物（VOCs）",
+                "value": "VOCs",
+                "evidence": [
+                  {
+                    "object_id": "cell-p0073-t0004-r0007-c0001",
+                    "object_type": "cell",
+                    "page_index": 72,
+                    "excerpt": "挥发性有机物（VOCs）",
+                    "role": "table",
+                    "bbox": null,
+                    "row_id": "r6",
+                    "column_id": null,
+                    "char_start": null,
+                    "char_end": null
+                  }
+                ]
+              }
+            }
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "evidence": [
+            {
+              "object_id": "cell-p0073-t0004-r0007-c0005",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "1,161.80",
+              "role": "value",
+              "bbox": null,
+              "row_id": "r6",
+              "column_id": "c4",
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0007-c0001",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "挥发性有机物（VOCs）³",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r6",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            },
+            {
+              "object_id": "cell-p0073-t0004-r0007-c0002",
+              "object_type": "cell",
+              "page_index": 72,
+              "excerpt": "吨",
+              "role": "unit",
+              "bbox": null,
+              "row_id": "r6",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null
+            }
+          ],
+          "mappings": [
+            {
+              "clause_key": "E2-4_02",
+              "clause_digest": "a7b9b11e648244f22ecad355fb2cb1d8ba965e6118db25f31b43874f21b5c0f5",
+              "source_fact_id": "1e830fe61298df54c784218743ba654406ff431ac8148d51fe2436547a9ed9c4",
+              "match": "match",
+              "reason": "挥发性有机物 (VOCs) 属于空气污染物",
+              "scope_ids": [],
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ]
+            }
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "table-p0073-0004",
+          "row_id": "r2",
+          "cell_id": "cell-p0073-t0004-r0003-c0005",
+          "value_raw": "175.61",
+          "page_index": 72,
+          "candidate_kind": "measurement",
+          "selection": "nonmeasurement",
+          "reason": "化学需氧量 (COD) 通常被视为水体污染物，但在此表中与大气污染物并列，需确认是否包含干法脱硝副产物等特殊情况"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "table-p0073-0004",
+          "row_id": "r3",
+          "cell_id": "cell-p0073-t0004-r0004-c0005",
+          "value_raw": "20.36",
+          "page_index": 72,
+          "candidate_kind": "measurement",
+          "selection": "nonmeasurement",
+          "reason": "氨氮 (NH3-N) 通常被视为水体污染物，需确认是否包含氨逃逸等大气排放情况"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0021",
+          "row_id": "block-p0056-0021:literal:224",
+          "cell_id": "block-p0056-0021@224:225",
+          "value_raw": "6",
+          "page_index": 55,
+          "candidate_kind": "formula",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0074-0016",
+          "row_id": "block-p0074-0016:literal:0",
+          "cell_id": "block-p0074-0016@0:1",
+          "value_raw": "2",
+          "page_index": 73,
+          "candidate_kind": "footnote",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:8",
+          "cell_id": "block-p0056-0029@8:12",
+          "value_raw": "2030",
+          "page_index": 55,
+          "candidate_kind": "date",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:32",
+          "cell_id": "block-p0056-0029@32:36",
+          "value_raw": "2021",
+          "page_index": 55,
+          "candidate_kind": "date",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        }
+      ],
+      "matrix_columns": [
+        {
+          "table_key": "E2-4_02",
+          "column_count": 1
+        }
+      ]
+    }
+  },
+  "receiver_receipt": {
+    "status": "accepted",
+    "export_id": "export-b25974d82c15894cdd12ee2112eed2904abe054de6dc7e195e70f39a69e9251f",
+    "receipt_id": "receipt-e9f1ed11787946227308cd29227aa212cba68962fe11afbf8a8da33d634f9122",
+    "received_at": "2026-10-30T11:49:25.070Z",
+    "dispositions": [
+      {
+        "status": "accepted",
+        "source_fact_id": "b1c7397c02015ba68a2cc436dd79b9394f656a12c3d236ae397041954c494918"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "bdfb8500b718851b18bb7fd98db5987804c159fb159bfe83aa323358de9bbff3"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "1e830fe61298df54c784218743ba654406ff431ac8148d51fe2436547a9ed9c4"
+      }
+    ],
+    "input_digest": "5567c742cda93212db3a8c6a2005bc67330ee0d0abefaf3353a278a9f7a357ff",
+    "accepted_facts": 3,
+    "rejected_facts": 0,
+    "schema_version": "extraction-receipt-1.0",
+    "publication_status": "not_evaluated"
+  },
+  "clause_distribution": {
+    "count": 1126,
+    "kind": {
+      "qualitative": 853,
+      "quantitative": 273
+    },
+    "schema": {
+      "clause-contract-1.2": 1126
+    },
+    "blocked": 37,
+    "required_group_scope": 1126,
+    "purpose_capture_retain": 1126
+  },
+  "limits": [
+    "Current working tree is unfinished and does not match running document/extraction services.",
+    "Historical v2 is one target from one Chinese report; no global precision/recall claim.",
+    "Formal and demo databases and review-token were not opened."
+  ]
+}

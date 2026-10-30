@@ -24,13 +24,11 @@ PROJECT_ROOT = project_root()
 EXTRACT_ROOT = PROJECT_ROOT / "ExtractESG"
 WORKSPACE_ROOT = PROJECT_ROOT.parent
 DOCUMENT_ROOT = EXTRACT_ROOT / "document"
-# Keep registered evidence at its existing location. New checkouts use the module data root.
-_previous_document_data = EXTRACT_ROOT / "document_ir_extract"
-DOCUMENT_DATA_ROOT = (
-    _previous_document_data
-    if (_previous_document_data / "document_ir_output").is_dir()
-    else DOCUMENT_ROOT / ".local"
-)
+DATA_ROOT = Path(os.getenv("ESG_DATA_ROOT", str(PROJECT_ROOT / ".local/data"))).expanduser().resolve()
+CONTROL_ROOT = DATA_ROOT / "control"
+DOCUMENT_DATA_ROOT = DATA_ROOT / "documents"
+REPORTS_ROOT = DATA_ROOT / "reports"
+EXTRACTIONS_ROOT = DATA_ROOT / "extractions"
 DOCUMENT_API_SOURCE = DOCUMENT_ROOT / "src/esg_document"
 
-CLAUSES_ROOT = EXTRACT_ROOT / "standard"
+CLAUSES_ROOT = PROJECT_ROOT / "ClauseESG/clauses"

@@ -1,0 +1,430 @@
+{
+  "$defs": {
+    "Company": {
+      "additionalProperties": false,
+      "properties": {
+        "company_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Company Id"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Company",
+      "type": "object"
+    },
+    "DocumentReference": {
+      "additionalProperties": false,
+      "properties": {
+        "content_digest": {
+          "title": "Content Digest",
+          "type": "string"
+        },
+        "document_id": {
+          "title": "Document Id",
+          "type": "string"
+        },
+        "ir_revision": {
+          "title": "Ir Revision",
+          "type": "integer"
+        },
+        "ir_run_id": {
+          "title": "Ir Run Id",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "limited_evidence": {
+          "default": false,
+          "title": "Limited Evidence",
+          "type": "boolean"
+        },
+        "report_resource": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportResource"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reporting_period_raw": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reporting Period Raw"
+        },
+        "reporting_year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reporting Year"
+        },
+        "search_scope": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Search Scope"
+        },
+        "source_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Sha256"
+        }
+      },
+      "required": [
+        "document_id",
+        "ir_run_id",
+        "ir_revision",
+        "content_digest"
+      ],
+      "title": "DocumentReference",
+      "type": "object"
+    },
+    "ExportFile": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "title": "Bytes",
+          "type": "integer"
+        },
+        "name": {
+          "pattern": "^[a-z-]+\\.json$",
+          "title": "Name",
+          "type": "string"
+        },
+        "records": {
+          "minimum": 0,
+          "title": "Records",
+          "type": "integer"
+        },
+        "role": {
+          "enum": [
+            "facts",
+            "properties",
+            "evidence",
+            "relations",
+            "coverage",
+            "targets",
+            "document",
+            "diagnostics"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "role",
+        "sha256",
+        "bytes",
+        "records"
+      ],
+      "title": "ExportFile",
+      "type": "object"
+    },
+    "Industry": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "taxonomy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Taxonomy"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Industry",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "ReportResource": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "pattern": "^pdf-[a-f0-9]{24}$",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "company": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Company"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "industry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Industry"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "metadata_sources": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Metadata Sources",
+          "type": "object"
+        },
+        "original_filename": {
+          "minLength": 1,
+          "title": "Original Filename",
+          "type": "string"
+        },
+        "pdf_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$",
+          "title": "Pdf Id",
+          "type": "string"
+        },
+        "publication_year": {
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publication Year"
+        },
+        "reporting_year": {
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reporting Year"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "report-resource-1.0",
+          "default": "report-resource-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        }
+      },
+      "required": [
+        "pdf_id",
+        "asset_id",
+        "sha256",
+        "original_filename"
+      ],
+      "title": "ReportResource",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clause_targets": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Clause Targets",
+      "type": "object"
+    },
+    "document": {
+      "$ref": "#/$defs/DocumentReference"
+    },
+    "engine_identity": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Engine Identity",
+      "type": "object"
+    },
+    "engine_version": {
+      "title": "Engine Version",
+      "type": "string"
+    },
+    "execution_state": {
+      "enum": [
+        "completed",
+        "interrupted"
+      ],
+      "title": "Execution State",
+      "type": "string"
+    },
+    "export_id": {
+      "pattern": "^export-[a-f0-9]{64}$",
+      "title": "Export Id",
+      "type": "string"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/ExportFile"
+      },
+      "minItems": 1,
+      "title": "Files",
+      "type": "array"
+    },
+    "producer": {
+      "default": "esg-extraction",
+      "title": "Producer",
+      "type": "string"
+    },
+    "publication_status": {
+      "const": "not_evaluated",
+      "default": "not_evaluated",
+      "title": "Publication Status",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "extraction-export-1.0",
+      "default": "extraction-export-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sealed_at": {
+      "title": "Sealed At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "export_id",
+    "run_id",
+    "engine_version",
+    "engine_identity",
+    "document",
+    "clause_targets",
+    "execution_state",
+    "sealed_at",
+    "files"
+  ],
+  "title": "ExportManifest",
+  "type": "object"
+}

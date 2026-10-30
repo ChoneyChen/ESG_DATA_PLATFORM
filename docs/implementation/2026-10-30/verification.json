@@ -1,0 +1,2603 @@
+{
+  "schema_version": "upgrade-verification-2.0",
+  "observed_at": "2026-10-30T16:44:18.324732+00:00",
+  "cases": [
+    {
+      "session_id": "extract-plan-56875d8c983a46558a0a186d3bcb895e",
+      "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+      "status": "completed",
+      "document": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "ir_run_id": "ir-20261030T153533Z-13e231e622a7",
+        "ir_revision": 1,
+        "content_digest": "794f0b79eef21502dd77c8467fd8385e965b52987cf8fcae8b4834e3514a7c73",
+        "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "reporting_year": 2025,
+        "reporting_period_raw": "2025",
+        "limited_evidence": true,
+        "label": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a.pdf",
+        "report_resource": {
+          "schema_version": "report-resource-1.0",
+          "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "original_filename": "2025 宁德时代ESG.pdf",
+          "company": {
+            "name": "宁德时代新能源科技股份有限公司",
+            "company_id": "org:catl"
+          },
+          "publication_year": null,
+          "industry": null,
+          "reporting_year": 2025,
+          "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+          "metadata_sources": {
+            "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+            "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+            "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+          },
+          "extensions": {},
+          "revision": 2
+        },
+        "search_scope": {
+          "available_pages": [
+            0,
+            1,
+            2,
+            30,
+            53,
+            54,
+            55,
+            56,
+            57,
+            71,
+            72,
+            73,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87
+          ],
+          "mode": "targeted",
+          "report_wide_absence_proven": false,
+          "source_page_count": 92
+        }
+      },
+      "summary": {
+        "selected_clauses": 2,
+        "processed_clauses": 2,
+        "source_facts": 5,
+        "quantitative": 3,
+        "qualitative": 2,
+        "model_calls": 8,
+        "elapsed_seconds": 334.298,
+        "errors": [],
+        "assessment": {
+          "execution_state": "completed",
+          "search_coverage": "bounded_complete",
+          "capture_result": "usable",
+          "metadata_completeness": "partial",
+          "comparison_status": "insufficient_context",
+          "target_facts": 5,
+          "other_facts": 0,
+          "unresolved_facts": 0,
+          "rejected_candidates": 7
+        }
+      },
+      "delivery": {
+        "export_id": "export-e6a0bc9879fc92864e318421b68a2a298aabae36570ec0afa85618da4723e853",
+        "state": "delivered",
+        "accepted_facts": 5,
+        "rejected_facts": 0,
+        "message": null,
+        "retryable": false
+      },
+      "receipt": {
+        "status": "accepted",
+        "export_id": "export-e6a0bc9879fc92864e318421b68a2a298aabae36570ec0afa85618da4723e853",
+        "receipt_id": "receipt-1c3b95422feb415dc8d9a43e6caad1cfece4257e12f54298c8c23f029e99048a",
+        "received_at": "2026-10-30T15:41:29.115Z",
+        "dispositions": [
+          {
+            "status": "accepted",
+            "source_fact_id": "c2d9a840335f13e723fd1350c057a1eec5003b199484e4b9ea33b9362ea8caaf"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "cd1f5dd8389dedbf4c14523b6aa3812bc754fe684e43da1d9b9ba303425b2bd3"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "47d720cec1c3808e49b4debbe87e6d69d55c57dbf6ea7cbd52794c45c0226016"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "bfd990e36b0e9359a1d4e6f338f11025ad38bf697c090b06cff6f1ccaeb15140"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "1432c4cb0f48dc9c2be9cd57f2ed0c5785bde61fa2e8b7e2ac78384d76405204"
+          }
+        ],
+        "input_digest": "7b0cd8fc89a42c30321f17baef2d433f153bd959d9326f26bd0faeb2fa0fb0d0",
+        "accepted_facts": 5,
+        "rejected_facts": 0,
+        "schema_version": "extraction-receipt-1.0",
+        "publication_status": "not_evaluated"
+      },
+      "preparation": {
+        "processing_id": "processing-cc00076aee58482484d859469402f565",
+        "status": "ready_with_limits",
+        "steps": [
+          {
+            "stage": "ocr",
+            "label": "文档识别",
+            "status": "completed",
+            "current": 18,
+            "total": 18,
+            "unit": "pages"
+          },
+          {
+            "stage": "ir",
+            "label": "结构与证据构建",
+            "status": "partial",
+            "current": 11,
+            "total": 11,
+            "unit": "steps"
+          },
+          {
+            "stage": "quality",
+            "label": "证据质量检查",
+            "status": "completed",
+            "current": null,
+            "total": null,
+            "unit": "unknown"
+          }
+        ],
+        "ocr_run_id": "ocr-20261030T153504Z-0365d4aa91a7",
+        "ir_run_id": "ir-20261030T153533Z-13e231e622a7"
+      },
+      "rows": [
+        {
+          "fact_id": "c2d9a840335f13e723fd1350c057a1eec5003b199484e4b9ea33b9362ea8caaf",
+          "label": "氮氧化物（NOx）²",
+          "value": {
+            "value_raw": "1,530.14",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1530.14",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "match",
+              "reason": "氮氧化物 (NOx) 2025 年排放量",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "cd1f5dd8389dedbf4c14523b6aa3812bc754fe684e43da1d9b9ba303425b2bd3",
+          "label": "二氧化硫（SO2）²",
+          "value": {
+            "value_raw": "5,856.94",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "5856.94",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "match",
+              "reason": "二氧化硫 (SO2) 2025 年排放量",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "47d720cec1c3808e49b4debbe87e6d69d55c57dbf6ea7cbd52794c45c0226016",
+          "label": "挥发性有机物（VOCs）³",
+          "value": {
+            "value_raw": "1,161.80",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1161.80",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "match",
+              "reason": "挥发性有机物 (VOCs) 2025 年排放量",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "bfd990e36b0e9359a1d4e6f338f11025ad38bf697c090b06cff6f1ccaeb15140",
+          "label": null,
+          "value": {
+            "statement_raw": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
+            "extensions": {
+              "source_text_raw": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。报告期内，公司对130家战略供应商开展审核辅导工作。"
+            },
+            "kind": "assertion"
+          },
+          "pages": [
+            55
+          ],
+          "period": {
+            "state": "inherited",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+                "object_type": "report",
+                "page_index": null,
+                "excerpt": "2025",
+                "role": "report",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "statement_is_excerpt",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_09",
+              "match": "match",
+              "reason": "原文明确描述了针对水、大气和固体废弃物（三废）污染物的监测与审核方法，符合条款定义的测量方法论要求。",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "1432c4cb0f48dc9c2be9cd57f2ed0c5785bde61fa2e8b7e2ac78384d76405204",
+          "label": null,
+          "value": {
+            "statement_raw": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
+            "extensions": {
+              "source_text_raw": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。同时，公司将土壤污染风险识别纳入日常环保隐患排查，确保及时识别并控制潜在风险。"
+            },
+            "kind": "assertion"
+          },
+          "pages": [
+            56
+          ],
+          "period": {
+            "state": "not_stated",
+            "raw_text": null,
+            "value": null,
+            "evidence": []
+          },
+          "flags": [
+            "statement_is_excerpt",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_09",
+              "match": "match",
+              "reason": "Text explicitly describes soil pollution measurement and monitoring methodologies (background investigation and self-monitoring) for new factories, satisfying the clause definition.",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_period"
+              ]
+            }
+          ]
+        }
+      ],
+      "model_calls": [
+        {
+          "object_id": "table-p0073-0004",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 115.173,
+            "failure_category": null,
+            "input_tokens": 16491,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 1768,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-2b76de3dde9a455f926acdabc8aa2ec6",
+              "evidence_ids": [
+                "table-p0073-0004"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "498ea3c638479844b18b14863cda91dc45bb0ad4e128bf1da3baf9383509db52",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2399.946938291192,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "d94ea0a763f70b3a9f75714e40927b4117bfed1c4a609e69e2e12668f4008753",
+              "task_type": "clause_quantitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0055-0024",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 23.306,
+            "failure_category": null,
+            "input_tokens": 5646,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 98,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-ca71a51b77554582b4f1c3a91077e096",
+              "evidence_ids": [
+                "block-p0055-0024"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "ec0e7dde8880d6dbdbe1457d9cb67d67477d2ce3fc3115cbb843a86d1eee7c87",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2284.580448749941,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "889cc48cf84927c8c1b711184b172c22d49b98132f5ea5221bbc543ee37f3364",
+              "task_type": "clause_quantitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0056-0029",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 29.384,
+            "failure_category": null,
+            "input_tokens": 3841,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 299,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-b12f5af334c04455a8e0fcac26550f82",
+              "evidence_ids": [
+                "block-p0056-0029"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "61b1026f637ee70942da2bff72df95df38525737d937d3a86afdd2d6e5aac76a",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2261.18648320809,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "75729704d87eb016990de6a67e105611e0c0f59cc3496c7d7d1e6c33e08f5a1e",
+              "task_type": "clause_quantitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0055-0016",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 18.609,
+            "failure_category": null,
+            "input_tokens": 3001,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 161,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-b99b3631dda9473ca274ab6ba1322dfb",
+              "evidence_ids": [
+                "block-p0055-0016"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "f54f02d7a4b3d0e86fd00e0531de19677618869c8b1fc257917f11f4ce302a7e",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2231.6757760001346,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "5328af80a6eaebfbcb568256ec20018c671643d67f7e7b1618d4b534a44aa1a9",
+              "task_type": "clause_qualitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0055-0024",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 51.882,
+            "failure_category": null,
+            "input_tokens": 4918,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 674,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-7deb23832b414960b4095230275b0c7d",
+              "evidence_ids": [
+                "block-p0055-0024"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "9207d4760129776c8604b77ef6b8da74bbdb40aa9443d82f8acfd82c51c4207c",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2213.0248219161294,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "b12206d28ab686e02c88c4d97ec9024c54f8c3cfd7247ad9dbe58f6479a8a855",
+              "task_type": "clause_qualitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0056-0032",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 29.611,
+            "failure_category": null,
+            "input_tokens": 2578,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 406,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-021c826fb60d47b692980999fb3c7bed",
+              "evidence_ids": [
+                "block-p0056-0032"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "c58ccf627e8de1f4abf03ecd9d42b7b1d7edddcc3b8086fde323c123f25d67f4",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2161.111491125077,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "3b41931860475748f0555dde028e27d61abaed63713fe5f91f0695cb5da0328e",
+              "task_type": "clause_qualitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0073-0016",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 30.307,
+            "failure_category": null,
+            "input_tokens": 2998,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 391,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-01618f206b484d208fcea6721782aa1b",
+              "evidence_ids": [
+                "block-p0073-0016"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "e3cd15fae688819a9b8d3255a6f6914c285e17787e33d33b1ac3182d1d70ab92",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2131.45987170795,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "f4dc35dd2402618cc4c9df7c78537314e428ceb3d1169b6b6b7aedfd4ec9458e",
+              "task_type": "clause_qualitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0055-0009",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 35.374,
+            "failure_category": null,
+            "input_tokens": 2649,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 512,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-1ad623e0624544b096d242e9838f8028",
+              "evidence_ids": [
+                "block-p0055-0009"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "0ff6583e0f31713c242c5ddf0775088c5502bd732d7304707c4469ea0b2dcd98",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 2101.1162298750132,
+              "run_id": "extract-6efe7c4d3f4791963bcafc684e39c5ac",
+              "schema_digest": "f69777bb795adfc847cae282eb5d25e538b93ccec027ab92db6f41c1c29ae71c",
+              "task_type": "clause_qualitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        }
+      ],
+      "model_cost": {
+        "calls": 8,
+        "input_tokens": 42122,
+        "output_tokens": 4309
+      },
+      "stored_count": 5,
+      "database_values": [
+        {
+          "fact_id": "1432c4cb0f48dc9c2be9cd57f2ed0c5785bde61fa2e8b7e2ac78384d76405204",
+          "raw": null,
+          "exact_numeric": null
+        },
+        {
+          "fact_id": "47d720cec1c3808e49b4debbe87e6d69d55c57dbf6ea7cbd52794c45c0226016",
+          "raw": "1,161.80",
+          "exact_numeric": "1161.80"
+        },
+        {
+          "fact_id": "bfd990e36b0e9359a1d4e6f338f11025ad38bf697c090b06cff6f1ccaeb15140",
+          "raw": null,
+          "exact_numeric": null
+        },
+        {
+          "fact_id": "c2d9a840335f13e723fd1350c057a1eec5003b199484e4b9ea33b9362ea8caaf",
+          "raw": "1,530.14",
+          "exact_numeric": "1530.14"
+        },
+        {
+          "fact_id": "cd1f5dd8389dedbf4c14523b6aa3812bc754fe684e43da1d9b9ba303425b2bd3",
+          "raw": "5,856.94",
+          "exact_numeric": "5856.94"
+        }
+      ],
+      "candidate_dispositions": [
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "table-p0073-0004",
+          "row_id": "r2",
+          "cell_id": "cell-p0073-t0004-r0003-c0005",
+          "value_raw": "175.61",
+          "page_index": 72,
+          "candidate_kind": "measurement",
+          "selection": "nonmeasurement",
+          "reason": "化学需氧量 (COD) 属于水体污染物"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "table-p0073-0004",
+          "row_id": "r3",
+          "cell_id": "cell-p0073-t0004-r0004-c0005",
+          "value_raw": "20.36",
+          "page_index": 72,
+          "candidate_kind": "measurement",
+          "selection": "nonmeasurement",
+          "reason": "氨氮 (NH3-N) 属于水体污染物"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0021",
+          "row_id": "block-p0056-0021:literal:224",
+          "cell_id": "block-p0056-0021@224:225",
+          "value_raw": "6",
+          "page_index": 55,
+          "candidate_kind": "formula",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0074-0016",
+          "row_id": "block-p0074-0016:literal:0",
+          "cell_id": "block-p0074-0016@0:1",
+          "value_raw": "2",
+          "page_index": 73,
+          "candidate_kind": "footnote",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:8",
+          "cell_id": "block-p0056-0029@8:12",
+          "value_raw": "2030",
+          "page_index": 55,
+          "candidate_kind": "date",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:32",
+          "cell_id": "block-p0056-0029@32:36",
+          "value_raw": "2021",
+          "page_index": 55,
+          "candidate_kind": "date",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:39",
+          "cell_id": "block-p0056-0029@39:42",
+          "value_raw": "25%",
+          "page_index": 55,
+          "candidate_kind": "measurement",
+          "selection": "nonmeasurement",
+          "reason": "Target requires pollutant emission quantity; row is a reduction target intensity with percentage unit"
+        }
+      ],
+      "table_count": 2
+    },
+    {
+      "session_id": "extract-plan-51ee4b670cb04ed49dc02b14d834d7ce",
+      "run_id": "extract-1099dd301a241c409a0ab052027c689c",
+      "status": "completed",
+      "document": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "ir_run_id": "ir-20261030T163047Z-5cadd3a03d36",
+        "ir_revision": 1,
+        "content_digest": "584cd9425da34bb014fea05d9a7602c3fab80d88f655ce4a18239767b3a16b2b",
+        "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "reporting_year": 2025,
+        "reporting_period_raw": "2025",
+        "limited_evidence": true,
+        "label": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a.pdf",
+        "report_resource": {
+          "schema_version": "report-resource-1.0",
+          "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "original_filename": "2025 宁德时代ESG.pdf",
+          "company": {
+            "name": "宁德时代新能源科技股份有限公司",
+            "company_id": "org:catl"
+          },
+          "publication_year": null,
+          "industry": null,
+          "reporting_year": 2025,
+          "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+          "metadata_sources": {
+            "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+            "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+            "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+          },
+          "extensions": {},
+          "revision": 2
+        },
+        "search_scope": {
+          "available_pages": [
+            0,
+            1,
+            2,
+            53,
+            54,
+            55,
+            56,
+            71,
+            72,
+            73,
+            74,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87
+          ],
+          "mode": "targeted",
+          "report_wide_absence_proven": false,
+          "source_page_count": 92
+        }
+      },
+      "summary": {
+        "selected_clauses": 1,
+        "processed_clauses": 1,
+        "source_facts": 18,
+        "quantitative": 18,
+        "qualitative": 0,
+        "model_calls": 3,
+        "elapsed_seconds": 300.549,
+        "errors": [],
+        "assessment": {
+          "execution_state": "completed",
+          "search_coverage": "bounded_complete",
+          "capture_result": "usable",
+          "metadata_completeness": "partial",
+          "comparison_status": "insufficient_context",
+          "target_facts": 3,
+          "other_facts": 15,
+          "unresolved_facts": 0,
+          "rejected_candidates": 5
+        }
+      },
+      "delivery": {
+        "export_id": "export-53416b2c235c075addd352562fb717bf79fe9ba8ba3590024f34f1f1166d17ab",
+        "state": "delivered",
+        "accepted_facts": 18,
+        "rejected_facts": 0,
+        "message": null,
+        "retryable": false
+      },
+      "receipt": {
+        "status": "accepted",
+        "export_id": "export-53416b2c235c075addd352562fb717bf79fe9ba8ba3590024f34f1f1166d17ab",
+        "receipt_id": "receipt-b0f8846d13945bd202b30ddcfa84b57d375aef2ee8f229211b0b4efbaecf0c53",
+        "received_at": "2026-10-30T16:41:51.562Z",
+        "dispositions": [
+          {
+            "status": "accepted",
+            "source_fact_id": "042da8ffd9ed1da0b71e4a44ac418cc53a232ea19827efa299ec867de329f6af"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "8d48fc46284badedf6b500ec4e592c187459ffe299e1307e8e306a4d8c6884f5"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "2c62fb9d091791b07c2f74625e6d490d8c05b55945e16a72433f7fb766c72a32"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "e170d2fd95d071b6f151c96803c2d5b151c656a88b86967fc42cd5d43f550a3c"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "ba0c164050270cf5c22c66ac653685d21974ec38617060c9fc7b5a271e6aedda"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "a50a139c387393390cf31a40c455bb44a26aa96d1d0c0270a181091f47ff5098"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "c40324416a86e8497fb400d03be76a74fbd1e1ad8f8ecf1deb8b886ff6667c38"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "74a6a4ba428f3b63637814a60e286766206d2882445d61a66eb59eaa17a02c96"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "4c3ca87103a66bdf40dd41ae1b70084b9671bb29cb9b7d7243aa99dbe6fbbe74"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "fccee9cb18d2d1a57d0666646075acae0d54be8e3c8e2350d6409a18bd60364f"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "43cdde3089a6e6ec561d8fe94927de37515fb334917ac19b7adfe3e3f8a4a7d7"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "7eeaa7eb9678190de5907a56cfd0cc4051fec908d8866d9feec2a39121aaee20"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "bc24a4f7b5d53607fdf374dc5b92ef7b6b89f982fcbf5d0b3cdcc42f82d0871f"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "6c8c0eb14073ed2a7e798084310559090c37b3b48db7a1147bdb7a6e6af10262"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "1a979583910d5f4693582b4f4ca2bc9ad8ed049e75d8819ca9eac4424a80908f"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "18906dcf2f7d327f4feb331b1d29c536e9429a6bb789c0a425ef447d638c9ed8"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "5d11a60637482c68dffe4340c9c5666b0c78e2a0fbba74b9edfb647ba6b165f6"
+          },
+          {
+            "status": "accepted",
+            "source_fact_id": "6710ffd2642b6595b6184edbb02a894217373d2d6ce47fe5aef45e5c65339519"
+          }
+        ],
+        "input_digest": "0b33b76d816937a47e905c48bbfe6779deac60883eedc45a69d77045644cf30f",
+        "accepted_facts": 18,
+        "rejected_facts": 0,
+        "schema_version": "extraction-receipt-1.0",
+        "publication_status": "not_evaluated"
+      },
+      "preparation": {
+        "processing_id": "processing-292982a97bed492b89d77f4a98188d88",
+        "status": "ready_with_limits",
+        "steps": [
+          {
+            "stage": "ocr",
+            "label": "文档识别",
+            "status": "reused",
+            "current": null,
+            "total": null,
+            "unit": "unknown"
+          },
+          {
+            "stage": "ir",
+            "label": "结构与证据构建",
+            "status": "reused",
+            "current": null,
+            "total": null,
+            "unit": "unknown"
+          },
+          {
+            "stage": "quality",
+            "label": "证据质量检查",
+            "status": "completed",
+            "current": null,
+            "total": null,
+            "unit": "unknown"
+          }
+        ],
+        "ocr_run_id": "ocr-20261030T163018Z-37ff0f4c44b2",
+        "ir_run_id": "ir-20261030T163047Z-5cadd3a03d36"
+      },
+      "rows": [
+        {
+          "fact_id": "042da8ffd9ed1da0b71e4a44ac418cc53a232ea19827efa299ec867de329f6af",
+          "label": "氮氧化物（NOx）²",
+          "value": {
+            "value_raw": "1,530.14",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1530.14",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "match",
+              "reason": "Air pollutant NOx in 2025",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "8d48fc46284badedf6b500ec4e592c187459ffe299e1307e8e306a4d8c6884f5",
+          "label": "二氧化硫（SO2）²",
+          "value": {
+            "value_raw": "5,856.94",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "5856.94",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "match",
+              "reason": "Air pollutant SO2 in 2025",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "2c62fb9d091791b07c2f74625e6d490d8c05b55945e16a72433f7fb766c72a32",
+          "label": "挥发性有机物（VOCs）³",
+          "value": {
+            "value_raw": "1,161.80",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1161.80",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "match",
+              "reason": "Air pollutant VOCs in 2025",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "e170d2fd95d071b6f151c96803c2d5b151c656a88b86967fc42cd5d43f550a3c",
+          "label": "化学需氧量（COD）",
+          "value": {
+            "value_raw": "175.61",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "175.61",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "ba0c164050270cf5c22c66ac653685d21974ec38617060c9fc7b5a271e6aedda",
+          "label": "氨氮（NH3 -N）",
+          "value": {
+            "value_raw": "20.36",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "20.36",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "a50a139c387393390cf31a40c455bb44a26aa96d1d0c0270a181091f47ff5098",
+          "label": "一般工业固废生成总量",
+          "value": {
+            "value_raw": "19,853,035",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "19853035",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "c40324416a86e8497fb400d03be76a74fbd1e1ad8f8ecf1deb8b886ff6667c38",
+          "label": "一般工业固废生成强度⁴",
+          "value": {
+            "value_raw": "26.54",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "26.54",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨/兆瓦时",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "unit_is_intensity",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "unit_is_intensity",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "74a6a4ba428f3b63637814a60e286766206d2882445d61a66eb59eaa17a02c96",
+          "label": "一般工业固废处置量",
+          "value": {
+            "value_raw": "17,689,634",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "17689634",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "4c3ca87103a66bdf40dd41ae1b70084b9671bb29cb9b7d7243aa99dbe6fbbe74",
+          "label": "焚烧（有能源回收）⁵",
+          "value": {
+            "value_raw": "8,633",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "8633",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "fccee9cb18d2d1a57d0666646075acae0d54be8e3c8e2350d6409a18bd60364f",
+          "label": "焚烧（无能源回收）⁵",
+          "value": {
+            "value_raw": "1,629",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1629",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "43cdde3089a6e6ec561d8fe94927de37515fb334917ac19b7adfe3e3f8a4a7d7",
+          "label": "填埋⁵",
+          "value": {
+            "value_raw": "3,415,955",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "3415955",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "7eeaa7eb9678190de5907a56cfd0cc4051fec908d8866d9feec2a39121aaee20",
+          "label": "其他（物化处理、生物处理等）",
+          "value": {
+            "value_raw": "14,263,417",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "14263417",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "bc24a4f7b5d53607fdf374dc5b92ef7b6b89f982fcbf5d0b3cdcc42f82d0871f",
+          "label": "一般工业固废回收循环再利用总量⁵",
+          "value": {
+            "value_raw": "2,163,401",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "2163401",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "6c8c0eb14073ed2a7e798084310559090c37b3b48db7a1147bdb7a6e6af10262",
+          "label": "再使用⁵，⁶",
+          "value": {
+            "value_raw": "579,455",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "579455",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "1a979583910d5f4693582b4f4ca2bc9ad8ed049e75d8819ca9eac4424a80908f",
+          "label": "循环使用⁵，⁷",
+          "value": {
+            "value_raw": "1,339,058",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "1339058",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "18906dcf2f7d327f4feb331b1d29c536e9429a6bb789c0a425ef447d638c9ed8",
+          "label": "其他回收（不含再使用、循环使用）⁸",
+          "value": {
+            "value_raw": "244,888",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "244888",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "5d11a60637482c68dffe4340c9c5666b0c78e2a0fbba74b9edfb647ba6b165f6",
+          "label": "危险废物生成总量",
+          "value": {
+            "value_raw": "31,711",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "31711",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "label_not_a_pollutant_for_medium",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "label_not_a_pollutant_for_medium",
+                "rejected"
+              ]
+            }
+          ]
+        },
+        {
+          "fact_id": "6710ffd2642b6595b6184edbb02a894217373d2d6ce47fe5aef45e5c65339519",
+          "label": "危险废物生成强度⁹",
+          "value": {
+            "value_raw": "0.04",
+            "parse_status": "parsed",
+            "comparator": "exact",
+            "value_numeric": "0.04",
+            "value_lower": null,
+            "value_upper": null,
+            "unit_raw": "吨/兆瓦时",
+            "extensions": {},
+            "kind": "quantitative"
+          },
+          "pages": [
+            73
+          ],
+          "period": {
+            "state": "stated",
+            "raw_text": "2025",
+            "value": "2025",
+            "evidence": [
+              {
+                "object_id": "cell-p0073-t0004-r0001-c0005",
+                "object_type": "cell",
+                "page_index": 72,
+                "excerpt": "2025",
+                "role": "column_header",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null
+              }
+            ]
+          },
+          "flags": [
+            "unbound_identity:reporting_entity",
+            "unbound_identity:reporting_boundary",
+            "unbound_identity:pollution_medium",
+            "unbound_identity:pollutant",
+            "document_evidence_limited"
+          ],
+          "relations": [
+            {
+              "clause_key": "E2-4_02",
+              "match": "different",
+              "reason": "unit_is_intensity",
+              "flags": [
+                "unbound_identity:reporting_entity",
+                "unbound_identity:reporting_boundary",
+                "unbound_identity:pollution_medium",
+                "unbound_identity:pollutant",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "comparison_axis_missing:reporting_entity",
+                "comparison_axis_missing:reporting_boundary",
+                "comparison_axis_missing:pollution_medium",
+                "comparison_axis_missing:pollutant",
+                "unit_is_intensity",
+                "rejected"
+              ]
+            }
+          ]
+        }
+      ],
+      "model_calls": [
+        {
+          "object_id": "table-p0073-0004",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 177.87,
+            "failure_category": null,
+            "input_tokens": 16674,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 1121,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-33a5699dccc94543a474850fd685302a",
+              "evidence_ids": [
+                "table-p0073-0004"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "94c15411b775eb8b5d3606e91c91b949e7cd5572069a55cca54f37ab61bb001d",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 1799.9482426657341,
+              "run_id": "extract-1099dd301a241c409a0ab052027c689c",
+              "schema_digest": "19adac268e0b00383bc56ee9c368e9708d76449e8da5f4f84fc1dfafc1f34df3",
+              "task_type": "clause_quantitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 15
+        },
+        {
+          "object_id": "block-p0055-0024",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 34.278,
+            "failure_category": null,
+            "input_tokens": 5829,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 54,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-f59b17fe29324087902924799e8b6ade",
+              "evidence_ids": [
+                "block-p0055-0024"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "94b5188e0252ed3a03286fff60a4a28b109ec8c2255c2e29c1598962a9fef2dd",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 1621.499210332986,
+              "run_id": "extract-1099dd301a241c409a0ab052027c689c",
+              "schema_digest": "883e8d35062433911976d4d4e4c9e0e5720850bd951e6322d3238b81c6224967",
+              "task_type": "clause_quantitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        },
+        {
+          "object_id": "block-p0056-0029",
+          "status": "ok",
+          "execution": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 87.01,
+            "failure_category": null,
+            "input_tokens": 3969,
+            "output_constraint": "grammar_schema",
+            "output_tokens": 428,
+            "output_validation": "passed",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-2cb6c112dbce4fe6b8d61e2a1912f4d6",
+              "evidence_ids": [
+                "block-p0056-0029"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "fdffd8ae1f4578e46a45d8edf3afbb738cde6e3da1d0e2a0672f10d3d4b6b5f1",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 1587.1260615410283,
+              "run_id": "extract-1099dd301a241c409a0ab052027c689c",
+              "schema_digest": "92becf6713b4a9ccc06f49fb52c5a994d1024ae1f31774020570bda23694ed57",
+              "task_type": "clause_quantitative"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "succeeded"
+          },
+          "structural_supplement_count": 0
+        }
+      ],
+      "model_cost": {
+        "calls": 3,
+        "input_tokens": 26472,
+        "output_tokens": 1603
+      },
+      "stored_count": 18,
+      "database_values": [
+        {
+          "fact_id": "042da8ffd9ed1da0b71e4a44ac418cc53a232ea19827efa299ec867de329f6af",
+          "raw": "1,530.14",
+          "exact_numeric": "1530.14"
+        },
+        {
+          "fact_id": "18906dcf2f7d327f4feb331b1d29c536e9429a6bb789c0a425ef447d638c9ed8",
+          "raw": "244,888",
+          "exact_numeric": "244888"
+        },
+        {
+          "fact_id": "1a979583910d5f4693582b4f4ca2bc9ad8ed049e75d8819ca9eac4424a80908f",
+          "raw": "1,339,058",
+          "exact_numeric": "1339058"
+        },
+        {
+          "fact_id": "2c62fb9d091791b07c2f74625e6d490d8c05b55945e16a72433f7fb766c72a32",
+          "raw": "1,161.80",
+          "exact_numeric": "1161.80"
+        },
+        {
+          "fact_id": "43cdde3089a6e6ec561d8fe94927de37515fb334917ac19b7adfe3e3f8a4a7d7",
+          "raw": "3,415,955",
+          "exact_numeric": "3415955"
+        },
+        {
+          "fact_id": "4c3ca87103a66bdf40dd41ae1b70084b9671bb29cb9b7d7243aa99dbe6fbbe74",
+          "raw": "8,633",
+          "exact_numeric": "8633"
+        },
+        {
+          "fact_id": "5d11a60637482c68dffe4340c9c5666b0c78e2a0fbba74b9edfb647ba6b165f6",
+          "raw": "31,711",
+          "exact_numeric": "31711"
+        },
+        {
+          "fact_id": "6710ffd2642b6595b6184edbb02a894217373d2d6ce47fe5aef45e5c65339519",
+          "raw": "0.04",
+          "exact_numeric": "0.04"
+        },
+        {
+          "fact_id": "6c8c0eb14073ed2a7e798084310559090c37b3b48db7a1147bdb7a6e6af10262",
+          "raw": "579,455",
+          "exact_numeric": "579455"
+        },
+        {
+          "fact_id": "74a6a4ba428f3b63637814a60e286766206d2882445d61a66eb59eaa17a02c96",
+          "raw": "17,689,634",
+          "exact_numeric": "17689634"
+        },
+        {
+          "fact_id": "7eeaa7eb9678190de5907a56cfd0cc4051fec908d8866d9feec2a39121aaee20",
+          "raw": "14,263,417",
+          "exact_numeric": "14263417"
+        },
+        {
+          "fact_id": "8d48fc46284badedf6b500ec4e592c187459ffe299e1307e8e306a4d8c6884f5",
+          "raw": "5,856.94",
+          "exact_numeric": "5856.94"
+        },
+        {
+          "fact_id": "a50a139c387393390cf31a40c455bb44a26aa96d1d0c0270a181091f47ff5098",
+          "raw": "19,853,035",
+          "exact_numeric": "19853035"
+        },
+        {
+          "fact_id": "ba0c164050270cf5c22c66ac653685d21974ec38617060c9fc7b5a271e6aedda",
+          "raw": "20.36",
+          "exact_numeric": "20.36"
+        },
+        {
+          "fact_id": "bc24a4f7b5d53607fdf374dc5b92ef7b6b89f982fcbf5d0b3cdcc42f82d0871f",
+          "raw": "2,163,401",
+          "exact_numeric": "2163401"
+        },
+        {
+          "fact_id": "c40324416a86e8497fb400d03be76a74fbd1e1ad8f8ecf1deb8b886ff6667c38",
+          "raw": "26.54",
+          "exact_numeric": "26.54"
+        },
+        {
+          "fact_id": "e170d2fd95d071b6f151c96803c2d5b151c656a88b86967fc42cd5d43f550a3c",
+          "raw": "175.61",
+          "exact_numeric": "175.61"
+        },
+        {
+          "fact_id": "fccee9cb18d2d1a57d0666646075acae0d54be8e3c8e2350d6409a18bd60364f",
+          "raw": "1,629",
+          "exact_numeric": "1629"
+        }
+      ],
+      "candidate_dispositions": [
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0021",
+          "row_id": "block-p0056-0021:literal:224",
+          "cell_id": "block-p0056-0021@224:225",
+          "value_raw": "6",
+          "page_index": 55,
+          "candidate_kind": "formula",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0074-0016",
+          "row_id": "block-p0074-0016:literal:0",
+          "cell_id": "block-p0074-0016@0:1",
+          "value_raw": "2",
+          "page_index": 73,
+          "candidate_kind": "footnote",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:8",
+          "cell_id": "block-p0056-0029@8:12",
+          "value_raw": "2030",
+          "page_index": 55,
+          "candidate_kind": "date",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:32",
+          "cell_id": "block-p0056-0029@32:36",
+          "value_raw": "2021",
+          "page_index": 55,
+          "candidate_kind": "date",
+          "selection": "nonmeasurement",
+          "reason": "physical_literal_type"
+        },
+        {
+          "clause_key": "E2-4_02",
+          "object_id": "block-p0056-0029",
+          "row_id": "block-p0056-0029:literal:39",
+          "cell_id": "block-p0056-0029@39:42",
+          "value_raw": "25%",
+          "page_index": 55,
+          "candidate_kind": "measurement",
+          "selection": "nonmeasurement",
+          "reason": "Target requires air pollutant mass (tonne) but row reports NOx intensity (% per GWh)"
+        }
+      ],
+      "table_count": 1
+    }
+  ],
+  "historical_baseline": {
+    "run_id": "extract-c8adbfa8d23a8b65e5c8e73aa6c17237",
+    "facts": 7,
+    "valid_target": 3,
+    "other_measurements": 2,
+    "false_quantitative": 2,
+    "model_calls": 5,
+    "extraction_seconds": 262.212
+  },
+  "limits": [
+    "Metrics only concern explicitly annotated evidence, not full-report recall or global model precision.",
+    "Final quantitative run captures adjacent physical table quantities separately; 13 additional waste rows are not part of the five-row air/water benchmark.",
+    "Qualitative v3 demonstrates grounded literal output and reception, not complete methodology coverage or publication approval.",
+    "Formal/demo databases and review-token were not opened; existing Plat 8765 process was not restarted."
+  ],
+  "final_download_check": {
+    "bytes": 18966,
+    "manifest_matches": true,
+    "facts": 18,
+    "rejected": []
+  },
+  "ui_verification": {
+    "surface": "Native Google Chrome via CUA; browser-specific provider unavailable",
+    "views": [
+      "target table 3 / other 15",
+      "search COD 175.61",
+      "matrix single 2025 column",
+      "evidence value/unit/period on physical PDF page 73",
+      "execution completed and raw receiver 18/0",
+      "global monitor pin reserves content space; Escape closes"
+    ],
+    "screenshots": [
+      "results-table-final.png",
+      "monitor-final.png"
+    ],
+    "cropping": "Only application content retained; browser chrome and unrelated tabs excluded."
+  }
+}

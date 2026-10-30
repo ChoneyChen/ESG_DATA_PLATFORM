@@ -1,15 +1,13 @@
-# 当前文档
+# 文档目录
 
-- [全盘模块化审核与下一阶段升级方案（2026-10-30，只读）](audits/2026-10-30/README.md)
-- [全链路架构与接口](ARCHITECTURE.md)
-- [原值及条款组织合同](ORGANIZATION.md)
-- [Console 操作与目录](../ConsoleESG/README.md)
-- [模型能力与边界](MODELS.md)
-- [全项目结构审查与本轮核对](PROJECT_AUDIT.md)
-- [系统状态](SYSTEM_STATE.md)
-- [审核、发布、数据库出口方案——仅规划](EXIT_PLAN.md)
-- [既有数据库与冻结产品](../database/README.md)
-- [文档物理证据算法](../ExtractESG/document/docs/ARCHITECTURE.md)
-- [可选 IR 复核合同](../ExtractESG/document/docs/reviews.md)
+| 类别 | 当前入口 |
+|---|---|
+| 当前实现与15项验收 | [2026-10-30升级报告](implementation/2026-10-30/README.md) |
+| 架构规范 | [模块与接口](architecture/README.md)、[原值与组织](architecture/organization.md)、[模型](architecture/models.md)、[导出与数据库](architecture/delivery.md) |
+| 操作指南 | [本地运行、配置与数据布局](guides/local-operation.md) |
+| 模块手册 | [条款](../ClauseESG/README.md)、[提取](../ExtractESG/README.md)、[Console](../ConsoleESG/README.md)、[数据库](../database/README.md)、[Plat](../PlatESG/README.md) |
+| 原始问题证据 | [全盘审查及F01–F15](audits/2026-10-30/README.md) |
+| 原始需求 | [升级规划](../全链路检查报告与升级规划.md)、[补充要求](../更新要求.md) |
+| 历史 | `history/`、[更新日志](CHANGELOG.md)；不用于当前启动或接口说明 |
 
-[原升级规划](../全链路检查报告与升级规划.md)、[补充需求](../更新要求.md)保留为需求依据。[更新日志](CHANGELOG.md)为有日期的历史记录，不是当前启动或接口手册。已退役生产入口对应的重复阶段说明已清理；提交历史保留变更记录。
+当前规范只写在 architecture；一次实施的结果只写在 implementation；原始审查保留对应基线。程序不得读取文档当运行配置，报告和源码引用均声明所对应的版本。

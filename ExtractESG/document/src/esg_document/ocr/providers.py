@@ -542,7 +542,31 @@ class LocalPaddleOcrProvider:
             },
         )
 
-    def _run_worker(
+    def _run_worker(self, config, *, expected_page_count=0, progress_callback=None, log=None, label="OCR"):
+        started = time.perf_counter()
+        layout = config.get("mode") == "layout"
+        receipt = prepare_call(ModelCallRequest(
+            run_id=config.get("run_id"), task_type="document_layout" if layout else "document_vision_ocr",
+            input_modalities=["image"], prompt_digest=content_digest({"mode":config.get("mode"),"pages":config.get("page_indices")}),
+            requested_timeout_seconds=self.settings.local_paddleocr_job_timeout_seconds,
+        ), ModelCapabilities(provider=self.name, model="PP-DocLayoutV3" if layout else "PaddleOCR-VL-1.6 pipeline",
+            input_modalities=["image"], timeout_seconds=self.settings.local_paddleocr_job_timeout_seconds,
+            output_constraint="layout_jsonl" if layout else "ocr_jsonl"))
+        try:
+            events = self._execute_worker(config, expected_page_count=expected_page_count,
+                progress_callback=progress_callback, log=log, label=label)
+        except Exception as exc:
+            exc.telemetry = {**getattr(exc,"telemetry",{}), "execution":finish_call(receipt,started,error=exc)}
+            _log(log, json.dumps({"model_execution":exc.telemetry["execution"]},ensure_ascii=False))
+            raise
+        execution = finish_call(receipt,started)
+        if events:
+            events[-1]["model_execution"] = execution
+        else:
+            events = [{"provider":self.name,"model_execution":execution}]
+        return events
+
+    def _execute_worker(
         self,
         config: dict[str, Any],
         *,

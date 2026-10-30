@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
-import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
+import {applyPlatformMigrations} from '../runtime/connection.mjs';
 import {importBundle} from '../scripts/frozen-bundle.mjs';
 import {projectClauseVersions, projectObservations, reconcileScientificModel, clauseVersionFromPackage}
   from '../scripts/scientific-model.mjs';

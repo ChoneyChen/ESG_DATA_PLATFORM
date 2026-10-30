@@ -38,12 +38,15 @@ class ReportAssetCatalog:
         *,
         reference_guard=None,
         pipeline_queue_db=None,
+        metadata_root=None,
     ) -> None:
         self.root = root.expanduser().resolve()
         self.ocr_output_root = ocr_output_root.expanduser().resolve()
-        self.catalog_path = self.root / CATALOG_FILENAME
+        metadata_root = Path(metadata_root) if metadata_root is not None else self.root
+        metadata_root.mkdir(parents=True, exist_ok=True)
+        self.catalog_path = metadata_root / CATALOG_FILENAME
         self._lock = threading.RLock()
-        self.lifecycle_path = self.root / ".report-lifecycle.json"
+        self.lifecycle_path = metadata_root / ".report-lifecycle.json"
         self.reference_guard = reference_guard or PublicationReferenceGuard()
         self.pipeline_queue_db = pipeline_queue_db
         self.trash = RecoverableTrash(

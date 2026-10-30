@@ -6,10 +6,10 @@ import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
 import {importBundle,loadBundle} from '../scripts/frozen-bundle.mjs';
 import {readReportSourceFacts} from '../scripts/report-source-facts.mjs';
-import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
-import {dispatch} from '../../PlatESG/backend/service.mjs';
+import {applyPlatformMigrations} from '../runtime/connection.mjs';
+import {dispatch} from '../queries/service.mjs';
 
-const dictionary=JSON.parse(await readFile(new URL('../../PlatESG/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));
+const dictionary=JSON.parse(await readFile(new URL('../../database/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));
 const metric=dictionary.metrics.find(item=>item.source_datapoint_id==='E2-4_02'),binding=metric.standard_binding;
 const hash=text=>createHash('sha256').update(text).digest('hex');
 const metadata={upstream_system:'synthetic_source_archive_test',organization_ref:'synthetic_reporter',report_ref:'synthetic-report',

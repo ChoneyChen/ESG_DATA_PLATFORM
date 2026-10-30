@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
-import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
-import {scientificExport, scientificCsv, scientificProduct} from '../../PlatESG/backend/scientific_products.mjs';
+import {applyPlatformMigrations} from '../runtime/connection.mjs';
+import {scientificExport, scientificCsv, scientificProduct} from '../queries/scientific_products.mjs';
 
 const metadata = {upstream_system:'science-test',organization_ref:'science-entity',report_ref:'science-report',
   report_version_ref:'science-report-v1',source_artifact_ref:'science-pdf',report_period_start:'2025-01-01',report_period_end:'2025-12-31'};
