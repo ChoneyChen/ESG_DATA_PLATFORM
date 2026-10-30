@@ -5,11 +5,11 @@ from pydantic import ValidationError
 from esg_clauses.repository import ClauseRepository
 from esg_clauses.scope import make_scope
 from esg_data.hashing import digest
-from esg_targeted.pipeline_contracts import QuantitativePayload,QualitativePayload,RunRequest,PipelineBudget
-from esg_targeted.evidence_contracts import SearchIntent
-from esg_targeted.pipeline.engine import ExtractionBackbone
-from esg_targeted.pipeline.adapters.artifacts import FileArtifactPort
-from esg_v2.document.evidence_service import DocumentEvidenceService
+from esg_contracts.facts import QuantitativePayload,QualitativePayload,RunRequest,PipelineBudget
+from esg_contracts.evidence import SearchIntent
+from esg_extraction.pipeline.engine import ExtractionBackbone
+from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
+from esg_document.document.evidence_service import DocumentEvidenceService
 ROOT=Path(__file__).resolve().parents[3]
 
 @pytest.fixture
@@ -115,8 +115,8 @@ def test_repository_is_content_checked_and_selections_are_only_keys(repository):
 
 @pytest.mark.parametrize('literal',['>3','小于3','1-2','1.2×10⁴','10‰'])
 def test_narrative_inventory_preserves_modifiers_as_one_literal(literal):
-    from esg_v2.document.literals import numeric_rows
-    from esg_targeted.evidence_contracts import TextEvidence
+    from esg_document.document.literals import numeric_rows
+    from esg_contracts.evidence import TextEvidence
     text=TextEvidence(object_id='source',text='报告值为'+literal+'吨。',page_index=0)
     rows=numeric_rows(text)
     assert len(rows)==1 and rows[0].cells[0].raw_text==literal

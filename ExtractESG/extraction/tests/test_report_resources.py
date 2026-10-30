@@ -6,9 +6,9 @@ from esg_reports.contract import ReportResource,Company,Industry
 from esg_reports.repository import ReportRepository,file_digest
 from esg_reports.importer import import_folder
 from test_backbone import documents,repository,quantitative
-from esg_targeted.pipeline.binding import numeric_fact
-from esg_targeted.pipeline.decisions import NumericMatch
-from esg_targeted.evidence_contracts import SearchIntent
+from esg_extraction.pipeline.binding import numeric_fact
+from esg_extraction.pipeline.decisions import NumericMatch
+from esg_contracts.evidence import SearchIntent
 
 def folder(tmp_path,entries=2):
     from pypdf import PdfWriter

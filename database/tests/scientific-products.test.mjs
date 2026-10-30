@@ -29,7 +29,7 @@ test('scientific products retain dimensions, field evidence, source identity and
   const db = await PGlite.create();
   try {
     await applyMigrations(db); await applyPlatformMigrations(db);
-    const {importBundle} = await import('../scripts/import-bundle.mjs');
+    const {importBundle} = await import('../scripts/frozen-bundle.mjs');
     await importBundle(db, bundle(), metadata);
     const observations = await scientificExport(db,{table:'observations'});
     assert.equal(observations.row_count,0);

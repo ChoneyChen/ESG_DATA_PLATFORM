@@ -1,12 +1,8 @@
-"""The publication service shares the same boot-frozen workspace release."""
-from importlib.util import module_from_spec, spec_from_file_location
+"""Publication's own boot-frozen code identity, independent of extraction data."""
+import sys
 from pathlib import Path
-
 EXTRACT_ROOT=Path(__file__).resolve().parents[2]/"ExtractESG"
-spec=spec_from_file_location("platesg_workspace_release",EXTRACT_ROOT/"scripts/workbench_release.py")
-module=module_from_spec(spec)
-spec.loader.exec_module(module)
+sys.path.insert(0,str(EXTRACT_ROOT/"shared_runtime/src"))
+from esg_runtime.release import RuntimeRelease
 
-
-def release():
-    return module.RuntimeRelease(EXTRACT_ROOT,"publication-backend")
+def release():return RuntimeRelease(EXTRACT_ROOT,"publication-backend")

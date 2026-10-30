@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
-import {importBundle,reviewRecord} from '../scripts/import-bundle.mjs';
+import {importBundle} from '../scripts/frozen-bundle.mjs';
+import {reviewRecord} from '../scripts/review-decisions.mjs';
 import {seedMetricDictionary,saveMeasurementContext,processOutbox,readDataset,NORMALIZATION_RULE_VERSION,scientificDimensionKeys} from '../scripts/publication.mjs';
 
 const dictionary=JSON.parse(await readFile(new URL('../../PlatESG/catalog/metric-dictionary.v1.json',import.meta.url),'utf8'));

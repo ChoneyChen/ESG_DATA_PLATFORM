@@ -5,7 +5,7 @@ import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 import {applyPlatformMigrations} from '../database.mjs';
 import {applyMigrations} from '../../../database/scripts/db.mjs';
-import {importBundle} from '../../../database/scripts/import-bundle.mjs';
+import {importBundle} from '../../../database/scripts/frozen-bundle.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';
 import {artifactInventory,purgeArtifacts,PURGE_RULE_VERSION} from '../../../database/scripts/purge-artifacts.mjs';
 import {dictionaryFile,platformRoot} from '../service.mjs';

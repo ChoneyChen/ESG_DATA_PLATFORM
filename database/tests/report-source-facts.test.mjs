@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
-import {importBundle,loadBundle} from '../scripts/import-bundle.mjs';
+import {importBundle,loadBundle} from '../scripts/frozen-bundle.mjs';
 import {readReportSourceFacts} from '../scripts/report-source-facts.mjs';
 import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
 import {dispatch} from '../../PlatESG/backend/service.mjs';

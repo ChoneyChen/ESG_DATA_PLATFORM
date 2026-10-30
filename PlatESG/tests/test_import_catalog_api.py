@@ -13,4 +13,6 @@ def test_retired_ingress_cannot_reactivate_package_catalogs(tmp_path):
         assert response.status_code==410 and response.json()['detail']['code']=='legacy_production_retired'
         for endpoint in ['/internal/v1/import-batches','/internal/v1/deliveries']:
             assert client.post(endpoint,headers=auth,json={}).status_code==410
+        assert client.post('/internal/v1/scientific-model/project',headers=auth).status_code==410
+        assert client.get('/review').status_code==410
         assert client.get('/v1/datasets').json()==before

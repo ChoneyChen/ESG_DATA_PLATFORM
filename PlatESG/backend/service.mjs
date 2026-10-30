@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
-import { reviewRecord } from '../../database/scripts/import-bundle.mjs';
+import {reviewRecord} from '../../database/scripts/review-decisions.mjs';
 import { readDataset, readPublished, reportPublications, publishedReports, publishReport, withdrawReport, deleteReport,
   saveMeasurementContext, processOutbox, seedMetricDictionary, measurementDefinitionForMapping, scientificDimensionKeys } from '../../database/scripts/publication.mjs';
 import {saveExtensionProposal,recordExtensionDefinitionDecision,registerExtensionRelease,listExtensionRegistry,

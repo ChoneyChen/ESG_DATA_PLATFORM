@@ -1,4 +1,5 @@
 """Deterministic unit families and scale factors for cross-source agreement."""
+
 from __future__ import annotations
 
 import re
@@ -10,11 +11,19 @@ from .normalize import fold
 _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
     (re.compile(pattern), family, Decimal(scale))
     for pattern, family, scale in (
-        (r"(?:百万|million|mt|mn)t?(?:onnes?)?co2e|百万吨二氧化碳当量|mtco2", "ghg", "1e6"),
+        (
+            r"(?:百万|million|mt|mn)t?(?:onnes?)?co2e|百万吨二氧化碳当量|mtco2",
+            "ghg",
+            "1e6",
+        ),
         (r"万t?(?:吨)?co2e|万吨二氧化碳当量", "ghg", "1e4"),
         (r"(?:千|kt|thousand)t?(?:onnes?)?co2e|千吨二氧化碳当量|ktco2", "ghg", "1e3"),
         (r"kgco2e|千克二氧化碳当量|公斤二氧化碳当量", "ghg", "1e-3"),
-        (r"(?:^|[^a-z])t(?:onnes?|ons?)?co2e|吨二氧化碳当量|^tco2|tonnesco2", "ghg", "1"),
+        (
+            r"(?:^|[^a-z])t(?:onnes?|ons?)?co2e|吨二氧化碳当量|^tco2|tonnesco2",
+            "ghg",
+            "1",
+        ),
         (r"twh|太瓦时", "energy", "1e6"),
         (r"亿千瓦时|亿度", "energy", "1e5"),
         (r"gwh|吉瓦时|百万千瓦时", "energy", "1e3"),
@@ -48,9 +57,18 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
 def _normalize(raw: str) -> str:
     text = fold(unicodedata.normalize("NFKC", raw))
     text = re.sub(r"\\(?:mathrm|text|operatorname)", "", text)
-    text = text.replace("₂", "2").replace("co_2", "co2").replace("co_{2}", "co2").replace("co_{{2}}", "co2")
+    text = (
+        text.replace("₂", "2")
+        .replace("co_2", "co2")
+        .replace("co_{2}", "co2")
+        .replace("co_{{2}}", "co2")
+    )
     text = re.sub(r"[\s$\\{}_^]+", "", text)
-    text = text.replace("co2eq", "co2e").replace("co2equivalent", "co2e").replace("co2-e", "co2e")
+    text = (
+        text.replace("co2eq", "co2e")
+        .replace("co2equivalent", "co2e")
+        .replace("co2-e", "co2e")
+    )
     return text
 
 
@@ -81,11 +99,20 @@ def comparable(value: str | None, unit_raw: str | None) -> tuple[str, Decimal] |
 COMPATIBLE = {frozenset({"volume", "mass_or_water"})}
 
 
-def agreement(a: dict, b: dict, *, tolerance: Decimal = Decimal("0.011")) -> bool | None:
+def agreement(
+    a: dict, b: dict, *, tolerance: Decimal = Decimal("0.011")
+) -> bool | None:
     """True/False when both quantities are in comparable units, else None."""
-    qa, qb = comparable(a.get("value"), a.get("unit_raw")), comparable(b.get("value"), b.get("unit_raw"))
+    qa, qb = (
+        comparable(a.get("value"), a.get("unit_raw")),
+        comparable(b.get("value"), b.get("unit_raw")),
+    )
     if qa is None or qb is None:
-        if a.get("value") is not None and a.get("value") == b.get("value") and (a.get("unit_raw") or "") == (b.get("unit_raw") or ""):
+        if (
+            a.get("value") is not None
+            and a.get("value") == b.get("value")
+            and (a.get("unit_raw") or "") == (b.get("unit_raw") or "")
+        ):
             return True
         return None
     if qa[0] != qb[0] and frozenset({qa[0], qb[0]}) not in COMPATIBLE:

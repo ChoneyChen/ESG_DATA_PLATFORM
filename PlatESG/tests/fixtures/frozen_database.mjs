@@ -8,7 +8,7 @@ import { dictionaryFile, dispatch, platformRoot } from '../../backend/service.mj
 import { processOutbox } from '../../../database/scripts/publication.mjs';
 
 const sha = value => createHash('sha256').update(value).digest('hex');
-import {importBundle} from '../../../database/scripts/import-bundle.mjs';
+import {importBundle} from '../../../database/scripts/frozen-bundle.mjs';
 import {openPlatformDatabase,applyPlatformMigrations} from '../../backend/database.mjs';
 import {applyMigrations} from '../../../database/scripts/db.mjs';
 import {seedMetricDictionary} from '../../../database/scripts/publication.mjs';

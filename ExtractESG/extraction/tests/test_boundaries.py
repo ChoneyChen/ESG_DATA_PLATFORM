@@ -4,13 +4,13 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 from esg_clauses.repository import ClauseRepository
-from esg_targeted.pipeline.state import RunStore
-from esg_targeted.pipeline.api import create_app
-from esg_targeted.pipeline_contracts import RunRequest
-from esg_targeted.pipeline.adapters.artifacts import FileArtifactPort
-from esg_targeted.pipeline.decisions import NumericMatch,StatementMatch
-from esg_targeted.pipeline.binding import numeric_fact,qualitative_fact
-from esg_targeted.evidence_contracts import SearchIntent
+from esg_extraction.pipeline.state import RunStore
+from esg_extraction.pipeline.api import create_app
+from esg_contracts.facts import RunRequest
+from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
+from esg_extraction.pipeline.decisions import NumericMatch,StatementMatch
+from esg_extraction.pipeline.binding import numeric_fact,qualitative_fact
+from esg_contracts.evidence import SearchIntent
 from test_backbone import documents,repository,quantitative,ROOT
 
 def test_only_one_worker_can_claim_a_run(tmp_path,repository):
@@ -51,7 +51,7 @@ def test_reading_rejection_preserves_raw_value_as_a_different_mapping(documents,
     assert fact.value.value_raw=='1,234.50'
     assert mapping.match=='different'
     assert 'rejected' not in fact.flags and 'unit_is_intensity' not in fact.flags
-    from esg_targeted.pipeline_contracts import SourceFact
+    from esg_contracts.facts import SourceFact
     extended=SourceFact.model_validate({**fact.model_dump(mode='json'),'future_source_note':{'method':'printed'}})
     assert extended.extensions['future_source_note']=={'method':'printed'}
     assert not mapping.scope_ids
@@ -82,7 +82,7 @@ def test_independent_clause_edit_does_not_mutate_neighbors(tmp_path,repository):
     with pytest.raises(ValueError):copy.save(c,expected_digest=c.clause_digest)
 
 def test_module_dependencies_do_not_import_retired_routes():
-    runtime=ROOT/'ExtractESG/extraction/src/esg_targeted'
+    runtime=ROOT/'ExtractESG/extraction/src/esg_extraction'
     for path in runtime.rglob('*.py'):
         text=path.read_text()
         assert 'esg_standard_packages' not in text
@@ -91,7 +91,7 @@ def test_module_dependencies_do_not_import_retired_routes():
         assert 'E1-5_01' not in text
     engine=(runtime/'pipeline/engine.py').read_text()
     assert 'from pathlib' not in engine and 'ClauseRepository' not in engine
-    for path in (ROOT/'ExtractESG/document_processing/src').rglob('*.py'):
+    for path in (ROOT/'ExtractESG/document/src').rglob('*.py'):
         assert 'esg_clauses' not in path.read_text()
 
 @pytest.mark.parametrize('run,name',[('../other','x.json'),('one','../../outside'),('one','/tmp/outside')])
@@ -100,7 +100,7 @@ def test_artifact_store_rejects_escape(tmp_path,run,name):
 
 
 def test_changed_engine_cannot_execute_an_already_created_run(documents,repository,tmp_path,monkeypatch):
-    from esg_targeted.pipeline import runtime
+    from esg_extraction.pipeline import runtime
     store=RunStore(tmp_path/'runs.db');artifacts=FileArtifactPort(tmp_path/'out')
     request=RunRequest(ir_run_id='ir-example',clause_keys=['E1-5_01'])
     state=store.create(request,repository.freeze(repository.select(request.clause_keys)),documents.document('ir-example').model_dump(mode='json'),engine_fingerprint='0'*64)
@@ -140,7 +140,7 @@ def test_literal_binding_preserves_whitespace_and_actual_cell_page(documents,rep
     assert fact.value.value_raw==' 1,234.50\n'
     assert fact.evidence[0].page_index==1 and fact.evidence[0].object_id=='t:r1c1'
     assert fact.identity.reporting_period.evidence[0].object_id=='t:r0c1'
-    from esg_targeted.pipeline_contracts import SourceFact
+    from esg_contracts.facts import SourceFact
     altered=fact.model_dump(mode='json');altered['value']['value_raw']='invented'
     with pytest.raises(ValueError,match='exact raw value'):SourceFact.model_validate(altered)
 
@@ -170,7 +170,7 @@ def test_text_character_offsets_bind_unnormalized_ir_text(documents,repository):
 
 @pytest.mark.parametrize('raw,comparator',[('>3','greater_than'),('≥3','at_least'),('<3','less_than'),('≤3','at_most'),('小于3','less_than')])
 def test_comparators_keep_open_and_closed_bounds_distinct(raw,comparator):
-    from esg_targeted.pipeline.binding import _number
+    from esg_extraction.pipeline.binding import _number
     parsed,actual,_=_number(raw)
     assert actual==comparator and (parsed['lower'] or parsed['upper'])==3
 
@@ -185,8 +185,8 @@ def test_clause_evidence_is_evaluated_without_dropping_raw_facts(documents,repos
 
 
 def test_model_failure_keeps_partial_diagnostic_and_never_invents_a_fact(documents,repository,tmp_path):
-    from esg_targeted.models.errors import ModelRunFailure
-    from esg_targeted.pipeline.engine import ExtractionBackbone
+    from esg_extraction.models.errors import ModelRunFailure
+    from esg_extraction.pipeline.engine import ExtractionBackbone
     class Incomplete:
         def complete(self,**kwargs):
             raise ModelRunFailure('token budget',category='generation_incomplete',raw_output='{"matches":[',telemetry={'finish_reason':'length'})
@@ -213,7 +213,7 @@ def test_document_checkout_discovery_does_not_require_a_clause_catalog(tmp_path)
 
 
 def test_model_reference_schema_excludes_target_and_resource_metadata(documents,repository):
-    from esg_targeted.pipeline.decisions import decision_schema
+    from esg_extraction.pipeline.decisions import decision_schema
     c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0])
     schema=decision_schema('quantitative',frame)
@@ -221,3 +221,37 @@ def test_model_reference_schema_excludes_target_and_resource_metadata(documents,
     assert 'target' not in ids and 'frame' not in ids and 'doc-example' not in ids
     assert 't:r0c1' in ids and 't:r1c1' in ids
     assert schema['$defs']['NumericMatch']['properties']['row_id']['enum']==[r.row_id for r in frame.rows]
+
+
+def test_mutable_report_labels_do_not_replace_the_frozen_reading_context(documents,repository,tmp_path,monkeypatch):
+    from esg_extraction.pipeline import runtime
+    from esg_extraction.pipeline.engine import ExtractionBackbone
+    store=RunStore(tmp_path/'runs.db');artifacts=FileArtifactPort(tmp_path/'out')
+    request=RunRequest(ir_run_id='ir-example',clause_keys=['E1-5_01'])
+    frozen=documents.document('ir-example')
+    run=store.create(request,repository.freeze(repository.select(request.clause_keys)),frozen.model_dump(mode='json'),engine_fingerprint=runtime.engine_digest())
+    monkeypatch.setattr(runtime,'resources',lambda:(repository,store,artifacts,documents))
+    monkeypatch.setattr(documents,'document',lambda key:frozen.model_copy(update={'label':'corrected label','reporting_year':2030}))
+    received=[]
+    def read(self,*args,document,**kwargs):
+        received.append(document)
+        return {'coverage':[],'organization':{'status':'organized'},'summary':{'selected_clauses':1,'processed_clauses':0,'source_facts':0,'quantitative':0,'qualitative':0,'model_calls':0,'elapsed_seconds':0}}
+    monkeypatch.setattr(ExtractionBackbone,'run',read)
+    class Model:
+        def close(self):pass
+    runtime.execute(run['run_id'],model=Model())
+    assert received==[frozen]
+    assert received[0].reporting_year!=2030
+
+
+def test_physical_evidence_change_still_refuses_execution(documents,repository,tmp_path,monkeypatch):
+    from esg_extraction.pipeline import runtime
+    store=RunStore(tmp_path/'runs.db');artifacts=FileArtifactPort(tmp_path/'out')
+    request=RunRequest(ir_run_id='ir-example',clause_keys=['E1-5_01']);frozen=documents.document('ir-example')
+    run=store.create(request,repository.freeze(repository.select(request.clause_keys)),frozen.model_dump(mode='json'),engine_fingerprint=runtime.engine_digest())
+    monkeypatch.setattr(runtime,'resources',lambda:(repository,store,artifacts,documents))
+    monkeypatch.setattr(documents,'document',lambda key:frozen.model_copy(update={'content_digest':'f'*64}))
+    class Model:
+        def close(self):pass
+    with pytest.raises(ValueError,match='Document evidence changed'):runtime.execute(run['run_id'],model=Model())
+    assert store.get(run['run_id'])['status']=='failed'

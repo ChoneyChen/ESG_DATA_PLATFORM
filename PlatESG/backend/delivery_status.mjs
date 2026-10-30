@@ -2,7 +2,7 @@
 import {readFile, realpath} from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
-import {loadBundle} from '../../database/scripts/import-bundle.mjs';
+import {loadBundle} from '../../database/scripts/frozen-bundle.mjs';
 
 const hash=value=>createHash('sha256').update(value).digest('hex');
 const stable=value=>JSON.stringify(value,(_,v)=>v && typeof v==='object' && !Array.isArray(v)

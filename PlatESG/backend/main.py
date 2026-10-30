@@ -846,9 +846,9 @@ def create_app(environment: dict[str, str] | None = None):
                             headers={"Content-Disposition": f'attachment; filename="{table}.parquet"'})
         return bridge.call("scientific_product", {"table": table, "format": "json", "limit": limit})
 
-    @app.post("/internal/v1/scientific-model/project", dependencies=[Depends(permission("admin"))])
-    def scientific_model_project(limit: int = Query(100000, ge=1, le=100000)):
-        return bridge.call("scientific_model_project", {"limit": limit})
+    @app.post("/internal/v1/scientific-model/project",dependencies=[Depends(permission("admin"))])
+    def retired_scientific_projection():
+        raise HTTPException(410,{"code":"legacy_production_retired","message":"旧包版本投影已退役；当前条款不执行旧数据库投影。"})
 
     @app.get("/internal/v1/scientific-model/reconciliation", dependencies=[Depends(permission("read"))])
     def scientific_model_reconciliation():
@@ -989,7 +989,10 @@ def create_app(environment: dict[str, str] | None = None):
     def retry_import(receipt_id: Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")],request:RetryRequest, principal=Depends(permission("review"))):
         raise HTTPException(410,{'code':'legacy_production_retired','message':'旧包交付重试已退役'})
 
-    app.mount("/review",StaticFiles(directory=ROOT / "review",html=True),name="review-workbench")
+    @app.get("/review",include_in_schema=False)
+    @app.get("/review/{path:path}",include_in_schema=False)
+    def retired_review_page(path:str=""):
+        raise HTTPException(410,{"code":"review_ui_retired","message":"旧审核页面已退役；新生产出口尚在规划。"})
 
     if (ROOT / "frontend/dist").exists():
         app.mount("/", StaticFiles(directory=ROOT / "frontend/dist", html=True), name="platform")

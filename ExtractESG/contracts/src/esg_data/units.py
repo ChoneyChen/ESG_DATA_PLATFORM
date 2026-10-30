@@ -107,11 +107,55 @@ _EXACT_UNIT_IDS = {
 
 
 UNIT_DIMENSION_TERMS = {
-    "mass": ("吨", "噸", "千克", "公斤", "毫克", "微克", "kg", "mg", "μg", "ug", "tonne", "tons"),
+    "mass": (
+        "吨",
+        "噸",
+        "千克",
+        "公斤",
+        "毫克",
+        "微克",
+        "kg",
+        "mg",
+        "μg",
+        "ug",
+        "tonne",
+        "tons",
+    ),
     "volume": ("立方米", "m3", "m³", "升", "litre", "liter"),
-    "energy": ("瓦时", "千瓦时", "兆瓦时", "吉瓦时", "wh", "kwh", "mwh", "gwh", "twh", "mj", "gj", "tj", "btu", "tce", "toe"),
+    "energy": (
+        "瓦时",
+        "千瓦时",
+        "兆瓦时",
+        "吉瓦时",
+        "wh",
+        "kwh",
+        "mwh",
+        "gwh",
+        "twh",
+        "mj",
+        "gj",
+        "tj",
+        "btu",
+        "tce",
+        "toe",
+    ),
     "ghg-emissions": ("co2e", "co2eq", "co2equivalent", "二氧化碳当量"),
-    "currency": ("人民币", "美元", "欧元", "英镑", "日元", "港元", "元", "cny", "rmb", "usd", "eur", "gbp", "jpy", "hkd"),
+    "currency": (
+        "人民币",
+        "美元",
+        "欧元",
+        "英镑",
+        "日元",
+        "港元",
+        "元",
+        "cny",
+        "rmb",
+        "usd",
+        "eur",
+        "gbp",
+        "jpy",
+        "hkd",
+    ),
     "ratio": ("%", "百分比", "比率"),
     "energy-intensity": ("mwh/", "kwh/", "gj/", "能源强度", "energy intensity"),
     "ghg-intensity": ("co2e/", "co₂e/", "温室气体强度", "ghg intensity"),
@@ -122,7 +166,12 @@ def normalize_unit_text(raw: str | None) -> str:
     if not raw:
         return ""
     normalized = unicodedata.normalize("NFKC", raw).casefold()
-    normalized = normalized.replace("噸", "吨").replace("當", "当").replace("萬", "万").replace("₂", "2")
+    normalized = (
+        normalized.replace("噸", "吨")
+        .replace("當", "当")
+        .replace("萬", "万")
+        .replace("₂", "2")
+    )
     normalized = re.sub(r"\\(?:mathrm|text|operatorname)\s*", "", normalized)
     normalized = re.sub(r"[$\\{}_^\s.\-]+", "", normalized)
     normalized = normalized.replace("co2equivalent", "co2e").replace("co2eq", "co2e")
@@ -136,24 +185,68 @@ def canonical_unit_id(raw: str | None) -> str | None:
     if not raw:
         return None
     normalized = normalize_unit_text(raw)
-    return _EXACT_UNIT_IDS.get(normalized) or _EXACT_UNIT_IDS.get(raw.strip().casefold())
+    return _EXACT_UNIT_IDS.get(normalized) or _EXACT_UNIT_IDS.get(
+        raw.strip().casefold()
+    )
 
 
-FAMILY_DIMENSION = {"ghg": "ghg-emissions", "energy": "energy", "energy_tce": "energy", "volume": "volume",
-                    "mass": "mass", "ratio": "ratio", "area": "area"}
+FAMILY_DIMENSION = {
+    "ghg": "ghg-emissions",
+    "energy": "energy",
+    "energy_tce": "energy",
+    "volume": "volume",
+    "mass": "mass",
+    "ratio": "ratio",
+    "area": "area",
+}
 FALLBACK_DIMENSIONS = (
     ("ghg-emissions", ("co2", "二氧化碳", "碳当量")),
     ("ratio", ("%", "％", "百分比")),
-    ("energy", ("wh", "千瓦时", "瓦时", "焦", "tj", "gj", "mj", "tce", "toe", "标准煤", "标煤", "btu")),
+    (
+        "energy",
+        (
+            "wh",
+            "千瓦时",
+            "瓦时",
+            "焦",
+            "tj",
+            "gj",
+            "mj",
+            "tce",
+            "toe",
+            "标准煤",
+            "标煤",
+            "btu",
+        ),
+    ),
     ("volume", ("m3", "m³", "立方米", "升", "megalit", "litre", "liter")),
     ("area", ("公顷", "hectare", "ha", "平方米", "m2", "m²", "平方公里", "km2")),
     ("currency", ("元", "usd", "rmb", "cny", "hkd", "eur", "dollar")),
     ("mass", ("吨", "噸", "kg", "千克", "公斤", "tonne")),
-    ("count", ("件", "次", "个", "家", "项", "起", "台", "辆", "宗", "人", "number", "cases", "no.")),
+    (
+        "count",
+        (
+            "件",
+            "次",
+            "个",
+            "家",
+            "项",
+            "起",
+            "台",
+            "辆",
+            "宗",
+            "人",
+            "number",
+            "cases",
+            "no.",
+        ),
+    ),
 )
+
 
 def unit_dimension(unit: str | None) -> str | None:
     from .quantities import unit_scale
+
     if not unit:
         return None
     raw_unit = unit.casefold()
@@ -169,9 +262,15 @@ def unit_dimension(unit: str | None) -> str | None:
     if re.search(r"[/／]|每|per\s", raw_unit):
         if any(token in raw_unit for token in ("co2", "co₂", "二氧化碳", "碳当量")):
             return "ghg-intensity"
-        if any(token in raw_unit for token in ("wh", "千瓦时", "瓦时", "焦", "tce", "toe", "标煤", "标准煤")):
+        if any(
+            token in raw_unit
+            for token in ("wh", "千瓦时", "瓦时", "焦", "tce", "toe", "标煤", "标准煤")
+        ):
             return "energy-intensity"
-        if any(token in raw_unit for token in ("m3", "m³", "立方米", "升", "litre", "liter")):
+        if any(
+            token in raw_unit
+            for token in ("m3", "m³", "立方米", "升", "litre", "liter")
+        ):
             return "water-intensity"
         return "intensity"
     scaled = unit_scale(unit)

@@ -15,10 +15,10 @@ batch/
 仓库根目录执行：
 
 ```sh
-PYTHONPATH=ExtractESG/contracts/src ExtractESG/document_ir_extract/backend/.venv/bin/python \
+PYTHONPATH=ExtractESG/contracts/src ExtractESG/.local/python/bin/python \
   -m esg_reports.importer /path/to/batch --library /path/to/pdf-library --preview
 
-PYTHONPATH=ExtractESG/contracts/src ExtractESG/document_ir_extract/backend/.venv/bin/python \
+PYTHONPATH=ExtractESG/contracts/src ExtractESG/.local/python/bin/python \
   -m esg_reports.importer /path/to/batch --library /path/to/pdf-library
 ```
 

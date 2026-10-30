@@ -1,4 +1,5 @@
 """Traditional→simplified folding for matching only; source text stays verbatim."""
+
 from __future__ import annotations
 
 _PAIRS = (

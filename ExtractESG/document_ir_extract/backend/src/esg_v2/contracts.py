@@ -1,1 +1,0 @@
-../../../../contracts/src/esg_v2/contracts.py

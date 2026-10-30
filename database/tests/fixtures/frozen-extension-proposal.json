@@ -1,0 +1,312 @@
+{
+  "definition": {
+    "allowed_value_origins": [
+      "reported",
+      "derived"
+    ],
+    "canonical_unit": "tCO2e",
+    "canonical_unit_id": "extractesg.core.unit.tonne-co2e",
+    "clause_kind": "project_extension",
+    "comparison_contract": {
+      "allowed_values": {
+        "aggregation_role": [
+          "total"
+        ],
+        "amount_basis": [
+          "gross"
+        ],
+        "ghg_scope": [
+          "scope_1_2"
+        ],
+        "scope_2_method": [
+          "location_based",
+          "market_based"
+        ],
+        "value_role": [
+          "actual"
+        ]
+      },
+      "missing_or_unknown_policy": "display_only",
+      "required_axes": [
+        "entity_ref",
+        "entity_kind",
+        "period_start",
+        "period_end",
+        "boundary_code",
+        "value_role",
+        "gwp_basis",
+        "consolidation_approach",
+        "accounting_standard",
+        "ghg_scope",
+        "aggregation_role",
+        "amount_basis",
+        "scope_2_method"
+      ]
+    },
+    "context_unknown_policy": "preserve_missing_no_imputation",
+    "core_selection_reason": "该延伸保存可独立审核的范围1和范围2合计；它属于包内延伸核心，不自动加入平台主要清单或任一任务。",
+    "definition_version": "1.0.0",
+    "derivation_rules": [
+      {
+        "arithmetic": "exact_decimal_sum",
+        "operands": [
+          {
+            "operand_id": "scope1",
+            "required_axes": {
+              "aggregation_role": [
+                "total"
+              ],
+              "amount_basis": [
+                "gross"
+              ],
+              "ghg_scope": [
+                "scope_1"
+              ],
+              "value_role": [
+                "actual"
+              ]
+            },
+            "source_datapoint_id": "E1-6_07",
+            "source_metric_id": "esrs.2023-set1.e1-6.dp07"
+          },
+          {
+            "operand_id": "scope2",
+            "required_axes": {
+              "aggregation_role": [
+                "total"
+              ],
+              "amount_basis": [
+                "gross"
+              ],
+              "ghg_scope": [
+                "scope_2"
+              ],
+              "measurement_method": [
+                "location_based"
+              ],
+              "value_role": [
+                "actual"
+              ]
+            },
+            "source_datapoint_id": "E1-6_09",
+            "source_metric_id": "esrs.2023-set1.e1-6.dp09"
+          }
+        ],
+        "operation": "sum",
+        "output_review_status": "pending",
+        "require_approved_operands": true,
+        "require_explicit_match_values": true,
+        "require_point_values": true,
+        "rule_id": "project.esrs.2023-set1.e1-6.extension.scope1-scope2-total.derivation.location",
+        "rule_version": "1.0.0",
+        "shared_match_axes": [
+          "entity_ref",
+          "entity_kind",
+          "period_start",
+          "period_end",
+          "boundary_code",
+          "value_role",
+          "gwp_basis",
+          "consolidation_approach",
+          "accounting_standard"
+        ],
+        "target_axis_projections": [
+          {
+            "fixed_value": "scope_1_2",
+            "from_operand_id": null,
+            "source_axis": null,
+            "target_axis": "ghg_scope"
+          },
+          {
+            "fixed_value": "total",
+            "from_operand_id": null,
+            "source_axis": null,
+            "target_axis": "aggregation_role"
+          },
+          {
+            "fixed_value": "gross",
+            "from_operand_id": null,
+            "source_axis": null,
+            "target_axis": "amount_basis"
+          },
+          {
+            "fixed_value": null,
+            "from_operand_id": "scope2",
+            "source_axis": "measurement_method",
+            "target_axis": "scope_2_method"
+          }
+        ],
+        "unit_policy": "reviewed_versioned_conversion_to_target_unit"
+      },
+      {
+        "arithmetic": "exact_decimal_sum",
+        "operands": [
+          {
+            "operand_id": "scope1",
+            "required_axes": {
+              "aggregation_role": [
+                "total"
+              ],
+              "amount_basis": [
+                "gross"
+              ],
+              "ghg_scope": [
+                "scope_1"
+              ],
+              "value_role": [
+                "actual"
+              ]
+            },
+            "source_datapoint_id": "E1-6_07",
+            "source_metric_id": "esrs.2023-set1.e1-6.dp07"
+          },
+          {
+            "operand_id": "scope2",
+            "required_axes": {
+              "aggregation_role": [
+                "total"
+              ],
+              "amount_basis": [
+                "gross"
+              ],
+              "ghg_scope": [
+                "scope_2"
+              ],
+              "measurement_method": [
+                "market_based"
+              ],
+              "value_role": [
+                "actual"
+              ]
+            },
+            "source_datapoint_id": "E1-6_10",
+            "source_metric_id": "esrs.2023-set1.e1-6.dp10"
+          }
+        ],
+        "operation": "sum",
+        "output_review_status": "pending",
+        "require_approved_operands": true,
+        "require_explicit_match_values": true,
+        "require_point_values": true,
+        "rule_id": "project.esrs.2023-set1.e1-6.extension.scope1-scope2-total.derivation.market",
+        "rule_version": "1.0.0",
+        "shared_match_axes": [
+          "entity_ref",
+          "entity_kind",
+          "period_start",
+          "period_end",
+          "boundary_code",
+          "value_role",
+          "gwp_basis",
+          "consolidation_approach",
+          "accounting_standard"
+        ],
+        "target_axis_projections": [
+          {
+            "fixed_value": "scope_1_2",
+            "from_operand_id": null,
+            "source_axis": null,
+            "target_axis": "ghg_scope"
+          },
+          {
+            "fixed_value": "total",
+            "from_operand_id": null,
+            "source_axis": null,
+            "target_axis": "aggregation_role"
+          },
+          {
+            "fixed_value": "gross",
+            "from_operand_id": null,
+            "source_axis": null,
+            "target_axis": "amount_basis"
+          },
+          {
+            "fixed_value": null,
+            "from_operand_id": "scope2",
+            "source_axis": "measurement_method",
+            "target_axis": "scope_2_method"
+          }
+        ],
+        "unit_policy": "reviewed_versioned_conversion_to_target_unit"
+      }
+    ],
+    "description": "项目延伸条款：保存报告明确披露的范围1和范围2合计，或由口径相容且经审核的两个范围操作数精确计算；不替代任一单独范围，也不等同范围1、2、3的总排放。",
+    "exclusions": [
+      "不能将合计录入范围1或范围2原条款。",
+      "不能将范围1＋2合计当作包含范围3的总排放。",
+      "范围2方法缺失时不推定地点法或市场法。",
+      "报告仅称温室气体排放合计时，不推定毛排放或完整核算方法。",
+      "不得反算未披露的单独范围，不得将减排、抵消、目标或强度混入绝对排放。",
+      "直接披露值和计算值不相等时，保留双方并进入冲突审核；不得静默覆盖。"
+    ],
+    "extension_id": "project.esrs.2023-set1.e1-6.extension.scope1-scope2-total",
+    "identity_axes": [
+      "entity_ref",
+      "entity_kind",
+      "period_start",
+      "period_end",
+      "boundary_code",
+      "value_role",
+      "gwp_basis",
+      "consolidation_approach",
+      "accounting_standard",
+      "ghg_scope",
+      "aggregation_role",
+      "amount_basis",
+      "scope_2_method"
+    ],
+    "labels": {
+      "en": "Combined Scope 1 and Scope 2 greenhouse gas emissions",
+      "zh": "范围1＋范围2温室气体排放合计"
+    },
+    "original_clause_links": [
+      {
+        "relationship": "aggregate_component",
+        "source_datapoint_id": "E1-6_07"
+      },
+      {
+        "relationship": "aggregate_component",
+        "source_datapoint_id": "E1-6_09"
+      },
+      {
+        "relationship": "aggregate_component",
+        "source_datapoint_id": "E1-6_10"
+      }
+    ],
+    "output_policy": "explicit_selection_only",
+    "package_core": true,
+    "parent_package_id": "esrs.2023-set1.e1-6",
+    "parent_package_version": "2.1.1",
+    "parent_source_digest": "a49cb85ee3dbf12fe9a5b3ea74cb0cc73a984acab1989c11d9200564aa39caf7",
+    "rationale": "部分报告只披露范围1和范围2合计。应保留该真实表述及方法缺口，通过独立延伸身份关联原数据点并在口径满足后支持比较。",
+    "reported_calculated_reconciliation": "retain_both_review_conflict",
+    "reported_context_axes": [
+      "amount_basis",
+      "scope_2_method",
+      "gwp_basis",
+      "consolidation_approach",
+      "accounting_standard"
+    ],
+    "reported_required_axes": {
+      "aggregation_role": [
+        "total"
+      ],
+      "ghg_scope": [
+        "scope_1_2"
+      ]
+    },
+    "schema_version": "project-extension-definition-1.0",
+    "unit_dimension": "extractesg.core.unit-dimension.ghg-emissions",
+    "value_constraints": {
+      "maximum": null,
+      "minimum": "0"
+    },
+    "value_type": "numeric"
+  },
+  "proposal_id": "scope1-scope2-total-contract-draft-1.0.0",
+  "proposer_kind": "human",
+  "proposer_ref": "project-authoring",
+  "schema_version": "project-extension-proposal-1.0",
+  "source_fact_refs": [],
+  "status": "proposed"
+}

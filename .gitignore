@@ -9,3 +9,8 @@ node_modules/
 # Clause repository transaction lock and interrupted atomic writes
 ExtractESG/standard/.repository.lock
 ExtractESG/standard/**/.clause-*.tmp
+.env.local
+# Legacy runtime data is retained after its source wrappers were retired.
+ExtractESG/document_ir_extract/
+*.egg-info/
+build/

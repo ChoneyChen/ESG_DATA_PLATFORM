@@ -1,0 +1,265 @@
+{
+  "schema_version": "module-verification-1.0",
+  "verified_at": "2026-10-30T06:06:58.951805+00:00",
+  "scope": "PDF to independent facts; no new database ingress, review or publication construction.",
+  "services": {
+    "document": {
+      "service": "document-backend",
+      "build_fingerprint": "8cc25d81e60e6a25336c0bd87c5de9be818921bffc20364d8f96c569f7ed5ff3",
+      "current_disk_fingerprint": "8cc25d81e60e6a25336c0bd87c5de9be818921bffc20364d8f96c569f7ed5ff3",
+      "restart_required": false,
+      "readiness": {
+        "ready": true,
+        "blockers": [],
+        "scope": "document_backend"
+      }
+    },
+    "extraction": {
+      "service": "extraction-backend",
+      "build_fingerprint": "80015d783d390c2e0dd2f76749a0459e2b1b26e860ebd4159d46b41e3af4f3af",
+      "current_disk_fingerprint": "80015d783d390c2e0dd2f76749a0459e2b1b26e860ebd4159d46b41e3af4f3af",
+      "restart_required": false,
+      "readiness": {
+        "ready": true,
+        "blockers": []
+      }
+    },
+    "console": {
+      "service": "workbench-frontend",
+      "build_fingerprint": "3372b01b4c83a376651d37244d90b0f2da6061db742b5a701989b9b9d8e5a5b3",
+      "current_disk_fingerprint": "3372b01b4c83a376651d37244d90b0f2da6061db742b5a701989b9b9d8e5a5b3",
+      "restart_required": false,
+      "readiness": {
+        "ready": true,
+        "blockers": []
+      }
+    }
+  },
+  "engine": {
+    "version": "clause-backbone-1.1",
+    "fingerprint": "bd95f4811dd730168389e7026e36f2079c518558b962e53fcf78fedfd99e1e04",
+    "ready": true
+  },
+  "current_pdf_run": {
+    "session_id": "extract-plan-085f8ee205b946be9e751370defcbe8e",
+    "run_id": "extract-9137de9b7944ac19364117308f9d6f22",
+    "ir_run_id": "ir-20261030T060503Z-131edd537cc6",
+    "status": "partial",
+    "target_digest": "7ea27900b04a55c6581248b3ff5ca7cf14fac7e7ac5a8014f059412976e391c9",
+    "engine_fingerprint": "bd95f4811dd730168389e7026e36f2079c518558b962e53fcf78fedfd99e1e04",
+    "preparation": {
+      "processing_id": "processing-50373b565fc442bdb3b1db0128f1e1d4",
+      "status": "ready_with_limits",
+      "steps": [
+        {
+          "stage": "ocr",
+          "label": "文档识别",
+          "status": "completed",
+          "current": 20,
+          "total": 20,
+          "unit": "pages"
+        },
+        {
+          "stage": "ir",
+          "label": "结构与证据构建",
+          "status": "partial",
+          "current": 11,
+          "total": 11,
+          "unit": "steps"
+        },
+        {
+          "stage": "quality",
+          "label": "证据质量检查",
+          "status": "completed",
+          "current": null,
+          "total": null,
+          "unit": "unknown"
+        }
+      ],
+      "ocr_run_id": "ocr-20261030T060435Z-f7c4f97d4395",
+      "ir_run_id": "ir-20261030T060503Z-131edd537cc6"
+    },
+    "summary": {
+      "selected_clauses": 1,
+      "processed_clauses": 1,
+      "source_facts": 1,
+      "quantitative": 1,
+      "qualitative": 0,
+      "model_calls": 2,
+      "elapsed_seconds": 72.227,
+      "errors": []
+    },
+    "coverage": [
+      {
+        "clause_key": "E1-5_01",
+        "clause_digest": "5f6a702843dffcbe3878638853b9009c7d7f8de3e9e620fb6911091e30b0c8db",
+        "state": "unconfirmed",
+        "candidate_objects": 2,
+        "inspected_objects": 2,
+        "fact_count": 1,
+        "required_scopes": [
+          "scope-996fe31319c9026f"
+        ],
+        "covered_scopes": [],
+        "reasons": [
+          "reporting_period",
+          "reporting_boundary",
+          "unit",
+          "value"
+        ]
+      }
+    ],
+    "organization_status": "needs_confirmation",
+    "facts": [
+      {
+        "source_fact_id": "fa2bd885d1bcb7f2dcf5d208c66071730e305caf6d9bac72f758b1335846104f",
+        "kind": "quantitative",
+        "value_raw": "24,767,519.69",
+        "unit_raw": "兆瓦时",
+        "pdf_page": 72,
+        "source_object_id": "cell-p0072-t0003-r0003-c0005",
+        "physical_value_equal": true,
+        "independent_api_equal": true,
+        "quality": "needs_confirmation",
+        "flags": [
+          "unbound_identity:reporting_entity",
+          "unbound_identity:reporting_boundary",
+          "unbound_identity:measurement_method",
+          "unbound_identity:energy_source",
+          "document_evidence_limited"
+        ]
+      }
+    ],
+    "queue": {
+      "task_id": "pt-20261030T060514Z-e6bdc16bcf",
+      "task_type": "targeted_extraction",
+      "operation": "clause_extraction",
+      "title": "模块与队列合同最终核验",
+      "status": "partial",
+      "native_job_id": "extract-9137de9b7944ac19364117308f9d6f22",
+      "stage": "partial",
+      "message": "Extraction produced partial results; review unresolved metrics",
+      "progress_current": 1,
+      "progress_total": 1,
+      "cancel_requested": false,
+      "created_at": "2026-10-30T06:05:14.620016+00:00",
+      "updated_at": "2026-10-30T06:06:27.272957+00:00",
+      "started_at": "2026-10-30T06:05:14.629135+00:00",
+      "finished_at": "2026-10-30T06:06:27.272039+00:00",
+      "error": null
+    },
+    "whole_bundle_validated": true,
+    "frozen_clauses_validated": true
+  },
+  "earlier_frozen_runs": [
+    {
+      "run_id": "extract-6ce92fb689890d38dfa3af3402e789ac",
+      "summary": {
+        "selected_clauses": 4,
+        "processed_clauses": 4,
+        "source_facts": 12,
+        "quantitative": 11,
+        "qualitative": 1,
+        "model_calls": 4,
+        "elapsed_seconds": 409.69,
+        "errors": []
+      },
+      "readable_under_current_contract": true,
+      "note": "Frozen earlier execution; not a run of the current engine fingerprint."
+    },
+    {
+      "run_id": "extract-3f4da538fa51a30c52a621208ee6be4d",
+      "summary": {
+        "selected_clauses": 2,
+        "processed_clauses": 2,
+        "source_facts": 1,
+        "quantitative": 1,
+        "qualitative": 0,
+        "model_calls": 3,
+        "elapsed_seconds": 74.409,
+        "errors": []
+      },
+      "readable_under_current_contract": true,
+      "note": "Frozen earlier execution; not a run of the current engine fingerprint."
+    }
+  ],
+  "cancelled_preparation": {
+    "session_id": "extract-plan-c1940ef97b5e47dc9f7d2dd8dc8cbac7",
+    "status": "cancelled",
+    "preparation": {
+      "processing_id": "processing-a83434e998d24897b58bc0100efa2c57",
+      "status": "cancelled",
+      "steps": [
+        {
+          "stage": "ocr",
+          "label": "文档识别",
+          "status": "cancelled",
+          "current": 0,
+          "total": 20,
+          "unit": "pages"
+        },
+        {
+          "stage": "ir",
+          "label": "结构与证据构建",
+          "status": "pending",
+          "current": null,
+          "total": null,
+          "unit": "unknown"
+        },
+        {
+          "stage": "quality",
+          "label": "证据质量检查",
+          "status": "pending",
+          "current": null,
+          "total": null,
+          "unit": "unknown"
+        }
+      ],
+      "ocr_run_id": null,
+      "ir_run_id": null
+    },
+    "note": "Cancellation interaction executed earlier in this round; final projection re-read with current coordinator."
+  },
+  "report_resources": {
+    "count": 18,
+    "company_known": 18,
+    "publication_year_unknown": 18,
+    "industry_unknown": 18
+  },
+  "frozen_dictionary_sha256": "c4d73f543d4a20aa604e44c422c7c3a41a50001332f18dbecaa05c1e5173c134",
+  "tests": {
+    "document_and_extraction_passed": 552,
+    "console_passed": 13,
+    "platform_python_passed": 49,
+    "platform_node_passed": 35,
+    "database_passed": 63,
+    "database_skipped": 2,
+    "product_frontend_passed": 82,
+    "schemas": 9,
+    "generated_typescript_models": 22,
+    "installed_wheel_modules": 14,
+    "installed_swift_helper": true
+  },
+  "browser_checks": [
+    "desktop 1360x900",
+    "mobile 390x844",
+    "clause parent/child navigation",
+    "new blocked template validated without saving",
+    "editor validation and Escape",
+    "report metadata edit opened and cancelled",
+    "report import modal",
+    "frozen clause result to fact to evidence with parent back link",
+    "PDF page 72 link",
+    "URL tab state",
+    "current preparation cancellation projection",
+    "service readiness page"
+  ],
+  "limitations": [
+    "37 clause contents remain blocked.",
+    "Only 32 clauses have individualized organization samples; others are templates.",
+    "No all-report recall or accuracy benchmark was completed.",
+    "Current quantitative trial is partial; prior qualitative evidence is an earlier frozen run.",
+    "Live PlatESG service at 8765 was not restarted; new source retirement verified in isolated tests.",
+    "Formal and demo databases untouched."
+  ]
+}

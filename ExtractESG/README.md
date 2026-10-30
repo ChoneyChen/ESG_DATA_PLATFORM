@@ -1,17 +1,24 @@
-# PDF → 条款事实
+# PDF → 条款原值
 
-| 模块 | 所有权与接口 |
+| 目录 | 职责 |
 |---|---|
-| `standard/<组>/<条款>/clause.json` | 每条定义、定性/定量、词典、口径、单位、阅读规则、证据要求、结果字段/局部词典/布局和验收要求；组只用于展示 |
-| `contracts/src/esg_clauses` | 条款结构、摘要校验、读写、选择和任务冻结，不调用模型 |
-| `contracts/src/esg_targeted/data_kinds` | 定量原值和定性原文两份准入合同；元数据可缺失、可扩展 |
-| `contracts/src/esg_data/organization.py` | 通用组织结构；独立行及证据引用，分组/矩阵不聚合 |
-| `document_processing` | PDF 页面、OCR、IR、物理证据对象；只接受检索意图，不读取条款目录 |
-| `extraction/src/esg_targeted/pipeline` | 单一提取骨干，依赖文档、模型、产物三个端口；按所选条款分别读取 |
-| `control_plane` | PDF 准备和提取的调度、任务状态、取消；统一队列串行占用模型工作槽 |
-| `extraction/.local` | 当前运行状态与原值事实产物。路径由本模块所有，不跨服务传递 |
+| `standard/` | 每条独立声明；展示组和选择集合只组织编号 |
+| `contracts/src/` | 条款 SDK、报告资源、两类值、事实/映射/覆盖、证据端口、运行及结果合同 |
+| `document/src/esg_document` | 文字层、页面布局、本地 OCR、IR、物理对象与证据 API |
+| `pipeline/src/esg_pipeline` | 冻结输入、PDF 准备、统一队列、隔离进程、取消与状态投影 |
+| `extraction/src/esg_extraction` | 单一条款提取骨干；文档、模型、产物通过端口连接 |
+| `shared_runtime/src/esg_runtime` | 布局、进程身份、发布代码指纹与引用保护 |
+| `scripts/` | 启动、单服务运行、合同生成和结构审查 |
 
-校验：文档服务 Python 运行 `scripts/check_contracts.py`。修改结构后用 `--write` 生成 JSON Schema 与索引，再复查。
+一份 `pyproject.toml` 安装源码，不使用源码软链接。开发运行时位于 `.local/python`；本地 MLX 模型运行时通过 `ESG_MODEL_PYTHON` 配置。启动器不初始化或发布数据库。
 
-启动：`ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 scripts/start_local_workbenches.sh`。
-详见仓库根目录当前手册和 `docs/CLAUSE_BACKBONE_REBUILD.md`。
+```sh
+ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 scripts/start.sh
+.local/python/bin/python scripts/check_contracts.py
+.local/python/bin/python scripts/audit_structure.py
+.local/python/bin/python -m pytest -q
+```
+
+需要安装时先创建 Python 3.11+ 虚拟环境，再 `python -m pip install -e '.[dev]'`；模型依赖按本机配置单独安装。安装本身不下载模型、不调用推理服务。
+
+[全链路架构](../docs/ARCHITECTURE.md)、[组织合同](../docs/ORGANIZATION.md)、[Console](../ConsoleESG/README.md)、[本轮审查](../docs/PROJECT_AUDIT.md)。历史文档证据只保留其原数据位置；新检出使用 `document/.local`。原 PDF 与报告身份由报告资源模块登记，跨服务只传资源引用与对象合同。

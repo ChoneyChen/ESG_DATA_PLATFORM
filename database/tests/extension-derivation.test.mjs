@@ -4,7 +4,8 @@ import {randomUUID} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
 import {applyMigrations} from '../scripts/db.mjs';
-import {importBundle,reviewRecord} from '../scripts/import-bundle.mjs';
+import {importBundle} from '../scripts/frozen-bundle.mjs';
+import {reviewRecord} from '../scripts/review-decisions.mjs';
 import {seedMetricDictionary,saveMeasurementContext,processOutbox,readDataset,NORMALIZATION_RULE_VERSION} from '../scripts/publication.mjs';
 import {dispatch} from '../../PlatESG/backend/service.mjs';
 import {applyPlatformMigrations} from '../../PlatESG/backend/database.mjs';
@@ -23,7 +24,7 @@ for(const definition of dictionary.metrics.filter(item=>['E1-6_07','E1-6_09','E1
   definition.comparison_dimensions=[...new Set([...definition.comparison_dimensions,'amount_basis','accounting_standard'])];
   definition.comparison_allowed_values={...definition.comparison_allowed_values,amount_basis:['gross']};
 }
-const authored=JSON.parse(await readFile(new URL('../../ExtractESG/standards/extensions/authoring/esrs/2023-set1/e1-6/scope1-scope2-total/1.0.0/proposal.json',import.meta.url),'utf8'));
+const authored=JSON.parse(await readFile(new URL('./fixtures/frozen-extension-proposal.json',import.meta.url),'utf8'));
 const metric=id=>dictionary.metrics.find(m=>m.source_datapoint_id===id);
 const authority={actor_ref:'synthetic_definition_reviewer',authority_roles:['approve_extension_definition']};
 const targetMetricId='ghg.scope1_scope2.total';

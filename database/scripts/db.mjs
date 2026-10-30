@@ -11,7 +11,7 @@ const projectRoot = path.resolve(
 );
 // Source layout migration must not move or silently replace the runtime store.
 const legacyDataRoot = path.resolve(projectRoot, "..", "ExtractESG", "esg_database");
-const dataDir = path.resolve(process.env.ESG_DATABASE_DATA_DIR || path.join(legacyDataRoot, ".local", "pglite"));
+const dataDir = path.resolve(process.env.ESG_DATABASE_DATA_DIR || (existsSync(path.join(legacyDataRoot,".local","pglite")) ? path.join(legacyDataRoot,".local","pglite") : path.join(projectRoot,".local","pglite")));
 const migrationsDir = path.join(projectRoot, "migrations");
 const demoFile = path.join(projectRoot, "examples", "0001_demo_disclosures.sql");
 
@@ -103,6 +103,7 @@ async function printStatus(db) {
 async function main() {
   const command = process.argv[2] ?? "status";
 
+  if (command === "import") throw new Error("Legacy bundle production import is retired; no database was opened");
   if (command === "reset") {
     if (existsSync(dataDir)) {
       rmSync(dataDir, { recursive: true, force: true });
@@ -131,21 +132,10 @@ async function main() {
       await printStatus(db);
       return;
     }
-    if (command === "import") {
-      const bundleIndex = process.argv.indexOf("--bundle");
-      const metadataIndex = process.argv.indexOf("--report-metadata");
-      if (bundleIndex < 0 || metadataIndex < 0) throw new Error("import requires --bundle PATH --report-metadata JSON_FILE");
-      const { importBundle, loadBundle } = await import("./import-bundle.mjs");
-      const bundle = await loadBundle(process.argv[bundleIndex + 1]);
-      const metadata = JSON.parse(await readFile(process.argv[metadataIndex + 1], "utf8"));
-      await applyMigrations(db);
-      process.stdout.write(`${JSON.stringify(await importBundle(db, bundle, metadata), null, 2)}\n`);
-      return;
-    }
     if (command === "review") {
       const inputIndex = process.argv.indexOf("--decision-file");
       if (inputIndex < 0) throw new Error("review requires --decision-file JSON_FILE");
-      const { reviewRecord } = await import("./import-bundle.mjs");
+      const { reviewRecord } = await import("./review-decisions.mjs");
       const decision = JSON.parse(await readFile(process.argv[inputIndex + 1], "utf8"));
       await applyMigrations(db);
       process.stdout.write(`${JSON.stringify(await reviewRecord(db, decision), null, 2)}\n`);

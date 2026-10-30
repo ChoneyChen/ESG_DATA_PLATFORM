@@ -10,7 +10,7 @@
  * evidence; the publication itself stays an explicit operator action.
  */
 import { measurementDefinitionForMapping, saveMeasurementContext, unitIsSupported } from './publication.mjs';
-import { reviewRecord } from './import-bundle.mjs';
+import {reviewRecord} from './review-decisions.mjs';
 import { resolveDimensions, normalizeBoundary, normalizeDimension, REVIEW_EVIDENCE_VERSION } from './review-evidence.mjs';
 export const VERIFICATION_RULE_VERSION = 'machine-verification-v3';
 const GROUP_ENTITIES = new Set(['group', 'listed_company']);

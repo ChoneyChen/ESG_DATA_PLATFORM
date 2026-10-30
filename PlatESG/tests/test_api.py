@@ -188,12 +188,13 @@ def test_retired_delivery_retry_does_not_change_published_data(client):
     assert client.get('/v1/observations').json()==before
 
 
-def test_frontend_api_prefix_and_local_review_page(client):
+def test_frontend_api_prefix_and_retired_review_page(client):
     assert client.get("/api/v1/metrics").json()==client.get("/v1/metrics").json()
     assert client.get("/api/internal/v1/candidates",headers={"Authorization":"Bearer 无效凭据".encode("utf-8")}).status_code==401
-    page=client.get("/review/")
-    assert page.status_code==200
-    assert "password" in page.text
+    for path in ("/review", "/review/", "/review/old"):
+        page=client.get(path)
+        assert page.status_code==410
+        assert page.json()["detail"]["code"]=="review_ui_retired"
 
 
 def test_lifecycle_reference_api_is_authenticated_and_protects_published_sources(client):

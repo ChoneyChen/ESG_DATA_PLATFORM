@@ -10,7 +10,6 @@
     "db:status": "./scripts/run-node.sh scripts/db.mjs status",
     "db:verify": "./scripts/run-node.sh scripts/verify.mjs",
     "db:reset": "./scripts/run-node.sh scripts/db.mjs reset",
-    "db:import": "./scripts/run-node.sh scripts/db.mjs import",
     "db:review": "./scripts/run-node.sh scripts/db.mjs review",
     "test": "./scripts/run-node.sh --test tests/*.test.mjs"
   },

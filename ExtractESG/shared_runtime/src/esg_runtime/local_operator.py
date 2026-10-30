@@ -7,17 +7,39 @@ decides whether such a request is the local operator (PLATESG_LOCAL_OPERATOR=0
 turns it off there). Any other request without a credential is refused before
 anything is forwarded, and a supplied credential is checked as before.
 """
+
 from __future__ import annotations
 
 from contextlib import contextmanager
 from contextvars import ContextVar
 
 LOOPBACK_HOSTS = frozenset({"127.0.0.1", "::1", "localhost"})
-_from_loopback: ContextVar[bool] = ContextVar("esg_request_from_loopback", default=False)
+_from_loopback: ContextVar[bool] = ContextVar(
+    "esg_request_from_loopback", default=False
+)
+
+
+def require_local_origin(request) -> None:
+    """Browser writes must originate from the local workbench; CLI has no Origin."""
+    from urllib.parse import urlsplit
+    from fastapi import HTTPException
+
+    origin = request.headers.get("Origin")
+    if origin:
+        try:
+            parsed = urlsplit(origin)
+            valid = (
+                parsed.scheme in {"http", "https"} and parsed.hostname in LOOPBACK_HOSTS
+            )
+        except ValueError:
+            valid = False
+        if not valid:
+            raise HTTPException(403, "只允许本机工作台提交修改")
 
 
 def install_loopback_marker(app) -> None:
     """Record, per request, whether the direct client is this machine."""
+
     @app.middleware("http")
     async def mark_loopback(request, call_next):
         host = (request.client.host if request.client else "") or ""
@@ -30,7 +52,11 @@ def install_loopback_marker(app) -> None:
 
 def operator_headers(authorization: str | None) -> dict[str, str] | None:
     """Headers for the identity request, or None when the caller must be refused."""
-    if isinstance(authorization, str) and authorization.startswith("Bearer ") and authorization[7:].strip():
+    if (
+        isinstance(authorization, str)
+        and authorization.startswith("Bearer ")
+        and authorization[7:].strip()
+    ):
         return {"Authorization": authorization}
     if authorization is None and _from_loopback.get():
         return {}

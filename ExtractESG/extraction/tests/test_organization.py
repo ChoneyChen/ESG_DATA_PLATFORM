@@ -5,14 +5,14 @@ from pydantic import ValidationError
 from fastapi.testclient import TestClient
 from esg_data.organization import OrganizationField,FieldBinding,OrganizationSpec,Presentation,OrganizedDataset
 from esg_clauses.repository import ClauseRepository
-from esg_targeted.pipeline_contracts import SourceFact,QuantitativePayload,ReportedContext,ReportedField,EvidenceLocation,ClauseMapping,RunRequest
-from esg_targeted.pipeline_contracts import QualitativePayload
-from esg_targeted.pipeline.organization import build_organized_dataset
-from esg_targeted.pipeline.engine import ExtractionBackbone
-from esg_targeted.pipeline.adapters.artifacts import FileArtifactPort
-from esg_targeted.pipeline.api import create_app
-from esg_targeted.evidence_contracts import SearchIntent
-from esg_targeted.pipeline.state import RunStore
+from esg_contracts.facts import SourceFact,QuantitativePayload,ReportedContext,ReportedField,EvidenceLocation,ClauseMapping,RunRequest
+from esg_contracts.facts import QualitativePayload
+from esg_extraction.pipeline.organization import build_organized_dataset
+from esg_extraction.pipeline.engine import ExtractionBackbone
+from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
+from esg_extraction.pipeline.api import create_app
+from esg_contracts.evidence import SearchIntent
+from esg_extraction.pipeline.state import RunStore
 from test_backbone import repository,documents,Model,quantitative
 
 
@@ -172,7 +172,7 @@ def test_frozen_layout_is_not_replaced_by_a_later_edit(repository,documents):
 
 
 def test_organization_failure_does_not_erase_bound_source_facts(documents,repository,tmp_path,monkeypatch):
-    from esg_targeted.pipeline import engine
+    from esg_extraction.pipeline import engine
     def fail(*args):raise RuntimeError('synthetic layout failure')
     monkeypatch.setattr(engine,'build_organized_dataset',fail)
     c=quantitative(repository);store=FileArtifactPort(tmp_path/'out')
@@ -199,7 +199,7 @@ def test_current_organization_interfaces_are_schema_driven(repository,documents,
 
 
 def test_required_lexical_groups_apply_to_pages_objects_and_real_word_boundaries(documents):
-    from esg_v2.ocr.page_selection import ClausePageSelector
+    from esg_document.ocr.page_selection import ClausePageSelector
     service=documents;folder=Path(service.resolve('ir-example'))
     page=json.loads((folder/'page.json').read_text())
     page['blocks'].append({'block_id':'quality','block_type':'text','text':'Measurement System Analysis training for supplier quality'})
