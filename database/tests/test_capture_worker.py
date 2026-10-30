@@ -17,7 +17,7 @@ def test_capture_worker_cold_starts_with_no_legacy_dictionary(tmp_path):
     result=subprocess.run([node,str(root/'runtime/manage.mjs'),'init','--profile','capture'],
         env=environment,capture_output=True,text=True,check=True)
     status=json.loads(result.stdout)
-    assert status['ready'] and status['table_count']==8
+    assert status['ready'] and status['products_ready']
     bridge=DatabaseBridge(environment)
     try:
         bridge.start()

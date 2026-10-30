@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "ProjectionSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "content_digest": {
+          "title": "Content Digest",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "export_id": {
+          "title": "Export Id",
+          "type": "string"
+        },
+        "facts": {
+          "minimum": 0,
+          "title": "Facts",
+          "type": "integer"
+        },
+        "input_digest": {
+          "title": "Input Digest",
+          "type": "string"
+        },
+        "observations": {
+          "minimum": 0,
+          "title": "Observations",
+          "type": "integer"
+        },
+        "periods": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Periods",
+          "type": "object"
+        },
+        "projection_id": {
+          "title": "Projection Id",
+          "type": "string"
+        },
+        "relations": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Relations",
+          "type": "object"
+        },
+        "repeated_occurrences": {
+          "minimum": 0,
+          "title": "Repeated Occurrences",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "capture-projection-1.0",
+          "default": "capture-projection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "transform_version": {
+          "title": "Transform Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "projection_id",
+        "export_id",
+        "input_digest",
+        "transform_version",
+        "content_digest",
+        "facts",
+        "observations",
+        "periods",
+        "relations",
+        "repeated_occurrences",
+        "diagnostics"
+      ],
+      "title": "ProjectionSummary",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "items": {
+        "$ref": "#/$defs/ProjectionSummary"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Cursor"
+    },
+    "query_digest": {
+      "title": "Query Digest",
+      "type": "string"
+    },
+    "returned": {
+      "minimum": 0,
+      "title": "Returned",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "capture-projection-page-1.0",
+      "default": "capture-projection-page-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "total": {
+      "minimum": 0,
+      "title": "Total",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "query_digest",
+    "total",
+    "returned",
+    "items"
+  ],
+  "title": "ProjectionPage",
+  "type": "object"
+}

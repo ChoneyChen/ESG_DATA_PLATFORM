@@ -1,0 +1,35 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clause_digest": {
+      "title": "Clause Digest",
+      "type": "string"
+    },
+    "clause_key": {
+      "title": "Clause Key",
+      "type": "string"
+    },
+    "contract": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Contract",
+      "type": "object"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "clause_key",
+    "clause_digest",
+    "title",
+    "contract"
+  ],
+  "title": "ProductDefinition",
+  "type": "object"
+}

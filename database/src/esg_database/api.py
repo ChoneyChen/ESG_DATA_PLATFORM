@@ -10,35 +10,42 @@ from .client import DatabaseBridge, DatabaseError, module_release
 from .ingestion import decode_archive, MAX_ARCHIVE_BYTES
 from .contracts import CaptureFactPage
 from esg_contracts.exports import IngestionReceipt
+from .projector import ProjectionWorker
+from .products_api import product_router
 
 
 def create_app(bridge=None):
     owned = bridge is None
     bridge = bridge or DatabaseBridge({"ESG_DATABASE_PROFILE": "capture"})
     release = module_release("capture")
+    projector = ProjectionWorker(bridge)
 
     @asynccontextmanager
     async def lifespan(app):
         if owned:
             bridge.start()
+            projector.start()
         yield
         if owned:
+            projector.close()
             bridge.close()
 
     app = FastAPI(title="Independent extraction ingestion", lifespan=lifespan)
 
     @app.exception_handler(DatabaseError)
     async def database_error(_, exc):
-        status = 404 if exc.code == "not_found" else 422 if exc.code in {"invalid_query", "invalid_cursor"} else 503
+        status = 404 if exc.code == "not_found" else 422 if exc.code in {"invalid_query", "invalid_cursor", "invalid_preview"} else 409 if exc.code in {"preview_changed", "revision_conflict", "restatement_cycle"} else 503
         return JSONResponse(status_code=status, content={"detail": exc.code})
 
     @app.get("/health")
     def health():
-        ready = bridge.call("ingestion_health", {}).get("ready")
+        schema = bridge.call("ingestion_health", {})
+        ready = schema.get("ready")
         if not ready:
             raise HTTPException(503, "Install the capture schema with the explicit management command")
         return {**release.snapshot(), "status": "ok", "export_contract": "extraction-export-1.1",
-                "supported_export_contracts": ["extraction-export-1.0", "extraction-export-1.1"], "auto_publish": False}
+                "supported_export_contracts": ["extraction-export-1.0", "extraction-export-1.1"], "auto_publish": False,
+                "products_ready": bool(schema.get("products_ready"))}
 
     @app.post("/v1/ingestion/exports", response_model=IngestionReceipt)
     async def ingest(request: Request):
@@ -51,7 +58,9 @@ def create_app(bridge=None):
                 raise HTTPException(413, "Export exceeds receiver capacity")
         try:
             payload = decode_archive(bytes(data))
-            return bridge.call("ingest_export", payload)
+            result = bridge.call("ingest_export", payload)
+            projector.wake()
+            return result
         except DatabaseError as exc:
             raise HTTPException(409 if exc.code == "export_identity_conflict" else 503, exc.code) from exc
         except (ValueError, KeyError, TypeError, BadZipFile) as exc:
@@ -74,6 +83,7 @@ def create_app(bridge=None):
         receipt(export_id)
         return bridge.call("capture_facts", {"export_id": export_id,"limit":limit,"cursor":cursor,"period":period,"clause_key":clause_key,"relation":relation})
 
+    app.include_router(product_router(bridge, release, projector))
     return app
 
 

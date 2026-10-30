@@ -5,10 +5,13 @@ import {createHash} from 'node:crypto';
 
 const tables=['capture_exports','captured_facts','capture_export_facts','capture_clause_targets',
   'capture_clause_relations','captured_properties','captured_evidence'];
+const productTables=['capture_projection_attempts','capture_projections','capture_product_definitions','capture_observations',
+  'capture_projection_members','capture_restatements','capture_dataset_versions','capture_dataset_projections','capture_dataset_members','capture_dataset_events'];
 export async function captureSchemaStatus(db) {
-  const rows=(await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='esg' AND table_name=ANY($1)",[tables])).rows;
+  const rows=(await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='esg' AND table_name=ANY($1)",[[...tables,...productTables]])).rows;
   const present=new Set(rows.map(row=>row.table_name));
-  return {profile:'capture',ready:tables.every(table=>present.has(table)),missing:tables.filter(table=>!present.has(table))};
+  return {profile:'capture',ready:tables.every(table=>present.has(table)),missing:tables.filter(table=>!present.has(table)),
+    products_ready:productTables.every(table=>present.has(table)),missing_products:productTables.filter(table=>!present.has(table))};
 }
 
 export async function applyCaptureSchema(db) {
@@ -32,7 +35,20 @@ export async function applyCaptureSchema(db) {
       await tx.query('INSERT INTO public.capture_schema_migrations(name,sha256) VALUES($1,$2)',[name,checksum]);
     });
   }
+  const productName='capture/0020_products.sql';
+  const productSql=await readFile(fileURLToPath(new URL('../migrations/'+productName,import.meta.url)),'utf8');
+  const productChecksum=createHash('sha256').update(productSql).digest('hex');
+  const installed=(await db.query('SELECT sha256 FROM public.capture_schema_migrations WHERE name=$1',[productName])).rows[0];
+  if(installed && installed.sha256!==productChecksum)throw new Error('Applied product migration content changed');
+  if(!installed){
+    const before=await captureSchemaStatus(db);
+    if(before.missing_products.length!==productTables.length)throw new Error('Product schema exists without its known migration; inspect before installing');
+    await db.transaction(async tx=>{
+      await tx.exec(productSql);
+      await tx.query('INSERT INTO public.capture_schema_migrations(name,sha256) VALUES($1,$2)',[productName,productChecksum]);
+    });
+  }
   const status=await captureSchemaStatus(db);
-  if(!status.ready)throw new Error('Capture schema is incomplete');
+  if(!status.ready || !status.products_ready)throw new Error('Capture schema is incomplete');
   return status;
 }

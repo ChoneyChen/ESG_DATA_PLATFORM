@@ -1,0 +1,26 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "newer_observation_id": {
+      "title": "Newer Observation Id",
+      "type": "string"
+    },
+    "older_observation_id": {
+      "title": "Older Observation Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "newer_observation_id",
+    "older_observation_id",
+    "reason"
+  ],
+  "title": "RestatementRequest",
+  "type": "object"
+}

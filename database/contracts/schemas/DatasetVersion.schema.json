@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "SourceSelectionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "all_sources",
+          "enum": [
+            "all_sources",
+            "latest_report",
+            "prefer_explicit_restated"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "relations": {
+          "items": {
+            "enum": [
+              "match",
+              "uncertain",
+              "different"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Relations",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "source-selection-1.0",
+          "default": "source-selection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "title": "SourceSelectionPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "content_digest": {
+      "title": "Content Digest",
+      "type": "string"
+    },
+    "dataset_version_id": {
+      "title": "Dataset Version Id",
+      "type": "string"
+    },
+    "observations": {
+      "title": "Observations",
+      "type": "integer"
+    },
+    "periods": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Periods",
+      "type": "object"
+    },
+    "policy": {
+      "$ref": "#/$defs/SourceSelectionPolicy"
+    },
+    "published_at": {
+      "title": "Published At",
+      "type": "string"
+    },
+    "revision": {
+      "title": "Revision",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "capture-dataset-version-1.0",
+      "default": "capture-dataset-version-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "published",
+        "withdrawn"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_version_id",
+    "title",
+    "content_digest",
+    "policy",
+    "state",
+    "revision",
+    "published_at",
+    "observations",
+    "periods"
+  ],
+  "title": "DatasetVersion",
+  "type": "object"
+}

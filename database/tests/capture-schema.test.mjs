@@ -34,6 +34,6 @@ test('known old capture installation is adopted without rewriting its facts',asy
     await db.query("INSERT INTO esg.capture_exports(export_id,input_digest,manifest,receipt,coverage,diagnostics) VALUES('existing','unchanged','{}','{}','[]','[]')");
     await applyCaptureSchema(db);
     assert.equal((await db.query("SELECT input_digest FROM esg.capture_exports WHERE export_id='existing'")).rows[0].input_digest,'unchanged');
-    assert.equal((await db.query('SELECT count(*)::int AS n FROM public.capture_schema_migrations')).rows[0].n,1);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM public.capture_schema_migrations')).rows[0].n,2);
   } finally {await db.close();}
 });

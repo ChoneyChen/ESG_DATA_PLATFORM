@@ -26,7 +26,7 @@ test('canonical CLI uses an explicitly isolated store', () => {
     assert.equal(result.status,0,result.stderr);
     const status=JSON.parse(result.stdout.trim());
     assert.equal(status.profile,'capture');assert.equal(status.ready,true);
-    assert.equal(status.table_count,8);
+    assert.equal(status.products_ready,true);
   } finally {rmSync(sandbox,{recursive:true,force:true});}
 });
 

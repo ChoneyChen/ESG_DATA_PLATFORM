@@ -21,6 +21,8 @@ from esg_data.organization import OrganizationSpec, OrganizedDataset
 from esg_data.periods import ReportedPeriod
 from esg_contracts.evidence import EvidenceStructure, ObjectSearchPage, EvidenceFrame
 from export_console_types import check as check_console_types
+sys.path.insert(0, str(ROOT.parent / "database/scripts"))
+from export_contracts import check as check_database_contracts
 
 
 def main():
@@ -67,6 +69,7 @@ def main():
         elif not path.is_file() or path.read_text() != body:
             raise SystemExit("Contract schema differs: " + str(path))
     console = check_console_types(args.write)
+    database = check_database_contracts(args.write)
     print(
         json.dumps(
             {
@@ -77,6 +80,7 @@ def main():
                 "selection_sizes": {k: len(v) for k, v in repo.selections().items()},
                 "schema_files": len(schemas),
                 "console_types": console["models"],
+                "database_types": database["models"],
             },
             ensure_ascii=False,
         )

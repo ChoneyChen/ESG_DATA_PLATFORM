@@ -1,0 +1,143 @@
+{
+  "$defs": {
+    "DatasetDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "observation_id": {
+          "title": "Observation Id",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "selected": {
+          "title": "Selected",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "observation_id",
+        "selected",
+        "reason"
+      ],
+      "title": "DatasetDecision",
+      "type": "object"
+    },
+    "SourceSelectionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "all_sources",
+          "enum": [
+            "all_sources",
+            "latest_report",
+            "prefer_explicit_restated"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "relations": {
+          "items": {
+            "enum": [
+              "match",
+              "uncertain",
+              "different"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Relations",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "source-selection-1.0",
+          "default": "source-selection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "title": "SourceSelectionPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decisions": {
+      "items": {
+        "$ref": "#/$defs/DatasetDecision"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "periods": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Periods",
+      "type": "object"
+    },
+    "policy": {
+      "$ref": "#/$defs/SourceSelectionPolicy"
+    },
+    "preview_digest": {
+      "title": "Preview Digest",
+      "type": "string"
+    },
+    "projection_digests": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Projection Digests",
+      "type": "object"
+    },
+    "projection_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Projection Ids",
+      "type": "array"
+    },
+    "restatement_link_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Restatement Link Ids",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "capture-dataset-preview-1.0",
+      "default": "capture-dataset-preview-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "selected": {
+      "minimum": 0,
+      "title": "Selected",
+      "type": "integer"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "total": {
+      "minimum": 0,
+      "title": "Total",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "preview_digest",
+    "title",
+    "projection_ids",
+    "projection_digests",
+    "policy",
+    "total",
+    "selected",
+    "periods",
+    "decisions",
+    "restatement_link_ids"
+  ],
+  "title": "DatasetPreview",
+  "type": "object"
+}

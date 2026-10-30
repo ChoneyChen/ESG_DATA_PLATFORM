@@ -17,8 +17,8 @@ def module_release(profile="frozen_publication"):
         "src/**/*.py", "runtime/*.mjs", "queries/**/*.mjs", "scripts/*.mjs",
         "migrations/**/*.sql", "catalog/**/*.json",
     ) if profile == "frozen_publication" else (
-        "src/**/*.py", "runtime/capture_worker.mjs", "runtime/rpc.mjs", "runtime/connection.mjs", "runtime/schema.mjs",
-        "queries/capture*.mjs", "queries/ingestion.mjs", "migrations/0019*.sql", "migrations/0020*.sql",
+        "src/**/*.py", "runtime/capture_worker.mjs", "runtime/rpc.mjs", "runtime/connection.mjs", "runtime/schema.mjs", "runtime/canonical.mjs",
+        "queries/capture*.mjs", "queries/ingestion.mjs", "migrations/0019*.sql", "migrations/capture/**/*.sql",
     )
     from esg_contracts import facts
     sdk = ModuleRelease(Path(facts.__file__).resolve().parents[1], "contracts-sdk", (

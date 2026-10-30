@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "mode": {
+      "default": "all_sources",
+      "enum": [
+        "all_sources",
+        "latest_report",
+        "prefer_explicit_restated"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "relations": {
+      "items": {
+        "enum": [
+          "match",
+          "uncertain",
+          "different"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Relations",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "source-selection-1.0",
+      "default": "source-selection-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "title": "SourceSelectionPolicy",
+  "type": "object"
+}

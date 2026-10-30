@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT.parent / "ClauseESG/src"))
 sys.path.insert(0, str(ROOT / "contracts/src"))
 sys.path.insert(0, str(ROOT.parent / "ConsoleESG/backend/src"))
+sys.path.insert(0, str(ROOT.parent / "tools"))
+from contract_types import render
 from esg_console.monitor import MonitorSnapshot
 from esg_clauses.contract import ClauseContract
 from esg_clauses.descriptor import ClauseRecord, ClauseDescriptor
@@ -65,55 +67,6 @@ MODELS = {
     "DocumentReference": DocumentReference,
 }
 
-
-def render(schema, prefix):
-    if "$ref" in schema:
-        return prefix + "_" + schema["$ref"].rsplit("/", 1)[-1]
-    if "const" in schema:
-        return json.dumps(schema["const"], ensure_ascii=False)
-    if "enum" in schema:
-        return " | ".join(json.dumps(v, ensure_ascii=False) for v in schema["enum"])
-    for union in ("anyOf", "oneOf"):
-        if union in schema:
-            return (
-                "(" + " | ".join(render(part, prefix) for part in schema[union]) + ")"
-            )
-    kind = schema.get("type")
-    if kind == "null":
-        return "null"
-    if kind == "string":
-        return "string"
-    if kind in {"number", "integer"}:
-        return "number"
-    if kind == "boolean":
-        return "boolean"
-    if kind == "array":
-        return "Array<" + render(schema.get("items", {}), prefix) + ">"
-    if kind == "object" or "properties" in schema:
-        props = schema.get("properties", {})
-        required = schema.get("required", [])
-        fields = [
-            json.dumps(key)
-            + ("" if key in required else "?")
-            + ": "
-            + render(value, prefix)
-            for key, value in props.items()
-        ]
-        additional = schema.get("additionalProperties", False if props else True)
-        suffix = ""
-        if additional is not False:
-            value = (
-                render(additional, prefix)
-                if isinstance(additional, dict)
-                else "unknown"
-            )
-            suffix = "Record<string, " + value + ">"
-        body = "{ " + "; ".join(fields) + " }" if fields else ""
-        return (
-            " & ".join(part for part in [body, suffix] if part)
-            or "Record<string, never>"
-        )
-    return "unknown"
 
 
 def generate():

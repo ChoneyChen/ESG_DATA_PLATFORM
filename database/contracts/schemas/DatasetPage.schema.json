@@ -1,0 +1,156 @@
+{
+  "$defs": {
+    "DatasetVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "content_digest": {
+          "title": "Content Digest",
+          "type": "string"
+        },
+        "dataset_version_id": {
+          "title": "Dataset Version Id",
+          "type": "string"
+        },
+        "observations": {
+          "title": "Observations",
+          "type": "integer"
+        },
+        "periods": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Periods",
+          "type": "object"
+        },
+        "policy": {
+          "$ref": "#/$defs/SourceSelectionPolicy"
+        },
+        "published_at": {
+          "title": "Published At",
+          "type": "string"
+        },
+        "revision": {
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "capture-dataset-version-1.0",
+          "default": "capture-dataset-version-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "published",
+            "withdrawn"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_version_id",
+        "title",
+        "content_digest",
+        "policy",
+        "state",
+        "revision",
+        "published_at",
+        "observations",
+        "periods"
+      ],
+      "title": "DatasetVersion",
+      "type": "object"
+    },
+    "SourceSelectionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "all_sources",
+          "enum": [
+            "all_sources",
+            "latest_report",
+            "prefer_explicit_restated"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "relations": {
+          "items": {
+            "enum": [
+              "match",
+              "uncertain",
+              "different"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Relations",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "source-selection-1.0",
+          "default": "source-selection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "title": "SourceSelectionPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "items": {
+        "$ref": "#/$defs/DatasetVersion"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Cursor"
+    },
+    "query_digest": {
+      "title": "Query Digest",
+      "type": "string"
+    },
+    "returned": {
+      "minimum": 0,
+      "title": "Returned",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "capture-dataset-page-1.0",
+      "default": "capture-dataset-page-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "total": {
+      "minimum": 0,
+      "title": "Total",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "query_digest",
+    "total",
+    "returned",
+    "items"
+  ],
+  "title": "DatasetPage",
+  "type": "object"
+}

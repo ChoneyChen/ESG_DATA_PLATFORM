@@ -4,6 +4,8 @@ import {captureSchemaStatus} from './schema.mjs';
 import {serve} from './rpc.mjs';
 import {ingestExport,receiptFor} from '../queries/ingestion.mjs';
 import {capturedFacts} from '../queries/captures.mjs';
+import {projectionInput,storeProjection,projectionStatus,pendingProjections,recordProjectionFailure,productInput,projectionCatalog} from '../queries/capture_products.mjs';
+import {publishDataset,withdrawDataset,restatementInput,recordRestatement,datasetVersion,datasetCatalog,observationPage,productDefinitions} from '../queries/capture_publication.mjs';
 
 process.env.ESG_DATABASE_PROFILE='capture';
 const db=await openPlatformDatabase();
@@ -15,5 +17,13 @@ await serve(db,async(method,params)=>{
   if(method==='ingest_export')return ingestExport(db,params);
   if(method==='export_receipt')return receiptFor(db,params.export_id);
   if(method==='capture_facts')return capturedFacts(db,params);
+  const products={projection_input:projectionInput,store_projection:storeProjection,projection_status:projectionStatus,
+    pending_projections:pendingProjections,record_projection_failure:recordProjectionFailure,product_input:productInput,
+    publish_dataset:publishDataset,withdraw_dataset:withdrawDataset,restatement_input:restatementInput,record_restatement:recordRestatement,
+    dataset_version:datasetVersion,dataset_catalog:datasetCatalog,observation_page:observationPage,projection_catalog:projectionCatalog,product_definitions:productDefinitions};
+  if(products[method]){
+    if(!(await captureSchemaStatus(db)).products_ready)throw Object.assign(new Error('Install the product schema explicitly'),{code:'product_schema_unavailable'});
+    return products[method](db,params);
+  }
   throw Object.assign(new Error('Unsupported capture command'),{code:'unknown_command'});
 });
