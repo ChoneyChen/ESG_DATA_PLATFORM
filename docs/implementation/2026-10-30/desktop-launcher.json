@@ -1,0 +1,79 @@
+{
+  "schema_version": "desktop-launcher-verification-1.0",
+  "entry": "/Users/choney/Desktop/启动ESG统一工作台.command",
+  "repeated_start_reused_same_supervisor": true,
+  "stop_closed_only_managed_services": true,
+  "restart_ready": {
+    "schema_version": "workbench-launcher-1.0",
+    "services": {
+      "database": {
+        "port": 18280,
+        "ready": true,
+        "restart_required": false
+      },
+      "extraction": {
+        "port": 18180,
+        "ready": true,
+        "restart_required": false
+      },
+      "document": {
+        "port": 18080,
+        "ready": true,
+        "restart_required": false
+      },
+      "console": {
+        "port": 18081,
+        "ready": true,
+        "restart_required": false
+      }
+    },
+    "ready": true,
+    "managed": true,
+    "controller_current": true,
+    "data_root": "/Users/choney/Desktop/ESG  Database/ESG_DATA_PLATFORM/.local/data",
+    "logs": "/Users/choney/Desktop/ESG  Database/ESG_DATA_PLATFORM/.local/data/logs"
+  },
+  "closed_status": {
+    "schema_version": "workbench-launcher-1.0",
+    "services": {
+      "database": {
+        "port": 18280,
+        "ready": false,
+        "restart_required": false
+      },
+      "extraction": {
+        "port": 18180,
+        "ready": false,
+        "restart_required": false
+      },
+      "document": {
+        "port": 18080,
+        "ready": false,
+        "restart_required": false
+      },
+      "console": {
+        "port": 18081,
+        "ready": false,
+        "restart_required": false
+      }
+    },
+    "ready": false,
+    "managed": false,
+    "controller_current": true,
+    "data_root": "/Users/choney/Desktop/ESG  Database/ESG_DATA_PLATFORM/.local/data",
+    "logs": "/Users/choney/Desktop/ESG  Database/ESG_DATA_PLATFORM/.local/data/logs"
+  },
+  "existing_publication_health": {
+    "status": "ok",
+    "service": "platesg",
+    "database": "pglite",
+    "dataset_version": 0
+  },
+  "dependency_downloads": false,
+  "database_initialization_or_migration": false,
+  "tests": "5 lifecycle/ownership/desktop-entry regression tests passed",
+  "desktop_script_executable": true,
+  "default_entry_open_browser_verified": true,
+  "observed_at": "2026-10-30T17:06:22.131347+00:00",
+  "controller_sha256": "a6e25c6a53936221b0534bad1b9651531df1744db154b507ad83bf17ba4cd745"
+}

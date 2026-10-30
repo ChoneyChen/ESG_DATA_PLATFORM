@@ -2599,5 +2599,34 @@
       "monitor-final.png"
     ],
     "cropping": "Only application content retained; browser chrome and unrelated tabs excluded."
-  }
+  },
+  "final_service_check": {
+    "observed_at": "2026-10-30T17:06:22.132304+00:00",
+    "implementation_commit": "41ce361bc22d4f04a20a4a51476679bc0211b868",
+    "services": {
+      "document": {
+        "ready": true,
+        "restart_required": false,
+        "fingerprint": "2b8d2b4b93eac724fd3f383c85f2de8c07f4c897bbfabab6f1d3de071361ff69"
+      },
+      "extraction": {
+        "ready": true,
+        "restart_required": false,
+        "fingerprint": "d519b5738788e28fd33854723cc25ec0599a5c58c53be321fb341318ddbd57b7"
+      },
+      "console": {
+        "ready": true,
+        "restart_required": false,
+        "fingerprint": "ce1d72cf21cb1fa59587ca2c4313cbc2d33e677d05d223ea40035c995c6c975f"
+      },
+      "receiver": {
+        "ready": true,
+        "restart_required": false,
+        "fingerprint": "77b113e644bec3e00f9f6e730b71bd37266c700d9fa1bcaaab238d709f811724"
+      }
+    },
+    "frozen_final_run_matches_current_engine": true,
+    "running_plat_8765_updated": false
+  },
+  "desktop_controller_ready": true
 }

@@ -44,6 +44,20 @@ npm --prefix ConsoleESG/frontend run build
 npm --prefix database test
 ```
 
-合同修改由 `check_contracts.py --write`生成Schema、索引和TypeScript类型，再普通检查。读取健康应同时检查 `restart_required` 和业务就绪，不能只看HTTP200。先停止当前启动器拥有的服务，再以同配置重启；不因一次读取超时重开任务或模型。
+合同修改由 `check_contracts.py --write`生成Schema、索引和TypeScript类型，再普通检查。读取健康应同时检查 `restart_required` 和业务就绪，不能只看HTTP200。当前控制器以 `start.sh status` 查看，`start.sh stop` 停止，`start.sh restart` 重启；只停止本入口托管进程，有活动提取时先在Console结束/取消。不要因读取超时重开任务或模型。
 
 源码并列目录按所有权命名；新规范在docs/architecture，操作在guides，一次实施与机器证据在implementation/日期，问题基线在audits/日期，原需求与历史记录单独标识。没有“final2/new2/latest”多份当前说明。
+
+## 桌面入口
+
+运行 `ExtractESG/.local/python/bin/python ExtractESG/scripts/install_desktop_launcher.py` 更新桌面“启动ESG统一工作台.command”。旧文本备份到本地control/launcher-backups。仓库移动后可设置ESG_PROJECT_ROOT或重新安装入口。双击默认后台启动并打开页面，不需要终端一直开着。
+
+```sh
+ExtractESG/scripts/start.sh status --json
+ExtractESG/scripts/start.sh stop
+ExtractESG/scripts/start.sh restart --no-browser
+```
+
+入口、终端和自动化共用workbench.py。已有当前服务直接复用；更换控制器或服务版本时，先确认无活动任务再替换其托管进程。PID与启动时刻防止PID复用误停；不按端口或模糊名称杀进程，外部占用明确报错。命令锁与supervisor锁避免两套后台实例。状态保存在control/workbench，日志在logs/launcher.log及各服务日志；关闭终端不停止，显式stop保留数据。
+
+Node从现有PATH或nvm查找；Python/MLX缺失显示修复位置，不下载模型。轻量SDK使用本机源码离线安装，不下载依赖。原值库缺失时提示显式初始化新库，启动本身不初始化或迁移数据库；不读取审核凭据、不启停Plat8765、不接触正式/演示库。

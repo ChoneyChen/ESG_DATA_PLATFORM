@@ -10,7 +10,8 @@ case "${1:-}" in
    PYTHON="${ESG_DOCUMENT_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}"; APP="esg_database.api:app"; PORT=18280
    export ESG_DATABASE_DATA_DIR="${ESG_DATABASE_DATA_DIR:-${ESG_DATA_ROOT:-$EXTRACT_ROOT/../.local/data}/databases/capture}"
    if [[ ! -d "$ESG_DATABASE_DATA_DIR" ]]; then
-     "$EXTRACT_ROOT/../database/scripts/run-node.sh" "$EXTRACT_ROOT/../database/runtime/manage.mjs" init
+     echo 'Capture database missing. Initialize a new isolated store explicitly with database/runtime/manage.mjs init.' >&2
+     exit 1
    fi
    ;;
  console) exec "${ESG_FRONTEND_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}" "$EXTRACT_ROOT/scripts/serve_workbench_frontend.py" ;;

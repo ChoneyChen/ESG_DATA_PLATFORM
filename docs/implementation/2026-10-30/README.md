@@ -118,3 +118,11 @@ docs/{architecture,guides,audits,implementation,history}/
 ![最终目标结果表](results-table-final.png)
 
 ![固定运行窗口](monitor-final.png)
+
+## 8. 桌面一键启动追加升级
+
+原桌面入口仍指向不存在的start_local_workbenches.sh，已完整替换，可重复安装的生成器保存在仓库。新入口 → start.sh → workbench.py，共用一个控制器。独立数据根、六个本地模块安装、Console/frontend构建及四服务均适配新目录。
+
+服务后台运行，关闭终端继续执行；重复启动复用同一supervisor。status/stop/restart共用所有权与启动时刻检查；停止拒绝活动提取，观测不确定不当作空闲，外部端口占用不误杀。两个锁防止重复双击产生多套后台。数据库初始化/迁移不在启动流程，Plat8765独立保留，凭据不进入桌面文本。
+
+5项停止安全/进程所有权/桌面入口回归通过，并从实际桌面脚本完成启动、重复复用、停止、再启动与四服务就绪验证。见[桌面启动验收](desktop-launcher.json)。桌面脚本位于 `/Users/choney/Desktop/启动ESG统一工作台.command`，运行和构建结束后可直接双击。
