@@ -1,0 +1,6650 @@
+{
+  "schema_version": "multi-year-audit-1.0",
+  "observed_at": "2026-10-31T01:37:29.924298+08:00",
+  "baseline": "48789a272e4aecea6269529bb2d9616c82a95070",
+  "scope": "source + frozen artifacts + physical PDF rendering + in-memory probes + loopback GET; no model/run/db mutation",
+  "inventory": {
+    "clauses": 1126,
+    "kinds": {
+      "qualitative": 853,
+      "quantitative": 273
+    },
+    "readiness": {
+      "ready": 1089,
+      "blocked": 37
+    },
+    "curation": {
+      "template": 1094,
+      "sample": 32
+    },
+    "blocking_reasons": {
+      "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。": 36,
+      "原科学合同未声明可用规范单位，且单位维度与元素绑定不一致；须修订该条后试提取。": 1
+    },
+    "enrichment_axis_gaps": [
+      {
+        "clause_key": "BP-1_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-1_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-1_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-1_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-1_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-1_06",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_06",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_07",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_08",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_09",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_10",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_11",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_12",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_13",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_14",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_15",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_16",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_17",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_18",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_19",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_20",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_21",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_22",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_23",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_24",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_25",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_26",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "BP-2_27",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-3_01",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_02",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_03",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_04",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_05",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_06",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_07",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-3_08",
+        "axes": [
+          "action_ref",
+          "value_role"
+        ]
+      },
+      {
+        "clause_key": "E1-4_01",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_02",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_03",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_04",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_05",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "denominator",
+          "denominator_scale",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_06",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_07",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_08",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "denominator",
+          "denominator_scale",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_09",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_10",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_11",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "denominator",
+          "denominator_scale",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_12",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_13",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_14",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "denominator",
+          "denominator_scale",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_15",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_16",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_17",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "denominator",
+          "denominator_scale",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_18",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_19",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_20",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_21",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_22",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_23",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-4_24",
+        "axes": [
+          "accounting_method",
+          "baseline_year",
+          "ghg_scope",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E1-5_03",
+        "axes": [
+          "aggregation_role",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_04",
+        "axes": [
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_06",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_07",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_08",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_10",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_11",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_12",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_13",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_14",
+        "axes": [
+          "aggregation_role",
+          "energy_carrier",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_15",
+        "axes": [
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_16",
+        "axes": [
+          "aggregation_role",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_17",
+        "axes": [
+          "aggregation_role",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_18",
+        "axes": [
+          "energy_flow",
+          "high_climate_impact_sector"
+        ]
+      },
+      {
+        "clause_key": "E1-5_19",
+        "axes": [
+          "aggregation_role",
+          "energy_flow",
+          "energy_source"
+        ]
+      },
+      {
+        "clause_key": "E1-5_20",
+        "axes": [
+          "high_climate_impact_sector"
+        ]
+      },
+      {
+        "clause_key": "E1-5_22",
+        "axes": [
+          "revenue_scope"
+        ]
+      },
+      {
+        "clause_key": "E1-5_23",
+        "axes": [
+          "revenue_scope"
+        ]
+      },
+      {
+        "clause_key": "E1-6_01",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_02",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_03",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_04",
+        "axes": [
+          "scope3_category",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_05",
+        "axes": [
+          "scope3_category",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_06",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_07",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_08",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_09",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_10",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_11",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_13",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "scope_2_method",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_14",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_15",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_16",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_17",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_18",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_19",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_20",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "scope_2_method",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_21",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_22",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_23",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_24",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_25",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_26",
+        "axes": [
+          "scope3_category",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_27",
+        "axes": [
+          "scope3_category",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_28",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_29",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_31",
+        "axes": [
+          "entity_aggregation_role",
+          "ghg_scope",
+          "scope_2_method",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_32",
+        "axes": [
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_33",
+        "axes": [
+          "entity_aggregation_role",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_34",
+        "axes": [
+          "entity_aggregation_role",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-6_35",
+        "axes": [
+          "entity_aggregation_role",
+          "source_row_topic"
+        ]
+      },
+      {
+        "clause_key": "E1-7_01",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_02",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_03",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_04",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_05",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_06",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_07",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_08",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_09",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_10",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_11",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_12",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_13",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_14",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_15",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_16",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_17",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_18",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_19",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_20",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_21",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_22",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_23",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_24",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-7_25",
+        "axes": [
+          "credit_status",
+          "project_ref",
+          "removal_activity",
+          "value_chain_boundary"
+        ]
+      },
+      {
+        "clause_key": "E1-8_01",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_02",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_03",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_04",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_05",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_06",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_07",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_08",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-8_09",
+        "axes": [
+          "accounting_method",
+          "ghg_scope",
+          "pricing_scheme"
+        ]
+      },
+      {
+        "clause_key": "E1-9_01",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_02",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_03",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_04",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_05",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_06",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_07",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_08",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_09",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_10",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_11",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_12",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_13",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_14",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_15",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_16",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_17",
+        "axes": [
+          "currency",
+          "energy_efficiency_class",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_18",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_19",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_20",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_21",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_22",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_23",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_24",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_25",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_26",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_27",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_28",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_29",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_30",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_31",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_32",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_33",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_34",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_35",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_36",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_37",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_38",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_39",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_40",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_41",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_42",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_43",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1-9_44",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_09",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_10",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_11",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_12",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_13",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_14",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_15",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.IRO-1_16",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E1.SBM-3_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E2-3_01",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_02",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_03",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_04",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_05",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_06",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_07",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_08",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_09",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_10",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-3_11",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E2-4_01",
+        "axes": [
+          "degurba_class"
+        ]
+      },
+      {
+        "clause_key": "E2-4_04",
+        "axes": [
+          "pollutant",
+          "pollution_medium"
+        ]
+      },
+      {
+        "clause_key": "E2-4_05",
+        "axes": [
+          "exit_pathway",
+          "intentionality",
+          "microplastic_flow"
+        ]
+      },
+      {
+        "clause_key": "E2-4_06",
+        "axes": [
+          "exit_pathway",
+          "intentionality",
+          "microplastic_flow"
+        ]
+      },
+      {
+        "clause_key": "E2-4_07",
+        "axes": [
+          "exit_pathway",
+          "intentionality",
+          "microplastic_flow"
+        ]
+      },
+      {
+        "clause_key": "E2-4_08",
+        "axes": [
+          "affected_medium",
+          "pollutant"
+        ]
+      },
+      {
+        "clause_key": "E2-4_11",
+        "axes": [
+          "pollution_medium",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E2-4_12",
+        "axes": [
+          "pollution_medium",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E2-4_13",
+        "axes": [
+          "pollution_medium",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E2-4_14",
+        "axes": [
+          "pollution_medium",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E2-4_16",
+        "axes": [
+          "facility_name"
+        ]
+      },
+      {
+        "clause_key": "E2-4_17",
+        "axes": [
+          "facility_name"
+        ]
+      },
+      {
+        "clause_key": "E2-4_18",
+        "axes": [
+          "facility_name",
+          "parameter_or_pollutant"
+        ]
+      },
+      {
+        "clause_key": "E2-4_19",
+        "axes": [
+          "facility_name",
+          "parameter_or_pollutant"
+        ]
+      },
+      {
+        "clause_key": "E2-4_20",
+        "axes": [
+          "facility_name",
+          "item_type"
+        ]
+      },
+      {
+        "clause_key": "E2-5_01",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_03",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_04",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_05",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_06",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_07",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_08",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_09",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_10",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_11",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_12",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-5_13",
+        "axes": [
+          "aggregation_role",
+          "concern_class",
+          "hazard_class",
+          "material_flow",
+          "substance"
+        ]
+      },
+      {
+        "clause_key": "E2-6_01",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_02",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_03",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_04",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_05",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_06",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_07",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_08",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_09",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_10",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2-6_11",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E2.IRO-1_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E2.IRO-1_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E2.IRO-1_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E3-3_01",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_02",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_03",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_04",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_05",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_06",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_07",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_08",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_09",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-3_10",
+        "axes": [
+          "geography",
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E3-4_04",
+        "axes": [
+          "aggregation_role",
+          "geography",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-4_05",
+        "axes": [
+          "aggregation_role",
+          "geography",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-4_06",
+        "axes": [
+          "aggregation_role",
+          "geography",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-4_07",
+        "axes": [
+          "aggregation_role",
+          "geography",
+          "measurement_basis",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-4_08",
+        "axes": [
+          "aggregation_role",
+          "denominator",
+          "denominator_scale",
+          "geography",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-4_09",
+        "axes": [
+          "aggregation_role",
+          "geography",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-4_10",
+        "axes": [
+          "aggregation_role",
+          "denominator",
+          "denominator_scale",
+          "geography",
+          "water_measure",
+          "water_risk_class"
+        ]
+      },
+      {
+        "clause_key": "E3-5_01",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E3-5_02",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E3-5_03",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E3-5_04",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E3-5_05",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E3-5_06",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E3.IRO-1_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E3.IRO-1_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4-2_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_05",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_06",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_07",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_08",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_09",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_10",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_11",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_12",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_13",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_14",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_15",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_16",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_17",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_18",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_19",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-2_20",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_01",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_02",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_03",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_04",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_09",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_10",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_11",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_12",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_13",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_14",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_15",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-3_16",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E4-4_01",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_02",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_03",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_04",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_05",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_06",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_07",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_08",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_09",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-4_10",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E4-6_01",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E4-6_02",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E4-6_03",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E4-6_04",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E4-6_05",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E4-6_06",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_09",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_10",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_11",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_12",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_13",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_14",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_15",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.IRO-1_16",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E4.SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E5-1_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-1_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-1_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-1_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_01",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_02",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_03",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_04",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_09",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-2_10",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "E5-3_01",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_02",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_03",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_04",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_05",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_06",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_07",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_08",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_09",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_10",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_11",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_12",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-3_13",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "E5-4_05",
+        "axes": [
+          "denominator_scope",
+          "material_scope"
+        ]
+      },
+      {
+        "clause_key": "E5-5_02",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "E5-5_08",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "E5-5_09",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "E5-5_11",
+        "axes": [
+          "denominator_scope",
+          "waste_scope"
+        ]
+      },
+      {
+        "clause_key": "E5-6_01",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E5-6_02",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E5-6_03",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E5-6_04",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E5-6_05",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E5-6_06",
+        "axes": [
+          "currency",
+          "financial_item",
+          "forecast_horizon",
+          "risk_type",
+          "scenario"
+        ]
+      },
+      {
+        "clause_key": "E5.IRO-1_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "E5.IRO-1_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "G1-1_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_05",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_06",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_07",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_08",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_09",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_10",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_11",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-1_12",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-4_02",
+        "axes": [
+          "currency",
+          "fine_basis",
+          "legal_scope"
+        ]
+      },
+      {
+        "clause_key": "G1-4_03",
+        "axes": [
+          "action_ref",
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "G1-4_04",
+        "axes": [
+          "counting_basis",
+          "incident_definition"
+        ]
+      },
+      {
+        "clause_key": "G1-4_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-4_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-4_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-4_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "G1-5_08",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_07",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_08",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_09",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_10",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_11",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_12",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_13",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_14",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_15",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_16",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-1_17",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-2_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-2_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-2_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-2_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-3_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-3_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-3_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-3_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-3_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-3_06",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-4_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-5_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-5_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-5_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-5_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "GOV-5_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_09",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_10",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_11",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_12",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_13",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_14",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-1_15",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_06",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_07",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_08",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_09",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_10",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_11",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_12",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "IRO-2_13",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_01",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_02",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_03",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_04",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_05",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_06",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_07",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_08",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_09",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_10",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_11",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_12",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_13",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-A_14",
+        "axes": [
+          "action_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-M_01",
+        "axes": [
+          "measured_metric_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-M_02",
+        "axes": [
+          "measured_metric_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-M_03",
+        "axes": [
+          "measured_metric_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_01",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_02",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_03",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_04",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_05",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_06",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_07",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-P_08",
+        "axes": [
+          "policy_ref",
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_01",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_02",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_03",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_04",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_05",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_06",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_07",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_08",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_09",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_10",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_11",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_12",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_13",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_14",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_15",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_16",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_17",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_18",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "MDR-T_19",
+        "axes": [
+          "sustainability_topic",
+          "target_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_05",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_06",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_07",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_08",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_09",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_10",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_11",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_12",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_13",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_14",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_15",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_16",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_17",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_18",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_19",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_20",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_21",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-1_22",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-10_02",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-10_03",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-10_04",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-11_06",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-12_02",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-13_01",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-13_02",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-13_03",
+        "axes": [
+          "denominator_scope",
+          "gender",
+          "population",
+          "training_scope"
+        ]
+      },
+      {
+        "clause_key": "S1-13_05",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-13_06",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-13_07",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-14_02",
+        "axes": [
+          "aggregation_role",
+          "fatality_cause_scope",
+          "population"
+        ]
+      },
+      {
+        "clause_key": "S1-15_03",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-16_04",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-16_05",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-17_01",
+        "axes": [
+          "incident_definition",
+          "incident_type",
+          "population"
+        ]
+      },
+      {
+        "clause_key": "S1-4_01",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_02",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_03",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_04",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_09",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_10",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_11",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_12",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_13",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_14",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_15",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_16",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_17",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_18",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_19",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-4_20",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S1-5_01",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S1-5_02",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S1-5_03",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S1-5_04",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S1-5_05",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S1-5_06",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S1-6_01",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_03",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_04",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_05",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_06",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_07",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_08",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_09",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_10",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_18",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_19",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-6_20",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-8_02",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-8_03",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-8_08",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1-9_01",
+        "axes": [
+          "breakdown_member"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_09",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_10",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_11",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S1.SBM-3_12",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2-1_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_05",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_06",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_07",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_08",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_09",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_10",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-1_11",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_01",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_02",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_03",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_04",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_09",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_10",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_11",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_12",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_13",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_14",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_15",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_16",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_17",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-4_18",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S2-5_01",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S2-5_02",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S2-5_03",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S2-5_04",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S2-5_05",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S2-5_06",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S2.SBM-3_09",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3-1_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_05",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_06",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_07",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_08",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-1_09",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_01",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_02",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_03",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_04",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_09",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_10",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_11",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_12",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_13",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_14",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_15",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_16",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_17",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_18",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-4_19",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S3-5_01",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S3-5_02",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S3-5_03",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S3-5_04",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S3-5_05",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S3-5_06",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S3.SBM-3_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4-1_01",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_02",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_03",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_04",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_05",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_06",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_07",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_08",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-1_09",
+        "axes": [
+          "policy_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_01",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_02",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_03",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_04",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_05",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_06",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_07",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_08",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_09",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_10",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_11",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_12",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_13",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_14",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_15",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_16",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_17",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-4_18",
+        "axes": [
+          "action_ref"
+        ]
+      },
+      {
+        "clause_key": "S4-5_01",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S4-5_02",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S4-5_03",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S4-5_04",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S4-5_05",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S4-5_06",
+        "axes": [
+          "target_ref",
+          "target_year"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "S4.SBM-3_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_06",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_07",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_08",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_09",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_10",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_11",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_12",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_13",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_14",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_15",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_16",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_17",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_18",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_19",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_20",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_21",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_22",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_23",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_24",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_25",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_26",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_27",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-1_28",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_01",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_02",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_03",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_04",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_05",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_06",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_07",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_08",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_09",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_10",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_11",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-2_12",
+        "axes": [
+          "sustainability_topic"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_01",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_02",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_03",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_04",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_05",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_06",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_07",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_08",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_09",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_10",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_11",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      },
+      {
+        "clause_key": "SBM-3_12",
+        "axes": [
+          "risk_type",
+          "scenario",
+          "sustainability_topic",
+          "time_horizon"
+        ]
+      }
+    ],
+    "enrichment_axis_gap_clause_count": 803
+  },
+  "blocked": [
+    {
+      "clause_key": "BP-2_07",
+      "title": "高测量不确定性指标",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Disclosure of quantitative metrics and monetary amounts disclosed that are subject to high level of measurement uncertainty。高测量不确定性指标。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
+      "path": "ClauseESG/clauses/BP-2/BP-2_07/clause.json"
+    },
+    {
+      "clause_key": "BP-2_14",
+      "title": "前期差错更正",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Disclosure of corrections for prior periods included in sustainability statement。前期差错更正。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
+      "path": "ClauseESG/clauses/BP-2/BP-2_14/clause.json"
+    },
+    {
+      "clause_key": "BP-2_24",
+      "title": "阶段安排的期限目标及进展",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Description of any time-bound targets set related to sustainability matters assessed to be material (phase-in) and progress made towards achieving those targets。阶段安排的期限目标及进展。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
+      "path": "ClauseESG/clauses/BP-2/BP-2_24/clause.json"
+    },
+    {
+      "clause_key": "BP-2_27",
+      "title": "阶段安排的指标",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Disclosure of metrics related to sustainability matters assessed to be material (phase-in)。阶段安排的指标。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
+      "path": "ClauseESG/clauses/BP-2/BP-2_27/clause.json"
+    },
+    {
+      "clause_key": "E1-3_06",
+      "title": "重大资本和运营支出与财务报表关联",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements。重大资本和运营支出与财务报表关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+      "path": "ClauseESG/clauses/E1-3/E1-3_06/clause.json"
+    },
+    {
+      "clause_key": "E1-4_02",
+      "title": "排放目标的多维披露结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Tables: Multiple Dimensions (baseline year and targets; GHG Types, Scope 3 Categories, Decarbonisation levers, entity-specific denominators for intensity value)。排放目标的多维披露结构。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
+      "path": "ClauseESG/clauses/E1-4/E1-4_02/clause.json"
+    },
+    {
+      "clause_key": "E1-5_19",
+      "title": "高气候影响行业能源消费总量",
+      "data_kind": "quantitative",
+      "blocking_reasons": [
+        "原科学合同未声明可用规范单位，且单位维度与元素绑定不一致；须修订该条后试提取。"
+      ],
+      "definition": "高气候影响行业能源消费总量",
+      "path": "ClauseESG/clauses/E1-5/E1-5_19/clause.json"
+    },
+    {
+      "clause_key": "E1-6_01",
+      "title": "范围1、2、3及温室气体排放总量的披露结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "范围1、2、3及温室气体排放总量的披露结构",
+      "path": "ClauseESG/clauses/E1-6/E1-6_01/clause.json"
+    },
+    {
+      "clause_key": "E1-6_02",
+      "title": "财务控制与运营控制边界表",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "财务控制与运营控制边界表",
+      "path": "ClauseESG/clauses/E1-6/E1-6_02/clause.json"
+    },
+    {
+      "clause_key": "E1-6_03",
+      "title": "温室气体排放分解维度",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "温室气体排放分解维度",
+      "path": "ClauseESG/clauses/E1-6/E1-6_03/clause.json"
+    },
+    {
+      "clause_key": "E1-6_04",
+      "title": "采用《温室气体核算体系》的范围3类别结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "采用《温室气体核算体系》的范围3类别结构",
+      "path": "ClauseESG/clauses/E1-6/E1-6_04/clause.json"
+    },
+    {
+      "clause_key": "E1-6_05",
+      "title": "采用 ISO 14064-1 的范围3类别结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "采用 ISO 14064-1 的范围3类别结构",
+      "path": "ClauseESG/clauses/E1-6/E1-6_05/clause.json"
+    },
+    {
+      "clause_key": "E1-6_06",
+      "title": "范围3价值链分解结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "范围3价值链分解结构",
+      "path": "ClauseESG/clauses/E1-6/E1-6_06/clause.json"
+    },
+    {
+      "clause_key": "E1-7_04",
+      "title": "移除储存活动的披露结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "GHG Removals and storage Activity by undertaking scope (breakdown by own operations and value chain) and by removal and storage activity。移除储存活动的披露结构。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
+      "path": "ClauseESG/clauses/E1-7/E1-7_04/clause.json"
+    },
+    {
+      "clause_key": "E1-8_01",
+      "title": "内部碳定价机制的披露结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Carbon pricing scheme by type。内部碳定价机制的披露结构。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
+      "path": "ClauseESG/clauses/E1-8/E1-8_01/clause.json"
+    },
+    {
+      "clause_key": "E1-9_38",
+      "title": "转型风险业务预期利润侵蚀",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Disclosure of anticipated financial effects in terms of margin erosion for business activities at material transition risk。转型风险业务预期利润侵蚀。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
+      "path": "ClauseESG/clauses/E1-9/E1-9_38/clause.json"
+    },
+    {
+      "clause_key": "E2-4_01",
+      "title": "空气、水和土壤污染披露维度结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "空气、水和土壤污染披露维度结构",
+      "path": "ClauseESG/clauses/E2-4/E2-4_01/clause.json"
+    },
+    {
+      "clause_key": "E2-4_18",
+      "title": "实际环境绩效与 BAT-AEL 比较",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "实际环境绩效与 BAT-AEL 比较",
+      "path": "ClauseESG/clauses/E2-4/E2-4_18/clause.json"
+    },
+    {
+      "clause_key": "E2-4_19",
+      "title": "实际环境绩效与 BAT-AEPL 比较",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "实际环境绩效与 BAT-AEPL 比较",
+      "path": "ClauseESG/clauses/E2-4/E2-4_19/clause.json"
+    },
+    {
+      "clause_key": "E2-5_01",
+      "title": "关注物质按危害类别分解的披露结构",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern。关注物质按危害类别分解的披露结构。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+      "path": "ClauseESG/clauses/E2-5/E2-5_01/clause.json"
+    },
+    {
+      "clause_key": "E4-6_06",
+      "title": "财务金额的估计方法与关键假设",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "说明财务金额如何估计，以及所采用的关键假设和参数。",
+      "path": "ClauseESG/clauses/E4-6/E4-6_06/clause.json"
+    },
+    {
+      "clause_key": "G1-4_03",
+      "title": "Prevention and detection of corruption or bribery - anti-corruption and bribery training table",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Prevention and detection of corruption or bribery - anti-corruption and bribery training table",
+      "path": "ClauseESG/clauses/G1-4/G1-4_03/clause.json"
+    },
+    {
+      "clause_key": "G1-5_08",
+      "title": "财务与实物政治捐赠表",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "以表格形式披露财务和实物政治捐赠的明细，包括类型、对象、金额或价值。",
+      "path": "ClauseESG/clauses/G1-5/G1-5_08/clause.json"
+    },
+    {
+      "clause_key": "IRO-1_14",
+      "title": "识别评估输入参数",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Description of input parameters used in process to identify, assess and manage material impacts, risks and opportunities。识别评估输入参数。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
+      "path": "ClauseESG/clauses/IRO-1/IRO-1_14/clause.json"
+    },
+    {
+      "clause_key": "MDR-T_02",
+      "title": "可量化目标",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Measurable target。可量化目标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
+      "path": "ClauseESG/clauses/MDR-T/MDR-T_02/clause.json"
+    },
+    {
+      "clause_key": "MDR-T_18",
+      "title": "效果评估的预期水平与指标",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Description of defined level of ambition to be achieved and of any qualitative or quantitative indicators used to evaluate progress。效果评估的预期水平与指标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
+      "path": "ClauseESG/clauses/MDR-T/MDR-T_18/clause.json"
+    },
+    {
+      "clause_key": "S1-10_02",
+      "title": "员工工资低于适用足额工资基准的国家表",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "以表格披露员工工资低于适用足额工资基准的国家，以及涉及的员工范围。",
+      "path": "ClauseESG/clauses/S1-10/S1-10_02/clause.json"
+    },
+    {
+      "clause_key": "S1-11_06",
+      "title": "按国家、事件类型与员工类型划分的社保覆盖表",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "以表格披露按国家、事件类型和员工类型（含非员工）划分的社会保护覆盖情况。",
+      "path": "ClauseESG/clauses/S1-11/S1-11_06/clause.json"
+    },
+    {
+      "clause_key": "S1-13_01",
+      "title": "Training and skills development indicators gender [table]",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Training and skills development indicators gender [table]",
+      "path": "ClauseESG/clauses/S1-13/S1-13_01/clause.json"
+    },
+    {
+      "clause_key": "S1-17_01",
+      "title": "按类型划分的歧视事件数量（表）",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "按歧视类型划分的歧视事件数量表。",
+      "path": "ClauseESG/clauses/S1-17/S1-17_01/clause.json"
+    },
+    {
+      "clause_key": "S1-6_01",
+      "title": "Characteristics of undertaking's employees - number of employees by gender [table]",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Characteristics of undertaking's employees - number of employees by gender [table]",
+      "path": "ClauseESG/clauses/S1-6/S1-6_01/clause.json"
+    },
+    {
+      "clause_key": "S1-6_04",
+      "title": "Characteristics of undertaking's employees - number of employees in countries with 50 or more employees representing at least 10% of total number of employees [table]",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Characteristics of undertaking's employees - number of employees in countries with 50 or more employees representing at least 10% of total number of employees [table]",
+      "path": "ClauseESG/clauses/S1-6/S1-6_04/clause.json"
+    },
+    {
+      "clause_key": "S1-6_07",
+      "title": "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]",
+      "path": "ClauseESG/clauses/S1-6/S1-6_07/clause.json"
+    },
+    {
+      "clause_key": "S1-6_08",
+      "title": "Characteristics of undertaking's employees - information on employees by region [table]",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Characteristics of undertaking's employees - information on employees by region [table]",
+      "path": "ClauseESG/clauses/S1-6/S1-6_08/clause.json"
+    },
+    {
+      "clause_key": "S1-6_18",
+      "title": "Further detailed breakdown by gender and by region [table]",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Further detailed breakdown by gender and by region [table]",
+      "path": "ClauseESG/clauses/S1-6/S1-6_18/clause.json"
+    },
+    {
+      "clause_key": "SBM-3_08",
+      "title": "当前财务影响及资产负债调整风险",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements。当前财务影响及资产负债调整风险。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+      "path": "ClauseESG/clauses/SBM-3/SBM-3_08/clause.json"
+    },
+    {
+      "clause_key": "SBM-3_09",
+      "title": "短中长期预期财务影响",
+      "data_kind": "qualitative",
+      "blocking_reasons": [
+        "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
+      ],
+      "definition": "Disclosure of anticipated financial effects of material risks and opportunities on financial position, financial performance and cash flows over short-, medium- and long-term。短中长期预期财务影响。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+      "path": "ClauseESG/clauses/SBM-3/SBM-3_09/clause.json"
+    }
+  ],
+  "case": {
+    "run_id": "extract-1099dd301a241c409a0ab052027c689c",
+    "export_id": "export-53416b2c235c075addd352562fb717bf79fe9ba8ba3590024f34f1f1166d17ab",
+    "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+    "source_physical_page": 73,
+    "printed_pages": [
+      141,
+      142
+    ],
+    "columns": {
+      "c2": [
+        "2023"
+      ],
+      "c3": [
+        "2024"
+      ],
+      "c4": [
+        "2025"
+      ]
+    },
+    "current_structural_selection": [
+      "c4"
+    ],
+    "saved_fact_count": 18,
+    "saved_periods": {
+      "2025": 18
+    },
+    "expected_air": [
+      {
+        "label": "氮氧化物（NOx）²",
+        "year": "2023",
+        "raw": "217.83",
+        "unit": "吨"
+      },
+      {
+        "label": "氮氧化物（NOx）²",
+        "year": "2024",
+        "raw": "2,841.70",
+        "unit": "吨"
+      },
+      {
+        "label": "氮氧化物（NOx）²",
+        "year": "2025",
+        "raw": "1,530.14",
+        "unit": "吨"
+      },
+      {
+        "label": "二氧化硫（SO2）²",
+        "year": "2023",
+        "raw": "13.78",
+        "unit": "吨"
+      },
+      {
+        "label": "二氧化硫（SO2）²",
+        "year": "2024",
+        "raw": "12,067.14",
+        "unit": "吨"
+      },
+      {
+        "label": "二氧化硫（SO2）²",
+        "year": "2025",
+        "raw": "5,856.94",
+        "unit": "吨"
+      },
+      {
+        "label": "挥发性有机物（VOCs）³",
+        "year": "2023",
+        "raw": "771.14",
+        "unit": "吨"
+      },
+      {
+        "label": "挥发性有机物（VOCs）³",
+        "year": "2024",
+        "raw": "1,094.32",
+        "unit": "吨"
+      },
+      {
+        "label": "挥发性有机物（VOCs）³",
+        "year": "2025",
+        "raw": "1,161.80",
+        "unit": "吨"
+      }
+    ],
+    "saved_air": [
+      {
+        "label": "氮氧化物（NOx）²",
+        "year": "2025",
+        "raw": "1,530.14",
+        "unit": "吨"
+      },
+      {
+        "label": "二氧化硫（SO2）²",
+        "year": "2025",
+        "raw": "5,856.94",
+        "unit": "吨"
+      },
+      {
+        "label": "挥发性有机物（VOCs）³",
+        "year": "2025",
+        "raw": "1,161.80",
+        "unit": "吨"
+      }
+    ],
+    "bounded_air_retention": {
+      "expected": 9,
+      "retained": 3,
+      "missing": 6,
+      "note": "This manually checked three-row table only; no report-wide recall metric."
+    },
+    "all_table_bindability_probe": {
+      "facts": 51,
+      "periods": {
+        "2023": 15,
+        "2024": 18,
+        "2025": 18
+      },
+      "rejected_cells": [
+        {
+          "label": "一般工业固废生成强度⁴",
+          "column": "c2",
+          "raw": "/",
+          "reason": "label_or_unit_is_not_a_measurement"
+        },
+        {
+          "label": "其他（物化处理、生物处理等）",
+          "column": "c2",
+          "raw": "/",
+          "reason": "label_or_unit_is_not_a_measurement"
+        },
+        {
+          "label": "危险废物生成强度⁹",
+          "column": "c2",
+          "raw": "/",
+          "reason": "label_or_unit_is_not_a_measurement"
+        }
+      ],
+      "not_fresh_extraction": true
+    },
+    "search_scope": {
+      "available_pages": [
+        0,
+        1,
+        2,
+        53,
+        54,
+        55,
+        56,
+        71,
+        72,
+        73,
+        74,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87
+      ],
+      "mode": "targeted",
+      "report_wide_absence_proven": false,
+      "source_page_count": 92
+    },
+    "receipt": {
+      "status": "accepted",
+      "accepted_facts": 18,
+      "rejected_facts": 0,
+      "publication_status": "not_evaluated"
+    },
+    "receiver_readback": {
+      "returned": 18,
+      "periods": {
+        "2025": 18
+      },
+      "observation_error": null
+    }
+  },
+  "probes": {
+    "annual_scope": [
+      {
+        "year": "2023",
+        "covered": false
+      },
+      {
+        "year": "2024",
+        "covered": false
+      },
+      {
+        "year": "2025",
+        "covered": true
+      }
+    ],
+    "no_local_period": {
+      "constructed_counterexample": true,
+      "input_column": "数值",
+      "document_year": 2025,
+      "output": {
+        "state": "inherited",
+        "raw_text": "2025",
+        "value": "2025",
+        "evidence": [
+          {
+            "object_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+            "object_type": "report",
+            "page_index": null,
+            "excerpt": "2025",
+            "role": "report",
+            "bbox": null,
+            "row_id": null,
+            "column_id": null,
+            "char_start": null,
+            "char_end": null
+          }
+        ]
+      }
+    },
+    "in_memory_multi_year_archive": {
+      "accepted_by_decoder": 51,
+      "rejected": 0,
+      "persisted": false,
+      "database_receipt_created": false
+    }
+  },
+  "services": {
+    "document": {
+      "status": "ok",
+      "service": "esg-v2-backend"
+    },
+    "extraction": {
+      "status": "ok",
+      "service": "clause-backbone"
+    },
+    "receiver": {
+      "status": "ok",
+      "service": "database-module",
+      "restart_required": false,
+      "auto_publish": false
+    },
+    "plat": {
+      "status": "ok",
+      "service": "platesg",
+      "dataset_version": 0
+    }
+  },
+  "references": {
+    "single_year_selector": {
+      "path": "ExtractESG/extraction/src/esg_extraction/pipeline/structure.py",
+      "line": 13,
+      "excerpt": "if years == {document.reporting_year}:",
+      "sha256": "a3a6be5195749c8dfb0b02bf915f9afad44bab43ccec48dd498a0970995fb43f"
+    },
+    "engine_override": {
+      "path": "ExtractESG/extraction/src/esg_extraction/pipeline/engine.py",
+      "line": 322,
+      "excerpt": "update={\"columns\": decided_columns}",
+      "sha256": "ad79c7415670cf7e8300737e4e7da07e6839a51ddeba381edbd838d57556f9f2"
+    },
+    "annual_scope_current_year": {
+      "path": "ExtractESG/extraction/src/esg_extraction/pipeline/binding.py",
+      "line": 567,
+      "excerpt": "elif period.value != str(document.reporting_year):",
+      "sha256": "24054b32e9c13886f3f5476febf26611ce65f6f64b1c689bc33c5f46df2ae566"
+    },
+    "report_year_inheritance": {
+      "path": "ExtractESG/extraction/src/esg_extraction/pipeline/binding.py",
+      "line": 187,
+      "excerpt": "state=\"inherited\",",
+      "sha256": "24054b32e9c13886f3f5476febf26611ce65f6f64b1c689bc33c5f46df2ae566"
+    },
+    "period_evidence_loss": {
+      "path": "ExtractESG/document/src/esg_document/document/evidence_service.py",
+      "line": 118,
+      "excerpt": "reporting_period_raw=str(period.year) if period.year else None,",
+      "sha256": "0501b96f6f4ee78d543c76804bc69300430371997de2fbb84ecfd7275a872c13"
+    },
+    "object_top_k": {
+      "path": "ExtractESG/document/src/esg_document/document/evidence_service.py",
+      "line": 224,
+      "excerpt": ": intent.limit",
+      "sha256": "0501b96f6f4ee78d543c76804bc69300430371997de2fbb84ecfd7275a872c13"
+    },
+    "enrichment_request": {
+      "path": "ClauseESG/src/esg_clauses/contract.py",
+      "line": 169,
+      "excerpt": "requested = self.purposes.enrichment.identity_axes",
+      "sha256": "478353941375fb0f68dc514bbbbac4904b45e84728adf215cfa39487659a9686"
+    },
+    "blocked_selection": {
+      "path": "ClauseESG/src/esg_clauses/repository.py",
+      "line": 122,
+      "excerpt": "raise ClauseRepositoryError(f\"Blocked clause contracts: {blocked}\")",
+      "sha256": "6835eb2139315ee8a8c438062a8501bfadbb08d1243d440aec11ce4bee0a0d1b"
+    },
+    "batch_metadata": {
+      "path": "ExtractESG/contracts/src/esg_reports/contract.py",
+      "line": 52,
+      "excerpt": "class BatchItem(Model):",
+      "sha256": "d14bb1c0a7a7755cdd740607eedbd74040d6e1eab884393308442ec9ae659fab"
+    },
+    "receiver_decoder": {
+      "path": "database/src/esg_database/ingestion.py",
+      "line": 17,
+      "excerpt": "def decode_archive(data):",
+      "sha256": "83a0525c6c22e6c3d69c062435f0aec4f77a561033f0a282e7d65d3fb864771f"
+    },
+    "raw_storage": {
+      "path": "database/migrations/0019_capture_ingestion.sql",
+      "line": 11,
+      "excerpt": "CREATE TABLE esg.captured_facts (",
+      "sha256": "4aecb501f42e6135fd0812d289aa0c89c74255fa04aead417e0c958e988f7887"
+    },
+    "capture_query_limit": {
+      "path": "database/runtime/worker.mjs",
+      "line": 32,
+      "excerpt": "JOIN esg.capture_export_facts e USING(source_fact_id) WHERE e.export_id=$1 ORDER BY f.source_fact_id LIMIT 1000`,[params.export_id])).rows}",
+      "sha256": "78d7c743e6ec20d98bbef51ad2529388a15015d30f09e83ad16a66cf8fbfec8f"
+    },
+    "capture_boot_legacy_dictionary": {
+      "path": "database/runtime/worker.mjs",
+      "line": 14,
+      "excerpt": "const installed = await db.query(\"SELECT to_regclass('esg.dictionary_membership') AS schema_name\");",
+      "sha256": "78d7c743e6ec20d98bbef51ad2529388a15015d30f09e83ad16a66cf8fbfec8f"
+    },
+    "init_legacy_dictionary": {
+      "path": "database/runtime/manage.mjs",
+      "line": 17,
+      "excerpt": "await seedMetricDictionary(db, dictionary);",
+      "sha256": "d0efc8922499d53ddfb58d15ffe115e826d40d3bf270c22e2934a29abfc2ce34"
+    },
+    "parquet_all_strings": {
+      "path": "database/queries/scientific_products.mjs",
+      "line": 47,
+      "excerpt": "+ 'fields=list(rows[0]) if rows else []; schema=pa.schema([pa.field(k,pa.string()) for k in fields]); '",
+      "sha256": "25737fb62af79574a743df08650ad179015c7ddb934969eb45e9da1c96d2a3fc"
+    },
+    "publication_legacy_sources": {
+      "path": "database/queries/service.mjs",
+      "line": 79,
+      "excerpt": "const data = await snapshot(db, params.dataset_version);",
+      "sha256": "df9b644464a6d2124d595db08e720843e263ab72209e00eddb22f60c389a084a"
+    },
+    "retired_import": {
+      "path": "PlatESG/backend/main.py",
+      "line": 896,
+      "excerpt": "raise HTTPException(410,{\"code\":\"legacy_production_retired\",\"message\":\"旧标准包/Core 产物入口已退役；新事实接收器尚未启用。\"})",
+      "sha256": "da417dfe485159e5ca5292863e15fb5a44e60694a9c0e9c4ef4e4bb7208b2571"
+    },
+    "console_routes": {
+      "path": "ConsoleESG/frontend/src/app/App.tsx",
+      "line": 11,
+      "excerpt": "const nav = [",
+      "sha256": "728195daf4b8e14c909a3879427f63bfbcd12af39827af42a5c398b130b7a09b"
+    },
+    "plat_pdf_roots": {
+      "path": "PlatESG/backend/main.py",
+      "line": 711,
+      "excerpt": "roots=[Path(value) for value in config.get(\"PLATESG_PUBLIC_PDF_ROOTS\",str(ROOT.parent.parent/\"pdf\")).split(os.pathsep) if value]",
+      "sha256": "da417dfe485159e5ca5292863e15fb5a44e60694a9c0e9c4ef4e4bb7208b2571"
+    },
+    "structural_supplement": {
+      "path": "ExtractESG/extraction/src/esg_extraction/pipeline/engine.py",
+      "line": 582,
+      "excerpt": "if row.row_role != \"data\" or not row.label.strip() or not row.unit_raw or not row.unit_sources:",
+      "sha256": "ad79c7415670cf7e8300737e4e7da07e6839a51ddeba381edbd838d57556f9f2"
+    },
+    "fact_identity": {
+      "path": "ExtractESG/extraction/src/esg_extraction/pipeline/binding.py",
+      "line": 375,
+      "excerpt": "\"interpretation\": interpretation_id,",
+      "sha256": "24054b32e9c13886f3f5476febf26611ce65f6f64b1c689bc33c5f46df2ae566"
+    }
+  }
+}

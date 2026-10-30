@@ -25,6 +25,8 @@ ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ExtractESG/scripts/start.sh
 
 [当前升级与逐项验收](docs/implementation/2026-10-30/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
 
+2026-10-31复审发现：生产选列仍截断历史年份；原值接收已通，新观测发布至Plat尚未闭环。见[多年份及全流程修复计划](docs/audits/2026-10-31/README.md)。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。本轮为审查与方案，尚未实施这些新修复。
+
 1,126 条声明、99 展示组、273 定量、853 定性；37 条内容未决阻塞。16/32 等集合只有编号，不产生专用路线。技术就绪、科学样本验收、可比较、可发布分别表达。`PLATESG_AUTO_PUBLISH=0`；CrawlESG 是保护区，本链路不接入。
 
 桌面入口更新：运行 `ExtractESG/.local/python/bin/python ExtractESG/scripts/install_desktop_launcher.py`。双击“启动ESG统一工作台.command”后台启动并打开Console；同一入口支持 `status --json`、`stop`、`restart`。关闭终端不停止服务。
