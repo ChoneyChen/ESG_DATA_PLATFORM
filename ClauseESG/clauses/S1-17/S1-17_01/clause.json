@@ -3,22 +3,20 @@
     "minimum_reports": 1,
     "samples": []
   },
-  "blocking_reasons": [
-    "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
-  ],
-  "clause_digest": "b9de83729cd9d4682b6ac56ab9c861763e172b4f6aa34b3191dd9d244f6142b7",
+  "blocking_reasons": [],
+  "clause_digest": "edbaab88a9fc6b08eb0e36563308750ced2680b513e441630302be132a250822",
   "clause_key": "S1-17_01",
-  "data_kind": "qualitative",
-  "definition": "按歧视类型划分的歧视事件数量表。",
+  "data_kind": "quantitative",
+  "definition": "逐类读取报告明确披露的歧视事件数量；事件类型与期间逐格保留，显式0保存，空白、斜线和未披露不造0。",
   "distinguish_from": [
     "歧视事件数量",
     "投诉数量"
   ],
   "evidence": [
     {
-      "field": "statement_context",
-      "level": "text",
-      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "field": "value",
+      "level": "cell",
+      "note": null,
       "purpose": "target_confirmation",
       "required": true
     }
@@ -26,7 +24,8 @@
   "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
-    "表格结构本身不是事件数量；已确认事件与投诉分别计数。"
+    "表格结构本身不是事件数量；已确认事件与投诉分别计数。",
+    "目录、表名和维度标题不单独构成值事实；不得补造没有披露的期间、单位、数量或陈述。"
   ],
   "group_id": "S1-17",
   "labels": {
@@ -191,13 +190,13 @@
       {
         "binding": {
           "attribute": null,
-          "key": "statement_raw",
+          "key": "value_raw",
           "source": "value"
         },
         "description": null,
         "extensions": {},
         "key": "raw_value",
-        "label": "原文陈述",
+        "label": "原值",
         "required_for_confirmation": true,
         "role": "raw_value",
         "type_hint": "text",
@@ -247,6 +246,66 @@
         "role": "provenance",
         "type_hint": "text",
         "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "population",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "population",
+        "label": "population",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "incident_definition",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "incident_definition",
+        "label": "incident_definition",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "incident_type",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "incident_type",
+        "label": "incident_type",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
       }
     ],
     "include_additional_dimensions": true,
@@ -272,7 +331,7 @@
           "field": "source_label"
         }
       ],
-      "view": "statements"
+      "view": "table"
     },
     "row_axes": [
       "reporting_entity",
@@ -284,19 +343,25 @@
   },
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": null,
       "axes": {},
-      "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "entity": null,
+      "label_zh": "报告实际披露",
       "method": null,
-      "period": "annual",
+      "period": null,
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-665e87999ed0b6d4",
-      "value_role": "context"
+      "scope_id": "scope-ee7b197d6fb7ee12",
+      "value_role": null
     }
   ],
   "provenance": {
+    "content_review": {
+      "basis": "repository_definition_review",
+      "date": "2026-10-31",
+      "replaces_digest": "b9de83729cd9d4682b6ac56ab9c861763e172b4f6aa34b3191dd9d244f6142b7",
+      "scientific_acceptance": "not_evaluated"
+    },
     "original_id": "S1-17_01",
     "paragraph": "103 a",
     "source_refs": [
@@ -344,33 +409,36 @@
       "missing_action": "retain"
     }
   },
-  "readiness": "blocked",
+  "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "按歧视类型划分的歧视事件数量表。"
+      "逐类读取报告明确披露的歧视事件数量；事件类型与期间逐格保留，显式0保存，空白、斜线和未披露不造0。",
+      "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
-    "operator": "statement",
+    "operator": "numeric_label",
     "options": {
-      "value_role": "context"
+      "value_role": "actual"
     },
-    "rules": [],
+    "rules": [
+      {
+        "allowed": [
+          "count"
+        ],
+        "flag": null,
+        "if_terms": [],
+        "params": {
+          "allow_missing": true
+        },
+        "reason": null,
+        "rule": "unit_dimension",
+        "scope": "text",
+        "terms": [],
+        "unless_terms": []
+      }
+    ],
     "schema_version": "clause-reading-1.1",
-    "vocabulary": {
-      "component_prefix": [
-        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
-      ],
-      "other_member": [
-        "其他",
-        "其它",
-        "re:^other\\b",
-        "others"
-      ],
-      "subject_generic": [
-        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
-        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
-      ]
-    }
+    "vocabulary": {}
   },
   "relationships": {
     "child_excludes": [],
@@ -399,22 +467,18 @@
     "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
-      "Number of incidents of discrimination [table]",
-      "按类型划分的歧视事件数量（表）",
-      "按歧视类型划分的歧视事件数量表；表结构只承载类型与计数列，不单独形成带值事实。"
+      "歧视事件",
+      "事件数量",
+      "incidents of discrimination"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
-      "text",
-      "table"
+      "table",
+      "text"
     ],
     "structural_anchors": [],
-    "topic_term_groups": [
-      [
-        "Number of incidents of discrimination [table]"
-      ]
-    ]
+    "topic_term_groups": []
   },
   "schema_version": "clause-contract-1.3",
   "value": {
@@ -430,8 +494,8 @@
       "incident_definition",
       "incident_type"
     ],
-    "unit_dimension": null,
+    "unit_dimension": "count",
     "value_origin": "reported",
-    "value_role": "context"
+    "value_role": "actual"
   }
 }

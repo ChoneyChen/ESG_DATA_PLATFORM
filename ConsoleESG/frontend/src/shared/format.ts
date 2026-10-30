@@ -13,6 +13,7 @@ export const labels: Record<string, string> = {
   interrupted: "中断",
   ready: "可提取",
   blocked: "待完善",
+  structural: "结构描述",
   quantitative: "定量",
   qualitative: "定性",
   assertion: "定性",

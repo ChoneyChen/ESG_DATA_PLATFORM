@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "ClauseRelationships": {
+      "additionalProperties": false,
+      "properties": {
+        "child_excludes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Child Excludes",
+          "type": "array"
+        },
+        "child_terms": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Child Terms",
+          "type": "array"
+        },
+        "parent_clause": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Clause"
+        },
+        "related_clauses": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Related Clauses",
+          "type": "array"
+        },
+        "share_partner": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Share Partner"
+        },
+        "siblings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Siblings",
+          "type": "array"
+        }
+      },
+      "title": "ClauseRelationships",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clause_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Clause Digest",
+      "type": "string"
+    },
+    "clause_key": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$",
+      "title": "Clause Key",
+      "type": "string"
+    },
+    "definition": {
+      "minLength": 1,
+      "title": "Definition",
+      "type": "string"
+    },
+    "disposition_reason": {
+      "minLength": 1,
+      "title": "Disposition Reason",
+      "type": "string"
+    },
+    "group_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$",
+      "title": "Group Id",
+      "type": "string"
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Labels",
+      "type": "object"
+    },
+    "member_clause_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Member Clause Keys",
+      "type": "array"
+    },
+    "optional_axes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Optional Axes",
+      "type": "array"
+    },
+    "provenance": {
+      "additionalProperties": true,
+      "title": "Provenance",
+      "type": "object"
+    },
+    "relationships": {
+      "$ref": "#/$defs/ClauseRelationships"
+    },
+    "schema_version": {
+      "const": "clause-descriptor-1.0",
+      "default": "clause-descriptor-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "clause_key",
+    "group_id",
+    "labels",
+    "definition",
+    "disposition_reason",
+    "clause_digest"
+  ],
+  "title": "ClauseDescriptor",
+  "type": "object"
+}

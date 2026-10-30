@@ -33,3 +33,18 @@ def test_new_clause_has_one_structure_and_stays_blocked_until_explicitly_complet
         assert client.get('/api/clause-groups').json()['groups'][0]['group_id']=='CUSTOM'
         with pytest.raises(ClauseRepositoryError):repo.select(['CUSTOM_01'])
         assert client.put('/api/clauses/CUSTOM_01',json={'clause':body}).status_code==409
+
+
+def test_structure_navigation_and_eligibility_are_distinct_from_value_execution(tmp_path,documents):
+    from pathlib import Path
+    root=Path(__file__).resolve().parents[3]/'ClauseESG/clauses'
+    repo=ClauseRepository(root)
+    app=create_app(lambda:(repo,RunStore(tmp_path/'runs.sqlite3'),FileArtifactPort(tmp_path/'artifacts'),documents))
+    with TestClient(app) as client:
+        detail=client.get('/api/clauses/E2-4_01')
+        assert detail.status_code==200 and detail.json()['schema_version']=='clause-descriptor-1.0'
+        assert 'data_kind' not in detail.json()
+        assert client.get('/api/clauses/E2-4_01/reading-card').status_code==409
+        assert client.get('/api/clauses/E2-4_01/organization').status_code==409
+        options=client.post('/api/clause-selection-options',json=['E2-4_01','E2-4_02']).json()
+        assert options['eligible']==['E2-4_02'] and options['excluded'][0]['status']=='structural'

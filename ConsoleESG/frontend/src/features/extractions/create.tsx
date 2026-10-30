@@ -8,6 +8,7 @@ import type {
   ExtractionBudget,
   Clause,
 } from "../../shared/contracts";
+import { EXTRACTION_BUDGET_DEFAULTS, EXTRACTION_BUDGET_LIMITS } from "../../shared/contracts";
 import { write } from "../../shared/api";
 import { useResource, invalidate } from "../../shared/resource";
 import {
@@ -28,12 +29,6 @@ type Preview = {
   calls_model: false;
 };
 type Selection = { selections: Record<string, string[]> };
-const defaults: ExtractionBudget = {
-  max_model_calls: 128,
-  max_objects_per_clause: 8,
-  max_output_tokens: 4096,
-  timeout_seconds: 14400,
-};
 export function CreateExtractionPage({
   initialReport,
 }: {
@@ -53,7 +48,7 @@ export function CreateExtractionPage({
     [name, setName] = useState("条款提取"),
     [query, setQuery] = useState(""),
     [group, setGroup] = useState(""),
-    [budget, setBudget] = useState(defaults),
+    [budget, setBudget] = useState<ExtractionBudget>(EXTRACTION_BUDGET_DEFAULTS),
     [advanced, setAdvanced] = useState(false);
   const alive = useRef(true);
   useEffect(() => {
@@ -281,11 +276,11 @@ export function CreateExtractionPage({
                     <span>
                       <strong>{c.title}</strong>
                       <small>
-                        {c.clause_key} · {label(c.data_kind)}
+                        {c.clause_key} · {c.entry_kind === "structure" ? "结构描述" : label(c.data_kind)}
                       </small>
                     </span>
                     {c.readiness !== "ready" && (
-                      <Badge tone="warning">待完善</Badge>
+                      <Badge tone={c.readiness === "structural" ? "neutral" : "warning"}>{label(c.readiness)}</Badge>
                     )}
                   </label>
                 ))}
@@ -302,17 +297,17 @@ export function CreateExtractionPage({
               <div className="form-grid">
                 {(
                   [
-                    ["max_model_calls", "模型调用上限", 1, 2000],
-                    ["max_objects_per_clause", "每条款证据对象上限", 1, 100],
-                    ["max_output_tokens", "单次输出 token 上限", 128, 8192],
-                    ["timeout_seconds", "最长运行秒数", 1, 86400],
+                    ["max_model_calls", "模型调用上限"],
+                    ["max_objects_per_clause", "每条款证据对象上限"],
+                    ["max_output_tokens", "单次输出 token 上限"],
+                    ["timeout_seconds", "最长运行秒数"],
                   ] as const
-                ).map(([key, title, min, max]) => (
+                ).map(([key, title]) => (
                   <Field label={title} key={key}>
                     <input
                       type="number"
-                      min={min}
-                      max={max}
+                      min={EXTRACTION_BUDGET_LIMITS[key].minimum}
+                      max={EXTRACTION_BUDGET_LIMITS[key].maximum}
                       value={budget[key]}
                       onChange={(e) =>
                         setBudget({ ...budget, [key]: Number(e.target.value) })

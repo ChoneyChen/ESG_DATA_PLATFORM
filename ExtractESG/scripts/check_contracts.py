@@ -11,6 +11,7 @@ for name in ("contracts", "shared_runtime"):
 from esg_reports.contract import ReportResource, BatchManifest
 from esg_clauses.repository import ClauseRepository
 from esg_clauses.contract import ClauseContract
+from esg_clauses.descriptor import ClauseDescriptor, ClauseRecord
 from esg_contracts.facts import SourceFact
 from esg_contracts.results import FactBundle
 from esg_contracts.exports import ExportManifest, IngestionReceipt
@@ -43,6 +44,8 @@ def main():
         "report-resource": ReportResource,
         "report-resource-batch": BatchManifest,
         "clause": ClauseContract,
+        "clause-descriptor": ClauseDescriptor,
+        "clause-record": ClauseRecord,
         "quantitative": QuantitativeValue,
         "qualitative": QualitativeValue,
         "source-fact": SourceFact,
@@ -58,7 +61,7 @@ def main():
             )
             + "\n"
         )
-        path = ROOT.parent / "ClauseESG/schemas/clause.schema.json" if name == "clause" else target / (name + ".schema.json")
+        path = ROOT.parent / "ClauseESG/schemas" / (name + ".schema.json") if name.startswith("clause") else target / (name + ".schema.json")
         if args.write:
             path.write_text(body, encoding="utf-8")
         elif not path.is_file() or path.read_text() != body:
@@ -68,6 +71,8 @@ def main():
         json.dumps(
             {
                 "clauses": len(rows),
+                "value_clauses": sum(r.get("entry_kind", "value") == "value" for r in rows),
+                "structure_descriptors": sum(r.get("entry_kind") == "structure" for r in rows),
                 "blocked": sum(r["readiness"] == "blocked" for r in rows),
                 "selection_sizes": {k: len(v) for k, v in repo.selections().items()},
                 "schema_files": len(schemas),

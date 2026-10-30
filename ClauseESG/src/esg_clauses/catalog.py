@@ -9,13 +9,14 @@ class ClauseSummary(StrictModel):
     clause_key: str
     group_id: str
     title: str
-    data_kind: Literal["quantitative", "qualitative"]
-    readiness: Literal["ready", "blocked"]
+    data_kind: Literal["quantitative", "qualitative"] | None
+    entry_kind: Literal["value", "structure"] = "value"
+    readiness: Literal["ready", "blocked", "structural"]
     clause_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
 
 
 class ClauseCatalog(StrictModel):
-    schema_version: Literal["clause-catalog-3.0"] = "clause-catalog-3.0"
+    schema_version: Literal["clause-catalog-3.0", "clause-catalog-4.0"] = "clause-catalog-4.0"
     clauses: list[ClauseSummary]
 
 

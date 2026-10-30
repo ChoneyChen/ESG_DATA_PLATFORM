@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type {
   Clause,
+  ClauseRecord,
   ClauseCatalog,
   ClauseGroup,
 } from "../../shared/contracts";
@@ -31,7 +32,7 @@ export function ClausesPage({
       "/api/clause-groups",
     ),
     catalog = useResource<ClauseCatalog>("extraction", "/api/clauses"),
-    detail = useResource<Clause>(
+    detail = useResource<ClauseRecord>(
       "extraction",
       clauseKey ? "/api/clauses/" + segment(clauseKey) : null,
     );
@@ -41,7 +42,9 @@ export function ClausesPage({
     [edit, setEdit] = useState(false),
     [adding, setAdding] = useState(false);
   const group = groups.data?.groups.find((g) => g.group_id === groupId),
-    clause = detail.data;
+    record = detail.data,
+    clause = record && "data_kind" in record ? record : undefined,
+    descriptor = record && "disposition_reason" in record ? record : undefined;
   const all = catalog.data?.clauses || [],
     rows = all.filter(
       (c) =>
@@ -74,7 +77,7 @@ export function ClausesPage({
         <Empty title="请返回条款目录重新选择" />
       </>
     );
-  if (clause && clause.group_id !== groupId)
+  if (record && record.group_id !== groupId)
     return (
       <>
         <PageHeader
@@ -86,7 +89,7 @@ export function ClausesPage({
           action={
             <a
               className="button"
-              href={href("clauses", clause.group_id, clause.clause_key)}
+              href={href("clauses", record.group_id, record.clause_key)}
             >
               查看条款
             </a>
@@ -99,7 +102,7 @@ export function ClausesPage({
       <PageHeader
         title={
           clauseKey
-            ? clause?.labels.zh || clause?.labels.en || clauseKey
+            ? record?.labels.zh || record?.labels.en || clauseKey
             : groupId
               ? group?.title || groupId
               : "条款"
@@ -196,7 +199,7 @@ export function ClausesPage({
                   <div>
                     <strong>{c.title}</strong>
                     <small>
-                      {c.clause_key} · {label(c.data_kind)}
+                      {c.clause_key} · {c.entry_kind === "structure" ? "结构描述" : label(c.data_kind)}
                     </small>
                   </div>
                   <Badge tone={tone(c.readiness)}>{label(c.readiness)}</Badge>
@@ -208,6 +211,24 @@ export function ClausesPage({
             <Empty title="没有符合筛选的条款" />
           )}
         </>
+      ) : descriptor ? (
+        <section className="section">
+          <Badge>结构描述</Badge>
+          <p className="lead">{descriptor.definition}</p>
+          <p>{descriptor.disposition_reason}</p>
+          <h2>相关独立条款</h2>
+          {descriptor.member_clause_keys?.length ? (
+            <div className="object-list">
+              {descriptor.member_clause_keys.map((key) => {
+                const member = all.find((c) => c.clause_key === key);
+                return member ? <a className="object-row" key={key} href={href("clauses", member.group_id, key)}>
+                  <div><strong>{member.title}</strong><small>{key}</small></div><span>→</span>
+                </a> : null;
+              })}
+            </div>
+          ) : <p className="muted">按具体值目标建立独立条款后，可在此登记关系。</p>}
+          <p className="field-help">关系用于导航；选择结构不触发其他条款提取。</p>
+        </section>
       ) : !clause ? (
         <Loading />
       ) : (
@@ -217,6 +238,7 @@ export function ClausesPage({
             <Badge tone={tone(clause.readiness)}>
               {label(clause.readiness)}
             </Badge>
+            {!clause.acceptance?.samples?.length && <Badge>待样本验收</Badge>}
             <Badge>{label(clause.organization.curation || "template")}</Badge>
             {clause.value.canonical_unit && (
               <span>{clause.value.canonical_unit}</span>

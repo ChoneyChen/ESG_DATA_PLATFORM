@@ -37,7 +37,10 @@ def test_every_clause_is_parallel_and_priority32_owns_local_fields(repository):
     all_rows=repository.catalog()['clauses']
     for row in all_rows:
         c=repository.get(row['clause_key'])
-        c.organization.validate_kind(c.data_kind)
+        if row.get('entry_kind') == 'structure':
+            assert c.data_kind is None and not hasattr(c, 'organization')
+        else:
+            c.organization.validate_kind(c.data_kind)
     chosen=repository.select(selection='priority32')
     assert len(chosen)==32 and all(c.organization.curation=='sample' for c in chosen.values())
     assert len({c.schema_version for c in chosen.values()})==1

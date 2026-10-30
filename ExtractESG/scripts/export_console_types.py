@@ -10,6 +10,7 @@ sys.path.insert(0, str(ROOT / "contracts/src"))
 sys.path.insert(0, str(ROOT.parent / "ConsoleESG/backend/src"))
 from esg_console.monitor import MonitorSnapshot
 from esg_clauses.contract import ClauseContract
+from esg_clauses.descriptor import ClauseRecord, ClauseDescriptor
 from esg_clauses.catalog import ClauseCatalog, ClauseGroup
 from esg_reports.contract import (
     ReportResource,
@@ -42,6 +43,8 @@ MODELS = {
     "FactBundle": FactBundle,
     "TaskObservation": TaskObservation,
     "Clause": ClauseContract,
+    "ClauseRecord": ClauseRecord,
+    "ClauseDescriptor": ClauseDescriptor,
     "ClauseCatalog": ClauseCatalog,
     "ClauseGroup": ClauseGroup,
     "ReportResource": ReportResource,
@@ -125,6 +128,9 @@ def generate():
                 "export type " + name + "_" + key + " = " + render(body, name) + ";"
             )
         rows.extend(["export type " + name + " = " + render(schema, name) + ";", ""])
+    rows.append("export const EXTRACTION_BUDGET_DEFAULTS: ExtractionBudget = " + json.dumps(PipelineBudget().model_dump()) + ";")
+    limits = {key: {bound: value[bound] for bound in ("minimum", "maximum")} for key, value in PipelineBudget.model_json_schema()["properties"].items()}
+    rows.append("export const EXTRACTION_BUDGET_LIMITS = " + json.dumps(limits) + " as const;")
     return "\n".join(rows)
 
 

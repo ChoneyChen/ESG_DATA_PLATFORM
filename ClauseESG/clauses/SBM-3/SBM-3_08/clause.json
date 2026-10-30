@@ -3,19 +3,17 @@
     "minimum_reports": 1,
     "samples": []
   },
-  "blocking_reasons": [
-    "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
-  ],
-  "clause_digest": "cdcaad244cd0db3dacb496936a0283a14920ede41b0362063068bb3f50648882",
+  "blocking_reasons": [],
+  "clause_digest": "369d2aef544252dbe9d44b1a4e6c6129cb2e53a173b2a3c3688caa4eb807ab7d",
   "clause_key": "SBM-3_08",
   "data_kind": "qualitative",
-  "definition": "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements。当前财务影响及资产负债调整风险。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
+  "definition": "读取重大风险机会的当前财务影响及下期资产负债重大调整风险说明；保留财务项和期间，不以必须含金额为准入门槛。",
   "distinguish_from": [],
   "evidence": [
     {
       "field": "statement_context",
       "level": "text",
-      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "note": null,
       "purpose": "target_confirmation",
       "required": true
     }
@@ -23,7 +21,8 @@
   "exact_labels": [],
   "exclusions": [
     "影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
-    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "目录、表名和维度标题不单独构成值事实；不得补造没有披露的期间、单位、数量或陈述。"
   ],
   "group_id": "SBM-3",
   "labels": {
@@ -244,6 +243,66 @@
         "role": "provenance",
         "type_hint": "text",
         "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "risk_type",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "risk_type",
+        "label": "risk_type",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "time_horizon",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "time_horizon",
+        "label": "time_horizon",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "scenario",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "scenario",
+        "label": "scenario",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "sustainability_topic",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "sustainability_topic",
+        "label": "sustainability_topic",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
       }
     ],
     "include_additional_dimensions": true,
@@ -281,19 +340,25 @@
   },
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": null,
       "axes": {},
-      "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "entity": null,
+      "label_zh": "报告实际披露",
       "method": null,
-      "period": "annual",
+      "period": null,
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
-      "value_role": "actual"
+      "scope_id": "scope-ee7b197d6fb7ee12",
+      "value_role": null
     }
   ],
   "provenance": {
+    "content_review": {
+      "basis": "repository_definition_review",
+      "date": "2026-10-31",
+      "replaces_digest": "cdcaad244cd0db3dacb496936a0283a14920ede41b0362063068bb3f50648882",
+      "scientific_acceptance": "not_evaluated"
+    },
     "original_id": "SBM-3_08",
     "paragraph": "48 d",
     "source_refs": [
@@ -346,11 +411,12 @@
       "missing_action": "retain"
     }
   },
-  "readiness": "blocked",
+  "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements。当前财务影响及资产负债调整风险。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
+      "读取重大风险机会的当前财务影响及下期资产负债重大调整风险说明；保留财务项和期间，不以必须含金额为准入门槛。",
+      "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
     "options": {
@@ -358,21 +424,7 @@
     },
     "rules": [],
     "schema_version": "clause-reading-1.1",
-    "vocabulary": {
-      "component_prefix": [
-        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
-      ],
-      "other_member": [
-        "其他",
-        "其它",
-        "re:^other\\b",
-        "others"
-      ],
-      "subject_generic": [
-        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
-        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
-      ]
-    }
+    "vocabulary": {}
   },
   "relationships": {
     "child_excludes": [],
@@ -398,15 +450,13 @@
       "财政年度"
     ],
     "excluded_object_terms": [],
-    "expected_candidate_types": [
-      "quantity",
-      "number"
-    ],
+    "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
-      "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements",
-      "当前财务影响及资产负债调整风险",
-      "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements。当前财务影响及资产负债调整风险。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
+      "当前财务影响",
+      "资产负债",
+      "current financial effects",
+      "carrying amounts"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -415,12 +465,7 @@
       "table"
     ],
     "structural_anchors": [],
-    "topic_term_groups": [
-      [
-        "Disclosure of current financial effects of material risks and opportunities on financial position, financial performance and cash flows and material risks and opportunities for which there is significant risk of material adjustment within next annual reporting period to carrying amounts of assets and liabilities reported in related financial statements",
-        "当前财务影响及资产负债调整风险"
-      ]
-    ]
+    "topic_term_groups": []
   },
   "schema_version": "clause-contract-1.3",
   "value": {

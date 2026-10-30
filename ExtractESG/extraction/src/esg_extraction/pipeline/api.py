@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field, ConfigDict
 from esg_clauses.contract import ClauseContract
+from esg_clauses.descriptor import ClauseDescriptor
 from esg_clauses.catalog import ClauseCatalog, ClauseGroup
 from esg_clauses.repository import ClauseRepository, ClauseRepositoryError
 from esg_contracts.facts import RunRequest
@@ -31,7 +32,7 @@ class CreateRun(BaseModel):
 
 class SaveClause(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    clause: ClauseContract
+    clause: ClauseContract | ClauseDescriptor
     expected_digest: str | None = None
 
 
@@ -177,7 +178,7 @@ def create_app(resource_factory=resources):
         )
 
     @app.post("/api/clauses/validate")
-    def validate_clause(clause: ClauseContract):
+    def validate_clause(clause: ClauseContract | ClauseDescriptor):
         return {
             "valid": True,
             "scientific_acceptance": False,
@@ -204,6 +205,8 @@ def create_app(resource_factory=resources):
     @app.get("/api/clauses/{key}/organization")
     def clause_organization(key: str):
         clause = resource_factory()[0].get(key)
+        if isinstance(clause, ClauseDescriptor):
+            raise HTTPException(409, "Structure descriptors have no value output; select independent member clauses")
         return {
             "clause_key": key,
             "clause_digest": clause.clause_digest,
@@ -215,7 +218,14 @@ def create_app(resource_factory=resources):
 
     @app.get("/api/clauses/{key}/reading-card")
     def reading_card(key: str):
-        return resource_factory()[0].get(key).reading_card()
+        clause = resource_factory()[0].get(key)
+        if isinstance(clause, ClauseDescriptor):
+            raise HTTPException(409, "Structure descriptors are not reading targets")
+        return clause.reading_card()
+
+    @app.post("/api/clause-selection-options")
+    def selection_options(keys: list[str] = Body(..., min_length=1, max_length=2000)):
+        return resource_factory()[0].selection_options(keys)
 
     @app.put("/api/clauses/{key}")
     def save(key: str, request: SaveClause):

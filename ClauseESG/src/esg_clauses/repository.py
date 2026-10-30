@@ -9,6 +9,7 @@ from pathlib import Path
 import tempfile
 from .base import digest
 from .contract import ClauseContract
+from .descriptor import ClauseDescriptor, parse_record
 
 
 class ClauseRepositoryError(ValueError):
@@ -68,9 +69,7 @@ class ClauseRepository:
         path = (self.root / row["path"] / "clause.json").resolve()
         if not path.is_relative_to(self.root):
             raise ClauseRepositoryError("Clause path escapes repository")
-        clause = ClauseContract.model_validate_json(
-            path.read_text(encoding="utf-8")
-        ).verify()
+        clause = parse_record(json.loads(path.read_text(encoding="utf-8")))
         if clause.clause_key != key or clause.clause_digest != row["clause_digest"]:
             raise ClauseRepositoryError(
                 "Clause identity or content differs from its index; reindex explicitly"
@@ -122,7 +121,19 @@ class ClauseRepository:
                 raise ClauseRepositoryError(f"Blocked clause contracts: {blocked}")
             return clauses
 
+    def selection_options(self, keys):
+        """An explicit preview; never execute or silently skip ineligible entries."""
+        with self._locked():
+            catalog = self._catalog()
+            rows = [self._get(key, catalog) for key in dict.fromkeys(keys)]
+            return {"eligible": [row.clause_key for row in rows if row.readiness == "ready"],
+                    "excluded": [{"clause_key": row.clause_key, "status": row.readiness,
+                        "reasons": [row.disposition_reason] if isinstance(row, ClauseDescriptor) else row.blocking_reasons}
+                        for row in rows if row.readiness != "ready"], "executes": False}
+
     def freeze(self, clauses):
+        if any(not isinstance(clause, ClauseContract) or clause.readiness != "ready" for clause in clauses.values()):
+            raise ClauseRepositoryError("Only executable value clauses can be frozen for extraction")
         payload = {
             "schema_version": "clause-selection-1.0",
             "clauses": {
@@ -169,9 +180,7 @@ class ClauseRepository:
                 raise ClauseRepositoryError("Clause path escapes its owner")
             path = directory / "clause.json"
             if path.is_file():
-                current = ClauseContract.model_validate_json(
-                    path.read_text(encoding="utf-8")
-                ).verify()
+                current = parse_record(json.loads(path.read_text(encoding="utf-8")))
                 if expected_digest != current.clause_digest:
                     raise ClauseRepositoryError("Clause changed; reload before saving")
             elif expected_digest is not None:
@@ -189,9 +198,7 @@ class ClauseRepository:
         for path in sorted(self.root.glob("*/*/clause.json")):
             if not path.resolve().is_relative_to(self.root):
                 raise ClauseRepositoryError("Clause path escapes repository")
-            clause = ClauseContract.model_validate_json(
-                path.read_text(encoding="utf-8")
-            ).verify()
+            clause = parse_record(json.loads(path.read_text(encoding="utf-8")))
             if (
                 path.parent.name != clause.clause_key
                 or path.parent.parent.name != clause.group_id
@@ -203,6 +210,7 @@ class ClauseRepository:
                     "group_id": clause.group_id,
                     "title": clause.title,
                     "data_kind": clause.data_kind,
+                    "entry_kind": "structure" if isinstance(clause, ClauseDescriptor) else "value",
                     "readiness": clause.readiness,
                     "clause_digest": clause.clause_digest,
                     "path": path.parent.relative_to(self.root).as_posix(),
@@ -211,6 +219,13 @@ class ClauseRepository:
         if len({row["clause_key"] for row in rows}) != len(rows):
             raise ClauseRepositoryError("Duplicate clause identity")
         known = {row["clause_key"] for row in rows}
+        for row in rows:
+            record = self._get(row["clause_key"], {"clauses": rows})
+            if isinstance(record, ClauseDescriptor):
+                if (len(set(record.member_clause_keys)) != len(record.member_clause_keys)
+                    or set(record.member_clause_keys) - known
+                    or record.clause_key in record.member_clause_keys):
+                    raise ClauseRepositoryError("Structure members must be distinct existing independent clauses")
         for key, selected in self._selections().items():
             if len(set(selected)) != len(selected) or set(selected) - known:
                 raise ClauseRepositoryError(f"Invalid clause selection {key}")
@@ -224,6 +239,6 @@ class ClauseRepository:
                 ],
             }
             _write_json(self.root / group_id / "group.json", body)
-        payload = {"schema_version": "clause-catalog-3.0", "clauses": rows}
+        payload = {"schema_version": "clause-catalog-4.0", "clauses": rows}
         _write_json(self.root / "_catalog.json", payload)
         return payload

@@ -3,19 +3,17 @@
     "minimum_reports": 1,
     "samples": []
   },
-  "blocking_reasons": [
-    "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
-  ],
-  "clause_digest": "b673fce084ee84d7fcb2b6edfcf42a3a4649edb1e8e48f6694f926b1f91b277d",
+  "blocking_reasons": [],
+  "clause_digest": "a1f7c5785384b603bcd26444e114b06ee0286fc42ad8db561fcd28cfac5c8735",
   "clause_key": "E2-5_01",
-  "data_kind": "qualitative",
-  "definition": "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern。关注物质按危害类别分解的披露结构。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+  "data_kind": "quantitative",
+  "definition": "逐行读取关注物质在生产中生成、使用或采购的披露数量，保留物质/危害类别和流向；每行各期间分别保存，重叠类别与合计不求和。",
   "distinguish_from": [],
   "evidence": [
     {
-      "field": "statement_context",
-      "level": "text",
-      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "field": "value",
+      "level": "cell",
+      "note": null,
       "purpose": "target_confirmation",
       "required": true
     }
@@ -23,7 +21,8 @@
   "exact_labels": [],
   "exclusions": [
     "以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
-    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "目录、表名和维度标题不单独构成值事实；不得补造没有披露的期间、单位、数量或陈述。"
   ],
   "group_id": "E2-5",
   "labels": {
@@ -188,13 +187,13 @@
       {
         "binding": {
           "attribute": null,
-          "key": "statement_raw",
+          "key": "value_raw",
           "source": "value"
         },
         "description": null,
         "extensions": {},
         "key": "raw_value",
-        "label": "原文陈述",
+        "label": "原值",
         "required_for_confirmation": true,
         "role": "raw_value",
         "type_hint": "text",
@@ -244,6 +243,111 @@
         "role": "provenance",
         "type_hint": "text",
         "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "unit_raw",
+          "source": "value"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "unit_raw",
+        "label": "原单位",
+        "required_for_confirmation": false,
+        "role": "unit",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "substance",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "substance",
+        "label": "substance",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "hazard_class",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "hazard_class",
+        "label": "hazard_class",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "concern_class",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "concern_class",
+        "label": "concern_class",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "material_flow",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "material_flow",
+        "label": "material_flow",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "aggregation_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "aggregation_role",
+        "label": "aggregation_role",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "flow",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "flow",
+        "label": "flow",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
       }
     ],
     "include_additional_dimensions": true,
@@ -269,7 +373,7 @@
           "field": "source_label"
         }
       ],
-      "view": "statements"
+      "view": "table"
     },
     "row_axes": [
       "reporting_entity",
@@ -281,19 +385,25 @@
   },
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": null,
       "axes": {},
-      "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "entity": null,
+      "label_zh": "报告实际披露",
       "method": null,
-      "period": "annual",
+      "period": null,
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-a859ef3029fef91e",
-      "value_role": "structure"
+      "scope_id": "scope-ee7b197d6fb7ee12",
+      "value_role": null
     }
   ],
   "provenance": {
+    "content_review": {
+      "basis": "repository_definition_review",
+      "date": "2026-10-31",
+      "replaces_digest": "b673fce084ee84d7fcb2b6edfcf42a3a4649edb1e8e48f6694f926b1f91b277d",
+      "scientific_acceptance": "not_evaluated"
+    },
     "original_id": "E2-5_01",
     "paragraph": "34",
     "source_refs": [
@@ -335,7 +445,8 @@
         "hazard_class",
         "concern_class",
         "material_flow",
-        "aggregation_role"
+        "aggregation_role",
+        "flow"
       ],
       "missing_action": "annotate"
     },
@@ -348,33 +459,20 @@
       "missing_action": "retain"
     }
   },
-  "readiness": "blocked",
+  "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern。关注物质按危害类别分解的披露结构。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
+      "逐行读取关注物质在生产中生成、使用或采购的披露数量，保留物质/危害类别和流向；每行各期间分别保存，重叠类别与合计不求和。",
+      "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
-    "operator": "statement",
+    "operator": "numeric_label",
     "options": {
-      "value_role": "structure"
+      "value_role": "actual"
     },
     "rules": [],
     "schema_version": "clause-reading-1.1",
-    "vocabulary": {
-      "component_prefix": [
-        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
-      ],
-      "other_member": [
-        "其他",
-        "其它",
-        "re:^other\\b",
-        "others"
-      ],
-      "subject_generic": [
-        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
-        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
-      ]
-    }
+    "vocabulary": {}
   },
   "relationships": {
     "child_excludes": [],
@@ -403,23 +501,19 @@
     "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
-      "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern",
-      "关注物质按危害类别分解的披露结构",
-      "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern。关注物质按危害类别分解的披露结构。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
+      "关注物质",
+      "危害类别",
+      "substances of concern",
+      "hazard classes"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
     "source_priority": [
-      "text",
-      "table"
+      "table",
+      "text"
     ],
     "structural_anchors": [],
-    "topic_term_groups": [
-      [
-        "Total amount of substances of concern that are generated or used during production or that are procured, breakdown by main hazard classes of substances of concern",
-        "关注物质按危害类别分解的披露结构"
-      ]
-    ]
+    "topic_term_groups": []
   },
   "schema_version": "clause-contract-1.3",
   "value": {
@@ -443,6 +537,6 @@
     ],
     "unit_dimension": null,
     "value_origin": "reported",
-    "value_role": "structure"
+    "value_role": "actual"
   }
 }

@@ -3,26 +3,25 @@
     "minimum_reports": 1,
     "samples": []
   },
-  "blocking_reasons": [
-    "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
-  ],
-  "clause_digest": "644269dfd03ce1ccb20bda839518d181cae5aa6463a93e8ebac6f4e2080eecac",
+  "blocking_reasons": [],
+  "clause_digest": "eda7073820bcca689e135f381510eb1d70ad22c9533237e9b31ec3faa58b05dd",
   "clause_key": "E2-4_18",
   "data_kind": "qualitative",
-  "definition": "实际环境绩效与 BAT-AEL 比较",
+  "definition": "读取报告对实际环境绩效与BAT-AEL的原文比较及适用条件；实际量与参考限值是不同角色，不由模型另作合规判断。",
   "distinguish_from": [],
   "evidence": [
     {
       "field": "statement_context",
       "level": "text",
-      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "note": null,
       "purpose": "target_confirmation",
       "required": true
     }
   ],
   "exact_labels": [],
   "exclusions": [
-    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "目录、表名和维度标题不单独构成值事实；不得补造没有披露的期间、单位、数量或陈述。"
   ],
   "group_id": "E2-4",
   "labels": {
@@ -243,6 +242,36 @@
         "role": "provenance",
         "type_hint": "text",
         "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "facility_name",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "facility_name",
+        "label": "facility_name",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "parameter_or_pollutant",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "parameter_or_pollutant",
+        "label": "parameter_or_pollutant",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
       }
     ],
     "include_additional_dimensions": true,
@@ -280,19 +309,25 @@
   },
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": null,
       "axes": {},
-      "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "entity": null,
+      "label_zh": "报告实际披露",
       "method": null,
-      "period": "annual",
+      "period": null,
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-665e87999ed0b6d4",
-      "value_role": "context"
+      "scope_id": "scope-ee7b197d6fb7ee12",
+      "value_role": null
     }
   ],
   "provenance": {
+    "content_review": {
+      "basis": "repository_definition_review",
+      "date": "2026-10-31",
+      "replaces_digest": "644269dfd03ce1ccb20bda839518d181cae5aa6463a93e8ebac6f4e2080eecac",
+      "scientific_acceptance": "not_evaluated"
+    },
     "original_id": "E2-4_18",
     "paragraph": "AR 25(c)",
     "source_refs": [
@@ -341,11 +376,12 @@
       "missing_action": "retain"
     }
   },
-  "readiness": "blocked",
+  "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "实际环境绩效与 BAT-AEL 比较"
+      "读取报告对实际环境绩效与BAT-AEL的原文比较及适用条件；实际量与参考限值是不同角色，不由模型另作合规判断。",
+      "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
     "options": {
@@ -353,21 +389,7 @@
     },
     "rules": [],
     "schema_version": "clause-reading-1.1",
-    "vocabulary": {
-      "component_prefix": [
-        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
-      ],
-      "other_member": [
-        "其他",
-        "其它",
-        "re:^other\\b",
-        "others"
-      ],
-      "subject_generic": [
-        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
-        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
-      ]
-    }
+    "vocabulary": {}
   },
   "relationships": {
     "child_excludes": [],
@@ -380,25 +402,12 @@
   "retrieval": {
     "context_terms": [],
     "excluded_object_terms": [],
-    "expected_candidate_types": [
-      "quantity",
-      "number"
-    ],
+    "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
-      "Disclosure of actual performance and comparison of environmental performance against emission levels associated with best available techniques (BAT-AEL) as described in EU-BAT conclusions",
-      "实际环境绩效与 BAT-AEL 比较",
-      "BAT-associated emission level",
-      "BAT相关排放水平",
-      "BAT AEL",
-      "best available techniques associated emission level",
-      "最佳可行技术相关排放水平",
-      "Environmental performance",
       "BAT-AEL",
-      "actual performance",
-      "实际绩效",
-      "环境绩效",
-      "环境表现"
+      "实际环境绩效",
+      "排放水平"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -407,23 +416,7 @@
       "table"
     ],
     "structural_anchors": [],
-    "topic_term_groups": [
-      [
-        "BAT AEL",
-        "BAT-AEL",
-        "BAT-associated emission level",
-        "BAT相关排放水平",
-        "best available techniques associated emission level",
-        "最佳可行技术相关排放水平"
-      ],
-      [
-        "Environmental performance",
-        "actual performance",
-        "实际绩效",
-        "环境绩效",
-        "环境表现"
-      ]
-    ]
+    "topic_term_groups": []
   },
   "schema_version": "clause-contract-1.3",
   "value": {

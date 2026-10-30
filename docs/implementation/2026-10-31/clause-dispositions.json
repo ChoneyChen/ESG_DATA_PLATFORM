@@ -1,0 +1,340 @@
+{
+  "basis": "repository definitions; not a fresh official-source certification",
+  "changes": [
+    {
+      "after_digest": "995222a521fe752729d94e9c455bb0520cd3f7d6fa20ec76472dcb9f6bd54282",
+      "before_digest": "19869b8b596fc53c09731d5137a9b5fd5a2c24b7c50f23694841b7e6a70a51b0",
+      "clause_key": "BP-2_07",
+      "decision": "qualitative",
+      "reason": "读取报告对高测量不确定性指标/金额及其不确定性来源的原文说明；保留所指指标，不要求同时捕获金额。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "高测量不确定性指标"
+    },
+    {
+      "after_digest": "c956d1d7647b1e7f0da260261ae228a488150ca37dfed9b7d55f34dff053401c",
+      "before_digest": "9e428ebad290738f92000e82cf5b70aa923e6d3a246dba7ea225ad900c3e9c52",
+      "clause_key": "BP-2_14",
+      "decision": "qualitative",
+      "reason": "读取前期差错及更正的原文说明，保留涉及的期间和指标；不覆盖旧值，不把更正说明当当期金额。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "前期差错更正"
+    },
+    {
+      "after_digest": "a055b6bf0d6990aa14581ddf353fad5e9c74d6e5817bba5cf61066ceab640732",
+      "before_digest": "c7d12b32fdd7c7c3bda4957288ba104ab72b66fae84f3d39d44d3a0b93b805b0",
+      "clause_key": "BP-2_24",
+      "decision": "qualitative",
+      "reason": "读取阶段安排中有时限目标及进展的原文；目标期与衡量期按原文分别保留，未给具体数值也可构成陈述。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "阶段安排的期限目标及进展"
+    },
+    {
+      "after_digest": "c27aaf34a9027b75eef24c37ca735bb35c9100c00d2bd92c18f5e19acad536c7",
+      "before_digest": "3c3e9f94c89403086022b346fdc790b520fd5ac73ef06d5b24267f2ca873abe1",
+      "clause_key": "BP-2_27",
+      "decision": "qualitative",
+      "reason": "读取重大可持续事项指标的名称、定义和披露说明；指标数值是独立定量事实，不要求原文含完整测量。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "阶段安排的指标"
+    },
+    {
+      "after_digest": "80598e4e2248efc703cffb6760d9ee7a337a2ee83d04d3313e8de3f445c6d772",
+      "before_digest": "ea3bda4f690d5959293b1d563b8b1413d325a9062bddde363886c0a3ba72b589",
+      "clause_key": "E1-3_06",
+      "decision": "qualitative",
+      "reason": "读取重大资本/运营支出与财务报表行项目或注释的关系解释；保留所指行动和行项目，不以金额齐全作为陈述准入条件。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "重大资本和运营支出与财务报表关联"
+    },
+    {
+      "after_digest": "c64391f262fcfb4f9bf61f4d89b5e05ff4cf6f57147c8039bd1582a50fc1b155",
+      "before_digest": "fb836adc6d9d0e7043d849f382ace091422bb5a2afcef02ba337458c8254f4d7",
+      "clause_key": "E1-4_02",
+      "decision": "structure",
+      "reason": "目标披露的维度结构；各目标量分别提取，不以表的存在代替目标事实。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "排放目标的多维披露结构"
+    },
+    {
+      "after_digest": "b001f698644068141caa875425aae773323c5b2b36e9d0ccbf4f226680f1ede7",
+      "before_digest": "4dfa23b3af3637091da59143f58c53f9064b77a057d85700ece1bc82763df2f4",
+      "clause_key": "E1-5_19",
+      "decision": "quantitative",
+      "reason": "读取高气候影响行业披露的能源消费总量，保留全部期间及报告原单位；能源强度、分母、总量与分项不互换，不从全集团总量推断行业量。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "高气候影响行业能源消费总量"
+    },
+    {
+      "after_digest": "2c4922825034bfc3a03a8de02d83bcb58ba34590ca992d99fb83a8db356bf0c3",
+      "before_digest": "bf5c48687b800aac1dccdee0e0eef69a931c57bd4f83187b46a63d7ab35e6f2f",
+      "clause_key": "E1-6_01",
+      "decision": "structure",
+      "reason": "范围及总量的组织结构；各范围、方法和总量是独立值，不重复求和。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "范围1、2、3及温室气体排放总量的披露结构"
+    },
+    {
+      "after_digest": "7f6f28c02e45b46a3593e4d4df32dbcb0733d1626b24104d32ff0bceb16708d9",
+      "before_digest": "0f714d7b98d8cf54b672cce9eb7179cf1ba66833f1656dc5b6f2c4d26da62be5",
+      "clause_key": "E1-6_02",
+      "decision": "structure",
+      "reason": "控制边界是列/行身份结构，不作为一条虚构陈述；原文边界说明由独立方法条款读取。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "财务控制与运营控制边界表"
+    },
+    {
+      "after_digest": "54aeb84d9874c04561fcce941b3658f09bbfb2cd21c61dae5639073b6680d675",
+      "before_digest": "4d6983c3a6e2ab55c6427ac861fb30f76f34da58219425d2a330e317ab32cd6e",
+      "clause_key": "E1-6_03",
+      "decision": "structure",
+      "reason": "温室气体细分结构；未预列类别保留原词，不推造缺失组合。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "温室气体排放分解维度"
+    },
+    {
+      "after_digest": "110d2807e496c4dbd3d852fdf89776728ec9a987dffbc5f8f0fc020856351222",
+      "before_digest": "965143664377a8a301abdeedce0945547ec0a6d38a0a63efe1266dcfbe6eef37",
+      "clause_key": "E1-6_04",
+      "decision": "structure",
+      "reason": "GHG Protocol范围3类别结构，仅导航；类别量与核算说明按独立合同执行。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "采用《温室气体核算体系》的范围3类别结构"
+    },
+    {
+      "after_digest": "d4c88392f0aba00ad5417272b482969056d552fdfacd0ecb3e53a31b0e594b69",
+      "before_digest": "054a4059f24ca8abce49fecde3bd0307065c50d62a02de9fd144ac2cac3abf4a",
+      "clause_key": "E1-6_05",
+      "decision": "structure",
+      "reason": "ISO 14064-1类别结构；不将其类别默认等同于GHG Protocol。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "采用 ISO 14064-1 的范围3类别结构"
+    },
+    {
+      "after_digest": "6abb43345bda22aa2cacb1073b6d8cc64b0d7ad77a4c8befdb01f6a3162e9fd5",
+      "before_digest": "6b95ddff9de29d19fd52d68111e77b75aff346684b65682efe87c29357131d5e",
+      "clause_key": "E1-6_06",
+      "decision": "structure",
+      "reason": "价值链细分结构；上游、下游与总量不自动合并或求和。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "范围3价值链分解结构"
+    },
+    {
+      "after_digest": "0c76398d605441155a9abb250d24f407efb44085d77d0b232be0c2132e592195",
+      "before_digest": "421d3c652173ed665499feb3a272219fb7b487ad42480d8df2124f5011544673",
+      "clause_key": "E1-7_04",
+      "decision": "structure",
+      "reason": "活动、运营/价值链和移除/储存/逆转的关系结构；各数量独立读取。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "移除储存活动的披露结构"
+    },
+    {
+      "after_digest": "ed180b1e636679e8dbb1c05cc44b1b6c12be6737adc3903a7741e956173adcb9",
+      "before_digest": "14c50615f2f66fadcb599b1162375160039bff7d5b4674e9bd0471ff59864321",
+      "clause_key": "E1-8_01",
+      "decision": "structure",
+      "reason": "碳定价机制的结构索引；机制说明、价格和覆盖比例分别形成原值。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "内部碳定价机制的披露结构"
+    },
+    {
+      "after_digest": "5d022d2d8f1179d8bedcd8c045d38a8f2b9948d8b480941c9916074e01e83aa6",
+      "before_digest": "2a4e0750a292c31b1194509045c25eecc80d3673fe2e75140ebdc00ff21bdcfe",
+      "clause_key": "E1-9_38",
+      "decision": "qualitative",
+      "reason": "读取重大转型风险业务预期利润侵蚀的原文解释；保留情景、财务项和预期时间原词，不生成预测金额或实际损益。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "转型风险业务预期利润侵蚀"
+    },
+    {
+      "after_digest": "413bfd4d3976073dc28496517bc383923dd77dbba3fe58fd64a77f135b30011f",
+      "before_digest": "3e533acf7c93801188b101d6cbf684f1db15620247d910bfecc32bb50298a767",
+      "clause_key": "E2-4_01",
+      "decision": "structure",
+      "reason": "空气、水、土壤与物质的维度结构；不自动加载或执行相关条款。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "空气、水和土壤污染披露维度结构"
+    },
+    {
+      "after_digest": "eda7073820bcca689e135f381510eb1d70ad22c9533237e9b31ec3faa58b05dd",
+      "before_digest": "644269dfd03ce1ccb20bda839518d181cae5aa6463a93e8ebac6f4e2080eecac",
+      "clause_key": "E2-4_18",
+      "decision": "qualitative",
+      "reason": "读取报告对实际环境绩效与BAT-AEL的原文比较及适用条件；实际量与参考限值是不同角色，不由模型另作合规判断。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "实际环境绩效与 BAT-AEL 比较"
+    },
+    {
+      "after_digest": "6a096b623915a472ce11a1addceb3196470d0d2439082407b494e0b1cbb07315",
+      "before_digest": "3df3de5f71384da88b67f0fbe25e45b885cd02b1d822f618859feae159781414",
+      "clause_key": "E2-4_19",
+      "decision": "qualitative",
+      "reason": "读取报告对实际环境绩效与BAT-AEPL的原文比较；保留指标和条件，不把参考范围当实际排放。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "实际环境绩效与 BAT-AEPL 比较"
+    },
+    {
+      "after_digest": "a1f7c5785384b603bcd26444e114b06ee0286fc42ad8db561fcd28cfac5c8735",
+      "before_digest": "b673fce084ee84d7fcb2b6edfcf42a3a4649edb1e8e48f6694f926b1f91b277d",
+      "clause_key": "E2-5_01",
+      "decision": "quantitative",
+      "reason": "逐行读取关注物质在生产中生成、使用或采购的披露数量，保留物质/危害类别和流向；每行各期间分别保存，重叠类别与合计不求和。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "关注物质按危害类别分解的披露结构"
+    },
+    {
+      "after_digest": "028698560e46af581c848454f9f6c81c3304d4aa3cf31c0e63ff67bd2e1408db",
+      "before_digest": "353c4e3ca43b3cb78366096872f226a0ef933a63e5cd471798b69c79556a7766",
+      "clause_key": "E4-6_06",
+      "decision": "qualitative",
+      "reason": "读取财务金额估计的方法、关键假设和参数说明；不要求同时有金额，不从一般方法推断具体财务影响。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "财务金额的估计方法与关键假设"
+    },
+    {
+      "after_digest": "204f6467f6548bb689cf6f68678ba86f0c4dc878a87d92c25ab89fddaf088b8d",
+      "before_digest": "bf8d0a01f06189ecbe0150e5278dcceb6542dc5e478e9a7640c9a1165d5a7ecf",
+      "clause_key": "G1-4_03",
+      "decision": "structure",
+      "reason": "培训表的组织要求，不把表名当定性陈述；具体数量或覆盖率需独立值目标。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Prevention and detection of corruption or bribery - anti-corruption and bribery training table"
+    },
+    {
+      "after_digest": "e0d032ea3473f6554859b4d97f0db24dd3f1a28a94348265220baf835453c3da",
+      "before_digest": "81e49866d1b31113bb7aac1a5269b45f76de9c8e56f2237454f437ca2ea410ec",
+      "clause_key": "G1-5_08",
+      "decision": "structure",
+      "reason": "政治捐赠的表结构；财务金额、实物价值和说明分别读取，未估值实物不折算金额。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "财务与实物政治捐赠表"
+    },
+    {
+      "after_digest": "45ec73447f5517a3584c39a15fa1f65a48ec6c2e5f61c0d45549406f3a829641",
+      "before_digest": "5d3c38f173b7da9fa12b66b5c43e9ee2d4889369ebee5cff31b673ed7918f9fa",
+      "clause_key": "IRO-1_14",
+      "decision": "qualitative",
+      "reason": "读取识别、评估和管理重大影响、风险、机会所用输入参数及其来源说明；流程说明不证明任何主题已重大。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "识别评估输入参数"
+    },
+    {
+      "after_digest": "d453c5935d4f4d9389b0a329f2c4830825efc51417bcf3acb0b7123fb5183202",
+      "before_digest": "1c385a9af45cb637da7d5bb151371e05113d892e065570bce32439177e807d99",
+      "clause_key": "MDR-T_02",
+      "decision": "quantitative",
+      "reason": "读取实际披露的可量化目标原值，逐项目标对象和期间保存；可为数量、比例、强度或区间，保留原单位/分母，不将基准量或实际进展当目标。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "可量化目标"
+    },
+    {
+      "after_digest": "ec3e02ce60d1665d70c79c8b0c6d8f2adc96f9269e1bf7405e7fc25124c6d74a",
+      "before_digest": "2711c71cdf2b10ffdfad1b9c28afbfd6003de5597022557e1361961c027ed63a",
+      "clause_key": "MDR-T_18",
+      "decision": "qualitative",
+      "reason": "读取效果评估预期水平与所用定性/定量指标的原文说明；数值目标另作定量，不猜目标期或预期量。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "效果评估的预期水平与指标"
+    },
+    {
+      "after_digest": "116540b5176ed68ea6c89f30712df049c11e82da3f011efc6ec74f8ec54f5072",
+      "before_digest": "9bd8510f87a910cc3c36a51b6e882918e085ff76b9911ab4fdd45863b209e18e",
+      "clause_key": "S1-10_02",
+      "decision": "qualitative",
+      "reason": "读取报告明确列出的工资低于足额工资基准的国家及员工范围陈述，允许国家成员列表；不从国家名推断人数、工资或违规。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "员工工资低于适用足额工资基准的国家表"
+    },
+    {
+      "after_digest": "4e6998ab23e150e7b4115bdc44dd24545bf1f3f819dc22851bb8f522dd232247",
+      "before_digest": "82196d19c66e8262c2ee287af624168ca18821e4b121fe7f1d92be502302ebc4",
+      "clause_key": "S1-11_06",
+      "decision": "qualitative",
+      "reason": "读取按国家、事件类型和员工/非员工类型陈述的社会保护覆盖情况，保留逐项原文；人数或比率另为定量，不因缺某轴阻塞。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "按国家、事件类型与员工类型划分的社保覆盖表"
+    },
+    {
+      "after_digest": "286248de7c23bea0ea7363d4366efd8e6d2d5a4d840d610e42561f50b7a7ed9b",
+      "before_digest": "3ff2db123fd243adbe8c41a863f145e2725b5b996caf036548c396c8a5662117",
+      "clause_key": "S1-13_01",
+      "decision": "structure",
+      "reason": "培训发展指标的性别分解结构；比率、时长与人数分别读取，不把表头当事实。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Training and skills development indicators gender [table]"
+    },
+    {
+      "after_digest": "edbaab88a9fc6b08eb0e36563308750ced2680b513e441630302be132a250822",
+      "before_digest": "b9de83729cd9d4682b6ac56ab9c861763e172b4f6aa34b3191dd9d244f6142b7",
+      "clause_key": "S1-17_01",
+      "decision": "quantitative",
+      "reason": "逐类读取报告明确披露的歧视事件数量；事件类型与期间逐格保留，显式0保存，空白、斜线和未披露不造0。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "按类型划分的歧视事件数量（表）"
+    },
+    {
+      "after_digest": "a3c1566eeb0ea225bbcd935c351cc4f86b63a629342021ebbfb8d9e0f9047c64",
+      "before_digest": "a05e61f99d3ea7dc60b6479f05aaa416aec147006112d24e780ed2ca98dcf66e",
+      "clause_key": "S1-6_01",
+      "decision": "quantitative",
+      "reason": "读取按性别披露的员工人数，各实际行列分别保存；合计与分项并存不相加，不从缺失性别补造人数。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Characteristics of undertaking's employees - number of employees by gender [table]"
+    },
+    {
+      "after_digest": "afd709570107ae2cd07f2b8a17bc2912da2e8abd146f28999c5dd2c4d341832d",
+      "before_digest": "0e9af2cc7c9aee4d215a5c7b53773f1aa98bd165bac2d31f17f57c4d00fa29b9",
+      "clause_key": "S1-6_04",
+      "decision": "quantitative",
+      "reason": "读取按国家披露的员工人数；50人及10%是披露选择条件，不作为要求企业补齐全部国家或推断缺失人数的依据。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Characteristics of undertaking's employees - number of employees in countries with 50 or more employees representing at least 10% of total number of employees [table]"
+    },
+    {
+      "after_digest": "d546ed6276e8c719d049c0d0de241d34661daaa9f2e772e41ff37c83b023cd62",
+      "before_digest": "3b4d573a37908b198ac9c1bc7a92278a8e254015d5f17e6fdb512644789f8548",
+      "clause_key": "S1-6_07",
+      "decision": "quantitative",
+      "reason": "读取按合同类型和性别实际披露的员工人数，逐单元格保留身份与所有期间；不生成报告没有的交叉组合。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Characteristics of undertaking's employees - information on employees by contract type and gender  [table]"
+    },
+    {
+      "after_digest": "d43b65313b6275d97cb56f972d65a2bfd6cab3f0bbfb838adf9c0c2e128861ca",
+      "before_digest": "7543076a7bb211ed6e70be4e281d3b6da4a5c35c912031939618228cf84c1d92",
+      "clause_key": "S1-6_08",
+      "decision": "quantitative",
+      "reason": "读取按地区实际披露的员工人数，地区保留原词、允许未收录分类；缺地区不删除真实人数。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Characteristics of undertaking's employees - information on employees by region [table]"
+    },
+    {
+      "after_digest": "cf7dc78f51c9bce76743b7e584af18bf46e0da4623f52e1ab9f49147ca0a1a8b",
+      "before_digest": "5f5afd54ca8a73909dab6ec8958fd94b5be0366a692c21beaf52c9d33399f4a0",
+      "clause_key": "S1-6_18",
+      "decision": "quantitative",
+      "reason": "读取进一步按性别和地区细分的员工人数，报告给出的细分各成一条；不自动执行兄弟条款，同格多解释不重复求和。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "Further detailed breakdown by gender and by region [table]"
+    },
+    {
+      "after_digest": "369d2aef544252dbe9d44b1a4e6c6129cb2e53a173b2a3c3688caa4eb807ab7d",
+      "before_digest": "cdcaad244cd0db3dacb496936a0283a14920ede41b0362063068bb3f50648882",
+      "clause_key": "SBM-3_08",
+      "decision": "qualitative",
+      "reason": "读取重大风险机会的当前财务影响及下期资产负债重大调整风险说明；保留财务项和期间，不以必须含金额为准入门槛。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "当前财务影响及资产负债调整风险"
+    },
+    {
+      "after_digest": "b0ac5a62f225794f593ad6c9d73351912ae6ba446544aea1a1216fdacb53dcee",
+      "before_digest": "68e1407a1b3baf086ef4a69e58930dbc236f930fb4654073ca69cd9c3adf7ed3",
+      "clause_key": "SBM-3_09",
+      "decision": "qualitative",
+      "reason": "读取短中长期预期财务影响的原文说明；原文时间范围、情景和财务项有则保留，不猜年份，不当已实现量。",
+      "scientific_acceptance": "not_evaluated",
+      "title": "短中长期预期财务影响"
+    }
+  ],
+  "frozen_runs_modified": 0,
+  "schema_version": "clause-content-dispositions-1.0"
+}

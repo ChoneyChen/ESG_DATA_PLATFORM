@@ -3,19 +3,17 @@
     "minimum_reports": 1,
     "samples": []
   },
-  "blocking_reasons": [
-    "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
-  ],
-  "clause_digest": "353c4e3ca43b3cb78366096872f226a0ef933a63e5cd471798b69c79556a7766",
+  "blocking_reasons": [],
+  "clause_digest": "028698560e46af581c848454f9f6c81c3304d4aa3cf31c0e63ff67bd2e1408db",
   "clause_key": "E4-6_06",
   "data_kind": "qualitative",
-  "definition": "说明财务金额如何估计，以及所采用的关键假设和参数。",
+  "definition": "读取财务金额估计的方法、关键假设和参数说明；不要求同时有金额，不从一般方法推断具体财务影响。",
   "distinguish_from": [],
   "evidence": [
     {
       "field": "statement_context",
       "level": "text",
-      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "note": null,
       "purpose": "target_confirmation",
       "required": true
     }
@@ -23,7 +21,8 @@
   "exact_labels": [],
   "exclusions": [
     "预期财务影响须标明情景与时间范围；当前账面值不能替代预期值。",
-    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "目录、表名和维度标题不单独构成值事实；不得补造没有披露的期间、单位、数量或陈述。"
   ],
   "group_id": "E4-6",
   "labels": {
@@ -244,6 +243,81 @@
         "role": "provenance",
         "type_hint": "text",
         "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "risk_type",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "risk_type",
+        "label": "risk_type",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "scenario",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "scenario",
+        "label": "scenario",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "forecast_horizon",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "forecast_horizon",
+        "label": "forecast_horizon",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "financial_item",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "financial_item",
+        "label": "financial_item",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "currency",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "currency",
+        "label": "currency",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
       }
     ],
     "include_additional_dimensions": true,
@@ -281,19 +355,25 @@
   },
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": null,
       "axes": {},
-      "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "entity": null,
+      "label_zh": "报告实际披露",
       "method": null,
-      "period": "annual",
+      "period": null,
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-da98b6fe61fc3708",
-      "value_role": "forecast"
+      "scope_id": "scope-ee7b197d6fb7ee12",
+      "value_role": null
     }
   ],
   "provenance": {
+    "content_review": {
+      "basis": "repository_definition_review",
+      "date": "2026-10-31",
+      "replaces_digest": "353c4e3ca43b3cb78366096872f226a0ef933a63e5cd471798b69c79556a7766",
+      "scientific_acceptance": "not_evaluated"
+    },
     "original_id": "E4-6_06",
     "paragraph": "AR 39",
     "source_refs": [
@@ -348,33 +428,20 @@
       "missing_action": "retain"
     }
   },
-  "readiness": "blocked",
+  "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "说明财务金额如何估计，以及所采用的关键假设和参数。"
+      "读取财务金额估计的方法、关键假设和参数说明；不要求同时有金额，不从一般方法推断具体财务影响。",
+      "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
     "options": {
-      "value_role": "forecast"
+      "value_role": "context"
     },
     "rules": [],
     "schema_version": "clause-reading-1.1",
-    "vocabulary": {
-      "component_prefix": [
-        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
-      ],
-      "other_member": [
-        "其他",
-        "其它",
-        "re:^other\\b",
-        "others"
-      ],
-      "subject_generic": [
-        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
-        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
-      ]
-    }
+    "vocabulary": {}
   },
   "relationships": {
     "child_excludes": [],
@@ -400,15 +467,14 @@
       "财政年度"
     ],
     "excluded_object_terms": [],
-    "expected_candidate_types": [
-      "quantity",
-      "number"
-    ],
+    "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
-      "Explanation of how financial amounts are estimated and critical assumptions made (biodiversity and ecosystems)",
-      "财务金额的估计方法与关键假设",
-      "说明财务金额如何估计，以及所采用的关键假设和参数。定量与定性信息分别保留，不以定性描述替代数值。"
+      "财务金额",
+      "关键假设",
+      "估计方法",
+      "financial amounts",
+      "key assumptions"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -417,12 +483,7 @@
       "table"
     ],
     "structural_anchors": [],
-    "topic_term_groups": [
-      [
-        "Explanation of how financial amounts are estimated and critical assumptions made (biodiversity and ecosystems)",
-        "财务金额的估计方法与关键假设"
-      ]
-    ]
+    "topic_term_groups": []
   },
   "schema_version": "clause-contract-1.3",
   "value": {
@@ -446,6 +507,6 @@
     ],
     "unit_dimension": null,
     "value_origin": "reported",
-    "value_role": "forecast"
+    "value_role": "context"
   }
 }

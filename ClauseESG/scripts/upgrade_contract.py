@@ -16,6 +16,8 @@ def upgrade(root):
         catalog = repository._catalog()
         for entry in catalog["clauses"]:
             clause = repository._get(entry["clause_key"], catalog)
+            if clause.readiness == "structural":
+                continue
             if clause.purposes is None:
                 raise ValueError("Upgrade pre-purpose authoring sources explicitly first")
             axes = list(dict.fromkeys([

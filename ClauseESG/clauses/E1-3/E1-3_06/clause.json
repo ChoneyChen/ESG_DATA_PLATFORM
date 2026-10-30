@@ -3,19 +3,17 @@
     "minimum_reports": 1,
     "samples": []
   },
-  "blocking_reasons": [
-    "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
-  ],
-  "clause_digest": "ea3bda4f690d5959293b1d563b8b1413d325a9062bddde363886c0a3ba72b589",
+  "blocking_reasons": [],
+  "clause_digest": "80598e4e2248efc703cffb6760d9ee7a337a2ee83d04d3313e8de3f445c6d772",
   "clause_key": "E1-3_06",
   "data_kind": "qualitative",
-  "definition": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements。重大资本和运营支出与财务报表关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
+  "definition": "读取重大资本/运营支出与财务报表行项目或注释的关系解释；保留所指行动和行项目，不以金额齐全作为陈述准入条件。",
   "distinguish_from": [],
   "evidence": [
     {
       "field": "statement_context",
       "level": "text",
-      "note": "用于确认条款的实际陈述内容；标题、目录或话题词不能证明完整披露。原文准入由定性数据合同决定。",
+      "note": null,
       "purpose": "target_confirmation",
       "required": true
     }
@@ -23,7 +21,8 @@
   "exact_labels": [],
   "exclusions": [
     "每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
-    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
+    "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
+    "目录、表名和维度标题不单独构成值事实；不得补造没有披露的期间、单位、数量或陈述。"
   ],
   "group_id": "E1-3",
   "labels": {
@@ -244,6 +243,36 @@
         "role": "provenance",
         "type_hint": "text",
         "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "action_ref",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "action_ref",
+        "label": "action_ref",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
+      },
+      {
+        "binding": {
+          "attribute": null,
+          "key": "value_role",
+          "source": "identity"
+        },
+        "description": null,
+        "extensions": {},
+        "key": "value_role",
+        "label": "value_role",
+        "required_for_confirmation": false,
+        "role": "reported_identity",
+        "type_hint": "text",
+        "vocabulary": []
       }
     ],
     "include_additional_dimensions": true,
@@ -281,19 +310,25 @@
   },
   "output_scopes": [
     {
-      "aggregation": "total",
+      "aggregation": null,
       "axes": {},
-      "entity": "group",
-      "label_zh": "年度 · 集团合并 · 总量",
+      "entity": null,
+      "label_zh": "报告实际披露",
       "method": null,
-      "period": "annual",
+      "period": null,
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-c39bf98d4af7f268",
-      "value_role": "actual"
+      "scope_id": "scope-ee7b197d6fb7ee12",
+      "value_role": null
     }
   ],
   "provenance": {
+    "content_review": {
+      "basis": "repository_definition_review",
+      "date": "2026-10-31",
+      "replaces_digest": "ea3bda4f690d5959293b1d563b8b1413d325a9062bddde363886c0a3ba72b589",
+      "scientific_acceptance": "not_evaluated"
+    },
     "original_id": "E1-3_06",
     "paragraph": "29 c i",
     "source_refs": [
@@ -342,33 +377,20 @@
       "missing_action": "retain"
     }
   },
-  "readiness": "blocked",
+  "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements。重大资本和运营支出与财务报表关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
+      "读取重大资本/运营支出与财务报表行项目或注释的关系解释；保留所指行动和行项目，不以金额齐全作为陈述准入条件。",
+      "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
     "options": {
-      "value_role": "actual"
+      "value_role": "context"
     },
     "rules": [],
     "schema_version": "clause-reading-1.1",
-    "vocabulary": {
-      "component_prefix": [
-        "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
-      ],
-      "other_member": [
-        "其他",
-        "其它",
-        "re:^other\\b",
-        "others"
-      ],
-      "subject_generic": [
-        "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
-        "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
-      ]
-    }
+    "vocabulary": {}
   },
   "relationships": {
     "child_excludes": [],
@@ -394,15 +416,15 @@
       "财政年度"
     ],
     "excluded_object_terms": [],
-    "expected_candidate_types": [
-      "quantity",
-      "number"
-    ],
+    "expected_candidate_types": [],
     "negative_terms": [],
     "positive_terms": [
-      "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements",
-      "重大资本和运营支出与财务报表关联",
-      "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements。重大资本和运营支出与财务报表关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
+      "资本支出",
+      "运营支出",
+      "CapEx",
+      "OpEx",
+      "line items",
+      "financial statements"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -411,12 +433,7 @@
       "table"
     ],
     "structural_anchors": [],
-    "topic_term_groups": [
-      [
-        "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements",
-        "重大资本和运营支出与财务报表关联"
-      ]
-    ]
+    "topic_term_groups": []
   },
   "schema_version": "clause-contract-1.3",
   "value": {
@@ -437,6 +454,6 @@
     ],
     "unit_dimension": null,
     "value_origin": "reported",
-    "value_role": "actual"
+    "value_role": "context"
   }
 }
