@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "90fd4315c460c79326b8680bad0c015321083ee5b9c0d0f3b765e67271039a78",
+  "clause_digest": "d1b684595272a45926fdcf96107721e6ce4287296ea78fafe87e4511d3a9f535",
   "clause_key": "S1-17_14",
   "data_kind": "quantitative",
   "definition": "Number of severe human rights cases where undertaking played role securing remedy for those affected",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

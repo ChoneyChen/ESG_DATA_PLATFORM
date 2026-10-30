@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f812290fc58a9f5079b1abd9a21553bbf8c21a2bbea1f658486761db575fd8ff",
+  "clause_digest": "d6b61c157f57a7f4b0fd7f5ad3a06eadbd07b002817c2c0c04808307c437e134",
   "clause_key": "E1-6_15",
   "data_kind": "qualitative",
   "definition": "温室气体方法、假设、排放因子和计算工具",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -320,7 +321,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "source_row_topic"
       ],
       "missing_action": "annotate"
     },
@@ -445,7 +447,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

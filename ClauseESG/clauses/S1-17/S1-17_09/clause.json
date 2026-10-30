@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e559fa91f78ff24ab43e81dd2b03b847d89305db9d783bf93fd2430bae34dc74",
+  "clause_digest": "3589b97a90e20187c5c5bd50b385bd72780781ed1972dacaacdfe7b0768693b8",
   "clause_key": "S1-17_09",
   "data_kind": "quantitative",
   "definition": "Number of severe human rights issues and incidents connected to own workforce that are cases of non respect of UN Guiding Principles and OECD Guidelines for Multinational Enterprises",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

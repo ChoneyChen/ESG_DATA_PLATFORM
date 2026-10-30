@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a2c64e2034fe931da3dc72f039cf9d8dc67f17e5c6598bde2fe3e695edf71e02",
+  "clause_digest": "de6766b669c0eacca66cd9815195badb6148372524a3d17572d554b00ece2fab",
   "clause_key": "G1-2_01",
   "data_kind": "qualitative",
   "definition": "说明主体为防止逾期付款、尤其是对中小企业逾期付款所制定的政策与措施。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

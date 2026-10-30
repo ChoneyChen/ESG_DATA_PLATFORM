@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "577c23ca9b9ab41c3ca0d24e6fd73941d740623d9d423702e83af8593ed9aeed",
+  "clause_digest": "fd9f5673996d91a31fb6a33d1f619a7535eed43a0f8d2cf8e8cf4b785474bb43",
   "clause_key": "E3-4_12",
   "data_kind": "quantitative",
   "definition": "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -547,6 +547,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -895,7 +896,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "m3",

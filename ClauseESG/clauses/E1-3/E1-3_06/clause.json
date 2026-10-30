@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "86c948b7e6868f01bca62fb703d37196e5928c5b2b29e0222a6e7a13eeb20803",
+  "clause_digest": "ea3bda4f690d5959293b1d563b8b1413d325a9062bddde363886c0a3ba72b589",
   "clause_key": "E1-3_06",
   "data_kind": "qualitative",
   "definition": "Explanation of relationship of significant CapEx and OpEx required to implement actions taken or planned to relevant line items or notes in financial statements。重大资本和运营支出与财务报表关联。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
@@ -308,6 +308,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -326,7 +327,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref",
+        "value_role"
       ],
       "missing_action": "annotate"
     },
@@ -415,7 +418,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

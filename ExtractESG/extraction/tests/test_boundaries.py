@@ -154,7 +154,7 @@ def test_quarter_headers_are_not_annualized(documents,repository,header,quarter)
     c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
     fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='period'),row,cell,'test')
-    assert fact.identity.reporting_period.value=={'kind':'quarter','year':'2025','quarter':quarter}
+    assert fact.identity.reporting_period.value=={'kind':'quarter','year':2025,'quarter':quarter,'raw':header}
     assert not mapping.scope_ids
 
 

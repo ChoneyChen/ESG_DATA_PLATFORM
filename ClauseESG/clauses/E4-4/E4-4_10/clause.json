@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "76ad225eaf0174ed8ef779a2802b5d91e7f9b69f235304e4571c5ada9d237187",
+  "clause_digest": "219a42fa2da18fb3140714293b674e8f103407b3dcb5e1de42d0c2672a61a3d6",
   "clause_key": "E4-4_10",
   "data_kind": "qualitative",
   "definition": "说明目标如何补足欧盟分类法实质性贡献标准中与生物多样性相关的不足。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "target_year"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

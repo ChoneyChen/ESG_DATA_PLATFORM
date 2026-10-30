@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ec1a73e7c5a5f17d415ef52eae368518133d1ed09f98e0c77c03f97ce1455cfb",
+  "clause_digest": "f80936b949b6374caf219d8c9c8a13fcbe79be98ed92613ae338db73e5a3bea9",
   "clause_key": "S1-17_02",
   "data_kind": "quantitative",
   "definition": "报告期内报告的歧视事件数量。",
@@ -563,6 +563,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -790,7 +791,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

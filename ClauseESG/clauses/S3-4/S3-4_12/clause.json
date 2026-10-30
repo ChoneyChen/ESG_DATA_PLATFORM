@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "80a8284645b0c9516ff4fbb9a6f57cb6aab41754bbf6114361fb0464bdbbed02",
+  "clause_digest": "c57a2b32c1a73ba486d55e581533651a35febf665acecfa24f9ec925078a8d0b",
   "clause_key": "S3-4_12",
   "data_kind": "qualitative",
   "definition": "披露为管理受影响社区重大影响所分配的资源，包括人员、预算和管理层投入。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "40f75035689d3cf1d44760e9b5b6890f4fc1a550856e62335a7d80cd7fb1bc18",
+  "clause_digest": "4bc229ca836e88aef6bfba1edf37bb5e5ea38887b24be73251a3dde6de07f767",
   "clause_key": "S1-17_07",
   "data_kind": "qualitative",
   "definition": "Disclosure of contextual information necessary to understand data and how data has been compiled (work-related grievances, incidents and complaints related to social and human rights matters)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -406,7 +407,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

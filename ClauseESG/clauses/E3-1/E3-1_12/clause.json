@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f1005168a9e8d89006af0eeac98107fe1d48e066d84f03707f6c39105aaa6778",
+  "clause_digest": "931aa4538ac7338a1f1295a0877dfed925b50d38a9ecfa868b909d86b5cc6fbe",
   "clause_key": "E3-1_12",
   "data_kind": "qualitative",
   "definition": "The policy avoid impacts on affected communities.。社区影响规避政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

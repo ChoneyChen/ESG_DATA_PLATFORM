@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "547e8cb74e540ff50c4e3218ef37b0980b465ecd5bd400918f1057818ed7845a",
+  "clause_digest": "2424029d7b9e3c8cefb75f4d2bf51208d27a286ace5f41795924d13c1c083d71",
   "clause_key": "E3-5_03",
   "data_kind": "qualitative",
   "definition": "Description of effects considered and related impacts (water and marine resources)。水财务影响的对象与相关影响。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

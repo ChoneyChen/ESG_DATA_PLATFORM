@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0e68e9060190aa4cf6d84c2d80f9efcea79982caa8e4d8836e5e817253df2775",
+  "clause_digest": "f19372e7fc9195939677409fd680689f0c1d3f7ae0a9977f8a2213811c7608dc",
   "clause_key": "S1-14_04",
   "data_kind": "quantitative",
   "definition": "Number of recordable work-related accidents for own workforce",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

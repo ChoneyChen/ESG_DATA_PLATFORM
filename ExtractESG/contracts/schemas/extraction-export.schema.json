@@ -63,6 +63,17 @@
           "title": "Limited Evidence",
           "type": "boolean"
         },
+        "period_context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportingPeriodContext"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "report_resource": {
           "anyOf": [
             {
@@ -341,6 +352,63 @@
         "original_filename"
       ],
       "title": "ReportResource",
+      "type": "object"
+    },
+    "ReportingPeriodContext": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "evidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence"
+        },
+        "inheritance": {
+          "const": "explicit_reference_only",
+          "default": "explicit_reference_only",
+          "title": "Inheritance",
+          "type": "string"
+        },
+        "page_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Index"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "ReportingPeriodContext",
       "type": "object"
     }
   },

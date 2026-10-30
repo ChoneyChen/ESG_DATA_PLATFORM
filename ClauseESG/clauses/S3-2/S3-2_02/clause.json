@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e4e145a008f722ee38718e0dec6631dc40c3a093dd1fc88f182ceb15bcedbdc4",
+  "clause_digest": "d9a606346f1aae5ada837f527daf8eb1dacb9a73755bdb66ce51faabfae92b42",
   "clause_key": "S3-2_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否与受影响社区或其合法代表、可信代理直接开展接触，并指出接触形式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

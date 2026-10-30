@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "9927e8bdff83eb79c45f040acea7e6eee5f196a3eb7f22d393db8f95fe26b3e7",
+  "clause_digest": "8bc36566ede86c176d5dba4fa6f5952fb095feb6fb21b7d29afb8be0bce00dfc",
   "clause_key": "MDR-A_04",
   "data_kind": "qualitative",
   "definition": "Description of key action taken, and its results, to provide for and cooperate in or support provision of remedy for those harmed by actual material impacts。重大实际影响的补救行动与结果。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8daeae7a0df836c749ab1d89adb68ed32d752051de1dce271595ec0e5bcf007f",
+  "clause_digest": "adb01de754f61972afafc1c013d24269b0dcc88deb97b3cc0f6a4770d632b715",
   "clause_key": "G1-5_06",
   "data_kind": "quantitative",
   "definition": "披露报告期内主体提供的实物政治捐赠及其估计价值。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "currency",

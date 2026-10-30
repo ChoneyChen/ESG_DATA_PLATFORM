@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5d3a26cc68177508a3d34e1710577a7b4089954c6bdb8e433b02cb5fdabbf418",
+  "clause_digest": "2e122c126c7a66aa7c3e1e73f7082f3ade8d8cc1c54417a067dc452c0dbac8bc",
   "clause_key": "E1-6_26",
   "data_kind": "qualitative",
   "definition": "排除范围3类别的理由",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -321,7 +322,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "source_row_topic",
+        "scope3_category"
       ],
       "missing_action": "annotate"
     },
@@ -471,7 +474,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "62c255f9a4dd5a1b891193b24ca491df225e00c780d49a44b4d67a3f06940b79",
+  "clause_digest": "83333e634f6fcd2538bd407741306ebaef835c7eee35eb8d4c0b640e77d92e75",
   "clause_key": "S1-11_07",
   "data_kind": "qualitative",
   "definition": "披露未通过公共计划或主体福利获得因病收入损失保障的员工类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8e486a8a1c8f948caf7c9fbadebd1fb30b5300b9fe1c20e8b22e80b95cad9c1b",
+  "clause_digest": "dc05d034fa51374a6f90d290c22781c72dcdcacca69b7af00642984b1830109e",
   "clause_key": "S1-14_07",
   "data_kind": "quantitative",
   "definition": "Number of days lost to work-related injuries and fatalities from work-related accidents, work-related ill health and fatalities from ill health related to employees",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

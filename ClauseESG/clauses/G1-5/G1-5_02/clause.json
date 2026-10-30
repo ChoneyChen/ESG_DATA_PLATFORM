@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "57f044b19343a2d08341aa28785898133c883e1cc558217b2d550eb6bb47d63b",
+  "clause_digest": "560e49f35773be97c051fee98188c4f7c635f5b8005d65e7c2c59b22237f184e",
   "clause_key": "G1-5_02",
   "data_kind": "qualitative",
   "definition": "披露主体提供的财务或实物政治捐赠信息，包括对象、金额或价值及目的。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -28,7 +28,7 @@ def evidence_router(resolver, resource_lookup=None):
 
     @router.post("/{ir_run_id}/search")
     def search(ir_run_id: str, request: SearchIntent):
-        return {"objects": call(service.search, ir_run_id, request)}
+        return call(service.search_page, ir_run_id, request)
 
     @router.post("/{ir_run_id}/read")
     def read(ir_run_id: str, request: ReadRequest):

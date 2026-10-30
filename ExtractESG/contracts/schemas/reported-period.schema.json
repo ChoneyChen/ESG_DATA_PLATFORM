@@ -1,0 +1,82 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "end": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End"
+    },
+    "kind": {
+      "enum": [
+        "annual",
+        "fiscal_year",
+        "quarter",
+        "instant",
+        "range",
+        "unknown"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "quarter": {
+      "anyOf": [
+        {
+          "maximum": 4,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Quarter"
+    },
+    "raw": {
+      "minLength": 1,
+      "title": "Raw",
+      "type": "string"
+    },
+    "start": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Start"
+    },
+    "year": {
+      "anyOf": [
+        {
+          "maximum": 2199,
+          "minimum": 1900,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Year"
+    }
+  },
+  "required": [
+    "kind",
+    "raw"
+  ],
+  "title": "ReportedPeriod",
+  "type": "object"
+}

@@ -19,7 +19,7 @@ import {
   Modal,
   Empty,
 } from "../../shared/ui";
-import { date, label, tone, download, text } from "../../shared/format";
+import { date, label, tone, download, text, periodText } from "../../shared/format";
 import { href, navigate } from "../../app/routes";
 import {
   FactsTable,
@@ -258,6 +258,9 @@ export function ExtractionPage({
                       <span>模型调用</span>
                     </div>
                   </div>
+                  {run.run?.summary?.assessment?.periods && <div className="toolbar" aria-label="已取得期间">
+                    {Object.entries(run.run.summary.assessment.periods).map(([period, count]) => <Badge key={period}>{period} · {count} 条</Badge>)}
+                  </div>}
                   {run.run?.current_call && active && (
                     <div className="model-progress" aria-live="polite">
                       <strong>
@@ -338,6 +341,7 @@ export function ExtractionPage({
                               <th>覆盖</th>
                               <th>已阅读 / 候选</th>
                               <th>事实</th>
+                              <th>已取得期间</th>
                               <th>原因</th>
                             </tr>
                           </thead>
@@ -364,8 +368,10 @@ export function ExtractionPage({
                                 <td>
                                   {c.inspected_objects || 0} /{" "}
                                   {c.candidate_objects || 0}
+                                  {c.search?.total != null && <small> / 共 {c.search.total} 个候选{c.search.truncated ? " · 尚未读全" : ""}</small>}
                                 </td>
                                 <td>{c.fact_count || 0}</td>
+                                <td>{Object.entries(c.periods?.captured_facts || {}).map(([period, count]) => `${period} · ${count}`).join("；") || "—"}</td>
                                 <td>{c.reasons?.join("；") || "—"}</td>
                               </tr>
                             ))}
@@ -466,7 +472,7 @@ export function ExtractionPage({
                         <div className="detail-pair" key={key}>
                           <dt>{identityNames[key] || key}</dt>
                           <dd>
-                            {text(value.value)}{" "}
+                            {key === "reporting_period" ? periodText(value.value) : text(value.value)}{" "}
                             <Badge>{label(value.state)}</Badge>
                             {value.raw_text && (
                               <small>原文：{value.raw_text}</small>

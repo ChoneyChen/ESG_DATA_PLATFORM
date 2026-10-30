@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "14aaa5f854db5f93ef497d900d05ba8604eec2a63d3773f59152f9899c1425f2",
+  "clause_digest": "1d58353f9797d7c417add824e721241db415cc60c8af3ce3df772163c4b54620",
   "clause_key": "S1-2_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否与自身劳动力或其代表开展接触，并指出接触对象与形式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

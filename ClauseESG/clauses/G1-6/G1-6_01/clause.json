@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "dfd90f672de1c4aa732ed48c498248615256835c0ce55beca5d6021605f5845d",
+  "clause_digest": "41f60ab34671b056d95fbb933e11d2273a6e3a733dee2f74bb208e16e270e496",
   "clause_key": "G1-6_01",
   "data_kind": "quantitative",
   "definition": "自合同或法定付款起算日计算的供应商平均付款天数。",
@@ -479,6 +479,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -685,7 +686,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "day",

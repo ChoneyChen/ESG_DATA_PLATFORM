@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "358975f10b85bc2ef1ef6c480d5de63ec88a0a37f9b48e5052877dc7e8c629c4",
+  "clause_digest": "c0c1c1e0f6d8aa5cd7fc8cb2d20e972cc81547babb1f8cb3900f4060564a0503",
   "clause_key": "S1-11_08",
   "data_kind": "qualitative",
   "definition": "披露未通过公共计划或主体福利获得失业收入损失保障的员工类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

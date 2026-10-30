@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "115aa0d06d2231d02ee8834529f1fc200d485ec51edd7a81e23bdd401fc7d044",
+  "clause_digest": "d762ee4ffa45a2053ca3a658150097d83c9e9b836c9cee0ab23721d155d60736",
   "clause_key": "E5-4_04",
   "data_kind": "quantitative",
   "definition": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "3916b8f7f04a89fd459eb162680f48c482c6ad1f869a2b5927cddce56220bf22",
+  "clause_digest": "813499bcf324605fd1e5120c7aed8c439c2570a49558295b4551b85c98df0363",
   "clause_key": "E4-5_11",
   "data_kind": "quantitative",
   "definition": "披露被建筑物、铺装或其他不透水表面封固的土地面积总量。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -570,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "hectare",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "dd5ee859a48e0e742f8d37ed45bbb9717f323ac672a3178a3accf5180734d2cb",
+  "clause_digest": "e9dc19f1186ae29d01e66ddedd224a4cb45de8e1920ea290bac58f78f1258946",
   "clause_key": "E4-5_25",
   "data_kind": "qualitative",
   "definition": "披露生态系统质量相对于预先确定参考状态的情况，并说明参考状态的选择依据。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

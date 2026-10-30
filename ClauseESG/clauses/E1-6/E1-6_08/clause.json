@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "aad46f93af41a818095f39aefa8136f1cf0846b916333c5c2c252633fea4a7d3",
+  "clause_digest": "756dc1c380c1c7adb32dbf6b344f859eaaecebdae730eaf843292ca83c752a33",
   "clause_key": "E1-6_08",
   "data_kind": "quantitative",
   "definition": "受监管排放交易体系覆盖的范围1排放比例",
@@ -424,6 +424,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -442,7 +443,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "source_row_topic",
+        "entity_aggregation_role",
+        "ghg_scope"
       ],
       "missing_action": "annotate"
     },
@@ -707,7 +711,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

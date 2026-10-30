@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5caba4b95cabd4eb1118ec9245c0ee3ec61d986bb52f4ad8154db266bbe16ad0",
+  "clause_digest": "c611786c2c60db54f49543188e06025e8e0251f481d16e441402ac6685723523",
   "clause_key": "E2-1_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of  whether and how policy addresses avoiding incidents and emergency situations, and if and when they occur, controlling and limiting their impact on people and environment。污染事故和紧急情况政策。污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

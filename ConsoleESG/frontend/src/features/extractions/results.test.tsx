@@ -36,3 +36,17 @@ it('paginates independent records without discarding the later rows',()=>{
   expect(screen.queryByText('项目49')).toBeNull();
   expect(screen.getByText('55 条原始记录')).toBeTruthy();
 });
+it('shows all years by default and filters a rich quarter without JSON labels',()=>{
+  const table=fixture(3);
+  table.rows!.forEach((row,i)=>{
+    row.result_class='target';
+    row.cells.period.value=i===2?{kind:'quarter',year:2025,quarter:2,raw:'2025年第二季度'}:String(2023+i);
+  });
+  render(<OrganizedTable table={table} sessionId="session"/>);
+  expect(screen.getByText('项目0')).toBeTruthy();
+  expect(screen.getByText('项目1')).toBeTruthy();
+  expect(screen.getByText('项目2')).toBeTruthy();
+  fireEvent.change(screen.getByLabelText('期间筛选'),{target:{value:'2025 Q2'}});
+  expect(screen.getByText('项目2')).toBeTruthy();
+  expect(screen.queryByText('项目0')).toBeNull();
+});

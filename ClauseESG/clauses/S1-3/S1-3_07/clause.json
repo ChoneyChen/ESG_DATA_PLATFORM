@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "19b3ee046cc1eab01d7382417d052eb67dc88f89eb37af24d17d4c80d61b0610",
+  "clause_digest": "430b1ced0c4c95a3564bb4d8004e185af898ad3a2d175a824ef32170b7cb4f62",
   "clause_key": "S1-3_07",
   "data_kind": "qualitative",
   "definition": "说明提出的问题如何被跟踪和处理，以及如何确保渠道的有效性。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

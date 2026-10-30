@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "1b852f7b324f6fcb2416430926167732d1fbd08799ac7a01222f278264831724",
+  "clause_digest": "1c7c5862da2918af3f1ed60c2ca8a432e7708e77257a299bd9303da9adcd2162",
   "clause_key": "S1-12_03",
   "data_kind": "qualitative",
   "definition": "披露理解残障数据所必需的背景信息以及数据如何编制。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

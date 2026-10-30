@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "177f8c632b6e802b412f99ac0902b85988cc91d8eeb51d494d965e313f56ec0b",
+  "clause_digest": "393e27934f457c10233f0b587d92319b26185e12b54c5aa360539ef1e42ab55f",
   "clause_key": "E1-9_39",
   "data_kind": "qualitative",
   "definition": "Disclosure of reconciliations with financial statements of significant amounts of assets and net revenue at material physical risk。物理风险资产收入与财务报表对账。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

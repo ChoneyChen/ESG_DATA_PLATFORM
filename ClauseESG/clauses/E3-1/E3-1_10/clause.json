@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ca1c024d06be601d45e093057c17a88fc3a55da42eafd7daa4a4a114b98b107a",
+  "clause_digest": "ddc94d023104dced30b1e0f0bb24774b8af4e9b444838b4b622c103cd4232a83",
   "clause_key": "E3-1_10",
   "data_kind": "qualitative",
   "definition": "The policly contributes to good ecological and chemical quality of surface water bodies and good chemical quality and quantity of groundwater bodies, in order to protect human health, water supply, natural ecosystems and biodiversity, the good environmental status of marine waters and the protection of the resource base upon which marine related activities depend;。水生态化学状态及海洋资源保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2548143888a19857d6351313bf43f86ce3f6bef79d3ccb87bac134dbdb127c08",
+  "clause_digest": "6445fb1a320917073ece6637ee4ffe9afee1f0d595cd9da669709671152b3076",
   "clause_key": "E4-1_14",
   "data_kind": "qualitative",
   "definition": "说明生物多样性抵消是否以及如何构成转型计划的一部分，并指出抵消在减缓层级中的位置。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e38c9cb53fb81230a153a2d64ecb0b4a3bc883c855fadd210e763b958d47d80b",
+  "clause_digest": "982beb01d4625584cc533e2ccc86c829ded5d0a896d4628fc3a490f766807108",
   "clause_key": "E1-6_11",
   "data_kind": "quantitative",
   "definition": "按重大类别划分的范围3温室气体排放总量",
@@ -550,6 +550,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -573,7 +574,8 @@
         "entity_aggregation_role",
         "ghg_scope",
         "scope3_category",
-        "aggregation_role"
+        "aggregation_role",
+        "source_row_topic"
       ],
       "missing_action": "annotate"
     },
@@ -944,7 +946,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tCO2e",

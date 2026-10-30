@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6b881349551b23646ea335426ac29cec8bff79c70b04d7513811669bc95f8993",
+  "clause_digest": "5504104e4fb44e901a8300c2659bb627b2cc8a7d3ba7d11c4753545f1630ffe9",
   "clause_key": "S1-7_02",
   "data_kind": "quantitative",
   "definition": "披露自身劳动力中自雇人员的数量，并说明其与主体的合同关系。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -570,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

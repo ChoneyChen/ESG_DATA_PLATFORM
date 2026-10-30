@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7acaa39add5b0cdec0b97647bc8d76491c89742bfaf8566e9a74259a3070fb25",
+  "clause_digest": "fc758c51834770e2a997c32141de22550ddadc5aa1d667f960493aa18100c7cf",
   "clause_key": "E4-2_17",
   "data_kind": "qualitative",
   "definition": "说明主体是否已就在保护区或保护区外生物多样性敏感区域内及附近拥有、租赁或管理的运营场址制定生物多样性和生态系统保护政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

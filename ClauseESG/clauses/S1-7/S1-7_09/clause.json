@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "34c5c1a27941d4bd67902afa81e9475d8ab1e647aa4cdf421e3e0aa6d562f831",
+  "clause_digest": "b8ac8a23e7dd7aaa4b32d491cb22d3ccffec5ea8a90994a76525a9ac7a99eb06",
   "clause_key": "S1-7_09",
   "data_kind": "qualitative",
   "definition": "披露理解非员工数据所必需的背景信息，包括季节性、地区分布和用工变化。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

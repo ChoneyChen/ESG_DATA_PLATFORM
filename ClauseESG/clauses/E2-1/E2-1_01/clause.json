@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "aee8b52451c9d632b286c146062f3a9c62521cb7c1755b8df87479267a7724e9",
+  "clause_digest": "e3c027d0148fa6bc2fffd11d6583c4f84f404efbf4113dd0dfeb892144d62009",
   "clause_key": "E2-1_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy addresses mitigating negative impacts related to pollution of air, water and soil。空气水体土壤污染缓解政策。污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

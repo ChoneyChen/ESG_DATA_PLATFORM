@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "75d1c9d79bea0592ba7c55bb3312adc6bf7cf261ca24a24594bc9aaa3ee6c97b",
+  "clause_digest": "3d7439cb2b8edf3e0ebf1864647f2f504dbafe9b3da67bf1be17439b754fcd37",
   "clause_key": "S3-4_10",
   "data_kind": "qualitative",
   "definition": "说明主体如何确保自身实践不会造成或促成对受影响社区的重大负面影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

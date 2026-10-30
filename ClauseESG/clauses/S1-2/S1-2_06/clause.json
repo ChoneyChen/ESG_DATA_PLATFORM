@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a1f8fecc4b8c1b9b9ea68a1a9422919cd02d9bc943d6b28d471290638eeb35fa",
+  "clause_digest": "e8f96207d864a2fa5dd56d9cb4ad5dcdb60b51289b4df0307a08e739da8e6920",
   "clause_key": "S1-2_06",
   "data_kind": "qualitative",
   "definition": "说明主体如何评估与自身劳动力接触的有效性，包括评估指标与反馈机制。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

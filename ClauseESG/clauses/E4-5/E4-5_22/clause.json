@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b913c50bc5399e716394a8af4917852ce6ab8b87c676a806f897358e132582a9",
+  "clause_digest": "579729122d4571e55d765e752693cc1961e92b16fee794cc960b100661dcd712",
   "clause_key": "E4-5_22",
   "data_kind": "qualitative",
   "definition": "披露相关物种的受威胁状态，以及主体活动或压力可能如何影响该状态。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f892f8bac248cd0b097446abe5a8fbc2caf53c0ab041203908de1c4a7239c0bf",
+  "clause_digest": "cb6a41f190339b940247828dcb0e42ed009707cecc2f44e08e2355ef4d278fe9",
   "clause_key": "E2-1_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of  whether and how policy addresses substituting and minimising use of substances of concern and phasing out substances of very high concern。关注物质与高度关注物质政策。污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

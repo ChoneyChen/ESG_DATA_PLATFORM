@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6f161894afd87dee2b90f5792f1dab0897a4fd45d1eaa98f3aa96cc24fb16b4d",
+  "clause_digest": "d3eee7cc3d22e94783efc82fe4c3ea1abe5f0abdca74b43539f05a0b4c5939fc",
   "clause_key": "S4-2_05",
   "data_kind": "qualitative",
   "definition": "说明主体如何评估与消费者和终端用户接触的有效性，包括评估指标与反馈机制。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

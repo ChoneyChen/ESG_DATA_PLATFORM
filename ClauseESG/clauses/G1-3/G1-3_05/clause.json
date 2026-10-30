@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "11f1b85a30ed64c10e77857cbb91f5377012119190e9595cfb1496b6f311d5a7",
+  "clause_digest": "5dcc9346a392d823478432ffb7293cb79f9a0b2014459519a5b27e97c46a692e",
   "clause_key": "G1-3_05",
   "data_kind": "qualitative",
   "definition": "说明反腐败或反贿赂政策如何传达给相关人员，包括渠道、语言和确认机制。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

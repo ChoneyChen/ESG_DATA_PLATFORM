@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5582e1afcc1aa665e9b4b1523b213e69ef031debf6654b605f570c674c9f3ad5",
+  "clause_digest": "d41ce264c8f1e25e7489fea4431953bb6bb968333e1b1ed677e13fb15fb7e739",
   "clause_key": "E4-5_06",
   "data_kind": "qualitative",
   "definition": "披露生态系统管理方式随时间发生的变化，包括管理措施及其对生态条件的影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

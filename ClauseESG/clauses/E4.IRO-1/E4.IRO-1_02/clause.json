@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "93ead3f853d233d575aa640570481a1b9663d5128aa90b3859dd4b63867e323a",
+  "clause_digest": "bcb2827be57e87499437a238d347cda75d9076832fcde634bf6215e4d0b1d1b9",
   "clause_key": "E4.IRO-1_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统及其服务的依赖。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

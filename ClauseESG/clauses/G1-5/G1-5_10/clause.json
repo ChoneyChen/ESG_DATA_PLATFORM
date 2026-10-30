@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8d904b9957482513de8bde5e6e428bd75375bfbb8526aa9ec5e4b3fc3a2ba1be",
+  "clause_digest": "b98a87f9a66a3f2b58ac9f6f07b7b1342c7ff759d029ddce0cf911eca205c407",
   "clause_key": "G1-5_10",
   "data_kind": "qualitative",
   "definition": "说明主体是否已在欧盟透明度登记册或成员国等效透明度登记册中登记。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

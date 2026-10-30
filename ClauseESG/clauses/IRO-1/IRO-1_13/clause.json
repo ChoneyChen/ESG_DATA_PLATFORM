@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c70ddbfc1ddf061ee2a7e87b4018de28f775e380b3e971ea80b4c75dc7cd0030",
+  "clause_digest": "376934d82913e9b96cc8def17d1eb8d41bd9fb66093c5c31689a2a6c22f72627",
   "clause_key": "IRO-1_13",
   "data_kind": "qualitative",
   "definition": "Description of extent to which and how process to identify, assess and manage opportunities is integrated into overall management process。机会识别与管理流程整合。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -326,7 +327,11 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -412,7 +417,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

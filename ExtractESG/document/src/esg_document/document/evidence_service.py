@@ -115,7 +115,12 @@ class DocumentEvidenceService:
             content_digest=fingerprint.hexdigest(),
             source_sha256=ir.manifest.get("source", {}).get("pdf_sha256"),
             reporting_year=period.year,
-            reporting_period_raw=str(period.year) if period.year else None,
+            reporting_period_raw=period.evidence or (str(period.year) if period.year else None),
+            period_context={"basis": period.basis, "evidence": period.evidence,
+                "source_id": period.source_id,
+                "page_index": next((page["page"]["page_index"] for page in ir.pages
+                    if any(block.get("block_id") == period.source_id for block in page.get("blocks", []))), None),
+                "inheritance": "explicit_reference_only"},
             report_resource=ir.manifest.get("report_resource"),
             label=ir.manifest.get("document_label"),
             limited_evidence=bool(
@@ -139,6 +144,9 @@ class DocumentEvidenceService:
         return reference
 
     def search(self, ir_run_id, intent):
+        return self.search_page(ir_run_id, intent).objects
+
+    def search_page(self, ir_run_id, intent):
         intent = SearchIntent.model_validate(intent)
         document, tables, raw, texts = self._document(ir_run_id)
         terms = list(
@@ -220,9 +228,25 @@ class DocumentEvidenceService:
                         chunk_count=max(1, math.ceil(len(item.text) / 4000)),
                     )
                 )
-        return sorted(results, key=lambda r: (-r.score, r.page_index, r.object_id))[
-            : intent.limit
-        ]
+        from esg_contracts.evidence import ObjectSearchPage
+        from esg_data.hashing import digest
+        import base64
+        ranked = sorted(results, key=lambda r: (-r.score, r.page_index, r.object_id))
+        query = digest([document.evidence_identity(), intent.model_dump(mode="json", exclude={"cursor"})])
+        offset = 0
+        if intent.cursor:
+            try:
+                cursor = json.loads(base64.urlsafe_b64decode(intent.cursor.encode()))
+                if cursor["query"] != query or type(cursor["offset"]) is not int or cursor["offset"] < 0:
+                    raise ValueError("Cursor belongs to a different query or document revision")
+                offset = cursor["offset"]
+            except (ValueError, KeyError, TypeError) as exc:
+                raise ValueError("Invalid object-search cursor") from exc
+        objects = ranked[offset:offset + intent.limit]
+        following = offset + len(objects)
+        cursor = base64.urlsafe_b64encode(json.dumps({"query":query,"offset":following}).encode()).decode() if following < len(ranked) else None
+        return ObjectSearchPage(objects=objects, total=len(ranked), returned=len(objects), next_cursor=cursor,
+            query_digest=query, scope=document.search_scope or {})
 
     @staticmethod
     def _intent_score(intent, text, score):

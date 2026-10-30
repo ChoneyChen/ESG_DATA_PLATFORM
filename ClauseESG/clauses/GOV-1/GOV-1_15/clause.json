@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "df275391d9a6bc04ffc3a9412870d660d0c62e8c2445b72c8994bf92df2b12a8",
+  "clause_digest": "0a2024292de194c2f6d416daa4dbb124426571d15f7fc81c66eca3e966a605d2",
   "clause_key": "GOV-1_15",
   "data_kind": "qualitative",
   "definition": "Disclosure of how administrative, management and supervisory bodies determine whether appropriate skills and expertise are available or will be developed to oversee sustainability matters。可持续技能可用性及培养。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

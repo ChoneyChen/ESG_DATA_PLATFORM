@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2a224b2633bb2e43d140270f3d6e82f9a3077740c2e4fa7242f5d7191f0e7e8b",
+  "clause_digest": "fbf8e2cc996f40e034e3c318522052566b9256ca5e7e6c2198d2c5d4c6d19181",
   "clause_key": "E4-5_21",
   "data_kind": "qualitative",
   "definition": "提供与主体活动相关的、处于全球灭绝风险物种的信息，包括物种名称与风险等级。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

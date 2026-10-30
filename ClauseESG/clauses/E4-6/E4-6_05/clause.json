@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "65e69fde9e26ea55c6db4a7e29374b50019ce3261fee641a42f8b23e1531f08e",
+  "clause_digest": "e13bbac8ffb144e2fe6b0ee8258f8c95416d060d943376a9eb14310138f46195",
   "clause_key": "E4-6_05",
   "data_kind": "qualitative",
   "definition": "描述在短期、中期和长期内因生物多样性和生态系统相关风险而受影响的产品和服务。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

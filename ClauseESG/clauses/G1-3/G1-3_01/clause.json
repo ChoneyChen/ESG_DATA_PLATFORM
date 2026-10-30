@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ac0b52177abd3fb9cfd68aa1fd6c9f26f5915ebcff33ab2c89ade75f04bccd4c",
+  "clause_digest": "2d20e294b5b557c2f958181ab4b5a95a5811b7a6d235499220a1f57a7de16abe",
   "clause_key": "G1-3_01",
   "data_kind": "qualitative",
   "definition": "说明主体为预防、发现和处理腐败或贿赂指控或事件所建立的程序。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

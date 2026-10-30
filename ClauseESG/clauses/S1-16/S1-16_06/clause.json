@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "785609c77a4055a87f0b10562208702dedd0b293b95b0f403e49652c7c3b09b9",
+  "clause_digest": "9f59a2fca6cc8d0e70c42d24ea52a9ca060f7cc6f363a8d445b7ed2215235d07",
   "clause_key": "S1-16_06",
   "data_kind": "quantitative",
   "definition": "Remuneration ratio adjusted for purchasing power differences between countries",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

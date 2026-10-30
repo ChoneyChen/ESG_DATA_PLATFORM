@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5b4caff15ccd2bc88cee47be7552e6962ec26bbfd38b8dd959702aacb91406a4",
+  "clause_digest": "5221e1c7240c149beb263c1fd09dcee119fd68951a8fb48e2a6b34e74ca170e5",
   "clause_key": "S2-4_13",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响价值链劳动者的重大负面影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

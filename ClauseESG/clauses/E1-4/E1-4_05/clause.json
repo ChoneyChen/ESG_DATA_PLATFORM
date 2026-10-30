@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e9cfbe720628460a1875bc78397c8012bd218d15e56f7fd56fb3638bdf321725",
+  "clause_digest": "8ebe6713f3897c7d1fbaaa731f75a63f1cdf30be4700db8e7d25140912891d4e",
   "clause_key": "E1-4_05",
   "data_kind": "quantitative",
   "definition": "Intensity value of total Greenhouse gas emissions reduction。总排放减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -448,7 +449,14 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "baseline_year",
+        "target_year",
+        "ghg_scope",
+        "accounting_method",
+        "denominator",
+        "denominator_scale"
       ],
       "missing_action": "annotate"
     },
@@ -551,7 +559,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

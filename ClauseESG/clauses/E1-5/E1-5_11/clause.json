@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0dbf6e4d650fe9ed773cb3c2d38466aac9a3330c72b7bae95356c6d7e35eab84",
+  "clause_digest": "01b8cdb17686189e23723590dea6975234c9a83ad514f8139235211a5fd6543b",
   "clause_key": "E1-5_11",
   "data_kind": "quantitative",
   "definition": "原油及石油产品的燃料消费量",
@@ -424,6 +424,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -444,7 +445,11 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
       ],
       "missing_action": "annotate"
     },
@@ -799,7 +804,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

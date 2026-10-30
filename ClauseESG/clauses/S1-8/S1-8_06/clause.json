@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b0f454120af8b96284db5ae59b545209c1f221c734dd2e0b51c352cb13730dfa",
+  "clause_digest": "099636339e80ddacdcd31644921ee1fb6e8da342a8a4290778976cda72b62ffa",
   "clause_key": "S1-8_06",
   "data_kind": "quantitative",
   "definition": "披露在欧洲经济区内具有重要就业的国家中，受员工代表覆盖的员工比例。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

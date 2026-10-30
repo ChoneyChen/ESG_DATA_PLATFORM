@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "747f23044e196c1b7bbe0fa6a2b36c86e61e4fed42b1f09add130b1eec992031",
+  "clause_digest": "72dfd86d162b7fa5eec96d5ff7a0398391e345ffb652c1a33bfc962e11e0070a",
   "clause_key": "S1-14_02",
   "data_kind": "quantitative",
   "definition": "报告期内自有劳动力因工伤或职业病死亡的人数。",
@@ -431,6 +431,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -447,7 +448,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "population",
+        "fatality_cause_scope",
+        "aggregation_role"
       ],
       "missing_action": "annotate"
     },
@@ -653,7 +657,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "person",

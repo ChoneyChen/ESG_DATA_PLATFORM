@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8cac17a73b5cae20b8951180f85f9e93e490e0249a7f3a18cc9526469a9c1c7b",
+  "clause_digest": "16b8f279dcbfb08b9efbbe46d27ad41498e584f403dbc324cff4c4f8244b1b48",
   "clause_key": "E1-5_17",
   "data_kind": "quantitative",
   "definition": "可再生能源生产量",
@@ -424,6 +424,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -443,7 +444,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
       ],
       "missing_action": "annotate"
     },
@@ -638,7 +642,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

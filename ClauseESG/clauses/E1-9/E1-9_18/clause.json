@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2356d30c1b9aeee4080c9d47923b15bee66b580de1605b5c3444062cd257bbe3",
+  "clause_digest": "de738b8365507d8210e54b0cceaa5c3b876c623e42ee9ca8efa5e1458be85a25",
   "clause_key": "E1-9_18",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how potential effects on future financial performance and position for assets and business activities at material transition risk have been assessed。转型风险财务影响评估方法。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

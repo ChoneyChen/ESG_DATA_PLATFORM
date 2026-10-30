@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8359039c88055809f6d02c0faf9c51170fffaf75de9fd7b01624f98894f1a7ea",
+  "clause_digest": "34fb7ed550f7c5f9857ca8d4b23ba6c580931539ba7f6f63020db8c83c2ec4f4",
   "clause_key": "G1-6_04",
   "data_kind": "quantitative",
   "definition": "Number of outstanding legal proceedings for late payments",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

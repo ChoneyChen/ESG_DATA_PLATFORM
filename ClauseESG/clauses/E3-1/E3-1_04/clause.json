@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "778d8af3db5e613a57a4b82ac09193d5e3dd69b9d4c0343acc75ef3abc1977b6",
+  "clause_digest": "533bcb11d62fb0e4c9f8fc3d616e28a41765768192902ae4ab71ccfca36693d1",
   "clause_key": "E3-1_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy adresses prevention and abatment of water pollution。水污染预防减缓政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

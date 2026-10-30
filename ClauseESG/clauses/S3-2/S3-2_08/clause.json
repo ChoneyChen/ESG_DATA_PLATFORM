@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ca73d80d4726cd198756aa6fa5c2d6dc57e290074f0af65151d1e15f15ac5d0f",
+  "clause_digest": "e9c8c69a264687898656943031ea2e182c4a70066842c72ebfca32218ba8e259",
   "clause_key": "S3-2_08",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立与受影响社区接触的一般性流程；若未建立，披露现状与原因。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "23430e4b4605781fac7c561a1c86709c06c0a6db6b94e6855b5eb3ae2348df22",
+  "clause_digest": "e91d7150f6f9b19e5a4f04db1c9d240086a9b43f8c8e45d20fccb360ad383196",
   "clause_key": "E3-2_01",
   "data_kind": "qualitative",
   "definition": "Layer in mitigation hierarchy to which action and resources can be allocated to (water and marine resources)。水及海洋资源行动资源的缓解层级。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

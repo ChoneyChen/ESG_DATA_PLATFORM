@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a4a37ad2e2d8451911398ade07a9001b0695097eef0ca16f43ab5be6324d123e",
+  "clause_digest": "64dfeb615ab4bbc69fccaad78536ae381d422260cc05f64c8f8e685618065860",
   "clause_key": "G1-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -462,7 +464,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4d6cdc808955319df6e2961b60f4bfe1da24dfe23fffa2d21600198b1086343f",
+  "clause_digest": "0693276b88fe3b496bd9e2c1d4336dc05f7d5b500e0fc4d69ea65b9651d48586",
   "clause_key": "S1-1_03",
   "data_kind": "qualitative",
   "definition": "描述与自身劳动力相关的、主体作出的人权政策承诺及其来源。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

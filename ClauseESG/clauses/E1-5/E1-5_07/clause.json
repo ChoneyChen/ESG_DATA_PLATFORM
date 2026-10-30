@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0d96a88aa498624c2206ea01f01595f2a3edc2ec43b1e2c3ef6a544c1034b6b5",
+  "clause_digest": "9b39887fd10022018aa5f471329def3ddf8528e51e63025a012cf454c80d6122",
   "clause_key": "E1-5_07",
   "data_kind": "quantitative",
   "definition": "外购或购入的可再生电力、热力、蒸汽和冷却能源",
@@ -424,6 +424,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -444,7 +445,11 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "energy_source",
+        "energy_flow",
+        "energy_carrier",
+        "aggregation_role"
       ],
       "missing_action": "annotate"
     },
@@ -714,7 +719,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "1a9e31bacef1b81bc832c3fae7bc79b250a35cdd5dd971d3b8c1f9ba5c3cc652",
+  "clause_digest": "66a9794b090c05cf7776b51a9052746aab79232a82b0df2eae853a53fc7582a7",
   "clause_key": "S3-2_09",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立与受影响社区一般性接触流程的时间表。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

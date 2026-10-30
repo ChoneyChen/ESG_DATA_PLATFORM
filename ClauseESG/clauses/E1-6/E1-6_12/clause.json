@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2dba2880865513b967a2ebb1d64398cedd087f33814f126e09d041fc4e7cc84b",
+  "clause_digest": "04e4321feea8c6d730edd0fe9cf8a709a12bfbadd391a223c8a4ae8eb8736ab8",
   "clause_key": "E1-6_12",
   "data_kind": "quantitative",
   "definition": "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量。",
@@ -512,6 +512,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -804,7 +805,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tCO2e",

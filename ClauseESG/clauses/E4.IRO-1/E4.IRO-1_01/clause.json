@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4c3e469df2166f9b52d5ffc1fa3b06ba50d0e6f9771745f7ea9e6f20e3763c9e",
+  "clause_digest": "6f99b3f69addbf74929e06c1dbd9c11142c3b94505243f24ee4401ebf49b5b43",
   "clause_key": "E4.IRO-1_01",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

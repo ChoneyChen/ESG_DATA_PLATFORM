@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c1b66dedf66b3c47df18738a7a7a6d1c028c8aa157520b5f493de164451c5240",
+  "clause_digest": "93ae63326e168a8d0cace9fd2ae0bc3f58191b3044c4ed6b342b32ae05b9dfd1",
   "clause_key": "E5-2_08",
   "data_kind": "qualitative",
   "definition": "说明主体的行动对循环经济的贡献，包括资源使用减少和材料循环性提升的结果。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

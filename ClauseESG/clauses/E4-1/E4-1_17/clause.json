@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b587476bbc7e956600c496de6c627991c366e64890e29de9e6154f329f72eebf",
+  "clause_digest": "eaeb96caf843307870c8ac14964dbbbeac52de515670dd96ef74f571c03836d9",
   "clause_key": "E4-1_17",
   "data_kind": "qualitative",
   "definition": "说明行政、管理和监督机构是否以及何时批准了转型计划。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c6c4179c27f6c15ab4fb38d9d46dee504714443286c7d10bfb74f9ca38614e58",
+  "clause_digest": "805138e7b1a362a7693ddba1cfc65609433b73e8822c16ca160cf9a2369096c2",
   "clause_key": "G1-3_03",
   "data_kind": "qualitative",
   "definition": "说明将调查结果和处置情况报告给行政、管理和监督机构的流程与频率。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

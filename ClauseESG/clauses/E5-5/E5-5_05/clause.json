@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d69d21464ee12a0c83e9a64818f3b26ff9e237cd04c064d5a6867d7047d87bb5",
+  "clause_digest": "cc162bc7bbf8fbee0ea8bb621bc6b7fe722bfb71648b9028a76606bba733b48e",
   "clause_key": "E5-5_05",
   "data_kind": "quantitative",
   "definition": "The rates of recyclable content in products packaging",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "3d29c6a55a38c3b70c1f46b548481a528d64bae9aed8bd19d39bdc53c8122241",
+  "clause_digest": "092d52f531113193f88df898d205faff44ed69b076aef333752e67d93035e3a5",
   "clause_key": "S2-3_03",
   "data_kind": "qualitative",
   "definition": "说明主体通过哪些流程支持或要求价值链中提供申诉渠道，包括对供应商的要求。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

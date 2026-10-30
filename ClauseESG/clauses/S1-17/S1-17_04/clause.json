@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ffc03ef5192ed38284b4d20585038fbd85c95db72a2bc54b71eacc9af8759ff0",
+  "clause_digest": "1333ba769ec3a92c27d15b2f847cb5cf439dede388740d898fa4df9a175bbb55",
   "clause_key": "S1-17_04",
   "data_kind": "quantitative",
   "definition": "Number of complaints filed to National Contact Points for OECD Multinational Enterprises",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

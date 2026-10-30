@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d36ad080fbd8417e148c051ab63a135d1826c9b7bb8c2b7982b5c87b7e3083f2",
+  "clause_digest": "7962a748f55f1e19d0138a8965fbde677792e5506ff107c900ffc07e8a8e12b8",
   "clause_key": "E3-4_11",
   "data_kind": "quantitative",
   "definition": "Total water withdrawals。取水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -546,6 +546,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -894,7 +895,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "m3",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "78d225c104d26dd7dea7ad2314308e053e343c7ebe21555dc561d35904defb1c",
+  "clause_digest": "bcfa839091f99bfe7f194475920870f3802663aaa6eb5753f8e77b1aad50b334",
   "clause_key": "G1.GOV-1_01",
   "data_kind": "qualitative",
   "definition": "披露行政、管理和监督机构在商业行为相关事项中的角色、职责与监督安排。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "24b32b6be683d63bea7d2f4517c949cf86e677db173ef4768ed7a5f6cf708bc3",
+  "clause_digest": "421467c595688cae91323c8657dd03624eeecd89d94005c2a59cd456e1fea38e",
   "clause_key": "S3-3_10",
   "data_kind": "qualitative",
   "definition": "说明主体在已识别与受影响社区重大负面影响相关时，提供或促成补救的总体方法与流程。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

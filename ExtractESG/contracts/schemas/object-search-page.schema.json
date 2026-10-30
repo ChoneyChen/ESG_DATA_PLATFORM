@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "ObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "chunk_count": {
+          "default": 1,
+          "title": "Chunk Count",
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "table",
+            "text"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "object_id": {
+          "title": "Object Id",
+          "type": "string"
+        },
+        "page_index": {
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "object_id",
+        "kind",
+        "page_index",
+        "score"
+      ],
+      "title": "ObjectReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Cursor"
+    },
+    "objects": {
+      "items": {
+        "$ref": "#/$defs/ObjectReference"
+      },
+      "title": "Objects",
+      "type": "array"
+    },
+    "query_digest": {
+      "title": "Query Digest",
+      "type": "string"
+    },
+    "returned": {
+      "minimum": 0,
+      "title": "Returned",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "object-search-page-1.0",
+      "default": "object-search-page-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "scope": {
+      "additionalProperties": true,
+      "title": "Scope",
+      "type": "object"
+    },
+    "total": {
+      "minimum": 0,
+      "title": "Total",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "objects",
+    "total",
+    "returned",
+    "query_digest",
+    "scope"
+  ],
+  "title": "ObjectSearchPage",
+  "type": "object"
+}

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 import re
-from decimal import Decimal
 from esg_data.hashing import digest
 from esg_contracts.facts import (
     EvidenceLocation,
@@ -16,8 +15,10 @@ from esg_contracts.facts import (
 from esg_data.units import canonical_unit_id, unit_dimension, normalize_unit_text
 from esg_clauses.reading import check_reading
 from esg_clauses.evidence import check_evidence
-from esg_data.literals import parse_measure, period_years
+from esg_data.literals import parse_measure
 from .decisions import IdentityProposal
+from .period_binding import bind_period
+from esg_data.periods import normalize_period
 
 CONTEXT_AXES = {
     "reporting_period",
@@ -134,70 +135,10 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 evidence=[evidence],
             )
         (fields if claim.axis in CONTEXT_AXES else dimensions)[claim.axis] = value
-    # Physical column periods outrank a model claim about another column.
-    headers = frame.columns.get(column_id, []) if column_id else []
-    printed = " › ".join(headers)
-    years = period_years(printed)
-    if len(set(years)) == 1:
-        year = str(years[0])
-        quarter = re.search(r"(?:Q([1-4])|第?([一二三四1-4])季度)", printed, re.I)
-        if quarter:
-            token = quarter.group(1) or quarter.group(2)
-            number = int(token) if token.isdigit() else "一二三四".index(token) + 1
-            period_value = {"kind": "quarter", "year": year, "quarter": number}
-        elif re.search(r"上半年|下半年|H[12]|半年度|月|日|至|到", printed, re.I):
-            period_value = {"kind": "specific_period", "year": year, "raw": printed}
-        else:
-            period_value = year
-        supports = [
-            s
-            for s in frame.column_sources.get(column_id, [])
-            if str(years[0]) in s.text
-        ]
-        if supports:
-            fields["reporting_period"] = ReportedField(
-                state="stated",
-                raw_text=" / ".join(s.text for s in supports),
-                value=period_value,
-                evidence=[
-                    EvidenceLocation(
-                        object_id=s.object_id,
-                        object_type=s.object_type,
-                        page_index=s.page_index,
-                        excerpt=s.text,
-                        role="column_header",
-                        bbox=s.bbox,
-                    )
-                    for s in supports
-                ],
-            )
-        else:
-            fields["reporting_period"] = ReportedField(state="not_read")
-            flags.append("column_period_source_unconfirmed")
-    elif (
-        not years
-        and "reporting_period" not in fields
-        and document
-        and document.reporting_year
-        and not (
-            frame.kind == "text" and any(period_years(t.text) for t in frame.texts)
-        )
-    ):
-        fields["reporting_period"] = ReportedField(
-            state="inherited",
-            raw_text=document.reporting_period_raw or str(document.reporting_year),
-            value=str(document.reporting_year),
-            evidence=[
-                EvidenceLocation(
-                    object_id=document.document_id,
-                    object_type="report",
-                    page_index=None,
-                    excerpt=document.reporting_period_raw
-                    or str(document.reporting_year),
-                    role="report",
-                )
-            ],
-        )
+    period, period_flags = bind_period(frame, row=row, column_id=column_id, document=document)
+    if period is not None:
+        fields["reporting_period"] = period
+    flags.extend(period_flags)
     if attempts is not None:
         attempts.extend(flags)
     # Diagnostics assess final bound fields, not superseded model proposals.
@@ -251,13 +192,14 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         comparator = "unknown"
         suffix = None
         parse_status = "unparsed"
-    unit = row.unit_raw or suffix
-    if not unit:
-        for header in frame.columns.get(cell.column_id, []):
-            for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", header):
-                if canonical_unit_id(candidate):
-                    unit = candidate
-                    break
+    column_unit = None
+    for header in frame.columns.get(cell.column_id, []):
+        for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", header):
+            if canonical_unit_id(candidate):
+                column_unit = candidate
+                break
+    # The actual cell and column outrank a shared row-unit label.
+    unit = suffix or column_unit or row.unit_raw
     if unit:
         for source in row.unit_sources:
             if normalize_unit_text(source.text) == normalize_unit_text(unit):
@@ -284,7 +226,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     )
     attempts = []
     context, flags = context_from_claims(
-        frame, match.identity, row=row, column_id=cell.column_id, document=document, attempts=attempts
+        frame, [*match.identity, *match.column_identity.get(cell.column_id, [])], row=row, column_id=cell.column_id, document=document, attempts=attempts
     )
     evidence = [
         EvidenceLocation(
@@ -545,27 +487,20 @@ def mapping_for(clause, document, fact, match, reason):
             elif field.value != wanted:
                 conflict = True
                 known_conflicts.append(axis)
-        period = fact.identity.reporting_period
-        if scope.period and scope.period != "annual":
-            if period.state not in {"stated", "inherited"}:
+        period_field = fact.identity.reporting_period
+        period = normalize_period(period_field.value)
+        if scope.period:
+            if period_field.state not in {"stated", "inherited"} or period is None:
                 complete = False
-            elif scope.period in {"target_period", "baseline_period"}:
-                wanted = "target" if scope.period == "target_period" else "baseline"
+            elif scope.period in {"target_period", "baseline_period", "restated_period"}:
+                wanted = {"target_period": "target", "baseline_period": "baseline", "restated_period": "restated"}[scope.period]
                 if fact.identity.value_role.value != wanted:
                     complete = False
-            elif (
-                not isinstance(period.value, dict)
-                or period.value.get("kind") != scope.period
-            ):
+            elif scope.period == "annual":
+                if period.kind not in {"annual", "fiscal_year"}:
+                    complete = False
+            elif scope.period != period.kind and not (scope.period in {"cumulative", "multi_year"} and period.kind == "range"):
                 complete = False
-        if scope.period == "annual":
-            if (
-                period.state not in {"stated", "inherited"}
-                or document.reporting_year is None
-            ):
-                complete = False
-            elif period.value != str(document.reporting_year):
-                conflict = True
         if complete and not conflict:
             covered.append(scope.scope_id)
         scope_conflicts.append(known_conflicts)

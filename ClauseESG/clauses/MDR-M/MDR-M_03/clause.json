@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7c0e3a5518611bac25a91b7066a3c0fcb0f3234498ab2e489e0ed9b72c295bd4",
+  "clause_digest": "a30ebad648264b403245535063b0345896f0d8f75451fe196d70045a87a39a5a",
   "clause_key": "MDR-M_03",
   "data_kind": "qualitative",
   "definition": "Type of external body other than assurance provider that provides validation。指标外部验证机构。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic",
+        "measured_metric_ref"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ff9033c5b91d5fa5ef3f92508079c248fde12d633bb061a40077baa74775e49c",
+  "clause_digest": "30c7eddce26ce3955733432c5b81241247b3af23c568f93c383d81e2ddd41cea",
   "clause_key": "E4-5_12",
   "data_kind": "quantitative",
   "definition": "披露场址范围内以自然导向方式管理的面积，并说明其生态特征。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -570,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "hectare",

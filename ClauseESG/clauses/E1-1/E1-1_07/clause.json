@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "20be6b6766a76189b207808371082f48f4cce493efa2490acecbd2ca791a5603",
+  "clause_digest": "e2a0a13093177152838239b9825bfaa4d6febff50ef9424de09d1b45b2f13376",
   "clause_key": "E1-1_07",
   "data_kind": "qualitative",
   "definition": "Explanation of potential locked-in GHG emissions from key assets and products and of how locked-in GHG emissions may jeopardise achievement of GHG emission reduction targets and drive transition risk。资产和产品的锁定排放。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "3715c80f82f50f3bc7f1906fc3acb876efd5755a4b857b356f039ace4ad14ab7",
+  "clause_digest": "a164e194453e81ccd31f42d525969cfd9e7594b41fd7b2e6d34615015e033977",
   "clause_key": "E1.GOV-3_02",
   "data_kind": "quantitative",
   "definition": "Percentage of remuneration recognised that is linked to climate related considerations。与气候因素挂钩的薪酬比例。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

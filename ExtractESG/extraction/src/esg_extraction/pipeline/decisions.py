@@ -41,6 +41,7 @@ class NumericMatch(DecisionModel):
     reason: str
     selection: Literal["measurement", "nonmeasurement", "unresolved"]
     identity: IdentityClaims = Field(default_factory=list)
+    column_identity: dict[str, IdentityClaims] = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def coherent_measurement_relation(self):
@@ -102,6 +103,7 @@ def decision_schema(data_kind, frame):
                 {cell.column_id for row in frame.rows for cell in row.cells}
             ),
         }
+        properties["column_identity"]["propertyNames"] = properties["columns"]["items"]
         # Enforce the semantic combination during constrained decoding, not by
         # retrying an already generated contradictory table result.
         measurement = deepcopy(schema["$defs"]["NumericMatch"])

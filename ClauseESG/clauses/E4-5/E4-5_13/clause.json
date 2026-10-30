@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5c1dfc036b8b611dcf3adf66c44e0b05c5bb0424c72d0e1651486577605fb763",
+  "clause_digest": "c5b52cfe9df6f098d52b7903969b8a51fe5b211b4286edb997ebfbd2623567da",
   "clause_key": "E4-5_13",
   "data_kind": "quantitative",
   "definition": "披露场址范围外由主体支持或管理的自然导向面积，并说明其与主体活动的关系。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -570,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "hectare",

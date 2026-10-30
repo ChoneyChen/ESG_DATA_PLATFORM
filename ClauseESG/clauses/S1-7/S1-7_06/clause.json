@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a99df607007529f652909aba1a2208af286f31704f9633c5d50b07d9b1f3ca7d",
+  "clause_digest": "6be4e144e404131043dca043c582c33fb9b1bd1ffbb3c8b48ff067226d1a7a1c",
   "clause_key": "S1-7_06",
   "data_kind": "qualitative",
   "definition": "描述编制非员工数据所采用的方法和假设，包括估算与去重方式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -417,7 +418,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

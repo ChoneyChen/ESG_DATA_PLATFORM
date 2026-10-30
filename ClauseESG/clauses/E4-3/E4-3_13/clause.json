@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c3ba14800afb914f63c6edd3b8487ea59651d06414db2a8504d752f996658d3c",
+  "clause_digest": "e03b028a70b96ab83e8d2bc5ef5d7346b2727ac303d64f6760e86d1c4fc42c75",
   "clause_key": "E4-3_13",
   "data_kind": "qualitative",
   "definition": "说明关键行动是计划作为一次性举措还是作为系统性实践持续实施。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "cfc247b9fc492c6cc597d712dc17903f0dd4f20abe5562ff86e5ac5b399f14c0",
+  "clause_digest": "5749e60a95c7ca031387509a5dd6f17dfa88c438d0eec3a46614b06a93551214",
   "clause_key": "S2-4_17",
   "data_kind": "qualitative",
   "definition": "说明以积极影响价值链劳动者为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

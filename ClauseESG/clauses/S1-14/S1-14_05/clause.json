@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e5489633e77fd1e30c0e182512263d7dc69549a42c1c8a8f075060d2da87826c",
+  "clause_digest": "feea78b6acea4a99d36920e979b03895a9fa6b0d0675c6b78e1d3c0f11a4d501",
   "clause_key": "S1-14_05",
   "data_kind": "quantitative",
   "definition": "自有劳动力每百万工时的可记录工伤事故数。",
@@ -531,6 +531,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -780,7 +781,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "rate",

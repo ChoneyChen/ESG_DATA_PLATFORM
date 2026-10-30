@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6a6dbcf9c8fe8c806ae5fdc0d926c6b316c5493a31566b1a8f42eda018907654",
+  "clause_digest": "841e136ef40a7515cb023e2083fc26fe62a5438fdf700ef7af0c2d5760fa1dc5",
   "clause_key": "S3-3_11",
   "data_kind": "qualitative",
   "definition": "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -456,7 +457,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

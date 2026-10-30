@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4c71806282dea5041588ee2e2e27b8368b353adaaa59d6b1e8d9b7986ee0aabd",
+  "clause_digest": "77ede7d69e4987c67a24e05affe5cd1fe595ef64f55bae27ca1b918ac0368f15",
   "clause_key": "S1-4_10",
   "data_kind": "qualitative",
   "definition": "披露主体处理重大负面影响所采用的总体方法和针对具体影响的专门方法。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

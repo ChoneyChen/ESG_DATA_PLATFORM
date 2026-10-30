@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a7f5769715b3557ac9375210c4146c6facf9ff3ac29b4eb25cd6f4c537400e7d",
+  "clause_digest": "1a12e2ebf51e49a9c8e95defa2ec5c8238eb68f1159ab48bc4996ff8db7faf32",
   "clause_key": "S4-2_01",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

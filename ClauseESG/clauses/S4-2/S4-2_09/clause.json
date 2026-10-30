@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6c6d176039dec6dd9956c3080a3365ce6db0fa64b93bab794fd5b34dc8e93474",
+  "clause_digest": "6a765be34916d1e76606fb839b5d8dd7c17983c11af1b201478df626c6b1dde1",
   "clause_key": "S4-2_09",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责处理消费者和终端用户接触的角色或职能类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "74338b5d0a6ab33938b25fb9853ff91c3606f23e08c7b5ea4237f805ba62a862",
+  "clause_digest": "0fadd148be244a5fd6938a7a17a81d0407c64a29cd069a74db89e38ab2ed8341",
   "clause_key": "SBM-2_12",
   "data_kind": "qualitative",
   "definition": "Description of how administrative, management and supervisory bodies are informed about views and interests of affected stakeholders with regard to sustainability-related impacts。治理机构获悉利益方观点的方式。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

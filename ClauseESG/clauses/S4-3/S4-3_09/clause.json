@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b07fb97cbb048df661836174dbc5be9a7b7f9ab648dd8fd6d8b73dda640e57d8",
+  "clause_digest": "8539e1b34b993614edc7b695578cc0506620f3cf1303135d4d5b107d0d0e046e",
   "clause_key": "S4-3_09",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户是否以及如何在其受影响主体的层级使用申诉渠道。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

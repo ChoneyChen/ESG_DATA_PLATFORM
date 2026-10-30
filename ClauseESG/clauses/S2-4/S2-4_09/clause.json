@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a1d39f8335e644fa3c723bdc726feaf3612adf775c0200c6bf065521d19d451d",
+  "clause_digest": "ec8914ab45e74d158375be2a6a7465ca999b45ea28a9ab0d59a44ae3a4918a6d",
   "clause_key": "S2-4_09",
   "data_kind": "qualitative",
   "definition": "描述为把握与价值链劳动者相关的重大机遇而计划或正在进行的行动。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

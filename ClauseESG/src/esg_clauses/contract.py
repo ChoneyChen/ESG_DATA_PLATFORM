@@ -41,6 +41,14 @@ class CapturePolicy(StrictModel):
     missing_metadata: Literal["retain"] = "retain"
     unlisted_categories: Literal["preserve_literal"] = "preserve_literal"
     require_measurement_meaning: Literal[True] = True
+    period_policy: Literal["all_reported"] | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if self.period_policy is None:
+            body.pop("period_policy", None)
+        return body
 
 
 class EnrichmentPolicy(StrictModel):
@@ -67,7 +75,7 @@ class ClausePurposes(StrictModel):
 
 
 class ClauseContract(StrictModel):
-    schema_version: Literal["clause-contract-1.1", "clause-contract-1.2"] = "clause-contract-1.2"
+    schema_version: Literal["clause-contract-1.1", "clause-contract-1.2", "clause-contract-1.3"] = "clause-contract-1.3"
     clause_key: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     group_id: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     labels: dict[str, str]
@@ -111,8 +119,10 @@ class ClauseContract(StrictModel):
             raise ValueError(
                 "A quantitative clause requires a quantitative reading operator"
             )
-        if self.schema_version == "clause-contract-1.2" and self.purposes is None:
+        if self.schema_version in {"clause-contract-1.2", "clause-contract-1.3"} and self.purposes is None:
             raise ValueError("Current clauses must declare capture, enrichment, target and comparison purposes")
+        if self.schema_version == "clause-contract-1.3" and self.purposes.capture.period_policy != "all_reported":
+            raise ValueError("Current clause capture must preserve all reported periods")
         if len({scope.scope_id for scope in self.output_scopes}) != len(
             self.output_scopes
         ):

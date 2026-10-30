@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "feba2c83012c2db3f1ae3317b57e44c68aa71bc2dce79d7f3d7d62bd0769b09f",
+  "clause_digest": "0650cad1d646fe47afbefbb1cca62b74537ba0f4ae6d12caaae6f641eed7bc21",
   "clause_key": "E1-9_24",
   "data_kind": "quantitative",
   "definition": "Number of Scope 1 GHG emission allowances within regulated emission trading schemes。受监管交易机制范围1配额数。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -446,7 +447,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -590,7 +596,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

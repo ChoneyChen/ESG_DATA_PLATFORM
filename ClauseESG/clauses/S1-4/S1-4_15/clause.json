@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "653fb4d5ea4cef00048c03f2ee70d323e667d57e4fe78d32aeb00a45c0244785",
+  "clause_digest": "45710603ad65616a76407ade07e47ae05582e081209a932395747b7088e16de0",
   "clause_key": "S1-4_15",
   "data_kind": "qualitative",
   "definition": "说明相关举措以及主体自身的参与如何针对所涉重大影响发挥作用。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

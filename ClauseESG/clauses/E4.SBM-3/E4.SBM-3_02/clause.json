@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "632b3a32e5598e6c64515a603ab05844e0545b1bfd6c17a5dd80b02e4d1fd9f6",
+  "clause_digest": "824931074da1ccaeb5175c7ed2d5737cc318f3f057d1d81f5dd7327a5c3badef",
   "clause_key": "E4.SBM-3_02",
   "data_kind": "qualitative",
   "definition": "披露对生物多样性敏感区域产生负面影响的活动，包括活动类型与影响方式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

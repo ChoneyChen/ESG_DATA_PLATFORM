@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "05226ea13d6135c8215d136d91c68edb28a6cd137cd6d3004ff3045d020d1142",
+  "clause_digest": "091f1d31382e10bb6ba63362809458335296040ee9d5738e7e10c3d469ed1702",
   "clause_key": "S4-2_06",
   "data_kind": "qualitative",
   "definition": "说明主体为深入了解尤其易受伤害或边缘化的消费者和终端用户观点所采取的步骤。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

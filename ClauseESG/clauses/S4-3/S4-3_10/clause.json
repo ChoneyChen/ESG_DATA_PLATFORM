@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a9706ef5d65da32bef3b04c2a47e79a043318f6b057f2628aa9423cbc6935508",
+  "clause_digest": "f93f12451330cea18a9941395c2950d880a261c535f26cbacd0281c232ad0e8c",
   "clause_key": "S4-3_10",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有消费者和终端用户开放，以及可及性安排。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

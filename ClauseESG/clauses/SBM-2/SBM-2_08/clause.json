@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "9953f04b731dcd1385ce4bbc382938e57f92fdc7e0b722c83a1393fc0783345c",
+  "clause_digest": "ae76bbc88c011fb33b4ddc1379f833f396789a59072769c6d53fd884eca196df",
   "clause_key": "SBM-2_08",
   "data_kind": "qualitative",
   "definition": "Description of amendments to strategy and (or) business model。战略业务模式修订。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

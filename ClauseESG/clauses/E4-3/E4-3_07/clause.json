@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5b2cdbf8336b1fa42c32e6202cf0cc5d3d0c695125182044652ce538ca877cb8",
+  "clause_digest": "71af78673a7abc36194f078f8597c2def543b2f112c6b48b68155292ae463462",
   "clause_key": "E4-3_07",
   "data_kind": "qualitative",
   "definition": "说明实施行动所需的重大资本支出和运营支出与欧盟委托条例(EU) 2021/2178所要求资本支出计划的对应关系。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

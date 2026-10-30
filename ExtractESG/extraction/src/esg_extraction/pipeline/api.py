@@ -57,7 +57,7 @@ def create_app(resource_factory=resources):
         outbox.start()
         yield
         outbox.stop()
-    app = FastAPI(title="Clause extraction backbone", version="1.2.0", lifespan=lifespan)
+    app = FastAPI(title="Clause extraction backbone", version="1.3.0", lifespan=lifespan)
     install_loopback_marker(app)
     app.add_middleware(
         CORSMiddleware,

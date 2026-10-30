@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "467a73ddb0e5282ccd91b9b1d514ab73651d37027d882f17f04a8ddd8bc625ea",
+  "clause_digest": "fb0094566cbe96914cc4bd30fccb7d168f4498aa6de55824b7a19d49b49d1588",
   "clause_key": "E3-1_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy adresses commitment to reduce material water consumption in areas at water risk。水风险地区耗水减量承诺。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

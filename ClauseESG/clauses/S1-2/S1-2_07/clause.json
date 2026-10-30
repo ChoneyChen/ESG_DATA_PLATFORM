@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "451671de552615f00720abfb3d28a48a6ab9c2154284c0f1d93b8e388e394b26",
+  "clause_digest": "1e7ce04701c4268b169c301bd5aea15bbfaa8a58abdaa74c48f8441f7dba9adc",
   "clause_key": "S1-2_07",
   "data_kind": "qualitative",
   "definition": "说明主体为深入了解尤其易受伤害或边缘化员工观点所采取的步骤。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

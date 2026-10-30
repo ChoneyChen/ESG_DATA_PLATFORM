@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "11d31988c5391bcc74433499620e4f79b290d82ab8aadc2c7cdcafb2989092fa",
+  "clause_digest": "ca94ef43ed43e379ae4c41d704fe661f978e8821771892b52afc101c4da3a718",
   "clause_key": "S4-3_01",
   "data_kind": "qualitative",
   "definition": "说明主体在已识别与消费者和终端用户重大负面影响相关时，提供或促成补救的总体方法与流程。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

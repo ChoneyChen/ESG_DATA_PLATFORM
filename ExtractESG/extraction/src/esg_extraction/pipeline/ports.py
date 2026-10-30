@@ -6,12 +6,14 @@ from esg_contracts.evidence import (
     SearchIntent,
     ObjectReference,
     EvidenceFrame,
+    ObjectSearchPage,
 )
 
 
 class DocumentPort(Protocol):
     def document(self, ir_run_id: str) -> DocumentReference: ...
     def search(self, ir_run_id: str, intent: SearchIntent) -> list[ObjectReference]: ...
+    def search_page(self, ir_run_id: str, intent: SearchIntent) -> ObjectSearchPage: ...
     def read(
         self, ir_run_id: str, reference: ObjectReference, chunk_index: int = 0
     ) -> EvidenceFrame: ...

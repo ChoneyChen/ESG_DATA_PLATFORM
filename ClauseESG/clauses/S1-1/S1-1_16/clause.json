@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b16452af4546d53a9daf00a7be611e984f12b18ad75f4982569a31cf608e8e41",
+  "clause_digest": "34224eba614fee1989e121bd7b75303b6324ac4c4915fba845895acff28d59b6",
   "clause_key": "S1-1_16",
   "data_kind": "qualitative",
   "definition": "说明主体是否在高层管理层指定平等就业机会责任，发布全公司政策与程序，并将晋升与该领域表现挂钩。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

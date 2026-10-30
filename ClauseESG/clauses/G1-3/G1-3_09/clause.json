@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7e1876145cd811647c3a1a3d0b705190a77d0058f0a44261aef660497f65eb97",
+  "clause_digest": "5403099d8807b61298e5e3a08cf539280cd6ecb1642b206375146bf812ded67a",
   "clause_key": "G1-3_09",
   "data_kind": "qualitative",
   "definition": "披露按地区、类别等维度对反腐败或反贿赂培训活动所作的分析。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

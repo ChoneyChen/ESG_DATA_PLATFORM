@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8815a8b975b81d7ae020c1f146134c04b16e877633feb3183e2134778e19b401",
+  "clause_digest": "d4f48926439277361acf41aa88005f567928c87a44bb6c8ffc18fd2455a9f7de",
   "clause_key": "E1-1_12",
   "data_kind": "qualitative",
   "definition": "Undertaking is excluded from EU Paris-aligned Benchmarks。是否被排除在巴黎协定基准之外。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

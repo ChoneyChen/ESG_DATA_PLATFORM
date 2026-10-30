@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5930372bfb9f6faba1f7ff4a38bd15c80f4b911653f2a2566141eaa165fddff5",
+  "clause_digest": "d4c39510c6df2156d375d6ddb9c8fca18b388d0d8dce722217e420774353bc33",
   "clause_key": "S3-5_06",
   "data_kind": "qualitative",
   "definition": "披露受影响社区相关目标所依据的标准、倡议或主体承诺。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "target_year"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

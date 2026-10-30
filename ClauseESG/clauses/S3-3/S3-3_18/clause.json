@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b574419d96f60841e946529b5dc26fd06602d45a9a41f54f5e29bf1d9852e092",
+  "clause_digest": "2944bf58ae7bcbc6bff7daddcfbdacbef2c4da695158aba39f36d2796f21c03c",
   "clause_key": "S3-3_18",
   "data_kind": "qualitative",
   "definition": "说明受影响社区是否以及如何在其受影响主体的层级使用申诉渠道。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

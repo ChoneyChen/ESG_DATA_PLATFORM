@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b0643724f9c715773542db5db79bed894f266ff77aa4a20ab8d8d3efff9947e1",
+  "clause_digest": "deee31dfea1469a02473c0fc9a1fb6a44d214c06082ca2ede82ac1164515cabf",
   "clause_key": "S4-3_02",
   "data_kind": "qualitative",
   "definition": "披露消费者和终端用户可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -468,7 +469,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

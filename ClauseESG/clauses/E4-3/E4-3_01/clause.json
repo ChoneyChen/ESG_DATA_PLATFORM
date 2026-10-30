@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "386d9bb7dc42ce2f52275e9df742206f25d0414a8a30d513ebc473c51e16f9ab",
+  "clause_digest": "b638a45ee1440bff3e90a83dafdb7a5fe7e789da9de572859ea615fdf068c679",
   "clause_key": "E4-3_01",
   "data_kind": "qualitative",
   "definition": "说明生物多样性和生态系统相关行动如何应用避免、最小化、恢复和抵消的减缓层级。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

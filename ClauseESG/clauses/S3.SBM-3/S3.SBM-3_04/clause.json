@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5ccaa8db15df3d8a31673c991f09dd294c10710efac6d603692739e2649c0018",
+  "clause_digest": "aa4a3a6fb21dd50a227068adbfec710fb7759edaadd89dd006bcfb7dc313feaf",
   "clause_key": "S3.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "披露受影响社区中重大负面影响是否已经发生，以及发生的情形。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

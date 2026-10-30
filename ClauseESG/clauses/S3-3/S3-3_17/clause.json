@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "bc2bfa521147805a337dc9928fbc852240b0b64d577c7becc8e07c0bab6f90fc",
+  "clause_digest": "527247ef3a72082e54dc73ef17837ace5618d41c2e80891ff163867dc9dca828",
   "clause_key": "S3-3_17",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立面向受影响社区申诉渠道或流程的时间表。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

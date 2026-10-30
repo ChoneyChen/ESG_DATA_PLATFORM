@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4ad2e70a01c3a75539a5b52efb791ae362515bb9cf96e0b022f9dfcf74e17d4f",
+  "clause_digest": "8e4c079abfc8b90d43ead4451d6550f585ddcbe8b9e4418123bb6da082603df8",
   "clause_key": "S3-2_03",
   "data_kind": "qualitative",
   "definition": "披露与受影响社区接触发生的阶段、接触类型和频率。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

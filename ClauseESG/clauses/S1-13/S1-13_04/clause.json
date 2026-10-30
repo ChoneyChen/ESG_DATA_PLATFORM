@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "de012ae09b122f1ae7594b58a244b58ea3a9590329bcc34f2caf5b2dc09d31d3",
+  "clause_digest": "8f1875bae8aae6936233262fe19e43168eb13797c4443644de70c6fe099ca261",
   "clause_key": "S1-13_04",
   "data_kind": "quantitative",
   "definition": "报告期内员工人均培训小时数。",
@@ -563,6 +563,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -865,7 +866,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "hour/person",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a247ba534b5cb3f4da66a949f139c07619bf5406bc60bd3fd39bbfe084f9e2a2",
+  "clause_digest": "228521a1cfd6a8b6c6fdd3996e8f63e7108d967d8e434e4db0db5023e9e599f3",
   "clause_key": "S1-3_05",
   "data_kind": "qualitative",
   "definition": "披露主体是否已建立与员工事项相关的申诉或投诉处理机制，并说明其运作方式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

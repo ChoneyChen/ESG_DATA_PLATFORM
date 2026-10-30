@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6065bdf9d1e5ae39e347a93d37cc7476e36cf48e8a120c623cffb255891e9e97",
+  "clause_digest": "7249b3e6d7f6a9a57187ecc71c4d04d04ff7ae40baab68626a98b7ab5f2fabd7",
   "clause_key": "E5-5_15",
   "data_kind": "quantitative",
   "definition": "报告期内产生的危险废弃物重量。",
@@ -525,6 +525,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -763,7 +764,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

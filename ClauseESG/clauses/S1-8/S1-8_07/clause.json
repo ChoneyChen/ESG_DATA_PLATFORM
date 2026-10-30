@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "dbf1ab0c8222952d9ee43fd123616f89089de5f416461a342348faebd6e6e297",
+  "clause_digest": "74b474b3cabdc3873473bb00e9e4da5dc7308719c6545ea64297b8aa849ed21f",
   "clause_key": "S1-8_07",
   "data_kind": "qualitative",
   "definition": "披露主体是否与员工签订由欧洲工程委员会、欧洲公司工程委员会或欧洲合作社工程委员会代表的协议。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

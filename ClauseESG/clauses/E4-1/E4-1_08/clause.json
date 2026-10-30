@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "908a7c345fdea437031b5822a881c9e4d66e8a2ea90caebbf68e7e5516b9e13b",
+  "clause_digest": "14a619373a28ce64c4c1b189a61d549699fc9e3b6c5c16696e931734a3651658",
   "clause_key": "E4-1_08",
   "data_kind": "qualitative",
   "definition": "说明战略和商业模式将如何调整，以改善并最终实现与相关地方、国家和全球公共政策目标的对齐。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

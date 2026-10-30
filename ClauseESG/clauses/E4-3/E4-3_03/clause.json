@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d5c20091ec1b386c4c73d36865be4403ed0f7d122f4212ce6999fd4a562dc306",
+  "clause_digest": "7e7b8762ced435f278695ebde4313d93caff6c6af6f5e6e08b0963706702d050",
   "clause_key": "E4-3_03",
   "data_kind": "qualitative",
   "definition": "披露每项生物多样性抵消的目的及其关键绩效指标，包括衡量生态等效性的方式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ab169db2994dc7a9a38f25a20cfb6dba6040c4be6afd8078e76f37c398707327",
+  "clause_digest": "e2b47224840fdbbafe99f1d28228049a8a433b8a653fd2cc8824647f0ded9d36",
   "clause_key": "E2-2_02",
   "data_kind": "qualitative",
   "definition": "Action related to pollution extends to upstream/downstream value chain engagements。污染行动的上下游价值链覆盖。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

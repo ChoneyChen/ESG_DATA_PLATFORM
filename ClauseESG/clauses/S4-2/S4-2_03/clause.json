@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "216d8406f20d72e9e06a4e62300e71b394e92e191dfd9816509f0e07fe686050",
+  "clause_digest": "e8a4ea87b0ae95f01079ec95b055fad718165c818a1a90811796d77ecd5aa953",
   "clause_key": "S4-2_03",
   "data_kind": "qualitative",
   "definition": "披露与消费者和终端用户接触发生的阶段、接触类型和频率。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

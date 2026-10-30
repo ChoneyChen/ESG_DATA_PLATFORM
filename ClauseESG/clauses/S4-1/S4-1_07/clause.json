@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5b7ec959e10bcf1150cab07638f49ab03efd9c8e1f1fd087254749bd64b84315",
+  "clause_digest": "151cd1601078a0fd1dfc53447f20f9df50e67956d2d1bfc128f8e5dd3f23b08d",
   "clause_key": "S4-1_07",
   "data_kind": "qualitative",
   "definition": "披露涉及消费者和终端用户的、未遵守联合国商业与人权指导原则、ILO基本原则和权利宣言或OECD跨国企业准则的案例性质与范围。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

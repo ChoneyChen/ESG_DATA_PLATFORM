@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "b532eb8e3624c07b053af90d9d455c57fd74f7479454f2067a4e0567833e2c6c",
+  "clause_digest": "b9de83729cd9d4682b6ac56ab9c861763e172b4f6aa34b3191dd9d244f6142b7",
   "clause_key": "S1-17_01",
   "data_kind": "qualitative",
   "definition": "按歧视类型划分的歧视事件数量表。",
@@ -311,6 +311,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "population",
+        "incident_definition",
+        "incident_type"
       ],
       "missing_action": "annotate"
     },
@@ -412,7 +416,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

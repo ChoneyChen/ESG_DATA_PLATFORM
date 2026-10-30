@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "719f722523d728ec8a24239dad91924c4f6416bf3479f51027ab9b91053dc372",
+  "clause_digest": "725b04683ce692d8811905cb8b8fb59d07e3d97ee47c25811bf669c71e1f793d",
   "clause_key": "E4-5_23",
   "data_kind": "qualitative",
   "definition": "披露受威胁物种相关栖息地的变化，并将其作为当地种群灭绝风险的代理指标。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "aae69f4f5f598345697406ffbebc7aabb54d6b1eb855f14ef4ba8b47d3aa5e84",
+  "clause_digest": "e2af80fb9358dfd7eddcf659242385da28caaa2a437d54fac3902076e163c5bc",
   "clause_key": "S1-8_08",
   "data_kind": "qualitative",
   "definition": "按覆盖率和地区披露欧洲经济区外受集体谈判和社会对话协议覆盖的自身劳动力。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "breakdown_member"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

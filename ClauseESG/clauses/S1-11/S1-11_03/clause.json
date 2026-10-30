@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0c03f22fc8903029e85e82362b1dcd3f4e59290e779f8993ba11e4794b289ca2",
+  "clause_digest": "667aee9d97ae213573833b67c293737454bb81a81b1a2fc87a58bed8cb3705f4",
   "clause_key": "S1-11_03",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否通过公共计划或主体福利获得工伤和获得性残疾收入损失的社保覆盖。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

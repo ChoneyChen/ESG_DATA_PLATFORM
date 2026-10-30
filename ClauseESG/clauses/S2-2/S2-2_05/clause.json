@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "17b16b3dedfa48288fa2559b1b1fee4c187816fe2bf87f42087929fee8561dff",
+  "clause_digest": "a45a957d7f232c39d0610a534cf55a8de4484afdeb3680d286f4582c91ed4983",
   "clause_key": "S2-2_05",
   "data_kind": "qualitative",
   "definition": "披露主体是否签订全球框架协议或其他与尊重劳动者人权相关的协议，并说明其覆盖的价值链范围。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

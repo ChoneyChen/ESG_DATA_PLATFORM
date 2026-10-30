@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "84e6cb6ec6ff88cda8b8761b303d13889db5f05694776d1b11b558afecb58255",
+  "clause_digest": "8f0b28d4f29af24ddf61ffe92bb6dc6c3fe8037c458fd8b4fc7403fa4d80c0db",
   "clause_key": "S1-15_01",
   "data_kind": "quantitative",
   "definition": "披露有权享受家庭相关假期的员工占员工总数的比例。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "75e8173c7a3b4df87cba80d2de6c65b3338dff547e2eeda3c6dc60c964f65a40",
+  "clause_digest": "e833d3c6ea38b0278dbe26b6f8ff8211382c3c482d37c9a1606a594d60e05208",
   "clause_key": "S3-3_16",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立面向受影响社区的申诉流程；若未建立，披露现状与原因。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ba76f280f6bf507dd4694c4f2a6ccef67c2a72528f8f58e676499aa26d4593a1",
+  "clause_digest": "e1ea48a24e28f4493e5a84ff532897118b0790660834ec04f367619cf5282667",
   "clause_key": "SBM-1_27",
   "data_kind": "qualitative",
   "definition": "Description of outputs and outcomes in terms of current and expected benefits for customers, investors and other stakeholders。产出结果及利益。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

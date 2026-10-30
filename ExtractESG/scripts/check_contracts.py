@@ -17,6 +17,8 @@ from esg_contracts.exports import ExportManifest, IngestionReceipt
 from esg_contracts.data_kinds.quantitative import QuantitativeValue
 from esg_contracts.data_kinds.qualitative import QualitativeValue
 from esg_data.organization import OrganizationSpec, OrganizedDataset
+from esg_data.periods import ReportedPeriod
+from esg_contracts.evidence import EvidenceStructure, ObjectSearchPage
 from export_console_types import check as check_console_types
 
 
@@ -31,6 +33,9 @@ def main():
     for row in rows:
         repo.get(row["clause_key"]).verify()
     schemas = {
+        "reported-period": ReportedPeriod,
+        "evidence-structure": EvidenceStructure,
+        "object-search-page": ObjectSearchPage,
         "extraction-export": ExportManifest,
         "extraction-receipt": IngestionReceipt,
         "fact-bundle": FactBundle,

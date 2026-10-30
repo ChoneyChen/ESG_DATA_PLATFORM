@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "af5e4debb124af1387a8e6960048d0d48ff490c78b1fa50cdaa0e34bf88e1577",
+  "clause_digest": "de27632b20ff78c8dd70c2fe53f4971ea393a018defbcaa63b0b7bd5abdab4f2",
   "clause_key": "E4-5_10",
   "data_kind": "quantitative",
   "definition": "披露主体使用的土地总面积，并说明统计边界与计量方法。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -570,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "hectare",

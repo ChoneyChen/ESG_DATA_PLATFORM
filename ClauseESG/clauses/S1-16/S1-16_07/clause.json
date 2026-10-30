@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "61cec186828a7a64b6d66f98300f6cc36b1c7338b82c909f7bb06acacac49eeb",
+  "clause_digest": "48ca584bce73e2fbbfcbfe813fa64d568101d2e8faf0dd3aa727391d5a622556",
   "clause_key": "S1-16_07",
   "data_kind": "qualitative",
   "definition": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -415,7 +416,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

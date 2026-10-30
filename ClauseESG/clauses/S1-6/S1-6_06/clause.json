@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a4d1ab3b2140c6a20865bdea46d87c5275d9aab100cd25b5147f1404f5948d09",
+  "clause_digest": "6181df9ae9bd910dedd0731821298096810f3859b2fe1dbeb6b678ca677627d2",
   "clause_key": "S1-6_06",
   "data_kind": "quantitative",
   "definition": "Average number of employees in countries with 50 or more employees representing at least 10% of total number of employees",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -442,7 +443,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "breakdown_member"
       ],
       "missing_action": "annotate"
     },
@@ -569,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

@@ -4,6 +4,8 @@ from __future__ import annotations
 import json
 import re
 import time
+from collections import Counter
+from esg_data.periods import period_label
 from esg_data.hashing import digest
 from esg_contracts.evidence import SearchIntent
 from esg_contracts.facts import ClauseCoverage
@@ -12,22 +14,23 @@ from esg_data.normalize import fold
 from esg_clauses.search import compile_search_plan
 from .decisions import QuantitativeDecision, QualitativeDecision, NumericMatch, decision_schema
 from .binding import numeric_fact, qualitative_fact
-from .structure import period_columns
+from .structure import period_columns, column_structure, period_coverage
+from .retrieval import retrieve_candidates
 from .ports import DocumentPort, ModelPort, ArtifactPort
 from .organization import build_organized_dataset
 
-ENGINE_VERSION = "clause-backbone-1.2"
+ENGINE_VERSION = "clause-backbone-1.3"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return row IDs and column IDs for real measurements in this bounded evidence frame. Never output, compute or convert values.
 Set selection=measurement only for a real reported quantity. Formula digits (SF6, CO2), identifiers, years, dates, reference/footnote numbers are NOT quantities. Reject them with selection=nonmeasurement. Use selection=unresolved when measurement meaning itself is unsupported; these remain diagnostics, never facts. A real count may have no printed unit.
 Select EVERY relevant row, not one example. Each selected row must use its exact visible row_id; one response may contain many matches. Follow target.reading.instructions. A real measurement outside the target remains selection=measurement with match=different, never nonmeasurement. Preserve such rows from the same candidate table separately from target rows. For example, a table may contain both the requested category and another real category; the latter is still a measurement. Do not select identifier/year/header/footnote cells as measurements.
-When physical_period_columns is provided, the period column is already determined by structure; select rows and use those columns.
+Read ALL reported periods in each selected row, including historical years. The report's primary year never filters measurements. physical_structure lists observed columns and ambiguities; it is not a selected-year instruction. Columns with different entities, methods or roles remain separate. Use column_identity for column-specific overrides; row identity must not overwrite those differences.
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
 Place shared frame identity in the top-level identity list ONCE; put only supported row-specific overrides in each match. Omit unsupported axes entirely; do not enumerate missing fields. An empty identity list is valid. Keep each reason to one short phrase.
 State supported identity axes as value + exact quote + source_id. Useful axes are reporting_period,
 reporting_entity (literal company name), entity_aggregation_role (group/subsidiary/site/segment), reporting_boundary,
-measurement_method, value_role (actual/target/baseline/context), aggregation_role (total/subtotal/component/share/intensity),
+measurement_method, value_role (actual/target/baseline/context), aggregation_role (total/subtotal/member/share/intensity),
 denominator and dimensions explicitly stated in the source. Do not repeat a physically determined reporting period in model identity.
 Do not copy fixed clause axes into the report identity. A clause defines what to seek; it is not evidence of what the report says.
 Missing identity, unit, period, or other optional metadata MUST NOT remove a relevant physically reported value or demote its target match. Use match=match when measurement meaning fits the target; leave unsupported attributes absent. Comparison completeness is assessed separately.
@@ -110,11 +113,11 @@ class ExtractionBackbone:
                     "model_calls": calls,
                 }
             )
-            plan = compile_search_plan(clause, limit=budget.max_objects_per_clause)
+            plan = compile_search_plan(clause, limit=min(32, budget.max_objects_per_clause))
             self.artifacts.write(run_id, f"input/search/{key}.json", plan)
             intent = SearchIntent.model_validate(plan["objects"])
             try:
-                candidates = self.documents.search(request.ir_run_id, intent)
+                candidates, search_observation = retrieve_candidates(self.documents, request.ir_run_id, intent, budget.max_objects_per_clause)
             except Exception as exc:
                 errors.append(
                     {
@@ -144,9 +147,10 @@ class ExtractionBackbone:
                 continue
             local_facts = {}
             local_mappings = {}
-            reasons = []
+            read_frames = []
+            reasons = ["object_budget_exhausted"] if search_observation["truncated"] else []
             inspected = 0
-            complete = True
+            complete = not search_observation["truncated"]
             for candidate in candidates:
                 for chunk in range(candidate.chunk_count):
                     if cancel_check():
@@ -161,6 +165,7 @@ class ExtractionBackbone:
                     telemetry = {}
                     try:
                         frame = self.documents.read(request.ir_run_id, candidate, chunk)
+                        read_frames.append(frame)
                     except Exception as exc:
                         complete = False
                         reasons.append("document_read_failed")
@@ -225,17 +230,10 @@ class ExtractionBackbone:
                                 if t["object_type"] != "cell"
                             ],
                         }
-                    decided_columns = (
-                        period_columns(frame, document)
-                        if clause.data_kind == "quantitative"
-                        and all(
-                            s.period == "annual"
-                            for s in clause.output_scopes
-                            if s.required
-                        )
-                        else None
-                    )
-                    context["physical_period_columns"] = decided_columns
+                    structure = column_structure(frame) if clause.data_kind == "quantitative" else None
+                    decided_columns = period_columns(frame) if structure else None
+                    if structure:
+                        context["physical_structure"] = structure.model_dump(mode="json")
                     decision_type = (
                         QuantitativeDecision
                         if clause.data_kind == "quantitative"
@@ -317,10 +315,6 @@ class ExtractionBackbone:
                                     )
                                     if row is None:
                                         raise ValueError("Unknown physical source row")
-                                    if decided_columns:
-                                        match = match.model_copy(
-                                            update={"columns": decided_columns}
-                                        )
                                     cells = [
                                         cell
                                         for cell in row.cells
@@ -466,6 +460,8 @@ class ExtractionBackbone:
                     required_scopes=sorted(required),
                     covered_scopes=sorted(covered),
                     reasons=list(dict.fromkeys(reasons)),
+                    search=search_observation,
+                    periods=period_coverage(read_frames, list(local_facts.values())),
                 )
             )
             self._write_outputs(
@@ -577,6 +573,7 @@ def adjacent_table_quantities(frame, decided_columns, matches):
     if frame.kind != "table" or not decided_columns:
         return []
     selected = {(match.row_id, col) for match in matches if match.selection == "measurement" for col in match.columns}
+    plain_periods = {column.column_id for column in column_structure(frame).columns if column.period_only}
     result = []
     for row in frame.rows:
         if row.row_role != "data" or not row.label.strip() or not row.unit_raw or not row.unit_sources:
@@ -587,15 +584,18 @@ def adjacent_table_quantities(frame, decided_columns, matches):
             and (row.row_id, cell.column_id) not in selected and cell.candidate_kind == "measurement"
             and re.fullmatch(r"\s*[-+−]?\d[\d,，]*(?:\.\d+)?\s*", cell.raw_text)]
         if columns:
-            result.append(NumericMatch(row_id=row.row_id, columns=columns, selection="measurement", match="uncertain",
-                reason="Printed table quantity retained independently of target selection"))
+            row_relations = {match.match for match in matches if match.row_id == row.row_id and match.selection == "measurement"}
+            for column in columns:
+                relation = next(iter(row_relations)) if len(row_relations) == 1 and column in plain_periods else "uncertain"
+                result.append(NumericMatch(row_id=row.row_id, columns=[column], selection="measurement", match=relation,
+                    reason="Printed table quantity retained independently of target selection"))
     return result
 
 
 def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count=0):
     """One result projection, independent of views and publication decisions."""
     interrupted = bool(errors) or len(coverage) != len(clauses) or any(
-        "execution_budget_exhausted" in c.reasons or c.state == "failed" or "document_read_failed" in c.reasons
+        "execution_budget_exhausted" in c.reasons or "object_budget_exhausted" in c.reasons or c.state == "failed" or "document_read_failed" in c.reasons
         for c in coverage
     )
     required = {
@@ -630,4 +630,5 @@ def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_c
         "other_facts": len({m.source_fact_id for m in mappings if m.match == "different"}),
         "unresolved_facts": len({m.source_fact_id for m in mappings if m.match == "uncertain"}),
         "rejected_candidates": rejected_count,
+        "periods": dict(Counter(period_label(fact.identity.reporting_period.value) for fact in facts)),
     }

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b7c21b921c1b7d2534e9d01f1b6b44726b2d7d26ada5f847f2166181e8dc5e36",
+  "clause_digest": "6f3d279585727a4a1a26a51529bac7ef6c911e716dff4589992f2f78e2aa1202",
   "clause_key": "E1-6_31",
   "data_kind": "quantitative",
   "definition": "基于市场法的温室气体排放强度",
@@ -448,6 +448,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -467,7 +468,11 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "source_row_topic",
+        "entity_aggregation_role",
+        "ghg_scope",
+        "scope_2_method"
       ],
       "missing_action": "annotate"
     },
@@ -658,7 +663,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "currency",

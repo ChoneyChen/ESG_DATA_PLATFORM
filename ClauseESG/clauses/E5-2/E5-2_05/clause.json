@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8aba5d1dc382cd5b90f94f811a41abbe7eaf16a6288665f73f9ae5fa1bd03882",
+  "clause_digest": "e7372b7e9f137de011eec749518560caf374eaaf9f537e7f0ca948cf473aca7f",
   "clause_key": "E5-2_05",
   "data_kind": "qualitative",
   "definition": "说明为在上游和下游价值链中预防废弃物产生所采取的行动及其效果。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

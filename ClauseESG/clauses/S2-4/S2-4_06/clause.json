@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d3b01cce118de86c5904fe1d5e20a597e265c36f4b7e7c28d197a1d01e4db068",
+  "clause_digest": "c4417352cafdb5f8ee84b93aed2b3ee6283ed5c05530f00d0003fb8156c04939",
   "clause_key": "S2-4_06",
   "data_kind": "qualitative",
   "definition": "描述主体针对价值链劳动者特定重大负面影响采取行动的方法。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

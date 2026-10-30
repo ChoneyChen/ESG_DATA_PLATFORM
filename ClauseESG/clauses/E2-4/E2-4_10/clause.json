@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e2c356ee4d5512fa65da97c872ba3279f7f3ca6287d08cdc02688215b07003ba",
+  "clause_digest": "13c5cbf873d97a5f409b38f135919e9e271ee6fb8717ae7e749026f1114699e4",
   "clause_key": "E2-4_10",
   "data_kind": "qualitative",
   "definition": "污染相关核算与报告的数据收集流程",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -479,7 +480,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

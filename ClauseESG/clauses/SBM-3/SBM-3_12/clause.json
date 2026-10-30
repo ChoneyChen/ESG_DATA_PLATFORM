@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "260c64c5a2a508a49a6256f19a14d58d8fd41171fd78f8a1fe2359f033147021",
+  "clause_digest": "bcff8d69f6a52f8351f4ac91c3cc93fe1909496e0826eede0c077c07cdc87fd5",
   "clause_key": "SBM-3_12",
   "data_kind": "qualitative",
   "definition": "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures。标准覆盖与企业特有事项区分。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -326,7 +327,11 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -412,7 +417,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ea31b264aee649de9b918a353877f3712f14419d6c7cfef0c296443eb3a24e41",
+  "clause_digest": "6dc85bd6507ee934e3ebb572298688453d46b30edf339c26a13ef89dc984dbf7",
   "clause_key": "S2-1_07",
   "data_kind": "qualitative",
   "definition": "说明供应商行为准则的条款是否完全符合适用的国际劳工组织标准，并指出对应标准。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ee59ef80bb1662dd75a772ce07ae63c5d0fdf91380f64e94e362299ffd92ca15",
+  "clause_digest": "eb8db85690c3cdb6caa221049b666942cba3578f0049620894d394553d5cb065",
   "clause_key": "E4-2_20",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定应对森林砍伐的政策，并说明其覆盖范围与承诺。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

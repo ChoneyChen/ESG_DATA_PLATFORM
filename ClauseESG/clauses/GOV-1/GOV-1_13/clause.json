@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a041e041b0b2f9bb7bad0b9ffd225fc2ac221b1d73ef4e4c35ed28abd7a41a59",
+  "clause_digest": "471d9b9cbb029f63ace4b063162527fe022defb570b7b3400f8d64b24b4aae02",
   "clause_key": "GOV-1_13",
   "data_kind": "qualitative",
   "definition": "Disclosure of how dedicated controls and procedures are integrated with other internal functions。专门控制与内部职能整合。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

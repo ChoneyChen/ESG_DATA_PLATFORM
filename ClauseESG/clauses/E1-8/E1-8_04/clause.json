@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5a1f4cfc4e3e87cbee7943aa5511af22232924e3f889bba1f71dc202afbcef8b",
+  "clause_digest": "45d0383f2c2804f5cbc836c62684cf3e23971d61f3fa32d23743bcf6e1aa113f",
   "clause_key": "E1-8_04",
   "data_kind": "quantitative",
   "definition": "Carbon price applied for each metric tonne of greenhouse gas emission。每吨温室气体的内部碳价格。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -444,7 +445,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "pricing_scheme",
+        "ghg_scope",
+        "accounting_method"
       ],
       "missing_action": "annotate"
     },
@@ -592,7 +596,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "currency/tCO2e",

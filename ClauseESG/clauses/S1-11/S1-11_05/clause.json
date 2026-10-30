@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "1348334b993b56f2dbdc55b567a88c9355f45b10339bc4e6bef58109275bf69b",
+  "clause_digest": "5890dbe2b11fb10ff97fa6291f85d783d8da161413b464ba023ecceea29c4623",
   "clause_key": "S1-11_05",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否通过公共计划或主体福利获得退休收入损失的社保覆盖。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

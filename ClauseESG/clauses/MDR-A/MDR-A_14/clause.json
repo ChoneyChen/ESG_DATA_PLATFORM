@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b9827109c9ff29eef3c21b05b00dad5658692c3f3140cfc0c7ef3991f09c1983",
+  "clause_digest": "b6d0febc7edc5eb2b679430224fcbb761be468954861b71630d28a10a642ba7b",
   "clause_key": "MDR-A_14",
   "data_kind": "qualitative",
   "definition": "Disclosure of timeframe in which the undertakings aims to adopt actions。计划采纳行动的时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

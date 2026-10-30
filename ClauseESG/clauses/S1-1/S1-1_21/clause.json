@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5e2a02fc72033966c588bf4a55eabdeacef189fd62a1d75371e02648db9eb269",
+  "clause_digest": "8e03f8f73490287a0a88cf17d6765d757d961106239ef1bd4887b77d538a61f8",
   "clause_key": "S1-1_21",
   "data_kind": "qualitative",
   "definition": "说明主体是否已建立申诉程序，用于处理歧视投诉、上诉和救济，并关注阻碍员工发声的正式与非正式因素。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

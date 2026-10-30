@@ -33,6 +33,17 @@
           "title": "Inspected Objects",
           "type": "integer"
         },
+        "periods": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PeriodCoverage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "reasons": {
           "items": {
             "type": "string"
@@ -46,6 +57,17 @@
           },
           "title": "Required Scopes",
           "type": "array"
+        },
+        "search": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SearchObservation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "state": {
           "enum": [
@@ -184,6 +206,17 @@
           "default": false,
           "title": "Limited Evidence",
           "type": "boolean"
+        },
+        "period_context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportingPeriodContext"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "report_resource": {
           "anyOf": [
@@ -495,6 +528,44 @@
         "url"
       ],
       "title": "OrganizationResult",
+      "type": "object"
+    },
+    "PeriodCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_facts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Captured Facts",
+          "type": "object"
+        },
+        "meaning": {
+          "title": "Meaning",
+          "type": "string"
+        },
+        "observed_candidates": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Observed Candidates",
+          "type": "object"
+        },
+        "unselected_candidate_cells": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unselected Candidate Cells",
+          "type": "array"
+        }
+      },
+      "required": [
+        "observed_candidates",
+        "captured_facts",
+        "unselected_candidate_cells",
+        "meaning"
+      ],
+      "title": "PeriodCoverage",
       "type": "object"
     },
     "QualitativePayload": {
@@ -828,6 +899,63 @@
       "title": "ReportedField",
       "type": "object"
     },
+    "ReportingPeriodContext": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "evidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence"
+        },
+        "inheritance": {
+          "const": "explicit_reference_only",
+          "default": "explicit_reference_only",
+          "title": "Inheritance",
+          "type": "string"
+        },
+        "page_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Index"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "ReportingPeriodContext",
+      "type": "object"
+    },
     "ResultAssessment": {
       "additionalProperties": false,
       "properties": {
@@ -874,6 +1002,21 @@
           "default": 0,
           "title": "Other Facts",
           "type": "integer"
+        },
+        "periods": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Periods"
         },
         "rejected_candidates": {
           "default": 0,
@@ -1002,6 +1145,78 @@
         "elapsed_seconds"
       ],
       "title": "RunSummary",
+      "type": "object"
+    },
+    "SearchObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "coverage_observation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coverage Observation"
+        },
+        "query_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Digest"
+        },
+        "returned": {
+          "minimum": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "returned",
+        "truncated"
+      ],
+      "title": "SearchObservation",
       "type": "object"
     },
     "SourceFact": {

@@ -1,7 +1,7 @@
 """Extraction delivery is an independent, validated collection of raw facts and links."""
 
 from typing import Literal
-from pydantic import Field, JsonValue, model_validator
+from pydantic import Field, JsonValue, model_validator, model_serializer
 from .facts import FrozenModel, SourceFact, ClauseMapping, ClauseCoverage
 from .evidence import DocumentReference
 
@@ -34,6 +34,14 @@ class ResultAssessment(FrozenModel):
     other_facts: int = 0
     unresolved_facts: int = 0
     rejected_candidates: int = 0
+    periods: dict[str, int] | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if self.periods is None:
+            body.pop("periods", None)
+        return body
 
 
 class RunSummary(FrozenModel):

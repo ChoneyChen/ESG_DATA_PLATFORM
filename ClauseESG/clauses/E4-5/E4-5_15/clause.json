@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ba5573ccd1d59314950064d2df35cc1d0bb1f8cac4af4069a8f1b01520b1e11f",
+  "clause_digest": "6b05fcb6cca8f3c0c0730d480df95f6d75c7448673f72730d86892efca6b84a7",
   "clause_key": "E4-5_15",
   "data_kind": "quantitative",
   "definition": "披露在主体运营范围内出现的外来入侵物种数量，并说明识别与统计口径。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

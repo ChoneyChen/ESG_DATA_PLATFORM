@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c0e4caf74680aad13158ec87f1576a87037da08762a6660fde44613a13f86e6a",
+  "clause_digest": "d18dc43312d3f002b3727fd491e704fa8c48d5db69d91640117cf61bd1a04dc7",
   "clause_key": "E4-1_12",
   "data_kind": "qualitative",
   "definition": "说明并尽可能量化支持转型计划实施的投资和资金安排。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

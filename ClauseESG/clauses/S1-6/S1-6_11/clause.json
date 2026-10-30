@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0ef576d0341193599f004ad566905c2777c172d655fa670a563560486a9dad9d",
+  "clause_digest": "272dc6406b8030b5e727db28b2737b881b531113d62579373d75439f8ab707d3",
   "clause_key": "S1-6_11",
   "data_kind": "quantitative",
   "definition": "Number of employee who have left undertaking",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -568,7 +569,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

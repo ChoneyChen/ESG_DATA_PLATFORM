@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4455b1deb92b9482f56fc6af4324d7ad052cdbdba0f7538f6df0c2aafcda91ae",
+  "clause_digest": "801411f14e608021e14579ef09a7b8117ff5d4f31d20ceda35fc6ecf8a1f8a1c",
   "clause_key": "E4-3_15",
   "data_kind": "qualitative",
   "definition": "说明关键行动所属的更广泛集体行动计划、主体在其中的角色以及其他参与方。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

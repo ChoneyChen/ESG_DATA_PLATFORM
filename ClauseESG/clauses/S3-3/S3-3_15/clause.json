@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "14326678fb92c42607d13644f4e55add58a28abea7c2dce6357318d5cea9bed4",
+  "clause_digest": "8933c932054dd344da56689c0b3c749d1ff01347ec86ee4b4dc220ade19990f5",
   "clause_key": "S3-3_15",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定保护使用申诉渠道的社区成员免遭报复的政策，并说明保护范围。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

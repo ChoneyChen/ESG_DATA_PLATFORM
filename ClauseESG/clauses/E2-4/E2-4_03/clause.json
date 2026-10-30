@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a1411dcf00cbdceff9c62520033f5d6e594f30f1bd01f730d3b34f6d0bcd8fc8",
+  "clause_digest": "35ad8f79b886363d8cb55a4d0ad6af1bd9ae307a9953c1e3e1afaef35bf5e558",
   "clause_key": "E2-4_03",
   "data_kind": "quantitative",
   "definition": "按污染物划分的水体排放量",
@@ -563,6 +563,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -968,7 +969,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

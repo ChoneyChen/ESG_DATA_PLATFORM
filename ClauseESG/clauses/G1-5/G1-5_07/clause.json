@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "27a39a09075213e4273f54441e79289b7ebef71975fc65c58a3b820286ac5092",
+  "clause_digest": "8a7c864d9883b21bb31ba2969ca378c6d6089a63a10ff8a6b230d5e829d82f1b",
   "clause_key": "G1-5_07",
   "data_kind": "qualitative",
   "definition": "说明实物政治捐赠价值如何估计，包括估值基础与关键假设。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

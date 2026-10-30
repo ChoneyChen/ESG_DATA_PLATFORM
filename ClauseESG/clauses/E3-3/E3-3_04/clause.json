@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "48e59206997d696ab4cb2766afc5ffc0c3dc2f3b87dcdaf47d60fc28cd15075b",
+  "clause_digest": "67b4b84e6d4cfc6755b897d2ea1f76f3b376fb0fa4c0e88a86ee559de03fde56",
   "clause_key": "E3-3_04",
   "data_kind": "qualitative",
   "definition": "(Local) ecological threshold and entity-specific allocation were taken into consideration when setting water and marine resources target。水目标是否考虑生态阈值。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "geography",
+        "target_year"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

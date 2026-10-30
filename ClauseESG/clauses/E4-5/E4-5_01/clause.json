@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c8a8ba270fb510caadb62fe11fc0ba5e3c7cc849e463faf67257dc6a20d6822f",
+  "clause_digest": "61973e4d718c8607c4ee4b72ab5a409cbf99dbc3e8602dd1d216ebcc0559567e",
   "clause_key": "E4-5_01",
   "data_kind": "quantitative",
   "definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址数量。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -617,7 +618,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

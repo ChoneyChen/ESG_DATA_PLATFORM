@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "38e1e3ff19b804f06ffca8d62a72925d77e58ba4799bf6ba5d2698a4c936595b",
+  "clause_digest": "4e5f8db7d5dc6a4b0e2623660fec485fe4aa56a41f95e0fcb0c10b70295a9371",
   "clause_key": "BP-2_23",
   "data_kind": "qualitative",
   "definition": "Disclosure of how business model and strategy take account of impacts related to sustainability matters assessed to be material (phase-in)。阶段安排的战略业务回应。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

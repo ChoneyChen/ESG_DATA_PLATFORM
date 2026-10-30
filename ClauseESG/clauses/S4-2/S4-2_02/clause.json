@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0ae3d3c14bbb96e7048aa87389f0c1d191eb0a4c77f79f3c13bdaccf71430705",
+  "clause_digest": "88638b2261d466ae8711fd7810ed745e1a0b33ce9c1924d431f3f0c9666a1302",
   "clause_key": "S4-2_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否与消费者和终端用户或其合法代表、可信代理直接开展接触，并指出接触形式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

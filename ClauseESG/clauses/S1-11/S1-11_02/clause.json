@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a29549f1a87de7cc3f8fc223bfe401d077fd99125be9746ae84ddeb06f9e980c",
+  "clause_digest": "10e115cd5b271f1640d008f56283abb4ce1c9657710d08c8bf3a3483dc100edb",
   "clause_key": "S1-11_02",
   "data_kind": "qualitative",
   "definition": "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

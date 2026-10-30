@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "388402baebf55868cc67f12aea376320e8d8abc299543de97951969c85d44e7c",
+  "clause_digest": "c12bfb8ee35242a4c889bcdc9ccb2073442ba482c490e4cdc613190365a8babe",
   "clause_key": "S1-7_04",
   "data_kind": "qualitative",
   "definition": "说明主体的自身劳动力中是否没有非员工；如有，应披露其人数与类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

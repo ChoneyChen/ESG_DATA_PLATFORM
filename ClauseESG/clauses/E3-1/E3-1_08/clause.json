@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "14b26f3f8f3ff837573cf5e12a60825801196f7666768440e6e957958e7b28b8",
+  "clause_digest": "95141a29ef8153b57a66f206936ff02b73d2655deb1d477335dbc01ac9736c55",
   "clause_key": "E3-1_08",
   "data_kind": "qualitative",
   "definition": "Disclosure of timeframe in which policies in areas of high-water stress will be adopted。高水压力地区政策采纳时间。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

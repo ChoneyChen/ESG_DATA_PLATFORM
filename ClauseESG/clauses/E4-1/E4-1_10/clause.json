@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2af5cfa08b110dc8510bee699896187e41b0d7220b1ab5b02d7237066114e46a",
+  "clause_digest": "21ef16d49b6d36adffabc9a85d2629aa2b53de69b6b659ae1991d1f411ae530a",
   "clause_key": "E4-1_10",
   "data_kind": "qualitative",
   "definition": "说明生物多样性和生态系统战略与转型计划之间如何相互作用、相互支持。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

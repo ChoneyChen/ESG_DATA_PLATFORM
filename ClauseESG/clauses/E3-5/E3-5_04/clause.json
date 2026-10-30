@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "bf1d6bbc664b31b5259bcabf535b885cb9170e029e48933374f49d6db0b7ce14",
+  "clause_digest": "8383dcb3349d91cd32fbe925941c3249dad0ce811bd564068549a45c68a37b12",
   "clause_key": "E3-5_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of critical assumptions used in estimates of financial effects of material risks and opportunities arising from water and marine resources-related impacts。水财务估计的关键假设。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

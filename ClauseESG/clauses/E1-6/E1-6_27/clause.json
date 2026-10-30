@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7bbe8d2d785ecc8df55bb738cf479e4fc9d420e88ff96560ae8abe861c34d9f0",
+  "clause_digest": "b8fc1dba0642d6dfe58a0243ba2387df43bb39f281fcf2f5a5a41956f77ec500",
   "clause_key": "E1-6_27",
   "data_kind": "qualitative",
   "definition": "纳入盘查的范围3类别清单",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -321,7 +322,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "source_row_topic",
+        "scope3_category"
       ],
       "missing_action": "annotate"
     },
@@ -479,7 +482,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

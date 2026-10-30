@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c1d47c606497302ff608d248ffc5478a13686c4ca8a9cd247df6d185f225c54c",
+  "clause_digest": "d8e9556c49f995229f38a07163281a9b4dc261e9cb5d1d2e81fe24c2589ffc7a",
   "clause_key": "S2.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "披露价值链劳动者中重大负面影响是否已经发生，以及发生的情形。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

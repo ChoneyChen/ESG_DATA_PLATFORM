@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "66655fce771ba6d4d6616ad56aa523eaed2c6c269f1729c081c6d8506cede038",
+  "clause_digest": "fb836adc6d9d0e7043d849f382ace091422bb5a2afcef02ba337458c8254f4d7",
   "clause_key": "E1-4_02",
   "data_kind": "qualitative",
   "definition": "Tables: Multiple Dimensions (baseline year and targets; GHG Types, Scope 3 Categories, Decarbonisation levers, entity-specific denominators for intensity value)。排放目标的多维披露结构。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -308,6 +308,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -329,7 +330,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "baseline_year",
+        "target_year",
+        "ghg_scope",
+        "accounting_method"
       ],
       "missing_action": "annotate"
     },
@@ -415,7 +421,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

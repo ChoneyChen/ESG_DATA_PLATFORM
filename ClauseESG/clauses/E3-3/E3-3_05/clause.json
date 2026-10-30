@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ec96e533127f28378183876acca16bf62ada22d7e6f8bb9399f5c8818234ad03",
+  "clause_digest": "3c275048129901905eaa462aa5973359657a68c7ae321f72ed773fd1f12def23",
   "clause_key": "E3-3_05",
   "data_kind": "qualitative",
   "definition": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)。水生态阈值及识别方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "geography",
+        "target_year"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8b5a6fd18e20b642d32660294e52ab443e36befb6cdd6311c3781c523b9268b8",
+  "clause_digest": "ef144430c4fa52802339acdddadf5a515d0db14e64ed97952b237c28cf692f08",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -547,6 +547,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -925,7 +926,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "person",

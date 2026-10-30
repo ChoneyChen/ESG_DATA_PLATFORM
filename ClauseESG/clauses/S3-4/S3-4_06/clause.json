@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0377ac332a2d3ca2dda36f968a698c01cbb5ecacf48689f966c8de0cda7a0d21",
+  "clause_digest": "29d505be9ca9298eb581234ce45c7af6312796b22c0690ed20a3944674c56dc1",
   "clause_key": "S3-4_06",
   "data_kind": "qualitative",
   "definition": "描述主体针对受影响社区特定重大负面影响采取行动的方法。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

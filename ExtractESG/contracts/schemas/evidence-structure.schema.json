@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "ColumnSemantics": {
+      "additionalProperties": false,
+      "properties": {
+        "column_id": {
+          "title": "Column Id",
+          "type": "string"
+        },
+        "header_path": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Header Path",
+          "type": "array"
+        },
+        "period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportedPeriod"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "period_only": {
+          "default": false,
+          "title": "Period Only",
+          "type": "boolean"
+        },
+        "requires_identity_reading": {
+          "default": false,
+          "title": "Requires Identity Reading",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "column_id",
+        "header_path"
+      ],
+      "title": "ColumnSemantics",
+      "type": "object"
+    },
+    "ReportedPeriod": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "kind": {
+          "enum": [
+            "annual",
+            "fiscal_year",
+            "quarter",
+            "instant",
+            "range",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "quarter": {
+          "anyOf": [
+            {
+              "maximum": 4,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Quarter"
+        },
+        "raw": {
+          "minLength": 1,
+          "title": "Raw",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "year": {
+          "anyOf": [
+            {
+              "maximum": 2199,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Year"
+        }
+      },
+      "required": [
+        "kind",
+        "raw"
+      ],
+      "title": "ReportedPeriod",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "columns": {
+      "items": {
+        "$ref": "#/$defs/ColumnSemantics"
+      },
+      "title": "Columns",
+      "type": "array"
+    },
+    "period_policy": {
+      "const": "all_reported",
+      "default": "all_reported",
+      "title": "Period Policy",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "evidence-structure-1.0",
+      "default": "evidence-structure-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "unresolved_columns": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unresolved Columns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "columns"
+  ],
+  "title": "EvidenceStructure",
+  "type": "object"
+}

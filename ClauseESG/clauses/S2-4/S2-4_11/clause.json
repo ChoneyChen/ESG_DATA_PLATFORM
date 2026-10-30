@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "77a109d11f131068814e52a3e856bc14a552987ad1c378bcf55eeceebcaab2bf",
+  "clause_digest": "4a48b4ae8c09ffc9aee1a6df272c4fc318e1a841f4a603533972299279e77edf",
   "clause_key": "S2-4_11",
   "data_kind": "qualitative",
   "definition": "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -429,7 +431,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

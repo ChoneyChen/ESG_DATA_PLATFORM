@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4599b3374f6c259e057012c90463e4143eea08d633adf76604b7394761a9d69c",
+  "clause_digest": "3e2a2f609b5d2070184da73e4d0b2cc3fa0e0c427a49bc1f1d8fae43f09a4b18",
   "clause_key": "S1-2_13",
   "data_kind": "qualitative",
   "definition": "披露不同员工之间出现的利益冲突以及主体如何解决这些冲突。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

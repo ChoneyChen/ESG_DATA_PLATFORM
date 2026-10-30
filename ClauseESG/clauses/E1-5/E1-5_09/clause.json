@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "357c4366a4668085846156ce3dbc3c9c1f5f2a031955e62ac67d6f57f7898602",
+  "clause_digest": "c77cc93babd874c2366a5a4cf866edfc9c411189e2d97beb1be9a007e34249be",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
@@ -563,6 +563,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -964,7 +965,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

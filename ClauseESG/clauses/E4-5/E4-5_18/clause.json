@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ccef1c8a85d7483545561ec819d99d94a29c7fb5a238d584d40863908034a335",
+  "clause_digest": "61116187f163fabd953319d99fdda3cbb8d91bd71b38ba15d7cfb62e6553f7f7",
   "clause_key": "E4-5_18",
   "data_kind": "qualitative",
   "definition": "指出所用物种状态指标在其他环境相关标准中所对应的段落，以便交叉核对。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

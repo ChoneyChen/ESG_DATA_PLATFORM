@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "db4a86b7838e97ccc250ad57718f7d3f93e3d67237c7d1dc5bb199471f18bbb2",
+  "clause_digest": "76c28d87a64e08f301a3233abf54cdda390382025e0612f92424e811db1078e4",
   "clause_key": "G1.GOV-1_02",
   "data_kind": "qualitative",
   "definition": "披露行政、管理和监督机构在商业行为事项方面的专长、经验及获取方式。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

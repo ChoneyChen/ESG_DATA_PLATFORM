@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d3954f5f41306b4a4918cf0df086181e64429976425028040117d44bb2b16a5d",
+  "clause_digest": "9306c4a9608a5ef8819058f05342704a4c842bf4a8a439b85dc448d0578b0cd8",
   "clause_key": "S1-7_03",
   "data_kind": "quantitative",
   "definition": "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -570,7 +571,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

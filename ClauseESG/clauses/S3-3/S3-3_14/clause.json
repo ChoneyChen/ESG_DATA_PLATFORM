@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "07cd7b3c882f3d92345a6a58a842685c69b912b3f64fe4dbbf30d27023789507",
+  "clause_digest": "fdfcaa37a1795deb49546c9b5fd7074ff6dcd4a077bca1f48f1de61d9f6e12fc",
   "clause_key": "S3-3_14",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何评估受影响社区知晓并信任相关结构或流程，以提出关切和需求。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

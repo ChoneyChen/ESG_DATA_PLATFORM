@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "41133ed878b9ce3c0e943e1d8687a9e6678b779b919cfdb29b3b47960b6e3375",
+  "clause_digest": "24b612f7d78f00720c911fc830b7281c632c9ea9631b18d77960277f8964e4e0",
   "clause_key": "S3-2_05",
   "data_kind": "qualitative",
   "definition": "说明主体如何评估与受影响社区接触的有效性，包括评估指标与反馈机制。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

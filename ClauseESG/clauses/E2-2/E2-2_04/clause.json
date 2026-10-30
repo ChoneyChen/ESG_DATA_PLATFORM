@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c857cd054f9b41308fbf171c9b0f8094c6ef149775ad33839e3a7a64bd386a71",
+  "clause_digest": "168eb2d9c353c35e57782a06763c55aa9405128b767ad44f48f84cd8cdf4b1cd",
   "clause_key": "E2-2_04",
   "data_kind": "qualitative",
   "definition": "Information about action plans that have been implemented at site-level (pollution)。场址污染行动计划。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

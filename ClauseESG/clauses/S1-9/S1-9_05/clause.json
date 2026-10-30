@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4bb6cf249aa7cb20bc712d5f45600ab4efe423b1f71d985cf45b6ef2b4586778",
+  "clause_digest": "a92fd3a211a6c2d84548ad8aacb5675a485935ea01657ef0586cf05aa80e80c0",
   "clause_key": "S1-9_05",
   "data_kind": "quantitative",
   "definition": "Distribution of employees (head count) over 50 years old",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -568,7 +569,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "ratio",

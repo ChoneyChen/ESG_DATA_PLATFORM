@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "40b7af4906425705e1d985b6ddab9fdc3652c668aebacbbabfd8d1553c894996",
+  "clause_digest": "6cabaa3bffd4e0cdbb0bc6eee579afd30e371c11c10077d90e07d6625ca91357",
   "clause_key": "S3-3_12",
   "data_kind": "qualitative",
   "definition": "说明主体通过哪些流程支持或要求提供社区申诉渠道，包括对业务伙伴的要求。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

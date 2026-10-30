@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8e8a5a897ee3dbb2b69dbe3ea82e9fdde50cb77f319b03dd946e1447edb06b54",
+  "clause_digest": "ec8cb77eb9aadb5ddfbbce7fc7691352d48beedb7e9cd01d2721ff8a0426646e",
   "clause_key": "S1-9_03",
   "data_kind": "quantitative",
   "definition": "Distribution of employees (head count) under 30 years old",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -568,7 +569,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "ratio",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "fb8c8ad59d3a34e946929a6d915d7937aaca228f1b60067b1bc3b9614205aabe",
+  "clause_digest": "a8bf74ea07e97e97c17f88ad8aed35bd6978e25f76a902c54e2413a4f2938f69",
   "clause_key": "E5-5_04",
   "data_kind": "quantitative",
   "definition": "The rates of recyclable content in products",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

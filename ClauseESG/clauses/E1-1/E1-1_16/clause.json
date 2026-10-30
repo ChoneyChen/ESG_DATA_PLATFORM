@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "3a2574df34d7494ef95a9214195072a8c54f6718967f949aaf8a988bebbcb725",
+  "clause_digest": "b4751af9a1b24af164e0e4d85fd884b8908baa78976d5669c3a7fbbe27c427ba",
   "clause_key": "E1-1_16",
   "data_kind": "qualitative",
   "definition": "Date of adoption of transition plan for undertakings not having adopted transition plan yet。尚无转型计划时的计划采纳年份。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

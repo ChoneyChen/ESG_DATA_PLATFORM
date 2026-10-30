@@ -74,6 +74,14 @@ export const text = (value: unknown): string =>
     : typeof value === "object"
       ? JSON.stringify(value)
       : String(value);
+export function periodText(value: unknown): string {
+  if (value == null) return "期间未知";
+  if (typeof value !== "object") return String(value);
+  const p = value as Record<string, unknown>;
+  if (p.kind === "quarter" && p.year && p.quarter) return `${p.year} Q${p.quarter}`;
+  if (p.kind === "annual" && p.year) return String(p.year);
+  return typeof p.raw === "string" ? p.raw : "期间未知";
+}
 export const date = (value: string | null | undefined) =>
   value ? new Date(value).toLocaleString("zh-CN", { hour12: false }) : "—";
 export function download(name: string, value: unknown) {

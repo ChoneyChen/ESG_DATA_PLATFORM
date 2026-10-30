@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6dc05092a3b00fcf09ec5f40732a413320d97726d157c4e32e9bcdad05a4c94f",
+  "clause_digest": "26d74fe7edabf9cf9413524efb7937a60a1ec6b3898a6856a37d89aa89bdc5dc",
   "clause_key": "S3-5_05",
   "data_kind": "qualitative",
   "definition": "说明目标在定义和方法上如何随时间保持稳定，以支持跨期可比性。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "target_year"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

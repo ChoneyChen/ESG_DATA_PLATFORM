@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "9a72683d603b4892c1e76f18aaaf95f030f4c972f7cfbd56fc2fcb65093d7bd8",
+  "clause_digest": "c9ba1dfc316bb456b722c7de2388d4ad46e85fea653117b9706767c49894b808",
   "clause_key": "S4-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责确保消费者接触发生并使结果影响主体方法的职能和最资深角色。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

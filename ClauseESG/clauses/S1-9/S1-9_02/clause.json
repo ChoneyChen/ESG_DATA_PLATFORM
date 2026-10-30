@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8b33096a98f89e0ff3f19af16d2f69c185fc3a60eb3f354817f454aab37f3665",
+  "clause_digest": "24fb03803d5f65ce8b1d3ca455b73496a1aaca871fb462c36a34da16eec6dd52",
   "clause_key": "S1-9_02",
   "data_kind": "quantitative",
   "definition": "最高管理层员工中按性别划分的占比。",
@@ -545,6 +545,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -803,7 +804,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

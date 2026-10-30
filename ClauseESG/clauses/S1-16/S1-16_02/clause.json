@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e72dd47e8a0d3a1a444866b95c72c419d342c343f2d032f2a3b9d760000c70b3",
+  "clause_digest": "c57bb4ba2b707d36c9bbceb5a53bb00b9257f0c5c248f3455517ae9b6218088f",
   "clause_key": "S1-16_02",
   "data_kind": "quantitative",
   "definition": "Annual total remuneration ratio",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

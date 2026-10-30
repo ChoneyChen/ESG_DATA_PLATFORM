@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "610d6ea9c161f48f56bac21b3717851e319f7bfc5951a48d4f2ef0f29640cbcb",
+  "clause_digest": "b2155128a05973bd136af5dfdac0ca397a2dc9d21b0baf9320a3f84c9aaafa30",
   "clause_key": "S1-14_11",
   "data_kind": "qualitative",
   "definition": "Description of underlying standards for internal audit or external certification of health and safety management system。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -406,7 +407,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

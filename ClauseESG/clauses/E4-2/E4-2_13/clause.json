@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c84cdd0a769618687caf15d85745f9a3e4d4240886f2f3b7f925e9748eccd5a5",
+  "clause_digest": "f22f25a5fd2add6fa6ce6a4608775ad1e87f30ed3fb363825900e6ad93ca4a4e",
   "clause_key": "E4-2_13",
   "data_kind": "qualitative",
   "definition": "说明第三方行为标准是否通过持续协商制定或维护，且各相关利益群体均有平衡参与、无单一群体拥有不当否决权。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

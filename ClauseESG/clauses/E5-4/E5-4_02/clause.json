@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "1e5e242fe10359f8d4df5f82f67e8bffd156d4c7fef72d7733a056eca59971a6",
+  "clause_digest": "a5562efbe7c4ddefb4aa585bbf7f2af1ead9cda16ec800df29ea81905bca6a88",
   "clause_key": "E5-4_02",
   "data_kind": "quantitative",
   "definition": "报告期内产品、技术材料与生物材料的投入总重量。",
@@ -478,6 +478,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -760,7 +761,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

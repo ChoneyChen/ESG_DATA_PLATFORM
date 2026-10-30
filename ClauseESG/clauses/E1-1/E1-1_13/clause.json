@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4a79981ae75e9ce192f9a4a15a6a5fd3b7780664322bb1f7ca961f4a1858fe3d",
+  "clause_digest": "2b2983d2d7af4d0a28d8d7566949a2efefa29382aae69bd0ea705aa997ce0e9c",
   "clause_key": "E1-1_13",
   "data_kind": "qualitative",
   "definition": "Explanation of how transition plan is embedded in and aligned with overall business strategy and financial planning。转型计划与战略财务规划整合。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

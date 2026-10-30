@@ -3,7 +3,7 @@
 from __future__ import annotations
 from typing import Literal, Annotated
 from esg_reports.contract import ReportResource
-from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator
+from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator, model_serializer
 from .data_kinds import extensible_metadata
 from .data_kinds.quantitative import QuantitativeValue
 from .data_kinds.qualitative import QualitativeValue
@@ -142,6 +142,22 @@ class ClauseMapping(FrozenModel):
     flags: list[str] = Field(default_factory=list)
 
 
+class SearchObservation(FrozenModel):
+    total: int | None = Field(default=None, ge=0)
+    returned: int = Field(ge=0)
+    truncated: bool
+    query_digest: str | None = None
+    scope: dict[str, JsonValue] | None = None
+    coverage_observation: str | None = None
+
+
+class PeriodCoverage(FrozenModel):
+    observed_candidates: dict[str, int]
+    captured_facts: dict[str, int]
+    unselected_candidate_cells: list[str]
+    meaning: str
+
+
 class ClauseCoverage(FrozenModel):
     clause_key: str
     clause_digest: str
@@ -154,11 +170,21 @@ class ClauseCoverage(FrozenModel):
     required_scopes: list[str] = Field(default_factory=list)
     covered_scopes: list[str] = Field(default_factory=list)
     reasons: list[str] = Field(default_factory=list)
+    search: SearchObservation | None = None
+    periods: PeriodCoverage | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        for key in ("search", "periods"):
+            if getattr(self, key) is None:
+                body.pop(key, None)
+        return body
 
 
 class PipelineBudget(FrozenModel):
     max_model_calls: int = Field(default=128, ge=1, le=2000)
-    max_objects_per_clause: int = Field(default=8, ge=1, le=100)
+    max_objects_per_clause: int = Field(default=100, ge=1, le=1000)
     max_output_tokens: int = Field(default=4096, ge=128, le=8192)
     timeout_seconds: float = Field(default=14400, ge=1, le=86400)
 

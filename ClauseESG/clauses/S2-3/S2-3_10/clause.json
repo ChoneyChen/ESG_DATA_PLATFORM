@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "61726aa9a0c7abea3d5064f0e0048052fae53985e42421851e905fadc4ab629f",
+  "clause_digest": "24259ccc66bf4f0fab2d113eec81d03357bd268725f4c4ef8e447cdf23e23962",
   "clause_key": "S2-3_10",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有价值链劳动者开放，以及可及性安排。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

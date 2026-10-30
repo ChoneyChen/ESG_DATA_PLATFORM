@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0f00efc1181cbcd7d8986ab808e0395f6c3534c760de199c4f8e9f03741193af",
+  "clause_digest": "89021f3b5ee9626d0c562d513f891caef55997ee220468218038b4351a497ea4",
   "clause_key": "S1-1_15",
   "data_kind": "qualitative",
   "definition": "说明主体是否已建立以资格、技能和经验为基础的招聘、安置、培训和晋升政策与程序。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

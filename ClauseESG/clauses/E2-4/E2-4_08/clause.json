@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "632fc67a30c7c5311e3c88a8e9a69290a21d5eb143bfe7691ef459454184e20a",
+  "clause_digest": "8614d1381fd58071b16bf8331dafddfc0834039cfdb1a2d00e1bbc6295b2a8b8",
   "clause_key": "E2-4_08",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染随时间变化描述",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "affected_medium",
+        "pollutant"
       ],
       "missing_action": "annotate"
     },
@@ -485,7 +488,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

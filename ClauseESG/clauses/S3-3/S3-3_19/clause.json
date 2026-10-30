@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d5b16e531cddf9c3f51c3b0965825d3115740e1db5ad019834da88996903345a",
+  "clause_digest": "8f95ad369698e0b74c80a737c2b94487b56e38e251bb72879c25a438ab036fb3",
   "clause_key": "S3-3_19",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有受影响社区开放，以及可及性安排。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

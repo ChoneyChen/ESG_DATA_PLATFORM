@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "1a2be3e70ebd043b12460ad7032475a7828b82a4f59a9ae707e5954fa06897cf",
+  "clause_digest": "771b8f3e51a259f69649d9ff0600d7aac103ca291687925b9277f5899e727936",
   "clause_key": "S1-14_06",
   "data_kind": "quantitative",
   "definition": "Number of cases of recordable work-related ill health of employees",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

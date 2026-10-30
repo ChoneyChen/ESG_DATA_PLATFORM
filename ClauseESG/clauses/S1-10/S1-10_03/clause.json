@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2bce542f3c3ef735ef20c356fd2aacaa21baa1f598ae967bfc2cef79609756c9",
+  "clause_digest": "fcf769f21a4a1a422bdf2e74efddc1cee82c12870a15df9634629eb59f5d39c6",
   "clause_key": "S1-10_03",
   "data_kind": "quantitative",
   "definition": "披露工资低于适用足额工资基准的员工占员工总数的比例。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -442,7 +443,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "breakdown_member"
       ],
       "missing_action": "annotate"
     },
@@ -571,7 +573,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

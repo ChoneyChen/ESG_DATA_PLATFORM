@@ -3,11 +3,20 @@
 from __future__ import annotations
 from typing import Literal
 from esg_reports.contract import ReportResource
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
+from esg_data.periods import ReportedPeriod
 
 
 class ProtocolModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
+
+
+class ReportingPeriodContext(ProtocolModel):
+    basis: str
+    evidence: str | None = None
+    source_id: str | None = None
+    page_index: int | None = Field(default=None, ge=0)
+    inheritance: Literal["explicit_reference_only"] = "explicit_reference_only"
 
 
 class DocumentReference(ProtocolModel):
@@ -22,6 +31,14 @@ class DocumentReference(ProtocolModel):
     label: str | None = None
     report_resource: ReportResource | None = None
     search_scope: dict | None = None
+    period_context: ReportingPeriodContext | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if self.period_context is None:
+            body.pop("period_context", None)
+        return body
 
     def evidence_identity(self):
         """Mutable report labels are provenance, separate from the fixed physical input."""
@@ -50,6 +67,7 @@ class SearchIntent(ProtocolModel):
     context_terms: list[str] = Field(default_factory=list)
     expected_candidate_types: list[str] = Field(default_factory=list)
     limit: int = Field(default=8, ge=1, le=100)
+    cursor: str | None = Field(default=None, max_length=2048)
 
 
 class ObjectReference(ProtocolModel):
@@ -58,6 +76,22 @@ class ObjectReference(ProtocolModel):
     page_index: int
     score: float
     chunk_count: int = 1
+
+
+class ObjectSearchPage(ProtocolModel):
+    schema_version: Literal["object-search-page-1.0"] = "object-search-page-1.0"
+    objects: list[ObjectReference]
+    total: int = Field(ge=0)
+    returned: int = Field(ge=0)
+    next_cursor: str | None = None
+    query_digest: str
+    scope: dict
+
+    @model_validator(mode="after")
+    def bounded_page(self):
+        if self.returned != len(self.objects) or self.returned > self.total:
+            raise ValueError("Search page counts disagree")
+        return self
 
 
 class EvidenceCell(ProtocolModel):
@@ -109,6 +143,21 @@ class EvidenceFrame(ProtocolModel):
     chunk_index: int = 0
     chunk_count: int = 1
     digest: str
+
+
+class ColumnSemantics(ProtocolModel):
+    column_id: str
+    header_path: list[str]
+    period: ReportedPeriod | None = None
+    period_only: bool = False
+    requires_identity_reading: bool = False
+
+
+class EvidenceStructure(ProtocolModel):
+    schema_version: Literal["evidence-structure-1.0"] = "evidence-structure-1.0"
+    period_policy: Literal["all_reported"] = "all_reported"
+    columns: list[ColumnSemantics]
+    unresolved_columns: list[str] = Field(default_factory=list)
 
 
 EvidenceRow.model_rebuild()

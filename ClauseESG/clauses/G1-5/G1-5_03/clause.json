@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "29ca25e803e1d1e8da85e1e08664be4b6b53da8e5b31b575a79348dfa681977c",
+  "clause_digest": "ae8379535e3cc1b67a686929a1021c4058fad926e2859ff1ae92a59d30c5701e",
   "clause_key": "G1-5_03",
   "data_kind": "quantitative",
   "definition": "披露报告期内主体提供的财务政治捐赠金额，并说明计量口径。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "currency",

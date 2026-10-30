@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a2c48d6ca1a261784edba50efe7113fb26ae23be8af4de89f3eed1e606c3eabc",
+  "clause_digest": "0a7a5e2a985a705378ad949ff6cb01e6d12b3f11dfee198311564df2b827a850",
   "clause_key": "S1-7_05",
   "data_kind": "qualitative",
   "definition": "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

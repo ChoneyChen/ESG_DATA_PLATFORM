@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "350febf48d82b51f76afe9d13c5599cc7ff00c5359e8a1c7422ed916017c84be",
+  "clause_digest": "6d1fc6c4e953f702921b7eaefd6d1c05ec0d526033883a8d20b3e0d693554876",
   "clause_key": "G1-5_09",
   "data_kind": "qualitative",
   "definition": "披露游说活动覆盖的主要议题以及主体在这些议题上的主要立场。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

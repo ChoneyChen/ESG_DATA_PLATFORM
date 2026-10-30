@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0908af7b81c5f929d27b5d25b8c06389b78e0cb7ae620b121c0b1fe6b928ef25",
+  "clause_digest": "9518afbfec8412ddbbf480d374f3e7626817588baf361d87f4951570dc6cacfd",
   "clause_key": "S4-3_13",
   "data_kind": "quantitative",
   "definition": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。",
@@ -428,6 +428,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -648,7 +649,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

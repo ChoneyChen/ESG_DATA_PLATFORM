@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8c7ccdc9de69baa1feccb61d1eb2ed773e1edd09ab210ab51eb28f1dea5cd96e",
+  "clause_digest": "f2ea61bda69d85edf55a002491f70d9ce0e7b3cfb4213493f985ed16cd4d2d9d",
   "clause_key": "S1-3_03",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向全体自身劳动力开放，以及可及性安排。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

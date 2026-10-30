@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "419f0eff22c46b02fc687709d32bc89f9d3db35a9d319de74e9d19c52c367c80",
+  "clause_digest": "987b7f9b44221e190f889e10527ef2544a233dfcd6ff51e00667b109972d779d",
   "clause_key": "E4-5_20",
   "data_kind": "qualitative",
   "definition": "披露特定区域内物种个体数量随时间的变化，包括变化幅度与监测方法。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -417,7 +418,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d85df7de07bfd96cc67560a338b95fe7a28b9ea66078813155f1d72cde9c4040",
+  "clause_digest": "3d9b12ea061114aa0a3dbffd232377fbe31968a61001c4c06109c6b2e9e0b77b",
   "clause_key": "S1-2_12",
   "data_kind": "qualitative",
   "definition": "说明主体如何通过适当渠道向员工提供可理解、可获取的信息。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

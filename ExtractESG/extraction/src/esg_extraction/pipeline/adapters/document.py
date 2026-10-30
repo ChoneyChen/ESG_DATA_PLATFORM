@@ -1,7 +1,7 @@
 """HTTP document adapter: only IR IDs and stable evidence object references cross services."""
 
 import requests
-from esg_contracts.evidence import DocumentReference, ObjectReference, EvidenceFrame
+from esg_contracts.evidence import DocumentReference, ObjectReference, EvidenceFrame, ObjectSearchPage
 
 
 class HttpDocumentPort:
@@ -23,10 +23,13 @@ class HttpDocumentPort:
         )
 
     def search(self, ir_run_id, intent):
+        return self.search_page(ir_run_id, intent).objects
+
+    def search_page(self, ir_run_id, intent):
         payload = self._request(
             "POST", f"/api/evidence/{ir_run_id}/search", intent.model_dump(mode="json")
         )
-        return [ObjectReference.model_validate(row) for row in payload["objects"]]
+        return ObjectSearchPage.model_validate(payload)
 
     def read(self, ir_run_id, reference, chunk_index=0):
         return EvidenceFrame.model_validate(

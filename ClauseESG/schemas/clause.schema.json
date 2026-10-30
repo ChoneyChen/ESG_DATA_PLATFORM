@@ -87,6 +87,19 @@
           "title": "Missing Metadata",
           "type": "string"
         },
+        "period_policy": {
+          "anyOf": [
+            {
+              "const": "all_reported",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Policy"
+        },
         "require_measurement_meaning": {
           "const": true,
           "default": true,
@@ -1215,10 +1228,11 @@
       "$ref": "#/$defs/RetrievalProfile"
     },
     "schema_version": {
-      "default": "clause-contract-1.2",
+      "default": "clause-contract-1.3",
       "enum": [
         "clause-contract-1.1",
-        "clause-contract-1.2"
+        "clause-contract-1.2",
+        "clause-contract-1.3"
       ],
       "title": "Schema Version",
       "type": "string"

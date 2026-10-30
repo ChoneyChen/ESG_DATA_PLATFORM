@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "d3508c7118df6ce99cd44650dabdf7f5f0c6359c8196e8ef507f7b51e895b667",
+  "clause_digest": "9a071e993c1129afa5c1c0493a5923ff4607cb35bc2d51b217d48b9e4b453006",
   "clause_key": "E1-5_20",
   "data_kind": "qualitative",
   "definition": "用于确定能源强度的高气候影响行业清单",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -322,7 +323,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "high_climate_impact_sector"
       ],
       "missing_action": "annotate"
     },
@@ -432,7 +434,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ca8f03cded0f8f81e310080159342d3aa2bf11cfbecd1e84ba40e843a324265c",
+  "clause_digest": "9034682893334afa20702eced8faedf6f047811e167660b1f69a982265f0e0e7",
   "clause_key": "G1-2_03",
   "data_kind": "qualitative",
   "definition": "说明在选择供应方合同伙伴时，社会和环境标准是否以及如何纳入考量。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

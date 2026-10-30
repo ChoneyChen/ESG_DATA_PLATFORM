@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "2810391371482a6f175c9535a8827970891d2102dc068937921df4fd1b89eef4",
+  "clause_digest": "21761ddbc2fae3545e674ebe68c99b5c7d6a920859962dfd8619b78ab181c7f0",
   "clause_key": "G1-5_04",
   "data_kind": "quantitative",
   "definition": "披露报告期内主体发生的内部和外部游说费用金额，并说明费用范围。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -585,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "currency",

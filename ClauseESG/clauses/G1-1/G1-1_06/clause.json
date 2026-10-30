@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8fb15268226dd5412240df823467e90b9c40120b74024133bb6ed0449f6c9e20",
+  "clause_digest": "83dd75681954f38ff971d43abe120659f37e04b4584f096c68d1c82c44d38525",
   "clause_key": "G1-1_06",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未制定举报人保护政策；若尚未制定，披露现状、原因与拟采取措施。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

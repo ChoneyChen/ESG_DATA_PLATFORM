@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f6a582bbbd6c154fa6c66dd550d4cfde50b888505fc18a8b257eac6e64fe71b5",
+  "clause_digest": "e77809dc38a7513b35bf50c583700f1bbd3e3173f406e062c122c2b758d2222a",
   "clause_key": "S1-3_02",
   "data_kind": "qualitative",
   "definition": "披露自身劳动力可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

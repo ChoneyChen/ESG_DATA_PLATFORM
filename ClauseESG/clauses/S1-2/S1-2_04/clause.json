@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "11c71cf8563e621de1cc49ea3031b98a7cb622cf82b3605c4fa054b6b60d33cd",
+  "clause_digest": "6f834ee692b9fb18f22100f1cbd2532970b5c9978a5f0d1aff3925b555344c9e",
   "clause_key": "S1-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责确保接触发生并使结果影响主体方法的职能和最资深角色。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

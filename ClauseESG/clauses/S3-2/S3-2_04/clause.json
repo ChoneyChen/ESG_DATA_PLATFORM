@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e865eb91a948a1a9a58613818fbb76639daba9397076623ef2b30d0606716b8a",
+  "clause_digest": "5990a82be6f2c0817843dddc33d834a38ae9c9f23dd2dbe6f3bc714a3c81aee7",
   "clause_key": "S3-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责确保社区接触发生并使结果影响主体方法的职能和最资深角色。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

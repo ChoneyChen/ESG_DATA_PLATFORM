@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "67b40dd182fe849af66dbea774c69e3a58754b3105c331341269b71f9111b53e",
+  "clause_digest": "66571a44a5089334578abca7af5c0d88ad6faf2c10b3a22d95764eea37c12b8c",
   "clause_key": "S1-8_04",
   "data_kind": "qualitative",
   "definition": "说明未受集体谈判协议覆盖员工的就业条件和工作条款是否参照其他员工的集体协议或其他主体的协议确定。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

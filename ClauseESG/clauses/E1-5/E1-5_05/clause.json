@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8531d278fb04388b4cb3f7cac6d855f949e71cb0c8242e5ebcaa40b498fe10a4",
+  "clause_digest": "63e228eef84e23976448b56e8ffaa04d1922b600e8b92e3901da88496f98638a",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",
@@ -561,6 +561,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -1027,7 +1028,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

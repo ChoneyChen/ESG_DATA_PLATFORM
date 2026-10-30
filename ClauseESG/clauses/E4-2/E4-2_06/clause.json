@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "45e8c0566acdad4ac6fa9620ad04d602d455e48d20f2ccf40685c83bdc605c4a",
+  "clause_digest": "ff4ccc46be948b61068a1ff964d5934f21b833fc932d2499033d069d4738154a",
   "clause_key": "E4-2_06",
   "data_kind": "qualitative",
   "definition": "说明政策是否以及如何处理生物多样性和生态系统影响所引发的社会后果。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

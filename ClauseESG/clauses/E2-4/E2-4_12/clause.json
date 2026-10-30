@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5d25808c801048493ca89abead86532598befac4d5b8d746019133fe140197f2",
+  "clause_digest": "b9134fcd7c85fedd9474bf5f939edc190c7f977232f93074317066a1be2ce405",
   "clause_key": "E2-4_12",
   "data_kind": "quantitative",
   "definition": "高水压力地区水污染物排放占比",
@@ -424,6 +424,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -442,7 +443,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "pollution_medium",
+        "water_risk_class"
       ],
       "missing_action": "annotate"
     },
@@ -691,7 +694,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

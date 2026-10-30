@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7ae802b20711c679414ed7e5a1f26b16bd3aa147ae8040a06acb579d5d8b5d39",
+  "clause_digest": "2d38802792ae46f3c7cb28461f867a891e1a9c74ea926d9ac4ed1b446bdc7de1",
   "clause_key": "S1-15_04",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否通过社会政策和集体谈判协议享有家庭相关假期。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

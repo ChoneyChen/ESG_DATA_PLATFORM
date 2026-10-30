@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "27d5e33f6ab17f75191128a9357908e2c6e6fd30012f65585d59f89eb16e6119",
+  "clause_digest": "c7695f8581bf67e802d46ccba7742ca3ce8b7b7a7d571442c5bf92de3a1c0787",
   "clause_key": "S2-1_11",
   "data_kind": "qualitative",
   "definition": "举例说明政策如何向价值链中的相关个人、群体或实体传达，包括渠道和语言。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "policy_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

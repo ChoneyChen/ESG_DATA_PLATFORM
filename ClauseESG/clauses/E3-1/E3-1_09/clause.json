@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "9724c8277d6cc27c92cbb3b5a50d26ba3e4454f62d7bbaa60e89f269495e2c2e",
+  "clause_digest": "2c7ca11bc31e4934a12ad4d68cbf247ed0276873641b89dcdd4e3748cc643fc1",
   "clause_key": "E3-1_09",
   "data_kind": "qualitative",
   "definition": "Policies or practices related to sustainable oceans and seas have been adopted。可持续海洋政策实践。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

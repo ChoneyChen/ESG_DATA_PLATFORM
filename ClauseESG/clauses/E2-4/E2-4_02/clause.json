@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a46e58ff73ff78a375b4b5f0b7c2225c46fd112304f526c4c350fff32c9b519a",
+  "clause_digest": "4ed277e18e8d0ffdf1d62566402316d7f2050aed9df09e973d59e5af372b4ace",
   "clause_key": "E2-4_02",
   "data_kind": "quantitative",
   "definition": "按污染物划分的空气排放量",
@@ -563,6 +563,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -1018,7 +1019,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

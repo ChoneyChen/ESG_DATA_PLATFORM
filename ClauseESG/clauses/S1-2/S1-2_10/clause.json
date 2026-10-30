@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5a544c5e9e329eae6c2f0d881c548d8d87292b324376532b9f19e39cb7f89f37",
+  "clause_digest": "82a7568f64c9887b8af3f5bb50654de3f4234ded85231ab0c6975c1788914187",
   "clause_key": "S1-2_10",
   "data_kind": "qualitative",
   "definition": "说明主体如何与处于风险或弱势情形的人员开展接触，包括保护措施。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

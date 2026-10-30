@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "bdc5fb1225d36ba2303afdd99a170e909e5dea56c29e187e778698d1c39b45f2",
+  "clause_digest": "de1055076b6e01d04474f48d9eaa9408a5a87f11e66e419d086af60869bc68b8",
   "clause_key": "SBM-2_06",
   "data_kind": "qualitative",
   "definition": "Description of how outcome of stakeholder engagement is taken into account。参与结果的使用。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

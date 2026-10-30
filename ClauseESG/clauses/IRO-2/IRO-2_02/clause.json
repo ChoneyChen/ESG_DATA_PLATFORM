@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "32f277c6e2c67c6b9a84950d76d85aa55e5ca57fbae11643306e6b1f760ce81f",
+  "clause_digest": "0e6afe9bd616c98944b2f349805220922ee83de0d4f09603dde0e9269a46c701",
   "clause_key": "IRO-2_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of list of ESRS Disclosure Requirements complied with in preparing sustainability statement following outcome of materiality assessment。遵循的ESRS披露要求清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

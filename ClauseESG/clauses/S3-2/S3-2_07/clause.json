@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5b56a57e594d49b5e4df9bd7e543e0c515143090cb46ca7b8f5c69c4a37810ef",
+  "clause_digest": "cd0c734a8abd820bdda2b276d11d2f559a51f7805c5bc83917514f27b64201cc",
   "clause_key": "S3-2_07",
   "data_kind": "qualitative",
   "definition": "说明主体在利益相关方接触方法中是否以及如何考虑并确保尊重原住民的特定权利。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4c9224b1b8ad00b26aa3480fa2cf8c2a773082818382347b446e112577b1057f",
+  "clause_digest": "865c8f4446574b9fca042ba0123c65c5b4abd340fd2cff178b37e36961e6d1fe",
   "clause_key": "E3-1_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and  how policy adresses water treatment。水处理政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

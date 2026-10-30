@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "30d505a1686577f9fb18ae07f2f56fd8f3d80a7f115e9fac990bdd30b0d4bcb5",
+  "clause_digest": "2906fd5351aaff10100cf01b680905fc55bca5d3f5d99a7ede8f17cef2129c4c",
   "clause_key": "MDR-A_09",
   "data_kind": "quantitative",
   "definition": "Current financial resources allocated to action plan (Capex)。当前行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -443,7 +444,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -587,7 +590,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "currency",

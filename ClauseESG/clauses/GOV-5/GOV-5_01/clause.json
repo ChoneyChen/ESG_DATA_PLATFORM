@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ca2f53ebcc9dd510b19d4634c19039227ec3ef65df39759197fa28c8162e2401",
+  "clause_digest": "6f1a9e03b496deb1445713b31546ac38c2f56e6b7f898fb53de7f427d9047ac4",
   "clause_key": "GOV-5_01",
   "data_kind": "qualitative",
   "definition": "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting。可持续披露风险管理内控范围与组成。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "16829e6dd1b977caaad0270da927c29baf1856fd9103c7d7d5d041b40d8c4e6b",
+  "clause_digest": "a581ee1eee236d3ebe737abc2f7e2b54c12eb85fcf40f75af33438f969263776",
   "clause_key": "E1-5_01",
   "data_kind": "quantitative",
   "definition": "自身运营的能源消费总量",
@@ -570,6 +570,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -894,7 +895,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

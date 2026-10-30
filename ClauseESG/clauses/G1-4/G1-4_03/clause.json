@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "82c7b087408ef30b18dfdbf13fd7627009967f3e12c194a1d45fab3a6be2ce98",
+  "clause_digest": "bf8d0a01f06189ecbe0150e5278dcceb6542dc5e478e9a7640c9a1165d5a7ecf",
   "clause_key": "G1-4_03",
   "data_kind": "qualitative",
   "definition": "Prevention and detection of corruption or bribery - anti-corruption and bribery training table",
@@ -308,6 +308,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -326,7 +327,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref",
+        "breakdown_member"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

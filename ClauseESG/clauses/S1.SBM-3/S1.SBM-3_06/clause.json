@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b590e638da54dcbd2a6d62b1bc597a59879f0ef22737757677c526d171e0da45",
+  "clause_digest": "d2dc3e1d3a8950b01687605d9d59eaedf19c57dae12df1173a8e6d4934d67775",
   "clause_key": "S1.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "描述为减少环境负面影响、实现绿色气候中性运营的转型计划可能对员工造成的重大影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5671a2c45f5745a4e22e9618312c2e6bd0e56f79cdeee178e36d83beb7688a72",
+  "clause_digest": "a22226903540a461041fa303b4e37f1bc9f2c487e6ae7ec5f0c961a1a7a0fe80",
   "clause_key": "S4-4_16",
   "data_kind": "qualitative",
   "definition": "提供面向消费者和终端用户的项目或流程的预期或已实现积极结果信息。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

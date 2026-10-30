@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "9c8d81fbdf94e5c3e1918e425811e8eb582b26459a5119621c77e705d6e31639",
+  "clause_digest": "f18f6658b56c25d9e8cfcdcf118052cf69ed7d9c6cce85093fac32fa46439a3c",
   "clause_key": "S1-9_04",
   "data_kind": "quantitative",
   "definition": "Distribution of employees (head count) between 30 and 50 years old",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -568,7 +569,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "ratio",

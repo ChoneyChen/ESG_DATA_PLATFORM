@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "959b84b7c0773546205e43776672dcd6426b5dcd31544657225fec037d51ef12",
+  "clause_digest": "081af258b68b99dc8eaff58ada95919711a74e9cf6f51fefc38237b19a3acfc5",
   "clause_key": "S1-4_20",
   "data_kind": "qualitative",
   "definition": "描述参与影响管理的内部职能，以及这些职能为应对负面影响和推进积极影响所采取的行动类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

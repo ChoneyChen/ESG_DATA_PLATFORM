@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "87583a28ed89d85710276847577bf69607252a9baa37dd58ca652bad34303950",
+  "clause_digest": "1caa5675c372e6daeeda037e689425874d43901f1c3e536f50491bac769d7862",
   "clause_key": "GOV-1_08",
   "data_kind": "qualitative",
   "definition": "Information about identity of administrative, management and supervisory bodies or individual(s) within body responsible for oversight of impacts, risks and opportunities。可持续监督责任机构和人员。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

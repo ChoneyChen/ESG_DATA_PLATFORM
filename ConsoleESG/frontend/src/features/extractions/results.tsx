@@ -8,7 +8,7 @@ import type {
 } from "../../shared/contracts";
 import { pdfUrl } from "../../shared/api";
 import { Badge, Empty, Modal } from "../../shared/ui";
-import { label, text, tone } from "../../shared/format";
+import { label, text, tone, periodText } from "../../shared/format";
 import { href } from "../../app/routes";
 export type FactBundle = FactCollection;
 export function FactEvidence({
@@ -156,7 +156,7 @@ function RowTable({ table, rows, columns, sessionId, onEvidence }: {
   </tr></thead><tbody>{rows.map(row => <tr key={row.row_id}>
     {fields.map(field => {
       const cell = row.cells[field.key];
-      const value = cell?.state === "available" ? text(cell.classification?.label || cell.value) : label(cell?.state || "not_read");
+      const value = cell?.state === "available" ? (field.binding.key === "reporting_period" ? periodText(cell.value) : text(cell.classification?.label || cell.value)) : label(cell?.state || "not_read");
       return <td key={field.key} className={field.role === "raw_value" && table.data_kind === "quantitative" ? "numeric-cell" : "result-label"} title={cell?.raw_text || value}>
         <span>{field.role === "match_state" ? label(value) : value}</span>
       </td>;
@@ -185,10 +185,11 @@ export function OrganizedTable({ table, sessionId, facts = [] }: {
   const counts = Object.fromEntries(["target", "other", "unresolved"].map(key => [key, rows.filter(row => resultClass(row) === key).length]));
   const periodField = table.definition.fields.find(f => f.binding.source === "identity" && f.binding.key === "reporting_period")?.key;
   const unitField = table.definition.fields.find(f => f.role === "unit")?.key;
-  const values = (key?: string) => key ? [...new Set(rows.map(row => row.cells[key]?.value).filter(v => v != null).map(text))] : [];
+  const display = (key: string | undefined, value: unknown) => key === periodField ? periodText(value) : text(value);
+  const values = (key?: string) => key ? [...new Set(rows.map(row => row.cells[key]?.value).filter(v => v != null).map(v => display(key, v)))] : [];
   const filtered = rows.filter(row => (partition === "all" || resultClass(row) === partition) &&
     (!query || Object.values(row.cells).some(c => (text(c.value) + " " + (c.raw_text || "")).toLocaleLowerCase().includes(query.toLocaleLowerCase()))) &&
-    (!period || (periodField && text(row.cells[periodField]?.value) === period)) &&
+    (!period || (periodField && periodText(row.cells[periodField]?.value) === period)) &&
     (!unit || (unitField && text(row.cells[unitField]?.value) === unit)));
   const labelField = table.definition.fields.find(f => f.role === "source_label")?.key;
   if (sort === "label") filtered.sort((a,b) => text(labelField ? a.cells[labelField]?.value : a.source_fact_id).localeCompare(text(labelField ? b.cells[labelField]?.value : b.source_fact_id), "zh-CN", {numeric:true}));
@@ -216,8 +217,8 @@ export function OrganizedTable({ table, sessionId, facts = [] }: {
       <details className="column-picker"><summary>显示列</summary><div>{table.definition.fields.map(field => <label key={field.key}><input type="checkbox" checked={columns.includes(field.key)} onChange={e => setColumns(e.target.checked ? [...columns,field.key] : columns.filter(key => key !== field.key))}/>{field.label}</label>)}</div></details>
     </div>
     {!filtered.length ? <Empty title="此分类暂无数据"/> : view === "matrix" && matrix ? <div className="table-scroll result-scroll"><table className="data-table result-table"><thead><tr><th>项目</th>
-      {matrix.columns.filter(c => matrix.cells.some(cell => cell.column_coordinate_id === c.coordinate_id && cell.row_ids.some(id => visibleIds.has(id)))).map(c => <th key={c.coordinate_id}>{Object.values(c.keys).map(v => text(v.value)).join(" · ")}</th>)}
-      </tr></thead><tbody>{matrix.rows.filter(r => matrix.cells.some(cell => cell.row_coordinate_id === r.coordinate_id && cell.row_ids.some(id => visibleIds.has(id)))).map(r => <tr key={r.coordinate_id}><th>{Object.values(r.keys).map(v => text(v.value)).join(" · ")}</th>{matrix.columns.filter(c => matrix.cells.some(cell => cell.column_coordinate_id === c.coordinate_id && cell.row_ids.some(id => visibleIds.has(id)))).map(c => <td key={c.coordinate_id} className="numeric-cell">{matrix.cells.find(cell => cell.row_coordinate_id === r.coordinate_id && cell.column_coordinate_id === c.coordinate_id)?.row_ids.filter(id => visibleIds.has(id)).map(id => {
+      {matrix.columns.filter(c => matrix.cells.some(cell => cell.column_coordinate_id === c.coordinate_id && cell.row_ids.some(id => visibleIds.has(id)))).map(c => <th key={c.coordinate_id}>{Object.entries(c.keys).map(([key, v]) => display(key, v.value)).join(" · ")}</th>)}
+      </tr></thead><tbody>{matrix.rows.filter(r => matrix.cells.some(cell => cell.row_coordinate_id === r.coordinate_id && cell.row_ids.some(id => visibleIds.has(id)))).map(r => <tr key={r.coordinate_id}><th>{Object.entries(r.keys).map(([key, v]) => display(key, v.value)).join(" · ")}</th>{matrix.columns.filter(c => matrix.cells.some(cell => cell.column_coordinate_id === c.coordinate_id && cell.row_ids.some(id => visibleIds.has(id)))).map(c => <td key={c.coordinate_id} className="numeric-cell">{matrix.cells.find(cell => cell.row_coordinate_id === r.coordinate_id && cell.column_coordinate_id === c.coordinate_id)?.row_ids.filter(id => visibleIds.has(id)).map(id => {
         const row = rows.find(row => row.row_id === id)!;
         return <div key={id}><button className="text-button" onClick={() => showEvidence(row)}>{rawField ? text(row.cells[rawField]?.value) : "查看原值"}{unitField && row.cells[unitField]?.value != null && rawField && !text(row.cells[rawField]?.value).toLowerCase().includes(text(row.cells[unitField]?.value).toLowerCase()) ? " " + text(row.cells[unitField]?.value) : ""}</button></div>;
       }) || "—"}</td>)}</tr>)}</tbody></table></div> : <RowTable table={table} rows={filtered.slice(current * size, (current + 1) * size)} columns={columns} sessionId={sessionId} onEvidence={showEvidence}/>}

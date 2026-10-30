@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "68f05363c4a26689292de013a99fefd90f1fa476d49d2b6f64ad9f31b9248016",
+  "clause_digest": "40956ccb5657e1386ef74f56a6f2b41f28973e0495b9de293ec6f0ab1820f071",
   "clause_key": "E2-4_15",
   "data_kind": "qualitative",
   "definition": "选择低于直接测量优先级方法的原因",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -439,7 +440,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ee19f09b6d91c513f32732f38f5da76666e23faa4557bafaf597933df787ba89",
+  "clause_digest": "f1fa9b3ea096f80df5ef10068f3b15f1cc4307012fd145810b433b41f6c504a5",
   "clause_key": "E4-5_14",
   "data_kind": "qualitative",
   "definition": "说明主体如何管理外来入侵物种的引入和扩散路径，以及由此产生的风险。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

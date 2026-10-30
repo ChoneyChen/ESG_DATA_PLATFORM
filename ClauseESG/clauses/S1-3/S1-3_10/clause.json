@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "dbca19d95b4f19f02290dcb9ee583fda0aa8a65d38d84cfacf5402d691229ee2",
+  "clause_digest": "f6bf02a2ff4a8e4764cd510c039c4bbac20874e78c922627648db92969df9bfb",
   "clause_key": "S1-3_10",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立提出关切的渠道；若未建立，披露现状与原因。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0f636fd7a2b0ff1703a16fe9ab16298c4b88c2f6eb8b3dcfe4b60aff4b4aa93d",
+  "clause_digest": "d5b0c56d36f6c5b65367fe75a59b1a50ca060e7faafe3a79fb45f16b5414b4c1",
   "clause_key": "E1-1_15",
   "data_kind": "qualitative",
   "definition": "Explanation of progress in implementing transition plan。转型计划实施进展。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

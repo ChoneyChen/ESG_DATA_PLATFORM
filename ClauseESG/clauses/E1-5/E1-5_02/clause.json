@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f531537ead4d1c57ae91065463c3e13f6bc54a48cfbcdcc1fe431cf87dd86c8c",
+  "clause_digest": "42d80eac15811dbfe724fda7d18db21d15f4bbd0b777a932eeb2ae276a2cf1dd",
   "clause_key": "E1-5_02",
   "data_kind": "quantitative",
   "definition": "化石能源消费总量",
@@ -555,6 +555,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -1006,7 +1007,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "MWh",

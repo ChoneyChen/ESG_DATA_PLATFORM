@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "020ea75c653b642f7b77550c4c3568008c0bb17e3a41357b346924a5fe668b47",
+  "clause_digest": "2f8817e0fa8257151fe3588ffcd5213c310d7145ed55e2798d12e943b9d65ff9",
   "clause_key": "E4-3_08",
   "data_kind": "qualitative",
   "definition": "描述所采用的生物多样性抵消措施，包括地点、面积、生态目标和持续时间。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "action_ref"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

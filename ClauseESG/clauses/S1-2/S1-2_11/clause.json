@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8e2c625f08cecef9fa5b1000076a8b743ba06460b50a89569bce52af93f6b3bd",
+  "clause_digest": "b125c4871dbc7a8aba642da79a26b2be483cb45c71c3aa0ec9f392bfec9ee3be",
   "clause_key": "S1-2_11",
   "data_kind": "qualitative",
   "definition": "说明主体如何考虑并消除与员工接触的潜在障碍，如语言、时间、恐吓或数字鸿沟。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

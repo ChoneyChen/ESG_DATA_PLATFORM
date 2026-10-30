@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b02b2cfa23d5fce0741c00debb754442549006adc4d5fc91a3fd818a577a660c",
+  "clause_digest": "ec77dd9cd29ca47614eda7ff82062285e29e5282b5f6a1b112b7c4be1ef14bc5",
   "clause_key": "E1-4_21",
   "data_kind": "qualitative",
   "definition": "Description of how new baseline value affects new target, its achievement and presentation of progress over time。新基准对目标与进展的影响。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "baseline_year",
+        "target_year",
+        "ghg_scope",
+        "accounting_method"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

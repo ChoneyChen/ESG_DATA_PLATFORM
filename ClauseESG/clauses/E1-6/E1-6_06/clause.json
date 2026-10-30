@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "1aa0f34ecd77af12f5b78d78cd5a51a3542e00848d2bb3fd4164064283ea4829",
+  "clause_digest": "6b95ddff9de29d19fd52d68111e77b75aff346684b65682efe87c29357131d5e",
   "clause_key": "E1-6_06",
   "data_kind": "qualitative",
   "definition": "范围3价值链分解结构",
@@ -307,6 +307,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -322,7 +323,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "source_row_topic"
       ],
       "missing_action": "annotate"
     },
@@ -472,7 +474,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

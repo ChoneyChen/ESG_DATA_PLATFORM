@@ -6,8 +6,6 @@ import re
 from collections import Counter
 from dataclasses import dataclass
 
-from .physical import clean_text
-from esg_data.normalize import fold
 
 RANGE_PATTERNS = (
     re.compile(
@@ -71,8 +69,10 @@ def detect_reporting_period(
 ) -> ReportingPeriod:
     for payload in pages[:scan_pages]:
         for block in payload.get("blocks") or []:
-            text = fold(clean_text(block.get("text")))
+            text = str(block.get("text") or "")
             if not text:
+                continue
+            if not re.search(r"报告(?:期|时间|范围|周期)|本报告(?:涵盖|覆盖)|时间范围|reporting\s+period|report\s+covers|fiscal\s+year|financial\s+year", text, re.I):
                 continue
             for pattern in RANGE_PATTERNS:
                 match = pattern.search(text)
@@ -87,7 +87,7 @@ def detect_reporting_period(
                         )
     for payload in pages[:scan_pages]:
         for block in payload.get("blocks") or []:
-            text = fold(clean_text(block.get("text")))
+            text = str(block.get("text") or "")
             for match in PERIOD_STATEMENT_RE.finditer(text or ""):
                 if _year_is_standard_code(text or "", match.start(1)):
                     continue
@@ -101,7 +101,7 @@ def detect_reporting_period(
     title_evidence: dict[int, tuple[str, str]] = {}
     for payload in pages[:8]:
         for block in payload.get("blocks") or []:
-            text = fold(clean_text(block.get("text")))
+            text = str(block.get("text") or "")
             for pattern in TITLE_YEAR_RES:
                 for match in pattern.finditer(text or ""):
                     year = int(match.group(1))

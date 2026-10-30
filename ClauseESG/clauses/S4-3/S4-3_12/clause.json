@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0550dcb236f1401fa7b03fd4b2de01a305b49f2f895dbb7d1b43d086c38d9f10",
+  "clause_digest": "61918a09511aa629a58e8a4e5aa545a9ae24a78352c25abdf41bf5670511504f",
   "clause_key": "S4-3_12",
   "data_kind": "qualitative",
   "definition": "说明提出关切或需求的渠道是否允许消费者和终端用户匿名使用。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "72e18be2efbc7d2b5378d17688f12ae1cd03ec77a07458d001a985824a9be662",
+  "clause_digest": "f927eeeb2da8b900b8f90140483dff6e076744d5fe0ab7deeef19fa687886eb2",
   "clause_key": "E1.IRO-1_02",
   "data_kind": "qualitative",
   "definition": "Description of process in relation to climate-related physical risks in own operations and along value chain。物理气候风险识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

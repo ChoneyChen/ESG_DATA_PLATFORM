@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "0ef0602bfaddbf4dbceb0c1c47fd082077d33c4faf63693777333d7d52626d24",
+  "clause_digest": "b0775fb8e10ca4d946ba5665960379d3f6f9d563981935f2b50925c02983dc1f",
   "clause_key": "S1-17_08",
   "data_kind": "quantitative",
   "definition": "Number of severe human rights issues and incidents connected to own workforce",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

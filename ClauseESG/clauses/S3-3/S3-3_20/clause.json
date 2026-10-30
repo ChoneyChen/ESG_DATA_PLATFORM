@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "baa83b49ad7a81608d0e3bfe54e2b01749571af702adeb648717f2bd68f148f2",
+  "clause_digest": "ee77ec436d8ea730a33160de786bb2006e047a91dc1646a14ae74b43c1b3ee23",
   "clause_key": "S3-3_20",
   "data_kind": "qualitative",
   "definition": "说明社区申诉如何保密处理，并尊重隐私权和数据保护要求。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

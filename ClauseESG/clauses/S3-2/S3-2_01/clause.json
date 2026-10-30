@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "cd4e719a46bc7bb6b137579ee9473622905518f38cd7a9c60ac033598727cc9c",
+  "clause_digest": "d46bfa98a2584b87e46bb8158461b38b3c4558ce407a65e36eeeedc8fc9240f2",
   "clause_key": "S3-2_01",
   "data_kind": "qualitative",
   "definition": "说明受影响社区的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

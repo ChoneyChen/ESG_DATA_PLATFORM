@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "66f62cb5b71d72dbc9434e643423ac84d12b3cc629cdc04d350f5a6d9915b369",
+  "clause_digest": "f56988dcefacc4b5a457f6e1553e368c4fa33bdae74371342a05633b4f46851d",
   "clause_key": "S1-11_10",
   "data_kind": "qualitative",
   "definition": "披露未通过公共计划或主体福利获得育儿假收入损失保障的员工类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

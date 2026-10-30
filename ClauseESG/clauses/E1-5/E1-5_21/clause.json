@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "65d97a7a5f5e1edd02aa5feebde2dda6e12a4f3cbb1c95f1f7473430ab208a8b",
+  "clause_digest": "be1941b1f58baab5bd3f9373a6bd8c91d268e00c7d863d9971acde98301f4455",
   "clause_key": "E1-5_21",
   "data_kind": "qualitative",
   "definition": "能源强度所用净收入的对账说明",
@@ -305,6 +305,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -439,7 +440,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -6,7 +6,7 @@ from esg_data.organization import (
     FieldBinding,
     Presentation,
 )
-from .contract import ClauseContract, ValueContract, ClausePurposes, EnrichmentPolicy
+from .contract import ClauseContract, ValueContract, ClausePurposes, EnrichmentPolicy, CapturePolicy
 from .parts import ReadingContract, RetrievalProfile, EvidenceRequirement
 from .scope import make_scope
 
@@ -74,7 +74,8 @@ def new_clause(clause_key, group_id, data_kind, title):
             definition=title,
             exclusions=["标题、目录和检索未命中不能证明实际披露；未知信息不能补成零。"],
             data_kind=data_kind,
-            purposes=ClausePurposes(enrichment=EnrichmentPolicy(identity_axes=[field.binding.key for field in fields if field.binding.source == "identity"])),
+            purposes=ClausePurposes(capture=CapturePolicy(period_policy="all_reported"),
+                enrichment=EnrichmentPolicy(identity_axes=[field.binding.key for field in fields if field.binding.source == "identity"])),
             value=ValueContract(),
             output_scopes=[make_scope("实际披露")],
             reading=ReadingContract(
@@ -96,7 +97,7 @@ def new_clause(clause_key, group_id, data_kind, title):
             organization=organization,
             readiness="blocked",
             blocking_reasons=[
-                "需完成本条定义、单位、检索/阅读规则和样本核验后再启用。"
+                "需明确本条测量/陈述含义、检索与阅读规则后再启用；缺少规范单位或可选身份不阻止原值。"
             ],
             clause_digest="0" * 64,
         )

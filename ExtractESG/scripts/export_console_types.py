@@ -26,12 +26,16 @@ from esg_contracts.facts import (
     ClauseMapping,
 )
 from esg_data.organization import OrganizedDataset, OrganizationSpec
-from esg_contracts.evidence import DocumentReference
+from esg_contracts.evidence import DocumentReference, EvidenceStructure, ObjectSearchPage
+from esg_data.periods import ReportedPeriod
 from esg_contracts.results import FactCollection, FactBundle, CandidateRejection
 from esg_contracts.operations import TaskObservation
 from esg_contracts.sessions import ExtractionPlanRequest, ExtractionSession, NativeRun
 
 MODELS = {
+    "ReportedPeriod": ReportedPeriod,
+    "EvidenceStructure": EvidenceStructure,
+    "ObjectSearchPage": ObjectSearchPage,
     "CandidateRejection": CandidateRejection,
     "MonitorSnapshot": MonitorSnapshot,
     "FactCollection": FactCollection,

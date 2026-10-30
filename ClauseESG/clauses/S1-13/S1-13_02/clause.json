@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4751e7584cd8d7451b4bfc1e2822af4074f3e47255530f1179e5f35a2bb15b53",
+  "clause_digest": "3ffaccc7663076be64c0f4b35eba39e44ad1d9d13c610c5204d8015ceaf90286",
   "clause_key": "S1-13_02",
   "data_kind": "quantitative",
   "definition": "Percentage of employees that participated in regular performance and career development reviews",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -442,7 +443,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "breakdown_member"
       ],
       "missing_action": "annotate"
     },
@@ -584,7 +586,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

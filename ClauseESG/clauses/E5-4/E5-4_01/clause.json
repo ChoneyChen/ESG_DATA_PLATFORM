@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6c30312d7ceeba8b70c79be9492b012605728cd6ad3ad16610c322ed916f9567",
+  "clause_digest": "a19573a93fde6a0a7bfad23545034c6becacd83f2e034f7f65cec0ab03d28b18",
   "clause_key": "E5-4_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of information on material resource inflows。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -406,7 +407,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

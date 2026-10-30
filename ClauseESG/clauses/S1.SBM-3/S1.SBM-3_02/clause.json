@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "91fd501d8f8445a96edf1a2ffd5fc3123e3267155ec1652941649bafca76132e",
+  "clause_digest": "5a7ae5c28402930f26600d3c13c853e8a607b0618c70c5d1cd5fc6e1aa50cee5",
   "clause_key": "S1.SBM-3_02",
   "data_kind": "qualitative",
   "definition": "描述自身劳动力中受重大影响的员工和非员工类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

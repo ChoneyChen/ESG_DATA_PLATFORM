@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b6ca08af24074e51d348a8f6d6ac17c1c523afccd14c68c449a6f29f0e737709",
+  "clause_digest": "194095e19e5413def65843306675aa69f894f65f5362ab35504313684e116411",
   "clause_key": "E4-1_01",
   "data_kind": "qualitative",
   "definition": "说明当前商业模式和战略在生物多样性与生态系统相关的物理风险、转型风险和系统性风险及机遇下的韧性，包括分析结论及其对战略的含义。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

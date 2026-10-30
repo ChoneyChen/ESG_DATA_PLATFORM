@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4b4e7c5a251db3a7cc2ad14fe383df3b6a62fddb48d7a1a6033a922d0ae1b82b",
+  "clause_digest": "9a2cffdf5cce43790391537491f74f2accfd15a276d5ef8fde21ba71c84ec22e",
   "clause_key": "E1-6_30",
   "data_kind": "quantitative",
   "definition": "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。",
@@ -497,6 +497,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -767,7 +768,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "tCO2e-per-10k-cny",

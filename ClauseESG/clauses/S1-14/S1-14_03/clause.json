@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7f91924932b996dc77bf3bebf5bcb3a814cae969da62a1833307cbeb8f17e1cf",
+  "clause_digest": "c6de4377da5ae608510e09fb96393d9c976210af84084d0cbae4eb644ea958ac",
   "clause_key": "S1-14_03",
   "data_kind": "quantitative",
   "definition": "Number of fatalities as result of work-related injuries and work-related ill health of other workers working on undertaking's sites",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -583,7 +584,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "count",

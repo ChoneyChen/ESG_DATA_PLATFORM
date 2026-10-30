@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a15460afd259b2316e8daf4d1e55b30c2bbc4b391fe6e3de77c1050513879988",
+  "clause_digest": "46a29432d64447bf2432495d7a1961a189a7dd96699f96c8abb4909dbca2614b",
   "clause_key": "S4-3_07",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立面向消费者和终端用户的申诉流程；若未建立，披露现状与原因。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

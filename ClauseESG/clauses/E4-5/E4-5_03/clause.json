@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "813aab57877509a6a48bbf95285b21af3e2ec250abe9b8f8f58b5c9f2b80c0db",
+  "clause_digest": "87b61179a0d97db41870ecd611c459e1e865e0ca5819340a125373426b2980aa",
   "clause_key": "E4-5_03",
   "data_kind": "qualitative",
   "definition": "披露基于生命周期评估方法确定的土地利用情况，包括评估边界与数据来源。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

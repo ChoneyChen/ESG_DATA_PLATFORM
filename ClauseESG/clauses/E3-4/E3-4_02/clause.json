@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "c081f3137fab1d2e322c54d1ebf0fdd9380d77a910a5c9a06308025c8cfab45c",
+  "clause_digest": "fe8913e383cb4216262ec2495215bfda26f7e8dbbf2fb6dafd18e42023d52479",
   "clause_key": "E3-4_02",
   "data_kind": "quantitative",
   "definition": "Total water consumption in areas at water risk, including areas of high-water stress。水风险地区耗水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -540,6 +540,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -862,7 +863,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "m3",

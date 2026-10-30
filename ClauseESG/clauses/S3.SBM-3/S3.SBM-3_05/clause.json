@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "a26ce1989d23ae9fca7452fbfca0de5f84bc979ff8c50121d72c7021f4155db1",
+  "clause_digest": "3d3515ad55c19bbf06d6cadcc5463892429deede93a997d496f105b0a9ed9a6a",
   "clause_key": "S3.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "描述产生积极影响的活动，以及受到或可能受到积极影响的社区类型。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -325,7 +326,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "time_horizon",
+        "scenario"
       ],
       "missing_action": "annotate"
     },
@@ -411,7 +415,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

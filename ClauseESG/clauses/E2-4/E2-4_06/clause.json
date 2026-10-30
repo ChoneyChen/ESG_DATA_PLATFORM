@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "3d5bc076bbff7ec6fb2a0abb3f2c34adb80ddb6e0a93075aef47000ae8258acd",
+  "clause_digest": "4ac6b6fc5dd81c26fb4d3202161c5e0b873dfa8e3207f65b9ce935310c9ce11b",
   "clause_key": "E2-4_06",
   "data_kind": "quantitative",
   "definition": "产生的微塑料量",
@@ -425,6 +425,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -444,7 +445,10 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "microplastic_flow",
+        "exit_pathway",
+        "intentionality"
       ],
       "missing_action": "annotate"
     },
@@ -620,7 +624,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "5cc2c1402698d872f1bd3a1e8dde8e6bb802ecae7b6396b42636af89e30dda65",
+  "clause_digest": "9d067dfd1497c329515b333690f6c08841ba29bf5f134fcf03333a3076777510",
   "clause_key": "SBM-2_02",
   "data_kind": "qualitative",
   "definition": "Description of key stakeholders。关键利益方。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

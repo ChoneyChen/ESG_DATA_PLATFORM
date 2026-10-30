@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "cc7d367c6d1312e5f9c1461f1480580979f23e10b00e491ece4f67f85ace50c0",
+  "clause_digest": "fdb1697b132ff021539af0a283f2116fc18a79fd4c440ff6a71d570484e5deb0",
   "clause_key": "S2-5_02",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者、其合法代表或可信代理是否以及如何直接参与对照目标跟踪绩效。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -324,7 +325,9 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "target_ref",
+        "target_year"
       ],
       "missing_action": "annotate"
     },
@@ -410,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

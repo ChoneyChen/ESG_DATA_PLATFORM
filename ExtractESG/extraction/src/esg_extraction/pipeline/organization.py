@@ -9,6 +9,7 @@ from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 import json
 from esg_data.hashing import digest
+from esg_data.periods import normalize_period
 from esg_data.organization import (
     OrganizationSpec,
     OrganizationField,
@@ -299,7 +300,13 @@ def _coordinate_keys(row, axes):
 
 def _coordinate_id(keys):
     # A display coordinate is a value, not the history of how that value was read.
-    return digest({key: {"state": cell.state, "value": cell.value} for key, cell in keys.items()})
+    def semantic(value):
+        if isinstance(value, dict) and value.get("kind") in {"annual", "quarter", "fiscal_year", "instant", "range"}:
+            period = normalize_period(value)
+            if period and (period.year is not None or period.start or period.end):
+                return period.model_dump(mode="json", exclude={"raw"}, exclude_none=True)
+        return value
+    return digest({key: {"state": cell.state, "value": semantic(cell.value)} for key, cell in keys.items()})
 
 
 def _matrix(rows, definition):

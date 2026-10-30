@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "7b40555839365ffc1ef1c4e6666193366d067f9733b666731e0717d38bd406c5",
+  "clause_digest": "317c366b29b2005c78fa42f17208495ae0ee273f877aaa600ac6ffe93e51397c",
   "clause_key": "SBM-2_05",
   "data_kind": "qualitative",
   "definition": "Description of purpose of stakeholder engagement。利益方参与目的。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -323,7 +324,8 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "sustainability_topic"
       ],
       "missing_action": "annotate"
     },
@@ -409,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

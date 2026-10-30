@@ -4,7 +4,8 @@ import os
 from zipfile import BadZipFile
 from pathlib import Path
 from esg_runtime.release import ModuleRelease
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, Query
+from fastapi.responses import JSONResponse
 from .client import DatabaseBridge, DatabaseError, module_release
 from .ingestion import decode_archive, MAX_ARCHIVE_BYTES
 
@@ -23,6 +24,11 @@ def create_app(bridge=None):
             bridge.close()
 
     app = FastAPI(title="Independent extraction ingestion", lifespan=lifespan)
+
+    @app.exception_handler(DatabaseError)
+    async def database_error(_, exc):
+        status = 404 if exc.code == "not_found" else 422 if exc.code in {"invalid_query", "invalid_cursor"} else 503
+        return JSONResponse(status_code=status, content={"detail": exc.code})
 
     @app.get("/health")
     def health():
@@ -59,9 +65,11 @@ def create_app(bridge=None):
         return result
 
     @app.get("/v1/ingestion/exports/{export_id}/facts")
-    def facts(export_id: str):
+    def facts(export_id: str, limit: int = Query(200, ge=1, le=1000), cursor: str | None = Query(None, max_length=2048),
+              period: str | None = Query(None, max_length=160), clause_key: str | None = Query(None, max_length=160),
+              relation: str | None = Query(None, pattern="^(match|different|uncertain)$")):
         receipt(export_id)
-        return bridge.call("capture_facts", {"export_id": export_id})
+        return bridge.call("capture_facts", {"export_id": export_id,"limit":limit,"cursor":cursor,"period":period,"clause_key":clause_key,"relation":relation})
 
     return app
 

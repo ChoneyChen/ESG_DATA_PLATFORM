@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "cd3fa2ccb579bead3039640c637d16c7215956678a7fba0fd9c08a043a6ef054",
+  "clause_digest": "80e1e8cdf09979620d2172b9a3dfd458f73c7f2b035cb7ec4b48efdcc6fd1bf2",
   "clause_key": "E1-1_02",
   "data_kind": "qualitative",
   "definition": "Explanation of how targets are compatible with limiting of global warming to one and half degrees Celsius in line with Paris Agreement。目标与1.5°C路径的一致性。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

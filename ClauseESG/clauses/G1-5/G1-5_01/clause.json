@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "466ad2381ada5ceb312bed9dcd2d2bea536c5d2656986fdd0946ef3f9f7f622d",
+  "clause_digest": "8e6b04f1ab0d8c6f5b0d214641025467e54694774dee4defce598aa6a8fc3c3a",
   "clause_key": "G1-5_01",
   "data_kind": "qualitative",
   "definition": "说明行政、管理和监督机构中负责监督政治影响和游说活动的代表及其职责。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

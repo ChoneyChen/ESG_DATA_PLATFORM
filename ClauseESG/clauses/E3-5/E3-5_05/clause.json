@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4072ab4ded91dd858e81ce25b4cc3cdbd86090017124ff089d410b439c2828bf",
+  "clause_digest": "c5a02e4878bf613d52181babb238166281a86f5ec3a4410fa645e1438aad2363",
   "clause_key": "E3-5_05",
   "data_kind": "qualitative",
   "definition": "Description of related products and services at risk (water and marine resources)。风险产品和服务。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -327,7 +328,12 @@
         "reporting_entity",
         "reporting_period",
         "reporting_boundary",
-        "measurement_method"
+        "measurement_method",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
       ],
       "missing_action": "annotate"
     },
@@ -413,7 +419,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

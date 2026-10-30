@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e9e5dc3986ed64575b3eae0bb3def90ff6d27120478a03728dbcbf28fa8974bb",
+  "clause_digest": "cc60cc85ad78269ce4a4ab96ce81877b4cd97cb12823dd44335da470d5ea74c8",
   "clause_key": "S1-8_05",
   "data_kind": "qualitative",
   "definition": "描述自身劳动力中非员工的就业条件和工作条款在多大程度上由集体谈判协议决定或影响。",
@@ -306,6 +306,7 @@
   "purposes": {
     "capture": {
       "missing_metadata": "retain",
+      "period_policy": "all_reported",
       "require_measurement_meaning": true,
       "unlisted_categories": "preserve_literal"
     },
@@ -408,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.2",
+  "schema_version": "clause-contract-1.3",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,
