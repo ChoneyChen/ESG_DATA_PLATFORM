@@ -1,5 +1,6 @@
 # 当前文档
 
+- [全盘模块化审核与下一阶段升级方案（2026-10-30，只读）](audits/2026-10-30/README.md)
 - [全链路架构与接口](ARCHITECTURE.md)
 - [原值及条款组织合同](ORGANIZATION.md)
 - [Console 操作与目录](../ConsoleESG/README.md)
