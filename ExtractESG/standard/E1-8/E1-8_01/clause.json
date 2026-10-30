@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原条目为混合披露或结构要求，须明确值级数据种类和证据合同后启用。"
   ],
-  "clause_digest": "9043c87f33a97c4f01c480852cf513b39a493d43e5b8e22046008869d05a15af",
+  "clause_digest": "74ae1ef087255a3ec3b06e8aeecb44dd3f96560e357e5081c13d0b43240cf729",
   "clause_key": "E1-8_01",
   "data_kind": "qualitative",
   "definition": "Carbon pricing scheme by type。内部碳定价机制的披露结构。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -305,6 +305,41 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pricing_scheme",
+        "ghg_scope",
+        "accounting_method"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "blocked",
   "reading": {
     "allow_regulatory_limit": false,
@@ -378,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -1,6 +1,6 @@
 #!/bin/zsh
 set -u
-export PYTHONPATH="${0:A:h:h}/contracts/src:${0:A:h:h}/shared_runtime/src:${0:A:h:h}/document/src:${0:A:h:h}/pipeline/src:${0:A:h:h}/extraction/src"
+export PYTHONPATH="${0:A:h:h}/contracts/src:${0:A:h:h}/shared_runtime/src:${0:A:h:h}/document/src:${0:A:h:h}/pipeline/src:${0:A:h:h}/extraction/src:${0:A:h:h}/../ConsoleESG/backend/src"
 
 SCRIPT_DIR="${0:A:h}"
 EXTRACTESG_ROOT="${SCRIPT_DIR:h}"

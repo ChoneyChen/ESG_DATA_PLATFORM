@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f6d84fd8e00e3d1a88771ca063f1dd8f136ebb11603d7c087b92b90ce5ebc92a",
+  "clause_digest": "517f157e53daf793dc1a008e738f25143b197d95edfdcd7c16e201d9ce2227f3",
   "clause_key": "S2.SBM-3_02",
   "data_kind": "qualitative",
   "definition": "描述价值链中受重大影响的劳动者类型，包括就业形态和所处环节。",
@@ -303,6 +303,41 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "time_horizon",
+        "scenario"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -376,7 +411,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

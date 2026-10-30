@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b5ebd5ae74b9e8e5f439f4bb7f650b73e65e7c59c1290935874e445127193753",
+  "clause_digest": "0a9e3a9d67d0eb9158a2f8c0ffe6525032bee64e40c8887b08bfee7dee06fdba",
   "clause_key": "E2-6_10",
   "data_kind": "qualitative",
   "definition": "Description of material incidents and deposits whereby pollution had negative impacts on environment and (or) is expected to have negative effects on financial cash flows, financial position and financial performance。重大污染事故和沉积说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -303,6 +303,43 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "risk_type",
+        "scenario",
+        "forecast_horizon",
+        "financial_item",
+        "currency"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -376,7 +413,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

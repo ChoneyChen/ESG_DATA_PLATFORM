@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6bf19c401998d19bd5d0011ced0f1324f17a6b8b7a005f9bb0bcc18ac7462b6e",
+  "clause_digest": "5753d21dd66aa1e8478dfc25a71a7d25e34ad1d56a50a9a4dce91fc8b2a5f513",
   "clause_key": "E4-2_08",
   "data_kind": "qualitative",
   "definition": "说明政策如何限制从无法证明未造成保护区或重点生物多样性区域显著转化的供应商处采购。",
@@ -303,6 +303,39 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "policy_ref"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -376,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

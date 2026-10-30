@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "fe464c3a18cbb59fbde88318f5378d57fc788c8a40bb827c6ddc9796155a97c6",
+  "clause_digest": "8d1092ba48a22840692901759a3ac38c3e71c7e16618e5cd686250fdea172752",
   "clause_key": "S1-4_16",
   "data_kind": "qualitative",
   "definition": "说明员工和员工代表是否以及如何参与以积极影响为主要目的的项目或流程的设计与实施决策。",
@@ -303,6 +303,39 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "action_ref"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -376,7 +409,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

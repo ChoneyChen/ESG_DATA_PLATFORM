@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "17ca7822e631a816d2e2de292768d494ca8f5373a43d21970affea3c4a0e1fab",
+  "clause_digest": "e0c9e3f0ed6417a749460043affcca9a91327d1e5cae25b1615d252f3bf70cb2",
   "clause_key": "E1-6_09",
   "data_kind": "quantitative",
   "definition": "基于位置法的范围2温室气体排放总量",
@@ -509,6 +509,46 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "source_row_topic",
+        "reporting_period",
+        "reporting_entity",
+        "entity_aggregation_role",
+        "ghg_scope",
+        "scope_2_method"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "entity_aggregation_role",
+        "ghg_scope",
+        "scope_2_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "ghg_scope",
+        "measurement_method"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -837,7 +877,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tCO2e",

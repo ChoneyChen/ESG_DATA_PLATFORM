@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "3829034d12b588c9e28b89678cff2f0e197a9f1340ab62718bdc45ebc79962d7",
+  "clause_digest": "75be8143a4debbf4387df01b79e0a1055556ac2c30876413bf8632930bf66442",
   "clause_key": "E2-4_03",
   "data_kind": "quantitative",
   "definition": "按污染物划分的水体排放量",
@@ -242,7 +242,7 @@
         "extensions": {},
         "key": "observed_pollutant",
         "label": "实际污染物",
-        "required_for_confirmation": true,
+        "required_for_confirmation": false,
         "role": "reported_dimension",
         "type_hint": "text",
         "vocabulary": [
@@ -558,6 +558,45 @@
     "standard_ref": {
       "disclosure_requirement": "E2-4",
       "standard_family": null
+    }
+  },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "pollution_medium",
+        "pollutant"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "pollution_medium",
+        "pollutant",
+        "site",
+        "geography"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "pollution_medium"
+      ],
+      "missing_action": "retain"
     }
   },
   "readiness": "ready",
@@ -929,7 +968,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

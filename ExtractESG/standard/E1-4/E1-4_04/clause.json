@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ac992a18c29e756b9d707d401466649eb73989238c6aa65d2312246bf749fc51",
+  "clause_digest": "6b7f6577bb9c8a2a9ce9d3a43ff1b37dc04bd5c29fd980a50e93a656a3b365ca",
   "clause_key": "E1-4_04",
   "data_kind": "quantitative",
   "definition": "Percentage of total Greenhouse gas emissions reduction (as of emissions of base year)。总排放减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -422,6 +422,43 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "target_ref",
+        "baseline_year",
+        "target_year",
+        "ghg_scope",
+        "accounting_method"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -527,7 +564,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

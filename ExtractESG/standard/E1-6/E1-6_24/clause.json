@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "43ab83ed92d2de0a9fa734afa6efb2bd5e2107c104b733774dd555c67d866000",
+  "clause_digest": "ea48b85c34b1e940867311611e0258f22bad561106e08b5bf6e96261d4713c80",
   "clause_key": "E1-6_24",
   "data_kind": "quantitative",
   "definition": "范围2中单独披露的生物源二氧化碳排放",
@@ -421,6 +421,40 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "source_row_topic",
+        "reporting_period",
+        "reporting_entity",
+        "entity_aggregation_role",
+        "ghg_scope"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -616,7 +650,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tCO2e",

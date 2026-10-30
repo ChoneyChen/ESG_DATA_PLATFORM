@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "f0e4e121258f30fc32b4d2aa697995103df54119e5c131e09518ef93bea5052c",
+  "clause_digest": "d34f68a9581a572cf430c3b56311a7cd5357b37c1f5cab1d715eaaff53cca39a",
   "clause_key": "E2-2_03",
   "data_kind": "qualitative",
   "definition": "Layer in mitigation hierarchy to which resources can be allocated to (pollution)。污染资源在缓解层级中的位置。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。",
@@ -303,6 +303,38 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -376,7 +408,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

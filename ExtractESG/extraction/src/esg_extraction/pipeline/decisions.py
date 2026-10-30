@@ -38,6 +38,7 @@ class NumericMatch(DecisionModel):
     columns: list[str] = Field(min_length=1)
     match: Literal["match", "uncertain"] = "match"
     reason: str
+    selection: Literal["measurement", "nonmeasurement", "unresolved"] = "measurement"
     identity: IdentityClaims = Field(default_factory=list)
 
 

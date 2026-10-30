@@ -642,6 +642,16 @@
           "title": "Match",
           "type": "string"
         },
+        "result_class": {
+          "default": "unresolved",
+          "enum": [
+            "target",
+            "other",
+            "unresolved"
+          ],
+          "title": "Result Class",
+          "type": "string"
+        },
         "row_id": {
           "title": "Row Id",
           "type": "string"

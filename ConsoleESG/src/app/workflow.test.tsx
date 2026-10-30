@@ -186,7 +186,7 @@ it("rejects malformed deep links without issuing a resource request", async () =
   const fetch = mock();
   await open("#/extractions/%2Fetc");
   expect(screen.getByText("页面不存在")).toBeTruthy();
-  expect(fetch).not.toHaveBeenCalled();
+  expect(fetch.mock.calls.every(([url]) => url === "/document/api/console/monitor")).toBe(true);
 });
 
 it("reads real service readiness paths and never labels an unknown engine as needing restart", async () => {

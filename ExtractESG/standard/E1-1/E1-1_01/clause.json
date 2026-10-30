@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "e8d1e9b8af1310a69dcd6ff2a54a2a32931c280a2694af078f7ea573d7955044",
+  "clause_digest": "8cff39f9289d387f0b6bc5eb75113cd1ae090b6b053e48d0ad4a32e1c95bed54",
   "clause_key": "E1-1_01",
   "data_kind": "qualitative",
   "definition": "报告主体为减缓气候变化制定的转型计划，包括转型方向、减排路线或实施路径及计划性行动。保留报告原文，区分计划、目标、实施进展与已实现结果。单独的碳中和承诺或目录指向，不证明已披露完整转型计划。",
@@ -303,6 +303,38 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -386,7 +418,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

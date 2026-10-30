@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4468633baa0c407b6ab187bdf12c4b7463eb128ccdc9ed7986c87958a89f6bed",
+  "clause_digest": "e8ded46871a779a49c37f2fcd913ea142e6b1ba5b75c6796b6d00eea0e6183c7",
   "clause_key": "S1-6_12",
   "data_kind": "quantitative",
   "definition": "报告期内离职员工占平均员工人数的比例。",
@@ -510,6 +510,43 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "population",
+        "turnover_definition",
+        "denominator_scope"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "population",
+        "turnover_definition",
+        "denominator_scope",
+        "gender",
+        "country"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -770,7 +807,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

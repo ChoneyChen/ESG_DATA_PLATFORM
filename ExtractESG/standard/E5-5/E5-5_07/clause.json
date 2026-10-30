@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "4b481c212c4efae1e623a0508874870e7e9f9ceaaf94a84361ba7dbbf5883bca",
+  "clause_digest": "72be181a7a73508151c2fd649275e5f5314a4fc30c077b52c31b6bb9aa0c59f7",
   "clause_key": "E5-5_07",
   "data_kind": "quantitative",
   "definition": "报告期内产生的全部废弃物重量。",
@@ -508,6 +508,42 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "waste_scope",
+        "waste_flow",
+        "aggregation_role"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "waste_scope",
+        "waste_flow",
+        "aggregation_role"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "waste_flow"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -707,7 +743,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

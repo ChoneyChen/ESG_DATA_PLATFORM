@@ -6,6 +6,8 @@ import argparse, json, sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "contracts/src"))
+sys.path.insert(0, str(ROOT.parent / "ConsoleESG/backend/src"))
+from esg_console.monitor import MonitorSnapshot
 from esg_clauses.contract import ClauseContract
 from esg_clauses.catalog import ClauseCatalog, ClauseGroup
 from esg_reports.contract import (
@@ -24,11 +26,13 @@ from esg_contracts.facts import (
 )
 from esg_data.organization import OrganizedDataset, OrganizationSpec
 from esg_contracts.evidence import DocumentReference
-from esg_contracts.results import FactCollection, FactBundle
+from esg_contracts.results import FactCollection, FactBundle, CandidateRejection
 from esg_contracts.operations import TaskObservation
 from esg_contracts.sessions import ExtractionPlanRequest, ExtractionSession, NativeRun
 
 MODELS = {
+    "CandidateRejection": CandidateRejection,
+    "MonitorSnapshot": MonitorSnapshot,
     "FactCollection": FactCollection,
     "FactBundle": FactBundle,
     "TaskObservation": TaskObservation,

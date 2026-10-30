@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b50cbdadb882c65787cf992d15c435968b6e7d77d83642ede22590d6391853f9",
+  "clause_digest": "dcb4f3538ea4cb67420a99ffe8e9f923d142487132b7aa7ceada7d1e0c096593",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -544,6 +544,45 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "population",
+        "count_basis",
+        "statistical_time_basis"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "population",
+        "count_basis",
+        "statistical_time_basis",
+        "gender",
+        "country"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "count_basis",
+        "population"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -886,7 +925,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "person",

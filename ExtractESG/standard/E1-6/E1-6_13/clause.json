@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "71ccff3b01cb5cda867ec2a0e4b34e2d26c6529adff98585c8ed12b8dea52844",
+  "clause_digest": "9aa9a44d83a8a8e455f2400f741478626a0961bce7d3bed8eb25092aa7688315",
   "clause_key": "E1-6_13",
   "data_kind": "quantitative",
   "definition": "范围1＋市场法范围2＋范围3温室气体排放总量",
@@ -445,6 +445,41 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "source_row_topic",
+        "reporting_period",
+        "reporting_entity",
+        "entity_aggregation_role",
+        "ghg_scope",
+        "scope_2_method"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -601,7 +636,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tCO2e",

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from esg_contracts.sessions import ExtractionPlanRequest
 from esg_pipeline.extraction import ExtractionServiceUnavailable
+from .monitor import MonitorSnapshot, monitor_snapshot
 
 
 def extraction_router(coordinator, require_ready=lambda: None):
@@ -15,6 +16,17 @@ def extraction_router(coordinator, require_ready=lambda: None):
             raise HTTPException(503, str(exc)) from exc
         except ValueError as exc:
             raise HTTPException(409, str(exc)) from exc
+
+    @router.get("/api/console/monitor", response_model=MonitorSnapshot)
+    def monitor():
+        return monitor_snapshot(coordinator.list(terminal_limit=8))
+
+    @router.get("/api/report-sessions/{key}/candidates")
+    def candidates(key: str):
+        state = call(coordinator.get, key)
+        if not state.get("run_id"):
+            return []
+        return call(coordinator.remote, "GET", f"/api/runs/{state['run_id']}/candidates")
 
     @router.post("/api/report-sessions/preview")
     def preview(request: ExtractionPlanRequest):

@@ -270,12 +270,7 @@ def _groups(rows, spec):
         keys = _coordinate_keys(row, spec.presentation.group_by)
         if not keys:
             continue
-        identity = digest(
-            {
-                key: cell.model_dump(mode="json", exclude={"extensions"})
-                for key, cell in keys.items()
-            }
-        )
+        identity = _coordinate_id(keys)
         if identity not in groups:
             groups[identity] = RowGroup(group_id=identity, keys=keys, row_ids=[])
         groups[identity].row_ids.append(row.row_id)
@@ -302,6 +297,11 @@ def _coordinate_keys(row, axes):
     return result
 
 
+def _coordinate_id(keys):
+    # A display coordinate is a value, not the history of how that value was read.
+    return digest({key: {"state": cell.state, "value": cell.value} for key, cell in keys.items()})
+
+
 def _matrix(rows, definition):
     if definition is None:
         return None
@@ -312,13 +312,8 @@ def _matrix(rows, definition):
         row_keys = _coordinate_keys(row, definition.row_axes)
         column_keys = _coordinate_keys(row, definition.column_axes)
 
-        def coordinate(keys):
-            return digest(
-                {key: cell.model_dump(mode="json") for key, cell in keys.items()}
-            )
-
-        row_id = coordinate(row_keys)
-        column_id = coordinate(column_keys)
+        row_id = _coordinate_id(row_keys)
+        column_id = _coordinate_id(column_keys)
         row_coordinates.setdefault(
             row_id, AxisCoordinate(coordinate_id=row_id, keys=row_keys)
         )
@@ -416,16 +411,11 @@ def build_organized_dataset(run_id, document, clauses, facts, mappings):
                         match=mapping["match"],
                         cells=cells,
                         flags=row_flags,
+                        result_class={"match": "target", "different": "other"}.get(mapping["match"], "unresolved"),
                     )
                 )
             rows = _ordered(rows, spec)
-            status = (
-                "needs_confirmation"
-                if any(row.flags or row.match != "match" for row in rows)
-                else "organized"
-                if rows
-                else "empty"
-            )
+            status = "organized" if rows else "empty"
             if flags:
                 status = "failed"
                 failures.extend(flags)
@@ -441,6 +431,7 @@ def build_organized_dataset(run_id, document, clauses, facts, mappings):
                     matrix=_matrix(rows, spec.presentation.matrix),
                     status=status,
                     flags=flags,
+                    extensions={"result_counts": {name: sum(row.result_class == name for row in rows) for name in ("target", "other", "unresolved")}},
                 )
             )
             used.update(row.source_fact_id for row in rows)

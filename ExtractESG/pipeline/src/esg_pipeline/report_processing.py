@@ -505,7 +505,12 @@ class ReportProcessingCoordinator:
         # Whole-document digests stay unchanged; only a targeted selection is keyed in.
         if stage == "ocr" and config.get("page_selection", "all") != "all":
             values["page_selection"] = config["page_selection"]
-            values["page_search_targets"] = config.get("page_search_targets") or []
+            # Physical evidence identity depends on the executed lexical plan,
+            # never on a clause's name/digest or its model interpretation.
+            values["page_search_targets"] = [
+                {key: value for key, value in target.items() if key not in {"target_id", "contract_digest"}}
+                for target in (config.get("page_search_targets") or [])
+            ]
         return digest(
             {
                 "contract": PROCESSING_CONTRACT,

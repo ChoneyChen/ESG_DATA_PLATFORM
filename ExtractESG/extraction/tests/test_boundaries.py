@@ -64,7 +64,8 @@ def test_invented_identity_does_not_pollute_source_facts(documents,repository):
     fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,match,row,cell,'interpretation')
     assert fact.identity.reporting_entity.state=='not_read'
     assert fact.identity.reporting_period.value=='2025'
-    assert mapping.match=='uncertain'
+    assert mapping.match=='match'  # Rejected optional identity does not reject the measurement.
+    assert 'unbound_identity:reporting_entity' in fact.extensions['identity_attempts']
 
 def test_statement_requires_a_unique_literal_source(documents,repository):
     c=repository.get('E2-4_09');intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='qualitative',positive_terms=['管理制度'])
@@ -181,7 +182,7 @@ def test_clause_evidence_is_evaluated_without_dropping_raw_facts(documents,repos
     fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(row_id=row.row_id,columns=['c1'],reason='literal'),row,cell,'test')
     assert fact.value.value_raw=='1,234.50'
     assert 'clause_evidence_missing:unit:row' in mapping.flags
-    assert mapping.match=='uncertain'
+    assert mapping.match=='match'  # Comparison proof is independent of reception.
 
 
 def test_model_failure_keeps_partial_diagnostic_and_never_invents_a_fact(documents,repository,tmp_path):
@@ -235,7 +236,7 @@ def test_mutable_report_labels_do_not_replace_the_frozen_reading_context(documen
     received=[]
     def read(self,*args,document,**kwargs):
         received.append(document)
-        return {'coverage':[],'organization':{'status':'organized'},'summary':{'selected_clauses':1,'processed_clauses':0,'source_facts':0,'quantitative':0,'qualitative':0,'model_calls':0,'elapsed_seconds':0}}
+        return {'coverage':[],'organization':{'status':'organized'},'summary':{'selected_clauses':1,'processed_clauses':0,'source_facts':0,'quantitative':0,'qualitative':0,'model_calls':0,'elapsed_seconds':0,'assessment':{'execution_state':'completed'}}}
     monkeypatch.setattr(ExtractionBackbone,'run',read)
     class Model:
         def close(self):pass

@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b22905c7218748655a4bc1cd13356acdcb83a138961d5dbd2d0d5452d82fde47",
+  "clause_digest": "42158fa0f29923fa84c8bbc56bd421a17de56b3eebb988ef0f2ef5162e173ad2",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
@@ -560,6 +560,48 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "energy_source",
+        "energy_flow",
+        "denominator_scope",
+        "energy_carrier",
+        "business_segment"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "denominator_scope",
+        "energy_flow",
+        "energy_source"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -922,7 +964,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "ratio",

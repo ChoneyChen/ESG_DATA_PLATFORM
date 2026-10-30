@@ -44,8 +44,7 @@ def numeric_rows(text):
             if unit_match
             else (literal[-1] if literal.endswith(("%", "％", "‰", "‱")) else None)
         )
-        if text.text[match.end() :].lstrip().startswith(("年", "月", "日")):
-            continue
+        kind = literal_kind(text.text, literal_start, literal_end, unit)
         start = max(0, match.start() - 70)
         end = min(len(text.text), match.end() + 35)
         left = max(text.text.rfind(mark, start, match.start()) for mark in "。；;")
@@ -68,6 +67,7 @@ def numeric_rows(text):
                 unit_sources=[text] if unit and unit in text.text else [],
                 cells=[
                     EvidenceCell(
+                        candidate_kind=kind,
                         page_index=text.page_index,
                         cell_id=f"{text.object_id}@{text.char_start + literal_start}:{text.char_start + literal_end}",
                         column_id="value",
@@ -82,3 +82,24 @@ def numeric_rows(text):
             )
         )
     return result
+
+
+def literal_kind(text, start, end, unit):
+    """Physical candidate typing, independent of any clause or target vocabulary.
+
+    A digit in a formula/identifier is not a measurement. Ambiguous prose still
+    reaches the reader; a missing unit alone never rejects a genuine count.
+    """
+    before, after = text[:start], text[end:]
+    if after.lstrip().startswith(("年", "月", "日")):
+        return "date"
+    if re.search(r"[A-Za-zα-ωΑ-Ω]$", before):
+        token = re.search(r"[A-Za-zα-ωΑ-Ω][A-Za-zα-ωΑ-Ω\d]*$", before)
+        return "formula" if token and re.fullmatch(r"(?:[A-Z][a-z]?)+", token[0]) else "identifier"
+    if re.match(r"[A-Za-z]", after) and not unit:
+        return "identifier"
+    if (not before.strip() or re.search(r"[\n。；]\s*$", before)) and re.match(
+        r"\s*(?:由于|注[：:]|备注|说明[：:]|来源[：:]|because\b|due\s+to\b)", after, re.I
+    ):
+        return "footnote"
+    return "measurement" if unit else "unresolved"

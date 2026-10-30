@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 EXTRACT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-export PYTHONPATH="$EXTRACT_ROOT/contracts/src:$EXTRACT_ROOT/shared_runtime/src:$EXTRACT_ROOT/document/src:$EXTRACT_ROOT/pipeline/src:$EXTRACT_ROOT/extraction/src"
+export PYTHONPATH="$EXTRACT_ROOT/contracts/src:$EXTRACT_ROOT/shared_runtime/src:$EXTRACT_ROOT/document/src:$EXTRACT_ROOT/pipeline/src:$EXTRACT_ROOT/extraction/src:$EXTRACT_ROOT/../ConsoleESG/backend/src"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 case "${1:-}" in
  document) PYTHON="${ESG_DOCUMENT_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}"; APP="esg_document.api.main:app"; PORT=18080 ;;

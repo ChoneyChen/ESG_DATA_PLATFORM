@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "8a93688ede2e845de5d7d5ea73e7e104ecb20965ddbb2a8f1cf1924e0ee3e2e0",
+  "clause_digest": "819fe3b8b92af6c247cd14010628e312fb5c5073d52fcd265871785d0524b4ae",
   "clause_key": "E1.GOV-3_03",
   "data_kind": "qualitative",
   "definition": "Explanation of climate-related considerations that are factored into remuneration of members of administrative, management and supervisory bodies。薪酬中的气候因素说明。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
@@ -303,6 +303,38 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -376,7 +408,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

@@ -1375,7 +1375,7 @@ def stop_current_pipeline():
 
 
 from esg_pipeline.extraction import ExtractionCoordinator
-from esg_document.api.extraction import extraction_router
+from esg_console.sessions import extraction_router
 
 
 def _queue_clause_run(run_id, name, timeout):

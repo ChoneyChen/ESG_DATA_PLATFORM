@@ -6,6 +6,7 @@ import { CreateExtractionPage } from "../features/extractions/create";
 import { ExtractionPage } from "../features/extractions/detail";
 import { ClausesPage } from "../features/clauses/pages";
 import { RuntimePage } from "../features/runtime/pages";
+import { RunMonitor } from "../features/runtime/monitor";
 import { Empty } from "../shared/ui";
 const nav = [
   ["reports", "报告", "▤"],
@@ -128,6 +129,7 @@ export default function App() {
       >
         {page}
       </main>
+      <RunMonitor />
     </div>
   );
 }

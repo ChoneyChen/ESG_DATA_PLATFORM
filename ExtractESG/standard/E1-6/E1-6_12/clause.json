@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "b0c236d90f11dffe2a7511f7ca9fab09b084d365a67ff41651b6442f3d5d0006",
+  "clause_digest": "07f7cd04f143d7a4b0e0007aca123de235dcf2f60c1107acc60e92361602620a",
   "clause_key": "E1-6_12",
   "data_kind": "quantitative",
   "definition": "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量。",
@@ -509,6 +509,42 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "ghg_scope",
+        "aggregation_role",
+        "consolidation_approach"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "ghg_scope",
+        "aggregation_role",
+        "consolidation_approach"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "ghg_scope"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -768,7 +804,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tCO2e",

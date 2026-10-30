@@ -49,7 +49,7 @@ def location(
     )
 
 
-def context_from_claims(frame, claims, *, row=None, column_id=None, document=None):
+def context_from_claims(frame, claims, *, row=None, column_id=None, document=None, attempts=None):
     physical = [*frame.texts, *frame.title_sources]
     aliases = {}
     if column_id:
@@ -198,6 +198,15 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 )
             ],
         )
+    if attempts is not None:
+        attempts.extend(flags)
+    # Diagnostics assess final bound fields, not superseded model proposals.
+    final = {**fields, **dimensions}
+    flags = [flag for flag in flags if not (
+        flag.startswith(("unbound_identity:", "identity_conflict:"))
+        and final.get(flag.split(":", 1)[1]) is not None
+        and final[flag.split(":", 1)[1]].state in {"stated", "inherited"}
+    )]
     return ReportedContext(**fields, dimensions=dimensions), list(dict.fromkeys(flags))
 
 
@@ -223,6 +232,8 @@ def _number(raw):
 
 
 def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
+    if re.fullmatch(r"\s*(?:[-—–－]+|N/?A|不适用|未披露|未提供|无数据|not\s+(?:disclosed|available))\s*", cell.raw_text, re.I):
+        return None, None, "not_a_reported_measurement"
     try:
         parsed, comparator, suffix = _number(cell.raw_text)
         parse_status = "parsed"
@@ -262,8 +273,9 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         else None,
         unit_raw=unit,
     )
+    attempts = []
     context, flags = context_from_claims(
-        frame, match.identity, row=row, column_id=cell.column_id, document=document
+        frame, match.identity, row=row, column_id=cell.column_id, document=document, attempts=attempts
     )
     evidence = [
         EvidenceLocation(
@@ -368,8 +380,9 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         source_row_label=row.label,
         identity=context,
         evidence=evidence,
-        quality="needs_confirmation" if flags else "grounded",
+        quality="grounded",
         flags=flags,
+        extensions={"identity_attempts": attempts} if attempts else {},
     )
     mapping = mapping_for(clause, document, fact, match.match, match.reason)
     mapping = apply_reading(mapping, reading)
@@ -403,7 +416,8 @@ def qualitative_fact(clause, document, frame, match, interpretation_id):
         None,
         evidence=" ".join(t.text for t in frame.texts),
     )
-    context, flags = context_from_claims(frame, match.identity, document=document)
+    attempts = []
+    context, flags = context_from_claims(frame, match.identity, document=document, attempts=attempts)
     if match.quote and raw != text.text:
         flags.append("statement_is_excerpt")
     if document.limited_evidence:
@@ -444,8 +458,9 @@ def qualitative_fact(clause, document, frame, match, interpretation_id):
                 char_end=end,
             )
         ],
-        quality="needs_confirmation" if flags else "grounded",
+        quality="grounded",
         flags=flags,
+        extensions={"identity_attempts": attempts} if attempts else {},
     )
     mapping = mapping_for(clause, document, fact, match.match, match.reason)
     mapping = apply_reading(mapping, reading)
@@ -490,6 +505,8 @@ def mapping_for(clause, document, fact, match, reason):
         "value_role": fact.identity.value_role,
         "aggregation": fact.identity.aggregation_role,
     }
+    discriminators = set(clause.purposes.target_scope.discriminating_axes) if clause.purposes else None
+    scope_conflicts = []
     for scope in clause.output_scopes:
         required = {
             key: value
@@ -504,18 +521,21 @@ def mapping_for(clause, document, fact, match, reason):
             required["method"] = scope.method
         complete = True
         conflict = False
+        known_conflicts = []
         for axis, wanted in required.items():
             field = axes[axis]
             if field.state not in {"stated", "inherited"}:
                 complete = False
             elif field.value != wanted:
                 conflict = True
+                known_conflicts.append(axis)
         for axis, wanted in scope.axes.items():
             field = fact.identity.dimensions.get(axis)
             if not field or field.state not in {"stated", "inherited"}:
                 complete = False
             elif field.value != wanted:
                 conflict = True
+                known_conflicts.append(axis)
         period = fact.identity.reporting_period
         if scope.period and scope.period != "annual":
             if period.state not in {"stated", "inherited"}:
@@ -539,13 +559,20 @@ def mapping_for(clause, document, fact, match, reason):
                 conflict = True
         if complete and not conflict:
             covered.append(scope.scope_id)
+        scope_conflicts.append(known_conflicts)
     if not covered:
         flags.append("scope_requires_confirmation")
+    relation = "uncertain" if flags or match == "uncertain" else "match"
+    if discriminators is not None:
+        # Missing context affects comparison completeness, never raw admission or
+        # an otherwise supported target relation. Explicit semantic conflict wins.
+        different = bool(scope_conflicts) and all(set(axes) & discriminators for axes in scope_conflicts)
+        relation = "different" if different else match
     return ClauseMapping(
         clause_key=clause.clause_key,
         clause_digest=clause.clause_digest,
         source_fact_id=fact.source_fact_id,
-        match="uncertain" if flags or match == "uncertain" else "match",
+        match=relation,
         reason=reason,
         scope_ids=covered,
         flags=list(dict.fromkeys(flags)),

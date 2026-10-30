@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "ed02a8e2e508545b09ed846c831f638e1b426891e8da61bde5a164d0f8fa9966",
+  "clause_digest": "db30fb2a4883e6212fd6a7a8935d74ce78d5854000e7a9e5a881a928b7c8cf1c",
   "clause_key": "G1-6_01",
   "data_kind": "quantitative",
   "definition": "自合同或法定付款起算日计算的供应商平均付款天数。",
@@ -476,6 +476,41 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "payment_start_definition",
+        "invoice_scope",
+        "averaging_basis"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "payment_start_definition",
+        "invoice_scope",
+        "averaging_basis"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -650,7 +685,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "day",

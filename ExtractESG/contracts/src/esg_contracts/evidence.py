@@ -20,6 +20,7 @@ class DocumentReference(ProtocolModel):
     limited_evidence: bool = False
     label: str | None = None
     report_resource: ReportResource | None = None
+    search_scope: dict | None = None
 
     def evidence_identity(self):
         """Mutable report labels are provenance, separate from the fixed physical input."""
@@ -46,6 +47,7 @@ class SearchIntent(ProtocolModel):
     required_term_groups: list[list[str]] = Field(default_factory=list)
     excluded_object_terms: list[str] = Field(default_factory=list)
     context_terms: list[str] = Field(default_factory=list)
+    expected_candidate_types: list[str] = Field(default_factory=list)
     limit: int = Field(default=8, ge=1, le=100)
 
 
@@ -58,6 +60,9 @@ class ObjectReference(ProtocolModel):
 
 
 class EvidenceCell(ProtocolModel):
+    candidate_kind: Literal[
+        "measurement", "formula", "identifier", "footnote", "date", "unresolved"
+    ] = "measurement"
     page_index: int | None = Field(default=None, ge=0)
     source_object_id: str | None = None
     source_object_type: Literal["cell", "text_block"] = "cell"

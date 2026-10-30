@@ -6,7 +6,7 @@ from esg_data.organization import (
     FieldBinding,
     Presentation,
 )
-from .contract import ClauseContract, ValueContract
+from .contract import ClauseContract, ValueContract, ClausePurposes
 from .parts import ReadingContract, RetrievalProfile, EvidenceRequirement
 from .scope import make_scope
 
@@ -74,6 +74,7 @@ def new_clause(clause_key, group_id, data_kind, title):
             definition=title,
             exclusions=["标题、目录和检索未命中不能证明实际披露；未知信息不能补成零。"],
             data_kind=data_kind,
+            purposes=ClausePurposes(),
             value=ValueContract(),
             output_scopes=[make_scope("实际披露")],
             reading=ReadingContract(

@@ -322,6 +322,7 @@ class OrganizedRow(Model):
     match: Literal["match", "uncertain", "different", "unmapped"]
     cells: dict[str, OrganizedCell]
     flags: list[str] = Field(default_factory=list)
+    result_class: Literal["target", "other", "unresolved"] = "unresolved"
 
 
 class RowGroup(Model):

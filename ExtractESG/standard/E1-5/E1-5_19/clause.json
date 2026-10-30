@@ -6,7 +6,7 @@
   "blocking_reasons": [
     "原科学合同未声明可用规范单位，且单位维度与元素绑定不一致；须修订该条后试提取。"
   ],
-  "clause_digest": "b401ee440574c02fc194e0601639fa189c1fdd28953f9bfdf27bfbfee1b23e4c",
+  "clause_digest": "9fbbb5b464963ad1402703f5e6c2e4a3a2b90ac4a919d5f65876846007fa7927",
   "clause_key": "E1-5_19",
   "data_kind": "quantitative",
   "definition": "高气候影响行业能源消费总量",
@@ -418,6 +418,41 @@
       "esrs.2023-set1.e1-5.source.efrag-ig3-2025"
     ]
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "energy_source",
+        "energy_flow",
+        "aggregation_role"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "blocked",
   "reading": {
     "allow_regulatory_limit": false,
@@ -592,7 +627,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": null,

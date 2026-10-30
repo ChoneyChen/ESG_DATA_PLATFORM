@@ -25,5 +25,5 @@ namespaces = true
 "esg_document.ocr" = ["*.swift"]
 
 [tool.pytest.ini_options]
-pythonpath = ["contracts/src", "shared_runtime/src", "document/src", "pipeline/src", "extraction/src"]
+pythonpath = ["contracts/src", "shared_runtime/src", "document/src", "pipeline/src", "extraction/src", "../ConsoleESG/backend/src"]
 testpaths = ["document/tests", "extraction/tests"]

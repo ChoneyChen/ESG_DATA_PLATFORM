@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "6aa1c629e07596cc1372c04ac1a1a304e09bf0386b9832028e2cab026d5c4748",
+  "clause_digest": "9d028756a3c4416866518e8dd2189bc49309439df9a6b0a3ebb28ab73d349baa",
   "clause_key": "S1-14_05",
   "data_kind": "quantitative",
   "definition": "自有劳动力每百万工时的可记录工伤事故数。",
@@ -528,6 +528,45 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "population",
+        "accident_definition",
+        "denominator_unit",
+        "rate_multiplier"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "population",
+        "accident_definition",
+        "denominator_unit",
+        "rate_multiplier",
+        "gender",
+        "country"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -741,7 +780,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "rate",

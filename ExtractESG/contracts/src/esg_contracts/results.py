@@ -12,6 +12,30 @@ class RunError(FrozenModel):
     error: str
 
 
+class CandidateRejection(FrozenModel):
+    clause_key: str
+    object_id: str
+    row_id: str | None = None
+    cell_id: str | None = None
+    value_raw: str | None = None
+    page_index: int | None = None
+    candidate_kind: str
+    selection: str
+    reason: str
+
+
+class ResultAssessment(FrozenModel):
+    execution_state: Literal["running", "completed", "interrupted"] = "running"
+    search_coverage: Literal["in_progress", "bounded_complete", "incomplete"] = "in_progress"
+    capture_result: Literal["usable", "empty"] = "empty"
+    metadata_completeness: Literal["complete", "partial", "not_requested"] = "not_requested"
+    comparison_status: Literal["eligible", "insufficient_context", "not_evaluated"] = "not_evaluated"
+    target_facts: int = 0
+    other_facts: int = 0
+    unresolved_facts: int = 0
+    rejected_candidates: int = 0
+
+
 class RunSummary(FrozenModel):
     selected_clauses: int
     processed_clauses: int
@@ -21,6 +45,7 @@ class RunSummary(FrozenModel):
     model_calls: int
     elapsed_seconds: float
     errors: list[RunError] = Field(default_factory=list)
+    assessment: ResultAssessment | None = None
 
 
 class FactCollection(FrozenModel):

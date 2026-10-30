@@ -84,8 +84,7 @@ def execute(run_id, *, model=None):
         )
         status = (
             "completed"
-            if all(c["state"] == "covered" for c in body["coverage"])
-            and body["organization"]["status"] == "organized"
+            if body["summary"]["assessment"]["execution_state"] == "completed"
             else "partial"
         )
         return store.update(

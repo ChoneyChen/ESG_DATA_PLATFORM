@@ -182,7 +182,7 @@ class ExtractionSession(View):
     created_at: str | None = None
     updated_at: str | None = None
     execution_status: str
-    result_status: Literal["usable", "partial", "not_evaluated"]
+    result_status: Literal["usable", "empty", "partial", "not_evaluated"]
     current_phase: str = "queued"
     phase_label: str = "等待执行"
     observation: Literal["fresh", "unavailable"] = "fresh"

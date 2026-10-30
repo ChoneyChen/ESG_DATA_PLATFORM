@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "44898f68594184ba5d9dbd850abe69b6270b6842366636eda69a2e9deba0cbc5",
+  "clause_digest": "ad02d5401e69b3e2f3cc53baeec5e435cfc96dfceac4e87fa736f375e1d0377c",
   "clause_key": "E2-5_02",
   "data_kind": "quantitative",
   "definition": "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -556,6 +556,51 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "substance",
+        "hazard_class",
+        "concern_class",
+        "material_flow",
+        "aggregation_role"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "substance",
+        "hazard_class",
+        "concern_class",
+        "material_flow",
+        "aggregation_role",
+        "site",
+        "geography"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "concern_class"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -734,7 +779,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "do_not_sum",
     "canonical_unit": "tonne",

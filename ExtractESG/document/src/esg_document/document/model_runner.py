@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import re
+import time
+from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
 from typing import Any, Callable, TypeVar
 
 from pydantic import BaseModel, ValidationError
@@ -152,7 +154,23 @@ class ModelRunner:
                             "provider": profile.provider,
                         }
                     )
-                    result = self.adapter.chat_completions(request)
+                    execution = prepare_call(ModelCallRequest(
+                        call_id=request.request_id, run_id=document.metadata.run_id, task_type="document_" + role,
+                        input_modalities=["text", "image"] if images else ["text"], evidence_ids=[task.task_id],
+                        prompt_digest=content_digest(request.messages), schema_digest=content_digest(request.output_template),
+                        requested_output_tokens=request.max_tokens, requested_timeout_seconds=request.timeout_seconds or 600,
+                    ), ModelCapabilities(provider=profile.provider, model=profile.model_id,
+                        input_modalities=["text", "image"] if profile.vision else ["text"],
+                        max_output_tokens=profile.max_output_tokens, timeout_seconds=request.timeout_seconds or 600,
+                        output_constraint="prompt_schema_and_server_validation"))
+                    request = request.model_copy(update={"max_tokens": execution.effective_output_tokens, "timeout_seconds": execution.effective_timeout_seconds})
+                    call_started = time.perf_counter()
+                    try:
+                        result = self.adapter.chat_completions(request)
+                    except Exception as exc:
+                        exc.telemetry = {**getattr(exc, "telemetry", {}), "execution": finish_call(execution, call_started, error=exc)}
+                        raise
+                    result.execution = finish_call(execution, call_started, result.usage)
                     payload_dict = self.response_adapter.message_json(
                         result.raw_response
                     )
@@ -557,6 +575,7 @@ class ModelRunner:
                 if task.review_plan
                 else None,
                 "schema_delivery_requested": "prompt_schema_and_server_validation",
+                "execution": result.execution if result else None,
             }
         )
         if role == "reviewer" and status == "succeeded" and payload is not None:

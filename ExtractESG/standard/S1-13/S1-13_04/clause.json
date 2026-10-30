@@ -4,7 +4,7 @@
     "samples": []
   },
   "blocking_reasons": [],
-  "clause_digest": "1055626ee9f4cc590f6987adc0aff788b6e843914b0bdaec8db08e0475fa79ed",
+  "clause_digest": "dbe21394a138f408f0962ffedf3300031b5d5379a89fda9b153858d807d8ad0f",
   "clause_key": "S1-13_04",
   "data_kind": "quantitative",
   "definition": "报告期内员工人均培训小时数。",
@@ -560,6 +560,46 @@
       "standard_family": null
     }
   },
+  "purposes": {
+    "capture": {
+      "missing_metadata": "retain",
+      "require_measurement_meaning": true,
+      "unlisted_categories": "preserve_literal"
+    },
+    "comparison": {
+      "require_complete_scopes": true,
+      "required_axes": [
+        "population",
+        "training_scope",
+        "denominator_scope"
+      ]
+    },
+    "enrichment": {
+      "identity_axes": [
+        "reporting_entity",
+        "reporting_period",
+        "reporting_boundary",
+        "measurement_method",
+        "population",
+        "training_scope",
+        "denominator_scope",
+        "gender",
+        "country"
+      ],
+      "missing_action": "annotate"
+    },
+    "target_scope": {
+      "conflict_action": "separate",
+      "discriminating_axes": [
+        "value_role",
+        "aggregation",
+        "denominator_scope",
+        "population",
+        "training_scope"
+      ],
+      "missing_action": "retain"
+    }
+  },
   "readiness": "ready",
   "reading": {
     "allow_regulatory_limit": false,
@@ -825,7 +865,7 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.1",
+  "schema_version": "clause-contract-1.2",
   "value": {
     "aggregation": "ratio_recompute",
     "canonical_unit": "hour/person",

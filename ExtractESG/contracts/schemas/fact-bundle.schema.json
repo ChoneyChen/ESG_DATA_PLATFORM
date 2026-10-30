@@ -219,6 +219,19 @@
           ],
           "default": null,
           "title": "Reporting Year"
+        },
+        "search_scope": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Search Scope"
         }
       },
       "required": [
@@ -799,6 +812,82 @@
       "title": "ReportedField",
       "type": "object"
     },
+    "ResultAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_result": {
+          "default": "empty",
+          "enum": [
+            "usable",
+            "empty"
+          ],
+          "title": "Capture Result",
+          "type": "string"
+        },
+        "comparison_status": {
+          "default": "not_evaluated",
+          "enum": [
+            "eligible",
+            "insufficient_context",
+            "not_evaluated"
+          ],
+          "title": "Comparison Status",
+          "type": "string"
+        },
+        "execution_state": {
+          "default": "running",
+          "enum": [
+            "running",
+            "completed",
+            "interrupted"
+          ],
+          "title": "Execution State",
+          "type": "string"
+        },
+        "metadata_completeness": {
+          "default": "not_requested",
+          "enum": [
+            "complete",
+            "partial",
+            "not_requested"
+          ],
+          "title": "Metadata Completeness",
+          "type": "string"
+        },
+        "other_facts": {
+          "default": 0,
+          "title": "Other Facts",
+          "type": "integer"
+        },
+        "rejected_candidates": {
+          "default": 0,
+          "title": "Rejected Candidates",
+          "type": "integer"
+        },
+        "search_coverage": {
+          "default": "in_progress",
+          "enum": [
+            "in_progress",
+            "bounded_complete",
+            "incomplete"
+          ],
+          "title": "Search Coverage",
+          "type": "string"
+        },
+        "target_facts": {
+          "default": 0,
+          "title": "Target Facts",
+          "type": "integer"
+        },
+        "unresolved_facts": {
+          "default": 0,
+          "title": "Unresolved Facts",
+          "type": "integer"
+        }
+      },
+      "title": "ResultAssessment",
+      "type": "object"
+    },
     "RunError": {
       "additionalProperties": false,
       "properties": {
@@ -840,6 +929,17 @@
     "RunSummary": {
       "additionalProperties": false,
       "properties": {
+        "assessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResultAssessment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "elapsed_seconds": {
           "title": "Elapsed Seconds",
           "type": "number"

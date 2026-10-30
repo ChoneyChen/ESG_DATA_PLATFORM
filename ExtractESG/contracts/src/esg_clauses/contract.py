@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from typing import Literal
-from pydantic import Field, model_validator
+from pydantic import Field, model_validator, model_serializer
 from .base import StrictModel, digest
 from .parts import (
     ReadingContract,
@@ -29,8 +29,38 @@ class ValueContract(StrictModel):
     ] = "none"
 
 
+class CapturePolicy(StrictModel):
+    """Raw reception owns no mandatory business identity or normalized unit."""
+    missing_metadata: Literal["retain"] = "retain"
+    unlisted_categories: Literal["preserve_literal"] = "preserve_literal"
+    require_measurement_meaning: Literal[True] = True
+
+
+class EnrichmentPolicy(StrictModel):
+    identity_axes: list[str] = Field(default_factory=list)
+    missing_action: Literal["annotate"] = "annotate"
+
+
+class TargetPolicy(StrictModel):
+    discriminating_axes: list[str] = Field(default_factory=list)
+    missing_action: Literal["retain"] = "retain"
+    conflict_action: Literal["separate"] = "separate"
+
+
+class ComparisonPolicy(StrictModel):
+    required_axes: list[str] = Field(default_factory=list)
+    require_complete_scopes: bool = True
+
+
+class ClausePurposes(StrictModel):
+    capture: CapturePolicy = Field(default_factory=CapturePolicy)
+    enrichment: EnrichmentPolicy = Field(default_factory=EnrichmentPolicy)
+    target_scope: TargetPolicy = Field(default_factory=TargetPolicy)
+    comparison: ComparisonPolicy = Field(default_factory=ComparisonPolicy)
+
+
 class ClauseContract(StrictModel):
-    schema_version: Literal["clause-contract-1.1"] = "clause-contract-1.1"
+    schema_version: Literal["clause-contract-1.1", "clause-contract-1.2"] = "clause-contract-1.2"
     clause_key: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     group_id: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     labels: dict[str, str]
@@ -51,6 +81,14 @@ class ClauseContract(StrictModel):
     readiness: Literal["ready", "blocked"] = "ready"
     blocking_reasons: list[str] = Field(default_factory=list)
     clause_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
+    purposes: ClausePurposes | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if self.purposes is None:
+            body.pop("purposes", None)
+        return body
 
     @model_validator(mode="after")
     def coherent(self):
@@ -66,12 +104,8 @@ class ClauseContract(StrictModel):
             raise ValueError(
                 "A quantitative clause requires a quantitative reading operator"
             )
-        if (
-            self.data_kind == "quantitative"
-            and self.readiness == "ready"
-            and not self.value.canonical_unit
-        ):
-            raise ValueError("A ready quantitative clause requires its declared unit")
+        if self.schema_version == "clause-contract-1.2" and self.purposes is None:
+            raise ValueError("Current clauses must declare capture, enrichment, target and comparison purposes")
         if len({scope.scope_id for scope in self.output_scopes}) != len(
             self.output_scopes
         ):

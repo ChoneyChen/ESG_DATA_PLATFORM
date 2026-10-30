@@ -120,6 +120,12 @@ class DocumentEvidenceService:
             limited_evidence=bool(
                 ir.manifest.get("evidence_policy", {}).get("mode") == "limited"
             ),
+            search_scope={
+                "available_pages": sorted(pages),
+                "source_page_count": ir.manifest.get("source_page_count") or ir.manifest.get("page_coverage", {}).get("source_page_count"),
+                "mode": ir.manifest.get("page_coverage", {}).get("mode", "unknown"),
+                "report_wide_absence_proven": False,
+            },
         )
         return document, tables, raw_tables, texts
 
@@ -188,8 +194,10 @@ class DocumentEvidenceService:
                     )
                 )
         for key, item in texts.items():
-            if intent.data_kind == "quantitative" and not numeric_rows(item):
-                continue
+            if intent.data_kind == "quantitative":
+                literals = [cell for row in numeric_rows(item) for cell in row.cells if cell.candidate_kind in {"measurement", "unresolved"}]
+                if not numeric_rows(item):
+                    continue
             score = (
                 8 * self._score(terms, item.text)
                 + 20 * self._score(intent.exact_terms, item.text)
@@ -199,6 +207,8 @@ class DocumentEvidenceService:
                 else 1
             )
             score = self._intent_score(intent, item.text, score)
+            if intent.data_kind == "quantitative" and "percentage" in intent.expected_candidate_types and any("%" in cell.raw_text or "％" in cell.raw_text for cell in literals):
+                score *= 1.5
             if score:
                 results.append(
                     ObjectReference(

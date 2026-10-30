@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 import threading
 import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from pathlib import Path
 from typing import Any, Callable, Literal
 from urllib.parse import urlparse
@@ -29,6 +29,7 @@ from esg_document.ocr.resources import (
     OcrResourceReader,
 )
 from esg_data.sanitization import sanitize_remote_url
+from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
 
 
 LogFn = Callable[[str], None]
@@ -804,7 +805,27 @@ class OcrProviderRouter:
             },
         }
 
-    def execute(
+    def execute(self, request: OcrRunRequest, *, input_path, provider_root, run_id,
+                expected_page_count=0, progress_callback=None, log=None):
+        started = time.perf_counter()
+        timeout = self.settings.local_paddleocr_job_timeout_seconds if request.ocr_provider != "paddle_api" else self.settings.request_timeout_seconds
+        receipt = prepare_call(ModelCallRequest(
+            run_id=run_id, task_type="document_ocr", input_modalities=["image"],
+            evidence_ids=[run_id], prompt_digest=content_digest({"model": request.model, "pages": request.page_indices}),
+            requested_timeout_seconds=timeout,
+        ), ModelCapabilities(provider=request.ocr_provider, model=request.model,
+            input_modalities=["image"], timeout_seconds=timeout, output_constraint="ocr_structured_output"))
+        try:
+            selection = self._execute(request, input_path=input_path, provider_root=provider_root,
+                run_id=run_id, expected_page_count=expected_page_count, progress_callback=progress_callback, log=log)
+        except Exception as exc:
+            exc.telemetry = {**getattr(exc, "telemetry", {}), "execution": finish_call(receipt, started, error=exc)}
+            raise
+        receipt.capabilities.provider = selection.execution.provider
+        execution = replace(selection.execution, metadata={**selection.execution.metadata, "execution": finish_call(receipt, started)})
+        return replace(selection, execution=execution)
+
+    def _execute(
         self,
         request: OcrRunRequest,
         *,

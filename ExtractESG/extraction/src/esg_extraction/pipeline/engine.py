@@ -9,16 +9,18 @@ from esg_contracts.evidence import SearchIntent
 from esg_contracts.facts import ClauseCoverage
 from esg_contracts.results import FactBundle
 from esg_data.normalize import fold
+from esg_clauses.search import compile_search_plan
 from .decisions import QuantitativeDecision, QualitativeDecision, decision_schema
 from .binding import numeric_fact, qualitative_fact
 from .structure import period_columns
 from .ports import DocumentPort, ModelPort, ArtifactPort
 from .organization import build_organized_dataset
 
-ENGINE_VERSION = "clause-backbone-1.1"
+ENGINE_VERSION = "clause-backbone-1.2"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return only row IDs and column IDs that directly report the requested measurement. Never output, compute or convert values.
+Set selection=measurement only for a real reported quantity. Formula digits (SF6, CO2), identifiers, years, dates, reference/footnote numbers are NOT quantities. Reject them with selection=nonmeasurement. Use selection=unresolved when measurement meaning itself is unsupported; these remain diagnostics, never facts. A real count may have no printed unit.
 Select EVERY relevant row, not one example. Each selected row must use its exact visible row_id; one response may contain many matches. Follow target.reading.instructions, and keep unrelated measurement types out of the selection.
 When physical_period_columns is provided, the period column is already determined by structure; select rows and use those columns.
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
@@ -75,6 +77,8 @@ class ExtractionBackbone:
         coverage = []
         errors = []
         trace = []
+        rejected_candidates = []
+        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
         document = document or self.documents.document(request.ir_run_id)
         if document.ir_run_id != request.ir_run_id:
             raise ValueError("Pinned document differs from requested evidence")
@@ -106,29 +110,9 @@ class ExtractionBackbone:
                     "model_calls": calls,
                 }
             )
-            intent = SearchIntent(
-                target_id=key,
-                contract_digest=clause.clause_digest,
-                data_kind=clause.data_kind,
-                positive_terms=clause.retrieval.positive_terms,
-                negative_terms=clause.retrieval.negative_terms,
-                exact_terms=clause.exact_labels,
-                source_priority=clause.retrieval.source_priority,
-                structural_anchors=clause.retrieval.structural_anchors,
-                limit=budget.max_objects_per_clause,
-            )
-            intent = intent.model_copy(
-                update={
-                    name: getattr(clause.retrieval, name)
-                    for name in (
-                        "topic_term_groups",
-                        "role_term_groups",
-                        "required_term_groups",
-                        "excluded_object_terms",
-                        "context_terms",
-                    )
-                }
-            )
+            plan = compile_search_plan(clause, limit=budget.max_objects_per_clause)
+            self.artifacts.write(run_id, f"input/search/{key}.json", plan)
+            intent = SearchIntent.model_validate(plan["objects"])
             try:
                 candidates = self.documents.search(request.ir_run_id, intent)
             except Exception as exc:
@@ -188,12 +172,27 @@ class ExtractionBackbone:
                         )
                         continue
                     if clause.data_kind == "quantitative":
+                        rows = []
+                        for row in frame.rows:
+                            if row.row_role == "header":
+                                continue
+                            cells = []
+                            for cell in row.cells:
+                                if cell.candidate_kind in {"measurement", "unresolved"}:
+                                    cells.append(cell)
+                                else:
+                                    rejected_candidates.append({
+                                        "clause_key": key, "object_id": frame.object_id,
+                                        "row_id": row.row_id, "cell_id": cell.cell_id,
+                                        "value_raw": cell.raw_text, "page_index": frame.page_index,
+                                        "candidate_kind": cell.candidate_kind,
+                                        "selection": "nonmeasurement", "reason": "physical_literal_type",
+                                    })
+                            if cells:
+                                rows.append(row.model_copy(update={"cells": cells}))
+                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                         frame = frame.model_copy(
-                            update={
-                                "rows": [
-                                    r for r in frame.rows if r.row_role != "header"
-                                ]
-                            }
+                            update={"rows": rows}
                         )
                     if clause.data_kind == "quantitative" and not frame.rows:
                         reasons.append("object_has_no_bindable_quantitative_cells")
@@ -211,6 +210,8 @@ class ExtractionBackbone:
                         "target": clause.reading_card(),
                         "document": document.model_dump(mode="json"),
                         "frame": frame_body,
+                        "execution": {"run_id": run_id, "task_type": "clause_" + clause.data_kind,
+                            "evidence_ids": [frame.object_id], "remaining_seconds": max(0.001, budget.timeout_seconds - (time.monotonic() - started))},
                     }
                     if clause.data_kind == "quantitative":
                         # Cells already occur in rows and explicit header/label sources.
@@ -320,6 +321,19 @@ class ExtractionBackbone:
                                         raise ValueError(
                                             "Unknown physical source column"
                                         )
+                                    accepted = []
+                                    for cell in cells:
+                                        if match.selection != "measurement" or cell.candidate_kind not in {"measurement", "unresolved"}:
+                                            rejected_candidates.append({
+                                                "clause_key": key, "object_id": frame.object_id,
+                                                "row_id": row.row_id, "cell_id": cell.cell_id,
+                                                "value_raw": cell.raw_text, "page_index": frame.page_index,
+                                                "candidate_kind": cell.candidate_kind,
+                                                "selection": match.selection, "reason": match.reason,
+                                            })
+                                        else:
+                                            accepted.append(cell)
+                                    self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                                     results = [
                                         numeric_fact(
                                             clause,
@@ -330,7 +344,7 @@ class ExtractionBackbone:
                                             cell,
                                             interpretation,
                                         )
-                                        for cell in cells
+                                        for cell in accepted
                                     ]
                                 else:
                                     results = [
@@ -345,6 +359,9 @@ class ExtractionBackbone:
                                 for fact, mapping, rejected in results:
                                     if rejected:
                                         reasons.append(rejected)
+                                        rejected_candidates.append({"clause_key": key, "object_id": frame.object_id,
+                                            "candidate_kind": "unresolved", "selection": "nonmeasurement", "reason": rejected})
+                                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                                         continue
                                     local_facts[fact.source_fact_id] = fact
                                     local_mappings[fact.source_fact_id] = mapping
@@ -459,7 +476,8 @@ class ExtractionBackbone:
                 }
             )
         return self._write_outputs(
-            run_id, document, clauses, facts, mappings, coverage, calls, started, errors
+            run_id, document, clauses, facts, mappings, coverage, calls, started, errors,
+            final=True, rejected_count=len(rejected_candidates),
         )
 
     def _write_outputs(
@@ -473,6 +491,8 @@ class ExtractionBackbone:
         calls,
         started,
         errors,
+        final=False,
+        rejected_count=0,
     ):
         # Every record crosses a typed, value-only boundary before persistence.
         body = {
@@ -494,6 +514,7 @@ class ExtractionBackbone:
                 "model_calls": calls,
                 "elapsed_seconds": round(time.monotonic() - started, 3),
                 "errors": errors,
+                "assessment": assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count),
             },
         }
         body["organization"] = {
@@ -530,3 +551,37 @@ class ExtractionBackbone:
         )
         self.artifacts.write(run_id, "results/facts.json", body)
         return body
+
+
+def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count=0):
+    """One result projection, independent of views and publication decisions."""
+    interrupted = bool(errors) or len(coverage) != len(clauses) or any(
+        "execution_budget_exhausted" in c.reasons or c.state == "failed" or "document_read_failed" in c.reasons
+        for c in coverage
+    )
+    required = {
+        (key, field.binding.source, field.binding.key)
+        for key, clause in clauses.items() for field in clause.organization.fields
+        if field.binding.source in {"identity", "dimension"}
+    }
+    by_id = {fact.source_fact_id: fact for fact in facts}
+    incomplete = False
+    for link in mappings:
+        fact = by_id[link.source_fact_id]
+        for key, source, axis in required:
+            if key != link.clause_key:
+                continue
+            field = fact.identity.dimensions.get(axis) if source == "dimension" else getattr(fact.identity, axis, None)
+            if field is None or field.state not in {"stated", "inherited"}:
+                incomplete = True
+    return {
+        "execution_state": "running" if not final else "interrupted" if interrupted else "completed",
+        "search_coverage": "in_progress" if not final else "incomplete" if interrupted else "bounded_complete",
+        "capture_result": "usable" if facts else "empty",
+        "metadata_completeness": "not_requested" if not required or not facts else "partial" if incomplete else "complete",
+        "comparison_status": "not_evaluated" if not facts else "eligible" if coverage and all(c.state == "covered" for c in coverage) and not any(m.flags for m in mappings) else "insufficient_context",
+        "target_facts": len({m.source_fact_id for m in mappings if m.match == "match"}),
+        "other_facts": len({m.source_fact_id for m in mappings if m.match == "different"}),
+        "unresolved_facts": len({m.source_fact_id for m in mappings if m.match == "uncertain"}),
+        "rejected_candidates": rejected_count,
+    }

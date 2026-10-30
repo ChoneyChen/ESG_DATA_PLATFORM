@@ -77,6 +77,51 @@
       "title": "AcceptanceSample",
       "type": "object"
     },
+    "CapturePolicy": {
+      "additionalProperties": false,
+      "description": "Raw reception owns no mandatory business identity or normalized unit.",
+      "properties": {
+        "missing_metadata": {
+          "const": "retain",
+          "default": "retain",
+          "title": "Missing Metadata",
+          "type": "string"
+        },
+        "require_measurement_meaning": {
+          "const": true,
+          "default": true,
+          "title": "Require Measurement Meaning",
+          "type": "boolean"
+        },
+        "unlisted_categories": {
+          "const": "preserve_literal",
+          "default": "preserve_literal",
+          "title": "Unlisted Categories",
+          "type": "string"
+        }
+      },
+      "title": "CapturePolicy",
+      "type": "object"
+    },
+    "ClausePurposes": {
+      "additionalProperties": false,
+      "properties": {
+        "capture": {
+          "$ref": "#/$defs/CapturePolicy"
+        },
+        "comparison": {
+          "$ref": "#/$defs/ComparisonPolicy"
+        },
+        "enrichment": {
+          "$ref": "#/$defs/EnrichmentPolicy"
+        },
+        "target_scope": {
+          "$ref": "#/$defs/TargetPolicy"
+        }
+      },
+      "title": "ClausePurposes",
+      "type": "object"
+    },
     "ClauseRelationships": {
       "additionalProperties": false,
       "properties": {
@@ -134,6 +179,45 @@
         }
       },
       "title": "ClauseRelationships",
+      "type": "object"
+    },
+    "ComparisonPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "require_complete_scopes": {
+          "default": true,
+          "title": "Require Complete Scopes",
+          "type": "boolean"
+        },
+        "required_axes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Axes",
+          "type": "array"
+        }
+      },
+      "title": "ComparisonPolicy",
+      "type": "object"
+    },
+    "EnrichmentPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "identity_axes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Identity Axes",
+          "type": "array"
+        },
+        "missing_action": {
+          "const": "annotate",
+          "default": "annotate",
+          "title": "Missing Action",
+          "type": "string"
+        }
+      },
+      "title": "EnrichmentPolicy",
       "type": "object"
     },
     "EvidenceRequirement": {
@@ -857,6 +941,32 @@
       "title": "SortField",
       "type": "object"
     },
+    "TargetPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "conflict_action": {
+          "const": "separate",
+          "default": "separate",
+          "title": "Conflict Action",
+          "type": "string"
+        },
+        "discriminating_axes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Discriminating Axes",
+          "type": "array"
+        },
+        "missing_action": {
+          "const": "retain",
+          "default": "retain",
+          "title": "Missing Action",
+          "type": "string"
+        }
+      },
+      "title": "TargetPolicy",
+      "type": "object"
+    },
     "ValueContract": {
       "additionalProperties": false,
       "properties": {
@@ -1066,6 +1176,17 @@
       "title": "Provenance",
       "type": "object"
     },
+    "purposes": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ClausePurposes"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
     "readiness": {
       "default": "ready",
       "enum": [
@@ -1085,8 +1206,11 @@
       "$ref": "#/$defs/RetrievalProfile"
     },
     "schema_version": {
-      "const": "clause-contract-1.1",
-      "default": "clause-contract-1.1",
+      "default": "clause-contract-1.2",
+      "enum": [
+        "clause-contract-1.1",
+        "clause-contract-1.2"
+      ],
       "title": "Schema Version",
       "type": "string"
     },

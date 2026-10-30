@@ -1,6 +1,6 @@
 from fastapi import FastAPI,HTTPException
 from fastapi.testclient import TestClient
-from esg_document.api.extraction import extraction_router
+from esg_console.sessions import extraction_router
 
 
 def test_stale_document_service_cannot_create_or_preview_extraction():

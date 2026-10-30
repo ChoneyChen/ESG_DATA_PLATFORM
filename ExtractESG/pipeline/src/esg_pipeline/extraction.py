@@ -14,6 +14,8 @@ from esg_contracts.sessions import (
 )
 from datetime import datetime, timezone
 from esg_contracts.search import PageSearchIntent
+from esg_clauses.repository import ClauseRepository
+from esg_clauses.search import compile_search_plan
 from .report_processing import (
     ProcessingRequest,
     ProcessingConfig,
@@ -88,12 +90,17 @@ class ExtractionCoordinator:
                 (state["session_id"], json.dumps(state, ensure_ascii=False)),
             )
 
-    def list(self):
+    def list(self, terminal_limit=None):
         with self.store._connect() as db:
             rows = db.execute(
                 "SELECT body FROM clause_extraction_plans ORDER BY rowid DESC"
             ).fetchall()
-        return [self.detail(json.loads(row[0])) for row in rows]
+        states = [json.loads(row[0]) for row in rows]
+        if terminal_limit is not None:
+            active = [state for state in states if state["status"] not in TERMINAL]
+            recent = [state for state in states if state["status"] in TERMINAL][:terminal_limit]
+            states = [*active, *recent]
+        return [self.detail(state) for state in states]
 
     def preview(self, request):
         native = request.native(
@@ -301,12 +308,12 @@ class ExtractionCoordinator:
             if state["status"] in {"completed", "partial"}
             else state["status"]
         )
+        summary = state["run"].summary if state.get("run") else None
+        assessment = summary.assessment if summary else None
         state["result_status"] = (
-            "usable"
-            if state["status"] == "completed"
-            else "partial"
-            if state["status"] == "partial"
-            else "not_evaluated"
+            assessment.capture_result if assessment
+            else "usable" if state["status"] == "completed"
+            else "partial" if state["status"] == "partial" else "not_evaluated"
         )
         state["available_actions"] = []
         if state["status"] in {"queued", "running"}:
@@ -385,23 +392,15 @@ class ExtractionCoordinator:
         request = ExtractionPlanRequest.model_validate(state["request"])
         if not state["ir_run_id"]:
             if not state["processing_id"]:
-                clauses = state["target_snapshot"]["clauses"]
+                clauses = ClauseRepository.thaw(state["target_snapshot"])
                 targets = [
-                    PageSearchIntent(
-                        target_id=k,
-                        contract_digest=c["clause_digest"],
-                        data_kind=c["data_kind"],
-                        positive_terms=c["retrieval"]["positive_terms"],
-                        negative_terms=c["retrieval"]["negative_terms"],
-                        supporting_terms=c["retrieval"]["context_terms"],
-                        required_term_groups=c["retrieval"]["required_term_groups"],
-                    )
+                    PageSearchIntent.model_validate(compile_search_plan(c)["page"])
                     for k, c in clauses.items()
                 ]
                 process = self.processing.create(
                     ProcessingRequest(
                         asset_id=request.input.asset_id,
-                        mode="reprocess",
+                        mode="auto",
                         source_sha256=state["source_sha256"],
                         submission_key=state["session_id"],
                         config=ProcessingConfig(

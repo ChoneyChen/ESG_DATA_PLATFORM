@@ -27,6 +27,7 @@ class ModelResult(BaseModel):
     raw_response: dict[str, Any]
     usage: dict[str, Any] = Field(default_factory=dict)
     latency_ms: float
+    execution: dict[str, Any] = Field(default_factory=dict)
 
 
 class ModelInfo(BaseModel):

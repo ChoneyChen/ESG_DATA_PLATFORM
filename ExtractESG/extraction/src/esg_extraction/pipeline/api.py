@@ -13,7 +13,7 @@ from esg_runtime.local_operator import install_loopback_marker
 from .runtime import resources, engine_digest
 from .engine import ENGINE_VERSION
 from esg_contracts.sessions import NativeRun
-from esg_contracts.results import FactBundle, FactCollection
+from esg_contracts.results import FactBundle, FactCollection, CandidateRejection
 from esg_contracts.facts import SourceFact
 from typing import Literal
 
@@ -357,6 +357,15 @@ def create_app(resource_factory=resources):
                     "tables": [],
                 },
             )
+
+    @app.get("/api/runs/{run_id}/candidates", response_model=list[CandidateRejection])
+    def candidates(run_id: str):
+        _, store, artifacts, _ = resource_factory()
+        store.get(run_id)
+        try:
+            return artifacts.read(run_id, "diagnostics/candidates.json")
+        except FileNotFoundError:
+            return []
 
     return app
 

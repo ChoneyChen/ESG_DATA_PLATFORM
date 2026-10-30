@@ -18,7 +18,7 @@ import pypdfium2 as pdfium
 
 
 SELECTOR_NAME = "clauses"
-SELECTOR_VERSION = "clause-search-text-layer-v1"
+SELECTOR_VERSION = "clause-search-text-layer-v2"
 
 
 @dataclass(frozen=True)
@@ -33,17 +33,17 @@ class KeywordGroup:
 def _page_terms(terms) -> list[str]:
     """Turn clause retrieval terms into page-search keywords.
 
-    A clause may print a whole description sentence as a retrieval term; a
-    page selector needs short lexical anchors, so sentences are split and
-    over-long fragments are dropped.
+    Preserve the full phrase and split anchors. No silent length/count truncation.
     """
     out: list[str] = []
     for term in terms or ():
+        if str(term).strip():
+            out.append(str(term).strip())
         for part in re.split(r"[。；;，,、|/\n]", str(term)):
             part = part.strip()
-            if 2 <= len(part) <= 40:
+            if part:
                 out.append(part)
-    return list(dict.fromkeys(out))[:16]
+    return list(dict.fromkeys(out))
 
 
 _PERIOD_RANGE = re.compile(
@@ -217,11 +217,12 @@ class ClausePageSelector:
             from esg_contracts.search import PageSearchIntent
 
             targets = [PageSearchIntent.model_validate(v) for v in self.search_targets]
+            self.search_targets = [target.model_dump(mode="json") for target in targets]
             keyword_groups = tuple(
                 KeywordGroup(
                     t.target_id,
-                    tuple(_page_terms(t.positive_terms)),
-                    tuple(_page_terms(t.supporting_terms)),
+                    tuple(_page_terms([*t.positive_terms, *t.exact_terms, *t.structural_anchors])),
+                    tuple(_page_terms([*t.supporting_terms, *t.context_terms, *[term for group in [*t.topic_term_groups, *t.role_term_groups] for term in group]])),
                     bool(t.method_terms),
                     t.data_kind,
                 )
@@ -283,6 +284,8 @@ class ClausePageSelector:
             "min_text_chars": self.min_text_chars,
             "min_text_page_ratio": self.min_text_page_ratio,
             "max_coverage_ratio": self.max_coverage_ratio,
+            "search_targets": self.search_targets,
+            "page_deferred_fields": ["source_priority", "expected_candidate_types", "excluded_object_terms"],
         }
 
     def select(

@@ -5,6 +5,7 @@ import type {
   SourceFact,
   ReportList,
   SourceFact_ReportedField,
+  CandidateRejection,
 } from "../../shared/contracts";
 import { useResource, invalidate } from "../../shared/resource";
 import { segment, write } from "../../shared/api";
@@ -75,7 +76,8 @@ export function ExtractionPage({
     }
   }, [run?.status, results.reload, organized.reload]);
   const reports = useResource<ReportList>("document", "/api/report-resources");
-  const tab = ["results", "facts", "coverage", "details"].includes(tabId || "")
+  const candidates = useResource<CandidateRejection[]>("document", run ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null, active ? 4000 : 0);
+  const tab = ["results", "facts", "coverage", "details", "candidates"].includes(tabId || "")
     ? tabId!
     : "results";
   const [confirmCancel, setConfirmCancel] = useState(false),
@@ -290,6 +292,7 @@ export function ExtractionPage({
                       label: `原始事实 · ${results.data?.facts.length || 0}`,
                     },
                     { id: "coverage", label: "覆盖情况" },
+                    { id: "candidates", label: `未纳入候选 · ${candidates.data?.length || 0}` },
                     { id: "details", label: "运行记录" },
                   ]}
                 />
@@ -371,6 +374,7 @@ export function ExtractionPage({
                     )}
                   </>
                 )}
+                {tab === "candidates" && <><ReadError error={candidates.error} retry={candidates.reload}/>{candidates.data?.length ? <div className="table-scroll"><table className="data-table"><thead><tr><th>条款</th><th>候选字串</th><th>PDF页</th><th>类型</th><th>处置原因</th></tr></thead><tbody>{candidates.data.map((c,i) => <tr key={i}><td>{c.clause_key}</td><td>{c.value_raw || "—"}</td><td>{c.page_index == null ? "—" : c.page_index + 1}</td><td>{({formula:"化学式",identifier:"编号",footnote:"脚注",date:"日期",unresolved:"未证实为测量"} as Record<string,string>)[c.candidate_kind] || c.candidate_kind}</td><td>{c.reason}</td></tr>)}</tbody></table></div> : <Empty title="没有被排除的数字候选"/>}</>}
                 {tab === "details" && (
                   <section className="section">
                     <dl className="detail-list">
@@ -425,7 +429,7 @@ export function ExtractionPage({
               <>
                 <ReadError error={organized.error} retry={organized.reload} />
                 {table ? (
-                  <OrganizedTable table={table} sessionId={sessionId} />
+                  <OrganizedTable table={table} sessionId={sessionId} facts={results.data?.facts} />
                 ) : organized.data ? (
                   <Empty title="此条款尚无结果" />
                 ) : (
@@ -497,7 +501,7 @@ export function ExtractionPage({
                       ))}
                     {(fact.flags?.length || 0) > 0 && (
                       <details>
-                        <summary>待核对项 · {fact.flags?.length}</summary>
+                        <summary>属性与比较说明 · {fact.flags?.length}</summary>
                         <ul>
                           {fact.flags?.map((f) => (
                             <li key={f}>{f}</li>
