@@ -2,7 +2,6 @@
 
 import os
 from pathlib import Path
-from esg_runtime.layout import EXTRACT_ROOT, CLAUSES_ROOT, PROJECT_ROOT, EXTRACTIONS_ROOT, CONTROL_ROOT
 from esg_clauses.repository import ClauseRepository
 from .state import RunStore
 from .adapters.artifacts import FileArtifactPort
@@ -10,13 +9,27 @@ from .adapters.document import HttpDocumentPort
 
 
 def resources():
-    root = Path(
-        os.getenv("ESG_EXTRACTION_DATA_ROOT", str(EXTRACTIONS_ROOT))
-    )
+    data = os.getenv("ESG_DATA_ROOT")
+    clauses = os.getenv("ESG_CLAUSE_ROOT")
+    if not data or not clauses:
+        from esg_runtime.layout import DATA_ROOT, CLAUSES_ROOT
+
+        data = data or str(DATA_ROOT)
+        clauses = clauses or str(CLAUSES_ROOT)
+    data_root = Path(data)
     return (
-        ClauseRepository(os.getenv("ESG_CLAUSE_ROOT", str(CLAUSES_ROOT))),
-        RunStore(Path(os.getenv("ESG_EXTRACTION_RUNS_DB", str(CONTROL_ROOT / "extractions.sqlite3")))),
-        FileArtifactPort(root),
+        ClauseRepository(clauses),
+        RunStore(
+            Path(
+                os.getenv(
+                    "ESG_EXTRACTION_RUNS_DB",
+                    str(data_root / "control/extractions.sqlite3"),
+                )
+            )
+        ),
+        FileArtifactPort(
+            Path(os.getenv("ESG_EXTRACTION_DATA_ROOT", str(data_root / "extractions")))
+        ),
         HttpDocumentPort(
             os.getenv("ESG_DOCUMENT_BACKEND_URL", "http://127.0.0.1:18080")
         ),
@@ -24,21 +37,18 @@ def resources():
 
 
 def engine_digest():
-    import hashlib
+    from esg_runtime.release import package_digest
 
-    paths = [
-        path
-        for module in ("extraction", "contracts", "shared_runtime")
-        for path in (EXTRACT_ROOT / module / "src").rglob("*.py")
-    ]
-    paths.extend((PROJECT_ROOT / "ClauseESG/src").rglob("*.py"))
-    value = hashlib.sha256()
-    for path in sorted(paths):
-        value.update(path.relative_to(PROJECT_ROOT).as_posix().encode())
-        value.update(b"\0")
-        value.update(path.read_bytes())
-        value.update(b"\0")
-    return value.hexdigest()
+    return package_digest(
+        (
+            "esg_extraction",
+            "esg_contracts",
+            "esg_data",
+            "esg_reports",
+            "esg_runtime",
+            "esg_clauses",
+        )
+    )
 
 
 def execute(run_id, *, model=None):
@@ -97,12 +107,19 @@ def execute(run_id, *, model=None):
             .isoformat(),
         )
         from .exporting import seal_export
+
         try:
             manifest = seal_export(run_id, store, artifacts)
-            result = store.update(run_id, delivery={"export_id": manifest.export_id, "state": "prepared"},
-                export_download_url=f"/api/runs/{run_id}/exports/{manifest.export_id}")
+            result = store.update(
+                run_id,
+                delivery={"export_id": manifest.export_id, "state": "prepared"},
+                export_download_url=f"/api/runs/{run_id}/exports/{manifest.export_id}",
+            )
         except (ValueError, OSError):
-            result = store.update(run_id, delivery={"state": "failed", "message": "原值已保存，导出准备失败。"})
+            result = store.update(
+                run_id,
+                delivery={"state": "failed", "message": "原值已保存，导出准备失败。"},
+            )
         return result
     except PipelineCancelled:
         return store.update(run_id, status="cancelled")

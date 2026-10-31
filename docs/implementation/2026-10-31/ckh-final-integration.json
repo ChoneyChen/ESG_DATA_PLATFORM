@@ -1,0 +1,112 @@
+{
+  "schema_version": "pdf-integration-verification-1.0",
+  "session_id": "extract-plan-9a86a74d74b64d01b7982d9fcee2dfad",
+  "run_id": "extract-2b28992f3fcbe8fd2fde5da916d04a6d",
+  "source_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+  "engine_fingerprint": "cabd7bc8016fe289978f9f2b21a6cc9aa5d497c14afaff0a1d4ca4116c565ba7",
+  "summary": {
+    "selected_clauses": 1,
+    "processed_clauses": 1,
+    "source_facts": 222,
+    "quantitative": 222,
+    "qualitative": 0,
+    "model_calls": 2,
+    "elapsed_seconds": 291.196,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "insufficient_context",
+      "target_facts": 45,
+      "other_facts": 177,
+      "unresolved_facts": 0,
+      "rejected_candidates": 2,
+      "periods": {
+        "2023": 75,
+        "2024": 75,
+        "2025": 72
+      }
+    }
+  },
+  "receipt": {
+    "status": "accepted",
+    "accepted_facts": 222,
+    "rejected_facts": 0
+  },
+  "projection": {
+    "schema_version": "capture-projection-1.0",
+    "projection_id": "projection-f1b09ae2dee9b73a673f79c56555e32014308eebc95ba2f73df8ec6847a84d33",
+    "export_id": "export-4fac414d0551463f83b47d1cd1d26753ba96db0ceb79b977de50059a819e0bf6",
+    "input_digest": "5dd47c1e653d101c2ce6521ad37ad4770baeb977e27c9eef288e3e73c666ff7e",
+    "transform_version": "capture-observation-1.0",
+    "content_digest": "28d63d75b8bdd0675d9bd076c27366e09254ff0878a20fe87a2eb5df9ac5e2c9",
+    "source": {
+      "document_id": "doc-sha256-c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+      "pdf_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+      "pdf_id": "pdf-c3dcf5367cffdc59d0eb4b3d",
+      "title": "2025 Sustainability Report",
+      "report_company": "CK Hutchison Holdings Limited",
+      "publication_year": null,
+      "resource_revision": 2,
+      "report_company_id": "org:ck-hutchison",
+      "industry": null,
+      "reporting_year": 2025
+    },
+    "facts": 222,
+    "observations": 222,
+    "periods": {
+      "2023": 75,
+      "2024": 75,
+      "2025": 72
+    },
+    "relations": {
+      "match": 45,
+      "different": 177
+    },
+    "repeated_occurrences": 0,
+    "diagnostics": []
+  },
+  "raw_complete_json_equal": true,
+  "raw_page_count": 4,
+  "observation_page_count": 4,
+  "research_exports": {
+    "csv": {
+      "facts": 222,
+      "periods": {
+        "2024": 75,
+        "2025": 72,
+        "2023": 75
+      },
+      "exact_raw_equal": true
+    },
+    "parquet": {
+      "facts": 222,
+      "periods": {
+        "2024": 75,
+        "2025": 72,
+        "2023": 75
+      },
+      "exact_raw_equal": true
+    }
+  },
+  "auto_publish": false,
+  "published_dataset_count": 0,
+  "scope": {
+    "available_pages": [
+      0,
+      1,
+      2,
+      98,
+      99,
+      167,
+      168,
+      169
+    ],
+    "mode": "targeted",
+    "report_wide_absence_proven": false,
+    "source_page_count": 209
+  },
+  "not_whole_report_recall": true
+}

@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-31T11:12:06.725796+00:00",
+  "reason": "Remove all superseded debugging runs before final current-contract acceptance; preserve original 18 PDF blobs and registry. Final current runs will be recreated through normal APIs.",
+  "services_stopped": true,
+  "roots": [
+    {
+      "path": ".local/data/control",
+      "files": 33,
+      "bytes": 1731060
+    },
+    {
+      "path": ".local/data/documents",
+      "files": 235,
+      "bytes": 27786511
+    },
+    {
+      "path": ".local/data/extractions",
+      "files": 486,
+      "bytes": 15519627
+    },
+    {
+      "path": ".local/data/databases",
+      "files": 1072,
+      "bytes": 63938655
+    },
+    {
+      "path": ".local/data/logs",
+      "files": 6,
+      "bytes": 361613
+    }
+  ],
+  "original_pdf_count": 18
+}

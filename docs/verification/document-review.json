@@ -7,7 +7,7 @@
     {
       "path": "ClauseESG/README.md",
       "role": "module",
-      "sha256": "d3e847f299dd96bd600ee56459ab6ac844c1de20bc261f2c931a024c490b6a74",
+      "sha256": "7d2704f0d5fa04865005af6f133d8d87f7717400c7e1ff76104672743fcdecda",
       "lines": 15,
       "decision": "一条一整体与独立SDK；结构条目非执行；命名集合仅选择。",
       "current_link_errors": []
@@ -23,8 +23,8 @@
     {
       "path": "ExtractESG/README.md",
       "role": "module",
-      "sha256": "1c7ee10a851089e530c4a1b9e91e612d12f74b4ed24a8d1b3a0e79747d640b73",
-      "lines": 17,
+      "sha256": "33f1e818e77c7d36ce5f5e5af71101eb635bfa0e3ff0772f3abe53d911f39a34",
+      "lines": 19,
       "decision": "一条骨干、两类值、端口和当前安装入口；无大包分支。",
       "current_link_errors": []
     },
@@ -71,8 +71,8 @@
     {
       "path": "README.md",
       "role": "entry",
-      "sha256": "6267cc810d91337e2b3209fbdb21ffddb8f4e555520c65fcedbcb6079533bb17",
-      "lines": 32,
+      "sha256": "4f79e18556cc196850f99f4d0d355b62b24c9f15b3dbf9033dfb88580984aa42",
+      "lines": 34,
       "decision": "模块与五服务入口；全年份、独立条款和当前进度，未宣称全局科学验收。",
       "current_link_errors": []
     },
@@ -119,8 +119,8 @@
     {
       "path": "docs/architecture/README.md",
       "role": "normative",
-      "sha256": "ec0a028c5e8146402747e6802210c59dc05b10f4547ca60473acf5030a0914ce",
-      "lines": 64,
+      "sha256": "a128b779f0d2623ba97174b34184e039eb2417a06c6d1ecda96214f89f297de0",
+      "lines": 66,
       "decision": "每模块所有权、当前接口/版本、依赖方向与宽容捕获。",
       "current_link_errors": []
     },
@@ -135,15 +135,15 @@
     {
       "path": "docs/architecture/models.md",
       "role": "normative",
-      "sha256": "eb6166c3d96a57670b56473cbd4702c4c69101ff6e3efcf27f0d9f68ea22c7a1",
-      "lines": 32,
+      "sha256": "19c78d2ce778654b85478358558144a1f4b87ae7293a159493d7ed4a428e3473",
+      "lines": 34,
       "decision": "当前本地模型、执行信封、预算、条款搜索；不复用理解，不编造提速。",
       "current_link_errors": []
     },
     {
       "path": "docs/architecture/organization.md",
       "role": "normative",
-      "sha256": "6c59f13b8e64e8746d4d7e282360a82ae60ff76539a5116cc33413bebe3fc098",
+      "sha256": "3e3a81dab7f9f52d253ff858bca3656dac6b62ae98df473e9d7f2d352f05ccb7",
       "lines": 121,
       "decision": "修正条款1.3；组织可重建、矩阵不聚合，原值和目标身份分列。",
       "current_link_errors": []
@@ -183,7 +183,7 @@
     {
       "path": "docs/guides/clause-authoring.md",
       "role": "guide",
-      "sha256": "607873f08cbd6ac6c258e7c9a601fa4618d6fdb7c58e816f01ef62fc7aa62831",
+      "sha256": "40575f3fec397a9ae5f5e746bed7ab35917e93ff121ad65bc067a7c4bdd10991",
       "lines": 55,
       "decision": "从模板制作完整单条；全期间、可选属性、词典、结构描述与真实样本验收。",
       "current_link_errors": []
@@ -191,8 +191,8 @@
     {
       "path": "docs/guides/local-operation.md",
       "role": "guide",
-      "sha256": "fbf36b2e65ab294153aad937e61a4eb2e19807213941799505ca6374dc91e226",
-      "lines": 69,
+      "sha256": "b1a174f6d46b1ca953541a02427d3759093ba5a68ff22e06ac312a5756c34a31",
+      "lines": 71,
       "decision": "Console归属统一启动器、五服务、显式新库与数据根，禁止启动隐式迁移。",
       "current_link_errors": []
     },

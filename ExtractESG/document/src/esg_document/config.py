@@ -22,7 +22,6 @@ DOCUMENT_IR_JOB_STATE_ROOT = CONTROL_ROOT / "jobs" / "ir"
 WORKSPACE_ROOT = STABLE_WORKSPACE_ROOT
 PLATFORM_RUNTIME_ROOT = CONTROL_ROOT
 REPORT_ASSET_ROOT = REPORTS_ROOT / "blobs"
-EXTRACTION_ROOT = EXTRACT_ROOT / "extraction"
 
 
 def env_bool(name: str, default: bool) -> bool:
@@ -97,11 +96,6 @@ class Settings:
                 "ESG_PIPELINE_TASK_DIR",
                 str(PLATFORM_RUNTIME_ROOT / "tasks"),
             )
-        ).expanduser()
-    )
-    extraction_root: Path = field(
-        default_factory=lambda: Path(
-            os.getenv("ESG_EXTRACTION_ROOT", str(EXTRACTION_ROOT))
         ).expanduser()
     )
     extraction_python: Path = field(

@@ -30,3 +30,5 @@ ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ConsoleESG/scripts/start.sh
 1,126个独立声明：281定量、832定性、13非执行结构描述；37项已逐条归类，当前零技术阻塞。99展示组、16/32等集合仅组织ID，不产生专用路线；技术就绪与科学样本验收分开。自动发布关闭；CrawlESG保护区不接入。
 
 桌面入口更新：运行 `ExtractESG/.local/python/bin/python ConsoleESG/scripts/install_desktop_launcher.py`。双击“启动ESG统一工作台.command”后台启动并打开Console；同一入口支持 `status --json`、`stop`、`restart`。关闭终端不停止服务。
+
+模型worker使用离线安装的合同/条款/运行时与提取应用包，不拼接兄弟源码路径；代码指纹按实际安装包内容计算。安装入口会更新所配置MLX Python中的本项目包，不安装或替换第三方模型依赖。队列与worker共用运行时执行锁；worker不能绕过队列直接启动模型。

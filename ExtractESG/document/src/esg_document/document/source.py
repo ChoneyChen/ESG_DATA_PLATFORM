@@ -48,6 +48,8 @@ class DocumentIrLoader:
     def load(self, root: Path, *, require_ready: bool = True) -> LoadedDocumentIr:
         root = root.resolve()
         manifest = read_json(root / "manifest.json")
+        if manifest.get("package_type") != "document-ir-revision" or manifest.get("package_schema_version") != "document-ir-package-v1":
+            raise ValueError("Only the current Document IR package is supported")
         schema_version = str(manifest.get("schema_version", ""))
         if schema_version != self.supported_schema_version:
             raise ValueError(f"unsupported Document IR schema: {schema_version}")
@@ -85,10 +87,8 @@ class DocumentIrLoader:
                 if item.get("path")
             ]
 
-        def optional_records(key):
-            entry = entrypoints.get(key)
-            if not entry:
-                return list(document.get(key) or [])
+        def records(key):
+            entry = entrypoints[key]
             index = read_json(self._resolve(root, entry))
             return [
                 read_json(self._resolve(root, item["path"]))
@@ -96,14 +96,9 @@ class DocumentIrLoader:
                 if item.get("path")
             ]
 
-        logical_tables = optional_records("logical_tables")
-        spreads = optional_records("spreads")
-        artifact_index_path = root / "artifacts" / "index.json"
-        artifacts = (
-            read_json(artifact_index_path).get("artifacts", [])
-            if artifact_index_path.is_file()
-            else []
-        )
+        logical_tables = records("logical_tables")
+        spreads = records("spreads")
+        artifacts = read_json(self._resolve(root, entrypoints["artifacts"])).get("artifacts", [])
         sections = document.get("sections", [])
         availability = {
             a["object_id"]: a

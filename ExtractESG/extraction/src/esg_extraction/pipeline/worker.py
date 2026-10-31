@@ -2,6 +2,7 @@
 
 import argparse, os, signal
 from esg_contracts.worker import encode_event
+from esg_runtime.execution_slot import inherited_slot_is_valid
 from .runtime import execute
 from .engine import PipelineCancelled
 
@@ -10,6 +11,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("run_id")
     args = parser.parse_args()
+    if not inherited_slot_is_valid():
+        raise RuntimeError("Worker requires the unified queue inherited execution slot")
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
 

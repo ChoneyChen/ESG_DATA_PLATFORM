@@ -355,7 +355,7 @@ def test_restart_honors_a_finished_native_job_before_interrupting(tmp_path: Path
 
 
 def test_scheduler_leaves_task_queued_while_shared_slot_is_busy(tmp_path: Path) -> None:
-    from esg_pipeline.execution_slot import ExecutionSlot
+    from esg_runtime.execution_slot import ExecutionSlot
 
     store = PipelineQueueStore(tmp_path / "queue.sqlite3")
     _create_task(store, "pt-slot-busy")
@@ -379,16 +379,17 @@ def test_scheduler_leaves_task_queued_while_shared_slot_is_busy(tmp_path: Path) 
 
 
 
-def test_backbone_worker_has_only_run_identity_and_local_runtime(tmp_path):
+def test_backbone_worker_has_only_run_identity_and_local_runtime(tmp_path,monkeypatch):
+    monkeypatch.delenv("PYTHONPATH",raising=False)
     hooks=object.__new__(PlatformTaskHooks)
-    hooks.settings=SimpleNamespace(extraction_python=Path(sys.executable),extraction_root=tmp_path/'targeted_table_extract')
+    hooks.settings=SimpleNamespace(extraction_python=Path(sys.executable),pipeline_task_root=tmp_path/'worker-data')
     store=PipelineQueueStore(tmp_path/'queue.db')
     task=store.create(task_id='pt-one',task_type=PipelineTaskType.TARGETED_EXTRACTION,operation='clause_extraction',title='提取',payload={'run_id':'extract-one'},native_job_id='extract-one')
     command=hooks.command(task,{})
     assert command.argv[-2:]==['esg_extraction.pipeline.worker','extract-one']
     assert command.environment['HF_HUB_OFFLINE']=='1'
-    assert 'standards' not in command.environment['PYTHONPATH']
-    assert str(tmp_path.parent/'ClauseESG/src') in command.environment['PYTHONPATH']
+    assert 'PYTHONPATH' not in command.environment
+    assert command.cwd==tmp_path/'worker-data'
     task.operation='run'
     with pytest.raises(ValueError,match='Retired'):hooks.command(task,{})
 
@@ -397,6 +398,7 @@ def test_backbone_worker_has_only_run_identity_and_local_runtime(tmp_path):
 def test_current_extraction_worker_result_is_consumed_by_real_scheduler(tmp_path,monkeypatch,capsys,native_status):
     from esg_extraction.pipeline import worker
     monkeypatch.setattr(sys,'argv',['esg-extraction','extract-protocol-fixture'])
+    monkeypatch.setattr(worker,'inherited_slot_is_valid',lambda:True)
     monkeypatch.setattr(worker,'execute',lambda _:{'run_id':'extract-protocol-fixture','status':native_status,'progress':{'current':1,'total':1},'summary':{'selected_clauses':1,'processed_clauses':1,'source_facts':1}})
     monkeypatch.setattr(worker.signal,'signal',lambda *_:None)
     worker.main()
@@ -415,3 +417,12 @@ def test_current_extraction_worker_result_is_consumed_by_real_scheduler(tmp_path
         assert task.error is None
     finally:
         scheduler.stop()
+
+
+def test_extraction_worker_cannot_bypass_the_shared_model_slot(monkeypatch):
+    from esg_extraction.pipeline import worker
+    monkeypatch.setattr(sys, 'argv', ['esg-extraction', 'extract-test'])
+    monkeypatch.setattr(worker, 'inherited_slot_is_valid', lambda: False)
+    monkeypatch.setattr(worker, 'execute', lambda _: pytest.fail('Must reject before execution'))
+    with pytest.raises(RuntimeError, match='execution slot'):
+        worker.main()

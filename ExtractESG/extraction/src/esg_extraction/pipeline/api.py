@@ -101,9 +101,8 @@ def create_app(resource_factory=resources):
         )
 
     from esg_runtime.release import RuntimeRelease
-    from esg_runtime.layout import EXTRACT_ROOT
 
-    release = RuntimeRelease(EXTRACT_ROOT, "extraction-backend")
+    release = RuntimeRelease(None, "extraction-backend")
     started_engine = engine_digest()
 
     def require_current_engine():

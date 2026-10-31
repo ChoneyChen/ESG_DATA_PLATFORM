@@ -14,9 +14,9 @@
       "path": "ClauseESG/README.md",
       "owner": "ClauseESG",
       "role": "documentation",
-      "bytes": 1552,
+      "bytes": 1618,
       "lines": 15,
-      "sha256": "d3e847f299dd96bd600ee56459ab6ac844c1de20bc261f2c931a024c490b6a74"
+      "sha256": "7d2704f0d5fa04865005af6f133d8d87f7717400c7e1ff76104672743fcdecda"
     },
     {
       "path": "ClauseESG/clauses/BP-1/BP-1_01/clause.json",
@@ -10479,17 +10479,33 @@
       "path": "ConsoleESG/scripts/install_local.sh",
       "owner": "ConsoleESG",
       "role": "implementation",
-      "bytes": 430,
-      "lines": 7,
-      "sha256": "ae9f621bb2c0097a8a87d2b5856cee6831900dff9bded70d1311d58bb862bdc0"
+      "bytes": 496,
+      "lines": 9,
+      "sha256": "6e973642b27e73bfb278c0fae6fbc75e6aaa1dcb1a514fd4324e8acb29ae87e6"
+    },
+    {
+      "path": "ConsoleESG/scripts/install_worker.py",
+      "owner": "ConsoleESG",
+      "role": "implementation",
+      "bytes": 2403,
+      "lines": 79,
+      "sha256": "beb62dc813b41b3aa699016bd3502094b5748929b687a5ee8ebb3e07ce40e612",
+      "imports": [
+        "os",
+        "pathlib",
+        "shutil",
+        "subprocess",
+        "sys",
+        "tempfile"
+      ]
     },
     {
       "path": "ConsoleESG/scripts/run_service.sh",
       "owner": "ConsoleESG",
       "role": "implementation",
-      "bytes": 1752,
+      "bytes": 1525,
       "lines": 23,
-      "sha256": "c65099c892c1dbebe1a56efeb1ae05fabc90eaa5e97bc033496f1c7ca6604fd3"
+      "sha256": "5f17e42fe69622a0703c2ef8d8b9c0fd346192ef23da1ae5ec69b16c8a7b1fc8"
     },
     {
       "path": "ConsoleESG/scripts/serve_workbench_frontend.py",
@@ -10522,9 +10538,9 @@
       "path": "ConsoleESG/scripts/workbench.py",
       "owner": "ConsoleESG",
       "role": "implementation",
-      "bytes": 13037,
-      "lines": 264,
-      "sha256": "30966dffd267151de72918e155ef200dc7cf39029576187dd5f56a999d3bf3bf",
+      "bytes": 12917,
+      "lines": 262,
+      "sha256": "bcd884af4cc80d753276caf59c583df86a8c0c076c815c4c693b9b6e44109cb6",
       "imports": [
         "__future__",
         "argparse",
@@ -10549,9 +10565,9 @@
       "path": "ExtractESG/README.md",
       "owner": "ExtractESG",
       "role": "documentation",
-      "bytes": 1422,
-      "lines": 17,
-      "sha256": "1c7ee10a851089e530c4a1b9e91e612d12f74b4ed24a8d1b3a0e79747d640b73"
+      "bytes": 1766,
+      "lines": 19,
+      "sha256": "33f1e818e77c7d36ce5f5e5af71101eb635bfa0e3ff0772f3abe53d911f39a34"
     },
     {
       "path": "ExtractESG/contracts/examples/report-batch/README.md",
@@ -11312,9 +11328,9 @@
       "path": "ExtractESG/document/src/esg_document/config.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 13645,
-      "lines": 392,
-      "sha256": "969300b4f0d3b8cbcab59bcaa6a89c21908841fbc99cf3827f8a71a811566dce",
+      "bytes": 13430,
+      "lines": 386,
+      "sha256": "e75035a345dff11d55d9f352e0c7d92b299cd4a86b2fbe0e10b345c437cb77b9",
       "imports": [
         "__future__",
         "dataclasses",
@@ -12082,9 +12098,9 @@
       "path": "ExtractESG/document/src/esg_document/document/source.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 8302,
-      "lines": 230,
-      "sha256": "43876182178096184b80135abeec67d544a3e04e9e6d89fde72ab5e3bd9e94df",
+      "bytes": 8284,
+      "lines": 225,
+      "sha256": "7ee7726574a267d7bb660eba56c43959371b4f0161ca354b2adf2a133a1dc856",
       "imports": [
         "__future__",
         "dataclasses",
@@ -12731,11 +12747,10 @@
       "path": "ExtractESG/document/src/esg_document/runtime_compatibility.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 607,
-      "lines": 18,
-      "sha256": "3a802e1cc29e1c05cd93a1a2159e71d9c9f59f025602df9edf584bf25fdbbb1c",
+      "bytes": 555,
+      "lines": 17,
+      "sha256": "5d9c54bcaae383689f2ebe2efde03ca1974a67cc862a2653b1e4e670d742e1f2",
       "imports": [
-        "esg_runtime.layout",
         "esg_runtime.release"
       ]
     },
@@ -13579,20 +13594,20 @@
       "path": "ExtractESG/document/tests/test_pipeline_control_plane.py",
       "owner": "ExtractESG/document",
       "role": "isolated_verification",
-      "bytes": 18304,
-      "lines": 417,
-      "sha256": "4069ce5df8d886713c11c7d9f41acf216a5615444196611369de69f8fb7b0bca",
+      "bytes": 18832,
+      "lines": 428,
+      "sha256": "3169c6172ff6b4ab61a8753172084627042af49f9d25ceb55e7dabe010c061ce",
       "imports": [
         "__future__",
         "esg_document.assets.report_catalog",
         "esg_document.utils.hashing",
         "esg_extraction.pipeline",
         "esg_pipeline.contracts",
-        "esg_pipeline.execution_slot",
         "esg_pipeline.hooks",
         "esg_pipeline.scheduler",
         "esg_pipeline.secrets",
         "esg_pipeline.store",
+        "esg_runtime.execution_slot",
         "io",
         "json",
         "os",
@@ -14124,9 +14139,9 @@
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
       "owner": "ExtractESG/extraction",
       "role": "implementation",
-      "bytes": 15525,
-      "lines": 432,
-      "sha256": "213d8e2beba7b7413fe1c12c83e819a291cceaee2573f22a3fc18cde520bb0d1",
+      "bytes": 15469,
+      "lines": 431,
+      "sha256": "c71ddd3135fd19e32e7dfd495f245ef5f8cb5ddabc072ee332cc78b4dc5bcbab",
       "imports": [
         "contextlib",
         "datetime",
@@ -14140,7 +14155,6 @@
         "esg_contracts.results",
         "esg_contracts.sessions",
         "esg_data.organization",
-        "esg_runtime.layout",
         "esg_runtime.local_operator",
         "esg_runtime.release",
         "fastapi",
@@ -14204,9 +14218,9 @@
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/engine.py",
       "owner": "ExtractESG/extraction",
       "role": "implementation",
-      "bytes": 36196,
-      "lines": 637,
-      "sha256": "4e3ba6ac693b50403560857700497c21e5d97656ca082aaf3e8d1ab8a3ccbd11",
+      "bytes": 36569,
+      "lines": 641,
+      "sha256": "aed734bc2d14ecb83bfd266bd1482dcf043ddd2e11c37a67d0490e1c3e89f600",
       "imports": [
         "__future__",
         "collections",
@@ -14315,15 +14329,15 @@
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/runtime.py",
       "owner": "ExtractESG/extraction",
       "role": "implementation",
-      "bytes": 4317,
-      "lines": 115,
-      "sha256": "c2b48c5c876bd09bd20462c2357c7377e885170c72fa38f3fb3e76e760448bdc",
+      "bytes": 4433,
+      "lines": 132,
+      "sha256": "e3f207bcb23bc6717c8bd2cb4a6afb8992b034202a3affe1b47180a74ce8a743",
       "imports": [
         "esg_clauses.repository",
         "esg_contracts.evidence",
         "esg_contracts.facts",
         "esg_runtime.layout",
-        "hashlib",
+        "esg_runtime.release",
         "os",
         "pathlib"
       ]
@@ -14364,12 +14378,13 @@
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/worker.py",
       "owner": "ExtractESG/extraction",
       "role": "implementation",
-      "bytes": 939,
-      "lines": 36,
-      "sha256": "1b163ca82b61b9ca4875f51d045c69437744fc5a1bc315fa992336dc86eed1ff",
+      "bytes": 1129,
+      "lines": 39,
+      "sha256": "fdcb282e46695d917c5914f8265cfc937146ea09a0ba33e33f3c1f9dd0056fb9",
       "imports": [
         "argparse",
         "esg_contracts.worker",
+        "esg_runtime.execution_slot",
         "os",
         "signal"
       ]
@@ -14406,9 +14421,9 @@
       "path": "ExtractESG/extraction/tests/test_backbone.py",
       "owner": "ExtractESG/extraction",
       "role": "isolated_verification",
-      "bytes": 8533,
-      "lines": 129,
-      "sha256": "18c191567a056f54edf3bdc0368545d8d4b688b990e1b426f84fecb64d0455f0",
+      "bytes": 8844,
+      "lines": 130,
+      "sha256": "864db7e538de14c5470b4f7752beb4464a862e7360ba5a651c48ff37c3039f4f",
       "imports": [
         "esg_clauses.repository",
         "esg_clauses.scope",
@@ -14525,9 +14540,9 @@
       "path": "ExtractESG/extraction/tests/test_frame_budget.py",
       "owner": "ExtractESG/extraction",
       "role": "isolated_verification",
-      "bytes": 3615,
-      "lines": 60,
-      "sha256": "614b25690c0149fb6f8e42009df23ede54cf3d2e292588a75b8d34256ff7f1af",
+      "bytes": 3814,
+      "lines": 63,
+      "sha256": "8963aa1eccb5a0354c961c7c706678c45ae3d96fa402579c02920a8a936d78e9",
       "imports": [
         "esg_contracts.evidence",
         "esg_contracts.facts",
@@ -14729,20 +14744,6 @@
       ]
     },
     {
-      "path": "ExtractESG/pipeline/src/esg_pipeline/execution_slot.py",
-      "owner": "ExtractESG/pipeline",
-      "role": "implementation",
-      "bytes": 1436,
-      "lines": 45,
-      "sha256": "d2e905752b6733e58ea696bd2fa5ff12c0fcbc02e0096cf61f77e946cd6fb7b3",
-      "imports": [
-        "__future__",
-        "fcntl",
-        "os",
-        "pathlib"
-      ]
-    },
-    {
       "path": "ExtractESG/pipeline/src/esg_pipeline/extraction.py",
       "owner": "ExtractESG/pipeline",
       "role": "implementation",
@@ -14765,9 +14766,9 @@
       "path": "ExtractESG/pipeline/src/esg_pipeline/hooks.py",
       "owner": "ExtractESG/pipeline",
       "role": "implementation",
-      "bytes": 12558,
-      "lines": 301,
-      "sha256": "3a2615997d01f692b57a789dc4e27814a99b86199c4af1eeed3f7ca7768b1b54",
+      "bytes": 12115,
+      "lines": 293,
+      "sha256": "20aaebba993a8a1c822c59140b22f4fbaa1120a53deddd4c8a47f1a4f949867d",
       "imports": [
         "__future__",
         "esg_contracts.document",
@@ -14869,19 +14870,19 @@
       "path": "ExtractESG/pipeline/src/esg_pipeline/scheduler.py",
       "owner": "ExtractESG/pipeline",
       "role": "implementation",
-      "bytes": 33182,
+      "bytes": 33181,
       "lines": 857,
-      "sha256": "9025868d1e17cdc15ac51d7621f86edc932e227361673c773f19e10cbeb5eb4a",
+      "sha256": "92a9255d193a8c2e7fc58cb09ae3d8d2976ee9697d732c0fd3ba45e2d2973165",
       "imports": [
         "__future__",
         "dataclasses",
         "datetime",
         "esg_contracts.worker",
         "esg_pipeline.contracts",
-        "esg_pipeline.execution_slot",
         "esg_pipeline.progress",
         "esg_pipeline.secrets",
         "esg_pipeline.store",
+        "esg_runtime.execution_slot",
         "esg_runtime.power",
         "json",
         "os",
@@ -14970,9 +14971,9 @@
       "path": "ExtractESG/pipeline/src/esg_pipeline/worker.py",
       "owner": "ExtractESG/pipeline",
       "role": "implementation",
-      "bytes": 6326,
+      "bytes": 6325,
       "lines": 180,
-      "sha256": "118a35df9462b14f33474a4cf5c3e155909ce3bdef30bafe8e291f44ce5ffa8a",
+      "sha256": "41eb948308ffc73453230f6536240725cd86bcc47cc857ef907ea0c209d599f8",
       "imports": [
         "__future__",
         "argparse",
@@ -14984,7 +14985,7 @@
         "esg_document.runtime_telemetry",
         "esg_document.workflows.ir_workflow",
         "esg_document.workflows.ocr_workflow",
-        "esg_pipeline.execution_slot",
+        "esg_runtime.execution_slot",
         "esg_runtime.power",
         "json",
         "os",
@@ -15030,6 +15031,20 @@
       "bytes": 78,
       "lines": 1,
       "sha256": "da376fa089f675f958312168ca0576da8188e16d2309e0bab44fb4dce9dce07a"
+    },
+    {
+      "path": "ExtractESG/shared_runtime/src/esg_runtime/execution_slot.py",
+      "owner": "ExtractESG/shared_runtime",
+      "role": "implementation",
+      "bytes": 1449,
+      "lines": 45,
+      "sha256": "cbf045e28d3c2dc5cbc59b8d5cd10170dd609772f7857b306ef0ec52467e4e46",
+      "imports": [
+        "__future__",
+        "fcntl",
+        "os",
+        "pathlib"
+      ]
     },
     {
       "path": "ExtractESG/shared_runtime/src/esg_runtime/layout.py",
@@ -15138,13 +15153,14 @@
       "path": "ExtractESG/shared_runtime/src/esg_runtime/release.py",
       "owner": "ExtractESG/shared_runtime",
       "role": "implementation",
-      "bytes": 10431,
-      "lines": 253,
-      "sha256": "a4a584436d934517025aa47f47223f527a1daa3f3607b7519aefcb9ea2a420fa",
+      "bytes": 11749,
+      "lines": 309,
+      "sha256": "a95026b6aaff8aa32cb5c38ea9fd98ba838109c9f6774637de9cb8ed99379bf6",
       "imports": [
         "__future__",
         "argparse",
         "hashlib",
+        "importlib.util",
         "json",
         "pathlib",
         "sys",
@@ -15193,14 +15209,16 @@
       "path": "ExtractESG/shared_runtime/tests/test_model_calls.py",
       "owner": "ExtractESG/shared_runtime",
       "role": "isolated_verification",
-      "bytes": 2145,
-      "lines": 39,
-      "sha256": "96a959865cdec05da572c8e09885de9b7fcf5008ed17a0ebe8b1afc6b946d014",
+      "bytes": 3058,
+      "lines": 59,
+      "sha256": "f3e2f1a657e7f5c05ddb59457c972fa1b67c546a79806e46b4418be457b6b478",
       "imports": [
+        "esg_runtime",
         "esg_runtime.model_calls",
         "esg_runtime.release",
         "pytest",
-        "time"
+        "time",
+        "types"
       ]
     },
     {
@@ -15499,9 +15517,9 @@
       "path": "README.md",
       "owner": "root",
       "role": "documentation",
-      "bytes": 3042,
-      "lines": 32,
-      "sha256": "6267cc810d91337e2b3209fbdb21ffddb8f4e555520c65fcedbcb6079533bb17"
+      "bytes": 3386,
+      "lines": 34,
+      "sha256": "4f79e18556cc196850f99f4d0d355b62b24c9f15b3dbf9033dfb88580984aa42"
     },
     {
       "path": "database/README.md",
@@ -16200,9 +16218,9 @@
       "path": "docs/architecture/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 5030,
-      "lines": 64,
-      "sha256": "ec0a028c5e8146402747e6802210c59dc05b10f4547ca60473acf5030a0914ce"
+      "bytes": 5374,
+      "lines": 66,
+      "sha256": "a128b779f0d2623ba97174b34184e039eb2417a06c6d1ecda96214f89f297de0"
     },
     {
       "path": "docs/architecture/delivery.md",
@@ -16216,17 +16234,17 @@
       "path": "docs/architecture/models.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 3813,
-      "lines": 32,
-      "sha256": "eb6166c3d96a57670b56473cbd4702c4c69101ff6e3efcf27f0d9f68ea22c7a1"
+      "bytes": 4162,
+      "lines": 34,
+      "sha256": "19c78d2ce778654b85478358558144a1f4b87ae7293a159493d7ed4a428e3473"
     },
     {
       "path": "docs/architecture/organization.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 10942,
+      "bytes": 10957,
       "lines": 121,
-      "sha256": "6c59f13b8e64e8746d4d7e282360a82ae60ff76539a5116cc33413bebe3fc098"
+      "sha256": "3e3a81dab7f9f52d253ff858bca3656dac6b62ae98df473e9d7f2d352f05ccb7"
     },
     {
       "path": "docs/architecture/products.md",
@@ -16374,17 +16392,17 @@
       "path": "docs/guides/clause-authoring.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 4345,
+      "bytes": 4342,
       "lines": 55,
-      "sha256": "607873f08cbd6ac6c258e7c9a601fa4618d6fdb7c58e816f01ef62fc7aa62831"
+      "sha256": "40575f3fec397a9ae5f5e746bed7ab35917e93ff121ad65bc067a7c4bdd10991"
     },
     {
       "path": "docs/guides/local-operation.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 4425,
-      "lines": 69,
-      "sha256": "fbf36b2e65ab294153aad937e61a4eb2e19807213941799505ca6374dc91e226"
+      "bytes": 4769,
+      "lines": 71,
+      "sha256": "b1a174f6d46b1ca953541a02427d3759093ba5a68ff22e06ac312a5756c34a31"
     },
     {
       "path": "docs/guides/pdf-intake.md",
@@ -16507,12 +16525,44 @@
       "sha256": "4f9218840af8ddce73cd5ed078ef4458c1f06770168ae52806a1b25414ba9372"
     },
     {
+      "path": "docs/implementation/2026-10-31/catl-final-benchmark.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 3149,
+      "lines": 121,
+      "sha256": "b3397bc1008f8e043f293adcad28c15af87296787542d86cf33225bef399a20e"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/catl-final-integration.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 3366,
+      "lines": 126,
+      "sha256": "75d58f85f03b101235f5fbb1307773e1011644a4ad51c7481bd31d7397b82a38"
+    },
+    {
       "path": "docs/implementation/2026-10-31/ckh-compact-benchmark.json",
       "owner": "docs",
       "role": "configuration_or_asset",
       "bytes": 15429,
       "lines": 598,
       "sha256": "be903a4a8132ee56d456bc99211eec3a917834717bca01ab39c99cc08d5bdca0"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-final-benchmark.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 15429,
+      "lines": 598,
+      "sha256": "acff1b246f5f9933ff51dd7046d0d9272875892f97e5826c8e8466b10c455bda"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-final-integration.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 3117,
+      "lines": 112,
+      "sha256": "572cb054f2339a1ff8136086e2b6b9c724c12ddda0af2fd81bb394c36385bb19"
     },
     {
       "path": "docs/implementation/2026-10-31/ckh-integration.json",
@@ -16603,6 +16653,14 @@
       "sha256": "05e95e53d133fd2362bf881267296b8ff53886eee186599c10c4c33562ae4e3b"
     },
     {
+      "path": "docs/implementation/2026-10-31/runtime-cleanup-final-trials.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 787,
+      "lines": 33,
+      "sha256": "69d9b14965329d2ce93bbf73e42ba9c40c4e7442f1cd6b25bf7fa1706052edd0"
+    },
+    {
       "path": "docs/implementation/2026-10-31/runtime-cleanup-trials.json",
       "owner": "docs",
       "role": "configuration_or_asset",
@@ -16648,15 +16706,15 @@
       "role": "configuration_or_asset",
       "bytes": 10344,
       "lines": 249,
-      "sha256": "986f6f9b4c69d5e244f4af797c844d41d5b1bd4afceb0b082076c852bb6fb0f7"
+      "sha256": "fc7de597556a87336ae7b879c561402c1df82f08d4d363d5287e521f9a577c84"
     },
     {
       "path": "docs/verification/standalone.json",
       "owner": "docs",
       "role": "configuration_or_asset",
-      "bytes": 478,
-      "lines": 14,
-      "sha256": "d8fcf912fd36dac783c40b4600312f57c9168812901aa8373b0128089cfa021a"
+      "bytes": 631,
+      "lines": 17,
+      "sha256": "20e23dd642005c526bea1fadd2ffabfaef6f1c6b0318fb1ff321d2e1f6c3926c"
     },
     {
       "path": "tools/audit_documents.py",
@@ -16761,11 +16819,12 @@
       "path": "tools/verify_standalone.py",
       "owner": "tools",
       "role": "implementation",
-      "bytes": 4822,
-      "lines": 81,
-      "sha256": "c503dca07c060a43cb02ebafa449f61f108df138154a5af61b40d169fbe5f9c8",
+      "bytes": 7546,
+      "lines": 199,
+      "sha256": "b93624d1328def6ebbf603ac7f583a35403f0b6a11d8529eec98b7098f04a028",
       "imports": [
         "argparse",
+        "esg_extraction.pipeline.runtime",
         "json",
         "os",
         "pathlib",
@@ -16796,21 +16855,21 @@
   "counts": {
     "root": 4,
     "ClauseESG": 1247,
-    "ConsoleESG": 52,
+    "ConsoleESG": 53,
     "ExtractESG": 2,
     "ExtractESG/contracts": 44,
     "ExtractESG/document": 164,
     "ExtractESG/extraction": 43,
-    "ExtractESG/pipeline": 19,
+    "ExtractESG/pipeline": 18,
     "ExtractESG/scripts": 1,
-    "ExtractESG/shared_runtime": 13,
+    "ExtractESG/shared_runtime": 14,
     "PlatESG": 2,
     "PlatESG/backend": 7,
     "PlatESG/frontend": 21,
     "PlatESG/scripts": 1,
     "PlatESG/tests": 1,
     "database": 65,
-    "docs": 58,
+    "docs": 63,
     "tools": 6
   },
   "errors": [],

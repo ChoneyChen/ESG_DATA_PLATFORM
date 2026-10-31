@@ -44,7 +44,7 @@ Path("clause-draft.json").write_text(draft.model_dump_json(indent=2), encoding="
 
 ## 4. 保存、试跑、使用
 
-通过Console编辑/保存，系统更新索引与摘要。需要用API时，模板是`POST /api/clauses/template`，校验是`POST /api/clauses/validate`，保存是`PUT /api/clauses/{key}`；这些是提取服务18180的接口。更新已有条款需带`expected_digest`，不要手改索引或旧运行快照。
+通过Console编辑/保存，系统更新索引与摘要。需要用API时，模板是`POST /api/clauses/template`，校验是`POST /api/clauses/validate`，保存是`PUT /api/clauses/{key}`；这些是提取服务18180的接口。更新已有条款需带`expected_digest`，不要手改索引或运行输入。
 
 内容足以执行后才设技术ready，并用报告试跑；真实科学效果另行核验。每次运行自动冻结本条，后续编辑不会改写旧结果。选择这条不自动执行它的父条、兄弟条或展示组。
 

@@ -32,10 +32,6 @@ class PlatformTaskHooks(PipelineTaskHooks):
     def command(self, task: PipelineTask, secrets: dict[str, str]) -> WorkerCommand:
         environment = os.environ.copy()
         environment.update(secrets)
-        shared_runtime = self.settings.extraction_root.parent / "shared_runtime" / "src"
-        environment["PYTHONPATH"] = os.pathsep.join(
-            [str(shared_runtime), environment.get("PYTHONPATH", "")]
-        ).rstrip(os.pathsep)
         if task.task_type == PipelineTaskType.TARGETED_EXTRACTION:
             return self._targeted_command(task, environment)
 
@@ -267,11 +263,7 @@ class PlatformTaskHooks(PipelineTaskHooks):
     def _targeted_command(self, task, environment):
         if task.operation != "clause_extraction":
             raise ValueError("Retired extraction operation")
-        source = self.settings.extraction_root.parent
-        environment["PYTHONPATH"] = os.pathsep.join(
-            [*(str(source / name / "src") for name in ("extraction", "contracts", "shared_runtime")),
-             str(source.parent / "ClauseESG/src"), environment.get("PYTHONPATH", "")]
-        )
+        self.settings.pipeline_task_root.mkdir(parents=True, exist_ok=True)
         environment.update(HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
         return WorkerCommand(
             argv=[
@@ -280,7 +272,7 @@ class PlatformTaskHooks(PipelineTaskHooks):
                 "esg_extraction.pipeline.worker",
                 str(task.native_job_id),
             ],
-            cwd=source,
+            cwd=self.settings.pipeline_task_root,
             environment=environment,
         )
 

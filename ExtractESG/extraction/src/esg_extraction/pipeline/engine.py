@@ -247,6 +247,7 @@ class ExtractionBackbone:
                             if clause.data_kind == "quantitative"
                             else QUALITATIVE_INSTRUCTIONS
                         )
+                        calls += 1
                         on_progress(
                             {
                                 "stage": "reading",
@@ -255,9 +256,9 @@ class ExtractionBackbone:
                                 "current": index - 1,
                                 "total": len(clauses),
                                 "model_calls": calls,
+                                "fact_count": len(facts) + len(local_facts),
                             }
                         )
-                        calls += 1
                         call = {
                             "call_index": calls,
                             "clause_key": key,
@@ -427,6 +428,9 @@ class ExtractionBackbone:
                             started,
                             errors,
                         )
+                        on_progress({"stage": "extracting", "clause_key": key, "object_id": frame.object_id,
+                                     "current": index - 1, "total": len(clauses), "model_calls": calls,
+                                     "fact_count": len(facts) + len(local_facts)})
                 if not complete and (
                     calls >= budget.max_model_calls
                     or time.monotonic() - started >= budget.timeout_seconds

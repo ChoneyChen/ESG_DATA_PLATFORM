@@ -67,3 +67,5 @@ ConsoleESG/scripts/start.sh restart --no-browser
 入口、终端和自动化共用workbench.py。已有当前服务直接复用；更换控制器或服务版本时，先确认无活动任务再替换其托管进程。PID与启动时刻防止PID复用误停；不按端口或模糊名称杀进程，外部占用明确报错。命令锁与supervisor锁避免两套后台实例。状态保存在control/workbench，日志在logs/launcher.log及各服务日志；关闭终端不停止，显式stop保留数据。
 
 Node从现有PATH或nvm查找；Python/MLX缺失显示修复位置，不下载模型。轻量SDK使用本机源码离线安装，不下载依赖。原值库缺失时提示显式初始化新库，启动本身不初始化或迁移数据库；不读取审核凭据；Plat作为当前只读服务统一启停。
+
+模型worker使用离线安装的合同/条款/运行时与提取应用包，不拼接兄弟源码路径；代码指纹按实际安装包内容计算。安装入口会更新所配置MLX Python中的本项目包，不安装或替换第三方模型依赖。队列与worker共用运行时执行锁；worker不能绕过队列直接启动模型。

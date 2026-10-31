@@ -62,3 +62,5 @@ Python SDK wheel与Node服务资产分开交付。数据库运行还需自身run
 统一入口在ConsoleESG/scripts，显式配置当前独立库后管理五个服务；开发校验在根tools。模型仅本地，cloud OCR=false，自动发布关闭。输入PDF与运行/控制/长期数据按各自所有权存储。
 
 [组织](organization.md) · [模型](models.md) · [交接](delivery.md) · [产品](products.md) · [运行](../guides/local-operation.md)
+
+模型worker使用离线安装的合同/条款/运行时与提取应用包，不拼接兄弟源码路径；代码指纹按实际安装包内容计算。安装入口会更新所配置MLX Python中的本项目包，不安装或替换第三方模型依赖。队列与worker共用运行时执行锁；worker不能绕过队列直接启动模型。

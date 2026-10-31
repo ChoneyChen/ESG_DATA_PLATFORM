@@ -2,7 +2,7 @@
 set -euo pipefail
 TASK_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 EXTRACT_ROOT="$TASK_ROOT/ExtractESG"
-export PYTHONPATH="$TASK_ROOT:$EXTRACT_ROOT/contracts/src:$EXTRACT_ROOT/shared_runtime/src:$EXTRACT_ROOT/document/src:$EXTRACT_ROOT/pipeline/src:$EXTRACT_ROOT/extraction/src:$EXTRACT_ROOT/../ConsoleESG/backend/src:$EXTRACT_ROOT/../ClauseESG/src:$EXTRACT_ROOT/../database/src"
+unset PYTHONPATH
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 case "${1:-}" in
  document) PYTHON="${ESG_DOCUMENT_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}"; APP="esg_console.application:app"; PORT=18080 ;;
@@ -15,7 +15,7 @@ case "${1:-}" in
      exit 1
    fi
    ;;
- plat) PYTHON="${ESG_DOCUMENT_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}"; APP="PlatESG.backend.main:app"; PORT=8765 ;;
+ plat) export PYTHONPATH="$TASK_ROOT"; PYTHON="${ESG_DOCUMENT_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}"; APP="PlatESG.backend.main:app"; PORT=8765 ;;
  console) exec "${ESG_FRONTEND_PYTHON:-$EXTRACT_ROOT/.local/python/bin/python}" "$TASK_ROOT/ConsoleESG/scripts/serve_workbench_frontend.py" ;;
  *) echo 'Usage: run_service.sh document|extraction|console|database|plat' >&2; exit 2 ;;
 esac

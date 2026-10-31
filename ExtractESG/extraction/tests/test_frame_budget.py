@@ -33,7 +33,10 @@ def test_output_or_input_limit_splits_rows_and_retains_all_cells(repository,tmp_
             return {'matches':[{'row_id':row['row_id'],'columns':[cell['column_id'] for cell in row['cells']],
                 'selection':'measurement','reason':'reported cells'} for row in bounded['rows']]},{}
     clause=quantitative(repository);artifacts=FileArtifactPort(tmp_path)
-    result=ExtractionBackbone(Docs(),Reader(),artifacts).run('split',RunRequest(ir_run_id='ir',clause_keys=[clause.clause_key]),{clause.clause_key:clause})
+    events=[]
+    result=ExtractionBackbone(Docs(),Reader(),artifacts).run('split',RunRequest(ir_run_id='ir',clause_keys=[clause.clause_key]),{clause.clause_key:clause},on_progress=events.append)
+    assert any(e.get('fact_count')==2 and e.get('current')==0 for e in events)
+    assert [e['model_calls'] for e in events if e['stage']=='reading']==[1,2,3]
     assert len(result['facts'])==4
     assert result['summary']['model_calls']==3
     assert not result['summary']['errors']

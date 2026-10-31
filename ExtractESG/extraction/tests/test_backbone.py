@@ -21,8 +21,9 @@ def documents(tmp_path):
     source=tmp_path/'ir';source.mkdir()
     def save(name,data):
         path=source/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,ensure_ascii=False))
-    save('manifest.json',{'schema_version':'document-ir-v0.12','run_id':'ir-example','document_id':'doc-example','ir_revision':1,
-        'can_build_evidence':True,'document_label':'2025年度报告','entrypoints':{'canonical_document':'doc.json','pages':'pages.json','tables':'tables.json'}})
+    save('manifest.json',{'package_type':'document-ir-revision','package_schema_version':'document-ir-package-v1','schema_version':'document-ir-v0.12','run_id':'ir-example','document_id':'doc-example','ir_revision':1,
+        'can_build_evidence':True,'document_label':'2025年度报告','entrypoints':{'canonical_document':'doc.json','pages':'pages.json','tables':'tables.json','spreads':'spreads.json','logical_tables':'logical-tables.json','artifacts':'artifacts.json'}})
+    save('spreads.json',{'spreads':[]});save('logical-tables.json',{'logical_tables':[]});save('artifacts.json',{'artifacts':[]})
     save('doc.json',{'metadata':{'document_id':'doc-example'},'sections':[]})
     save('pages.json',{'pages':[{'path':'page.json'}]});save('tables.json',{'tables':[{'path':'table.json'}]})
     save('page.json',{'page':{'page_index':0,'page_id':'page0','text':'2025年度报告'},'blocks':[{'block_id':'b1','block_type':'text','text':'我们已实施污染物排放管理制度，定期监测空气污染物排放。'}]})

@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from esg_pipeline.contracts import PipelineTask, PipelineTaskStatus, utc_now
-from esg_pipeline.execution_slot import ExecutionSlot, ExecutionSlotBusy
+from esg_runtime.execution_slot import ExecutionSlot, ExecutionSlotBusy
 from esg_pipeline.secrets import RuntimeSecretVault
 from esg_pipeline.store import PipelineQueueStore
 from esg_pipeline.progress import progress_from_event, classify_error

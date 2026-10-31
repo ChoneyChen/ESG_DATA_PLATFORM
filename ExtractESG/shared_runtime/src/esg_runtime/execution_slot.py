@@ -1,4 +1,4 @@
-"""The pipeline's inherited flock, shared with standalone targeted workers."""
+"""Shared inherited model-execution flock; no application or source-directory ownership."""
 
 from __future__ import annotations
 

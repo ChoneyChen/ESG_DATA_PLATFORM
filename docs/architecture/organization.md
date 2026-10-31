@@ -114,7 +114,7 @@ OrganizedDataset（可重新投影的输出）
 
 文档服务提供 `/api/pipeline/organization-contract`、`/api/pipeline/clauses/{key}/organization`、`/api/report-sessions/{id}/organized` 转发，不读取提取产物目录。尚未产出组织结果时显式返回待处理/不可用状态，不伪造空的已完成数据集。
 
-保存于产物端口自身的 `results/organized.json`。消费者取得 API 标识与链接，无需了解这个内部路径。布局/词典变更也进入条款全内容摘要和冻结快照；旧任务不会被后台按新布局静默改写。代码/合同类型变更要求服务重启，条款内容修改可通过仓储接口独立生效。
+保存于产物端口自身的 `results/organized.json`。消费者取得 API 标识与链接，无需了解这个内部路径。布局/词典变更也进入条款全内容摘要和冻结快照；本次已固化的结果不会被后台按新布局静默改写。代码/合同类型变更要求服务重启，条款内容修改可通过仓储接口独立生效。
 
 本轮后续出口方向见 [审核、发布与数据库对接规划](delivery.md)。
 

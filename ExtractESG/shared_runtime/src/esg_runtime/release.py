@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import sys
@@ -19,49 +20,86 @@ PROTOCOL_VERSION = "workbench-compatibility-v1"
 _CACHE: dict[tuple, dict] = {}
 
 SERVICE_GROUPS = {
-    "document-backend": ("document_backend", "document_contracts", "console_contracts", "startup"),
-    "extraction-backend": ("extraction_backend", "standard_contracts", "startup"),
+    "document-backend": ("document_backend", "document_contracts", "console_contracts"),
+    "extraction-backend": ("extraction_backend", "standard_contracts"),
     "workbench-frontend": ("frontend", "startup"),
-
 }
 
 
-def release_files(extract_root: Path) -> dict[str, list[Path]]:
-    root = extract_root.resolve()
-    shared = list((root / "contracts/src").rglob("*.py")) + list(
-        (root / "shared_runtime/src").rglob("*.py")
+def package_files(names, suffixes=(".py",)):
+    """Canonical names identify installed code independently of its directory."""
+    result = {}
+    for name in names:
+        try:
+            spec = importlib.util.find_spec(name)
+        except (ModuleNotFoundError, ValueError):
+            spec = None
+        for location in (spec.submodule_search_locations or []) if spec else []:
+            root = Path(location)
+            for path in root.rglob("*"):
+                if path.is_file() and path.suffix in suffixes:
+                    key = name + "/" + path.relative_to(root).as_posix()
+                    result[key] = path.resolve()
+    return sorted(result.items())
+
+
+def package_digest(names):
+    files = package_files(names)
+    for name in names:
+        if not any(key.startswith(name + "/") for key, _ in files):
+            raise RuntimeError("Installed worker package is missing: " + name)
+    value = hashlib.sha256()
+    for key, path in files:
+        value.update(key.encode())
+        value.update(b"\0")
+        value.update(path.read_bytes())
+        value.update(b"\0")
+    return value.hexdigest()
+
+
+def release_files(extract_root=None):
+    root = Path(extract_root).resolve() if extract_root else None
+    shared = package_files(
+        ("esg_contracts", "esg_data", "esg_reports", "esg_runtime", "esg_clauses")
     )
-    shared += list((root.parent / "ClauseESG/src").rglob("*.py"))
+    client_files = {"http_client.py", "contracts.py", "products_contracts.py"}
     groups = {
-        "document_backend": list((root / "document/src").rglob("*.py"))
-        + list((root / "document/src").rglob("*.swift"))
-        + list((root / "pipeline/src").rglob("*.py"))
-        + list((root.parent / "ConsoleESG/backend/src").rglob("*.py")),
-        "extraction_backend": list((root / "extraction/src").rglob("*.py")),
+        "document_backend": package_files(
+            ("esg_document", "esg_pipeline", "esg_console"), (".py", ".swift")
+        ),
+        "extraction_backend": package_files(("esg_extraction",)),
         "standard_contracts": shared,
         "document_contracts": shared,
-        "console_contracts": [root.parent / "database/src/esg_database" / name
-            for name in ("http_client.py", "contracts.py", "products_contracts.py")],
-        "frontend": [root.parent / "database/contracts/index.d.ts"] + [
+        "console_contracts": [
+            (key, path)
+            for key, path in package_files(("esg_database",))
+            if path.name in client_files
+        ],
+        "frontend": [],
+        "startup": [],
+    }
+    if root:
+        workspace = root.parent
+        frontend = [workspace / "database/contracts/index.d.ts"] + [
             p
-            for p in (root.parent / "ConsoleESG/frontend/src").rglob("*")
+            for p in (workspace / "ConsoleESG/frontend/src").rglob("*")
             if p.suffix in {".tsx", ".ts", ".css"} and ".test." not in p.name
-        ],
-        "startup": [
-            root / "pyproject.toml",
-            root.parent / "ConsoleESG/scripts/run_service.sh",
-            root.parent / "ConsoleESG/scripts/start.sh",
-            root.parent / "ConsoleESG/scripts/serve_workbench_frontend.py",
-        ],
-    }
-    return {
-        name: sorted({p.resolve() for p in paths if p.is_file()})
-        for name, paths in groups.items()
-    }
+        ]
+        startup = [
+            workspace / "ConsoleESG/scripts" / name
+            for name in ("run_service.sh", "start.sh", "serve_workbench_frontend.py")
+        ]
+        for name, paths in (("frontend", frontend), ("startup", startup)):
+            groups[name] = sorted(
+                (path.relative_to(workspace).as_posix(), path.resolve())
+                for path in paths
+                if path.is_file()
+            )
+    return groups
 
 
-def release_identity(extract_root: Path, service: str | None = None) -> dict:
-    root = extract_root.resolve()
+def release_identity(extract_root: Path | None, service: str | None = None) -> dict:
+    root = extract_root.resolve() if extract_root else None
     groups = release_files(root)
     # A release is scoped to what a service actually runs plus the shared
     # contracts it reads. An unrelated backend edit must not make the
@@ -72,22 +110,22 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
             raise ValueError(f"未知服务身份：{service}")
         groups = {name: paths for name, paths in groups.items() if name in wanted}
     signature = tuple(
-        (str(path), path.stat().st_mtime_ns, path.stat().st_size)
-        if path.is_file()
-        else (str(path), None, None)
+        (
+            (str(path), path.stat().st_mtime_ns, path.stat().st_size)
+            if path.is_file()
+            else (str(path), None, None)
+        )
         for paths in groups.values()
-        for path in paths
+        for _, path in paths
     )
-    key = (str(root), service or "*", signature)
-    if key in _CACHE:
-        return json.loads(json.dumps(_CACHE[key]))
+    cache_key = (str(root), service or "*", signature)
+    if cache_key in _CACHE:
+        return json.loads(json.dumps(_CACHE[cache_key]))
     digests = {}
     for group, paths in groups.items():
         digest = hashlib.sha256()
-        for path in paths:
-            # Paths are relative to the workspace, allowing equivalent checkouts
-            # to advertise identical releases without leaking local paths.
-            digest.update(str(path.relative_to(root.parent)).encode())
+        for key, path in paths:
+            digest.update(key.encode())
             digest.update(b"\0")
             digest.update(path.read_bytes() if path.is_file() else b"<missing>")
             digest.update(b"\0")
@@ -111,12 +149,13 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
         },
     }
     _CACHE.clear()
-    _CACHE[key] = identity
+    _CACHE[cache_key] = identity
     return json.loads(json.dumps(identity))
 
 
 class ModuleRelease:
     """A deployable module fingerprints only its owned files, without a checkout."""
+
     def __init__(self, root: Path, service: str, patterns, dependencies=()):
         self.root, self.service, self.patterns = root.resolve(), service, patterns
         self.dependencies = dependencies
@@ -124,7 +163,14 @@ class ModuleRelease:
 
     def identity(self):
         value = hashlib.sha256()
-        for path in sorted({path for pattern in self.patterns for path in self.root.glob(pattern) if path.is_file()}):
+        for path in sorted(
+            {
+                path
+                for pattern in self.patterns
+                for path in self.root.glob(pattern)
+                if path.is_file()
+            }
+        ):
             value.update(path.relative_to(self.root).as_posix().encode())
             value.update(b"\0")
             value.update(path.read_bytes())
@@ -132,19 +178,29 @@ class ModuleRelease:
             value.update(name.encode())
             value.update(dependency.identity()["build_fingerprint"].encode())
         fingerprint = value.hexdigest()
-        return {"service": self.service, "protocol_version": PROTOCOL_VERSION,
-            "build_fingerprint": fingerprint, "components": {self.service: fingerprint}}
+        return {
+            "service": self.service,
+            "protocol_version": PROTOCOL_VERSION,
+            "build_fingerprint": fingerprint,
+            "components": {self.service: fingerprint},
+        }
 
     def snapshot(self):
         current = self.identity()
         changed = current["build_fingerprint"] != self.started["build_fingerprint"]
-        return {**self.started, "current_disk_fingerprint": current["build_fingerprint"],
-            "source_changed_since_start": changed, "restart_required": changed}
+        return {
+            **self.started,
+            "current_disk_fingerprint": current["build_fingerprint"],
+            "source_changed_since_start": changed,
+            "restart_required": changed,
+        }
 
 
 class RuntimeRelease:
-    def __init__(self, extract_root: Path, service: str) -> None:
-        self.root, self.service = extract_root.resolve(), service
+    def __init__(self, extract_root: Path | None, service: str) -> None:
+        self.root, self.service = (
+            extract_root.resolve() if extract_root else None
+        ), service
         self.started = release_identity(self.root, self.service)
 
     def snapshot(self) -> dict:

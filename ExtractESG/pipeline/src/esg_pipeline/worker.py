@@ -30,7 +30,7 @@ def _run_worker() -> int:
     parser.add_argument("--native-job-id", required=True)
     parser.add_argument("--request-file", required=True)
     args = parser.parse_args()
-    from esg_pipeline.execution_slot import inherited_slot_is_valid
+    from esg_runtime.execution_slot import inherited_slot_is_valid
 
     if not inherited_slot_is_valid():
         raise RuntimeError(

@@ -18,8 +18,6 @@ import time
 from urllib.request import build_opener, ProxyHandler
 
 ROOT = Path(__file__).resolve().parents[2]
-for relative in ['ExtractESG/shared_runtime/src','ExtractESG/contracts/src']:
-    sys.path.insert(0,str(ROOT/relative))
 from esg_runtime.release import release_identity, check_compatibility
 
 DATA = Path(os.environ.get('ESG_DATA_ROOT',str(ROOT/'.local/data'))).expanduser().resolve()

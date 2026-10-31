@@ -37,3 +37,23 @@ def test_consumed_module_changes_invalidate_the_dependent_release(tmp_path):
     assert not app.snapshot()['restart_required']
     source.write_text('second')
     assert app.snapshot()['restart_required']
+
+
+def test_installed_package_fingerprint_is_location_independent_and_content_sensitive(tmp_path, monkeypatch):
+    import types
+    from esg_runtime import release
+    import pytest
+    one, two = tmp_path/'one', tmp_path/'two'
+    one.mkdir(); two.mkdir()
+    for root in [one,two]:
+        (root/'code.py').write_text('ANSWER = 42\n')
+    roots = [one]
+    monkeypatch.setattr(release.importlib.util, 'find_spec', lambda _:types.SimpleNamespace(submodule_search_locations=[str(roots[0])]))
+    first = release.package_digest(['test_package'])
+    roots[0] = two
+    assert release.package_digest(['test_package']) == first
+    (two/'code.py').write_text('ANSWER = 43\n')
+    assert release.package_digest(['test_package']) != first
+    monkeypatch.setattr(release.importlib.util, 'find_spec', lambda _:None)
+    with pytest.raises(RuntimeError,match='missing'):
+        release.package_digest(['test_package'])

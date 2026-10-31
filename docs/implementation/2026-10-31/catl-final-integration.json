@@ -1,0 +1,126 @@
+{
+  "schema_version": "pdf-integration-verification-1.0",
+  "session_id": "extract-plan-530319d06ea24ff58daa330e8627c30d",
+  "run_id": "extract-20417327a940d4b5bbffb0691c744261",
+  "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+  "engine_fingerprint": "cabd7bc8016fe289978f9f2b21a6cc9aa5d497c14afaff0a1d4ca4116c565ba7",
+  "summary": {
+    "selected_clauses": 2,
+    "processed_clauses": 2,
+    "source_facts": 52,
+    "quantitative": 51,
+    "qualitative": 1,
+    "model_calls": 10,
+    "elapsed_seconds": 956.513,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "insufficient_context",
+      "target_facts": 10,
+      "other_facts": 42,
+      "unresolved_facts": 0,
+      "rejected_candidates": 33,
+      "periods": {
+        "2023": 15,
+        "2024": 18,
+        "2025": 18,
+        "期间未知": 1
+      }
+    }
+  },
+  "receipt": {
+    "status": "accepted",
+    "accepted_facts": 52,
+    "rejected_facts": 0
+  },
+  "projection": {
+    "schema_version": "capture-projection-1.0",
+    "projection_id": "projection-88e305883a2f3f1da29849355bea274156d8d2f8299b2fb3e183d9b590754e80",
+    "export_id": "export-5ed753afa44f13422d62799f100a0a55962d968f3aee726cd4e0c9db998816fc",
+    "input_digest": "62b46ecd9ab8a776ea5fa5ed75d0b7f61de1e180a4b4b59d8b6e6a48a77db69e",
+    "transform_version": "capture-observation-1.0",
+    "content_digest": "c3578892d42f3df8ee5b883cd1bf51f31d2b29c581b109c4387b0912cde65a31",
+    "source": {
+      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+      "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+      "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+      "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+      "report_company": "宁德时代新能源科技股份有限公司",
+      "publication_year": null,
+      "resource_revision": 2,
+      "report_company_id": "org:catl",
+      "industry": null,
+      "reporting_year": 2025
+    },
+    "facts": 52,
+    "observations": 52,
+    "periods": {
+      "2023": 15,
+      "2024": 18,
+      "2025": 18,
+      "unknown": 1
+    },
+    "relations": {
+      "match": 10,
+      "different": 42
+    },
+    "repeated_occurrences": 0,
+    "diagnostics": []
+  },
+  "raw_complete_json_equal": true,
+  "raw_page_count": 1,
+  "observation_page_count": 1,
+  "research_exports": {
+    "csv": {
+      "facts": 52,
+      "periods": {
+        "2025": 18,
+        "2024": 18,
+        "2023": 15,
+        "": 1
+      },
+      "exact_raw_equal": true
+    },
+    "parquet": {
+      "facts": 52,
+      "periods": {
+        "2025": 18,
+        "2024": 18,
+        "2023": 15,
+        "None": 1
+      },
+      "exact_raw_equal": true
+    }
+  },
+  "auto_publish": false,
+  "published_dataset_count": 0,
+  "scope": {
+    "available_pages": [
+      0,
+      1,
+      2,
+      30,
+      53,
+      54,
+      55,
+      56,
+      57,
+      71,
+      72,
+      73,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+    ],
+    "mode": "targeted",
+    "report_wide_absence_proven": false,
+    "source_page_count": 92
+  },
+  "not_whole_report_recall": true
+}
