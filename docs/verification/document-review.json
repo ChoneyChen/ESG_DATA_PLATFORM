@@ -7,8 +7,8 @@
     {
       "path": "ClauseESG/README.md",
       "role": "module",
-      "sha256": "7d2704f0d5fa04865005af6f133d8d87f7717400c7e1ff76104672743fcdecda",
-      "lines": 15,
+      "sha256": "ce1156a2e951393ff301927feb47c66fbfafe8c34f15b54acee2a52a00cfe7bf",
+      "lines": 17,
       "decision": "一条一整体与独立SDK；结构条目非执行；命名集合仅选择。",
       "current_link_errors": []
     },
@@ -215,7 +215,7 @@
     {
       "path": "docs/implementation/2026-10-31/README.md",
       "role": "implementation",
-      "sha256": "8e6fecb3564de78f24dcc48980ee69004600d31ec7d9bdb470295986f46ce7e5",
+      "sha256": "84dad0754867de317fc69895d8722be3192699dd8df7d448cb5429ef2ffc772f",
       "lines": 81,
       "decision": "按M项分别记录源码、真实报告及未完成验收；不把格式通过写成全部科学通过。",
       "current_link_errors": []

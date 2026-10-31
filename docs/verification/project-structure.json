@@ -14,9 +14,9 @@
       "path": "ClauseESG/README.md",
       "owner": "ClauseESG",
       "role": "documentation",
-      "bytes": 1618,
-      "lines": 15,
-      "sha256": "7d2704f0d5fa04865005af6f133d8d87f7717400c7e1ff76104672743fcdecda"
+      "bytes": 1857,
+      "lines": 17,
+      "sha256": "ce1156a2e951393ff301927feb47c66fbfafe8c34f15b54acee2a52a00cfe7bf"
     },
     {
       "path": "ClauseESG/clauses/BP-1/BP-1_01/clause.json",
@@ -9980,9 +9980,9 @@
       "path": "ClauseESG/src/esg_clauses/repository.py",
       "owner": "ClauseESG",
       "role": "implementation",
-      "bytes": 10283,
-      "lines": 244,
-      "sha256": "ae4105ebf709bf55f92466b07e86c4348c45177b4c5f67af499bf09defd890db",
+      "bytes": 10568,
+      "lines": 248,
+      "sha256": "768838b4011173f6bdc3c8f4edbf89d1186b37614e708a15db2644a796f39f33",
       "imports": [
         "__future__",
         "contextlib",
@@ -10054,6 +10054,20 @@
         "esg_clauses.contract",
         "esg_clauses.search",
         "esg_clauses.templates"
+      ]
+    },
+    {
+      "path": "ClauseESG/tests/test_independent_repository.py",
+      "owner": "ClauseESG",
+      "role": "isolated_verification",
+      "bytes": 947,
+      "lines": 20,
+      "sha256": "68496588bca9dd4be2878d081661ee0beabff31ec41fed99c4b615fa8484eb3e",
+      "imports": [
+        "esg_clauses.repository",
+        "esg_clauses.templates",
+        "pathlib",
+        "pytest"
       ]
     },
     {
@@ -10479,9 +10493,9 @@
       "path": "ConsoleESG/scripts/install_local.sh",
       "owner": "ConsoleESG",
       "role": "implementation",
-      "bytes": 496,
+      "bytes": 507,
       "lines": 9,
-      "sha256": "6e973642b27e73bfb278c0fae6fbc75e6aaa1dcb1a514fd4324e8acb29ae87e6"
+      "sha256": "ee69f1e287f0084cf58e315e4be21eb4e5467e778744821b02c13e2bdefaa442"
     },
     {
       "path": "ConsoleESG/scripts/install_worker.py",
@@ -16505,9 +16519,9 @@
       "path": "docs/implementation/2026-10-31/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 12357,
+      "bytes": 12672,
       "lines": 81,
-      "sha256": "8e6fecb3564de78f24dcc48980ee69004600d31ec7d9bdb470295986f46ce7e5"
+      "sha256": "84dad0754867de317fc69895d8722be3192699dd8df7d448cb5429ef2ffc772f"
     },
     {
       "path": "docs/implementation/2026-10-31/build-cleanup.json",
@@ -16667,7 +16681,15 @@
       "role": "configuration_or_asset",
       "bytes": 10344,
       "lines": 249,
-      "sha256": "ea1c8188a66f8d3081d2858b4a478345ab7574521cacc21ff2a9bf04b726e409"
+      "sha256": "7585b191c35ac5ccc24dce30ac559798c117f245ae69082bc6029b00c960c035"
+    },
+    {
+      "path": "docs/verification/installed-worker.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 524,
+      "lines": 14,
+      "sha256": "272d995d83c25f71c0e5680172d18ebf87e14fd1a5c81e5b5311ea63da98e985"
     },
     {
       "path": "docs/verification/standalone.json",
@@ -16797,6 +16819,31 @@
       ]
     },
     {
+      "path": "tools/verify_worker.py",
+      "owner": "tools",
+      "role": "implementation",
+      "bytes": 5941,
+      "lines": 158,
+      "sha256": "e9d3c4ab95111ee67798a5d3e49210d8aa5f1a4416e62f7cfb4d8b7035240892",
+      "imports": [
+        "esg_clauses.repository",
+        "esg_clauses.templates",
+        "esg_contracts.evidence",
+        "esg_contracts.facts",
+        "esg_contracts.worker",
+        "esg_extraction.pipeline.runtime",
+        "esg_extraction.pipeline.state",
+        "esg_runtime.execution_slot",
+        "http.server",
+        "json",
+        "os",
+        "pathlib",
+        "subprocess",
+        "tempfile",
+        "threading"
+      ]
+    },
+    {
       "path": "全链路检查报告与升级规划.md",
       "owner": "root",
       "role": "documentation",
@@ -16815,7 +16862,7 @@
   ],
   "counts": {
     "root": 4,
-    "ClauseESG": 1247,
+    "ClauseESG": 1248,
     "ConsoleESG": 53,
     "ExtractESG": 2,
     "ExtractESG/contracts": 44,
@@ -16830,8 +16877,8 @@
     "PlatESG/scripts": 1,
     "PlatESG/tests": 1,
     "database": 65,
-    "docs": 58,
-    "tools": 6
+    "docs": 59,
+    "tools": 7
   },
   "errors": [],
   "note": "Structural validation and dependency audit; this manifest does not claim manual line-by-line semantic review."

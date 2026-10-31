@@ -13,3 +13,5 @@ python -m pip install -e ExtractESG/contracts -e ClauseESG
 `compile_search_plan(clause)`返回完整、可追踪的页/对象检索计划。对物理页尚不能执行的对象规则明确延后到分段后的检索，而不静默丢弃字段。
 
 结构标准条目使用独立 `clause-descriptor-1.0`，仍保留一条一目录，但没有data_kind或值合同。目录4.0通过entry_kind区分value/structure；提取只接收ClauseContract，结构成员关系不构成执行依赖。`selection_options`提供明确的可执行与排除原因，技术ready与真实样本验收分开。[37项逐条处置](../docs/implementation/2026-10-31/clause-dispositions.md)。
+
+独立部署一条时，输入只需它自己的clause.json；显式reindex生成导航索引。group.json可生成，selections.json可缺省；缺省集合为空，点名不存在的集合会明确拒绝，不影响按条款ID执行。

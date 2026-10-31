@@ -91,9 +91,13 @@ class ClauseRepository:
             return self._groups()
 
     def _selections(self):
-        return json.loads((self.root / "selections.json").read_text(encoding="utf-8"))[
-            "profiles"
-        ]
+        path = self.root / "selections.json"
+        if not path.is_file():
+            return {}
+        profiles = json.loads(path.read_text(encoding="utf-8"))["profiles"]
+        if not isinstance(profiles, dict) or any(not isinstance(keys, list) for keys in profiles.values()):
+            raise ClauseRepositoryError("Named selections must map names to clause identity lists")
+        return profiles
 
     def selections(self):
         with self._locked():

@@ -1,0 +1,14 @@
+{
+  "scope": "Installed current worker, explicit synthetic empty document port, no actual measurement or model inference in this smoke check.",
+  "cwd_outside_checkout": true,
+  "source_pythonpath": false,
+  "inherited_model_slot": true,
+  "native_execution": "completed",
+  "facts": 0,
+  "model_calls": 0,
+  "sealed_export": true,
+  "source_single_clause_only": true,
+  "named_selection_required": false,
+  "live_data_touched": false,
+  "engine_digest": "db65813affab94bef289f401ef86b4eb31da5e3a1d857427ebcf2f33d436cb81"
+}
