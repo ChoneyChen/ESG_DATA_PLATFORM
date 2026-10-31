@@ -10,7 +10,7 @@ from pathlib import Path
 
 from esg_runtime.lifecycle import (
     LifecycleBlocked,
-    PublicationReferenceGuard,
+    SourceReferenceGuard,
     blocker,
     require_reason,
 )
@@ -21,7 +21,7 @@ from esg_document.storage.package_layout import require_package_dir_name
 class QueueReferenceLifecycle:
     def __init__(self, store, ir_root, guard=None):
         self.store, self.ir_root = store, Path(ir_root)
-        self.guard = guard or PublicationReferenceGuard()
+        self.guard = guard or SourceReferenceGuard()
         with store._connect() as db:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS queue_reference_releases(task_id TEXT PRIMARY KEY REFERENCES pipeline_tasks(task_id),"

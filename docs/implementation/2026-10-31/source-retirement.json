@@ -1,0 +1,543 @@
+{
+  "scope": "non_crawl_current_source_retirement",
+  "not_runtime_data_cleanup": true,
+  "count": 134,
+  "files": [
+    {
+      "path": "ExtractESG/document/tests/test_production_reservation_smoke.py",
+      "previous_git_blob": "1ef0c387e7ee02b8e0632b35c19770c4d5b388c7"
+    },
+    {
+      "path": "ExtractESG/scripts/audit_structure.py",
+      "previous_git_blob": "b6276884d41689e1365d25bfff39612784d5aa30"
+    },
+    {
+      "path": "ExtractESG/scripts/check_contracts.py",
+      "previous_git_blob": "5ef5af2e84993fe2b90e62043ce1e00131fc164f"
+    },
+    {
+      "path": "ExtractESG/scripts/export_console_types.py",
+      "previous_git_blob": "63104f942a2f0bd777936d310bed85934327c277"
+    },
+    {
+      "path": "ExtractESG/scripts/verify_standalone.py",
+      "previous_git_blob": "ff6ca61f072dd0499de952cc84c1e97b7df7c093"
+    },
+    {
+      "path": "ExtractESG/shared_runtime/src/esg_runtime/production_references.py",
+      "previous_git_blob": "f5bac3009c55a7620d8fe61c8ab62f8535e7a96b"
+    },
+    {
+      "path": "PlatESG/backend/evidence_location.py",
+      "previous_git_blob": "4aba41daa5aaf418509a8ded9f5c47ad75b5de5a"
+    },
+    {
+      "path": "PlatESG/backend/package-lock.json",
+      "previous_git_blob": "a742f600ddb685aba43624a06d6416b784b9779c"
+    },
+    {
+      "path": "PlatESG/backend/package.json",
+      "previous_git_blob": "8a31acfd85fd8e0331b3d6d2ffc7809bdd26b96d"
+    },
+    {
+      "path": "PlatESG/backend/public_pdf.py",
+      "previous_git_blob": "d77820e8cabaead27d9eb67664c4fbc7d2ef833d"
+    },
+    {
+      "path": "PlatESG/backend/tests/artifact-purge.test.mjs",
+      "previous_git_blob": "6f772d04ca9d09a47f4720f2a6ee8c14acea1f81"
+    },
+    {
+      "path": "PlatESG/backend/tests/candidate-review.test.mjs",
+      "previous_git_blob": "62f2bf51164be34ce966ab50e6135396daa0d16d"
+    },
+    {
+      "path": "PlatESG/backend/tests/comparison-origin.test.mjs",
+      "previous_git_blob": "7b709af12f02e65a8e5554bcc21c5b10617194f6"
+    },
+    {
+      "path": "PlatESG/backend/tests/review-evidence.test.mjs",
+      "previous_git_blob": "95cc2c742281a9030c0420e9f4aa3b591404837c"
+    },
+    {
+      "path": "PlatESG/frontend/src/chart-contract.test.ts",
+      "previous_git_blob": "2df682fea09da0f3488a6f41e02d7d1d63292fef"
+    },
+    {
+      "path": "PlatESG/frontend/src/chart-contract.ts",
+      "previous_git_blob": "8a2be30739becb9c3228c51ff0f6ac1cc58641e2"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ApiDocs.tsx",
+      "previous_git_blob": "cea37b0daf9c5f3a2d7162fe6a313c253cbda5a6"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Comparison.tsx",
+      "previous_git_blob": "581f559930070c627e9ceead0b4fb8dbabf136cc"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/DataChart.tsx",
+      "previous_git_blob": "65c2f8b1affb622264133b3b0dec1299c7947fef"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EChartCanvas.tsx",
+      "previous_git_blob": "a9b76212c3a556d261a954cb2374a7c4fee13bfa"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EntityDetail.tsx",
+      "previous_git_blob": "25fe4de92cc6daaf6b1d3f7c62f8444cb89c0eba"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EntityDirectory.tsx",
+      "previous_git_blob": "6e1d8c6e0ab1a60bbcf95988c783446adbe5293a"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EvidenceDrawer.tsx",
+      "previous_git_blob": "ad0815a11a7cad8c44827b257721ce2c4b25b97e"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Landing.tsx",
+      "previous_git_blob": "958317c341d28bc0775d01a607cabf3676f8345c"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Methods.tsx",
+      "previous_git_blob": "5e7d650ccf221957281cb74218b84fb308c6a534"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/MetricCatalog.tsx",
+      "previous_git_blob": "b75aeac040158e900886c788170a289f2965d6b9"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/MetricDetail.tsx",
+      "previous_git_blob": "ee2abe92253c8eccf406fab9c238a73bbf5e07f2"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ObservationTable.tsx",
+      "previous_git_blob": "28a1d6933ab21e319848cc469be664af578daa98"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Overview.tsx",
+      "previous_git_blob": "da8e2521aeede10657dcf2b56083a781adbdb438"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Pagination.tsx",
+      "previous_git_blob": "7946d8407d8f4143bea689ee92588f75a4aa7497"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/RangeDisclosures.tsx",
+      "previous_git_blob": "268749801e488ad090cdd281ae16475c7436272d"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ReportedProperties.test.tsx",
+      "previous_git_blob": "449c85b3a17cf22375af00d1795d49fffa16c288"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ReportedProperties.tsx",
+      "previous_git_blob": "cd33f316f22b558b1acf094c7bfbae1861560e9d"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Review.tsx",
+      "previous_git_blob": "75d495b03ac013f3474002c8ed828145523cb7bc"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Sources.tsx",
+      "previous_git_blob": "5a5f8ae74f17838bea9b12ed200d46ca5242c592"
+    },
+    {
+      "path": "PlatESG/frontend/src/format-reasons.test.ts",
+      "previous_git_blob": "57962d7cf85b0d8d918fd97a6cc6358266373f1e"
+    },
+    {
+      "path": "PlatESG/frontend/src/format.test.ts",
+      "previous_git_blob": "acf46d6d6224d64927215a3b6edcf3a77586a4da"
+    },
+    {
+      "path": "PlatESG/frontend/src/format.ts",
+      "previous_git_blob": "844907af739ac319db82abb109153ee91123deec"
+    },
+    {
+      "path": "PlatESG/frontend/src/hooks/useObservations.ts",
+      "previous_git_blob": "48d319f8eebf9c42d6f042622152e64d04b41564"
+    },
+    {
+      "path": "PlatESG/frontend/src/public-contract.test.ts",
+      "previous_git_blob": "c5477914033cad298c3c8f342bc0231724112232"
+    },
+    {
+      "path": "PlatESG/frontend/src/public-contract.ts",
+      "previous_git_blob": "b32dc6ef66c88ade4c2912d0e1b8278b8472a219"
+    },
+    {
+      "path": "PlatESG/frontend/tests/live_product_readonly_test.cjs",
+      "previous_git_blob": "173fcd1202aac1af3ca0ce80b3c46a489128e04f"
+    },
+    {
+      "path": "PlatESG/tests/fixtures/frozen_database.mjs",
+      "previous_git_blob": "b36b689dde8dd238fc72c59a7ad8f2fbfa23529c"
+    },
+    {
+      "path": "PlatESG/tests/frozen_fixture.py",
+      "previous_git_blob": "1e006035aca2229cbc99ff9850f553bb1e00459a"
+    },
+    {
+      "path": "PlatESG/tests/test_api.py",
+      "previous_git_blob": "29f58448c9d2dde8d048dae30e1d05a0c9d60fc0"
+    },
+    {
+      "path": "PlatESG/tests/test_artifact_purge_api.py",
+      "previous_git_blob": "930430b04a89ba650952bc41c53c1343f432e2ed"
+    },
+    {
+      "path": "PlatESG/tests/test_boot_hold.py",
+      "previous_git_blob": "7c4580f88ccf775ac56594ef942a215a70476f5a"
+    },
+    {
+      "path": "PlatESG/tests/test_csv_export.py",
+      "previous_git_blob": "a7dff3475c7f9f268f6ca2cfe46bfa5cb13f747f"
+    },
+    {
+      "path": "PlatESG/tests/test_delivery_status_api.py",
+      "previous_git_blob": "c2d9f675f27fa1c52418e4acf3127c19a08347eb"
+    },
+    {
+      "path": "PlatESG/tests/test_dictionary.py",
+      "previous_git_blob": "be4090fae3f27e036c16eb61a61cb298381ee5b6"
+    },
+    {
+      "path": "PlatESG/tests/test_evidence_location.py",
+      "previous_git_blob": "b3c92f434a7e850b3d6daacba8ed8b78bcd0df6e"
+    },
+    {
+      "path": "PlatESG/tests/test_export_observation_contract.py",
+      "previous_git_blob": "58b39ca434303d2a1341072a25554e8984240eb6"
+    },
+    {
+      "path": "PlatESG/tests/test_import_catalog_api.py",
+      "previous_git_blob": "3c8c8263460452899b384850a776c2042c6a02f5"
+    },
+    {
+      "path": "PlatESG/tests/test_local_file_deletion_api.py",
+      "previous_git_blob": "c825de3067304bec660651c65cf35e60f6b2f9e2"
+    },
+    {
+      "path": "PlatESG/tests/test_platform_contracts.py",
+      "previous_git_blob": "14afe22163a379a7523deb6de50dd293c8044b8e"
+    },
+    {
+      "path": "PlatESG/tests/test_public_pdf.py",
+      "previous_git_blob": "5607320adedb13ea4dc03a7d33f32879cd8b5f22"
+    },
+    {
+      "path": "PlatESG/tests/test_source_fact_cursor_api.py",
+      "previous_git_blob": "06a3cc1f198ccd61ab9fbe82b07f315d544522cf"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.0.0.json",
+      "previous_git_blob": "9e6c3b49a408a4751f9a2213778e770d23654535"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.2.0.json",
+      "previous_git_blob": "de381642a11c73a7d75019c3714141c6449a6cad"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.1.json",
+      "previous_git_blob": "37e852000247f607876668c2a3d4fabb1e30f483"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.2.json",
+      "previous_git_blob": "1d86a36fc70280a1d7088c2aca741314a5733f10"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.3.json",
+      "previous_git_blob": "0e5fa49c4223b4e196709b1410f9935fd820a66b"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.4.json",
+      "previous_git_blob": "e94f94689a3ce168b174581c3d52b53bcc384e5f"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.5.json",
+      "previous_git_blob": "f4d7918ebe36d220a63c0f27f64fa3013e18dd20"
+    },
+    {
+      "path": "database/catalog/history/platform-major.profile-1.0.0.json",
+      "previous_git_blob": "1ad898d55dbd1fb3c28280a44e6d248092bcb011"
+    },
+    {
+      "path": "database/catalog/import-contracts/README.md",
+      "previous_git_blob": "f65bd85de0195a0cc24422f6d83bb9f9d45ba153"
+    },
+    {
+      "path": "database/catalog/import-contracts/index.json",
+      "previous_git_blob": "e5acdd095ed5e9de4a06f59919d61f1e26dbefc0"
+    },
+    {
+      "path": "database/catalog/import-contracts/releases/esrs-platform-major.dictionary-1.0.0.json",
+      "previous_git_blob": "291e3a4467749c22a809d337ac5ff83ea6a97457"
+    },
+    {
+      "path": "database/catalog/metric-dictionary.schema.json",
+      "previous_git_blob": "2e973b58111cf0599ea440cdfc4a148e13877560"
+    },
+    {
+      "path": "database/catalog/metric-dictionary.v1.json",
+      "previous_git_blob": "5959d66b78c98d0d97c8fccef0556e0584b4a8aa"
+    },
+    {
+      "path": "database/migrations/0001_reference_data.sql",
+      "previous_git_blob": "d31af9fcf6df6ff640be300521c8f5105e3a807c"
+    },
+    {
+      "path": "database/migrations/0002_disclosure_results.sql",
+      "previous_git_blob": "6b460f02f56fcddddd5c5768c380aa332b3b3d62"
+    },
+    {
+      "path": "database/migrations/0003_api_views.sql",
+      "previous_git_blob": "e2c130c324fba6208a4d8bf24a90deb80b08d46b"
+    },
+    {
+      "path": "database/migrations/0004_reference_seed.sql",
+      "previous_git_blob": "7b28dbb5677881dd9c760bba2ec205023e9f8d41"
+    },
+    {
+      "path": "database/migrations/0005_candidate_import_and_decisions.sql",
+      "previous_git_blob": "e2163f5afb477fa836b4b5e14e39ce6645402cbd"
+    },
+    {
+      "path": "database/migrations/0006_curated_publication.sql",
+      "previous_git_blob": "c7cdad5e1cbad6d5fee5633f13d78463fdf2d83a"
+    },
+    {
+      "path": "database/migrations/0007_unit_normalization_rules.sql",
+      "previous_git_blob": "2a39fdc9bf05a0c2315dd98c8808be2903b0de18"
+    },
+    {
+      "path": "database/migrations/0008_dictionary_snapshots.sql",
+      "previous_git_blob": "bb7d8d8399a2f1b3cd632c89c1e70d02e49ffbbc"
+    },
+    {
+      "path": "database/migrations/0009_extension_clauses.sql",
+      "previous_git_blob": "d2be8d2f6dd5e887f59e89886e87bfa1be90f116"
+    },
+    {
+      "path": "database/migrations/0010_extension_import_snapshots.sql",
+      "previous_git_blob": "088bd199140edeff5d59c4abdede2c13cce1ec8b"
+    },
+    {
+      "path": "database/migrations/0011_reported_properties.sql",
+      "previous_git_blob": "dc8a1063c23d19cae97f6a2b67eb554b935e6315"
+    },
+    {
+      "path": "database/migrations/0012_report_source_fact_snapshots.sql",
+      "previous_git_blob": "c14b75296d40ef9aac6eced36dbcef4b90154550"
+    },
+    {
+      "path": "database/migrations/0013_report_publications.sql",
+      "previous_git_blob": "32a93494648c0d7ad3a3ec961ff49a747feb2c14"
+    },
+    {
+      "path": "database/migrations/0014_neutral_source_facts.sql",
+      "previous_git_blob": "9cf9b41d029bfb89e1dc2e5e13ef1b1635abdcf3"
+    },
+    {
+      "path": "database/migrations/0015_scientific_projections.sql",
+      "previous_git_blob": "1845f2e6633f33bb9cb2748fa0b6f06371515829"
+    },
+    {
+      "path": "database/migrations/0016_scientific_model.sql",
+      "previous_git_blob": "e6ffce05a2bcc8b6c9aef63bacd0d37260bca7c3"
+    },
+    {
+      "path": "database/migrations/0017_clause_projection_source.sql",
+      "previous_git_blob": "6215b74c85b095b8929f8c3811554b347ca090d5"
+    },
+    {
+      "path": "database/migrations/0018_reported_dimensions_view.sql",
+      "previous_git_blob": "5ae80f191257839f6b7062864c1abe8c23a2d68a"
+    },
+    {
+      "path": "database/migrations/platform/0001_entities.sql",
+      "previous_git_blob": "0c0cb18f42e2dfee41ab7783e1701f77f38ca3cb"
+    },
+    {
+      "path": "database/migrations/platform/0002_import_delivery_audit.sql",
+      "previous_git_blob": "0b845e1716f9a218de103ed006de3369b4c0a0fc"
+    },
+    {
+      "path": "database/migrations/platform/0003_artifact_lifecycle.sql",
+      "previous_git_blob": "767d3c57caf3c989e6ad52bec1120a7d55bb5744"
+    },
+    {
+      "path": "database/migrations/platform/0004_import_contract_registry.sql",
+      "previous_git_blob": "82912dc9976cd08461d9d103fefe8d61d2940c38"
+    },
+    {
+      "path": "database/queries/frozen/delivery_status.mjs",
+      "previous_git_blob": "a25c62ec044298bb3740f3c390f77b6e7b5603be"
+    },
+    {
+      "path": "database/queries/lifecycle.mjs",
+      "previous_git_blob": "27a47d961b3995d425410498b883a748f41c3aac"
+    },
+    {
+      "path": "database/queries/public_contracts.mjs",
+      "previous_git_blob": "aeff79de74797b1067462ba76d38f7b58ca506bd"
+    },
+    {
+      "path": "database/queries/scientific_products.mjs",
+      "previous_git_blob": "b59d29d8dfe66b764cde19e4f0cad1180e39bce1"
+    },
+    {
+      "path": "database/queries/service.mjs",
+      "previous_git_blob": "c5774f1f6c81a11850466b5af8a8a7061eee3005"
+    },
+    {
+      "path": "database/runtime/frozen_schema.mjs",
+      "previous_git_blob": "bf53f10c049c07b85bfe931b2bfc82d9c28c3368"
+    },
+    {
+      "path": "database/runtime/worker.mjs",
+      "previous_git_blob": "7c552dc638476c0e2d694f2fad422e33c0632cb6"
+    },
+    {
+      "path": "database/scripts/auto-review.mjs",
+      "previous_git_blob": "324c83c0ae45430bcdb1c47a478dd68a66a52085"
+    },
+    {
+      "path": "database/scripts/candidate-review.mjs",
+      "previous_git_blob": "9e0e3ac38efffafd7f2531d3e98c7fdd50287aff"
+    },
+    {
+      "path": "database/scripts/extension-derivation.mjs",
+      "previous_git_blob": "72fdfba4d4229b11e8bd01596c4c688efea72893"
+    },
+    {
+      "path": "database/scripts/frozen-bundle.mjs",
+      "previous_git_blob": "bfa316169c9adaab33644ee385ddb1184b848118"
+    },
+    {
+      "path": "database/scripts/publication.mjs",
+      "previous_git_blob": "aa7feb75b0f6a4a576cdf25124177b1ebfe876a7"
+    },
+    {
+      "path": "database/scripts/purge-artifacts.mjs",
+      "previous_git_blob": "179c1c2efdfbd8603a48f5601826ef90c1823a72"
+    },
+    {
+      "path": "database/scripts/report-artifacts.mjs",
+      "previous_git_blob": "7ad068605f01fc008b0f383a929745c89b149dd2"
+    },
+    {
+      "path": "database/scripts/report-source-facts.mjs",
+      "previous_git_blob": "7eb19c5c106addeccc249aac7b8588da2e564c16"
+    },
+    {
+      "path": "database/scripts/review-decisions.mjs",
+      "previous_git_blob": "4fee6e796ef3024adf7e98c2e3345124df469855"
+    },
+    {
+      "path": "database/scripts/review-evidence.mjs",
+      "previous_git_blob": "e170c3ed9fdae391cd90b4fb38e9b3c3136e3a56"
+    },
+    {
+      "path": "database/scripts/scientific-model.mjs",
+      "previous_git_blob": "dbe31eb2feaabbca06ed44e42d341aac50c98357"
+    },
+    {
+      "path": "database/scripts/scientific-properties.mjs",
+      "previous_git_blob": "665d24ed58aaf514a70d28177be990e4e22bc436"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.2.0.json",
+      "previous_git_blob": "480e015cc6490a797299f37c6d07ff5dbfa4e52d"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.3.0.json",
+      "previous_git_blob": "0fe1ce15a140e93f65e7954e31580cd87d6bc62e"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.4.0.json",
+      "previous_git_blob": "53a253f134b195aa45f9eb80309849da608ba3e5"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.0.json",
+      "previous_git_blob": "8ae6734f6e6efca411d643ce362c8fe9af1f32f5"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.2.json",
+      "previous_git_blob": "b09b0708facf680dfce62c4caf2483645c23cf0c"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.3.json",
+      "previous_git_blob": "9e378c600f3fa2131ae10c282a93e9345584c02f"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.4.json",
+      "previous_git_blob": "8e6af693b1d7b5a4c2ae8caa78437922b001ff54"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.5.json",
+      "previous_git_blob": "4206aa9b186c8ecb07d987d957f5fba6e374dc0f"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.6.json",
+      "previous_git_blob": "35830214109436f0c97d3fffffeea0dab678a5e5"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.7.json",
+      "previous_git_blob": "d893ba9a785e94c5e3547cfc5bb947fdd70a0038"
+    },
+    {
+      "path": "database/scripts/unit-conversions.v1.json",
+      "previous_git_blob": "23156d02073c6d446739ed459a8c78c65bc29c9e"
+    },
+    {
+      "path": "database/scripts/verify_frozen.mjs",
+      "previous_git_blob": "470e6e2248822a01b36950b32a34e62b87161c7b"
+    },
+    {
+      "path": "database/tests/extension-derivation.test.mjs",
+      "previous_git_blob": "c9c132b8fac5d715ab8e32d24cc8eea2d8ea1422"
+    },
+    {
+      "path": "database/tests/fixtures/frozen-extension-proposal.json",
+      "previous_git_blob": "235dcafc698b5bd4de0ce5103074e9dfe690b21e"
+    },
+    {
+      "path": "database/tests/frozen-bundle.test.mjs",
+      "previous_git_blob": "d318b09a05113985f2b993f20be9b593ccdd46c6"
+    },
+    {
+      "path": "database/tests/partial-export.test.mjs",
+      "previous_git_blob": "38a4199c66b1ae3cf2b806472651e3aa93a62ffe"
+    },
+    {
+      "path": "database/tests/publication.test.mjs",
+      "previous_git_blob": "957061ae86b2c0cd43fefab273d9054304716b90"
+    },
+    {
+      "path": "database/tests/report-source-facts-pagination.test.mjs",
+      "previous_git_blob": "fdbf9e597696409adbb217238fb5a491868281b2"
+    },
+    {
+      "path": "database/tests/report-source-facts.test.mjs",
+      "previous_git_blob": "e5795a6c77d81214a82aca47e61c00da09a105b4"
+    },
+    {
+      "path": "database/tests/scientific-model.test.mjs",
+      "previous_git_blob": "541ca9df4929a5bba335bb9cba27c37cdf3ba9f0"
+    },
+    {
+      "path": "database/tests/scientific-products.test.mjs",
+      "previous_git_blob": "fc53fe311b23dbbbe6a85a9adfaac5f074843154"
+    },
+    {
+      "path": "database/tests/scientific-properties.test.mjs",
+      "previous_git_blob": "d9fac3498b8928d354b92135b412e9e037847a84"
+    },
+    {
+      "path": "database/tests/unit-rules.test.mjs",
+      "previous_git_blob": "9f9b0cd9c9efcb3cd7192b113cd490d2ef9c1048"
+    }
+  ]
+}

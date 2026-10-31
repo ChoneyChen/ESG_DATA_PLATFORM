@@ -616,23 +616,17 @@ def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_c
         "execution_budget_exhausted" in c.reasons or "object_budget_exhausted" in c.reasons or c.state == "failed" or "document_read_failed" in c.reasons
         for c in coverage
     )
-    required = {
-        key: clause.purposes.enrichment.identity_axes if clause.purposes else [
-            field.binding.key for field in clause.organization.fields
-            if field.binding.source in {"identity", "dimension"}
-        ]
-        for key, clause in clauses.items()
-    }
+    required = {key: clause.purposes.enrichment.identity_axes for key, clause in clauses.items()}
     by_id = {fact.source_fact_id: fact for fact in facts}
     incomplete = False
     comparable = bool(mappings) and {f.source_fact_id for f in facts} <= {m.source_fact_id for m in mappings}
     for link in mappings:
         fact = by_id[link.source_fact_id]
         clause = clauses[link.clause_key]
-        policy = clause.purposes.comparison if clause.purposes else None
+        policy = clause.purposes.comparison
         if link.match != "match" or any(flag.startswith(("comparison_axis_missing:", "clause_evidence_missing:", "output_vocabulary_", "identity_conflict:", "unit_source_unconfirmed")) for flag in link.flags):
             comparable = False
-        if (policy is None or policy.require_complete_scopes) and not {s.scope_id for s in clause.output_scopes if s.required} <= set(link.scope_ids):
+        if policy.require_complete_scopes and not {s.scope_id for s in clause.output_scopes if s.required} <= set(link.scope_ids):
             comparable = False
         for axis in required[link.clause_key]:
             field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)

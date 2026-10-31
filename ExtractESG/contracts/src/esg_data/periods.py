@@ -39,6 +39,13 @@ def parse_period(raw: str | None) -> ReportedPeriod | None:
         return None
     years = list(dict.fromkeys(int(y) for y in re.findall(YEAR, text)))
     if not years:
+        quarter = re.search(r"(?:Q\s*([1-4])|第?([一二三四1-4])季度)", text, re.I)
+        if quarter:
+            token=quarter.group(1) or quarter.group(2)
+            number=int(token) if token.isdigit() else "一二三四".index(token)+1
+            return ReportedPeriod(kind="quarter",raw=raw,quarter=number)
+        if re.search(r"财年|財年|fiscal year|\bFY\b",text,re.I):
+            return ReportedPeriod(kind="fiscal_year",raw=raw)
         return None
     positions = []
     for match in re.finditer(r"((?:19|20|21)\d{2})\s*[-/年.]\s*(\d{1,2})\s*[-/月.]\s*(\d{1,2})\s*日?", text):
@@ -114,6 +121,6 @@ def period_label(value) -> str:
         return "期间未知"
     if period.kind == "annual":
         return str(period.year)
-    if period.kind == "quarter":
+    if period.kind == "quarter" and period.year is not None:
         return f"{period.year} Q{period.quarter}"
     return period.raw

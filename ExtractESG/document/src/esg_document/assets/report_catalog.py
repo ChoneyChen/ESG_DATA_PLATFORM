@@ -13,7 +13,7 @@ from typing import Any, BinaryIO
 from esg_document.utils.hashing import sha256_file
 from esg_runtime.lifecycle import (
     LifecycleBlocked,
-    PublicationReferenceGuard,
+    SourceReferenceGuard,
     blocker,
     require_reason,
 )
@@ -47,7 +47,7 @@ class ReportAssetCatalog:
         self.catalog_path = metadata_root / CATALOG_FILENAME
         self._lock = threading.RLock()
         self.lifecycle_path = metadata_root / ".report-lifecycle.json"
-        self.reference_guard = reference_guard or PublicationReferenceGuard()
+        self.reference_guard = reference_guard or SourceReferenceGuard()
         self.pipeline_queue_db = pipeline_queue_db
         self.trash = RecoverableTrash(
             self.root / ".recycle", [self.root], guard=self.reference_guard
@@ -220,7 +220,7 @@ class ReportAssetCatalog:
         temporary.replace(self.lifecycle_path)
 
     def lifecycle_description(self, asset_id):
-        from esg_runtime.production_references import production_references
+        from esg_pipeline.source_references import extraction_references
 
         asset = self.get(asset_id)
         references = self.reference_guard.check(
@@ -273,16 +273,16 @@ class ReportAssetCatalog:
                                     processing_ids=[r[0] for r in runs],
                                 )
                             )
-                    reservations = production_references(
+                    reservations = extraction_references(
                         conn, asset_id=asset_id, source_sha256=asset["sha256"]
                     )
                     if reservations:
                         blockers.append(
                             blocker(
-                                "production_report_reference",
-                                "自动生产计划仍引用此PDF；先结束或取消相关计划。",
-                                automation_ids=sorted(
-                                    {r["automation_id"] for r in reservations}
+                                "extraction_report_reference",
+                                "提取任务仍引用此PDF；先结束或取消相关计划。",
+                                session_ids=sorted(
+                                    {r["session_id"] for r in reservations}
                                 ),
                             )
                         )

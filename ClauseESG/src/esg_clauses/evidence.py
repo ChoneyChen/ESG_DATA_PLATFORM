@@ -12,7 +12,7 @@ def check_evidence(clause, fields):
             continue
 
         def supports(source):
-            if clause.purposes and requirement.field == "unit" and source.get("role") == "unit" and source.get("object_type") != "report":
+            if requirement.field == "unit" and source.get("role") == "unit" and source.get("object_type") != "report":
                 # A bound table title/column/footnote unit is as usable as a row
                 # unit. Missing units still leave comparison context incomplete.
                 return True

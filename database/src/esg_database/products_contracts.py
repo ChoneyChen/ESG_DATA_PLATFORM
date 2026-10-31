@@ -3,7 +3,8 @@ from typing import Annotated, Literal
 from pydantic import Field, JsonValue, model_validator
 from esg_contracts.facts import QuantitativePayload, QualitativePayload, ReportedContext, EvidenceLocation, ClauseMapping
 from esg_data.periods import ReportedPeriod
-from .contracts import Model
+from .contracts import Model, PeriodFacet
+from esg_contracts.exports import IngestionReceipt
 
 
 class ComparisonStatus(Model):
@@ -54,6 +55,7 @@ class ProjectionSummary(Model):
     input_digest: str
     transform_version: str
     content_digest: str
+    source: ObservationSource
     facts: int = Field(ge=0)
     observations: int = Field(ge=0)
     periods: dict[str, int]
@@ -68,6 +70,12 @@ class ProjectionStatus(Model):
     projection: ProjectionSummary | None = None
     error_code: str | None = None
     retryable: bool = False
+
+    @model_validator(mode="after")
+    def completed_projection(self):
+        if (self.status == "completed") != (self.projection is not None):
+            raise ValueError("Only a completed projection carries its immutable result")
+        return self
 
 
 class SourceSelectionPolicy(Model):
@@ -105,6 +113,10 @@ class DatasetPreview(Model):
 class PublishRequest(DatasetRequest):
     preview_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
     reason: str = Field(min_length=1, max_length=1000)
+
+
+class PreviewQuery(DatasetRequest):
+    preview_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
 
 
 class WithdrawalRequest(Model):
@@ -165,3 +177,21 @@ class ProductDefinition(Model):
     clause_digest: str
     title: str
     contract: dict[str, JsonValue]
+
+
+class CaptureProductState(Model):
+    schema_version: Literal["capture-product-state-1.0"] = "capture-product-state-1.0"
+    export_id: str
+    receipt: IngestionReceipt
+    captured_facts: int = Field(ge=0)
+    capture_periods: list[PeriodFacet]
+    projection: ProjectionStatus
+    datasets: DatasetPage | None = None
+    published_dataset_count: int | None = None
+    auto_publish: Literal[False] = False
+
+    @model_validator(mode="after")
+    def reception_counts(self):
+        if self.captured_facts != self.receipt.accepted_facts or sum(item.facts for item in self.capture_periods) != self.captured_facts:
+            raise ValueError("Capture counts must agree with the receipt and period facets")
+        return self

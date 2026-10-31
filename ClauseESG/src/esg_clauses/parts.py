@@ -63,14 +63,6 @@ class AcceptanceProfile(StrictModel):
     samples: list[AcceptanceSample] = Field(default_factory=list)
 
 
-class PublicationProfile(StrictModel):
-    aggregation: Literal[
-        "none", "sum_disjoint_members", "ratio_recompute", "do_not_sum"
-    ] = "none"
-    comparison_axes: list[str] = Field(default_factory=list)
-    fixed_axes: dict[str, str] = Field(default_factory=dict)
-
-
 READING_OPERATORS = (
     "numeric_label",
     "ghg_scope",

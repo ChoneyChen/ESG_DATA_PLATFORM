@@ -33,6 +33,12 @@ class DocumentReference(ProtocolModel):
     search_scope: dict | None = None
     period_context: ReportingPeriodContext | None = None
 
+    @model_validator(mode="after")
+    def physical_source(self):
+        if self.source_sha256 and self.report_resource and self.source_sha256 != self.report_resource.sha256:
+            raise ValueError("Document and resource must identify the same physical PDF")
+        return self
+
     @model_serializer(mode="wrap")
     def preserve_frozen_shape(self, serializer):
         body = serializer(self)

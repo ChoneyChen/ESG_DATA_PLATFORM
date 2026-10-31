@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PGlite} from '@electric-sql/pglite';
-import {applyMigrations} from '../runtime/frozen_schema.mjs';
+import {applyCaptureSchema as applyMigrations} from '../runtime/schema.mjs';
 import {capturedFacts} from '../queries/captures.mjs';
 
 test('more than 1000 captured facts remain fully queryable and cursors bind filters',async()=>{

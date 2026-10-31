@@ -4,8 +4,14 @@ from esg_contracts.facts import SourceFact
 from esg_data.hashing import digest
 from esg_data.periods import normalize_period, period_label, ReportedPeriod
 from .products_contracts import Observation, ObservationSource, ComparisonStatus, ProjectionSummary, ProductDefinition
+from esg_reports.contract import ReportResource
 
 TRANSFORM_VERSION = "capture-observation-1.0"
+
+
+def period_facet(period):
+    period=normalize_period(period) if not isinstance(period,ReportedPeriod) else period
+    return "unknown" if period is None or period.kind=="unknown" else period_label(period.model_dump(mode="json"))
 
 
 def period_coordinate(period):
@@ -41,6 +47,14 @@ def _occurrence(fact, document):
     return "occurrence-" + digest([source, values])
 
 
+def _source(document, resource, document_id):
+    return ObservationSource(document_id=document_id,pdf_sha256=document.get("source_sha256") or (resource.sha256 if resource else None),
+        pdf_id=resource.pdf_id if resource else None,title=(resource.title or document.get("label")) if resource else document.get("label"),
+        report_company=resource.company.name if resource and resource.company else None,publication_year=resource.publication_year if resource else None,
+        resource_revision=resource.revision if resource else None,report_company_id=resource.company.company_id if resource and resource.company else None,
+        industry=resource.industry.name if resource and resource.industry else None,reporting_year=resource.reporting_year if resource else None)
+
+
 def compile_projection(payload):
     """Input is an immutable database export snapshot; return a sealed projection."""
     export_id, input_digest = payload["export_id"], payload["input_digest"]
@@ -60,26 +74,20 @@ def compile_projection(payload):
         reported_period = fact.identity.reporting_period
         period = normalize_period(reported_period.value) if _known(reported_period) else None
         period = period or ReportedPeriod(kind="unknown", raw=reported_period.raw_text or "期间未陈述")
-        resource = fact.report_resource
-        source = ObservationSource(document_id=fact.document_id, pdf_sha256=document.get("source_sha256"),
-            pdf_id=resource.pdf_id if resource else None, title=resource.title if resource else document.get("label"),
-            report_company=resource.company.name if resource and resource.company else None,
-            publication_year=resource.publication_year if resource else None,
-            resource_revision=resource.revision if resource else None,
-            report_company_id=resource.company.company_id if resource and resource.company else None,
-            industry=resource.industry.name if resource and resource.industry else None,
-            reporting_year=resource.reporting_year if resource else None)
+        source_resource = ReportResource.model_validate(document["report_resource"]) if document.get("report_resource") else fact.report_resource
+        source = _source(document, source_resource, fact.document_id)
+        source_conflict = bool(fact.report_resource and source.pdf_sha256 and fact.report_resource.sha256 != source.pdf_sha256)
         for link in sorted(by_fact[fact.source_fact_id] or [{"clause_key": None, "relation": "uncertain", "mapping": {}}], key=lambda row: row["clause_key"] or ""):
             key, relation = link["clause_key"], link["relation"]
             contract = targets.get(key)
             reasons = []
+            if source_conflict: reasons.append("source_metadata_conflict")
             if relation != "match": reasons.append("target_relation:" + relation)
             if period.kind == "unknown": reasons.append("period_unknown")
             if fact.quality != "grounded": reasons.append("source_confirmation_pending")
             if fact.value.kind == "quantitative" and fact.value.parse_status != "parsed": reasons.append("structured_value_not_available")
             if contract:
-                purposes = contract.get("purposes") or {}
-                policy = purposes.get("comparison") or {"required_axes": contract["value"].get("comparison_axes", []), "require_complete_scopes": True}
+                policy = contract["purposes"]["comparison"]
                 for axis in policy.get("required_axes", []):
                     if not _known(_reported(fact, axis)): reasons.append("identity_unconfirmed:" + axis)
                 if policy.get("require_complete_scopes", True) and coverage.get(key, {}).get("state") != "covered":
@@ -109,7 +117,8 @@ def compile_projection(payload):
     occurrences = Counter(row["occurrence_id"] for row in observations)
     summary = ProjectionSummary(projection_id="projection-" + digest([export_id, input_digest, TRANSFORM_VERSION]),
         export_id=export_id, input_digest=input_digest, transform_version=TRANSFORM_VERSION, content_digest=content,
-        facts=len(payload["facts"]), observations=len(observations), periods=dict(sorted(Counter(period_label(row["period"]) for row in observations).items())),
+        source=_source(document,ReportResource.model_validate(document["report_resource"]) if document.get("report_resource") else None,document["document_id"]),
+        facts=len(payload["facts"]), observations=len(observations), periods=dict(sorted(Counter(period_facet(row["period"]) for row in observations).items())),
         relations=dict(sorted(Counter(row["relation"] for row in observations).items())),
         repeated_occurrences=sum(count > 1 for count in occurrences.values()),
         diagnostics=["Repeated physical occurrences are candidates for review, never automatically summed or deleted."] if any(count > 1 for count in occurrences.values()) else []).model_dump(mode="json")

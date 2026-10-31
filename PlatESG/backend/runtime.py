@@ -7,4 +7,4 @@ def release():
     return ModuleRelease(Path(__file__).resolve().parents[1], "publication-backend", (
         "backend/*.py", "backend/*.mjs", "frontend/src/**/*.ts", "frontend/src/**/*.tsx",
         "frontend/src/**/*.css",
-    ), dependencies=(("database", module_release()),))
+    ), dependencies=(("database_products_client",module_release("products_client")),))

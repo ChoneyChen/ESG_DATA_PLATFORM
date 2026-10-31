@@ -1,9 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from esg_contracts.sessions import ExtractionPlanRequest
 from .monitor import MonitorSnapshot, monitor_snapshot
+from .products import SessionProducts
 
 
-def extraction_router(coordinator, require_ready=lambda: None):
+def extraction_router(coordinator, require_ready=lambda: None,products=None):
     router = APIRouter()
 
     def call(fn, *args):
@@ -18,7 +19,12 @@ def extraction_router(coordinator, require_ready=lambda: None):
 
     @router.get("/api/console/monitor", response_model=MonitorSnapshot)
     def monitor():
-        return monitor_snapshot(coordinator.list(terminal_limit=3))
+        return monitor_snapshot(coordinator.list(terminal_limit=3),products)
+
+    @router.get("/api/report-sessions/{key}/products",response_model=SessionProducts)
+    def product_state(key: str):
+        state=call(coordinator.detail,call(coordinator.get,key))
+        return products.for_session(state) if products else SessionProducts(session_id=key,observation="unavailable",stage_label="数据服务未配置")
 
     @router.post("/api/report-sessions/{key}/archive")
     def archive(key: str):

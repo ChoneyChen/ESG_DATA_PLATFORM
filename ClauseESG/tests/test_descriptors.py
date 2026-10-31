@@ -53,12 +53,10 @@ def test_content_dispositions_are_specific_and_do_not_claim_scientific_acceptanc
             assert not any(field.required_for_confirmation for field in clause.organization.fields if field.role != "raw_value")
 
 
-def test_old_frozen_value_shape_and_digest_are_still_readable(current):
+def test_retired_value_contract_is_rejected(current):
     clause = current.get("E2-4_02")
     body = clause.model_dump(mode="json")
     body["schema_version"] = "clause-contract-1.1"
     body.pop("purposes")
-    old = type(clause).model_validate(body).seal()
-    restored = current.thaw(current.freeze({old.clause_key: old}))
-    assert restored[old.clause_key].clause_digest == old.clause_digest
-    assert "purposes" not in restored[old.clause_key].model_dump(mode="json")
+    with pytest.raises(ValueError):
+        type(clause).model_validate(body)

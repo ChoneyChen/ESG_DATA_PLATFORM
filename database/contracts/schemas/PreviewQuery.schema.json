@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "SourceSelectionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "all_sources",
+          "enum": [
+            "all_sources",
+            "latest_report",
+            "prefer_explicit_restated"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "relations": {
+          "items": {
+            "enum": [
+              "match",
+              "uncertain",
+              "different"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Relations",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "source-selection-1.0",
+          "default": "source-selection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "title": "SourceSelectionPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "policy": {
+      "$ref": "#/$defs/SourceSelectionPolicy"
+    },
+    "preview_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Preview Digest",
+      "type": "string"
+    },
+    "projection_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Projection Ids",
+      "type": "array"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "projection_ids",
+    "preview_digest"
+  ],
+  "title": "PreviewQuery",
+  "type": "object"
+}

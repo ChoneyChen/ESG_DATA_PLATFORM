@@ -178,11 +178,245 @@
       "pdf_page": 73
     }
   ],
-  "receiver_status": "pending_updated_service_restart",
+  "receiver_status": "accepted_and_read_back",
   "scientific_limits": [
     "Nine target values verified against the previously inspected PDF; 51 is capture count, not all-row semantic accuracy.",
     "Targeted evidence covers 17 of 92 pages; no report-wide recall or absence claim.",
     "137.327 seconds is one observed run, not a controlled performance benchmark.",
     "Unknown optional identity affects comparison, not raw reception."
-  ]
+  ],
+  "receipt": {
+    "schema_version": "extraction-receipt-1.0",
+    "export_id": "export-3a8c6a61e71e67376f6850325bd0d19d5ee862d7f282318812c40129afc6ce40",
+    "input_digest": "685ac49dd2455d71a92f42ba0e00968de7d1859995790eb208bd48b9491a1a7d",
+    "receipt_id": "receipt-932f7e9929ec2c6addc9137b5c9bcdce1f4bc0805ce00634af766617c8d475a9",
+    "status": "accepted",
+    "accepted_facts": 51,
+    "rejected_facts": 0,
+    "dispositions": [
+      {
+        "status": "accepted",
+        "source_fact_id": "60425d0b4eb539166f755bf029f8895054645781bc4e6885403833e98dfb18ef"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "71bae70229da1a6d6558bcd58aae192351d295a4b3d4febfac17c446995db2ca"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "c0e095c192db575f0a2636a4e0a81b8562d00372c9a34d022b794ffea8a800e9"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "49d12619a41897686e2da61c67a15d1c083901d5de5c5e17e3681b362439a618"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "65b6e2fce9d1c2f0c712a74108408d2344632d1ddb04c1f8041122029d05bd5f"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "67393dda0d8365fbd4b0a2ebc192c44ea7ec35b442572843f635519d88858d1a"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "b2d6902ae9ea99db0f1591dd3710cf8d8f9043c06e07f65e92992ff565c1a04f"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "1ef9596b4cb958b4fef2772e5afd1eaa1574b488251a3e91f8b950d4ffbc1499"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "0fb13e05aee1af6db0f7a048250b6d242dd2b9e7d9e2c0d42f02c58572f23171"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "e7719e54654acb01b5738708a55df97410ff88e3a61c7332fe1f895b3177f55f"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "851bdf920c9eb8ce0a4defce8586bc8e7d6960b0dc8ac2387b098ec7723a3093"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "52f457c75cf8844b20f9421316854b907ea2a4e70f1c565874065d15edede1ae"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "4c90e3e88071fcd70d2656f91f4592589b1fb56ee66df9e58a6462bc0a1eb4bd"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "1cadde6e4a0fc91c57ce0ceca5957acd93cae2ef2b1b3d2bdf79d6440d5088b1"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "6e95aba46a38dffd195fe79a9cfc5dad291f5943f170b92124ed127adef5661a"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "7a8739ee79fe731787f3e810612c28d30d127d3a60cca089f4301c5c84b51c58"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "f8f0171de5e57846d9827af715098f71c2fe0749decaccfbe35f1defdae31cc6"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "d123814f71b4eb00791a06443d1ba6484f1635776445547ecd37986ed477ca6c"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "006c5b91bd4c0862d0944b4e7601b59cd1a2def4aac27cd9340f4d51897fb3d3"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "f66c3cd494b52adc77c69fdbde6909905bac783b37acc74d652ccb167df42f25"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "ed38e21fbe6542fc377ae7082e1179f8122c3fd888a454713398e3527cfb29cd"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "d2d3cf5875bb0a722a76d31c66442b777b0768d5035caeef0c0231e8a10278d6"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "fb6e6f540c06873bfaa0b050c09747f68abbe5f799a3d17a18b02c28a2748165"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "a267a9115fb737dfd0f978bbc413149d18e0f58337b00fe4103cc2d44a6d1046"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "feb5aa633ac1031d115df51b0dd43b19c963679bdfb469b70e4cb5368142fc70"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "c5b9c9b720900f4eb510b7728f5f1f47998a15c3869f8524258fa732465b5faf"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "bd6c6381868390be01f7850309cea73fb066f07aaca5b6082acf2e16acb845a0"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "ae9405e480352fc740b72867207e7dfb9ee58f9b2937e4583f7b5021c07f4da2"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "ed2d5f03dd8ec04ac796abc79f4b9e2780cb293f6cd8f75ee76e7aa538e4b025"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "8f73625ecbf01bf989b5147bb6d7c725874731798964ffd1ed552855c775dec9"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "c3730f76a072e379c62bdf00764d64bd3a2d948a86d4056a808a05ecfbe3caa6"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "2590faceffd4370d2b81e04788d215c65342f184a73c02a4890fbd244bcf7dcb"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "65643445d98cea0fd45bb46f1c9da5bc05b3f754912c7dfdd73332ad8467fe77"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "ff3e7b34263950c7d223930acd6f21b59d05618e4dea707656710c6fd8b7f855"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "d01e2a08e0b9b78696608c45d20cea3e907bed3aa823bf30a54136e1cfb46222"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "bae58910a1594d6dc454c82108044bd84b24c005a2021537376789e2546ed0a6"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "57a1089da46843df339bb65ee375c6661ed78df15605082f962a0d3e71e64c96"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "df76f34d68573d282b24c6b620b1dd30d5307e0dc1037d5adf22320718cac73f"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "0a830d76a885e1a36a80c2c60fc159596460c0d042a0febfcc49d7d792cbb94e"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "0a32d95bcd3ba6bea2f121975ceaae93de662b62f0df62ef340c528263dbb116"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "c4873f413efa4923c8ba03d0a65f714615e664ae25beecf79cd5e3cc8e059311"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "83777d70983fcf27908e28449800d3830ca24496452dae8c5c2737901b84c20e"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "9385f033c0ffa8839fdc29163deec0dcb737b015aacd0756cd871803127ebeb1"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "2c51b9d2961795ddd8c5a26a4e2be92a3dcfdc90452559a7b5a12b7afbc30583"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "7210a6a398db6854acf8e3b92353ccaf780756028d23bbe0fb1dc501f8c87cdf"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "428453132948ecbd43e5500ba3bde9c62d7dfebe820c8af7baed27b368782898"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "0ffd2b8e8a6224e6e3aef3f2798b85c96cbfb839e5c8cd2567eb42550c4e6f84"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "47f82337831bbaf4e325d612871cf678d24d3a6a4aee272e9899362ebab56102"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "daf0e9f248e3a76836df613d346c38426cbd242c8dacb4e6cec4a9a209251ad4"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "3139355925d045483abf3822f5f42f5a43af63e8e7ada7f50acec3a845b58384"
+      },
+      {
+        "status": "accepted",
+        "source_fact_id": "e850f367b940ff20a7830f9a9d4748e2ae2d96d29cf554a8968b3a2f2e5a0a58"
+      }
+    ],
+    "publication_status": "not_evaluated",
+    "received_at": "2026-10-30T23:29:57.508Z"
+  },
+  "receiver_periods": [
+    {
+      "period": "2023",
+      "facts": 15
+    },
+    {
+      "period": "2024",
+      "facts": 18
+    },
+    {
+      "period": "2025",
+      "facts": 18
+    }
+  ],
+  "receiver_total": 51,
+  "projection_status": "schema_unavailable_not_installed_on_live_capture",
+  "published": false
 }

@@ -18,7 +18,7 @@ from uuid import UUID, uuid4
 
 from .lifecycle import (
     LifecycleBlocked,
-    PublicationReferenceGuard,
+    SourceReferenceGuard,
     blocker,
     require_reason,
 )
@@ -126,7 +126,7 @@ class RecoverableTrash:
             identity = "trash-" + uuid4().hex
             reservation_identity = (
                 str(UUID(identity.removeprefix("trash-")))
-                if isinstance(self.guard, PublicationReferenceGuard)
+                if isinstance(self.guard, SourceReferenceGuard)
                 else None
             )
             content = self.root / "content" / identity

@@ -1,0 +1,181 @@
+{
+  "removed": [
+    {
+      "path": "PlatESG/frontend/src/chart-contract.test.ts",
+      "bytes": 4356,
+      "sha256": "96d524a63eba36e9951cace2697a853d5ac19f03bd998e4a2a43950dfef2d546",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/chart-contract.ts",
+      "bytes": 2993,
+      "sha256": "450fddcdc5c4147edc1b9617c3268705d6fe3b2ace6b90f4966a0f4349104c4b",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ApiDocs.tsx",
+      "bytes": 12465,
+      "sha256": "6fbcc19ca6cac024b471918c8d48992d5475d08a9ecd10bbef21738e7c67c2d2",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Comparison.tsx",
+      "bytes": 20736,
+      "sha256": "bd628ac0ed4e0973881f320aa8d597d050442e8eeab2b5ed9f1475ec68fce4dc",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/DataChart.tsx",
+      "bytes": 978,
+      "sha256": "1f0a1ae26074805e23150bd557848e699b371b91eae8ce8fe41c0f18e26a6b35",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EChartCanvas.tsx",
+      "bytes": 4934,
+      "sha256": "fd73aaecd1b35e3958ab80c7c8924a372faa0b778abfb084459076cbcad69c4f",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EntityDetail.tsx",
+      "bytes": 10180,
+      "sha256": "6bddcf6f369c279ec564bdd16f823ef8d8fac3a6d78d28a62faabe7a8f61d45d",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EntityDirectory.tsx",
+      "bytes": 6342,
+      "sha256": "7be34239684df8c7310edfcd15c8711ace63ed34f79237e4a49dfb320489d617",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/EvidenceDrawer.tsx",
+      "bytes": 13843,
+      "sha256": "6efc0a08657b41f2b7d6b66d8db6ff6577b62f93c564a0cf9d3cc8e1762db6b4",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Landing.tsx",
+      "bytes": 14084,
+      "sha256": "1f460ba08bdf66e89a6b09f9f7eb797f0e88a495f4b802959f1a853887715618",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Methods.tsx",
+      "bytes": 8192,
+      "sha256": "58c45d86d625b8829b1c4b40e8621dceb4a307f95970d2192bdae1ae23f17d2c",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/MetricCatalog.tsx",
+      "bytes": 4096,
+      "sha256": "451a5954a421345d77d71b9dbb11f7627dabb35c1e844aa21b15ad760753b8d4",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/MetricDetail.tsx",
+      "bytes": 7528,
+      "sha256": "cf1cf4983c23302562cabc7af52ed2cdf558424d521a1ba4f14c2729cd02bb69",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ObservationTable.tsx",
+      "bytes": 3605,
+      "sha256": "a6dc1ccc74bcf1e8f896135194df251eef0a8345d365a81ae7084d5b6a121818",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Overview.tsx",
+      "bytes": 7200,
+      "sha256": "05be2e177cbf0fb47bc539dfed99df6f3e2bea133891955e866f06e5cb3685b3",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Pagination.tsx",
+      "bytes": 2681,
+      "sha256": "124520d3ebbebe55836d1153b03e91fe0f17e5e7550a98b554ba0a55838de4b9",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/RangeDisclosures.tsx",
+      "bytes": 2006,
+      "sha256": "1586dd03010d9d211d8e2c57110599a65544fd70fa9e3fba33373f5a4f641f78",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ReportedProperties.test.tsx",
+      "bytes": 11974,
+      "sha256": "3fe1c05e5309b6510d4cf62344d157c69855539231bc47c3bda95bc1c69a5712",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/ReportedProperties.tsx",
+      "bytes": 5238,
+      "sha256": "152e62d2606b96d1550390330d1965cb15c2537a82fabedde39aea8479d7ccac",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Review.tsx",
+      "bytes": 3460,
+      "sha256": "fd71f6ec48ff9c8a64c11aea28b72a682c0aa6266c2c2bc4be78a63b9f639036",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/components/Sources.tsx",
+      "bytes": 5980,
+      "sha256": "542e3c935a690ca159e33e01811fc00a2c5137adba17fcfde9e933a6b532a7f0",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/format-reasons.test.ts",
+      "bytes": 3476,
+      "sha256": "5f6fab78936724bb0fb11d9e71f4cfff1e85a4df5a1d54a44d7ec7a2827c5107",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/format.test.ts",
+      "bytes": 6410,
+      "sha256": "1b0c202ac259801fcf2d8797dec6a2d0688974ba600bf8e47f11f43f83c36d24",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/format.ts",
+      "bytes": 20169,
+      "sha256": "13fb2e0df716b82fe809ba7b3c47e59b9420ae269857c88f4b5fe7d48338e810",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/hooks/useObservations.ts",
+      "bytes": 2371,
+      "sha256": "fe76acb2d6cc6cf138f72d2d6b901e698ae39f803088dea219fb7f5b0626289e",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/public-contract.test.ts",
+      "bytes": 1391,
+      "sha256": "929d556f8e05fcafb0f6ce68c819794bfc5a37b9c2e305dbe78aea41bba8811f",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    },
+    {
+      "path": "PlatESG/frontend/src/public-contract.ts",
+      "bytes": 1736,
+      "sha256": "7448da7aa0a697031fe8adc0f1917925fdc06d1f756d2a75ee078eff0d9be550",
+      "reason": "Unreachable legacy v1 product implementation/test; current product uses database-owned v2 contracts"
+    }
+  ],
+  "retained_current_sources": [
+    "PlatESG/frontend/src/App.test.tsx",
+    "PlatESG/frontend/src/App.tsx",
+    "PlatESG/frontend/src/api.test.ts",
+    "PlatESG/frontend/src/api.ts",
+    "PlatESG/frontend/src/components/AppShell.tsx",
+    "PlatESG/frontend/src/components/ProductLink.tsx",
+    "PlatESG/frontend/src/components/PublishedData.tsx",
+    "PlatESG/frontend/src/components/Ui.tsx",
+    "PlatESG/frontend/src/hooks/useResource.ts",
+    "PlatESG/frontend/src/main.tsx",
+    "PlatESG/frontend/src/navigation.ts",
+    "PlatESG/frontend/src/styles.css",
+    "PlatESG/frontend/src/types.ts"
+  ]
+}

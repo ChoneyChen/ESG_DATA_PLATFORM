@@ -1,8 +1,11 @@
-export type Service = "document" | "extraction";
+export type Service = "document" | "extraction" | "database";
 const prefixes: Record<Service, string> = {
   document: "/document",
   extraction: "/extraction",
+  database: "/database",
 };
+export const serviceUrl = (service: Service, path: string) =>
+  prefixes[service] + path;
 export class RequestError extends Error {
   constructor(
     message: string,

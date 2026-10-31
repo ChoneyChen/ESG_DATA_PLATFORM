@@ -1,0 +1,18 @@
+{
+  "state": "source_and_isolated_verification",
+  "not_final_deployment": true,
+  "tests": {
+    "clause_extraction_console_database_python": 156,
+    "document_and_runtime_previous_full": 483,
+    "database_node_current": 9,
+    "console_frontend": 19,
+    "plat_frontend": 7,
+    "plat_backend": 8
+  },
+  "standalone": "../../verification/standalone.json",
+  "scope_limits": [
+    "No real data published",
+    "Remaining per-document audit and runtime data cleanup",
+    "Final source fingerprint real runs still required"
+  ]
+}

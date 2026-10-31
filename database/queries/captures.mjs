@@ -7,7 +7,7 @@ const PERIOD=`CASE
  WHEN jsonb_typeof(f.record#>'{identity,reporting_period,value}')='string'
  THEN f.record#>>'{identity,reporting_period,value}'
  WHEN f.record#>>'{identity,reporting_period,value,kind}'='quarter'
- THEN (f.record#>>'{identity,reporting_period,value,year}')||' Q'||(f.record#>>'{identity,reporting_period,value,quarter}')
+ THEN COALESCE((f.record#>>'{identity,reporting_period,value,year}')||' Q'||(f.record#>>'{identity,reporting_period,value,quarter}'),f.record#>>'{identity,reporting_period,value,raw}')
  ELSE COALESCE(f.record#>>'{identity,reporting_period,value,raw}',f.record#>>'{identity,reporting_period,value,year}') END`;
 
 export async function capturedFacts(db,{export_id,limit=200,cursor=null,period=null,clause_key=null,relation=null}={}) {

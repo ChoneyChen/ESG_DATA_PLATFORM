@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 import pytest
 
-from esg_runtime.lifecycle import LifecycleBlocked, PublicationReferenceGuard
+from esg_runtime.lifecycle import LifecycleBlocked, SourceReferenceGuard
 from esg_document.api.report_processing import processing_router
 from esg_pipeline.report_processing import ProcessingRequest
 from esg_document.storage.processing_lifecycle import ProcessingLifecycle, processing_lifecycle_router
@@ -88,7 +88,7 @@ def test_processing_restore_does_not_reintroduce_invalid_evidence(tmp_path):
 
 
 def test_processing_candidates_and_unavailable_guard_block_discard_but_not_archive(tmp_path):
-    for index,guard in enumerate([Guard([{"code":"candidate_source_reference","message":"已入候选库"}]),PublicationReferenceGuard(url="http://127.0.0.1:1",token=None)]):
+    for index,guard in enumerate([Guard([{"code":"candidate_source_reference","message":"已入候选库"}]),SourceReferenceGuard(url="http://127.0.0.1:1")]):
         engine,store,asset,calls,service,client=setup(tmp_path/str(index),guard)
         state=complete(engine,store,asset)
         with pytest.raises(LifecycleBlocked):service.command(state["processing_id"],"discard",reason="不能丢弃来源")

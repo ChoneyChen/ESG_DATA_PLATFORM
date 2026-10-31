@@ -1,0 +1,14 @@
+{
+  "products_ready": true,
+  "published_catalog": "empty",
+  "retired_api": 410,
+  "requires_extract_checkout": false,
+  "live_database_opened": false,
+  "installed_sdk_modules": [
+    "esg_clauses-1.3.0-py3-none-any.whl",
+    "esg_runtime-1.2.0-py3-none-any.whl",
+    "esg_database-1.1.0-py3-none-any.whl",
+    "esg_contracts-2.2.0-py3-none-any.whl"
+  ],
+  "deployment_boundary": "SDK wheels + independent DB Node assets + HTTP; no legacy dictionary or extraction checkout"
+}

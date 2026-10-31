@@ -32,3 +32,25 @@ def test_both_value_contracts_share_one_validated_delivery_without_required_meta
 def test_collection_rejects_broken_identity_links_and_false_counts(change):
     body=bundle();change(body)
     with pytest.raises(ValidationError):FactBundle.model_validate(body)
+
+
+@pytest.mark.parametrize('index',[0,1])
+def test_wire_schema_and_python_agree_that_value_kind_is_explicit(index):
+    from jsonschema import Draft202012Validator
+    from esg_contracts.facts import SourceFact
+    body=bundle()['facts'][index]
+    schema=SourceFact.model_json_schema()
+    Draft202012Validator(schema).validate(body)
+    assert SourceFact.model_validate(body).value.kind==body['value']['kind']
+    body['value'].pop('kind')
+    assert list(Draft202012Validator(schema).iter_errors(body))
+    with pytest.raises(ValidationError):SourceFact.model_validate(body)
+
+
+def test_document_identity_conflict_is_not_mistaken_for_missing_metadata():
+    from esg_contracts.evidence import DocumentReference
+    from esg_reports.contract import ReportResource
+    resource=ReportResource(pdf_id='synthetic',asset_id='pdf-'+'a'*24,sha256='a'*64,original_filename='synthetic.pdf')
+    base=bundle()['document']
+    assert DocumentReference(**base,report_resource=resource).reporting_year is None
+    with pytest.raises(ValidationError):DocumentReference(**base,source_sha256='b'*64,report_resource=resource)

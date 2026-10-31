@@ -1,6 +1,6 @@
 """PDF and OCR libraries: explicit, guarded permanent deletion.
 
-The publication reservation prevents candidate import from racing deletion.
+The database source reservation serializes capture ingestion and deletion.
 No source bytes are retained in a trash directory. A small operation journal
 records intent and the exact owned paths, so a failed operation is never
 reported as a successful deletion. OCR tombstones contain run IDs, never the
@@ -19,8 +19,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-from esg_runtime.lifecycle import LifecycleBlocked, PublicationReferenceGuard, blocker
-from esg_runtime.production_references import production_references
+from esg_runtime.lifecycle import LifecycleBlocked, SourceReferenceGuard, blocker
+from esg_pipeline.source_references import extraction_references
 
 
 def _now():
@@ -38,9 +38,8 @@ class LibraryDeletionService:
             if inventory
             else catalog.root / ".library-operations"
         ) / "permanent-deletions"
-        self.cancel_task = self.cleanup_records = self.processing = self.plans = (
-            self.automations
-        ) = None
+        self.cancel_task = self.cleanup_records = self.processing = self.extractions = None
+        self.native_request = None
         self._stop = threading.Event()
         self._thread = None
 
@@ -49,23 +48,17 @@ class LibraryDeletionService:
         *,
         cancel_task=None,
         processing=None,
-        plans=None,
-        automations=None,
+        extractions=None,
         native_request=None,
         cleanup_records=None,
     ):
-        self.cancel_task, self.processing, self.plans, self.automations = (
-            cancel_task,
-            processing,
-            plans,
-            automations,
-        )
+        self.cancel_task, self.processing, self.extractions = cancel_task, processing, extractions
         self.native_request, self.cleanup_records = native_request, cleanup_records
 
     @contextmanager
     def _owners_lock(self):
         with ExitStack() as stack:
-            for owner in (self.automations, self.processing, self.plans):
+            for owner in (self.extractions, self.processing):
                 if owner is not None:
                     stack.enter_context(owner._lock)
             yield
@@ -240,9 +233,7 @@ class LibraryDeletionService:
                         "queued",
                         "running",
                         "cancelling",
-                    } or production_references(
-                        db, processing_id=state["processing_id"]
-                    ):
+                    }:
                         result.append(
                             blocker(
                                 "active_source_task",
@@ -250,38 +241,8 @@ class LibraryDeletionService:
                                 processing_id=state["processing_id"],
                             )
                         )
-        if production_references(db, asset_id=asset_id, source_sha256=source_sha256):
-            result.append(
-                blocker("active_source_task", "删除时会从自动生产计划移除此报告。")
-            )
-        if "pipeline_plans" in tables:
-            for row in db.execute("SELECT state_json FROM pipeline_plans"):
-                state = json.loads(row[0])
-                for document in state.get("documents", []):
-                    matches = (
-                        (asset_id and document.get("asset_id") == asset_id)
-                        or (
-                            source_sha256
-                            and document.get("source_sha256") == source_sha256
-                        )
-                        or document.get("ir_run_id") in run_ids
-                        or document.get("ocr_run_id") in run_ids
-                    )
-                    if matches and document.get("status") not in {
-                        "completed",
-                        "partial",
-                        "failed",
-                        "interrupted",
-                        "cancelled",
-                        "waiting_review",
-                    }:
-                        result.append(
-                            blocker(
-                                "active_source_task",
-                                "删除时会停止此报告的提取任务。",
-                                plan_id=state["plan_id"],
-                            )
-                        )
+        for reference in extraction_references(db, asset_id=asset_id, source_sha256=source_sha256, run_ids=run_ids):
+            result.append(blocker("active_source_task", "来源仍被活动提取使用；先取消并等待执行退出。", session_id=reference["session_id"]))
         if "ir_input_pins" in tables and "pipeline_tasks" in tables and run_ids:
             placeholders = ",".join("?" for _ in run_ids)
             for row in db.execute(
@@ -923,6 +884,7 @@ class LibraryDeletionService:
             result = self._remove(
                 paths,
                 scope={
+                    "target":"pdf",
                     "source_sha256": identity_sha256,
                     "job_ids": [r["run_id"] for r in versions],
                     "ir_run_ids": sorted(run_ids - {r["run_id"] for r in versions}),
@@ -950,30 +912,7 @@ class LibraryDeletionService:
 
     def _detach(self, db, **scope):
         if db is not None and self.cleanup_records:
-            import os
-
-            token = (
-                self.guard.token
-                if isinstance(self.guard, PublicationReferenceGuard)
-                else None
-            )
-            if not token:
-                default = (
-                    Path(__file__).resolve().parents[5] / "PlatESG/.local/review-token"
-                )
-                path = Path(os.getenv("PLATESG_LIFECYCLE_TOKEN_FILE", default))
-                if (
-                    path.is_file()
-                    and not path.is_symlink()
-                    and not path.stat().st_mode & 0o077
-                ):
-                    token = path.read_text().strip()
-            return self.cleanup_records(
-                db,
-                **scope,
-                native_request=self.native_request,
-                authorization="Bearer " + token if token else None,
-            )
+            return self.cleanup_records(db,**scope,native_request=self.native_request,authorization=None)
 
     def _schedule(self, kind, identity, blockers, *, source_sha256=None, run_ids=()):
         if not self.cancel_task or any(
@@ -1019,77 +958,15 @@ class LibraryDeletionService:
             )
 
         with self._owners_lock():
-            matched_processing = (
-                {
-                    state["processing_id"]
-                    for state in self.processing.list(include_archived=True)
-                    if match(state)
-                }
-                if self.processing
-                else set()
-            )
-            matched_plans = (
-                {
-                    state["plan_id"]: [
-                        document
-                        for document in state.get("documents", [])
-                        if match(document)
-                    ]
-                    for state in self.plans.list()
-                }
-                if self.plans
-                else {}
-            )
-            if self.automations:
-                for state in self.automations.list(include_archived=True):
-                    changed = False
-                    for item in state["items"]:
-                        if (
-                            match(item)
-                            or item.get("processing_id") in matched_processing
-                            or any(
-                                (
-                                    document.get("asset_id")
-                                    and document.get("asset_id") == item.get("asset_id")
-                                )
-                                or (
-                                    document.get("source_sha256")
-                                    and document.get("source_sha256")
-                                    == item.get("source_sha256")
-                                )
-                                for document in matched_plans.get(
-                                    item.get("extraction_plan_id"), []
-                                )
-                            )
-                        ):
-                            item.update(status="cancelled", source_deleted=True)
-                            changed = True
-                    if changed:
-                        self.automations._save(state, action="source_deletion")
+            if self.extractions:
+                for state in self.extractions.list():
+                    request_source=state.get("request",{}).get("input",{})
+                    if match({**state,"asset_id":request_source.get("asset_id")}):
+                        self.extractions.cancel(state["session_id"])
             if self.processing:
                 for state in self.processing.list(include_archived=True):
-                    if match(state) and state["status"] in {
-                        "queued",
-                        "running",
-                        "cancelling",
-                    }:
+                    if match(state) and state["status"] in {"queued", "running", "cancelling"}:
                         self.processing.action(state["processing_id"], "cancel")
-            if self.plans:
-                for state in self.plans.list():
-                    changed = False
-                    for document in state.get("documents", []):
-                        if match(document):
-                            for step in document.get("steps", {}).values():
-                                if step.get("task_id"):
-                                    task_ids.append(step["task_id"])
-                            document.update(status="cancelled", source_deleted=True)
-                            changed = True
-                    if changed:
-                        if all(
-                            d.get("status") == "cancelled" for d in state["documents"]
-                        ):
-                            state["status"] = "cancelled"
-                        self.plans.save(state)
         for task_id in task_ids:
             try:
                 self.cancel_task(task_id)
@@ -1100,7 +977,7 @@ class LibraryDeletionService:
         self._path_snapshot(
             paths
         )  # Refuse symlinks again immediately before reservation.
-        reason = "用户删除本地来源文件和处理记录，保留已入库的数据快照。"
+        reason = "用户删除本模块无引用的来源文件或可重建处理成果。"
         operation_id = str(uuid4())
         journal = {
             "schema_version": "permanent-library-deletion-v1",
@@ -1125,7 +1002,7 @@ class LibraryDeletionService:
 
         save()
         try:
-            if isinstance(self.guard, PublicationReferenceGuard):
+            if isinstance(self.guard, SourceReferenceGuard):
                 reservation = self.guard.reserve(
                     scope, reason, reservation_id=operation_id, local_files_only=True
                 )
@@ -1146,16 +1023,19 @@ class LibraryDeletionService:
                     path.unlink()
                 journal["deleted_paths"].append(str(path))
                 save()
-            self.guard.update_reservation(reservation, "released", reason)
+            self.guard.update_reservation(reservation, "purged", reason)
             journal.update(state="deleted", completed_at=_now())
             save()
         except Exception as exc:
             journal.update(state="incomplete", error_type=type(exc).__name__)
             try:
-                self.guard.update_reservation(
-                    journal.get("reservation_id") or operation_id, "released", reason
-                )
-                journal["reservation_release_confirmed"] = True
+                if journal["deleted_paths"]:
+                    journal["reservation_release_confirmed"] = False
+                else:
+                    self.guard.update_reservation(
+                        journal.get("reservation_id") or operation_id, "released", reason
+                    )
+                    journal["reservation_release_confirmed"] = True
             except Exception:
                 journal["reservation_release_confirmed"] = False
             save()

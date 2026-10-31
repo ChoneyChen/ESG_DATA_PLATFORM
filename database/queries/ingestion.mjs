@@ -1,5 +1,6 @@
 // Receiver persistence is one transaction. Optional context never rejects a fact.
 import {createHash} from 'node:crypto';
+import {lockCaptureSource} from './capture_sources.mjs';
 const fault=(code,message)=>Object.assign(new Error(message),{code});
 export async function receiptFor(db, exportId) {
   const row=(await db.query('SELECT receipt FROM esg.capture_exports WHERE export_id=$1',[exportId])).rows[0];
@@ -7,8 +8,9 @@ export async function receiptFor(db, exportId) {
 }
 export async function ingestExport(db, payload) {
   const {manifest,digest,facts,relations,targets,coverage,diagnostics}=payload;
-  if (!['extraction-export-1.0','extraction-export-1.1'].includes(manifest?.schema_version) || !Array.isArray(facts)) throw fault('unsupported_export','Unsupported extraction export');
+  if ((manifest?.schema_version!=='extraction-export-1.1'||manifest.authority!=='facts') || !Array.isArray(facts)) throw fault('unsupported_export','Unsupported extraction export');
   return db.transaction(async tx=>{
+    await lockCaptureSource(tx,manifest);
     // The unique row serializes concurrent retries, including an uncertain RPC outcome.
     await tx.query(`INSERT INTO esg.capture_exports(export_id,input_digest,manifest,receipt,coverage,diagnostics)
       VALUES ($1,$2,$3::jsonb,'{}'::jsonb,$4::jsonb,$5::jsonb) ON CONFLICT (export_id) DO NOTHING`,

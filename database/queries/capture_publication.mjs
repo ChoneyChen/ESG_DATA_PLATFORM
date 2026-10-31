@@ -86,13 +86,16 @@ export async function recordRestatement(db,request) {
   });
 }
 
-export async function datasetCatalog(db,{published_only=true,limit=100,cursor=null}={}) {
+export async function datasetCatalog(db,{published_only=true,limit=100,cursor=null,export_id=null}={}) {
   if(!Number.isInteger(limit)||limit<1||limit>1000)throw fault('invalid_query','Invalid page size');
-  const where=published_only?"WHERE state='published'":'';
-  const revision=(await db.query(`SELECT dataset_version_id,revision,state FROM esg.capture_dataset_versions ${where} ORDER BY dataset_version_id`)).rows;
-  const query=digest([revision,published_only,limit]);
+  const params=[],conditions=published_only?["state='published'"]:[];
+  if(export_id){params.push(export_id);conditions.push(`EXISTS (SELECT 1 FROM esg.capture_dataset_projections m JOIN esg.capture_projections p USING(projection_id)
+    WHERE m.dataset_version_id=capture_dataset_versions.dataset_version_id AND p.export_id=$1)`);}
+  const where=conditions.length?'WHERE '+conditions.join(' AND '):'';
+  const revision=(await db.query(`SELECT dataset_version_id,revision,state FROM esg.capture_dataset_versions ${where} ORDER BY dataset_version_id`,params)).rows;
+  const query=digest([revision,published_only,export_id,limit]);
   const after=cursorAfter(cursor,query);
-  const items=(await db.query(`SELECT * FROM esg.capture_dataset_versions ${where?where+' AND':'WHERE'} dataset_version_id>$1 ORDER BY dataset_version_id LIMIT $2`,[after,limit+1])).rows;
+  const items=(await db.query(`SELECT * FROM esg.capture_dataset_versions ${where?where+' AND':'WHERE'} dataset_version_id>$${params.length+1} ORDER BY dataset_version_id LIMIT $${params.length+2}`,[...params,after,limit+1])).rows;
   const more=items.length>limit;if(more)items.pop();
   return {schema_version:'capture-dataset-page-1.0',query_digest:query,total:revision.length,returned:items.length,items:items.map(version),
     next_cursor:more?encodeCursor(query,items.at(-1).dataset_version_id):null};
@@ -110,7 +113,7 @@ export async function observationPage(db,{projection_id=null,dataset_version_id=
   const params=[id],conditions=[`m.${key}=$1`];
   if(period){params.push(period);conditions.push(`CASE WHEN o.record#>>'{period,kind}'='unknown' THEN 'unknown'
     WHEN o.record#>>'{period,kind}'='annual' THEN o.record#>>'{period,year}'
-    WHEN o.record#>>'{period,kind}'='quarter' THEN (o.record#>>'{period,year}')||' Q'||(o.record#>>'{period,quarter}')
+    WHEN o.record#>>'{period,kind}'='quarter' AND o.record#>>'{period,year}' IS NOT NULL THEN (o.record#>>'{period,year}')||' Q'||(o.record#>>'{period,quarter}')
     ELSE o.record#>>'{period,raw}' END=$${params.length}`);}
   for(const [column,value]of [['clause_key',clause_key],['relation',relation]])if(value){params.push(value);conditions.push(`o.${column}=$${params.length}`);}
   const from=`FROM esg.capture_observations o JOIN esg.${table} m USING(observation_id) WHERE ${conditions.join(' AND ')}`;
@@ -128,4 +131,26 @@ export async function productDefinitions(db,{projection_id=null,dataset_version_
   const table=projection_id?'capture_projection_members':'capture_dataset_members',key=projection_id?'projection_id':'dataset_version_id';
   return (await db.query(`SELECT DISTINCT d.clause_key,d.clause_digest,d.title,d.contract FROM esg.capture_product_definitions d
     JOIN esg.capture_observations o USING(clause_digest) JOIN esg.${table} m USING(observation_id) WHERE m.${key}=$1 ORDER BY d.clause_key,d.clause_digest`,[projection_id||dataset_version_id])).rows;
+}
+
+export async function publicSource(db,{pdf_sha256}) {
+  const row=(await db.query(`SELECT o.record->'source' AS source FROM esg.capture_observations o
+    JOIN esg.capture_dataset_members m USING(observation_id) JOIN esg.capture_dataset_versions d USING(dataset_version_id)
+    WHERE d.state='published' AND o.record#>>'{source,pdf_sha256}'=$1 ORDER BY o.observation_id LIMIT 1`,[pdf_sha256])).rows[0];
+  if(!row)throw fault('not_found','Source is not referenced by a currently published dataset');
+  return row.source;
+}
+
+export async function observationDetail(db,{dataset_version_id,observation_id}) {
+  await datasetVersion(db,{dataset_version_id,published_only:true});
+  const row=(await db.query(`SELECT o.record FROM esg.capture_observations o JOIN esg.capture_dataset_members m USING(observation_id)
+    WHERE m.dataset_version_id=$1 AND o.observation_id=$2`,[dataset_version_id,observation_id])).rows[0];
+  if(!row)throw fault('not_found','Observation is not a member of this publication');
+  return row.record;
+}
+
+export async function datasetSources(db,{dataset_version_id}) {
+  await datasetVersion(db,{dataset_version_id,published_only:true});
+  return (await db.query(`SELECT DISTINCT o.record->'source' AS source FROM esg.capture_observations o
+    JOIN esg.capture_dataset_members m USING(observation_id) WHERE m.dataset_version_id=$1`,[dataset_version_id])).rows.map(row=>row.source);
 }

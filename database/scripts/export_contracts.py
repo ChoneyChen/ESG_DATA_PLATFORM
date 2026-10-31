@@ -10,10 +10,10 @@ sys.path[:0]=[str(ROOT/"src"),str(ROOT.parent/"ExtractESG/contracts/src"),str(RO
 from contract_types import declarations
 from esg_database.contracts import CaptureFactPage
 from esg_database.products_contracts import (Observation,ProjectionSummary,ProjectionStatus,SourceSelectionPolicy,DatasetRequest,
-    DatasetPreview,PublishRequest,WithdrawalRequest,RestatementRequest,DatasetVersion,ObservationPage,DatasetPage,ProjectionPage,ProductDefinition)
+    DatasetPreview,PublishRequest,WithdrawalRequest,RestatementRequest,DatasetVersion,ObservationPage,DatasetPage,ProjectionPage,ProductDefinition,CaptureProductState,PreviewQuery,ObservationSource)
 
 MODELS={model.__name__:model for model in (CaptureFactPage,Observation,ProjectionSummary,ProjectionStatus,SourceSelectionPolicy,DatasetRequest,
-    DatasetPreview,PublishRequest,WithdrawalRequest,RestatementRequest,DatasetVersion,ObservationPage,DatasetPage,ProjectionPage,ProductDefinition)}
+    DatasetPreview,PublishRequest,WithdrawalRequest,RestatementRequest,DatasetVersion,ObservationPage,DatasetPage,ProjectionPage,ProductDefinition,CaptureProductState,PreviewQuery,ObservationSource)}
 
 
 def check(write=False):

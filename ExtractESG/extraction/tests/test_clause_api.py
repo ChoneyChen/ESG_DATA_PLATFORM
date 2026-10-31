@@ -12,7 +12,7 @@ from test_backbone import documents
 @pytest.mark.parametrize('kind',['quantitative','qualitative'])
 def test_new_clause_has_one_structure_and_stays_blocked_until_explicitly_completed(tmp_path,documents,kind):
     root=tmp_path/'standard';root.mkdir()
-    (root/'_catalog.json').write_text(json.dumps({'schema_version':'clause-catalog-3.0','clauses':[]}))
+    (root/'_catalog.json').write_text(json.dumps({'schema_version':'clause-catalog-4.0','clauses':[]}))
     (root/'selections.json').write_text(json.dumps({'profiles':{}}))
     repo=ClauseRepository(root)
     app=create_app(lambda:(repo,RunStore(tmp_path/'runs.sqlite3'),FileArtifactPort(tmp_path/'artifacts'),documents))

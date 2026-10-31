@@ -1,49 +1,42 @@
-"""Synthetic permission service responses; no credential files or network."""
+"""Local operator checks never call another service or keep a credential."""
 import pytest
-from fastapi import HTTPException
-
+from fastapi import FastAPI,Depends
+from fastapi.testclient import TestClient
 from esg_document.api.operator_auth import authorize_operator
+from esg_runtime.local_operator import install_loopback_marker,held_authorization,LOCAL_OPERATOR,acting_for
 
 
-def response(monkeypatch, principal, status=200):
-    calls = []
-    class Session:
-        def __enter__(self): return self
-        def __exit__(self, *args): return None
-        def get(self, url, **kwargs):
-            calls.append((self.trust_env, url, kwargs))
-            class Result:
-                status_code = status
-                def json(self): return principal
-            return Result()
-    monkeypatch.setattr("esg_document.api.operator_auth.requests.Session", Session)
-    return calls
+def service():
+    app=FastAPI();install_loopback_marker(app)
+    @app.post("/write")
+    def write():
+        principal=authorize_operator(None,"admin")
+        return {"principal":principal,"held":held_authorization(None)}
+    return app
 
 
-def test_admin_verified_server_side_without_proxy_or_redirect(monkeypatch):
-    calls = response(monkeypatch, {"operator_ref": "synthetic-admin", "roles": ["admin"]})
-    assert authorize_operator("Bearer synthetic-secret", "review")["operator_ref"] == "synthetic-admin"
-    assert calls[0][0] is False and calls[0][2]["allow_redirects"] is False
-    assert calls[0][1].endswith("/internal/v1/me")
+def test_local_operation_has_no_platform_or_network_dependency(monkeypatch):
+    with TestClient(service(),client=("127.0.0.1",5000)) as client:
+        result=client.post("/write")
+        assert result.status_code==200 and result.json()["held"]==LOCAL_OPERATOR
+    with acting_for(LOCAL_OPERATOR):
+        assert authorize_operator(None,"admin")["operator_ref"]=="local-operator"
+        assert held_authorization("Bearer rejected") is None
 
 
-@pytest.mark.parametrize("credential", [None, "", "Bearer ", "plain-secret"])
-def test_missing_credential_rejected_without_network(monkeypatch, credential):
-    calls = response(monkeypatch, {})
-    with pytest.raises(HTTPException) as exc:
-        authorize_operator(credential, "admin")
-    assert exc.value.status_code == 401 and not calls
+@pytest.mark.parametrize("host",["192.0.2.1","testclient"])
+def test_nonlocal_request_cannot_acquire_local_identity(host):
+    with TestClient(service(),client=(host,5000)) as client:
+        assert client.post("/write").status_code==401
 
 
-@pytest.mark.parametrize("principal", [{"operator_ref": "", "roles": ["admin"]},
-    {"operator_ref": "synthetic", "roles": "admin"}, {"operator_ref": "synthetic", "roles": [True]}])
-def test_malformed_principal_cannot_grant_permission(monkeypatch, principal):
-    response(monkeypatch, principal)
-    with pytest.raises(HTTPException) as exc: authorize_operator("Bearer synthetic", "admin")
-    assert exc.value.status_code == 503
+def test_local_access_can_be_disabled(monkeypatch):
+    monkeypatch.setenv("ESG_LOCAL_OPERATOR","0")
+    with TestClient(service(),client=("127.0.0.1",5000)) as client:
+        assert client.post("/write").status_code==401
 
 
-def test_read_only_operator_cannot_deploy(monkeypatch):
-    response(monkeypatch, {"operator_ref": "synthetic-reader", "roles": ["read"]})
-    with pytest.raises(HTTPException) as exc: authorize_operator("Bearer synthetic", "admin")
-    assert exc.value.status_code == 403
+def test_browser_write_from_foreign_origin_is_refused_before_local_authorization():
+    with TestClient(service(),client=("127.0.0.1",5000)) as client:
+        assert client.post("/write",headers={"Origin":"https://outside.example"}).status_code==403
+        assert client.post("/write",headers={"Origin":"http://127.0.0.1:18081"}).status_code==200

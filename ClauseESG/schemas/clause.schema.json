@@ -88,17 +88,10 @@
           "type": "string"
         },
         "period_policy": {
-          "anyOf": [
-            {
-              "const": "all_reported",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Period Policy"
+          "const": "all_reported",
+          "default": "all_reported",
+          "title": "Period Policy",
+          "type": "string"
         },
         "require_measurement_meaning": {
           "const": true,
@@ -1006,22 +999,6 @@
           "default": null,
           "title": "Canonical Unit"
         },
-        "comparison_axes": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "deprecated": true,
-          "title": "Comparison Axes"
-        },
         "comparison_requirements": {
           "items": {
             "type": "string"
@@ -1199,15 +1176,7 @@
       "type": "object"
     },
     "purposes": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/ClausePurposes"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null
+      "$ref": "#/$defs/ClausePurposes"
     },
     "readiness": {
       "default": "ready",
@@ -1228,12 +1197,8 @@
       "$ref": "#/$defs/RetrievalProfile"
     },
     "schema_version": {
+      "const": "clause-contract-1.3",
       "default": "clause-contract-1.3",
-      "enum": [
-        "clause-contract-1.1",
-        "clause-contract-1.2",
-        "clause-contract-1.3"
-      ],
       "title": "Schema Version",
       "type": "string"
     },
@@ -1254,7 +1219,8 @@
     "retrieval",
     "evidence",
     "organization",
-    "clause_digest"
+    "clause_digest",
+    "purposes"
   ],
   "title": "ClauseContract",
   "type": "object"

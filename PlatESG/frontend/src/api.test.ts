@@ -5,16 +5,16 @@ afterEach(() => vi.unstubAllGlobals());
 
 describe("versioned public API contract", () => {
   it("encodes opaque entity and dataset references without altering them", () => {
-    const path = apiUrl("/v1/observations", {
-      entity_ref: "cn:甲/乙",
-      dataset_version: "dataset:1+2",
+    const path = apiUrl("/v2/observations", {
+      clause_key: "cn:甲/乙",
+      cursor: "dataset:1+2",
       limit: 200,
-      metric_id: "",
+      period: "",
     });
     const url = new URL(path, "https://example.test");
-    expect(url.searchParams.get("entity_ref")).toBe("cn:甲/乙");
-    expect(url.searchParams.get("dataset_version")).toBe("dataset:1+2");
-    expect(url.searchParams.has("metric_id")).toBe(false);
+    expect(url.searchParams.get("clause_key")).toBe("cn:甲/乙");
+    expect(url.searchParams.get("cursor")).toBe("dataset:1+2");
+    expect(url.searchParams.has("period")).toBe(false);
   });
   it("rejects HTML proxy fallbacks rather than rendering invented empty data", async () => {
     vi.stubGlobal(
@@ -25,7 +25,7 @@ describe("versioned public API contract", () => {
           new Response("<html/>", { headers: { "Content-Type": "text/html" } }),
         ),
     );
-    await expect(request("/api/v1/metrics")).rejects.toThrow("未返回 JSON");
+    await expect(request("/api/v2/metrics")).rejects.toThrow("未返回 JSON");
   });
   it("preserves structured service failure messages", async () => {
     vi.stubGlobal(
@@ -37,6 +37,6 @@ describe("versioned public API contract", () => {
         }),
       ),
     );
-    await expect(request("/api/v1/entities")).rejects.toThrow("数据版本不存在");
+    await expect(request("/api/v2/entities")).rejects.toThrow("数据版本不存在");
   });
 });

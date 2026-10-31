@@ -37,8 +37,8 @@ $ESG_DATA_ROOT/                     默认仓库 .local/data
 ## 核验
 
 ```sh
-ExtractESG/.local/python/bin/python ExtractESG/scripts/check_contracts.py
-ExtractESG/.local/python/bin/python ExtractESG/scripts/audit_structure.py
+ExtractESG/.local/python/bin/python tools/check_contracts.py
+ExtractESG/.local/python/bin/python tools/audit_structure.py
 npm --prefix ConsoleESG/frontend test
 npm --prefix ConsoleESG/frontend run build
 npm --prefix database test

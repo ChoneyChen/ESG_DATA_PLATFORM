@@ -4,7 +4,7 @@ import {PGlite} from '@electric-sql/pglite';
 import {applyCaptureSchema,captureSchemaStatus} from '../runtime/schema.mjs';
 import {ingestExport} from '../queries/ingestion.mjs';
 import {databaseDataDir} from '../runtime/connection.mjs';
-import {applyMigrations} from '../runtime/frozen_schema.mjs';
+import {readFile} from 'node:fs/promises';
 
 test('capture initializes without any dictionary or legacy publication tables',async()=>{
   const db=await PGlite.create();
@@ -27,13 +27,14 @@ test('capture configuration never inherits a legacy publication data directory',
   assert.equal(selected,'/new/data/databases/capture');
 });
 
-test('known old capture installation is adopted without rewriting its facts',async()=>{
+test('unmanaged previous tables cannot silently activate as a current database',async()=>{
   const db=await PGlite.create();
   try {
-    await applyMigrations(db);
+    await db.exec('CREATE SCHEMA esg;CREATE SCHEMA esg_api;');
+    await db.exec(await readFile(new URL('../migrations/0019_capture_ingestion.sql',import.meta.url),'utf8'));
     await db.query("INSERT INTO esg.capture_exports(export_id,input_digest,manifest,receipt,coverage,diagnostics) VALUES('existing','unchanged','{}','{}','[]','[]')");
-    await applyCaptureSchema(db);
+    await assert.rejects(applyCaptureSchema(db),/not adopted/);
     assert.equal((await db.query("SELECT input_digest FROM esg.capture_exports WHERE export_id='existing'")).rows[0].input_digest,'unchanged');
-    assert.equal((await db.query('SELECT count(*)::int AS n FROM public.capture_schema_migrations')).rows[0].n,2);
+    assert.equal((await captureSchemaStatus(db)).ready,false);
   } finally {await db.close();}
 });

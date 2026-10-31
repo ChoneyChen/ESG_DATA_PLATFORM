@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from esg_runtime.lifecycle import LifecycleBlocked, PublicationReferenceGuard
+from esg_runtime.lifecycle import LifecycleBlocked, SourceReferenceGuard
 from esg_pipeline.contracts import PipelineTaskStatus,PipelineTaskType
 from esg_pipeline.store import PipelineQueueStore
 from esg_document.storage.queue_lifecycle import QueueReferenceLifecycle
@@ -56,7 +56,7 @@ def test_native_report_session_operations_delegate_without_plan_payload(tmp_path
 
 
 def test_published_reference_or_failed_check_keeps_queue_pin(tmp_path):
-    for index,guard in enumerate([Guard([{"code":"published_source_reference","message":"正式来源保留"}]),PublicationReferenceGuard(url="http://127.0.0.1:1",token=None)]):
+    for index,guard in enumerate([Guard([{"code":"published_source_reference","message":"正式来源保留"}]),SourceReferenceGuard(url="http://127.0.0.1:1")]):
         store,service,_=setup(tmp_path/str(index),guard=guard)
         with pytest.raises(LifecycleBlocked):service.command("task-reference","release-references",reason="禁止删除来源")
         assert IR in store.pinned_ir_references()

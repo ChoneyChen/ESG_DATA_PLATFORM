@@ -19,6 +19,7 @@ release = RuntimeRelease(ROOT, "workbench-frontend")
 class WorkbenchHandler(SimpleHTTPRequestHandler):
     routes = {
         "/document": os.getenv("ESG_DOCUMENT_BACKEND_URL", "http://127.0.0.1:18080"),
+        "/database": os.getenv("ESG_DATABASE_INGEST_URL", "http://127.0.0.1:18280"),
         "/extraction": os.getenv(
             "ESG_EXTRACTION_BACKEND_URL", "http://127.0.0.1:18180"
         ),

@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
-from esg_runtime.lifecycle import PublicationReferenceGuard
+from esg_runtime.lifecycle import SourceReferenceGuard
 from esg_runtime.trash import RecoverableTrash
 
 from esg_document.document.identity import (
@@ -63,7 +63,7 @@ class StorageInventoryService:
         self.upload_root = upload_root
         self.cleanup_root = cleanup_root
         self.pipeline_queue_db = pipeline_queue_db
-        self.reference_guard = reference_guard or PublicationReferenceGuard()
+        self.reference_guard = reference_guard or SourceReferenceGuard()
         self.trash = RecoverableTrash(
             cleanup_root,
             self._owned_roots(),

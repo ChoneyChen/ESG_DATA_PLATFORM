@@ -82,11 +82,19 @@ class ReportedContext(FrozenModel):
     dimensions: dict[str, ReportedField] = Field(default_factory=dict)
 
 
+def _wire_kind(schema):
+    # Constructors may supply the Python default, but wire unions require an explicit tag.
+    required=schema.setdefault("required",[])
+    if "kind" not in required:required.append("kind")
+
+
 class QuantitativePayload(QuantitativeValue):
+    model_config=ConfigDict(json_schema_extra=_wire_kind)
     kind: Literal["quantitative"] = "quantitative"
 
 
 class QualitativePayload(QualitativeValue):
+    model_config=ConfigDict(json_schema_extra=_wire_kind)
     kind: Literal["assertion"] = "assertion"
 
 

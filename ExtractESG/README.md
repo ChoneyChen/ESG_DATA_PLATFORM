@@ -7,8 +7,8 @@
 ```sh
 bash scripts/install_local.sh
 ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 scripts/start.sh
-.local/python/bin/python scripts/check_contracts.py
-.local/python/bin/python scripts/audit_structure.py
+.local/python/bin/python ../tools/check_contracts.py
+.local/python/bin/python ../tools/audit_structure.py
 .local/python/bin/python -m pytest document/tests extraction/tests -q
 ```
 

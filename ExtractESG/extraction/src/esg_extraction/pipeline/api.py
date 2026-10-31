@@ -383,7 +383,7 @@ def create_app(resource_factory=resources):
             return JSONResponse(
                 status_code=202,
                 content={
-                    "schema_version": "organized-extraction-1.0",
+                    "schema_version": "organized-extraction-1.1",
                     "run_id": run_id,
                     "status": "pending"
                     if state["status"] in {"queued", "running"}

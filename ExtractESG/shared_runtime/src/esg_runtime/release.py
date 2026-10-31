@@ -19,7 +19,7 @@ PROTOCOL_VERSION = "workbench-compatibility-v1"
 _CACHE: dict[tuple, dict] = {}
 
 SERVICE_GROUPS = {
-    "document-backend": ("document_backend", "document_contracts", "startup"),
+    "document-backend": ("document_backend", "document_contracts", "console_contracts", "startup"),
     "extraction-backend": ("extraction_backend", "standard_contracts", "startup"),
     "workbench-frontend": ("frontend", "startup"),
     "publication-backend": (
@@ -44,13 +44,15 @@ def release_files(extract_root: Path) -> dict[str, list[Path]]:
         "extraction_backend": list((root / "extraction/src").rglob("*.py")),
         "standard_contracts": shared,
         "document_contracts": shared,
+        "console_contracts": [root.parent / "database/src/esg_database" / name
+            for name in ("http_client.py", "contracts.py", "products_contracts.py")],
         "publication_catalog": [
             root.parent / "database/catalog/metric-dictionary.v1.json"
         ]
         + list((root.parent / "database/catalog/import-contracts").rglob("*.json")),
         "catalog": list((root.parent / "ClauseESG/clauses").rglob("*.json"))
         + [root.parent / "database/catalog/metric-dictionary.v1.json"],
-        "frontend": [
+        "frontend": [root.parent / "database/contracts/index.d.ts"] + [
             p
             for p in (root.parent / "ConsoleESG/frontend/src").rglob("*")
             if p.suffix in {".tsx", ".ts", ".css"} and ".test." not in p.name
@@ -116,12 +118,15 @@ def release_identity(extract_root: Path, service: str | None = None) -> dict:
             json.dumps(digests, sort_keys=True).encode()
         ).hexdigest(),
         "contracts": {
-            "clause": "clause-contract-1.2",
+            "clause": "clause-contract-1.3",
+            "clause_navigation": "clause-catalog-4.0",
+            "clause_descriptor": "clause-descriptor-1.0",
             "data": "extraction-data-2.0",
             "facts": "extraction-fact-bundle-2.2",
             "organization": "organized-extraction-1.1",
             "report_resource": "report-resource-1.0",
             "source_validation": "digest_and_bound_evidence",
+            "export": "extraction-export-1.1",
         },
     }
     _CACHE.clear()

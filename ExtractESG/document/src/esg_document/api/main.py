@@ -555,6 +555,8 @@ def _require_processing_ready():
         )
 
 
+library_deletion.configure(cancel_task=cancel_pipeline_task, processing=report_processing)
+
 app.include_router(processing_router(report_processing, _require_processing_ready))
 
 processing_lifecycle = ProcessingLifecycle(
@@ -626,6 +628,20 @@ def get_report_asset_file(asset_id: str) -> FileResponse:
         media_type="application/pdf",
         content_disposition_type="inline",
     )
+
+
+@app.get("/api/report-sources/{source_sha256}/file")
+def get_report_source_file(source_sha256: str) -> FileResponse:
+    import re
+    if not re.fullmatch(r"[a-f0-9]{64}",source_sha256):
+        raise HTTPException(404,"Report source not found")
+    try:
+        asset=report_assets.get("pdf-"+source_sha256[:24])
+        if asset["sha256"]!=source_sha256:raise KeyError(source_sha256)
+        path=report_assets.resolve(asset["asset_id"])
+    except (KeyError,FileNotFoundError,ValueError) as exc:
+        raise HTTPException(404,"Report source not found") from exc
+    return FileResponse(path,filename="source-"+source_sha256+".pdf",media_type="application/pdf",content_disposition_type="inline")
 
 
 @app.get("/api/report-assets/{asset_id}/lifecycle")

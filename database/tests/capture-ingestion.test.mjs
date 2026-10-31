@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PGlite} from '@electric-sql/pglite';
-import {applyMigrations} from '../runtime/frozen_schema.mjs';
+import {applyCaptureSchema as applyMigrations} from '../runtime/schema.mjs';
 import {ingestExport,receiptFor} from '../queries/ingestion.mjs';
 
 test('sparse captures, exact decimals, qualitative text, idempotent receipts and conflicts',async()=>{
@@ -10,7 +10,7 @@ test('sparse captures, exact decimals, qualitative text, idempotent receipts and
     await applyMigrations(db);
     const fact=(id,value)=>({digest:id,fact:{source_fact_id:id,source_anchor_id:id+'-anchor',document_id:'document',ir_run_id:'ir',ir_revision:1,
       value,identity:{dimensions:{}},evidence:[{role:value.kind==='assertion'?'statement':'value',excerpt:value.value_raw||value.statement_raw}]}});
-    const payload={manifest:{schema_version:'extraction-export-1.0',export_id:'export-one',clause_targets:{C:'digest'}},digest:'one',
+    const payload={manifest:{schema_version:'extraction-export-1.1',authority:'facts',export_id:'export-one',clause_targets:{C:'digest'}},digest:'one',
       facts:[fact('quantity',{kind:'quantitative',value_raw:'1,530.14000000000000000001',value_numeric:'1530.14000000000000000001',unit_raw:'吨'}),
         fact('count',{kind:'quantitative',value_raw:'0',value_numeric:'0'}),fact('statement',{kind:'assertion',statement_raw:'报告实施了排放监测。'})],
       relations:[],targets:{C:{clause_digest:'digest'}},coverage:[],diagnostics:[],rejected:[]};

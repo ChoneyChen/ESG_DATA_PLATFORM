@@ -19,8 +19,16 @@ import {
   Modal,
   Empty,
 } from "../../shared/ui";
-import { date, label, tone, download, text, periodText } from "../../shared/format";
+import {
+  date,
+  label,
+  tone,
+  download,
+  text,
+  periodText,
+} from "../../shared/format";
 import { href, navigate } from "../../app/routes";
+import { ProductStrip } from "../publication/data";
 import {
   FactsTable,
   FactEvidence,
@@ -76,8 +84,18 @@ export function ExtractionPage({
     }
   }, [run?.status, results.reload, organized.reload]);
   const reports = useResource<ReportList>("document", "/api/report-resources");
-  const candidates = useResource<CandidateRejection[]>("document", run ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null, active ? 4000 : 0);
-  const tab = ["results", "facts", "coverage", "details", "candidates"].includes(tabId || "")
+  const candidates = useResource<CandidateRejection[]>(
+    "document",
+    run ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null,
+    active ? 4000 : 0,
+  );
+  const tab = [
+    "results",
+    "facts",
+    "coverage",
+    "details",
+    "candidates",
+  ].includes(tabId || "")
     ? tabId!
     : "results";
   const [confirmCancel, setConfirmCancel] = useState(false),
@@ -182,6 +200,7 @@ export function ExtractionPage({
                   )}
                   <small>{date(run.created_at)}</small>
                 </div>
+                <ProductStrip sessionId={sessionId} />
                 {run.observation === "unavailable" && (
                   <Notice tone="error">
                     {run.observation_error || "暂时无法确认执行状态。"}{" "}
@@ -191,9 +210,43 @@ export function ExtractionPage({
                   </Notice>
                 )}
                 {run.error && <Notice tone="error">{run.error}</Notice>}
-                {run.run?.delivery && <div className="toolbar"><Badge tone={run.run.delivery.state === "delivered" ? "success" : "neutral"}>{({prepared:"原值已封存 · 等待接收",delivered:"原值已入库",partial:"部分原值已入库",failed:"原值交接待处理",unknown:"自动确认接收回执中"} as Record<string,string>)[run.run.delivery.state || "prepared"]}</Badge>
-                  {run.run.export_download_url && <a className="button button-secondary" href={"/extraction" + run.run.export_download_url}>下载独立数据包</a>}
-                  {run.run.delivery.accepted_facts != null && <small>{run.run.delivery.accepted_facts} 条接收 · {run.run.delivery.rejected_facts || 0} 条未接收</small>}</div>}
+                {run.run?.delivery && (
+                  <div className="toolbar">
+                    <Badge
+                      tone={
+                        run.run.delivery.state === "delivered"
+                          ? "success"
+                          : "neutral"
+                      }
+                    >
+                      {
+                        (
+                          {
+                            prepared: "原值已封存 · 等待接收",
+                            delivered: "原值已入库",
+                            partial: "部分原值已入库",
+                            failed: "原值交接待处理",
+                            unknown: "自动确认接收回执中",
+                          } as Record<string, string>
+                        )[run.run.delivery.state || "prepared"]
+                      }
+                    </Badge>
+                    {run.run.export_download_url && (
+                      <a
+                        className="button button-secondary"
+                        href={"/extraction" + run.run.export_download_url}
+                      >
+                        下载独立数据包
+                      </a>
+                    )}
+                    {run.run.delivery.accepted_facts != null && (
+                      <small>
+                        {run.run.delivery.accepted_facts} 条接收 ·{" "}
+                        {run.run.delivery.rejected_facts || 0} 条未接收
+                      </small>
+                    )}
+                  </div>
+                )}
                 <section className="progress-panel" aria-label="执行进度">
                   <div className="steps">
                     {run.preparation?.steps?.map((step) => (
@@ -201,7 +254,9 @@ export function ExtractionPage({
                         <span className="step-dot" />
                         <span>{step.label}</span>
                         <small>
-                          {step.status === "partial" ? "已结束 · 证据受限" : label(step.status)}
+                          {step.status === "partial"
+                            ? "已结束 · 证据受限"
+                            : label(step.status)}
                           {step.current != null && step.total
                             ? ` · ${step.current} / ${step.total} ${step.unit === "pages" ? "页" : ""}`
                             : ""}
@@ -258,9 +313,17 @@ export function ExtractionPage({
                       <span>模型调用</span>
                     </div>
                   </div>
-                  {run.run?.summary?.assessment?.periods && <div className="toolbar" aria-label="已取得期间">
-                    {Object.entries(run.run.summary.assessment.periods).map(([period, count]) => <Badge key={period}>{period} · {count} 条</Badge>)}
-                  </div>}
+                  {run.run?.summary?.assessment?.periods && (
+                    <div className="toolbar" aria-label="已取得期间">
+                      {Object.entries(run.run.summary.assessment.periods).map(
+                        ([period, count]) => (
+                          <Badge key={period}>
+                            {period} · {count} 条
+                          </Badge>
+                        ),
+                      )}
+                    </div>
+                  )}
                   {run.run?.current_call && active && (
                     <div className="model-progress" aria-live="polite">
                       <strong>
@@ -298,7 +361,10 @@ export function ExtractionPage({
                       label: `原始事实 · ${results.data?.facts.length || 0}`,
                     },
                     { id: "coverage", label: "覆盖情况" },
-                    { id: "candidates", label: `未纳入候选 · ${candidates.data?.length || 0}` },
+                    {
+                      id: "candidates",
+                      label: `未纳入候选 · ${candidates.data?.length || 0}`,
+                    },
                     { id: "details", label: "运行记录" },
                   ]}
                 />
@@ -368,10 +434,25 @@ export function ExtractionPage({
                                 <td>
                                   {c.inspected_objects || 0} /{" "}
                                   {c.candidate_objects || 0}
-                                  {c.search?.total != null && <small> / 共 {c.search.total} 个候选{c.search.truncated ? " · 尚未读全" : ""}</small>}
+                                  {c.search?.total != null && (
+                                    <small>
+                                      {" "}
+                                      / 共 {c.search.total} 个候选
+                                      {c.search.truncated ? " · 尚未读全" : ""}
+                                    </small>
+                                  )}
                                 </td>
                                 <td>{c.fact_count || 0}</td>
-                                <td>{Object.entries(c.periods?.captured_facts || {}).map(([period, count]) => `${period} · ${count}`).join("；") || "—"}</td>
+                                <td>
+                                  {Object.entries(
+                                    c.periods?.captured_facts || {},
+                                  )
+                                    .map(
+                                      ([period, count]) =>
+                                        `${period} · ${count}`,
+                                    )
+                                    .join("；") || "—"}
+                                </td>
                                 <td>{c.reasons?.join("；") || "—"}</td>
                               </tr>
                             ))}
@@ -383,7 +464,56 @@ export function ExtractionPage({
                     )}
                   </>
                 )}
-                {tab === "candidates" && <><ReadError error={candidates.error} retry={candidates.reload}/>{candidates.data?.length ? <div className="table-scroll"><table className="data-table"><thead><tr><th>条款</th><th>候选字串</th><th>PDF页</th><th>类型</th><th>处置原因</th></tr></thead><tbody>{candidates.data.map((c,i) => <tr key={i}><td>{c.clause_key}</td><td>{c.value_raw || "—"}</td><td>{c.page_index == null ? "—" : c.page_index + 1}</td><td>{({formula:"化学式",identifier:"编号",footnote:"脚注",date:"日期",unresolved:"未证实为测量"} as Record<string,string>)[c.candidate_kind] || c.candidate_kind}</td><td>{c.reason}</td></tr>)}</tbody></table></div> : <Empty title="没有被排除的数字候选"/>}</>}
+                {tab === "candidates" && (
+                  <>
+                    <ReadError
+                      error={candidates.error}
+                      retry={candidates.reload}
+                    />
+                    {candidates.data?.length ? (
+                      <div className="table-scroll">
+                        <table className="data-table">
+                          <thead>
+                            <tr>
+                              <th>条款</th>
+                              <th>候选字串</th>
+                              <th>PDF页</th>
+                              <th>类型</th>
+                              <th>处置原因</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {candidates.data.map((c, i) => (
+                              <tr key={i}>
+                                <td>{c.clause_key}</td>
+                                <td>{c.value_raw || "—"}</td>
+                                <td>
+                                  {c.page_index == null
+                                    ? "—"
+                                    : c.page_index + 1}
+                                </td>
+                                <td>
+                                  {(
+                                    {
+                                      formula: "化学式",
+                                      identifier: "编号",
+                                      footnote: "脚注",
+                                      date: "日期",
+                                      unresolved: "未证实为测量",
+                                    } as Record<string, string>
+                                  )[c.candidate_kind] || c.candidate_kind}
+                                </td>
+                                <td>{c.reason}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <Empty title="没有被排除的数字候选" />
+                    )}
+                  </>
+                )}
                 {tab === "details" && (
                   <section className="section">
                     <dl className="detail-list">
@@ -438,7 +568,11 @@ export function ExtractionPage({
               <>
                 <ReadError error={organized.error} retry={organized.reload} />
                 {table ? (
-                  <OrganizedTable table={table} sessionId={sessionId} facts={results.data?.facts} />
+                  <OrganizedTable
+                    table={table}
+                    sessionId={sessionId}
+                    facts={results.data?.facts}
+                  />
                 ) : organized.data ? (
                   <Empty title="此条款尚无结果" />
                 ) : (
@@ -472,7 +606,9 @@ export function ExtractionPage({
                         <div className="detail-pair" key={key}>
                           <dt>{identityNames[key] || key}</dt>
                           <dd>
-                            {key === "reporting_period" ? periodText(value.value) : text(value.value)}{" "}
+                            {key === "reporting_period"
+                              ? periodText(value.value)
+                              : text(value.value)}{" "}
                             <Badge>{label(value.state)}</Badge>
                             {value.raw_text && (
                               <small>原文：{value.raw_text}</small>

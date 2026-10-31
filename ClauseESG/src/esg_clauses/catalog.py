@@ -16,7 +16,7 @@ class ClauseSummary(StrictModel):
 
 
 class ClauseCatalog(StrictModel):
-    schema_version: Literal["clause-catalog-3.0", "clause-catalog-4.0"] = "clause-catalog-4.0"
+    schema_version: Literal["clause-catalog-4.0"] = "clause-catalog-4.0"
     clauses: list[ClauseSummary]
 
 

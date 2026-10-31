@@ -12,6 +12,7 @@ from .contracts import CaptureFactPage
 from esg_contracts.exports import IngestionReceipt
 from .projector import ProjectionWorker
 from .products_api import product_router
+from .sources_api import sources_router
 
 
 def create_app(bridge=None):
@@ -44,7 +45,7 @@ def create_app(bridge=None):
         if not ready:
             raise HTTPException(503, "Install the capture schema with the explicit management command")
         return {**release.snapshot(), "status": "ok", "export_contract": "extraction-export-1.1",
-                "supported_export_contracts": ["extraction-export-1.0", "extraction-export-1.1"], "auto_publish": False,
+                "supported_export_contracts": ["extraction-export-1.1"], "auto_publish": False,
                 "products_ready": bool(schema.get("products_ready"))}
 
     @app.post("/v1/ingestion/exports", response_model=IngestionReceipt)
@@ -84,6 +85,7 @@ def create_app(bridge=None):
         return bridge.call("capture_facts", {"export_id": export_id,"limit":limit,"cursor":cursor,"period":period,"clause_key":clause_key,"relation":relation})
 
     app.include_router(product_router(bridge, release, projector))
+    app.include_router(sources_router(bridge,release))
     return app
 
 

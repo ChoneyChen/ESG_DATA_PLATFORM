@@ -4,7 +4,7 @@ import sqlite3
 
 import pytest
 
-from esg_runtime.lifecycle import LifecycleBlocked, PublicationReferenceGuard
+from esg_runtime.lifecycle import LifecycleBlocked, SourceReferenceGuard
 from esg_document.assets.report_catalog import ReportAssetCatalog
 
 
@@ -46,7 +46,7 @@ def test_unreferenced_pdf_discard_is_restorable_and_checked_for_conflicts(tmp_pa
 
 
 def test_published_and_unavailable_reference_checks_block_pdf_discard_only(tmp_path):
-    for index,guard in enumerate([Guard([{"code":"published_source_reference","message":"正式来源"}]),PublicationReferenceGuard(url="http://127.0.0.1:1",token=None)]):
+    for index,guard in enumerate([Guard([{"code":"published_source_reference","message":"正式来源"}]),SourceReferenceGuard(url="http://127.0.0.1:1")]):
         service,asset=catalog(tmp_path/str(index),guard)
         with pytest.raises(LifecycleBlocked):service.lifecycle(asset["asset_id"],"discard",reason="不可清理")
         assert service.resolve(asset["asset_id"]).exists()
@@ -81,11 +81,11 @@ def test_pdf_receipt_can_release_uncertain_reservation_before_catalog_checkpoint
     from urllib.error import URLError
     released=[]
     def transport(operation,payload):
-        if operation=="references":return {"schema_version":"lifecycle-references-v1","verified":True,"blockers":[],"dependencies":[]}
+        if operation=="references":return {"schema_version":"source-references-1.0","verified":True,"blockers":[],"dependencies":[]}
         if operation=="reserve":raise URLError("fixture timeout after acquire")
         released.append(operation)
         return {"reservation_id":operation.split("/")[-1],"state":"released"}
-    guard=PublicationReferenceGuard(transport=transport)
+    guard=SourceReferenceGuard(transport=transport)
     service,asset=catalog(tmp_path,guard)
     with pytest.raises(LifecycleBlocked):service.lifecycle(asset["asset_id"],"discard",reason="响应未确认")
     receipt=service.trash.list()[0]

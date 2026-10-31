@@ -475,11 +475,8 @@
           "title": "Error"
         },
         "schema_version": {
+          "const": "organized-extraction-1.1",
           "default": "organized-extraction-1.1",
-          "enum": [
-            "organized-extraction-1.0",
-            "organized-extraction-1.1"
-          ],
           "title": "Schema Version",
           "type": "string"
         },
@@ -591,7 +588,8 @@
         }
       },
       "required": [
-        "statement_raw"
+        "statement_raw",
+        "kind"
       ],
       "title": "QualitativePayload",
       "type": "object"
@@ -693,7 +691,8 @@
         }
       },
       "required": [
-        "value_raw"
+        "value_raw",
+        "kind"
       ],
       "title": "QuantitativePayload",
       "type": "object"
@@ -1395,11 +1394,8 @@
       "type": "string"
     },
     "schema_version": {
+      "const": "extraction-fact-bundle-2.2",
       "default": "extraction-fact-bundle-2.2",
-      "enum": [
-        "extraction-fact-bundle-2.1",
-        "extraction-fact-bundle-2.2"
-      ],
       "title": "Schema Version",
       "type": "string"
     },

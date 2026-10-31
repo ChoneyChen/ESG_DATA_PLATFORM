@@ -7,11 +7,18 @@ import { ExtractionPage } from "../features/extractions/detail";
 import { ClausesPage } from "../features/clauses/pages";
 import { RuntimePage } from "../features/runtime/pages";
 import { RunMonitor } from "../features/runtime/monitor";
+import { ReceivedDataPage } from "../features/publication/data";
+import {
+  PublicationPage,
+  DatasetPageView,
+} from "../features/publication/pages";
+import { PreparePublicationPage } from "../features/publication/create";
 import { Empty } from "../shared/ui";
 const nav = [
   ["reports", "报告", "▤"],
   ["extractions", "提取", "↗"],
   ["clauses", "条款", "▦"],
+  ["publication", "发布", "⇧"],
   ["runtime", "运行", "◉"],
 ];
 export default function App() {
@@ -34,6 +41,25 @@ export default function App() {
     );
   else if (route.valid && section === "extractions" && parts.length === 0)
     page = <ExtractionsPage reportId={params.get("report") || undefined} />;
+  else if (
+    route.valid &&
+    section === "extractions" &&
+    parts.length === 2 &&
+    parts[1] === "data"
+  )
+    page = <ReceivedDataPage key={parts[0]} sessionId={parts[0]} />;
+  else if (route.valid && section === "publication" && parts.length <= 1)
+    page =
+      parts[0] === "new" ? (
+        <PreparePublicationPage
+          key={location.hash}
+          initialProjection={params.get("projection") || undefined}
+        />
+      ) : parts[0] ? (
+        <DatasetPageView key={parts[0]} id={parts[0]} />
+      ) : (
+        <PublicationPage />
+      );
   else if (
     route.valid &&
     section === "extractions" &&

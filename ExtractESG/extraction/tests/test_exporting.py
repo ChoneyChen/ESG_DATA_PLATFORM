@@ -129,12 +129,11 @@ def test_conflicting_annotation_view_is_rebuilt_without_losing_true_facts(tmp_pa
     assert not any(row.get('value')=='2099' for row in received['projections']['properties'])
 
 
-def test_frozen_export_10_does_not_gain_an_authority_field(tmp_path,documents,repository):
+def test_retired_export_contract_is_rejected(tmp_path,documents,repository):
     run,_,artifacts,manifest=finished_export(tmp_path,documents,repository)
     with ZipFile(io.BytesIO(export_archive(run,manifest,artifacts))) as archive:
         members={name:json.loads(archive.read(name)) for name in archive.namelist()}
     members['manifest.json']['schema_version']='extraction-export-1.0'
     members['manifest.json'].pop('authority')
-    received=decode_archive(repack(members))
-    assert received['manifest']['schema_version']=='extraction-export-1.0'
-    assert 'authority' not in received['manifest'] and len(received['facts'])==3
+    with pytest.raises(ValueError):
+        decode_archive(repack(members))

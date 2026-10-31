@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from typing import Literal
-from pydantic import Field, model_validator, model_serializer
+from pydantic import Field, model_validator
 from .base import StrictModel, digest
 from .parts import (
     ReadingContract,
@@ -22,18 +22,10 @@ class ValueContract(StrictModel):
     value_role: str = "actual"
     identity_axes: list[str] = Field(default_factory=list)
     fixed_axes: dict[str, str] = Field(default_factory=dict)
-    comparison_axes: list[str] | None = Field(default=None, json_schema_extra={"deprecated": True})
     comparison_requirements: list[str] = Field(default_factory=list)
     aggregation: Literal[
         "none", "sum_disjoint_members", "ratio_recompute", "do_not_sum"
     ] = "none"
-
-    @model_serializer(mode="wrap")
-    def frozen_comparison_axes(self, serializer):
-        body = serializer(self)
-        if self.comparison_axes is None:
-            body.pop("comparison_axes", None)
-        return body
 
 
 class CapturePolicy(StrictModel):
@@ -41,14 +33,7 @@ class CapturePolicy(StrictModel):
     missing_metadata: Literal["retain"] = "retain"
     unlisted_categories: Literal["preserve_literal"] = "preserve_literal"
     require_measurement_meaning: Literal[True] = True
-    period_policy: Literal["all_reported"] | None = None
-
-    @model_serializer(mode="wrap")
-    def preserve_frozen_shape(self, serializer):
-        body = serializer(self)
-        if self.period_policy is None:
-            body.pop("period_policy", None)
-        return body
+    period_policy: Literal["all_reported"] = "all_reported"
 
 
 class EnrichmentPolicy(StrictModel):
@@ -75,7 +60,7 @@ class ClausePurposes(StrictModel):
 
 
 class ClauseContract(StrictModel):
-    schema_version: Literal["clause-contract-1.1", "clause-contract-1.2", "clause-contract-1.3"] = "clause-contract-1.3"
+    schema_version: Literal["clause-contract-1.3"] = "clause-contract-1.3"
     clause_key: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     group_id: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     labels: dict[str, str]
@@ -96,14 +81,7 @@ class ClauseContract(StrictModel):
     readiness: Literal["ready", "blocked"] = "ready"
     blocking_reasons: list[str] = Field(default_factory=list)
     clause_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
-    purposes: ClausePurposes | None = None
-
-    @model_serializer(mode="wrap")
-    def preserve_frozen_shape(self, serializer):
-        body = serializer(self)
-        if self.purposes is None:
-            body.pop("purposes", None)
-        return body
+    purposes: ClausePurposes
 
     @model_validator(mode="after")
     def coherent(self):
@@ -119,10 +97,6 @@ class ClauseContract(StrictModel):
             raise ValueError(
                 "A quantitative clause requires a quantitative reading operator"
             )
-        if self.schema_version in {"clause-contract-1.2", "clause-contract-1.3"} and self.purposes is None:
-            raise ValueError("Current clauses must declare capture, enrichment, target and comparison purposes")
-        if self.schema_version == "clause-contract-1.3" and self.purposes.capture.period_policy != "all_reported":
-            raise ValueError("Current clause capture must preserve all reported periods")
         if len({scope.scope_id for scope in self.output_scopes}) != len(
             self.output_scopes
         ):
@@ -175,9 +149,8 @@ class ClauseContract(StrictModel):
             "allow_regulatory_limit": self.reading.allow_regulatory_limit,
         }
         fields = self.organization.reading_fields()
-        if self.purposes:
-            requested = self.purposes.enrichment.identity_axes
-            by_axis = {field["axis"]: field for field in fields}
-            fields = [by_axis.get(axis, {"axis": axis, "label": axis, "source": "report", "vocabulary": []}) for axis in requested]
+        requested = self.purposes.enrichment.identity_axes
+        by_axis = {field["axis"]: field for field in fields}
+        fields = [by_axis.get(axis, {"axis": axis, "label": axis, "source": "report", "vocabulary": []}) for axis in requested]
         body["requested_identity_fields"] = fields
         return body

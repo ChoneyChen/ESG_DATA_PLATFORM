@@ -1,8 +1,7 @@
 """Evidence interface consumer. Never opens an extraction/IR directory."""
-import json
+from hashlib import sha256
 import re
-import time
-from urllib.parse import urlsplit, quote
+from urllib.parse import urlsplit
 from urllib.request import build_opener, ProxyHandler
 
 
@@ -12,19 +11,11 @@ class EvidenceResolver:
         if url.scheme not in {"http", "https"} or not url.hostname or url.username or url.password or url.query or url.fragment:
             raise ValueError("Evidence endpoint must be an explicit credential-free service URL")
         self.base_url = base_url.rstrip("/")
-        self.cache = {}
 
-    def resolve(self, ir_run_id):
-        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,159}", ir_run_id):
-            raise ValueError("Invalid evidence identity")
-        cached = self.cache.get(ir_run_id)
-        if cached and time.monotonic() - cached[0] < 10:
-            return cached[1]
-        with build_opener(ProxyHandler({})).open(self.base_url + "/api/evidence/" + quote(ir_run_id, safe=""), timeout=3) as response:
-            body = json.load(response)
-        if not isinstance(body, dict) or body.get("ir_run_id") != ir_run_id:
-            raise ValueError("Evidence service returned a different document")
-        if len(self.cache) > 128:
-            self.cache.clear()
-        self.cache[ir_run_id] = (time.monotonic(), body)
-        return body
+    def pdf(self,source_sha256):
+        if not re.fullmatch(r"[a-f0-9]{64}",source_sha256):raise ValueError("Invalid published source identity")
+        with build_opener(ProxyHandler({})).open(self.base_url+"/api/report-sources/"+source_sha256+"/file",timeout=30) as response:
+            content=response.read(256*1024*1024+1)
+        if len(content)>256*1024*1024:raise ValueError("Published source exceeds response capacity")
+        if sha256(content).hexdigest()!=source_sha256:raise ValueError("Source bytes differ from the published PDF identity")
+        return content

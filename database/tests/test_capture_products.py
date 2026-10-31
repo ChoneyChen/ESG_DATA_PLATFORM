@@ -122,6 +122,10 @@ def test_three_year_sparse_capture_projects_publishes_and_withdraws_without_raw_
     request, decision = preview(client, [projection["projection_id"]])
     assert decision["selected"] == 3
     dataset = publish(client, request, decision)
+    workflow=client.get(f"/v1/ingestion/exports/{receipt['export_id']}/products").json()
+    assert workflow['captured_facts']==3
+    assert workflow['projection']['status']=='completed' and workflow['published_dataset_count']==1
+    assert workflow['datasets']['total']==1 and not workflow['auto_publish']
     path = "/v2/datasets/"+dataset["dataset_version_id"]
     assert client.get(path).json()["observations"] == 3
     page = client.get(path+"/observations").json()
@@ -134,6 +138,7 @@ def test_three_year_sparse_capture_projects_publishes_and_withdraws_without_raw_
     assert withdrawal.status_code == 200 and withdrawal.json()["revision"] == 2
     assert client.get(path).status_code == client.get(path+"/observations").status_code == 404
     assert publish(client, request, decision)["state"] == "withdrawn"
+    assert client.get(f"/v1/ingestion/exports/{receipt['export_id']}/products").json()['published_dataset_count']==0
     assert client.get(f"/v1/ingestion/exports/{receipt['export_id']}/facts").json()["total"] == 3
 
 

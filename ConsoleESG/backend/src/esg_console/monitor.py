@@ -4,6 +4,7 @@ from hashlib import sha256
 import json
 from typing import Literal
 from pydantic import BaseModel, Field
+from .products import SessionProducts
 
 
 class MonitorRun(BaseModel):
@@ -24,10 +25,11 @@ class MonitorRun(BaseModel):
     updated_at: str | None = None
     can_cancel: bool = False
     preparation: list[dict[str, str | int | None]] = Field(default_factory=list)
+    products: SessionProducts | None=None
 
 
 class MonitorSnapshot(BaseModel):
-    schema_version: Literal["console-monitor-1.0"] = "console-monitor-1.0"
+    schema_version: Literal["console-monitor-1.1"] = "console-monitor-1.1"
     revision: str
     observed_at: str
     active_count: int
@@ -37,7 +39,7 @@ class MonitorSnapshot(BaseModel):
 TERMINAL = {"completed", "partial", "failed", "cancelled", "interrupted"}
 
 
-def monitor_snapshot(sessions):
+def monitor_snapshot(sessions, products=None):
     runs = []
     for state in sessions:
         native = state.get("run") or {}
@@ -58,6 +60,7 @@ def monitor_snapshot(sessions):
             can_cancel=any(a.get("action") == "cancel" for a in state.get("available_actions", [])),
             preparation=[{key: step.get(key) for key in ("stage", "label", "status", "current", "total", "unit")}
                 for step in (state.get("preparation") or {}).get("steps", [])],
+            products=products.for_session(state) if products else None,
         ))
     body = [run.model_dump(mode="json") for run in runs]
     return MonitorSnapshot(

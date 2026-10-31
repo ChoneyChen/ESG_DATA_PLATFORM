@@ -1,0 +1,612 @@
+{
+  "removed": [
+    {
+      "path": "PlatESG/backend/evidence_location.py",
+      "bytes": 2972,
+      "sha256": "6d9dafc6dfc99d2e9559097112db4ce2bc550b03c98f8925037c9791f73582f7",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/package-lock.json",
+      "bytes": 5708,
+      "sha256": "128927554d11b7d0d46bf05f3da87e0a17a335bc7158b5da25545414bd421cbd",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/package.json",
+      "bytes": 230,
+      "sha256": "753d95912e42002939a6a0e537c4d3374099998249c058a165bc986c3542de80",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/public_pdf.py",
+      "bytes": 1719,
+      "sha256": "87dd7d3da3025929df943b89a82b26d30265a1e90d149b443a012930902b2809",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/tests/artifact-purge.test.mjs",
+      "bytes": 6893,
+      "sha256": "0dc996af2df3af62cdfb522026fe2a211e5956c8580932e43fc5f083f67c041e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/tests/candidate-review.test.mjs",
+      "bytes": 24837,
+      "sha256": "8f614d9ec25a9446fd25409fb1c081f914d6bbd4676d88e09337c74fb6cea5fb",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/tests/comparison-origin.test.mjs",
+      "bytes": 1566,
+      "sha256": "9824ef97143aaf77ba71597973726e251228ee857ee58abf4d52e5d754458cfc",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/backend/tests/review-evidence.test.mjs",
+      "bytes": 7038,
+      "sha256": "65de8aad22b3935cc00fe9f7b862b8f76bb8bcdc0ae2d6caa3f27b9071303532",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/frontend/tests/live_product_readonly_test.cjs",
+      "bytes": 8468,
+      "sha256": "9ce4432b5d1c9ee318c20859e47543c2347d5dac49b5e523e69412492be7d8fa",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/fixtures/frozen_database.mjs",
+      "bytes": 10998,
+      "sha256": "8cbce73fe4aead3fd28ce11609af3af9b829a5db28f1d1fff88f071aeb48e3cd",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/frozen_fixture.py",
+      "bytes": 1115,
+      "sha256": "ee2cb7821cd62fddd34ac12f03d52d75dc1f8c4d4abe1d88fb4b2784e14ee36c",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_api.py",
+      "bytes": 20787,
+      "sha256": "1733b74c548a528c7f7f161f563c0d72493c5125666a64c66a7c45925fab466b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_artifact_purge_api.py",
+      "bytes": 3351,
+      "sha256": "cab43a2ddeacaaaeb8865e3f58c5121868ac0ffeeaf5856230c726e8c442e1f9",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_boot_hold.py",
+      "bytes": 1763,
+      "sha256": "8c2fc9d3b4b66996355db2baf233c0ca1546802d02908a23cb271e7158a995d1",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_csv_export.py",
+      "bytes": 5968,
+      "sha256": "0e7b881beb7378d289cbd0f21925ba023a325dd068069ccbba8c5be692dce1d6",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_delivery_status_api.py",
+      "bytes": 4428,
+      "sha256": "715be68eaf4acdd308f4dc4e4f7586a7d0a798c4253166d357bfa14c24b2a80e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_dictionary.py",
+      "bytes": 697,
+      "sha256": "1eb8c1ab309a7c2468b8323778e9ee2b558800c1b8d8254df9aacdc7d8d8933b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_evidence_location.py",
+      "bytes": 2441,
+      "sha256": "682f9b82311a45a8100592be64a0c81bf9c2e152fbb1401df2205d8f6708a498",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_export_observation_contract.py",
+      "bytes": 4118,
+      "sha256": "0b6641b4a6c42cf0585d0ff8903f1f2366e4129ef93946732246be498e4c4e0e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_import_catalog_api.py",
+      "bytes": 1393,
+      "sha256": "a78943ebba73e39405811ef8b84b042e8d496dde82bee570b28c163a3c74a974",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_local_file_deletion_api.py",
+      "bytes": 1338,
+      "sha256": "8d6fc7801d62610980b4ba65cc421009b02e5f2ba08f40148ce8748c973ad5b0",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_platform_contracts.py",
+      "bytes": 4617,
+      "sha256": "dccd2558d91f1a3c4af459646ca2fe957843f721b0540f48ca6373108681537a",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_public_pdf.py",
+      "bytes": 1236,
+      "sha256": "d7184b6125392d739db5086a17de92461219d930d5aef32c76f6819dc729d720",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "PlatESG/tests/test_source_fact_cursor_api.py",
+      "bytes": 1790,
+      "sha256": "dd31916678e07cdb688d925d3c6477491536fdacdc980fd0eb1907e73f1b89a7",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.0.0.json",
+      "bytes": 157997,
+      "sha256": "befc855b58b6359ea125ca97a44b094d1138a36de68445cd6dea9d88f55bd631",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.2.0.json",
+      "bytes": 163611,
+      "sha256": "3409c2024e113f490c22c58252d3d5562ca40fc2400312c7c519e94a7a056cde",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.1.json",
+      "bytes": 217467,
+      "sha256": "838ccb17334026e051476888421fc1a17dc6241b56e062dab8db801f1e2192fd",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.2.json",
+      "bytes": 216327,
+      "sha256": "08901670d91d4f79941ec4d510c4020eb5c69d2ddf3ecf995a076a9211e6ed72",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.3.json",
+      "bytes": 244634,
+      "sha256": "7a4c60cc8c7768f4c959b7073496b3c5bf1e95b9436a5689f8a29a8da937a058",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.4.json",
+      "bytes": 245399,
+      "sha256": "a2b759381764baeef033ba9ee5d434934f29a206b9a7f36d9a620b23f98cff1b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/metric-dictionary.1.4.5.json",
+      "bytes": 249847,
+      "sha256": "d7ebed8d1c36fac8ef2fc99b05f025fc7ee7d2fce02a6838f395de5bd0d7db55",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/history/platform-major.profile-1.0.0.json",
+      "bytes": 1129,
+      "sha256": "d7ad96e459edbef7b89b1582bb93709d08711b1d6721d492468a20e54aa1cdbe",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/import-contracts/README.md",
+      "bytes": 926,
+      "sha256": "c18af2fd85a811de96b6c38d0ee93e91fd28571a5bc246d2d1c0ef02debdb225",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/import-contracts/index.json",
+      "bytes": 325,
+      "sha256": "2a7df0ea4df9f084b742a84bcc9d48428a3ac57d839cc19a6b9b6026a1b0c1d3",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/import-contracts/releases/esrs-platform-major.dictionary-1.0.0.json",
+      "bytes": 562,
+      "sha256": "0aafaf9a13748ba1f6cba10ec41d3d5151eaa58380f509743ad72bf1bdb7e765",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/metric-dictionary.schema.json",
+      "bytes": 11826,
+      "sha256": "14af0d356f8097d082f5d42847bbfaa1f483099750c45cd2b9c4a3933914c81c",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/catalog/metric-dictionary.v1.json",
+      "bytes": 634633,
+      "sha256": "c4d73f543d4a20aa604e44c422c7c3a41a50001332f18dbecaa05c1e5173c134",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0001_reference_data.sql",
+      "bytes": 6257,
+      "sha256": "0070726b2f2630cdf15935b26a1c36b9af08c26cef4f4335bc7c4c7ba2c0520e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0002_disclosure_results.sql",
+      "bytes": 10377,
+      "sha256": "56a663281f071d28dadc30cfca01c2a8e14bcb046ca238adc2fc2466258ba24c",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0003_api_views.sql",
+      "bytes": 5385,
+      "sha256": "754ac0d6f3435eb7ab84a20a70c42279e100bf6c5757409adaa623d0de82cd2d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0004_reference_seed.sql",
+      "bytes": 7510,
+      "sha256": "54daf5d08560d00281761b88aecff035c28e49dd7850b8bd14563638f4b4ca89",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0005_candidate_import_and_decisions.sql",
+      "bytes": 3604,
+      "sha256": "bd1868b58b3ee3138aff74435b6a46e6f30d34257c2ab254ed008bc0dcf509fb",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0006_curated_publication.sql",
+      "bytes": 7784,
+      "sha256": "c95fecd2698f433b9b6551c56b71fd2314259046028c3d0f03f59476ac0f1cfc",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0007_unit_normalization_rules.sql",
+      "bytes": 617,
+      "sha256": "fc821b81e8ce43b26a9e051e19114143e97f814c86f44f5abf4fadf1fe237f6c",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0008_dictionary_snapshots.sql",
+      "bytes": 3334,
+      "sha256": "c897ceaba4d5c981dcef2fbd06eaeda9e0b1fbdfa81380ab305b60ce6b51311b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0009_extension_clauses.sql",
+      "bytes": 20137,
+      "sha256": "3bfbd9bce12cb25a181eed2a06b92c3a41ca17c8262ab19ca95efbc927336e53",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0010_extension_import_snapshots.sql",
+      "bytes": 5400,
+      "sha256": "81932228f236693ce26603395852c1f2bc91c649cd6e988578c8e2fae30b73b8",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0011_reported_properties.sql",
+      "bytes": 394,
+      "sha256": "e7f807c8e1a12a074ff766587468effc32a32bceb1b1652164ee612b781bda36",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0012_report_source_fact_snapshots.sql",
+      "bytes": 2778,
+      "sha256": "6d71a3aab68b970c22233a836a747c9da0077ff8b4b6c5863852d7417e8f63af",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0013_report_publications.sql",
+      "bytes": 3483,
+      "sha256": "c8c4e93019ea3db2d5903ab965fa07a5559a9c474fd5ee862d41374f092b7b09",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0014_neutral_source_facts.sql",
+      "bytes": 449,
+      "sha256": "b7175574153a8d27c15ed8bbfd2f006519b53faefb65b9544508ce7456847b0e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0015_scientific_projections.sql",
+      "bytes": 2567,
+      "sha256": "2e2014903fe06f1e6b09b7077d9c5378dc5bf83d0186a082341fbd8c9078bbe5",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0016_scientific_model.sql",
+      "bytes": 5936,
+      "sha256": "91a4ce94048760264081cb070bbc7a8719721cc5a6cd6321b60d48a7b55b380c",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0017_clause_projection_source.sql",
+      "bytes": 318,
+      "sha256": "0597d666be3cbecd1379f251b0628304e1dbfa2a301a6be039404ef13f7fbbff",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/0018_reported_dimensions_view.sql",
+      "bytes": 1133,
+      "sha256": "242a58eb65c9ca13c99fafe9f845b0d87eee34069d098ac4aeec2988aa13c52f",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/platform/0001_entities.sql",
+      "bytes": 1965,
+      "sha256": "d6f8c011493f05068c55a0df6e4f29d4eb966baf4950546aa23b1750a07dc27d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/platform/0002_import_delivery_audit.sql",
+      "bytes": 797,
+      "sha256": "7c808fc9e4cf2e6fb3efbe8ad8acf9422be38a9edfb819ec99489c135008ce67",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/platform/0003_artifact_lifecycle.sql",
+      "bytes": 707,
+      "sha256": "187cf4c7d3198480d8ed4b644008476dcdf7bdcf1d98a7b311cd35f5b608d831",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/migrations/platform/0004_import_contract_registry.sql",
+      "bytes": 1261,
+      "sha256": "5d0b7e17b6b56d8f6c706bc0044cca737a747e60bfcd20c851b54d0cb143b52f",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/queries/frozen/delivery_status.mjs",
+      "bytes": 23430,
+      "sha256": "4b2d96448bb99b1ebddb9959dd8bbb0c8f2aa099ce6614595c3f1abca7f50ed5",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/queries/lifecycle.mjs",
+      "bytes": 6969,
+      "sha256": "372e52c93f7a456a194a01d3af9cea9e437ee6e12a74b46577d3d3c68735a40d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/queries/public_contracts.mjs",
+      "bytes": 6381,
+      "sha256": "38b8144ba10a7d26134df3aff6f548c4d1e2a396f770fbae33791deb2eb0453b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/queries/scientific_products.mjs",
+      "bytes": 3587,
+      "sha256": "25737fb62af79574a743df08650ad179015c7ddb934969eb45e9da1c96d2a3fc",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/queries/service.mjs",
+      "bytes": 39590,
+      "sha256": "df9b644464a6d2124d595db08e720843e263ab72209e00eddb22f60c389a084a",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/runtime/frozen_schema.mjs",
+      "bytes": 2546,
+      "sha256": "8ce6df4d8b7224938d74d5a275a5346be1cd37c4ac545071e45ee7322090917b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/runtime/worker.mjs",
+      "bytes": 1972,
+      "sha256": "385a0220db09d1e2da7ecaf367289f2efa1eec6ff560d5690a5976ccbfb39a30",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/auto-review.mjs",
+      "bytes": 3246,
+      "sha256": "e999136ca1f0196827014c8276009ce330250c72d6b422341d098005ab80a529",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/candidate-review.mjs",
+      "bytes": 28202,
+      "sha256": "5c3bb494fc23d388aec9feab76ed51cb511e6ad3d668b5673d25d539acd5142d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/extension-derivation.mjs",
+      "bytes": 39166,
+      "sha256": "73096b0cb498956c4c737ab8031253fc413d78de63843baa6f9c07097d56f221",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/frozen-bundle.mjs",
+      "bytes": 45542,
+      "sha256": "cebbeac48dc4151cc82c0bded16a0aecdc77451a79868a25a4b8554743986acc",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/publication.mjs",
+      "bytes": 55961,
+      "sha256": "e8b60883f599f3d05eb62e1e41aa260424de80d0bf0069f3663f80692e2cb37d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/purge-artifacts.mjs",
+      "bytes": 7734,
+      "sha256": "eac472b3c28c2e5988655e28341863229761805507fbde343595a099943c4d3d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/report-artifacts.mjs",
+      "bytes": 13045,
+      "sha256": "a540ec58bced0f385544e9cc005a33f81456095973605363b2786c883a66c513",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/report-source-facts.mjs",
+      "bytes": 11196,
+      "sha256": "e1767ae216a74210934b814f66a87781820d5c490826e64cbb3c1e15917729aa",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/review-decisions.mjs",
+      "bytes": 2703,
+      "sha256": "25ff39a17aa564c1b9cbc8fcb5693743414f248fe0e291bdd96d15dc89f12771",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/review-evidence.mjs",
+      "bytes": 19480,
+      "sha256": "c0a98c5bae23c783777e4dcb7612e5f70c3bed0f29faeca5ec4f86de8630864d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/scientific-model.mjs",
+      "bytes": 13217,
+      "sha256": "5e7577f82c2a979e1554e427cd1368ee65f7b7ebdfe98a78e0c72ae8397a45b7",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/scientific-properties.mjs",
+      "bytes": 10150,
+      "sha256": "070f5c334bb0cd6144c4995ea58fefcae75bfd3ac55fa224c8344e446a93c8bf",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.2.0.json",
+      "bytes": 6155,
+      "sha256": "8e5f3ea1f94e935e2bad7f2fa15c5fa80885f2071294c45885fb2c64ac3187c1",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.3.0.json",
+      "bytes": 7384,
+      "sha256": "2b89ee690584601c5b77327457e703d07c2a5ffb967b0303be35d4d1f2e8ca0e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.4.0.json",
+      "bytes": 8739,
+      "sha256": "7cc95c97be82bbabe7b1cd650ce743e60539df9da44e53c6316429e1670cd8fb",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.0.json",
+      "bytes": 9724,
+      "sha256": "6f970af71efb3d23c5e6c332ecfa65867bc1d784dd844d9a5c64904e75f1a7c4",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.2.json",
+      "bytes": 10587,
+      "sha256": "75f9f0e09717a98f278e7bc705c2af29c108cf43e6cd96f381b71542df0bddef",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.3.json",
+      "bytes": 11241,
+      "sha256": "1c5243db40c98de45e8df6ce1d4c615b496be43c1e6f24f2e46ca5a9f9010be6",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.4.json",
+      "bytes": 11952,
+      "sha256": "fc579bf422bc170f797caf613c50578bc208b79b24971ee77082fd81adf619ff",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.5.json",
+      "bytes": 12156,
+      "sha256": "3c7bff8f4460a01060a9d106c6f34dea732185de505209c27316182811558f7c",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.6.json",
+      "bytes": 12680,
+      "sha256": "9f97fffcfff7f2f67ae11151c4ddf5e39211549fa5bca6748babfd6746b68a9d",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.1.5.7.json",
+      "bytes": 11508,
+      "sha256": "7724d61cdd2d791c1187ffe548dbea051775ddb589d7b08f874583d666754619",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/unit-conversions.v1.json",
+      "bytes": 3604,
+      "sha256": "a4aaa7803ea82208c629aec6bb7a76e4c9742eeb0f0c0e4cf27e1d6cdc30e9a0",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/scripts/verify_frozen.mjs",
+      "bytes": 2769,
+      "sha256": "14df14cb316c4608cb6971ea5e501df6cd05201efd33bee3d79dafc9f7cb1fb8",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/extension-derivation.test.mjs",
+      "bytes": 40003,
+      "sha256": "79b3c68514cad82631e48a1c91fc39a9323f8e54c6367e696744e1b856b733c9",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/fixtures/frozen-extension-proposal.json",
+      "bytes": 9566,
+      "sha256": "06f9ae255a7e273b5296619e1eba3cb00a8f7e828e80c2867698de0a972a4635",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/frozen-bundle.test.mjs",
+      "bytes": 14371,
+      "sha256": "044939a058f6ba617134494a5f91fddb1ff21c3d3ce6f53ea4e90c2371b8da6b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/partial-export.test.mjs",
+      "bytes": 2158,
+      "sha256": "3f94442272f16ee01318510dc14862b06355fd409ec0f25d79b2c9522b65af19",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/publication.test.mjs",
+      "bytes": 31003,
+      "sha256": "15ffe9d61bede1f77352ba1726895ca4324e4f0c12448b1a06cb6dfd6a8e040b",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/report-source-facts-pagination.test.mjs",
+      "bytes": 6659,
+      "sha256": "fe76fe28084ed826f241bd3a1f2d2046520e4666e8887d2d37d8ddd5d0eb7888",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/report-source-facts.test.mjs",
+      "bytes": 12709,
+      "sha256": "e802be9afba24ea2ea4801044615254b61f2f7949f365ef863990f7ad9384dcd",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/scientific-model.test.mjs",
+      "bytes": 10096,
+      "sha256": "c2759c21d5edb1a4c0c72594f6d67b14a0ec1d6a9d8fc83a8c9cdaa117114a3e",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/scientific-products.test.mjs",
+      "bytes": 3272,
+      "sha256": "ee499b8720d1056af250bbf391ef3dd107c01efa38587651215fb908ffa00bce",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/scientific-properties.test.mjs",
+      "bytes": 16793,
+      "sha256": "8b8ac2243a40c4385679489a565e9047f8aa8541ee7e9f03c8908d509591dbfc",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    },
+    {
+      "path": "database/tests/unit-rules.test.mjs",
+      "bytes": 1356,
+      "sha256": "ba664494826c34555ba7bc3b4546416153db5b2215665d6a19ce69bd7db6c9a2",
+      "reason": "Replaced legacy dictionary/SQL publication/snapshot system; user explicitly requires complete retirement"
+    }
+  ],
+  "live_data_deleted": false,
+  "new_contract_owner": "ClauseESG + esg_contracts + database capture/products"
+}

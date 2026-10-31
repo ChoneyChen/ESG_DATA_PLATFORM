@@ -1,0 +1,583 @@
+{
+  "$defs": {
+    "DatasetPage": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/DatasetVersion"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Cursor"
+        },
+        "query_digest": {
+          "title": "Query Digest",
+          "type": "string"
+        },
+        "returned": {
+          "minimum": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "capture-dataset-page-1.0",
+          "default": "capture-dataset-page-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "total": {
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "query_digest",
+        "total",
+        "returned",
+        "items"
+      ],
+      "title": "DatasetPage",
+      "type": "object"
+    },
+    "DatasetVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "content_digest": {
+          "title": "Content Digest",
+          "type": "string"
+        },
+        "dataset_version_id": {
+          "title": "Dataset Version Id",
+          "type": "string"
+        },
+        "observations": {
+          "title": "Observations",
+          "type": "integer"
+        },
+        "periods": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Periods",
+          "type": "object"
+        },
+        "policy": {
+          "$ref": "#/$defs/SourceSelectionPolicy"
+        },
+        "published_at": {
+          "title": "Published At",
+          "type": "string"
+        },
+        "revision": {
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "capture-dataset-version-1.0",
+          "default": "capture-dataset-version-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "published",
+            "withdrawn"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_version_id",
+        "title",
+        "content_digest",
+        "policy",
+        "state",
+        "revision",
+        "published_at",
+        "observations",
+        "periods"
+      ],
+      "title": "DatasetVersion",
+      "type": "object"
+    },
+    "IngestionReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted_facts": {
+          "minimum": 0,
+          "title": "Accepted Facts",
+          "type": "integer"
+        },
+        "dispositions": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Dispositions",
+          "type": "array"
+        },
+        "export_id": {
+          "title": "Export Id",
+          "type": "string"
+        },
+        "input_digest": {
+          "title": "Input Digest",
+          "type": "string"
+        },
+        "publication_status": {
+          "const": "not_evaluated",
+          "title": "Publication Status",
+          "type": "string"
+        },
+        "receipt_id": {
+          "title": "Receipt Id",
+          "type": "string"
+        },
+        "received_at": {
+          "title": "Received At",
+          "type": "string"
+        },
+        "rejected_facts": {
+          "minimum": 0,
+          "title": "Rejected Facts",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "extraction-receipt-1.0",
+          "default": "extraction-receipt-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "accepted",
+            "partial",
+            "rejected"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "export_id",
+        "input_digest",
+        "receipt_id",
+        "status",
+        "accepted_facts",
+        "rejected_facts",
+        "dispositions",
+        "publication_status",
+        "received_at"
+      ],
+      "title": "IngestionReceipt",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "ObservationSource": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "title": "Document Id",
+          "type": "string"
+        },
+        "industry": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Industry"
+        },
+        "pdf_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pdf Id"
+        },
+        "pdf_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pdf Sha256"
+        },
+        "publication_year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publication Year"
+        },
+        "report_company": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Report Company"
+        },
+        "report_company_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Report Company Id"
+        },
+        "reporting_year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reporting Year"
+        },
+        "resource_revision": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Revision"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        }
+      },
+      "required": [
+        "document_id"
+      ],
+      "title": "ObservationSource",
+      "type": "object"
+    },
+    "PeriodFacet": {
+      "additionalProperties": false,
+      "properties": {
+        "facts": {
+          "minimum": 0,
+          "title": "Facts",
+          "type": "integer"
+        },
+        "period": {
+          "title": "Period",
+          "type": "string"
+        }
+      },
+      "required": [
+        "period",
+        "facts"
+      ],
+      "title": "PeriodFacet",
+      "type": "object"
+    },
+    "ProjectionStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        },
+        "export_id": {
+          "title": "Export Id",
+          "type": "string"
+        },
+        "projection": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProjectionSummary"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "completed",
+            "failed",
+            "schema_unavailable"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "export_id",
+        "status"
+      ],
+      "title": "ProjectionStatus",
+      "type": "object"
+    },
+    "ProjectionSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "content_digest": {
+          "title": "Content Digest",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "export_id": {
+          "title": "Export Id",
+          "type": "string"
+        },
+        "facts": {
+          "minimum": 0,
+          "title": "Facts",
+          "type": "integer"
+        },
+        "input_digest": {
+          "title": "Input Digest",
+          "type": "string"
+        },
+        "observations": {
+          "minimum": 0,
+          "title": "Observations",
+          "type": "integer"
+        },
+        "periods": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Periods",
+          "type": "object"
+        },
+        "projection_id": {
+          "title": "Projection Id",
+          "type": "string"
+        },
+        "relations": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Relations",
+          "type": "object"
+        },
+        "repeated_occurrences": {
+          "minimum": 0,
+          "title": "Repeated Occurrences",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "capture-projection-1.0",
+          "default": "capture-projection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/ObservationSource"
+        },
+        "transform_version": {
+          "title": "Transform Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "projection_id",
+        "export_id",
+        "input_digest",
+        "transform_version",
+        "content_digest",
+        "source",
+        "facts",
+        "observations",
+        "periods",
+        "relations",
+        "repeated_occurrences",
+        "diagnostics"
+      ],
+      "title": "ProjectionSummary",
+      "type": "object"
+    },
+    "SourceSelectionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "all_sources",
+          "enum": [
+            "all_sources",
+            "latest_report",
+            "prefer_explicit_restated"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "relations": {
+          "items": {
+            "enum": [
+              "match",
+              "uncertain",
+              "different"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Relations",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "source-selection-1.0",
+          "default": "source-selection-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "title": "SourceSelectionPolicy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "auto_publish": {
+      "const": false,
+      "default": false,
+      "title": "Auto Publish",
+      "type": "boolean"
+    },
+    "capture_periods": {
+      "items": {
+        "$ref": "#/$defs/PeriodFacet"
+      },
+      "title": "Capture Periods",
+      "type": "array"
+    },
+    "captured_facts": {
+      "minimum": 0,
+      "title": "Captured Facts",
+      "type": "integer"
+    },
+    "datasets": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DatasetPage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "export_id": {
+      "title": "Export Id",
+      "type": "string"
+    },
+    "projection": {
+      "$ref": "#/$defs/ProjectionStatus"
+    },
+    "published_dataset_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published Dataset Count"
+    },
+    "receipt": {
+      "$ref": "#/$defs/IngestionReceipt"
+    },
+    "schema_version": {
+      "const": "capture-product-state-1.0",
+      "default": "capture-product-state-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "export_id",
+    "receipt",
+    "captured_facts",
+    "capture_periods",
+    "projection"
+  ],
+  "title": "CaptureProductState",
+  "type": "object"
+}

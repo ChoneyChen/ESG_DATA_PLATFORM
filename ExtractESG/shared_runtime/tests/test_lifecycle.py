@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from esg_runtime.lifecycle import LifecycleBlocked, PublicationReferenceGuard
+from esg_runtime.lifecycle import LifecycleBlocked, SourceReferenceGuard
 from esg_runtime.trash import RecoverableTrash
 
 
@@ -24,7 +24,7 @@ class Guard:
 
 
 def test_reference_guard_unavailable_fails_closed_without_exposing_credential():
-    guard=PublicationReferenceGuard(token=None,url="http://127.0.0.1:1")
+    guard=SourceReferenceGuard(url="http://127.0.0.1:1")
     result=guard.check({"job_ids":["fixture"]})
     assert result["verified"] is False
     assert result["blockers"][0]["code"] == "reference_check_unavailable"
@@ -32,29 +32,27 @@ def test_reference_guard_unavailable_fails_closed_without_exposing_credential():
         guard.reserve({"job_ids":["fixture"]},"整理未入库记录")
 
 
-def test_guard_reads_restricted_local_token_without_returning_it(tmp_path,monkeypatch):
-    token=tmp_path/"review-token";token.write_text("fixture-private-token");token.chmod(0o600)
-    monkeypatch.delenv("PLATESG_LIFECYCLE_TOKEN",raising=False);monkeypatch.delenv("PLATESG_REVIEW_TOKEN",raising=False)
-    monkeypatch.setenv("PLATESG_LIFECYCLE_TOKEN_FILE",str(token))
+def test_reference_guard_is_credential_free_and_does_not_read_files(monkeypatch):
     import io
     import esg_runtime.lifecycle as module
     captured=[]
-    def response(request,timeout):
-        captured.append(request.get_header("Authorization"))
-        return io.BytesIO(json.dumps({"schema_version":"lifecycle-references-v1","verified":True,"blockers":[],"dependencies":[]}).encode())
-    monkeypatch.setattr(module,"urlopen",response)
-    result=PublicationReferenceGuard().check({"job_ids":["fixture"]})
-    assert result["verified"] is True and captured==["Bearer fixture-private-token"]
-    assert "fixture-private-token" not in str(result)
-    token.chmod(0o644)
-    assert PublicationReferenceGuard().check({"job_ids":["fixture"]})["verified"] is False
+    class Opener:
+        def open(self,request,timeout):
+            captured.append(request)
+            return io.BytesIO(json.dumps({"schema_version":"source-references-1.0","verified":True,"blockers":[],"dependencies":[]}).encode())
+    monkeypatch.setattr(module,"build_opener",lambda *args:Opener())
+    monkeypatch.setattr(Path,"read_text",lambda *args,**kwargs:(_ for _ in ()).throw(AssertionError("No filesystem credential access")))
+    assert SourceReferenceGuard().check({"job_ids":["fixture"]})["verified"]
+    assert captured[0].get_header("Authorization") is None
+    assert captured[0].full_url.endswith("/v1/sources/lifecycle/references")
+    with pytest.raises(ValueError):SourceReferenceGuard("http://user:secret@localhost")
 
 
 def test_guard_preserves_authoritative_unknown_store_diagnostics():
-    response={"schema_version":"lifecycle-references-v1","verified":False,"dependencies":[],
+    response={"schema_version":"source-references-1.0","verified":False,"dependencies":[],
         "blockers":[{"code":"additional_source_store_unverified","message":"其他来源目录未核查"}],
         "store_coverage":{"unverified_store_roots":["fixture://older-store"]}}
-    guard=PublicationReferenceGuard(transport=lambda operation,payload:response)
+    guard=SourceReferenceGuard(transport=lambda operation,payload:response)
     assert guard.check({"job_ids":["fixture"]})==response
     with pytest.raises(LifecycleBlocked,match="未核查"):
         guard.reserve({"job_ids":["fixture"]},"尝试清理")
@@ -71,7 +69,7 @@ def test_lost_reservation_response_leaves_recoverable_identity_before_any_file_m
             assert trash.list()[0]["reservation_id"]==payload["reservation_id"]
             raise URLError("fixture lost response")
         return {"reservation_id":operation.split("/")[-1],"state":payload["state"]}
-    guard=PublicationReferenceGuard(transport=transport)
+    guard=SourceReferenceGuard(transport=transport)
     trash=RecoverableTrash(tmp_path/"trash",[owned],guard=guard)
     with pytest.raises(LifecycleBlocked):
         trash.quarantine([source],scope={"job_ids":["fixture"]},reason="尝试回收")
@@ -87,7 +85,7 @@ def test_lost_reservation_response_leaves_recoverable_identity_before_any_file_m
 def test_pending_reservation_release_failure_keeps_recovery_state(tmp_path):
     from urllib.error import URLError
     owned=tmp_path/"owned";owned.mkdir();source=owned/"report.pdf";source.write_bytes(b"original")
-    guard=PublicationReferenceGuard(transport=lambda operation,payload:(_ for _ in ()).throw(URLError("offline")))
+    guard=SourceReferenceGuard(transport=lambda operation,payload:(_ for _ in ()).throw(URLError("offline")))
     trash=RecoverableTrash(tmp_path/"trash",[owned],guard=guard)
     with pytest.raises(LifecycleBlocked):trash.quarantine([source],scope={"job_ids":["fixture"]},reason="尝试回收")
     receipt=trash.list()[0]

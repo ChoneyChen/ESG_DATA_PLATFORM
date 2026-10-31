@@ -352,7 +352,8 @@
         }
       },
       "required": [
-        "statement_raw"
+        "statement_raw",
+        "kind"
       ],
       "title": "QualitativePayload",
       "type": "object"
@@ -454,7 +455,8 @@
         }
       },
       "required": [
-        "value_raw"
+        "value_raw",
+        "kind"
       ],
       "title": "QuantitativePayload",
       "type": "object"

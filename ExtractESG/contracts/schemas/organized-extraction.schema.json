@@ -1047,11 +1047,8 @@
       "type": "string"
     },
     "schema_version": {
+      "const": "organized-extraction-1.1",
       "default": "organized-extraction-1.1",
-      "enum": [
-        "organized-extraction-1.0",
-        "organized-extraction-1.1"
-      ],
       "title": "Schema Version",
       "type": "string"
     },

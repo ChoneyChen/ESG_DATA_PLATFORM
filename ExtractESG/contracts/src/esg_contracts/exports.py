@@ -1,6 +1,6 @@
 """Sealed producer-to-database handoff; no service paths or presentation objects."""
 from typing import Literal
-from pydantic import Field, model_validator, model_serializer
+from pydantic import Field, model_validator
 from .facts import FrozenModel
 from .evidence import DocumentReference
 from pydantic import JsonValue
@@ -15,8 +15,8 @@ class ExportFile(FrozenModel):
 
 
 class ExportManifest(FrozenModel):
-    schema_version: Literal["extraction-export-1.0", "extraction-export-1.1"] = "extraction-export-1.1"
-    authority: Literal["facts"] | None = None
+    schema_version: Literal["extraction-export-1.1"] = "extraction-export-1.1"
+    authority: Literal["facts"]
     export_id: str = Field(pattern=r"^export-[a-f0-9]{64}$")
     run_id: str
     producer: str = "esg-extraction"
@@ -29,17 +29,8 @@ class ExportManifest(FrozenModel):
     files: list[ExportFile] = Field(min_length=1)
     publication_status: Literal["not_evaluated"] = "not_evaluated"
 
-    @model_serializer(mode="wrap")
-    def preserve_frozen_shape(self, serializer):
-        body = serializer(self)
-        if self.authority is None:
-            body.pop("authority", None)
-        return body
-
     @model_validator(mode="after")
     def complete_members(self):
-        if self.schema_version == "extraction-export-1.1" and self.authority != "facts":
-            raise ValueError("Current exports declare facts as their sole data authority")
         required = {"facts", "properties", "evidence", "relations", "coverage", "targets", "document", "diagnostics"}
         if {f.role for f in self.files} != required or len(self.files) != len(required) or len({f.name for f in self.files}) != len(self.files):
             raise ValueError("An export needs exactly its declared data members")

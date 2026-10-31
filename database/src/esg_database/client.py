@@ -10,20 +10,25 @@ import threading
 from pathlib import Path
 
 
-def module_release(profile="frozen_publication"):
+def module_release(profile="capture"):
     from esg_runtime.release import ModuleRelease
     root = Path(os.getenv("ESG_DATABASE_MODULE_ROOT", str(Path(__file__).resolve().parents[2])))
-    patterns = (
-        "src/**/*.py", "runtime/*.mjs", "queries/**/*.mjs", "scripts/*.mjs",
-        "migrations/**/*.sql", "catalog/**/*.json",
-    ) if profile == "frozen_publication" else (
-        "src/**/*.py", "runtime/capture_worker.mjs", "runtime/rpc.mjs", "runtime/connection.mjs", "runtime/schema.mjs", "runtime/canonical.mjs",
-        "queries/capture*.mjs", "queries/ingestion.mjs", "migrations/0019*.sql", "migrations/capture/**/*.sql",
-    )
+    python_root = Path(__file__).resolve().parent
+    if profile == "products_client":
+        patterns=("http_client.py","contracts.py","products_contracts.py")
+    elif profile == "capture":
+        patterns=(
+            "runtime/capture_worker.mjs","runtime/rpc.mjs","runtime/connection.mjs","runtime/schema.mjs","runtime/canonical.mjs",
+            "queries/capture*.mjs","queries/ingestion.mjs","migrations/0019*.sql","migrations/capture/**/*.sql")
+    else:
+        raise ValueError("Unknown database release profile")
     from esg_contracts import facts
     sdk = ModuleRelease(Path(facts.__file__).resolve().parents[1], "contracts-sdk", (
         "esg_contracts/**/*.py", "esg_data/**/*.py", "esg_reports/**/*.py"))
-    return ModuleRelease(root, "database-module", patterns, dependencies=(("contracts", sdk),))
+    if profile == "products_client":
+        return ModuleRelease(python_root, "database-products-client", patterns, dependencies=(("contracts", sdk),))
+    python = ModuleRelease(python_root, "database-sdk", ("*.py",))
+    return ModuleRelease(root, "database-module", patterns, dependencies=(("contracts", sdk),("python", python)))
 
 
 class DatabaseError(RuntimeError):
@@ -35,22 +40,24 @@ class DatabaseError(RuntimeError):
 class DatabaseBridge:
     def __init__(self, environment: dict[str, str] | None = None):
         self.environment = {**os.environ, **(environment or {})}
-        if self.environment.get("ESG_DATABASE_PROFILE") == "capture":
-            for key in ("PLATESG_DATA_DIR", "PLATESG_DATABASE_URL", "PLATESG_REVIEW_TOKEN", "PLATESG_OPERATORS_JSON"):
-                self.environment.pop(key, None)
+        if self.environment.get("ESG_DATABASE_PROFILE","capture") != "capture":
+            raise ValueError("Only the current capture adapter is available")
+        self.environment["ESG_DATABASE_PROFILE"]="capture"
+        for key in list(self.environment):
+            if key.startswith("PLATESG_"):self.environment.pop(key)
         self.lock = threading.Lock()
         self.sequence = 0
         self.process = None
         self.selector = selectors.DefaultSelector()
 
     def start(self):
-        node = self.environment.get("PLATESG_NODE") or shutil.which("node")
+        node = self.environment.get("ESG_NODE") or shutil.which("node")
         if not node:
             candidate = Path.home() / ".cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
             node = str(candidate) if candidate.exists() else None
         if not node:
             raise RuntimeError("Node.js 20+ is required by the PostgreSQL adapter")
-        worker = "capture_worker.mjs" if self.environment.get("ESG_DATABASE_PROFILE") == "capture" else "worker.mjs"
+        worker = "capture_worker.mjs"
         self.process = subprocess.Popen(
             [node, self.environment.get("ESG_DATABASE_WORKER", str(Path(self.environment.get("ESG_DATABASE_MODULE_ROOT", str(Path(__file__).resolve().parents[2]))) / "runtime" / worker))],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=None,

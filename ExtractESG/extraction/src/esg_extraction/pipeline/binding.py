@@ -456,7 +456,7 @@ def mapping_for(clause, document, fact, match, reason):
         "value_role": fact.identity.value_role,
         "aggregation": fact.identity.aggregation_role,
     }
-    discriminators = set(clause.purposes.target_scope.discriminating_axes) if clause.purposes else None
+    discriminators = set(clause.purposes.target_scope.discriminating_axes)
     scope_conflicts = []
     for scope in clause.output_scopes:
         required = {
@@ -506,19 +506,16 @@ def mapping_for(clause, document, fact, match, reason):
         scope_conflicts.append(known_conflicts)
     if not covered:
         flags.append("scope_requires_confirmation")
-    if clause.purposes:
-        for axis in clause.purposes.comparison.required_axes:
-            field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
-            if field is None or field.state not in {"stated", "inherited"}:
-                flags.append("comparison_axis_missing:" + axis)
-    relation = "different" if match == "different" else "uncertain" if flags or match == "uncertain" else "match"
-    if discriminators is not None:
-        # Missing context affects comparison completeness, never raw admission or
-        # an otherwise supported target relation. Explicit semantic conflict wins.
-        different = bool(scope_conflicts) and all(set(axes) & discriminators for axes in scope_conflicts)
-        ambiguous = any((axes.get(axis) or fact.identity.dimensions.get(axis)) is not None and
-            (axes.get(axis) or fact.identity.dimensions.get(axis)).state == "conflict" for axis in discriminators)
-        relation = "different" if different else "uncertain" if ambiguous else match
+    for axis in clause.purposes.comparison.required_axes:
+        field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
+        if field is None or field.state not in {"stated", "inherited"}:
+            flags.append("comparison_axis_missing:" + axis)
+    # Missing context affects comparison completeness, never raw admission or
+    # an otherwise supported target relation. Explicit semantic conflict wins.
+    different = bool(scope_conflicts) and all(set(conflicts) & discriminators for conflicts in scope_conflicts)
+    ambiguous = any((axes.get(axis) or fact.identity.dimensions.get(axis)) is not None and
+        (axes.get(axis) or fact.identity.dimensions.get(axis)).state == "conflict" for axis in discriminators)
+    relation = "different" if different else "uncertain" if ambiguous else match
     return ClauseMapping(
         clause_key=clause.clause_key,
         clause_digest=clause.clause_digest,

@@ -1,20 +1,25 @@
-# PlatESG · 已发布科学数据与审核
+# PlatESG · 已发布数据
 
-2026-10-30：当前 PDF 提取生产者已经换为独立条款和两类原值事实。PlatESG 保留已有 SQL 数据、冻结字典、审核与发布产品；新原值由独立数据库接收器接收；不自动成为本产品的已审核/已发布观测。现有库没有重置或迁移。
+Plat 是独立数据库发布产品的只读前后端。没有旧企业/指标字典、SQL worker、审核写入口或冻结旧数据适配；旧 `/v1`、`/internal/v1`、`/review` 接口返回410。
 
-现版字典是 `database/catalog/metric-dictionary.v1.json`，版本 1.5.0，共 55 项。它是既有产品的冻结定义，不能用来覆盖新的条款源。旧字典构建脚本、标准包登记、Core/Bundle 导入、交付重试及演示造包入口已退役；相关写入口在隔离冷启动验证中返回 410 或明确的退役错误。现有 8765 进程本轮未重启，仍有旧条款编写入口，不能据源码改动宣称该进程已更新。
+前端按「数据集 → 数据表 → 单条观测」组织，提供返回、全部期间/条款筛选、完整游标分页、精确原值、实际属性、物理证据、来源PDF及CSV/Parquet长表。缺比较轴的已发布事实仍可展示，比较资格另行标注。
 
-| 模块 | 职责 |
+后端 `/v2/datasets` 及子接口通过HTTP消费独立数据库，不读取Extract或数据库目录。PDF先验证其属于有效发布，再经文档服务的散列端口读取并复核完整字节。撤下后的成员及PDF不能通过本平台公开读取。
+
+| 目录 | 职责 |
 |---|---|
-| `backend/` | 公开读 API、权限与审核/发布命令；SQL消费独立数据库客户端 |
-| `../database/catalog/` | 已有数据产品的冻结指标定义和来源记录 |
-| `../database/migrations/platform/` | 平台SQL由数据库模块统一拥有；保留原迁移登记 |
-| `frontend/` | 企业、指标、比较、证据及已发布报告 |
-| 旧 `review/` 页面 | 已删除，当前源码 `/review` 及子路径明确返回 410；新审核 UI 只规划 |
-| `tests/fixtures/` | 仅供隔离测试的虚构 SQL 消费者样例；不依赖条款包或生产导入 API |
+| `backend` | 发布读代理、资源解析、就绪与发布客户端版本检查 |
+| `frontend` | 当前数据集/观测/定义/来源页面 |
+| `scripts/run.sh` | 构建并启动本机8765；不读取凭据文件或初始化数据库 |
+| `tests` | 当前HTTP/来源边界隔离测试 |
 
-公开接口：`/v1/entities`、`/v1/metrics`、`/v1/observations`、`/v1/coverage`、`/v1/comparisons`、`/v1/sources`、`/v1/datasets`、`/v1/exports`。数据集和证据按发布版本冻结；十进制数通过字符串传输。来源 PDF 必须通过来源散列与库内位置核对。
+`ESG_DATABASE_PRODUCTS_URL`（默认18280）配置数据库服务；`ESG_DOCUMENT_BACKEND_URL`（默认18080）配置PDF解析。两者均使用无凭据的显式服务地址。服务离线时明确不可用，不回退旧数据。
 
-内部审核、口径确认、报告发布、撤下和产物管理使用受权限保护的 `/internal/v1/`。审核记录不能自动等同于发布；默认 `PLATESG_AUTO_PUBLISH=0`。数据库工作进程只有在显式设置为 `1` 时才在启动阶段处理发布队列。
+```sh
+npm --prefix PlatESG/frontend ci
+npm --prefix PlatESG/frontend test
+npm --prefix PlatESG/frontend run build
+PlatESG/scripts/run.sh
+```
 
-完整模块边界见[全链路架构](../docs/architecture/README.md)，本轮结构核对见[升级验收](../docs/implementation/2026-10-30/README.md)。Console 现已接入当前报告、提取、条款、运行接口，不再调用旧审核/交付控件。正式发布服务仍独立维护，独立接收器已建设，公开产品仍使用冻结发布快照。无效的条款投影 CLI、投影 HTTP 写入口及旧 handoff 脚本已移除；保留既有只读科学对账。
+科研导出包含六份规范长表、定义及类型清单；Decimal精度不足时明确失败，不转浮点或悄悄截断。发布控制归Console与数据库，Plat无自动发布行为。源码验证、实际服务部署及真实报告核验分别记录在[本轮实施](../docs/implementation/2026-10-31/README.md)。

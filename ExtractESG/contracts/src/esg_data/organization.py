@@ -366,7 +366,7 @@ class OrganizedTable(Model):
 
 
 class OrganizedDataset(Model):
-    schema_version: Literal["organized-extraction-1.0", "organized-extraction-1.1"] = "organized-extraction-1.1"
+    schema_version: Literal["organized-extraction-1.1"] = "organized-extraction-1.1"
     run_id: str
     document_id: str
     ir_run_id: str

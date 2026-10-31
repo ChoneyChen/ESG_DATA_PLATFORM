@@ -65,6 +65,14 @@ def test_periods_keep_grain_and_never_expand_ranges(raw,kind):
     if raw=='2023年至2025年累计': assert period.start is None and period.end is None
 
 
+def test_yearless_quarter_keeps_grain_without_inventing_a_year():
+    from esg_data.periods import period_label
+    period=parse_period('第一季度')
+    assert period.kind=='quarter' and period.quarter==1 and period.year is None
+    assert period_label(period.model_dump(mode='json'))=='第一季度'
+    assert parse_period('本财年').year is None
+
+
 def test_missing_period_does_not_inherit_a_report_title_year():
     evidence=frame({'a':'数值'})
     context,_=context_from_claims(evidence,[],row=evidence.rows[0],column_id='a',document=document())

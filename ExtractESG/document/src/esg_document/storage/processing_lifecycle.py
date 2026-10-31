@@ -14,11 +14,11 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from esg_runtime.lifecycle import (
     LifecycleBlocked,
-    PublicationReferenceGuard,
+    SourceReferenceGuard,
     blocker,
     require_reason,
 )
-from esg_runtime.production_references import production_references
+from esg_pipeline.source_references import extraction_references
 from esg_pipeline.contracts import utc_now
 from esg_document.storage.package_layout import require_package_dir_name
 
@@ -32,7 +32,7 @@ class ProcessingLifecycleCommand(BaseModel):
 class ProcessingLifecycle:
     def __init__(self, coordinator, guard=None):
         self.coordinator = coordinator
-        self.guard = guard or PublicationReferenceGuard()
+        self.guard = guard or SourceReferenceGuard()
 
     @staticmethod
     def _scope(state, pins=()):
@@ -81,24 +81,24 @@ class ProcessingLifecycle:
     def _idle_blockers(self, state, db):
         result = []
         try:
-            reservations = production_references(
+            reservations = extraction_references(
                 db, processing_id=state["processing_id"]
             )
             if reservations:
                 result.append(
                     blocker(
-                        "production_processing_reference",
-                        "自动生产仍需要此处理记录；先结束或取消相关计划。",
-                        automation_ids=sorted(
-                            {r["automation_id"] for r in reservations}
+                        "extraction_processing_reference",
+                        "提取仍需要此处理记录；先结束或取消相关计划。",
+                        session_ids=sorted(
+                            {r["session_id"] for r in reservations}
                         ),
                     )
                 )
         except ValueError:
             result.append(
                 blocker(
-                    "production_reference_check_unavailable",
-                    "自动生产引用无法核实，暂不能整理处理记录。",
+                    "extraction_reference_check_unavailable",
+                    "提取引用无法核实，暂不能整理处理记录。",
                 )
             )
         if state["status"] in {"queued", "running", "cancelling"}:
@@ -169,8 +169,8 @@ class ProcessingLifecycle:
             in {
                 "processing_active",
                 "processing_child_active",
-                "production_processing_reference",
-                "production_reference_check_unavailable",
+                "extraction_processing_reference",
+                "extraction_reference_check_unavailable",
             }
             for row in blockers
         )
