@@ -1,0 +1,1887 @@
+{
+  "snapshot": {
+    "observed_at": "2026-10-31T19:33:06.839396+00:00",
+    "head": "9c8b97aabbd7598b9fc673adc3a2d45323a6d443",
+    "scope": "read-only code, HTTP GET and inventories; no model, publish, migration or restart"
+  },
+  "http_probes": [
+    {
+      "port": 18080,
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "health_summary": {
+        "status": "ok",
+        "service": "esg-v2-backend",
+        "version": "1.1.0"
+      }
+    },
+    {
+      "port": 18080,
+      "method": "GET",
+      "path": "/health/compatibility",
+      "status": 200,
+      "health_summary": {
+        "service": "document-backend",
+        "restart_required": false,
+        "readiness": {
+          "ready": true,
+          "blockers": [],
+          "scope": "document_backend"
+        }
+      }
+    },
+    {
+      "port": 18180,
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "health_summary": {
+        "status": "ok",
+        "service": "clause-backbone"
+      }
+    },
+    {
+      "port": 18180,
+      "method": "GET",
+      "path": "/api/compatibility",
+      "status": 200,
+      "health_summary": {
+        "service": "extraction-backend",
+        "restart_required": false,
+        "readiness": {
+          "ready": true,
+          "blockers": []
+        }
+      }
+    },
+    {
+      "port": 18280,
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "health_summary": {
+        "service": "database-module",
+        "restart_required": false,
+        "status": "ok",
+        "products_ready": true
+      }
+    },
+    {
+      "port": 8765,
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "health_summary": {
+        "status": "ok",
+        "service": "platesg",
+        "profile": "published_products",
+        "products_ready": true
+      }
+    },
+    {
+      "port": 8765,
+      "method": "GET",
+      "path": "/health/compatibility",
+      "status": 200,
+      "health_summary": {
+        "service": "publication-backend",
+        "restart_required": false,
+        "readiness": {
+          "ready": true,
+          "blockers": []
+        }
+      }
+    },
+    {
+      "port": 18080,
+      "method": "GET",
+      "path": "/api/report-resources",
+      "status": 200
+    },
+    {
+      "port": 18080,
+      "method": "GET",
+      "path": "/api/report-sessions",
+      "status": 200
+    },
+    {
+      "port": 18080,
+      "method": "GET",
+      "path": "/api/console/monitor",
+      "status": 200
+    },
+    {
+      "port": 18180,
+      "method": "GET",
+      "path": "/api/clauses",
+      "status": 200
+    },
+    {
+      "port": 18180,
+      "method": "GET",
+      "path": "/api/runs",
+      "status": 200
+    },
+    {
+      "port": 18280,
+      "method": "GET",
+      "path": "/v1/projections",
+      "status": 200
+    },
+    {
+      "port": 18280,
+      "method": "GET",
+      "path": "/v1/datasets",
+      "status": 200
+    },
+    {
+      "port": 8765,
+      "method": "GET",
+      "path": "/v2/datasets",
+      "status": 200
+    },
+    {
+      "port": 8765,
+      "method": "GET",
+      "path": "/v1/metrics",
+      "status": 410
+    },
+    {
+      "port": 8765,
+      "method": "GET",
+      "path": "/internal/v1/health",
+      "status": 410
+    },
+    {
+      "port": 8765,
+      "method": "GET",
+      "path": "/review",
+      "status": 410
+    }
+  ],
+  "reports": {
+    "count": 18,
+    "available": 18,
+    "company_known": 18,
+    "industry_known": 0,
+    "publication_year_known": 0,
+    "reporting_years": {
+      "2025": 12,
+      "2024": 3,
+      "2026": 1,
+      "2020": 1,
+      "2019": 1
+    },
+    "missing_metadata": {
+      "publication_year": 18,
+      "industry": 18
+    },
+    "reports": [
+      {
+        "pdf_id": "pdf-0987ae74eaf0882cfc5bb064",
+        "original_filename": "法拉电子2025年度环境、社会及公司治理报告.pdf",
+        "company": {
+          "name": "厦门法拉电子股份有限公司",
+          "company_id": "org:faratronic"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-33bdb1b34f5ac2d9d091c047",
+        "original_filename": "紫金矿业2025年可持续发展报告(1).pdf",
+        "company": {
+          "name": "紫金矿业集团股份有限公司",
+          "company_id": "org:zijin"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-34fdf37853f93ce1cf9a90ab",
+        "original_filename": "2025中国移动.pdf",
+        "company": {
+          "name": "中國移動有限公司",
+          "company_id": "org:china-mobile"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-374b145003e7ec82e7048342",
+        "original_filename": "越秀地产2024可持续发展报告(1).pdf",
+        "company": {
+          "name": "越秀地產股份有限公司",
+          "company_id": "org:yuexiu"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2024,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-3eed82b94de7c64f971c9346",
+        "original_filename": "00004_2026_SUSTAINABILITY_Sustainability Report 2025.pdf",
+        "company": {
+          "name": "The Wharf (Holdings) Limited",
+          "company_id": "org:wharf"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-4c11d4ccc30e8c1d7ccd3527",
+        "original_filename": "2026 阿里巴巴环境、社会和治理（ESG）报告(1).pdf",
+        "company": {
+          "name": "阿里巴巴集团控股有限公司",
+          "company_id": "org:alibaba"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2026,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-5db78db66589618080e9ffc7",
+        "original_filename": "香港中华煤气有限公司.pdf",
+        "company": {
+          "name": "香港中华煤气有限公司",
+          "company_id": "org:towngas"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2024,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-5ddb4bce888b21dbaa2822c2",
+        "original_filename": "LSE_MHPC_2020_View Sustainability Report.pdf",
+        "company": {
+          "name": "MHP SE",
+          "company_id": "org:mhp"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2020,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "original_filename": "2025 宁德时代ESG.pdf",
+        "company": {
+          "name": "宁德时代新能源科技股份有限公司",
+          "company_id": "org:catl"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-807cc03cca274a6dea6ab7e9",
+        "original_filename": "2025中国石油.pdf",
+        "company": {
+          "name": "中国石油天然气集团有限公司",
+          "company_id": "org:cnpc-group"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-8258ce0f83a8ceb78459f5c0",
+        "original_filename": "LSE_ROSN_2019_View Sustainability Report.pdf",
+        "company": {
+          "name": "Rosneft Oil Company",
+          "company_id": "org:rosneft"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2019,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-aa3a74ca808d543234dbc242",
+        "original_filename": "2024 腾讯控股 ESG.pdf",
+        "company": {
+          "name": "腾讯控股有限公司",
+          "company_id": "org:tencent"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-c3dcf5367cffdc59d0eb4b3d",
+        "original_filename": "00001_2026_SUSTAINABILITY_2025 SUSTAINABILITY REPORT.pdf",
+        "company": {
+          "name": "CK Hutchison Holdings Limited",
+          "company_id": "org:ck-hutchison"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-d0a8c6ae07a81e42a83649c7",
+        "original_filename": "2025中国石化ESG.pdf",
+        "company": {
+          "name": "中国石油化工股份有限公司",
+          "company_id": "org:sinopec"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-e38c1c2ea02210f3b1294f14",
+        "original_filename": "中国航空科技工业股份有限公司.pdf",
+        "company": {
+          "name": "中國航空科技工業股份有限公司",
+          "company_id": "org:avichina"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-e40944035c9e21503a5824a7",
+        "original_filename": "2024中国银行.pdf",
+        "company": {
+          "name": "Bank of China Limited",
+          "company_id": "org:boc"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2024,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-f1d36fcfcea0c127a5501f1d",
+        "original_filename": "2025年 隆基可持续发展报告(1).pdf",
+        "company": {
+          "name": "隆基绿能科技股份有限公司",
+          "company_id": "org:longi"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      },
+      {
+        "pdf_id": "pdf-fee9397ef71ac5e3d6987746",
+        "original_filename": "2025中国平安.pdf",
+        "company": {
+          "name": "中国平安保险（集团）股份有限公司",
+          "company_id": "org:pingan"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "asset_available": true,
+        "missing_metadata": [
+          "publication_year",
+          "industry"
+        ]
+      }
+    ]
+  },
+  "runs": [
+    {
+      "run_id": "extract-20417327a940d4b5bbffb0691c744261",
+      "status": "completed",
+      "clause_keys": [
+        "E2-4_02",
+        "E2-4_09"
+      ],
+      "summary": {
+        "selected_clauses": 2,
+        "processed_clauses": 2,
+        "source_facts": 52,
+        "quantitative": 51,
+        "qualitative": 1,
+        "model_calls": 10,
+        "elapsed_seconds": 956.513,
+        "errors": [],
+        "assessment": {
+          "execution_state": "completed",
+          "search_coverage": "bounded_complete",
+          "capture_result": "usable",
+          "metadata_completeness": "partial",
+          "comparison_status": "insufficient_context",
+          "target_facts": 10,
+          "other_facts": 42,
+          "unresolved_facts": 0,
+          "rejected_candidates": 33,
+          "periods": {
+            "2023": 15,
+            "2024": 18,
+            "2025": 18,
+            "期间未知": 1
+          }
+        }
+      },
+      "delivery": {
+        "export_id": "export-5ed753afa44f13422d62799f100a0a55962d968f3aee726cd4e0c9db998816fc",
+        "state": "delivered",
+        "accepted_facts": 52,
+        "rejected_facts": 0,
+        "message": null,
+        "retryable": false
+      },
+      "created_at": "2026-10-31T11:13:29.343274+00:00",
+      "finished_at": "2026-10-31T11:34:16.887308+00:00",
+      "engine_fingerprint": "cabd7bc8016fe289978f9f2b21a6cc9aa5d497c14afaff0a1d4ca4116c565ba7"
+    },
+    {
+      "run_id": "extract-2b28992f3fcbe8fd2fde5da916d04a6d",
+      "status": "completed",
+      "clause_keys": [
+        "E2-4_02"
+      ],
+      "summary": {
+        "selected_clauses": 1,
+        "processed_clauses": 1,
+        "source_facts": 222,
+        "quantitative": 222,
+        "qualitative": 0,
+        "model_calls": 2,
+        "elapsed_seconds": 291.196,
+        "errors": [],
+        "assessment": {
+          "execution_state": "completed",
+          "search_coverage": "bounded_complete",
+          "capture_result": "usable",
+          "metadata_completeness": "partial",
+          "comparison_status": "insufficient_context",
+          "target_facts": 45,
+          "other_facts": 177,
+          "unresolved_facts": 0,
+          "rejected_candidates": 2,
+          "periods": {
+            "2023": 75,
+            "2024": 75,
+            "2025": 72
+          }
+        }
+      },
+      "delivery": {
+        "export_id": "export-4fac414d0551463f83b47d1cd1d26753ba96db0ceb79b977de50059a819e0bf6",
+        "state": "delivered",
+        "accepted_facts": 222,
+        "rejected_facts": 0,
+        "message": null,
+        "retryable": false
+      },
+      "created_at": "2026-10-31T11:13:21.202926+00:00",
+      "finished_at": "2026-10-31T11:18:19.883392+00:00",
+      "engine_fingerprint": "cabd7bc8016fe289978f9f2b21a6cc9aa5d497c14afaff0a1d4ca4116c565ba7"
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": "extract-plan-9a86a74d74b64d01b7982d9fcee2dfad",
+      "name": "CKH·跨页宽表全年份验收",
+      "execution_status": "finished",
+      "result_status": "usable",
+      "current_phase": "finished",
+      "run_id": "extract-2b28992f3fcbe8fd2fde5da916d04a6d",
+      "available_actions": []
+    },
+    {
+      "session_id": "extract-plan-530319d06ea24ff58daa330e8627c30d",
+      "name": "宁德时代·全年份与定性联合验收",
+      "execution_status": "finished",
+      "result_status": "usable",
+      "current_phase": "finished",
+      "run_id": "extract-20417327a940d4b5bbffb0691c744261",
+      "available_actions": []
+    }
+  ],
+  "projections": {
+    "query_digest": "393eed661916db5d834e220c81da684307f2ec39699e2fb259e18e30d49fde6b",
+    "total": 2,
+    "returned": 2,
+    "next_cursor": null,
+    "schema_version": "capture-projection-page-1.0",
+    "items": [
+      {
+        "schema_version": "capture-projection-1.0",
+        "projection_id": "projection-88e305883a2f3f1da29849355bea274156d8d2f8299b2fb3e183d9b590754e80",
+        "export_id": "export-5ed753afa44f13422d62799f100a0a55962d968f3aee726cd4e0c9db998816fc",
+        "input_digest": "62b46ecd9ab8a776ea5fa5ed75d0b7f61de1e180a4b4b59d8b6e6a48a77db69e",
+        "transform_version": "capture-observation-1.0",
+        "content_digest": "c3578892d42f3df8ee5b883cd1bf51f31d2b29c581b109c4387b0912cde65a31",
+        "source": {
+          "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+          "report_company": "宁德时代新能源科技股份有限公司",
+          "publication_year": null,
+          "resource_revision": 2,
+          "report_company_id": "org:catl",
+          "industry": null,
+          "reporting_year": 2025
+        },
+        "facts": 52,
+        "observations": 52,
+        "periods": {
+          "2023": 15,
+          "2024": 18,
+          "2025": 18,
+          "unknown": 1
+        },
+        "relations": {
+          "match": 10,
+          "different": 42
+        },
+        "repeated_occurrences": 0,
+        "diagnostics": []
+      },
+      {
+        "schema_version": "capture-projection-1.0",
+        "projection_id": "projection-f1b09ae2dee9b73a673f79c56555e32014308eebc95ba2f73df8ec6847a84d33",
+        "export_id": "export-4fac414d0551463f83b47d1cd1d26753ba96db0ceb79b977de50059a819e0bf6",
+        "input_digest": "5dd47c1e653d101c2ce6521ad37ad4770baeb977e27c9eef288e3e73c666ff7e",
+        "transform_version": "capture-observation-1.0",
+        "content_digest": "28d63d75b8bdd0675d9bd076c27366e09254ff0878a20fe87a2eb5df9ac5e2c9",
+        "source": {
+          "document_id": "doc-sha256-c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+          "pdf_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+          "pdf_id": "pdf-c3dcf5367cffdc59d0eb4b3d",
+          "title": "2025 Sustainability Report",
+          "report_company": "CK Hutchison Holdings Limited",
+          "publication_year": null,
+          "resource_revision": 2,
+          "report_company_id": "org:ck-hutchison",
+          "industry": null,
+          "reporting_year": 2025
+        },
+        "facts": 222,
+        "observations": 222,
+        "periods": {
+          "2023": 75,
+          "2024": 75,
+          "2025": 72
+        },
+        "relations": {
+          "match": 45,
+          "different": 177
+        },
+        "repeated_occurrences": 0,
+        "diagnostics": []
+      }
+    ]
+  },
+  "internal_datasets": {
+    "query_digest": "274d8778777b7032d51fa7e4e856c5265afd9ff51a6d8c09ae1266fe38b002f0",
+    "total": 0,
+    "returned": 0,
+    "next_cursor": null,
+    "schema_version": "capture-dataset-page-1.0",
+    "items": []
+  },
+  "public_datasets": {
+    "query_digest": "947776088bca206651c42f0492a629a7ddbb380a50bcfa99dfdf309bbc095dd2",
+    "total": 0,
+    "returned": 0,
+    "next_cursor": null,
+    "schema_version": "capture-dataset-page-1.0",
+    "items": []
+  },
+  "observation_audit": [
+    {
+      "projection_id": "projection-88e305883a2f3f1da29849355bea274156d8d2f8299b2fb3e183d9b590754e80",
+      "total": 52,
+      "returned": 52,
+      "next_cursor": null,
+      "comparison_eligible": 0,
+      "comparison_reasons": {
+        "target_relation:different": 42,
+        "identity_unconfirmed:reporting_entity": 51,
+        "identity_unconfirmed:reporting_boundary": 51,
+        "identity_unconfirmed:pollution_medium": 51,
+        "identity_unconfirmed:pollutant": 42,
+        "declared_scopes_unconfirmed": 52,
+        "period_unknown": 1,
+        "identity_unconfirmed:reporting_period": 1
+      },
+      "comparison_keys": 0,
+      "supported_identity_fields": {
+        "reporting_period": 51,
+        "reporting_entity": 1,
+        "reporting_boundary": 1,
+        "measurement_method": 1
+      },
+      "source_publication_year_known": 0,
+      "quality": {
+        "grounded": 52
+      }
+    },
+    {
+      "projection_id": "projection-f1b09ae2dee9b73a673f79c56555e32014308eebc95ba2f73df8ec6847a84d33",
+      "total": 222,
+      "returned": 222,
+      "next_cursor": null,
+      "comparison_eligible": 0,
+      "comparison_reasons": {
+        "identity_unconfirmed:reporting_entity": 222,
+        "identity_unconfirmed:reporting_boundary": 219,
+        "identity_unconfirmed:pollution_medium": 222,
+        "declared_scopes_unconfirmed": 222,
+        "target_relation:different": 177,
+        "identity_unconfirmed:pollutant": 177
+      },
+      "comparison_keys": 0,
+      "supported_identity_fields": {
+        "reporting_period": 222,
+        "reporting_boundary": 3
+      },
+      "source_publication_year_known": 0,
+      "quality": {
+        "grounded": 222
+      }
+    }
+  ],
+  "document_inventory_probes": [
+    {
+      "path": "/api/report-assets",
+      "status": 200,
+      "type": "dict",
+      "keys": [
+        "schema_version",
+        "root",
+        "updated_at",
+        "asset_count",
+        "processed_count",
+        "unprocessed_count",
+        "assets",
+        "archived_count"
+      ],
+      "count": 18,
+      "statuses": {
+        "None": 18
+      },
+      "row_keys": [
+        "asset_id",
+        "file_name",
+        "relative_path",
+        "size_bytes",
+        "modified_ns",
+        "modified_at",
+        "sha256",
+        "ocr_status",
+        "ocr_run_count",
+        "ocr_runs",
+        "lifecycle",
+        "available_actions",
+        "pipeline_tasks",
+        "report_id",
+        "report_metadata",
+        "processing_status",
+        "evidence_status",
+        "processing_runs"
+      ]
+    },
+    {
+      "path": "/api/ocr/jobs",
+      "status": 200,
+      "type": "list",
+      "keys": null,
+      "count": 2,
+      "statuses": {
+        "done": 2
+      },
+      "row_keys": [
+        "run_id",
+        "status",
+        "message",
+        "output_dir",
+        "job_id",
+        "result_json_url",
+        "page_count",
+        "progress_current",
+        "progress_total",
+        "last_progress_at",
+        "progress_detail",
+        "error",
+        "logs",
+        "manifest_path",
+        "summary"
+      ]
+    },
+    {
+      "path": "/api/document-ir/jobs",
+      "status": 200,
+      "type": "list",
+      "keys": null,
+      "count": 2,
+      "statuses": {
+        "partial": 2
+      },
+      "row_keys": [
+        "run_id",
+        "ocr_run_id",
+        "status",
+        "message",
+        "output_dir",
+        "error",
+        "logs",
+        "manifest_path",
+        "summary",
+        "created_at",
+        "started_at",
+        "updated_at",
+        "finished_at",
+        "telemetry"
+      ]
+    },
+    {
+      "path": "/api/models/status",
+      "status": 200,
+      "type": "dict",
+      "keys": [
+        "default_provider",
+        "providers"
+      ]
+    },
+    {
+      "path": "/api/ocr/providers/status",
+      "status": 200,
+      "type": "dict",
+      "keys": [
+        "default_provider",
+        "providers"
+      ]
+    }
+  ],
+  "storage_summary": {
+    "reports/blobs": {
+      "direct_files": 19,
+      "direct_directories": 0,
+      "direct_file_bytes": 469993520
+    },
+    "documents/ocr": {
+      "direct_files": 0,
+      "direct_directories": 2,
+      "direct_file_bytes": 0
+    },
+    "documents/ir": {
+      "direct_files": 0,
+      "direct_directories": 2,
+      "direct_file_bytes": 0
+    },
+    "extractions": {
+      "direct_files": 0,
+      "direct_directories": 2,
+      "direct_file_bytes": 0
+    }
+  },
+  "document_jobs": {
+    "/api/document-ir/jobs": [
+      {
+        "run_id": "ir-20261031T111319Z-43f923c1e139",
+        "ocr_run_id": "ocr-20261031T111232Z-1b7b2ca5c1df",
+        "status": "partial",
+        "message": "Document IR job completed",
+        "summary": {
+          "readiness": "auto_review_pending",
+          "can_build_evidence": false,
+          "can_build_limited_evidence": true,
+          "page_count": 18,
+          "table_count": 26,
+          "evidence_policy": {
+            "schema_version": "evidence-availability-v2",
+            "mode": "limited",
+            "excluded_target_ids": [
+              "figure-p0054-0001"
+            ],
+            "excluded_page_indices": [],
+            "available_page_count": 18,
+            "unlocated_target_ids": [],
+            "global_failure": false,
+            "reason": "Unresolved objects retain limited capabilities; only page-wide defects exclude a page. Original readiness remains unchanged.",
+            "object_count": 473
+          },
+          "review_task_count": 1,
+          "page_coverage": {
+            "mode": "targeted",
+            "source_page_count": 92,
+            "page_indices": [
+              0,
+              1,
+              2,
+              30,
+              53,
+              54,
+              55,
+              56,
+              57,
+              71,
+              72,
+              73,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87
+            ],
+            "selector": {
+              "name": "clauses",
+              "version": "clause-search-text-layer-v2",
+              "reason": "text_layer_scored",
+              "text_source": "text_layer",
+              "parameters": {
+                "top_n": 18,
+                "per_group_pages": 2,
+                "front_pages": 3,
+                "continuation_pages": 6,
+                "continuation_min_numbers": 12,
+                "period_scan_pages": 12,
+                "min_text_chars": 40,
+                "min_text_page_ratio": 0.5,
+                "max_coverage_ratio": 0.8,
+                "search_targets": [
+                  {
+                    "target_id": "E2-4_02",
+                    "contract_digest": "4ed277e18e8d0ffdf1d62566402316d7f2050aed9df09e973d59e5af372b4ace",
+                    "data_kind": "quantitative",
+                    "positive_terms": [
+                      "Emissions to air by pollutant",
+                      "按污染物划分的空气排放量",
+                      "Air pollution",
+                      "空气污染排放",
+                      "air emissions",
+                      "emissions to air",
+                      "air pollutant emissions",
+                      "flue gas emissions",
+                      "Emission amount",
+                      "NOx",
+                      "Nitrogen oxides",
+                      "PM",
+                      "PM10",
+                      "PM2.5",
+                      "Particulate matter",
+                      "Pollutant",
+                      "SO2",
+                      "SO₂",
+                      "Sulfur dioxide",
+                      "VOC",
+                      "VOCs",
+                      "Volatile organic compounds",
+                      "contaminant",
+                      "discharges",
+                      "dust emissions",
+                      "emissions",
+                      "nitrogen oxide emissions",
+                      "particulates",
+                      "polluting substance",
+                      "released amount",
+                      "releases",
+                      "sulfur dioxide emissions",
+                      "sulphur dioxide",
+                      "volatile organic compound emissions",
+                      "二氧化硫",
+                      "二氧化硫排放",
+                      "大气污染",
+                      "大气污染物",
+                      "废气排放",
+                      "挥发性有机化合物",
+                      "挥发性有机物",
+                      "挥发性有机物排放",
+                      "排入空气",
+                      "排放总量",
+                      "排放数量",
+                      "排放量",
+                      "氮氧化物",
+                      "氮氧化物排放",
+                      "氮氧化物类",
+                      "污染因子",
+                      "污染排放量",
+                      "污染物",
+                      "污染物名称",
+                      "污染物种类",
+                      "烟尘",
+                      "烟气排放",
+                      "硫氧化物",
+                      "空气排放",
+                      "空气污染",
+                      "粉尘排放",
+                      "释放量",
+                      "顆粒排放物",
+                      "顆粒物",
+                      "顆粒物排放",
+                      "颗粒排放物",
+                      "颗粒物",
+                      "颗粒物排放"
+                    ],
+                    "negative_terms": [
+                      "BOD",
+                      "Biochemical oxygen demand",
+                      "CO2 equivalent",
+                      "CO2e",
+                      "COD",
+                      "CO_{2}e",
+                      "CO₂e",
+                      "Chemical oxygen demand",
+                      "GHG",
+                      "Greenhouse gas",
+                      "Soil pollution",
+                      "Water pollution",
+                      "biochemical oxygen demand indicator",
+                      "chemical oxygen demand indicator",
+                      "discharge to water",
+                      "effluent discharge",
+                      "emissions to soil",
+                      "emissions to water",
+                      "release to soil",
+                      "scope 1",
+                      "scope 2",
+                      "scope 3",
+                      "soil emissions",
+                      "二氧化碳当量",
+                      "化学需氧量",
+                      "化学需氧量指标",
+                      "土壤排放",
+                      "土壤污染",
+                      "土壤污染排放",
+                      "废水排放",
+                      "排入土壤",
+                      "排入水体",
+                      "排放至土壤",
+                      "水体排放",
+                      "水体污染排放",
+                      "水污染",
+                      "污水排放",
+                      "温室气体",
+                      "温室气体排放",
+                      "生化需氧量",
+                      "生化需氧量指标",
+                      "范围一",
+                      "范围三",
+                      "范围二",
+                      "范畴一",
+                      "范畴三",
+                      "范畴二"
+                    ],
+                    "supporting_terms": [
+                      "Reporting boundary",
+                      "Reporting period",
+                      "consolidation scope",
+                      "fiscal year",
+                      "reporting boundary",
+                      "reporting period",
+                      "reporting scope",
+                      "reporting year",
+                      "合并范围",
+                      "报告期",
+                      "报告期间",
+                      "报告范围边界",
+                      "报告边界",
+                      "本年度",
+                      "核算边界",
+                      "统计范围",
+                      "财政年度"
+                    ],
+                    "method_terms": [],
+                    "required_term_groups": [
+                      [
+                        "NOx",
+                        "SO2",
+                        "SO₂",
+                        "VOC",
+                        "VOCs",
+                        "NMHC",
+                        "颗粒物",
+                        "烟尘",
+                        "氮氧化物",
+                        "二氧化硫",
+                        "非甲烷总烃"
+                      ],
+                      [
+                        "排放",
+                        "吨",
+                        "千克",
+                        "公斤",
+                        "tonne",
+                        "kg",
+                        "discharge",
+                        "emission"
+                      ]
+                    ],
+                    "exact_terms": [],
+                    "structural_anchors": [],
+                    "source_priority": [
+                      "table",
+                      "text"
+                    ],
+                    "topic_term_groups": [
+                      [
+                        "Air pollution",
+                        "air emissions",
+                        "air pollutant emissions",
+                        "emissions to air",
+                        "flue gas emissions",
+                        "大气污染",
+                        "大气污染物",
+                        "废气排放",
+                        "排入空气",
+                        "烟气排放",
+                        "空气排放",
+                        "空气污染",
+                        "空气污染排放"
+                      ],
+                      [
+                        "Emission amount",
+                        "discharges",
+                        "emissions",
+                        "released amount",
+                        "releases",
+                        "排放总量",
+                        "排放数量",
+                        "排放量",
+                        "污染排放量",
+                        "释放量"
+                      ],
+                      [
+                        "NOx",
+                        "Nitrogen oxides",
+                        "PM",
+                        "PM10",
+                        "PM2.5",
+                        "Particulate matter",
+                        "Pollutant",
+                        "SO2",
+                        "SO₂",
+                        "Sulfur dioxide",
+                        "VOC",
+                        "VOCs",
+                        "Volatile organic compounds",
+                        "contaminant",
+                        "dust emissions",
+                        "nitrogen oxide emissions",
+                        "particulates",
+                        "polluting substance",
+                        "sulfur dioxide emissions",
+                        "sulphur dioxide",
+                        "volatile organic compound emissions",
+                        "二氧化硫",
+                        "二氧化硫排放",
+                        "挥发性有机化合物",
+                        "挥发性有机物",
+                        "挥发性有机物排放",
+                        "氮氧化物",
+                        "氮氧化物排放",
+                        "氮氧化物类",
+                        "污染因子",
+                        "污染物",
+                        "污染物名称",
+                        "污染物种类",
+                        "烟尘",
+                        "硫氧化物",
+                        "粉尘排放",
+                        "顆粒排放物",
+                        "顆粒物",
+                        "顆粒物排放",
+                        "颗粒排放物",
+                        "颗粒物",
+                        "颗粒物排放"
+                      ]
+                    ],
+                    "role_term_groups": [],
+                    "excluded_object_terms": [
+                      "英文缩写",
+                      "术语释义",
+                      "缩略语表",
+                      "释义",
+                      "GRI标准/",
+                      "Glossary",
+                      "Acronyms"
+                    ],
+                    "context_terms": [
+                      "Reporting boundary",
+                      "Reporting period",
+                      "consolidation scope",
+                      "fiscal year",
+                      "reporting boundary",
+                      "reporting period",
+                      "reporting scope",
+                      "reporting year",
+                      "合并范围",
+                      "报告期",
+                      "报告期间",
+                      "报告范围边界",
+                      "报告边界",
+                      "本年度",
+                      "核算边界",
+                      "统计范围",
+                      "财政年度"
+                    ],
+                    "expected_candidate_types": [
+                      "quantity",
+                      "number"
+                    ]
+                  },
+                  {
+                    "target_id": "E2-4_09",
+                    "contract_digest": "dc5e9a6fec86394aab480a123e4c66f2d61b68912e492cc602900426b6af8dc3",
+                    "data_kind": "qualitative",
+                    "positive_terms": [
+                      "Description of measurement methodologies (pollution of air, water and soil)",
+                      "空气、水和土壤污染测量方法描述",
+                      "Measurement methodology",
+                      "污染测量方法",
+                      "measurement",
+                      "monitoring method",
+                      "estimation method",
+                      "calculation method",
+                      "Air pollution",
+                      "Pollution",
+                      "Soil pollution",
+                      "Water pollution",
+                      "air emissions",
+                      "air pollutant emissions",
+                      "discharge to water",
+                      "effluent discharge",
+                      "emissions to air",
+                      "emissions to soil",
+                      "emissions to water",
+                      "environmental pollution",
+                      "flue gas emissions",
+                      "release to soil",
+                      "soil emissions",
+                      "估算方法",
+                      "土壤排放",
+                      "土壤污染",
+                      "土壤污染排放",
+                      "大气污染",
+                      "大气污染物",
+                      "废气排放",
+                      "废水排放",
+                      "排入土壤",
+                      "排入水体",
+                      "排入空气",
+                      "排放至土壤",
+                      "水体排放",
+                      "水体污染排放",
+                      "水污染",
+                      "污染",
+                      "污水排放",
+                      "测量方法",
+                      "烟气排放",
+                      "环境污染",
+                      "监测方法",
+                      "直接测量",
+                      "空气排放",
+                      "空气污染",
+                      "空气污染排放",
+                      "计算方法"
+                    ],
+                    "negative_terms": [],
+                    "supporting_terms": [
+                      "calculation",
+                      "estimation",
+                      "measurement",
+                      "measurement method",
+                      "估算",
+                      "测量方法",
+                      "监测方法",
+                      "直接测量",
+                      "计算方法"
+                    ],
+                    "method_terms": [],
+                    "required_term_groups": [
+                      [
+                        "污染",
+                        "排放",
+                        "废水",
+                        "废气",
+                        "污水",
+                        "土壤",
+                        "氮氧化物",
+                        "二氧化硫",
+                        "pollution",
+                        "pollutant",
+                        "effluent",
+                        "emissions"
+                      ],
+                      [
+                        "监测",
+                        "检测",
+                        "在线监测",
+                        "测量",
+                        "估算",
+                        "计算",
+                        "核算",
+                        "排放因子",
+                        "物料衡算",
+                        "监控",
+                        "monitoring",
+                        "measurement",
+                        "estimation",
+                        "calculation",
+                        "methodology",
+                        "emission factor"
+                      ]
+                    ],
+                    "exact_terms": [],
+                    "structural_anchors": [],
+                    "source_priority": [
+                      "text",
+                      "table"
+                    ],
+                    "topic_term_groups": [
+                      [
+                        "Air pollution",
+                        "Pollution",
+                        "Soil pollution",
+                        "Water pollution",
+                        "air emissions",
+                        "air pollutant emissions",
+                        "discharge to water",
+                        "effluent discharge",
+                        "emissions to air",
+                        "emissions to soil",
+                        "emissions to water",
+                        "environmental pollution",
+                        "flue gas emissions",
+                        "release to soil",
+                        "soil emissions",
+                        "土壤排放",
+                        "土壤污染",
+                        "土壤污染排放",
+                        "大气污染",
+                        "大气污染物",
+                        "废气排放",
+                        "废水排放",
+                        "排入土壤",
+                        "排入水体",
+                        "排入空气",
+                        "排放至土壤",
+                        "水体排放",
+                        "水体污染排放",
+                        "水污染",
+                        "污染",
+                        "污水排放",
+                        "烟气排放",
+                        "环境污染",
+                        "空气排放",
+                        "空气污染",
+                        "空气污染排放"
+                      ],
+                      [
+                        "Measurement methodology",
+                        "calculation method",
+                        "estimation method",
+                        "measurement",
+                        "monitoring method",
+                        "估算方法",
+                        "污染测量方法",
+                        "测量方法",
+                        "监测方法",
+                        "直接测量",
+                        "计算方法"
+                      ]
+                    ],
+                    "role_term_groups": [],
+                    "excluded_object_terms": [
+                      "英文缩写",
+                      "术语释义",
+                      "缩略语表",
+                      "释义",
+                      "GRI标准/",
+                      "Glossary",
+                      "Acronyms"
+                    ],
+                    "context_terms": [
+                      "calculation",
+                      "estimation",
+                      "measurement",
+                      "measurement method",
+                      "估算",
+                      "测量方法",
+                      "监测方法",
+                      "直接测量",
+                      "计算方法"
+                    ],
+                    "expected_candidate_types": []
+                  }
+                ],
+                "page_deferred_fields": [
+                  "source_priority",
+                  "expected_candidate_types",
+                  "excluded_object_terms"
+                ]
+              }
+            },
+            "reading": {
+              "text_layer_pages": 18,
+              "visual_ocr_pages": 0,
+              "on_device_ocr_pages": 0,
+              "layout_model": "PP-DocLayoutV3"
+            }
+          },
+          "figure_count": 4,
+          "model_actual_attempts": 0
+        }
+      },
+      {
+        "run_id": "ir-20261031T111256Z-3ea597cc4df2",
+        "ocr_run_id": "ocr-20261031T111232Z-f5c01ded79b7",
+        "status": "partial",
+        "message": "Document IR job completed",
+        "summary": {
+          "readiness": "auto_review_pending",
+          "can_build_evidence": false,
+          "can_build_limited_evidence": true,
+          "page_count": 9,
+          "table_count": 5,
+          "evidence_policy": {
+            "schema_version": "evidence-availability-v2",
+            "mode": "limited",
+            "excluded_target_ids": [
+              "figure-p0099-0003",
+              "page-0171"
+            ],
+            "excluded_page_indices": [
+              170
+            ],
+            "available_page_count": 8,
+            "unlocated_target_ids": [],
+            "global_failure": false,
+            "reason": "Unresolved objects retain limited capabilities; only page-wide defects exclude a page. Original readiness remains unchanged.",
+            "object_count": 91
+          },
+          "review_task_count": 3,
+          "page_coverage": {
+            "mode": "targeted",
+            "source_page_count": 209,
+            "page_indices": [
+              0,
+              1,
+              2,
+              98,
+              99,
+              167,
+              168,
+              169,
+              170
+            ],
+            "selector": {
+              "name": "clauses",
+              "version": "clause-search-text-layer-v2",
+              "reason": "text_layer_scored",
+              "text_source": "text_layer",
+              "parameters": {
+                "top_n": 18,
+                "per_group_pages": 2,
+                "front_pages": 3,
+                "continuation_pages": 6,
+                "continuation_min_numbers": 12,
+                "period_scan_pages": 12,
+                "min_text_chars": 40,
+                "min_text_page_ratio": 0.5,
+                "max_coverage_ratio": 0.8,
+                "search_targets": [
+                  {
+                    "target_id": "E2-4_02",
+                    "contract_digest": "4ed277e18e8d0ffdf1d62566402316d7f2050aed9df09e973d59e5af372b4ace",
+                    "data_kind": "quantitative",
+                    "positive_terms": [
+                      "Emissions to air by pollutant",
+                      "按污染物划分的空气排放量",
+                      "Air pollution",
+                      "空气污染排放",
+                      "air emissions",
+                      "emissions to air",
+                      "air pollutant emissions",
+                      "flue gas emissions",
+                      "Emission amount",
+                      "NOx",
+                      "Nitrogen oxides",
+                      "PM",
+                      "PM10",
+                      "PM2.5",
+                      "Particulate matter",
+                      "Pollutant",
+                      "SO2",
+                      "SO₂",
+                      "Sulfur dioxide",
+                      "VOC",
+                      "VOCs",
+                      "Volatile organic compounds",
+                      "contaminant",
+                      "discharges",
+                      "dust emissions",
+                      "emissions",
+                      "nitrogen oxide emissions",
+                      "particulates",
+                      "polluting substance",
+                      "released amount",
+                      "releases",
+                      "sulfur dioxide emissions",
+                      "sulphur dioxide",
+                      "volatile organic compound emissions",
+                      "二氧化硫",
+                      "二氧化硫排放",
+                      "大气污染",
+                      "大气污染物",
+                      "废气排放",
+                      "挥发性有机化合物",
+                      "挥发性有机物",
+                      "挥发性有机物排放",
+                      "排入空气",
+                      "排放总量",
+                      "排放数量",
+                      "排放量",
+                      "氮氧化物",
+                      "氮氧化物排放",
+                      "氮氧化物类",
+                      "污染因子",
+                      "污染排放量",
+                      "污染物",
+                      "污染物名称",
+                      "污染物种类",
+                      "烟尘",
+                      "烟气排放",
+                      "硫氧化物",
+                      "空气排放",
+                      "空气污染",
+                      "粉尘排放",
+                      "释放量",
+                      "顆粒排放物",
+                      "顆粒物",
+                      "顆粒物排放",
+                      "颗粒排放物",
+                      "颗粒物",
+                      "颗粒物排放"
+                    ],
+                    "negative_terms": [
+                      "BOD",
+                      "Biochemical oxygen demand",
+                      "CO2 equivalent",
+                      "CO2e",
+                      "COD",
+                      "CO_{2}e",
+                      "CO₂e",
+                      "Chemical oxygen demand",
+                      "GHG",
+                      "Greenhouse gas",
+                      "Soil pollution",
+                      "Water pollution",
+                      "biochemical oxygen demand indicator",
+                      "chemical oxygen demand indicator",
+                      "discharge to water",
+                      "effluent discharge",
+                      "emissions to soil",
+                      "emissions to water",
+                      "release to soil",
+                      "scope 1",
+                      "scope 2",
+                      "scope 3",
+                      "soil emissions",
+                      "二氧化碳当量",
+                      "化学需氧量",
+                      "化学需氧量指标",
+                      "土壤排放",
+                      "土壤污染",
+                      "土壤污染排放",
+                      "废水排放",
+                      "排入土壤",
+                      "排入水体",
+                      "排放至土壤",
+                      "水体排放",
+                      "水体污染排放",
+                      "水污染",
+                      "污水排放",
+                      "温室气体",
+                      "温室气体排放",
+                      "生化需氧量",
+                      "生化需氧量指标",
+                      "范围一",
+                      "范围三",
+                      "范围二",
+                      "范畴一",
+                      "范畴三",
+                      "范畴二"
+                    ],
+                    "supporting_terms": [
+                      "Reporting boundary",
+                      "Reporting period",
+                      "consolidation scope",
+                      "fiscal year",
+                      "reporting boundary",
+                      "reporting period",
+                      "reporting scope",
+                      "reporting year",
+                      "合并范围",
+                      "报告期",
+                      "报告期间",
+                      "报告范围边界",
+                      "报告边界",
+                      "本年度",
+                      "核算边界",
+                      "统计范围",
+                      "财政年度"
+                    ],
+                    "method_terms": [],
+                    "required_term_groups": [
+                      [
+                        "NOx",
+                        "SO2",
+                        "SO₂",
+                        "VOC",
+                        "VOCs",
+                        "NMHC",
+                        "颗粒物",
+                        "烟尘",
+                        "氮氧化物",
+                        "二氧化硫",
+                        "非甲烷总烃"
+                      ],
+                      [
+                        "排放",
+                        "吨",
+                        "千克",
+                        "公斤",
+                        "tonne",
+                        "kg",
+                        "discharge",
+                        "emission"
+                      ]
+                    ],
+                    "exact_terms": [],
+                    "structural_anchors": [],
+                    "source_priority": [
+                      "table",
+                      "text"
+                    ],
+                    "topic_term_groups": [
+                      [
+                        "Air pollution",
+                        "air emissions",
+                        "air pollutant emissions",
+                        "emissions to air",
+                        "flue gas emissions",
+                        "大气污染",
+                        "大气污染物",
+                        "废气排放",
+                        "排入空气",
+                        "烟气排放",
+                        "空气排放",
+                        "空气污染",
+                        "空气污染排放"
+                      ],
+                      [
+                        "Emission amount",
+                        "discharges",
+                        "emissions",
+                        "released amount",
+                        "releases",
+                        "排放总量",
+                        "排放数量",
+                        "排放量",
+                        "污染排放量",
+                        "释放量"
+                      ],
+                      [
+                        "NOx",
+                        "Nitrogen oxides",
+                        "PM",
+                        "PM10",
+                        "PM2.5",
+                        "Particulate matter",
+                        "Pollutant",
+                        "SO2",
+                        "SO₂",
+                        "Sulfur dioxide",
+                        "VOC",
+                        "VOCs",
+                        "Volatile organic compounds",
+                        "contaminant",
+                        "dust emissions",
+                        "nitrogen oxide emissions",
+                        "particulates",
+                        "polluting substance",
+                        "sulfur dioxide emissions",
+                        "sulphur dioxide",
+                        "volatile organic compound emissions",
+                        "二氧化硫",
+                        "二氧化硫排放",
+                        "挥发性有机化合物",
+                        "挥发性有机物",
+                        "挥发性有机物排放",
+                        "氮氧化物",
+                        "氮氧化物排放",
+                        "氮氧化物类",
+                        "污染因子",
+                        "污染物",
+                        "污染物名称",
+                        "污染物种类",
+                        "烟尘",
+                        "硫氧化物",
+                        "粉尘排放",
+                        "顆粒排放物",
+                        "顆粒物",
+                        "顆粒物排放",
+                        "颗粒排放物",
+                        "颗粒物",
+                        "颗粒物排放"
+                      ]
+                    ],
+                    "role_term_groups": [],
+                    "excluded_object_terms": [
+                      "英文缩写",
+                      "术语释义",
+                      "缩略语表",
+                      "释义",
+                      "GRI标准/",
+                      "Glossary",
+                      "Acronyms"
+                    ],
+                    "context_terms": [
+                      "Reporting boundary",
+                      "Reporting period",
+                      "consolidation scope",
+                      "fiscal year",
+                      "reporting boundary",
+                      "reporting period",
+                      "reporting scope",
+                      "reporting year",
+                      "合并范围",
+                      "报告期",
+                      "报告期间",
+                      "报告范围边界",
+                      "报告边界",
+                      "本年度",
+                      "核算边界",
+                      "统计范围",
+                      "财政年度"
+                    ],
+                    "expected_candidate_types": [
+                      "quantity",
+                      "number"
+                    ]
+                  }
+                ],
+                "page_deferred_fields": [
+                  "source_priority",
+                  "expected_candidate_types",
+                  "excluded_object_terms"
+                ]
+              }
+            },
+            "reading": {
+              "text_layer_pages": 8,
+              "visual_ocr_pages": 1,
+              "on_device_ocr_pages": 0,
+              "layout_model": "PP-DocLayoutV3"
+            }
+          },
+          "figure_count": 2,
+          "model_actual_attempts": 0
+        }
+      }
+    ],
+    "/api/ocr/jobs": [
+      {
+        "run_id": "ocr-20261031T111232Z-f5c01ded79b7",
+        "status": "done",
+        "processed_pages": 9,
+        "model": "PaddleOCR-VL-1.6+pdf-text-layer",
+        "provider_route": {
+          "requested": "local_paddleocr",
+          "selected": "local_paddleocr",
+          "allow_api_fallback": false,
+          "attempts": [
+            {
+              "provider": "pdf_text_layer",
+              "outcome": "selected",
+              "pages": 8,
+              "layout_model": "PP-DocLayoutV3"
+            },
+            {
+              "provider": "local_paddleocr",
+              "outcome": "selected"
+            }
+          ]
+        },
+        "source_page_count": 209,
+        "preflight_transformed": true,
+        "selected_source_page_indices": [
+          0,
+          1,
+          2,
+          98,
+          99,
+          167,
+          168,
+          169,
+          170
+        ],
+        "page_selection_reason": null
+      },
+      {
+        "run_id": "ocr-20261031T111232Z-1b7b2ca5c1df",
+        "status": "done",
+        "processed_pages": 18,
+        "model": "pdf-text-layer",
+        "provider_route": {
+          "requested": "local_paddleocr",
+          "selected": "local_paddleocr",
+          "allow_api_fallback": false,
+          "attempts": [
+            {
+              "provider": "pdf_text_layer",
+              "outcome": "selected",
+              "pages": 18,
+              "layout_model": "PP-DocLayoutV3"
+            }
+          ]
+        },
+        "source_page_count": 92,
+        "preflight_transformed": true,
+        "selected_source_page_indices": [
+          0,
+          1,
+          2,
+          30,
+          53,
+          54,
+          55,
+          56,
+          57,
+          71,
+          72,
+          73,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ],
+        "page_selection_reason": null
+      }
+    ]
+  },
+  "engine": {
+    "version": "clause-backbone-1.3",
+    "fingerprint": "db65813affab94bef289f401ef86b4eb31da5e3a1d857427ebcf2f33d436cb81",
+    "ready": true
+  },
+  "deployment_services": {
+    "database": {
+      "port": 18280,
+      "ready": true,
+      "restart_required": false
+    },
+    "extraction": {
+      "port": 18180,
+      "ready": true,
+      "restart_required": false
+    },
+    "document": {
+      "port": 18080,
+      "ready": true,
+      "restart_required": false
+    },
+    "plat": {
+      "port": 8765,
+      "ready": true,
+      "restart_required": false
+    },
+    "console": {
+      "port": 18081,
+      "ready": true,
+      "restart_required": false
+    }
+  },
+  "deployment_ready": true,
+  "deployment_blockers": null,
+  "controller_current": true
+}

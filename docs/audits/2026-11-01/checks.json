@@ -1,0 +1,72 @@
+{
+  "schema_version": "full-chain-audit-checks-1.0",
+  "status": "passed",
+  "business_source_head": "9c8b97aabbd7598b9fc673adc3a2d45323a6d443",
+  "scope": "Documentation-only round; existing full regression results were not rerun. No model execution, publication, migration, reset or restart.",
+  "checks": [
+    {
+      "command": "ExtractESG/.local/python/bin/python tools/check_contracts.py",
+      "exit_code": 0,
+      "summary": {
+        "clauses": 1126,
+        "value_clauses": 1113,
+        "structure_descriptors": 13,
+        "blocked": 0,
+        "selection_sizes": {
+          "base16": 16,
+          "priority32": 32,
+          "quantitative": 38,
+          "universal": 34,
+          "platform_major": 55
+        },
+        "schema_files": 17,
+        "console_types": 30,
+        "database_types": 18
+      }
+    },
+    {
+      "command": "ExtractESG/.local/python/bin/python tools/audit_structure.py",
+      "exit_code": 0,
+      "summary": {
+        "files": 1764,
+        "modules": {
+          "root": 4,
+          "ClauseESG": 1248,
+          "ConsoleESG": 53,
+          "ExtractESG": 2,
+          "ExtractESG/contracts": 44,
+          "ExtractESG/document": 164,
+          "ExtractESG/extraction": 43,
+          "ExtractESG/pipeline": 18,
+          "ExtractESG/scripts": 1,
+          "ExtractESG/shared_runtime": 14,
+          "PlatESG": 2,
+          "PlatESG/backend": 7,
+          "PlatESG/frontend": 21,
+          "PlatESG/scripts": 1,
+          "PlatESG/tests": 1,
+          "database": 65,
+          "docs": 69,
+          "tools": 7
+        },
+        "errors": []
+      }
+    },
+    {
+      "command": "ExtractESG/.local/python/bin/python tools/audit_documents.py",
+      "exit_code": 0,
+      "summary": {
+        "documents": 33,
+        "errors": []
+      }
+    }
+  ],
+  "evidence_cross_checks": {
+    "inventory_files": 1757,
+    "clause_entries": 1126,
+    "effective_api_operations": 195,
+    "all_operations_have_file_locations": true,
+    "observation_rows_audited": 274,
+    "hash_and_link_errors": []
+  }
+}

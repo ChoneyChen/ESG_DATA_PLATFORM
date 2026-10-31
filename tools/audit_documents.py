@@ -126,6 +126,18 @@ REVIEWED = {
         "implementation",
         "逐项含义、13结构/9定量/15定性和真实验收not_evaluated。",
     ),
+    "docs/audits/2026-11-01/README.md": (
+        "audit",
+        "9c8b97aa源码与本次GET盘点；区分工程主链、条款内容、科学审核和非空发布，明确后续验收。",
+    ),
+    "docs/audits/2026-11-01/file-map.md": (
+        "audit_inventory",
+        "基线1757文件中的631个非单条声明文件静态定位；不宣称逐文件科学认证。",
+    ),
+    "docs/audits/2026-11-01/interface-map.md": (
+        "audit_inventory",
+        "运行OpenAPI的195操作与源文件定位；注册、GET实测和未调用写接口分开。",
+    ),
 }
 
 

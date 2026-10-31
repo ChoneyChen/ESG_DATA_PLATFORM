@@ -1,0 +1,4926 @@
+{
+  "snapshot": {
+    "observed_at": "2026-10-31T19:33:06.839396+00:00",
+    "head": "9c8b97aabbd7598b9fc673adc3a2d45323a6d443",
+    "scope": "read-only code, HTTP GET and inventories; no model, publish, migration or restart"
+  },
+  "live_openapi": [
+    {
+      "port": 18080,
+      "openapi_status": 200,
+      "title": "ESG v2 Extraction Backend",
+      "paths": 114,
+      "operations": 124,
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/api/pdf-library",
+          "operation_id": "pdf_library_api_pdf_library_get",
+          "summary": "Pdf Library",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 55,
+              "handler": "pdf_library"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-library",
+          "operation_id": "report_library_api_report_library_get",
+          "summary": "Report Library",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 59,
+              "handler": "report_library"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr-library",
+          "operation_id": "library_api_ocr_library_get",
+          "summary": "Library",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 79,
+              "handler": "library"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr-library/{run_id}",
+          "operation_id": "description_api_ocr_library__run_id__get",
+          "summary": "Description",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 83,
+              "handler": "description"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/ocr-library/{run_id}",
+          "operation_id": "delete_ocr_api_ocr_library__run_id__delete",
+          "summary": "Delete Ocr",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 88,
+              "handler": "delete_ocr"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/deletion",
+          "operation_id": "ir_description_api_document_ir_jobs__run_id__deletion_get",
+          "summary": "Ir Description",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 97,
+              "handler": "ir_description"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/document-ir/jobs/{run_id}",
+          "operation_id": "delete_ir_api_document_ir_jobs__run_id__delete",
+          "summary": "Delete Ir",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 102,
+              "handler": "delete_ir"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}",
+          "operation_id": "get_document_ir_job_api_document_ir_jobs__run_id__get",
+          "summary": "Get Document Ir Job",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 90,
+              "handler": "get_document_ir_job"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-assets/{asset_id}/deletion",
+          "operation_id": "pdf_description_api_report_assets__asset_id__deletion_get",
+          "summary": "Pdf Description",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 111,
+              "handler": "pdf_description"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/report-assets/{asset_id}",
+          "operation_id": "delete_pdf_api_report_assets__asset_id__delete",
+          "summary": "Delete Pdf",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+              "line": 118,
+              "handler": "delete_pdf"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/processing-status",
+          "operation_id": "status_api_processing_status_get",
+          "summary": "Status",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/processing_status.py",
+              "line": 31,
+              "handler": "status"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/health",
+          "operation_id": "health_health_get",
+          "summary": "Health",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 246,
+              "handler": "health"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/health/compatibility",
+          "operation_id": "get_compatibility_health_compatibility_get",
+          "summary": "Get Compatibility",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 263,
+              "handler": "get_compatibility"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/tasks",
+          "operation_id": "list_pipeline_tasks_api_pipeline_tasks_get",
+          "summary": "List Pipeline Tasks",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 378,
+              "handler": "list_pipeline_tasks"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/tasks/{task_id}",
+          "operation_id": "get_pipeline_task_api_pipeline_tasks__task_id__get",
+          "summary": "Get Pipeline Task",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 403,
+              "handler": "get_pipeline_task"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/tasks/{task_id}/events",
+          "operation_id": "get_pipeline_task_events_api_pipeline_tasks__task_id__events_get",
+          "summary": "Get Pipeline Task Events",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 411,
+              "handler": "get_pipeline_task_events"
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/api/pipeline/tasks/order",
+          "operation_id": "reorder_pipeline_tasks_api_pipeline_tasks_order_put",
+          "summary": "Reorder Pipeline Tasks",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 423,
+              "handler": "reorder_pipeline_tasks"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/pipeline/tasks/{task_id}/cancel",
+          "operation_id": "cancel_pipeline_task_api_pipeline_tasks__task_id__cancel_post",
+          "summary": "Cancel Pipeline Task",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 439,
+              "handler": "cancel_pipeline_task"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/pipeline/tasks/native/{native_id}/cancel",
+          "operation_id": "cancel_native_pipeline_task_api_pipeline_tasks_native__native_id__cancel_post",
+          "summary": "Cancel Native Pipeline Task",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 453,
+              "handler": "cancel_native_pipeline_task"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports",
+          "operation_id": "reports_api_reports_get",
+          "summary": "Reports",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 47,
+              "handler": "reports"
+            },
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+              "line": 50,
+              "handler": "reports"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/reports",
+          "operation_id": "register_api_reports_post",
+          "summary": "Register",
+          "declared_responses": [
+            "201",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 54,
+              "handler": "register"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/reports/{report_id}",
+          "operation_id": "report_api_reports__report_id__get",
+          "summary": "Report",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 60,
+              "handler": "report"
+            }
+          ]
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/reports/{report_id}",
+          "operation_id": "update_report_api_reports__report_id__patch",
+          "summary": "Update Report",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 64,
+              "handler": "update_report"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/reports/{report_id}/versions",
+          "operation_id": "attach_version_api_reports__report_id__versions_post",
+          "summary": "Attach Version",
+          "declared_responses": [
+            "201",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 68,
+              "handler": "attach_version"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-processing/runs",
+          "operation_id": "runs_api_report_processing_runs_get",
+          "summary": "Runs",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 77,
+              "handler": "runs"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-processing/runs",
+          "operation_id": "create_api_report_processing_runs_post",
+          "summary": "Create",
+          "declared_responses": [
+            "202",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 84,
+              "handler": "create"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-processing/runs/{processing_id}",
+          "operation_id": "run_api_report_processing_runs__processing_id__get",
+          "summary": "Run",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 89,
+              "handler": "run"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-processing/runs/{processing_id}/events",
+          "operation_id": "events_api_report_processing_runs__processing_id__events_get",
+          "summary": "Events",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 93,
+              "handler": "events"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-processing/runs/{processing_id}/pages",
+          "operation_id": "pages_api_report_processing_runs__processing_id__pages_get",
+          "summary": "Pages",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 105,
+              "handler": "pages"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-processing/runs/{processing_id}/pages/{page_index}",
+          "operation_id": "page_api_report_processing_runs__processing_id__pages__page_index__get",
+          "summary": "Page",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 109,
+              "handler": "page"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-processing/runs/{processing_id}/cancel",
+          "operation_id": "cancel_api_report_processing_runs__processing_id__cancel_post",
+          "summary": "Cancel",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 113,
+              "handler": "cancel"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-processing/runs/{processing_id}/resume",
+          "operation_id": "resume_api_report_processing_runs__processing_id__resume_post",
+          "summary": "Resume",
+          "declared_responses": [
+            "202",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 121,
+              "handler": "resume"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-processing/runs/{processing_id}/evidence",
+          "operation_id": "transition_api_report_processing_runs__processing_id__evidence_post",
+          "summary": "Transition",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 130,
+              "handler": "transition"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-processing/runs/{processing_id}/evidence-versions",
+          "operation_id": "versions_api_report_processing_runs__processing_id__evidence_versions_get",
+          "summary": "Versions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+              "line": 136,
+              "handler": "versions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-assets",
+          "operation_id": "list_report_assets_api_report_assets_get",
+          "summary": "List Report Assets",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 569,
+              "handler": "list_report_assets"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-assets",
+          "operation_id": "upload_report_asset_api_report_assets_post",
+          "summary": "Upload Report Asset",
+          "declared_responses": [
+            "201",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 604,
+              "handler": "upload_report_asset"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-assets/{asset_id}/file",
+          "operation_id": "get_report_asset_file_api_report_assets__asset_id__file_get",
+          "summary": "Get Report Asset File",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 618,
+              "handler": "get_report_asset_file"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sources/{source_sha256}/file",
+          "operation_id": "get_report_source_file_api_report_sources__source_sha256__file_get",
+          "summary": "Get Report Source File",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 633,
+              "handler": "get_report_source_file"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-assets/{asset_id}/lifecycle",
+          "operation_id": "get_report_asset_lifecycle_api_report_assets__asset_id__lifecycle_get",
+          "summary": "Get Report Asset Lifecycle",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 647,
+              "handler": "get_report_asset_lifecycle"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-assets/{asset_id}/archive",
+          "operation_id": "report_asset_archive_api_report_assets__asset_id__archive_post",
+          "summary": "Report Asset Archive",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 655,
+              "handler": "_register_asset_lifecycle_actions"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-assets/{asset_id}/restore",
+          "operation_id": "report_asset_restore_api_report_assets__asset_id__restore_post",
+          "summary": "Report Asset Restore",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 655,
+              "handler": "_register_asset_lifecycle_actions"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-assets/{asset_id}/discard",
+          "operation_id": "report_asset_discard_api_report_assets__asset_id__discard_post",
+          "summary": "Report Asset Discard",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 655,
+              "handler": "_register_asset_lifecycle_actions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-assets-history",
+          "operation_id": "report_asset_history_api_report_assets_history_get",
+          "summary": "Report Asset History",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 677,
+              "handler": "report_asset_history"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/pipeline/tasks/ocr",
+          "operation_id": "queue_ocr_task_api_pipeline_tasks_ocr_post",
+          "summary": "Queue Ocr Task",
+          "declared_responses": [
+            "202",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 689,
+              "handler": "queue_ocr_task"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/pipeline/tasks/document-ir",
+          "operation_id": "queue_document_ir_task_api_pipeline_tasks_document_ir_post",
+          "summary": "Queue Document Ir Task",
+          "declared_responses": [
+            "202",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 765,
+              "handler": "queue_document_ir_task"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/models/status",
+          "operation_id": "get_model_status_api_models_status_get",
+          "summary": "Get Model Status",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 911,
+              "handler": "get_model_status"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/storage/inventory",
+          "operation_id": "get_storage_inventory_api_storage_inventory_get",
+          "summary": "Get Storage Inventory",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 918,
+              "handler": "get_storage_inventory"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/storage/deletion-plans",
+          "operation_id": "create_storage_deletion_plan_api_storage_deletion_plans_post",
+          "summary": "Create Storage Deletion Plan",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 923,
+              "handler": "create_storage_deletion_plan"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/storage/deletion-plans/{plan_id}/execute",
+          "operation_id": "execute_storage_deletion_plan_api_storage_deletion_plans__plan_id__execute_post",
+          "summary": "Execute Storage Deletion Plan",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 933,
+              "handler": "execute_storage_deletion_plan"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/storage/trash",
+          "operation_id": "list_storage_trash_api_storage_trash_get",
+          "summary": "List Storage Trash",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 957,
+              "handler": "list_storage_trash"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/storage/trash/{cleanup_id}/restore",
+          "operation_id": "restore_storage_trash_api_storage_trash__cleanup_id__restore_post",
+          "summary": "Restore Storage Trash",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 965,
+              "handler": "restore_storage_trash"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/storage/trash/{cleanup_id}/purge",
+          "operation_id": "purge_storage_trash_api_storage_trash__cleanup_id__purge_post",
+          "summary": "Purge Storage Trash",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 975,
+              "handler": "purge_storage_trash"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr/jobs",
+          "operation_id": "list_ocr_jobs_api_ocr_jobs_get",
+          "summary": "List Ocr Jobs",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1119,
+              "handler": "list_ocr_jobs"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/ocr/jobs",
+          "operation_id": "create_ocr_job_api_ocr_jobs_post",
+          "summary": "Create Ocr Job",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 988,
+              "handler": "create_ocr_job"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr/providers/status",
+          "operation_id": "get_ocr_provider_status_api_ocr_providers_status_get",
+          "summary": "Get Ocr Provider Status",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1114,
+              "handler": "get_ocr_provider_status"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr/jobs/{run_id}",
+          "operation_id": "get_ocr_job_api_ocr_jobs__run_id__get",
+          "summary": "Get Ocr Job",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1145,
+              "handler": "get_ocr_job"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr/jobs/{run_id}/manifest",
+          "operation_id": "get_ocr_manifest_api_ocr_jobs__run_id__manifest_get",
+          "summary": "Get Ocr Manifest",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1165,
+              "handler": "get_ocr_manifest"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/ocr/jobs/{run_id}/artifacts",
+          "operation_id": "list_ocr_artifacts_api_ocr_jobs__run_id__artifacts_get",
+          "summary": "List Ocr Artifacts",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1178,
+              "handler": "list_ocr_artifacts"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs",
+          "operation_id": "list_document_ir_jobs_api_document_ir_jobs_get",
+          "summary": "List Document Ir Jobs",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 35,
+              "handler": "list_document_ir_jobs"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/document-ir/jobs",
+          "operation_id": "create_document_ir_job_api_document_ir_jobs_post",
+          "summary": "Create Document Ir Job",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1201,
+              "handler": "create_document_ir_job"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/document-ir/jobs/{run_id}/patches/{patch_id}/decision",
+          "operation_id": "decide_document_ir_patch_api_document_ir_jobs__run_id__patches__patch_id__decision_post",
+          "summary": "Decide Document Ir Patch",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1213,
+              "handler": "decide_document_ir_patch"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/document-ir/jobs/{run_id}/review-tasks/{task_id}/decision",
+          "operation_id": "decide_document_ir_review_task_api_document_ir_jobs__run_id__review_tasks__task_id__decision_post",
+          "summary": "Decide Document Ir Review Task",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1229,
+              "handler": "decide_document_ir_review_task"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/document-ir/jobs/{run_id}/repair",
+          "operation_id": "repair_document_ir_api_document_ir_jobs__run_id__repair_post",
+          "summary": "Repair Document Ir",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1245,
+              "handler": "repair_document_ir"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/document-ir/jobs/{run_id}/reviews/retry",
+          "operation_id": "retry_document_ir_reviews_api_document_ir_jobs__run_id__reviews_retry_post",
+          "summary": "Retry Document Ir Reviews",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1263,
+              "handler": "retry_document_ir_reviews"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-resources",
+          "operation_id": "reports_api_report_resources_get",
+          "summary": "Reports",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+              "line": 50,
+              "handler": "reports"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-resources/imports",
+          "operation_id": "intake_api_report_resources_imports_post",
+          "summary": "Intake",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+              "line": 79,
+              "handler": "intake"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-resources/uploads",
+          "operation_id": "upload_api_report_resources_uploads_post",
+          "summary": "Upload",
+          "declared_responses": [
+            "201",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+              "line": 89,
+              "handler": "upload"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-resources/{pdf_id}",
+          "operation_id": "get_api_report_resources__pdf_id__get",
+          "summary": "Get",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+              "line": 102,
+              "handler": "get"
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/api/report-resources/{pdf_id}",
+          "operation_id": "update_api_report_resources__pdf_id__put",
+          "summary": "Update",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+              "line": 107,
+              "handler": "update"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/evidence/{ir_run_id}",
+          "operation_id": "document_api_evidence__ir_run_id__get",
+          "summary": "Document",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/evidence.py",
+              "line": 25,
+              "handler": "document"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/evidence/{ir_run_id}/search",
+          "operation_id": "search_api_evidence__ir_run_id__search_post",
+          "summary": "Search",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/evidence.py",
+              "line": 29,
+              "handler": "search"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/evidence/{ir_run_id}/read",
+          "operation_id": "read_api_evidence__ir_run_id__read_post",
+          "summary": "Read",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/evidence.py",
+              "line": 33,
+              "handler": "read"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/status",
+          "operation_id": "current_pipeline_status_api_pipeline_status_get",
+          "summary": "Current Pipeline Status",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1394,
+              "handler": "current_pipeline_status"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/operations/tasks",
+          "operation_id": "operation_tasks_api_operations_tasks_get",
+          "summary": "Operation Tasks",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1407,
+              "handler": "operation_tasks"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/operations/tasks/{task_id}",
+          "operation_id": "operation_task_api_operations_tasks__task_id__get",
+          "summary": "Operation Task",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/main.py",
+              "line": 1415,
+              "handler": "operation_task"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/review-worklist",
+          "operation_id": "list_document_ir_review_worklist_api_document_ir_review_worklist_get",
+          "summary": "List Document Ir Review Worklist",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 54,
+              "handler": "list_document_ir_review_worklist"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/manifest",
+          "operation_id": "get_document_ir_manifest_api_document_ir_jobs__run_id__manifest_get",
+          "summary": "Get Document Ir Manifest",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 106,
+              "handler": "get_document_ir_manifest"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/quality-report",
+          "operation_id": "get_document_ir_quality_report_api_document_ir_jobs__run_id__quality_report_get",
+          "summary": "Get Document Ir Quality Report",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 115,
+              "handler": "get_document_ir_quality_report"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/validation-report",
+          "operation_id": "get_document_ir_validation_report_api_document_ir_jobs__run_id__validation_report_get",
+          "summary": "Get Document Ir Validation Report",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 118,
+              "handler": "get_document_ir_validation_report"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/document",
+          "operation_id": "get_document_ir_document_api_document_ir_jobs__run_id__document_get",
+          "summary": "Get Document Ir Document",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 121,
+              "handler": "get_document_ir_document"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/pages",
+          "operation_id": "list_document_ir_pages_api_document_ir_jobs__run_id__pages_get",
+          "summary": "List Document Ir Pages",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 124,
+              "handler": "list_document_ir_pages"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/pages/{page_index}",
+          "operation_id": "get_document_ir_page_api_document_ir_jobs__run_id__pages__page_index__get",
+          "summary": "Get Document Ir Page",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 130,
+              "handler": "get_document_ir_page"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/tables",
+          "operation_id": "list_document_ir_tables_api_document_ir_jobs__run_id__tables_get",
+          "summary": "List Document Ir Tables",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 140,
+              "handler": "list_document_ir_tables"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/tables/{table_id}",
+          "operation_id": "get_document_ir_table_api_document_ir_jobs__run_id__tables__table_id__get",
+          "summary": "Get Document Ir Table",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 143,
+              "handler": "get_document_ir_table"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/logical-tables",
+          "operation_id": "list_document_ir_logical_tables_api_document_ir_jobs__run_id__logical_tables_get",
+          "summary": "List Document Ir Logical Tables",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 152,
+              "handler": "list_document_ir_logical_tables"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/logical-tables/{logical_table_id}",
+          "operation_id": "get_document_ir_logical_table_api_document_ir_jobs__run_id__logical_tables__logical_table_id__get",
+          "summary": "Get Document Ir Logical Table",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 155,
+              "handler": "get_document_ir_logical_table"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/figures",
+          "operation_id": "list_document_ir_figures_api_document_ir_jobs__run_id__figures_get",
+          "summary": "List Document Ir Figures",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 166,
+              "handler": "list_document_ir_figures"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/structure-edges",
+          "operation_id": "get_document_ir_structure_edges_api_document_ir_jobs__run_id__structure_edges_get",
+          "summary": "Get Document Ir Structure Edges",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 172,
+              "handler": "get_document_ir_structure_edges"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/correction-patches",
+          "operation_id": "get_document_ir_correction_patches_api_document_ir_jobs__run_id__correction_patches_get",
+          "summary": "Get Document Ir Correction Patches",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 177,
+              "handler": "get_document_ir_correction_patches"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/model-calls",
+          "operation_id": "get_document_ir_model_calls_api_document_ir_jobs__run_id__model_calls_get",
+          "summary": "Get Document Ir Model Calls",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 182,
+              "handler": "get_document_ir_model_calls"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/reviewer-results",
+          "operation_id": "get_document_ir_reviewer_results_api_document_ir_jobs__run_id__reviewer_results_get",
+          "summary": "Get Document Ir Reviewer Results",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 185,
+              "handler": "get_document_ir_reviewer_results"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/atomic-patches",
+          "operation_id": "get_document_ir_atomic_patches_api_document_ir_jobs__run_id__atomic_patches_get",
+          "summary": "Get Document Ir Atomic Patches",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 188,
+              "handler": "get_document_ir_atomic_patches"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/patch-transactions",
+          "operation_id": "get_document_ir_patch_transactions_api_document_ir_jobs__run_id__patch_transactions_get",
+          "summary": "Get Document Ir Patch Transactions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 191,
+              "handler": "get_document_ir_patch_transactions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/guard-results",
+          "operation_id": "get_document_ir_guard_results_api_document_ir_jobs__run_id__guard_results_get",
+          "summary": "Get Document Ir Guard Results",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 196,
+              "handler": "get_document_ir_guard_results"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/verifier-results",
+          "operation_id": "get_document_ir_verifier_results_api_document_ir_jobs__run_id__verifier_results_get",
+          "summary": "Get Document Ir Verifier Results",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 199,
+              "handler": "get_document_ir_verifier_results"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/final-decisions",
+          "operation_id": "get_document_ir_final_decisions_api_document_ir_jobs__run_id__final_decisions_get",
+          "summary": "Get Document Ir Final Decisions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 202,
+              "handler": "get_document_ir_final_decisions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/candidate-revisions",
+          "operation_id": "get_document_ir_candidate_revisions_api_document_ir_jobs__run_id__candidate_revisions_get",
+          "summary": "Get Document Ir Candidate Revisions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 205,
+              "handler": "get_document_ir_candidate_revisions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/reviews/{task_id}",
+          "operation_id": "get_document_ir_review_bundle_api_document_ir_jobs__run_id__reviews__task_id__get",
+          "summary": "Get Document Ir Review Bundle",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 210,
+              "handler": "get_document_ir_review_bundle"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/conflict-groups",
+          "operation_id": "get_document_ir_conflict_groups_api_document_ir_jobs__run_id__conflict_groups_get",
+          "summary": "Get Document Ir Conflict Groups",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 221,
+              "handler": "get_document_ir_conflict_groups"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/artifact-index",
+          "operation_id": "get_document_ir_artifact_index_api_document_ir_jobs__run_id__artifact_index_get",
+          "summary": "Get Document Ir Artifact Index",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 224,
+              "handler": "get_document_ir_artifact_index"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/revisions/{ocr_run_id}",
+          "operation_id": "list_document_ir_revisions_api_document_ir_revisions__ocr_run_id__get",
+          "summary": "List Document Ir Revisions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 230,
+              "handler": "list_document_ir_revisions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/documents",
+          "operation_id": "list_document_ir_documents_api_document_ir_documents_get",
+          "summary": "List Document Ir Documents",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 239,
+              "handler": "list_document_ir_documents"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/documents/{document_id}/revisions",
+          "operation_id": "list_document_revisions_api_document_ir_documents__document_id__revisions_get",
+          "summary": "List Document Revisions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 245,
+              "handler": "list_document_revisions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/review-tasks",
+          "operation_id": "get_document_ir_review_tasks_api_document_ir_jobs__run_id__review_tasks_get",
+          "summary": "Get Document Ir Review Tasks",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 254,
+              "handler": "get_document_ir_review_tasks"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/human-review/inbox",
+          "operation_id": "get_document_ir_human_review_inbox_api_document_ir_jobs__run_id__human_review_inbox_get",
+          "summary": "Get Document Ir Human Review Inbox",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 260,
+              "handler": "get_document_ir_human_review_inbox"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/document-ir/jobs/{run_id}/artifacts",
+          "operation_id": "list_document_ir_artifacts_api_document_ir_jobs__run_id__artifacts_get",
+          "summary": "List Document Ir Artifacts",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+              "line": 266,
+              "handler": "list_document_ir_artifacts"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/console/monitor",
+          "operation_id": "monitor_api_console_monitor_get",
+          "summary": "Monitor",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 20,
+              "handler": "monitor"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sessions/{key}/products",
+          "operation_id": "product_state_api_report_sessions__key__products_get",
+          "summary": "Product State",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 24,
+              "handler": "product_state"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-sessions/{key}/archive",
+          "operation_id": "archive_api_report_sessions__key__archive_post",
+          "summary": "Archive",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 29,
+              "handler": "archive"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-sessions/{key}/restore",
+          "operation_id": "restore_api_report_sessions__key__restore_post",
+          "summary": "Restore",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 33,
+              "handler": "restore"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sessions/{key}/candidates",
+          "operation_id": "candidates_api_report_sessions__key__candidates_get",
+          "summary": "Candidates",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 37,
+              "handler": "candidates"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-sessions/preview",
+          "operation_id": "preview_api_report_sessions_preview_post",
+          "summary": "Preview",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 44,
+              "handler": "preview"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sessions",
+          "operation_id": "runs_api_report_sessions_get",
+          "summary": "Runs",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 54,
+              "handler": "runs"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-sessions",
+          "operation_id": "create_api_report_sessions_post",
+          "summary": "Create",
+          "declared_responses": [
+            "202",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 49,
+              "handler": "create"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sessions/{key}",
+          "operation_id": "run_api_report_sessions__key__get",
+          "summary": "Run",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 58,
+              "handler": "run"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/report-sessions/{key}/cancel",
+          "operation_id": "cancel_api_report_sessions__key__cancel_post",
+          "summary": "Cancel",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 62,
+              "handler": "cancel"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sessions/{key}/facts",
+          "operation_id": "facts_api_report_sessions__key__facts_get",
+          "summary": "Facts",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 66,
+              "handler": "facts"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/clauses",
+          "operation_id": "clauses_api_pipeline_clauses_get",
+          "summary": "Clauses",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 73,
+              "handler": "clauses"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/clauses/{key}",
+          "operation_id": "clause_api_pipeline_clauses__key__get",
+          "summary": "Clause",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 77,
+              "handler": "clause"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/clauses/{key}/organization",
+          "operation_id": "organization_api_pipeline_clauses__key__organization_get",
+          "summary": "Organization",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 81,
+              "handler": "organization"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/organization-contract",
+          "operation_id": "organization_contract_api_pipeline_organization_contract_get",
+          "summary": "Organization Contract",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 85,
+              "handler": "organization_contract"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/report-sessions/{key}/organized",
+          "operation_id": "organized_api_report_sessions__key__organized_get",
+          "summary": "Organized",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 89,
+              "handler": "organized"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/clause-groups",
+          "operation_id": "groups_api_pipeline_clause_groups_get",
+          "summary": "Groups",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 100,
+              "handler": "groups"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/pipeline/clause-selections",
+          "operation_id": "selections_api_pipeline_clause_selections_get",
+          "summary": "Selections",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+              "line": 104,
+              "handler": "selections"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 18180,
+      "openapi_status": 200,
+      "title": "Clause extraction backbone",
+      "paths": 27,
+      "operations": 29,
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/api/compatibility",
+          "operation_id": "compatibility_api_compatibility_get",
+          "summary": "Compatibility",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 115,
+              "handler": "compatibility"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/health",
+          "operation_id": "health_health_get",
+          "summary": "Health",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 126,
+              "handler": "health"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/engine",
+          "operation_id": "engine_api_engine_get",
+          "summary": "Engine",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 140,
+              "handler": "engine"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/organization-contract",
+          "operation_id": "organization_contract_api_organization_contract_get",
+          "summary": "Organization Contract",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 148,
+              "handler": "organization_contract"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clauses",
+          "operation_id": "clauses_api_clauses_get",
+          "summary": "Clauses",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 157,
+              "handler": "clauses"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clause-contract",
+          "operation_id": "clause_contract_api_clause_contract_get",
+          "summary": "Clause Contract",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 167,
+              "handler": "clause_contract"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/clauses/template",
+          "operation_id": "clause_template_api_clauses_template_post",
+          "summary": "Clause Template",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 171,
+              "handler": "clause_template"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/clauses/validate",
+          "operation_id": "validate_clause_api_clauses_validate_post",
+          "summary": "Validate Clause",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 179,
+              "handler": "validate_clause"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clause-groups",
+          "operation_id": "groups_api_clause_groups_get",
+          "summary": "Groups",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 187,
+              "handler": "groups"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clause-selections",
+          "operation_id": "selections_api_clause_selections_get",
+          "summary": "Selections",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 196,
+              "handler": "selections"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clauses/{key}",
+          "operation_id": "clause_api_clauses__key__get",
+          "summary": "Clause",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 200,
+              "handler": "clause"
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/api/clauses/{key}",
+          "operation_id": "save_api_clauses__key__put",
+          "summary": "Save",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 229,
+              "handler": "save"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clauses/{key}/organization",
+          "operation_id": "clause_organization_api_clauses__key__organization_get",
+          "summary": "Clause Organization",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 204,
+              "handler": "clause_organization"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/clauses/{key}/reading-card",
+          "operation_id": "reading_card_api_clauses__key__reading_card_get",
+          "summary": "Reading Card",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 218,
+              "handler": "reading_card"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/clause-selection-options",
+          "operation_id": "selection_options_api_clause_selection_options_post",
+          "summary": "Selection Options",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 225,
+              "handler": "selection_options"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/targets/freeze",
+          "operation_id": "freeze_api_targets_freeze_post",
+          "summary": "Freeze",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 241,
+              "handler": "freeze"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/runs/preview",
+          "operation_id": "preview_api_runs_preview_post",
+          "summary": "Preview",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 247,
+              "handler": "preview"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs",
+          "operation_id": "runs_api_runs_get",
+          "summary": "Runs",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 298,
+              "handler": "runs"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/runs",
+          "operation_id": "create_api_runs_post",
+          "summary": "Create",
+          "declared_responses": [
+            "201",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 262,
+              "handler": "create"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}",
+          "operation_id": "run_api_runs__run_id__get",
+          "summary": "Run",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 308,
+              "handler": "run"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}/targets",
+          "operation_id": "run_targets_api_runs__run_id__targets_get",
+          "summary": "Run Targets",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 312,
+              "handler": "run_targets"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/runs/{run_id}/cancel",
+          "operation_id": "cancel_api_runs__run_id__cancel_post",
+          "summary": "Cancel",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 318,
+              "handler": "cancel"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/runs/{run_id}/execution-terminal",
+          "operation_id": "execution_terminal_api_runs__run_id__execution_terminal_post",
+          "summary": "Execution Terminal",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 330,
+              "handler": "execution_terminal"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}/facts/{fact_id}",
+          "operation_id": "fact_api_runs__run_id__facts__fact_id__get",
+          "summary": "Fact",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 340,
+              "handler": "fact"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}/facts",
+          "operation_id": "facts_api_runs__run_id__facts_get",
+          "summary": "Facts",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 355,
+              "handler": "facts"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}/organized",
+          "operation_id": "organized_api_runs__run_id__organized_get",
+          "summary": "Organized",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 373,
+              "handler": "organized"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}/candidates",
+          "operation_id": "candidates_api_runs__run_id__candidates_get",
+          "summary": "Candidates",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 394,
+              "handler": "candidates"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/api/runs/{run_id}/exports",
+          "operation_id": "export_api_runs__run_id__exports_post",
+          "summary": "Export",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 403,
+              "handler": "export"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/runs/{run_id}/exports/{export_id}",
+          "operation_id": "download_export_api_runs__run_id__exports__export_id__get",
+          "summary": "Download Export",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+              "line": 412,
+              "handler": "download_export"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 18280,
+      "openapi_status": 200,
+      "title": "Independent extraction ingestion",
+      "paths": 30,
+      "operations": 32,
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/health",
+          "operation_id": "health_health_get",
+          "summary": "Health",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/api.py",
+              "line": 41,
+              "handler": "health"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/ingestion/exports",
+          "operation_id": "ingest_v1_ingestion_exports_post",
+          "summary": "Ingest",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/api.py",
+              "line": 51,
+              "handler": "ingest"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/ingestion/receipts/{export_id}",
+          "operation_id": "receipt_v1_ingestion_receipts__export_id__get",
+          "summary": "Receipt",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/api.py",
+              "line": 70,
+              "handler": "receipt"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/ingestion/exports/{export_id}/facts",
+          "operation_id": "facts_v1_ingestion_exports__export_id__facts_get",
+          "summary": "Facts",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/api.py",
+              "line": 80,
+              "handler": "facts"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/research-contract",
+          "operation_id": "research_schema_v1_research_contract_get",
+          "summary": "Research Schema",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 35,
+              "handler": "research_schema"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/ingestion/exports/{export_id}/projection",
+          "operation_id": "projection_v1_ingestion_exports__export_id__projection_get",
+          "summary": "Projection",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 39,
+              "handler": "projection"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/ingestion/exports/{export_id}/projection",
+          "operation_id": "retry_projection_v1_ingestion_exports__export_id__projection_post",
+          "summary": "Retry Projection",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 47,
+              "handler": "retry_projection"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/ingestion/exports/{export_id}/products",
+          "operation_id": "capture_products_v1_ingestion_exports__export_id__products_get",
+          "summary": "Capture Products",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 43,
+              "handler": "capture_products"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/projections",
+          "operation_id": "projections_v1_projections_get",
+          "summary": "Projections",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 55,
+              "handler": "projections"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/projections/{projection_id}/observations",
+          "operation_id": "projection_observations_v1_projections__projection_id__observations_get",
+          "summary": "Projection Observations",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 59,
+              "handler": "projection_observations"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/projections/{projection_id}/definitions",
+          "operation_id": "projection_definitions_v1_projections__projection_id__definitions_get",
+          "summary": "Projection Definitions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 65,
+              "handler": "projection_definitions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/projections/{projection_id}/export",
+          "operation_id": "export_projection_v1_projections__projection_id__export_get",
+          "summary": "Export Projection",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 69,
+              "handler": "export_projection"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/datasets/preview",
+          "operation_id": "preview_v1_datasets_preview_post",
+          "summary": "Preview",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 74,
+              "handler": "preview"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/datasets/preview/observations",
+          "operation_id": "preview_rows_v1_datasets_preview_observations_post",
+          "summary": "Preview Rows",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 82,
+              "handler": "preview_rows"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/datasets",
+          "operation_id": "publish_v1_datasets_post",
+          "summary": "Publish",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 88,
+              "handler": "publish"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/datasets",
+          "operation_id": "internal_datasets_v1_datasets_get",
+          "summary": "Internal Datasets",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 96,
+              "handler": "internal_datasets"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/datasets/{dataset_version_id}",
+          "operation_id": "internal_dataset_v1_datasets__dataset_version_id__get",
+          "summary": "Internal Dataset",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 100,
+              "handler": "internal_dataset"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/datasets/{dataset_version_id}/observations",
+          "operation_id": "internal_observations_v1_datasets__dataset_version_id__observations_get",
+          "summary": "Internal Observations",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 104,
+              "handler": "internal_observations"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v1/datasets/{dataset_version_id}/export",
+          "operation_id": "export_internal_dataset_v1_datasets__dataset_version_id__export_get",
+          "summary": "Export Internal Dataset",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 109,
+              "handler": "export_internal_dataset"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/datasets/{dataset_version_id}/withdraw",
+          "operation_id": "withdraw_v1_datasets__dataset_version_id__withdraw_post",
+          "summary": "Withdraw",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 114,
+              "handler": "withdraw"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/restatements",
+          "operation_id": "restatement_v1_restatements_post",
+          "summary": "Restatement",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 118,
+              "handler": "restatement"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets",
+          "operation_id": "public_datasets_v2_datasets_get",
+          "summary": "Public Datasets",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 126,
+              "handler": "public_datasets"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/sources/{pdf_sha256}",
+          "operation_id": "source_v2_sources__pdf_sha256__get",
+          "summary": "Source",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 130,
+              "handler": "source"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{dataset_version_id}",
+          "operation_id": "public_dataset_v2_datasets__dataset_version_id__get",
+          "summary": "Public Dataset",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 134,
+              "handler": "public_dataset"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{dataset_version_id}/observations",
+          "operation_id": "public_observations_v2_datasets__dataset_version_id__observations_get",
+          "summary": "Public Observations",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 138,
+              "handler": "public_observations"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{dataset_version_id}/definitions",
+          "operation_id": "dataset_definitions_v2_datasets__dataset_version_id__definitions_get",
+          "summary": "Dataset Definitions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 145,
+              "handler": "dataset_definitions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{dataset_version_id}/observations/{observation_id}",
+          "operation_id": "observation_v2_datasets__dataset_version_id__observations__observation_id__get",
+          "summary": "Observation",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 149,
+              "handler": "observation"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{dataset_version_id}/sources",
+          "operation_id": "sources_v2_datasets__dataset_version_id__sources_get",
+          "summary": "Sources",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 153,
+              "handler": "sources"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{dataset_version_id}/export",
+          "operation_id": "export_dataset_v2_datasets__dataset_version_id__export_get",
+          "summary": "Export Dataset",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/products_api.py",
+              "line": 157,
+              "handler": "export_dataset"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/sources/lifecycle/references",
+          "operation_id": "references_v1_sources_lifecycle_references_post",
+          "summary": "References",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/sources_api.py",
+              "line": 9,
+              "handler": "references"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/sources/lifecycle/reserve",
+          "operation_id": "reserve_v1_sources_lifecycle_reserve_post",
+          "summary": "Reserve",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/sources_api.py",
+              "line": 11,
+              "handler": "reserve"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/v1/sources/lifecycle/reservations/{reservation_id}",
+          "operation_id": "update_v1_sources_lifecycle_reservations__reservation_id__post",
+          "summary": "Update",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "database/src/esg_database/sources_api.py",
+              "line": 14,
+              "handler": "update"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 8765,
+      "openapi_status": 200,
+      "title": "PlatESG 已发布数据",
+      "paths": 10,
+      "operations": 10,
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/v2/datasets",
+          "operation_id": "datasets_v2_datasets_get",
+          "summary": "Datasets",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 18,
+              "handler": "datasets"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{id}",
+          "operation_id": "dataset_v2_datasets__id__get",
+          "summary": "Dataset",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 22,
+              "handler": "dataset"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{id}/observations",
+          "operation_id": "observations_v2_datasets__id__observations_get",
+          "summary": "Observations",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 25,
+              "handler": "observations"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{id}/definitions",
+          "operation_id": "definitions_v2_datasets__id__definitions_get",
+          "summary": "Definitions",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 30,
+              "handler": "definitions"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{id}/observations/{observation_id}",
+          "operation_id": "observation_v2_datasets__id__observations__observation_id__get",
+          "summary": "Observation",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 33,
+              "handler": "observation"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{id}/sources",
+          "operation_id": "sources_v2_datasets__id__sources_get",
+          "summary": "Sources",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 36,
+              "handler": "sources"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/datasets/{id}/export",
+          "operation_id": "export_v2_datasets__id__export_get",
+          "summary": "Export",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 39,
+              "handler": "export"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/v2/sources/{pdf_sha256}/pdf",
+          "operation_id": "pdf_v2_sources__pdf_sha256__pdf_get",
+          "summary": "Pdf",
+          "declared_responses": [
+            "200",
+            "422"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/products.py",
+              "line": 46,
+              "handler": "pdf"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/health",
+          "operation_id": "health_health_get",
+          "summary": "Health",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/main.py",
+              "line": 34,
+              "handler": "health"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/health/compatibility",
+          "operation_id": "compatibility_health_compatibility_get",
+          "summary": "Compatibility",
+          "declared_responses": [
+            "200"
+          ],
+          "source_locations": [
+            {
+              "file": "PlatESG/backend/main.py",
+              "line": 41,
+              "handler": "compatibility"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "static_decorators": [
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 20,
+      "method": "GET",
+      "declared_path": "/api/console/monitor",
+      "handler": "monitor",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 24,
+      "method": "GET",
+      "declared_path": "/api/report-sessions/{key}/products",
+      "handler": "product_state",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 29,
+      "method": "POST",
+      "declared_path": "/api/report-sessions/{key}/archive",
+      "handler": "archive",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 33,
+      "method": "POST",
+      "declared_path": "/api/report-sessions/{key}/restore",
+      "handler": "restore",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 37,
+      "method": "GET",
+      "declared_path": "/api/report-sessions/{key}/candidates",
+      "handler": "candidates",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 44,
+      "method": "POST",
+      "declared_path": "/api/report-sessions/preview",
+      "handler": "preview",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 49,
+      "method": "POST",
+      "declared_path": "/api/report-sessions",
+      "handler": "create",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 54,
+      "method": "GET",
+      "declared_path": "/api/report-sessions",
+      "handler": "runs",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 58,
+      "method": "GET",
+      "declared_path": "/api/report-sessions/{key}",
+      "handler": "run",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 62,
+      "method": "POST",
+      "declared_path": "/api/report-sessions/{key}/cancel",
+      "handler": "cancel",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 66,
+      "method": "GET",
+      "declared_path": "/api/report-sessions/{key}/facts",
+      "handler": "facts",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 73,
+      "method": "GET",
+      "declared_path": "/api/pipeline/clauses",
+      "handler": "clauses",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 77,
+      "method": "GET",
+      "declared_path": "/api/pipeline/clauses/{key}",
+      "handler": "clause",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 81,
+      "method": "GET",
+      "declared_path": "/api/pipeline/clauses/{key}/organization",
+      "handler": "organization",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 85,
+      "method": "GET",
+      "declared_path": "/api/pipeline/organization-contract",
+      "handler": "organization_contract",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 89,
+      "method": "GET",
+      "declared_path": "/api/report-sessions/{key}/organized",
+      "handler": "organized",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 100,
+      "method": "GET",
+      "declared_path": "/api/pipeline/clause-groups",
+      "handler": "groups",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ConsoleESG/backend/src/esg_console/sessions.py",
+      "line": 104,
+      "method": "GET",
+      "declared_path": "/api/pipeline/clause-selections",
+      "handler": "selections",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/evidence.py",
+      "line": 25,
+      "method": "GET",
+      "declared_path": "/{ir_run_id}",
+      "handler": "document",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/evidence.py",
+      "line": 29,
+      "method": "POST",
+      "declared_path": "/{ir_run_id}/search",
+      "handler": "search",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/evidence.py",
+      "line": 33,
+      "method": "POST",
+      "declared_path": "/{ir_run_id}/read",
+      "handler": "read",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 55,
+      "method": "GET",
+      "declared_path": "/api/pdf-library",
+      "handler": "pdf_library",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 59,
+      "method": "GET",
+      "declared_path": "/api/report-library",
+      "handler": "report_library",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 79,
+      "method": "GET",
+      "declared_path": "/api/ocr-library",
+      "handler": "library",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 83,
+      "method": "GET",
+      "declared_path": "/api/ocr-library/{run_id}",
+      "handler": "description",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 88,
+      "method": "DELETE",
+      "declared_path": "/api/ocr-library/{run_id}",
+      "handler": "delete_ocr",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 97,
+      "method": "GET",
+      "declared_path": "/api/document-ir/jobs/{run_id}/deletion",
+      "handler": "ir_description",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 102,
+      "method": "DELETE",
+      "declared_path": "/api/document-ir/jobs/{run_id}",
+      "handler": "delete_ir",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 111,
+      "method": "GET",
+      "declared_path": "/api/report-assets/{asset_id}/deletion",
+      "handler": "pdf_description",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/library_deletion.py",
+      "line": 118,
+      "method": "DELETE",
+      "declared_path": "/api/report-assets/{asset_id}",
+      "handler": "delete_pdf",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 246,
+      "method": "GET",
+      "declared_path": "/health",
+      "handler": "health",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 263,
+      "method": "GET",
+      "declared_path": "/health/compatibility",
+      "handler": "get_compatibility",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 378,
+      "method": "GET",
+      "declared_path": "/api/pipeline/tasks",
+      "handler": "list_pipeline_tasks",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 403,
+      "method": "GET",
+      "declared_path": "/api/pipeline/tasks/{task_id}",
+      "handler": "get_pipeline_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 411,
+      "method": "GET",
+      "declared_path": "/api/pipeline/tasks/{task_id}/events",
+      "handler": "get_pipeline_task_events",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 423,
+      "method": "PUT",
+      "declared_path": "/api/pipeline/tasks/order",
+      "handler": "reorder_pipeline_tasks",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 439,
+      "method": "POST",
+      "declared_path": "/api/pipeline/tasks/{task_id}/cancel",
+      "handler": "cancel_pipeline_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 453,
+      "method": "POST",
+      "declared_path": "/api/pipeline/tasks/native/{native_id}/cancel",
+      "handler": "cancel_native_pipeline_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 569,
+      "method": "GET",
+      "declared_path": "/api/report-assets",
+      "handler": "list_report_assets",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 604,
+      "method": "POST",
+      "declared_path": "/api/report-assets",
+      "handler": "upload_report_asset",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 618,
+      "method": "GET",
+      "declared_path": "/api/report-assets/{asset_id}/file",
+      "handler": "get_report_asset_file",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 633,
+      "method": "GET",
+      "declared_path": "/api/report-sources/{source_sha256}/file",
+      "handler": "get_report_source_file",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 647,
+      "method": "GET",
+      "declared_path": "/api/report-assets/{asset_id}/lifecycle",
+      "handler": "get_report_asset_lifecycle",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 677,
+      "method": "GET",
+      "declared_path": "/api/report-assets-history",
+      "handler": "report_asset_history",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 689,
+      "method": "POST",
+      "declared_path": "/api/pipeline/tasks/ocr",
+      "handler": "queue_ocr_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 765,
+      "method": "POST",
+      "declared_path": "/api/pipeline/tasks/document-ir",
+      "handler": "queue_document_ir_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 911,
+      "method": "GET",
+      "declared_path": "/api/models/status",
+      "handler": "get_model_status",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 918,
+      "method": "GET",
+      "declared_path": "/api/storage/inventory",
+      "handler": "get_storage_inventory",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 923,
+      "method": "POST",
+      "declared_path": "/api/storage/deletion-plans",
+      "handler": "create_storage_deletion_plan",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 933,
+      "method": "POST",
+      "declared_path": "/api/storage/deletion-plans/{plan_id}/execute",
+      "handler": "execute_storage_deletion_plan",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 957,
+      "method": "GET",
+      "declared_path": "/api/storage/trash",
+      "handler": "list_storage_trash",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 965,
+      "method": "POST",
+      "declared_path": "/api/storage/trash/{cleanup_id}/restore",
+      "handler": "restore_storage_trash",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 975,
+      "method": "POST",
+      "declared_path": "/api/storage/trash/{cleanup_id}/purge",
+      "handler": "purge_storage_trash",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 988,
+      "method": "POST",
+      "declared_path": "/api/ocr/jobs",
+      "handler": "create_ocr_job",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1114,
+      "method": "GET",
+      "declared_path": "/api/ocr/providers/status",
+      "handler": "get_ocr_provider_status",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1119,
+      "method": "GET",
+      "declared_path": "/api/ocr/jobs",
+      "handler": "list_ocr_jobs",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1145,
+      "method": "GET",
+      "declared_path": "/api/ocr/jobs/{run_id}",
+      "handler": "get_ocr_job",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1165,
+      "method": "GET",
+      "declared_path": "/api/ocr/jobs/{run_id}/manifest",
+      "handler": "get_ocr_manifest",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1178,
+      "method": "GET",
+      "declared_path": "/api/ocr/jobs/{run_id}/artifacts",
+      "handler": "list_ocr_artifacts",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1201,
+      "method": "POST",
+      "declared_path": "/api/document-ir/jobs",
+      "handler": "create_document_ir_job",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1213,
+      "method": "POST",
+      "declared_path": "/api/document-ir/jobs/{run_id}/patches/{patch_id}/decision",
+      "handler": "decide_document_ir_patch",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1229,
+      "method": "POST",
+      "declared_path": "/api/document-ir/jobs/{run_id}/review-tasks/{task_id}/decision",
+      "handler": "decide_document_ir_review_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1245,
+      "method": "POST",
+      "declared_path": "/api/document-ir/jobs/{run_id}/repair",
+      "handler": "repair_document_ir",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1263,
+      "method": "POST",
+      "declared_path": "/api/document-ir/jobs/{run_id}/reviews/retry",
+      "handler": "retry_document_ir_reviews",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1394,
+      "method": "GET",
+      "declared_path": "/api/pipeline/status",
+      "handler": "current_pipeline_status",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1407,
+      "method": "GET",
+      "declared_path": "/api/operations/tasks",
+      "handler": "operation_tasks",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 1415,
+      "method": "GET",
+      "declared_path": "/api/operations/tasks/{task_id}",
+      "handler": "operation_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/processing_status.py",
+      "line": 31,
+      "method": "GET",
+      "declared_path": "/api/processing-status",
+      "handler": "status",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 47,
+      "method": "GET",
+      "declared_path": "/api/reports",
+      "handler": "reports",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 54,
+      "method": "POST",
+      "declared_path": "/api/reports",
+      "handler": "register",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 60,
+      "method": "GET",
+      "declared_path": "/api/reports/{report_id}",
+      "handler": "report",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 64,
+      "method": "PATCH",
+      "declared_path": "/api/reports/{report_id}",
+      "handler": "update_report",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 68,
+      "method": "POST",
+      "declared_path": "/api/reports/{report_id}/versions",
+      "handler": "attach_version",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 77,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs",
+      "handler": "runs",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 84,
+      "method": "POST",
+      "declared_path": "/api/report-processing/runs",
+      "handler": "create",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 89,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs/{processing_id}",
+      "handler": "run",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 93,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs/{processing_id}/events",
+      "handler": "events",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 105,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs/{processing_id}/pages",
+      "handler": "pages",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 109,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs/{processing_id}/pages/{page_index}",
+      "handler": "page",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 113,
+      "method": "POST",
+      "declared_path": "/api/report-processing/runs/{processing_id}/cancel",
+      "handler": "cancel",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 121,
+      "method": "POST",
+      "declared_path": "/api/report-processing/runs/{processing_id}/resume",
+      "handler": "resume",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 130,
+      "method": "POST",
+      "declared_path": "/api/report-processing/runs/{processing_id}/evidence",
+      "handler": "transition",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_processing.py",
+      "line": 136,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs/{processing_id}/evidence-versions",
+      "handler": "versions",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+      "line": 50,
+      "method": "GET",
+      "declared_path": "",
+      "handler": "reports",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+      "line": 79,
+      "method": "POST",
+      "declared_path": "/imports",
+      "handler": "intake",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+      "line": 89,
+      "method": "POST",
+      "declared_path": "/uploads",
+      "handler": "upload",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+      "line": 102,
+      "method": "GET",
+      "declared_path": "/{pdf_id}",
+      "handler": "get",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/api/report_resources.py",
+      "line": 107,
+      "method": "PUT",
+      "declared_path": "/{pdf_id}",
+      "handler": "update",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/src/esg_document/storage/processing_lifecycle.py",
+      "line": 394,
+      "method": "GET",
+      "declared_path": "/api/report-processing/runs/{processing_id}/lifecycle",
+      "handler": "description",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/tests/test_api_error_contract_smoke.py",
+      "line": 10,
+      "method": "GET",
+      "declared_path": "/synthetic/read",
+      "handler": "read",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/tests/test_api_error_contract_smoke.py",
+      "line": 24,
+      "method": "POST",
+      "declared_path": "/synthetic/write",
+      "handler": "write",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/tests/test_api_error_contract_smoke.py",
+      "line": 33,
+      "method": "GET",
+      "declared_path": "/synthetic/conflict",
+      "handler": "conflict",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/document/tests/test_operator_auth_smoke.py",
+      "line": 11,
+      "method": "POST",
+      "declared_path": "/write",
+      "handler": "write",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 115,
+      "method": "GET",
+      "declared_path": "/api/compatibility",
+      "handler": "compatibility",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 126,
+      "method": "GET",
+      "declared_path": "/health",
+      "handler": "health",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 140,
+      "method": "GET",
+      "declared_path": "/api/engine",
+      "handler": "engine",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 148,
+      "method": "GET",
+      "declared_path": "/api/organization-contract",
+      "handler": "organization_contract",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 157,
+      "method": "GET",
+      "declared_path": "/api/clauses",
+      "handler": "clauses",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 167,
+      "method": "GET",
+      "declared_path": "/api/clause-contract",
+      "handler": "clause_contract",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 171,
+      "method": "POST",
+      "declared_path": "/api/clauses/template",
+      "handler": "clause_template",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 179,
+      "method": "POST",
+      "declared_path": "/api/clauses/validate",
+      "handler": "validate_clause",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 187,
+      "method": "GET",
+      "declared_path": "/api/clause-groups",
+      "handler": "groups",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 196,
+      "method": "GET",
+      "declared_path": "/api/clause-selections",
+      "handler": "selections",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 200,
+      "method": "GET",
+      "declared_path": "/api/clauses/{key}",
+      "handler": "clause",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 204,
+      "method": "GET",
+      "declared_path": "/api/clauses/{key}/organization",
+      "handler": "clause_organization",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 218,
+      "method": "GET",
+      "declared_path": "/api/clauses/{key}/reading-card",
+      "handler": "reading_card",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 225,
+      "method": "POST",
+      "declared_path": "/api/clause-selection-options",
+      "handler": "selection_options",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 229,
+      "method": "PUT",
+      "declared_path": "/api/clauses/{key}",
+      "handler": "save",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 241,
+      "method": "POST",
+      "declared_path": "/api/targets/freeze",
+      "handler": "freeze",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 247,
+      "method": "POST",
+      "declared_path": "/api/runs/preview",
+      "handler": "preview",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 262,
+      "method": "POST",
+      "declared_path": "/api/runs",
+      "handler": "create",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 298,
+      "method": "GET",
+      "declared_path": "/api/runs",
+      "handler": "runs",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 308,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}",
+      "handler": "run",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 312,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}/targets",
+      "handler": "run_targets",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 318,
+      "method": "POST",
+      "declared_path": "/api/runs/{run_id}/cancel",
+      "handler": "cancel",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 330,
+      "method": "POST",
+      "declared_path": "/api/runs/{run_id}/execution-terminal",
+      "handler": "execution_terminal",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 340,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}/facts/{fact_id}",
+      "handler": "fact",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 355,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}/facts",
+      "handler": "facts",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 373,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}/organized",
+      "handler": "organized",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 394,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}/candidates",
+      "handler": "candidates",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 403,
+      "method": "POST",
+      "declared_path": "/api/runs/{run_id}/exports",
+      "handler": "export",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/extraction/src/esg_extraction/pipeline/api.py",
+      "line": 412,
+      "method": "GET",
+      "declared_path": "/api/runs/{run_id}/exports/{export_id}",
+      "handler": "download_export",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/pipeline/src/esg_pipeline/execution_api.py",
+      "line": 19,
+      "method": "GET",
+      "declared_path": "/api/pipeline/history",
+      "handler": "history",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/pipeline/src/esg_pipeline/execution_api.py",
+      "line": 43,
+      "method": "POST",
+      "declared_path": "/api/pipeline/tasks/{task_id}/archive",
+      "handler": "archive_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/pipeline/src/esg_pipeline/execution_api.py",
+      "line": 47,
+      "method": "POST",
+      "declared_path": "/api/pipeline/tasks/{task_id}/restore",
+      "handler": "restore_task",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "ExtractESG/pipeline/src/esg_pipeline/execution_api.py",
+      "line": 51,
+      "method": "GET",
+      "declared_path": "/api/pipeline/events/stream",
+      "handler": "event_stream",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/main.py",
+      "line": 34,
+      "method": "GET",
+      "declared_path": "/health",
+      "handler": "health",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/main.py",
+      "line": 41,
+      "method": "GET",
+      "declared_path": "/health/compatibility",
+      "handler": "compatibility",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 18,
+      "method": "GET",
+      "declared_path": "/datasets",
+      "handler": "datasets",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 22,
+      "method": "GET",
+      "declared_path": "/datasets/{id}",
+      "handler": "dataset",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 25,
+      "method": "GET",
+      "declared_path": "/datasets/{id}/observations",
+      "handler": "observations",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 30,
+      "method": "GET",
+      "declared_path": "/datasets/{id}/definitions",
+      "handler": "definitions",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 33,
+      "method": "GET",
+      "declared_path": "/datasets/{id}/observations/{observation_id}",
+      "handler": "observation",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 36,
+      "method": "GET",
+      "declared_path": "/datasets/{id}/sources",
+      "handler": "sources",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 39,
+      "method": "GET",
+      "declared_path": "/datasets/{id}/export",
+      "handler": "export",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "PlatESG/backend/products.py",
+      "line": 46,
+      "method": "GET",
+      "declared_path": "/sources/{pdf_sha256}/pdf",
+      "handler": "pdf",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/api.py",
+      "line": 41,
+      "method": "GET",
+      "declared_path": "/health",
+      "handler": "health",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/api.py",
+      "line": 51,
+      "method": "POST",
+      "declared_path": "/v1/ingestion/exports",
+      "handler": "ingest",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/api.py",
+      "line": 70,
+      "method": "GET",
+      "declared_path": "/v1/ingestion/receipts/{export_id}",
+      "handler": "receipt",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/api.py",
+      "line": 80,
+      "method": "GET",
+      "declared_path": "/v1/ingestion/exports/{export_id}/facts",
+      "handler": "facts",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 35,
+      "method": "GET",
+      "declared_path": "/v1/research-contract",
+      "handler": "research_schema",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 39,
+      "method": "GET",
+      "declared_path": "/v1/ingestion/exports/{export_id}/projection",
+      "handler": "projection",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 43,
+      "method": "GET",
+      "declared_path": "/v1/ingestion/exports/{export_id}/products",
+      "handler": "capture_products",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 47,
+      "method": "POST",
+      "declared_path": "/v1/ingestion/exports/{export_id}/projection",
+      "handler": "retry_projection",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 55,
+      "method": "GET",
+      "declared_path": "/v1/projections",
+      "handler": "projections",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 59,
+      "method": "GET",
+      "declared_path": "/v1/projections/{projection_id}/observations",
+      "handler": "projection_observations",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 65,
+      "method": "GET",
+      "declared_path": "/v1/projections/{projection_id}/definitions",
+      "handler": "projection_definitions",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 69,
+      "method": "GET",
+      "declared_path": "/v1/projections/{projection_id}/export",
+      "handler": "export_projection",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 74,
+      "method": "POST",
+      "declared_path": "/v1/datasets/preview",
+      "handler": "preview",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 82,
+      "method": "POST",
+      "declared_path": "/v1/datasets/preview/observations",
+      "handler": "preview_rows",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 88,
+      "method": "POST",
+      "declared_path": "/v1/datasets",
+      "handler": "publish",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 96,
+      "method": "GET",
+      "declared_path": "/v1/datasets",
+      "handler": "internal_datasets",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 100,
+      "method": "GET",
+      "declared_path": "/v1/datasets/{dataset_version_id}",
+      "handler": "internal_dataset",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 104,
+      "method": "GET",
+      "declared_path": "/v1/datasets/{dataset_version_id}/observations",
+      "handler": "internal_observations",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 109,
+      "method": "GET",
+      "declared_path": "/v1/datasets/{dataset_version_id}/export",
+      "handler": "export_internal_dataset",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 114,
+      "method": "POST",
+      "declared_path": "/v1/datasets/{dataset_version_id}/withdraw",
+      "handler": "withdraw",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 118,
+      "method": "POST",
+      "declared_path": "/v1/restatements",
+      "handler": "restatement",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 126,
+      "method": "GET",
+      "declared_path": "/v2/datasets",
+      "handler": "public_datasets",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 130,
+      "method": "GET",
+      "declared_path": "/v2/sources/{pdf_sha256}",
+      "handler": "source",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 134,
+      "method": "GET",
+      "declared_path": "/v2/datasets/{dataset_version_id}",
+      "handler": "public_dataset",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 138,
+      "method": "GET",
+      "declared_path": "/v2/datasets/{dataset_version_id}/observations",
+      "handler": "public_observations",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 145,
+      "method": "GET",
+      "declared_path": "/v2/datasets/{dataset_version_id}/definitions",
+      "handler": "dataset_definitions",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 149,
+      "method": "GET",
+      "declared_path": "/v2/datasets/{dataset_version_id}/observations/{observation_id}",
+      "handler": "observation",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 153,
+      "method": "GET",
+      "declared_path": "/v2/datasets/{dataset_version_id}/sources",
+      "handler": "sources",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/products_api.py",
+      "line": 157,
+      "method": "GET",
+      "declared_path": "/v2/datasets/{dataset_version_id}/export",
+      "handler": "export_dataset",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/sources_api.py",
+      "line": 9,
+      "method": "POST",
+      "declared_path": "/references",
+      "handler": "references",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/sources_api.py",
+      "line": 11,
+      "method": "POST",
+      "declared_path": "/reserve",
+      "handler": "reserve",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    },
+    {
+      "file": "database/src/esg_database/sources_api.py",
+      "line": 14,
+      "method": "POST",
+      "declared_path": "/reservations/{reservation_id}",
+      "handler": "update",
+      "note": "Declared path; include-router prefix may apply. Compare effective runtime routes."
+    }
+  ],
+  "note": "OpenAPI proves route registration, not successful mutations. Only GET probes below were exercised; no publication or model execution.",
+  "resolved_dynamic_registrations": [
+    {
+      "path": "/api/report-assets/{asset_id}/archive",
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 655,
+      "handler": "_register_asset_lifecycle_actions"
+    },
+    {
+      "path": "/api/report-assets/{asset_id}/restore",
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 655,
+      "handler": "_register_asset_lifecycle_actions"
+    },
+    {
+      "path": "/api/report-assets/{asset_id}/discard",
+      "file": "ExtractESG/document/src/esg_document/api/main.py",
+      "line": 655,
+      "handler": "_register_asset_lifecycle_actions"
+    },
+    {
+      "path": "/api/document-ir/jobs",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 35,
+      "registration_line": 410,
+      "handler": "list_document_ir_jobs"
+    },
+    {
+      "path": "/api/document-ir/review-worklist",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 54,
+      "registration_line": 413,
+      "handler": "list_document_ir_review_worklist"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 90,
+      "registration_line": 418,
+      "handler": "get_document_ir_job"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/manifest",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 106,
+      "registration_line": 421,
+      "handler": "get_document_ir_manifest"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/quality-report",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 115,
+      "registration_line": 426,
+      "handler": "get_document_ir_quality_report"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/validation-report",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 118,
+      "registration_line": 431,
+      "handler": "get_document_ir_validation_report"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/document",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 121,
+      "registration_line": 436,
+      "handler": "get_document_ir_document"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/pages",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 124,
+      "registration_line": 441,
+      "handler": "list_document_ir_pages"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/pages/{page_index}",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 130,
+      "registration_line": 446,
+      "handler": "get_document_ir_page"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/tables",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 140,
+      "registration_line": 451,
+      "handler": "list_document_ir_tables"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/tables/{table_id}",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 143,
+      "registration_line": 456,
+      "handler": "get_document_ir_table"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/logical-tables",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 152,
+      "registration_line": 461,
+      "handler": "list_document_ir_logical_tables"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/logical-tables/{logical_table_id}",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 155,
+      "registration_line": 466,
+      "handler": "get_document_ir_logical_table"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/figures",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 166,
+      "registration_line": 471,
+      "handler": "list_document_ir_figures"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/structure-edges",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 172,
+      "registration_line": 476,
+      "handler": "get_document_ir_structure_edges"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/correction-patches",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 177,
+      "registration_line": 481,
+      "handler": "get_document_ir_correction_patches"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/model-calls",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 182,
+      "registration_line": 486,
+      "handler": "get_document_ir_model_calls"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/reviewer-results",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 185,
+      "registration_line": 491,
+      "handler": "get_document_ir_reviewer_results"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/atomic-patches",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 188,
+      "registration_line": 496,
+      "handler": "get_document_ir_atomic_patches"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/patch-transactions",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 191,
+      "registration_line": 501,
+      "handler": "get_document_ir_patch_transactions"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/guard-results",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 196,
+      "registration_line": 506,
+      "handler": "get_document_ir_guard_results"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/verifier-results",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 199,
+      "registration_line": 511,
+      "handler": "get_document_ir_verifier_results"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/final-decisions",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 202,
+      "registration_line": 516,
+      "handler": "get_document_ir_final_decisions"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/candidate-revisions",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 205,
+      "registration_line": 521,
+      "handler": "get_document_ir_candidate_revisions"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/reviews/{task_id}",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 210,
+      "registration_line": 526,
+      "handler": "get_document_ir_review_bundle"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/conflict-groups",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 221,
+      "registration_line": 531,
+      "handler": "get_document_ir_conflict_groups"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/artifact-index",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 224,
+      "registration_line": 536,
+      "handler": "get_document_ir_artifact_index"
+    },
+    {
+      "path": "/api/document-ir/revisions/{ocr_run_id}",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 230,
+      "registration_line": 541,
+      "handler": "list_document_ir_revisions"
+    },
+    {
+      "path": "/api/document-ir/documents",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 239,
+      "registration_line": 546,
+      "handler": "list_document_ir_documents"
+    },
+    {
+      "path": "/api/document-ir/documents/{document_id}/revisions",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 245,
+      "registration_line": 551,
+      "handler": "list_document_revisions"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/review-tasks",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 254,
+      "registration_line": 556,
+      "handler": "get_document_ir_review_tasks"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/human-review/inbox",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 260,
+      "registration_line": 561,
+      "handler": "get_document_ir_human_review_inbox"
+    },
+    {
+      "path": "/api/document-ir/jobs/{run_id}/artifacts",
+      "file": "ExtractESG/document/src/esg_document/api/document_archive.py",
+      "line": 266,
+      "registration_line": 566,
+      "handler": "list_document_ir_artifacts"
+    }
+  ]
+}
