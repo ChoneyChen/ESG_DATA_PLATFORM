@@ -95,7 +95,7 @@ def write_package(root, *, blocked=False):
         {"cell_id": "b", "page_index": 0, "row_index": 1, "col_index": 0, "text": "123", "bbox": None},
     ]}
     files = {
-        "manifest.json": {"package_schema_version": "document-ir-package-v1", "readiness": "auto_review_pending",
+        "manifest.json": {"schema_version":"document-ir-v0.12", "package_schema_version": "document-ir-package-v1", "readiness": "auto_review_pending",
             "evidence_policy": {"mode": "blocked" if blocked else "limited", "global_failure": blocked,
                 "object_availability": [{"object_id": "table", "capabilities": {"cell_grid": not blocked, "page_image": not blocked}}]},
             "entrypoints": {"pages": "pages/index.json", "tables": "tables/index.json",
@@ -147,17 +147,15 @@ def test_reader_missing_page_or_blocked_policy_cannot_claim_location(tmp_path):
     assert table["cells"][0]["bbox"] is not None
 
 
-def test_legacy_page_and_detail_receive_same_projection_without_artifact_changes(tmp_path, monkeypatch):
+def test_retired_layout_is_rejected_without_reading_or_rewriting_its_files(tmp_path):
     files = write_package(tmp_path)
     manifest = files["manifest.json"]
     manifest.pop("package_schema_version")
     (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
-    raw_table = files["tables/table.json"]
-    legacy_page = {"page": files["pages/page-0001.json"]["page"], "tables": [raw_table]}
-    (tmp_path / "pages/page_0001.json").write_text(json.dumps(legacy_page), encoding="utf-8")
-    reader = DocumentIrPackageReader(tmp_path)
-    assert reader.table("table") == reader.page(0)["tables"][0]
-    assert "evidence_capabilities" not in json.loads((tmp_path / "tables/table.json").read_text())
+    before={path:path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()}
+    with pytest.raises(ValueError,match="current"):
+        DocumentIrPackageReader(tmp_path)
+    assert before=={path:path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()}
 
 
 def test_http_table_list_detail_and_page_use_identical_capability_projection(tmp_path, monkeypatch):

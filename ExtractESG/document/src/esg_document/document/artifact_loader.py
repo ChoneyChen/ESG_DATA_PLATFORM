@@ -103,37 +103,23 @@ class OcrArtifactLoader:
             raise FileNotFoundError(f"OCR manifest not found: {manifest_path}")
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
-        if manifest.get("package_schema_version") == "ocr-package-v1":
-            validate_package(
-                root,
-                expected_type="ocr-run",
-                expected_schema="ocr-package-v1",
-                required_entrypoints={
-                    "source_request",
-                    "provider_submit_response",
-                    "provider_poll_events",
-                    "provider_result",
-                    "page_index",
-                    "artifacts",
-                    "integrity",
-                },
-            ).require_valid()
-
-        entrypoints = manifest.get("entrypoints") or {}
-        raw_entrypoint = (
-            entrypoints.get("provider_result")
-            if isinstance(entrypoints, dict)
-            else None
+        validate_package(
+            root,
+            expected_type="ocr-run",
+            expected_schema="ocr-package-v1",
+            required_entrypoints={
+                "source_request",
+                "provider_submit_response",
+                "provider_poll_events",
+                "provider_result",
+                "page_index",
+                "artifacts",
+                "integrity",
+            },
+        ).require_valid()
+        raw_jsonl_path = resolve_package_path(
+            root, manifest["entrypoints"]["provider_result"]
         )
-        raw_jsonl_path = (
-            resolve_package_path(root, str(raw_entrypoint))
-            if raw_entrypoint
-            else root / "raw" / "result.jsonl"
-        )
-        if not raw_jsonl_path.exists() and manifest.get("raw_jsonl_path"):
-            raw_jsonl_path = Path(str(manifest["raw_jsonl_path"]))
-        if not raw_jsonl_path.exists():
-            raise FileNotFoundError(f"OCR result JSONL not found: {raw_jsonl_path}")
 
         artifact_rows = self._load_artifact_rows(root, manifest)
         page_coverage = targeted_page_coverage(manifest)
@@ -165,7 +151,6 @@ class OcrArtifactLoader:
     ) -> list[OcrPageArtifact]:
         pages: list[OcrPageArtifact] = []
         sequence = 0
-        is_package_v1 = manifest.get("package_schema_version") == "ocr-package-v1"
 
         for line_number, raw_line in enumerate(
             raw_jsonl_path.read_text(encoding="utf-8").splitlines(), start=1
@@ -198,8 +183,6 @@ class OcrArtifactLoader:
                 )
                 markdown_path = (
                     root / "content" / "pages" / f"{page_stem(page_index)}.md"
-                    if is_package_v1
-                    else root / "pages" / f"page_{page_index:04d}.md"
                 )
                 if markdown_path.exists():
                     markdown_text = markdown_path.read_text(encoding="utf-8")
@@ -231,15 +214,7 @@ class OcrArtifactLoader:
     def _load_artifact_rows(
         root: Path, manifest: dict[str, Any]
     ) -> list[dict[str, Any]]:
-        entrypoints = manifest.get("entrypoints") or {}
-        relative = (
-            entrypoints.get("artifacts") if isinstance(entrypoints, dict) else None
-        )
-        if not relative:
-            return []
-        path = resolve_package_path(root, str(relative))
-        if not path.exists():
-            return []
+        path = resolve_package_path(root, manifest["entrypoints"]["artifacts"])
         payload = json.loads(path.read_text(encoding="utf-8"))
         return list(payload.get("artifacts") or []) if isinstance(payload, dict) else []
 

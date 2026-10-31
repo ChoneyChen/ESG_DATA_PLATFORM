@@ -14,7 +14,7 @@
 
 通用类型位于 `ExtractESG/contracts/src/esg_data/organization.py`；执行投影位于 `ExtractESG/extraction/src/esg_extraction/pipeline/organization.py`。两者没有 ESRS 编号或污染物、能源、人群词表。领域内容只出现在 `ClauseESG/clauses/<组>/<条>/clause.json`。
 
-当前版本：条款 `clause-contract-1.2`，阅读声明 `clause-reading-1.1`，阅读卡 `clause-reading-card-1.0`，值 `extraction-data-2.0`，来源事实 `source-fact-2.0`，组织定义 `clause-organization-1.0`，组织结果 `organized-extraction-1.1`，运行事实包 `extraction-fact-bundle-2.2`。这些版本分别表示不同接口，不要求编号相同。
+当前版本：条款 `clause-contract-1.3`，阅读声明 `clause-reading-1.1`，阅读卡 `clause-reading-card-1.0`，值 `extraction-data-2.0`，来源事实 `source-fact-2.0`，组织定义 `clause-organization-1.0`，组织结果 `organized-extraction-1.1`，运行事实包 `extraction-fact-bundle-2.2`。这些版本分别表示不同接口，不要求编号相同。
 
 ## 2. 两类值，共同组织主结构
 

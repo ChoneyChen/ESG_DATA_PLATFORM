@@ -1011,7 +1011,7 @@ def test_a_degenerate_box_is_a_local_warning_not_a_document_blocker() -> None:
                     text="(cid:28595)",
                     bbox=BoundingBox(x0=10, y0=10, x1=10, y1=12, unit="points"), source_trace=TRACE)
     document = DocumentIR(metadata=DocumentIRMetadata(run_id="ir-test", ocr_run_id="ocr-test",
-                                                     document_id="doc-legacy-" + "0" * 24),
+                                                     document_id="doc-artifact-" + "0" * 24),
                           pages=[page], blocks=[block])
     DocumentIrValidator().validate(document)
     codes = {(issue.code, issue.severity) for issue in document.validation_report.issues}

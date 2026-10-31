@@ -1,11 +1,9 @@
 from __future__ import annotations
-
 import json
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
-
 from esg_document.config import Settings
 from esg_document.document.contracts import (
     AtomicPatch,
@@ -43,6 +41,7 @@ from esg_document.storage.copy_on_write import copy_on_write
 
 
 class DocumentIrRevisionService:
+
     def __init__(self, settings: Settings):
         self.settings = settings
         self.applier = DocumentPatchApplier()
@@ -50,7 +49,7 @@ class DocumentIrRevisionService:
     def decide_patch(
         self, parent_run_id: str, patch_id: str, request: PatchDecisionRequest
     ) -> dict[str, Any]:
-        document, output_dir = self._child(parent_run_id, "human")
+        (document, output_dir) = self._child(parent_run_id, "human")
         patch = next(
             (item for item in document.atomic_patches if item.patch_id == patch_id),
             None,
@@ -61,8 +60,10 @@ class DocumentIrRevisionService:
             raise ValueError(f"Patch is not awaiting a human decision: {patch.status}")
         if request.action == "accept":
             guard_passed = any(
-                guard.passed and patch.patch_id in guard.patch_ids
-                for guard in document.guard_results
+                (
+                    guard.passed and patch.patch_id in guard.patch_ids
+                    for guard in document.guard_results
+                )
             )
             if not guard_passed:
                 raise ValueError(
@@ -83,7 +84,7 @@ class DocumentIrRevisionService:
     def decide_task(
         self, parent_run_id: str, task_id: str, request: PatchDecisionRequest
     ) -> dict[str, Any]:
-        document, output_dir = self._child(parent_run_id, "human")
+        (document, output_dir) = self._child(parent_run_id, "human")
         task = next(
             (item for item in document.review_tasks if item.task_id == task_id), None
         )
@@ -95,8 +96,6 @@ class DocumentIrRevisionService:
             self._record_human_action(
                 document, request, target_type="review_task", target_id=task_id
             )
-            # Keep the unresolved task and failed patches truthful. This action
-            # publishes a revision with bounded evidence availability, not approval.
             document.quality_report.setdefault(
                 "limited_continuation_requests", []
             ).append(
@@ -121,17 +120,9 @@ class DocumentIrRevisionService:
             }:
                 raise ValueError(f"Optional review task is not open: {task.status}")
             self._record_human_action(
-                document,
-                request,
-                target_type="review_task",
-                target_id=task_id,
+                document, request, target_type="review_task", target_id=task_id
             )
-            self._resolve_human_task(
-                document,
-                task,
-                request,
-                accepted_patch_ids=[],
-            )
+            self._resolve_human_task(document, task, request, accepted_patch_ids=[])
             return self._finalize(document, output_dir, rebuild=False)
         if task.status != "human_required":
             raise ValueError(
@@ -162,9 +153,7 @@ class DocumentIrRevisionService:
             patches = [patch]
             if operation == "confirm_spread":
                 inferred = AgentReviewOrchestrator._unique_spread_link_proposal(
-                    document,
-                    task,
-                    confidence=1.0,
+                    document, task, confidence=1.0
                 )
                 if inferred is not None:
                     link_patch = AtomicPatch(
@@ -253,7 +242,7 @@ class DocumentIrRevisionService:
             4,
             "Loading parent and creating immutable repair revision",
         )
-        document, output_dir = self._child(
+        (document, output_dir) = self._child(
             request.parent_ir_run_id, "repair", requested_run_id=run_id
         )
         self._stage(telemetry, log, 2, 4, "Compiling targeted repair plans")
@@ -277,11 +266,10 @@ class DocumentIrRevisionService:
             if page_index is None:
                 raise ValueError(f"Repair target has no page scope: {target_id}")
             grouped.setdefault(int(page_index), []).append((target_id, target))
-
         review_counter = self._next_review_sequence(document)
         for page_index, page_targets in grouped.items():
             page = next(
-                item for item in document.pages if item.page_index == page_index
+                (item for item in document.pages if item.page_index == page_index)
             )
             task_id = f"review-{review_counter:06d}"
             review_counter += 1
@@ -293,7 +281,7 @@ class DocumentIrRevisionService:
                     bbox=getattr(target, "bbox", None),
                     blocking=True,
                 )
-                for target_id, target in page_targets
+                for (target_id, target) in page_targets
             ]
             refs = [page.page_image_path, page.markdown_path]
             for _, target in page_targets:
@@ -353,7 +341,7 @@ class DocumentIrRevisionService:
                 scope=scopes,
                 reason_codes=[request.reason_code],
                 prompt_intent="Re-open only the requested Document IR targets and repair them against the source page.",
-                input_refs=list(dict.fromkeys(ref for ref in refs if ref)),
+                input_refs=list(dict.fromkeys((ref for ref in refs if ref))),
             )
             ReviewPlanCompiler().compile(document, task)
             document.review_tasks.append(task)
@@ -361,7 +349,6 @@ class DocumentIrRevisionService:
             for _, target in page_targets:
                 if hasattr(target, "review_task_ids"):
                     target.review_task_ids.append(task_id)
-
         document.metadata.source_artifacts["repair_request"] = {
             "parent_ir_run_id": request.parent_ir_run_id,
             "target_ids": request.target_ids,
@@ -405,7 +392,7 @@ class DocumentIrRevisionService:
             document,
             output_dir,
             rebuild=any(
-                patch.status == "accepted" for patch in document.atomic_patches
+                (patch.status == "accepted" for patch in document.atomic_patches)
             ),
         )
 
@@ -421,19 +408,18 @@ class DocumentIrRevisionService:
         self._stage(
             telemetry, log, 1, 3, "Loading parent and selecting unresolved review tasks"
         )
-        document, output_dir = self._child(
+        (document, output_dir) = self._child(
             parent_run_id, "review-retry", requested_run_id=run_id
         )
         unresolved_statuses = {"pending", "queued", "deferred", "failed", "skipped"}
-        # Older immutable revisions retain the retryability decision made by a
-        # previous transaction compiler. Re-evaluate this known compiler failure
-        # in the child revision before selecting work to resume.
         for task in document.review_tasks:
             if (
                 task.status in unresolved_statuses
                 and task.failure_class == "system_contract"
-                and (task.result or {}).get("reason")
-                == "required_review_targets_incomplete_after_guard_confirmation"
+                and (
+                    (task.result or {}).get("reason")
+                    == "required_review_targets_incomplete_after_guard_confirmation"
+                )
             ):
                 task.retryable = True
         unresolved = [
@@ -453,7 +439,6 @@ class DocumentIrRevisionService:
             ]
         if not selected:
             raise ValueError("No unresolved review tasks match the retry request")
-
         selected_ids = [task.task_id for task in selected]
         before_state = {
             task.task_id: {
@@ -507,21 +492,25 @@ class DocumentIrRevisionService:
                 failure_categories.get(call.failure_category, 0) + 1
             )
         resolved_count = sum(
-            1 for task in selected_after if task.status in resolved_statuses
+            (1 for task in selected_after if task.status in resolved_statuses)
         )
         remaining_count = len(selected_after) - resolved_count
         checkpoint_resumed_count = sum(
-            1
-            for task in selected_after
-            if task.verifier_call_count
-            > int(before_state[task.task_id]["verifier_call_count"])
-            and task.reviewer_call_count
-            == int(before_state[task.task_id]["reviewer_call_count"])
+            (
+                1
+                for task in selected_after
+                if task.verifier_call_count
+                > int(before_state[task.task_id]["verifier_call_count"])
+                and task.reviewer_call_count
+                == int(before_state[task.task_id]["reviewer_call_count"])
+            )
         )
         provider_short_circuited_count = sum(
-            1
-            for task in selected_after
-            if bool((task.result or {}).get("short_circuited"))
+            (
+                1
+                for task in selected_after
+                if bool((task.result or {}).get("short_circuited"))
+            )
         )
         provider_limit_triggered = bool(
             (document.quality_report.get("provider_rate_limit") or {}).get(
@@ -537,14 +526,18 @@ class DocumentIrRevisionService:
             "resolved_count": resolved_count,
             "remaining_count": remaining_count,
             "blocking_remaining_count": sum(
-                1
-                for task in selected_after
-                if task.blocking and task.status not in resolved_statuses
+                (
+                    1
+                    for task in selected_after
+                    if task.blocking and task.status not in resolved_statuses
+                )
             ),
             "optional_remaining_count": sum(
-                1
-                for task in selected_after
-                if not task.blocking and task.status not in resolved_statuses
+                (
+                    1
+                    for task in selected_after
+                    if not task.blocking and task.status not in resolved_statuses
+                )
             ),
             "new_model_call_count": len(new_model_calls),
             "new_model_call_failure_categories": failure_categories,
@@ -572,8 +565,10 @@ class DocumentIrRevisionService:
             document,
             output_dir,
             rebuild=any(
-                patch.status == "accepted" and patch.source_task_id in selected_ids
-                for patch in document.atomic_patches
+                (
+                    patch.status == "accepted" and patch.source_task_id in selected_ids
+                    for patch in document.atomic_patches
+                )
             ),
         )
         manifest["review_retry_result"] = retry_result
@@ -601,8 +596,7 @@ class DocumentIrRevisionService:
         reader = DocumentIrPackageReader(
             parent_dir, ocr_output_root=self.settings.output_root
         )
-        if reader.is_package_v1:
-            reader.validate_integrity().require_valid()
+        reader.validate_integrity().require_valid()
         document = reader.load_document(hydrate_local_paths=True)
         revision = DocumentIrVersionManager(
             self.settings.document_ir_output_root
@@ -618,19 +612,16 @@ class DocumentIrRevisionService:
         require_run_id(run_id, "ir")
         output_dir = package_dir(self.settings.document_ir_output_root, run_id)
         create_package_root(output_dir)
-        if reader.is_package_v1:
-            for relative in (
-                "artifacts/page-images",
-                "artifacts/crops",
-                "artifacts/spreads",
-            ):
-                source = parent_dir / relative
-                if source.exists():
-                    shutil.copytree(
-                        source, output_dir / relative, copy_function=copy_on_write
-                    )
-        else:
-            self._copy_legacy_visual_artifacts(document, parent_dir, output_dir)
+        for relative in (
+            "artifacts/page-images",
+            "artifacts/crops",
+            "artifacts/spreads",
+        ):
+            source = parent_dir / relative
+            if source.exists():
+                shutil.copytree(
+                    source, output_dir / relative, copy_function=copy_on_write
+                )
         document.metadata.run_id = run_id
         document.metadata.document_id = revision.document_id
         document.metadata.lineage_id = revision.lineage_id
@@ -645,13 +636,8 @@ class DocumentIrRevisionService:
         }
         document.readiness = "building"
         document.validation_report = ValidationReport()
-        self._rewrite_materialized_paths(
-            document,
-            parent_dir,
-            output_dir,
-            legacy_layout=not reader.is_package_v1,
-        )
-        return document, output_dir
+        self._rewrite_materialized_paths(document, parent_dir, output_dir)
+        return (document, output_dir)
 
     def _finalize(
         self, document: DocumentIR, output_dir: Path, *, rebuild: bool
@@ -693,7 +679,7 @@ class DocumentIrRevisionService:
             for patch in document.atomic_patches
             if patch.source_task_id == task_id
         ]
-        if any(patch.status == "human_required" for patch in task_patches):
+        if any((patch.status == "human_required" for patch in task_patches)):
             return
         accepted = [
             patch.patch_id for patch in task_patches if patch.status == "accepted"
@@ -714,8 +700,7 @@ class DocumentIrRevisionService:
     ) -> None:
         decision = FinalReviewDecision(
             decision_id=sequential_id(
-                "decision",
-                (item.decision_id for item in document.final_decisions),
+                "decision", (item.decision_id for item in document.final_decisions)
             ),
             task_id=task.task_id,
             outcome="human_resolved",
@@ -781,19 +766,8 @@ class DocumentIrRevisionService:
 
     @staticmethod
     def _rewrite_materialized_paths(
-        document: DocumentIR,
-        parent_dir: Path,
-        output_dir: Path,
-        *,
-        legacy_layout: bool,
+        document: DocumentIR, parent_dir: Path, output_dir: Path
     ) -> None:
-        table_ids = {item.table_id for item in document.tables}
-        legacy_page_indices = {
-            Path(page.page_image_path).name: page.page_index
-            for page in document.pages
-            if page.page_image_path
-        }
-
         def relocate(value: str) -> str:
             if "://" in value:
                 return value
@@ -801,18 +775,6 @@ class DocumentIrRevisionService:
                 relative = Path(value).resolve().relative_to(parent_dir.resolve())
             except (OSError, ValueError):
                 return value
-            if legacy_layout and relative.parts:
-                if relative.parts[0] == "page_images":
-                    page_index = legacy_page_indices.get(relative.name)
-                    filename = (
-                        f"{page_stem(page_index)}{relative.suffix.lower()}"
-                        if page_index is not None
-                        else relative.name
-                    )
-                    relative = Path("artifacts/page-images", filename)
-                elif relative.parts[0] == "crops":
-                    kind = "tables" if relative.stem in table_ids else "figures"
-                    relative = Path("artifacts/crops", kind, *relative.parts[1:])
             return str(output_dir / relative)
 
         for page in document.pages:
@@ -822,33 +784,6 @@ class DocumentIrRevisionService:
             artifact.path = relocate(artifact.path)
         for task in document.review_tasks:
             task.input_refs = [relocate(ref) for ref in task.input_refs]
-
-    @staticmethod
-    def _copy_legacy_visual_artifacts(
-        document: DocumentIR, parent_dir: Path, output_dir: Path
-    ) -> None:
-        page_images = parent_dir / "page_images"
-        if page_images.exists():
-            target = output_dir / "artifacts" / "page-images"
-            target.mkdir(parents=True, exist_ok=True)
-            source_by_name = {
-                item.name: item for item in page_images.iterdir() if item.is_file()
-            }
-            for page in document.pages:
-                source = source_by_name.get(Path(page.page_image_path or "").name)
-                if source:
-                    copy_on_write(
-                        source,
-                        target / f"{page_stem(page.page_index)}{source.suffix.lower()}",
-                    )
-        crops = parent_dir / "crops"
-        if crops.exists():
-            table_ids = {item.table_id for item in document.tables}
-            for source in crops.glob("*.png"):
-                kind = "tables" if source.stem in table_ids else "figures"
-                target = output_dir / "artifacts" / "crops" / kind / source.name
-                target.parent.mkdir(parents=True, exist_ok=True)
-                copy_on_write(source, target)
 
     @staticmethod
     def _next_review_sequence(document: DocumentIR) -> int:
@@ -864,7 +799,7 @@ class DocumentIrRevisionService:
             return "page"
         if hasattr(target, "block_id"):
             return "block"
-        if hasattr(target, "table_id") and not hasattr(target, "cell_id"):
+        if hasattr(target, "table_id") and (not hasattr(target, "cell_id")):
             return "table"
         if hasattr(target, "figure_id"):
             return "figure"

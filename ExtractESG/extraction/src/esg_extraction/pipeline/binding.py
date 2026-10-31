@@ -95,6 +95,9 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 cell.source_object_id or cell.cell_id,
                 cell.char_start or 0,
             )
+    if row:
+        for cell in row.cells:
+            sources[row.row_id + "." + cell.column_id] = sources[cell.cell_id]
     fields = {}
     dimensions = {}
     flags = []

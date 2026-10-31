@@ -17,6 +17,7 @@ from .binding import numeric_fact, qualitative_fact
 from .structure import period_columns, column_structure, period_coverage
 from .retrieval import retrieve_candidates
 from .frames import split_frame
+from .reading_frame import reading_frame
 from .ports import DocumentPort, ModelPort, ArtifactPort
 from .organization import build_organized_dataset
 
@@ -29,6 +30,7 @@ Select EVERY relevant row, not one example. Each selected row must use its exact
 Read ALL reported periods in each selected row, including historical years. The report's primary year never filters measurements. physical_structure lists observed columns and ambiguities; it is not a selected-year instruction. Columns with different entities, methods or roles remain separate. Use column_identity for column-specific overrides; row identity must not overwrite those differences.
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
 Place shared frame identity in the top-level identity list ONCE; put only supported row-specific overrides in each match. Omit unsupported axes entirely; do not enumerate missing fields. An empty identity list is valid. Keep each reason to one short phrase.
+Use the short source IDs actually shown: a row label_source_id, a column source_id, a cell_id, or an object_id in texts/title_sources. Never cite a numeric cell for a header quote. Put column-specific identities in column_identity; a row identity must be true for every selected column.
 State supported identity axes as value + exact quote + source_id. Useful axes are reporting_period,
 reporting_entity (literal company name), entity_aggregation_role (group/subsidiary/site/segment), reporting_boundary,
 measurement_method, value_role (actual/target/baseline/context), aggregation_role (total/subtotal/member/share/intensity),
@@ -227,21 +229,10 @@ class ExtractionBackbone:
                         context = {
                             "target": clause.reading_card(),
                             "document": document.model_dump(mode="json"),
-                            "frame": frame_body,
+                            "frame": reading_frame(frame),
                             "execution": {"run_id": run_id, "task_type": "clause_" + clause.data_kind,
                                 "evidence_ids": [frame.object_id], "attempt": attempt, "parent_task_id": f"{run_id}/calls/{parent_call}" if parent_call else None, "remaining_seconds": max(0.001, budget.timeout_seconds - (time.monotonic() - started))},
                         }
-                        if clause.data_kind == "quantitative":
-                            # Cells already occur in rows and explicit header/label sources.
-                            # Do not ask the model to read a second copy of every cell.
-                            context["frame"] = {
-                                **frame_body,
-                                "texts": [
-                                    t
-                                    for t in frame_body["texts"]
-                                    if t["object_type"] != "cell"
-                                ],
-                            }
                         structure = column_structure(frame) if clause.data_kind == "quantitative" else None
                         decided_columns = period_columns(frame) if structure else None
                         if structure:

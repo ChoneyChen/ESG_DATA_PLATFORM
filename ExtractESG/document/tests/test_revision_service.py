@@ -52,29 +52,12 @@ def test_child_visual_rebuild_cannot_change_parent_revision_assets(tmp_path: Pat
     DocumentIrPackageReader(parent_dir, ocr_output_root=settings.output_root).validate_integrity().require_valid()
 
 
-def test_legacy_visual_copy_uses_the_same_independent_asset_helper(tmp_path: Path, monkeypatch) -> None:
-    import esg_document.document.revision_service as revisions
-
-    parent, child = tmp_path / "parent", tmp_path / "child"
-    (parent / "page_images").mkdir(parents=True)
-    (parent / "crops").mkdir()
-    (parent / "page_images" / "original.png").write_bytes(b"parent page")
-    (parent / "crops" / "table-1.png").write_bytes(b"parent crop")
-    document = SimpleNamespace(pages=[SimpleNamespace(page_index=2, page_image_path="original.png")],
-                               tables=[SimpleNamespace(table_id="table-1")])
-    copied = []
-    copy = revisions.copy_on_write
-    def tracked_copy(source, target):
-        copied.append((source, target))
-        return copy(source, target)
-    monkeypatch.setattr(revisions, "copy_on_write", tracked_copy)
-    DocumentIrRevisionService._copy_legacy_visual_artifacts(document, parent, child)
-    assert len(copied) == 2
-    for original, target in copied:
-        content = original.read_bytes()
-        assert target.read_bytes() == content
-        target.write_bytes(b"changed child")
-        assert original.read_bytes() == content
+@pytest.mark.parametrize("version",[f"document-ir-v0.{minor}" for minor in range(2,12)])
+def test_retired_document_schemas_are_not_valid_current_revision_inputs(tmp_path, version):
+    document=_document(tmp_path)
+    body=document.model_dump(mode="json");body["schema_version"]=version
+    with pytest.raises(ValueError):
+        type(document).model_validate(body)
 
 
 def _settings(tmp_path: Path) -> Settings:
@@ -403,46 +386,11 @@ def test_resume_reviews_defaults_to_blocking_tasks_only(tmp_path: Path, monkeypa
     assert selected == ["review-1"]
 
 
-def test_legacy_revision_relocates_page_images_into_package_v1_paths(tmp_path: Path) -> None:
-    settings = _settings(tmp_path)
-    document = _document(tmp_path)
-    parent_run_id = "ir-parent-legacy"
-    parent_dir = settings.document_ir_output_root / parent_run_id
-    page_dir = parent_dir / "page_images"
-    page_dir.mkdir(parents=True)
-    source = Path(document.pages[0].page_image_path)
-    legacy_page = page_dir / "page_0001.png"
-    shutil.copy2(source, legacy_page)
-    document.metadata.run_id = parent_run_id
-    document.pages[0].page_image_path = str(legacy_page)
-    document.artifacts = [
-        ArtifactRef(
-            artifact_id="artifact-page-image-0001",
-            kind="page_image",
-            path=str(legacy_page),
-            media_type="image/png",
-            page_index=0,
-            sha256=sha256_file(legacy_page),
-        )
-    ]
-    (parent_dir / "manifest.json").write_text(
-        json.dumps({"run_id": parent_run_id, "ocr_run_id": "ocr-test", "ir_revision": 1}),
-        encoding="utf-8",
-    )
-    (parent_dir / "document_ir.json").write_text(document.model_dump_json(indent=2), encoding="utf-8")
-
-    manifest = DocumentIrRevisionService(settings).repair(
-        DocumentIrRepairRequest(
-            parent_ir_run_id=parent_run_id,
-            target_ids=["block-1"],
-            reason_code="legacy_migration_check",
-            requested_by="tester",
-            execute_vlm_reviews=False,
-        )
-    )
-
-    child_dir = settings.document_ir_output_root / manifest["run_id"]
-    child = DocumentIrPackageReader(child_dir, ocr_output_root=settings.output_root).load_document()
-    assert child.pages[0].page_image_path == "artifacts/page-images/page-0001.png"
-    assert child.artifacts[0].path == "artifacts/page-images/page-0001.png"
-    assert (child_dir / "artifacts" / "page-images" / "page-0001.png").exists()
+def test_revision_does_not_adopt_or_copy_a_retired_snapshot_layout(tmp_path):
+    settings=_settings(tmp_path)
+    parent=settings.document_ir_output_root/PARENT_RUN_ID;parent.mkdir(parents=True)
+    (parent/"manifest.json").write_text(json.dumps({"run_id":PARENT_RUN_ID,"schema_version":"document-ir-v0.12"}))
+    (parent/"document_ir.json").write_text("{}")
+    with pytest.raises(ValueError,match="current"):
+        DocumentIrRevisionService(settings)._child(PARENT_RUN_ID,"repair")
+    assert list(settings.document_ir_output_root.iterdir())==[parent]

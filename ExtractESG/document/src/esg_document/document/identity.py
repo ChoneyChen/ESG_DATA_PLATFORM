@@ -11,7 +11,7 @@ from esg_document.utils.hashing import sha256_file
 
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 DOCUMENT_ID_PATTERN = re.compile(
-    r"^(?:doc-sha256-[0-9a-f]{64}|doc-legacy-[0-9a-f]{24})$"
+    r"^(?:doc-sha256-[0-9a-f]{64}|doc-artifact-[0-9a-f]{24})$"
 )
 LINEAGE_ID_PATTERN = re.compile(r"^irl-[0-9a-f]{24}$")
 
@@ -35,9 +35,9 @@ def document_id_from_sha256(value: str) -> str:
     return f"doc-sha256-{digest}"
 
 
-def legacy_document_id(stable_key: str) -> str:
+def artifact_document_id(stable_key: str) -> str:
     digest = hashlib.sha256(stable_key.encode("utf-8")).hexdigest()[:24]
-    return f"doc-legacy-{digest}"
+    return f"doc-artifact-{digest}"
 
 
 def lineage_id_from_root_run(root_ir_run_id: str) -> str:
@@ -73,7 +73,7 @@ def resolve_document_identity(
     document_id = (
         document_id_from_sha256(source_sha)
         if source_sha
-        else legacy_document_id(ocr_run_id)
+        else artifact_document_id(ocr_run_id)
     )
     return ResolvedDocumentIdentity(document_id, display_name, source_sha)
 
@@ -84,7 +84,7 @@ def ensure_metadata_identity(metadata: Any) -> None:
         metadata.document_id = (
             document_id_from_sha256(source_sha)
             if source_sha
-            else legacy_document_id(str(getattr(metadata, "ocr_run_id", "unknown")))
+            else artifact_document_id(str(getattr(metadata, "ocr_run_id", "unknown")))
         )
     if not getattr(metadata, "document_label", None):
         source_path = getattr(metadata, "source_pdf_path", None)
@@ -110,7 +110,7 @@ def manifest_document_id(manifest: dict[str, Any]) -> str:
     source_sha = normalize_sha256(source.get("pdf_sha256") or source.get("sha256"))
     if source_sha:
         return document_id_from_sha256(source_sha)
-    return legacy_document_id(
+    return artifact_document_id(
         str(manifest.get("ocr_run_id") or manifest.get("run_id") or "unknown")
     )
 

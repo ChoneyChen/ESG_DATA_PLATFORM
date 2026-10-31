@@ -1,9 +1,7 @@
 from __future__ import annotations
-
 import json
 from pathlib import Path
 from typing import Any
-
 from esg_document.document.convergence_engine import ConvergenceEngine
 from esg_document.document.contracts import DocumentIR
 from esg_document.document.evidence_capabilities import table_location_capabilities
@@ -19,6 +17,7 @@ from esg_document.storage.package_validator import (
 
 
 class DocumentIrPackageReader:
+
     def __init__(self, root: Path, *, ocr_output_root: Path | None = None):
         self.root = root
         self.ocr_output_root = ocr_output_root
@@ -28,14 +27,17 @@ class DocumentIrPackageReader:
                 f"Document IR manifest not found: {self.manifest_path}"
             )
         self.manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
-        self.is_package_v1 = (
-            self.manifest.get("package_schema_version") == "document-ir-package-v1"
-        )
+        if (
+            self.manifest.get("package_schema_version") != "document-ir-package-v1"
+            or self.manifest.get("schema_version") != "document-ir-v0.12"
+        ):
+            raise ValueError(
+                "Only the current Document IR package and schema are supported"
+            )
         self._page_rows: list[dict[str, Any]] | None = None
         self._table_rows: list[dict[str, Any]] | None = None
         self._page_payloads: dict[int, dict[str, Any]] = {}
         self._coordinate_rows: dict[str, dict[str, Any]] | None = None
-        self._legacy_document: DocumentIR | None = None
         self._availability = {
             row["object_id"]: row.get("capabilities") or {}
             for row in (self.manifest.get("evidence_policy") or {}).get(
@@ -44,10 +46,6 @@ class DocumentIrPackageReader:
         }
 
     def validate_integrity(self) -> PackageValidationResult:
-        if not self.is_package_v1:
-            raise ValueError(
-                "Package integrity validation is available only for document-ir-package-v1"
-            )
         required_entrypoints = {
             "canonical_document",
             "pages",
@@ -63,25 +61,7 @@ class DocumentIrPackageReader:
             "integrity",
             "snapshot_export",
         }
-        if self.manifest.get("schema_version") in {
-            "document-ir-v0.6",
-            "document-ir-v0.7",
-            "document-ir-v0.8",
-            "document-ir-v0.9",
-            "document-ir-v0.10",
-            "document-ir-v0.11",
-            "document-ir-v0.12",
-        }:
-            required_entrypoints.add("spreads")
-        if self.manifest.get("schema_version") in {
-            "document-ir-v0.7",
-            "document-ir-v0.8",
-            "document-ir-v0.9",
-            "document-ir-v0.10",
-            "document-ir-v0.11",
-            "document-ir-v0.12",
-        }:
-            required_entrypoints.add("logical_tables")
+        required_entrypoints.update({"spreads", "logical_tables"})
         return validate_package(
             self.root,
             expected_type="document-ir-revision",
@@ -89,17 +69,15 @@ class DocumentIrPackageReader:
             required_entrypoints=required_entrypoints,
         )
 
-    def entrypoint(self, key: str, legacy: str | None = None) -> Path:
+    def entrypoint(self, key: str) -> Path:
         entrypoints = self.manifest.get("entrypoints") or {}
         relative = entrypoints.get(key) if isinstance(entrypoints, dict) else None
         if relative:
             return resolve_package_path(self.root, str(relative))
-        if legacy:
-            return resolve_package_path(self.root, legacy)
         raise KeyError(f"Document IR entrypoint not declared: {key}")
 
-    def read_json(self, key: str, legacy: str | None = None) -> Any:
-        path = self.entrypoint(key, legacy)
+    def read_json(self, key: str) -> Any:
+        path = self.entrypoint(key)
         if not path.exists():
             raise FileNotFoundError(path)
         return json.loads(path.read_text(encoding="utf-8"))
@@ -108,7 +86,7 @@ class DocumentIrPackageReader:
         return read_jsonl(resolve_package_path(self.root, relative))
 
     def load_document(self, *, hydrate_local_paths: bool = False) -> DocumentIR:
-        path = self.entrypoint("snapshot_export", "document_ir.json")
+        path = self.entrypoint("snapshot_export")
         document = DocumentIR.model_validate_json(path.read_text(encoding="utf-8"))
         if hydrate_local_paths:
             self._hydrate_local_paths(document)
@@ -116,14 +94,7 @@ class DocumentIrPackageReader:
 
     def list_pages(self) -> list[dict[str, Any]]:
         if self._page_rows is None:
-            self._page_rows = (
-                list(self.read_json("pages").get("pages") or [])
-                if self.is_package_v1
-                else [
-                    item.model_dump(mode="json")
-                    for item in self._legacy_snapshot().pages
-                ]
-            )
+            self._page_rows = list(self.read_json("pages").get("pages") or [])
         return self._page_rows
 
     def page(self, page_index: int) -> dict[str, Any]:
@@ -135,12 +106,6 @@ class DocumentIrPackageReader:
             payload["page"] = page
         else:
             payload.update(page)
-        if not self.is_package_v1:
-            payload["tables"] = [
-                self._project_table(table, page)
-                for table in payload.get("tables") or []
-            ]
-            return payload
         layout_path = (
             self.root
             / "observations"
@@ -174,14 +139,7 @@ class DocumentIrPackageReader:
 
     def list_tables(self) -> list[dict[str, Any]]:
         if self._table_rows is None:
-            self._table_rows = (
-                list(self.read_json("tables").get("tables") or [])
-                if self.is_package_v1
-                else [
-                    item.model_dump(mode="json")
-                    for item in self._legacy_snapshot().tables
-                ]
-            )
+            self._table_rows = list(self.read_json("tables").get("tables") or [])
         return self._table_rows
 
     def tables(self) -> list[dict[str, Any]]:
@@ -189,20 +147,13 @@ class DocumentIrPackageReader:
         return [self.table(str(row["table_id"])) for row in self.list_tables()]
 
     def table(self, table_id: str) -> dict[str, Any]:
-        if not self.is_package_v1:
-            payload = self._read_legacy_json(f"tables/{Path(table_id).name}.json")
-        else:
-            row = next(
-                (
-                    item
-                    for item in self.list_tables()
-                    if item.get("table_id") == table_id
-                ),
-                None,
-            )
-            if not row:
-                raise FileNotFoundError(f"Table not found: {table_id}")
-            payload = self._read_relative(str(row["path"]))
+        row = next(
+            (item for item in self.list_tables() if item.get("table_id") == table_id),
+            None,
+        )
+        if not row:
+            raise FileNotFoundError(f"Table not found: {table_id}")
+        payload = self._read_relative(str(row["path"]))
         page_index = payload.get("page_index")
         try:
             page = (
@@ -211,32 +162,22 @@ class DocumentIrPackageReader:
                 else None
             )
         except FileNotFoundError:
-            page = None  # Logical content survives; missing page geometry cannot qualify an overlay.
+            page = None
         return self._project_table(payload, page)
-
-    def _legacy_snapshot(self) -> DocumentIR:
-        if self._legacy_document is None:
-            self._legacy_document = self.load_document()
-        return self._legacy_document
 
     def _raw_page(self, page_index: int) -> dict[str, Any]:
         if page_index not in self._page_payloads:
-            if not self.is_package_v1:
-                payload = self._read_legacy_json(
-                    f"pages/page_{page_index + 1:04d}.json"
-                )
-            else:
-                row = next(
-                    (
-                        item
-                        for item in self.list_pages()
-                        if item.get("page_index") == page_index
-                    ),
-                    None,
-                )
-                if not row:
-                    raise FileNotFoundError(f"Page not found: {page_index}")
-                payload = self._read_relative(str(row["path"]))
+            row = next(
+                (
+                    item
+                    for item in self.list_pages()
+                    if item.get("page_index") == page_index
+                ),
+                None,
+            )
+            if not row:
+                raise FileNotFoundError(f"Page not found: {page_index}")
+            payload = self._read_relative(str(row["path"]))
             self._page_payloads[page_index] = payload
         return self._page_payloads[page_index]
 
@@ -246,11 +187,6 @@ class DocumentIrPackageReader:
                 rows = (
                     self.read_json("coordinate_systems").get("coordinate_systems") or []
                 )
-            elif not self.is_package_v1:
-                rows = [
-                    c.model_dump(mode="json")
-                    for c in self._legacy_snapshot().coordinate_systems
-                ]
             else:
                 rows = []
             self._coordinate_rows = {row["coordinate_system_id"]: row for row in rows}
@@ -282,17 +218,23 @@ class DocumentIrPackageReader:
         base.setdefault(
             "cell_grid",
             bool(table.get("cells"))
-            and not blocked
-            and not excluded
-            and table.get("table_id") not in (policy.get("excluded_target_ids") or []),
+            and (not blocked)
+            and (not excluded)
+            and (
+                table.get("table_id") not in (policy.get("excluded_target_ids") or [])
+            ),
         )
-        base.setdefault("page_image", not blocked and not excluded)
-        base["cell_grid"] = base["cell_grid"] is True and not blocked and not excluded
-        base["page_image"] = base["page_image"] is True and not blocked and not excluded
+        base.setdefault("page_image", not blocked and (not excluded))
+        base["cell_grid"] = (
+            base["cell_grid"] is True and (not blocked) and (not excluded)
+        )
+        base["page_image"] = (
+            base["page_image"] is True and (not blocked) and (not excluded)
+        )
         reference_available = (
             bool(page)
             and page.get("page_index") == table.get("page_index")
-            and base["cell_grid"] is True
+            and (base["cell_grid"] is True)
         )
         base["source_reference"] = (
             base.get("source_reference", reference_available) is True
@@ -302,11 +244,11 @@ class DocumentIrPackageReader:
             table,
             page,
             cell_grid_available=base["cell_grid"] is True
-            and not blocked
-            and not excluded,
+            and (not blocked)
+            and (not excluded),
             page_image_available=base["page_image"] is True
-            and not blocked
-            and not excluded,
+            and (not blocked)
+            and (not excluded),
             coordinate_systems=self._coordinate_systems(),
         )
         base.update({key: geometry[key] for key in ("cell_geometry", "table_region")})
@@ -317,29 +259,18 @@ class DocumentIrPackageReader:
         table["geometry_coverage"] = geometry["geometry_coverage"]
         table["cells"] = [
             dict(cell, location_capabilities=capabilities)
-            for cell, capabilities in zip(
+            for (cell, capabilities) in zip(
                 payload.get("cells") or [], geometry["cells"], strict=True
             )
         ]
         return table
 
     def list_logical_tables(self) -> list[dict[str, Any]]:
-        if not self.is_package_v1:
-            return [
-                item.model_dump(mode="json")
-                for item in self.load_document().logical_tables
-            ]
         if "logical_tables" not in (self.manifest.get("entrypoints") or {}):
             return []
         return list(self.read_json("logical_tables").get("logical_tables") or [])
 
     def logical_table(self, logical_table_id: str) -> dict[str, Any]:
-        if not self.is_package_v1:
-            return next(
-                item.model_dump(mode="json")
-                for item in self.load_document().logical_tables
-                if item.logical_table_id == logical_table_id
-            )
         row = next(
             (
                 item
@@ -353,15 +284,9 @@ class DocumentIrPackageReader:
         return self._read_relative(str(row["path"]))
 
     def list_figures(self) -> list[dict[str, Any]]:
-        if not self.is_package_v1:
-            return [
-                item.model_dump(mode="json") for item in self.load_document().figures
-            ]
         return list(self.read_json("figures").get("figures") or [])
 
     def figure(self, figure_id: str) -> dict[str, Any]:
-        if not self.is_package_v1:
-            return self._read_legacy_json(f"figures/{Path(figure_id).name}.json")
         row = next(
             (
                 item
@@ -375,21 +300,11 @@ class DocumentIrPackageReader:
         return self._read_relative(str(row["path"]))
 
     def list_spreads(self) -> list[dict[str, Any]]:
-        if not self.is_package_v1:
-            return [
-                item.model_dump(mode="json") for item in self.load_document().spreads
-            ]
         if "spreads" not in (self.manifest.get("entrypoints") or {}):
             return []
         return list(self.read_json("spreads").get("spreads") or [])
 
     def spread(self, spread_id: str) -> dict[str, Any]:
-        if not self.is_package_v1:
-            return next(
-                item.model_dump(mode="json")
-                for item in self.load_document().spreads
-                if item.spread_id == spread_id
-            )
         row = next(
             (
                 item
@@ -403,8 +318,6 @@ class DocumentIrPackageReader:
         return self._read_relative(str(row["path"]))
 
     def review_tasks(self) -> list[dict[str, Any]]:
-        if not self.is_package_v1:
-            return self._read_legacy_json("review_tasks.json")
         index = self.read_json("review")
         return [
             self._read_relative(str(row["path"]))["task"]
@@ -412,8 +325,6 @@ class DocumentIrPackageReader:
         ]
 
     def review_task_bundle(self, task_id: str) -> dict[str, Any]:
-        if not self.is_package_v1:
-            return self._read_legacy_json(f"reviews/{Path(task_id).name}.json")
         index = self.read_json("review")
         row = next(
             (
@@ -490,7 +401,7 @@ class DocumentIrPackageReader:
         return {
             "schema_version": "document-ir-human-review-inbox-v1",
             "counts": {
-                **{key: len(value) for key, value in groups.items()},
+                **{key: len(value) for (key, value) in groups.items()},
                 "validation_blocked": len(validation_issues),
             },
             "groups": groups,
@@ -499,7 +410,6 @@ class DocumentIrPackageReader:
 
     def unresolved_review_worklist(self) -> dict[str, Any]:
         """Return compact current work without loading resolved visual/audit bundles."""
-
         entries: list[dict[str, Any]] = []
         counts = {
             "human_required": 0,
@@ -532,7 +442,7 @@ class DocumentIrPackageReader:
         }
 
     def _unresolved_validation_issues(self) -> list[dict[str, Any]]:
-        report = self.read_json("validation_report", "quality/validation-report.json")
+        report = self.read_json("validation_report")
         open_task_targets = {
             task.get("target_id")
             for task in self.review_tasks()
@@ -542,8 +452,8 @@ class DocumentIrPackageReader:
         for issue in report.get("issues") or []:
             if issue.get("severity") not in {"error", "blocking"}:
                 continue
-            if issue.get("code") == "table_geometry_incomplete" and not issue.get(
-                "target_id"
+            if issue.get("code") == "table_geometry_incomplete" and (
+                not issue.get("target_id")
             ):
                 for row in self.list_tables():
                     table = self.table(str(row["table_id"]))
@@ -593,20 +503,6 @@ class DocumentIrPackageReader:
         ) == "required_review_targets_incomplete_after_guard_confirmation"
 
     def review_collection(self, name: str) -> list[dict[str, Any]]:
-        if not self.is_package_v1:
-            legacy = {
-                "model_calls": "model_calls.json",
-                "reviewer_results": "reviewer_results.json",
-                "guard_results": "guard_results.json",
-                "verifier_results": "verifier_results.json",
-                "atomic_patches": "atomic_patches.json",
-                "patch_transactions": "patch_transactions.json",
-                "correction_patches": "correction_patches.json",
-                "final_decisions": "final_decisions.json",
-                "conflict_groups": "conflict_groups.json",
-                "candidate_revisions": "candidate_revisions.json",
-            }
-            return self._read_legacy_json(legacy[name])
         index = self.read_json("review")
         collections = index.get("collections") or {}
         if name == "candidate_revisions":
@@ -633,9 +529,6 @@ class DocumentIrPackageReader:
             raise FileNotFoundError(path)
         return json.loads(path.read_text(encoding="utf-8"))
 
-    def _read_legacy_json(self, relative: str) -> Any:
-        return self._read_relative(relative)
-
     @staticmethod
     def _filter(
         rows: list[dict[str, Any]], key: str, values: list[str] | None
@@ -644,12 +537,13 @@ class DocumentIrPackageReader:
         return [row for row in rows if row.get(key) in wanted]
 
     def _hydrate_local_paths(self, document: DocumentIR) -> None:
+
         def hydrate(value: str | None) -> str | None:
             if not value:
                 return value
             if value.startswith("ocr-package://") and self.ocr_output_root:
                 suffix = value.removeprefix("ocr-package://")
-                run_id, _, relative = suffix.partition("/")
+                (run_id, _, relative) = suffix.partition("/")
                 return str(
                     resolve_package_path(
                         package_dir(self.ocr_output_root, run_id), relative
@@ -658,10 +552,9 @@ class DocumentIrPackageReader:
             if "://" in value:
                 return value
             if Path(value).is_absolute():
-                if self.is_package_v1:
-                    raise ValueError(
-                        f"Package v1 contains a non-portable absolute path: {value}"
-                    )
+                raise ValueError(
+                    f"Package v1 contains a non-portable absolute path: {value}"
+                )
                 return value
             return str(resolve_package_path(self.root, value))
 
@@ -824,8 +717,10 @@ class DocumentIrPackageReader:
                 failure_owner = derived_failure["failure_owner"]
                 retryable = derived_failure["retryable"]
         adapter_contract_mismatch = any(
-            bool((check.get("details") or {}).get("adapter_contract_mismatch"))
-            for check in failed_checks
+            (
+                bool((check.get("details") or {}).get("adapter_contract_mismatch"))
+                for check in failed_checks
+            )
         )
         if status == "human_required":
             failure_category = "semantic_decision"
@@ -849,7 +744,6 @@ class DocumentIrPackageReader:
             failure_category = "automation_replan"
         else:
             failure_category = None
-
         patches = bundle.get("patches") or []
         human_patches = [
             patch for patch in patches if patch.get("status") == "human_required"
@@ -870,7 +764,6 @@ class DocumentIrPackageReader:
             for patch in human_patches
             if patch.get("patch_id") not in passed_patch_ids
         ]
-
         if status == "human_required":
             if human_patches:
                 action = "只判断候选补丁是否与原页一致。拒绝补丁后，还要明确保留当前 IR 或发起定向修复。"
@@ -883,37 +776,29 @@ class DocumentIrPackageReader:
             "pending",
             "queued",
         }:
-            action = (
-                "这是非阻塞增强。要进入已解决，可运行视觉复核并通过 Guard/Verifier；"
-                "也可明确接受当前非关键状态，但这不等于确认候选关系真实存在。"
-            )
+            action = "这是非阻塞增强。要进入已解决，可运行视觉复核并通过 Guard/Verifier；也可明确接受当前非关键状态，但这不等于确认候选关系真实存在。"
         elif status in {"deferred", "failed", "skipped", "pending", "queued"}:
             if (
                 retryable
                 and failure_class == "system_contract"
-                and terminal_reason
-                == "required_review_targets_incomplete_after_guard_confirmation"
+                and (
+                    terminal_reason
+                    == "required_review_targets_incomplete_after_guard_confirmation"
+                )
             ):
                 action = "这是旧版跨页任务的已修复合同缺口。可直接为此项创建重跑子版本；父版本不会被改写。"
             elif not retryable and failure_class == "evidence_missing":
                 action = "不要重复调用模型。先补齐缺失的页图、拼接图或区域截图，再新建修复 revision。"
             elif not retryable and failure_class == "system_contract":
                 action = (
-                    "不要重复调用模型。模型已经给出可识别的图表别名；应由本地 ChartSpecNormalizer "
-                    "转换后重新执行 Guard。"
+                    "不要重复调用模型。模型已经给出可识别的图表别名；应由本地 ChartSpecNormalizer 转换后重新执行 Guard。"
                     if adapter_contract_mismatch
                     else "不要重复调用模型。先修复本地契约、作用域或原子应用错误，再重新路由该任务。"
                 )
             elif not retryable and failure_class == "repeated_failure":
-                action = (
-                    "同一任务、同一目标和同一操作语义的 Guard 失败已连续出现；"
-                    "继续点击重试不会解决。请查看具体失败条件后改变提案策略。"
-                )
+                action = "同一任务、同一目标和同一操作语义的 Guard 失败已连续出现；继续点击重试不会解决。请查看具体失败条件后改变提案策略。"
             elif failure_class == "model_protocol":
-                action = (
-                    "模型已经返回内容，但 JSON 或 Schema 尚未进入正式审核合同。系统应先执行无损"
-                    "适配器修复，再继续 Schema、Guard 和 Verifier；不要把它当成模型服务宕机。"
-                )
+                action = "模型已经返回内容，但 JSON 或 Schema 尚未进入正式审核合同。系统应先执行无损适配器修复，再继续 Schema、Guard 和 Verifier；不要把它当成模型服务宕机。"
             elif terminal_reason.startswith("qiniu_account_rate_limited"):
                 retry_after = int(float(provider_state.get("retry_after_seconds") or 0))
                 action = (
@@ -926,15 +811,11 @@ class DocumentIrPackageReader:
                     + "或改用具有独立额度的 API Key；现在重复点击不会解决。"
                 )
             elif resume_stage == "verifier_pending":
-                action = (
-                    "Reviewer 候选及 Patch Guard 检查点已经保留。下次自动重试会优先从独立 Verifier "
-                    "继续，不会重新阅读并生成同一候选。"
-                )
+                action = "Reviewer 候选及 Patch Guard 检查点已经保留。下次自动重试会优先从独立 Verifier 继续，不会重新阅读并生成同一候选。"
             else:
                 action = "这是可自动重试项，不要求人工判断内容。系统会切换模型或等待服务恢复后再试。"
         else:
             action = "该任务已有结论，可查看审计轨迹，无需再次操作。"
-
         if status == "human_required" and disagreements:
             why_human = "主复核模型与独立验证模型对同一份可读证据仍有实质分歧。"
         elif (
@@ -946,7 +827,6 @@ class DocumentIrPackageReader:
             why_human = "这是需要业务人员判断的语义歧义，不是模型服务或 JSON 格式故障。"
         else:
             why_human = "无需人工内容判断。"
-
         target_type = str(task.get("target_type") or "page")
         target_labels = {
             "page": "页面",
@@ -967,7 +847,7 @@ class DocumentIrPackageReader:
         transactions = bundle.get("patch_transactions") or []
         transaction_summary = {
             status_name: sum(
-                1 for item in transactions if item.get("status") == status_name
+                (1 for item in transactions if item.get("status") == status_name)
             )
             for status_name in (
                 "proposed",
@@ -1009,15 +889,11 @@ class DocumentIrPackageReader:
             "verifier_disagreements": disagreements,
             "safe_patch_ids": safe_patch_ids,
             "unsafe_patch_ids": unsafe_patch_ids,
-            "can_keep_current": status == "human_required" and not human_patches,
-            "can_retry_automation": (
-                retryable
-                and status in {"deferred", "failed", "skipped", "pending", "queued"}
-            ),
-            "can_accept_current_nonmaterial": (
-                not bool(task.get("blocking"))
-                and status in {"deferred", "failed", "skipped", "pending", "queued"}
-            ),
+            "can_keep_current": status == "human_required" and (not human_patches),
+            "can_retry_automation": retryable
+            and status in {"deferred", "failed", "skipped", "pending", "queued"},
+            "can_accept_current_nonmaterial": not bool(task.get("blocking"))
+            and status in {"deferred", "failed", "skipped", "pending", "queued"},
             "transaction_summary": transaction_summary,
             "resume_stage": resume_stage,
             "execution_count": int(task.get("execution_count") or 0),
@@ -1030,8 +906,10 @@ class DocumentIrPackageReader:
             "context_target_ids": plan.get("context_target_ids") or [],
             "required_decision_target_ids": plan.get("required_decision_target_ids")
             or [],
-            "impact": "阻塞 Evidence 阶段"
-            if task.get("blocking")
-            and status not in {"auto_resolved", "reviewed", "done"}
-            else "不阻塞或已解决",
+            "impact": (
+                "阻塞 Evidence 阶段"
+                if task.get("blocking")
+                and status not in {"auto_resolved", "reviewed", "done"}
+                else "不阻塞或已解决"
+            ),
         }

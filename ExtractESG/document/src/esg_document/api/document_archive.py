@@ -20,8 +20,9 @@ from esg_document.storage.package_layout import package_dir, require_package_dir
 
 
 class DocumentArchive:
+
     def __init__(self, settings, jobs):
-        self._settings, self._jobs = settings, jobs
+        (self._settings, self._jobs) = (settings, jobs)
 
     @property
     def settings(self):
@@ -112,12 +113,10 @@ class DocumentArchive:
         return json.loads(manifest_path.read_text(encoding="utf-8"))
 
     def get_document_ir_quality_report(self, run_id: str) -> dict[str, object]:
-        return self._read_ir_entrypoint(run_id, "quality_report", "quality_report.json")
+        return self._read_ir_entrypoint(run_id, "quality_report")
 
     def get_document_ir_validation_report(self, run_id: str) -> dict[str, object]:
-        return self._read_ir_entrypoint(
-            run_id, "validation_report", "validation_report.json"
-        )
+        return self._read_ir_entrypoint(run_id, "validation_report")
 
     def get_document_ir_document(self, run_id: str) -> dict[str, object]:
         return self._ir_reader(run_id).load_document().model_dump(mode="json")
@@ -172,10 +171,7 @@ class DocumentArchive:
 
     def get_document_ir_structure_edges(self, run_id: str) -> list[dict[str, object]]:
         reader = self._ir_reader(run_id)
-        if reader.is_package_v1:
-            return reader.read_jsonl(
-                str(reader.manifest["entrypoints"]["structure_edges"])
-            )
+        return reader.read_jsonl(str(reader.manifest["entrypoints"]["structure_edges"]))
         return self._read_ir_json(run_id, "structure_edges.json")
 
     def get_document_ir_correction_patches(
@@ -226,7 +222,7 @@ class DocumentArchive:
         return self._ir_reader(run_id).review_collection("conflict_groups")
 
     def get_document_ir_artifact_index(self, run_id: str) -> list[dict[str, object]]:
-        payload = self._read_ir_entrypoint(run_id, "artifacts", "artifact_index.json")
+        payload = self._read_ir_entrypoint(run_id, "artifacts")
         return (
             payload.get("artifacts", payload) if isinstance(payload, dict) else payload
         )
@@ -328,9 +324,9 @@ class DocumentArchive:
         except FileNotFoundError as exc:
             raise HTTPException(status_code=404, detail=str(exc)) from None
 
-    def _read_ir_entrypoint(self, run_id: str, key: str, legacy: str):
+    def _read_ir_entrypoint(self, run_id: str, key: str):
         try:
-            return self._ir_reader(run_id).read_json(key, legacy)
+            return self._ir_reader(run_id).read_json(key)
         except FileNotFoundError as exc:
             raise HTTPException(status_code=404, detail=str(exc)) from None
 

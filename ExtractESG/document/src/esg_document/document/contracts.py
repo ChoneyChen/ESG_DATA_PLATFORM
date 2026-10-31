@@ -10,19 +10,8 @@ from pydantic import BaseModel, Field, field_validator
 from esg_document.document.operation_registry import PATCH_OPERATION_NAMES
 
 
-SchemaVersion = Literal[
-    "document-ir-v0.2",
-    "document-ir-v0.3",
-    "document-ir-v0.4",
-    "document-ir-v0.5",
-    "document-ir-v0.6",
-    "document-ir-v0.7",
-    "document-ir-v0.8",
-    "document-ir-v0.9",
-    "document-ir-v0.10",
-    "document-ir-v0.11",
-    "document-ir-v0.12",
-]
+SchemaVersion = Literal["document-ir-v0.12"]
+
 ReadinessStatus = Literal[
     "building",
     "auto_review_pending",
@@ -546,9 +535,9 @@ ReviewKind = Literal[
 
 
 class ReviewPlan(BaseModel):
-    compiler_version: str = "review-plan-v1"
+    compiler_version: Literal["review-plan-v3"] | None = None
     contract_hash: str = ""
-    operation_contract_version: str = "legacy-v1"
+    operation_contract_version: Literal["review-operation-payload-v2"] | None = None
     operation_contract_digest: str = ""
     review_kind: ReviewKind = "generic_document_ir_review"
     question: str
@@ -629,25 +618,8 @@ class VlmReviewTask(BaseModel):
     )
 
 
-class VlmReviewPayload(BaseModel):
-    findings: list[str] = Field(default_factory=list)
-    corrected_text_or_table: Any = None
-    confidence: float = Field(ge=0, le=1)
-    needs_human_review: bool
-    quality_flags: list[str] = Field(default_factory=list)
-
-    @field_validator("findings", "quality_flags", mode="before")
-    @classmethod
-    def normalize_string_list(cls, value):
-        if value is None:
-            return []
-        if isinstance(value, str):
-            return [value]
-        return value
-
-
 ReviewVerdict = Literal["confirm", "propose_patch", "abstain"]
-StoredReviewVerdict = Literal["confirm", "propose_patch", "abstain", "correct"]
+StoredReviewVerdict = ReviewVerdict
 PatchOperation = Literal[*PATCH_OPERATION_NAMES]
 
 
@@ -1140,7 +1112,7 @@ class DocumentIRMetadata(BaseModel):
     ocr_run_id: str
     document_id: str | None = Field(
         default=None,
-        pattern=r"^(?:doc-sha256-[0-9a-f]{64}|doc-legacy-[0-9a-f]{24})$",
+        pattern=r"^(?:doc-sha256-[0-9a-f]{64}|doc-artifact-[0-9a-f]{24})$",
     )
     document_label: str | None = Field(default=None, max_length=240)
     external_document_id: str | None = Field(default=None, max_length=256)

@@ -86,11 +86,9 @@ class OcrOutputWriter:
         *,
         jsonl_text: str,
         resource_reader: OcrResourceReader | None = None,
-        client: Any | None = None,
         page_indices: Sequence[int] | None = None,
     ) -> tuple[list[Path], list[Path], list[dict[str, Any]], int]:
-        # ``client`` remains as a compatibility alias for old callers and packages.
-        reader = resource_reader or client
+        reader = resource_reader
         if reader is None:
             raise ValueError("An OCR resource reader is required")
         # A page-targeted provider input holds only the selected pages; its k-th
@@ -324,8 +322,4 @@ class OcrOutputWriter:
 
     @staticmethod
     def _read_resource(reader: Any, reference: str) -> bytes:
-        if hasattr(reader, "read_bytes"):
-            return reader.read_bytes(reference)
-        if hasattr(reader, "download_bytes"):
-            return reader.download_bytes(reference)
-        raise TypeError("OCR resource reader must implement read_bytes(reference)")
+        return reader.read_bytes(reference)

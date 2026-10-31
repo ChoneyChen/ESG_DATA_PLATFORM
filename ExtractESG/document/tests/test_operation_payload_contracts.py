@@ -37,7 +37,7 @@ EXAMPLES = {
     "reject_spread": {"reason": "Independent pages"},
     "link_horizontal_continuation": {"links": [{"source_id": "table-1", "target_id": "table-2"}]},
     "replace_block_text": "A 77", "replace_cell_text": "A 77", "correct_ocr_text": "A 77",
-    "set_table_grid": GRID, "replace_table": GRID,
+    "set_table_grid": GRID,
     "insert_table_row": {"insert_before_row_index": 0, "cells": [{"col_index": 0, "text": "A"}]},
     "set_bbox": BBOX, "set_printed_page_label": "88", "set_visual_type": "chart",
     "set_caption": "A 77", "link_continuation": {"continues_to_table_id": "table-2", "axis": "horizontal"},
@@ -48,7 +48,6 @@ EXAMPLES = {
     "set_figure_legend_text": ["A"],
     "upsert_figure_structure": {"elements": [{"element_id": "node-1", "text": "A", "visual_role": "label", "bbox": BBOX}]},
     "upsert_chart_spec": CHART, "bind_block_to_figure": {"figure_id": "figure-1"},
-    "replace_text": "A 77",
 }
 
 
@@ -338,7 +337,7 @@ def _task(target_type, target_id):
 
 
 def _reviewer():
-    return ReviewerResult(reviewer_result_id="reviewer-1", task_id="task-1", model_id="fixed-offline", model_family="same", attempt=1, verdict="correct", confidence=.9)
+    return ReviewerResult(reviewer_result_id="reviewer-1", task_id="task-1", model_id="fixed-offline", model_family="same", attempt=1, verdict="confirm", confidence=.9)
 
 
 def _candidate(document, patches):
@@ -348,7 +347,7 @@ def _candidate(document, patches):
     return orchestrator._record_candidate(document, _task(patches[0].target_type, patches[0].target_id), patches, status="proposed")
 
 
-def test_new_plan_freezes_operation_digest_and_old_v2_hash_remains_readable(monkeypatch):
+def test_new_plan_freezes_operation_digest_and_rejects_retired_plan(monkeypatch):
     document = _visual_document()
     task = _task("figure", "figure-1")
     compiler = ReviewPlanCompiler()
@@ -360,12 +359,14 @@ def test_new_plan_freezes_operation_digest_and_old_v2_hash_remains_readable(monk
     old.review_plan.operation_contract_version = "legacy-v1"
     old.review_plan.operation_contract_digest = ""
     old.review_plan.contract_hash = compiler._hash(old.review_plan)
-    compiler.validate(document, old)
+    with pytest.raises(ReviewPlanContractError, match="review_plan_hash_mismatch"):
+        compiler.validate(document, old)
     monkeypatch.setattr(OperationRegistry, "contract_version", staticmethod(lambda: "future-contract"))
     with pytest.raises(ReviewPlanContractError, match="operation_contract_changed"):
         compiler.validate(document, task)
     assert task.model_dump_json() == frozen
-    compiler.validate(document, old)
+    with pytest.raises(ReviewPlanContractError, match="review_plan_hash_mismatch"):
+        compiler.validate(document, old)
 
 
 @pytest.mark.parametrize("independent", [False, True])

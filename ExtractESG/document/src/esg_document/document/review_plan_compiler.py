@@ -237,10 +237,7 @@ class ReviewPlanCompiler:
             )
         issues: list[PlanContractIssue] = []
         expected_hash = self._hash(plan)
-        if (
-            plan.compiler_version not in {self.VERSION, "review-plan-v2"}
-            or plan.contract_hash != expected_hash
-        ):
+        if plan.compiler_version != self.VERSION or plan.contract_hash != expected_hash:
             issues.append(
                 PlanContractIssue(
                     "review_plan_hash_mismatch",
@@ -311,9 +308,6 @@ class ReviewPlanCompiler:
     @classmethod
     def _hash(cls, plan: ReviewPlan) -> str:
         payload = plan.model_dump(mode="json", exclude={"contract_hash"})
-        if plan.compiler_version in {"review-plan-v1", "review-plan-v2"}:
-            payload.pop("operation_contract_version", None)
-            payload.pop("operation_contract_digest", None)
         canonical = json.dumps(
             payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
         )

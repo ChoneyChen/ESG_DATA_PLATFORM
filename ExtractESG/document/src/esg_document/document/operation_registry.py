@@ -200,17 +200,7 @@ OPERATION_SPECS = (
         "{figure_id,visual_role?}",
         "Bind an existing block instead of duplicating its text.",
     ),
-    # Compatibility operations are readable for old revisions but are never planned for new work.
-    _spec(
-        "replace_text",
-        "page block cell",
-        "high",
-        "legacy",
-        "Legacy compatibility operation.",
-    ),
-    _spec(
-        "replace_table", "table", "high", "legacy", "Legacy compatibility operation."
-    ),
+
 )
 
 PATCH_OPERATION_NAMES = tuple(spec.name for spec in OPERATION_SPECS)

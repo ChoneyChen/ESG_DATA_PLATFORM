@@ -1,4 +1,4 @@
-"""Canonical review-operation codecs. Historical aliases are boundary conversions only."""
+"""Current review-operation codecs and normalization of fresh provider responses."""
 
 from __future__ import annotations
 
@@ -158,7 +158,6 @@ def payload_type(operation: str):
         "replace_cell_text": Text,
         "correct_ocr_text": Text,
         "set_table_grid": TableGridRepairProposal,
-        "replace_table": TableGridRepairProposal,
         "insert_table_row": InsertRow,
         "set_bbox": BoundingBox,
         "set_printed_page_label": Text,
@@ -183,7 +182,6 @@ def payload_type(operation: str):
         "upsert_figure_structure": FigureStructure,
         "upsert_chart_spec": ChartSpec,
         "bind_block_to_figure": FigureBinding,
-        "replace_text": Text,
     }[operation]
 
 
@@ -259,7 +257,6 @@ def resolve_payload(
                 "replace_block_text",
                 "replace_cell_text",
                 "correct_ocr_text",
-                "replace_text",
             }:
                 if set(value) != {"text"}:
                     raise ValueError("Text replacement object must contain only text")

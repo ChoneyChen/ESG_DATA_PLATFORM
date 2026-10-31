@@ -122,7 +122,7 @@ def test_page_16_17_spread_plan_and_repairs_share_one_transaction() -> None:
         model_id="fake-vlm",
         model_family="fake",
         attempt=1,
-        verdict="correct",
+        verdict="confirm",
         confidence=0.95,
     )
     right_grid = {

@@ -75,9 +75,11 @@ class PatchGuard:
                     "required_classification_operation",
                     bool(present),
                     "blocking",
-                    f"Patch batch includes one required classification operation: {sorted(present)}."
-                    if present
-                    else f"Patch batch must include one of {sorted(required_any_operations)}.",
+                    (
+                        f"Patch batch includes one required classification operation: {sorted(present)}."
+                        if present
+                        else f"Patch batch must include one of {sorted(required_any_operations)}."
+                    ),
                 )
             )
         confirmed_spread_ids = {
@@ -98,12 +100,14 @@ class PatchGuard:
                     f"required_horizontal_link:{spread_id}",
                     not requires_link or spread_id in horizontally_linked_spread_ids,
                     "blocking",
-                    "Confirmed spread includes explicit cross-seam entity links."
-                    if requires_link and spread_id in horizontally_linked_spread_ids
-                    else (
-                        "Confirmed spread has no same-type cross-seam entities that require a link."
-                        if not requires_link
-                        else "Confirmed spread has linkable cross-seam entities but no horizontal link patch."
+                    (
+                        "Confirmed spread includes explicit cross-seam entity links."
+                        if requires_link and spread_id in horizontally_linked_spread_ids
+                        else (
+                            "Confirmed spread has no same-type cross-seam entities that require a link."
+                            if not requires_link
+                            else "Confirmed spread has linkable cross-seam entities but no horizontal link patch."
+                        )
                     ),
                 )
             )
@@ -116,9 +120,11 @@ class PatchGuard:
                         f"{patch.patch_id}:operation_in_review_plan",
                         operation_allowed,
                         "blocking",
-                        f"Operation {patch.operation} is allowed by the typed review plan."
-                        if operation_allowed
-                        else f"Operation {patch.operation} is outside the typed review plan.",
+                        (
+                            f"Operation {patch.operation} is allowed by the typed review plan."
+                            if operation_allowed
+                            else f"Operation {patch.operation} is outside the typed review plan."
+                        ),
                     )
                 )
             if allowed_target_ids is not None:
@@ -128,9 +134,11 @@ class PatchGuard:
                         f"{patch.patch_id}:target_in_review_scope",
                         allowed,
                         "blocking",
-                        "Patch target is inside the routed review scope."
-                        if allowed
-                        else f"Patch target {patch.target_id} is outside the routed review scope.",
+                        (
+                            "Patch target is inside the routed review scope."
+                            if allowed
+                            else f"Patch target {patch.target_id} is outside the routed review scope."
+                        ),
                     )
                 )
             try:
@@ -169,15 +177,14 @@ class PatchGuard:
                 # Keep established diagnostic channels readable without letting an
                 # undecoded value enter their business consumers. The canonical
                 # registry remains the only payload validation authority.
-                legacy_code = {
+                payload_code = {
                     "set_table_grid": "table_grid_schema",
-                    "replace_table": "table_grid_schema",
                     "set_caption": "caption_nonempty",
                 }.get(patch.operation)
-                if legacy_code:
+                if payload_code:
                     checks.append(
                         self._check(
-                            f"{patch.patch_id}:{legacy_code}",
+                            f"{patch.patch_id}:{payload_code}",
                             False,
                             "blocking",
                             str(exc),
@@ -204,9 +211,11 @@ class PatchGuard:
                     f"{patch.patch_id}:target_exists",
                     target is not None,
                     "blocking",
-                    f"Target {patch.target_id} exists."
-                    if target
-                    else f"Target {patch.target_id} does not exist.",
+                    (
+                        f"Target {patch.target_id} exists."
+                        if target
+                        else f"Target {patch.target_id} does not exist."
+                    ),
                 )
             )
             if target is None:
@@ -218,11 +227,13 @@ class PatchGuard:
                     f"{patch.patch_id}:target_type_matches_entity",
                     target_type_matches,
                     "blocking",
-                    f"Patch target_type {patch.target_type} matches target {patch.target_id}."
-                    if target_type_matches
-                    else (
-                        f"Patch declares target_type {patch.target_type}, but target {patch.target_id} "
-                        f"is a {actual_target_type or 'unknown entity type'}."
+                    (
+                        f"Patch target_type {patch.target_type} matches target {patch.target_id}."
+                        if target_type_matches
+                        else (
+                            f"Patch declares target_type {patch.target_type}, but target {patch.target_id} "
+                            f"is a {actual_target_type or 'unknown entity type'}."
+                        )
                     ),
                 )
             )
@@ -394,28 +405,6 @@ class PatchGuard:
         actual_target_type: str | None,
     ) -> list[GuardCheck]:
         checks = []
-        if (
-            patch.operation in {"replace_text", "replace_table"}
-            and patch.target_type == "page"
-        ):
-            checks.append(
-                self._check(
-                    f"{patch.patch_id}:no_whole_page_rewrite",
-                    False,
-                    "blocking",
-                    "Whole-page replacement is forbidden.",
-                )
-            )
-        else:
-            checks.append(
-                self._check(
-                    f"{patch.patch_id}:atomic_scope",
-                    True,
-                    "info",
-                    "Patch scope is atomic.",
-                )
-            )
-
         current = self._current_value(patch, target)
         if patch.before_value is not None:
             matches = self._equivalent(current, patch.before_value)
@@ -424,16 +413,17 @@ class PatchGuard:
                     f"{patch.patch_id}:before_matches",
                     matches,
                     "blocking",
-                    "Patch before_value matches the candidate."
-                    if matches
-                    else "Patch before_value does not match the candidate.",
+                    (
+                        "Patch before_value matches the candidate."
+                        if matches
+                        else "Patch before_value does not match the candidate."
+                    ),
                 )
             )
 
         if patch.operation in {
             "replace_block_text",
             "replace_cell_text",
-            "replace_text",
         }:
             proposed = str(patch.proposed_value or "")
             checks.append(
@@ -577,7 +567,7 @@ class PatchGuard:
                     )
                 )
 
-        if patch.operation in {"set_table_grid", "replace_table"}:
+        if patch.operation in {"set_table_grid"}:
             payload = patch.proposed_value
             try:
                 proposal = TableGridRepairProposal.model_validate(payload)
@@ -1303,9 +1293,11 @@ class PatchGuard:
                         f"{patch.patch_id}:chart_spec_schema",
                         chart_valid,
                         "blocking",
-                        f"ChartSpec contains {point_count} visible data points."
-                        if chart_valid
-                        else "ChartSpec requires at least one series and one visible data point.",
+                        (
+                            f"ChartSpec contains {point_count} visible data points."
+                            if chart_valid
+                            else "ChartSpec requires at least one series and one visible data point."
+                        ),
                         details={
                             "schema_errors": schema_errors,
                             "recognized_aliases": aliases,
@@ -1438,9 +1430,11 @@ class PatchGuard:
                         f"{patch.patch_id}:chart_point_granularity",
                         assessment["all_points_exactly_supported"],
                         "warning",
-                        "Point support is exact text."
-                        if assessment["all_points_exactly_supported"]
-                        else "Chart structure has source context; individual numerical points remain unverified.",
+                        (
+                            "Point support is exact text."
+                            if assessment["all_points_exactly_supported"]
+                            else "Chart structure has source context; individual numerical points remain unverified."
+                        ),
                         details={"quality": assessment["quality"]},
                     )
                 )
@@ -1484,9 +1478,11 @@ class PatchGuard:
                         f"{patch.patch_id}:spread_membership_unique",
                         conflict is None,
                         "blocking",
-                        "No physical page belongs to another confirmed spread."
-                        if conflict is None
-                        else f"Spread conflicts with already confirmed {conflict}.",
+                        (
+                            "No physical page belongs to another confirmed spread."
+                            if conflict is None
+                            else f"Spread conflicts with already confirmed {conflict}."
+                        ),
                     )
                 )
 
@@ -1561,11 +1557,13 @@ class PatchGuard:
                     f"{patch.patch_id}:operation_target_type",
                     operation_matches,
                     "blocking",
-                    f"Operation {patch.operation} is valid for the declared and actual target type."
-                    if operation_matches
-                    else (
-                        f"Operation {patch.operation} requires {sorted(allowed_types)}, but declared type is "
-                        f"{patch.target_type} and actual type is {actual_target_type or 'unknown'}."
+                    (
+                        f"Operation {patch.operation} is valid for the declared and actual target type."
+                        if operation_matches
+                        else (
+                            f"Operation {patch.operation} requires {sorted(allowed_types)}, but declared type is "
+                            f"{patch.target_type} and actual type is {actual_target_type or 'unknown'}."
+                        )
                     ),
                 )
             )
@@ -1576,9 +1574,11 @@ class PatchGuard:
                 f"{patch.patch_id}:evidence_refs",
                 evidence_ok,
                 "warning",
-                "Patch carries source evidence references."
-                if evidence_ok
-                else "Patch has no explicit evidence reference; task inputs will be used by the verifier.",
+                (
+                    "Patch carries source evidence references."
+                    if evidence_ok
+                    else "Patch has no explicit evidence reference; task inputs will be used by the verifier."
+                ),
             )
         )
         return checks
@@ -1627,7 +1627,6 @@ class PatchGuard:
             "replace_block_text": "text",
             "replace_cell_text": "text",
             "correct_ocr_text": "text",
-            "replace_text": "text",
             "set_bbox": "bbox",
             "set_printed_page_label": "printed_page_label",
             "set_visual_type": "visual_type",
@@ -1655,9 +1654,7 @@ class PatchGuard:
                 "element_block_ids": list(target.element_block_ids),
                 "relations": [edge.model_dump(mode="json") for edge in []],
             }
-        if patch.operation in {"set_table_grid", "replace_table"} and hasattr(
-            target, "cells"
-        ):
+        if patch.operation in {"set_table_grid"} and hasattr(target, "cells"):
             return {
                 "row_count": target.row_count,
                 "column_count": target.column_count,
@@ -1766,9 +1763,11 @@ class PatchGuard:
                 f"{patch.patch_id}:cell_geometry_not_erased",
                 after_count > 0,
                 "blocking",
-                f"Candidate preserves geometry for {after_count}/{len(candidate.cells)} cells; source had {before_count}/{len(target.cells)}."
-                if after_count
-                else f"Candidate would erase all {before_count} localized source cells.",
+                (
+                    f"Candidate preserves geometry for {after_count}/{len(candidate.cells)} cells; source had {before_count}/{len(target.cells)}."
+                    if after_count
+                    else f"Candidate would erase all {before_count} localized source cells."
+                ),
             ),
             self._check(
                 f"{patch.patch_id}:cell_geometry_coverage",
@@ -1861,7 +1860,6 @@ class DocumentPatchApplier:
             "replace_block_text",
             "replace_cell_text",
             "correct_ocr_text",
-            "replace_text",
         }:
             target.text = str(patch.proposed_value)
             self._add_flag(target, "agent_corrected")
@@ -1922,9 +1920,11 @@ class DocumentPatchApplier:
             self._add_flag(target, "agent_chart_structure_reviewed")
             self._add_flag(
                 target,
-                "chart_points_text_supported"
-                if assessment["all_points_exactly_supported"]
-                else "chart_points_require_evidence",
+                (
+                    "chart_points_text_supported"
+                    if assessment["all_points_exactly_supported"]
+                    else "chart_points_require_evidence"
+                ),
             )
         elif patch.operation == "bind_block_to_figure":
             self._bind_block_to_figure(document, target, patch)
@@ -1941,7 +1941,7 @@ class DocumentPatchApplier:
         elif patch.operation == "add_quality_flags":
             for value in patch.proposed_value or []:
                 self._add_flag(target, str(value))
-        elif patch.operation in {"set_table_grid", "replace_table"}:
+        elif patch.operation in {"set_table_grid"}:
             self._set_table_grid(target, patch.proposed_value)
         elif patch.operation == "insert_table_row":
             self._insert_table_row(target, patch.proposed_value)
@@ -2195,9 +2195,11 @@ class DocumentPatchApplier:
                     ),
                     is_header=bool(raw.get("is_header", False)),
                     unit_hint=raw.get("unit_hint"),
-                    bbox=BoundingBox.model_validate(raw["bbox"])
-                    if raw.get("bbox")
-                    else None,
+                    bbox=(
+                        BoundingBox.model_validate(raw["bbox"])
+                        if raw.get("bbox")
+                        else None
+                    ),
                     quality_flags=["agent_inserted_table_row"],
                     source_trace=table.source_trace,
                 )
@@ -2404,9 +2406,11 @@ class DocumentPatchApplier:
                     order=target.order + index - 1,
                     block_type=target.block_type,
                     text=str(raw.get("text") or ""),
-                    bbox=BoundingBox.model_validate(raw["bbox"])
-                    if raw.get("bbox")
-                    else None,
+                    bbox=(
+                        BoundingBox.model_validate(raw["bbox"])
+                        if raw.get("bbox")
+                        else None
+                    ),
                     section_id=target.section_id,
                     quality_flags=["agent_corrected"],
                     source_trace=target.source_trace,

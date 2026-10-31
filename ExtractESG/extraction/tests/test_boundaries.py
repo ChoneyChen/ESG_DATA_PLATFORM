@@ -220,7 +220,8 @@ def test_model_reference_schema_excludes_target_and_resource_metadata(documents,
     schema=decision_schema('quantitative',frame)
     ids=schema['$defs']['IdentityProposal']['properties']['source_id']['enum']
     assert 'target' not in ids and 'frame' not in ids and 'doc-example' not in ids
-    assert 't:r0c1' in ids and 't:r1c1' in ids
+    assert 'c1' in ids and 'r1.c1' in ids
+    assert 't:r0c1' not in ids and 't:r1c1' not in ids
     assert all(branch['properties']['row_id']['enum']==[r.row_id for r in frame.rows] for branch in schema['$defs']['NumericMatch']['anyOf'])
 
 

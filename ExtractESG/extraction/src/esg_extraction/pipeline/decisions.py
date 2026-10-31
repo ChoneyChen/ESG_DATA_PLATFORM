@@ -3,6 +3,7 @@
 from typing import Literal, Annotated
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, BeforeValidator, model_validator
 from copy import deepcopy
+from .reading_frame import identity_source_ids
 
 
 class DecisionModel(BaseModel):
@@ -74,23 +75,7 @@ def decision_schema(data_kind, frame):
     """Constrain references to actual evidence IDs, never to target/resource metadata."""
     model = QuantitativeDecision if data_kind == "quantitative" else QualitativeDecision
     schema = model.model_json_schema()
-    sources = {item.span_id or item.object_id for item in frame.texts}
-    sources.update(item.object_id for item in frame.texts)
-    sources.update(item.object_id for item in frame.title_sources)
-    for column, items in frame.column_sources.items():
-        if items:
-            sources.add(column)
-        sources.update(item.object_id for item in items)
-    for row in frame.rows:
-        if row.label_sources:
-            sources.add(row.row_id)
-        sources.update(
-            item.object_id for item in [*row.label_sources, *row.unit_sources]
-        )
-        sources.update(cell.cell_id for cell in row.cells)
-    schema["$defs"]["IdentityProposal"]["properties"]["source_id"] = {
-        "enum": [None, *sorted(sources)]
-    }
+    schema["$defs"]["IdentityProposal"]["properties"]["source_id"] = {"enum": [None, *identity_source_ids(frame)]}
     if data_kind == "quantitative":
         properties = schema["$defs"]["NumericMatch"]["properties"]
         properties["row_id"] = {

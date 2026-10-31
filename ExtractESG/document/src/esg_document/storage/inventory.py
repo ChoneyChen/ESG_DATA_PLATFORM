@@ -15,7 +15,7 @@ from esg_runtime.lifecycle import SourceReferenceGuard
 from esg_runtime.trash import RecoverableTrash
 
 from esg_document.document.identity import (
-    legacy_document_id,
+    artifact_document_id,
     manifest_document_id,
     manifest_document_label,
     normalize_sha256,
@@ -794,7 +794,7 @@ class StorageInventoryService:
         groups: dict[str, dict[str, Any]], row: dict[str, Any]
     ) -> dict[str, Any]:
         document_id = str(
-            row.get("document_id") or legacy_document_id(str(row["run_id"]))
+            row.get("document_id") or artifact_document_id(str(row["run_id"]))
         )
         group = groups.setdefault(
             document_id,

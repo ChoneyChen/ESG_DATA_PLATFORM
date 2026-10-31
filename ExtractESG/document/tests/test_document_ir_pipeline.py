@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from io import BytesIO
+import hashlib
 import importlib
 import re
 import time
@@ -24,6 +26,7 @@ from esg_document.document.structure_reconstruction import StructureReconstructo
 from esg_document.document.reader import DocumentIrPackageReader
 from esg_document.document.validator import DocumentIrValidator
 from esg_document.workflows.ir_workflow import DocumentIrWorkflow
+from esg_document.ocr.output_writer import OcrOutputWriter
 
 
 def _write_pdf(path: Path, page_count: int = 2) -> None:
@@ -49,10 +52,34 @@ def _layout_page(page_index: int) -> dict[str, object]:
             "width": 612,
             "height": 792,
             "parsing_res_list": [
-                {"block_id": 1, "block_order": 1, "block_label": "title", "block_content": "Sustainability Performance", "block_bbox": [50, 40, 560, 80]},
-                {"block_id": 2, "block_order": 2, "block_label": "text", "block_content": "The Group monitors workforce diversity.", "block_bbox": [50, 100, 560, 150]},
-                {"block_id": 3, "block_order": 3, "block_label": "table", "block_content": table_rows, "block_bbox": [50, 180, 560, 400]},
-                {"block_id": 4, "block_order": 4, "block_label": "chart", "block_content": "Workforce trend", "block_bbox": [50, 430, 560, 700]},
+                {
+                    "block_id": 1,
+                    "block_order": 1,
+                    "block_label": "title",
+                    "block_content": "Sustainability Performance",
+                    "block_bbox": [50, 40, 560, 80],
+                },
+                {
+                    "block_id": 2,
+                    "block_order": 2,
+                    "block_label": "text",
+                    "block_content": "The Group monitors workforce diversity.",
+                    "block_bbox": [50, 100, 560, 150],
+                },
+                {
+                    "block_id": 3,
+                    "block_order": 3,
+                    "block_label": "table",
+                    "block_content": table_rows,
+                    "block_bbox": [50, 180, 560, 400],
+                },
+                {
+                    "block_id": 4,
+                    "block_order": 4,
+                    "block_label": "chart",
+                    "block_content": "Workforce trend",
+                    "block_bbox": [50, 430, 560, 700],
+                },
             ],
         },
         "markdown": {
@@ -63,25 +90,39 @@ def _layout_page(page_index: int) -> dict[str, object]:
     }
 
 
-def _write_ocr_run(root: Path, run_id: str, pdf_path: Path) -> None:
-    run = root / run_id
-    (run / "raw").mkdir(parents=True)
-    (run / "pages").mkdir()
-    payload = {"result": {"layoutParsingResults": [_layout_page(0), _layout_page(1)]}}
-    (run / "raw" / "result.jsonl").write_text(json.dumps(payload) + "\n", encoding="utf-8")
-    for index, page in enumerate(payload["result"]["layoutParsingResults"]):
-        (run / "pages" / f"page_{index:04d}.md").write_text(page["markdown"]["text"], encoding="utf-8")
-    (run / "manifest.json").write_text(
-        json.dumps(
-            {
-                "run_id": run_id,
-                "job_id": "job-test",
-                "model": "PaddleOCR-VL-1.6",
-                "source": str(pdf_path),
-                "page_count": 2,
-            }
-        ),
-        encoding="utf-8",
+def _write_ocr_run(root: Path, run_id: str, pdf_path: Path, payload=None) -> None:
+    writer = OcrOutputWriter(root / run_id)
+    writer.write_request({"file_path": str(pdf_path)})
+    writer.write_submit_response({"data": {"jobId": "job-test"}})
+    writer.append_poll_event({"data": {"state": "done"}})
+    payload = payload or {
+        "result": {"layoutParsingResults": [_layout_page(0), _layout_page(1)]}
+    }
+    raw = json.dumps(payload) + "\n"
+    writer.save_result_jsonl(raw)
+
+    class LocalResources:
+        def read_bytes(self, reference):
+            image = BytesIO()
+            Image.new("RGB", (612, 792), "white").save(image, "PNG")
+            return image.getvalue()
+
+    _, _, artifacts, page_count = writer.extract_artifacts_from_jsonl(
+        jsonl_text=raw, resource_reader=LocalResources()
+    )
+    writer.write_manifest(
+        {
+            "run_id": run_id,
+            "job_id": "job-test",
+            "model": "PaddleOCR-VL-1.6",
+            "source": {
+                "kind": "local-file",
+                "display_name": pdf_path.name,
+                "sha256": hashlib.sha256(pdf_path.read_bytes()).hexdigest(),
+            },
+            "page_count": page_count,
+            "artifact_count": len(artifacts),
+        }
     )
 
 
@@ -103,7 +144,9 @@ def test_page_renderer_isolates_pdfium_and_reports_progress(tmp_path: Path) -> N
     assert progress[-1] == (2, 2)
     assert not (output_dir / ".render-result.json").exists()
     assert not (output_dir / ".render-status.json").exists()
-    assert all(page.artifact.source.endswith("isolated-worker") for page in rendered.pages)
+    assert all(
+        page.artifact.source.endswith("isolated-worker") for page in rendered.pages
+    )
 
 
 def test_page_renderer_turns_native_worker_crash_into_python_failure(
@@ -132,16 +175,26 @@ def test_page_renderer_turns_native_worker_crash_into_python_failure(
         )
 
 
-def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path: Path) -> None:
+def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(
+    tmp_path: Path,
+) -> None:
     pdf_path = tmp_path / "report.pdf"
     _write_pdf(pdf_path)
     ocr_root = tmp_path / "ocr_output"
     ir_root = tmp_path / "document_ir_output"
-    _write_ocr_run(ocr_root, "ocr-layout", pdf_path)
-    settings = Settings(output_root=ocr_root, document_ir_output_root=ir_root, upload_root=tmp_path / "uploads")
+    _write_ocr_run(ocr_root, "ocr-20261031T000000Z-000000000001", pdf_path)
+    settings = Settings(
+        output_root=ocr_root,
+        document_ir_output_root=ir_root,
+        upload_root=tmp_path / "uploads",
+    )
 
     result = DocumentIrWorkflow(settings).run(
-        DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path), render_dpi=144),
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000001",
+            pdf_path=str(pdf_path),
+            render_dpi=144,
+        ),
         run_id="ir-20260718T010101Z-000000000001",
     )
     document = json.loads(result.document_ir_path.read_text(encoding="utf-8"))
@@ -154,29 +207,55 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     assert len(document["coordinate_systems"]) == 6
     assert len(document["tables"]) == 2
     assert len(document["logical_tables"]) == 1
-    assert document["tables"][0]["continues_to_table_id"] == document["tables"][1]["table_id"]
-    assert document["tables"][1]["continues_from_table_id"] == document["tables"][0]["table_id"]
+    assert (
+        document["tables"][0]["continues_to_table_id"]
+        == document["tables"][1]["table_id"]
+    )
+    assert (
+        document["tables"][1]["continues_from_table_id"]
+        == document["tables"][0]["table_id"]
+    )
     assert all(table["graph_edges"] for table in document["tables"])
     assert all(table["crop_artifact_id"] for table in document["tables"])
     assert all(figure["crop_artifact_id"] for figure in document["figures"])
-    assert document["validation_report"]["checks"]["page_render_coverage_complete"] is True
-    assert document["validation_report"]["checks"]["all_layout_geometry_available"] is True
+    assert (
+        document["validation_report"]["checks"]["page_render_coverage_complete"] is True
+    )
+    assert (
+        document["validation_report"]["checks"]["all_layout_geometry_available"] is True
+    )
     assert document["readiness"] == "auto_review_pending"
     assert (result.output_dir / "review" / "calls" / "model-calls.jsonl").exists()
-    assert (result.output_dir / "review" / "decisions" / "final-decisions.jsonl").exists()
+    assert (
+        result.output_dir / "review" / "decisions" / "final-decisions.jsonl"
+    ).exists()
     assert (result.output_dir / "artifacts" / "page-images" / "page-0001.png").exists()
-    assert (result.output_dir / "artifacts" / "crops" / "tables" / f"{document['tables'][0]['table_id']}.png").exists()
+    assert (
+        result.output_dir
+        / "artifacts"
+        / "crops"
+        / "tables"
+        / f"{document['tables'][0]['table_id']}.png"
+    ).exists()
     assert (result.output_dir / "canonical" / "document.json").exists()
     assert (result.output_dir / "canonical" / "pages" / "page-0001.json").exists()
     assert (result.output_dir / "canonical" / "spreads" / "index.json").exists()
     assert (result.output_dir / "canonical" / "logical-tables" / "index.json").exists()
     assert (result.output_dir / "integrity" / "files.json").exists()
-    assert all(re.fullmatch(r"block-p\d{4}-\d{4}", item["block_id"]) for item in document["blocks"])
-    assert all(re.fullmatch(r"table-p\d{4}-\d{4}", item["table_id"]) for item in document["tables"])
+    assert all(
+        re.fullmatch(r"block-p\d{4}-\d{4}", item["block_id"])
+        for item in document["blocks"]
+    )
+    assert all(
+        re.fullmatch(r"table-p\d{4}-\d{4}", item["table_id"])
+        for item in document["tables"]
+    )
     manifest_text = result.manifest_path.read_text(encoding="utf-8")
     assert str(tmp_path) not in manifest_text
     assert str(tmp_path) not in result.document_ir_path.read_text(encoding="utf-8")
-    assert str(tmp_path) not in (result.output_dir / "canonical" / "document.json").read_text(encoding="utf-8")
+    assert str(tmp_path) not in (
+        result.output_dir / "canonical" / "document.json"
+    ).read_text(encoding="utf-8")
     manifest = json.loads(manifest_text)
     assert manifest["package_schema_version"] == "document-ir-package-v1"
     assert manifest["document_id"].startswith("doc-sha256-")
@@ -184,7 +263,10 @@ def test_full_document_ir_pipeline_builds_geometry_graphs_and_artifacts(tmp_path
     assert manifest["lineage_id"].startswith("irl-")
     assert manifest["entrypoints"]["canonical_document"] == "canonical/document.json"
     assert manifest["entrypoints"]["spreads"] == "canonical/spreads/index.json"
-    assert manifest["entrypoints"]["logical_tables"] == "canonical/logical-tables/index.json"
+    assert (
+        manifest["entrypoints"]["logical_tables"]
+        == "canonical/logical-tables/index.json"
+    )
 
 
 def test_ir_revision_increments_from_parent(tmp_path: Path) -> None:
@@ -192,15 +274,28 @@ def test_ir_revision_increments_from_parent(tmp_path: Path) -> None:
     _write_pdf(pdf_path)
     ocr_root = tmp_path / "ocr_output"
     ir_root = tmp_path / "document_ir_output"
-    _write_ocr_run(ocr_root, "ocr-layout", pdf_path)
-    settings = Settings(output_root=ocr_root, document_ir_output_root=ir_root, upload_root=tmp_path / "uploads")
+    _write_ocr_run(ocr_root, "ocr-20261031T000000Z-000000000001", pdf_path)
+    settings = Settings(
+        output_root=ocr_root,
+        document_ir_output_root=ir_root,
+        upload_root=tmp_path / "uploads",
+    )
     workflow = DocumentIrWorkflow(settings)
     first_run_id = "ir-20260718T010101Z-000000000002"
     second_run_id = "ir-20260718T010101Z-000000000003"
-    first = workflow.run(DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path)), run_id=first_run_id)
+    first = workflow.run(
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000001", pdf_path=str(pdf_path)
+        ),
+        run_id=first_run_id,
+    )
     first_manifest = json.loads(first.manifest_path.read_text(encoding="utf-8"))
     second = workflow.run(
-        DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path), parent_ir_run_id=first_run_id),
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000001",
+            pdf_path=str(pdf_path),
+            parent_ir_run_id=first_run_id,
+        ),
         run_id=second_run_id,
     )
     second_manifest = json.loads(second.manifest_path.read_text(encoding="utf-8"))
@@ -212,20 +307,24 @@ def test_ir_revision_increments_from_parent(tmp_path: Path) -> None:
     assert not first.manifest_path.exists()
 
 
-def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch) -> None:
+def test_document_ir_api_exposes_intermediate_views(
+    tmp_path: Path, monkeypatch
+) -> None:
     pdf_path = tmp_path / "report.pdf"
     _write_pdf(pdf_path)
     ocr_root = tmp_path / "ocr_output"
     ir_root = tmp_path / "document_ir_output"
     upload_root = tmp_path / "uploads"
-    _write_ocr_run(ocr_root, "ocr-layout", pdf_path)
+    _write_ocr_run(ocr_root, "ocr-20261031T000000Z-000000000001", pdf_path)
     monkeypatch.setenv("ESG_PIPELINE_QUEUE_DB", str(tmp_path / "queue.sqlite3"))
     monkeypatch.setenv("ESG_PIPELINE_TASK_DIR", str(tmp_path / "pipeline_tasks"))
     monkeypatch.setenv("ESG_DOCUMENT_OCR_OUTPUT_DIR", str(ocr_root))
     monkeypatch.setenv("ESG_DOCUMENT_IR_OUTPUT_DIR", str(ir_root))
     monkeypatch.setenv("ESG_DOCUMENT_UPLOAD_DIR", str(upload_root))
     monkeypatch.setenv("ESG_DOCUMENT_OCR_JOB_STATE_DIR", str(tmp_path / "jobs" / "ocr"))
-    monkeypatch.setenv("ESG_DOCUMENT_IR_JOB_STATE_DIR", str(tmp_path / "jobs" / "document-ir"))
+    monkeypatch.setenv(
+        "ESG_DOCUMENT_IR_JOB_STATE_DIR", str(tmp_path / "jobs" / "document-ir")
+    )
 
     import esg_document.api.main as api_main
 
@@ -233,27 +332,53 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     client = TestClient(api_main.app)
     response = client.post(
         "/api/document-ir/jobs",
-        json={"ocr_run_id": "ocr-layout", "pdf_path": str(pdf_path), "render_dpi": 144},
+        json={
+            "ocr_run_id": "ocr-20261031T000000Z-000000000001",
+            "pdf_path": str(pdf_path),
+            "render_dpi": 144,
+        },
     )
     assert response.status_code == 200
     run_id = response.json()["run_id"]
     assert response.json()["status"] == "queued"
-    queued_task = next(t for t in api_main.pipeline_store.list() if t.native_job_id == run_id)
+    queued_task = next(
+        t for t in api_main.pipeline_store.list() if t.native_job_id == run_id
+    )
     # Build only the synthetic PDF/layout fixture. The API itself may not execute
     # the workflow or start a second thread outside the unified queue.
-    result = DocumentIrWorkflow(api_main.settings).run(DocumentIrBuildRequest(ocr_run_id="ocr-layout", pdf_path=str(pdf_path)), run_id=run_id)
+    result = DocumentIrWorkflow(api_main.settings).run(
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000001", pdf_path=str(pdf_path)
+        ),
+        run_id=run_id,
+    )
     manifest = json.loads(result.manifest_path.read_text(encoding="utf-8"))
     api_main.pipeline_store.update(queued_task.task_id, status="partial")
-    api_main.pipeline_hooks.completed(api_main.pipeline_store.get(queued_task.task_id), {**result.model_dump(mode="json"), "manifest": manifest})
+    api_main.pipeline_hooks.completed(
+        api_main.pipeline_store.get(queued_task.task_id),
+        {**result.model_dump(mode="json"), "manifest": manifest},
+    )
     state = client.get(f"/api/document-ir/jobs/{run_id}").json()
     assert state["status"] == "partial", state
     assert client.get(f"/api/document-ir/jobs/{run_id}/manifest").status_code == 200
-    assert client.get(f"/api/document-ir/jobs/{run_id}/validation-report").json()["readiness"] == "auto_review_pending"
+    assert (
+        client.get(f"/api/document-ir/jobs/{run_id}/validation-report").json()[
+            "readiness"
+        ]
+        == "auto_review_pending"
+    )
     assert len(client.get(f"/api/document-ir/jobs/{run_id}/pages").json()) == 2
-    assert client.get(f"/api/document-ir/jobs/{run_id}/pages/0").json()["layout_objects"]
+    assert client.get(f"/api/document-ir/jobs/{run_id}/pages/0").json()[
+        "layout_objects"
+    ]
     tables = client.get(f"/api/document-ir/jobs/{run_id}/tables").json()
     assert len(tables) == 2
-    assert client.get(f"/api/document-ir/jobs/{run_id}/tables/{tables[0]['table_id']}").status_code == 200
+    assert (
+        client.get(
+            f"/api/document-ir/jobs/{run_id}/tables/{tables[0]['table_id']}"
+        ).status_code
+        == 200
+    )
     logical_tables = client.get(f"/api/document-ir/jobs/{run_id}/logical-tables").json()
     assert len(logical_tables) == 1
     assert (
@@ -277,8 +402,18 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
         "final-decisions",
         "candidate-revisions",
     ):
-        assert client.get(f"/api/document-ir/jobs/{run_id}/{artifact_endpoint}").status_code == 200
-    assert client.get(f"/api/document-ir/jobs/{run_id}/reviews/{tasks[0]['task_id']}").status_code == 200
+        assert (
+            client.get(
+                f"/api/document-ir/jobs/{run_id}/{artifact_endpoint}"
+            ).status_code
+            == 200
+        )
+    assert (
+        client.get(
+            f"/api/document-ir/jobs/{run_id}/reviews/{tasks[0]['task_id']}"
+        ).status_code
+        == 200
+    )
 
     retry = client.post(
         f"/api/document-ir/jobs/{run_id}/reviews/retry",
@@ -286,20 +421,38 @@ def test_document_ir_api_exposes_intermediate_views(tmp_path: Path, monkeypatch)
     )
     assert retry.status_code == 200
     assert retry.json()["status"] == "queued"
-    retry_task = next(t for t in api_main.pipeline_store.list() if t.native_job_id == retry.json()["run_id"])
+    retry_task = next(
+        t
+        for t in api_main.pipeline_store.list()
+        if t.native_job_id == retry.json()["run_id"]
+    )
     assert retry_task.operation == "review_retry"
     assert retry_task.payload["parent_run_id"] == run_id
 
     duplicate = client.post(
         "/api/document-ir/jobs",
-        json={"ocr_run_id": "ocr-layout", "pdf_path": str(pdf_path), "run_id": run_id},
+        json={
+            "ocr_run_id": "ocr-20261031T000000Z-000000000001",
+            "pdf_path": str(pdf_path),
+            "run_id": run_id,
+        },
     )
     assert duplicate.status_code == 409
-    assert client.get("/api/document-ir/revisions/ocr-layout").json()[0]["ir_revision"] == 1
+    assert (
+        client.get(
+            "/api/document-ir/revisions/ocr-20261031T000000Z-000000000001"
+        ).json()[0]["ir_revision"]
+        == 1
+    )
     catalog = client.get("/api/document-ir/documents").json()
     assert len(catalog) == 1
     assert catalog[0]["document_label"] == "report.pdf"
-    assert client.get(f"/api/document-ir/documents/{catalog[0]['document_id']}/revisions").status_code == 200
+    assert (
+        client.get(
+            f"/api/document-ir/documents/{catalog[0]['document_id']}/revisions"
+        ).status_code
+        == 200
+    )
 
 
 def test_nested_section_ranges_cover_all_descendant_pages() -> None:
@@ -349,7 +502,9 @@ def test_nested_section_ranges_cover_all_descendant_pages() -> None:
     ]
     document = StructureReconstructor().reconstruct(
         DocumentIR(
-            metadata=DocumentIRMetadata(run_id="ir-sections", ocr_run_id="ocr-sections"),
+            metadata=DocumentIRMetadata(
+                run_id="ir-sections", ocr_run_id="ocr-sections"
+            ),
             pages=pages,
             blocks=blocks,
         )
@@ -358,8 +513,12 @@ def test_nested_section_ranges_cover_all_descendant_pages() -> None:
 
     assert sections["第1章 氣候智慧"].end_page_index == 3
     assert sections["1.2.2 風險管理"].end_page_index == 3
-    assert sections["情境分析"].parent_section_id == sections["1.2.2 風險管理"].section_id
-    assert sections["風險識別"].parent_section_id == sections["1.2.2 風險管理"].section_id
+    assert (
+        sections["情境分析"].parent_section_id == sections["1.2.2 風險管理"].section_id
+    )
+    assert (
+        sections["風險識別"].parent_section_id == sections["1.2.2 風險管理"].section_id
+    )
     document = DocumentIrValidator().validate(document, expected_page_count=4)
     assert document.validation_report.checks["section_hierarchy_valid"] is True
 
@@ -374,37 +533,49 @@ def test_canonical_ir_uses_artifact_ids_and_redacts_signed_urls(tmp_path: Path) 
     _write_pdf(pdf_path)
     ocr_root = tmp_path / "ocr_output"
     ir_root = tmp_path / "document_ir_output"
-    _write_ocr_run(ocr_root, "ocr-provenance", pdf_path)
-    run_dir = ocr_root / "ocr-provenance"
-    signed_url = "https://paddle.example.test/result.json?authorization=bce-auth-v1%2Ftemporary"
-    raw_path = run_dir / "raw" / "result.jsonl"
-    raw_payload = json.loads(raw_path.read_text(encoding="utf-8"))
+    signed_url = (
+        "https://paddle.example.test/result.json?authorization=bce-auth-v1%2Ftemporary"
+    )
+    raw_payload = {
+        "result": {"layoutParsingResults": [_layout_page(0), _layout_page(1)]}
+    }
     first_page = raw_payload["result"]["layoutParsingResults"][0]
     first_page["prunedResult"]["parsing_res_list"][0]["asset_url"] = signed_url
     first_page["outputImages"] = {"layout_det_res": signed_url}
-    raw_path.write_text(json.dumps(raw_payload) + "\n", encoding="utf-8")
-    manifest_path = run_dir / "manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["result_json_url"] = signed_url
-    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
-    settings = Settings(output_root=ocr_root, document_ir_output_root=ir_root, upload_root=tmp_path / "uploads")
+    _write_ocr_run(ocr_root, "ocr-20261031T000000Z-000000000002", pdf_path, raw_payload)
+    raw_path = (
+        ocr_root / "ocr-20261031T000000Z-000000000002" / "provider" / "result.jsonl"
+    )
+    settings = Settings(
+        output_root=ocr_root,
+        document_ir_output_root=ir_root,
+        upload_root=tmp_path / "uploads",
+    )
 
     result = DocumentIrWorkflow(settings).run(
-        DocumentIrBuildRequest(ocr_run_id="ocr-provenance", pdf_path=str(pdf_path)),
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000002", pdf_path=str(pdf_path)
+        ),
         run_id="ir-20260718T010101Z-000000000004",
     )
-    document = DocumentIrPackageReader(result.output_dir, ocr_output_root=ocr_root).load_document(
-        hydrate_local_paths=True
-    )
+    document = DocumentIrPackageReader(
+        result.output_dir, ocr_output_root=ocr_root
+    ).load_document(hydrate_local_paths=True)
     serialized = result.document_ir_path.read_text(encoding="utf-8")
 
     assert "authorization=" not in serialized
-    assert "authorization=" in raw_path.read_text(encoding="utf-8")
-    assert document.pages[0].remote_image_urls == []
+    assert "authorization=" not in raw_path.read_text(encoding="utf-8")
+    assert document.pages[0].remote_image_urls == [
+        "https://paddle.example.test/result.json"
+    ]
     assert all(item.source_trace.artifact_ids for item in document.layout_objects)
     assert all(item.source_trace.artifact_ids for item in document.blocks)
     assert all(item.source_trace.artifact_ids for item in document.tables)
-    assert all(cell.source_trace.artifact_ids for table in document.tables for cell in table.cells)
+    assert all(
+        cell.source_trace.artifact_ids
+        for table in document.tables
+        for cell in table.cells
+    )
     assert all(item.source_trace.artifact_ids for item in document.figures)
     assert all(item.source_trace.raw_object_path for item in document.tables)
     assert document.validation_report.checks["source_trace_integrity_valid"] is True
@@ -412,20 +583,28 @@ def test_canonical_ir_uses_artifact_ids_and_redacts_signed_urls(tmp_path: Path) 
     assert document.validation_report.metrics["source_trace_artifact_coverage"] == 1.0
 
 
-def test_validator_blocks_corrupted_references_grids_and_artifacts(tmp_path: Path) -> None:
+def test_validator_blocks_corrupted_references_grids_and_artifacts(
+    tmp_path: Path,
+) -> None:
     pdf_path = tmp_path / "report.pdf"
     _write_pdf(pdf_path)
     ocr_root = tmp_path / "ocr_output"
     ir_root = tmp_path / "document_ir_output"
-    _write_ocr_run(ocr_root, "ocr-corruption", pdf_path)
-    settings = Settings(output_root=ocr_root, document_ir_output_root=ir_root, upload_root=tmp_path / "uploads")
+    _write_ocr_run(ocr_root, "ocr-20261031T000000Z-000000000003", pdf_path)
+    settings = Settings(
+        output_root=ocr_root,
+        document_ir_output_root=ir_root,
+        upload_root=tmp_path / "uploads",
+    )
     result = DocumentIrWorkflow(settings).run(
-        DocumentIrBuildRequest(ocr_run_id="ocr-corruption", pdf_path=str(pdf_path)),
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000003", pdf_path=str(pdf_path)
+        ),
         run_id="ir-20260718T010101Z-000000000005",
     )
-    document = DocumentIrPackageReader(result.output_dir, ocr_output_root=ocr_root).load_document(
-        hydrate_local_paths=True
-    )
+    document = DocumentIrPackageReader(
+        result.output_dir, ocr_output_root=ocr_root
+    ).load_document(hydrate_local_paths=True)
     document.structure_edges[0].target_id = "missing-entity"
     document.tables[0].cells[0].row_index = document.tables[0].row_count
     local_artifact = next(item for item in document.artifacts if "://" not in item.path)
@@ -442,24 +621,52 @@ def test_validator_blocks_corrupted_references_grids_and_artifacts(tmp_path: Pat
     assert document.validation_report.metrics["artifact_integrity_error_count"] == 1
 
 
-@pytest.mark.parametrize("required,optional", [(True,False),(True,True),(False,False)])
-def test_build_dispatches_required_reviews_independently_of_optional_flag(tmp_path, monkeypatch, required, optional):
-    pdf_path=tmp_path / "report.pdf"
+@pytest.mark.parametrize(
+    "required,optional", [(True, False), (True, True), (False, False)]
+)
+def test_build_dispatches_required_reviews_independently_of_optional_flag(
+    tmp_path, monkeypatch, required, optional
+):
+    pdf_path = tmp_path / "report.pdf"
     _write_pdf(pdf_path)
-    ocr_root=tmp_path / "ocr"
-    _write_ocr_run(ocr_root,"ocr-layout",pdf_path)
-    calls=[]
+    ocr_root = tmp_path / "ocr"
+    _write_ocr_run(ocr_root, "ocr-20261031T000000Z-000000000001", pdf_path)
+    calls = []
+
     class CapturingOrchestrator:
-        def __init__(self,*args,**kwargs): pass
-        def execute(self,document,**kwargs):
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def execute(self, document, **kwargs):
             calls.append(kwargs)
             return document
-    monkeypatch.setattr("esg_document.workflows.ir_workflow.AgentReviewOrchestrator",CapturingOrchestrator)
-    settings=Settings(output_root=ocr_root,document_ir_output_root=tmp_path / "ir",upload_root=tmp_path / "upload")
-    result=DocumentIrWorkflow(settings).run(DocumentIrBuildRequest(ocr_run_id="ocr-layout",pdf_path=str(pdf_path),
-        execute_required_reviews=required,execute_vlm_reviews=optional,review_provider="local_qwen"),
-        run_id="ir-20260718T010101Z-000000000009")
-    document=json.loads(result.document_ir_path.read_text())
-    assert len(calls)==int(required or optional)
-    if calls: assert calls[0]["include_optional_reviews"] is optional
-    assert document["quality_report"]["review_execution_policy"]["execute_optional_reviews"] is optional
+
+    monkeypatch.setattr(
+        "esg_document.workflows.ir_workflow.AgentReviewOrchestrator",
+        CapturingOrchestrator,
+    )
+    settings = Settings(
+        output_root=ocr_root,
+        document_ir_output_root=tmp_path / "ir",
+        upload_root=tmp_path / "upload",
+    )
+    result = DocumentIrWorkflow(settings).run(
+        DocumentIrBuildRequest(
+            ocr_run_id="ocr-20261031T000000Z-000000000001",
+            pdf_path=str(pdf_path),
+            execute_required_reviews=required,
+            execute_vlm_reviews=optional,
+            review_provider="local_qwen",
+        ),
+        run_id="ir-20260718T010101Z-000000000009",
+    )
+    document = json.loads(result.document_ir_path.read_text())
+    assert len(calls) == int(required or optional)
+    if calls:
+        assert calls[0]["include_optional_reviews"] is optional
+    assert (
+        document["quality_report"]["review_execution_policy"][
+            "execute_optional_reviews"
+        ]
+        is optional
+    )

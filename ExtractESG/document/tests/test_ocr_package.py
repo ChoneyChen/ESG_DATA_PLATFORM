@@ -28,7 +28,7 @@ class DownloadClient:
         Image.new("RGB", (12, 12), "white").save(buffer, format="JPEG")
         self.image = buffer.getvalue()
 
-    def download_bytes(self, url: str) -> bytes:
+    def read_bytes(self, url: str) -> bytes:
         return self.image
 
 
@@ -44,14 +44,23 @@ def test_paddle_client_ignores_environment_proxy_by_default() -> None:
     assert proxied_client.session.trust_env is True
 
 
-def test_ocr_package_uses_portable_paths_and_one_based_page_names(tmp_path: Path) -> None:
+def test_ocr_package_uses_portable_paths_and_one_based_page_names(
+    tmp_path: Path,
+) -> None:
     root = tmp_path / "ocr-20260718T120000Z-0123456789ab"
     writer = OcrOutputWriter(root)
-    writer.write_request({"file_path": str(tmp_path / "report.pdf"), "token": "secret-token"})
+    writer.write_request(
+        {"file_path": str(tmp_path / "report.pdf"), "token": "secret-token"}
+    )
     writer.write_submit_response({"data": {"jobId": "job-1"}})
     writer.append_poll_event({"data": {"state": "done"}})
     page = {
-        "prunedResult": {"page_index": 0, "width": 100, "height": 100, "parsing_res_list": []},
+        "prunedResult": {
+            "page_index": 0,
+            "width": 100,
+            "height": 100,
+            "parsing_res_list": [],
+        },
         "markdown": {
             "text": '<p>Metric</p><img src="imgs/provider-image.jpg">',
             "images": {
@@ -60,18 +69,27 @@ def test_ocr_package_uses_portable_paths_and_one_based_page_names(tmp_path: Path
         },
         "outputImages": {"layout_det_res": "https://provider.test/layout"},
     }
-    raw = json.dumps({"result": {"layoutParsingResults": [page]}}, ensure_ascii=False) + "\n"
+    raw = (
+        json.dumps({"result": {"layoutParsingResults": [page]}}, ensure_ascii=False)
+        + "\n"
+    )
     writer.save_result_jsonl(raw)
-    markdown_files, downloaded_files, artifacts, page_count = writer.extract_artifacts_from_jsonl(
-        jsonl_text=raw,
-        client=DownloadClient(),
+    markdown_files, downloaded_files, artifacts, page_count = (
+        writer.extract_artifacts_from_jsonl(
+            jsonl_text=raw,
+            resource_reader=DownloadClient(),
+        )
     )
     manifest = writer.write_manifest(
         {
             "run_id": root.name,
             "job_id": "job-1",
             "model": "PaddleOCR-VL-1.6",
-            "source": {"kind": "local-file", "display_name": "report.pdf", "sha256": "a" * 64},
+            "source": {
+                "kind": "local-file",
+                "display_name": "report.pdf",
+                "sha256": "a" * 64,
+            },
             "optional_payload": {},
             "page_count": page_count,
             "artifact_count": len(artifacts),
@@ -86,22 +104,44 @@ def test_ocr_package_uses_portable_paths_and_one_based_page_names(tmp_path: Path
     assert (root / "artifacts" / "layouts" / "page-0001.jpg").exists()
     markdown = markdown_files[0].read_text(encoding="utf-8")
     assert "../../artifacts/images/page-0001/image-0001.jpg" in markdown
-    assert json.loads(writer.layout.provider_result.read_text(encoding="utf-8"))["result"]["layoutParsingResults"][0]["markdown"]["text"] == page["markdown"]["text"]
-    request_snapshot = json.loads(writer.layout.source_request.read_text(encoding="utf-8"))
+    assert (
+        json.loads(writer.layout.provider_result.read_text(encoding="utf-8"))["result"][
+            "layoutParsingResults"
+        ][0]["markdown"]["text"]
+        == page["markdown"]["text"]
+    )
+    request_snapshot = json.loads(
+        writer.layout.source_request.read_text(encoding="utf-8")
+    )
     assert request_snapshot["file_path"] == f"runtime-upload://{root.name}/report.pdf"
     assert "token" not in request_snapshot
-    observation = json.loads((root / "observations" / "pages" / "page-0001.json").read_text(encoding="utf-8"))
-    assert observation["provider_result"]["markdown"]["images"]["imgs/provider-image.jpg"] == "https://provider.test/image"
-    assert "authorization=secret" not in writer.layout.provider_result.read_text(encoding="utf-8")
+    observation = json.loads(
+        (root / "observations" / "pages" / "page-0001.json").read_text(encoding="utf-8")
+    )
+    assert (
+        observation["provider_result"]["markdown"]["images"]["imgs/provider-image.jpg"]
+        == "https://provider.test/image"
+    )
+    assert "authorization=secret" not in writer.layout.provider_result.read_text(
+        encoding="utf-8"
+    )
     assert str(tmp_path) not in manifest.read_text(encoding="utf-8")
-    assert json.loads(manifest.read_text(encoding="utf-8"))["package_schema_version"] == "ocr-package-v1"
-    file_index = json.loads((root / "integrity" / "files.json").read_text(encoding="utf-8"))
+    assert (
+        json.loads(manifest.read_text(encoding="utf-8"))["package_schema_version"]
+        == "ocr-package-v1"
+    )
+    file_index = json.loads(
+        (root / "integrity" / "files.json").read_text(encoding="utf-8")
+    )
     assert any(item["path"] == "manifest.json" for item in file_index["files"])
 
     loaded = OcrArtifactLoader(tmp_path).load(root.name)
     assert loaded.pages[0].page_index == 0
     assert loaded.pages[0].markdown_path == root / "content" / "pages" / "page-0001.md"
-    assert loaded.pages[0].local_markdown_images["imgs/provider-image.jpg"].name == "image-0001.jpg"
+    assert (
+        loaded.pages[0].local_markdown_images["imgs/provider-image.jpg"].name
+        == "image-0001.jpg"
+    )
 
     validation = validate_package(
         root,
@@ -129,14 +169,18 @@ def test_ocr_package_integrity_detects_tampering(tmp_path: Path) -> None:
     writer.save_result_jsonl('{"result":{"layoutParsingResults":[]}}\n')
     writer.extract_artifacts_from_jsonl(
         jsonl_text='{ "result": {"layoutParsingResults": []} }\n',
-        client=DownloadClient(),
+        resource_reader=DownloadClient(),
     )
     writer.write_manifest(
         {
             "run_id": root.name,
             "job_id": "job-1",
             "model": "PaddleOCR-VL-1.6",
-            "source": {"kind": "local-file", "display_name": "report.pdf", "sha256": "a" * 64},
+            "source": {
+                "kind": "local-file",
+                "display_name": "report.pdf",
+                "sha256": "a" * 64,
+            },
             "optional_payload": {},
             "page_count": 0,
             "artifact_count": 0,
@@ -155,7 +199,9 @@ def test_ocr_package_integrity_detects_tampering(tmp_path: Path) -> None:
     assert any("sha256 mismatch" in error for error in validation.errors)
 
 
-def test_package_root_reservation_prevents_overwriting_an_existing_run(tmp_path: Path) -> None:
+def test_package_root_reservation_prevents_overwriting_an_existing_run(
+    tmp_path: Path,
+) -> None:
     root = tmp_path / "ocr-20260718T120000Z-0123456789ab"
     create_package_root(root)
     (root / "sentinel.txt").write_text("immutable", encoding="utf-8")
@@ -200,7 +246,9 @@ def _write_canvas_pdf(path: Path, pages: list[tuple[float, float, int]]) -> None
         writer.write(handle)
 
 
-def test_pdf_canvas_preflight_keeps_standard_pdf_as_original_input(tmp_path: Path) -> None:
+def test_pdf_canvas_preflight_keeps_standard_pdf_as_original_input(
+    tmp_path: Path,
+) -> None:
     source = tmp_path / "standard.pdf"
     provider = tmp_path / "provider.pdf"
     _write_canvas_pdf(source, [(595, 842, 0), (595, 842, 0)])
@@ -214,7 +262,9 @@ def test_pdf_canvas_preflight_keeps_standard_pdf_as_original_input(tmp_path: Pat
     assert not provider.exists()
 
 
-def test_pdf_canvas_preflight_normalizes_large_mixed_and_rotated_pages_without_cropping(tmp_path: Path) -> None:
+def test_pdf_canvas_preflight_normalizes_large_mixed_and_rotated_pages_without_cropping(
+    tmp_path: Path,
+) -> None:
     source = tmp_path / "mixed.pdf"
     provider = tmp_path / "provider.pdf"
     _write_canvas_pdf(source, [(1920, 1080, 0), (600, 800, 0), (792, 612, 90)])
@@ -232,7 +282,13 @@ def test_pdf_canvas_preflight_normalizes_large_mixed_and_rotated_pages_without_c
         "rotated_page_canvas",
     ]
     assert len(provider_reader.pages) == 3
-    assert max(float(provider_reader.pages[0].cropbox.width), float(provider_reader.pages[0].cropbox.height)) == 1200
+    assert (
+        max(
+            float(provider_reader.pages[0].cropbox.width),
+            float(provider_reader.pages[0].cropbox.height),
+        )
+        == 1200
+    )
     assert prepared.report["pages"][0]["source_to_provider"] == {
         "uniform_scale": 0.625,
         "rotation_transferred_to_content": False,
@@ -242,10 +298,17 @@ def test_pdf_canvas_preflight_normalizes_large_mixed_and_rotated_pages_without_c
         "cropped": False,
     }
     assert prepared.report["pages"][2]["provider_canvas"]["rotation_degrees"] == 0
-    assert prepared.report["pages"][2]["source_to_provider"]["rotation_transferred_to_content"] is True
+    assert (
+        prepared.report["pages"][2]["source_to_provider"][
+            "rotation_transferred_to_content"
+        ]
+        is True
+    )
 
 
-def test_pdf_canvas_preflight_rejects_encrypted_pdf_before_cloud_submission(tmp_path: Path) -> None:
+def test_pdf_canvas_preflight_rejects_encrypted_pdf_before_cloud_submission(
+    tmp_path: Path,
+) -> None:
     source = tmp_path / "encrypted.pdf"
     writer = PdfWriter()
     writer.add_blank_page(width=595, height=842)
@@ -257,7 +320,9 @@ def test_pdf_canvas_preflight_rejects_encrypted_pdf_before_cloud_submission(tmp_
         PdfCanvasPreflight().prepare(source, tmp_path / "provider.pdf")
 
 
-def test_pdf_canvas_preflight_canonicalizes_nonzero_and_mismatched_page_boxes(tmp_path: Path) -> None:
+def test_pdf_canvas_preflight_canonicalizes_nonzero_and_mismatched_page_boxes(
+    tmp_path: Path,
+) -> None:
     source = tmp_path / "offset-box.pdf"
     provider = tmp_path / "provider.pdf"
     writer = PdfWriter()
@@ -273,7 +338,12 @@ def test_pdf_canvas_preflight_canonicalizes_nonzero_and_mismatched_page_boxes(tm
         "nonzero_page_box_origin",
         "noncanonical_page_boxes",
     ]
-    assert [float(value) for value in provider_page.mediabox] == [0.0, 0.0, 600.0, 800.0]
+    assert [float(value) for value in provider_page.mediabox] == [
+        0.0,
+        0.0,
+        600.0,
+        800.0,
+    ]
     assert [float(value) for value in provider_page.cropbox] == [0.0, 0.0, 600.0, 800.0]
     assert prepared.report["pages"][0]["source_to_provider"]["cropped"] is False
 
@@ -306,12 +376,15 @@ def test_ocr_workflow_submits_normalized_provider_pdf_but_keeps_original_source_
 
         def download_text(self, url: str) -> str:
             pages = [
-                {"markdown": {"text": f"page {index + 1}", "images": {}}, "outputImages": {}}
+                {
+                    "markdown": {"text": f"page {index + 1}", "images": {}},
+                    "outputImages": {},
+                }
                 for index in range(2)
             ]
             return json.dumps({"result": {"layoutParsingResults": pages}}) + "\n"
 
-        def download_bytes(self, url: str) -> bytes:
+        def read_bytes(self, url: str) -> bytes:
             raise AssertionError("No images are expected in this fixture")
 
     monkeypatch.setattr("esg_document.ocr.providers.PaddleOcrVlClient", FakeClient)
@@ -343,20 +416,51 @@ def test_ocr_workflow_submits_normalized_provider_pdf_but_keeps_original_source_
 
 def test_transport_exports_never_retain_credentials_or_signed_urls(tmp_path):
     from esg_data.sanitization import sanitize_payload
-    source={'Authorization':'fixture-private','token':'fixture-private','url':'https://example.test/a?signature=fixture-private','token_level_schema_enforcement':True}
-    safe=sanitize_payload(source)
-    assert safe=={'url':'https://example.test/a','token_level_schema_enforcement':True}
-    assert sanitize_payload('http://[invalid?token=fixture-private')=='[invalid remote URL]'
-    writer=OcrOutputWriter(tmp_path/'ocr-test')
-    writer.write_submit_response(source);writer.append_poll_event(source);writer.save_result_jsonl(json.dumps(source))
-    assert all('fixture-private' not in path.read_text() for path in [writer.layout.submit_response,writer.layout.poll_events,writer.layout.provider_result])
+
+    source = {
+        "Authorization": "fixture-private",
+        "token": "fixture-private",
+        "url": "https://example.test/a?signature=fixture-private",
+        "token_level_schema_enforcement": True,
+    }
+    safe = sanitize_payload(source)
+    assert safe == {
+        "url": "https://example.test/a",
+        "token_level_schema_enforcement": True,
+    }
+    assert (
+        sanitize_payload("http://[invalid?token=fixture-private")
+        == "[invalid remote URL]"
+    )
+    writer = OcrOutputWriter(tmp_path / "ocr-test")
+    writer.write_submit_response(source)
+    writer.append_poll_event(source)
+    writer.save_result_jsonl(json.dumps(source))
+    assert all(
+        "fixture-private" not in path.read_text()
+        for path in [
+            writer.layout.submit_response,
+            writer.layout.poll_events,
+            writer.layout.provider_result,
+        ]
+    )
 
 
 def test_sanitized_jsonl_preserves_provider_line_locations(tmp_path):
-    writer=OcrOutputWriter(tmp_path/'ocr-lines')
-    source='\n{"page":1,"url":"https://example.test/1?token=private"}\n\n{"page":2}\n'
-    result=writer.save_result_jsonl(source).read_text()
-    assert len(result.splitlines())==len(source.splitlines())
-    assert json.loads(result.splitlines()[1])['page']==1
-    assert json.loads(result.splitlines()[3])['page']==2
-    assert 'private' not in result
+    writer = OcrOutputWriter(tmp_path / "ocr-lines")
+    source = '\n{"page":1,"url":"https://example.test/1?token=private"}\n\n{"page":2}\n'
+    result = writer.save_result_jsonl(source).read_text()
+    assert len(result.splitlines()) == len(source.splitlines())
+    assert json.loads(result.splitlines()[1])["page"] == 1
+    assert json.loads(result.splitlines()[3])["page"] == 2
+    assert "private" not in result
+
+
+def test_ocr_loader_rejects_retired_flat_layout(tmp_path):
+    root = tmp_path / "ocr-20261031T000000Z-000000000003"
+    root.mkdir()
+    (root / "manifest.json").write_text(
+        json.dumps({"run_id": root.name, "raw_jsonl_path": "obsolete.jsonl"})
+    )
+    with pytest.raises(ValueError, match="package_schema_version"):
+        OcrArtifactLoader(tmp_path).load(root.name)
