@@ -1,3 +1,4 @@
+from esg_contracts.evidence import ObjectSearchPage
 import pytest
 from esg_contracts.evidence import ObjectReference
 from esg_contracts.facts import RunRequest, PipelineBudget
@@ -18,7 +19,7 @@ def test_output_or_input_limit_splits_rows_and_retains_all_cells(repository,tmp_
         for i in range(2)]})
     class Docs:
         def document(self,_):return document()
-        def search(self,*_):return [ObjectReference(object_id='t',kind='table',page_index=0,score=1)]
+        def search_page(self,*_):return ObjectSearchPage(objects=[ObjectReference(object_id='t',kind='table',page_index=0,score=1)],total=1,returned=1,query_digest='fixed',scope={'available_pages':[0]})
         def read(self,*_):return original
     class Reader:
         def complete(self,**kwargs):

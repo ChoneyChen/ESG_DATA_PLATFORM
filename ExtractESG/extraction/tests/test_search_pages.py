@@ -41,3 +41,10 @@ def test_explicit_object_budget_marks_search_incomplete(documents,repository,tmp
     assert coverage['search']['total']>=5 and coverage['search']['truncated'] is True
     assert 'object_budget_exhausted' in coverage['reasons']
     assert result['summary']['assessment']['search_coverage']=='incomplete'
+
+
+def test_unversioned_object_list_cannot_bypass_search_coverage():
+    from types import SimpleNamespace
+    from esg_extraction.pipeline.retrieval import retrieve_candidates
+    with pytest.raises(ValueError, match="ObjectSearchPage"):
+        retrieve_candidates(SimpleNamespace(search=lambda *_: []), 'ir', None, 10)

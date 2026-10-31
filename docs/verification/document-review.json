@@ -1,0 +1,249 @@
+{
+  "schema_version": "document-review-1.0",
+  "scope": "All tracked or nonignored first-party Markdown except protected Crawl and private local files.",
+  "method": "Individual purpose/version/ownership decisions; current manual links verified. Baseline historical code paths refer to the recorded commit and are not current operational instructions.",
+  "not_a_claim_of": "Line-by-line scientific certification of every clause, test fixture or dependency.",
+  "documents": [
+    {
+      "path": "ClauseESG/README.md",
+      "role": "module",
+      "sha256": "d3e847f299dd96bd600ee56459ab6ac844c1de20bc261f2c931a024c490b6a74",
+      "lines": 15,
+      "decision": "一条一整体与独立SDK；结构条目非执行；命名集合仅选择。",
+      "current_link_errors": []
+    },
+    {
+      "path": "ConsoleESG/README.md",
+      "role": "module",
+      "sha256": "71fd22d625ae4f3afe05b788dcb35d5ad0d2d2380972c58b431df9eeeed3ecd7",
+      "lines": 32,
+      "decision": "对象父子路由、统一浮窗、接收/投影/发布操作；前端不重算科学规则。",
+      "current_link_errors": []
+    },
+    {
+      "path": "ExtractESG/README.md",
+      "role": "module",
+      "sha256": "1c7ee10a851089e530c4a1b9e91e612d12f74b4ed24a8d1b3a0e79747d640b73",
+      "lines": 17,
+      "decision": "一条骨干、两类值、端口和当前安装入口；无大包分支。",
+      "current_link_errors": []
+    },
+    {
+      "path": "ExtractESG/contracts/examples/report-batch/README.md",
+      "role": "example",
+      "sha256": "62bd2c2163f7ad04d6711f0c0dd21bd7974b6d41d114540b14af35c4c53f212b",
+      "lines": 27,
+      "decision": "输入批次格式与散列、可选资源信息；不限制事实年份。",
+      "current_link_errors": []
+    },
+    {
+      "path": "ExtractESG/document/docs/ARCHITECTURE.md",
+      "role": "module",
+      "sha256": "4af07a4763bb2f3e82ace79109a382d7ff0edb3febb3d1ad5f28af7436de7406",
+      "lines": 83,
+      "decision": "重写当前包/证据/复核边界；移除旧读取、固定旧UI和云默认说明。",
+      "current_link_errors": []
+    },
+    {
+      "path": "ExtractESG/document/docs/reviews.md",
+      "role": "module",
+      "sha256": "300584ad0b93c5069aefd3b62aea0bb1b03ddb1477d633b03a1bd45db2c720d0",
+      "lines": 42,
+      "decision": "23种当前操作；当前计划/枚举；离线回放不等于业务科学验收。",
+      "current_link_errors": []
+    },
+    {
+      "path": "PlatESG/README.md",
+      "role": "module",
+      "sha256": "ba48b39f453827ff35b226b1017ad9235ca9e81ef89a9661e44e8b1fa54edf29",
+      "lines": 25,
+      "decision": "仅当前已发布HTTP与来源端口；无SQL、审核、旧指标或冻结读适配。",
+      "current_link_errors": []
+    },
+    {
+      "path": "PlatESG/frontend/README.md",
+      "role": "module",
+      "sha256": "6f626da06e491e3ce9576c46afa4fce03c5d6eed9e87ba208660ae24388cd4ff",
+      "lines": 21,
+      "decision": "数据集/观测子页、全期间过滤、精确原值、证据和科研导出。",
+      "current_link_errors": []
+    },
+    {
+      "path": "README.md",
+      "role": "entry",
+      "sha256": "6267cc810d91337e2b3209fbdb21ffddb8f4e555520c65fcedbcb6079533bb17",
+      "lines": 32,
+      "decision": "模块与五服务入口；全年份、独立条款和当前进度，未宣称全局科学验收。",
+      "current_link_errors": []
+    },
+    {
+      "path": "database/README.md",
+      "role": "module",
+      "sha256": "a38f6c60758eb0a9f538bd4e648bed506813499c8a528dafb0ec42726c9a036c",
+      "lines": 27,
+      "decision": "原值、确定性投影、显式发布和来源保护；初始化由独立管理命令承担。",
+      "current_link_errors": []
+    },
+    {
+      "path": "database/contracts/README.md",
+      "role": "module",
+      "sha256": "53752a7f631191b1696832ad082381da86fc448a05b20ecaffc3e349e21bd0f1",
+      "lines": 5,
+      "decision": "生成DTO/类型SDK，不把SQL连接实现交给消费者。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "role": "history",
+      "sha256": "09f75cd4556c1d0d5617965484a6387ff82c6b633e8060385900e079d3d1fe8d",
+      "lines": 20,
+      "decision": "收口当前轮次；删除已替代的千行旧操作叙述，早期日志只留Git历史。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/README.md",
+      "role": "entry",
+      "sha256": "24710bf3331724f580b2163f4341c56a4c83447a2e93dbd1526b3ffee41f45d3",
+      "lines": 14,
+      "decision": "规范、指南、基线与实施分开；删除重复旧手册入口。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/SYSTEM_STATE.md",
+      "role": "entry",
+      "sha256": "f7df10dbc74509d0d813174080e0eec9d153370b3e96f98992342efc320db044",
+      "lines": 7,
+      "decision": "唯一进度入口；源码、隔离、真实执行、部署分别说明。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/architecture/README.md",
+      "role": "normative",
+      "sha256": "ec0a028c5e8146402747e6802210c59dc05b10f4547ca60473acf5030a0914ce",
+      "lines": 64,
+      "decision": "每模块所有权、当前接口/版本、依赖方向与宽容捕获。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/architecture/delivery.md",
+      "role": "normative",
+      "sha256": "fff2a11bf509985921a59518a167cc5cdbaab27751877704128899ecd7ad2e27",
+      "lines": 19,
+      "decision": "facts唯一权威、独立ZIP/回执及当前投影/发布桥，删除未来式旧说明。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/architecture/models.md",
+      "role": "normative",
+      "sha256": "eb6166c3d96a57670b56473cbd4702c4c69101ff6e3efcf27f0d9f68ea22c7a1",
+      "lines": 32,
+      "decision": "当前本地模型、执行信封、预算、条款搜索；不复用理解，不编造提速。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/architecture/organization.md",
+      "role": "normative",
+      "sha256": "6c59f13b8e64e8746d4d7e282360a82ae60ff76539a5116cc33413bebe3fc098",
+      "lines": 121,
+      "decision": "修正条款1.3；组织可重建、矩阵不聚合，原值和目标身份分列。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/architecture/products.md",
+      "role": "normative",
+      "sha256": "8589a7b108a6f0aad58fb376c1953cab31b820a6e51e3de4a9288be0af487837",
+      "lines": 65,
+      "decision": "当前观测、来源选择、发布/撤下、完整分页和精确科研类型与容量。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/audits/2026-10-30/README.md",
+      "role": "baseline",
+      "sha256": "7d2beba64d896080ef0d025730b329e1a0a6c4156c155a18b05303ada7814894",
+      "lines": 481,
+      "decision": "F01–F15问题证据；保留对应日期语义，明确旧运行已清除。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/audits/2026-10-31/README.md",
+      "role": "baseline",
+      "sha256": "499edd3830e040dfcb44cfce192f38d8b2beb6f6f6d30bbc95d8af23ae10a852",
+      "lines": 232,
+      "decision": "M01–M15主计划；后续清理裁定覆盖其旧冻结保留建议。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/audits/2026-10-31/unresolved-clauses.md",
+      "role": "baseline",
+      "sha256": "ca4a3943864ab56bf9adc275c0d408305c7a4e02275ee5b7bde1412723ce6b8b",
+      "lines": 64,
+      "decision": "37项原阻塞及建议，标明当前已逐项归类，不能误报仍有37条阻塞。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/guides/clause-authoring.md",
+      "role": "guide",
+      "sha256": "607873f08cbd6ac6c258e7c9a601fa4618d6fdb7c58e816f01ef62fc7aa62831",
+      "lines": 55,
+      "decision": "从模板制作完整单条；全期间、可选属性、词典、结构描述与真实样本验收。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/guides/local-operation.md",
+      "role": "guide",
+      "sha256": "fbf36b2e65ab294153aad937e61a4eb2e19807213941799505ca6374dc91e226",
+      "lines": 69,
+      "decision": "Console归属统一启动器、五服务、显式新库与数据根，禁止启动隐式迁移。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/guides/pdf-intake.md",
+      "role": "guide",
+      "sha256": "dd738231f231a14baf14b9c6c6b84304e3d86ed0ee4baddd232bfb15920f35d7",
+      "lines": 67,
+      "decision": "完整PDF、批次文件/散列/元数据、接收与发布区别；不按年拆原件。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/implementation/2026-10-30/README.md",
+      "role": "baseline",
+      "sha256": "2ff7b4cc199d3d4887556b62019d5ddb369eb0dcc1c386273187af4b21b8bb61",
+      "lines": 132,
+      "decision": "F项历史实施与不足；标明不是当前部署/旧数据恢复说明。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/implementation/2026-10-31/README.md",
+      "role": "implementation",
+      "sha256": "8896535109872df7d0cf828237454be819f0118fda58ae5f3e9676a29fcd6fdd",
+      "lines": 57,
+      "decision": "按M项分别记录源码、真实报告及未完成验收；不把格式通过写成全部科学通过。",
+      "current_link_errors": []
+    },
+    {
+      "path": "docs/implementation/2026-10-31/clause-dispositions.md",
+      "role": "implementation",
+      "sha256": "b0e1734ecc1e08bb019e181d845ee3ca9fde42410ab89750821b798d76f9e82a",
+      "lines": 49,
+      "decision": "逐项含义、13结构/9定量/15定性和真实验收not_evaluated。",
+      "current_link_errors": []
+    },
+    {
+      "path": "全链路检查报告与升级规划.md",
+      "role": "requirement",
+      "sha256": "e0bafd9b7f9b9f12bab68fc0da245a115f71eb8026aefcd9256301737d1cc040",
+      "lines": 598,
+      "decision": "原始需求逐阶段对照；新入口指向10-31；旧路线与缓存建议由后续要求替代。",
+      "current_link_errors": []
+    },
+    {
+      "path": "更新要求.md",
+      "role": "requirement",
+      "sha256": "11d0f8a7799693c866dd20c2fc25e748dcba0d94f180159b7d9c5ced6b9f7c57",
+      "lines": 638,
+      "decision": "补充需求保留为原依据；增加后续裁定与当前实现入口，不作为操作规范。",
+      "current_link_errors": []
+    }
+  ],
+  "errors": []
+}

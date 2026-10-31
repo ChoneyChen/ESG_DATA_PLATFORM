@@ -1,3 +1,4 @@
+from esg_contracts.evidence import ObjectSearchPage
 """Scientific counterexamples: provenance alone cannot make a digit a quantity."""
 import pytest
 from esg_contracts.evidence import TextEvidence, EvidenceFrame, EvidenceCell, EvidenceRow
@@ -31,9 +32,10 @@ def test_semantic_digit_rejections_never_become_facts(documents, repository, tmp
         rows=numeric_rows(TextEvidence(object_id=str(i), text=text, page_index=i)), digest=str(i)) for i,text in enumerate(texts)]
     class Docs:
         document = documents.document
-        def search(self, *args):
+        def search_page(self, *args):
             from esg_contracts.evidence import ObjectReference
-            return [ObjectReference(object_id=f.object_id, kind='text', page_index=f.page_index, score=1) for f in frames]
+            objects = [ObjectReference(object_id=f.object_id, kind='text', page_index=f.page_index, score=1) for f in frames]
+            return ObjectSearchPage(objects=objects,total=len(objects),returned=len(objects),query_digest='fixed',scope={'available_pages':[0,1,2]})
         def read(self, run_id, candidate, chunk): return frames[int(candidate.object_id)]
     class Reader(Model):
         def complete(self, **kwargs):

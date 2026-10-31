@@ -1,0 +1,84 @@
+{
+  "roots": [
+    {
+      "path": ".pytest_cache",
+      "files": 5,
+      "bytes": 23762,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "database/.pytest_cache",
+      "files": 5,
+      "bytes": 1596,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "database/build",
+      "files": 15,
+      "bytes": 68503,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "PlatESG/.pytest_cache",
+      "files": 5,
+      "bytes": 9149,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ExtractESG/.pytest_cache",
+      "files": 5,
+      "bytes": 81464,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ExtractESG/build",
+      "files": 197,
+      "bytes": 2165741,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ExtractESG/contracts/build",
+      "files": 26,
+      "bytes": 103195,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ExtractESG/shared_runtime/build",
+      "files": 11,
+      "bytes": 61107,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ExtractESG/extraction/.pytest_cache",
+      "files": 4,
+      "bytes": 532,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ClauseESG/.pytest_cache",
+      "files": 4,
+      "bytes": 723,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ClauseESG/build",
+      "files": 12,
+      "bytes": 56420,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "PlatESG/backend/node_modules",
+      "files": 141,
+      "bytes": 460812,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    },
+    {
+      "path": "ConsoleESG/tsconfig.tsbuildinfo",
+      "files": 1,
+      "bytes": 763,
+      "reason": "Superseded build/test cache or dependencies of deleted backend; current frontend dist and active Python/Node runtimes retained."
+    }
+  ],
+  "files": 431,
+  "bytes": 3033767
+}

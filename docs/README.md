@@ -9,6 +9,6 @@
 | 模块手册 | [条款](../ClauseESG/README.md)、[提取](../ExtractESG/README.md)、[Console](../ConsoleESG/README.md)、[数据库](../database/README.md)、[Plat](../PlatESG/README.md) |
 | 原始问题证据 | [全盘审查及F01–F15](audits/2026-10-30/README.md) |
 | 原始需求 | [升级规划](../全链路检查报告与升级规划.md)、[补充要求](../更新要求.md) |
-| 历史 | `history/`、[更新日志](CHANGELOG.md)；不用于当前启动或接口说明 |
+| 变更记录 | [更新日志](CHANGELOG.md)与日期化实施证据；已替代的重复手册只在Git历史 |
 
 当前规范只写在 architecture；一次实施的结果只写在 implementation；原始审查保留对应基线。程序不得读取文档当运行配置，报告和源码引用均声明所对应的版本。

@@ -1,3 +1,4 @@
+from esg_contracts.evidence import ObjectSearchPage
 """Structural counterexamples beyond one report's year-column layout."""
 import pytest
 from esg_contracts.evidence import DocumentReference, EvidenceFrame, EvidenceRow, EvidenceCell, TextEvidence, ObjectReference
@@ -31,7 +32,7 @@ def test_all_years_are_retained_even_if_model_only_names_one(primary_year, repos
     evidence = frame({"a":"2023", "b":"2024", "c":"2025"})
     class Docs:
         def document(self, _): return document(primary_year)
-        def search(self, *_): return [ObjectReference(object_id="t",kind="table",page_index=0,score=1)]
+        def search_page(self, *_): return ObjectSearchPage(objects=[ObjectReference(object_id="t",kind="table",page_index=0,score=1)],total=1,returned=1,query_digest="fixed",scope={"available_pages":[0]})
         def read(self, *_): return evidence
     class Reader:
         def complete(self, **kwargs):

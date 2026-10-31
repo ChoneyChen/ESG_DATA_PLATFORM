@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "path": "docs/history/2026-10-30-first-pass.md",
+      "bytes": 17208,
+      "sha256": "4f0f2a90fe3fe8e81ebdfe3e55f93ae498027f5f2ea5059dcdc2512759ecb9d9",
+      "reason": "Duplicated superseded implementation manual; current module guides and dated implementation reports replace it."
+    },
+    {
+      "path": "docs/history/2026-10-30-structure.md",
+      "bytes": 8443,
+      "sha256": "7645ac62b749b27f13711906ce5575740d434eecbaa9ea61a2efbfbfaa9e4ffe",
+      "reason": "Duplicated superseded implementation manual; current module guides and dated implementation reports replace it."
+    }
+  ],
+  "history_location": "Git history only; no operational compatibility instructions retained"
+}

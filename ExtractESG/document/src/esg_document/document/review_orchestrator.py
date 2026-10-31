@@ -15,7 +15,6 @@ from esg_document.document.contracts import (
     BoundingBox,
     CandidateRevision,
     ConflictGroup,
-    CorrectionPatch,
     DocumentIR,
     FinalReviewDecision,
     FigureIR,
@@ -204,7 +203,7 @@ class AgentReviewOrchestrator:
             }
             self._finish_report(document)
             document.correction_patches = [
-                CorrectionPatch.model_validate(patch.model_dump(mode="json"))
+                AtomicPatch.model_validate(patch.model_dump(mode="json"))
                 for patch in document.atomic_patches
             ]
             return document
@@ -378,7 +377,7 @@ class AgentReviewOrchestrator:
             }
         self._finish_report(document)
         document.correction_patches = [
-            CorrectionPatch.model_validate(patch.model_dump(mode="json"))
+            AtomicPatch.model_validate(patch.model_dump(mode="json"))
             for patch in document.atomic_patches
         ]
         return document

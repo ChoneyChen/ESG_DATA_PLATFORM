@@ -7,7 +7,6 @@ from typing import Any, Callable
 from esg_document.config import Settings
 from esg_document.document.contracts import (
     AtomicPatch,
-    CorrectionPatch,
     DocumentIR,
     DocumentIrRepairRequest,
     FinalReviewDecision,
@@ -648,7 +647,7 @@ class DocumentIrRevisionService:
             document = LogicalTableBuilder().build(document)
             document = VisualRegionBuilder().build(document, output_dir)
         document.correction_patches = [
-            CorrectionPatch.model_validate(patch.model_dump(mode="json"))
+            AtomicPatch.model_validate(patch.model_dump(mode="json"))
             for patch in document.atomic_patches
         ]
         document = DocumentIrValidator().validate(

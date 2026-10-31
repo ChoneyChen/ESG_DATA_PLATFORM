@@ -11398,9 +11398,9 @@
       "path": "ExtractESG/document/src/esg_document/document/contracts.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 40282,
-      "lines": 1260,
-      "sha256": "dc09b4d35cacc4fa3073be69502da9db0653e4d681c840ef34864a1498f05bbe",
+      "bytes": 40174,
+      "lines": 1256,
+      "sha256": "5cfefa68b0b654b65dff6384efcc2023cc664ea32be1740663abd3d5011ee322",
       "imports": [
         "__future__",
         "datetime",
@@ -11942,9 +11942,9 @@
       "path": "ExtractESG/document/src/esg_document/document/review_orchestrator.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 101398,
-      "lines": 2464,
-      "sha256": "0277824a5d0367f32d849e096b73ce237a922d108c3ffb2f566672479a7e09ec",
+      "bytes": 101369,
+      "lines": 2463,
+      "sha256": "1dacf18367e665a1f1118c07547ab3d1e7b7bbd805a71dfbd5e438e701c35499",
       "imports": [
         "__future__",
         "copy",
@@ -12049,9 +12049,9 @@
       "path": "ExtractESG/document/src/esg_document/document/revision_service.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 33389,
-      "lines": 816,
-      "sha256": "1e682fb8520d371cec746aacb0260fd764cc7c01b544b29dea3646035f180811",
+      "bytes": 33364,
+      "lines": 815,
+      "sha256": "0ec2b3d0c6cce50fd45d004a0a5770de8979d86885962312e8794ca1fd2b324d",
       "imports": [
         "__future__",
         "datetime",
@@ -14287,9 +14287,9 @@
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/ports.py",
       "owner": "ExtractESG/extraction",
       "role": "implementation",
-      "bytes": 957,
-      "lines": 36,
-      "sha256": "3c3f951541acfec37122e873b320b88c65553b434c4d0ccc997efe400b5df630",
+      "bytes": 868,
+      "lines": 35,
+      "sha256": "236716c14e3b4312766cd7fdd4e2d8caafa0419c9e9c31e1928b334f3e443ac6",
       "imports": [
         "esg_contracts.evidence",
         "typing"
@@ -14307,9 +14307,9 @@
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/retrieval.py",
       "owner": "ExtractESG/extraction",
       "role": "implementation",
-      "bytes": 1281,
-      "lines": 22,
-      "sha256": "c61ce6075775788774ff2bb645b5bf7898b2a3321d5db5fefe5c2be8d5489565"
+      "bytes": 1242,
+      "lines": 27,
+      "sha256": "af4d7b67cf3f83bf017acb747ae5ef563c5c6f91ad92fa6d307f18be3e2ccbfd"
     },
     {
       "path": "ExtractESG/extraction/src/esg_extraction/pipeline/runtime.py",
@@ -14458,9 +14458,9 @@
       "path": "ExtractESG/extraction/tests/test_capture_semantics.py",
       "owner": "ExtractESG/extraction",
       "role": "isolated_verification",
-      "bytes": 10594,
-      "lines": 168,
-      "sha256": "f19dff253680aa178f82f7258cfb64bbdd60bf8e7c8e86fd25c6253fbebd3127",
+      "bytes": 10803,
+      "lines": 170,
+      "sha256": "0ec071146dc1284c88713ebde24086e597258e094617f75611cd0dd18df95248",
       "imports": [
         "esg_contracts.evidence",
         "esg_contracts.facts",
@@ -14525,9 +14525,9 @@
       "path": "ExtractESG/extraction/tests/test_frame_budget.py",
       "owner": "ExtractESG/extraction",
       "role": "isolated_verification",
-      "bytes": 3462,
-      "lines": 59,
-      "sha256": "edfa90f9e2a43564197b7e551c411b38122ef31ded8f28711d74c20f149e15fd",
+      "bytes": 3615,
+      "lines": 60,
+      "sha256": "614b25690c0149fb6f8e42009df23ede54cf3d2e292588a75b8d34256ff7f1af",
       "imports": [
         "esg_contracts.evidence",
         "esg_contracts.facts",
@@ -14634,26 +14634,28 @@
       "path": "ExtractESG/extraction/tests/test_search_pages.py",
       "owner": "ExtractESG/extraction",
       "role": "isolated_verification",
-      "bytes": 2484,
-      "lines": 43,
-      "sha256": "c74b560446248d8070bc1d32064cadd7064c262210f6421c955f111e99fe1a51",
+      "bytes": 2805,
+      "lines": 50,
+      "sha256": "a8054b01865ea4dce6bda3ed26cb222a2e102599e00713cb426ca91ea0cb7104",
       "imports": [
         "esg_contracts.evidence",
         "esg_contracts.facts",
         "esg_extraction.pipeline.adapters.artifacts",
         "esg_extraction.pipeline.engine",
+        "esg_extraction.pipeline.retrieval",
         "json",
         "pytest",
-        "test_backbone"
+        "test_backbone",
+        "types"
       ]
     },
     {
       "path": "ExtractESG/extraction/tests/test_structure_contract.py",
       "owner": "ExtractESG/extraction",
       "role": "isolated_verification",
-      "bytes": 7673,
-      "lines": 120,
-      "sha256": "2e355677cb20b767f4b86395c572e16688959a32c6f32d97d1c91a4485238114",
+      "bytes": 7826,
+      "lines": 121,
+      "sha256": "bea0b4ec6ca2441836a5e378c0ee8d27627aceb8c16d8f1b1338858cf9feea25",
       "imports": [
         "esg_clauses.scope",
         "esg_contracts.evidence",
@@ -16174,17 +16176,17 @@
       "path": "docs/CHANGELOG.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 117158,
-      "lines": 1291,
-      "sha256": "09691589510be5145e1bfe0bf6864dda88439858871c67a50b668c03bf52d63d"
+      "bytes": 1492,
+      "lines": 20,
+      "sha256": "09f75cd4556c1d0d5617965484a6387ff82c6b633e8060385900e079d3d1fe8d"
     },
     {
       "path": "docs/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 1433,
+      "bytes": 1453,
       "lines": 14,
-      "sha256": "df0f0a7b2c9edf349151bbc7c1e55e10d4bb052742591bc0ae0a41482d7c8663"
+      "sha256": "24710bf3331724f580b2163f4341c56a4c83447a2e93dbd1526b3ffee41f45d3"
     },
     {
       "path": "docs/SYSTEM_STATE.md",
@@ -16206,9 +16208,9 @@
       "path": "docs/architecture/delivery.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 2380,
+      "bytes": 2373,
       "lines": 19,
-      "sha256": "137f28521ba6fc48e2592070cb7a7d464c0f9f7a9726ae3f8a67892b1e50d932"
+      "sha256": "fff2a11bf509985921a59518a167cc5cdbaab27751877704128899ecd7ad2e27"
     },
     {
       "path": "docs/architecture/models.md",
@@ -16286,9 +16288,9 @@
       "path": "docs/audits/2026-10-30/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 41718,
-      "lines": 479,
-      "sha256": "ed99c2225978cb3960074b87227cfaedae561c6f7c197f2384a53f2c3ad8e007"
+      "bytes": 42025,
+      "lines": 481,
+      "sha256": "7d2beba64d896080ef0d025730b329e1a0a6c4156c155a18b05303ada7814894"
     },
     {
       "path": "docs/audits/2026-10-30/console-matrix.png",
@@ -16364,9 +16366,9 @@
       "path": "docs/audits/2026-10-31/unresolved-clauses.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 11220,
-      "lines": 62,
-      "sha256": "4f6b8af5cfba096ba1b1547fce50dcc5a162e36fc4fae1e9c15c3fa8e482bcad"
+      "bytes": 11527,
+      "lines": 64,
+      "sha256": "ca4a3943864ab56bf9adc275c0d408305c7a4e02275ee5b7bde1412723ce6b8b"
     },
     {
       "path": "docs/guides/clause-authoring.md",
@@ -16393,28 +16395,12 @@
       "sha256": "dd738231f231a14baf14b9c6c6b84304e3d86ed0ee4baddd232bfb15920f35d7"
     },
     {
-      "path": "docs/history/2026-10-30-first-pass.md",
-      "owner": "docs",
-      "role": "documentation",
-      "bytes": 17208,
-      "lines": 187,
-      "sha256": "4f0f2a90fe3fe8e81ebdfe3e55f93ae498027f5f2ea5059dcdc2512759ecb9d9"
-    },
-    {
-      "path": "docs/history/2026-10-30-structure.md",
-      "owner": "docs",
-      "role": "documentation",
-      "bytes": 8443,
-      "lines": 67,
-      "sha256": "7645ac62b749b27f13711906ce5575740d434eecbaa9ea61a2efbfbfaa9e4ffe"
-    },
-    {
       "path": "docs/implementation/2026-10-30/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 14445,
-      "lines": 130,
-      "sha256": "498ad23d0ff917ea7337c65a09685da98916e6e82388bc8f2dc3ecc61f9b0ca4"
+      "bytes": 14734,
+      "lines": 132,
+      "sha256": "2ff7b4cc199d3d4887556b62019d5ddb369eb0dcc1c386273187af4b21b8bb61"
     },
     {
       "path": "docs/implementation/2026-10-30/cleanup.json",
@@ -16505,12 +16491,36 @@
       "sha256": "8896535109872df7d0cf828237454be819f0118fda58ae5f3e9676a29fcd6fdd"
     },
     {
+      "path": "docs/implementation/2026-10-31/build-cleanup.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 3180,
+      "lines": 84,
+      "sha256": "a354d865a609578c890f637d1ea7149f7a90525a5f0f95dd703cb5916b903e6d"
+    },
+    {
       "path": "docs/implementation/2026-10-31/catl-current-benchmark.json",
       "owner": "docs",
       "role": "configuration_or_asset",
       "bytes": 3149,
       "lines": 121,
       "sha256": "4f9218840af8ddce73cd5ed078ef4458c1f06770168ae52806a1b25414ba9372"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-compact-benchmark.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 15429,
+      "lines": 598,
+      "sha256": "be903a4a8132ee56d456bc99211eec3a917834717bca01ab39c99cc08d5bdca0"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-integration.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 3117,
+      "lines": 112,
+      "sha256": "26f65d0a38617d34141c0fde2c212c5843a94bf32b78824ccbd487d95685de18"
     },
     {
       "path": "docs/implementation/2026-10-31/ckh-rowmap-benchmark.json",
@@ -16551,6 +16561,14 @@
       "bytes": 533,
       "lines": 18,
       "sha256": "c6b684479300350b79ba04cc5b9845dcc2f929a769e39e1758248214730816d7"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/document-retirement.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 720,
+      "lines": 17,
+      "sha256": "e582bbfaf61bd363f31327e48a5b7456844e8efe0a2166e048898fb08b8d5a07"
     },
     {
       "path": "docs/implementation/2026-10-31/horizontal-alignment-failure.json",
@@ -16625,12 +16643,36 @@
       "sha256": "0620f817cfcd5640bcec843c0d90e1df02d80935f2cfe0ee68e6e03f313e014f"
     },
     {
+      "path": "docs/verification/document-review.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 10344,
+      "lines": 249,
+      "sha256": "986f6f9b4c69d5e244f4af797c844d41d5b1bd4afceb0b082076c852bb6fb0f7"
+    },
+    {
       "path": "docs/verification/standalone.json",
       "owner": "docs",
       "role": "configuration_or_asset",
       "bytes": 478,
       "lines": 14,
       "sha256": "d8fcf912fd36dac783c40b4600312f57c9168812901aa8373b0128089cfa021a"
+    },
+    {
+      "path": "tools/audit_documents.py",
+      "owner": "tools",
+      "role": "implementation",
+      "bytes": 7889,
+      "lines": 206,
+      "sha256": "7d16ab8243ebd65a1fce503ba6dddb0cd35efdf6bbe3fe00a895212da9dcc4e7",
+      "imports": [
+        "argparse",
+        "hashlib",
+        "json",
+        "pathlib",
+        "re",
+        "subprocess"
+      ]
     },
     {
       "path": "tools/audit_structure.py",
@@ -16740,15 +16782,15 @@
       "role": "documentation",
       "bytes": 23771,
       "lines": 598,
-      "sha256": "54f0ec055d8d6aaf6cd395a36b95fe62d1d88789bd621120493ab40ca8d6c84e"
+      "sha256": "e0bafd9b7f9b9f12bab68fc0da245a115f71eb8026aefcd9256301737d1cc040"
     },
     {
       "path": "更新要求.md",
       "owner": "root",
       "role": "documentation",
-      "bytes": 31455,
-      "lines": 636,
-      "sha256": "5f801151aae3b4a4a5a93e160641da0e027a2bdb85cc12f82922741ac889a3b4"
+      "bytes": 31771,
+      "lines": 638,
+      "sha256": "11d0f8a7799693c866dd20c2fc25e748dcba0d94f180159b7d9c5ced6b9f7c57"
     }
   ],
   "counts": {
@@ -16768,8 +16810,8 @@
     "PlatESG/scripts": 1,
     "PlatESG/tests": 1,
     "database": 65,
-    "docs": 55,
-    "tools": 5
+    "docs": 58,
+    "tools": 6
   },
   "errors": [],
   "note": "Structural validation and dependency audit; this manifest does not claim manual line-by-line semantic review."

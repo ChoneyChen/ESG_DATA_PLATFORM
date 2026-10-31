@@ -811,10 +811,6 @@ class AtomicPatch(BaseModel):
     rationale: str | None = None
 
 
-class CorrectionPatch(AtomicPatch):
-    """Backward-compatible name for pre-v0.3 artifact readers."""
-
-
 class GuardCheck(BaseModel):
     code: str
     passed: bool
@@ -1149,7 +1145,7 @@ class DocumentIR(BaseModel):
     spreads: list[SpreadIR] = Field(default_factory=list)
     structure_edges: list[StructureEdge] = Field(default_factory=list)
     review_tasks: list[VlmReviewTask] = Field(default_factory=list)
-    correction_patches: list[CorrectionPatch] = Field(default_factory=list)
+    correction_patches: list[AtomicPatch] = Field(default_factory=list)
     reviewer_results: list[ReviewerResult] = Field(default_factory=list)
     model_calls: list[AgentModelCall] = Field(default_factory=list)
     atomic_patches: list[AtomicPatch] = Field(default_factory=list)
