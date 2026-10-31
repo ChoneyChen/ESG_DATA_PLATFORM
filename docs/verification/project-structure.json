@@ -10487,9 +10487,9 @@
       "path": "ConsoleESG/scripts/install_worker.py",
       "owner": "ConsoleESG",
       "role": "implementation",
-      "bytes": 2403,
-      "lines": 79,
-      "sha256": "beb62dc813b41b3aa699016bd3502094b5748929b687a5ee8ebb3e07ce40e612",
+      "bytes": 2842,
+      "lines": 89,
+      "sha256": "dc13482a47a37ed040342b115ac0b6d9eb9470152f0b8d686373fc336308d0f3",
       "imports": [
         "os",
         "pathlib",
@@ -10538,14 +10538,15 @@
       "path": "ConsoleESG/scripts/workbench.py",
       "owner": "ConsoleESG",
       "role": "implementation",
-      "bytes": 12917,
-      "lines": 262,
-      "sha256": "bcd884af4cc80d753276caf59c583df86a8c0c076c815c4c693b9b6e44109cb6",
+      "bytes": 13153,
+      "lines": 266,
+      "sha256": "2ae720baf797f9d8b441ab233ad5863a6d09e59743382c2c4739ade4d746ec85",
       "imports": [
         "__future__",
         "argparse",
         "contextlib",
         "datetime",
+        "esg_document.config",
         "esg_runtime.release",
         "fcntl",
         "hashlib",
@@ -10565,9 +10566,9 @@
       "path": "ExtractESG/README.md",
       "owner": "ExtractESG",
       "role": "documentation",
-      "bytes": 1766,
+      "bytes": 1780,
       "lines": 19,
-      "sha256": "33f1e818e77c7d36ce5f5e5af71101eb635bfa0e3ff0772f3abe53d911f39a34"
+      "sha256": "5f4441d2188c4683f05e928aead7d7a36e2bce59842b8a817eded83bb4d92ffc"
     },
     {
       "path": "ExtractESG/contracts/examples/report-batch/README.md",
@@ -11328,9 +11329,9 @@
       "path": "ExtractESG/document/src/esg_document/config.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 13430,
+      "bytes": 13425,
       "lines": 386,
-      "sha256": "e75035a345dff11d55d9f352e0c7d92b299cd4a86b2fbe0e10b345c437cb77b9",
+      "sha256": "8f22977e196ec43396d3a389e5dcb84eb90ad2a8fc78ecbbf8cca5e1eded47fe",
       "imports": [
         "__future__",
         "dataclasses",
@@ -12652,9 +12653,9 @@
       "path": "ExtractESG/document/src/esg_document/ocr/providers.py",
       "owner": "ExtractESG/document",
       "role": "implementation",
-      "bytes": 41124,
-      "lines": 1005,
-      "sha256": "46a24ba0652ffa505151bd3ecca9c6c39d480667968d21c0d828df9158c32c13",
+      "bytes": 41209,
+      "lines": 1007,
+      "sha256": "4d380e8da1a2a691231198fce30b9eebd931d6c9d47ba65db779b00321a52d50",
       "imports": [
         "__future__",
         "atexit",
@@ -15517,9 +15518,9 @@
       "path": "README.md",
       "owner": "root",
       "role": "documentation",
-      "bytes": 3386,
+      "bytes": 3400,
       "lines": 34,
-      "sha256": "4f79e18556cc196850f99f4d0d355b62b24c9f15b3dbf9033dfb88580984aa42"
+      "sha256": "6c2ede8ecd1b777fa379a2bf530115e90f7dd8022ed28e884484fd7b60a7fdec"
     },
     {
       "path": "database/README.md",
@@ -16194,9 +16195,9 @@
       "path": "docs/CHANGELOG.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 1492,
-      "lines": 20,
-      "sha256": "09f75cd4556c1d0d5617965484a6387ff82c6b633e8060385900e079d3d1fe8d"
+      "bytes": 2509,
+      "lines": 32,
+      "sha256": "f16e6d38544cae3c6ef1c7edd77e32e32ad92553bd17a57f55af3cd55d71b3bf"
     },
     {
       "path": "docs/README.md",
@@ -16218,9 +16219,9 @@
       "path": "docs/architecture/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 5374,
+      "bytes": 5388,
       "lines": 66,
-      "sha256": "a128b779f0d2623ba97174b34184e039eb2417a06c6d1ecda96214f89f297de0"
+      "sha256": "c429b2f692b1ae5b739b2631a93d62652196002b116283a2ca4b02c2b8a61d87"
     },
     {
       "path": "docs/architecture/delivery.md",
@@ -16400,9 +16401,9 @@
       "path": "docs/guides/local-operation.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 4769,
+      "bytes": 4783,
       "lines": 71,
-      "sha256": "b1a174f6d46b1ca953541a02427d3759093ba5a68ff22e06ac312a5756c34a31"
+      "sha256": "a8498b621a7e3a73aa9e2511bada75af520b0e578a2a05974f878577b8456037"
     },
     {
       "path": "docs/guides/pdf-intake.md",
@@ -16504,9 +16505,9 @@
       "path": "docs/implementation/2026-10-31/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 7312,
-      "lines": 57,
-      "sha256": "8896535109872df7d0cf828237454be819f0118fda58ae5f3e9676a29fcd6fdd"
+      "bytes": 12357,
+      "lines": 81,
+      "sha256": "8e6fecb3564de78f24dcc48980ee69004600d31ec7d9bdb470295986f46ce7e5"
     },
     {
       "path": "docs/implementation/2026-10-31/build-cleanup.json",
@@ -16515,14 +16516,6 @@
       "bytes": 3180,
       "lines": 84,
       "sha256": "a354d865a609578c890f637d1ea7149f7a90525a5f0f95dd703cb5916b903e6d"
-    },
-    {
-      "path": "docs/implementation/2026-10-31/catl-current-benchmark.json",
-      "owner": "docs",
-      "role": "configuration_or_asset",
-      "bytes": 3149,
-      "lines": 121,
-      "sha256": "4f9218840af8ddce73cd5ed078ef4458c1f06770168ae52806a1b25414ba9372"
     },
     {
       "path": "docs/implementation/2026-10-31/catl-final-benchmark.json",
@@ -16541,14 +16534,6 @@
       "sha256": "75d58f85f03b101235f5fbb1307773e1011644a4ad51c7481bd31d7397b82a38"
     },
     {
-      "path": "docs/implementation/2026-10-31/ckh-compact-benchmark.json",
-      "owner": "docs",
-      "role": "configuration_or_asset",
-      "bytes": 15429,
-      "lines": 598,
-      "sha256": "be903a4a8132ee56d456bc99211eec3a917834717bca01ab39c99cc08d5bdca0"
-    },
-    {
       "path": "docs/implementation/2026-10-31/ckh-final-benchmark.json",
       "owner": "docs",
       "role": "configuration_or_asset",
@@ -16563,22 +16548,6 @@
       "bytes": 3117,
       "lines": 112,
       "sha256": "572cb054f2339a1ff8136086e2b6b9c724c12ddda0af2fd81bb394c36385bb19"
-    },
-    {
-      "path": "docs/implementation/2026-10-31/ckh-integration.json",
-      "owner": "docs",
-      "role": "configuration_or_asset",
-      "bytes": 3117,
-      "lines": 112,
-      "sha256": "26f65d0a38617d34141c0fde2c212c5843a94bf32b78824ccbd487d95685de18"
-    },
-    {
-      "path": "docs/implementation/2026-10-31/ckh-rowmap-benchmark.json",
-      "owner": "docs",
-      "role": "configuration_or_asset",
-      "bytes": 15453,
-      "lines": 598,
-      "sha256": "32e9453c0d6e8d7626a97c9e4408f969e5e6ccb63d78f43520ad907464a13848"
     },
     {
       "path": "docs/implementation/2026-10-31/clause-dispositions.json",
@@ -16597,20 +16566,12 @@
       "sha256": "b0e1734ecc1e08bb019e181d845ee3ca9fde42410ab89750821b798d76f9e82a"
     },
     {
-      "path": "docs/implementation/2026-10-31/current-pdf-integration.json",
+      "path": "docs/implementation/2026-10-31/controlled-scan-benchmark.json",
       "owner": "docs",
       "role": "configuration_or_asset",
-      "bytes": 11609,
-      "lines": 338,
-      "sha256": "9b4d626cb41727913905c4f82e908bac7d10b0e271461b62919e27c812484461"
-    },
-    {
-      "path": "docs/implementation/2026-10-31/current-product-verification.json",
-      "owner": "docs",
-      "role": "configuration_or_asset",
-      "bytes": 533,
-      "lines": 18,
-      "sha256": "c6b684479300350b79ba04cc5b9845dcc2f929a769e39e1758248214730816d7"
+      "bytes": 5553,
+      "lines": 207,
+      "sha256": "e0473f16cc9dcc3fb4b15a7d2cfd58d2a1cd70689f56197e15c1eb60e0a2f29b"
     },
     {
       "path": "docs/implementation/2026-10-31/document-retirement.json",
@@ -16629,12 +16590,12 @@
       "sha256": "65e819274ab58abb35a0126d598a458d80c158e60763c0bfe16fea7af2cd004e"
     },
     {
-      "path": "docs/implementation/2026-10-31/real-multiyear-run.json",
+      "path": "docs/implementation/2026-10-31/intermediate-evidence-retirement.json",
       "owner": "docs",
       "role": "configuration_or_asset",
-      "bytes": 13562,
-      "lines": 422,
-      "sha256": "812d434a65dfff5a75bc01910b067d5f3dc7dc2abb4177c972873034f356dff6"
+      "bytes": 2277,
+      "lines": 46,
+      "sha256": "0e223fb2d77646f0abe2fbd07a4afa6332709228d2131e1bb64870adc71f0c14"
     },
     {
       "path": "docs/implementation/2026-10-31/removed-legacy-frontend.json",
@@ -16706,7 +16667,7 @@
       "role": "configuration_or_asset",
       "bytes": 10344,
       "lines": 249,
-      "sha256": "fc7de597556a87336ae7b879c561402c1df82f08d4d363d5287e521f9a577c84"
+      "sha256": "ea1c8188a66f8d3081d2858b4a478345ab7574521cacc21ff2a9bf04b726e409"
     },
     {
       "path": "docs/verification/standalone.json",
@@ -16869,7 +16830,7 @@
     "PlatESG/scripts": 1,
     "PlatESG/tests": 1,
     "database": 65,
-    "docs": 63,
+    "docs": 58,
     "tools": 6
   },
   "errors": [],

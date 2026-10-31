@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "path": "docs/implementation/2026-10-31/current-product-verification.json",
+      "bytes": 533,
+      "sha256": "c6b684479300350b79ba04cc5b9845dcc2f929a769e39e1758248214730816d7",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    },
+    {
+      "path": "docs/implementation/2026-10-31/current-pdf-integration.json",
+      "bytes": 11609,
+      "sha256": "9b4d626cb41727913905c4f82e908bac7d10b0e271461b62919e27c812484461",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    },
+    {
+      "path": "docs/implementation/2026-10-31/catl-current-benchmark.json",
+      "bytes": 3149,
+      "sha256": "4f9218840af8ddce73cd5ed078ef4458c1f06770168ae52806a1b25414ba9372",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-rowmap-benchmark.json",
+      "bytes": 15453,
+      "sha256": "32e9453c0d6e8d7626a97c9e4408f969e5e6ccb63d78f43520ad907464a13848",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-compact-benchmark.json",
+      "bytes": 15429,
+      "sha256": "be903a4a8132ee56d456bc99211eec3a917834717bca01ab39c99cc08d5bdca0",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    },
+    {
+      "path": "docs/implementation/2026-10-31/ckh-integration.json",
+      "bytes": 3117,
+      "sha256": "26f65d0a38617d34141c0fde2c212c5843a94bf32b78824ccbd487d95685de18",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    },
+    {
+      "path": "docs/implementation/2026-10-31/real-multiyear-run.json",
+      "bytes": 13562,
+      "sha256": "812d434a65dfff5a75bc01910b067d5f3dc7dc2abb4177c972873034f356dff6",
+      "reason": "Superseded intermediate verification; final CATL/CKH/controlled OCR evidence now authoritative for this round."
+    }
+  ]
+}

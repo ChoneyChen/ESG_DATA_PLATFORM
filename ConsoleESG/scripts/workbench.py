@@ -111,11 +111,15 @@ def active():
 
 
 def environment():
+    from esg_document.config import get_settings
+    configured = get_settings()
     env={**{key:value for key,value in os.environ.items() if key not in {
         'PLATESG_REVIEW_TOKEN','PLATESG_OPERATORS_JSON','PLATESG_DATABASE_URL','PLATESG_DATA_DIR'}},
          'PLATESG_AUTO_PUBLISH':'0','HF_HUB_OFFLINE':'1','TRANSFORMERS_OFFLINE':'1',
          'PIP_NO_INDEX':'1','PIP_DISABLE_PIP_VERSION_CHECK':'1',
          'ESG_DATA_ROOT':str(DATA),'ESG_PROJECT_ROOT':str(ROOT),'ESG_DATABASE_INGEST_URL':'http://127.0.0.1:18280'}
+    env["ESG_MODEL_PYTHON"] = str(configured.extraction_python)
+    env["LOCAL_PADDLEOCR_RUNTIME_PYTHON"] = str(configured.local_paddleocr_runtime_python)
     # Terminal double-click may not load nvm; use an already installed Node only.
     node=shutil.which('node')
     if not node:

@@ -16,4 +16,4 @@ ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ../ConsoleESG/scripts/start.sh
 
 [架构与公共端口](../docs/architecture/README.md) · [模型合同](../docs/architecture/models.md) · [数据目录](../docs/guides/local-operation.md) · [导出接收](../docs/architecture/delivery.md)
 
-模型worker使用离线安装的合同/条款/运行时与提取应用包，不拼接兄弟源码路径；代码指纹按实际安装包内容计算。安装入口会更新所配置MLX Python中的本项目包，不安装或替换第三方模型依赖。队列与worker共用运行时执行锁；worker不能绕过队列直接启动模型。
+模型worker使用离线安装的合同/条款/运行时与提取应用包，不拼接兄弟源码路径；代码指纹按实际安装包内容计算。安装入口会更新所配置MLX及Paddle专用Python中的本项目包，不安装或替换第三方模型依赖。队列与worker共用运行时执行锁；worker不能绕过队列直接启动模型。

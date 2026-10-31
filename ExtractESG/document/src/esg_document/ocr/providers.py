@@ -45,12 +45,14 @@ import mlx_vlm
 import paddle
 import paddleocr
 from paddleocr import PaddleOCRVL
+from esg_document.ocr import local_worker, loopback
 from PIL import Image
 
 payload = {
     "paddle": paddle.__version__,
     "paddleocr": getattr(paddleocr, "__version__", "unknown"),
     "mlx_vlm": getattr(mlx_vlm, "__version__", "unknown"),
+    "worker_module": local_worker.__name__,
 }
 model_root = Path(sys.argv[1])
 if (model_root / "config.json").is_file() and any(model_root.glob("*.safetensors")):
@@ -583,7 +585,7 @@ class LocalPaddleOcrProvider:
             )
             command = [
                 str(self.settings.local_paddleocr_runtime_python),
-                str(Path(__file__).with_name("local_worker.py")),
+                "-m", "esg_document.ocr.local_worker",
                 "--config",
                 str(config_path),
             ]

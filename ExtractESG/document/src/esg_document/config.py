@@ -101,7 +101,7 @@ class Settings:
     extraction_python: Path = field(
         default_factory=lambda: Path(
             os.getenv(
-                "ESG_EXTRACTION_PYTHON",
+                "ESG_MODEL_PYTHON",
                 str(
                     Path.home()
                     / "Desktop"

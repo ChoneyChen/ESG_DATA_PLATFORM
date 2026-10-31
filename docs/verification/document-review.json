@@ -23,7 +23,7 @@
     {
       "path": "ExtractESG/README.md",
       "role": "module",
-      "sha256": "33f1e818e77c7d36ce5f5e5af71101eb635bfa0e3ff0772f3abe53d911f39a34",
+      "sha256": "5f4441d2188c4683f05e928aead7d7a36e2bce59842b8a817eded83bb4d92ffc",
       "lines": 19,
       "decision": "一条骨干、两类值、端口和当前安装入口；无大包分支。",
       "current_link_errors": []
@@ -71,7 +71,7 @@
     {
       "path": "README.md",
       "role": "entry",
-      "sha256": "4f79e18556cc196850f99f4d0d355b62b24c9f15b3dbf9033dfb88580984aa42",
+      "sha256": "6c2ede8ecd1b777fa379a2bf530115e90f7dd8022ed28e884484fd7b60a7fdec",
       "lines": 34,
       "decision": "模块与五服务入口；全年份、独立条款和当前进度，未宣称全局科学验收。",
       "current_link_errors": []
@@ -95,8 +95,8 @@
     {
       "path": "docs/CHANGELOG.md",
       "role": "history",
-      "sha256": "09f75cd4556c1d0d5617965484a6387ff82c6b633e8060385900e079d3d1fe8d",
-      "lines": 20,
+      "sha256": "f16e6d38544cae3c6ef1c7edd77e32e32ad92553bd17a57f55af3cd55d71b3bf",
+      "lines": 32,
       "decision": "收口当前轮次；删除已替代的千行旧操作叙述，早期日志只留Git历史。",
       "current_link_errors": []
     },
@@ -119,7 +119,7 @@
     {
       "path": "docs/architecture/README.md",
       "role": "normative",
-      "sha256": "a128b779f0d2623ba97174b34184e039eb2417a06c6d1ecda96214f89f297de0",
+      "sha256": "c429b2f692b1ae5b739b2631a93d62652196002b116283a2ca4b02c2b8a61d87",
       "lines": 66,
       "decision": "每模块所有权、当前接口/版本、依赖方向与宽容捕获。",
       "current_link_errors": []
@@ -191,7 +191,7 @@
     {
       "path": "docs/guides/local-operation.md",
       "role": "guide",
-      "sha256": "b1a174f6d46b1ca953541a02427d3759093ba5a68ff22e06ac312a5756c34a31",
+      "sha256": "a8498b621a7e3a73aa9e2511bada75af520b0e578a2a05974f878577b8456037",
       "lines": 71,
       "decision": "Console归属统一启动器、五服务、显式新库与数据根，禁止启动隐式迁移。",
       "current_link_errors": []
@@ -215,8 +215,8 @@
     {
       "path": "docs/implementation/2026-10-31/README.md",
       "role": "implementation",
-      "sha256": "8896535109872df7d0cf828237454be819f0118fda58ae5f3e9676a29fcd6fdd",
-      "lines": 57,
+      "sha256": "8e6fecb3564de78f24dcc48980ee69004600d31ec7d9bdb470295986f46ce7e5",
+      "lines": 81,
       "decision": "按M项分别记录源码、真实报告及未完成验收；不把格式通过写成全部科学通过。",
       "current_link_errors": []
     },
