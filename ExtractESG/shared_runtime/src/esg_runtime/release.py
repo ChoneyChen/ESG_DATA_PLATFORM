@@ -22,11 +22,7 @@ SERVICE_GROUPS = {
     "document-backend": ("document_backend", "document_contracts", "console_contracts", "startup"),
     "extraction-backend": ("extraction_backend", "standard_contracts", "startup"),
     "workbench-frontend": ("frontend", "startup"),
-    "publication-backend": (
-        "publication_backend",
-        "product_frontend",
-        "publication_catalog",
-    ),
+
 }
 
 
@@ -46,31 +42,16 @@ def release_files(extract_root: Path) -> dict[str, list[Path]]:
         "document_contracts": shared,
         "console_contracts": [root.parent / "database/src/esg_database" / name
             for name in ("http_client.py", "contracts.py", "products_contracts.py")],
-        "publication_catalog": [
-            root.parent / "database/catalog/metric-dictionary.v1.json"
-        ]
-        + list((root.parent / "database/catalog/import-contracts").rglob("*.json")),
-        "catalog": list((root.parent / "ClauseESG/clauses").rglob("*.json"))
-        + [root.parent / "database/catalog/metric-dictionary.v1.json"],
         "frontend": [root.parent / "database/contracts/index.d.ts"] + [
             p
             for p in (root.parent / "ConsoleESG/frontend/src").rglob("*")
             if p.suffix in {".tsx", ".ts", ".css"} and ".test." not in p.name
         ],
-        "publication_backend": list((root.parent / "PlatESG/backend").glob("*.py"))
-        + list((root.parent / "PlatESG/backend").glob("*.mjs"))
-        + list((root.parent / "database/scripts").glob("*.mjs"))
-        + list((root.parent / "database/migrations").glob("*.sql")),
-        "product_frontend": [
-            p
-            for p in (root.parent / "PlatESG/frontend/src").rglob("*")
-            if p.suffix in {".tsx", ".ts", ".css"} and ".test." not in p.name
-        ],
         "startup": [
             root / "pyproject.toml",
-            root / "scripts/run_service.sh",
-            root / "scripts/start.sh",
-            root / "scripts/serve_workbench_frontend.py",
+            root.parent / "ConsoleESG/scripts/run_service.sh",
+            root.parent / "ConsoleESG/scripts/start.sh",
+            root.parent / "ConsoleESG/scripts/serve_workbench_frontend.py",
         ],
     }
     return {

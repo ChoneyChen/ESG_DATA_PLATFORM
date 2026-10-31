@@ -30,6 +30,7 @@ SERVICES = {
     'database':(18280,'/health','database-ingestion','database'),
     'extraction':(18180,'/api/compatibility','extraction-backend','extraction'),
     'document':(18080,'/health/compatibility','document-backend','document'),
+    'plat':(8765,'/health/compatibility','publication-backend','plat'),
     'console':(18081,'/api/compatibility','workbench-frontend','console'),
 }
 OPEN = build_opener(ProxyHandler({}))
@@ -85,7 +86,9 @@ def health(name):
     try:
         body=get(port,path)
         if name=='database':
-            ready=body.get('status')=='ok' and body.get('export_contract') == 'extraction-export-1.1' and not body.get('restart_required')
+            ready=body.get('status')=='ok' and body.get('export_contract') == 'extraction-export-1.1' and body.get('products_ready') is True and not body.get('restart_required')
+        elif name=='plat':
+            ready=body.get('service')==service and body.get('readiness',{}).get('ready') is True and not body.get('restart_required')
         else:
             ready=not check_compatibility(body,release_identity(ROOT/'ExtractESG',service),service)
         return {'port':port,'ready':ready,'restart_required':bool(body.get('restart_required'))}
@@ -133,11 +136,11 @@ def prepare(env):
     if not python.is_file() or not model.is_file():raise RuntimeError('本地Python环境缺失；请配置ESG_DOCUMENT_PYTHON和ESG_MODEL_PYTHON。')
     if not (ROOT/'ConsoleESG/frontend/node_modules').is_dir():raise RuntimeError('Console依赖缺失；请先运行 npm --prefix ConsoleESG/frontend ci。')
     # Editable SDK installation is local and offline; it never installs model dependencies.
-    subprocess.run(['bash',str(ROOT/'ExtractESG/scripts/install_local.sh')],env=env,check=True,stdout=subprocess.DEVNULL)
-    subprocess.run(['npm','--prefix',str(ROOT/'ConsoleESG/frontend'),'run','build'],env=env,check=True)
+    subprocess.run(['bash',str(ROOT/'ConsoleESG/scripts/install_local.sh')],env=env,check=True,stdout=subprocess.DEVNULL)
+    for module in ('ConsoleESG','PlatESG'):
+        if not (ROOT/module/'frontend/node_modules').is_dir():raise RuntimeError(module+'前端依赖缺失，请先执行npm ci。')
+        subprocess.run(['npm','--prefix',str(ROOT/module/'frontend'),'run','build'],env=env,check=True)
     database=Path(env.get('ESG_DATABASE_DATA_DIR',str(DATA/'databases/capture')))
-    if any(database.resolve().is_relative_to(ROOT/rel) for rel in ['PlatESG/.local/data','PlatESG/.local/demo-data']):
-        raise RuntimeError('工作台原值接收器不能使用现有Plat正式或演示库。')
     if not database.is_dir():
         raise RuntimeError('原值库尚未配置。请先对一个新的隔离目录显式运行 database/runtime/manage.mjs init；启动器不会初始化或迁移数据库。')
 
@@ -168,7 +171,7 @@ def supervise():
                 if listening(port):raise RuntimeError(f'端口{port}被未通过当前版本检查的服务占用；未停止该服务。')
                 log=LOGS/(name+'.log')
                 with log.open('ab') as output:
-                    process=subprocess.Popen(['bash',str(ROOT/'ExtractESG/scripts/run_service.sh'),argument],env=env,
+                    process=subprocess.Popen(['bash',str(ROOT/'ConsoleESG/scripts/run_service.sh'),argument],env=env,
                         cwd=ROOT,stdin=subprocess.DEVNULL,stdout=output,stderr=subprocess.STDOUT,start_new_session=True)
                 children[name]=process
                 state['services'][name]={'owned':True,'pid':process.pid,'identity':identity(process.pid)}
@@ -219,7 +222,7 @@ def start(no_browser=False):
         with (LOGS/'launcher.log').open('ab') as log:
             daemon=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'supervise'],cwd=ROOT,env=env,
                 stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
-        print('正在启动文档、提取、Console和原值接收器…',flush=True)
+        print('正在启动文档、提取、Console、数据库和Plat…',flush=True)
         for tick in range(180):
             if daemon.poll() is not None:raise RuntimeError('后台启动器退出，请查看 '+str(LOGS/'launcher.log'))
             result=snapshot()

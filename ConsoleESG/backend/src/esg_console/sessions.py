@@ -91,7 +91,7 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
         state = call(coordinator.get, key)
         if not state.get("run_id"):
             return {
-                "schema_version": "organized-extraction-1.0",
+                "schema_version": "organized-extraction-1.1",
                 "status": "pending",
                 "tables": [],
             }

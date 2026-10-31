@@ -16,7 +16,9 @@ def evaluate(bundle, benchmark):
     for expected in benchmark['expected']:
         matches = [f for f in by_id.values() if expected['label'] in (f.get('source_row_label') or '') and
                    f['value'].get('value_raw') == expected['value_raw'] and
-                   any(e.get('page_index') == 72 and e.get('role') == 'value' for e in f['evidence'])]
+                   f['identity']['reporting_period'].get('value') == expected['period'] and
+                   (not expected.get('column_group') or expected['column_group'] in ' '.join(e['excerpt'] for e in f['evidence'] if e['role']=='column_header')) and
+                   any(e.get('page_index') == expected.get('page_index') and e.get('role') == 'value' for e in f['evidence'])]
         rows.append({**expected, 'retained': len(matches) == 1,
             'unit_correct': len(matches) == 1 and matches[0]['value'].get('unit_raw') == expected['unit_raw'],
             'period_correct': len(matches) == 1 and matches[0]['identity']['reporting_period'].get('value') == expected['period'],
@@ -36,13 +38,14 @@ def main():
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--base-url', default='http://127.0.0.1:18180')
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--benchmark', type=Path, default=Path(__file__).resolve().parents[1]/'extraction/tests/fixtures/scientific/catl-air-2023-2025.json')
     args = parser.parse_args()
     import re
     if not re.fullmatch(r'extract-[a-zA-Z0-9_-]+', args.run_id):
         raise ValueError('Invalid run identity')
     with build_opener(ProxyHandler({})).open(args.base_url.rstrip('/')+'/api/runs/'+args.run_id+'/facts', timeout=15) as response:
         bundle = json.load(response)
-    fixture = Path(__file__).resolve().parents[1]/'extraction/tests/fixtures/scientific/catl-air-2025.json'
+    fixture = args.benchmark
     result = evaluate(bundle, json.loads(fixture.read_text()))
     content = json.dumps(result, ensure_ascii=False, indent=2)+'\n'
     if args.output:

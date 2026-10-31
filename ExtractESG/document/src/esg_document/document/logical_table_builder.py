@@ -138,19 +138,14 @@ class LogicalTableBuilder:
         mappings = []
         artifact_ids = []
         notes = []
-        horizontal_shift = (
-            cls._horizontal_row_shift(tables) if axis == "horizontal" else 0
-        )
-        if horizontal_shift is None:
-            horizontal_shift = 0  # unresolved; the group carries the review flag
+        row_maps = cls._horizontal_row_maps(tables) if axis == "horizontal" else None
+        alignment_resolved = axis != "horizontal" or row_maps is not None
         for index, table in enumerate(tables):
             segment = LogicalTableSegmentIR(
                 table_id=table.table_id,
                 page_index=table.page_index,
                 sequence=index,
-                row_offset=horizontal_shift
-                if axis == "horizontal" and index
-                else row_offset,
+                row_offset=0 if axis == "horizontal" else row_offset,
                 column_offset=column_offset,
             )
             segments.append(segment)
@@ -158,7 +153,7 @@ class LogicalTableBuilder:
                 LogicalCellMappingIR(
                     source_table_id=table.table_id,
                     source_cell_id=cell.cell_id,
-                    logical_row_index=segment.row_offset + cell.row_index,
+                    logical_row_index=row_maps[index][cell.row_index] if row_maps is not None else segment.row_offset + cell.row_index,
                     logical_col_index=column_offset + cell.col_index,
                     row_span=cell.row_span,
                     col_span=cell.col_span,
@@ -178,8 +173,8 @@ class LogicalTableBuilder:
         logical_rows = (
             max(
                 (
-                    segment.row_offset + table.row_count
-                    for segment, table in zip(segments, tables)
+                    mapping.logical_row_index + mapping.row_span
+                    for mapping in mappings
                 ),
                 default=0,
             )
@@ -205,17 +200,18 @@ class LogicalTableBuilder:
         }
         flags = ["lossless_physical_table_composition"]
         status = previous.status if previous else "derived"
+        if alignment_resolved and previous and "horizontal_row_alignment_unresolved" in previous.quality_flags and status == "review_required":
+            status = "derived"
         if axis == "vertical":
             flags.append("repeated_headers_preserved")
         elif composition_mode == "horizontal_continue_last_column":
             flags.append("horizontal_last_column_continuation")
-        if axis == "horizontal" and cls._horizontal_row_shift(tables) is None:
-            # Appended columns keep every cell whether or not the bands line
-            # up, so record the doubt without blocking evidence; a last-column
-            # continuation overlaps cells and does need a resolvable alignment.
+        if not alignment_resolved:
+            # Keeping cells is not sufficient: an unresolved join can bind a
+            # neighbouring row's value to the wrong label. Physical tables
+            # remain available, but the joined view is not usable evidence.
             flags.append("horizontal_row_alignment_unresolved")
-            if composition_mode == "horizontal_continue_last_column":
-                status = "review_required"
+            status = "review_required"
         cells = cls._logical_cells(
             tables=tables,
             segments=segments,
@@ -238,11 +234,11 @@ class LogicalTableBuilder:
             cells=cells,
             status=status,
             quality_flags=list(
-                dict.fromkeys([*flags, *(previous.quality_flags if previous else [])])
+                dict.fromkeys([*flags, *(flag for flag in (previous.quality_flags if previous else []) if flag != "horizontal_row_alignment_unresolved")])
             ),
             source_trace=SourceTrace(
                 parser="LogicalTableBuilder",
-                parser_version="v1",
+                parser_version="v2",
                 artifact_ids=list(dict.fromkeys(artifact_ids)),
                 notes=list(
                     dict.fromkeys(
@@ -254,6 +250,44 @@ class LogicalTableBuilder:
                 ),
             ),
         )
+
+    @classmethod
+    def _horizontal_row_maps(cls, tables: list) -> list[dict[int, int]] | None:
+        """Align ordered value rows, preserving asymmetric section/header rows.
+
+        Continuation links establish one table. A blank section band on the
+        unlabelled half may be omitted by recognition, so one global offset
+        cannot describe its row coordinates. No domain labels enter this rule.
+        """
+        first = tables[0]
+        maps = [{row: row for row in range(first.row_count)}]
+        headers = [cls._leading_header_rows(table) for table in tables]
+        value_rows = []
+        for table, header in zip(tables, headers):
+            # Body values may themselves look like a year; only the leading
+            # header band is excluded here. Zero is a real value.
+            value_rows.append(sorted({cell.row_index for cell in table.cells
+                if cell.row_index not in header and VALUE_RE.fullmatch((cell.text or "").strip())
+                and not FOOTNOTE_MARK_RE.fullmatch((cell.text or "").strip())}))
+        if value_rows[0] and len({len(rows) for rows in value_rows}) == 1 and all(len(h) <= len(headers[0]) for h in headers):
+            next_extra = first.row_count
+            for index, table in enumerate(tables[1:], 1):
+                mapping = dict(zip(value_rows[index], value_rows[0]))
+                for row in headers[index]:
+                    position = headers[index].index(row) + len(headers[0]) - len(headers[index])
+                    mapping[row] = headers[0][max(0, position)]
+                for row in range(table.row_count):
+                    if row not in mapping:
+                        # An unmatched text/section row stays separate; never
+                        # attach its contents to another row's measurements.
+                        mapping[row] = next_extra
+                        next_extra += 1
+                maps.append(mapping)
+            return maps
+        shift = cls._horizontal_row_shift(tables)
+        if shift is None or shift < 0:
+            return None
+        return [maps[0], *[{row: row + shift for row in range(table.row_count)} for table in tables[1:]]]
 
     @classmethod
     def _horizontal_row_shift(cls, tables: list) -> int | None:

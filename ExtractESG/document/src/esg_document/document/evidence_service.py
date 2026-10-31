@@ -18,7 +18,7 @@ from esg_contracts.evidence import (
     TextEvidence,
 )
 from .source import DocumentIrLoader
-from .physical import build_table_view, composed_tables, clean_text
+from .physical import build_table_view, composed_tables, clean_text, column_header_sources
 from .report_period import detect_reporting_period
 from .literals import text_spans, numeric_rows
 
@@ -70,7 +70,7 @@ class DocumentEvidenceService:
         pages = {p["page"]["page_index"]: p for p in ir.pages}
         tables = {}
         raw_tables = {}
-        for raw in composed_tables(ir.tables):
+        for raw in composed_tables(ir.tables, ir.logical_tables):
             view = build_table_view(raw, pages.get(raw.get("page_index")))
             raw_tables[raw["table_id"]] = raw
             if view:
@@ -359,14 +359,11 @@ class DocumentEvidenceService:
                 if c.get("is_header")
                 or (view and c.get("row_index") in view.header_rows)
             ]
+            source_cells, _ = column_header_sources(raw, view.header_rows if view else sorted({cell["row_index"] for cell in header_cells}))
             column_sources = {
                 f"c{col}": [
                     source(c)
-                    for c in header_cells
-                    if c.get("text")
-                    and c.get("col_index", 0)
-                    <= col
-                    < c.get("col_index", 0) + c.get("col_span", 1)
+                    for c in source_cells[col]
                 ]
                 for col in range(int(raw.get("column_count") or 0))
             }

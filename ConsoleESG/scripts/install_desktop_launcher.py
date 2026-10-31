@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Install the one owned desktop entry; archive its previous text in local control data."""
+"""Install the single current desktop entry atomically, without retaining old launchers."""
 import argparse
-from datetime import datetime, timezone
 from pathlib import Path
 import os
 import shlex
@@ -12,16 +11,12 @@ ROOT=Path(__file__).resolve().parents[2]
 def install(destination):
     destination=destination.expanduser().absolute()
     if destination.is_symlink():raise ValueError('Refusing to overwrite a desktop symlink')
-    if destination.exists():
-        backup=ROOT/'.local/data/control/launcher-backups'/datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
-        backup.mkdir(parents=True,exist_ok=True)
-        (backup/destination.name).write_bytes(destination.read_bytes())
     text='''#!/bin/zsh
 # ESG current desktop entry. No old route, database path, build logic or credential is embedded here.
 set -uo pipefail
 TASK_DEFAULT_ROOT=__ROOT__
 TASK_ROOT="${ESG_PROJECT_ROOT:-$TASK_DEFAULT_ROOT}"
-TASK_LAUNCHER="$TASK_ROOT/ExtractESG/scripts/start.sh"
+TASK_LAUNCHER="$TASK_ROOT/ConsoleESG/scripts/start.sh"
 if [[ ! -f "$TASK_LAUNCHER" ]]; then
   print -u2 "找不到新版工作台：$TASK_LAUNCHER"
   print -u2 '仓库移动后，请设置 ESG_PROJECT_ROOT 或重新运行 install_desktop_launcher.py。'

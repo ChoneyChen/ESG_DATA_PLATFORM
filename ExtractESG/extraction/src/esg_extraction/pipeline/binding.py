@@ -50,6 +50,22 @@ def location(
     )
 
 
+def literal_categories(clause, context, attempts):
+    dimensions = dict(context.dimensions)
+    updates = {}
+    for field in clause.organization.fields:
+        if not field.vocabulary or field.binding.source not in {"identity", "dimension"}:
+            continue
+        axis = field.binding.key
+        reported = getattr(context, axis, None) if field.binding.source == "identity" else dimensions.get(axis)
+        match = field.category_match(reported.model_dump(mode="json") if reported else None)
+        if match and match.state in {"unproven", "conflict"}:
+            literal = reported.model_copy(update={"value": reported.raw_text})
+            (updates if field.binding.source == "identity" else dimensions)[axis] = literal
+            attempts.append("unproven_category_preserved_literal:" + axis)
+    return context.model_copy(update={**updates, "dimensions": dimensions})
+
+
 def context_from_claims(frame, claims, *, row=None, column_id=None, document=None, attempts=None):
     physical = [*frame.texts, *frame.title_sources]
     aliases = {}
@@ -111,6 +127,21 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                         item.object_id,
                         item.char_start,
                     )
+            pieces = []
+            if source is None and claim.quote and aliases.get(claim.source_id):
+                items = aliases[claim.source_id]
+                combined = " ".join(item.text for item in items)
+                offset = combined.find(claim.quote)
+                if offset >= 0:
+                    end = offset + len(claim.quote)
+                    position = 0
+                    for item in items:
+                        start, stop = max(offset, position), min(end, position + len(item.text))
+                        if start < stop:
+                            pieces.append(EvidenceLocation(object_id=item.object_id, object_type=item.object_type,
+                                page_index=item.page_index, excerpt=item.text[start-position:stop-position], role="column_header", bbox=item.bbox))
+                        position += len(item.text) + 1
+                    source = (combined, "table", None, frame.page_index, frame.object_id, 0)
             if (
                 source is None
                 or not claim.quote
@@ -132,7 +163,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 state="stated",
                 raw_text=claim.quote,
                 value=claim.value,
-                evidence=[evidence],
+                evidence=pieces or [evidence],
             )
         (fields if claim.axis in CONTEXT_AXES else dimensions)[claim.axis] = value
     period, period_flags = bind_period(frame, row=row, column_id=column_id, document=document)
@@ -228,6 +259,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     context, flags = context_from_claims(
         frame, [*match.identity, *match.column_identity.get(cell.column_id, [])], row=row, column_id=cell.column_id, document=document, attempts=attempts
     )
+    context = literal_categories(clause, context, attempts)
     evidence = [
         EvidenceLocation(
             object_id=cell.source_object_id or cell.cell_id,
@@ -256,6 +288,10 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
                 row_id=row.row_id,
             )
         )
+    for source in frame.column_sources.get(cell.column_id, []):
+        evidence.append(EvidenceLocation(object_id=source.object_id, object_type=source.object_type,
+            page_index=source.page_index, excerpt=source.text, role="column_header", bbox=source.bbox,
+            column_id=cell.column_id))
     if unit:
         sources = [
             *row.unit_sources,
@@ -369,6 +405,7 @@ def qualitative_fact(clause, document, frame, match, interpretation_id):
     )
     attempts = []
     context, flags = context_from_claims(frame, match.identity, document=document, attempts=attempts)
+    context = literal_categories(clause, context, attempts)
     if match.quote and raw != text.text:
         flags.append("statement_is_excerpt")
     if document.limited_evidence:

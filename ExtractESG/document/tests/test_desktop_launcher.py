@@ -5,7 +5,7 @@ import pytest
 
 
 def controller(monkeypatch,tmp_path):
-    file=Path(__file__).resolve().parents[2]/'scripts/workbench.py'
+    file=Path(__file__).resolve().parents[3]/'ConsoleESG/scripts/workbench.py'
     spec=importlib.util.spec_from_file_location('desktop_controller',file)
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     monkeypatch.setattr(module,'CONTROL',tmp_path/'control')
@@ -47,7 +47,7 @@ def test_another_checkout_owner_is_not_stopped(monkeypatch,tmp_path):
 
 
 def test_desktop_entry_is_current_relocatable_and_executable(tmp_path):
-    file=Path(__file__).resolve().parents[2]/'scripts/install_desktop_launcher.py'
+    file=Path(__file__).resolve().parents[3]/'ConsoleESG/scripts/install_desktop_launcher.py'
     spec=importlib.util.spec_from_file_location('desktop_installer',file)
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     destination=tmp_path/'启动工作台.command'

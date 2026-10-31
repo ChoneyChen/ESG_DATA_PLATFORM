@@ -96,3 +96,25 @@ def test_english_dates_keep_actual_boundaries_and_short_periods_are_not_annual()
     assert short.kind=='range' and short.start.isoformat()=='2024-01-01' and short.end.isoformat()=='2024-03-31'
     annual=parse_period('January 1, 2024 to December 31, 2024')
     assert annual.kind=='annual' and annual.year==2024
+
+
+def test_composite_header_identity_retains_each_original_source():
+    from esg_contracts.evidence import TextEvidence
+    evidence=frame({'a':'Ports and Related Services 2023'})
+    evidence=evidence.model_copy(update={'column_sources':{'a':[TextEvidence(object_id='h-'+str(i),text=text,page_index=0,object_type='cell') for i,text in enumerate(['Ports','and Related','Services','2023'])]}})
+    context,flags=context_from_claims(evidence,[{'axis':'reporting_entity','value':'Ports and Related Services','quote':'Ports and Related Services','source_id':'a'}],row=evidence.rows[0],column_id='a')
+    field=context.reporting_entity
+    assert field.value=='Ports and Related Services' and field.state=='stated'
+    assert [item.excerpt for item in field.evidence]==['Ports','and Related','Services']
+    assert [item.object_id for item in field.evidence]==['h-0','h-1','h-2']
+
+
+def test_an_unproven_dictionary_code_never_replaces_a_reported_literal(repository):
+    from esg_contracts.facts import ReportedContext,ReportedField,EvidenceLocation
+    from esg_extraction.pipeline.binding import literal_categories
+    field=ReportedField(state='stated',raw_text='SOx emissions',value='SO2',evidence=[EvidenceLocation(object_id='row',object_type='cell',page_index=0,excerpt='SOx emissions',role='row')])
+    attempts=[]
+    fixed=literal_categories(repository.get('E2-4_02'),ReportedContext(dimensions={'pollutant':field}),attempts)
+    assert fixed.dimensions['pollutant'].value=='SOx emissions'
+    assert fixed.dimensions['pollutant'].evidence==field.evidence
+    assert attempts==['unproven_category_preserved_literal:pollutant']

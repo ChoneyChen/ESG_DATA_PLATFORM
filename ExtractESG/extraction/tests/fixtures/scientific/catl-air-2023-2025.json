@@ -1,0 +1,94 @@
+{
+  "schema_version": "scientific-benchmark-1.0",
+  "provenance": "Human checked physical PDF page73, printed141–142; independent of model output.",
+  "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+  "clause_key": "E2-4_02",
+  "annotated_table": "table-p0073-0004",
+  "expected": [
+    {
+      "label": "氮氧化物",
+      "value_raw": "217.83",
+      "unit_raw": "吨",
+      "period": "2023",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "氮氧化物",
+      "value_raw": "2,841.70",
+      "unit_raw": "吨",
+      "period": "2024",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "氮氧化物",
+      "value_raw": "1,530.14",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "二氧化硫",
+      "value_raw": "13.78",
+      "unit_raw": "吨",
+      "period": "2023",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "二氧化硫",
+      "value_raw": "12,067.14",
+      "unit_raw": "吨",
+      "period": "2024",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "二氧化硫",
+      "value_raw": "5,856.94",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "挥发性有机物",
+      "value_raw": "771.14",
+      "unit_raw": "吨",
+      "period": "2023",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "挥发性有机物",
+      "value_raw": "1,094.32",
+      "unit_raw": "吨",
+      "period": "2024",
+      "relation": "match",
+      "page_index": 72
+    },
+    {
+      "label": "挥发性有机物",
+      "value_raw": "1,161.80",
+      "unit_raw": "吨",
+      "period": "2025",
+      "relation": "match",
+      "page_index": 72
+    }
+  ],
+  "forbidden_values": [
+    {
+      "object_id": "block-p0056-0021",
+      "raw": "6",
+      "reason": "SF6 chemical formula"
+    },
+    {
+      "object_id": "block-p0074-0016",
+      "raw": "2",
+      "reason": "footnote marker"
+    }
+  ],
+  "limits": "Nine annotated air-pollutant cells and two explicit counterexamples only; not full-report recall, completeness of other facts or global precision."
+}

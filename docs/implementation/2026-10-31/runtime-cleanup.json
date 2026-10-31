@@ -1,0 +1,145 @@
+{
+  "timestamp": "2026-10-31T05:04:27.593452+00:00",
+  "authorization": "User explicitly required removal of old data, artifacts and frozen-interface preservation",
+  "services_stopped": true,
+  "source_inputs_retained": "Current PDF blobs and report registry only",
+  "removed": [
+    {
+      "path": ".local/data/control",
+      "files": 125,
+      "bytes": 20665121,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/data/databases",
+      "files": 1324,
+      "bytes": 45056095,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/data/extractions",
+      "files": 289,
+      "bytes": 5110452,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/data/documents",
+      "files": 2471,
+      "bytes": 540697654,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/data/logs",
+      "files": 5,
+      "bytes": 3356502,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/platform-runtime",
+      "files": 6,
+      "bytes": 841829,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/qa",
+      "files": 6,
+      "bytes": 244070,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/launcher.log",
+      "files": 1,
+      "bytes": 2105,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": ".local/platesg-8765.log",
+      "files": 1,
+      "bytes": 49915,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/inbox",
+      "files": 0,
+      "bytes": 0,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/review-token",
+      "files": 1,
+      "bytes": 44,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/demo-data",
+      "files": 1263,
+      "bytes": 63160415,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/platform-conversion.jpg",
+      "files": 1,
+      "bytes": 24034,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/platform-evidence.jpg",
+      "files": 1,
+      "bytes": 22183,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/demo-data.before-final-verification",
+      "files": 1152,
+      "bytes": 43450408,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/data",
+      "files": 1305,
+      "bytes": 65822760,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/platform-preview.jpg",
+      "files": 1,
+      "bytes": 22749,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/backups",
+      "files": 1268,
+      "bytes": 65462312,
+      "action": "permanently_removed",
+      "contents_read": false
+    },
+    {
+      "path": "PlatESG/.local/demo-bundles",
+      "files": 1276,
+      "bytes": 31609288,
+      "action": "permanently_removed",
+      "contents_read": false
+    }
+  ],
+  "files": 10496,
+  "bytes": 885597936,
+  "no_credentials_read_or_copied": true,
+  "crawl_untouched": true
+}

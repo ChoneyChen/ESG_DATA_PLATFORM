@@ -8,7 +8,7 @@ batch/
     └── report-002.pdf
 ```
 
-把 `manifest.template.json` 改名为 `manifest.json`，每个 PDF 填一条记录。模板中的空值必须补齐：`sha256`、企业名称、发表年份、行业名称。PDF 编号、文件相对路径和完整 SHA-256 在批次内分别唯一；文件必须是 `pdf/` 的直接子文件。发表年份与报告覆盖年度分别填写。
+把 `manifest.template.json` 改名为 `manifest.json`，每个 PDF 填一条记录。必须填写实际`sha256`、PDF编号和文件路径；企业、发表年份、行业未知可空。PDF 编号、文件相对路径和完整 SHA-256 在批次内分别唯一；文件必须是 `pdf/` 的直接子文件。发表年份与报告覆盖年度分别填写。
 
 企业和行业可用名称筛选，也可填写稳定代码；行业的分类体系通过 `taxonomy` 声明。原始名称保留，接口不猜测缺失信息。额外资料放进 `extensions`，资料出处放进 `metadata_sources`。
 

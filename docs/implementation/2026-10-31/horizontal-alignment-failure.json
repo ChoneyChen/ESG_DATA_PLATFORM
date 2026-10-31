@@ -1,0 +1,109 @@
+{
+  "schema_version": "horizontal-alignment-failure-1.0",
+  "run_id": "extract-3925f3f0551b09e3a7222a237fa33d8b",
+  "source_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+  "summary": {
+    "selected_clauses": 1,
+    "processed_clauses": 1,
+    "source_facts": 205,
+    "quantitative": 205,
+    "qualitative": 0,
+    "model_calls": 2,
+    "elapsed_seconds": 186.543,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "insufficient_context",
+      "target_facts": 30,
+      "other_facts": 160,
+      "unresolved_facts": 15,
+      "rejected_candidates": 0,
+      "periods": {
+        "2023": 69,
+        "2024": 69,
+        "2025": 67
+      }
+    }
+  },
+  "observed_defect": "Missing blank section rows in the right half led both old independent composers to zero-shift fallback; right values attached to the following left label.",
+  "before_examples": [
+    {
+      "label": "NOx emissions",
+      "value_raw": "860",
+      "period": "2025",
+      "physical_page": 170
+    },
+    {
+      "label": "NOx emissions",
+      "value_raw": "0",
+      "period": "2023",
+      "physical_page": 170
+    },
+    {
+      "label": "NOx emissions",
+      "value_raw": "0",
+      "period": "2024",
+      "physical_page": 170
+    },
+    {
+      "label": "NOx emissions",
+      "value_raw": "0",
+      "period": "2025",
+      "physical_page": 170
+    },
+    {
+      "label": "NOx emissions",
+      "value_raw": "880",
+      "period": "2023",
+      "physical_page": 170
+    },
+    {
+      "label": "NOx emissions",
+      "value_raw": "1,030",
+      "period": "2024",
+      "physical_page": 170
+    },
+    {
+      "label": "NOx emissions",
+      "value_raw": "864",
+      "period": "2025",
+      "physical_page": 170
+    },
+    {
+      "label": "SOx emissions",
+      "value_raw": "245",
+      "period": "2025",
+      "physical_page": 170
+    },
+    {
+      "label": "SOx emissions",
+      "value_raw": "2",
+      "period": "2023",
+      "physical_page": 170
+    },
+    {
+      "label": "SOx emissions",
+      "value_raw": "2",
+      "period": "2024",
+      "physical_page": 170
+    },
+    {
+      "label": "SOx emissions",
+      "value_raw": "1",
+      "period": "2025",
+      "physical_page": 170
+    },
+    {
+      "label": "SOx emissions",
+      "value_raw": "458",
+      "period": "2023",
+      "physical_page": 170
+    }
+  ],
+  "fix": "One canonical per-cell row map, align value bands across omitted section rows, refuse unresolved joined evidence, preserve physical sources. Period groups share all physical parent-header cells. Unsupported vocabulary code retains its printed literal.",
+  "published_real_data": false,
+  "must_rebuild_and_rerun": true
+}

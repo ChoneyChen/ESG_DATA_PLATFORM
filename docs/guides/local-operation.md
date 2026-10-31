@@ -2,13 +2,13 @@
 
 ## 启动
 
-仓库根执行 `bash ExtractESG/scripts/install_local.sh` 安装六个可编辑模块；已有本地依赖下无网络下载。模型目录和MLX运行时显式配置。随后：
+仓库根执行 `bash ConsoleESG/scripts/install_local.sh` 安装六个可编辑模块；已有本地依赖下无网络下载。模型目录和MLX运行时显式配置。随后：
 
 ```sh
-ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ExtractESG/scripts/start.sh
+ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ConsoleESG/scripts/start.sh
 ```
 
-文档/Console组合18080、提取18180、Console18081、原值数据库18280。发布服务8765独立维护；其正式/演示数据和审核凭据不交给提取启动器。
+五个本机服务统一管理：文档/Console组合18080、提取18180、Console18081、独立数据库18280、Plat8765。启动不读取凭据文件，自动发布关闭。
 
 ## 数据位置
 
@@ -24,15 +24,21 @@ $ESG_DATA_ROOT/                     默认仓库 .local/data
     diagnostics/                   候选处置、调用回执
     exports/<export_id>/           不可变交接清单和数据成员
   control/                         队列、会话、运行SQL、准备任务与清理记录
-  logs/                            document/extraction/console/database
-  databases/capture/               新原值库；与正式/演示库分离
+  logs/                            document/extraction/console/database/plat
+  databases/capture/               当前原值、观测与发布库
 ```
 
-源码不保存业务产物。`ExtractESG/.local/python`是依赖环境，不是运行数据。原始父目录pdf文件保留，不重复成为当前权威仓储。控制记录可迁移位置，冻结事实、IR和旧任务字节不改写。
+源码不保存业务产物。`ExtractESG/.local/python`是依赖环境，不是运行数据。当前PDF是独立输入；报告元数据主年不限制事实年份。物理OCR/IR可按实际散列、计划和版本复用，每条每次重新理解。
 
-`migrate_data_root.py`先dry-run再copy/verify；已迁移目录不重复覆盖。迁移清单记录源目标与摘要。旧物理副本核对一致且无打开句柄后，移入系统废纸篓；恢复路径记录在 `.local/data/control/cleanup-upgrade.json`。正式/演示库、原PDF和无法确认引用的历史备份不参与自动清理。
+2026-10-31已按用户明确要求停机清理旧库、备份、控制记录、处理缓存、提取产物和日志；不保留旧快照读取适配。清理清单在[运行数据记录](../implementation/2026-10-31/runtime-cleanup.json)，只记录路径/字节数，不复制数据或凭据。当前完整PDF运行重新生成处理证据。
 
-终态测试任务用会话archive从默认列表收起，事实仍可按ID读取；未结束任务不归档。不要为洁净界面删除科学证据。生产数据的永久删除仍需引用核查。
+新库须显式指定目标后初始化，应用不接管旧模式：
+
+```sh
+ESG_DATABASE_DATA_DIR=/absolute/new/capture database/scripts/run-node.sh database/runtime/manage.mjs init --profile capture
+```
+
+当前任务结束后可归档，不改变其已交付事实；删除当前来源仍由所属模块核对引用及活动任务，不能绕过引用检查。
 
 ## 核验
 
@@ -50,14 +56,14 @@ npm --prefix database test
 
 ## 桌面入口
 
-运行 `ExtractESG/.local/python/bin/python ExtractESG/scripts/install_desktop_launcher.py` 更新桌面“启动ESG统一工作台.command”。旧文本备份到本地control/launcher-backups。仓库移动后可设置ESG_PROJECT_ROOT或重新安装入口。双击默认后台启动并打开页面，不需要终端一直开着。
+运行 `ExtractESG/.local/python/bin/python ConsoleESG/scripts/install_desktop_launcher.py` 更新桌面“启动ESG统一工作台.command”。入口原子替换，不保留旧启动器备份。仓库移动后可设置ESG_PROJECT_ROOT或重新安装入口。双击默认后台启动并打开页面，不需要终端一直开着。
 
 ```sh
-ExtractESG/scripts/start.sh status --json
-ExtractESG/scripts/start.sh stop
-ExtractESG/scripts/start.sh restart --no-browser
+ConsoleESG/scripts/start.sh status --json
+ConsoleESG/scripts/start.sh stop
+ConsoleESG/scripts/start.sh restart --no-browser
 ```
 
 入口、终端和自动化共用workbench.py。已有当前服务直接复用；更换控制器或服务版本时，先确认无活动任务再替换其托管进程。PID与启动时刻防止PID复用误停；不按端口或模糊名称杀进程，外部占用明确报错。命令锁与supervisor锁避免两套后台实例。状态保存在control/workbench，日志在logs/launcher.log及各服务日志；关闭终端不停止，显式stop保留数据。
 
-Node从现有PATH或nvm查找；Python/MLX缺失显示修复位置，不下载模型。轻量SDK使用本机源码离线安装，不下载依赖。原值库缺失时提示显式初始化新库，启动本身不初始化或迁移数据库；不读取审核凭据、不启停Plat8765、不接触正式/演示库。
+Node从现有PATH或nvm查找；Python/MLX缺失显示修复位置，不下载模型。轻量SDK使用本机源码离线安装，不下载依赖。原值库缺失时提示显式初始化新库，启动本身不初始化或迁移数据库；不读取审核凭据；Plat作为当前只读服务统一启停。

@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-10-31T05:26:37.827306+00:00",
+  "services_stopped": true,
+  "removed": [
+    {
+      "path": ".local/data/control",
+      "files": 30,
+      "bytes": 6538593,
+      "reason": "Retire intermediate CATL trial and misaligned English trial before canonical row-map verification"
+    },
+    {
+      "path": ".local/data/databases",
+      "files": 1070,
+      "bytes": 43950175,
+      "reason": "Retire intermediate CATL trial and misaligned English trial before canonical row-map verification"
+    },
+    {
+      "path": ".local/data/extractions",
+      "files": 299,
+      "bytes": 7839138,
+      "reason": "Retire intermediate CATL trial and misaligned English trial before canonical row-map verification"
+    },
+    {
+      "path": ".local/data/documents",
+      "files": 324,
+      "bytes": 55162583,
+      "reason": "Retire intermediate CATL trial and misaligned English trial before canonical row-map verification"
+    },
+    {
+      "path": ".local/data/logs",
+      "files": 6,
+      "bytes": 76590,
+      "reason": "Retire intermediate CATL trial and misaligned English trial before canonical row-map verification"
+    }
+  ],
+  "pdf_inputs_retained": 18,
+  "no_real_publication": true
+}

@@ -361,148 +361,34 @@ def _is_unit_like(text: str | None) -> bool:
     return True
 
 
-def composed_tables(tables: list[dict]) -> list[dict]:
-    """Fold each horizontal continuation group into one table dict.
+def composed_tables(tables: list[dict], logical_tables: list[dict]) -> list[dict]:
+    """Project the canonical cell mappings; never invent a second row alignment.
 
-    A table wider than a page is laid out across a spread: the left page
-    holds the row labels and the leading entity columns, the right page holds
-    further entity columns and repeats the period headers. The IR links the
-    two, but a view built from either half alone reads a sub-entity's column
-    as if it were the total. Merging keeps every cell and its id, so evidence
-    still points at the page the value was printed on.
+    Unresolved compositions retain their physical members. Keeping raw cells
+    does not authorize pairing a right-page value with an arbitrary left label.
     """
-    groups: dict[str, list[dict]] = {}
-    for table in tables:
-        group = table.get("continuation_group_id")
-        if group and table.get("continuation_axis") == "horizontal":
-            groups.setdefault(group, []).append(table)
-    merged: dict[str, dict] = {}
-    dropped: set[str] = set()
-    for members in groups.values():
-        if len(members) < 2:
+    by_id = {table["table_id"]: table for table in tables}
+    merged, dropped = {}, set()
+    for logical in logical_tables:
+        ids = logical.get("source_table_ids") or []
+        if (logical.get("composition_mode") != "horizontal_append_columns"
+            or logical.get("status") not in {"derived", "verified"}
+            or not ids or not all(key in by_id for key in ids)):
             continue
-        by_id = {t["table_id"]: t for t in members}
-        root = next(
-            (
-                t
-                for t in members
-                if (t.get("continues_from_table_id") or "") not in by_id
-            ),
-            None,
-        )
-        if root is None:
+        source = {cell["cell_id"]: cell for key in ids for cell in by_id[key].get("cells", [])}
+        mappings = logical.get("cell_mappings") or []
+        if len(mappings) != len(source) or {row["source_cell_id"] for row in mappings} != set(source):
             continue
-        chain, seen = [], set()
-        current = root
-        while current and current["table_id"] not in seen:
-            chain.append(current)
-            seen.add(current["table_id"])
-            current = by_id.get(current.get("continues_to_table_id") or "")
-        if len(chain) < 2:
-            continue
-        merged[root["table_id"]] = _compose_horizontal(chain)
-        dropped.update(t["table_id"] for t in chain[1:])
-    return [
-        merged.get(t["table_id"], t) for t in tables if t["table_id"] not in dropped
-    ]
-
-
-def _compose_horizontal(chain: list[dict]) -> dict:
-    root = chain[0]
-    cells: list[dict] = [
-        {
-            **cell,
-            "row_index": int(cell["row_index"]),
-            "col_index": int(cell["col_index"]),
-        }
-        for cell in root.get("cells") or []
-    ]
-    column_offset = int(root.get("column_count") or 0)
-    rows = int(root.get("row_count") or 0)
-    headers = set(root.get("header_row_indices") or [])
-    aligned = True
-    for table in chain[1:]:
-        shift, aligned_here = _row_shift(root, table)
-        aligned = aligned and aligned_here
-        for cell in table.get("cells") or []:
-            cells.append(
-                {
-                    **cell,
-                    "row_index": int(cell["row_index"]) + shift,
-                    "col_index": int(cell["col_index"]) + column_offset,
-                }
-            )
-            if int(cell["row_index"]) in set(table.get("header_row_indices") or []):
-                headers.add(int(cell["row_index"]) + shift)
-        column_offset += int(table.get("column_count") or 0)
-        rows = max(rows, int(table.get("row_count") or 0) + shift)
-    flags = list(
-        dict.fromkeys(
-            [
-                *(root.get("quality_flags") or []),
-                "horizontal_columns_appended",
-                *([] if aligned else ["horizontal_row_alignment_unresolved"]),
-            ]
-        )
-    )
-    return {
-        **root,
-        "row_count": rows,
-        "column_count": column_offset,
-        "cells": cells,
-        "header_row_indices": sorted(headers),
-        "page_indices": sorted({int(t.get("page_index") or 0) for t in chain}),
-        "quality_flags": flags,
-    }
-
-
-def _derived_header_rows(table: dict) -> list[int]:
-    """Leading rows before the first row that carries a value.
-
-    The IR's header_row_indices is often only row 0 even though a table's
-    period row sits just below it, so derive the band the same way the view
-    does rather than trusting the stored list.
-    """
-    n_rows = int(table.get("row_count") or 0)
-    n_cols = int(table.get("column_count") or 0)
-    by_position = {
-        (int(cell["row_index"]), int(cell["col_index"])): cell.get("text") or ""
-        for cell in table.get("cells") or []
-    }
-    rows: list[int] = []
-    for r in range(min(n_rows, 4)):
-        texts = [by_position.get((r, c), "") for c in range(1, n_cols)]
-        if any(is_number_text(t) and not FOOTNOTE_MARK_RE.match(t) for t in texts):
-            break
-        rows.append(r)
-    return rows
-
-
-def _row_shift(root: dict, table: dict) -> tuple[int, bool]:
-    """Shift so the continuation's data band starts level with the root's.
-
-    Both halves usually share a header count, but a section title that only
-    the left page prints moves the right page's data up by a row. Align on
-    the first data row; report an unresolved alignment when the data bands
-    differ in size, rather than silently pairing the wrong rows.
-    """
-
-    def band(item: dict) -> tuple[list[int], list[int]]:
-        rows = range(int(item.get("row_count") or 0))
-        header = set(_derived_header_rows(item))
-        return ([r for r in rows if r in header], [r for r in rows if r not in header])
-
-    root_headers, root_data = band(root)
-    table_headers, table_data = band(table)
-    if root_data and table_data and len(root_data) == len(table_data):
-        shift = root_data[0] - table_data[0]
-        if abs(shift) <= 3:
-            return shift, True
-    # Header counts differ; fall back to the header band, which is what the
-    # period columns are keyed on.
-    if root_headers and table_headers:
-        return root_headers[0] - table_headers[0], False
-    return 0, False
+        cells = [{**source[row["source_cell_id"]], "row_index": row["logical_row_index"],
+            "col_index": row["logical_col_index"]} for row in mappings]
+        root = by_id[ids[0]]
+        merged[ids[0]] = {**root, "row_count": logical["logical_row_count"],
+            "column_count": logical["logical_column_count"], "cells": cells,
+            "page_indices": logical["page_indices"],
+            "header_row_indices": sorted({cell["row_index"] for cell in cells if cell.get("is_header")}),
+            "quality_flags": list(dict.fromkeys([*root.get("quality_flags", []), "canonical_horizontal_composition"]))}
+        dropped.update(ids[1:])
+    return [merged.get(table["table_id"], table) for table in tables if table["table_id"] not in dropped]
 
 
 def build_table_view(table: dict, page_payload: dict | None) -> TableView | None:
@@ -649,6 +535,10 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     rebuilt = rebuild_column_paths(header_lines, value_cols, unit_col, label_cols)
     if rebuilt and rebuilt != column_paths:
         column_paths, aligned = rebuilt, True
+    header_sources, grouped = column_header_sources(table, header_rows)
+    if grouped:
+        column_paths = {c: [" ".join(dict.fromkeys(cell["text"] for cell in header_sources[c] if cell["row_index"] == r))
+            for r in header_rows if any(cell["row_index"] == r for cell in header_sources[c])] for c in value_cols}
     if aligned and header_rows and not any(column_paths.values()):
         aligned = False
     if aligned and (
@@ -731,6 +621,29 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     view.sums = column_sums(view)
     view.arithmetic = [relation.text for relation in view.sums]
     return view
+
+
+def column_header_sources(table, header_rows):
+    """Preserve shared parent labels over repeated period groups and their cells."""
+    cells = [cell for cell in table.get("cells", []) if cell["row_index"] in header_rows and cell.get("text")]
+    cols = range(int(table.get("column_count", 0)))
+    sources = {col: [cell for cell in cells if cell["col_index"] <= col < cell["col_index"] + cell.get("col_span", 1)] for col in cols}
+    if len(header_rows) < 2:
+        return sources, False
+    period_row = header_rows[-1]
+    periods = [(col, next((cell["text"] for cell in sources[col] if cell["row_index"] == period_row and YEAR_HEADER_RE.fullmatch(cell["text"])), None)) for col in cols]
+    periods = [(col, text) for col, text in periods if text]
+    if len(periods) < 2:
+        return sources, False
+    width = next((i for i in range(1, len(periods)) if periods[i][1] == periods[0][1]), 0)
+    if not width or len(periods) % width or any(text != periods[i % width][1] for i, (_, text) in enumerate(periods)):
+        return sources, False
+    for offset in range(0, len(periods), width):
+        group = [col for col, _ in periods[offset:offset + width]]
+        parents = [cell for cell in cells if cell["row_index"] < period_row and any(cell["col_index"] <= col < cell["col_index"] + cell.get("col_span", 1) for col in group)]
+        for col in group:
+            sources[col] = sorted({cell["cell_id"]: cell for cell in [*parents, *sources[col]]}.values(), key=lambda cell: (cell["row_index"], cell["col_index"]))
+    return sources, True
 
 
 SKIP_CONTEXT_TYPES = {

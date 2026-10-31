@@ -12,7 +12,7 @@ from urllib.parse import urlsplit
 
 from esg_runtime.release import RuntimeRelease
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2] / "ExtractESG"
 release = RuntimeRelease(ROOT, "workbench-frontend")
 
 
