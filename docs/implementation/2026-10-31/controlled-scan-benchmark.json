@@ -203,5 +203,48 @@
     "initial_failure": "Paddle Python lacked esg_document after removing inherited source paths",
     "fix": "Offline install current application/SDK wheels into both configured model interpreters; launch OCR through module entrypoint; include worker import in readiness probe",
     "cloud_used": false
+  },
+  "isolated_database": {
+    "sealed_export": "export-6dc15d19d3e2bc8b47483096acfc08e765c5ddc7cbb918ab4d674e4673e4a199",
+    "accepted_facts": 51,
+    "rejected_facts": 0,
+    "sealed_authoritative_facts_json_equal": true,
+    "source_fact_models_semantically_equal": true,
+    "optional_missing_fields_are_canonical_nulls_at_sealing": true,
+    "projection": {
+      "schema_version": "capture-projection-1.0",
+      "projection_id": "projection-2bea452780f65473db876c1d8f7aff8fbf5ee93ae927ef630254831ffff90831",
+      "export_id": "export-6dc15d19d3e2bc8b47483096acfc08e765c5ddc7cbb918ab4d674e4673e4a199",
+      "input_digest": "278a7cd11638933b43efc73c8833620e2465c8ee87169a8ff422eecadfd6e933",
+      "transform_version": "capture-observation-1.0",
+      "content_digest": "f49812d1c6bb75c225c92f1de5b6f03b89e8ae435b93398552f4ff0a8be0e0eb",
+      "source": {
+        "document_id": "doc-sha256-40cfb9a18f7979a056a04bcc81876ff3f27d488a6ab0316e9260ab0de690944f",
+        "pdf_sha256": "40cfb9a18f7979a056a04bcc81876ff3f27d488a6ab0316e9260ab0de690944f",
+        "pdf_id": "pdf-40cfb9a18f7979a056a04bcc",
+        "title": "catl-page73-raster.pdf",
+        "report_company": null,
+        "publication_year": null,
+        "resource_revision": 1,
+        "report_company_id": null,
+        "industry": null,
+        "reporting_year": null
+      },
+      "facts": 51,
+      "observations": 51,
+      "periods": {
+        "2023": 15,
+        "2024": 18,
+        "2025": 18
+      },
+      "relations": {
+        "different": 42,
+        "match": 9
+      },
+      "repeated_occurrences": 0,
+      "diagnostics": []
+    },
+    "live_database_touched": false,
+    "published": false
   }
 }

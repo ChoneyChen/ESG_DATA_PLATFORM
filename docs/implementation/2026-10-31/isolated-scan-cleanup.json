@@ -1,0 +1,7 @@
+{
+  "scope": "Completed isolated raster/OCR verification only; no live files or original PDFs removed.",
+  "files": 130,
+  "bytes": 6741731,
+  "removed_after_verification": true,
+  "preserved_evidence": "controlled-scan-benchmark.json"
+}

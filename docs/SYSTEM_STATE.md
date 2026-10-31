@@ -1,7 +1,11 @@
 # 当前系统状态
 
-本轮以[2026-10-31实施记录](implementation/2026-10-31/README.md)为唯一进度入口，分别记录源码、隔离测试、真实报告与实际部署。全项目复核和旧运行数据清理仍在进行，尚未全部完成。
+本轮工程修复与逐项验收见[10月31日实施报告](implementation/2026-10-31/README.md)，其中按原阶段0–6及M01–M15依次核对，并列下一轮优化计划。[实际部署记录](verification/current-deployment.json)核验五服务当前就绪、共享合同一致及详情/运行浮窗/接收/投影一致。
 
-当前设计为独立ClauseESG、PDF/提取骨干、Console、数据库、Plat；原值保留全部期间，缺失可选属性不拒收。旧字典、旧SQL体系和冻结旧接口已从源码删除，实际服务待最终协调部署。
+独立ClauseESG、PDF/提取骨干、Console、独立数据库与Plat已收口。只保留当前合同和接口，旧字典、旧SQL、旧读取及被替代产物已清除。模型worker在两类本地Python中安装运行，不依赖兄弟源码路径；提取只用定量/定性两份原值合同，全期间及未知期间均可接收。
 
-规范：[架构](architecture/README.md)、[模型](architecture/models.md)、[交接](architecture/delivery.md)、[产品](architecture/products.md)。操作：[本地运行](guides/local-operation.md)。
+18份原PDF保留，当前两份实际提取合计274条已接收/投影，真实公开数据集为0，自动发布关闭。隔离OCR派生样本不登记为第19份生产报告。665项Python、Console19项、Plat前端7项、数据库Node9项通过。
+
+尚不宣称全报告/全条款召回率、条款全部科学验收或性能提速。浏览器被Work设置禁用，本轮没有实际新版视觉验收；这些边界及后续方案在实施报告中明确。
+
+[架构](architecture/README.md) · [模型](architecture/models.md) · [交接](architecture/delivery.md) · [产品](architecture/products.md) · [操作](guides/local-operation.md)

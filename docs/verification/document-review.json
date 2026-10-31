@@ -71,7 +71,7 @@
     {
       "path": "README.md",
       "role": "entry",
-      "sha256": "6c2ede8ecd1b777fa379a2bf530115e90f7dd8022ed28e884484fd7b60a7fdec",
+      "sha256": "8885449a6eae0aa98895237227b67456a14175aa44a06d64599d7c223264b4bd",
       "lines": 34,
       "decision": "模块与五服务入口；全年份、独立条款和当前进度，未宣称全局科学验收。",
       "current_link_errors": []
@@ -103,7 +103,7 @@
     {
       "path": "docs/README.md",
       "role": "entry",
-      "sha256": "24710bf3331724f580b2163f4341c56a4c83447a2e93dbd1526b3ffee41f45d3",
+      "sha256": "5bdc7a465e03ec28d9908b65975bf98cf2356c4c4795ce27dd52d760b8e76ea4",
       "lines": 14,
       "decision": "规范、指南、基线与实施分开；删除重复旧手册入口。",
       "current_link_errors": []
@@ -111,8 +111,8 @@
     {
       "path": "docs/SYSTEM_STATE.md",
       "role": "entry",
-      "sha256": "f7df10dbc74509d0d813174080e0eec9d153370b3e96f98992342efc320db044",
-      "lines": 7,
+      "sha256": "48bc46181905911be33ae1429a97ce8a78b0d25506126ac8ab82055c2ca32756",
+      "lines": 11,
       "decision": "唯一进度入口；源码、隔离、真实执行、部署分别说明。",
       "current_link_errors": []
     },
@@ -143,7 +143,7 @@
     {
       "path": "docs/architecture/organization.md",
       "role": "normative",
-      "sha256": "3e3a81dab7f9f52d253ff858bca3656dac6b62ae98df473e9d7f2d352f05ccb7",
+      "sha256": "690f0128d9ae44ec52273fcf98ff91f18c6e2f66e399a0c4e8575f8d9811dffd",
       "lines": 121,
       "decision": "修正条款1.3；组织可重建、矩阵不聚合，原值和目标身份分列。",
       "current_link_errors": []
@@ -215,8 +215,8 @@
     {
       "path": "docs/implementation/2026-10-31/README.md",
       "role": "implementation",
-      "sha256": "84dad0754867de317fc69895d8722be3192699dd8df7d448cb5429ef2ffc772f",
-      "lines": 81,
+      "sha256": "8584de2a96014926b59c1189d4a576bed17bed6ff094598aa049d53317aae046",
+      "lines": 89,
       "decision": "按M项分别记录源码、真实报告及未完成验收；不把格式通过写成全部科学通过。",
       "current_link_errors": []
     },

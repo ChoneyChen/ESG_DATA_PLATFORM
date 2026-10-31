@@ -2,7 +2,7 @@
 
 | 类别 | 当前入口 |
 |---|---|
-| 最新复审与下一轮方案 | [2026-10-31多年份与全流程审查](audits/2026-10-31/README.md)、[37条未决明细](audits/2026-10-31/unresolved-clauses.md)；问题基线，修复进度另见实施记录 |
+| 审查基线与原要求 | [2026-10-31多年份与全流程审查](audits/2026-10-31/README.md)、[37条未决明细](audits/2026-10-31/unresolved-clauses.md)；问题基线，修复进度另见实施记录 |
 | 当前实现与15项验收 | [2026-10-31实施记录](implementation/2026-10-31/README.md) |
 | 架构规范 | [模块与接口](architecture/README.md)、[原值与组织](architecture/organization.md)、[模型](architecture/models.md)、[导出与数据库](architecture/delivery.md) |
 | 操作指南 | [条款如何构造](guides/clause-authoring.md)、[PDF如何组织](guides/pdf-intake.md)、[本地运行、配置与数据布局](guides/local-operation.md) |

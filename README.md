@@ -25,7 +25,7 @@ ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ConsoleESG/scripts/start.sh
 
 [当前升级与逐项验收](docs/implementation/2026-10-31/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
 
-2026-10-31：当前完整PDF新运行得到51条三年原值并已接收、投影，九个空气值逐项核对；其他报告与全文档复核继续进行。源码、隔离测试、实际部署及效果边界见上述实施记录。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
+2026-10-31本轮验收：中文52条、英文222条均已接收并投影；三年空气标注分别9值、45值核对通过。隔离无文字层派生页本地OCR生成51条，九值及独立接收/投影核验通过。665项Python回归、30份逐文档复核与五服务当前部署已核验；科学样本与性能边界见实施报告。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
 
 1,126个独立声明：281定量、832定性、13非执行结构描述；37项已逐条归类，当前零技术阻塞。99展示组、16/32等集合仅组织ID，不产生专用路线；技术就绪与科学样本验收分开。自动发布关闭；CrawlESG保护区不接入。
 

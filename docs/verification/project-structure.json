@@ -15532,9 +15532,9 @@
       "path": "README.md",
       "owner": "root",
       "role": "documentation",
-      "bytes": 3400,
+      "bytes": 3507,
       "lines": 34,
-      "sha256": "6c2ede8ecd1b777fa379a2bf530115e90f7dd8022ed28e884484fd7b60a7fdec"
+      "sha256": "8885449a6eae0aa98895237227b67456a14175aa44a06d64599d7c223264b4bd"
     },
     {
       "path": "database/README.md",
@@ -16217,17 +16217,17 @@
       "path": "docs/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 1453,
+      "bytes": 1447,
       "lines": 14,
-      "sha256": "24710bf3331724f580b2163f4341c56a4c83447a2e93dbd1526b3ffee41f45d3"
+      "sha256": "5bdc7a465e03ec28d9908b65975bf98cf2356c4c4795ce27dd52d760b8e76ea4"
     },
     {
       "path": "docs/SYSTEM_STATE.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 705,
-      "lines": 7,
-      "sha256": "f7df10dbc74509d0d813174080e0eec9d153370b3e96f98992342efc320db044"
+      "bytes": 1347,
+      "lines": 11,
+      "sha256": "48bc46181905911be33ae1429a97ce8a78b0d25506126ac8ab82055c2ca32756"
     },
     {
       "path": "docs/architecture/README.md",
@@ -16257,9 +16257,9 @@
       "path": "docs/architecture/organization.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 10957,
+      "bytes": 10980,
       "lines": 121,
-      "sha256": "3e3a81dab7f9f52d253ff858bca3656dac6b62ae98df473e9d7f2d352f05ccb7"
+      "sha256": "690f0128d9ae44ec52273fcf98ff91f18c6e2f66e399a0c4e8575f8d9811dffd"
     },
     {
       "path": "docs/architecture/products.md",
@@ -16519,9 +16519,9 @@
       "path": "docs/implementation/2026-10-31/README.md",
       "owner": "docs",
       "role": "documentation",
-      "bytes": 12672,
-      "lines": 81,
-      "sha256": "84dad0754867de317fc69895d8722be3192699dd8df7d448cb5429ef2ffc772f"
+      "bytes": 13693,
+      "lines": 89,
+      "sha256": "8584de2a96014926b59c1189d4a576bed17bed6ff094598aa049d53317aae046"
     },
     {
       "path": "docs/implementation/2026-10-31/build-cleanup.json",
@@ -16543,9 +16543,9 @@
       "path": "docs/implementation/2026-10-31/catl-final-integration.json",
       "owner": "docs",
       "role": "configuration_or_asset",
-      "bytes": 3366,
+      "bytes": 3376,
       "lines": 126,
-      "sha256": "75d58f85f03b101235f5fbb1307773e1011644a4ad51c7481bd31d7397b82a38"
+      "sha256": "912f35c986b43931f341ed224de0310e518984cf0d0cdedfb0d0bb58939bd045"
     },
     {
       "path": "docs/implementation/2026-10-31/ckh-final-benchmark.json",
@@ -16583,9 +16583,9 @@
       "path": "docs/implementation/2026-10-31/controlled-scan-benchmark.json",
       "owner": "docs",
       "role": "configuration_or_asset",
-      "bytes": 5553,
-      "lines": 207,
-      "sha256": "e0473f16cc9dcc3fb4b15a7d2cfd58d2a1cd70689f56197e15c1eb60e0a2f29b"
+      "bytes": 7233,
+      "lines": 250,
+      "sha256": "58fdbc6466ed44aa9f244f06f7fa91a07033a2186ebed89bb0344c1f7873fccd"
     },
     {
       "path": "docs/implementation/2026-10-31/document-retirement.json",
@@ -16610,6 +16610,14 @@
       "bytes": 2277,
       "lines": 46,
       "sha256": "0e223fb2d77646f0abe2fbd07a4afa6332709228d2131e1bb64870adc71f0c14"
+    },
+    {
+      "path": "docs/implementation/2026-10-31/isolated-scan-cleanup.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 238,
+      "lines": 7,
+      "sha256": "53e0f1d8329effcbd32f4f96835a6c8c904e7c18ff5916a6a29770aa6b5dd1bf"
     },
     {
       "path": "docs/implementation/2026-10-31/removed-legacy-frontend.json",
@@ -16676,12 +16684,20 @@
       "sha256": "0620f817cfcd5640bcec843c0d90e1df02d80935f2cfe0ee68e6e03f313e014f"
     },
     {
+      "path": "docs/verification/current-deployment.json",
+      "owner": "docs",
+      "role": "configuration_or_asset",
+      "bytes": 3738,
+      "lines": 103,
+      "sha256": "8361c0ff78af26a83cefa5cdb051111366cbbf3142301769b83df95093ff5c60"
+    },
+    {
       "path": "docs/verification/document-review.json",
       "owner": "docs",
       "role": "configuration_or_asset",
-      "bytes": 10344,
+      "bytes": 10345,
       "lines": 249,
-      "sha256": "7585b191c35ac5ccc24dce30ac559798c117f245ae69082bc6029b00c960c035"
+      "sha256": "cdd7251bce552d97a70efce4e2190bfd64b428559c68da7269086c0b3a63bec1"
     },
     {
       "path": "docs/verification/installed-worker.json",
@@ -16877,7 +16893,7 @@
     "PlatESG/scripts": 1,
     "PlatESG/tests": 1,
     "database": 65,
-    "docs": 59,
+    "docs": 61,
     "tools": 7
   },
   "errors": [],

@@ -1,0 +1,103 @@
+{
+  "schema_version": "current-deployment-verification-1.0",
+  "verified_at": "2026-10-31T12:25:47.631170+00:00",
+  "source_commit": "36773010ab851e66ee1445e27cbb224e637e1497",
+  "all_five_services_ready": true,
+  "controller_current": true,
+  "services": {
+    "document": {
+      "service": "document-backend",
+      "build_fingerprint": "a7338ebddfcae312f450347655c58724dc48e9e2aa0eef08cc28833689d2ccc1",
+      "current_disk_fingerprint": "a7338ebddfcae312f450347655c58724dc48e9e2aa0eef08cc28833689d2ccc1",
+      "restart_required": false
+    },
+    "extraction": {
+      "service": "extraction-backend",
+      "build_fingerprint": "cea7e88b3490a1051b4066c4410ee4bbc45bad8ef8a39bf16f124df463dd691e",
+      "current_disk_fingerprint": "cea7e88b3490a1051b4066c4410ee4bbc45bad8ef8a39bf16f124df463dd691e",
+      "restart_required": false
+    },
+    "console": {
+      "service": "workbench-frontend",
+      "build_fingerprint": "6cd216138b6a2c7643c3daff1658cd7350773a16088ffd6945331eaff20bc5ee",
+      "current_disk_fingerprint": "6cd216138b6a2c7643c3daff1658cd7350773a16088ffd6945331eaff20bc5ee",
+      "restart_required": false
+    },
+    "database": {
+      "service": "database-module",
+      "build_fingerprint": "1c20a32bae349ca29deaa6c7118882b8c27ecb9b48774b1c37b51ff4bc00edae",
+      "current_disk_fingerprint": "1c20a32bae349ca29deaa6c7118882b8c27ecb9b48774b1c37b51ff4bc00edae",
+      "restart_required": false
+    },
+    "plat": {
+      "service": "publication-backend",
+      "build_fingerprint": "3cd718f1ffd423c17516a19e49aeecf6b93edd488486a2d13f8a8680044ac827",
+      "current_disk_fingerprint": "3cd718f1ffd423c17516a19e49aeecf6b93edd488486a2d13f8a8680044ac827",
+      "restart_required": false
+    }
+  },
+  "shared_contract_fingerprints_equal": true,
+  "engine": {
+    "version": "clause-backbone-1.3",
+    "fingerprint": "db65813affab94bef289f401ef86b4eb31da5e3a1d857427ebcf2f33d436cb81",
+    "ready": true
+  },
+  "current_cases": [
+    {
+      "name": "catl",
+      "session_id": "extract-plan-530319d06ea24ff58daa330e8627c30d",
+      "run_id": "extract-20417327a940d4b5bbffb0691c744261",
+      "status": "completed",
+      "facts": 52,
+      "periods": {
+        "2023": 15,
+        "2024": 18,
+        "2025": 18,
+        "期间未知": 1
+      },
+      "projection_id": "projection-88e305883a2f3f1da29849355bea274156d8d2f8299b2fb3e183d9b590754e80",
+      "monitor_detail_product_state_equal": true,
+      "source_pdf_hash_equal": true,
+      "unpublished_pdf_public_access": 404
+    },
+    {
+      "name": "ckh",
+      "session_id": "extract-plan-9a86a74d74b64d01b7982d9fcee2dfad",
+      "run_id": "extract-2b28992f3fcbe8fd2fde5da916d04a6d",
+      "status": "completed",
+      "facts": 222,
+      "periods": {
+        "2023": 75,
+        "2024": 75,
+        "2025": 72
+      },
+      "projection_id": "projection-f1b09ae2dee9b73a673f79c56555e32014308eebc95ba2f73df8ec6847a84d33",
+      "monitor_detail_product_state_equal": true,
+      "source_pdf_hash_equal": true,
+      "unpublished_pdf_public_access": 404
+    }
+  ],
+  "original_report_count": 18,
+  "public_datasets": 0,
+  "retired_interfaces": {
+    "/internal/v1/metrics": 410,
+    "/v1/datasets": 410,
+    "/review": 410
+  },
+  "tests": {
+    "python": 665,
+    "console_frontend": 19,
+    "plat_frontend": 7,
+    "database_node": 9
+  },
+  "browser_visual_verification": {
+    "performed": false,
+    "reason": "Local browser use disabled in Work settings; no bypass attempted"
+  },
+  "scope_limits": [
+    "No all-report or all-clause recall certification",
+    "Controlled raster derivative is not an original scanned-report corpus",
+    "Performance improvement not demonstrated; exact final timings retained",
+    "No real facts publicly published"
+  ]
+}
