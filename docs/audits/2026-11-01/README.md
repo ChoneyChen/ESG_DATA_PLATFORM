@@ -478,6 +478,8 @@ Plat目前的明确产品形态是**已发布原值/观测浏览与科研数据�
 
 ## 9. 建议下一轮交付顺序与完成定义
 
+以下为改进方向，具体执行依第10节本轮规划。
+
 1. **单条合同内部收敛（B3）**：属性/词典只声明一次，搜索、阅读、组织各取所需视图；清理空挂选项和未使用的管理字段。
 2. **补齐通用搜索/读取（B1/B2）**：量值定位、上下文补读、需要时继续推进搜索范围；目标仍全部来自独立单条。
 3. **简化执行和模块职责（B4/B5）**：减少热路径全量重写/重复解析，移开提取阶段的后续比较判断，去掉消费端隐藏口径。
@@ -486,3 +488,44 @@ Plat目前的明确产品形态是**已发布原值/观测浏览与科研数据�
 每轮改完直接跑真实任务，查看PDF搜索、实际原值与各年份、已有属性是否取得、结果表和数据库接收是否走通。没有实际问题就不增加另一层校验。内容扩充和多PDF测试由后续实际使用推进；不把增加测试脚本、CI、成熟度等级或科学审核系统列为当前base完成条件。
 
 骨架完成的判断是：新增普通条款只改独立条款数据；主干能实际消费它需要的信息；报告提供的值与可取得属性有地方存；执行/展示/交接不靠隐含条款分支或生产者目录；真实任务从PDF到数据库及页面能跑通。
+
+## 10. 本轮base更新执行规划
+
+依据当前`8ea0f619`源码重新沿单条合同、PDF准备、模型阅读、结果落盘、数据库投影和Console读取核对。六项一并落实；条款内容扩充与多PDF收集留给后续使用。本轮沿用两类原值、全年份捕获、可选属性、独立单条和本地模型。
+
+### 10.1 执行顺序与文件落点
+
+| 顺序 | 修改内容 | 主要文件（模块路径缩写见表后） | 完成后的行为 |
+|---|---|---|---|
+| 1 单条属性收敛（B3） | 在单条增加统一属性定义；属性含义、读取说明和值词典只写一次。enrichment、scope、comparison和organization引用属性ID；检索词、概念阅读词与属性值词典保留各自作用 | `ClauseESG/src/esg_clauses/{contract,parts,templates,search}.py`；`ExtractESG/contracts/src/esg_data/organization.py`；`extraction/pipeline/binding.py` | 修改表格列不会改变模型所用词典；改一处属性，阅读、分类和显示共同消费 |
+| 2 增量保存与轻量运行状态（B4） | 将engine的保存职责移出主循环；仅写新增/变更事实和映射，进度单独保存；组织表按条款需要生成，结束时组装正式交接 | `ExtractESG/extraction/src/esg_extraction/pipeline/{engine,runtime,state,organization,exporting}.py`、`adapters/artifacts.py` | 每次模型返回后原值立即可见；不再反复解析整份FactBundle、重写全部事实和重建全部表 |
+| 3 搜索继续与页面扩围（B2） | 已处理证据先继续分页/调整检索层次；仍需新页时，将准备请求交给编排层，再进入阅读。候选取得与模型预算共同推进，不先一次性拉完才读 | `ClauseESG/src/esg_clauses/search.py`；`contracts/src/esg_contracts/{search,evidence,results}.py`；`extraction/pipeline/{retrieval,ports,engine}.py`；`document/{api/evidence,document/evidence_service,ocr/page_selection}.py`；`pipeline/{extraction,report_processing}.py` | 查不到不立即停在初始范围；能按同一条款提供的词典继续找，并知道实际读到了哪些页/对象 |
+| 4 通用上下文补读（B1） | 将条款请求且当前未取得的属性变为补读任务；先附近标题/脚注/章节，再相关报告说明。同一条款本次读取的上下文用于其相关事实；模型输出属性引用，不重输出整表数值 | `extraction/pipeline/{engine,decisions,reading_frame,binding}.py`；`adapters/local_model.py`；文档证据端口 | 报告在别处披露的主体、范围、方法等能关联到结果；没有可靠内容仍留空，原值继续保留 |
+| 5 比较职责归位（B5） | 提取只表达执行、捕获、目标关系和取得的属性；比较/选源在数据库产品层按单条引用的要求执行，去掉额外写死的主体/边界条件；整条披露覆盖与单个观测适用范围分开 | `extraction/pipeline/engine.py`；`contracts/src/esg_contracts/results.py`；`database/src/esg_database/{projection,selection,products_contracts}.py`；Console状态显示 | 不因后续比较条件不足把原值生产显示成未完成；未知身份保留多源，不按缺失值合并 |
+| 6 结果真正按需读取（B6） | 生产者增量维护条款/期间/关系→事实ID索引；提供结果目录、分页事实、单条结果页。BFF透传参数，Console只请求当前页和当前条款 | `extraction/pipeline/{api,state,organization}.py`；`ConsoleESG/backend/src/esg_console/sessions.py`；`frontend/src/features/extractions/{detail,results}.tsx`；共享DTO/生成类型 | 打开任务或单条结果不再下载整份facts/organized；原始事实与完整导出保持同一来源 |
+
+表中`extraction/`指`ExtractESG/extraction/src/esg_extraction/`，`document/`指`ExtractESG/document/src/esg_document/`，`pipeline/`指`ExtractESG/pipeline/src/esg_pipeline/`，`contracts/`指`ExtractESG/contracts/`；`adapters/local_model.py`位于提取pipeline下。Console前后端路径从ConsoleESG起；前述文件定位附件提供完整路径。
+
+合同结构统一更新现有可执行条款，同时更新条款编辑器和生成类型；不只是改SDK而留下旧形状。现有定义/词典内容与13个非执行结构描述保持各自用途，页面沿用现有父子结构。已保存事实与来源不因本轮重构被改写。
+
+### 10.2 两个必须一起解决的接口问题
+
+**搜索扩围与证据来源。** 当前run固定单个IR，FactBundle也要求事实属于同一IR修订。新增页面后的读取必须带实际来源快照，不能仅更换ir_run_id继续拼结果。步骤3同步完善结果/导出中的快照引用，交接接收与投影按事实来源解析；原PDF身份仍只有原件SHA。新增页处理交由现有编排队列执行，阅读worker让出执行锁，准备结束再继续，不另建第二条模型通道。
+
+同步落点为共享`evidence.py / results.py / exports.py`、提取`exporting.py`、数据库`ingestion.py / projection.py`及现有会话DTO；全部从同一来源引用读取，不让接收端继续默认整包只有一个IR快照。
+
+**分页与实际存储。** 索引只存定位/筛选信息，原始值仍由生产者事实记录拥有。步骤2提供增量事实和完成状态，步骤6使用该索引读取对应记录；不会用“先加载整包再slice”冒充后端分页。页大小控制传输量，任务总量独立显示。
+
+### 10.3 本轮清理范围
+
+- 去掉阅读卡和分类逻辑对organization值词典的反向依赖，清理重复属性声明。
+- 收敛热路径重复的整包解析、全量写入及组织重建；跨服务输入按接收合同处理一次，不层层复查同一内容。
+- 移除没有生产用途的acceptance管理字段和“待样本验收”展示，不补建成熟度系统。
+- 将提取中无实际计算能力的派生/聚合执行选项移出生产合同；报告实际总量、分项、强度等原值角色仍保留。
+- 搜索、保存、结果接口切换后删除被替代的现行入口与空挂字段；不增加旧foundation/standard或旧字典适配层。仍在使用的IR布局/物理修复能力继续归文档模块。
+
+### 10.4 每轮直接运行真实任务
+
+每个可运行阶段完成后，从Console提交真实PDF任务，沿实际搜索、模型调用、原值落盘、表格和数据库接收走完；直接看提取结果修问题。采用现有CATL多年份定量+定性、CKH跨页宽表，另从现有原PDF选择能触发扩围/补读的任务。补读属性只比较原报告实际披露内容，缺失不补造。每条目标单独读取合同，同一报告在新任务中重新阅读，不恢复跨条款/跨运行的语义理解缓存。
+
+记录实际原值/年份/属性、查到的页、模型调用/耗时和接收结果即可；不新增单测套件、覆盖矩阵、成熟度账本或审批流程。结果多的真实任务直接用新分页查看，完整导出仍可接收全部结果。本轮只同步Plat所需的共享数据字段，不重做平台页面或自动发布数据。
