@@ -17,25 +17,24 @@ from .decisions import QuantitativeDecision, QualitativeDecision, NumericMatch, 
 from .binding import numeric_fact, qualitative_fact
 from .structure import period_columns, column_structure, period_coverage
 from .retrieval import retrieve_candidates
-from .frames import split_frame
+from .frames import split_frame, remainder_frames
 from .reading_frame import reading_frame
+from .enrichment import (context_frame, context_schema, ContextDecision, apply_context, missing_attributes, INSTRUCTIONS as CONTEXT_INSTRUCTIONS)
 from .ports import DocumentPort, ModelPort, ArtifactPort, ResultPort
-from .organization import build_organized_dataset
 
-ENGINE_VERSION = "clause-backbone-1.5"
+ENGINE_VERSION = "clause-backbone-1.7"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return row IDs and column IDs for real measurements in this bounded evidence frame. Never output, compute or convert values.
 Set selection=measurement only for a real reported quantity. Formula digits (SF6, CO2), identifiers, years, dates, reference/footnote numbers are NOT quantities. Reject them with selection=nonmeasurement. Use selection=unresolved when measurement meaning itself is unsupported; these remain diagnostics, never facts. A real count may have no printed unit.
-Select EVERY relevant row, not one example. Each selected row must use its exact visible row_id; one response may contain many matches. Follow target.reading.instructions. A real measurement outside the target remains selection=measurement with match=different, never nonmeasurement. Preserve such rows from the same candidate table separately from target rows. For example, a table may contain both the requested category and another real category; the latter is still a measurement. Do not select identifier/year/header/footnote cells as measurements.
+Select EVERY target-relevant row, not one example. Use exact visible row IDs. Follow target.reading.instructions.
+Explicit contrasting measurements may use match=different. Do not enumerate wholly unrelated rows solely to retain them; the receiver independently retains physically grounded adjacent table quantities. Identifier/year/header/footnote cells are not measurements.
 Read ALL reported periods in each selected row, including historical years. The report's primary year never filters measurements. physical_structure lists observed columns and ambiguities; it is not a selected-year instruction. Columns with different entities, methods or roles remain separate. Use column_identity for column-specific overrides; row identity must not overwrite those differences.
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
 Place shared frame identity in the top-level identity list ONCE; put only supported row-specific overrides in each match. Omit unsupported axes entirely; do not enumerate missing fields. An empty identity list is valid. Keep each reason to one short phrase.
 Use the short source IDs actually shown: a row label_source_id, a column source_id, a cell_id, or an object_id in texts/title_sources. Never cite a numeric cell for a header quote. Put column-specific identities in column_identity; a row identity must be true for every selected column.
-State supported identity axes as value + exact quote + source_id. Useful axes are reporting_period,
-reporting_entity (literal company name), entity_aggregation_role (group/subsidiary/site/segment), reporting_boundary,
-measurement_method, value_role (actual/target/baseline/context), aggregation_role (total/subtotal/member/share/intensity),
-denominator and dimensions explicitly stated in the source. Do not repeat a physically determined reporting period in model identity.
+State supported attributes from requested_identity_fields with value + exact quote + source_id. Other explicitly printed attributes may remain literal dimensions.
+Never emit bound_identity_axes: those fields are already bound from physical evidence.
 Do not copy fixed clause axes into the report identity. A clause defines what to seek; it is not evidence of what the report says.
 Missing identity, unit, period, or other optional metadata MUST NOT remove a relevant physically reported value or demote its target match. Use match=match when measurement meaning fits the target; leave unsupported attributes absent. Comparison completeness is assessed separately.
 requested_identity_fields declares this clause's result columns and any local vocabulary. Read those fields only from cited report evidence. A target definition or report-resource company is not a measured identity. Unlisted categories stay literal and uncertain; never force them into a known code.
@@ -84,6 +83,7 @@ class ExtractionBackbone:
         document=None,
         sources=None,
         exhausted_queries=None,
+        context_attempted=None,
         cancel_check=lambda: False,
         on_progress=lambda event: None,
     ):
@@ -105,6 +105,8 @@ class ExtractionBackbone:
         self.sources = {document.snapshot_id:document, **(sources or {})}
         self.exhausted_queries = exhausted_queries or {}
         self.completed = set(checkpoint.get("completed_clauses", []))
+        self.enriched = set(checkpoint.get("enriched_clauses", []))
+        self.context_attempted = set(context_attempted or [])
         self.visited = set(checkpoint.get("visited_frames", []))
         restored = self.results.collection() if checkpoint else {"facts":[],"clause_mappings":[]}
         restored_facts = {f["source_fact_id"]:SourceFact.model_validate(f) for f in restored["facts"]}
@@ -267,13 +269,15 @@ class ExtractionBackbone:
                         )
                         context = {
                             "target": clause.reading_card(),
-                            "document": source_document.model_dump(mode="json"),
                             "frame": reading_frame(frame),
                             "execution": {"run_id": run_id, "task_type": "clause_" + clause.data_kind,
                                 "evidence_ids": [frame.object_id], "attempt": attempt, "parent_task_id": f"{run_id}/calls/{parent_call}" if parent_call else None, "remaining_seconds": max(0.001, budget.timeout_seconds - (time.monotonic() - started))},
                         }
                         structure = column_structure(frame) if clause.data_kind == "quantitative" else None
                         decided_columns = period_columns(frame) if structure else None
+                        if decided_columns and all(cell.column_id in decided_columns and frame.column_sources.get(cell.column_id) for row in frame.rows for cell in row.cells):
+                            context["target"]["requested_identity_fields"] = [field for field in context["target"]["requested_identity_fields"] if field["axis"] != "reporting_period"]
+                            context["bound_identity_axes"] = ["reporting_period"]
                         if structure:
                             context["physical_structure"] = structure.model_dump(mode="json")
                         decision_type = (
@@ -341,6 +345,7 @@ class ExtractionBackbone:
                                     "decision": decision.model_dump(mode="json"),
                                 }
                             )
+                            row_relations = {}
                             for match in decision.matches:
                                 match = match.model_copy(
                                     update={
@@ -416,8 +421,15 @@ class ExtractionBackbone:
                                         local_facts[fact.source_fact_id] = fact
                                         local_mappings[fact.source_fact_id] = mapping
                                         self.results.put(fact, mapping)
+                                        if clause.data_kind == "quantitative":
+                                            row_relations.setdefault(match.row_id,set()).add(mapping.match)
                                 except (ValueError, TypeError, KeyError) as exc:
                                     reasons.append("binding_rejected:" + str(exc))
+                            if clause.data_kind == "quantitative":
+                                pieces = remainder_frames(frame,supplements,row_relations)
+                                if pieces:
+                                    pending_frames.extend((piece,calls,attempt+1) for piece in pieces)
+                                    call["remainder_frames"] = [piece.digest for piece in pieces]
                             reasons.extend(decision.missing_context)
                             inspected_ids.add(candidate.object_id)
                             inspected = len(inspected_ids)
@@ -441,7 +453,7 @@ class ExtractionBackbone:
                                 call["incomplete_output"] = exc.raw_output
                             if hasattr(exc, "category"):
                                 call["failure_category"] = exc.category
-                            pieces = split_frame(frame, exc.category) if getattr(exc, "category", None) in {"generation_incomplete", "input_budget"} else []
+                            pieces = split_frame(frame, exc.category) if getattr(exc, "category", None) in {"generation_incomplete", "input_budget", "timeout"} else []
                             if pieces:
                                 call["status"] = "split_retry"
                                 call["retry_frames"] = [piece.digest for piece in pieces]
@@ -494,6 +506,64 @@ class ExtractionBackbone:
                     self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
                         [*mappings,*local_mappings.values()],coverage,calls,started,errors)
                     raise EvidenceNeeded(need)
+            context_facts = {fid:fact for fid,fact in local_facts.items() if local_mappings[fid].match != "different" and missing_attributes(clause,fact)}
+            if context_facts and key not in self.enriched and calls < budget.max_model_calls and time.monotonic()-started < budget.timeout_seconds:
+                try:
+                    context_evidence, context_search = context_frame(self.documents,self.sources,clause,list(context_facts.values()),plan["context"])
+                except (OSError,ValueError) as exc:
+                    context_evidence, context_search = None, {"terms":[],"error":str(exc)[:300]}
+                self.artifacts.write(run_id,f"diagnostics/context/{key}.json",context_search)
+                if context_evidence is None and context_search["terms"] and key not in self.context_attempted:
+                    context_intent = {**plan["page"],"positive_terms":context_search["terms"],"exact_terms":context_search["terms"],
+                        "topic_term_groups":[],"role_term_groups":[],"required_term_groups":[]}
+                    need = self._page_request(key,"context",context_intent,"Look for the clause-declared context outside prepared pages")
+                    if need:
+                        self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
+                            [*mappings,*local_mappings.values()],coverage,calls,started,errors)
+                        raise EvidenceNeeded(need)
+                if context_evidence is not None:
+                    self.artifacts.write(run_id,f"evidence/context/{key}.json",context_evidence.model_dump(mode="json"))
+                    pending_context = list(context_facts.values())
+                    batch_size = max(1,budget.max_output_tokens//1024)
+                    for offset in range(0,len(pending_context),batch_size):
+                        if calls >= budget.max_model_calls or time.monotonic()-started >= budget.timeout_seconds:
+                            reasons.append("enrichment_budget_exhausted")
+                            break
+                        batch = pending_context[offset:offset+batch_size]
+                        aliases = {f"f{i}":fact.source_fact_id for i,fact in enumerate(batch,1)}
+                        inputs = [{"id":alias,"label":local_facts[fid].source_row_label,
+                            "missing_attributes":[axis for axis in missing_attributes(clause,local_facts[fid]) if axis in context_search["requested_attributes"]],
+                            "identity":{axis:field.model_dump(mode="json",exclude={"evidence"}) for axis,field in
+                                {**{name:getattr(local_facts[fid].identity,name) for name in type(local_facts[fid].identity).model_fields if name != "dimensions"},
+                                **local_facts[fid].identity.dimensions}.items() if field.state in {"stated","inherited"}},
+                            "local_evidence":[e.excerpt for e in local_facts[fid].evidence if e.role != "value"]} for alias,fid in aliases.items()]
+                        calls += 1
+                        call = {"call_index":calls,"clause_key":key,"clause_digest":clause.clause_digest,
+                            "task_type":"context_enrichment","data_kind":clause.data_kind,"frame_digest":context_evidence.digest,"fact_aliases":aliases}
+                        on_progress({"stage":"enriching","clause_key":key,"current":index-1,"total":len(clauses),
+                            "model_calls":calls,"fact_count":len(facts)+len(local_facts)})
+                        try:
+                            raw, telemetry = self.model.complete(instructions=CONTEXT_INSTRUCTIONS,
+                                context={"target":clause.reading_card(),"requested_attributes":context_search["requested_attributes"],"facts":inputs,"context":reading_frame(context_evidence),
+                                    "execution":{"run_id":run_id,"task_type":"clause_context","evidence_ids":[t.object_id for t in context_evidence.texts],
+                                        "remaining_seconds":max(.001,budget.timeout_seconds-(time.monotonic()-started))}},
+                                schema=context_schema(context_evidence,aliases,context_search["requested_attributes"]),max_tokens=budget.max_output_tokens,cancel_check=cancel_check)
+                            decision = ContextDecision.model_validate(raw if isinstance(raw,dict) else json.loads(raw))
+                            count = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search["requested_attributes"])
+                            call.update(status="ok",telemetry=telemetry,decision=decision.model_dump(mode="json"),attributes_added=count)
+                            for fid in aliases.values():
+                                self.results.put(local_facts[fid],local_mappings[fid])
+                        except Exception as exc:
+                            call.update(status="cancelled" if cancel_check() or isinstance(exc,PipelineCancelled) else "failed",error=str(exc)[:400])
+                            self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
+                            if call["status"] == "cancelled":
+                                self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
+                                    [*mappings,*local_mappings.values()],coverage,calls,started,errors)
+                                raise PipelineCancelled("Extraction cancelled") from exc
+                            reasons.append("context_reading_unavailable")
+                        trace.append(call)
+                        self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
+                self.enriched.add(key)
             facts.extend(local_facts.values())
             mappings.extend(local_mappings.values())
             self.completed.add(key)
@@ -506,9 +576,9 @@ class ExtractionBackbone:
             }
             if not complete:
                 state = "not_covered"
-            elif required <= covered and local_facts:
+            elif required <= covered and any(m.match == "match" for m in local_mappings.values()):
                 state = "covered"
-            elif local_facts:
+            elif any(m.match in {"match","uncertain"} for m in local_mappings.values()):
                 state = "unconfirmed"
             elif inspected:
                 state = "not_found"
@@ -577,7 +647,7 @@ class ExtractionBackbone:
     ):
         self.results.flush()
         body = {
-            "schema_version": "extraction-fact-bundle-2.3",
+            "schema_version": "extraction-fact-bundle-2.4",
             "engine_version": ENGINE_VERSION,
             "engine_identity": self.engine_identity,
             "run_id": run_id,
@@ -597,35 +667,14 @@ class ExtractionBackbone:
                 "assessment": assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count),
             },
         }
-        body["organization"] = {
-            "schema_version": "organized-extraction-1.1",
-            "status": "pending",
-            "url": f"/api/runs/{run_id}/organized",
-        }
         self.results.status(body)
         self.results.checkpoint({"calls":calls,"elapsed_seconds":time.monotonic()-started,
-            "completed_clauses":sorted(self.completed),"visited_frames":sorted(self.visited)})
+            "completed_clauses":sorted(self.completed),"enriched_clauses":sorted(self.enriched),"visited_frames":sorted(self.visited)})
         if not final:
             return body
         # Complete the transport bundle once. Running views read the indexed facts.
         body["facts"] = [fact.model_dump(mode="json", exclude_none=True) for fact in facts]
         body["clause_mappings"] = [mapping.model_dump(mode="json", exclude_none=True) for mapping in mappings]
-        try:
-            organized = build_organized_dataset(
-                run_id, document, clauses, facts, mappings
-            )
-            self.artifacts.write(
-                run_id, "results/organized.json", organized.model_dump(mode="json")
-            )
-            body["organization"].update(
-                status=organized.status,
-                table_count=len(organized.tables),
-                unorganized_fact_count=len(organized.unorganized_fact_ids),
-            )
-        except Exception as exc:
-            body["organization"].update(
-                status="failed", error=f"{type(exc).__name__}: {str(exc)[:400]}"
-            )
         body = FactBundle.model_validate(body).model_dump(
             mode="json", exclude_none=True
         )
@@ -689,15 +738,10 @@ def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_c
     required = {key: clause.purposes.enrichment.identity_axes for key, clause in clauses.items()}
     by_id = {fact.source_fact_id: fact for fact in facts}
     incomplete = False
-    comparable = bool(mappings) and {f.source_fact_id for f in facts} <= {m.source_fact_id for m in mappings}
     for link in mappings:
+        if link.match == "different":
+            continue
         fact = by_id[link.source_fact_id]
-        clause = clauses[link.clause_key]
-        policy = clause.purposes.comparison
-        if link.match != "match" or any(flag.startswith(("comparison_axis_missing:", "clause_evidence_missing:", "output_vocabulary_", "identity_conflict:", "unit_source_unconfirmed")) for flag in link.flags):
-            comparable = False
-        if policy.require_complete_scopes and not {s.scope_id for s in clause.output_scopes if s.required} <= set(link.scope_ids):
-            comparable = False
         for axis in required[link.clause_key]:
             field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
             if field is None or field.state not in {"stated", "inherited"}:
@@ -707,7 +751,7 @@ def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_c
         "search_coverage": "in_progress" if not final else "incomplete" if interrupted else "bounded_complete",
         "capture_result": "usable" if facts else "empty",
         "metadata_completeness": "not_requested" if not any(required.values()) or not facts else "partial" if incomplete else "complete",
-        "comparison_status": "not_evaluated" if not facts else "eligible" if comparable else "insufficient_context",
+        "comparison_status": "not_evaluated",
         "target_facts": len({m.source_fact_id for m in mappings if m.match == "match"}),
         "other_facts": len({m.source_fact_id for m in mappings if m.match == "different"}),
         "unresolved_facts": len({m.source_fact_id for m in mappings if m.match == "uncertain"}),

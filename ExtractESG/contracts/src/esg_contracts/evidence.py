@@ -63,6 +63,7 @@ class DocumentReference(ProtocolModel):
 
 
 class SearchIntent(ProtocolModel):
+    source_snapshot: str | None = None
     target_id: str
     contract_digest: str
     data_kind: Literal["quantitative", "qualitative"]
@@ -155,7 +156,7 @@ class TextEvidence(ProtocolModel):
 
 class FrameFragment(ProtocolModel):
     parent_digest: str
-    reason: Literal["input_budget", "generation_incomplete"]
+    reason: Literal["input_budget", "generation_incomplete", "selection_remainder", "timeout"]
     completeness: Literal["fragment"] = "fragment"
 
 

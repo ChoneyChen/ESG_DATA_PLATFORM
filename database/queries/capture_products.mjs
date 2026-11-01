@@ -89,10 +89,12 @@ export async function productInput(db,{projection_ids}) {
 
 export async function projectionCatalog(db,{limit=100,cursor=null}={}) {
   if(!Number.isInteger(limit)||limit<1||limit>1000)throw fault('invalid_query','Invalid page size');
-  const source=(await db.query('SELECT projection_id,content_digest FROM esg.capture_projections ORDER BY projection_id')).rows;
+  const current=`SELECT DISTINCT ON(export_id) projection_id,content_digest,summary FROM esg.capture_projections
+    ORDER BY export_id,created_at DESC,projection_id DESC`;
+  const source=(await db.query(`SELECT projection_id,content_digest FROM (${current}) p ORDER BY projection_id`)).rows;
   const query=digest([source,limit]);
   const after=cursorAfter(cursor,query);
-  const rows=(await db.query('SELECT projection_id,summary FROM esg.capture_projections WHERE projection_id>$1 ORDER BY projection_id LIMIT $2',[after,limit+1])).rows;
+  const rows=(await db.query(`SELECT projection_id,summary FROM (${current}) p WHERE projection_id>$1 ORDER BY projection_id LIMIT $2`,[after,limit+1])).rows;
   const more=rows.length>limit;if(more)rows.pop();
   return {schema_version:'capture-projection-page-1.0',query_digest:query,total:source.length,returned:rows.length,items:rows.map(row=>row.summary),
     next_cursor:more?encodeCursor(query,rows.at(-1).projection_id):null};

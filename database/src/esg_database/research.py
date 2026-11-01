@@ -36,7 +36,7 @@ class ResearchCapacityError(ValueError):
 
 
 def contract():
-    return {"schema_version":"capture-research-1.0", "tables":{name:[{"name":key,"type":kind,"nullable":True} for key,kind in fields] for name,fields in TABLES.items()},
+    return {"schema_version":"capture-research-1.1", "tables":{name:[{"name":key,"type":kind,"nullable":True} for key,kind in fields] for name,fields in TABLES.items()},
         "authority":"Referenced immutable source facts; these tables are deterministic projections.",
         "period_policy":"all_reported", "aggregation_performed":False,
         "properties":"One scalar leaf per RFC6901 value_path. Empty containers retain explicit type.",
@@ -129,7 +129,7 @@ def archive(observations, snapshot_id, *, format="csv", max_observations=100000,
                 for key,kind in columns:
                     dtype=decimal_type((row.get(key) for row in rows),pa) if kind=="decimal" else {"string":pa.string(),"int32":pa.int32(),"bool":pa.bool_(),"date32":pa.date32()}[kind]
                     fields.append(pa.field(key,dtype,nullable=True))
-                schema=pa.schema(fields,metadata={b"contract":b"capture-research-1.0"})
+                schema=pa.schema(fields,metadata={b"contract":b"capture-research-1.1"})
                 converted=[]
                 for row in rows:
                     converted.append({key:Decimal(str(value)) if kind=="decimal" and value is not None else date.fromisoformat(value) if kind=="date32" and value is not None else value

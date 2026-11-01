@@ -43,8 +43,21 @@ def main():
     import re
     if not re.fullmatch(r'extract-[a-zA-Z0-9_-]+', args.run_id):
         raise ValueError('Invalid run identity')
-    with build_opener(ProxyHandler({})).open(args.base_url.rstrip('/')+'/api/runs/'+args.run_id+'/facts', timeout=15) as response:
-        bundle = json.load(response)
+    from urllib.parse import urlencode
+    client = build_opener(ProxyHandler({}))
+    base = args.base_url.rstrip('/')+'/api/runs/'+args.run_id
+    with client.open(base,timeout=15) as response:
+        state=json.load(response)
+    bundle={'run_id':args.run_id,'document':state['document'],'facts':[],'clause_mappings':[]}
+    cursor=None
+    while True:
+        params={'limit':500}
+        if cursor:params['cursor']=cursor
+        with client.open(base+'/facts?'+urlencode(params),timeout=15) as response:
+            page=json.load(response)
+        bundle['facts'].extend(page['facts']);bundle['clause_mappings'].extend(page['clause_mappings'])
+        cursor=page['next_cursor']
+        if not cursor:break
     fixture = args.benchmark
     result = evaluate(bundle, json.loads(fixture.read_text()))
     content = json.dumps(result, ensure_ascii=False, indent=2)+'\n'

@@ -6,7 +6,7 @@ from esg_data.periods import normalize_period, period_label, ReportedPeriod
 from .products_contracts import Observation, ObservationSource, ComparisonStatus, ProjectionSummary, ProductDefinition
 from esg_reports.contract import ReportResource
 
-TRANSFORM_VERSION = "capture-observation-1.0"
+TRANSFORM_VERSION = "capture-observation-1.1"
 
 
 def period_facet(period):
@@ -61,7 +61,6 @@ def compile_projection(payload):
     document = payload["manifest"]["document"]
     sources = payload["manifest"].get("sources", {})
     targets = {row["clause_key"]: row["contract"] for row in payload["targets"]}
-    coverage = {row["clause_key"]: row for row in payload["coverage"]}
     definitions = []
     for key, contract in sorted(targets.items()):
         title = contract.get("labels", {}).get("zh") or contract.get("labels", {}).get("en") or key
@@ -92,19 +91,19 @@ def compile_projection(payload):
                 policy = contract["purposes"]["comparison"]
                 for axis in policy.get("required_axes", []):
                     if not _known(_reported(fact, axis)): reasons.append("identity_unconfirmed:" + axis)
-                if policy.get("require_complete_scopes", True) and coverage.get(key, {}).get("state") != "covered":
-                    reasons.append("declared_scopes_unconfirmed")
+                if policy.get("require_complete_scopes", True) and not link.get("mapping", {}).get("scope_ids"):
+                    reasons.append("applicable_scope_unconfirmed")
             else:
                 reasons.append("no_frozen_target")
             identity = {axis: field.value for axis in type(fact.identity).model_fields if axis != "dimensions" and _known(field := _reported(fact, axis))}
             identity["dimensions"] = {axis: field.value for axis, field in fact.identity.dimensions.items() if _known(field)}
             identity["reporting_period"] = period_coordinate(period)
-            # Display never requires these fields. Source selection needs stronger identity.
-            selection_complete = not reasons and all(_known(_reported(fact, axis)) for axis in ("reporting_entity", "reporting_boundary"))
-            if fact.value.kind == "quantitative" and not fact.value.unit_raw:
-                selection_complete = False
-            comparison_key = digest([key, contract["clause_digest"], identity, fact.source_row_label,
-                fact.value.unit_raw if fact.value.kind == "quantitative" else "statement"]) if selection_complete else None
+            # Only the frozen clause declares comparison requirements. If the
+            # measured subject is unknown, preserve separate physical sources.
+            source_partition = None if _known(fact.identity.reporting_entity) else source.pdf_sha256 or fact.document_id
+            issuer = source.report_company_id or source.report_company or source.pdf_sha256 or fact.document_id
+            comparison_key = digest([key, contract["clause_digest"], issuer, identity, source_partition, fact.source_row_label,
+                fact.value.unit_raw if fact.value.kind == "quantitative" else "statement"]) if not reasons else None
             title = contract.get("labels", {}).get("zh") or contract.get("labels", {}).get("en") or key if contract else "来源原值"
             observation_id = "observation-" + digest([TRANSFORM_VERSION, fact.model_dump(mode="json"),
                 contract["clause_digest"] if contract else None, link["mapping"], source.model_dump(mode="json")])

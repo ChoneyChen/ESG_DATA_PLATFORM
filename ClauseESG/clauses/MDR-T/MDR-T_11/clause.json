@@ -1,18 +1,33 @@
 {
   "attributes": {
     "aggregation_role": {
-      "context_terms": [],
+      "context_terms": [
+        "合计",
+        "总量",
+        "其中",
+        "total",
+        "subtotal",
+        "of which"
+      ],
       "description": null,
-      "label": "aggregation_role",
-      "reading_instruction": null,
+      "label": "汇总角色",
+      "reading_instruction": "只由明确的总量/小计/分项/占比/强度文字识别。业务、场址或地区名称本身不证明其为分项。",
       "source": "identity",
       "vocabulary": []
     },
     "entity_aggregation_role": {
-      "context_terms": [],
+      "context_terms": [
+        "集团",
+        "子公司",
+        "业务分部",
+        "group",
+        "subsidiary",
+        "segment",
+        "site"
+      ],
       "description": null,
-      "label": "entity_aggregation_role",
-      "reading_instruction": null,
+      "label": "主体范围类型",
+      "reading_instruction": "只按明确的集团、子公司、业务分部、场址等文字识别主体类型，未知保留为空。",
       "source": "identity",
       "vocabulary": []
     },
@@ -20,31 +35,48 @@
       "context_terms": [],
       "description": null,
       "label": "测量方法",
-      "reading_instruction": null,
+      "reading_instruction": "只读取实际适用于该数值的方法说明和脚注；不能从条款规定反推实际采用的方法。",
       "source": "identity",
       "vocabulary": []
     },
     "reporting_boundary": {
-      "context_terms": [],
+      "context_terms": [
+        "本报告披露信息的覆盖范围",
+        "本报告涵盖",
+        "报告范围",
+        "scope of this report",
+        "reporting boundary"
+      ],
       "description": null,
       "label": "实际统计边界",
-      "reading_instruction": null,
+      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。",
       "source": "identity",
       "vocabulary": []
     },
     "reporting_entity": {
-      "context_terms": [],
+      "context_terms": [
+        "统计范围",
+        "报告范围",
+        "本报告涵盖",
+        "reporting entities",
+        "scope of this report"
+      ],
       "description": null,
       "label": "实际统计主体",
-      "reading_instruction": null,
+      "reading_instruction": "只读取原文明确说明的统计主体。发行人/报告标题不自动等于每项数据的主体；本公司等简称需要原文释义。",
       "source": "identity",
       "vocabulary": []
     },
     "reporting_period": {
-      "context_terms": [],
+      "context_terms": [
+        "报告期",
+        "报告时间",
+        "reporting period",
+        "period covered"
+      ],
       "description": null,
       "label": "实际测量期间",
-      "reading_instruction": null,
+      "reading_instruction": "保留每个实际披露期间。报告年度不默认填充无日期数值；只有本地明确引用报告期时才能继承对应说明。",
       "source": "identity",
       "vocabulary": []
     },
@@ -65,16 +97,23 @@
       "vocabulary": []
     },
     "value_role": {
-      "context_terms": [],
+      "context_terms": [
+        "实际",
+        "目标",
+        "基期",
+        "actual",
+        "target",
+        "baseline"
+      ],
       "description": null,
-      "label": "value_role",
-      "reading_instruction": null,
+      "label": "数值角色",
+      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
       "source": "identity",
       "vocabulary": []
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3ac1e4e7eb46a2425196210d0980b9dc503dae08396b8d76251af290590d38cb",
+  "clause_digest": "220bcee4f22001106f1bf4cf779b79a23275c34ba26ffd3d7e4ea2b042ed9881",
   "clause_key": "MDR-T_11",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how stakeholders have been involved in target setting。目标设定中的利益方参与。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",

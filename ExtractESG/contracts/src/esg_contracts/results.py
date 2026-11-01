@@ -4,6 +4,7 @@ from typing import Literal
 from pydantic import Field, JsonValue, model_validator, model_serializer
 from .facts import FrozenModel, SourceFact, ClauseMapping, ClauseCoverage
 from .evidence import DocumentReference
+from esg_data.organization import OrganizedTable
 
 
 class RunError(FrozenModel):
@@ -72,7 +73,7 @@ class OrganizationResult(FrozenModel):
 
 
 class FactBundle(FactCollection):
-    schema_version: Literal["extraction-fact-bundle-2.2", "extraction-fact-bundle-2.3"] = "extraction-fact-bundle-2.3"
+    schema_version: Literal["extraction-fact-bundle-2.2", "extraction-fact-bundle-2.3", "extraction-fact-bundle-2.4"] = "extraction-fact-bundle-2.4"
     engine_version: str
     engine_identity: dict[str, JsonValue]
     run_id: str
@@ -80,7 +81,7 @@ class FactBundle(FactCollection):
     sources: dict[str, DocumentReference] = Field(default_factory=dict)
     clause_targets: dict[str, str]
     summary: RunSummary
-    organization: OrganizationResult
+    organization: OrganizationResult | None = None
 
     @model_validator(mode="after")
     def bound_collection(self):
@@ -124,3 +125,35 @@ class FactBundle(FactCollection):
                 "Summary differs from selected clauses or processed coverage"
             )
         return self
+
+
+class FactPage(FactCollection):
+    total: int
+    returned: int
+    next_cursor: str | None
+    query_digest: str
+    revision: int
+
+
+class ClauseResultSummary(FrozenModel):
+    clause_key: str
+    title: str
+    data_kind: Literal["quantitative", "qualitative"]
+    facts: int
+    relations: dict[str, int]
+
+
+class ResultOverview(FrozenModel):
+    run_id: str | None = None
+    revision: int
+    clauses: list[ClauseResultSummary]
+    periods: dict[str, int]
+    coverage: list[ClauseCoverage]
+    summary: RunSummary | None = None
+
+
+class OrganizedPage(FactPage):
+    table: OrganizedTable
+    periods: list[str]
+    units: list[str]
+    relations: dict[str, int]

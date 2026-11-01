@@ -1,6 +1,6 @@
 """Current extraction and independent clause API. No package/version routes."""
 
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Body, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field, ConfigDict
@@ -15,7 +15,7 @@ from .runtime import resources, engine_digest
 from .engine import ENGINE_VERSION
 from .result_store import ResultStore
 from esg_contracts.sessions import NativeRun
-from esg_contracts.results import FactBundle, FactCollection, CandidateRejection
+from esg_contracts.results import FactBundle, FactPage, ResultOverview, OrganizedPage, CandidateRejection
 from esg_contracts.facts import SourceFact
 from typing import Literal
 from contextlib import asynccontextmanager
@@ -293,19 +293,18 @@ def create_app(resource_factory=resources):
             engine_fingerprint=engine_digest(),
         )
 
+    def run_view(state):
+        return NativeRun.model_validate({**state,"resumable": state["status"] in {"cancelled","failed","interrupted"}
+            and state.get("engine_fingerprint") == started_engine and not (state.get("delivery") or {}).get("export_id")})
+
     @app.get("/api/runs")
     def runs():
         store = resource_factory()[1]
-        return {
-            "runs": [
-                NativeRun.model_validate(store.observe(state["run_id"]))
-                for state in store.list()
-            ]
-        }
+        return {"runs":[run_view(store.observe(state["run_id"])) for state in store.list()]}
 
     @app.get("/api/runs/{run_id}")
     def run(run_id: str) -> NativeRun:
-        return resource_factory()[1].observe(run_id)
+        return run_view(resource_factory()[1].observe(run_id))
 
     @app.get("/api/runs/{run_id}/targets")
     def run_targets(run_id: str):
@@ -350,10 +349,14 @@ def create_app(resource_factory=resources):
             sources[additional.snapshot_id] = additional.model_dump(mode="json")
         elif need:
             exhausted[need["request_id"]] = request.reason or "No additional pages were located"
+        context_attempted = set(state.get("context_attempted",[]))
+        if need and need["phase"] == "context":
+            context_attempted.add(need["clause_key"])
         store.progress(run_id, current_call=None, progress={"stage":"queued", "current":0,
+            "model_calls":(state.get("summary") or {}).get("model_calls",0),
             "total":len(state["targets"]["clauses"]), "fact_count":(state.get("summary") or {}).get("source_facts",0)})
         return store.update(run_id, status="queued", worker_pid=None, worker_started=None,
-            evidence_request=None, evidence_sources=sources, exhausted_queries=exhausted,
+            evidence_request=None, evidence_sources=sources, exhausted_queries=exhausted, context_attempted=sorted(context_attempted),
             cancel_requested=False, error=None, finished_at=None)
 
     @app.post("/api/runs/{run_id}/execution-terminal")
@@ -381,51 +384,56 @@ def create_app(resource_factory=resources):
         except FileNotFoundError:
             raise HTTPException(404, "Unknown fact identity")
 
-    @app.get("/api/runs/{run_id}/facts")
-    def facts(run_id: str):
-        repo, store, artifacts, documents = resource_factory()
-        store.get(run_id)
-        body = ResultStore(run_id, artifacts).bundle()
-        if body is not None:
-            return body
-        else:
-            from fastapi.responses import JSONResponse
-
-            return JSONResponse(
-                status_code=202,
-                content=FactCollection(
-                    facts=[], clause_mappings=[], coverage=[]
-                ).model_dump(mode="json"),
-            )
-
-    @app.get("/api/runs/{run_id}/organized")
-    def organized(run_id: str):
-        repo, store, artifacts, documents = resource_factory()
+    @app.get("/api/runs/{run_id}/results", response_model=ResultOverview)
+    def result_overview(run_id: str):
+        repo, store, artifacts, _ = resource_factory()
         state = store.get(run_id)
-        try:
-            return artifacts.read(run_id, "results/organized.json")
-        except FileNotFoundError:
-            result = ResultStore(run_id, artifacts)
-            status = result.status()
-            if status:
-                from .organization import build_organized_dataset
-                from esg_contracts.evidence import DocumentReference
-                raw = result.collection()
-                return build_organized_dataset(run_id, DocumentReference.model_validate(state["document"]),
-                    repo.thaw(state["targets"]),raw["facts"],raw["clause_mappings"]).model_dump(mode="json")
-            from fastapi.responses import JSONResponse
+        result = ResultStore(run_id,artifacts)
+        overview = result.overview()
+        by_clause = {}
+        for row in overview["clauses"]:
+            by_clause.setdefault(row["clause"],{})[row["relation"]] = row["facts"]
+        clauses = state["targets"]["clauses"]
+        return {"run_id":run_id,"revision":overview["revision"],"periods":overview["periods"],
+            "coverage":overview.get("coverage",[]),"summary":overview.get("summary"),
+            "clauses":[{"clause_key":key,"title":clause["organization"]["title"],"data_kind":clause["data_kind"],
+                "relations":by_clause.get(key,{}),"facts":sum(by_clause.get(key,{}).values())} for key,clause in clauses.items()]}
 
-            return JSONResponse(
-                status_code=202,
-                content={
-                    "schema_version": "organized-extraction-1.1",
-                    "run_id": run_id,
-                    "status": "pending"
-                    if state["status"] in {"queued", "running"}
-                    else "unavailable",
-                    "tables": [],
-                },
-            )
+    @app.get("/api/runs/{run_id}/facts", response_model=FactPage)
+    def facts(run_id: str, limit: int = Query(50,ge=1,le=500), cursor: str | None = None,
+              clause_key: str | None = None, period: str | None = None, relation: str | None = None,
+              unit: str | None = None, q: str | None = None, fact_id: str | None = None):
+        _, store, artifacts, _ = resource_factory()
+        store.get(run_id)
+        try:
+            page = ResultStore(run_id,artifacts).page(limit=limit,cursor=cursor,clause_key=clause_key,
+                period=period,relation=relation,unit=unit,q=q,fact_id=fact_id)
+        except ValueError as exc:
+            raise HTTPException(422,str(exc)) from exc
+        return {**page,"coverage":[]}
+
+    @app.get("/api/runs/{run_id}/organized/{clause_key}", response_model=OrganizedPage)
+    def organized(run_id: str, clause_key: str, limit: int = Query(50,ge=1,le=500),
+                  cursor: str | None = None, period: str | None = None, relation: str | None = None,
+                  unit: str | None = None, q: str | None = None):
+        from .organization import build_organized_dataset
+        from esg_contracts.evidence import DocumentReference
+        repo, store, artifacts, _ = resource_factory()
+        state = store.get(run_id)
+        clauses = state["targets"]["clauses"]
+        if clause_key not in clauses:
+            raise HTTPException(404,"Clause was not selected in this extraction")
+        result = ResultStore(run_id,artifacts)
+        try:
+            page = result.page(limit=limit,cursor=cursor,clause_key=clause_key,period=period,relation=relation,unit=unit,q=q)
+        except ValueError as exc:
+            raise HTTPException(422,str(exc)) from exc
+        if clauses[clause_key]["schema_version"] == "clause-contract-1.3":
+            table = result.frozen_table(clause_key,[fact["source_fact_id"] for fact in page["facts"]])
+        else:
+            table = build_organized_dataset(run_id,DocumentReference.model_validate(state["document"]),
+                {clause_key:repo.thaw(state["targets"])[clause_key]},page["facts"],page["clause_mappings"]).tables[0]
+        return {**page,"table":table,"coverage":[],**result.facets(clause_key=clause_key)}
 
     @app.get("/api/runs/{run_id}/candidates", response_model=list[CandidateRejection])
     def candidates(run_id: str):

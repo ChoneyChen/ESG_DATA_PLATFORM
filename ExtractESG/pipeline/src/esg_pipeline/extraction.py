@@ -333,7 +333,6 @@ class ExtractionCoordinator:
             else "partial" if state["status"] == "partial" else "not_evaluated"
         )
         state["available_actions"] = []
-        delivery = state["run"].delivery if state.get("run") else None
         if state["status"] in {"queued", "running"}:
             state["available_actions"] = [
                 {
@@ -343,7 +342,7 @@ class ExtractionCoordinator:
                     "method": "POST",
                 }
             ]
-        elif state["status"] in {"interrupted", "failed", "cancelled"} and state.get("run") and not (delivery and delivery.export_id):
+        elif state.get("run") and state["run"].resumable:
             state["available_actions"] = [{"action":"resume", "label":"继续提取",
                 "endpoint":f"/api/report-sessions/{state['session_id']}/resume", "method":"POST"}]
         return ExtractionSession.model_validate(state).model_dump(mode="json")

@@ -123,6 +123,7 @@ class ClauseContract(StrictModel):
             mode="json",
             exclude={
                 "organization",
+                "purposes",
                 "relationships",
                 "retrieval",
                 "reading",
@@ -143,7 +144,7 @@ class ClauseContract(StrictModel):
         }
         body["requested_identity_fields"] = [
             {"axis": axis, **self.attributes[axis].model_dump(mode="json", exclude_none=True)}
-            for axis in self.purposes.enrichment.identity_axes
+            for axis in self.attributes
         ]
         return body
 

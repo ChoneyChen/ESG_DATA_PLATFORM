@@ -20,6 +20,6 @@ def compile_search_plan(clause, *, limit=8):
             "expected_candidate_types": "Object literal types are inspected after OCR; no semantic page-wide exclusion.",
             "source_priority": "Text-layer pages have no trusted table/text segmentation; object ranking owns priority.",
         },
-        "context": {"terms": retrieval["context_terms"], "purpose": "enrichment_not_measurement"},
+        "context": {"attributes": {axis: attribute.context_terms for axis,attribute in clause.attributes.items()}, "purpose": "enrichment_not_measurement"},
     }
     return {**plan, "digest": digest(plan)}

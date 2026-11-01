@@ -33,11 +33,12 @@ from esg_contracts.facts import (
 from esg_data.organization import OrganizedDataset, OrganizationSpec
 from esg_contracts.evidence import DocumentReference, EvidenceStructure, ObjectSearchPage
 from esg_data.periods import ReportedPeriod
-from esg_contracts.results import FactCollection, FactBundle, CandidateRejection
+from esg_contracts.results import FactCollection, FactBundle, CandidateRejection, FactPage, ResultOverview, OrganizedPage
 from esg_contracts.operations import TaskObservation
 from esg_contracts.sessions import ExtractionPlanRequest, ExtractionSession, NativeRun
 
 MODELS = {
+    "FactPage": FactPage, "ResultOverview":ResultOverview, "OrganizedPage":OrganizedPage,
     "ReportedPeriod": ReportedPeriod,
     "EvidenceStructure": EvidenceStructure,
     "ObjectSearchPage": ObjectSearchPage,

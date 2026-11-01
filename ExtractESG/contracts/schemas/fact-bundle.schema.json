@@ -1470,17 +1470,26 @@
       "type": "array"
     },
     "organization": {
-      "$ref": "#/$defs/OrganizationResult"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OrganizationResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "run_id": {
       "title": "Run Id",
       "type": "string"
     },
     "schema_version": {
-      "default": "extraction-fact-bundle-2.3",
+      "default": "extraction-fact-bundle-2.4",
       "enum": [
         "extraction-fact-bundle-2.2",
-        "extraction-fact-bundle-2.3"
+        "extraction-fact-bundle-2.3",
+        "extraction-fact-bundle-2.4"
       ],
       "title": "Schema Version",
       "type": "string"
@@ -1505,8 +1514,7 @@
     "run_id",
     "document",
     "clause_targets",
-    "summary",
-    "organization"
+    "summary"
   ],
   "title": "FactBundle",
   "type": "object"

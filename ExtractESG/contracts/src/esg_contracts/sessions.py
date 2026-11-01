@@ -20,6 +20,7 @@ PHASE_LABELS = {
     "running": "正在执行",
     "retrieving": "检索条款证据",
     "reading": "阅读条款证据",
+    "enriching": "补读上下文",
     "extracting": "绑定并保存原值",
     "finished": "执行结束",
     "failed": "执行失败",
@@ -105,6 +106,7 @@ class NativeRun(View):
     document: DocumentReference | None = None
     evidence_sources: dict[str, DocumentReference] = Field(default_factory=dict)
     evidence_request: EvidencePreparationRequest | None = None
+    resumable: bool = False
     engine_fingerprint: str | None = None
     clause_keys: list[str] = Field(default_factory=list)
     target_digest: str | None = None

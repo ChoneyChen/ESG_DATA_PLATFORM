@@ -9,7 +9,7 @@ from esg_data.organization import (
 from .contract import ClauseContract, ValueContract, ClausePurposes, EnrichmentPolicy, CapturePolicy
 from .parts import ReadingContract, RetrievalProfile, EvidenceRequirement
 from .scope import make_scope
-from .attributes import AttributeDefinition
+from .attribute_templates import attribute_start
 
 
 def new_clause(clause_key, group_id, data_kind, title):
@@ -78,7 +78,7 @@ def new_clause(clause_key, group_id, data_kind, title):
             purposes=ClausePurposes(capture=CapturePolicy(period_policy="all_reported"),
                 enrichment=EnrichmentPolicy(identity_axes=[field.binding.key for field in fields if field.binding.source == "identity"])),
             value=ValueContract(),
-            attributes={field.binding.key: AttributeDefinition(label=field.label, source="identity")
+            attributes={field.binding.key: attribute_start(field.binding.key, field.label, "identity")
                 for field in fields if field.binding.source == "identity"},
             output_scopes=[make_scope("实际披露")],
             reading=ReadingContract(

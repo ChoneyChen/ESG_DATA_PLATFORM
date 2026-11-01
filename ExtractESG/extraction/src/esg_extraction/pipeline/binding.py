@@ -20,16 +20,7 @@ from .decisions import IdentityProposal
 from .period_binding import bind_period
 from esg_data.periods import normalize_period
 
-CONTEXT_AXES = {
-    "reporting_period",
-    "entity_aggregation_role",
-    "reporting_entity",
-    "reporting_boundary",
-    "measurement_method",
-    "value_role",
-    "aggregation_role",
-    "denominator",
-}
+CONTEXT_AXES = set(ReportedContext.model_fields) - {"dimensions"}
 
 
 def location(
@@ -83,6 +74,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
             item.page_index,
             item.object_id,
             item.char_start,
+            item.source_snapshot or frame.source_snapshot,
         )
     if row:
         for cell in row.cells:
@@ -93,6 +85,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 cell.page_index if cell.page_index is not None else frame.page_index,
                 cell.source_object_id or cell.cell_id,
                 cell.char_start or 0,
+                frame.source_snapshot,
             )
     if row:
         for cell in row.cells:
@@ -128,6 +121,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                         item.page_index,
                         item.object_id,
                         item.char_start,
+                        item.source_snapshot or frame.source_snapshot,
                     )
             pieces = []
             if source is None and claim.quote and aliases.get(claim.source_id):
@@ -140,10 +134,10 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                     for item in items:
                         start, stop = max(offset, position), min(end, position + len(item.text))
                         if start < stop:
-                            pieces.append(EvidenceLocation(source_snapshot=frame.source_snapshot, object_id=item.object_id, object_type=item.object_type,
+                            pieces.append(EvidenceLocation(source_snapshot=item.source_snapshot or frame.source_snapshot, object_id=item.object_id, object_type=item.object_type,
                                 page_index=item.page_index, excerpt=item.text[start-position:stop-position], role="column_header", bbox=item.bbox))
                         position += len(item.text) + 1
-                    source = (combined, "table", None, frame.page_index, frame.object_id, 0)
+                    source = (combined, "table", None, frame.page_index, frame.object_id, 0, frame.source_snapshot)
             if (
                 source is None
                 or not claim.quote
@@ -152,7 +146,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
             ):
                 flags.append("unbound_identity:" + claim.axis)
                 continue
-            evidence = EvidenceLocation(source_snapshot=frame.source_snapshot, 
+            evidence = EvidenceLocation(source_snapshot=source[6], 
                 object_id=source[4],
                 object_type=source[1],
                 page_index=source[3],
@@ -545,11 +539,7 @@ def mapping_for(clause, document, fact, match, reason):
         scope_conflicts.append(known_conflicts)
     if not covered:
         flags.append("scope_requires_confirmation")
-    for axis in clause.purposes.comparison.required_axes:
-        field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
-        if field is None or field.state not in {"stated", "inherited"}:
-            flags.append("comparison_axis_missing:" + axis)
-    # Missing context affects comparison completeness, never raw admission or
+    # Missing context never blocks raw admission or
     # an otherwise supported target relation. Explicit semantic conflict wins.
     different = bool(scope_conflicts) and all(set(conflicts) & discriminators for conflicts in scope_conflicts)
     ambiguous = any((axes.get(axis) or fact.identity.dimensions.get(axis)) is not None and

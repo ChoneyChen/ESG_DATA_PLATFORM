@@ -23,7 +23,7 @@ class CandidateStream:
             for level in ('primary','broader'):
                 if level == 'broader' and (not self.broaden() or not self.intent.required_term_groups):
                     break
-                intent = self.intent.model_copy(update={'cursor':None,
+                intent = self.intent.model_copy(update={'cursor':None,'source_snapshot':source.snapshot_id,
                     'required_term_groups':self.intent.required_term_groups if level == 'primary' else []})
                 query = {'source_snapshot':source.snapshot_id,'level':level,'returned':0}
                 self.observation['queries'].append(query)

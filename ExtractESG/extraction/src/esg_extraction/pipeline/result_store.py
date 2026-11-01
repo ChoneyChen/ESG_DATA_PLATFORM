@@ -22,6 +22,13 @@ class ResultStore:
                     CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value INTEGER);
                     INSERT OR IGNORE INTO metadata VALUES ('revision',0);
                 ''')
+        with self.connect() as db:
+            indexed = db.execute("SELECT 1 FROM sqlite_master WHERE name='fact_terms'").fetchone()
+            db.executescript("CREATE TABLE IF NOT EXISTS fact_terms (fact_id TEXT PRIMARY KEY, unit TEXT, text TEXT); CREATE INDEX IF NOT EXISTS result_units ON fact_terms(unit);")
+            if not indexed:
+                for row in db.execute("SELECT id FROM facts").fetchall():
+                    fact = self.artifacts.read(self.run_id,f"facts/{row['id']}.json")
+                    self._index_terms(db,fact)
         if fresh:
             old = artifacts.path(run_id, 'results/facts.json')
             if old.exists():
@@ -49,6 +56,15 @@ class ResultStore:
             links = list(by_clause.values())
         self.pending[body['source_fact_id']] = (body,links,existing)
 
+    @staticmethod
+    def _index_terms(db, fact):
+        identity = fact.get('identity',{})
+        fields = [v for k,v in identity.items() if k != 'dimensions'] + list(identity.get('dimensions',{}).values())
+        text = ' '.join([fact.get('source_row_label') or '',fact['value'].get('value_raw') or fact['value'].get('statement_raw') or '',
+            *[field.get('raw_text') or '' for field in fields]])
+        db.execute('INSERT INTO fact_terms VALUES (?,?,?) ON CONFLICT(fact_id) DO UPDATE SET unit=excluded.unit,text=excluded.text',
+            (fact['source_fact_id'],fact['value'].get('unit_raw'),text.casefold()))
+
     def flush(self):
         if not self.pending:
             return
@@ -64,6 +80,7 @@ class ResultStore:
                     pages = [e['page_index'] for e in fact['evidence'] if e.get('page_index') is not None]
                     db.execute('INSERT INTO facts VALUES (?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET period=excluded.period,kind=excluded.kind,page=excluded.page,digest=excluded.digest',
                         (fid,period_label(identity.get('value')),fact['value']['kind'],min(pages) if pages else None,signature))
+                    self._index_terms(db,fact)
                     changed = True
                 for link in links:
                     key = link['clause_key']; signature = digest(link)
@@ -99,9 +116,9 @@ class ResultStore:
         except FileNotFoundError:
             return {}
 
-    def page(self, *, limit=100, cursor=None, clause_key=None, period=None, relation=None):
+    def page(self, *, limit=100, cursor=None, clause_key=None, period=None, relation=None, unit=None, q=None, fact_id=None):
         import base64
-        query = digest([self.run_id,limit,clause_key,period,relation])
+        query = digest([self.run_id,limit,clause_key,period,relation,unit,q,fact_id])
         after = 0
         if cursor:
             token = json.loads(base64.urlsafe_b64decode(cursor+'='*(-len(cursor)%4)))
@@ -109,6 +126,12 @@ class ResultStore:
                 raise ValueError('Cursor belongs to another result query')
             after = token['after']
         terms,params = [],[]
+        if fact_id:
+            terms.append('f.id=?');params.append(fact_id)
+        if unit:
+            terms.append('EXISTS (SELECT 1 FROM fact_terms t WHERE t.fact_id=f.id AND t.unit=?)');params.append(unit)
+        if q:
+            terms.append('EXISTS (SELECT 1 FROM fact_terms t WHERE t.fact_id=f.id AND instr(t.text,?)>0)');params.append(q.casefold())
         if period:
             terms.append('f.period=?');params.append(period)
         if clause_key or relation:
@@ -138,12 +161,36 @@ class ResultStore:
             cursor = page['next_cursor']
             if not cursor:return result
 
-    def bundle(self):
-        status = self.status()
-        return {**status,**self.collection()} if status else None
-
     def overview(self):
         with self.connect() as db:
             counts = [dict(row) for row in db.execute('SELECT clause,relation,COUNT(*) AS facts FROM relations GROUP BY clause,relation')]
             periods = {row['period']:row['facts'] for row in db.execute('SELECT period,COUNT(*) AS facts FROM facts GROUP BY period')}
         return {'revision':self.revision(),'clauses':counts,'periods':periods,**(self.status() or {})}
+
+    def facets(self, *, clause_key):
+        with self.connect() as db:
+            periods = [row[0] for row in db.execute('SELECT DISTINCT f.period FROM facts f JOIN relations r ON r.fact_id=f.id WHERE r.clause=? ORDER BY f.period',(clause_key,))]
+            units = [row[0] for row in db.execute("SELECT DISTINCT t.unit FROM fact_terms t JOIN relations r ON r.fact_id=t.fact_id WHERE r.clause=? AND t.unit IS NOT NULL AND t.unit<>'' ORDER BY t.unit",(clause_key,))]
+            relations = {row[0]:row[1] for row in db.execute('SELECT relation,COUNT(*) FROM relations WHERE clause=? GROUP BY relation',(clause_key,))}
+        return {'periods':periods,'units':units,'relations':relations}
+
+    def frozen_table(self, clause_key, fact_ids):
+        """Index an existing frozen view once; no historical clause is recompiled."""
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            ready = db.execute("SELECT 1 FROM sqlite_master WHERE name='frozen_view_definitions'").fetchone()
+            if not ready:
+                cached = self.artifacts.read(self.run_id,'results/organized.json')
+                db.execute('CREATE TABLE frozen_view_definitions (clause TEXT PRIMARY KEY, body TEXT)')
+                db.execute('CREATE TABLE frozen_view_rows (clause TEXT, fact_id TEXT, body TEXT, PRIMARY KEY(clause,fact_id))')
+                for table in cached['tables']:
+                    definition = dict(table['definition'])
+                    definition.pop('curation',None)
+                    definition['schema_version'] = 'clause-organization-1.1'
+                    definition['fields'] = [{key:value for key,value in field.items() if key != 'vocabulary'} for field in definition['fields']]
+                    meta = {**table,'definition':definition,'rows':[],'groups':[],'matrix':None}
+                    db.execute('INSERT INTO frozen_view_definitions VALUES (?,?)',(table['clause_key'],json.dumps(meta,ensure_ascii=False)))
+                    db.executemany('INSERT INTO frozen_view_rows VALUES (?,?,?)',[(table['clause_key'],row['source_fact_id'],json.dumps(row,ensure_ascii=False)) for row in table['rows']])
+            meta = json.loads(db.execute('SELECT body FROM frozen_view_definitions WHERE clause=?',(clause_key,)).fetchone()[0])
+            rows = {row['fact_id']:json.loads(row['body']) for row in db.execute('SELECT fact_id,body FROM frozen_view_rows WHERE clause=? AND fact_id IN ('+','.join('?' for _ in fact_ids)+')',(clause_key,*fact_ids))} if fact_ids else {}
+        return {**meta,'rows':[rows[fid] for fid in fact_ids if fid in rows]}

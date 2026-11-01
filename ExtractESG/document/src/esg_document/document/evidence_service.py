@@ -150,6 +150,8 @@ class DocumentEvidenceService:
     def search_page(self, ir_run_id, intent):
         intent = SearchIntent.model_validate(intent)
         document, tables, raw, texts = self._document(ir_run_id)
+        if intent.source_snapshot and intent.source_snapshot != document.snapshot_id:
+            raise ValueError("Document snapshot changed; prepare a new extraction")
         terms = list(
             dict.fromkeys(
                 part for term in intent.positive_terms for part in _terms(term)
@@ -243,7 +245,7 @@ class DocumentEvidenceService:
                 offset = cursor["offset"]
             except (ValueError, KeyError, TypeError) as exc:
                 raise ValueError("Invalid object-search cursor") from exc
-        objects = ranked[offset:offset + intent.limit]
+        objects = [ref.model_copy(update={"source_snapshot":document.snapshot_id}) for ref in ranked[offset:offset + intent.limit]]
         following = offset + len(objects)
         cursor = base64.urlsafe_b64encode(json.dumps({"query":query,"offset":following}).encode()).decode() if following < len(ranked) else None
         return ObjectSearchPage(objects=objects, total=len(ranked), returned=len(objects), next_cursor=cursor,
@@ -299,6 +301,8 @@ class DocumentEvidenceService:
     def read(self, ir_run_id, reference, chunk_index=0):
         reference = ObjectReference.model_validate(reference)
         document, tables, raw_tables, texts = self._document(ir_run_id)
+        if reference.source_snapshot and reference.source_snapshot != document.snapshot_id:
+            raise ValueError("Document snapshot changed; prepare a new extraction")
         if reference.kind == "text":
             item = texts.get(reference.object_id)
             if item is None:

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import type {
   ExtractionSession,
-  OrganizedDataset,
+  ResultOverview,
+  FactPage,
   SourceFact,
   ReportList,
   SourceFact_ReportedField,
@@ -23,19 +24,16 @@ import {
   date,
   label,
   tone,
-  download,
   text,
   periodText,
 } from "../../shared/format";
 import { href, navigate } from "../../app/routes";
 import { ProductStrip } from "../publication/data";
 import {
-  FactsTable,
   FactEvidence,
   OrganizedList,
-  OrganizedTable,
-  type FactBundle,
 } from "./results";
+import { FactPages, ClauseResultPage } from "./result-pages";
 const identityNames: Record<string, string> = {
   reporting_period: "实际测量期间",
   reporting_entity: "实际统计主体",
@@ -67,26 +65,21 @@ export function ExtractionPage({
     ),
     run = session.data;
   const active = !!run && !terminal.includes(run.status);
-  const results = useResource<FactBundle>(
-    "document",
-    run ? "/api/report-sessions/" + segment(sessionId) + "/facts" : null,
+  const results = useResource<FactPage>(
+    "document", run && child === "facts" && childId ? "/api/report-sessions/" + segment(sessionId) + "/facts?limit=1&fact_id=" + segment(childId) : null,
     active ? 4000 : 0,
   );
-  const organized = useResource<OrganizedDataset>(
-    "document",
-    run ? "/api/report-sessions/" + segment(sessionId) + "/organized" : null,
+  const overview = useResource<ResultOverview>(
+    "document", run ? "/api/report-sessions/" + segment(sessionId) + "/results" : null,
     active ? 4000 : 0,
   );
   useEffect(() => {
-    if (run && terminal.includes(run.status)) {
-      results.reload();
-      organized.reload();
-    }
-  }, [run?.status, results.reload, organized.reload]);
+    if (run && terminal.includes(run.status)) { results.reload(); overview.reload(); }
+  }, [run?.status, results.reload, overview.reload]);
   const reports = useResource<ReportList>("document", "/api/report-resources");
   const candidates = useResource<CandidateRejection[]>(
     "document",
-    run ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null,
+    run && !child && tabId === "candidates" ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null,
     active ? 4000 : 0,
   );
   const tab = [
@@ -107,8 +100,8 @@ export function ExtractionPage({
     reports.data?.reports.find(
       (r) => r.asset_id === run?.request.input.asset_id,
     );
-  const table = organized.data?.tables?.find((t) => t.clause_key === childId),
-    fact = results.data?.facts.find((f) => f.source_fact_id === childId);
+  const clause = overview.data?.clauses.find(c => c.clause_key === childId),
+    fact = results.data?.facts[0];
   async function cancel() {
     setCancelling(true);
     setError(undefined);
@@ -131,7 +124,7 @@ export function ExtractionPage({
       <PageHeader
         title={
           child === "tables"
-            ? table?.definition.title || "条款结果"
+            ? clause?.title || "条款结果"
             : child === "facts"
               ? "独立事实"
               : run?.name || "提取详情"
@@ -159,6 +152,10 @@ export function ExtractionPage({
           !child &&
           run && (
             <>
+              {run.available_actions?.some((a) => a.action === "resume") && <button onClick={async () => {
+                try { await write("document", "/api/report-sessions/" + segment(sessionId) + "/resume", {}); invalidate("document", "/api/report-sessions"); }
+                catch (e) { setError(e as Error); }
+              }}>继续提取</button>}
               {run.available_actions?.some((a) => a.action === "cancel") && (
                 <button
                   className="button-danger"
@@ -299,7 +296,7 @@ export function ExtractionPage({
                       <strong>
                         {run.run?.summary?.source_facts ??
                           run.progress?.fact_count ??
-                          results.data?.facts.length ??
+                          overview.data?.summary?.source_facts ??
                           0}
                       </strong>
                       <span>原始事实</span>
@@ -358,7 +355,7 @@ export function ExtractionPage({
                     { id: "results", label: "条款结果" },
                     {
                       id: "facts",
-                      label: `原始事实 · ${results.data?.facts.length || 0}`,
+                      label: `原始事实 · ${overview.data?.summary?.source_facts || 0}`,
                     },
                     { id: "coverage", label: "覆盖情况" },
                     {
@@ -368,37 +365,15 @@ export function ExtractionPage({
                     { id: "details", label: "运行记录" },
                   ]}
                 />
-                {tab === "results" && (
-                  <>
-                    <ReadError
-                      error={organized.error}
-                      retry={organized.reload}
-                    />
-                    {organized.data ? (
-                      <OrganizedList
-                        dataset={organized.data}
-                        sessionId={sessionId}
-                      />
-                    ) : (
-                      <Loading />
-                    )}
-                  </>
-                )}
-                {tab === "facts" && (
-                  <>
-                    <ReadError error={results.error} retry={results.reload} />
-                    {results.data && (
-                      <FactsTable
-                        facts={results.data.facts}
-                        sessionId={sessionId}
-                      />
-                    )}
-                  </>
-                )}
+                {tab === "results" && <>
+                  <ReadError error={overview.error} retry={overview.reload}/>
+                  {overview.data ? <OrganizedList overview={overview.data} sessionId={sessionId}/> : <Loading/>}
+                </>}
+                {tab === "facts" && <FactPages sessionId={sessionId} overview={overview.data} active={active}/>}
                 {tab === "coverage" && (
                   <>
-                    <ReadError error={results.error} retry={results.reload} />
-                    {results.data?.coverage.length ? (
+                    <ReadError error={overview.error} retry={overview.reload} />
+                    {overview.data?.coverage.length ? (
                       <div className="table-scroll">
                         <table className="data-table">
                           <thead>
@@ -412,7 +387,7 @@ export function ExtractionPage({
                             </tr>
                           </thead>
                           <tbody>
-                            {results.data.coverage.map((c) => (
+                            {overview.data.coverage.map((c) => (
                               <tr key={c.clause_key}>
                                 <td>
                                   <a
@@ -532,29 +507,6 @@ export function ExtractionPage({
                       <dt>条款</dt>
                       <dd>{run.clause_keys?.join("、")}</dd>
                     </dl>
-                    <div className="toolbar">
-                      <button
-                        className="button-secondary"
-                        disabled={!results.data}
-                        onClick={() =>
-                          download(sessionId + "-facts.json", results.data)
-                        }
-                      >
-                        下载原始事实
-                      </button>
-                      <button
-                        className="button-secondary"
-                        disabled={!organized.data}
-                        onClick={() =>
-                          download(
-                            sessionId + "-organized.json",
-                            organized.data,
-                          )
-                        }
-                      >
-                        下载组织结果
-                      </button>
-                    </div>
                     {run.run?.summary?.errors?.map((e, i) => (
                       <Notice tone="error" key={i}>
                         {e.clause_key} {e.object_id}：{e.error}
@@ -564,22 +516,7 @@ export function ExtractionPage({
                 )}
               </>
             )}
-            {child === "tables" && (
-              <>
-                <ReadError error={organized.error} retry={organized.reload} />
-                {table ? (
-                  <OrganizedTable
-                    table={table}
-                    sessionId={sessionId}
-                    facts={results.data?.facts}
-                  />
-                ) : organized.data ? (
-                  <Empty title="此条款尚无结果" />
-                ) : (
-                  <Loading />
-                )}
-              </>
-            )}
+            {child === "tables" && childId && (run.run ? <ClauseResultPage key={childId} sessionId={sessionId} clauseKey={childId} active={active}/> : <Empty title="等待文档证据"/>)}
             {child === "facts" && (
               <>
                 <ReadError error={results.error} retry={results.reload} />
@@ -646,7 +583,7 @@ export function ExtractionPage({
                       ))}
                     {(fact.flags?.length || 0) > 0 && (
                       <details>
-                        <summary>属性与比较说明 · {fact.flags?.length}</summary>
+                        <summary>属性与来源说明 · {fact.flags?.length}</summary>
                         <ul>
                           {fact.flags?.map((f) => (
                             <li key={f}>{f}</li>

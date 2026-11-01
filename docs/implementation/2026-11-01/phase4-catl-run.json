@@ -1,0 +1,157 @@
+{
+  "run_id": "extract-12589e85cc26731894c42a5caa069f71",
+  "engine_fingerprint": "669c7a46a1ce195bc81096faaf115cedeb6ac16bc95c9a48608f600839303cc1",
+  "status": "completed",
+  "summary": {
+    "selected_clauses": 2,
+    "processed_clauses": 2,
+    "source_facts": 53,
+    "quantitative": 51,
+    "qualitative": 2,
+    "model_calls": 16,
+    "elapsed_seconds": 1821.818,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "not_evaluated",
+      "target_facts": 11,
+      "other_facts": 42,
+      "unresolved_facts": 0,
+      "rejected_candidates": 58,
+      "periods": {
+        "2023": 15,
+        "2024": 18,
+        "2025": 18,
+        "期间未知": 2
+      }
+    }
+  },
+  "delivery": {
+    "export_id": "export-6b20609fb52c0445a183e5418bb86e22c1e98a4afbda36688cc641fbc02407c9",
+    "state": "delivered",
+    "accepted_facts": 53,
+    "rejected_facts": 0,
+    "message": null,
+    "retryable": false
+  },
+  "projection": {
+    "export_id": "export-6b20609fb52c0445a183e5418bb86e22c1e98a4afbda36688cc641fbc02407c9",
+    "status": "completed",
+    "projection": {
+      "schema_version": "capture-projection-1.0",
+      "projection_id": "projection-287008bd1469d7fe330befd41e08e16b09971b551e8ef648825a21ed7b100abf",
+      "export_id": "export-6b20609fb52c0445a183e5418bb86e22c1e98a4afbda36688cc641fbc02407c9",
+      "input_digest": "d9c725322bd488994cc213d2b163816fd53fe1e68e6ce17349c7d77e5d7ba416",
+      "transform_version": "capture-observation-1.1",
+      "content_digest": "5e30e2b31d9defeacc8461834d8734200489e66154ca7f998b991ed3d342e33e",
+      "source": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+        "report_company": "宁德时代新能源科技股份有限公司",
+        "publication_year": null,
+        "resource_revision": 2,
+        "report_company_id": "org:catl",
+        "industry": null,
+        "reporting_year": 2025
+      },
+      "facts": 53,
+      "observations": 53,
+      "periods": {
+        "2023": 15,
+        "2024": 18,
+        "2025": 18,
+        "unknown": 2
+      },
+      "relations": {
+        "match": 11,
+        "different": 42
+      },
+      "repeated_occurrences": 0,
+      "diagnostics": []
+    },
+    "error_code": null,
+    "retryable": false
+  },
+  "bundle_schema": "extraction-fact-bundle-2.4",
+  "bundle_has_organization": false,
+  "organized_cache_exists": false,
+  "context_calls": [
+    {
+      "call": 8,
+      "status": "ok",
+      "attributes_added": 8
+    },
+    {
+      "call": 9,
+      "status": "ok",
+      "attributes_added": 8
+    },
+    {
+      "call": 10,
+      "status": "ok",
+      "attributes_added": 2
+    },
+    {
+      "call": 16,
+      "status": "ok",
+      "attributes_added": 4
+    }
+  ],
+  "context_fields": {
+    "reporting_boundary": 11,
+    "reporting_entity": 11,
+    "measurement_method": 1
+  },
+  "context_examples": {
+    "reporting_boundary": {
+      "value": "宁德时代新能源科技股份有限公司及其附属公司",
+      "quote": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+      "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1",
+      "page_index": 2
+    },
+    "reporting_entity": {
+      "value": "集团",
+      "quote": "基于集团合并财务报表",
+      "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1",
+      "page_index": 71
+    },
+    "measurement_method": {
+      "value": [
+        "背景环境质量调查",
+        "自行监测"
+      ],
+      "quote": "开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测",
+      "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1",
+      "page_index": 55
+    }
+  },
+  "qualitative": [
+    {
+      "fact_id": "d1eecca91dae45ee60b18f9f73b41bf33141160b618e1d6141450069cdfae526",
+      "statement": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
+      "evidence": [
+        {
+          "quote": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
+          "object": "block-p0055-0024",
+          "page": 54
+        }
+      ]
+    },
+    {
+      "fact_id": "36cb5c9006f70af1af5715b3c6ef26a527165595f298d8321823ecfd18db34d7",
+      "statement": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
+      "evidence": [
+        {
+          "quote": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
+          "object": "block-p0056-0032",
+          "page": 55
+        }
+      ]
+    }
+  ]
+}

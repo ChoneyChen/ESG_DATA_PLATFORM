@@ -1,0 +1,567 @@
+{
+  "$defs": {
+    "ClauseCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_objects": {
+          "default": 0,
+          "title": "Candidate Objects",
+          "type": "integer"
+        },
+        "clause_digest": {
+          "title": "Clause Digest",
+          "type": "string"
+        },
+        "clause_key": {
+          "title": "Clause Key",
+          "type": "string"
+        },
+        "covered_scopes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Covered Scopes",
+          "type": "array"
+        },
+        "fact_count": {
+          "default": 0,
+          "title": "Fact Count",
+          "type": "integer"
+        },
+        "inspected_objects": {
+          "default": 0,
+          "title": "Inspected Objects",
+          "type": "integer"
+        },
+        "periods": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PeriodCoverage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "required_scopes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Scopes",
+          "type": "array"
+        },
+        "search": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SearchObservation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "state": {
+          "enum": [
+            "covered",
+            "unconfirmed",
+            "not_found",
+            "not_covered",
+            "failed",
+            "cancelled"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "clause_key",
+        "clause_digest",
+        "state"
+      ],
+      "title": "ClauseCoverage",
+      "type": "object"
+    },
+    "ClauseResultSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "clause_key": {
+          "title": "Clause Key",
+          "type": "string"
+        },
+        "data_kind": {
+          "enum": [
+            "quantitative",
+            "qualitative"
+          ],
+          "title": "Data Kind",
+          "type": "string"
+        },
+        "facts": {
+          "title": "Facts",
+          "type": "integer"
+        },
+        "relations": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Relations",
+          "type": "object"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "clause_key",
+        "title",
+        "data_kind",
+        "facts",
+        "relations"
+      ],
+      "title": "ClauseResultSummary",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "PeriodCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_facts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Captured Facts",
+          "type": "object"
+        },
+        "meaning": {
+          "title": "Meaning",
+          "type": "string"
+        },
+        "observed_candidates": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Observed Candidates",
+          "type": "object"
+        },
+        "unselected_candidate_cells": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unselected Candidate Cells",
+          "type": "array"
+        }
+      },
+      "required": [
+        "observed_candidates",
+        "captured_facts",
+        "unselected_candidate_cells",
+        "meaning"
+      ],
+      "title": "PeriodCoverage",
+      "type": "object"
+    },
+    "ResultAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_result": {
+          "default": "empty",
+          "enum": [
+            "usable",
+            "empty"
+          ],
+          "title": "Capture Result",
+          "type": "string"
+        },
+        "comparison_status": {
+          "default": "not_evaluated",
+          "enum": [
+            "eligible",
+            "insufficient_context",
+            "not_evaluated"
+          ],
+          "title": "Comparison Status",
+          "type": "string"
+        },
+        "execution_state": {
+          "default": "running",
+          "enum": [
+            "running",
+            "completed",
+            "interrupted"
+          ],
+          "title": "Execution State",
+          "type": "string"
+        },
+        "metadata_completeness": {
+          "default": "not_requested",
+          "enum": [
+            "complete",
+            "partial",
+            "not_requested"
+          ],
+          "title": "Metadata Completeness",
+          "type": "string"
+        },
+        "other_facts": {
+          "default": 0,
+          "title": "Other Facts",
+          "type": "integer"
+        },
+        "periods": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Periods"
+        },
+        "rejected_candidates": {
+          "default": 0,
+          "title": "Rejected Candidates",
+          "type": "integer"
+        },
+        "search_coverage": {
+          "default": "in_progress",
+          "enum": [
+            "in_progress",
+            "bounded_complete",
+            "incomplete"
+          ],
+          "title": "Search Coverage",
+          "type": "string"
+        },
+        "target_facts": {
+          "default": 0,
+          "title": "Target Facts",
+          "type": "integer"
+        },
+        "unresolved_facts": {
+          "default": 0,
+          "title": "Unresolved Facts",
+          "type": "integer"
+        }
+      },
+      "title": "ResultAssessment",
+      "type": "object"
+    },
+    "RunError": {
+      "additionalProperties": false,
+      "properties": {
+        "clause_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clause Key"
+        },
+        "error": {
+          "title": "Error",
+          "type": "string"
+        },
+        "object_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Object Id"
+        }
+      },
+      "required": [
+        "error"
+      ],
+      "title": "RunError",
+      "type": "object"
+    },
+    "RunSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResultAssessment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "elapsed_seconds": {
+          "title": "Elapsed Seconds",
+          "type": "number"
+        },
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/RunError"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "model_calls": {
+          "title": "Model Calls",
+          "type": "integer"
+        },
+        "processed_clauses": {
+          "title": "Processed Clauses",
+          "type": "integer"
+        },
+        "qualitative": {
+          "title": "Qualitative",
+          "type": "integer"
+        },
+        "quantitative": {
+          "title": "Quantitative",
+          "type": "integer"
+        },
+        "selected_clauses": {
+          "title": "Selected Clauses",
+          "type": "integer"
+        },
+        "source_facts": {
+          "title": "Source Facts",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "selected_clauses",
+        "processed_clauses",
+        "source_facts",
+        "quantitative",
+        "qualitative",
+        "model_calls",
+        "elapsed_seconds"
+      ],
+      "title": "RunSummary",
+      "type": "object"
+    },
+    "SearchObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "coverage_observation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coverage Observation"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "queries": {
+          "items": {
+            "$ref": "#/$defs/SearchQueryObservation"
+          },
+          "title": "Queries",
+          "type": "array"
+        },
+        "query_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Digest"
+        },
+        "returned": {
+          "minimum": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "returned",
+        "truncated"
+      ],
+      "title": "SearchObservation",
+      "type": "object"
+    },
+    "SearchQueryObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "primary",
+            "broader"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "query_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Digest"
+        },
+        "returned": {
+          "default": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "source_snapshot": {
+          "title": "Source Snapshot",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        }
+      },
+      "required": [
+        "source_snapshot",
+        "level"
+      ],
+      "title": "SearchQueryObservation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/ClauseResultSummary"
+      },
+      "title": "Clauses",
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/ClauseCoverage"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "periods": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Periods",
+      "type": "object"
+    },
+    "revision": {
+      "title": "Revision",
+      "type": "integer"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Run Id"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunSummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "revision",
+    "clauses",
+    "periods",
+    "coverage"
+  ],
+  "title": "ResultOverview",
+  "type": "object"
+}

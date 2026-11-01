@@ -1,0 +1,46 @@
+{
+  "published": false,
+  "source": "actual capture-observation-1.1 projections",
+  "results": [
+    {
+      "mode": "all_sources",
+      "status": 200,
+      "total": 276,
+      "selected": 276,
+      "periods": {
+        "2023": 90,
+        "2024": 93,
+        "2025": 91,
+        "unknown": 2
+      },
+      "decision_reasons": {
+        "all_sources": 276
+      },
+      "preview_digest": "9bcc9e5e3ccd24f8b50b299f62e43c77936707716a7afa5b787bcf23612faee6",
+      "projection_ids": [
+        "projection-13e5c869fe8258d504488a007bc62a2587ccc1f46b6e6eaa7c75e3e21addb096",
+        "projection-6af19fe224c9a727a08911adfec7fbef83bbc28ca6c1776c5774561b45d60587"
+      ]
+    },
+    {
+      "mode": "latest_report",
+      "status": 200,
+      "total": 276,
+      "selected": 276,
+      "periods": {
+        "2023": 90,
+        "2024": 93,
+        "2025": 91,
+        "unknown": 2
+      },
+      "decision_reasons": {
+        "identity_incomplete_keep_source": 276
+      },
+      "preview_digest": "1c91d1ada3a1f6e3b1c52c3622d17f0ac73cc8571cac395b314c2e3e0a5cdcbb",
+      "projection_ids": [
+        "projection-13e5c869fe8258d504488a007bc62a2587ccc1f46b6e6eaa7c75e3e21addb096",
+        "projection-6af19fe224c9a727a08911adfec7fbef83bbc28ca6c1776c5774561b45d60587"
+      ]
+    }
+  ]
+}

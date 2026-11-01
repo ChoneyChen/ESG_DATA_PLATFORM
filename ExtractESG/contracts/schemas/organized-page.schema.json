@@ -1,0 +1,1861 @@
+{
+  "$defs": {
+    "AxisCoordinate": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate_id": {
+          "title": "Coordinate Id",
+          "type": "string"
+        },
+        "keys": {
+          "additionalProperties": {
+            "$ref": "#/$defs/OrganizedCell"
+          },
+          "title": "Keys",
+          "type": "object"
+        }
+      },
+      "required": [
+        "coordinate_id",
+        "keys"
+      ],
+      "title": "AxisCoordinate",
+      "type": "object"
+    },
+    "CategoryMatch": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "definition_source": {
+          "const": "clause_vocabulary",
+          "default": "clause_vocabulary",
+          "title": "Definition Source",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "state": {
+          "enum": [
+            "recognized",
+            "unlisted",
+            "unproven",
+            "conflict"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "state"
+      ],
+      "title": "CategoryMatch",
+      "type": "object"
+    },
+    "ClauseCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_objects": {
+          "default": 0,
+          "title": "Candidate Objects",
+          "type": "integer"
+        },
+        "clause_digest": {
+          "title": "Clause Digest",
+          "type": "string"
+        },
+        "clause_key": {
+          "title": "Clause Key",
+          "type": "string"
+        },
+        "covered_scopes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Covered Scopes",
+          "type": "array"
+        },
+        "fact_count": {
+          "default": 0,
+          "title": "Fact Count",
+          "type": "integer"
+        },
+        "inspected_objects": {
+          "default": 0,
+          "title": "Inspected Objects",
+          "type": "integer"
+        },
+        "periods": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PeriodCoverage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "required_scopes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Scopes",
+          "type": "array"
+        },
+        "search": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SearchObservation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "state": {
+          "enum": [
+            "covered",
+            "unconfirmed",
+            "not_found",
+            "not_covered",
+            "failed",
+            "cancelled"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "clause_key",
+        "clause_digest",
+        "state"
+      ],
+      "title": "ClauseCoverage",
+      "type": "object"
+    },
+    "ClauseMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "clause_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Clause Digest",
+          "type": "string"
+        },
+        "clause_key": {
+          "title": "Clause Key",
+          "type": "string"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "match": {
+          "enum": [
+            "match",
+            "uncertain",
+            "different"
+          ],
+          "title": "Match",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "scope_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scope Ids",
+          "type": "array"
+        },
+        "source_fact_id": {
+          "title": "Source Fact Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "clause_key",
+        "clause_digest",
+        "source_fact_id",
+        "match",
+        "reason"
+      ],
+      "title": "ClauseMapping",
+      "type": "object"
+    },
+    "Company": {
+      "additionalProperties": false,
+      "properties": {
+        "company_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Company Id"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Company",
+      "type": "object"
+    },
+    "EvidenceLocation": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "char_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char End"
+        },
+        "char_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char Start"
+        },
+        "column_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Column Id"
+        },
+        "excerpt": {
+          "minLength": 1,
+          "title": "Excerpt",
+          "type": "string"
+        },
+        "object_id": {
+          "minLength": 1,
+          "title": "Object Id",
+          "type": "string"
+        },
+        "object_type": {
+          "enum": [
+            "cell",
+            "text_block",
+            "table",
+            "report"
+          ],
+          "title": "Object Type",
+          "type": "string"
+        },
+        "page_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Index"
+        },
+        "role": {
+          "enum": [
+            "value",
+            "statement",
+            "row",
+            "column_header",
+            "unit",
+            "table",
+            "footnote",
+            "report"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "row_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Row Id"
+        },
+        "source_snapshot": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Snapshot"
+        }
+      },
+      "required": [
+        "object_id",
+        "object_type",
+        "excerpt",
+        "role"
+      ],
+      "title": "EvidenceLocation",
+      "type": "object"
+    },
+    "EvidenceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "enum": [
+            "fact",
+            "identity",
+            "dimension"
+          ],
+          "title": "Container",
+          "type": "string"
+        },
+        "field_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Key"
+        },
+        "index": {
+          "minimum": 0,
+          "title": "Index",
+          "type": "integer"
+        },
+        "source_fact_id": {
+          "minLength": 1,
+          "title": "Source Fact Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_fact_id",
+        "container",
+        "index"
+      ],
+      "title": "EvidenceReference",
+      "type": "object"
+    },
+    "FieldBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "attribute": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attribute"
+        },
+        "key": {
+          "minLength": 1,
+          "title": "Key",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "value",
+            "identity",
+            "dimension",
+            "target",
+            "resource",
+            "fact",
+            "evidence",
+            "mapping",
+            "extension"
+          ],
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "key"
+      ],
+      "title": "FieldBinding",
+      "type": "object"
+    },
+    "Industry": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "taxonomy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Taxonomy"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Industry",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "MatrixCell": {
+      "additionalProperties": false,
+      "properties": {
+        "column_coordinate_id": {
+          "title": "Column Coordinate Id",
+          "type": "string"
+        },
+        "row_coordinate_id": {
+          "title": "Row Coordinate Id",
+          "type": "string"
+        },
+        "row_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Row Ids",
+          "type": "array"
+        },
+        "state": {
+          "enum": [
+            "single",
+            "multiple"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "row_coordinate_id",
+        "column_coordinate_id",
+        "row_ids",
+        "state"
+      ],
+      "title": "MatrixCell",
+      "type": "object"
+    },
+    "MatrixDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "column_axes": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Column Axes",
+          "type": "array"
+        },
+        "row_axes": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Row Axes",
+          "type": "array"
+        },
+        "value_fields": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Value Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "row_axes",
+        "column_axes",
+        "value_fields"
+      ],
+      "title": "MatrixDefinition",
+      "type": "object"
+    },
+    "MatrixView": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_performed": {
+          "const": false,
+          "default": false,
+          "title": "Aggregation Performed",
+          "type": "boolean"
+        },
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/MatrixCell"
+          },
+          "title": "Cells",
+          "type": "array"
+        },
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/AxisCoordinate"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/AxisCoordinate"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "value_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Value Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "rows",
+        "columns",
+        "value_fields",
+        "cells"
+      ],
+      "title": "MatrixView",
+      "type": "object"
+    },
+    "OrganizationField": {
+      "additionalProperties": false,
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "key": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,119}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "required_for_confirmation": {
+          "default": false,
+          "title": "Required For Confirmation",
+          "type": "boolean"
+        },
+        "role": {
+          "enum": [
+            "raw_value",
+            "parsed_value",
+            "unit",
+            "reported_identity",
+            "reported_dimension",
+            "target_definition",
+            "resource_identity",
+            "source_label",
+            "provenance",
+            "match_state",
+            "annotation"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "type_hint": {
+          "default": "text",
+          "enum": [
+            "text",
+            "decimal",
+            "integer",
+            "boolean",
+            "date",
+            "json"
+          ],
+          "title": "Type Hint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "role",
+        "binding"
+      ],
+      "title": "OrganizationField",
+      "type": "object"
+    },
+    "OrganizationSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/OrganizationField"
+          },
+          "minItems": 1,
+          "title": "Fields",
+          "type": "array"
+        },
+        "include_additional_dimensions": {
+          "default": true,
+          "title": "Include Additional Dimensions",
+          "type": "boolean"
+        },
+        "include_extensions": {
+          "default": true,
+          "title": "Include Extensions",
+          "type": "boolean"
+        },
+        "presentation": {
+          "$ref": "#/$defs/Presentation"
+        },
+        "row_axes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Row Axes",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": "clause-organization-1.1",
+          "default": "clause-organization-1.1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "fields"
+      ],
+      "title": "OrganizationSpec",
+      "type": "object"
+    },
+    "OrganizedCell": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CategoryMatch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReference"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "origin": {
+          "enum": [
+            "value",
+            "identity",
+            "dimension",
+            "target",
+            "resource",
+            "fact",
+            "evidence",
+            "mapping",
+            "extension"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "raw_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Text"
+        },
+        "reported_state": {
+          "anyOf": [
+            {
+              "enum": [
+                "stated",
+                "inherited",
+                "not_stated",
+                "not_read",
+                "conflict"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reported State"
+        },
+        "state": {
+          "default": "not_read",
+          "enum": [
+            "available",
+            "not_stated",
+            "not_read",
+            "conflict",
+            "not_applicable"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue",
+          "default": null
+        }
+      },
+      "required": [
+        "origin"
+      ],
+      "title": "OrganizedCell",
+      "type": "object"
+    },
+    "OrganizedRow": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "additionalProperties": {
+            "$ref": "#/$defs/OrganizedCell"
+          },
+          "title": "Cells",
+          "type": "object"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "match": {
+          "enum": [
+            "match",
+            "uncertain",
+            "different",
+            "unmapped"
+          ],
+          "title": "Match",
+          "type": "string"
+        },
+        "result_class": {
+          "default": "unresolved",
+          "enum": [
+            "target",
+            "other",
+            "unresolved"
+          ],
+          "title": "Result Class",
+          "type": "string"
+        },
+        "row_id": {
+          "title": "Row Id",
+          "type": "string"
+        },
+        "source_fact_id": {
+          "title": "Source Fact Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "row_id",
+        "source_fact_id",
+        "match",
+        "cells"
+      ],
+      "title": "OrganizedRow",
+      "type": "object"
+    },
+    "OrganizedTable": {
+      "additionalProperties": false,
+      "properties": {
+        "clause_digest": {
+          "title": "Clause Digest",
+          "type": "string"
+        },
+        "clause_key": {
+          "title": "Clause Key",
+          "type": "string"
+        },
+        "data_kind": {
+          "enum": [
+            "quantitative",
+            "qualitative"
+          ],
+          "title": "Data Kind",
+          "type": "string"
+        },
+        "definition": {
+          "$ref": "#/$defs/OrganizationSpec"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "groups": {
+          "items": {
+            "$ref": "#/$defs/RowGroup"
+          },
+          "title": "Groups",
+          "type": "array"
+        },
+        "matrix": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MatrixView"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/OrganizedRow"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "status": {
+          "default": "empty",
+          "enum": [
+            "empty",
+            "organized",
+            "needs_confirmation",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "table_id": {
+          "title": "Table Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "table_id",
+        "clause_key",
+        "clause_digest",
+        "data_kind",
+        "definition"
+      ],
+      "title": "OrganizedTable",
+      "type": "object"
+    },
+    "PeriodCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_facts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Captured Facts",
+          "type": "object"
+        },
+        "meaning": {
+          "title": "Meaning",
+          "type": "string"
+        },
+        "observed_candidates": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Observed Candidates",
+          "type": "object"
+        },
+        "unselected_candidate_cells": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unselected Candidate Cells",
+          "type": "array"
+        }
+      },
+      "required": [
+        "observed_candidates",
+        "captured_facts",
+        "unselected_candidate_cells",
+        "meaning"
+      ],
+      "title": "PeriodCoverage",
+      "type": "object"
+    },
+    "Presentation": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "group_by": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Group By",
+          "type": "array"
+        },
+        "matrix": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MatrixDefinition"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sort_by": {
+          "items": {
+            "$ref": "#/$defs/SortField"
+          },
+          "title": "Sort By",
+          "type": "array"
+        },
+        "view": {
+          "default": "table",
+          "enum": [
+            "table",
+            "statements",
+            "matrix"
+          ],
+          "title": "View",
+          "type": "string"
+        }
+      },
+      "title": "Presentation",
+      "type": "object"
+    },
+    "QualitativePayload": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "kind": {
+          "const": "assertion",
+          "default": "assertion",
+          "title": "Kind",
+          "type": "string"
+        },
+        "statement_raw": {
+          "minLength": 1,
+          "title": "Statement Raw",
+          "type": "string"
+        }
+      },
+      "required": [
+        "statement_raw",
+        "kind"
+      ],
+      "title": "QualitativePayload",
+      "type": "object"
+    },
+    "QuantitativePayload": {
+      "additionalProperties": false,
+      "properties": {
+        "comparator": {
+          "default": "unknown",
+          "enum": [
+            "exact",
+            "range",
+            "greater_than",
+            "less_than",
+            "at_least",
+            "at_most",
+            "approx",
+            "unknown"
+          ],
+          "title": "Comparator",
+          "type": "string"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "kind": {
+          "const": "quantitative",
+          "default": "quantitative",
+          "title": "Kind",
+          "type": "string"
+        },
+        "parse_status": {
+          "default": "unparsed",
+          "enum": [
+            "parsed",
+            "unparsed",
+            "ambiguous",
+            "conflict"
+          ],
+          "title": "Parse Status",
+          "type": "string"
+        },
+        "unit_raw": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Raw"
+        },
+        "value_lower": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value Lower"
+        },
+        "value_numeric": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value Numeric"
+        },
+        "value_raw": {
+          "minLength": 1,
+          "title": "Value Raw",
+          "type": "string"
+        },
+        "value_upper": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value Upper"
+        }
+      },
+      "required": [
+        "value_raw",
+        "kind"
+      ],
+      "title": "QuantitativePayload",
+      "type": "object"
+    },
+    "ReportResource": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "pattern": "^pdf-[a-f0-9]{24}$",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "company": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Company"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "industry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Industry"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "metadata_sources": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Metadata Sources",
+          "type": "object"
+        },
+        "original_filename": {
+          "minLength": 1,
+          "title": "Original Filename",
+          "type": "string"
+        },
+        "pdf_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$",
+          "title": "Pdf Id",
+          "type": "string"
+        },
+        "publication_year": {
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publication Year"
+        },
+        "reporting_year": {
+          "anyOf": [
+            {
+              "maximum": 2200,
+              "minimum": 1900,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reporting Year"
+        },
+        "revision": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": "report-resource-1.0",
+          "default": "report-resource-1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        }
+      },
+      "required": [
+        "pdf_id",
+        "asset_id",
+        "sha256",
+        "original_filename"
+      ],
+      "title": "ReportResource",
+      "type": "object"
+    },
+    "ReportedContext": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_role": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "denominator": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "dimensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ReportedField"
+          },
+          "title": "Dimensions",
+          "type": "object"
+        },
+        "entity_aggregation_role": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "measurement_method": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "reporting_boundary": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "reporting_entity": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "reporting_period": {
+          "$ref": "#/$defs/ReportedField"
+        },
+        "value_role": {
+          "$ref": "#/$defs/ReportedField"
+        }
+      },
+      "title": "ReportedContext",
+      "type": "object"
+    },
+    "ReportedField": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceLocation"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "raw_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Text"
+        },
+        "state": {
+          "default": "not_read",
+          "enum": [
+            "stated",
+            "inherited",
+            "not_stated",
+            "not_read",
+            "conflict"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue",
+          "default": null
+        }
+      },
+      "title": "ReportedField",
+      "type": "object"
+    },
+    "RowGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "group_id": {
+          "title": "Group Id",
+          "type": "string"
+        },
+        "keys": {
+          "additionalProperties": {
+            "$ref": "#/$defs/OrganizedCell"
+          },
+          "title": "Keys",
+          "type": "object"
+        },
+        "row_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Row Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "group_id",
+        "keys",
+        "row_ids"
+      ],
+      "title": "RowGroup",
+      "type": "object"
+    },
+    "SearchObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "coverage_observation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coverage Observation"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "queries": {
+          "items": {
+            "$ref": "#/$defs/SearchQueryObservation"
+          },
+          "title": "Queries",
+          "type": "array"
+        },
+        "query_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Digest"
+        },
+        "returned": {
+          "minimum": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "returned",
+        "truncated"
+      ],
+      "title": "SearchObservation",
+      "type": "object"
+    },
+    "SearchQueryObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "primary",
+            "broader"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "query_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Digest"
+        },
+        "returned": {
+          "default": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "source_snapshot": {
+          "title": "Source Snapshot",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        }
+      },
+      "required": [
+        "source_snapshot",
+        "level"
+      ],
+      "title": "SearchQueryObservation",
+      "type": "object"
+    },
+    "SortField": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "default": "ascending",
+          "enum": [
+            "ascending",
+            "descending"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "field": {
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field"
+      ],
+      "title": "SortField",
+      "type": "object"
+    },
+    "SourceFact": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "title": "Document Id",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceLocation"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "identity": {
+          "$ref": "#/$defs/ReportedContext"
+        },
+        "interpretation_id": {
+          "title": "Interpretation Id",
+          "type": "string"
+        },
+        "ir_revision": {
+          "minimum": 1,
+          "title": "Ir Revision",
+          "type": "integer"
+        },
+        "ir_run_id": {
+          "title": "Ir Run Id",
+          "type": "string"
+        },
+        "quality": {
+          "default": "needs_confirmation",
+          "enum": [
+            "grounded",
+            "needs_confirmation"
+          ],
+          "title": "Quality",
+          "type": "string"
+        },
+        "report_resource": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportResource"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "schema_version": {
+          "const": "source-fact-2.0",
+          "default": "source-fact-2.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "source_anchor_id": {
+          "title": "Source Anchor Id",
+          "type": "string"
+        },
+        "source_fact_id": {
+          "title": "Source Fact Id",
+          "type": "string"
+        },
+        "source_row_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Row Label"
+        },
+        "value": {
+          "discriminator": {
+            "mapping": {
+              "assertion": "#/$defs/QualitativePayload",
+              "quantitative": "#/$defs/QuantitativePayload"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/QuantitativePayload"
+            },
+            {
+              "$ref": "#/$defs/QualitativePayload"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "source_fact_id",
+        "source_anchor_id",
+        "document_id",
+        "ir_run_id",
+        "ir_revision",
+        "interpretation_id",
+        "value",
+        "evidence"
+      ],
+      "title": "SourceFact",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clause_mappings": {
+      "items": {
+        "$ref": "#/$defs/ClauseMapping"
+      },
+      "title": "Clause Mappings",
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/ClauseCoverage"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "facts": {
+      "items": {
+        "$ref": "#/$defs/SourceFact"
+      },
+      "title": "Facts",
+      "type": "array"
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Next Cursor"
+    },
+    "periods": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Periods",
+      "type": "array"
+    },
+    "query_digest": {
+      "title": "Query Digest",
+      "type": "string"
+    },
+    "relations": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Relations",
+      "type": "object"
+    },
+    "returned": {
+      "title": "Returned",
+      "type": "integer"
+    },
+    "revision": {
+      "title": "Revision",
+      "type": "integer"
+    },
+    "table": {
+      "$ref": "#/$defs/OrganizedTable"
+    },
+    "total": {
+      "title": "Total",
+      "type": "integer"
+    },
+    "units": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Units",
+      "type": "array"
+    }
+  },
+  "required": [
+    "facts",
+    "clause_mappings",
+    "coverage",
+    "total",
+    "returned",
+    "next_cursor",
+    "query_digest",
+    "revision",
+    "table",
+    "periods",
+    "units",
+    "relations"
+  ],
+  "title": "OrganizedPage",
+  "type": "object"
+}

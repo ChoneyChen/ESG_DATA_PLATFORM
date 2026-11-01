@@ -71,11 +71,26 @@ class QualitativeDecision(DecisionModel):
     missing_context: list[str] = Field(default_factory=list)
 
 
+def evidence_identity_schema(schema, source_ids):
+    """An optional proposal contains an actual observation; absence is omission."""
+    proposal = schema["$defs"]["IdentityProposal"]
+    properties = proposal["properties"]
+    properties.pop("state", None)
+    properties["value"] = {"anyOf": [
+        {"type":"string"}, {"type":"number"}, {"type":"boolean"},
+        {"type":"array","items":{"$ref":"#/$defs/JsonValue"}},
+        {"type":"object","additionalProperties":{"$ref":"#/$defs/JsonValue"}},
+    ]}
+    properties["quote"] = {"type":"string", "minLength":1}
+    properties["source_id"] = {"type":"string", "enum":source_ids}
+    proposal["required"] = ["axis", "value", "quote", "source_id"]
+
+
 def decision_schema(data_kind, frame):
     """Constrain references to actual evidence IDs, never to target/resource metadata."""
     model = QuantitativeDecision if data_kind == "quantitative" else QualitativeDecision
     schema = model.model_json_schema()
-    schema["$defs"]["IdentityProposal"]["properties"]["source_id"] = {"enum": [None, *identity_source_ids(frame)]}
+    evidence_identity_schema(schema, identity_source_ids(frame))
     if data_kind == "quantitative":
         properties = schema["$defs"]["NumericMatch"]["properties"]
         properties["row_id"] = {

@@ -1,4 +1,6 @@
 from fastapi import APIRouter, HTTPException
+from urllib.parse import urlencode
+from esg_contracts.results import FactPage, ResultOverview, OrganizedPage
 from esg_contracts.sessions import ExtractionPlanRequest
 from .monitor import MonitorSnapshot, monitor_snapshot
 from .products import SessionProducts
@@ -67,12 +69,27 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
     def resume(key: str):
         return call(coordinator.resume, key)
 
-    @router.get("/api/report-sessions/{key}/facts")
-    def facts(key: str):
-        state = call(coordinator.get, key)
+    def result_path(state, suffix, **filters):
+        params = urlencode({key:value for key,value in filters.items() if value is not None})
+        return f"/api/runs/{state['run_id']}/{suffix}" + ("?"+params if params else "")
+
+    @router.get("/api/report-sessions/{key}/results",response_model=ResultOverview)
+    def result_overview(key: str):
+        state = call(coordinator.get,key)
         if not state.get("run_id"):
-            return {"facts": [], "clause_mappings": [], "coverage": []}
-        return call(coordinator.remote, "GET", f"/api/runs/{state['run_id']}/facts")
+            return {"run_id":None,"revision":0,"clauses":[],"periods":{},"coverage":[],"summary":None}
+        return call(coordinator.remote,"GET",result_path(state,"results"))
+
+    @router.get("/api/report-sessions/{key}/facts",response_model=FactPage)
+    def facts(key: str, limit: int = 50, cursor: str | None = None, clause_key: str | None = None,
+              period: str | None = None, relation: str | None = None, unit: str | None = None,
+              q: str | None = None, fact_id: str | None = None):
+        state = call(coordinator.get,key)
+        if not state.get("run_id"):
+            return {"facts":[],"clause_mappings":[],"coverage":[],"total":0,"returned":0,
+                "next_cursor":None,"query_digest":"pending","revision":0}
+        return call(coordinator.remote,"GET",result_path(state,"facts",limit=limit,cursor=cursor,
+            clause_key=clause_key,period=period,relation=relation,unit=unit,q=q,fact_id=fact_id))
 
     @router.get("/api/pipeline/clauses")
     def clauses():
@@ -90,16 +107,14 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
     def organization_contract():
         return call(coordinator.remote, "GET", "/api/organization-contract")
 
-    @router.get("/api/report-sessions/{key}/organized")
-    def organized(key: str):
-        state = call(coordinator.get, key)
+    @router.get("/api/report-sessions/{key}/organized/{clause_key}",response_model=OrganizedPage)
+    def organized(key: str, clause_key: str, limit: int = 50, cursor: str | None = None,
+                  period: str | None = None, relation: str | None = None, unit: str | None = None, q: str | None = None):
+        state = call(coordinator.get,key)
         if not state.get("run_id"):
-            return {
-                "schema_version": "organized-extraction-1.1",
-                "status": "pending",
-                "tables": [],
-            }
-        return call(coordinator.remote, "GET", f"/api/runs/{state['run_id']}/organized")
+            raise HTTPException(409,"文档准备完成后查看条款结果")
+        return call(coordinator.remote,"GET",result_path(state,"organized/"+clause_key,
+            limit=limit,cursor=cursor,period=period,relation=relation,unit=unit,q=q))
 
     @router.get("/api/pipeline/clause-groups")
     def groups():

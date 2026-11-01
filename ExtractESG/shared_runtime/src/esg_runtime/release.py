@@ -141,7 +141,7 @@ def release_identity(extract_root: Path | None, service: str | None = None) -> d
             "clause_navigation": "clause-catalog-4.0",
             "clause_descriptor": "clause-descriptor-1.0",
             "data": "extraction-data-2.0",
-            "facts": "extraction-fact-bundle-2.3",
+            "facts": "extraction-fact-bundle-2.4",
             "organization": "organized-extraction-1.1",
             "report_resource": "report-resource-1.0",
             "source_validation": "digest_and_bound_evidence",

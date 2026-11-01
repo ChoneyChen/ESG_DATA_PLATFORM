@@ -208,7 +208,9 @@
         "reason": {
           "enum": [
             "input_budget",
-            "generation_incomplete"
+            "generation_incomplete",
+            "selection_remainder",
+            "timeout"
           ],
           "title": "Reason",
           "type": "string"

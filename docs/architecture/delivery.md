@@ -1,8 +1,8 @@
 # 独立导出与数据库接收
 
-当前源码交接为 `extraction-export-1.1` 与 `extraction-receipt-1.0`；实际部署状态见[本轮执行记录](../implementation/2026-10-31/README.md)。旧字典、旧快照读适配与旧SQL发布体系已清除。
+当前源码交接为 `extraction-export-1.2` 与 `extraction-receipt-1.0`；实际部署状态见[本轮执行记录](../implementation/2026-11-01/README.md)。旧字典、旧快照读适配与旧SQL发布体系已清除。
 
-结束的提取先保存原值，再自动封存。ZIP包含 manifest 与 facts、properties、evidence、relations、coverage、targets、document、diagnostics 八份JSON。清单绑定引擎、文档修订、完整PDF散列、冻结条款、文件摘要/计数；不用 producer目录或bundle_path。组织矩阵不是数据库身份。
+结束的提取先保存原值，再自动封存。ZIP包含 manifest 与 facts、properties、evidence、relations、coverage、targets、document、diagnostics 八份JSON。清单绑定引擎、文档修订、完整PDF散列、冻结条款、文件摘要/计数；不用 producer目录或bundle_path。document成员包含主来源及补页快照；各事实及属性证据引用自己的source_snapshot。组织视图不进入原值交付，数据库不读取提取端目录。
 
 数据库接收器校验一次传输清单与来源事实格式：可选维度缺失仍接收；格式坏行有独立处置，好行保留；封存包整体损坏不能假装成功。facts是唯一原值权威；属性/字段证据通过共享合同SDK重建，来件投影不一致时记录诊断并采用重建结果。原字串不变，数值用SQL numeric精确保存。回执接收数加拒绝数必须与清单事实数一致，目标、原文身份、资源身份分别存。
 

@@ -4,6 +4,10 @@ from esg_data.periods import parse_period, period_payload
 from esg_contracts.facts import ReportedField, EvidenceLocation
 
 
+def references_report_period(text):
+    return bool(re.search(r"本报告期|本年度|报告期内|during\s+(?:the\s+)?reporting\s+period",text,re.I))
+
+
 def _field(raw, sources, role, state="stated"):
     period = parse_period(raw)
     if not period or not sources:
@@ -40,7 +44,7 @@ def bind_period(frame, *, row=None, column_id=None, document=None):
     local_text = " ".join([frame.title or "", row.label if row else "", *(t.text for t in frame.texts if t.object_type != "cell")])
     if (context and context.get("basis") == "reporting_period_statement"
         and context.get("source_id") and context.get("evidence") and context.get("page_index") is not None
-        and re.search(r"本报告期|本年度|报告期内|during\s+(?:the\s+)?reporting\s+period", local_text, re.I)
+        and references_report_period(local_text)
         and not any_column_period and not parse_period(local_text)):
         period = parse_period(context["evidence"])
         if period:

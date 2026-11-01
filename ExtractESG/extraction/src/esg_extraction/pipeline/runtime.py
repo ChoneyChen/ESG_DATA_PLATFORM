@@ -94,6 +94,7 @@ def execute(run_id, *, model=None):
             document=frozen_document,
             sources={key: DocumentReference.model_validate(value) for key,value in state.get("evidence_sources",{}).items()},
             exhausted_queries=state.get("exhausted_queries",{}),
+            context_attempted=state.get("context_attempted",[]),
             cancel_check=lambda: store.is_cancelled(run_id),
             on_progress=lambda event: store.progress(run_id, progress=event),
         )

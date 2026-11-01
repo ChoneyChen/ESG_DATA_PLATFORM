@@ -1,6 +1,6 @@
 # 原值事实与条款个性化组织合同
 
-日期：2026-10-31。范围为两类原值与条款声明驱动的显示组织。数据库交接另见[交接规范](delivery.md)，前端另见[Console](../../ConsoleESG/README.md)。
+更新：2026-11-02。范围为两类原值与条款声明驱动的显示组织。数据库交接另见[交接规范](delivery.md)，前端另见[Console](../../ConsoleESG/README.md)。
 
 ## 1. 权威与边界
 
@@ -9,12 +9,12 @@
 | 两份值合同 | 定量原值、定性原文及可选解析资料 | 所有条款使用同一类准入要求 |
 | 来源事实合同 | 文档身份、物理来源、实际期间/主体/维度及字段证据 | 独立存储事实，不携带某条款的目标分类作为实际身份 |
 | 通用组织合同 | 字段角色、绑定、缺失状态、证据引用、行、分组、矩阵和扩展位置 | 骨干按声明投影，不写领域分支 |
-| 单条 `clause.json` | 所需字段、中文列名、局部词典、确认要求、行轴与呈现方式 | 阅读卡按purposes.enrichment取得身份目标；组织器取得完整布局 |
+| 单条 `clause.json` | 所需字段、中文列名、局部词典、确认要求、行轴与呈现方式 | 阅读卡读取attributes；补读读取enrichment引用；组织器按页取得布局 |
 | 报告资源合同 | PDF 编号、报告企业、发表年、行业、覆盖年度 | 随运行贯穿；与事实的测量身份分列 |
 
 通用类型位于 `ExtractESG/contracts/src/esg_data/organization.py`；执行投影位于 `ExtractESG/extraction/src/esg_extraction/pipeline/organization.py`。两者没有 ESRS 编号或污染物、能源、人群词表。领域内容只出现在 `ClauseESG/clauses/<组>/<条>/clause.json`。
 
-当前版本：条款 `clause-contract-1.3`，阅读声明 `clause-reading-1.1`，阅读卡 `clause-reading-card-1.0`，值 `extraction-data-2.0`，来源事实 `source-fact-2.0`，组织定义 `clause-organization-1.0`，组织结果 `organized-extraction-1.1`，运行事实包 `extraction-fact-bundle-2.2`。这些版本分别表示不同接口，不要求编号相同。
+当前版本：条款 `clause-contract-1.4`，阅读声明 `clause-reading-1.1`，阅读卡 `clause-reading-card-1.0`，值 `extraction-data-2.0`，来源事实 `source-fact-2.0`，组织定义 `clause-organization-1.1`，组织结果 `organized-extraction-1.1`，运行事实包 `extraction-fact-bundle-2.4`。这些版本分别表示不同接口，不要求编号相同。
 
 ## 2. 两类值，共同组织主结构
 
@@ -43,7 +43,7 @@ OrganizedDataset（可重新投影的输出）
 
 ## 3. 字段合同
 
-每列包含 `key / label / role / binding / type_hint`；可选声明、局部词典及 `required_for_confirmation`。绑定是受控的 `source + key + attribute`，不支持 Python、脚本、任意表达式或 `eval`。
+每列包含 `key / label / role / binding / type_hint`；可选显示说明及 `required_for_confirmation`；属性定义、读取说明与值词典由条款 `attributes` 单独持有。绑定是受控的 `source + key + attribute`，不支持 Python、脚本、任意表达式或 `eval`。
 
 | 角色 | 含义 | 允许来源示例 |
 |---|---|---|
@@ -74,7 +74,7 @@ OrganizedDataset（可重新投影的输出）
 - `retrieval` 提供搜索词、负词、主题/角色词组及对象优先级。
 - 可用 `retrieval.required_term_groups` 声明必需词组：每组内任选命中一个，组间必须同时满足；同一要求传到 PDF 选页和对象检索。仅在某条明确需要时配置，未配置的条款不受额外词组限制。另有对象级 `excluded_object_terms`，样本用来排除缩写表/释义对象；它不在选页时删除整页。ASCII 词遵守单词边界。以上都是召回约束，不证明披露符合条款。
 - `organization.fields` 声明实际污染物、实际介质、场址、地区、主体、期间、边界、原单位等列。
-- 实际污染物列自己持有 SO2、NOx 等局部代码、标签和别名。
+- `attributes.pollutant` 持有 SO2、NOx 等局部代码、标签和别名；显示列引用它。
 - 目标 `pollution_medium=air` 单独列为目标定义；报告未说实际介质时，实际列继续未知。
 - `presentation.matrix` 以污染物等为行、实际期间为列，值区保留原值及可选解析。
 
@@ -98,7 +98,7 @@ OrganizedDataset（可重新投影的输出）
 
 `relationships` 预留父项、兄弟项、配对项等信息关系。它不是执行依赖：选择一条不会自动选择、读取或加载另一条；关联文件缺失不阻止独立运行。32 条集合仅是 32 个条款编号一起被选中。每条独立检索和调用，无跨条款理解缓存。
 
-1113个值条款采用同一平行合同，另13个条目为非执行结构描述。priority32为组织示例；原37项已逐条处置，内容验收记录另存，不将技术可执行当科学完备。`curation=sample` 仅表示本轮配置过组织字段，不是业务验收或可发布声明。本轮不扩大为全部条款内容工程。
+1113个值条款采用同一平行合同，另13个条目为非执行结构描述。原值接收按两类合同完成，结果说明来自真实任务。
 
 ## 7. 接口与落盘
 
@@ -107,14 +107,17 @@ OrganizedDataset（可重新投影的输出）
 | `GET /api/organization-contract` | 主组织定义及结果 JSON Schema |
 | `GET /api/clauses/{key}/organization` | 本条个性化组织声明与非执行关系说明 |
 | `GET /api/clauses/{key}/reading-card` | 实际阅读端口的数据 |
-| `GET /api/runs/{id}/organized` | 本次冻结目标对应的组织输出 |
-| `GET /api/runs/{id}/targets` | 本次实际冻结的完整条款快照，包含摘要校验 |
-| `GET /api/runs/{id}/facts` | 原值事实、条款映射、范围、组织结果状态和链接 |
-| `GET /api/runs/{id}/facts/{fact_id}` | 独立事实及实际证据 |
+| `GET /api/runs/{id}/results` | 轻量摘要、各条款数量与期间 |
+| `GET /api/runs/{id}/organized/{clause}` | 选定条款的一页组织表与本页事实 |
+| `GET /api/runs/{id}/targets` | 冻结条款快照 |
+| `GET /api/runs/{id}/facts` | 按条款、期间、关系、单位、原文分页 |
+| `GET /api/runs/{id}/facts/{fact_id}` | 独立事实与实际证据 |
 
-文档服务提供 `/api/pipeline/organization-contract`、`/api/pipeline/clauses/{key}/organization`、`/api/report-sessions/{id}/organized` 转发，不读取提取产物目录。尚未产出组织结果时显式返回待处理/不可用状态，不伪造空的已完成数据集。
+Console BFF经同名的`/api/report-sessions/{id}/results`、`/facts`、`/organized/{clause}`转发，使用total、returned、next_cursor。进入事实详情只取指定fact_id；进入条款后才取该条的一页。矩阵表示当前页。
 
-保存于产物端口自身的 `results/organized.json`。消费者取得 API 标识与链接，无需了解这个内部路径。布局/词典变更也进入条款全内容摘要和冻结快照；本次已固化的结果不会被后台按新布局静默改写。代码/合同类型变更要求服务重启，条款内容修改可通过仓储接口独立生效。
+生产者只增量保存新/变更事实；进度单独更新。事实索引拥有期间和条款关系，组织表在查询时生成，执行结束不生成整包组织缓存。新事实包不含显示URL或组织状态；完整原值通过独立ZIP交付。
+
+旧冻结任务使用原视图建立只读分页索引，保留原值与原条款摘要。现行条款和原始事实继续独立存储。
 
 当前导出与独立接收见[交接规范](delivery.md)，观测与发布见[产品规范](products.md)。
 

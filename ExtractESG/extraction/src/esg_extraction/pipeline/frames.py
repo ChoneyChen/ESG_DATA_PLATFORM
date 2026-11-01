@@ -45,3 +45,20 @@ def split_frame(frame, reason="generation_incomplete"):
             "char_start": source.char_start + start, "span_id": (source.span_id or source.object_id) + f"@{start}:{end}"})])
             for start, end in ((0, middle), (middle, len(source.text)))]
     return []
+
+
+def remainder_frames(frame, supplements, row_relations):
+    """Read omitted quantities in a target table after clause rules excluded others."""
+    if frame.fragment and frame.fragment.reason == "selection_remainder":
+        return []
+    if not any("match" in relations for relations in row_relations.values()):
+        return []
+    missing = {}
+    for match in supplements:
+        if "uncertain" in row_relations.get(match.row_id,set()):
+            missing.setdefault(match.row_id,set()).update(match.columns)
+    return [_child(frame,'selection_remainder',
+        rows=[row.model_copy(update={'cells':[cell for cell in row.cells if cell.column_id in missing[row.row_id]]})],
+        columns={key:path for key,path in frame.columns.items() if key in missing[row.row_id]},
+        column_sources={key:values for key,values in frame.column_sources.items() if key in missing[row.row_id]})
+        for row in frame.rows if row.row_id in missing]
