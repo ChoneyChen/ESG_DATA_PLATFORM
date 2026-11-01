@@ -35,7 +35,7 @@ CONTEXT_AXES = {
 def location(
     frame, object_id, text, role, *, object_type=None, bbox=None, page_index=None
 ):
-    return EvidenceLocation(
+    return EvidenceLocation(source_snapshot=frame.source_snapshot, 
         object_id=object_id,
         object_type=object_type
         or (
@@ -140,7 +140,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                     for item in items:
                         start, stop = max(offset, position), min(end, position + len(item.text))
                         if start < stop:
-                            pieces.append(EvidenceLocation(object_id=item.object_id, object_type=item.object_type,
+                            pieces.append(EvidenceLocation(source_snapshot=frame.source_snapshot, object_id=item.object_id, object_type=item.object_type,
                                 page_index=item.page_index, excerpt=item.text[start-position:stop-position], role="column_header", bbox=item.bbox))
                         position += len(item.text) + 1
                     source = (combined, "table", None, frame.page_index, frame.object_id, 0)
@@ -152,7 +152,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
             ):
                 flags.append("unbound_identity:" + claim.axis)
                 continue
-            evidence = EvidenceLocation(
+            evidence = EvidenceLocation(source_snapshot=frame.source_snapshot, 
                 object_id=source[4],
                 object_type=source[1],
                 page_index=source[3],
@@ -263,7 +263,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     )
     context = literal_categories(clause, context, attempts)
     evidence = [
-        EvidenceLocation(
+        EvidenceLocation(source_snapshot=frame.source_snapshot, 
             object_id=cell.source_object_id or cell.cell_id,
             object_type=cell.source_object_type,
             page_index=cell.page_index
@@ -280,7 +280,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     ]
     for source in row.label_sources:
         evidence.append(
-            EvidenceLocation(
+            EvidenceLocation(source_snapshot=frame.source_snapshot, 
                 object_id=source.object_id,
                 object_type=source.object_type,
                 page_index=source.page_index,
@@ -291,7 +291,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
             )
         )
     for source in frame.column_sources.get(cell.column_id, []):
-        evidence.append(EvidenceLocation(object_id=source.object_id, object_type=source.object_type,
+        evidence.append(EvidenceLocation(source_snapshot=frame.source_snapshot, object_id=source.object_id, object_type=source.object_type,
             page_index=source.page_index, excerpt=source.text, role="column_header", bbox=source.bbox,
             column_id=cell.column_id))
     if unit:
@@ -304,7 +304,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         support = next((source for source in sources if unit in source.text), None)
         if support:
             evidence.append(
-                EvidenceLocation(
+                EvidenceLocation(source_snapshot=frame.source_snapshot, 
                     object_id=support.object_id,
                     object_type=support.object_type,
                     page_index=support.page_index,
@@ -437,7 +437,7 @@ def qualitative_fact(clause, document, frame, match, interpretation_id):
         value=value,
         identity=context,
         evidence=[
-            EvidenceLocation(
+            EvidenceLocation(source_snapshot=frame.source_snapshot, 
                 object_id=text.object_id,
                 object_type=text.object_type,
                 page_index=text.page_index,

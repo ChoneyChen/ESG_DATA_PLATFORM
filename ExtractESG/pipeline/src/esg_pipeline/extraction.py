@@ -30,7 +30,7 @@ class ExtractionServiceUnavailable(ConnectionError):
 
 
 class ExtractionCoordinator:
-    def __init__(self, store, processing, queue, cancel_task, base_url):
+    def __init__(self, store, processing, queue, cancel_task, base_url, document_url="http://127.0.0.1:18080"):
         self.store, self.processing, self.queue, self.cancel_task = (
             store,
             processing,
@@ -38,6 +38,7 @@ class ExtractionCoordinator:
             cancel_task,
         )
         self.base_url = base_url.rstrip("/")
+        self.document_url = document_url.rstrip("/")
         self._stop = threading.Event()
         self._thread = None
         self._lock = threading.RLock()
@@ -46,19 +47,17 @@ class ExtractionCoordinator:
                 "CREATE TABLE IF NOT EXISTS clause_extraction_plans (id TEXT PRIMARY KEY, body TEXT NOT NULL)"
             )
 
-    def remote(self, method, path, payload=None):
+    def remote(self, method, path, payload=None, *, base_url=None):
         try:
             with requests.Session() as session:
                 session.trust_env = False
                 response = session.request(
                     method,
-                    self.base_url + path,
+                    (base_url or self.base_url) + path,
                     json=payload,
                     timeout=5 if method == "GET" else 30,
                 )
-                if response.status_code >= 500 or (
-                    method == "GET" and response.status_code >= 400
-                ):
+                if response.status_code >= 500:
                     raise ExtractionServiceUnavailable(
                         "提取服务暂时不可用，执行状态尚未确认。"
                     )
@@ -334,6 +333,7 @@ class ExtractionCoordinator:
             else "partial" if state["status"] == "partial" else "not_evaluated"
         )
         state["available_actions"] = []
+        delivery = state["run"].delivery if state.get("run") else None
         if state["status"] in {"queued", "running"}:
             state["available_actions"] = [
                 {
@@ -343,7 +343,20 @@ class ExtractionCoordinator:
                     "method": "POST",
                 }
             ]
+        elif state["status"] in {"interrupted", "failed", "cancelled"} and state.get("run") and not (delivery and delivery.export_id):
+            state["available_actions"] = [{"action":"resume", "label":"继续提取",
+                "endpoint":f"/api/report-sessions/{state['session_id']}/resume", "method":"POST"}]
         return ExtractionSession.model_validate(state).model_dump(mode="json")
+
+    def resume(self, key):
+        with self._lock:
+            state = self.get(key)
+            if not state.get("run_id"):
+                raise ValueError("The extraction has not started")
+            self.remote("POST", f"/api/runs/{state['run_id']}/resume", {})
+            state.update(status="queued", queue_task_id=None, cancel_requested=False, error=None, execution_index=state.get("execution_index",0)+1)
+            self.save(state)
+            return self.detail(state)
 
     def cancel(self, key):
         with self._lock:
@@ -394,6 +407,39 @@ class ExtractionCoordinator:
             state["status"] = "cancelling" if active else "cancelled"
         else:
             state["status"] = "cancelled"
+        self.save(state)
+
+    def _prepare_more(self, state, run, request):
+        need = run["evidence_request"]
+        if state.get("expansion_request") != need["request_id"]:
+            try:
+                located = self.remote("POST", f"/api/evidence/{need['source_ir_run_id']}/locate-pages",
+                    {"target":need["intent"], "excluded_pages":need["excluded_pages"], "limit":16},
+                    base_url=self.document_url)
+            except ValueError as exc:
+                located = {"page_indices":[],"reason":str(exc)}
+            asset_id = request.input.asset_id or ((run.get("document") or {}).get("report_resource") or {}).get("asset_id")
+            if not located["page_indices"] or not asset_id:
+                self.remote("POST", f"/api/runs/{state['run_id']}/resume", {"reason":located["reason"]})
+                state.update(queue_task_id=None, stage="extracting", execution_index=state.get("execution_index",0)+1)
+                self.save(state)
+                return
+            process = self.processing.create(ProcessingRequest(asset_id=asset_id, mode="auto",
+                source_sha256=(run.get("document") or {}).get("source_sha256"),
+                submission_key=f"{state['session_id']}:{need['request_id']}",
+                config=ProcessingConfig(page_indices=located["page_indices"], ocr_provider="local_paddleocr",
+                    allow_cloud_ocr=False,execute_required_reviews=False,execute_optional_reviews=False)))
+            state.update(processing_id=process["processing_id"], expansion_request=need["request_id"],stage="preparing")
+            self.save(state)
+        process = self.processing.get(state["processing_id"])
+        if process["status"] in {"ready", "ready_with_limits"}:
+            self.store.pin_ir(state["session_id"], process["ir_run_id"])
+            self.remote("POST",f"/api/runs/{state['run_id']}/resume", {"ir_run_id":process["ir_run_id"]})
+        elif process["status"] in {"failed", "interrupted", "cancelled", "needs_attention"}:
+            self.remote("POST",f"/api/runs/{state['run_id']}/resume", {"reason":"Additional document preparation did not produce evidence"})
+        else:
+            return
+        state.update(queue_task_id=None, stage="extracting", execution_index=state.get("execution_index",0)+1)
         self.save(state)
 
     def tick(self, state):
@@ -473,18 +519,22 @@ class ExtractionCoordinator:
             )
             state.update(run_id=run["run_id"], stage="extracting")
             self.save(state)
-        if not state["queue_task_id"]:
-            token = dispatch_key.set(state["session_id"])
+        run = self.remote("GET", f"/api/runs/{state['run_id']}")
+        if run.get("evidence_request"):
+            self._prepare_more(state, run, request)
+            return
+        previous = self.store.get(state["queue_task_id"]) if state.get("queue_task_id") else None
+        if run["status"] == "queued" and (previous is None or previous.status.value not in {"queued", "running"}):
+            token = dispatch_key.set(f"{state['session_id']}:extract:{state.get('execution_index',0)}")
             try:
                 task = self.queue(
-                    state["run_id"], request.name, request.budget.timeout_seconds
+                    state["run_id"], request.name, request.budget.timeout_seconds, session_id=state["session_id"]
                 )
             finally:
                 dispatch_key.reset(token)
             state["queue_task_id"] = task.task_id
             state["status"] = "running"
             self.save(state)
-        run = self.remote("GET", f"/api/runs/{state['run_id']}")
         if run["status"] in TERMINAL:
             state["status"] = run["status"]
             self.save(state)

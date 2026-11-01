@@ -59,6 +59,7 @@ def compile_projection(payload):
     """Input is an immutable database export snapshot; return a sealed projection."""
     export_id, input_digest = payload["export_id"], payload["input_digest"]
     document = payload["manifest"]["document"]
+    sources = payload["manifest"].get("sources", {})
     targets = {row["clause_key"]: row["contract"] for row in payload["targets"]}
     coverage = {row["clause_key"]: row for row in payload["coverage"]}
     definitions = []
@@ -74,8 +75,9 @@ def compile_projection(payload):
         reported_period = fact.identity.reporting_period
         period = normalize_period(reported_period.value) if _known(reported_period) else None
         period = period or ReportedPeriod(kind="unknown", raw=reported_period.raw_text or "期间未陈述")
-        source_resource = ReportResource.model_validate(document["report_resource"]) if document.get("report_resource") else fact.report_resource
-        source = _source(document, source_resource, fact.document_id)
+        source_document = sources.get(f"{fact.ir_run_id}:{fact.ir_revision}", document)
+        source_resource = ReportResource.model_validate(source_document["report_resource"]) if source_document.get("report_resource") else fact.report_resource
+        source = _source(source_document, source_resource, fact.document_id)
         source_conflict = bool(fact.report_resource and source.pdf_sha256 and fact.report_resource.sha256 != source.pdf_sha256)
         for link in sorted(by_fact[fact.source_fact_id] or [{"clause_key": None, "relation": "uncertain", "mapping": {}}], key=lambda row: row["clause_key"] or ""):
             key, relation = link["clause_key"], link["relation"]
@@ -107,7 +109,7 @@ def compile_projection(payload):
             observation_id = "observation-" + digest([TRANSFORM_VERSION, fact.model_dump(mode="json"),
                 contract["clause_digest"] if contract else None, link["mapping"], source.model_dump(mode="json")])
             observations.append(Observation(observation_id=observation_id, source_fact_id=fact.source_fact_id,
-                occurrence_id=_occurrence(fact, document), clause_key=key, clause_digest=contract["clause_digest"] if contract else None,
+                occurrence_id=_occurrence(fact, source_document), clause_key=key, clause_digest=contract["clause_digest"] if contract else None,
                 title=title, relation=relation, mapping=link["mapping"] or None, period=period, source_row_label=fact.source_row_label,
                 value=fact.value, identity=fact.identity, evidence=fact.evidence, source=source,
                 quality=fact.quality, flags=fact.flags, extensions=fact.extensions,

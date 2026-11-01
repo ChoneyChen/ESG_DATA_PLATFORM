@@ -4,6 +4,9 @@ from pydantic import Field, model_validator
 from .facts import FrozenModel
 from .evidence import DocumentReference
 from pydantic import JsonValue
+from pydantic import model_serializer
+
+EXPORT_VERSION = "extraction-export-1.2"
 
 
 class ExportFile(FrozenModel):
@@ -15,7 +18,7 @@ class ExportFile(FrozenModel):
 
 
 class ExportManifest(FrozenModel):
-    schema_version: Literal["extraction-export-1.1"] = "extraction-export-1.1"
+    schema_version: Literal["extraction-export-1.1", "extraction-export-1.2"] = EXPORT_VERSION
     authority: Literal["facts"]
     export_id: str = Field(pattern=r"^export-[a-f0-9]{64}$")
     run_id: str
@@ -23,11 +26,26 @@ class ExportManifest(FrozenModel):
     engine_version: str
     engine_identity: dict[str, JsonValue]
     document: DocumentReference
+    sources: dict[str, DocumentReference] = Field(default_factory=dict)
     clause_targets: dict[str, str]
     execution_state: Literal["completed", "interrupted"]
     sealed_at: str
     files: list[ExportFile] = Field(min_length=1)
     publication_status: Literal["not_evaluated"] = "not_evaluated"
+
+    @model_serializer(mode="wrap")
+    def declared_sources(self, serializer):
+        body = serializer(self)
+        if not self.sources:
+            body.pop("sources", None)
+        return body
+
+    def document_member(self):
+        primary = self.document.model_dump(mode="json")
+        return {"primary": primary, "snapshots": {key:value.model_dump(mode="json") for key,value in self.sources.items()}} if self.sources else primary
+
+    def source_for(self, fact):
+        return self.sources.get(f"{fact.ir_run_id}:{fact.ir_revision}", self.document)
 
     @model_validator(mode="after")
     def complete_members(self):

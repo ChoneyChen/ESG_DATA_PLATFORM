@@ -8,7 +8,6 @@ export async function receiptFor(db, exportId) {
 }
 export async function ingestExport(db, payload) {
   const {manifest,digest,facts,relations,targets,coverage,diagnostics}=payload;
-  if ((manifest?.schema_version!=='extraction-export-1.1'||manifest.authority!=='facts') || !Array.isArray(facts)) throw fault('unsupported_export','Unsupported extraction export');
   return db.transaction(async tx=>{
     await lockCaptureSource(tx,manifest);
     // The unique row serializes concurrent retries, including an uncertain RPC outcome.

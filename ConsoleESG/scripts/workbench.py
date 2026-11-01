@@ -84,7 +84,7 @@ def health(name):
     try:
         body=get(port,path)
         if name=='database':
-            ready=body.get('status')=='ok' and body.get('export_contract') == 'extraction-export-1.1' and body.get('products_ready') is True and not body.get('restart_required')
+            ready=body.get('status')=='ok' and body.get('products_ready') is True and not body.get('restart_required')
         elif name=='plat':
             ready=body.get('service')==service and body.get('readiness',{}).get('ready') is True and not body.get('restart_required')
         else:

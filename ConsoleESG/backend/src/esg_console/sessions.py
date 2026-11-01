@@ -63,6 +63,10 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
     def cancel(key: str):
         return call(coordinator.cancel, key)
 
+    @router.post("/api/report-sessions/{key}/resume")
+    def resume(key: str):
+        return call(coordinator.resume, key)
+
     @router.get("/api/report-sessions/{key}/facts")
     def facts(key: str):
         state = call(coordinator.get, key)

@@ -10,17 +10,18 @@ from esg_database.http_client import ProductClient
 app = document.app
 
 
-def queue_clause_run(run_id, name, timeout):
+def queue_clause_run(run_id, name, timeout, *, session_id):
     return document._queue_task(
         task_type=PipelineTaskType.TARGETED_EXTRACTION, operation="clause_extraction",
         title=name, native_job_id=run_id,
-        payload={"run_id": run_id, "_total_timeout_seconds": timeout}, deduplicate_native=True,
+        payload={"run_id": run_id, "session_id":session_id, "_total_timeout_seconds": timeout}, deduplicate_native=True,
     )
 
 
 extraction_plans = ExtractionCoordinator(
     document.pipeline_store, document.report_processing, queue_clause_run,
     document.cancel_pipeline_task, document.settings.extraction_backend_url,
+    os.getenv("ESG_DOCUMENT_BACKEND_URL", "http://127.0.0.1:18080"),
 )
 document.library_deletion.configure(
     cancel_task=document.cancel_pipeline_task, processing=document.report_processing, extractions=extraction_plans,

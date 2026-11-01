@@ -72,11 +72,12 @@ class OrganizationResult(FrozenModel):
 
 
 class FactBundle(FactCollection):
-    schema_version: Literal["extraction-fact-bundle-2.2"] = "extraction-fact-bundle-2.2"
+    schema_version: Literal["extraction-fact-bundle-2.2", "extraction-fact-bundle-2.3"] = "extraction-fact-bundle-2.3"
     engine_version: str
     engine_identity: dict[str, JsonValue]
     run_id: str
     document: DocumentReference
+    sources: dict[str, DocumentReference] = Field(default_factory=dict)
     clause_targets: dict[str, str]
     summary: RunSummary
     organization: OrganizationResult
@@ -87,16 +88,17 @@ class FactBundle(FactCollection):
         if len(ids) != len(self.facts):
             raise ValueError("Repeated fact identity")
         for fact in self.facts:
+            source = self.sources.get(f"{fact.ir_run_id}:{fact.ir_revision}", self.document)
             if (fact.document_id, fact.ir_run_id, fact.ir_revision) != (
-                self.document.document_id,
-                self.document.ir_run_id,
-                self.document.ir_revision,
+                source.document_id,
+                source.ir_run_id,
+                source.ir_revision,
             ):
                 raise ValueError("Fact belongs to a different document revision")
             if (
                 fact.report_resource
-                and self.document.report_resource
-                and fact.report_resource.sha256 != self.document.report_resource.sha256
+                and source.report_resource
+                and fact.report_resource.sha256 != source.report_resource.sha256
             ):
                 raise ValueError("Fact PDF differs from its document")
         for link in self.clause_mappings:

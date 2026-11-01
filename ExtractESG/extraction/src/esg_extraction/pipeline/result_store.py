@@ -90,6 +90,15 @@ class ResultStore:
         except FileNotFoundError:
             return None
 
+    def checkpoint(self, body=None):
+        if body is not None:
+            self.artifacts.write(self.run_id,'results/checkpoint.json',body)
+            return body
+        try:
+            return self.artifacts.read(self.run_id,'results/checkpoint.json')
+        except FileNotFoundError:
+            return {}
+
     def page(self, *, limit=100, cursor=None, clause_key=None, period=None, relation=None):
         import base64
         query = digest([self.run_id,limit,clause_key,period,relation])

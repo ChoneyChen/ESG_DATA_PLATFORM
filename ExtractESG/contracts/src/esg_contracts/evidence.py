@@ -5,6 +5,7 @@ from typing import Literal
 from esg_reports.contract import ReportResource
 from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 from esg_data.periods import ReportedPeriod
+from .search import PageSearchIntent
 
 
 class ProtocolModel(BaseModel):
@@ -32,6 +33,10 @@ class DocumentReference(ProtocolModel):
     report_resource: ReportResource | None = None
     search_scope: dict | None = None
     period_context: ReportingPeriodContext | None = None
+
+    @property
+    def snapshot_id(self):
+        return f"{self.ir_run_id}:{self.ir_revision}"
 
     @model_validator(mode="after")
     def physical_source(self):
@@ -82,6 +87,17 @@ class ObjectReference(ProtocolModel):
     page_index: int
     score: float
     chunk_count: int = 1
+    source_snapshot: str | None = None
+
+
+class EvidencePreparationRequest(ProtocolModel):
+    request_id: str
+    clause_key: str
+    phase: Literal["target", "context"]
+    source_ir_run_id: str
+    intent: PageSearchIntent
+    excluded_pages: list[int]
+    reason: str
 
 
 class ObjectSearchPage(ProtocolModel):
@@ -134,6 +150,7 @@ class TextEvidence(ProtocolModel):
     text: str
     page_index: int
     bbox: dict[str, float | None] | None = None
+    source_snapshot: str | None = None
 
 
 class FrameFragment(ProtocolModel):
@@ -156,6 +173,7 @@ class EvidenceFrame(ProtocolModel):
     chunk_count: int = 1
     digest: str
     fragment: FrameFragment | None = None
+    source_snapshot: str | None = None
 
     @model_serializer(mode="wrap")
     def preserve_frozen_shape(self, serializer):

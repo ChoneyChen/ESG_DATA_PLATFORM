@@ -40,7 +40,7 @@ def decode_archive(data):
     identity = canonical([manifest.schema_version, manifest.run_id, *[file.sha256 for file in sorted(manifest.files, key=lambda file: file.role)]])
     if manifest.export_id != "export-" + sha256(identity).hexdigest():
         raise ValueError("Export identity differs from its sealed members")
-    if members["document"] != manifest.document.model_dump(mode="json"):
+    if members["document"] != manifest.document_member():
         raise ValueError("Export document differs from the frozen source")
     if set(members["targets"]) != set(manifest.clause_targets) or any(
         target.get("clause_digest") != manifest.clause_targets[key] for key, target in members["targets"].items()
@@ -53,7 +53,8 @@ def decode_archive(data):
     for index, body in enumerate(members["facts"]):
         try:
             fact = SourceFact.model_validate(body)
-            if (fact.document_id, fact.ir_run_id, fact.ir_revision) != (manifest.document.document_id, manifest.document.ir_run_id, manifest.document.ir_revision):
+            source = manifest.source_for(fact)
+            if (fact.document_id, fact.ir_run_id, fact.ir_revision) != (source.document_id, source.ir_run_id, source.ir_revision):
                 raise ValueError("Fact belongs to a different document revision")
             if fact.source_fact_id in seen:
                 raise ValueError("Duplicate source fact identity")

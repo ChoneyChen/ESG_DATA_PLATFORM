@@ -128,6 +128,7 @@ class DocumentEvidenceService:
             ),
             search_scope={
                 "available_pages": sorted(pages),
+                "prepared_pages": sorted(set(pages) | set(ir.manifest.get("evidence_policy", {}).get("excluded_page_indices", []))),
                 "source_page_count": ir.manifest.get("source_page_count") or ir.manifest.get("page_coverage", {}).get("source_page_count"),
                 "mode": ir.manifest.get("page_coverage", {}).get("mode", "unknown"),
                 "report_wide_absence_proven": False,

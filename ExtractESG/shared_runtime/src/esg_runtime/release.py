@@ -137,15 +137,15 @@ def release_identity(extract_root: Path | None, service: str | None = None) -> d
             json.dumps(digests, sort_keys=True).encode()
         ).hexdigest(),
         "contracts": {
-            "clause": "clause-contract-1.3",
+            "clause": "clause-contract-1.4",
             "clause_navigation": "clause-catalog-4.0",
             "clause_descriptor": "clause-descriptor-1.0",
             "data": "extraction-data-2.0",
-            "facts": "extraction-fact-bundle-2.2",
+            "facts": "extraction-fact-bundle-2.3",
             "organization": "organized-extraction-1.1",
             "report_resource": "report-resource-1.0",
             "source_validation": "digest_and_bound_evidence",
-            "export": "extraction-export-1.1",
+            "export": "extraction-export-1.2",
         },
     }
     _CACHE.clear()

@@ -33,6 +33,14 @@ class EvidenceLocation(FrozenModel):
     column_id: str | None = None
     char_start: int | None = None
     char_end: int | None = None
+    source_snapshot: str | None = None
+
+    @model_serializer(mode="wrap")
+    def source_reference_when_present(self, serializer):
+        body = serializer(self)
+        if self.source_snapshot is None:
+            body.pop("source_snapshot", None)
+        return body
 
     @model_validator(mode="after")
     def physical_location(self):
@@ -150,6 +158,14 @@ class ClauseMapping(FrozenModel):
     flags: list[str] = Field(default_factory=list)
 
 
+class SearchQueryObservation(FrozenModel):
+    source_snapshot: str
+    level: Literal["primary", "broader"]
+    returned: int = 0
+    total: int | None = None
+    query_digest: str | None = None
+
+
 class SearchObservation(FrozenModel):
     total: int | None = Field(default=None, ge=0)
     returned: int = Field(ge=0)
@@ -157,6 +173,8 @@ class SearchObservation(FrozenModel):
     query_digest: str | None = None
     scope: dict[str, JsonValue] | None = None
     coverage_observation: str | None = None
+    queries: list[SearchQueryObservation] = Field(default_factory=list)
+    error: str | None = None
 
 
 class PeriodCoverage(FrozenModel):

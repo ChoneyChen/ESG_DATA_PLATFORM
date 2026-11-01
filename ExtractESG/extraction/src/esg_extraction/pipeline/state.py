@@ -136,7 +136,7 @@ class RunStore:
                 raise ValueError(
                     "Run is not queued; start a new run with an explicit target snapshot"
                 )
-            state.update(status="running", started_at=now(), updated_at=now())
+            state.update(status="running", started_at=state.get("started_at") or now(), updated_at=now())
             from esg_runtime.process import identity
 
             state.update(worker_pid=os.getpid(), worker_started=identity(os.getpid()))

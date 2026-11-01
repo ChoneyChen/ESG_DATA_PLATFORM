@@ -477,14 +477,24 @@
       "type": "string"
     },
     "schema_version": {
-      "const": "extraction-export-1.1",
-      "default": "extraction-export-1.1",
+      "default": "extraction-export-1.2",
+      "enum": [
+        "extraction-export-1.1",
+        "extraction-export-1.2"
+      ],
       "title": "Schema Version",
       "type": "string"
     },
     "sealed_at": {
       "title": "Sealed At",
       "type": "string"
+    },
+    "sources": {
+      "additionalProperties": {
+        "$ref": "#/$defs/DocumentReference"
+      },
+      "title": "Sources",
+      "type": "object"
     }
   },
   "required": [

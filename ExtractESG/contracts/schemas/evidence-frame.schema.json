@@ -269,6 +269,18 @@
           "title": "Page Index",
           "type": "integer"
         },
+        "source_snapshot": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Snapshot"
+        },
         "span_id": {
           "anyOf": [
             {
@@ -364,6 +376,18 @@
       },
       "title": "Rows",
       "type": "array"
+    },
+    "source_snapshot": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Snapshot"
     },
     "texts": {
       "items": {

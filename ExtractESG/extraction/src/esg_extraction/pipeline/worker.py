@@ -27,6 +27,8 @@ def main():
             "result",
             payload={
                 **result,
+                "status": "completed" if result.get("evidence_request") else result["status"],
+                "execution_continues": bool(result.get("evidence_request")),
                 "progress_current": progress.get("current", 0),
                 "progress_total": progress.get("total", 0),
             },

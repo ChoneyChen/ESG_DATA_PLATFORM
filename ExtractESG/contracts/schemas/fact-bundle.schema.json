@@ -408,6 +408,18 @@
           ],
           "default": null,
           "title": "Row Id"
+        },
+        "source_snapshot": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Snapshot"
         }
       },
       "required": [
@@ -1161,6 +1173,25 @@
           "default": null,
           "title": "Coverage Observation"
         },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "queries": {
+          "items": {
+            "$ref": "#/$defs/SearchQueryObservation"
+          },
+          "title": "Queries",
+          "type": "array"
+        },
         "query_digest": {
           "anyOf": [
             {
@@ -1216,6 +1247,58 @@
         "truncated"
       ],
       "title": "SearchObservation",
+      "type": "object"
+    },
+    "SearchQueryObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "primary",
+            "broader"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "query_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Digest"
+        },
+        "returned": {
+          "default": 0,
+          "title": "Returned",
+          "type": "integer"
+        },
+        "source_snapshot": {
+          "title": "Source Snapshot",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        }
+      },
+      "required": [
+        "source_snapshot",
+        "level"
+      ],
+      "title": "SearchQueryObservation",
       "type": "object"
     },
     "SourceFact": {
@@ -1394,10 +1477,20 @@
       "type": "string"
     },
     "schema_version": {
-      "const": "extraction-fact-bundle-2.2",
-      "default": "extraction-fact-bundle-2.2",
+      "default": "extraction-fact-bundle-2.3",
+      "enum": [
+        "extraction-fact-bundle-2.2",
+        "extraction-fact-bundle-2.3"
+      ],
       "title": "Schema Version",
       "type": "string"
+    },
+    "sources": {
+      "additionalProperties": {
+        "$ref": "#/$defs/DocumentReference"
+      },
+      "title": "Sources",
+      "type": "object"
     },
     "summary": {
       "$ref": "#/$defs/RunSummary"

@@ -27,6 +27,18 @@
         "score": {
           "title": "Score",
           "type": "number"
+        },
+        "source_snapshot": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Snapshot"
         }
       },
       "required": [

@@ -484,6 +484,7 @@ def _dispatch_processing_step(stage, config, state, secrets):
                 token=secrets.get("ocr_token"),
                 page_selection=config.get("page_selection", "all"),
                 page_search_targets=config.get("page_search_targets") or [],
+                page_indices=config.get("page_indices"),
             )
         )
     if stage == "ir":
@@ -1367,10 +1368,18 @@ def _resource_for_evidence(reference):
     return None
 
 
+def _pdf_for_evidence(reference):
+    resource = reference.report_resource or report_resources.by_sha(reference.source_sha256)
+    if resource is None:
+        raise KeyError("Original PDF is not registered")
+    return report_assets.resolve(resource.asset_id)
+
+
 app.include_router(
     evidence_router(
         lambda key: package_dir(settings.document_ir_output_root, key),
         _resource_for_evidence,
+        _pdf_for_evidence,
     )
 )
 

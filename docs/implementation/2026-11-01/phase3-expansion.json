@@ -1,0 +1,88 @@
+{
+  "session_id": "extract-plan-701db990a6af427a9e5f120c429f3332",
+  "run_id": "extract-05b9a78cdae609d52bb5219b35e8d2e2",
+  "status": "partial",
+  "summary": {
+    "selected_clauses": 1,
+    "processed_clauses": 1,
+    "source_facts": 165,
+    "quantitative": 165,
+    "qualitative": 0,
+    "model_calls": 12,
+    "elapsed_seconds": 2526.125,
+    "errors": [
+      {
+        "clause_key": "S1-6_01",
+        "object_id": "table-p0075-0002",
+        "error": "ModelTimedOut: model generation exceeded 600 seconds"
+      }
+    ],
+    "assessment": {
+      "execution_state": "interrupted",
+      "search_coverage": "incomplete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "insufficient_context",
+      "target_facts": 0,
+      "other_facts": 90,
+      "unresolved_facts": 75,
+      "rejected_candidates": 72,
+      "periods": {
+        "2023": 54,
+        "2024": 54,
+        "2025": 57
+      }
+    }
+  },
+  "sources": {
+    "ir-20261101T101442Z-9fce47649e56:1": {
+      "ir_run_id": "ir-20261101T101442Z-9fce47649e56",
+      "ir_revision": 1,
+      "pages": [
+        0,
+        1,
+        2,
+        30,
+        53,
+        54,
+        55,
+        56,
+        57,
+        71,
+        72,
+        73,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87
+      ]
+    },
+    "ir-20261101T113855Z-76d27e3320c6:1": {
+      "ir_run_id": "ir-20261101T113855Z-76d27e3320c6",
+      "ir_revision": 1,
+      "pages": [
+        34,
+        35,
+        60,
+        61,
+        74,
+        75
+      ]
+    }
+  },
+  "facts_by_snapshot": {
+    "ir-20261101T101442Z-9fce47649e56": 63,
+    "ir-20261101T113855Z-76d27e3320c6": 102
+  },
+  "delivery": {
+    "export_id": "export-18af8904cdc6c7020b72d51e48addf52822edc8231f0cd4c7944d392fb9c30b3",
+    "state": "delivered",
+    "accepted_facts": 165,
+    "rejected_facts": 0,
+    "message": null,
+    "retryable": false
+  },
+  "note": "Scope expansion and same-run resumption delivered both snapshots. No employee target match; one real model read timed out. Raw values retained; no non-disclosure conclusion."
+}

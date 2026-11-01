@@ -3,7 +3,7 @@
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from .facts import PipelineBudget, RunRequest
-from .evidence import DocumentReference
+from .evidence import DocumentReference, EvidencePreparationRequest
 from .results import RunSummary
 from .exports import DeliveryStatus
 
@@ -103,6 +103,8 @@ class NativeRun(View):
     name: str = "条款提取"
     request: RunRequest | None = None
     document: DocumentReference | None = None
+    evidence_sources: dict[str, DocumentReference] = Field(default_factory=dict)
+    evidence_request: EvidencePreparationRequest | None = None
     engine_fingerprint: str | None = None
     clause_keys: list[str] = Field(default_factory=list)
     target_digest: str | None = None
@@ -159,7 +161,7 @@ class Preparation(View):
 
 
 class SessionAction(View):
-    action: Literal["cancel"]
+    action: Literal["cancel", "resume"]
     label: str
     endpoint: str
     method: Literal["POST"] = "POST"

@@ -753,14 +753,6 @@ class PipelineScheduler:
 
     @staticmethod
     def _normalize_result(task: PipelineTask, result: dict) -> dict:
-        if task.operation in {"report_session", "report_session_resume"}:
-            execution = result.get("execution_status")
-            status = (
-                ("completed" if result.get("result_status") == "usable" else "partial")
-                if execution == "finished"
-                else execution
-            )
-            return {**result, "status": status}
         return result
 
     @staticmethod
@@ -844,14 +836,5 @@ class PipelineScheduler:
                 os.getenv("ESG_OCR_SOURCE_URL")
             )
         if task.task_type.value == "document_ir":
-            return bool(os.getenv("QINIU_API_KEY"))
-        if task.task_type.value == "targeted_extraction" and (
-            task.payload.get("semantic_provider") == "qiniu_vlm"
-            or any(
-                role.get("provider") == "qiniu_vlm"
-                for role in (task.payload.get("role_config") or {}).values()
-                if isinstance(role, dict)
-            )
-        ):
             return bool(os.getenv("QINIU_API_KEY"))
         return True

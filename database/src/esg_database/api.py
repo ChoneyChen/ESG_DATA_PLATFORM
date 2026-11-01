@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from .client import DatabaseBridge, DatabaseError, module_release
 from .ingestion import decode_archive, MAX_ARCHIVE_BYTES
 from .contracts import CaptureFactPage
-from esg_contracts.exports import IngestionReceipt
+from esg_contracts.exports import IngestionReceipt, EXPORT_VERSION
 from .projector import ProjectionWorker
 from .products_api import product_router
 from .sources_api import sources_router
@@ -44,8 +44,8 @@ def create_app(bridge=None):
         ready = schema.get("ready")
         if not ready:
             raise HTTPException(503, "Install the capture schema with the explicit management command")
-        return {**release.snapshot(), "status": "ok", "export_contract": "extraction-export-1.1",
-                "supported_export_contracts": ["extraction-export-1.1"], "auto_publish": False,
+        return {**release.snapshot(), "status": "ok", "export_contract": EXPORT_VERSION,
+                "supported_export_contracts": ["extraction-export-1.1", EXPORT_VERSION], "auto_publish": False,
                 "products_ready": bool(schema.get("products_ready"))}
 
     @app.post("/v1/ingestion/exports", response_model=IngestionReceipt)

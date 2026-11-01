@@ -84,6 +84,7 @@ class ProcessingConfig(BaseModel):
     # "clauses" OCRs only the pages the selected clause retrieval terms pick;
     page_selection: Literal["all", "clauses"] = "all"
     page_search_targets: list[PageSearchIntent] = Field(default_factory=list)
+    page_indices: list[int] | None = None
     execute_optional_reviews: bool = False
     execute_required_reviews: bool = True
     review_provider: Literal["local_qwen", "local_nuextract", "qiniu"] = "local_qwen"
@@ -502,6 +503,8 @@ class ReportProcessingCoordinator:
             )
         )
         values = {k: config.get(k, False) for k in keys}
+        if stage == "ocr" and config.get("page_indices") is not None:
+            values["page_indices"] = config["page_indices"]
         # Whole-document digests stay unchanged; only a targeted selection is keyed in.
         if stage == "ocr" and config.get("page_selection", "all") != "all":
             values["page_selection"] = config["page_selection"]
@@ -591,7 +594,11 @@ class ReportProcessingCoordinator:
             selector = (ocr_manifest.get("page_selection") or {}).get(
                 "selector"
             ) or "all"
-            if selector != config.page_selection and config.page_selection == "all":
+            selector = selector.get("name", "all") if isinstance(selector, dict) else selector
+            if selector == "explicit":
+                config = config.model_copy(update={"page_selection": "all",
+                    "page_indices": ocr_manifest["page_selection"]["page_indices"]})
+            elif selector != config.page_selection and config.page_selection == "all":
                 config = config.model_copy(update={"page_selection": selector})
             asset = self.assets.get(document["asset_id"])
             if asset["sha256"] != document["source_sha256"]:
@@ -852,7 +859,8 @@ class ReportProcessingCoordinator:
             selector = (
                 (selection.get("selector") or {}).get("name") if selection else "all"
             )
-            if selector != config.get("page_selection", "all"):
+            expected_selector = "explicit" if config.get("page_indices") is not None else config.get("page_selection", "all")
+            if selector != expected_selector:
                 raise ValueError(
                     "识别成果的页面范围与固定处理请求不一致；部分页识别不能用于全文处理"
                 )

@@ -51,6 +51,11 @@ class ExecutionTerminal(BaseModel):
     error: str = Field(max_length=1000)
 
 
+class ResumeRun(BaseModel):
+    ir_run_id: str | None = None
+    reason: str | None = None
+
+
 def create_app(resource_factory=resources):
     from .delivery import DeliveryOutbox
     outbox = DeliveryOutbox(resource_factory)
@@ -316,8 +321,40 @@ def create_app(resource_factory=resources):
         return store.update(
             run_id,
             cancel_requested=True,
-            **({"status": "cancelled"} if state["status"] == "queued" else {}),
+            **({"status": "cancelled", "evidence_request":None} if state["status"] == "queued" or (state.get("evidence_request") and not state.get("worker_pid")) else {}),
         )
+
+    @app.post("/api/runs/{run_id}/resume", response_model=NativeRun)
+    def resume(run_id: str, request: ResumeRun):
+        require_current_engine()
+        _, store, _, documents = resource_factory()
+        state = store.get(run_id)
+        if state["status"] == "queued":
+            return store.public(state)
+        if state.get("engine_fingerprint") != started_engine:
+            raise HTTPException(409, "The extraction engine changed; create a new extraction")
+        if (state.get("delivery") or {}).get("export_id"):
+            raise HTTPException(409, "This extraction is sealed; create a new extraction")
+        need = state.get("evidence_request")
+        if not need and state["status"] not in {"interrupted", "failed", "cancelled"}:
+            raise HTTPException(409, "Extraction is already running")
+        sources = dict(state.get("evidence_sources") or {})
+        from esg_contracts.evidence import DocumentReference
+        primary = DocumentReference.model_validate(state["document"])
+        sources.setdefault(primary.snapshot_id, primary.model_dump(mode="json"))
+        exhausted = dict(state.get("exhausted_queries") or {})
+        if request.ir_run_id:
+            additional = documents.document(request.ir_run_id)
+            if additional.source_sha256 != primary.source_sha256:
+                raise HTTPException(409, "Additional evidence belongs to a different PDF")
+            sources[additional.snapshot_id] = additional.model_dump(mode="json")
+        elif need:
+            exhausted[need["request_id"]] = request.reason or "No additional pages were located"
+        store.progress(run_id, current_call=None, progress={"stage":"queued", "current":0,
+            "total":len(state["targets"]["clauses"]), "fact_count":(state.get("summary") or {}).get("source_facts",0)})
+        return store.update(run_id, status="queued", worker_pid=None, worker_started=None,
+            evidence_request=None, evidence_sources=sources, exhausted_queries=exhausted,
+            cancel_requested=False, error=None, finished_at=None)
 
     @app.post("/api/runs/{run_id}/execution-terminal")
     def execution_terminal(run_id: str, request: ExecutionTerminal) -> NativeRun:

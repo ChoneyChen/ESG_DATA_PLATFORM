@@ -9,7 +9,7 @@ def _field(raw, sources, role, state="stated"):
     if not period or not sources:
         return None
     return ReportedField(state=state, raw_text=raw, value=period_payload(period), evidence=[
-        EvidenceLocation(object_id=source.object_id, object_type=source.object_type,
+        EvidenceLocation(source_snapshot=source.source_snapshot, object_id=source.object_id, object_type=source.object_type,
             page_index=source.page_index, excerpt=source.text, role=role, bbox=source.bbox)
         for source in sources
     ])
@@ -45,6 +45,6 @@ def bind_period(frame, *, row=None, column_id=None, document=None):
         period = parse_period(context["evidence"])
         if period:
             return ReportedField(state="inherited", raw_text=context["evidence"], value=period_payload(period), evidence=[
-                EvidenceLocation(object_id=context["source_id"], object_type="text_block",
+                EvidenceLocation(source_snapshot=frame.source_snapshot, object_id=context["source_id"], object_type="text_block",
                     page_index=context["page_index"], excerpt=context["evidence"], role="report")]), []
     return None, []

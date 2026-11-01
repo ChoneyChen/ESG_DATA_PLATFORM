@@ -19,7 +19,7 @@ TABLES = {
     "properties": [("observation_id","string"),("container","string"),("field_key","string"),("state","string"),
         ("raw_text","string"),("value_path","string"),("value_type","string"),("value_text","string")],
     "evidence": [("observation_id","string"),("container","string"),("field_key","string"),("evidence_index","int32"),
-        ("object_id","string"),("object_type","string"),("page_index","int32"),("role","string"),("excerpt","string"),
+        ("source_snapshot","string"),("object_id","string"),("object_type","string"),("page_index","int32"),("role","string"),("excerpt","string"),
         ("row_id","string"),("column_id","string"),("char_start","int32"),("char_end","int32")],
     "coordinates": [("observation_id","string"),("container","string"),("field_key","string"),("evidence_index","int32"),
         ("coordinate_key","string"),("coordinate_value","decimal")],

@@ -21,7 +21,8 @@ export async function sourceReferences(db,scope){
   const pdf=isPdf(scope);
   const rows=(await db.query(`SELECT export_id,manifest->>'run_id' AS run_id,manifest#>>'{document,ir_run_id}' AS ir_run_id
     FROM esg.capture_exports WHERE ($1::text IS NOT NULL AND COALESCE(manifest#>>'{document,source_sha256}',manifest#>>'{document,report_resource,sha256}')=$1)
-    OR manifest->>'run_id'=ANY($2) OR manifest#>>'{document,ir_run_id}'=ANY($3) ORDER BY export_id`,
+    OR manifest->>'run_id'=ANY($2) OR manifest#>>'{document,ir_run_id}'=ANY($3)
+    OR EXISTS(SELECT 1 FROM jsonb_each(COALESCE(manifest->'sources','{}'::jsonb)) s WHERE s.value->>'ir_run_id'=ANY($3)) ORDER BY export_id`,
     [pdf?scope.source_sha256:null,scope.job_ids||[],scope.ir_run_ids||[]])).rows;
   return {schema_version:'source-references-1.0',verified:true,scope,
     dependencies:rows.map(row=>({...row,kind:pdf?'source_pdf':'cache_provenance',requires_files:pdf})),

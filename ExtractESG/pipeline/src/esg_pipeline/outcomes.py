@@ -150,54 +150,12 @@ def stage_outcome(
                         endpoint="/api/report-sessions/preview",
                     )
                 )
-    elif task.task_type.value == "targeted_extraction" and state in {
-        "partial",
-        "failed",
-        "interrupted",
-        "cancelled",
-    }:
-        is_session = task.operation in {"report_session", "report_session_resume"}
-        prefix = (
-            "/api/report-sessions"
-            if is_session
-            else "/api/pipeline/tasks/targeted-extraction"
-        )
-        unfinished = (
-            not is_session
-            or any(job.get("status") != "completed" for job in result.get("jobs", []))
-            or not result.get("jobs")
-        )
-        if unfinished:
-            actions.append(
-                AvailableAction(
-                    action="resume",
-                    label="恢复未完成动作",
-                    scope={
-                        "session_id" if is_session else "job_id": task.native_job_id
-                    },
-                    endpoint=f"{prefix}/{task.native_job_id}/resume",
-                    calls_model=True,
-                    incurs_cost=task.payload.get("semantic_provider") == "qiniu_vlm"
-                    or any(
-                        role.get("provider") == "qiniu_vlm"
-                        for role in (
-                            task.payload.get("role_config")
-                            or task.payload.get("roles")
-                            or {}
-                        ).values()
-                        if isinstance(role, dict)
-                    ),
-                )
-            )
-        if state == "partial" and unfinished and not gaps:
-            gaps = [
-                EvidenceGap(
-                    gap_id=f"{task.task_id}:coverage",
-                    kind="mapping",
-                    reason="Some selected requirements retain unresolved actions",
-                    next_action="resume",
-                )
-            ]
+    elif task.task_type.value == "targeted_extraction" and state in {"failed", "interrupted", "cancelled"}:
+        session_id = task.payload.get("session_id")
+        if session_id and not (result.get("delivery") or {}).get("export_id"):
+            actions.append(AvailableAction(action="resume", label="继续提取",
+                scope={"session_id":session_id,"run_id":task.native_job_id},
+                endpoint=f"/api/report-sessions/{session_id}/resume"))
     errors = list(
         dict.fromkeys(
             [*execution_errors(result), *([task.error] if task.error else [])]

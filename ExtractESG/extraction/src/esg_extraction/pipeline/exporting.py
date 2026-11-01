@@ -5,7 +5,7 @@ import io
 import json
 from zipfile import ZipFile, ZIP_DEFLATED
 from esg_contracts.results import FactBundle
-from esg_contracts.exports import ExportManifest, ExportFile
+from esg_contracts.exports import ExportManifest, ExportFile, EXPORT_VERSION
 from esg_contracts.annotations import property_tables
 
 
@@ -17,6 +17,9 @@ def seal_export(run_id, store, artifacts):
     state = store.get(run_id)
     if state["status"] not in {"completed", "partial"}:
         raise ValueError("Only an ended extraction can be sealed for delivery")
+    if (state.get("delivery") or {}).get("export_id"):
+        export_id = state["delivery"]["export_id"]
+        return ExportManifest.model_validate(artifacts.read(run_id, f"exports/{export_id}/manifest.json"))
     bundle = FactBundle.model_validate(artifacts.read(run_id, "results/facts.json"))
     facts = [fact.model_dump(mode="json") for fact in bundle.facts]
     properties, evidence = property_tables(facts)
@@ -29,13 +32,15 @@ def seal_export(run_id, store, artifacts):
         "relations": [link.model_dump(mode="json") for link in bundle.clause_mappings],
         "coverage": [c.model_dump(mode="json") for c in bundle.coverage],
         "targets": state["targets"]["clauses"],
-        "document": bundle.document.model_dump(mode="json"), "diagnostics": candidates,
+        "document": ({"primary":bundle.document.model_dump(mode="json"),
+            "snapshots": {key:value.model_dump(mode="json") for key,value in bundle.sources.items()}}
+            if bundle.sources else bundle.document.model_dump(mode="json")), "diagnostics": candidates,
     }
     files = []
     for role, content in sorted(members.items()):
         data = json_bytes(content)
         files.append(ExportFile(name=role + ".json", role=role, sha256=sha256(data).hexdigest(), bytes=len(data), records=len(content) if role != "document" else 1))
-    identity = json_bytes(["extraction-export-1.1", run_id, *[f.sha256 for f in files]])
+    identity = json_bytes([EXPORT_VERSION, run_id, *[f.sha256 for f in files]])
     export_id = "export-" + sha256(identity).hexdigest()
     name = f"exports/{export_id}/manifest.json"
     try:
@@ -43,7 +48,7 @@ def seal_export(run_id, store, artifacts):
     except FileNotFoundError:
         pass
     manifest = ExportManifest(authority="facts", export_id=export_id, run_id=run_id, engine_version=bundle.engine_version, engine_identity=bundle.engine_identity,
-        document=bundle.document, clause_targets=bundle.clause_targets,
+        document=bundle.document, sources=bundle.sources, clause_targets=bundle.clause_targets,
         execution_state="completed" if state["status"] == "completed" else "interrupted",
         sealed_at=datetime.now(timezone.utc).isoformat(), files=files)
     for role, content in members.items():

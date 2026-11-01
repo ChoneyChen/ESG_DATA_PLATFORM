@@ -370,11 +370,7 @@ def build_organized_dataset(run_id, document, clauses, facts, mappings):
             if fact is None or fact_id in conflicted:
                 flags.append("unavailable_or_conflicting_source_fact:" + fact_id)
                 continue
-            if (
-                fact["document_id"] != document.document_id
-                or fact["ir_run_id"] != document.ir_run_id
-                or fact["ir_revision"] != document.ir_revision
-            ):
+            if fact.get("report_resource") and document.report_resource and fact["report_resource"]["sha256"] != document.report_resource.sha256:
                 flags.append("source_document_mismatch:" + fact_id)
                 continue
             expected = (
