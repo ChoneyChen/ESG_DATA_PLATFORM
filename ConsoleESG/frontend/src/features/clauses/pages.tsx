@@ -238,8 +238,6 @@ export function ClausesPage({
             <Badge tone={tone(clause.readiness)}>
               {label(clause.readiness)}
             </Badge>
-            {!clause.acceptance?.samples?.length && <Badge>待样本验收</Badge>}
-            <Badge>{label(clause.organization.curation || "template")}</Badge>
             {clause.value.canonical_unit && (
               <span>{clause.value.canonical_unit}</span>
             )}
@@ -368,10 +366,10 @@ export function ClausesPage({
                         </td>
                         <td>{f.required_for_confirmation ? "必需" : "可选"}</td>
                         <td>
-                          {f.vocabulary?.length ? (
+                          {clause.attributes[f.binding.key]?.vocabulary?.length ? (
                             <details>
-                              <summary>{f.vocabulary.length} 项</summary>
-                              {f.vocabulary.map((v) => (
+                              <summary>{clause.attributes[f.binding.key].vocabulary!.length} 项</summary>
+                              {clause.attributes[f.binding.key].vocabulary!.map((v) => (
                                 <p key={v.code}>
                                   {v.label}{" "}
                                   <small>

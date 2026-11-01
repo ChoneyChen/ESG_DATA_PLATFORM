@@ -1,80 +1,64 @@
 {
   "$defs": {
-    "AcceptanceProfile": {
+    "AttributeDefinition": {
       "additionalProperties": false,
       "properties": {
-        "minimum_reports": {
-          "default": 1,
-          "minimum": 1,
-          "title": "Minimum Reports",
-          "type": "integer"
-        },
-        "samples": {
+        "context_terms": {
           "items": {
-            "$ref": "#/$defs/AcceptanceSample"
+            "type": "string"
           },
-          "title": "Samples",
+          "title": "Context Terms",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "reading_instruction": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reading Instruction"
+        },
+        "source": {
+          "enum": [
+            "identity",
+            "dimension"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "vocabulary": {
+          "items": {
+            "$ref": "#/$defs/VocabularyEntry"
+          },
+          "title": "Vocabulary",
           "type": "array"
         }
       },
-      "title": "AcceptanceProfile",
-      "type": "object"
-    },
-    "AcceptanceSample": {
-      "additionalProperties": false,
-      "description": "An expectation bound to a real run; it is evidence of behaviour, not a value source.",
-      "properties": {
-        "expected_absent": {
-          "default": false,
-          "title": "Expected Absent",
-          "type": "boolean"
-        },
-        "expected_value_raw": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Expected Value Raw"
-        },
-        "report_label": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Report Label"
-        },
-        "run_ref": {
-          "minLength": 1,
-          "title": "Run Ref",
-          "type": "string"
-        },
-        "scope_id": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Scope Id"
-        }
-      },
       "required": [
-        "run_ref"
+        "label",
+        "source"
       ],
-      "title": "AcceptanceSample",
+      "title": "AttributeDefinition",
       "type": "object"
     },
     "CapturePolicy": {
@@ -428,13 +412,6 @@
           ],
           "title": "Type Hint",
           "type": "string"
-        },
-        "vocabulary": {
-          "items": {
-            "$ref": "#/$defs/VocabularyEntry"
-          },
-          "title": "Vocabulary",
-          "type": "array"
         }
       },
       "required": [
@@ -449,15 +426,6 @@
     "OrganizationSpec": {
       "additionalProperties": false,
       "properties": {
-        "curation": {
-          "default": "template",
-          "enum": [
-            "template",
-            "sample"
-          ],
-          "title": "Curation",
-          "type": "string"
-        },
         "description": {
           "anyOf": [
             {
@@ -506,8 +474,8 @@
           "type": "array"
         },
         "schema_version": {
-          "const": "clause-organization-1.0",
-          "default": "clause-organization-1.0",
+          "const": "clause-organization-1.1",
+          "default": "clause-organization-1.1",
           "title": "Schema Version",
           "type": "string"
         },
@@ -976,17 +944,6 @@
     "ValueContract": {
       "additionalProperties": false,
       "properties": {
-        "aggregation": {
-          "default": "none",
-          "enum": [
-            "none",
-            "sum_disjoint_members",
-            "ratio_recompute",
-            "do_not_sum"
-          ],
-          "title": "Aggregation",
-          "type": "string"
-        },
         "canonical_unit": {
           "anyOf": [
             {
@@ -999,26 +956,12 @@
           "default": null,
           "title": "Canonical Unit"
         },
-        "comparison_requirements": {
-          "items": {
-            "type": "string"
-          },
-          "title": "Comparison Requirements",
-          "type": "array"
-        },
         "fixed_axes": {
           "additionalProperties": {
             "type": "string"
           },
           "title": "Fixed Axes",
           "type": "object"
-        },
-        "identity_axes": {
-          "items": {
-            "type": "string"
-          },
-          "title": "Identity Axes",
-          "type": "array"
         },
         "unit_dimension": {
           "anyOf": [
@@ -1031,21 +974,6 @@
           ],
           "default": null,
           "title": "Unit Dimension"
-        },
-        "value_origin": {
-          "default": "reported",
-          "enum": [
-            "reported",
-            "derived",
-            "either"
-          ],
-          "title": "Value Origin",
-          "type": "string"
-        },
-        "value_role": {
-          "default": "actual",
-          "title": "Value Role",
-          "type": "string"
         }
       },
       "title": "ValueContract",
@@ -1082,8 +1010,12 @@
   },
   "additionalProperties": false,
   "properties": {
-    "acceptance": {
-      "$ref": "#/$defs/AcceptanceProfile"
+    "attributes": {
+      "additionalProperties": {
+        "$ref": "#/$defs/AttributeDefinition"
+      },
+      "title": "Attributes",
+      "type": "object"
     },
     "blocking_reasons": {
       "items": {
@@ -1197,8 +1129,8 @@
       "$ref": "#/$defs/RetrievalProfile"
     },
     "schema_version": {
-      "const": "clause-contract-1.3",
-      "default": "clause-contract-1.3",
+      "const": "clause-contract-1.4",
+      "default": "clause-contract-1.4",
       "title": "Schema Version",
       "type": "string"
     },
@@ -1214,6 +1146,7 @@
     "exclusions",
     "data_kind",
     "value",
+    "attributes",
     "output_scopes",
     "reading",
     "retrieval",

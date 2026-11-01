@@ -56,6 +56,7 @@ def execute(run_id, *, model=None):
     from esg_contracts.evidence import DocumentReference
     from .adapters.local_model import LocalQwenModel
     from .engine import ExtractionBackbone, PipelineCancelled, ENGINE_VERSION
+    from .result_store import ResultStore
 
     repo, store, artifacts, documents = resources()
     state = store.claim(run_id)
@@ -67,7 +68,7 @@ def execute(run_id, *, model=None):
             )
         )
     )
-    model.progress_callback = lambda event: store.update(run_id, current_call=event)
+    model.progress_callback = lambda event: store.progress(run_id, current_call=event)
     try:
         fingerprint = engine_digest()
         if state.get("engine_fingerprint") != fingerprint:
@@ -84,14 +85,15 @@ def execute(run_id, *, model=None):
             documents,
             model,
             artifacts,
+            ResultStore(run_id, artifacts),
             engine_identity={"version": ENGINE_VERSION, "fingerprint": fingerprint},
         ).run(
             run_id,
             RunRequest.model_validate(state["request"]),
             repo.thaw(state["targets"]),
             document=frozen_document,
-            cancel_check=lambda: store.get(run_id)["cancel_requested"],
-            on_progress=lambda event: store.update(run_id, progress=event),
+            cancel_check=lambda: store.is_cancelled(run_id),
+            on_progress=lambda event: store.progress(run_id, progress=event),
         )
         status = (
             "completed"

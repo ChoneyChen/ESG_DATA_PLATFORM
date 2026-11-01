@@ -18,10 +18,10 @@ from .structure import period_columns, column_structure, period_coverage
 from .retrieval import retrieve_candidates
 from .frames import split_frame
 from .reading_frame import reading_frame
-from .ports import DocumentPort, ModelPort, ArtifactPort
+from .ports import DocumentPort, ModelPort, ArtifactPort, ResultPort
 from .organization import build_organized_dataset
 
-ENGINE_VERSION = "clause-backbone-1.3"
+ENGINE_VERSION = "clause-backbone-1.4"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return row IDs and column IDs for real measurements in this bounded evidence frame. Never output, compute or convert values.
@@ -59,11 +59,13 @@ class ExtractionBackbone:
         documents: DocumentPort,
         model: ModelPort,
         artifacts: ArtifactPort,
+        results: ResultPort,
         engine_identity=None,
     ):
         self.documents = documents
         self.model = model
         self.artifacts = artifacts
+        self.results = results
         self.engine_identity = engine_identity or {"version": ENGINE_VERSION}
 
     def run(
@@ -210,7 +212,6 @@ class ExtractionBackbone:
                                         })
                                 if cells:
                                     rows.append(row.model_copy(update={"cells": cells}))
-                            self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                             frame = frame.model_copy(
                                 update={"rows": rows}
                             )
@@ -343,7 +344,6 @@ class ExtractionBackbone:
                                                 })
                                             else:
                                                 accepted.append(cell)
-                                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                                         results = [
                                             numeric_fact(
                                                 clause,
@@ -371,10 +371,10 @@ class ExtractionBackbone:
                                             reasons.append(rejected)
                                             rejected_candidates.append({"clause_key": key, "object_id": frame.object_id,
                                                 "candidate_kind": "unresolved", "selection": "nonmeasurement", "reason": rejected})
-                                            self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                                             continue
                                         local_facts[fact.source_fact_id] = fact
                                         local_mappings[fact.source_fact_id] = mapping
+                                        self.results.put(fact, mapping)
                                 except (ValueError, TypeError, KeyError) as exc:
                                     reasons.append("binding_rejected:" + str(exc))
                             reasons.extend(decision.missing_context)
@@ -407,7 +407,8 @@ class ExtractionBackbone:
                                 errors.append({"clause_key": key, "object_id": frame.object_id, "error": call["error"]})
                                 complete = False
                         trace.append(call)
-                        self.artifacts.write(run_id, "diagnostics/model-calls.json", trace)
+                        self.artifacts.write(run_id, f"diagnostics/calls/{calls}.json", call)
+                        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
                         active = ClauseCoverage(
                             clause_key=key,
                             clause_digest=clause.clause_digest,
@@ -495,6 +496,8 @@ class ExtractionBackbone:
                     "fact_count": len(facts),
                 }
             )
+        self.artifacts.write(run_id, "diagnostics/model-calls.json", trace)
+        self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
         return self._write_outputs(
             run_id, document, clauses, facts, mappings, coverage, calls, started, errors,
             final=True, rejected_count=len(rejected_candidates),
@@ -514,7 +517,7 @@ class ExtractionBackbone:
         final=False,
         rejected_count=0,
     ):
-        # Every record crosses a typed, value-only boundary before persistence.
+        self.results.flush()
         body = {
             "schema_version": "extraction-fact-bundle-2.2",
             "engine_version": ENGINE_VERSION,
@@ -522,8 +525,6 @@ class ExtractionBackbone:
             "run_id": run_id,
             "document": document.model_dump(mode="json"),
             "clause_targets": {k: c.clause_digest for k, c in clauses.items()},
-            "facts": [f.model_dump(mode="json") for f in facts],
-            "clause_mappings": [m.model_dump(mode="json") for m in mappings],
             "coverage": [c.model_dump(mode="json") for c in coverage],
             "summary": {
                 "selected_clauses": len(clauses),
@@ -542,14 +543,12 @@ class ExtractionBackbone:
             "status": "pending",
             "url": f"/api/runs/{run_id}/organized",
         }
-        body = FactBundle.model_validate(body).model_dump(
-            mode="json", exclude_none=True
-        )
-        for fact in body["facts"]:
-            self.artifacts.write(run_id, f"facts/{fact['source_fact_id']}.json", fact)
-        # Raw output is committed before optional table organization. Layout
-        # problems must never erase a correctly bound source value.
-        self.artifacts.write(run_id, "results/facts.json", body)
+        self.results.status(body)
+        if not final:
+            return body
+        # Complete the transport bundle once. Running views read the indexed facts.
+        body["facts"] = [fact.model_dump(mode="json", exclude_none=True) for fact in facts]
+        body["clause_mappings"] = [mapping.model_dump(mode="json", exclude_none=True) for mapping in mappings]
         try:
             organized = build_organized_dataset(
                 run_id, document, clauses, facts, mappings
@@ -570,6 +569,7 @@ class ExtractionBackbone:
             mode="json", exclude_none=True
         )
         self.artifacts.write(run_id, "results/facts.json", body)
+        self.results.status({k:v for k,v in body.items() if k not in {"facts","clause_mappings"}})
         return body
 
 

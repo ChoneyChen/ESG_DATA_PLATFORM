@@ -8,24 +8,17 @@ from .parts import (
     ReadingContract,
     RetrievalProfile,
     EvidenceRequirement,
-    AcceptanceProfile,
     ClauseRelationships,
 )
 from .scope import OutputScope
 from esg_data.organization import OrganizationSpec
+from .attributes import AttributeDefinition
 
 
 class ValueContract(StrictModel):
     canonical_unit: str | None = None
     unit_dimension: str | None = None
-    value_origin: Literal["reported", "derived", "either"] = "reported"
-    value_role: str = "actual"
-    identity_axes: list[str] = Field(default_factory=list)
     fixed_axes: dict[str, str] = Field(default_factory=dict)
-    comparison_requirements: list[str] = Field(default_factory=list)
-    aggregation: Literal[
-        "none", "sum_disjoint_members", "ratio_recompute", "do_not_sum"
-    ] = "none"
 
 
 class CapturePolicy(StrictModel):
@@ -60,7 +53,7 @@ class ClausePurposes(StrictModel):
 
 
 class ClauseContract(StrictModel):
-    schema_version: Literal["clause-contract-1.3"] = "clause-contract-1.3"
+    schema_version: Literal["clause-contract-1.4"] = "clause-contract-1.4"
     clause_key: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     group_id: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
     labels: dict[str, str]
@@ -69,12 +62,12 @@ class ClauseContract(StrictModel):
     exclusions: list[str] = Field(min_length=1)
     data_kind: Literal["quantitative", "qualitative"]
     value: ValueContract
+    attributes: dict[str, AttributeDefinition]
     output_scopes: list[OutputScope] = Field(min_length=1)
     reading: ReadingContract
     retrieval: RetrievalProfile
     evidence: list[EvidenceRequirement] = Field(min_length=1)
     organization: OrganizationSpec
-    acceptance: AcceptanceProfile = Field(default_factory=AcceptanceProfile)
     relationships: ClauseRelationships = Field(default_factory=ClauseRelationships)
     exact_labels: list[str] = Field(default_factory=list)
     provenance: dict = Field(default_factory=dict)
@@ -133,7 +126,7 @@ class ClauseContract(StrictModel):
                 "relationships",
                 "retrieval",
                 "reading",
-                "acceptance",
+                "attributes",
                 "provenance",
                 "group_id",
                 "readiness",
@@ -148,9 +141,15 @@ class ClauseContract(StrictModel):
             "instructions": self.reading.instructions,
             "allow_regulatory_limit": self.reading.allow_regulatory_limit,
         }
-        fields = self.organization.reading_fields()
-        requested = self.purposes.enrichment.identity_axes
-        by_axis = {field["axis"]: field for field in fields}
-        fields = [by_axis.get(axis, {"axis": axis, "label": axis, "source": "report", "vocabulary": []}) for axis in requested]
-        body["requested_identity_fields"] = fields
+        body["requested_identity_fields"] = [
+            {"axis": axis, **self.attributes[axis].model_dump(mode="json", exclude_none=True)}
+            for axis in self.purposes.enrichment.identity_axes
+        ]
         return body
+
+    def classification_flags(self, identity):
+        flags = []
+        for axis, attribute in self.attributes.items():
+            field = (identity if attribute.source == "identity" else identity.get("dimensions", {})).get(axis)
+            flags.extend(attribute.flags(axis, field))
+        return flags

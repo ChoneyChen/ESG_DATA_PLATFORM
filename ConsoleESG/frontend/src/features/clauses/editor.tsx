@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Clause, ClauseGroup } from "../../shared/contracts";
 import { segment, write } from "../../shared/api";
 import { invalidate } from "../../shared/resource";
-import { Field, Modal, ReadError, Tabs, Notice } from "../../shared/ui";
+import { Field, Modal, ReadError, Tabs } from "../../shared/ui";
 const lines = (value: string) => value.split("\n");
 export function ClauseEditor({
   clause,
@@ -24,17 +24,16 @@ export function ClauseEditor({
     [kind, setKind] = useState<"quantitative" | "qualitative">("quantitative");
   const [tab, setTab] = useState("definition"),
     [json, setJson] = useState(JSON.stringify(clause, null, 2) || ""),
+    [attributes, setAttributes] = useState(JSON.stringify(clause?.attributes, null, 2) || ""),
     [organization, setOrganization] = useState(
       JSON.stringify(clause?.organization, null, 2) || "",
     ),
     [busy, setBusy] = useState(false),
     [error, setError] = useState<Error>(),
-    [valid, setValid] = useState(false),
     [discard, setDiscard] = useState(false),
     [dirty, setDirty] = useState(false);
   function update(patch: Partial<Clause>) {
     setDraft((c) => (c ? { ...c, ...patch } : c));
-    setValid(false);
     setDirty(true);
   }
   async function create() {
@@ -50,6 +49,7 @@ export function ClauseEditor({
       setDraft(c);
       setJson(JSON.stringify(c, null, 2));
       setOrganization(JSON.stringify(c.organization, null, 2));
+      setAttributes(JSON.stringify(c.attributes, null, 2));
       setDirty(true);
     } catch (e) {
       setError(e as Error);
@@ -61,24 +61,28 @@ export function ClauseEditor({
     try {
       let c = draft!;
       if (tab === "json") c = JSON.parse(json) as Clause;
+      else if (tab === "attributes") c = { ...c, attributes: JSON.parse(attributes) };
       else if (tab === "organization")
         c = { ...c, organization: JSON.parse(organization) };
       setDraft(c);
       setJson(JSON.stringify(c, null, 2));
       setOrganization(JSON.stringify(c.organization, null, 2));
+      setAttributes(JSON.stringify(c.attributes, null, 2));
       setTab(next);
       setError(undefined);
     } catch {
       setError(new Error("JSON 格式无效，请先修正当前内容。"));
     }
   }
-  async function validate(save = false) {
+  async function save() {
     setBusy(true);
     setError(undefined);
     try {
       const body =
         tab === "json"
           ? (JSON.parse(json) as Clause)
+          : tab === "attributes"
+            ? { ...draft!, attributes: JSON.parse(attributes) }
           : tab === "organization"
             ? { ...draft!, organization: JSON.parse(organization) }
             : draft!;
@@ -100,32 +104,15 @@ export function ClauseEditor({
             .filter(Boolean),
         };
       }
-      const result = await write<{ clause: Clause; valid: boolean }>(
-        "extraction",
-        "/api/clauses/validate",
-        body,
+      const saved = await write<Clause>(
+        "extraction", "/api/clauses/" + segment(body.clause_key),
+        { clause: body, expected_digest: clause?.clause_digest || null }, "PUT",
       );
-      setDraft(result.clause);
-      setJson(JSON.stringify(result.clause, null, 2));
-      setOrganization(JSON.stringify(result.clause.organization, null, 2));
-      setValid(true);
-      if (save) {
-        const saved = await write<Clause>(
-          "extraction",
-          "/api/clauses/" + segment(result.clause.clause_key),
-          {
-            clause: result.clause,
-            expected_digest: clause?.clause_digest || null,
-          },
-          "PUT",
-        );
-        invalidate("extraction", "/api/clause");
-        onSaved(saved);
-        onClose();
-      }
+      invalidate("extraction", "/api/clause");
+      onSaved(saved);
+      onClose();
     } catch (e) {
-      setValid(false);
-      setError(
+        setError(
         e instanceof SyntaxError ? new Error("JSON 格式无效。") : (e as Error),
       );
     } finally {
@@ -149,29 +136,13 @@ export function ClauseEditor({
             >
               取消
             </button>
-            {draft && (
-              <>
-                <button
-                  className="button-secondary"
-                  disabled={busy}
-                  onClick={() => validate()}
-                >
-                  校验合同
-                </button>
-                <button disabled={busy} onClick={() => validate(true)}>
-                  {busy ? "处理中…" : "校验并保存"}
-                </button>
-              </>
-            )}
+            {draft && <button disabled={busy} onClick={save}>
+              {busy ? "保存中…" : "保存"}
+            </button>}
           </>
         }
       >
         <ReadError error={error} />
-        {valid && (
-          <Notice tone="success">
-            合同结构通过。科学准确性仍须真实报告验证。
-          </Notice>
-        )}
         {!draft ? (
           <form
             className="form-stack"
@@ -230,6 +201,7 @@ export function ClauseEditor({
               tabs={[
                 { id: "definition", label: "定义" },
                 { id: "reading", label: "检索与阅读" },
+                { id: "attributes", label: "属性与词典" },
                 { id: "organization", label: "输出组织" },
                 { id: "json", label: "完整合同" },
               ]}
@@ -365,8 +337,14 @@ export function ClauseEditor({
                 </Field>
               </div>
             )}
+            {tab === "attributes" && (
+              <Field label="属性定义、读取说明与值词典">
+                <textarea className="code-editor" spellCheck={false} rows={22}
+                  value={attributes} onChange={e => { setAttributes(e.target.value); setDirty(true); }} />
+              </Field>
+            )}
             {tab === "organization" && (
-              <Field label="字段、词典与展示合同">
+              <Field label="展示列与属性引用">
                 <textarea
                   className="code-editor"
                   spellCheck={false}
@@ -374,8 +352,7 @@ export function ClauseEditor({
                   value={organization}
                   onChange={(e) => {
                     setOrganization(e.target.value);
-                    setValid(false);
-                    setDirty(true);
+                                    setDirty(true);
                   }}
                 />
               </Field>
@@ -389,8 +366,7 @@ export function ClauseEditor({
                   value={json}
                   onChange={(e) => {
                     setJson(e.target.value);
-                    setValid(false);
-                    setDirty(true);
+                                    setDirty(true);
                   }}
                 />
               </Field>

@@ -18,6 +18,8 @@ class RunStore:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS runs (run_id TEXT PRIMARY KEY, body TEXT NOT NULL)"
             )
+            db.execute("CREATE TABLE IF NOT EXISTS run_progress (run_id TEXT PRIMARY KEY, body TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS run_signals (run_id TEXT PRIMARY KEY, cancel_requested INTEGER NOT NULL DEFAULT 0)")
 
     def connect(self):
         db = sqlite3.connect(self.path, timeout=30)
@@ -65,6 +67,7 @@ class RunStore:
                 "INSERT INTO runs VALUES (?,?)",
                 (state["run_id"], json.dumps(state, ensure_ascii=False)),
             )
+            db.execute("INSERT INTO run_signals VALUES (?,0)", (state["run_id"],))
         return self.public(state)
 
     def get(self, run_id):
@@ -72,9 +75,33 @@ class RunStore:
             row = db.execute(
                 "SELECT body FROM runs WHERE run_id=?", (run_id,)
             ).fetchone()
+            progress = self._progress(db, run_id)
         if row is None:
             raise KeyError(run_id)
-        return json.loads(row[0])
+        return self._merge_progress(json.loads(row[0]), progress)
+
+    @staticmethod
+    def _progress(db, run_id):
+        row = db.execute("SELECT body FROM run_progress WHERE run_id=?", (run_id,)).fetchone()
+        return json.loads(row[0]) if row else {}
+
+    @staticmethod
+    def _merge_progress(state, progress):
+        updated_at = max(state.get("updated_at", ""), progress.get("updated_at", ""))
+        return {**state, **progress, "updated_at": updated_at}
+
+    def progress(self, run_id, **patch):
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            body = self._progress(db, run_id)
+            body.update(patch, updated_at=now())
+            db.execute("INSERT INTO run_progress VALUES (?,?) ON CONFLICT(run_id) DO UPDATE SET body=excluded.body",
+                (run_id, json.dumps(body, ensure_ascii=False)))
+
+    def is_cancelled(self, run_id):
+        with self.connect() as db:
+            row = db.execute("SELECT cancel_requested FROM run_signals WHERE run_id=?", (run_id,)).fetchone()
+        return bool(row and row[0])
 
     def update(self, run_id, **patch):
         with self.connect() as db:
@@ -90,7 +117,11 @@ class RunStore:
                 "UPDATE runs SET body=? WHERE run_id=?",
                 (json.dumps(state, ensure_ascii=False), run_id),
             )
-        return self.public(state)
+            if "cancel_requested" in patch:
+                db.execute("INSERT INTO run_signals VALUES (?,?) ON CONFLICT(run_id) DO UPDATE SET cancel_requested=excluded.cancel_requested",
+                    (run_id, int(patch["cancel_requested"])))
+            progress = self._progress(db, run_id)
+        return self.public(self._merge_progress(state, progress))
 
     def claim(self, run_id):
         with self.connect() as db:
@@ -148,13 +179,13 @@ class RunStore:
                             "UPDATE runs SET body=? WHERE run_id=?",
                             (json.dumps(fresh, ensure_ascii=False), run_id),
                         )
-                    state = fresh
+                    state = self._merge_progress(fresh, self._progress(db, run_id))
         return self.public(state)
 
     def list(self):
         with self.connect() as db:
-            rows = db.execute("SELECT body FROM runs ORDER BY rowid DESC").fetchall()
-        return [self.public(json.loads(row[0])) for row in rows]
+            rows = db.execute("SELECT run_id,body FROM runs ORDER BY rowid DESC").fetchall()
+            return [self.public(self._merge_progress(json.loads(row[1]), self._progress(db,row[0]))) for row in rows]
 
     @staticmethod
     def public(state):

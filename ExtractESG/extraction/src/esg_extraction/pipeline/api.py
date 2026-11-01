@@ -13,6 +13,7 @@ from esg_data.organization import OrganizationSpec, OrganizedDataset
 from esg_runtime.local_operator import install_loopback_marker
 from .runtime import resources, engine_digest
 from .engine import ENGINE_VERSION
+from .result_store import ResultStore
 from esg_contracts.sessions import NativeRun
 from esg_contracts.results import FactBundle, FactCollection, CandidateRejection
 from esg_contracts.facts import SourceFact
@@ -176,14 +177,6 @@ def create_app(resource_factory=resources):
             request.clause_key, request.group_id, request.data_kind, request.title
         )
 
-    @app.post("/api/clauses/validate")
-    def validate_clause(clause: ClauseContract | ClauseDescriptor):
-        return {
-            "valid": True,
-            "scientific_acceptance": False,
-            "clause": clause.seal().verify(),
-        }
-
     @app.get("/api/clause-groups")
     def groups():
         return {
@@ -312,7 +305,6 @@ def create_app(resource_factory=resources):
     @app.get("/api/runs/{run_id}/targets")
     def run_targets(run_id: str):
         snapshot = resource_factory()[1].get(run_id)["targets"]
-        ClauseRepository.thaw(snapshot)
         return snapshot
 
     @app.post("/api/runs/{run_id}/cancel")
@@ -356,11 +348,10 @@ def create_app(resource_factory=resources):
     def facts(run_id: str):
         repo, store, artifacts, documents = resource_factory()
         store.get(run_id)
-        try:
-            return FactBundle.model_validate(
-                artifacts.read(run_id, "results/facts.json")
-            )
-        except FileNotFoundError:
+        body = ResultStore(run_id, artifacts).bundle()
+        if body is not None:
+            return body
+        else:
             from fastapi.responses import JSONResponse
 
             return JSONResponse(
@@ -377,6 +368,14 @@ def create_app(resource_factory=resources):
         try:
             return artifacts.read(run_id, "results/organized.json")
         except FileNotFoundError:
+            result = ResultStore(run_id, artifacts)
+            status = result.status()
+            if status:
+                from .organization import build_organized_dataset
+                from esg_contracts.evidence import DocumentReference
+                raw = result.collection()
+                return build_organized_dataset(run_id, DocumentReference.model_validate(state["document"]),
+                    repo.thaw(state["targets"]),raw["facts"],raw["clause_mappings"]).model_dump(mode="json")
             from fastapi.responses import JSONResponse
 
             return JSONResponse(

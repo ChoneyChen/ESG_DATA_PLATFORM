@@ -60,13 +60,14 @@ def _cell(field, fact, mapping, clause, document):
     flags = []
     classification = None
     if origin in {"identity", "dimension"}:
+        attribute = clause.attributes.get(binding.key)
         identity = fact["identity"]
         reported = (
             identity.get("dimensions", {}) if origin == "dimension" else identity
         ).get(binding.key)
         if reported is None:
             return OrganizedCell(
-                origin=origin, state="not_read", flags=field.identity_flags(None)
+                origin=origin, state="not_read"
             )
         reported_state = reported["state"]
         state = {
@@ -76,7 +77,7 @@ def _cell(field, fact, mapping, clause, document):
             "not_read": "not_read",
             "conflict": "conflict",
         }[reported_state]
-        value = reported["value"]
+        value = reported.get("value")
         raw = reported.get("raw_text")
         if binding.attribute is not None:
             value = (
@@ -90,8 +91,8 @@ def _cell(field, fact, mapping, clause, document):
             binding.key,
             range(len(reported["evidence"])),
         )
-        flags = field.identity_flags(reported)
-        classification = field.category_match(reported)
+        flags = attribute.flags(binding.key, reported) if attribute else []
+        classification = attribute.classify(reported) if attribute else None
         if any(flag.startswith("output_vocabulary_conflict:") for flag in flags):
             state = "conflict"
     else:
@@ -221,11 +222,10 @@ def _expanded_definition(spec, facts):
             {key for fact in facts for key in fact["value"].get("extensions", {})}
         ):
             add("value", "extensions", key, "值附加资料·" + str(key), "annotation")
-    body = spec.model_dump(mode="json")
-    body["fields"] = [field.model_dump(mode="json") for field in fields]
-    if body["presentation"]["columns"]:
-        body["presentation"]["columns"].extend(extra)
-    return OrganizationSpec.model_validate(body)
+    presentation = spec.presentation
+    if presentation.columns and extra:
+        presentation = presentation.model_copy(update={"columns": [*presentation.columns, *extra]})
+    return spec.model_copy(update={"fields": fields, "presentation": presentation})
 
 
 def _sort_value(cell, field):
@@ -348,13 +348,14 @@ def build_organized_dataset(run_id, document, clauses, facts, mappings):
     raw = {}
     conflicted = set()
     for fact in facts:
-        body = fact.model_dump(mode="json")
+        body = fact.model_dump(mode="json") if hasattr(fact, "model_dump") else fact
         if body["source_fact_id"] in raw and raw[body["source_fact_id"]] != body:
             conflicted.add(body["source_fact_id"])
         raw[body["source_fact_id"]] = body
     by_clause = defaultdict(list)
     for mapping in mappings:
-        by_clause[mapping.clause_key].append(mapping.model_dump(mode="json"))
+        body = mapping.model_dump(mode="json") if hasattr(mapping, "model_dump") else mapping
+        by_clause[body["clause_key"]].append(body)
     tables = []
     used = set()
     failures = []
@@ -391,9 +392,7 @@ def build_organized_dataset(run_id, document, clauses, facts, mappings):
             mapping_by_id[fact_id] = mapping
         selected = [raw[fact_id] for fact_id in mapping_by_id]
         try:
-            spec = _expanded_definition(clause.organization, selected).validate_kind(
-                clause.data_kind
-            )
+            spec = _expanded_definition(clause.organization, selected)
             rows = []
             for fact in selected:
                 fact_id = fact["source_fact_id"]

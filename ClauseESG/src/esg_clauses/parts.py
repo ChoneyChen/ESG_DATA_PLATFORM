@@ -40,29 +40,6 @@ class RetrievalProfile(StrictModel):
         return self
 
 
-class AcceptanceSample(StrictModel):
-    """An expectation bound to a real run; it is evidence of behaviour, not a value source."""
-
-    run_ref: str = Field(min_length=1)
-    report_label: str | None = None
-    scope_id: str | None = None
-    expected_value_raw: str | None = None
-    expected_absent: bool = False
-
-    @model_validator(mode="after")
-    def one_expectation(self):
-        if self.expected_absent and self.expected_value_raw is not None:
-            raise ValueError("An absence sample cannot also carry a value")
-        if not self.expected_absent and self.expected_value_raw is None:
-            raise ValueError("A value sample requires its expected printed value")
-        return self
-
-
-class AcceptanceProfile(StrictModel):
-    minimum_reports: int = Field(default=1, ge=1)
-    samples: list[AcceptanceSample] = Field(default_factory=list)
-
-
 READING_OPERATORS = (
     "numeric_label",
     "ghg_scope",

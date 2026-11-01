@@ -6,9 +6,9 @@ A table is a referenced view of raw facts, never a second value authority.
 
 from __future__ import annotations
 from typing import Literal
-import re, unicodedata
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator
 from esg_reports.contract import ReportResource
+from .categories import CategoryMatch
 
 
 class Model(BaseModel):
@@ -47,45 +47,6 @@ class FieldBinding(Model):
     attribute: str | None = Field(default=None, min_length=1)
 
 
-class VocabularyEntry(Model):
-    code: str = Field(min_length=1)
-    label: str = Field(min_length=1)
-    aliases: list[str] = Field(default_factory=list)
-
-
-class CategoryMatch(Model):
-    state: Literal["recognized", "unlisted", "unproven", "conflict"]
-    code: str | None = None
-    label: str | None = None
-    definition_source: Literal["clause_vocabulary"] = "clause_vocabulary"
-
-    @model_validator(mode="after")
-    def verified_code_only(self):
-        if self.state == "recognized" and (not self.code or not self.label):
-            raise ValueError("A recognized category needs its declared code and label")
-        if self.state != "recognized" and (
-            self.code is not None or self.label is not None
-        ):
-            raise ValueError("Unverified categories cannot advertise an accepted code")
-        return self
-
-
-def _normalized(text):
-    return unicodedata.normalize("NFKC", str(text)).casefold().strip()
-
-
-def _literal_match(alias, text):
-    alias = _normalized(alias)
-    text = _normalized(text)
-    if not alias:
-        return False
-    if alias.isascii() and re.fullmatch(r"[a-z0-9]+", alias):
-        return bool(
-            re.search(r"(?<![a-z0-9])" + re.escape(alias) + r"(?![a-z0-9])", text)
-        )
-    return alias in text
-
-
 class OrganizationField(Model):
     key: str = Field(pattern=r"^[A-Za-z][A-Za-z0-9_.-]{0,119}$")
     label: str = Field(min_length=1)
@@ -94,7 +55,6 @@ class OrganizationField(Model):
     type_hint: Literal["text", "decimal", "integer", "boolean", "date", "json"] = "text"
     description: str | None = None
     required_for_confirmation: bool = False
-    vocabulary: list[VocabularyEntry] = Field(default_factory=list)
     extensions: dict[str, JsonValue] = Field(default_factory=dict)
 
     @model_validator(mode="after")
@@ -129,62 +89,7 @@ class OrganizationField(Model):
             raise ValueError(
                 "Only source value and reported identity can be required for extraction confirmation"
             )
-        if self.vocabulary and self.role not in {
-            "reported_identity",
-            "reported_dimension",
-        }:
-            raise ValueError(
-                "Reported vocabularies cannot be used as target/resource defaults"
-            )
-        if len({entry.code for entry in self.vocabulary}) != len(self.vocabulary):
-            raise ValueError("Repeated vocabulary code")
         return self
-
-    def identity_flags(self, reported):
-        if not reported or reported.get("state") not in {"stated", "inherited"}:
-            return (
-                ["output_identity_missing:" + self.key]
-                if self.required_for_confirmation
-                else []
-            )
-        match = self.category_match(reported)
-        if match is None or match.state == "recognized":
-            return []
-        return ["output_vocabulary_" + match.state + ":" + self.key]
-
-    def category_match(self, reported):
-        if (
-            not self.vocabulary
-            or not reported
-            or reported.get("state") not in {"stated", "inherited"}
-        ):
-            return None
-        value = reported.get("value")
-        raw = reported.get("raw_text") or ""
-        entries = [
-            item
-            for item in self.vocabulary
-            if any(
-                _normalized(alias) == _normalized(value)
-                for alias in [item.code, item.label, *item.aliases]
-            )
-        ]
-        if len(entries) != 1:
-            return CategoryMatch(state="unlisted" if not entries else "unproven")
-        entry = entries[0]
-        own = any(
-            _literal_match(alias, raw)
-            for alias in [entry.code, entry.label, *entry.aliases]
-        )
-        other = any(
-            _literal_match(alias, raw)
-            for item in self.vocabulary
-            if item.code != entry.code
-            for alias in [item.code, item.label, *item.aliases]
-        )
-        if own and not other:
-            return CategoryMatch(state="recognized", code=entry.code, label=entry.label)
-        return CategoryMatch(state="conflict" if other and not own else "unproven")
 
 
 class SortField(Model):
@@ -207,7 +112,7 @@ class Presentation(Model):
 
 
 class OrganizationSpec(Model):
-    schema_version: Literal["clause-organization-1.0"] = "clause-organization-1.0"
+    schema_version: Literal["clause-organization-1.1"] = "clause-organization-1.1"
     title: str = Field(min_length=1)
     description: str | None = None
     fields: list[OrganizationField] = Field(min_length=1)
@@ -215,7 +120,6 @@ class OrganizationSpec(Model):
     presentation: Presentation = Field(default_factory=Presentation)
     include_additional_dimensions: bool = True
     include_extensions: bool = True
-    curation: Literal["template", "sample"] = "template"
     extensions: dict[str, JsonValue] = Field(default_factory=dict)
 
     @model_validator(mode="after")
@@ -264,33 +168,6 @@ class OrganizationSpec(Model):
             raise ValueError("A matrix must keep the original-value field visible")
         return self
 
-    def reading_fields(self):
-        return [
-            {
-                "axis": field.binding.key,
-                "label": field.label,
-                "description": field.description,
-                "source": field.binding.source,
-                "required_for_confirmation": field.required_for_confirmation,
-                "vocabulary": [
-                    entry.model_dump(mode="json") for entry in field.vocabulary
-                ],
-            }
-            for field in self.fields
-            if field.binding.source in {"identity", "dimension"}
-        ]
-
-    def confirmation_flags(self, identity):
-        flags = []
-        for field in self.fields:
-            if field.binding.source == "identity":
-                reported = identity.get(field.binding.key)
-            elif field.binding.source == "dimension":
-                reported = identity.get("dimensions", {}).get(field.binding.key)
-            else:
-                continue
-            flags.extend(field.identity_flags(reported))
-        return list(dict.fromkeys(flags))
 
 
 class EvidenceReference(Model):

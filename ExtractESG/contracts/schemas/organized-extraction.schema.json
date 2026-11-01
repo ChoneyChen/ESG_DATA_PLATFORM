@@ -415,13 +415,6 @@
           ],
           "title": "Type Hint",
           "type": "string"
-        },
-        "vocabulary": {
-          "items": {
-            "$ref": "#/$defs/VocabularyEntry"
-          },
-          "title": "Vocabulary",
-          "type": "array"
         }
       },
       "required": [
@@ -436,15 +429,6 @@
     "OrganizationSpec": {
       "additionalProperties": false,
       "properties": {
-        "curation": {
-          "default": "template",
-          "enum": [
-            "template",
-            "sample"
-          ],
-          "title": "Curation",
-          "type": "string"
-        },
         "description": {
           "anyOf": [
             {
@@ -493,8 +477,8 @@
           "type": "array"
         },
         "schema_version": {
-          "const": "clause-organization-1.0",
-          "default": "clause-organization-1.0",
+          "const": "clause-organization-1.1",
+          "default": "clause-organization-1.1",
           "title": "Schema Version",
           "type": "string"
         },
@@ -978,34 +962,6 @@
         "field"
       ],
       "title": "SortField",
-      "type": "object"
-    },
-    "VocabularyEntry": {
-      "additionalProperties": false,
-      "properties": {
-        "aliases": {
-          "items": {
-            "type": "string"
-          },
-          "title": "Aliases",
-          "type": "array"
-        },
-        "code": {
-          "minLength": 1,
-          "title": "Code",
-          "type": "string"
-        },
-        "label": {
-          "minLength": 1,
-          "title": "Label",
-          "type": "string"
-        }
-      },
-      "required": [
-        "code",
-        "label"
-      ],
-      "title": "VocabularyEntry",
       "type": "object"
     }
   },

@@ -53,15 +53,14 @@ def location(
 def literal_categories(clause, context, attempts):
     dimensions = dict(context.dimensions)
     updates = {}
-    for field in clause.organization.fields:
-        if not field.vocabulary or field.binding.source not in {"identity", "dimension"}:
+    for axis, attribute in clause.attributes.items():
+        if not attribute.vocabulary:
             continue
-        axis = field.binding.key
-        reported = getattr(context, axis, None) if field.binding.source == "identity" else dimensions.get(axis)
-        match = field.category_match(reported.model_dump(mode="json") if reported else None)
+        reported = getattr(context, axis, None) if attribute.source == "identity" else dimensions.get(axis)
+        match = attribute.classify(reported.model_dump(mode="json") if reported else None)
         if match and match.state in {"unproven", "conflict"}:
             literal = reported.model_copy(update={"value": reported.raw_text})
-            (updates if field.binding.source == "identity" else dimensions)[axis] = literal
+            (updates if attribute.source == "identity" else dimensions)[axis] = literal
             attempts.append("unproven_category_preserved_literal:" + axis)
     return context.model_copy(update={**updates, "dimensions": dimensions})
 
@@ -488,13 +487,13 @@ def mapping_for(clause, document, fact, match, reason):
         ]
     flags.extend(check_evidence(clause, fields))
     flags.extend(
-        clause.organization.confirmation_flags(fact.identity.model_dump(mode="json"))
+        clause.classification_flags(fact.identity.model_dump(mode="json"))
     )
     axes = {
-        "entity": fact.identity.entity_aggregation_role,
-        "method": fact.identity.measurement_method,
+        "entity_aggregation_role": fact.identity.entity_aggregation_role,
+        "measurement_method": fact.identity.measurement_method,
         "value_role": fact.identity.value_role,
-        "aggregation": fact.identity.aggregation_role,
+        "aggregation_role": fact.identity.aggregation_role,
     }
     discriminators = set(clause.purposes.target_scope.discriminating_axes)
     scope_conflicts = []
@@ -502,14 +501,14 @@ def mapping_for(clause, document, fact, match, reason):
         required = {
             key: value
             for key, value in {
-                "entity": scope.entity,
+                "entity_aggregation_role": scope.entity,
                 "value_role": scope.value_role,
-                "aggregation": scope.aggregation,
+                "aggregation_role": scope.aggregation,
             }.items()
             if value is not None
         }
         if scope.method:
-            required["method"] = scope.method
+            required["measurement_method"] = scope.method
         complete = True
         conflict = False
         known_conflicts = []

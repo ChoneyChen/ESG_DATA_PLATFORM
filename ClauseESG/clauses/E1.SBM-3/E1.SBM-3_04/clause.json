@@ -1,10 +1,88 @@
 {
-  "acceptance": {
-    "minimum_reports": 1,
-    "samples": []
+  "attributes": {
+    "aggregation_role": {
+      "context_terms": [],
+      "description": null,
+      "label": "aggregation_role",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    },
+    "entity_aggregation_role": {
+      "context_terms": [],
+      "description": null,
+      "label": "entity_aggregation_role",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    },
+    "measurement_method": {
+      "context_terms": [],
+      "description": null,
+      "label": "测量方法",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    },
+    "reporting_boundary": {
+      "context_terms": [],
+      "description": null,
+      "label": "实际统计边界",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    },
+    "reporting_entity": {
+      "context_terms": [],
+      "description": null,
+      "label": "实际统计主体",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    },
+    "reporting_period": {
+      "context_terms": [],
+      "description": null,
+      "label": "实际测量期间",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    },
+    "risk_type": {
+      "context_terms": [],
+      "description": null,
+      "label": "risk_type",
+      "reading_instruction": null,
+      "source": "dimension",
+      "vocabulary": []
+    },
+    "scenario": {
+      "context_terms": [],
+      "description": null,
+      "label": "scenario",
+      "reading_instruction": null,
+      "source": "dimension",
+      "vocabulary": []
+    },
+    "time_horizon": {
+      "context_terms": [],
+      "description": null,
+      "label": "time_horizon",
+      "reading_instruction": null,
+      "source": "dimension",
+      "vocabulary": []
+    },
+    "value_role": {
+      "context_terms": [],
+      "description": null,
+      "label": "value_role",
+      "reading_instruction": null,
+      "source": "identity",
+      "vocabulary": []
+    }
   },
   "blocking_reasons": [],
-  "clause_digest": "45ab362f96853a4f21eebb264c89422742401e88e883a6ac4b6ebeb0e55384f7",
+  "clause_digest": "3a09aaa485e17638153c3bc040ef59a8d15454b8c9786361a12223dfa3449856",
   "clause_key": "E1.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of how resilience analysis has been conducted。韧性分析实施日期。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -29,7 +107,6 @@
     "zh": "韧性分析实施日期"
   },
   "organization": {
-    "curation": "template",
     "description": "按独立原值事实组织；不合并不同期间、主体、单位或分项，不进行自动聚合。",
     "extensions": {},
     "fields": [
@@ -45,8 +122,7 @@
         "label": "PDF 编号",
         "required_for_confirmation": false,
         "role": "resource_identity",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -60,8 +136,7 @@
         "label": "报告企业（资源声明）",
         "required_for_confirmation": false,
         "role": "resource_identity",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -75,8 +150,7 @@
         "label": "发表年份（资源声明）",
         "required_for_confirmation": false,
         "role": "resource_identity",
-        "type_hint": "integer",
-        "vocabulary": []
+        "type_hint": "integer"
       },
       {
         "binding": {
@@ -90,8 +164,7 @@
         "label": "覆盖年度（资源声明）",
         "required_for_confirmation": false,
         "role": "resource_identity",
-        "type_hint": "integer",
-        "vocabulary": []
+        "type_hint": "integer"
       },
       {
         "binding": {
@@ -105,8 +178,7 @@
         "label": "行业（资源声明）",
         "required_for_confirmation": false,
         "role": "resource_identity",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -120,8 +192,7 @@
         "label": "实际统计主体",
         "required_for_confirmation": false,
         "role": "reported_identity",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -135,8 +206,7 @@
         "label": "实际测量期间",
         "required_for_confirmation": false,
         "role": "reported_identity",
-        "type_hint": "json",
-        "vocabulary": []
+        "type_hint": "json"
       },
       {
         "binding": {
@@ -150,8 +220,7 @@
         "label": "实际统计边界",
         "required_for_confirmation": false,
         "role": "reported_identity",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -165,8 +234,7 @@
         "label": "测量方法",
         "required_for_confirmation": false,
         "role": "reported_identity",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -180,8 +248,7 @@
         "label": "原始行标签",
         "required_for_confirmation": false,
         "role": "source_label",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -195,8 +262,7 @@
         "label": "原文陈述",
         "required_for_confirmation": true,
         "role": "raw_value",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -210,8 +276,7 @@
         "label": "条款匹配",
         "required_for_confirmation": false,
         "role": "match_state",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       },
       {
         "binding": {
@@ -225,8 +290,7 @@
         "label": "原始 PDF 页码",
         "required_for_confirmation": false,
         "role": "provenance",
-        "type_hint": "json",
-        "vocabulary": []
+        "type_hint": "json"
       },
       {
         "binding": {
@@ -240,8 +304,7 @@
         "label": "事实编号",
         "required_for_confirmation": false,
         "role": "provenance",
-        "type_hint": "text",
-        "vocabulary": []
+        "type_hint": "text"
       }
     ],
     "include_additional_dimensions": true,
@@ -274,7 +337,7 @@
       "reporting_period",
       "reporting_boundary"
     ],
-    "schema_version": "clause-organization-1.0",
+    "schema_version": "clause-organization-1.1",
     "title": "韧性分析实施日期"
   },
   "output_scopes": [
@@ -337,7 +400,7 @@
       "conflict_action": "separate",
       "discriminating_axes": [
         "value_role",
-        "aggregation"
+        "aggregation_role"
       ],
       "missing_action": "retain"
     }
@@ -415,25 +478,10 @@
       ]
     ]
   },
-  "schema_version": "clause-contract-1.3",
+  "schema_version": "clause-contract-1.4",
   "value": {
-    "aggregation": "do_not_sum",
     "canonical_unit": null,
-    "comparison_requirements": [
-      "主体、实际期间和报告边界由来源明确支持；未知口径不能默认为相同。",
-      "证据支持原值/陈述及必要维度；单位转换不能消除方法或边界差异。"
-    ],
     "fixed_axes": {},
-    "identity_axes": [
-      "reporting_entity",
-      "reporting_period",
-      "reporting_boundary",
-      "risk_type",
-      "time_horizon",
-      "scenario"
-    ],
-    "unit_dimension": null,
-    "value_origin": "reported",
-    "value_role": "context"
+    "unit_dimension": null
   }
 }
