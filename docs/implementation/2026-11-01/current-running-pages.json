@@ -1,0 +1,15 @@
+{
+  "session_id": "extract-plan-4a54ab60241c4ed089ac24d9d5c405cb",
+  "engine_fingerprint": "78f314df0dac2966601ec2dba96f4977a0aa991fd8f697782325ff1a7bee3d90",
+  "source": "Console proxy, actual running CKH task",
+  "total": 222,
+  "returned": [
+    20,
+    20
+  ],
+  "table_rows": [
+    20,
+    20
+  ],
+  "overlap": 0
+}
