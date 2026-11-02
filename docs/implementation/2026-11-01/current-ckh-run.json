@@ -1,0 +1,85 @@
+{
+  "run_id": "extract-afdb5806d48dcfb9b6652ea435f159f5",
+  "session_id": "extract-plan-4a54ab60241c4ed089ac24d9d5c405cb",
+  "engine_fingerprint": "78f314df0dac2966601ec2dba96f4977a0aa991fd8f697782325ff1a7bee3d90",
+  "status": "completed",
+  "summary": {
+    "selected_clauses": 1,
+    "processed_clauses": 1,
+    "source_facts": 222,
+    "quantitative": 222,
+    "qualitative": 0,
+    "model_calls": 8,
+    "elapsed_seconds": 596.851,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "not_evaluated",
+      "target_facts": 45,
+      "other_facts": 177,
+      "unresolved_facts": 0,
+      "rejected_candidates": 6,
+      "periods": {
+        "2023": 75,
+        "2024": 75,
+        "2025": 72
+      }
+    }
+  },
+  "delivery": {
+    "export_id": "export-a51aa0c058d1c3f6a58fa3ae656d05c81ec0cdc8bad6f9396422cad8c6ca289b",
+    "state": "delivered",
+    "accepted_facts": 222,
+    "rejected_facts": 0,
+    "message": null,
+    "retryable": false
+  },
+  "projection": {
+    "export_id": "export-a51aa0c058d1c3f6a58fa3ae656d05c81ec0cdc8bad6f9396422cad8c6ca289b",
+    "status": "completed",
+    "projection": {
+      "schema_version": "capture-projection-1.0",
+      "projection_id": "projection-a991adc0a74d088e7671e87e379fdf79bd759448f73f54b730be633b112a0fb4",
+      "export_id": "export-a51aa0c058d1c3f6a58fa3ae656d05c81ec0cdc8bad6f9396422cad8c6ca289b",
+      "input_digest": "59558702db3a8118e38d0ed6a0cbce474e14fff76a9abbe0b2ee03e5e938cf90",
+      "transform_version": "capture-observation-1.1",
+      "content_digest": "39fea91ce9b0463abcca956056686c9dfe7aa45d8fdc12b893f8a32c4e489be4",
+      "source": {
+        "document_id": "doc-sha256-c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+        "pdf_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+        "pdf_id": "pdf-c3dcf5367cffdc59d0eb4b3d",
+        "title": "2025 Sustainability Report",
+        "report_company": "CK Hutchison Holdings Limited",
+        "publication_year": null,
+        "resource_revision": 2,
+        "report_company_id": "org:ck-hutchison",
+        "industry": null,
+        "reporting_year": 2025
+      },
+      "facts": 222,
+      "observations": 222,
+      "periods": {
+        "2023": 75,
+        "2024": 75,
+        "2025": 72
+      },
+      "relations": {
+        "match": 45,
+        "different": 177
+      },
+      "repeated_occurrences": 0,
+      "diagnostics": []
+    },
+    "error_code": null,
+    "retryable": false
+  },
+  "sources": [
+    "ir-20261101T134609Z-8caf1112a8ef:1"
+  ],
+  "bundle_schema": "extraction-fact-bundle-2.4",
+  "bundle_has_organization": false,
+  "organized_cache_exists": false
+}

@@ -18,7 +18,7 @@
 
 - 原值和条款关系按事实ID写入，仅写新增或变更内容；模型进度使用独立运行记录。
 - 每批属性补读返回后立即保存事实及读取位置，页面可读取已取得的属性。成功批次随本任务恢复，不保存跨任务的语义理解。
-- 运行中不再重建整份组织表或反复解析FactBundle；结束时组装一次2.4原值包。组织表由结果接口按当前页生成。
+- 运行中不再重建整份组织表或反复解析FactBundle；结束时组装一次2.4原值包。组织表由结果接口按当前页生成。当前CKH实际包未写组织缓存，222条均已接收并投影，[接收与产物记录](current-ckh-run.json)。
 
 文件：[ResultStore](../../../ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py)、[提取主干](../../../ExtractESG/extraction/src/esg_extraction/pipeline/engine.py)、[运行状态](../../../ExtractESG/extraction/src/esg_extraction/pipeline/state.py)。
 
