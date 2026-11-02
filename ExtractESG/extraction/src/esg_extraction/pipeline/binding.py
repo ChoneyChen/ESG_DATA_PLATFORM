@@ -143,6 +143,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 or not claim.quote
                 or claim.quote not in source[0]
                 or claim.value is None
+                or claim.value == ""
             ):
                 flags.append("unbound_identity:" + claim.axis)
                 continue

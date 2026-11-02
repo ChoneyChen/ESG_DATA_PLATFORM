@@ -15,7 +15,7 @@ from .runtime import resources, engine_digest
 from .engine import ENGINE_VERSION
 from .result_store import ResultStore
 from esg_contracts.sessions import NativeRun
-from esg_contracts.results import FactBundle, FactPage, ResultOverview, OrganizedPage, CandidateRejection
+from esg_contracts.results import FactPage, ResultOverview, OrganizedPage, CandidateRejection
 from esg_contracts.facts import SourceFact
 from typing import Literal
 from contextlib import asynccontextmanager
@@ -432,7 +432,7 @@ def create_app(resource_factory=resources):
             table = result.frozen_table(clause_key,[fact["source_fact_id"] for fact in page["facts"]])
         else:
             table = build_organized_dataset(run_id,DocumentReference.model_validate(state["document"]),
-                {clause_key:repo.thaw(state["targets"])[clause_key]},page["facts"],page["clause_mappings"]).tables[0]
+                {clause_key:ClauseContract.model_validate(clauses[clause_key])},page["facts"],page["clause_mappings"]).tables[0]
         return {**page,"table":table,"coverage":[],**result.facets(clause_key=clause_key)}
 
     @app.get("/api/runs/{run_id}/candidates", response_model=list[CandidateRejection])

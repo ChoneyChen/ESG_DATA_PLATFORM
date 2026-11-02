@@ -29,7 +29,7 @@
 
 真实运行已修复三处交接问题：查询记录与续跑动作补入共享接口；队列按执行批次分别去重，同时保留父任务ID；接收端删除写死旧导出版本的重复拦截，共享合同统一解析。当前导出采用1.2，包含主来源与补页快照，事实各自引用实际来源。
 
-## 最终联调（2026-11-02，进行中）
+## 联调记录（2026-11-02，进行中）
 
 当前源码已接通六项更新。最终一组任务尚在执行，以下将实现情况与真实结果分开记录。
 
@@ -42,6 +42,25 @@
 
 最终运行：CATL `extract-12589e85cc26731894c42a5caa069f71`；CKH `extract-dbb528a90162d47c80864e38a75f6b2d`；能源补读 `extract-9a0a58d358e994911be78253ecc248c8`。执行指纹为`669c7a46a1ce195bc81096faaf115cedeb6ac16bc95c9a48608f600839303cc1`。
 
-CATL已完整执行：53条（51定量、2定性），16次模型调用，1821.818秒，接收53/拒收0/投影53。既有9条多年份标注的原值、单位、期间与目标关系均对应；未把公式或脚注数字作为事实。2条定性原文分别为环境自行监测方案、土壤及地下水监测措施，均保留完整引用；量值与属性补读不改写这些陈述。缺失属性显示partial，任务执行仍为completed。见[原值对照](phase4-catl.json)及[运行、补读、接收与投影](phase4-catl-run.json)。CKH与能源任务完成后补记。
+CATL已完整执行：53条（51定量、2定性），16次模型调用，提取执行累计1821.818秒，接收53/拒收0/投影53。既有9条多年份标注的原值、单位、期间与目标关系均对应；未把公式或脚注数字作为事实。2条定性原文分别为环境自行监测方案、土壤及地下水监测措施，均保留完整引用；量值与属性补读不改写这些陈述。缺失属性显示partial，任务执行仍为completed。见[原值对照](phase4-catl.json)及[运行、补读、接收与投影](phase4-catl-run.json)。
+
+CKH本次已完整执行并接收/投影222条，45个标注目标的原值、单位、期间和关系对应，通用补读找回先前整行遗漏的15条颗粒物值。它确实补入6页并在原任务续跑，见[原值对照](phase4-ckh.json)、[两份快照及回执](phase4-ckh-run.json)。但新增34个属性中出现了用员工章节的“The Group”补排放主体的情况，不能将这34项计作正确的属性补读。
+
+能源本次完成并接收/投影71条，其中目标为2023年10,524,882.70、2024年19,233,654.46、2025年24,767,519.69兆瓦时。3条均从明确报告范围说明补入主体与边界，方法保持未知，没有再套用水/蒸汽方法；见[能源原值与字段证据](phase4-energy.json)。
+
+**正在修复的最后一处补读关联：** 补读输入先提供该事实自己的行列标题、表题与脚注，并按事实保存可引用的局部来源；报告说明另列，不能借用其他事实的局部来源。物理帧引用随任务恢复，不保存跨条款理解。属性补页使用文字上下文意图，移除测量查询的数字偏好和负词；组织页只解析所请求的冻结条款。修改后重新运行实际报告，再记录结果。
+
+局部补读实跑已读到能源的真实脚注《综合能耗计算通则》（GB/T 2589-2020）。同时暴露移除旧`missing_context`字段后仍读取该字段的代码残留，已连同日志读取清除；续跑改为保留原错误及失败帧位置。当前部署指纹`e769f982f20878f492a8e4fcfac51df992a7ea4179951d2524184051639e5b44`，正在执行CKH `extract-0d4cbf5c149d08bcd831643ffe627404`、能源 `extract-15aab8a794c265a296ece3fb6abe9cf0`、CATL定量＋定性 `extract-a42500ecff23dce009ef971bb7684582`；旧实跑的partial或被错误掩盖的completed均不作为这次修正已完成的证明。
+
+## 文件落点
+
+| 顺序 | 当前实现 |
+|---|---|
+| 1 单条属性 | `ClauseESG/src/esg_clauses/{attributes,contract,search,templates}.py`；`ClauseESG/clauses/<组>/<条>/clause.json` |
+| 2 增量保存 | `ExtractESG/extraction/src/esg_extraction/pipeline/{result_store,state,engine}.py` |
+| 3 搜索与续跑 | 同目录`{retrieval,runtime,engine}.py`；`ExtractESG/pipeline/src/esg_pipeline/extraction.py`；`ExtractESG/document/src/esg_document/api/evidence.py` |
+| 4 属性补读 | 提取pipeline的`{enrichment,reading_frame,binding,decisions}.py`；共享`esg_contracts/evidence.py` |
+| 5 比较与选源 | `database/src/esg_database/{projection,selection,research}.py`；`database/queries/capture_products.mjs` |
+| 6 按需结果 | 提取pipeline的`{api,result_store,organization}.py`；`ConsoleESG/backend/src/esg_console/sessions.py`；`ConsoleESG/frontend/src/features/extractions/{detail,result-pages,results}.tsx`；共享`esg_contracts/results.py` |
 
 前端生产构建已通过，Console代理上的概览、事实页及单条组织页已返回真实数据。浏览器自动化被当前应用设置关闭，本轮没有完成视觉和鼠标点击验证，不以接口读通代替该项。

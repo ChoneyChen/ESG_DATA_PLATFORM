@@ -4,7 +4,7 @@
 
 | 模块 | 所有权 |
 |---|---|
-| `ClauseESG/` | 一条一整体：定义、定性/定量、词典、读取、用途、证据、展示及验收声明 |
+| `ClauseESG/` | 一条一整体：定义、定性/定量、属性、词典、读取与补读、用途、证据及展示 |
 | `ExtractESG/contracts/` | 两类原值、字段证据、报告资源、运行和交接 DTO；独立轻量 SDK |
 | `ExtractESG/document/` | 原生文字、布局、本地 OCR、IR、证据对象 |
 | `ExtractESG/extraction/` | 检索、局部阅读、原值绑定、目标关系与输出；不写条款专用词典 |
@@ -21,13 +21,13 @@ ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ConsoleESG/scripts/start.sh
 
 本地服务：Console 18081、文档/Console 组合 API 18080、提取 18180、独立数据库18280、Plat8765，由同一控制器管理。启动器不初始化或迁移数据库，使用已配置的独立原值库。
 
-业务数据集中在 `$ESG_DATA_ROOT`（默认 `.local/data`）；报告、文档证据、提取结果、控制记录、日志和数据库分别存放。原PDF独立保管，新运行固定当前输入与合同；旧字典/旧运行兼容读取已删除。模型理解不跨条款/运行复用，物理 OCR/IR 可按内容和配置复用。
+业务数据集中在 `$ESG_DATA_ROOT`（默认 `.local/data`）；报告、文档证据、提取结果、控制记录、日志和数据库分别存放。原PDF独立保管，新运行固定当前输入与合同；旧指标体系不参与生产，已保存任务按冻结输入与结果读取。模型理解不跨条款/运行复用，物理 OCR/IR 可按内容和配置复用。
 
-[当前升级与逐项验收](docs/implementation/2026-10-31/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
+[当前六项骨架升级](docs/implementation/2026-11-01/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
 
-2026-10-31本轮验收：中文52条、英文222条均已接收并投影；三年空气标注分别9值、45值核对通过。隔离无文字层派生页本地OCR生成51条，九值及独立接收/投影核验通过。665项Python回归、30份逐文档复核与五服务当前部署已核验；科学样本与性能边界见实施报告。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
+2026-11-02本轮正在实跑：CATL已完成53条原值接收与投影，含2023—2025年数据和2条定性原文；CKH已保存222条，45条标注目标关系对应，补页及能源口径任务仍在执行。逐项结果与实际限制只记录在本轮实施报告。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
 
-1,126个独立声明：281定量、832定性、13非执行结构描述；37项已逐条归类，当前零技术阻塞。99展示组、16/32等集合仅组织ID，不产生专用路线；技术就绪与科学样本验收分开。自动发布关闭；CrawlESG保护区不接入。
+1,126个独立声明：281定量、832定性、13非执行结构描述；37项已逐条归类。99展示组、16/32等集合仅组织ID，不产生专用路线；条款可直接试跑，原值接收不设置样本配额或成熟度闸门。自动发布关闭；CrawlESG保护区不接入。
 
 桌面入口更新：运行 `ExtractESG/.local/python/bin/python ConsoleESG/scripts/install_desktop_launcher.py`。双击“启动ESG统一工作台.command”后台启动并打开Console；同一入口支持 `status --json`、`stop`、`restart`。关闭终端不停止服务。
 

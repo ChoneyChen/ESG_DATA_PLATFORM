@@ -13,7 +13,7 @@ def reading_frame(frame):
     context = [
         item
         for item in frame.texts
-        if item.object_type != "cell" or item.text in sections
+        if frame.kind == "text" or item.object_type != "cell" or item.text in sections
     ]
     body = {
         "object_id": frame.object_id,

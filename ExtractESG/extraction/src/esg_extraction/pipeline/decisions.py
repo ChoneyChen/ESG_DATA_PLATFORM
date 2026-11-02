@@ -54,7 +54,6 @@ class NumericMatch(DecisionModel):
 class QuantitativeDecision(DecisionModel):
     identity: IdentityClaims = Field(default_factory=list)
     matches: list[NumericMatch]
-    missing_context: list[str] = Field(default_factory=list)
 
 
 class StatementMatch(DecisionModel):
@@ -68,7 +67,6 @@ class StatementMatch(DecisionModel):
 class QualitativeDecision(DecisionModel):
     identity: IdentityClaims = Field(default_factory=list)
     matches: list[StatementMatch]
-    missing_context: list[str] = Field(default_factory=list)
 
 
 def evidence_identity_schema(schema, source_ids):
@@ -77,7 +75,7 @@ def evidence_identity_schema(schema, source_ids):
     properties = proposal["properties"]
     properties.pop("state", None)
     properties["value"] = {"anyOf": [
-        {"type":"string"}, {"type":"number"}, {"type":"boolean"},
+        {"type":"string","minLength":1}, {"type":"number"}, {"type":"boolean"},
         {"type":"array","items":{"$ref":"#/$defs/JsonValue"}},
         {"type":"object","additionalProperties":{"$ref":"#/$defs/JsonValue"}},
     ]}

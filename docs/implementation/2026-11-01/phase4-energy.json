@@ -1,0 +1,694 @@
+{
+  "run_id": "extract-9a0a58d358e994911be78253ecc248c8",
+  "engine_fingerprint": "669c7a46a1ce195bc81096faaf115cedeb6ac16bc95c9a48608f600839303cc1",
+  "status": "completed",
+  "summary": {
+    "selected_clauses": 1,
+    "processed_clauses": 1,
+    "source_facts": 71,
+    "quantitative": 71,
+    "qualitative": 0,
+    "model_calls": 10,
+    "elapsed_seconds": 789.954,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "not_evaluated",
+      "target_facts": 3,
+      "other_facts": 68,
+      "unresolved_facts": 0,
+      "rejected_candidates": 39,
+      "periods": {
+        "2023": 13,
+        "2024": 28,
+        "2025": 30
+      }
+    }
+  },
+  "delivery": {
+    "export_id": "export-58e1269c7a85d44d2279ce009455862fea434a31d599fafc8b22996b38d734df",
+    "state": "delivered",
+    "accepted_facts": 71,
+    "rejected_facts": 0,
+    "message": null,
+    "retryable": false
+  },
+  "projection": {
+    "export_id": "export-58e1269c7a85d44d2279ce009455862fea434a31d599fafc8b22996b38d734df",
+    "status": "completed",
+    "projection": {
+      "schema_version": "capture-projection-1.0",
+      "projection_id": "projection-30c06f2dad594f051e236a170ccbff3c807eea4c809fed68fe9fd5ecfdf3c568",
+      "export_id": "export-58e1269c7a85d44d2279ce009455862fea434a31d599fafc8b22996b38d734df",
+      "input_digest": "0bc4bfcb315cfa0d22ef48f0ce0ac229a6553281a0e333c49ab04e1e22459a33",
+      "transform_version": "capture-observation-1.1",
+      "content_digest": "d3006f95d3e590ee12ebeb5699e4e144f319fda0ee7202c171afdcd5632a63b4",
+      "source": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+        "report_company": "宁德时代新能源科技股份有限公司",
+        "publication_year": null,
+        "resource_revision": 2,
+        "report_company_id": "org:catl",
+        "industry": null,
+        "reporting_year": 2025
+      },
+      "facts": 71,
+      "observations": 71,
+      "periods": {
+        "2023": 13,
+        "2024": 28,
+        "2025": 30
+      },
+      "relations": {
+        "match": 3,
+        "different": 68
+      },
+      "repeated_occurrences": 0,
+      "diagnostics": []
+    },
+    "error_code": null,
+    "retryable": false
+  },
+  "targets": [
+    {
+      "fact_id": "1d3775a555ef553d108acdf7d13edd5bd6cf4b003bb1006ec0f8b57ab08e2fec",
+      "label": "综合能源消耗量²",
+      "value": {
+        "value_raw": "10,524,882.70",
+        "parse_status": "parsed",
+        "comparator": "exact",
+        "value_numeric": "10524882.70",
+        "value_lower": null,
+        "value_upper": null,
+        "unit_raw": "兆瓦时",
+        "extensions": {},
+        "kind": "quantitative"
+      },
+      "identity": {
+        "reporting_period": {
+          "state": "stated",
+          "raw_text": "2023",
+          "value": "2023",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0001-c0003",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "2023",
+              "role": "column_header",
+              "bbox": null,
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "reporting_entity": {
+          "state": "stated",
+          "raw_text": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+          "value": "宁德时代新能源科技股份有限公司及其附属公司",
+          "evidence": [
+            {
+              "object_id": "block-p0003-0020",
+              "object_type": "text_block",
+              "page_index": 2,
+              "excerpt": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 664.2489567139287,
+                "x1": 885.1654645149493,
+                "y0": 335.94761370668317,
+                "y1": 383.44020790628866
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "entity_aggregation_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "reporting_boundary": {
+          "state": "stated",
+          "raw_text": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+          "value": "宁德时代新能源科技股份有限公司及其附属公司",
+          "evidence": [
+            {
+              "object_id": "block-p0003-0020",
+              "object_type": "text_block",
+              "page_index": 2,
+              "excerpt": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 664.2489567139287,
+                "x1": 885.1654645149493,
+                "y0": 335.94761370668317,
+                "y1": 383.44020790628866
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "measurement_method": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "value_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "aggregation_role": {
+          "state": "stated",
+          "raw_text": "综合",
+          "value": "total",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "综合",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "denominator": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "dimensions": {
+          "energy_carrier": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_flow": {
+            "state": "stated",
+            "raw_text": "消耗量",
+            "value": "consumption",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "消耗量",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_source": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fact_id": "254c7bf396b4970248c7315c9ce7b9a387eac95ad09325e9b108cae3a0558474",
+      "label": "综合能源消耗量²",
+      "value": {
+        "value_raw": "19,233,654.46",
+        "parse_status": "parsed",
+        "comparator": "exact",
+        "value_numeric": "19233654.46",
+        "value_lower": null,
+        "value_upper": null,
+        "unit_raw": "兆瓦时",
+        "extensions": {},
+        "kind": "quantitative"
+      },
+      "identity": {
+        "reporting_period": {
+          "state": "stated",
+          "raw_text": "2024",
+          "value": "2024",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0001-c0004",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "2024",
+              "role": "column_header",
+              "bbox": null,
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "reporting_entity": {
+          "state": "stated",
+          "raw_text": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+          "value": "宁德时代新能源科技股份有限公司及其附属公司",
+          "evidence": [
+            {
+              "object_id": "block-p0003-0020",
+              "object_type": "text_block",
+              "page_index": 2,
+              "excerpt": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 664.2489567139287,
+                "x1": 885.1654645149493,
+                "y0": 335.94761370668317,
+                "y1": 383.44020790628866
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "entity_aggregation_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "reporting_boundary": {
+          "state": "stated",
+          "raw_text": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+          "value": "宁德时代新能源科技股份有限公司及其附属公司",
+          "evidence": [
+            {
+              "object_id": "block-p0003-0020",
+              "object_type": "text_block",
+              "page_index": 2,
+              "excerpt": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 664.2489567139287,
+                "x1": 885.1654645149493,
+                "y0": 335.94761370668317,
+                "y1": 383.44020790628866
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "measurement_method": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "value_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "aggregation_role": {
+          "state": "stated",
+          "raw_text": "综合",
+          "value": "total",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "综合",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "denominator": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "dimensions": {
+          "energy_carrier": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_flow": {
+            "state": "stated",
+            "raw_text": "消耗量",
+            "value": "consumption",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "消耗量",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_source": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fact_id": "3e9cbc50d859052ec0d49722e29aee51b293e68e3201dd99ab6799ad6ffe69f5",
+      "label": "综合能源消耗量²",
+      "value": {
+        "value_raw": "24,767,519.69",
+        "parse_status": "parsed",
+        "comparator": "exact",
+        "value_numeric": "24767519.69",
+        "value_lower": null,
+        "value_upper": null,
+        "unit_raw": "兆瓦时",
+        "extensions": {},
+        "kind": "quantitative"
+      },
+      "identity": {
+        "reporting_period": {
+          "state": "stated",
+          "raw_text": "2025",
+          "value": "2025",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0001-c0005",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "2025",
+              "role": "column_header",
+              "bbox": null,
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "reporting_entity": {
+          "state": "stated",
+          "raw_text": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+          "value": "宁德时代新能源科技股份有限公司及其附属公司",
+          "evidence": [
+            {
+              "object_id": "block-p0003-0020",
+              "object_type": "text_block",
+              "page_index": 2,
+              "excerpt": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 664.2489567139287,
+                "x1": 885.1654645149493,
+                "y0": 335.94761370668317,
+                "y1": 383.44020790628866
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "entity_aggregation_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "reporting_boundary": {
+          "state": "stated",
+          "raw_text": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+          "value": "宁德时代新能源科技股份有限公司及其附属公司",
+          "evidence": [
+            {
+              "object_id": "block-p0003-0020",
+              "object_type": "text_block",
+              "page_index": 2,
+              "excerpt": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 664.2489567139287,
+                "x1": 885.1654645149493,
+                "y0": 335.94761370668317,
+                "y1": 383.44020790628866
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "measurement_method": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "value_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "aggregation_role": {
+          "state": "stated",
+          "raw_text": "综合",
+          "value": "total",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "综合",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "denominator": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "dimensions": {
+          "energy_carrier": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_flow": {
+            "state": "stated",
+            "raw_text": "消耗量",
+            "value": "consumption",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "消耗量",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_source": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "context_calls": [
+    {
+      "call": 10,
+      "status": "ok",
+      "attributes_added": 6,
+      "decision": {
+        "assignments": [
+          {
+            "fact_ids": [
+              "f1",
+              "f2",
+              "f3"
+            ],
+            "identity": [
+              {
+                "axis": "reporting_boundary",
+                "quote": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+                "source_id": "c1",
+                "state": "stated",
+                "value": "宁德时代新能源科技股份有限公司及其附属公司"
+              },
+              {
+                "axis": "reporting_entity",
+                "quote": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+                "source_id": "c1",
+                "state": "stated",
+                "value": "宁德时代新能源科技股份有限公司及其附属公司"
+              }
+            ],
+            "level": "report"
+          }
+        ]
+      }
+    }
+  ]
+}

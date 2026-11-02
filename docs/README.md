@@ -4,7 +4,8 @@
 |---|---|
 | 最新全链路文件级盘点 | [2026-11-01模块、接口、文件与缺口](audits/2026-11-01/README.md)，附1757文件、1126条款及195接口操作清单 |
 | 审查基线与原要求 | [2026-10-31多年份与全流程审查](audits/2026-10-31/README.md)、[37条未决明细](audits/2026-10-31/unresolved-clauses.md)；问题基线，修复进度另见实施记录 |
-| 当前实现与15项验收 | [2026-10-31实施记录](implementation/2026-10-31/README.md) |
+| 当前六项骨架升级与真实任务 | [单条属性、增量保存、搜索推进、属性补读、比较与分页](implementation/2026-11-01/README.md) |
+| 前一轮实施 | [2026-10-31实施记录](implementation/2026-10-31/README.md) |
 | 架构规范 | [模块与接口](architecture/README.md)、[原值与组织](architecture/organization.md)、[模型](architecture/models.md)、[导出与数据库](architecture/delivery.md) |
 | 操作指南 | [条款如何构造](guides/clause-authoring.md)、[PDF如何组织](guides/pdf-intake.md)、[本地运行、配置与数据布局](guides/local-operation.md) |
 | 模块手册 | [条款](../ClauseESG/README.md)、[提取](../ExtractESG/README.md)、[Console](../ConsoleESG/README.md)、[数据库](../database/README.md)、[Plat](../PlatESG/README.md) |

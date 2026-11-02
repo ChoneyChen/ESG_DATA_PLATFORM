@@ -1,0 +1,13 @@
+{
+  "session_id": "extract-plan-0b5e78e6d9014bf38af775f2edb9a277",
+  "deployment_fingerprint": "ddfba39606cc4ac6df3cf19598b9460b6c488e64478a1391536d2d79ac9b8b85",
+  "total": 222,
+  "first_returned": 20,
+  "next_returned": 20,
+  "overlap": 0,
+  "filtered_total": 15,
+  "filtered_rows": 10,
+  "filtered_returned": 10,
+  "filtered_has_next": true,
+  "source": "Console HTTP proxy, actual frozen CKH run"
+}
