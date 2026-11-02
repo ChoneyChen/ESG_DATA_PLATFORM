@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "df72beaccb4770d80d4620e63441dade647cc43737afda35277b0b2efdd48d03",
+  "clause_digest": "db4171881704c298a84f19c86cca30f2c3491c6f6c1114f9e586fe7b43c7b283",
   "clause_key": "E5-2_01",
   "data_kind": "qualitative",
   "definition": "说明在技术材料、生物材料和水资源使用方面提高资源效率的具体做法与成效。",
@@ -459,9 +459,6 @@
       "说明在技术材料、生物材料和水资源使用方面提高资源效率的具体做法与成效。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

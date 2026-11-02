@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8f3d73213430d04e2163c2b2a69ebe851b2801250c270a381c668c990ee8426f",
+  "clause_digest": "155f94754e478b675899ea70451969b831c0c1248b70ae2be0cdd1ab9187a06d",
   "clause_key": "S4-4_17",
   "data_kind": "qualitative",
   "definition": "说明以积极影响消费者和终端用户为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。",
@@ -459,9 +459,6 @@
       "说明以积极影响消费者和终端用户为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

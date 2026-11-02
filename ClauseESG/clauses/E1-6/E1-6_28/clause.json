@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0e9fe10020e1ce9be414dc49c4661cd63f679de1aeb7d9378312cc0e9f1ee378",
+  "clause_digest": "42b0a5c2356c0852b10d176702b02647f7cfdd3bc3ff3cc64268abb759f7b258",
   "clause_key": "E1-6_28",
   "data_kind": "quantitative",
   "definition": "范围3中单独披露的生物源二氧化碳排放",
@@ -586,9 +586,6 @@
       "范围3中单独披露的生物源二氧化碳排放"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

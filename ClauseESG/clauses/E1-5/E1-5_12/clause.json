@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2d1b13a3353051151901a25cce1db3d620af544a55ee74dbf9378b72dd8ac628",
+  "clause_digest": "89beccdb61c0c19c999378269fef34eef95b0a61ec1da7704fb55a279f24a364",
   "clause_key": "E1-5_12",
   "data_kind": "quantitative",
   "definition": "天然气燃料消费量",
@@ -601,9 +601,6 @@
       "天然气燃料消费量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

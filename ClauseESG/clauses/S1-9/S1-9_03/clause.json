@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4dcd19bfe8170c66e48219c84f8584b47e6cedb09b6eae4c5e50d7e90445c6f1",
+  "clause_digest": "7968f741b175f8f3fc1d88396cdc864c5b20e6b80099c9f31bc1cc470d528ce6",
   "clause_key": "S1-9_03",
   "data_kind": "quantitative",
   "definition": "Distribution of employees (head count) under 30 years old",
@@ -558,9 +558,6 @@
       "Distribution of employees (head count) under 30 years old"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

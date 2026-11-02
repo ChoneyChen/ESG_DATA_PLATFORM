@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8d2c7d3d208fd7b673b89932dcfb46a5adcd745b2cc1f087ba0da9aa6e604430",
+  "clause_digest": "3483dca0db6f2e53f405786e18885bbc29bce051c6e53e6cefc59c32da140e0c",
   "clause_key": "E4-2_01",
   "data_kind": "qualitative",
   "definition": "说明生物多样性和生态系统相关政策与E4 AR4所述事项是否以及如何相关。",
@@ -459,9 +459,6 @@
       "说明生物多样性和生态系统相关政策与E4 AR4所述事项是否以及如何相关。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

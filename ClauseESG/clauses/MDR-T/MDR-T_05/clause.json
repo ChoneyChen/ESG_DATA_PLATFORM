@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9815f51fdd0fd27e11893dad05a23d121d06b99bac00537c983d0ab90fab9ecf",
+  "clause_digest": "c7e21c1d2d1fb29593b868b02f0b80b7228c35bc4d8c9299bef9632a41241239",
   "clause_key": "MDR-T_05",
   "data_kind": "quantitative",
   "definition": "Baseline value。目标基准值。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -586,9 +586,6 @@
       "Baseline value。目标基准值。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "baseline"
-    },
     "rules": [
       {
         "allowed": [],

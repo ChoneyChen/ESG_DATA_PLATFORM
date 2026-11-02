@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "97b7c2a0133773581ccfad6f332ef3cfa97aeb64f5edb151a6c8ad726b258707",
+  "clause_digest": "10e8b1a0fd82c5c1e42e5fdb26d522b433bf3b4ff948d7b45d0f6e252f640bfb",
   "clause_key": "S3-2_08",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立与受影响社区接触的一般性流程；若未建立，披露现状与原因。",
@@ -445,9 +445,6 @@
       "说明主体是否尚未建立与受影响社区接触的一般性流程；若未建立，披露现状与原因。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

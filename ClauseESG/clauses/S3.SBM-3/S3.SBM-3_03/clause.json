@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "38f752846a23f1006c838120ac2cbde733afdaf4eb601688d4c532c5ef27836c",
+  "clause_digest": "a0a1c77a95b4e0b7ab29a3bb5ece2c5e76176a46ffb9da73cc8ac13afddd4994",
   "clause_key": "S3.SBM-3_03",
   "data_kind": "qualitative",
   "definition": "说明因主体自身运营或通过价值链而受重大影响的社区类型。",
@@ -487,9 +487,6 @@
       "说明因主体自身运营或通过价值链而受重大影响的社区类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

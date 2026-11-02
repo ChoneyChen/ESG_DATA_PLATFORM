@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1d423a39c05e42c947f99cc0004c20fa3b7fd21e4492e2cab916e3c4eded1c6c",
+  "clause_digest": "1f828e3ec5895086d389cd52593c2d88e2a37e0c07b79879fe214caa0860b1c9",
   "clause_key": "S4-4_08",
   "data_kind": "qualitative",
   "definition": "描述为缓解因对消费者和终端用户的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。",
@@ -459,9 +459,6 @@
       "描述为缓解因对消费者和终端用户的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e38e711831b1a9a13dc2f6b33ba22414190782c69aa6985f9021ad9ad990881c",
+  "clause_digest": "54ba26625ee4462beb7a1b03f228ef49bae56c3085ed19d2b2e27f9f0d252fbe",
   "clause_key": "E4-6_02",
   "data_kind": "qualitative",
   "definition": "以定性方式说明生物多样性和生态系统相关影响与依赖所产生的重大风险和机遇的预期财务影响。",
@@ -515,9 +515,6 @@
       "以定性方式说明生物多样性和生态系统相关影响与依赖所产生的重大风险和机遇的预期财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

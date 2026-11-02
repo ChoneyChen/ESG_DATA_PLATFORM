@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "819d63c74b41f14f141668dcaf6fd81199a546c718ebf521e3453bbc7c43e54e",
+  "clause_digest": "3bfcf9997731896f396aeb7f603b53b831f0d38322dfdadd1cdbf7d5de7a9612",
   "clause_key": "E1-6_25",
   "data_kind": "quantitative",
   "definition": "使用从供应商或价值链伙伴取得的一手数据计算的范围3排放比例",
@@ -586,9 +586,6 @@
       "使用从供应商或价值链伙伴取得的一手数据计算的范围3排放比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

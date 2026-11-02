@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0f3600ca0369902203aed7418ca2a8459ac5de84a726501651bdcb26a746f179",
+  "clause_digest": "652fe9fe60fbc2b1bef84e6f9d6e80415c6489af5cc5c73d87cdaa0123327977",
   "clause_key": "BP-2_24",
   "data_kind": "qualitative",
   "definition": "读取阶段安排中有时限目标及进展的原文；目标期与衡量期按原文分别保留，未给具体数值也可构成陈述。",
@@ -462,9 +462,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

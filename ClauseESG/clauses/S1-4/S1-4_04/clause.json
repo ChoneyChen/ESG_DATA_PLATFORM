@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "990f14c4553386b2d9caf6874e81707684e7ff29a112ad39179bcee7352667db",
+  "clause_digest": "741895f3bce3f05ec35c83c5bf3cbb1ebb79ef79f1cbec9a36a0bef2a4ef8126",
   "clause_key": "S1-4_04",
   "data_kind": "qualitative",
   "definition": "说明主体如何跟踪和评估行动与举措在改善自身劳动力结果方面的有效性。",
@@ -459,9 +459,6 @@
       "说明主体如何跟踪和评估行动与举措在改善自身劳动力结果方面的有效性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

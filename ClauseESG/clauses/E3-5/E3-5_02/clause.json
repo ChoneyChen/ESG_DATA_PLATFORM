@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "573edccf27d1329bf18a463fe52c392c42a40e5b9f552e182b7c02ff9dd4d363",
+  "clause_digest": "862793b93b67adab94ccddeef9a0f27d89fdc6cdc034f1ce527a2bf7d396b6c0",
   "clause_key": "E3-5_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of qualitative information of anticipated financial effects of material risks and opportunities arising from water and marine resources-related impacts。水及海洋资源预期财务影响说明。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -515,9 +515,6 @@
       "Disclosure of qualitative information of anticipated financial effects of material risks and opportunities arising from water and marine resources-related impacts。水及海洋资源预期财务影响说明。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

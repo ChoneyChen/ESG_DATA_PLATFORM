@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "aec1c02b66b35b7514232e942592d45cb7e1500b9746c281049ad4b05f279709",
+  "clause_digest": "6f6864f25a9a69110ca1e064c11fd8256175dc4024e1f9a5da3de7a7587779bb",
   "clause_key": "S3-2_01",
   "data_kind": "qualitative",
   "definition": "说明受影响社区的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
@@ -445,9 +445,6 @@
       "说明受影响社区的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

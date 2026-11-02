@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a601c0e86ff20bed1023e6d1515aa9bdfc244ff8eac05e62fc64dfcb737a086e",
+  "clause_digest": "37757913bcc0abe96196e640021c4ef883424f77beeba833d5b655e7fe8945c6",
   "clause_key": "IRO-1_13",
   "data_kind": "qualitative",
   "definition": "Description of extent to which and how process to identify, assess and manage opportunities is integrated into overall management process。机会识别与管理流程整合。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of extent to which and how process to identify, assess and manage opportunities is integrated into overall management process。机会识别与管理流程整合。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

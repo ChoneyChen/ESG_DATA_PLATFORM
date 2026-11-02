@@ -185,7 +185,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0a776d35f4b41d95b27144183ea22a69925d123ea9ad55a07d9654b43f5fdc94",
+  "clause_digest": "33054b9de8f546a8f32fc736039a700b6b32208a4b69405f7f02f8f2ce8bc8b4",
   "clause_key": "E3-4_08",
   "data_kind": "quantitative",
   "definition": "Water intensity ratio。按净收入计算的耗水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -635,9 +635,6 @@
       "Water intensity ratio。按净收入计算的耗水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

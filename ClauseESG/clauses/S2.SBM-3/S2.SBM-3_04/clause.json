@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bfd888eb9023717f102ddce649a7322d13d4b452bded87d7fd83a714ae0adb2b",
+  "clause_digest": "08e65f7a1b540b841f29f4a25c7a806a6e04b71a61a47e580f2330b3855f52ec",
   "clause_key": "S2.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "披露价值链中存在童工或强迫劳动重大风险的地理区域或商品。",
@@ -487,9 +487,6 @@
       "披露价值链中存在童工或强迫劳动重大风险的地理区域或商品。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

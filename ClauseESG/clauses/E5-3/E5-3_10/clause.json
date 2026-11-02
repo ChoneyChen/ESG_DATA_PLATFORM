@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "98a9d589b9ce8bbc7597c0f22a06b5dc47fe78e81ee77aa1b41ff4d26524b673",
+  "clause_digest": "64212d6be4644afc14e329272ac2148499c1baddef2518e6ca0bb2163fe0ca82",
   "clause_key": "E5-3_10",
   "data_kind": "qualitative",
   "definition": "披露资源利用与循环经济目标所依据的生态阈值及其识别方法。",
@@ -473,9 +473,6 @@
       "披露资源利用与循环经济目标所依据的生态阈值及其识别方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

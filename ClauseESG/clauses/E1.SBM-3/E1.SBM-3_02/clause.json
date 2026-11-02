@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "95f2f7d2ae9bcecec1bfbd1da4943d30941d34a40172e8f6bda78e97a982e92a",
+  "clause_digest": "a54fba6bba4630551c607a7b2bb48ecc00c8c8d078d1a1bb76e6ed6810121ef9",
   "clause_key": "E1.SBM-3_02",
   "data_kind": "qualitative",
   "definition": "Description of scope of resilience analysis。韧性分析范围。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -487,9 +487,6 @@
       "Description of scope of resilience analysis。韧性分析范围。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

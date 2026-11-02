@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f85af64d9212187c967aa6fd35d68ef009c54a3e446d3451cc14289880f68e94",
+  "clause_digest": "5e6cd6cd3f0cf7aa1f4b5478370d98128289c1d995e05a53638463642bf7a5bf",
   "clause_key": "E3-5_05",
   "data_kind": "qualitative",
   "definition": "Description of related products and services at risk (water and marine resources)。风险产品和服务。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -515,9 +515,6 @@
       "Description of related products and services at risk (water and marine resources)。风险产品和服务。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

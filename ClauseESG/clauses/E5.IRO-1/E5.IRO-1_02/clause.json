@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "259995b3ce7904a4877e9758df57bc8f799f55c5296b1d1424048e8ada42a5d6",
+  "clause_digest": "e9009758b8873a75f8228480558b3b05ba065ede05e23bd124eeb1c3769ed940",
   "clause_key": "E5.IRO-1_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何就资源利用与循环经济事项开展利益相关方协商。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何就资源利用与循环经济事项开展利益相关方协商。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

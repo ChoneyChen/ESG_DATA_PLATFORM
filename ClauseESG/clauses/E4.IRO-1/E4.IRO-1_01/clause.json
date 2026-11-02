@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "96a31830092ebd15e45eabbc58f01444d60ee8eb83f9b27c6e035a2d785dd865",
+  "clause_digest": "5e6d2b14650d8f60b3ee26334c2b48ccab6dee6fbd55cf4d40d4bf79fc0587e1",
   "clause_key": "E4.IRO-1_01",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统的实际和潜在影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

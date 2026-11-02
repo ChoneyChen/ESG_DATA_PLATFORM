@@ -162,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "86b6fe6d8365a84af63ffad4648960178227cff177c9cda0dbaaa92b91451b9b",
+  "clause_digest": "409216a0c4f5db759b265b7a7e3803e6fd646ba1b62054b6faa63fd7a16b2c30",
   "clause_key": "S1-6_07",
   "data_kind": "quantitative",
   "definition": "读取按合同类型和性别实际披露的员工人数，逐单元格保留身份与所有期间；不生成报告没有的交叉组合。",
@@ -584,9 +584,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [

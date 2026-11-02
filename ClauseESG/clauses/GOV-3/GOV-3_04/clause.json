@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9af1b3bb3076788706cb3e62048dd3edc67ca66b1790783121582062e946a57d",
+  "clause_digest": "6ac8e4b5b413dccc9f7139ea2a60df3d4d76b71f6d3d570e8b0500c37336337a",
   "clause_key": "GOV-3_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of how sustainability-related performance metrics are considered as performance benchmarks or included in remuneration policies。可持续绩效与薪酬基准关系。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
@@ -459,9 +459,6 @@
       "Disclosure of how sustainability-related performance metrics are considered as performance benchmarks or included in remuneration policies。可持续绩效与薪酬基准关系。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2f99711bab1c916102b89ddd9ccd242601da8428bb7fe1588d264895534abc6f",
+  "clause_digest": "5674ac6b08823fd02f49c74e37d5096f6724b361451926a3eea3310c9255955f",
   "clause_key": "S1-8_03",
   "data_kind": "quantitative",
   "definition": "披露欧洲经济区外按地区划分的、受集体谈判协议覆盖的员工比例。",
@@ -572,9 +572,6 @@
       "披露欧洲经济区外按地区划分的、受集体谈判协议覆盖的员工比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

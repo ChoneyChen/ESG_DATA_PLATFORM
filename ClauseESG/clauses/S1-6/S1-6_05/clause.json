@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f518b6f024d6bc9c2d8059a0792bff25624e9d35934bad0a70775523ae13d09a",
+  "clause_digest": "ec8b5bb152c3a96995d133bc3b2f5899bc9ee954fe4b25fd59735b18ede02c07",
   "clause_key": "S1-6_05",
   "data_kind": "quantitative",
   "definition": "Number of employees in countries with 50 or more employees representing at least 10% of total number of employees",
@@ -572,9 +572,6 @@
       "Number of employees in countries with 50 or more employees representing at least 10% of total number of employees"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

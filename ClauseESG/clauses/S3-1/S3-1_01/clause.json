@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c3ae3b3886b080f76e5b0fe362a3afec01845ed65d96a3553fa56e7d040984b7",
+  "clause_digest": "15496608ac8738ea1d9b1ea3528c7a94f94010f06a3a8adc2687a62a2f9a43c1",
   "clause_key": "S3-1_01",
   "data_kind": "qualitative",
   "definition": "披露主体政策中用于防止和应对对原住民影响的特定条款，包括自由、事先和知情同意安排。",
@@ -459,9 +459,6 @@
       "披露主体政策中用于防止和应对对原住民影响的特定条款，包括自由、事先和知情同意安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

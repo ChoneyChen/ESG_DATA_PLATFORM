@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "be45561a83b57eae0c49e7884ce4d28ccd3a7dd21e328d95c4b3b321b9ad7aa0",
+  "clause_digest": "3fcd017d2122d259a9dbc73e06133b12e8798264745fc3128fcf643f9dd476f0",
   "clause_key": "E1-6_20",
   "data_kind": "quantitative",
   "definition": "基于市场法且关联捆绑工具的范围2排放比例",
@@ -624,9 +624,6 @@
       "基于市场法且关联捆绑工具的范围2排放比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

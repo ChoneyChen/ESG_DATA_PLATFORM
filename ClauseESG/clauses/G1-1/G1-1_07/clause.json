@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4d5ec444925a8ce5f39cd2db441cf07ad9342005b527e35993bc590705b21c42",
+  "clause_digest": "97761784fe686f9e17da6112ca99910841945721b7b1afdcca0d183280722bab",
   "clause_key": "G1-1_07",
   "data_kind": "qualitative",
   "definition": "披露举报人保护政策的实施时间表，包括制度发布、培训与运行节点。",
@@ -459,9 +459,6 @@
       "披露举报人保护政策的实施时间表，包括制度发布、培训与运行节点。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

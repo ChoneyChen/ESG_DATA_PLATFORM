@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "92b65bb5d61d0f4882367551e88ca15ba6b0a1f9e5ba17b6e56a0bc6a22c562d",
+  "clause_digest": "4eaa0612b2ffbc7e094222426c0392630ae0c0dcf8cfd44a69c1c75ddd986e9f",
   "clause_key": "S3-5_06",
   "data_kind": "qualitative",
   "definition": "披露受影响社区相关目标所依据的标准、倡议或主体承诺。",
@@ -473,9 +473,6 @@
       "披露受影响社区相关目标所依据的标准、倡议或主体承诺。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

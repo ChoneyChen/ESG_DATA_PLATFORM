@@ -162,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2aac2404b8f5d0ebc0ea881211ff44c33b17934868ce62a9386fb67b7cbdea80",
+  "clause_digest": "49de4cb18975de647a4cf2ac3aaf96359bc99ba6fa13b75a60db27d3f58b7f43",
   "clause_key": "E4-6_06",
   "data_kind": "qualitative",
   "definition": "读取财务金额估计的方法、关键假设和参数说明；不要求同时有金额，不从一般方法推断具体财务影响。",
@@ -574,9 +574,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

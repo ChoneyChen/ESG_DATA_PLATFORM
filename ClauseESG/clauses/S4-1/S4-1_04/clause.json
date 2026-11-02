@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7639b5d9281c1acf7211571d65ad9d860bdad13ff5dad025aef92aeca96e8c5d",
+  "clause_digest": "35372db36b458dfececbf0d430df87c9145d5446c18921dbeed9bc24c5c6205c",
   "clause_key": "S4-1_04",
   "data_kind": "qualitative",
   "definition": "说明主体与消费者和终端用户开展接触和沟通的总体方法。",
@@ -459,9 +459,6 @@
       "说明主体与消费者和终端用户开展接触和沟通的总体方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

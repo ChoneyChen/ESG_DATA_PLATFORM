@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4e157b6add6ffcb5b03819a6eef9df4b1675852dca7c55abf1c83726c554b064",
+  "clause_digest": "fb47056997597d7aaeb977054441c079db0ddd0e2af6d256ff3a33718326f9fc",
   "clause_key": "S1-3_01",
   "data_kind": "qualitative",
   "definition": "说明主体在造成或促成对自身劳动力重大负面影响时，提供或促成补救的总体方法与流程。",
@@ -445,9 +445,6 @@
       "说明主体在造成或促成对自身劳动力重大负面影响时，提供或促成补救的总体方法与流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

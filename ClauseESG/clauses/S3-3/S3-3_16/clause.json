@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0e3d20e0639ca40bd191239dfd2b81c6eabaf140eff4acb31a648c66011c9736",
+  "clause_digest": "67296d3e85ddde61a7ebb3b141b318fb8533509fb9134a21d09b5b5e75e5ae1a",
   "clause_key": "S3-3_16",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立面向受影响社区的申诉流程；若未建立，披露现状与原因。",
@@ -445,9 +445,6 @@
       "说明主体是否尚未建立面向受影响社区的申诉流程；若未建立，披露现状与原因。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

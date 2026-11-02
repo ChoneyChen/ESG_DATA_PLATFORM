@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4f6d11cd0fec4f9314aee4645c4d09bee0497e9d56987e4b866bc75f67cc3876",
+  "clause_digest": "85faea372ee152b0e008149489c36c1839b731a03f6b544d9c66678a0f25c335",
   "clause_key": "MDR-A_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of the type of current and future financial and other resources allocated to the action plan (Capex and Opex)。当前未来行动的资源类型。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Disclosure of the type of current and future financial and other resources allocated to the action plan (Capex and Opex)。当前未来行动的资源类型。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

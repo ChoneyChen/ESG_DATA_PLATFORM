@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3239cd137f41ffb7e5e18bc97b5254d9772e16aaa37bb5f45d1b08e1f3e63662",
+  "clause_digest": "848bbca445f4623eea439b54f24fe2d7f4de94057e0ea78bd921a82e07339e01",
   "clause_key": "E4-3_14",
   "data_kind": "qualitative",
   "definition": "说明由主体单独使用自身资源实施的关键行动，包括资源投入与责任分工。",
@@ -459,9 +459,6 @@
       "说明由主体单独使用自身资源实施的关键行动，包括资源投入与责任分工。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

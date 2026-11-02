@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5e0c5112cee07fdcd28df8c2caec5ffbeef4cdd0d2d45e0bc56c34772387e0eb",
+  "clause_digest": "8e11df2fcae18e0da9388451cfb3d6963b5af7b46eceb0e5137584e4b13ccd90",
   "clause_key": "BP-2_26",
   "data_kind": "qualitative",
   "definition": "Description of actions taken to identify, monitor, prevent, mitigate, remediate or bring end to actual or potential adverse impacts related to sustainability matters assessed to be material (phase-in) and result of such actions。阶段安排的行动及结果。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Description of actions taken to identify, monitor, prevent, mitigate, remediate or bring end to actual or potential adverse impacts related to sustainability matters assessed to be material (phase-in) and result of such actions。阶段安排的行动及结果。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

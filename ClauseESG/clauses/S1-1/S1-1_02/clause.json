@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6afe7a7213fcd6db144f509a9312eecc7b1bea176b474f9aa89ef484f5a1e010",
+  "clause_digest": "288634a95b1cc522e6ec8be59177d69325df7d3f848c05c8c9167a8585b09647",
   "clause_key": "S1-1_02",
   "data_kind": "qualitative",
   "definition": "说明报告年度内对政策作出的重大变化及其原因和影响。",
@@ -459,9 +459,6 @@
       "说明报告年度内对政策作出的重大变化及其原因和影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

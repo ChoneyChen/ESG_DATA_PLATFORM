@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5525b9bcdf0f9342d4e1e45622b6a4a12b9e2727b3344658f80b92223c4a5362",
+  "clause_digest": "1cbcfb89c0a1613b4b85967859e96415d0a45d0b621cef7c9a110f891d014007",
   "clause_key": "E4-2_09",
   "data_kind": "qualitative",
   "definition": "说明政策如何引用由监管机构监督的公认标准或第三方认证。",
@@ -459,9 +459,6 @@
       "说明政策如何引用由监管机构监督的公认标准或第三方认证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

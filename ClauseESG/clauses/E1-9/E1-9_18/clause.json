@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9d339eae7ffe351decf23b3be4d6133d09bea288408a5926be46e80537bff25f",
+  "clause_digest": "70235d2c6d5ab3ec978ac398d76165b8397a2dea419e49497483a7fbba4f9392",
   "clause_key": "E1-9_18",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how potential effects on future financial performance and position for assets and business activities at material transition risk have been assessed。转型风险财务影响评估方法。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of whether and how potential effects on future financial performance and position for assets and business activities at material transition risk have been assessed。转型风险财务影响评估方法。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

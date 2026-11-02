@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "54039fb1bfa9f2ffff0686f8accbe8250414bba6b7d68f749f40a56a854316c0",
+  "clause_digest": "8dceeef799948b7bed92b36b8ca8d826c7d2eacfd0431facd11609b934c55f66",
   "clause_key": "E4-5_04",
   "data_kind": "qualitative",
   "definition": "披露主体认为相关的土地利用变化、淡水利用变化或海洋利用变化指标及其选择依据。",
@@ -445,9 +445,6 @@
       "披露主体认为相关的土地利用变化、淡水利用变化或海洋利用变化指标及其选择依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

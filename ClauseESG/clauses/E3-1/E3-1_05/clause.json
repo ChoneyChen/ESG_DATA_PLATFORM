@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0ac2af777c8b5b3495550bd80d7df7f8aec2502b0b39fe1a029698c24f70c103",
+  "clause_digest": "f80abafee7f17dbab685542fd0fecf45adae14e89f487bbae07866b16ff7657a",
   "clause_key": "E3-1_05",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy adresses product and service design in view of addressing water-related issues and preservation of marine resources。产品服务设计的水与海洋保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "Disclosure of whether and how policy adresses product and service design in view of addressing water-related issues and preservation of marine resources。产品服务设计的水与海洋保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

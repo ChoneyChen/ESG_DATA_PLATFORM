@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9d531e7665d0d08ca656bd35847fff2c3af785825d3818309b049a9396b9562c",
+  "clause_digest": "b6a3b7f48aee928c5fcf89c9a604c2240806ebc4d0d2c8b2dfd8ef7f3bb35281",
   "clause_key": "E5-3_04",
   "data_kind": "qualitative",
   "definition": "说明目标如何与原生原材料使用的最小化相关联，包括覆盖的材料范围。",
@@ -473,9 +473,6 @@
       "说明目标如何与原生原材料使用的最小化相关联，包括覆盖的材料范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

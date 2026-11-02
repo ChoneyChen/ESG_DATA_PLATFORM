@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0cffcbe06ae728edb02a60759a0d68aafea946ad1ab40a14ccb3beaa1c8551c7",
+  "clause_digest": "ab4668a09a9a1b9f045c0830291d4186d1e8686e86c8b02448028b59a2641b3e",
   "clause_key": "S2-3_12",
   "data_kind": "qualitative",
   "definition": "说明提出关切或需求的渠道是否允许价值链劳动者匿名使用。",
@@ -445,9 +445,6 @@
       "说明提出关切或需求的渠道是否允许价值链劳动者匿名使用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

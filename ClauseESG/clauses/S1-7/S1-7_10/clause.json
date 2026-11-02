@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "158a0485dc6808adff3d5aac79c30c389f7aa94b6893ad6a519707a68e04fe9b",
+  "clause_digest": "284ee70d2a2f9aea11fc89614a5ffd80a9a0ae85ed89a952c0662e1c1d2090f8",
   "clause_key": "S1-7_10",
   "data_kind": "qualitative",
   "definition": "描述非员工估计人数的编制基础，包括数据来源、抽样方法和不确定性。",
@@ -445,9 +445,6 @@
       "描述非员工估计人数的编制基础，包括数据来源、抽样方法和不确定性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c50a5b00da5446f0230f0fbcb88138c26b00ea4d6952f922dbf6d5b621e404ac",
+  "clause_digest": "b02659928dbbac9f57b19f68c9a398677600ebb7d257f0069975b2c034aea2db",
   "clause_key": "S3-2_09",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立与受影响社区一般性接触流程的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立与受影响社区一般性接触流程的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

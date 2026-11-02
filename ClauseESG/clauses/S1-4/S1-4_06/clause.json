@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "cac0b9450b2951ee2194497d8dd1215369e0bc4115dd45b50a36b76339268b67",
+  "clause_digest": "0ab3d6c3178e44c942e54073eff042623cbdb5f9e52286476c8eb7faeb74e257",
   "clause_key": "S1-4_06",
   "data_kind": "qualitative",
   "definition": "描述为缓解因对自身劳动力的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。",
@@ -459,9 +459,6 @@
       "描述为缓解因对自身劳动力的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

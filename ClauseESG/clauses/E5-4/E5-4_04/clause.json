@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "eb4010bbf7e433e764ee6c76e18216826a1aac07d5ad11a8542b8a4d587eddcb",
+  "clause_digest": "b28952541dc2cffa3766dc40a027911ed8392de1f025f51f40d76bb61f3016f9",
   "clause_key": "E5-4_04",
   "data_kind": "quantitative",
   "definition": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)",
@@ -558,9 +558,6 @@
       "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

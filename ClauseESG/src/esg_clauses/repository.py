@@ -9,6 +9,7 @@ from pathlib import Path
 import tempfile
 from .base import digest
 from .contract import ClauseContract
+from .parts import ReadingContract
 from .descriptor import ClauseDescriptor, parse_record
 
 
@@ -161,6 +162,9 @@ class ClauseRepository:
         return clauses
 
     def save(self, clause, *, expected_digest=None):
+        if isinstance(clause, ClauseContract):
+            clause = clause.model_copy(update={"reading":ReadingContract.model_validate(
+                clause.reading.model_dump(mode="json",exclude={"options"}))})
         clause = clause.seal().verify()
         with self._locked(write=True):
             existing = next(

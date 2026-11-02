@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1aca13746cece6085d5c218eb96440fe97bd0aa88ecec799480e9379034ff019",
+  "clause_digest": "2e91251c65a9872a2166a609523d73dda6c232031528d6aa3a4e7c1c4df4fb65",
   "clause_key": "S1-16_01",
   "data_kind": "quantitative",
   "definition": "男女员工薪酬水平之差占男性薪酬水平的比例。",
@@ -706,10 +706,6 @@
       "男女员工薪酬水平之差占男性薪酬水平的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

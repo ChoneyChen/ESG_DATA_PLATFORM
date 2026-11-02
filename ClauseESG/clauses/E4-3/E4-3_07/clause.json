@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9d72c93e1c4a9a858c8c97178aaf2e30849340029148286e2dd09b39ba946fe5",
+  "clause_digest": "350675d935eef82562a5f46cb5f543c418fb63850bf4fabd5e05b3e238d734f8",
   "clause_key": "E4-3_07",
   "data_kind": "qualitative",
   "definition": "说明实施行动所需的重大资本支出和运营支出与欧盟委托条例(EU) 2021/2178所要求资本支出计划的对应关系。",
@@ -459,9 +459,6 @@
       "说明实施行动所需的重大资本支出和运营支出与欧盟委托条例(EU) 2021/2178所要求资本支出计划的对应关系。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

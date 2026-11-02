@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f31d08e953d482c3b27db691077b5ddd1b89d60de90ded8f9e37f57b78ee9871",
+  "clause_digest": "dbebd9ef3720a619eb3a393b7b8ef644b8fee1bfb8321d1de17de44c713cf2c0",
   "clause_key": "E2-4_20",
   "data_kind": "qualitative",
   "definition": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单",
@@ -472,9 +472,6 @@
       "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

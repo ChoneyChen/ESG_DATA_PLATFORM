@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8b423bad928fd1e9f4d9ed805d332a9de511a11c9b8abdd94c1e252a66167b6e",
+  "clause_digest": "6ae848fbb9e8d0544f42f38afab72f330857fda5daa00038056bee0446e8bdcf",
   "clause_key": "S1-4_05",
   "data_kind": "qualitative",
   "definition": "描述主体针对特定实际或潜在负面影响确定所需适当行动的流程。",
@@ -459,9 +459,6 @@
       "描述主体针对特定实际或潜在负面影响确定所需适当行动的流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

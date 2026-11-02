@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a40985042e07fa5baedc130d44e6a7fe038b22e528816595799ec9b23321a3b4",
+  "clause_digest": "161384d7a9bdc0dcef3512edc1def818c8b8621e5aeb1b77b512cfe0bd863a24",
   "clause_key": "S1.SBM-3_01",
   "data_kind": "qualitative",
   "definition": "说明所有可能受主体重大影响的自身劳动力人员是否已纳入ESRS 2披露范围。",
@@ -487,9 +487,6 @@
       "说明所有可能受主体重大影响的自身劳动力人员是否已纳入ESRS 2披露范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

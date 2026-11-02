@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1ca3dea0f517d7e75db1de859f15a1cce3427720784830db8df19b78709f9552",
+  "clause_digest": "67ae12c94fc9e69be1b8649d24587f773161b9a21594350d59449aeb01169bbf",
   "clause_key": "S3.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "描述因对受影响社区的影响和依赖所产生的重大风险与机遇。",
@@ -487,9 +487,6 @@
       "描述因对受影响社区的影响和依赖所产生的重大风险与机遇。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

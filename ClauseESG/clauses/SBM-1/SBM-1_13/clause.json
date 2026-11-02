@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d3f221161d63c7d698800a2e834e016c72469aff0dc53baba45a9ac72b0ff293",
+  "clause_digest": "82e85aa74463a5120c67c2c118344aa4a7ea286fd361df798f859e0b50924c7f",
   "clause_key": "SBM-1_13",
   "data_kind": "quantitative",
   "definition": "Revenue from gas。天然气收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -572,9 +572,6 @@
       "Revenue from gas。天然气收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

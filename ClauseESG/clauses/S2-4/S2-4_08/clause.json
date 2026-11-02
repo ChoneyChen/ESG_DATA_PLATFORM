@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "23606d9b67e1bd62822c8e0ff2d3348a2dd2c5159063b8bedc6d2f79796b54e1",
+  "clause_digest": "4c257366496ea31e8cbe148ac67cb31a9fd3408ae8aeec052da5a79468514727",
   "clause_key": "S2-4_08",
   "data_kind": "qualitative",
   "definition": "描述为缓解因对价值链劳动者的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。",
@@ -459,9 +459,6 @@
       "描述为缓解因对价值链劳动者的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

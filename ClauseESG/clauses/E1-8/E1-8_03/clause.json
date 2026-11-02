@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d758bb43cbddf4d9b6f31e0c296d153d563d473afdecbc678c053562454b4148",
+  "clause_digest": "645fb6e51e357ce6610b831a6c12404bac6394aab791e713407d65eb189803a1",
   "clause_key": "E1-8_03",
   "data_kind": "qualitative",
   "definition": "Description of specific scope of application of carbon pricing scheme。内部碳定价适用范围。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -487,9 +487,6 @@
       "Description of specific scope of application of carbon pricing scheme。内部碳定价适用范围。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a6929c9f4b6fc2cfde0850516fec2e071e603381a8e94e40d1935c2c1b00cd08",
+  "clause_digest": "0617d7f7edd991981c72fd040d75aab4479f791d70ae95e6e22192337f566ea6",
   "clause_key": "S3-1_02",
   "data_kind": "qualitative",
   "definition": "描述与受影响社区相关的人权政策承诺及其来源与适用范围。",
@@ -459,9 +459,6 @@
       "描述与受影响社区相关的人权政策承诺及其来源与适用范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

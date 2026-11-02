@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6f7077f610f3c057b77fb4debd829a595d810fc08edad2aae0d2091ded094b74",
+  "clause_digest": "02dcf8a996a6601c2afd578dd714f07d83a26162b0400aac3d5ece5c5a0e1ab5",
   "clause_key": "E4.IRO-1_12",
   "data_kind": "qualitative",
   "definition": "说明所考虑的情景如何根据不断变化的条件和新兴趋势进行更新。",
@@ -487,9 +487,6 @@
       "说明所考虑的情景如何根据不断变化的条件和新兴趋势进行更新。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

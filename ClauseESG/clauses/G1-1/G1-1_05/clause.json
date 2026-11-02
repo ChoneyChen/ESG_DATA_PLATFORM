@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "19819b62788c62669cd35e17554501f51602bccbd6a4b31a13fbe089ab811faf",
+  "clause_digest": "a0d6fee08364caaf3f80795a86385b597617a23cecfc35e5a7793c40e8a6bf8d",
   "clause_key": "G1-1_05",
   "data_kind": "qualitative",
   "definition": "说明对报告违规行为的保障措施，包括举报人保护、保密和反报复安排。",
@@ -459,9 +459,6 @@
       "说明对报告违规行为的保障措施，包括举报人保护、保密和反报复安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

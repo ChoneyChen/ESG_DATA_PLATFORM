@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7fae36b1f7dacbfad2adf9bb7b42b6ac9f5dffa324f622e97cf5b02160d72435",
+  "clause_digest": "bbbd4bcc3d85123154ee93a45deb5c7e0c2ae38977b82a6118cbea6d82c68d87",
   "clause_key": "E1-4_22",
   "data_kind": "qualitative",
   "definition": "GHG emission reduction target is science based and compatible with limiting global warming to one and half degrees Celsius。目标的科学依据与1.5°C一致性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -515,9 +515,6 @@
       "GHG emission reduction target is science based and compatible with limiting global warming to one and half degrees Celsius。目标的科学依据与1.5°C一致性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

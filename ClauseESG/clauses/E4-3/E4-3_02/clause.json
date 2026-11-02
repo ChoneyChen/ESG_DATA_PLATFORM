@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "142cfb84f4e4155b59ee83cd692bb74b66567712dc5f4c37bb4877ae786afab6",
+  "clause_digest": "f8548da36bc08333d38c264a47ad686ad85cf7f2230e72d1c337aa666a8f4fcb",
   "clause_key": "E4-3_02",
   "data_kind": "qualitative",
   "definition": "说明行动计划是否使用生物多样性抵消，并指出抵消对应的残余影响。",
@@ -459,9 +459,6 @@
       "说明行动计划是否使用生物多样性抵消，并指出抵消对应的残余影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d6a2776ceb4e39b22373b706d215984823e4af2a31f936f74ad7e1479f555fc7",
+  "clause_digest": "22caedec2f5c06141ee703d7a8c74e78ae3f739344b1b72f7dcc8e1663d1bad2",
   "clause_key": "S1-12_02",
   "data_kind": "quantitative",
   "definition": "以表格披露自身劳动力中按性别划分的残障员工比例。",
@@ -572,9 +572,6 @@
       "以表格披露自身劳动力中按性别划分的残障员工比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

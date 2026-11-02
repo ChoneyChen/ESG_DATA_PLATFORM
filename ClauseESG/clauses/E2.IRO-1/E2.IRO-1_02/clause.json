@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a4cdf78f44f1683cf9a89ac4bb486b670137f3e43e6199bce795298165f75496",
+  "clause_digest": "685ebeba1844bdc08fc7e28ed9eef10a3c3021884853a39dd2c6e621a6adce2a",
   "clause_key": "E2.IRO-1_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how consultations have been conducted (pollution)。污染相关利益方咨询。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
@@ -487,9 +487,6 @@
       "Disclosure of whether and how consultations have been conducted (pollution)。污染相关利益方咨询。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

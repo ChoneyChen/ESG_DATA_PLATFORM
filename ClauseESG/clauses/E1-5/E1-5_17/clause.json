@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f48cbca63d8129189a7b4ec41dd3df8dcc5a19a38df4acb2e9e4285e03e25921",
+  "clause_digest": "5b53aba10b09ca90b5d631f654812ad0034d0d7bb70dfa56525118bc7c9ddfa0",
   "clause_key": "E1-5_17",
   "data_kind": "quantitative",
   "definition": "可再生能源生产量",
@@ -587,9 +587,6 @@
       "可再生能源生产量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b08a490bb27b7e9ff1592af66889476b984d2dc896ebeec8fc2bc1f6c8e72706",
+  "clause_digest": "cdb32ae3e32803f1de28c55bbce2317d5a7e3ee33462c59ac01434989d4b1637",
   "clause_key": "E4-5_12",
   "data_kind": "quantitative",
   "definition": "披露场址范围内以自然导向方式管理的面积，并说明其生态特征。",
@@ -558,9 +558,6 @@
       "披露场址范围内以自然导向方式管理的面积，并说明其生态特征。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

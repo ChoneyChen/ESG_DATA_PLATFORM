@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "02489228984be0ffe219b8e36bf7b66b2c3c3cc58bef266308e6e7adaa296733",
+  "clause_digest": "05bcf594c560a008e4ea6c37f0586807d14f851abfab9793bf7c131bb5f33d02",
   "clause_key": "E5-2_02",
   "data_kind": "qualitative",
   "definition": "说明提高二次原材料使用比例的措施、目标与报告期内的进展。",
@@ -459,9 +459,6 @@
       "说明提高二次原材料使用比例的措施、目标与报告期内的进展。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

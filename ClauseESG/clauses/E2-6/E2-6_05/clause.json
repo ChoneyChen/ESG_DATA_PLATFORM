@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "de4056d1604d7bf1d460198ffee76882000385ec50fb390c0b65bb786557a503",
+  "clause_digest": "803f75c33781f35e3ba9959e7f041c47e73f571c5c0092517a7911a993db53b9",
   "clause_key": "E2-6_05",
   "data_kind": "quantitative",
   "definition": "Capital expenditures (CapEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的资本支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -628,9 +628,6 @@
       "Capital expenditures (CapEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的资本支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

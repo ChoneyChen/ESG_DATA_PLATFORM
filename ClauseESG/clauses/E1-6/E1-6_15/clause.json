@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6a6c7a15b2dffa4f6adea8250aa0f7b9b71c5c0297ff027fb4096941e4948fcb",
+  "clause_digest": "11b0d7e1362012847e0a4ad91833fddc8f7048afef28ef3df9f34b9d2b9339b0",
   "clause_key": "E1-6_15",
   "data_kind": "qualitative",
   "definition": "温室气体方法、假设、排放因子和计算工具",
@@ -456,9 +456,6 @@
       "温室气体方法、假设、排放因子和计算工具"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

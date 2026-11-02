@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "317ecd592832ee71fd384c41f19bbf5fc42d10d25e80f40b84db932d4c31df5e",
+  "clause_digest": "392b3a5b3ec0abed427676fbf30bbe3f47c82a6cebc622e53a858725b36a82ea",
   "clause_key": "S3-3_13",
   "data_kind": "qualitative",
   "definition": "说明社区提出的问题如何被跟踪和处理，以及如何确保渠道的有效性。",
@@ -445,9 +445,6 @@
       "说明社区提出的问题如何被跟踪和处理，以及如何确保渠道的有效性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

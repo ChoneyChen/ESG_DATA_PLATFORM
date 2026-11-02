@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e1570afc5b3a605b594dade210fe52d61ee2246137ed2809758fe742fcb70734",
+  "clause_digest": "7a40e20ceb35925d178b3574b7921731d31192445f27f91eae09cdd1f9e02f26",
   "clause_key": "S3-1_05",
   "data_kind": "qualitative",
   "definition": "说明主体为受影响社区人权影响提供或促成补救的总体方法与机制。",
@@ -459,9 +459,6 @@
       "说明主体为受影响社区人权影响提供或促成补救的总体方法与机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

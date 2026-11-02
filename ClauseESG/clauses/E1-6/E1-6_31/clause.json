@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8e4743ff11c53c0111fd6636018a0055f6b88ed3c7a782ad8a97d6b9cd6228b2",
+  "clause_digest": "c38d48a281d1eff6acfc3f0f12775c6dcaf6d9c60035acc77bf368382e043239",
   "clause_key": "E1-6_31",
   "data_kind": "quantitative",
   "definition": "基于市场法的温室气体排放强度",
@@ -624,9 +624,6 @@
       "基于市场法的温室气体排放强度"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

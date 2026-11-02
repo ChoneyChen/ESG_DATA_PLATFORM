@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a2fb2ef80b8ca6fbe0b160a0200c991d9933312d8bdeb63b13ae15e8745151d8",
+  "clause_digest": "e4ebd9f46e7f5ace1261472f2d20e910cc7bf63f863a7d3a597b22b5417d8041",
   "clause_key": "E4.IRO-1_05",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何就共享生物资源和生态系统的可持续性评估与受影响社区开展协商。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何就共享生物资源和生态系统的可持续性评估与受影响社区开展协商。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

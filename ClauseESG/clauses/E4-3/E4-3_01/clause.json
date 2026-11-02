@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1bd1ec94f0c641680f7edec026c24bb2ea0ca665842d903840c66a984156fbe3",
+  "clause_digest": "2fda19fd0b250be62b54b7939a6230d6d2c4893fb0879838773872ef3b1cea79",
   "clause_key": "E4-3_01",
   "data_kind": "qualitative",
   "definition": "说明生物多样性和生态系统相关行动如何应用避免、最小化、恢复和抵消的减缓层级。",
@@ -459,9 +459,6 @@
       "说明生物多样性和生态系统相关行动如何应用避免、最小化、恢复和抵消的减缓层级。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

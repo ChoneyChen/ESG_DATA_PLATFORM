@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3f44e8e80df9cd13069f419cb92227cb8f8a582a62e745b9051d91d4a414e480",
+  "clause_digest": "7ce11126d4d5a90f2858fb5f32d98ce35479815c2e4a10ec9cba604939f47a97",
   "clause_key": "E1-6_32",
   "data_kind": "qualitative",
   "definition": "温室气体强度所用净收入的对账说明",
@@ -456,9 +456,6 @@
       "温室气体强度所用净收入的对账说明"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

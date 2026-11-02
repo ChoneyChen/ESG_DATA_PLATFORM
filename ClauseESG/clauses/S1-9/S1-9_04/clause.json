@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "da6f1c9451eb2f5affa4a2ce4d8605f36fd020fe59a676ed2d5055271e36ae84",
+  "clause_digest": "9602b9190b6aa392c47ec1b923fc3bf24e53d0151a47098dabbd0aa1402089e6",
   "clause_key": "S1-9_04",
   "data_kind": "quantitative",
   "definition": "Distribution of employees (head count) between 30 and 50 years old",
@@ -558,9 +558,6 @@
       "Distribution of employees (head count) between 30 and 50 years old"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

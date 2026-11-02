@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7fd93e28531d497640ac29673fc97ad0dae6ffa7213f25ec1323f3d06719a1c1",
+  "clause_digest": "78aa60f6819c4dec0ef7780e6d50a08d534cead7931646e74552819b16c9ae1d",
   "clause_key": "E4-3_09",
   "data_kind": "qualitative",
   "definition": "说明地方和原住民知识以及基于自然的解决方案是否以及如何纳入生物多样性和生态系统相关行动。",
@@ -459,9 +459,6 @@
       "说明地方和原住民知识以及基于自然的解决方案是否以及如何纳入生物多样性和生态系统相关行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

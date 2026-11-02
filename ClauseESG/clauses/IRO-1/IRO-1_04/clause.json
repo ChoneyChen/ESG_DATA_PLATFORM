@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9a418af9ae132d93a3c3a443b6f5f49f9008ac2250671bcac67f1ba62f0c1f73",
+  "clause_digest": "77b111c8312d76f009b265b088f534e56d376dd223082f28fcdd844dc478da05",
   "clause_key": "IRO-1_04",
   "data_kind": "qualitative",
   "definition": "Description of how process considers impacts with which undertaking is involved through own operations or as result of business relationships。运营及业务关系影响覆盖。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of how process considers impacts with which undertaking is involved through own operations or as result of business relationships。运营及业务关系影响覆盖。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

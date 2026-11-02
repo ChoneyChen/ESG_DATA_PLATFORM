@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d88ecf32299c7a6a4e72acf7a849fbbc18349caacf403db73b2f7e56f376a4ce",
+  "clause_digest": "36a0fcf61100a912c9036cde9d10061728f9b4417da550c75625d5f26d9aad91",
   "clause_key": "E1-7_10",
   "data_kind": "quantitative",
   "definition": "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled。已核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Total amount of carbon credits outside value chain that are verified against recognised quality standards and cancelled。已核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

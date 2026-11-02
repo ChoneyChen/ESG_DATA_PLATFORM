@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "af9990cb1bd6f5de026c40c7ccb6bf2e75db9f2a18ac9f74a4b4ab85abc3faf9",
+  "clause_digest": "c374f6c1be44038ac56f8acb6e91dce37df093ab99ddf40c75b7ed62ff7ed992",
   "clause_key": "S1-2_10",
   "data_kind": "qualitative",
   "definition": "说明主体如何与处于风险或弱势情形的人员开展接触，包括保护措施。",
@@ -445,9 +445,6 @@
       "说明主体如何与处于风险或弱势情形的人员开展接触，包括保护措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

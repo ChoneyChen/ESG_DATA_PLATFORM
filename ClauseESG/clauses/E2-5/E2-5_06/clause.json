@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5cecdcb81ecaf40087d3ad0672e12d13c7febfce7b3841f99a4f6942817f6a30",
+  "clause_digest": "a986be5b1f3ea39a49623e1705e555cd0ee04c1c6b701f8c9484e7b1d56b7b56",
   "clause_key": "E2-5_06",
   "data_kind": "quantitative",
   "definition": "Amount of substances of concern that leave facilities as part of products by main hazard classes of substances of concern。作为产品组成离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -616,9 +616,6 @@
       "Amount of substances of concern that leave facilities as part of products by main hazard classes of substances of concern。作为产品组成离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

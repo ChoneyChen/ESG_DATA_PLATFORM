@@ -138,7 +138,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "12a5bb40e1a87a88b10698c57d7828fc4d67064570e9ed3e5d03b1fa216090b4",
+  "clause_digest": "394f622f8bd01ae56aadc208a7d85b684e3c834eeedc682d2e279a5dddf36ba8",
   "clause_key": "E1-5_19",
   "data_kind": "quantitative",
   "definition": "读取高气候影响行业披露的能源消费总量，保留全部期间及报告原单位；能源强度、分母、总量与分项不互换，不从全集团总量推断行业量。",
@@ -612,9 +612,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [

@@ -1,7 +1,5 @@
 """Versioned, explicit source selection. Unknown identity always keeps its sources."""
 from collections import Counter, defaultdict
-import base64
-import json
 from esg_data.hashing import digest
 from esg_data.periods import period_label
 from .products_contracts import DatasetRequest, DatasetPreview, DatasetDecision, Observation, ObservationPage
@@ -52,27 +50,20 @@ def compile_preview(request: DatasetRequest, source):
     return DatasetPreview(**body, preview_digest=digest(body))
 
 
+def preview_request_digest(request):
+    return digest([request.title.strip(), sorted(set(request.projection_ids)), request.policy.model_dump(mode="json")])
+
+
 def preview_dataset(bridge, request):
-    return compile_preview(request, bridge.call("product_input", {"projection_ids": request.projection_ids}))
+    preview = compile_preview(request, bridge.call("product_input", {"projection_ids": request.projection_ids}))
+    bridge.call("store_preview", {"preview": preview.model_dump(mode="json"), "request_digest": preview_request_digest(request)})
+    return preview
 
 
 def preview_observations(bridge,request,limit=200,cursor=None):
-    source=bridge.call("product_input",{"projection_ids":request.projection_ids})
-    preview=compile_preview(request,source)
-    if preview.preview_digest!=request.preview_digest:
-        raise ValueError("Dataset preview changed; review the current selection")
-    query=digest([preview.preview_digest,limit]);after=""
-    if cursor:
-        try:
-            token=json.loads(base64.urlsafe_b64decode(cursor+"="*(-len(cursor)%4)))
-            if token["query"]!=query or not isinstance(token["after"],str):raise ValueError()
-            after=token["after"]
-        except (ValueError,TypeError,KeyError) as exc:raise ValueError("Cursor belongs to another preview query") from exc
-    selected={row.observation_id for row in preview.decisions if row.selected}
-    available=sorted((row for row in source["observations"] if row["observation_id"] in selected and row["observation_id"]>after),key=lambda row:row["observation_id"])
-    page=available[:limit];more=len(available)>limit
-    token=base64.urlsafe_b64encode(json.dumps({"query":query,"after":page[-1]["observation_id"]}).encode()).decode().rstrip("=") if more else None
-    return ObservationPage(snapshot_id="preview-"+preview.preview_digest,query_digest=query,total=preview.selected,returned=len(page),items=page,next_cursor=token)
+    return ObservationPage.model_validate(bridge.call("preview_page", {
+        "preview_digest": request.preview_digest, "request_digest": preview_request_digest(request),
+        "limit": limit, "cursor": cursor}))
 
 
 def publish_dataset(bridge, request, actor):

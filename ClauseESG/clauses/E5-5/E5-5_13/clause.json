@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dac27a2d8d1be073cb3a671e1b0ee057f68ab6930418f6fad1b693750db31806",
+  "clause_digest": "a2fb87d4e9d47818adf633813e4a36b365c76250a721ba563a6d0b63f734bd1d",
   "clause_key": "E5-5_13",
   "data_kind": "qualitative",
   "definition": "Disclosure of waste streams relevant to undertaking's sector or activities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of waste streams relevant to undertaking's sector or activities。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

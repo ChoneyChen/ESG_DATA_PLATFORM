@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bd85371fc83760045fd8c029251ff46ab345c56743aa651f922d5ebc05f21b0e",
+  "clause_digest": "707b8603a08d4372e0227001924227632142d04cc6a5543ab0cfee496561b239",
   "clause_key": "S1-6_10",
   "data_kind": "quantitative",
   "definition": "Average number of employees (head count or full-time equivalent)",
@@ -572,9 +572,6 @@
       "Average number of employees (head count or full-time equivalent)"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

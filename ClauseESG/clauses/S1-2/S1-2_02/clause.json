@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "24f01ea5610942be21ced35f040cef6751435badb2a08bd2198a5c0a7ff6be41",
+  "clause_digest": "6c67f4f9533e2e2bb2a8e496ff5d445dd6e2cea8d98197b76e5b3ecac6f38eb6",
   "clause_key": "S1-2_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否与自身劳动力或其代表开展接触，并指出接触对象与形式。",
@@ -445,9 +445,6 @@
       "说明主体是否与自身劳动力或其代表开展接触，并指出接触对象与形式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

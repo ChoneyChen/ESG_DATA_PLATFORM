@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9f6eb71febcd04fd5459cfd3868c6e26a185f38f4978a40b7122d9f9fd29f383",
+  "clause_digest": "08443410dee2c362a1dddbea80f507c73ea40adc0d0d8a66de942e9f90c58ef3",
   "clause_key": "S1-4_07",
   "data_kind": "qualitative",
   "definition": "描述为把握与自身劳动力相关的重大机遇而计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述为把握与自身劳动力相关的重大机遇而计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

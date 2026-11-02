@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6d8a3042c2f2ec98d46c21d7c4d0c78ef6864fbb40eb804015beafd5c811c5b2",
+  "clause_digest": "4d191a5af0ee3e71216412defd59be214b0a5186fe84945291bffef2f5eebde3",
   "clause_key": "S4.SBM-3_01",
   "data_kind": "qualitative",
   "definition": "说明所有可能受主体重大影响的消费者和终端用户是否已纳入ESRS 2披露范围。",
@@ -487,9 +487,6 @@
       "说明所有可能受主体重大影响的消费者和终端用户是否已纳入ESRS 2披露范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

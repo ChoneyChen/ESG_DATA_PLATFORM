@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "59d89dc6af02ae7f42f1ce31450eb14939d9662651980611cca7f441bc210b74",
+  "clause_digest": "adf01151b2f6e93846490c461a7aae12eff4ebaf51d7530b468f0451d9ed7606",
   "clause_key": "G1-2_03",
   "data_kind": "qualitative",
   "definition": "说明在选择供应方合同伙伴时，社会和环境标准是否以及如何纳入考量。",
@@ -445,9 +445,6 @@
       "说明在选择供应方合同伙伴时，社会和环境标准是否以及如何纳入考量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

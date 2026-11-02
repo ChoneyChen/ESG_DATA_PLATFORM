@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b86a049416e75404fe9d68ded8b272c27294c108a4a0a69eac276bb707d25426",
+  "clause_digest": "0a9adf6c9a468919a8c0a06b5202a57b800b8e36e7ba7aed17c0194da2ccbc6e",
   "clause_key": "E5-4_05",
   "data_kind": "quantitative",
   "definition": "二次使用或再生材料占材料投入的比例。",
@@ -591,10 +591,6 @@
       "二次使用或再生材料占材料投入的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

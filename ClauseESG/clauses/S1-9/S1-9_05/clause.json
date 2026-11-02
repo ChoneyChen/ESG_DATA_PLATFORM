@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ba2b00fd800763aa02329471f0ae10f19d795d94defd49a2c49703c76eba31f8",
+  "clause_digest": "db57fd9c107a0765d8701ef5994403ce423098055638bee7f1303599e95d9f5e",
   "clause_key": "S1-9_05",
   "data_kind": "quantitative",
   "definition": "Distribution of employees (head count) over 50 years old",
@@ -558,9 +558,6 @@
       "Distribution of employees (head count) over 50 years old"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

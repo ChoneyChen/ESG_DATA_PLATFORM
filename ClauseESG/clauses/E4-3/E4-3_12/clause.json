@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9c9e567669121137acc87e4d0b2ca4d51e02705eaee441722cc5b0fa1610cc46",
+  "clause_digest": "4dc1e4936c093e7bd7475ff1521d675cacc6c82fbe7ff8220655dfe97bab5d6f",
   "clause_key": "E4-3_12",
   "data_kind": "qualitative",
   "definition": "说明关键行动是否可能引发重大负面可持续性影响，包括影响的类型与范围。",
@@ -459,9 +459,6 @@
       "说明关键行动是否可能引发重大负面可持续性影响，包括影响的类型与范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

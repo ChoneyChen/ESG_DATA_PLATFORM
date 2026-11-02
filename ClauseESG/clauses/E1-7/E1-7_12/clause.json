@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "32f8b0825f9ccbbd09b46eb1bd91c80f6deec8e1c12e5e59e5e321df07934169",
+  "clause_digest": "c632b542c14bb01131324b14ab1a0c9702930e3899d68e4403d7311a97779b45",
   "clause_key": "E1-7_12",
   "data_kind": "qualitative",
   "definition": "Disclosure of extent of use and quality criteria used for carbon credits。碳信用使用程度与质量标准。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Disclosure of extent of use and quality criteria used for carbon credits。碳信用使用程度与质量标准。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

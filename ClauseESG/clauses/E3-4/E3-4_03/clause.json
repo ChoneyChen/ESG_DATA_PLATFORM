@@ -167,7 +167,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f4ada730866b15aa3d99306ccad96c76ccb70502315cb72c0ff9ac164ddb4045",
+  "clause_digest": "b91d8076e2c5b2294bf7da53241b58575882d8c829668521004b3198c79849e2",
   "clause_key": "E3-4_03",
   "data_kind": "quantitative",
   "definition": "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -723,10 +723,6 @@
       "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "water",
-    "options": {
-      "text_unit_pattern": "立方米|m3|m³|吨|噸|升|ml\\b|megalit|liter|litre|gallon",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

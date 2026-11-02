@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "67608d8dae64c0a55a705312003ea478004bbc937edfdb79ea4104c4eb61648d",
+  "clause_digest": "bf5a680fef87b476b24496190e6fdfea66b9b35e356a990faa8db5f7ea33c2d3",
   "clause_key": "E1.IRO-1_10",
   "data_kind": "qualitative",
   "definition": "Transition events have been identified over short-, medium- and long-term time horizons。转型事件识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Transition events have been identified over short-, medium- and long-term time horizons。转型事件识别。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

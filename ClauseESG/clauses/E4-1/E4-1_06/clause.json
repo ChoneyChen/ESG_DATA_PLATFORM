@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0333d6021436a40dd1ca99fd38a8cf28ce2ff4e4f3d99c6923aad51667f4789e",
+  "clause_digest": "183757c9e580e2314f3740236506aa7883fd93611cf9cfc34b68fa2f301b3b0b",
   "clause_key": "E4-1_06",
   "data_kind": "qualitative",
   "definition": "说明在生物多样性和生态系统韧性分析中参与了哪些利益相关方，以及参与方式和所起作用。",
@@ -445,9 +445,6 @@
       "说明在生物多样性和生态系统韧性分析中参与了哪些利益相关方，以及参与方式和所起作用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

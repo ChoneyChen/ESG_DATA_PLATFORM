@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3b6d3b785dffe736295812ef62cc0e3231545f9858aea7067f5bc05979d9921e",
+  "clause_digest": "d4b8c444b32337d74b4748238e2bdf70c8521e9135228fcd6d8a2eff407167f8",
   "clause_key": "E5-3_01",
   "data_kind": "qualitative",
   "definition": "说明资源利用与循环经济目标如何与资源使用总量、强度或结构相关联。",
@@ -473,9 +473,6 @@
       "说明资源利用与循环经济目标如何与资源使用总量、强度或结构相关联。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

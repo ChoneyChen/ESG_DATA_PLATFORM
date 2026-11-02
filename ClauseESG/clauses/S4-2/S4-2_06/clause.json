@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "63203cc94f38ec7cff73eb151c2a11a4b008b22d072224c194e924163b2253d8",
+  "clause_digest": "6adcd1c6099b8a5f3cea2768b7bb986acd28f16d8fa5d94d680fa3e719b4ded2",
   "clause_key": "S4-2_06",
   "data_kind": "qualitative",
   "definition": "说明主体为深入了解尤其易受伤害或边缘化的消费者和终端用户观点所采取的步骤。",
@@ -445,9 +445,6 @@
       "说明主体为深入了解尤其易受伤害或边缘化的消费者和终端用户观点所采取的步骤。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f0185c643dd579d1132a4a5afb93a49c753f0fc46575de9c737bdcc23dc06780",
+  "clause_digest": "6715e4b6c0f8de4a27e548f21a314f8704681a9c0b93d9a35587a65ec84a3df0",
   "clause_key": "MDR-A_08",
   "data_kind": "quantitative",
   "definition": "Current and future financial resources allocated to action plan, breakdown by time horizon and resources。行动资源按时间和类型分解。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -586,9 +586,6 @@
       "Current and future financial resources allocated to action plan, breakdown by time horizon and resources。行动资源按时间和类型分解。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

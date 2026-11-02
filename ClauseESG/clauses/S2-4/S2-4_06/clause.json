@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "03697965eea50084d530b6beb2dbd73c02c492712a00c4d624a606cd787029e5",
+  "clause_digest": "d2afd71017605404387e3893a06bd0502ee5b47d56b72501286ceccf3e7100b3",
   "clause_key": "S2-4_06",
   "data_kind": "qualitative",
   "definition": "描述主体针对价值链劳动者特定重大负面影响采取行动的方法。",
@@ -459,9 +459,6 @@
       "描述主体针对价值链劳动者特定重大负面影响采取行动的方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

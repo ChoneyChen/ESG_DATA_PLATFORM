@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "355adcac48a04f25338b878b6d5c68a9670e991ecc2b841112ca58c0de17d17e",
+  "clause_digest": "56b22e832019a449ce15a289fe4e5b7ab5c9d1c64f60c6891e1232fdd8c12e94",
   "clause_key": "E4.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "说明自身运营是否以及如何影响受威胁物种，并指出涉及的物种与影响方式。",
@@ -487,9 +487,6 @@
       "说明自身运营是否以及如何影响受威胁物种，并指出涉及的物种与影响方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

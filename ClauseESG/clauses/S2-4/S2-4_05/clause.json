@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b5d0a6b0deb8f0e0dd7ac0f0cb1d87652f59c3e88bdb5d8a5e84a535669a0ab0",
+  "clause_digest": "2edd28bc00364bc468d28059bb3f047f0625356561543a533a201dd18e99d747",
   "clause_key": "S2-4_05",
   "data_kind": "qualitative",
   "definition": "描述主体针对价值链劳动者特定实际或潜在重大负面影响确定所需适当行动的流程。",
@@ -459,9 +459,6 @@
       "描述主体针对价值链劳动者特定实际或潜在重大负面影响确定所需适当行动的流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

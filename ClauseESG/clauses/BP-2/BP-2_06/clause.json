@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a87c212b2abe2ed3963d0017dbefe6ce7a64265852f759dfd35f7bf27c7a68b0",
+  "clause_digest": "dba0c14d1a328667bfed7a5acc45b653e5604911597c95fd759dd0d14750299f",
   "clause_key": "BP-2_06",
   "data_kind": "qualitative",
   "definition": "Description of planned actions to improve accuracy in future of metrics that include value chain data estimated using indirect sources。估计准确度改善计划。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Description of planned actions to improve accuracy in future of metrics that include value chain data estimated using indirect sources。估计准确度改善计划。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

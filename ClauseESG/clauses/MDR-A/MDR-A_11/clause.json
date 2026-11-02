@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2b0ea7a0e86b6460fe3c9a95493fbf461ce4b328cd16b0962ab76c569da917da",
+  "clause_digest": "8abd9ff8c0e59cb12b79b2ffb90e9200d745103b4c3f5551761b9c57ffaf89c4",
   "clause_key": "MDR-A_11",
   "data_kind": "quantitative",
   "definition": "Future financial resources allocated to action plan (Capex)。未来行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -586,9 +586,6 @@
       "Future financial resources allocated to action plan (Capex)。未来行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

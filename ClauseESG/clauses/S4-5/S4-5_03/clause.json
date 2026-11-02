@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d21f70e1ad1d1ddcafe5a73429441225289da1a88fad6670531bbd7ffcde0bfa",
+  "clause_digest": "05a0d1c991d973305337d25dc049d40baa07d26f7d497514452658749c375639",
   "clause_key": "S4-5_03",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户是否以及如何直接参与识别绩效带来的经验教训或改进机会。",
@@ -473,9 +473,6 @@
       "说明消费者和终端用户是否以及如何直接参与识别绩效带来的经验教训或改进机会。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "21d9dc24b9216749174dc2083709a6503a3ca32bfc4be923150ea7126915376d",
+  "clause_digest": "d1e8f43509e9736c3ee52b2ddc170f5e884b9618ad7a96610ed07d5e65a2f037",
   "clause_key": "SBM-2_08",
   "data_kind": "qualitative",
   "definition": "Description of amendments to strategy and (or) business model。战略业务模式修订。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of amendments to strategy and (or) business model。战略业务模式修订。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

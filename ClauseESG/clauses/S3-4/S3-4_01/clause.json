@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7ff79e37af5677c9b6f4a6cb2bcaf0f7351d5072be5a031c11fa6e4485c5eb60",
+  "clause_digest": "0f7f5088387b30122941b6fe4787e7a7590c3316ecaf4f0d112867cab1d16ace",
   "clause_key": "S3-4_01",
   "data_kind": "qualitative",
   "definition": "描述主体为预防、减轻或补救受影响社区重大负面影响而已采取、计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述主体为预防、减轻或补救受影响社区重大负面影响而已采取、计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

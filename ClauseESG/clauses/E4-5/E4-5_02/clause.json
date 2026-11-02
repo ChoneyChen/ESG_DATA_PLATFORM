@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "68839b2f4fa5cdb57c2f641b19da40ba1b81fc4800637356b47ccef99f8c536e",
+  "clause_digest": "d04f72ceeaa91808af758c9a40d02990f416cb1c4bada051667c439b562d0308",
   "clause_key": "E4-5_02",
   "data_kind": "quantitative",
   "definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。",
@@ -558,9 +558,6 @@
       "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d957779aa4e0594abf75efa870eb37062a8fa058531566451c6bd7e9e19a29a0",
+  "clause_digest": "ff3216b8237d8e3f2cc04fe81450d96ff051d81640f9baa773067879061cfd70",
   "clause_key": "S1-3_02",
   "data_kind": "qualitative",
   "definition": "披露自身劳动力可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -445,9 +445,6 @@
       "披露自身劳动力可直接向主体提出关切或需求并获得处理的特定渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

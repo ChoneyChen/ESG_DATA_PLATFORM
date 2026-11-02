@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a4ffeaed7e48ca88d144f4954d986e5aef6afbec3eec10c1fdd2d95afc3f3377",
+  "clause_digest": "a070f150563af6e270732aa46a603cba5c643e512ef2ba4f2bb0924b36de0f83",
   "clause_key": "E2-6_03",
   "data_kind": "quantitative",
   "definition": "Percentage of net revenue made with products and services that are or that contain substances of very high concern。含高度关注物质产品服务的收入比例。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -628,9 +628,6 @@
       "Percentage of net revenue made with products and services that are or that contain substances of very high concern。含高度关注物质产品服务的收入比例。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

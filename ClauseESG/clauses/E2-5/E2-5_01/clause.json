@@ -162,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "20b396c961bc40e4501fc2438b8df3c3ff6654d5fb4e31490b25d772ef6bcac8",
+  "clause_digest": "d5cab5114dda2ac703fecd39c4c78a7df45ca09f0b3ee8870a092b426ae14db4",
   "clause_key": "E2-5_01",
   "data_kind": "quantitative",
   "definition": "逐行读取关注物质在生产中生成、使用或采购的披露数量，保留物质/危害类别和流向；每行各期间分别保存，重叠类别与合计不求和。",
@@ -603,9 +603,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

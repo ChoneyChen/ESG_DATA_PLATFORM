@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "58b1151980644406b0f7f8ff8d158cc2354ca6d4b1f1ac5517694285251a2119",
+  "clause_digest": "5b9002c0874e45a9e8e97c04e8ee741766cdc3c806592aed3ee1e8b42df52388",
   "clause_key": "E1-7_08",
   "data_kind": "qualitative",
   "definition": "Disclosure of calculation assumptions, methodologies and frameworks applied (GHG removals and storage)。移除与储存的计算方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Disclosure of calculation assumptions, methodologies and frameworks applied (GHG removals and storage)。移除与储存的计算方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

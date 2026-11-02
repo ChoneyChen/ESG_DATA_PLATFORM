@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "13ad92fd83b961b319dbf55b748cf75b1cf75b4e71f4d8191f850680dd6ab232",
+  "clause_digest": "f8ad4969b8cd895d27651265bd8211eb826ed538e4579aaa517bd44c2062a576",
   "clause_key": "SBM-2_10",
   "data_kind": "qualitative",
   "definition": "Description of any further steps that are being planned and in what timeline。后续计划及时间。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of any further steps that are being planned and in what timeline。后续计划及时间。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

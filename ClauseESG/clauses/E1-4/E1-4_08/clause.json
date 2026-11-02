@@ -210,7 +210,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "52fb0c60abbe3797f35a392a086bd0538ef657882da0bdeaada4b8cdb0f0c562",
+  "clause_digest": "93787796520af6fafeefe0d2012087878d5eca6d75686b9f8ccd5a423c81631f",
   "clause_key": "E1-4_08",
   "data_kind": "quantitative",
   "definition": "Intensity value of Scope 1 Greenhouse gas emissions reduction。范围1减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -661,9 +661,6 @@
       "Intensity value of Scope 1 Greenhouse gas emissions reduction。范围1减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

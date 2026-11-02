@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "89c641a7aece2e51f9116a8a97758af34792e2efe06b7b601cdbcbc53e253eba",
+  "clause_digest": "3c27d6e83abfc5a0a7c0d92d329ffd12d2129f5438907cc2801ecd6b75543919",
   "clause_key": "E1-6_22",
   "data_kind": "quantitative",
   "definition": "关联非捆绑能源属性声明的比例",
@@ -586,9 +586,6 @@
       "关联非捆绑能源属性声明的比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

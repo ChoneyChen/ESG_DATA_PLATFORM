@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b346951da1713555eab4eb8ef4fb8edc88f8e51c440d8bd825105f3c45698b3d",
+  "clause_digest": "8fe926eea657da39ef755da395cc6633fdeedc6ababe1b08bc3e0db343d59672",
   "clause_key": "S2-4_04",
   "data_kind": "qualitative",
   "definition": "说明主体如何跟踪和评估行动或举措在改善价值链劳动者结果方面的有效性。",
@@ -459,9 +459,6 @@
       "说明主体如何跟踪和评估行动或举措在改善价值链劳动者结果方面的有效性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

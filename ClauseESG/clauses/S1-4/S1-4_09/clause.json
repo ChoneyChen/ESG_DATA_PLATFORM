@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a4d6be7a88a791fe56b2817c33dc265faeea8df2ca5b82a7f9c3905b0a5e1d3f",
+  "clause_digest": "576422790d97a1ec1589951e871d9ac6283f4e88458e6719b203465f0ff09a96",
   "clause_key": "S1-4_09",
   "data_kind": "qualitative",
   "definition": "披露为管理重大影响所分配的资源，包括人员、预算和管理层投入。",
@@ -459,9 +459,6 @@
       "披露为管理重大影响所分配的资源，包括人员、预算和管理层投入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

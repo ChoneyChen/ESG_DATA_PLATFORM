@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8e1a58ecc024af0292f64d942b7338f8532e9ba82f75b4afde1ee5fc65e40022",
+  "clause_digest": "3c9d40ee20e9063afccf3382ccc1f07f90cd673e67e905f32dab6171019a188f",
   "clause_key": "MDR-T_16",
   "data_kind": "qualitative",
   "definition": "Effectiveness of policies and actions is tracked in relation to material sustainability-related impact, risk and opportunity。是否跟踪政策行动效果。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Effectiveness of policies and actions is tracked in relation to material sustainability-related impact, risk and opportunity。是否跟踪政策行动效果。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

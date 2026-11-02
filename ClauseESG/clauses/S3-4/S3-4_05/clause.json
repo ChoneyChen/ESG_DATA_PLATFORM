@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1e927c86c676b896ebda4099f5cebc1ab6943a1d59003c01f33960415271a683",
+  "clause_digest": "bf5ec6e4afb5b9632e021c2a3430a17dbc5fcabca00f078a5e13a1c50af3b903",
   "clause_key": "S3-4_05",
   "data_kind": "qualitative",
   "definition": "描述主体针对受影响社区特定实际或潜在重大负面影响确定所需适当行动的流程。",
@@ -459,9 +459,6 @@
       "描述主体针对受影响社区特定实际或潜在重大负面影响确定所需适当行动的流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

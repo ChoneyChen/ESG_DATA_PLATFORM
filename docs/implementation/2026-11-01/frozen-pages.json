@@ -1,0 +1,31 @@
+{
+  "source": "current Console proxy reads the actually frozen clauses and previously saved raw facts",
+  "pages": [
+    {
+      "session_id": "extract-plan-c8d23b0370b04889b5ce015f7080306f",
+      "clause_key": "E2-4_02",
+      "total": 222,
+      "returned": 5,
+      "table_rows": 5,
+      "fact_ids": [
+        "b3e001cac27a38fb4d0ca0cfa9fb256424ace68669683230ed03cb23c3bb36ab",
+        "f91c707515fd9ac9e9d4866fe0d93cf44c6f2aa525e9c76c8254c7e31c5ac46b",
+        "cf6a1e5ff6b59a30d31e7b9711efb6d4c27f96e8b6857d4cd0e8d232da345eb1",
+        "b9e17f5fa5505a5497453c925a7a3637b13a7c176814710290c09181653995b3",
+        "fdb5495cdb0416249a178e26b33e863dd8293e7cb347e9dc841ecb99ee43d8aa"
+      ]
+    },
+    {
+      "session_id": "extract-plan-ed8b7095e8be4f5bb38abb3c5cfbdb92",
+      "clause_key": "E2-4_09",
+      "total": 3,
+      "returned": 3,
+      "table_rows": 3,
+      "fact_ids": [
+        "71c15c6a50a29be0c754713aae8c8d855bc075931f2c514e48805e23aa00cb6f",
+        "705dd8db66ef23d89e30a192e883832210c14b4147dac13ca97c26e08ac7d8bc",
+        "b9f72eb4eb9549acbf9475468a38030c7e2aeee7e7380ab1b14b4b0be0faa54c"
+      ]
+    }
+  ]
+}

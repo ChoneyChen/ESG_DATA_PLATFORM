@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5989e58a214b8e86d06cbcfbaa9fe7ac5f6116d1915c51e8e654bcef507bb073",
+  "clause_digest": "6147aadc7d5c91035c91fd5efede21c43c587ac4d92d9053906190ca874b12bf",
   "clause_key": "S3-3_21",
   "data_kind": "qualitative",
   "definition": "说明提出关切或需求的渠道是否允许受影响社区匿名使用。",
@@ -445,9 +445,6 @@
       "说明提出关切或需求的渠道是否允许受影响社区匿名使用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

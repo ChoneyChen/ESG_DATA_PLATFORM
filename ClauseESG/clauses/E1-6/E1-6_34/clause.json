@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "acd527b83e5407028b3a72ca12077e97947ea43a9f821e2876acad0d5b412838",
+  "clause_digest": "7f067b4da7ef274b1233928188f2b53c204bb2dc736a144b03da297c5f9023eb",
   "clause_key": "E1-6_34",
   "data_kind": "quantitative",
   "definition": "用于计算温室气体强度的净收入",
@@ -572,9 +572,6 @@
       "用于计算温室气体强度的净收入"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

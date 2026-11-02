@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f3e5e94a0d2798272692415fc16ff660d20217787ab42ac8b1d35a2c446b787a",
+  "clause_digest": "bf510ed7e98f1b80a6f7be82157200c984baa24d21b5332ee58d6f60d0034cf1",
   "clause_key": "S1-4_01",
   "data_kind": "qualitative",
   "definition": "描述主体为预防或减轻对自身劳动力负面影响而已采取、计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述主体为预防或减轻对自身劳动力负面影响而已采取、计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

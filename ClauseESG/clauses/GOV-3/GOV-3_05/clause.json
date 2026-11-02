@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "65df8739fa810ff22d7243e02e6c3dd7e26cef00b4939864d512641d372c1f11",
+  "clause_digest": "3c69da41390be67dbb2ed6513f21ad6c0cc016d0a71accbf41dfb54c53c145f3",
   "clause_key": "GOV-3_05",
   "data_kind": "quantitative",
   "definition": "Percentage of variable remuneration dependent on sustainability-related targets and (or) impacts。依赖可持续目标的浮动薪酬比例。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
@@ -572,9 +572,6 @@
       "Percentage of variable remuneration dependent on sustainability-related targets and (or) impacts。依赖可持续目标的浮动薪酬比例。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

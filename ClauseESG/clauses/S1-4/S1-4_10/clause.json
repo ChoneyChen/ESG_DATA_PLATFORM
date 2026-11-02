@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ae2ddf68387ff7a425e7f9699750b6cdcfc629d9589d99b134a11b19693a6419",
+  "clause_digest": "f892a07a9a384ad5839f961b9a7c1280545b1bc1129493f8cdd0e083b2e01aed",
   "clause_key": "S1-4_10",
   "data_kind": "qualitative",
   "definition": "披露主体处理重大负面影响所采用的总体方法和针对具体影响的专门方法。",
@@ -459,9 +459,6 @@
       "披露主体处理重大负面影响所采用的总体方法和针对具体影响的专门方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

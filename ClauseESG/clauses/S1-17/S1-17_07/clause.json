@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fc8672d78cbd589ca2882788a85b17416215199f3b6d90f6739dc7a2ef330bb6",
+  "clause_digest": "a56c0e18f024514228e40436804943987aa515425c76b6d5a08e297ca22e74ef",
   "clause_key": "S1-17_07",
   "data_kind": "qualitative",
   "definition": "Disclosure of contextual information necessary to understand data and how data has been compiled (work-related grievances, incidents and complaints related to social and human rights matters)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of contextual information necessary to understand data and how data has been compiled (work-related grievances, incidents and complaints related to social and human rights matters)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

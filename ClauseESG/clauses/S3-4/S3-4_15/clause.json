@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1304bf55567a0d79739edd9bd2f5db3ddf909fbf1ada2ce5da3c639cf19cb8f5",
+  "clause_digest": "8f0c7bef159d39be6ba48e9d107103e0a23f8d1f7c6f197bd0de0be83cc1138e",
   "clause_key": "S3-4_15",
   "data_kind": "qualitative",
   "definition": "说明受影响社区是否以及如何在项目、投资或流程的设计与实施决策中发挥作用。",
@@ -459,9 +459,6 @@
       "说明受影响社区是否以及如何在项目、投资或流程的设计与实施决策中发挥作用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

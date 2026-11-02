@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8a459e261ce9c1ea503309119ee6dc56748943836c987cc3519ee47a654ffdda",
+  "clause_digest": "c049cd61387469e2e947faebf4d1505498d0022b76abd8f747d02a700dda9c2d",
   "clause_key": "S3-4_16",
   "data_kind": "qualitative",
   "definition": "提供面向受影响社区的项目或投资的预期或已实现积极结果信息。",
@@ -459,9 +459,6 @@
       "提供面向受影响社区的项目或投资的预期或已实现积极结果信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

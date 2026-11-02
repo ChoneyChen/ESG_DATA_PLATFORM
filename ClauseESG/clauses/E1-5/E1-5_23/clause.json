@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "363bff0d41788ecbb8b5b2891af56fcccc3be3deb888e84ace91e57bcfad188b",
+  "clause_digest": "172d8609489da7ced47941a4c620fe851b602322965f494c02c123ec498a96f2",
   "clause_key": "E1-5_23",
   "data_kind": "quantitative",
   "definition": "其他净收入",
@@ -571,9 +571,6 @@
       "其他净收入"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

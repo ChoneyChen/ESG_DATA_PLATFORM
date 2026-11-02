@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "65e8df230bce53135852e6ab4cef11ba3aea3177d24b366ba8810909c8237b63",
+  "clause_digest": "0e7e2e6f7011157ca7aebdc152b05ba9ed3516162b7fa7a28bf36bf3458d91bf",
   "clause_key": "S1-4_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何针对实际重大影响采取提供或促成补救的行动。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何针对实际重大影响采取提供或促成补救的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

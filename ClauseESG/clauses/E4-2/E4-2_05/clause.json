@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "14dc92b815570ca21e00a839156ff66cc5d743a0fa0dd0b384676728fd59046c",
+  "clause_digest": "352038f0d6fcc71c6c97a496168c75c93c947a8600fbfdca381bd087e3e75551",
   "clause_key": "E4-2_05",
   "data_kind": "qualitative",
   "definition": "说明政策是否以及如何涵盖来自以维持或提升生物多样性条件方式管理的生态系统的生产、采购或消费。",
@@ -459,9 +459,6 @@
       "说明政策是否以及如何涵盖来自以维持或提升生物多样性条件方式管理的生态系统的生产、采购或消费。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

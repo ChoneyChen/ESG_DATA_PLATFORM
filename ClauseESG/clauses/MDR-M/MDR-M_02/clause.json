@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "aba7500eabb9a5d4842cff887e91e0532c77110871b8a484d43699bbbb27ae31",
+  "clause_digest": "b1ff7ab89f5de7073634eddee963c4eb72d789ae1747a7096e9772b2dc6b55ab",
   "clause_key": "MDR-M_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of methodologies and significant assumptions behind metric。指标方法与重大假设。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
@@ -473,9 +473,6 @@
       "Disclosure of methodologies and significant assumptions behind metric。指标方法与重大假设。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

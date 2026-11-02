@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f9e78839c0ef25b80c191876d16bbd933af2c39d9d991035c18ef01864c6ebaf",
+  "clause_digest": "c6a5df43277070dd025d5133acdf8a5627191a636492030183e5eb99095332ad",
   "clause_key": "S1-4_13",
   "data_kind": "qualitative",
   "definition": "披露主体为持续改进设定的目标及其衡量方式。",
@@ -459,9 +459,6 @@
       "披露主体为持续改进设定的目标及其衡量方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

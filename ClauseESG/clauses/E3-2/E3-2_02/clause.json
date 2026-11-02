@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d0881ced5fcda67147f0b4e1ec9191dc2146bd28380870a2e1e66d0c174e4df2",
+  "clause_digest": "7fe754e88e53aa5d18497dae6781b08c5d89f8432cc6f874489c06f3241c5b33",
   "clause_key": "E3-2_02",
   "data_kind": "qualitative",
   "definition": "Information about specific collective action for water and marine resources。水及海洋资源集体行动。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
@@ -445,9 +445,6 @@
       "Information about specific collective action for water and marine resources。水及海洋资源集体行动。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

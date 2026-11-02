@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1b3cac293283d1d6fa93e0e08fa07d536f068c84c13d878c244a9eed2512f7eb",
+  "clause_digest": "c0dae433aeefe3a389a59656dfd9eb54d3ab47e82a159ee9581c53a9c6594bc0",
   "clause_key": "S4-2_08",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立与消费者和终端用户一般性接触流程的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立与消费者和终端用户一般性接触流程的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8b384cc572651c2a9a641ff34cb32ff0838d0d1ae58023fbe90c0f937c8e88bd",
+  "clause_digest": "2f9074b4b2fe045f7fe351ebf8aeb9e54e112911689893773d7c46d878dd5aff",
   "clause_key": "E4-1_17",
   "data_kind": "qualitative",
   "definition": "说明行政、管理和监督机构是否以及何时批准了转型计划。",
@@ -445,9 +445,6 @@
       "说明行政、管理和监督机构是否以及何时批准了转型计划。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

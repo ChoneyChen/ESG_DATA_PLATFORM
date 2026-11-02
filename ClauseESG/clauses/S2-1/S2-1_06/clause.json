@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "77374cfc26c7ab448adff32f293c4a4b4d06e74e4a1d47b959fa4886c39a66c3",
+  "clause_digest": "412afcf5ac9dc09713c7f3d03df15c7cfc916d37b69bfe052eeb5e7279c6f87c",
   "clause_key": "S2-1_06",
   "data_kind": "qualitative",
   "definition": "说明主体是否已制定供应商行为准则，并说明其覆盖范围与主要内容。",
@@ -459,9 +459,6 @@
       "说明主体是否已制定供应商行为准则，并说明其覆盖范围与主要内容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

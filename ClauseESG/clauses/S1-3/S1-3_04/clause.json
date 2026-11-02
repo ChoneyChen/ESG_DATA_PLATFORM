@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fed0131e0357f41735a717e20c11dce5e50c4f1076d51a1724a6fc2509266f91",
+  "clause_digest": "21083efd5f75f98e0ea0a772c6dfae8a02dc598b4d108fa9459c903c40316f4e",
   "clause_key": "S1-3_04",
   "data_kind": "qualitative",
   "definition": "说明自身劳动力及其代表是否以及如何在其受雇或签约主体的层级使用申诉渠道。",
@@ -445,9 +445,6 @@
       "说明自身劳动力及其代表是否以及如何在其受雇或签约主体的层级使用申诉渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

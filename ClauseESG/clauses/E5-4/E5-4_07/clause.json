@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3f9a8b7087b6369d49fabb3a5eb456023b557435f07ff1546febbaec903be176",
+  "clause_digest": "ae0361ee8bc99a0579175ee0f84e47014b16dd07569f67d960c7340907e720e0",
   "clause_key": "E5-4_07",
   "data_kind": "qualitative",
   "definition": "Description of materials that are sourced from by-products or waste stream。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of materials that are sourced from by-products or waste stream。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

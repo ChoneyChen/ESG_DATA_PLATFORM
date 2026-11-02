@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f6d4a45b0813eeb4416aeb4cd5af7a88a0ce26d066190afbb31429ffe5e2862e",
+  "clause_digest": "525b86c2dd23e451f01af53de2094d51917bb0410bd27507efbc29ee4b62b0c3",
   "clause_key": "E2-4_13",
   "data_kind": "quantitative",
   "definition": "水风险地区土壤污染物排放占比",
@@ -585,9 +585,6 @@
       "水风险地区土壤污染物排放占比"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

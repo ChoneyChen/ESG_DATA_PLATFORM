@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "effa8cbf157740a4fc7523bcf5d21907d3997fd216e9b148454029b6538a02ce",
+  "clause_digest": "02660efe0f7c1500de98f77eca76e33d7d4b99bd3d219fc92bd557fef4a3a47c",
   "clause_key": "E3-5_03",
   "data_kind": "qualitative",
   "definition": "Description of effects considered and related impacts (water and marine resources)。水财务影响的对象与相关影响。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -515,9 +515,6 @@
       "Description of effects considered and related impacts (water and marine resources)。水财务影响的对象与相关影响。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

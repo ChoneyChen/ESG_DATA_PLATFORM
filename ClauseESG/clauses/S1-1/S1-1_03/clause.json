@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0922051b7ad499310bb6b23a4f2640989701edd5368c08515917022507fa41cb",
+  "clause_digest": "de8ed39b9475d65157f862e7d80725446dbf60b8a51bce97c48997226ca6f427",
   "clause_key": "S1-1_03",
   "data_kind": "qualitative",
   "definition": "描述与自身劳动力相关的、主体作出的人权政策承诺及其来源。",
@@ -459,9 +459,6 @@
       "描述与自身劳动力相关的、主体作出的人权政策承诺及其来源。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

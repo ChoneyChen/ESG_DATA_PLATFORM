@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8977f471449c69f0ee779be58a4011b7fb8576fa675aaa765a06c2688f056887",
+  "clause_digest": "3d465c198bcd46432b4dd68ea09fc3d1002f1844036553b92b6eef8564d844ae",
   "clause_key": "S2-1_07",
   "data_kind": "qualitative",
   "definition": "说明供应商行为准则的条款是否完全符合适用的国际劳工组织标准，并指出对应标准。",
@@ -459,9 +459,6 @@
       "说明供应商行为准则的条款是否完全符合适用的国际劳工组织标准，并指出对应标准。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

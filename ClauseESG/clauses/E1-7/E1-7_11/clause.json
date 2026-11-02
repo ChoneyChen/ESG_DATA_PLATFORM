@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5a5c1957fde6e168465a86c8fbd7f64bd56b176bdee73aeb49ddc916b10cc91e",
+  "clause_digest": "97e34b8c00b7b6a6e77135280dca7c958df5aafe7a72c43b200d169d907d3d4c",
   "clause_key": "E1-7_11",
   "data_kind": "quantitative",
   "definition": "Total amount of carbon credits outside value chain planned to be cancelled in future。计划核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Total amount of carbon credits outside value chain planned to be cancelled in future。计划核销的价值链外碳信用量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

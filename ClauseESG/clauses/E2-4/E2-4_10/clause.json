@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "44941061cfc26460cf40d201a8d70fd8503f510c5bc7a1c5a8578641c95f4de1",
+  "clause_digest": "24c511b6254f7bf14834a0a4a3ef069212fed9257f111b71cc80eb71b17be60d",
   "clause_key": "E2-4_10",
   "data_kind": "qualitative",
   "definition": "污染相关核算与报告的数据收集流程",
@@ -444,9 +444,6 @@
       "污染相关核算与报告的数据收集流程"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

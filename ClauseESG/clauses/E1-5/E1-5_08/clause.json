@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6e8521547126e518459a2bb17cc9de530cdec40f432dd1e79019db9860a6af6f",
+  "clause_digest": "86c8d5a489f6b34d2b9fd44a00f9580558d329438eb5504d4d7ed6a415302071",
   "clause_key": "E1-5_08",
   "data_kind": "quantitative",
   "definition": "自产非燃料可再生能源",
@@ -601,9 +601,6 @@
       "自产非燃料可再生能源"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

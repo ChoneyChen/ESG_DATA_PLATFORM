@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6e992a4bf7657b523177ade0d44c4b0a2ee811e7f5a32520f9f90ef7bb89d549",
+  "clause_digest": "71f9258eb3896857fda2606bf68f1184cf3777ff8984e9e002f09c27654ce419",
   "clause_key": "E1.IRO-1_14",
   "data_kind": "qualitative",
   "definition": "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified。与气候中和转型不兼容的资产活动。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Assets and business activities that are incompatible with or need significant efforts to be compatible with transition to climate-neutral economy have been identified。与气候中和转型不兼容的资产活动。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

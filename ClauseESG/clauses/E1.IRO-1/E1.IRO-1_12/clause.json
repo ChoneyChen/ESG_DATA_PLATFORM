@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bfd99ce7e3916ed79c17369ca252180f1520a16da91ea622d37a6acfe7b2f246",
+  "clause_digest": "5d215732e56dd49a6f6295769e440934e5cd5ae86d2cbc387894ed10503749db",
   "clause_key": "E1.IRO-1_12",
   "data_kind": "qualitative",
   "definition": "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed。转型事件暴露与敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed。转型事件暴露与敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

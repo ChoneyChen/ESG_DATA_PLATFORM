@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a89ef2ac287f446bf7a9f1e2f600da3a7caba5a00c18c455290adecc504df59d",
+  "clause_digest": "23a76d70b9c36bb8c6e690736adc2fb8dd7ea985078669cfa79f36c97be583cc",
   "clause_key": "E3-3_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how target relates to reduction of water consumption。目标与耗水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Disclosure of whether and how target relates to reduction of water consumption。目标与耗水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

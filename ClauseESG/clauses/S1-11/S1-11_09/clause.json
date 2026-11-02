@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f89bbce1467d2587cf2683ad5741d491520275f57665144dc4a14f0d9f938763",
+  "clause_digest": "e52cfc1897c3107c74242c6924cb09fd2ae04ea22859ad4255e29fb3b3372992",
   "clause_key": "S1-11_09",
   "data_kind": "qualitative",
   "definition": "披露未通过公共计划或主体福利获得工伤和获得性残疾收入损失保障的员工类型。",
@@ -445,9 +445,6 @@
       "披露未通过公共计划或主体福利获得工伤和获得性残疾收入损失保障的员工类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

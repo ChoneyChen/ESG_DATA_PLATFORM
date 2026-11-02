@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4d6a388329dbd44c1bb5fbf6f4934471637a5ca86f3247cab348eafd190a4a50",
+  "clause_digest": "5f77429c9d77db9923aeda31443b6e2a8e54239bedce92a42928055cce95e5bf",
   "clause_key": "E4.IRO-1_16",
   "data_kind": "qualitative",
   "definition": "说明主体是否已得出结论认为有必要实施生物多样性减缓措施，并给出理由。",
@@ -487,9 +487,6 @@
       "说明主体是否已得出结论认为有必要实施生物多样性减缓措施，并给出理由。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

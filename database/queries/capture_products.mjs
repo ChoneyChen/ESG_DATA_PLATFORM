@@ -99,3 +99,27 @@ export async function projectionCatalog(db,{limit=100,cursor=null}={}) {
   return {schema_version:'capture-projection-page-1.0',query_digest:query,total:source.length,returned:rows.length,items:rows.map(row=>row.summary),
     next_cursor:more?encodeCursor(query,rows.at(-1).projection_id):null};
 }
+
+// A reviewed selection is stored once; paging reads only selected observation records.
+export async function storePreview(db,{preview,request_digest}) {
+  await db.query(`INSERT INTO esg.capture_dataset_previews(preview_digest,request_digest,snapshot)
+    VALUES($1,$2,$3::jsonb) ON CONFLICT(preview_digest) DO NOTHING`,[preview.preview_digest,request_digest,JSON.stringify(preview)]);
+  return {preview_digest:preview.preview_digest};
+}
+
+export async function previewPage(db,{preview_digest,request_digest,limit=200,cursor=null}) {
+  if(!Number.isInteger(limit)||limit<1||limit>1000)throw fault('invalid_query','Invalid page size');
+  const preview=(await db.query("SELECT request_digest,(snapshot->>'selected')::int AS selected FROM esg.capture_dataset_previews WHERE preview_digest=$1",[preview_digest])).rows[0];
+  if(!preview)throw fault('not_found','Prepare the dataset selection before reading its rows');
+  if(preview.request_digest!==request_digest)throw fault('preview_changed','The requested selection differs from its preview');
+  const query=digest([preview_digest,limit]),after=cursorAfter(cursor,query);
+  const rows=(await db.query(`SELECT o.record FROM esg.capture_dataset_previews p
+    CROSS JOIN LATERAL jsonb_array_elements(p.snapshot->'decisions') AS d(decision)
+    JOIN esg.capture_observations o ON o.observation_id=d.decision->>'observation_id'
+    WHERE p.preview_digest=$1 AND (d.decision->>'selected')::boolean AND o.observation_id>$2
+    ORDER BY o.observation_id LIMIT $3`,[preview_digest,after,limit+1])).rows;
+  const more=rows.length>limit;if(more)rows.pop();
+  return {schema_version:'capture-observation-page-1.0',snapshot_id:'preview-'+preview_digest,
+    query_digest:query,total:preview.selected,returned:rows.length,items:rows.map(row=>row.record),
+    next_cursor:more?encodeCursor(query,rows.at(-1).record.observation_id):null};
+}

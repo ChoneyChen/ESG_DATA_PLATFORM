@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4501567f63d2c86d760f2d2c6fc94fcff3a1a2e30eb03694f8eab78460cdd261",
+  "clause_digest": "d158b93cbc4a46ecf79b574a3307b7dadb7d73d3fcb8b00489f882bdaacc7158",
   "clause_key": "S1-15_01",
   "data_kind": "quantitative",
   "definition": "披露有权享受家庭相关假期的员工占员工总数的比例。",
@@ -558,9 +558,6 @@
       "披露有权享受家庭相关假期的员工占员工总数的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

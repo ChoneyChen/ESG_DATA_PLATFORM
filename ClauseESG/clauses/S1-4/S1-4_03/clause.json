@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e998c03fd110f270d59e47d684340cad32aa89b9baa9eb662df0b524f996efc1",
+  "clause_digest": "09aca0faf3262a94b6156eac8f7222505a40fd40940b3e333dd94c12c26b00fd",
   "clause_key": "S1-4_03",
   "data_kind": "qualitative",
   "definition": "描述以向自身劳动力传递积极影响为主要目的的其他举措或行动。",
@@ -459,9 +459,6 @@
       "描述以向自身劳动力传递积极影响为主要目的的其他举措或行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

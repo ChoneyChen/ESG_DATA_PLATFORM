@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3e8baf3cff8e8594b56a02e79ba5834b50971275af6f0c4d0cb55c9fe07251d4",
+  "clause_digest": "4197ec541eb23390ab3b867df1248b115169eff9107eccda279524af267f1033",
   "clause_key": "S4-4_01",
   "data_kind": "qualitative",
   "definition": "描述主体为预防、减轻或补救消费者和终端用户重大负面影响而已采取、计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述主体为预防、减轻或补救消费者和终端用户重大负面影响而已采取、计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

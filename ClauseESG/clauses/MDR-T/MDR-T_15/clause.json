@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "46dde275912c644781c3dce1efe29baa7efe9220dc6dac8fc99f86fbde86b2e4",
+  "clause_digest": "47ce024fd13f8415f53b2f03c40441314493070560d612dd4393695edd1d2bef",
   "clause_key": "MDR-T_15",
   "data_kind": "qualitative",
   "definition": "Description of reasons why there are no plans to set measurable outcome-oriented targets。不计划设定可量化目标的原因。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Description of reasons why there are no plans to set measurable outcome-oriented targets。不计划设定可量化目标的原因。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1148136a501d6a3f671a291f19df1bc4b78d5d22c78111a58b9881f6f73b7e9f",
+  "clause_digest": "e3db3f025c12611a4c3807c7cece126d5a66a07436b0c531efbecf951b0f8471",
   "clause_key": "E1-7_03",
   "data_kind": "qualitative",
   "definition": "Removals and carbon credits are used。移除和碳信用使用情况。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Removals and carbon credits are used。移除和碳信用使用情况。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "864a29143da09f57ddc5f3176acb91d163b603fbebcfc47c86d98c84c7f9669e",
+  "clause_digest": "6a2ec94831a82c327874ebcdc06c98fb45d42cea87c1ebd971884c2e6b71075e",
   "clause_key": "G1-6_02",
   "data_kind": "qualitative",
   "definition": "Description of undertakings standard payment terms in number of days by main category of suppliers。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of undertakings standard payment terms in number of days by main category of suppliers。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

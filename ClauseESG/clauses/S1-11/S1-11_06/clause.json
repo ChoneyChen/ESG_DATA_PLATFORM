@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "733ceba39882a6cace4ab646c90af81f48388f43c6442ddf0ca97301202a8232",
+  "clause_digest": "7091d6297412624d4726c7e991afa44f54d4c7737bf7543397d01507d675bb76",
   "clause_key": "S1-11_06",
   "data_kind": "qualitative",
   "definition": "读取按国家、事件类型和员工/非员工类型陈述的社会保护覆盖情况，保留逐项原文；人数或比率另为定量，不因缺某轴阻塞。",
@@ -462,9 +462,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

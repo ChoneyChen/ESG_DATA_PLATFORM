@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "36dd6c19e575ddf41ecbbdf0793525c2bf40a9506319e2614c3ee8f893d71dc0",
+  "clause_digest": "f6fe40ba2740e57257622694b53a0ab6d9121792bbfa1b22a4edc5ce3e451e89",
   "clause_key": "E5-2_03",
   "data_kind": "qualitative",
   "definition": "说明循环设计原则在产品、部件和材料设计中的应用方式与覆盖范围。",
@@ -459,9 +459,6 @@
       "说明循环设计原则在产品、部件和材料设计中的应用方式与覆盖范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

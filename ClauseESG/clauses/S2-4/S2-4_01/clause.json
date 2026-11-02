@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2b3c95b6f2fbcb4106577433a2e511b1e66223fc869c6ddecfe916453f429ea0",
+  "clause_digest": "6b74936f51136a7f8dbf464e65c4f380967946956bf4cc97aab46c88a57e3b6a",
   "clause_key": "S2-4_01",
   "data_kind": "qualitative",
   "definition": "描述主体为预防、减轻或补救价值链劳动者重大负面影响而已采取、计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述主体为预防、减轻或补救价值链劳动者重大负面影响而已采取、计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4de540f4e00cff71828985c019383fb8d19eb55bdeb15c2405e25a9878236519",
+  "clause_digest": "391e4fe054c3beec7c79d2c98f446f032f8bf1c7199bac6aa95d2742745f65d6",
   "clause_key": "GOV-1_06",
   "data_kind": "quantitative",
   "definition": "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -679,10 +679,6 @@
       "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "%|％|件|起|天|日|人|名|位|days?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

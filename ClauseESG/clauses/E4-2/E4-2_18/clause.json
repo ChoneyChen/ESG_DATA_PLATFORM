@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "04dfacf8cccf2023b1a29d56eba1df23bb727c1d3deb09a8261fd73c5630af50",
+  "clause_digest": "9720a8a26427791d28ffdc495a13c3b8c3aa63736b4b3863d657d4f0fed11c8e",
   "clause_key": "E4-2_18",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定可持续土地或农业实践的政策或做法，并说明其主要内容。",
@@ -459,9 +459,6 @@
       "披露主体是否已制定可持续土地或农业实践的政策或做法，并说明其主要内容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

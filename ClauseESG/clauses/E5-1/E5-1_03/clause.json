@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fd5c172fde83fd139a60c7e845cadc447812cd9dd6e182c2521b017274d64a3f",
+  "clause_digest": "37b0104f5de86428f8d0062771e0373e952dc9b967ca7f71a6d34c43ade4f760",
   "clause_key": "E5-1_03",
   "data_kind": "qualitative",
   "definition": "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。",
@@ -459,9 +459,6 @@
       "说明政策是否以及如何处理废弃物层级，即预防、再利用准备、回收、其他回收利用和处置的优先顺序。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

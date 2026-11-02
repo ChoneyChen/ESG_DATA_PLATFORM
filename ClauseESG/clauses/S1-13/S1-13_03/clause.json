@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "154ecb7a54a475ef024d2aa7fda606ed84f9d8e539ab990029af07b2818d7b7c",
+  "clause_digest": "40f8cd9d68f4713afc347a7539f4be164b9de39440cdacb773957d67dc658426",
   "clause_key": "S1-13_03",
   "data_kind": "quantitative",
   "definition": "按性别划分的员工人均培训小时数。",
@@ -622,10 +622,6 @@
       "按性别划分的员工人均培训小时数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6944ddd04aa93fb47996f0f47ea628d9f2a30ce986dec240044dbc199f1c14b7",
+  "clause_digest": "08146f416dede0be48f627f0ebffaa2b936c341928b507429ae3ef39434e3411",
   "clause_key": "E1-6_10",
   "data_kind": "quantitative",
   "definition": "基于市场法的范围2温室气体排放总量",
@@ -685,18 +685,6 @@
       "基于市场法的范围2温室气体排放总量"
     ],
     "operator": "ghg_scope",
-    "options": {
-      "guard_alias": "SCOPE2",
-      "method": "market_based",
-      "method_family": "scope2",
-      "method_partner": "E1-6_09",
-      "table_instructions": [
-        "E1-6_10 requires the stated market_based method; a row label or cited note must support that method. If neither method is stated, use SCOPE2_METHOD_UNSTATED."
-      ],
-      "text_unit_pattern": "吨|噸|t\\b|tco|co2|co₂|二氧化碳|碳当量|kt|mt\\b|万吨|萬噸",
-      "unresolved_target": "SCOPE2_METHOD_UNSTATED",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

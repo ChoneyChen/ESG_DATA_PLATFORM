@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5737431c549872f8e88c772dd5f2d0a5b94c5ceb27a37e79478740c3b5c742c8",
+  "clause_digest": "1806b509b8e68193d00eb826a23664c523dd16bd2f819932f0e3e4d1ccb98bf7",
   "clause_key": "BP-2_20",
   "data_kind": "qualitative",
   "definition": "List of DRs or DPs incorporated by reference。以引用方式纳入的条款清单。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "List of DRs or DPs incorporated by reference。以引用方式纳入的条款清单。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

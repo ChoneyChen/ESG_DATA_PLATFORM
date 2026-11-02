@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7f7871fd4bcd8c7fbe1a22cbc5082b3c46dc2ef2f080a94d06ef550120a5afeb",
+  "clause_digest": "7a62e68746fce6cc88263324376384aa039ac6eaf00a9df390e93e8fd6da18d4",
   "clause_key": "G1-1_10",
   "data_kind": "qualitative",
   "definition": "说明主体关于商业行为内部培训的政策，包括培训对象、内容与频率。",
@@ -459,9 +459,6 @@
       "说明主体关于商业行为内部培训的政策，包括培训对象、内容与频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

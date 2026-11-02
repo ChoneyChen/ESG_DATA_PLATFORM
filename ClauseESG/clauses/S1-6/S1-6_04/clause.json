@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3ec5dc1983086242c166fa73f32d2eaf9f3fd3ae5077d08581b4a0fc8ce43faa",
+  "clause_digest": "ba29429288bd985aade165f3810724699144dfd5519e60c9377d351e87fc033c",
   "clause_key": "S1-6_04",
   "data_kind": "quantitative",
   "definition": "读取按国家披露的员工人数；50人及10%是披露选择条件，不作为要求企业补齐全部国家或推断缺失人数的依据。",
@@ -557,9 +557,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [

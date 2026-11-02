@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7ad244732ab441183da8a65309de080309e7e8b35c9bb2ba14709247573c3091",
+  "clause_digest": "5aa1673244fb0a4c9a57ae6d88af185861b3a6b2cfd3991ae19a3612c4e40d5a",
   "clause_key": "E1-9_44",
   "data_kind": "quantitative",
   "definition": "Expected changes to net revenue from low-carbon products and services or adaptation solutions to which undertaking has or may have access。低碳产品或适应服务的预期收入变化。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Expected changes to net revenue from low-carbon products and services or adaptation solutions to which undertaking has or may have access。低碳产品或适应服务的预期收入变化。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

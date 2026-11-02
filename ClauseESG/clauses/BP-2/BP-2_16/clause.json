@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "99007a58116739ffea475c71ebb66f11e04077e0d824a9360db03e6a01c2eb34",
+  "clause_digest": "f30f760a4e25d105cae2ba6ceb7af6a592b16bb505841ef5a37cd632809a0f9d",
   "clause_key": "BP-2_16",
   "data_kind": "qualitative",
   "definition": "Disclosure of other legislation or generally accepted sustainability reporting standards and frameworks based on which information has been included in sustainability statement。采用的其他标准或法规。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Disclosure of other legislation or generally accepted sustainability reporting standards and frameworks based on which information has been included in sustainability statement。采用的其他标准或法规。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

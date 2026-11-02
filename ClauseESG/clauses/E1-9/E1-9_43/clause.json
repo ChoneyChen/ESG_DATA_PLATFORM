@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4f4be199cccc425d7dff5d17fd62b00c3ed8a094e3ab0395be4b14910888bad7",
+  "clause_digest": "cb469812dc769473a814160eac8924f6f29999ea2c006c39f3fb92c5329a1148",
   "clause_key": "E1-9_43",
   "data_kind": "quantitative",
   "definition": "Potential market size of low-carbon products and services or adaptation solutions to which undertaking has or may have access。低碳产品或适应服务的潜在市场规模。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Potential market size of low-carbon products and services or adaptation solutions to which undertaking has or may have access。低碳产品或适应服务的潜在市场规模。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

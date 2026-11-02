@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5b988d30d034ffc898a52b90cd60c3997118a0d1e60038efa373aa7effed6a5c",
+  "clause_digest": "86f78d9b66428ebed0456108d2935bb64823c582f31a0ebc198b4fc7e3a3a356",
   "clause_key": "E5-3_13",
   "data_kind": "qualitative",
   "definition": "说明所设定并披露的目标是否为法规强制要求，并指出对应的法律依据。",
@@ -473,9 +473,6 @@
       "说明所设定并披露的目标是否为法规强制要求，并指出对应的法律依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "69ece4dc56abd5930ac52e270fd3f57ddf29c7e3d12a1d80c1e5b0e3f51d48b6",
+  "clause_digest": "dec5983e83e1adfaa97145e2ab5d4f2b746ceb11fe1f7682f916cc9481280b4e",
   "clause_key": "GOV-2_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of how governance bodies ensure that appropriate mechanism for performance monitoring is in place。绩效监测机制。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
@@ -459,9 +459,6 @@
       "Disclosure of how governance bodies ensure that appropriate mechanism for performance monitoring is in place。绩效监测机制。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

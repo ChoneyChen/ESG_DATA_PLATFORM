@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "08c1b333f80e85d6c50f358168cad23722548a380258f198a83c956f888e00d4",
+  "clause_digest": "ee5cc55ee68ce2da13c3729d6e33c819f7a5256bf66573d8d4667b7859d6e293",
   "clause_key": "E5-3_03",
   "data_kind": "qualitative",
   "definition": "说明目标如何与循环材料使用率的提升相关联，包括基准值和目标值。",
@@ -473,9 +473,6 @@
       "说明目标如何与循环材料使用率的提升相关联，包括基准值和目标值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

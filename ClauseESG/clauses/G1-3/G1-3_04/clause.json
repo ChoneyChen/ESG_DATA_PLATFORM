@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1e65a0543d4deaf22a8aff899cf96837a11307ec84277079c698b45bc03c3e4b",
+  "clause_digest": "fe3be302fd20593ad3d5e3b069e676a01cb5e76560392e38cb63169e1aba888b",
   "clause_key": "G1-3_04",
   "data_kind": "qualitative",
   "definition": "说明在尚未建立预防、发现和处理腐败或贿赂程序的情况下，主体计划如何建立相关程序。",
@@ -445,9 +445,6 @@
       "说明在尚未建立预防、发现和处理腐败或贿赂程序的情况下，主体计划如何建立相关程序。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "38ac523d162bfa4f8d9a0f8ddb4622437255a34a467497ccd2a1ac0cd79c7aed",
+  "clause_digest": "b5b80346e9869ba3b60b98062b332a371ae2fae1dcc3ff8750dabfc8d80f4b6b",
   "clause_key": "S2-4_17",
   "data_kind": "qualitative",
   "definition": "说明以积极影响价值链劳动者为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。",
@@ -459,9 +459,6 @@
       "说明以积极影响价值链劳动者为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

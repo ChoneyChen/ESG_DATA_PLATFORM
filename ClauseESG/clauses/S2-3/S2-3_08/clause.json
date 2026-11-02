@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2d2bb0d27c21c1eebe4b0b034c8f49ec78f6b4f007553b8f282a0a99038f0b1b",
+  "clause_digest": "628428259360e0e25c739bd54ea7a4a5e46648e685c614d0390f2c8391c33ca0",
   "clause_key": "S2-3_08",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立面向价值链劳动者的申诉渠道的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立面向价值链劳动者的申诉渠道的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

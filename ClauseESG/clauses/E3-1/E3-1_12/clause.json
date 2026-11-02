@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "73064ae2e5fc24b5dcc5574dd76daff885020ebf99314199e9f0b7fdb668c5a3",
+  "clause_digest": "0930be12e40bac93430dc5942fbf6c70b4ed2c5beb69b70db47e6d0465e772a0",
   "clause_key": "E3-1_12",
   "data_kind": "qualitative",
   "definition": "The policy avoid impacts on affected communities.。社区影响规避政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "The policy avoid impacts on affected communities.。社区影响规避政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

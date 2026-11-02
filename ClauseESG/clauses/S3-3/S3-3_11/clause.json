@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8852869e0c0fb922f0d2b7ff32411ced09a6252e673dbe8e8ea290133d8915e5",
+  "clause_digest": "2a08f0e4ab9f75ae29cfbf585fcfa23ef7b83d5bcd5689e379e5c7624eb9b495",
   "clause_key": "S3-3_11",
   "data_kind": "qualitative",
   "definition": "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -445,9 +445,6 @@
       "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

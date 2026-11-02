@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5a45833b595d133462c24aed2dfb056c1c6f11bee1bb8a76f6ed3c9320bcef78",
+  "clause_digest": "34a06357845fd5e66e77becf516dc142ba89542795fef67c7e3280ec22778d93",
   "clause_key": "S3-3_15",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定保护使用申诉渠道的社区成员免遭报复的政策，并说明保护范围。",
@@ -445,9 +445,6 @@
       "披露主体是否已制定保护使用申诉渠道的社区成员免遭报复的政策，并说明保护范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

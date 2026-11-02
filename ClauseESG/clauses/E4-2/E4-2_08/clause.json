@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "79937d5a2c99eb03d0cd2223575185f89805e976628c109b4376896ee750f206",
+  "clause_digest": "bcb81ef2fd28efee9bf6464679216822c2a144adb43534ec9a9a00668d3fdb2d",
   "clause_key": "E4-2_08",
   "data_kind": "qualitative",
   "definition": "说明政策如何限制从无法证明未造成保护区或重点生物多样性区域显著转化的供应商处采购。",
@@ -459,9 +459,6 @@
       "说明政策如何限制从无法证明未造成保护区或重点生物多样性区域显著转化的供应商处采购。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

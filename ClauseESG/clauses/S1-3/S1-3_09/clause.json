@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ed82ddc29872929eafcf265e5a1ae43dca70c5f341beacc4de50313ff93b625e",
+  "clause_digest": "833d822563e37a05363baf80538deafd10d8a99ac54a6324088192c05f972e6e",
   "clause_key": "S1-3_09",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定保护使用申诉渠道人员免遭报复的政策，并说明保护范围。",
@@ -445,9 +445,6 @@
       "披露主体是否已制定保护使用申诉渠道人员免遭报复的政策，并说明保护范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

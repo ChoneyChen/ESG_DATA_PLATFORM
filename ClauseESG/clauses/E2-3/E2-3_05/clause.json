@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7584dd4de92b46b795a9d9895207f7881ded74498e04c15aaf304b5877e92bd2",
+  "clause_digest": "5a139d1e87cae5999116d6115b45f21c5b7ca1aa5adcc530e3e7878bed39c503",
   "clause_key": "E2-3_05",
   "data_kind": "qualitative",
   "definition": "Ecological thresholds and entity-specific allocations were taken into consideration when setting pollution-related target。污染目标是否考虑生态阈值。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Ecological thresholds and entity-specific allocations were taken into consideration when setting pollution-related target。污染目标是否考虑生态阈值。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

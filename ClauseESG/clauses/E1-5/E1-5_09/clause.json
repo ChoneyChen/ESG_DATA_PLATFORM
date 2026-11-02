@@ -180,7 +180,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1e711356c9773a70cf8012d1321ecf6c47f458c7b458d07392b78cf1b01f3a06",
+  "clause_digest": "b6ffc8bcf82caaea444a5edd361913e7e8bec09a7da6dff5f7c54fc7d3a1ddae",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
@@ -757,10 +757,6 @@
       "可再生能源占能源消费总量的比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "[mgkt]wh|千瓦时|千瓦時|兆瓦时|兆瓦時|吉瓦时|度电|度電|亿度|億度|万度|萬度|[gtp]j|吉焦|焦耳|标准煤|標準煤|标煤|tce|toe|%|％",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

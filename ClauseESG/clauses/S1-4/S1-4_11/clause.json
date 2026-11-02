@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6e5e1e3e28a58185bd5e89d0116660760f2068b8c275517405ec60a4b3f4e1c8",
+  "clause_digest": "705b8fa1a72c0f8e44e1b62aefe4fff1b5545546a8044d60522a7e8101505d7d",
   "clause_key": "S1-4_11",
   "data_kind": "qualitative",
   "definition": "披露主体旨在贡献额外重大积极影响的举措及其预期结果。",
@@ -459,9 +459,6 @@
       "披露主体旨在贡献额外重大积极影响的举措及其预期结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

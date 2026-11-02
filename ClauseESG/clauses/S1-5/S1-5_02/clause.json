@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4f8a2ce40c8d5bc61459233d6ce28e0b716d187e6393f501ce113c106c7796cc",
+  "clause_digest": "116de435d16132e48bac41e364314c2682ba93f9a31efb04e669b44bcb228ed4",
   "clause_key": "S1-5_02",
   "data_kind": "qualitative",
   "definition": "说明员工或员工代表是否以及如何直接参与对照目标跟踪绩效。",
@@ -473,9 +473,6 @@
       "说明员工或员工代表是否以及如何直接参与对照目标跟踪绩效。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bd1585cc86ebc77855b67bee26c4b669c5e5a8d2d3eafc64994404f253687481",
+  "clause_digest": "f0ff6f026f54590f423cacbc4a6f5464e3246b923f10ece38d47c7eabed67184",
   "clause_key": "E4.IRO-1_10",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何利用多种生物多样性和生态系统情景或其他含生态后果建模的情景验证商业模式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

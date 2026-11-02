@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "50ecbfd276e75e030196a04f42bfabc5b092caa7530d70237e93b90a00f4612b",
+  "clause_digest": "60ff35a824dac7d07944358fd91d669ffefca75e44732d84993f8e3bf0f645e3",
   "clause_key": "IRO-1_12",
   "data_kind": "qualitative",
   "definition": "Description of extent to which and how process to identify, assess and manage impacts and risks is integrated into overall risk management process and used to evaluate overall risk profile and risk management processes。影响风险识别与风险管理整合。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of extent to which and how process to identify, assess and manage impacts and risks is integrated into overall risk management process and used to evaluate overall risk profile and risk management processes。影响风险识别与风险管理整合。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

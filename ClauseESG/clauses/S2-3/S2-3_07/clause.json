@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a0df96d373203266f77163298e0676403443c2ca5d98782f66b9c8d84b21625c",
+  "clause_digest": "ca24b4bdf9ef33ebec61da2b8def33a8252eedc6c6c8500fc39e210546e6b347",
   "clause_key": "S2-3_07",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立面向价值链劳动者的申诉渠道；若未建立，披露现状与原因。",
@@ -445,9 +445,6 @@
       "说明主体是否尚未建立面向价值链劳动者的申诉渠道；若未建立，披露现状与原因。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

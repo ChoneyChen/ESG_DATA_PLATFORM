@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c2948a2251a6712b2cf83be03a8bbfc9d4d1b7df573844a71ac63645fec8e94e",
+  "clause_digest": "30560ba60c5b1db18793d0cf22e2ca35ec6979deff8058ed4f998998b42026af",
   "clause_key": "E1-5_15",
   "data_kind": "quantitative",
   "definition": "化石能源占能源消费总量的比例",
@@ -585,9 +585,6 @@
       "化石能源占能源消费总量的比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

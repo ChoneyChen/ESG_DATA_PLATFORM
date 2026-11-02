@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4c3991adf2c13701bf5ec09678c526869db8486b1f688885c6205e3d42231204",
+  "clause_digest": "b7f1ab24b27d6dff06cee7bc8c9cc41cf1254dc7990ad9b49539fca1913f4210",
   "clause_key": "E2-4_14",
   "data_kind": "quantitative",
   "definition": "高水压力地区土壤污染物排放占比",
@@ -585,9 +585,6 @@
       "高水压力地区土壤污染物排放占比"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

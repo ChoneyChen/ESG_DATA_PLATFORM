@@ -162,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3d1cef4a088d92f7fc8af9fb154786bd953c86d98eb979aa64e4108a368ae5c5",
+  "clause_digest": "c638ae7964faf1a60d3772ec0dc4b3af1c41bd0067244d4c417e0ec7a7e3639d",
   "clause_key": "E1-9_38",
   "data_kind": "qualitative",
   "definition": "读取重大转型风险业务预期利润侵蚀的原文解释；保留情景、财务项和预期时间原词，不生成预测金额或实际损益。",
@@ -574,9 +574,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a8a7d5ef3ca6d4d06378fc8f7f6f57620c193fad0d71d493dece229312ff14f7",
+  "clause_digest": "0bdf93e92e6dda605727712146c07e40d38590c9f5239c1030696405842d6eaa",
   "clause_key": "IRO-1_15",
   "data_kind": "qualitative",
   "definition": "Description of how process to identify, assess and manage impacts, risks and opportunities has changed compared to prior reporting period。识别评估流程跨期变更。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of how process to identify, assess and manage impacts, risks and opportunities has changed compared to prior reporting period。识别评估流程跨期变更。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

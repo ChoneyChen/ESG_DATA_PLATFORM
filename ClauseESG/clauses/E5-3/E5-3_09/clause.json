@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "978ac5e45c7084682cf62863ee04b7f985501d5b6bedb179e335b149f0f97103",
+  "clause_digest": "2908247205295b5c6ff2ebd2630965726df764a8eaf62c4beb0e349c3f0a167d",
   "clause_key": "E5-3_09",
   "data_kind": "qualitative",
   "definition": "说明目标归属于废弃物层级的哪一层，即预防、再利用准备、回收、其他回收利用或处置。",
@@ -473,9 +473,6 @@
       "说明目标归属于废弃物层级的哪一层，即预防、再利用准备、回收、其他回收利用或处置。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

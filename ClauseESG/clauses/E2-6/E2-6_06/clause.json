@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f0472d2f7a065560d4cfbb429da323e51cc85c12f4ed65b8b74ac08273efcca8",
+  "clause_digest": "11e2127c2058d6a0024b090bf0348278b9391141de26546c6a64364bd2fa449f",
   "clause_key": "E2-6_06",
   "data_kind": "quantitative",
   "definition": "Provisions for environmental protection and remediation costs (pollution)。环境保护和修复准备金。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -628,9 +628,6 @@
       "Provisions for environmental protection and remediation costs (pollution)。环境保护和修复准备金。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

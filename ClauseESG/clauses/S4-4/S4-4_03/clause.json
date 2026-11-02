@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2b32fb93b9e59ae17398ed51909c6a3103da2a5b930903a1e49ca3052d1d6676",
+  "clause_digest": "c0f67f473b597431f9e3e4d7794645ba814b32f90db3ed3b10538be95f38e7f0",
   "clause_key": "S4-4_03",
   "data_kind": "qualitative",
   "definition": "描述以向消费者和终端用户传递积极影响为主要目的的其他举措或流程。",
@@ -459,9 +459,6 @@
       "描述以向消费者和终端用户传递积极影响为主要目的的其他举措或流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5e7ac26c4752bf29be3220ced9e71635431edaffa31bdf8608d60d7cb407e001",
+  "clause_digest": "09adee3263f966c673b05600fb8fa602eab940b228aa9119cc9a5a4677f7bc4e",
   "clause_key": "E1-7_22",
   "data_kind": "qualitative",
   "definition": "Public claims of GHG neutrality that involve use of carbon credits are accompanied by GHG emission reduction targets。中和声明是否伴随减排目标。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Public claims of GHG neutrality that involve use of carbon credits are accompanied by GHG emission reduction targets。中和声明是否伴随减排目标。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

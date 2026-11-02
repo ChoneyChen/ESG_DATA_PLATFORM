@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1f50f6e88c2df2ca61242904ad9947c6607bca3fd640e455aeeae194f41c027c",
+  "clause_digest": "b267bd188f9bd24c76d6ac00a21b01a8fc46f921f8f3fcd15446f32c97230fe2",
   "clause_key": "E1-4_18",
   "data_kind": "qualitative",
   "definition": "Explanation of how consistency of GHG emission reduction targets with GHG inventory boundaries has been ensured。减排目标与盘查边界一致性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -515,9 +515,6 @@
       "Explanation of how consistency of GHG emission reduction targets with GHG inventory boundaries has been ensured。减排目标与盘查边界一致性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

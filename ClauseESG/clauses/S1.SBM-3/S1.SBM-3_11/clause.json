@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "de2d5800b525da0ddc74fae4b54c1315ed7f1d823f61d455d8e53b54a0a31d11",
+  "clause_digest": "e217da4f2e65ea4fc64b38f14ce90c76a3ef1ce628fbaca8d89aa150ec6e6d44",
   "clause_key": "S1.SBM-3_11",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何形成对特定特征、特定情境或特定活动员工可能面临更高伤害风险的理解。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何形成对特定特征、特定情境或特定活动员工可能面临更高伤害风险的理解。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

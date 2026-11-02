@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e4071d234fc4887e614a8100804bca34ac936946d0301ea172f7d2f311604e97",
+  "clause_digest": "b1a1fa561682c3b0a09c6516c094f3f30a9e480f90b3de58536fb093321bfef6",
   "clause_key": "S1-2_06",
   "data_kind": "qualitative",
   "definition": "说明主体如何评估与自身劳动力接触的有效性，包括评估指标与反馈机制。",
@@ -445,9 +445,6 @@
       "说明主体如何评估与自身劳动力接触的有效性，包括评估指标与反馈机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

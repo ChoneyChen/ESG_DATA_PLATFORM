@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "21443ac91aed7c7e57f5406b91920ec3ba18bdebae6c86c206adfc7169611f35",
+  "clause_digest": "83dae4ba896d87425a3a63335aff0ebde941399aba9300f21032cce373927419",
   "clause_key": "S3-5_03",
   "data_kind": "qualitative",
   "definition": "说明受影响社区是否以及如何直接参与识别绩效带来的经验教训或改进机会。",
@@ -473,9 +473,6 @@
       "说明受影响社区是否以及如何直接参与识别绩效带来的经验教训或改进机会。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

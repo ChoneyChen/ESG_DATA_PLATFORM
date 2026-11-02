@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "22585d477768b775709af79fedb8e7fe6c47dd8799fcc3986c6b1fdaac1ecc9a",
+  "clause_digest": "342862e97ef0a20f5c8fd15a522a5159e78fd47ab52cb71f63464a67ef9b4cf6",
   "clause_key": "E1-5_21",
   "data_kind": "qualitative",
   "definition": "能源强度所用净收入的对账说明",
@@ -444,9 +444,6 @@
       "能源强度所用净收入的对账说明"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

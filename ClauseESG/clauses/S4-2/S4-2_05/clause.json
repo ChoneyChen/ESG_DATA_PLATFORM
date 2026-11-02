@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2dbcdfcd1b49c5c8a8fa76904077dbd19d8ea3a187ef6af8cd3f58cf61914e5b",
+  "clause_digest": "492a9812f9cf7a57e514815d7c09320f36220610194f5d3fa7b64fadf75f4933",
   "clause_key": "S4-2_05",
   "data_kind": "qualitative",
   "definition": "说明主体如何评估与消费者和终端用户接触的有效性，包括评估指标与反馈机制。",
@@ -445,9 +445,6 @@
       "说明主体如何评估与消费者和终端用户接触的有效性，包括评估指标与反馈机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

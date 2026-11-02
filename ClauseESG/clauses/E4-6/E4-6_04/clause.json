@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fd3a51ffa508c758f225ada942cb68032dff410fb69c3b3fbc5d62f5b044b0a2",
+  "clause_digest": "bd80ccb6c977303709144b0dae9e0d726c70fc40919296aa697432b912e928b6",
   "clause_key": "E4-6_04",
   "data_kind": "qualitative",
   "definition": "披露估计生物多样性和生态系统相关重大风险与机遇财务影响时使用的关键假设及其不确定性。",
@@ -515,9 +515,6 @@
       "披露估计生物多样性和生态系统相关重大风险与机遇财务影响时使用的关键假设及其不确定性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5273e4c3b9bddf7987a09f8920065188954d0b48191398b2b14098f2932cb038",
+  "clause_digest": "9d3c13e17cbed12333b64d1dbfac6cd408fb5278c6b8099ce5e322e7fc62dd74",
   "clause_key": "S3-2_07",
   "data_kind": "qualitative",
   "definition": "说明主体在利益相关方接触方法中是否以及如何考虑并确保尊重原住民的特定权利。",
@@ -445,9 +445,6 @@
       "说明主体在利益相关方接触方法中是否以及如何考虑并确保尊重原住民的特定权利。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

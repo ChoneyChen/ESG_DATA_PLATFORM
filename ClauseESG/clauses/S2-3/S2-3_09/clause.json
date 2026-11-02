@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2728358d39d5d443e0f56455b7a202dfc826b74fc82f9fe35713848685bebb3f",
+  "clause_digest": "46797c4ab35c1fa2aa9285118a28b0af28eef13a1b5ce5a9a69ae2e778548971",
   "clause_key": "S2-3_09",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者是否以及如何在其受雇或签约主体的层级使用申诉渠道。",
@@ -445,9 +445,6 @@
       "说明价值链劳动者是否以及如何在其受雇或签约主体的层级使用申诉渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

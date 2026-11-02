@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1aa452c479a41e0d7aaaa3f257f5b48927b87954e06933f4ed6286d7122c532d",
+  "clause_digest": "62c80a76111189d17f8deae603410fb5e98b1b202f41e179c97727cb92f8b99e",
   "clause_key": "BP-1_06",
   "data_kind": "qualitative",
   "definition": "Option allowed by Member State to omit disclosure of impending developments or matters in course of negotiation has been used。是否省略即将发生事项或谈判信息。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
@@ -459,9 +459,6 @@
       "Option allowed by Member State to omit disclosure of impending developments or matters in course of negotiation has been used。是否省略即将发生事项或谈判信息。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

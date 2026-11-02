@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a24c863e337521cc8479ec88c6b60c121129f038fd0d19410380504ef7598284",
+  "clause_digest": "1bd809069f4458b80d11b74debaf9257daeaff4857c1bee36848f134e1a364fe",
   "clause_key": "S3-2_03",
   "data_kind": "qualitative",
   "definition": "披露与受影响社区接触发生的阶段、接触类型和频率。",
@@ -445,9 +445,6 @@
       "披露与受影响社区接触发生的阶段、接触类型和频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

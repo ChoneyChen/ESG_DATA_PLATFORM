@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5deb46811b6e93eb509b18b35826f30dff23c1d7d047b376b4046e71109a7f3a",
+  "clause_digest": "539526da8c71e13f90f2cd4d14bb637c2ffa746fdef55c3fcc3905f2ebe431c8",
   "clause_key": "E1-3_05",
   "data_kind": "qualitative",
   "definition": "Explanation of extent to which ability to implement action depends on availability and allocation of resources。行动实施对资源的依赖。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
@@ -461,9 +461,6 @@
       "Explanation of extent to which ability to implement action depends on availability and allocation of resources。行动实施对资源的依赖。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

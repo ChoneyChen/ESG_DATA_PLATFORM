@@ -167,7 +167,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "cb5df99fe77be6104c4ef6aab6b2b2952a4853c36ca7e7866e7c313c73f1186a",
+  "clause_digest": "e353a347193b6645d79d17eec91255d108927b6a12ad5dff8de341ccdf87d21b",
   "clause_key": "E3-4_01",
   "data_kind": "quantitative",
   "definition": "Total water consumption。耗水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -729,10 +729,6 @@
       "Total water consumption。耗水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "water",
-    "options": {
-      "text_unit_pattern": "立方米|m3|m³|吨|噸|升|ml\\b|megalit|liter|litre|gallon",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

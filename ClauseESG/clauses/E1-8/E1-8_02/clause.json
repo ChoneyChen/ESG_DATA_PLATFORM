@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "914f2510d2c2cd1aabe96e799678809eceef7454c716674b32bb51a66bdd607a",
+  "clause_digest": "061c72b3be321a823d7204d157be3d0e62225c27d760dfb59e53444838fd68e6",
   "clause_key": "E1-8_02",
   "data_kind": "qualitative",
   "definition": "Type of internal carbon pricing scheme。内部碳定价机制类型。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -487,9 +487,6 @@
       "Type of internal carbon pricing scheme。内部碳定价机制类型。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

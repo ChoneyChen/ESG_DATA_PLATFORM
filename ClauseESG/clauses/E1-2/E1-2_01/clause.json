@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f455c67c83c1acfeea535db9931dac4ed00883c0a8ea4d12c156e441af45382c",
+  "clause_digest": "8a91dbd142a8810244676604b1073abf1eda8a01bc41a4ae2645f409a28167c5",
   "clause_key": "E1-2_01",
   "data_kind": "qualitative",
   "definition": "Sustainability matters addressed by policy for climate change。气候政策覆盖的可持续事项。政策是否存在、政策覆盖事项与未来采纳安排分开；没有证据不能推断已采纳。",
@@ -445,9 +445,6 @@
       "Sustainability matters addressed by policy for climate change。气候政策覆盖的可持续事项。政策是否存在、政策覆盖事项与未来采纳安排分开；没有证据不能推断已采纳。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1c125205327404ed4ea0ec2d96c75cd7c5abc7562c81d8d5cf4d82e31e1082ab",
+  "clause_digest": "581f95c40d99bd94e8d6a149af05819d663b71c033e6b4bebe9a9b1fa6d143c6",
   "clause_key": "BP-1_05",
   "data_kind": "qualitative",
   "definition": "Option to omit specific piece of information corresponding to intellectual property, know-how or results of innovation has been used。是否省略知识产权创新信息。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
@@ -459,9 +459,6 @@
       "Option to omit specific piece of information corresponding to intellectual property, know-how or results of innovation has been used。是否省略知识产权创新信息。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

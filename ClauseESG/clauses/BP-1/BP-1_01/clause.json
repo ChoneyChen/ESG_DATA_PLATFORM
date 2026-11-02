@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5543c1a8adf981cb5449c4332ddd0c6122cb8ecf84c8cf83ca895db92f6d9062",
+  "clause_digest": "087539d8e96aa2d452e093706eb5ea8923b1e2262090dd05cec008e2b9386ae2",
   "clause_key": "BP-1_01",
   "data_kind": "qualitative",
   "definition": "Basis for preparation of sustainability statement。可持续声明编制基础。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
@@ -459,9 +459,6 @@
       "Basis for preparation of sustainability statement。可持续声明编制基础。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

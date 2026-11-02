@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7325d2dd22d55fbab074a07e45946ad3b4efacdb6623fcf625a0be29bc95c18b",
+  "clause_digest": "193b033c29d10b4c9cd4f4e84dffb25a542d0fee1b6fb3e063799eb6930404e0",
   "clause_key": "BP-2_25",
   "data_kind": "qualitative",
   "definition": "Description of policies related to sustainability matters assessed to be material (phase-in)。阶段安排的政策。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Description of policies related to sustainability matters assessed to be material (phase-in)。阶段安排的政策。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "53df7538cb27ac73bebb2aba393d7b1c66bcb511bc40683e11049b94d27f38f0",
+  "clause_digest": "b2d6470922f78d410e9c19e7ecea9f35a04092ea143e2ba6c888a0cffaeaa636",
   "clause_key": "G1-5_09",
   "data_kind": "qualitative",
   "definition": "披露游说活动覆盖的主要议题以及主体在这些议题上的主要立场。",
@@ -445,9 +445,6 @@
       "披露游说活动覆盖的主要议题以及主体在这些议题上的主要立场。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

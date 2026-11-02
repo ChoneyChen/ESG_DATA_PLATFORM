@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8f78e7c822d80c36edef6f629d76d6dd92c23283c38a29f2c0f9d6e77c737c62",
+  "clause_digest": "88784002eb8722243e9bedf566d285bfc16aca67a75a8a9840a222d43749950d",
   "clause_key": "S4-4_11",
   "data_kind": "qualitative",
   "definition": "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。",
@@ -459,9 +459,6 @@
       "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

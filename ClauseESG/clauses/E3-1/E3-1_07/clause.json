@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "883343fd9c8c8d766320245ba12fd6ef5e3344d01a7900cf527d3a5e73d3e831",
+  "clause_digest": "bd3efc3bfe91deb4e7241fbb480b6923e41c546f8107694984d2ce167d01f085",
   "clause_key": "E3-1_07",
   "data_kind": "qualitative",
   "definition": "Disclosure of reasons for not having adopted policies in areas of high-water stress。高水压力地区未采纳政策的原因。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "Disclosure of reasons for not having adopted policies in areas of high-water stress。高水压力地区未采纳政策的原因。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5722795df9c6691abc60a3528521e57dcf56a51ac1d5a1b7a88ec31d3f7e2778",
+  "clause_digest": "814188b246c1f936050716a0e89ae4aedf41caf5f3fce2ead797ea3a8ad6cad4",
   "clause_key": "G1-1_02",
   "data_kind": "qualitative",
   "definition": "说明用于识别、报告和调查违法或违反行为准则及类似内部规则行为的机制。",
@@ -459,9 +459,6 @@
       "说明用于识别、报告和调查违法或违反行为准则及类似内部规则行为的机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

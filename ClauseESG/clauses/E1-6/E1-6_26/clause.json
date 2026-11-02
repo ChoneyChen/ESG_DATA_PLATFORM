@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0129110a4b76df04ad7351cf2646fc22176de1b14f33e1d24e5498f0a18d0841",
+  "clause_digest": "04012a2e599b2adbd216d830e1b623b4978efea370004b70ed783a98a3c8f142",
   "clause_key": "E1-6_26",
   "data_kind": "qualitative",
   "definition": "排除范围3类别的理由",
@@ -470,9 +470,6 @@
       "排除范围3类别的理由"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

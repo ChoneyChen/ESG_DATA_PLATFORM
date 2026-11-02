@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2377f11bac900f187ee334d8295f22d7f8a87aa5a2008f6e074f397c9fad7272",
+  "clause_digest": "9a67714d908b0654caa713844144a9a271f0150c21a18b94a578cfc1900fce23",
   "clause_key": "S1-17_06",
   "data_kind": "qualitative",
   "definition": "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Information about reconciliation of fines, penalties, and compensation for damages as result of violations regarding swork-related discrimination and harassment  with most relevant amount presented in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

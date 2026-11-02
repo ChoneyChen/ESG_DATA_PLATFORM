@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "de328544f6754b0553f0c04dc24895cecbbb901071632a4db9e847cfc9b013e9",
+  "clause_digest": "33c5fe97444156112f0e1dd81bace9456bc7e546c94435e8d8fbf82dc13269c1",
   "clause_key": "S1-3_06",
   "data_kind": "qualitative",
   "definition": "说明主体通过哪些流程支持或要求提供申诉渠道，包括对业务伙伴的要求。",
@@ -445,9 +445,6 @@
       "说明主体通过哪些流程支持或要求提供申诉渠道，包括对业务伙伴的要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

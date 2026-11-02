@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "73bd0eed15adbc00c7c35330bfdcdf977030066fe9a18b9a5e45ac70c528b23b",
+  "clause_digest": "d9c790864cd407b4acb15d39a510c6f7cd2937a434ad742946a286461986a173",
   "clause_key": "S1-2_09",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立与自身劳动力一般性接触流程的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立与自身劳动力一般性接触流程的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

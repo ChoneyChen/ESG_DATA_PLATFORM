@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "878531b935bfd199905b826e7fbb1b5b41f62b2eb8ebd5bc8421ab24811cf46c",
+  "clause_digest": "93500942ae26a97360fd1cd52cf4e84b702df85f219911bddc82f2968c4c247c",
   "clause_key": "S1-14_08",
   "data_kind": "quantitative",
   "definition": "Number of cases of recordable work-related ill health of non-employees",
@@ -558,9 +558,6 @@
       "Number of cases of recordable work-related ill health of non-employees"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

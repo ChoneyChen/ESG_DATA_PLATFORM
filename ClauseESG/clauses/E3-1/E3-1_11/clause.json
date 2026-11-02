@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "26873c367644b4a99ef81386e8e9339453b96beb82a7919921ca2c528c4b8463",
+  "clause_digest": "f465af4a84cc73d09c32f309b69426adbc76529456e1d8c8a3a9320942d5ac25",
   "clause_key": "E3-1_11",
   "data_kind": "qualitative",
   "definition": "The policy minimise material impacts and risks and implement mitigation measures that aim to maintain the value and functionality of priority services and to increase resource efficiency on own operations。资源效率与优先生态服务保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "The policy minimise material impacts and risks and implement mitigation measures that aim to maintain the value and functionality of priority services and to increase resource efficiency on own operations。资源效率与优先生态服务保护政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2d1b1a966998ba9caf869a1181b1757af3723da7992274b9e2e13fba443c590c",
+  "clause_digest": "44f6bdc9391ccae3ee305d54f8a1705d655e32cc28ab3658200ebcc219084a12",
   "clause_key": "BP-2_04",
   "data_kind": "qualitative",
   "definition": "Description of basis for preparation of metrics that include value chain data estimated using indirect sources。间接来源价值链指标编制方法。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Description of basis for preparation of metrics that include value chain data estimated using indirect sources。间接来源价值链指标编制方法。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

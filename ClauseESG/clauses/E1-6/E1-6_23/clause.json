@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fd6f5f18f3cf4d32b3f2cae7824d6f031e459975ca904ec46b75536e9e7caca3",
+  "clause_digest": "a2b9ba40be0bade1a913bc611b62969028d6578c4278881beb2c49177f420f85",
   "clause_key": "E1-6_23",
   "data_kind": "qualitative",
   "definition": "合同工具的类型与组合说明",
@@ -456,9 +456,6 @@
       "合同工具的类型与组合说明"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

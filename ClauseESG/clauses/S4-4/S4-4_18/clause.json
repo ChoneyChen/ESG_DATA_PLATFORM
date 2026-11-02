@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f12bd41fb1d13a79b93aca4a2ba497c4e7b11be8c058500c17733426dbfa064c",
+  "clause_digest": "7729316aae940e329859837a894de489ec8eb3566b0fe331660f564b57005be6",
   "clause_key": "S4-4_18",
   "data_kind": "qualitative",
   "definition": "描述参与消费者和终端用户影响管理的内部职能，以及这些职能所采取的行动类型。",
@@ -459,9 +459,6 @@
       "描述参与消费者和终端用户影响管理的内部职能，以及这些职能所采取的行动类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

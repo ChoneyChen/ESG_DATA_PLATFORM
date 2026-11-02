@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "94cf6a2d038122a6853d08d3401ef8e4cef894a431e2e5c50ff7e1ef3c0f418a",
+  "clause_digest": "1e1c607be00090f83bdcf8c2ed86d493068dddfee519866c7ccedad130846ce7",
   "clause_key": "E1-9_19",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how assessment of assets and business activities considered to be at material transition risk relies on or is part of process to determine material transition risks and to determine scenarios。转型风险资产评估与情景识别关系。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of whether and how assessment of assets and business activities considered to be at material transition risk relies on or is part of process to determine material transition risks and to determine scenarios。转型风险资产评估与情景识别关系。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

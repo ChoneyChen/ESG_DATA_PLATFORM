@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9b9f7b219daa5fcfdeb4d3aeac88f2433635e5c9898dfaaac5f5465af7d65258",
+  "clause_digest": "f47489479ea03c064352ff214e29451b4426859d102f3b0bccfae9d39a7a2925",
   "clause_key": "E1-9_03",
   "data_kind": "quantitative",
   "definition": "Assets at chronic material physical risk before considering climate change adaptation actions。慢性物理风险资产。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Assets at chronic material physical risk before considering climate change adaptation actions。慢性物理风险资产。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

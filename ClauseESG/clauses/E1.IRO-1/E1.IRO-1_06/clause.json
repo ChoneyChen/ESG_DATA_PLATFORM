@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5038fafde2cc954729528a09061ec7ef45f17396914f5b7aa8b498efea6f0913",
+  "clause_digest": "bd14be3930f74cb71d7e6c28474ed6cc980c91d23863e21e7366af2693ae63ba",
   "clause_key": "E1.IRO-1_06",
   "data_kind": "qualitative",
   "definition": "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed。物理风险暴露和敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed。物理风险暴露和敏感性评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ca1fba8c60136c77d81283f4c92859f07b6330bfa73a33cfeccbe8e0035aeb2c",
+  "clause_digest": "dfcaa26b1040b480a12edc890ea24c6f2c1f7238d30ea0413c698d7a89d89985",
   "clause_key": "E2-6_11",
   "data_kind": "qualitative",
   "definition": "Disclosure of assessment of related products and services at risk and explanation how time horizon is defined, financial amounts are estimated, and which critical assumptions are made (pollution)。风险产品服务的财务估计方法。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -515,9 +515,6 @@
       "Disclosure of assessment of related products and services at risk and explanation how time horizon is defined, financial amounts are estimated, and which critical assumptions are made (pollution)。风险产品服务的财务估计方法。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

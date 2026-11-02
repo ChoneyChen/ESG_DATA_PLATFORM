@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2d0cbe38cf1b799653778b1a02985eda2b2c05fd2e67c12a7a901169c5b0d5e1",
+  "clause_digest": "79dbc651fae7ee7c8f5e7d063ced03459e45217b677d7ee1c4c4d68c9599e6bb",
   "clause_key": "E3-3_09",
   "data_kind": "qualitative",
   "definition": "Target relates to reduction of water withdrawals。目标与取水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Target relates to reduction of water withdrawals。目标与取水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

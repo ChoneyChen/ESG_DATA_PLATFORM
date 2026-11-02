@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a8132cccd887f1f8df68dce5ed3e7e01041125c2337826450038e78f1c7b1b32",
+  "clause_digest": "ad04f39b4aba967d77be138d25c06d51a76912a56314c511aa0be3cfe197360b",
   "clause_key": "S1.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "描述为减少环境负面影响、实现绿色气候中性运营的转型计划可能对员工造成的重大影响。",
@@ -487,9 +487,6 @@
       "描述为减少环境负面影响、实现绿色气候中性运营的转型计划可能对员工造成的重大影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

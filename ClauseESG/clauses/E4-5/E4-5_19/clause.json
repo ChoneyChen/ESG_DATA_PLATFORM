@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "eeaeaec9b5db7ead10b6e2fa966db10df5812d2b04d31f273bdeb2b778ee0b5a",
+  "clause_digest": "6c92d4403e0e01386f1dd426e33e370c7cf826053e7a488d44372441f09a5188",
   "clause_key": "E4-5_19",
   "data_kind": "qualitative",
   "definition": "披露特定生态系统中物种的种群规模、分布范围和灭绝风险，并说明数据来源。",
@@ -445,9 +445,6 @@
       "披露特定生态系统中物种的种群规模、分布范围和灭绝风险，并说明数据来源。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

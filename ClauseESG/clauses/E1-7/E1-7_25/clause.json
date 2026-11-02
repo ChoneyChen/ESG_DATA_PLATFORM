@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "95f16123059fb1dc4c58d298ef5edfac771430aabaa7628644df3f63d076d748",
+  "clause_digest": "ce7b7a5ecfb21e6d65a12b342524c9eb7613c174da692fe7900494a66a6fb190",
   "clause_key": "E1-7_25",
   "data_kind": "qualitative",
   "definition": "Explanation of credibility and integrity of carbon credits used。碳信用可信度与完整性。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Explanation of credibility and integrity of carbon credits used。碳信用可信度与完整性。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

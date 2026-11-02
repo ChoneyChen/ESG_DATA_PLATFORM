@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8342f8f90f87233b6c24dd86dfc9ec4d6c9f1ae09e9fb3dd436b732202e22967",
+  "clause_digest": "db5c3aa67f85995eccb6501db70ac312d91c0a3c7c721387ef4bb060a972b6b8",
   "clause_key": "E5-5_01",
   "data_kind": "qualitative",
   "definition": "Description of the key products and materials that come out of the undertaking’s production process。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of the key products and materials that come out of the undertaking’s production process。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bdfc121a9b4eda013c839f6551d5681d4a11d752bdc76ae07840d524cd448af9",
+  "clause_digest": "65910bb5b7a97255d43d1a4a84bd9fc898f1576190ede6333263a337ab593a6c",
   "clause_key": "G1-4_04",
   "data_kind": "quantitative",
   "definition": "报告期内已确认的腐败或贿赂事件数量。",
@@ -591,10 +591,6 @@
       "报告期内已确认的腐败或贿赂事件数量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "%|％|件|起|天|日|人|名|位|days?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

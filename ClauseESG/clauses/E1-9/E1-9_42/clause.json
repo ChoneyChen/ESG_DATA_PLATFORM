@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "40221e2889d13626b6b01bee7ba2d67825c71bc4acde8de8a3e6570a094be61d",
+  "clause_digest": "0e580a6a6238349610383e55142c20357a92c68b30bbb4e89c1bf616dddca95d",
   "clause_key": "E1-9_42",
   "data_kind": "quantitative",
   "definition": "Expected cost savings from climate change adaptation actions。适应行动预期成本节约。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Expected cost savings from climate change adaptation actions。适应行动预期成本节约。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

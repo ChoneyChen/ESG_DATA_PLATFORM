@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6b6b8358cc69c215b26c39253a9f72d5fd57e5f0e874969308aa8b6280732a49",
+  "clause_digest": "2a81893d7d91d16cae6004a817f99a0dec4e0a32441fa4b3b508c5631cb98c3c",
   "clause_key": "G1.GOV-1_01",
   "data_kind": "qualitative",
   "definition": "披露行政、管理和监督机构在商业行为相关事项中的角色、职责与监督安排。",
@@ -445,9 +445,6 @@
       "披露行政、管理和监督机构在商业行为相关事项中的角色、职责与监督安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

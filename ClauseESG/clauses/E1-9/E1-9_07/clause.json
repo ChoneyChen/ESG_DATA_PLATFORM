@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f22131fdc77f7861aedba52d6c9b6dc2ca9cb8cf0ecf62cec1859f86829007b1",
+  "clause_digest": "a29293b5868fbbba3ac5cf9148414d1d4e5b2067a4d66e8d3e32e64708e7fa8c",
   "clause_key": "E1-9_07",
   "data_kind": "quantitative",
   "definition": "Percentage of assets at material physical risk addressed by climate change adaptation actions。适应行动覆盖的物理风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Percentage of assets at material physical risk addressed by climate change adaptation actions。适应行动覆盖的物理风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

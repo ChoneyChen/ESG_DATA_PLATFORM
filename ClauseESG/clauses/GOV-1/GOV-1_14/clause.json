@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "00186050228684882311f832c6049d94a98bb0d8ec8cdb2aabb9e766bff7bf53",
+  "clause_digest": "b75d12ef34becd17e65f6aa5eac50b5ebf45882148e3aab3e8c543e5b74dddcc",
   "clause_key": "GOV-1_14",
   "data_kind": "qualitative",
   "definition": "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored。目标设定和进展监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -459,9 +459,6 @@
       "Disclosure of how administrative, management and supervisory bodies and senior executive management oversee setting of targets related to material impacts, risks and opportunities and how progress towards them is monitored。目标设定和进展监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

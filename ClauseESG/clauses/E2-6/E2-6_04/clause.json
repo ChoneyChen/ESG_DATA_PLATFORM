@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ed88a60959afb7a0ff42212ff4232391c1b10c036226c6bb7ed3bb69d477fa5d",
+  "clause_digest": "d57e088c96d8c1aac63989c3c85fc606844cd7b45a4988d209af7c837ca891f9",
   "clause_key": "E2-6_04",
   "data_kind": "quantitative",
   "definition": "Operating expenditures (OpEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的运营支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -628,9 +628,6 @@
       "Operating expenditures (OpEx) in conjunction with major incidents and deposits (pollution)。重大污染事故和沉积的运营支出。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

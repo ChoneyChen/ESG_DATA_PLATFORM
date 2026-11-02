@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "36f8dbce920c03c55195f2190bd8ee239c935480fa80cffd367e9283905c231d",
+  "clause_digest": "d3e71c408c412996d480e4d40d0b371cfc6695164180b21428b059bff03edb23",
   "clause_key": "S3-3_17",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立面向受影响社区申诉渠道或流程的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立面向受影响社区申诉渠道或流程的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

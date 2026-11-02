@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d0df8ee0683774ef569e1caa89cc55cf9cc3e70bc2893ec7caa067c2f044162c",
+  "clause_digest": "7a3f77407a720d4e36d62b7e7d3220f330a3fb86abafe2fb8d8cbb97b059ff33",
   "clause_key": "E1-4_16",
   "data_kind": "quantitative",
   "definition": "Percentage of Scope 3 Greenhouse gas emissions reduction (as of emissions of base year)。范围3减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -628,9 +628,6 @@
       "Percentage of Scope 3 Greenhouse gas emissions reduction (as of emissions of base year)。范围3减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0bd201d63f72e9b35a207d1305ca341d2617e1215624d50aafce868a12991b15",
+  "clause_digest": "acfb558f7c850923f069b1255db339b49d0d0710e527f0262e11a4767a0fca29",
   "clause_key": "S1-1_08",
   "data_kind": "qualitative",
   "definition": "说明政策是否明确处理人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。",
@@ -459,9 +459,6 @@
       "说明政策是否明确处理人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

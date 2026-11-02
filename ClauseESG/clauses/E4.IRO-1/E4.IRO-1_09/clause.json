@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "366bade278d23ab70db62cc4df6528a3687853ec37fbc6652aae5b1bedc4e9a7",
+  "clause_digest": "ea6a61a4e7b4322143b07c3d251168c4220ae2dea5418ffc41cdf523bbec93af",
   "clause_key": "E4.IRO-1_09",
   "data_kind": "qualitative",
   "definition": "披露将不可避免的负面影最小化的计划，以及为维持优先服务的价值与功能而实施的减缓措施。",
@@ -487,9 +487,6 @@
       "披露将不可避免的负面影最小化的计划，以及为维持优先服务的价值与功能而实施的减缓措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1b6d7515ca7c6e4d1cdf393431aa5a50307c34e1fdf2fb7d4c5c32a61682534c",
+  "clause_digest": "af1654bfd61f3d5a1d0048734df9ebbb11a1d2ff75e9e8b067d2be36cb513b33",
   "clause_key": "S4.SBM-3_03",
   "data_kind": "qualitative",
   "definition": "说明因主体自身运营或通过价值链而受重大影响的消费者和终端用户类型。",
@@ -487,9 +487,6 @@
       "说明因主体自身运营或通过价值链而受重大影响的消费者和终端用户类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

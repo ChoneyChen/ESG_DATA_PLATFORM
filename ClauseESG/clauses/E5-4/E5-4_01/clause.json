@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "85bd1addb7d441706340767b832b53f0770081c39c4acb2d06d596cdf8357b70",
+  "clause_digest": "42f95df7b875c52cc9afc7b9863fdf32b65dd67c95a4659d5624156ab2d2e9a4",
   "clause_key": "E5-4_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of information on material resource inflows。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of information on material resource inflows。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

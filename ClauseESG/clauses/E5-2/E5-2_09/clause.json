@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1b515b1932f2608cf4eb536268d82e6b218979740418aa5089dfde4a639b7423",
+  "clause_digest": "af60f9b5016ccc21570c3f13174e3316788d7752e9ff0f2cc388dbad23a5f034",
   "clause_key": "E5-2_09",
   "data_kind": "qualitative",
   "definition": "说明参与资源利用与循环经济集体行动的其他利益相关方及其角色。",
@@ -459,9 +459,6 @@
       "说明参与资源利用与循环经济集体行动的其他利益相关方及其角色。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

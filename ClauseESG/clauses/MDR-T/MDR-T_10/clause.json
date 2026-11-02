@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "babc495d3119ed59da1fae6a0add108e61a9684b554c7e8556bf9df37e3c64c3",
+  "clause_digest": "580a72e6606f02fda211b58946494d636afd82e1d6548b9a740e34f61e34df81",
   "clause_key": "MDR-T_10",
   "data_kind": "qualitative",
   "definition": "Target related to environmental matters is based on conclusive scientific evidence。环境目标的科学依据。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Target related to environmental matters is based on conclusive scientific evidence。环境目标的科学依据。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "07c553b9d599d034fd2146ec0e8a294d889f8f7b6ff343fd99102a3285a9a910",
+  "clause_digest": "3f7c179a6610e1f18813ade47cc4a1f8191c4dbdbfcb0670f69efcaecfcd21d5",
   "clause_key": "S3-4_12",
   "data_kind": "qualitative",
   "definition": "披露为管理受影响社区重大影响所分配的资源，包括人员、预算和管理层投入。",
@@ -459,9 +459,6 @@
       "披露为管理受影响社区重大影响所分配的资源，包括人员、预算和管理层投入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

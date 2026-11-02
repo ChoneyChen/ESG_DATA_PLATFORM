@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "62ea929d6988940d0d5e9fb47ca1c0d7bb622d28e793271f8198bad41c3f3555",
+  "clause_digest": "57a4c0779c02b5315ca65f5850b3c84add00cdb9fc4a4cac452bea1e993fd357",
   "clause_key": "SBM-1_03",
   "data_kind": "quantitative",
   "definition": "Total number of employees (head count)。员工人头总数。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -572,9 +572,6 @@
       "Total number of employees (head count)。员工人头总数。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

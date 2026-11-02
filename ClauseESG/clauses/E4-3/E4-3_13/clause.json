@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0ffbcb41f6d5c93516cfca6f32885f1f5abf9365be4e31ac11fe006473912cb0",
+  "clause_digest": "93de2fb22cc09641f5021a9829a6c3df27d91464285e874d8b16329dab66ef9e",
   "clause_key": "E4-3_13",
   "data_kind": "qualitative",
   "definition": "说明关键行动是计划作为一次性举措还是作为系统性实践持续实施。",
@@ -459,9 +459,6 @@
       "说明关键行动是计划作为一次性举措还是作为系统性实践持续实施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

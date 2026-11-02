@@ -168,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "475339b73bc30e3b3726d46413221833ed96027f856462f17b87f6db2d17bb07",
+  "clause_digest": "de54bdb43873804ce933ae85ccf93c89a352c91986a7a20f2a3abdd598a1385d",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",
@@ -743,14 +743,6 @@
       "可再生能源消费总量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "near_miss_promotion": {
-        "flag": "renewable_purchase_or_generation_reported",
-        "reason": "renewable_source_component"
-      },
-      "text_unit_pattern": "[mgkt]wh|千瓦时|千瓦時|兆瓦时|兆瓦時|吉瓦时|度电|度電|亿度|億度|万度|萬度|[gtp]j|吉焦|焦耳|标准煤|標準煤|标煤|tce|toe|%|％",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

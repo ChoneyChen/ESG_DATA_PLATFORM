@@ -143,7 +143,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0a7becbce66fc98d1358215855db1e58dba6d9a5a6437a2cacf8e5f6a49d3a5b",
+  "clause_digest": "b099196f94c25c6cbd21a0dd880191e8c5e383064c79a0de4736f374283ed94b",
   "clause_key": "E2-4_09",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染测量方法描述",
@@ -506,11 +506,6 @@
       "选择完整而相关的句子或段落，保留原文；供应商质量测试系统分析、一般培训、仅标题不属于污染测量方法。缺少主体、期间等信息时留待确认，不编造。"
     ],
     "operator": "statement",
-    "options": {
-      "narrative_role": "measurement_method",
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|mg|tonne",
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

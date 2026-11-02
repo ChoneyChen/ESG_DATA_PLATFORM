@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bc7ed637f7aea4bd0b7c05c3232d3e09f043b93b3c0c60636e82dc3c81591cd8",
+  "clause_digest": "c8b18a41ed406fb603e26bd622d6fb105b0828c92c7b5f7b5f0d7e3cb5b8ee12",
   "clause_key": "S1-16_05",
   "data_kind": "quantitative",
   "definition": "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components",
@@ -572,9 +572,6 @@
       "Gender pay gap breakdown by employee category and ordinary basic salary and complementary/variable components"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

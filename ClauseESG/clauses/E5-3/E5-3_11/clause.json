@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ce485f08c36eb982002a551e90f7069734058688369bb40b2d97b59e19f9539c",
+  "clause_digest": "4a9614fc872d7a290219d105ba94f2b48473746be25ab16017a272e5b2b0cca0",
   "clause_key": "E5-3_11",
   "data_kind": "qualitative",
   "definition": "说明主体特定的资源利用生态阈值如何确定，包括本地化调整与科学依据。",
@@ -473,9 +473,6 @@
       "说明主体特定的资源利用生态阈值如何确定，包括本地化调整与科学依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8891e6e6a649a80ef4bedc1524b9f9aee811d599e14ec2234f930f508c4c4c5d",
+  "clause_digest": "462e76a74091497f0266a796bf7c91b2fcb9b66c91780cc96a770643d3f1a475",
   "clause_key": "E4.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "披露已识别的与土地退化、荒漠化或土壤封固相关的重大负面影响。",
@@ -487,9 +487,6 @@
       "披露已识别的与土地退化、荒漠化或土壤封固相关的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

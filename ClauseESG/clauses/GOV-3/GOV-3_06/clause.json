@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f01717dfcf172a448a21a748a982e8583aeed0caa73065bdd2c415055a440049",
+  "clause_digest": "885f39365c7c0dbdc9e3defacebdfc9f40c8701235794dce161da6399b27e8e8",
   "clause_key": "GOV-3_06",
   "data_kind": "qualitative",
   "definition": "Description of level in undertaking at which terms of incentive schemes are approved and updated。激励机制批准更新层级。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
@@ -459,9 +459,6 @@
       "Description of level in undertaking at which terms of incentive schemes are approved and updated。激励机制批准更新层级。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c733a30e197a230c4428ba7d6df147d02848ad8ca10bddacaa833c36b6bf4d3a",
+  "clause_digest": "c137c1ab5c04c15b16c4beda435ef93782e6e4d4daad1394fd2a9b6b2908a396",
   "clause_key": "S1-14_11",
   "data_kind": "qualitative",
   "definition": "Description of underlying standards for internal audit or external certification of health and safety management system。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of underlying standards for internal audit or external certification of health and safety management system。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

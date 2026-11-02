@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "45209c59d370e36849961101ba30cf4b73cb6bd4a3ecd0cdda6ab85fc5eb658e",
+  "clause_digest": "4046e3f0f9e50dab76031b1f61a445bd79274812458bb495a958ebeec9cf47d6",
   "clause_key": "S1-17_11",
   "data_kind": "quantitative",
   "definition": "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce",
@@ -558,9 +558,6 @@
       "Amount of fines, penalties, and compensation for severe human rights issues and incidents connected to own workforce"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

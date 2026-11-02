@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9767d1880c90f4c8058a8bda21ff037911b25ae80b5449ece26931964fd50a38",
+  "clause_digest": "98563f46847af36f9c027c0ddde1a8f61e7c23102372db5cbd9018979dffa219",
   "clause_key": "E2-5_03",
   "data_kind": "quantitative",
   "definition": "Total amount of substances of concern that leave facilities as emissions, as products, or as part of products or services。离开设施的关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -616,9 +616,6 @@
       "Total amount of substances of concern that leave facilities as emissions, as products, or as part of products or services。离开设施的关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

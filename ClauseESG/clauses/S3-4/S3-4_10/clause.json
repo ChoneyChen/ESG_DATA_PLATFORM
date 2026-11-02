@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "871706dabdfdda348448402ebdd2442f06e181a3b3d6281a8cab239e05bdf9c5",
+  "clause_digest": "6f2465c4139d4d105556df7b215ebaab1b7625b3ea00cd505061bc711b427e21",
   "clause_key": "S3-4_10",
   "data_kind": "qualitative",
   "definition": "说明主体如何确保自身实践不会造成或促成对受影响社区的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体如何确保自身实践不会造成或促成对受影响社区的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

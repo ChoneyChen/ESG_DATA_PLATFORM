@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "38dc71b2432c3196f12da1fe786f189bdc8d5dc76b2c619b93da478e0138491c",
+  "clause_digest": "021ebb5c2d6721a874bf728b8a54eec485736b1ad1393afd00842f1fa5e79fce",
   "clause_key": "E1-9_26",
   "data_kind": "quantitative",
   "definition": "Potential future liabilities, based on existing contractual agreements, associated with carbon credits planned to be cancelled in near future。计划核销碳信用的潜在未来负债。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Potential future liabilities, based on existing contractual agreements, associated with carbon credits planned to be cancelled in near future。计划核销碳信用的潜在未来负债。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

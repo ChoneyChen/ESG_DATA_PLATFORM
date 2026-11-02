@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "211cad407b6fcf0e307197b98c463ddfa6fb47e17070d84987cadfe53e1a70ed",
+  "clause_digest": "6bed55af89942d15994308f7bd92d2bd2f392fc89dd74f055c4b3ef2f920e5e5",
   "clause_key": "E5-6_03",
   "data_kind": "qualitative",
   "definition": "说明财务影响估计中考虑的影响类型，以及其对应的资源利用与循环经济影响。",
@@ -515,9 +515,6 @@
       "说明财务影响估计中考虑的影响类型，以及其对应的资源利用与循环经济影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

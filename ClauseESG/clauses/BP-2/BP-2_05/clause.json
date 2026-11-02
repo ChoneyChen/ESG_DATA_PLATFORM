@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1a639da7bbc42db51659124e85efd2b44f7f76769d7f1e1ca14fd2b746890ae8",
+  "clause_digest": "f5712cb38c7f9025b97433922a6ec9e66d851a647d79cb1f11ca359d140b3284",
   "clause_key": "BP-2_05",
   "data_kind": "qualitative",
   "definition": "Description of resulting level of accuracy of metrics that include value chain data estimated using indirect sources。间接来源估计准确度。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Description of resulting level of accuracy of metrics that include value chain data estimated using indirect sources。间接来源估计准确度。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

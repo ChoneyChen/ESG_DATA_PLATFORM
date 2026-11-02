@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7d88681d88939509f9cecfdb3962ab7d2ec5e22c743e95d59c3f364137a1be82",
+  "clause_digest": "06c890a5de5194c5a09909621f9e785784d1cb358f2fc1812d354e712b760f8b",
   "clause_key": "GOV-5_01",
   "data_kind": "qualitative",
   "definition": "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting。可持续披露风险管理内控范围与组成。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
@@ -459,9 +459,6 @@
       "Description of scope, main features and components of risk management and internal control processes and systems in relation to sustainability reporting。可持续披露风险管理内控范围与组成。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

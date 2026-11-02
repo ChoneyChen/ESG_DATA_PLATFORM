@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1d9ae2cc5712a1798a516f64e51d27d0c0d3bdf11648cb66d0827ca2b0b97bf6",
+  "clause_digest": "6ff2594ad0cb11dc3ae07a50dc31604eb6a19ba00086f6ffae4ffc29d10b7f05",
   "clause_key": "S2-3_10",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有价值链劳动者开放，以及可及性安排。",
@@ -445,9 +445,6 @@
       "说明第三方机制是否向所有价值链劳动者开放，以及可及性安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

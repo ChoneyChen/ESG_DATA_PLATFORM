@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fe7b58238f732564ac7ef126cdf5a0049a58fb74e2d779a693eeeb880ef9e7b5",
+  "clause_digest": "1f69aaa31da7dd11378f4c37b9354567656ada56f8400816a0f8953b4aa83c75",
   "clause_key": "BP-2_12",
   "data_kind": "quantitative",
   "definition": "Disclosure of difference between figures disclosed in preceding period and revised comparative figures。前期与重述比较值差额。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -572,9 +572,6 @@
       "Disclosure of difference between figures disclosed in preceding period and revised comparative figures。前期与重述比较值差额。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a978f688f382335ae241e1ebabb0686d61d79c65b0884d8fba9906fb8e9c9451",
+  "clause_digest": "46503c2ca10d28bda4d019e7d99d09ff0b72737a504360ac2acfa9218afd1b2a",
   "clause_key": "BP-1_02",
   "data_kind": "qualitative",
   "definition": "Scope of consolidation of consolidated sustainability statement is same as for financial statements。可持续声明与财务报表合并范围一致性。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
@@ -459,9 +459,6 @@
       "Scope of consolidation of consolidated sustainability statement is same as for financial statements。可持续声明与财务报表合并范围一致性。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8c18a52df893553f6a0ee844fabb850ab89a679103d3eb597859ffe54010a43c",
+  "clause_digest": "c2dcf9c21262460cafedb1387525fbd82f9f98ced2ef0456fb94473fc2a81987",
   "clause_key": "S2-4_11",
   "data_kind": "qualitative",
   "definition": "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。",
@@ -459,9 +459,6 @@
       "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

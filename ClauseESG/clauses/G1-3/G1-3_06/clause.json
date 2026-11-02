@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2dc45c9693e3e89d180aaf845fb8183b5fbc98dafc9f03e3929f02df777ad4b0",
+  "clause_digest": "c84102db671eeb28572a6ece90a030ae5114d0ff95c6faffd079fdeabcb57e6f",
   "clause_key": "G1-3_06",
   "data_kind": "qualitative",
   "definition": "说明主体提供或要求参加的反腐败或反贿赂培训的性质、覆盖范围和内容深度。",
@@ -445,9 +445,6 @@
       "说明主体提供或要求参加的反腐败或反贿赂培训的性质、覆盖范围和内容深度。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bb52d10b5005dfba9a97efa9c4feb0c39a556c23256eab833da6704446a8d1a1",
+  "clause_digest": "334f1d2f9afed8998f373de8bfab6c602a341bcff4e7cc023b0a698d8e347678",
   "clause_key": "E4-5_07",
   "data_kind": "qualitative",
   "definition": "披露景观空间配置的变化，包括栖息地斑块、廊道和基质结构的改变。",
@@ -445,9 +445,6 @@
       "披露景观空间配置的变化，包括栖息地斑块、廊道和基质结构的改变。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

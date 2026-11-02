@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d06d504fbbb01100bc11b0ee91bd70c8f83b4a9702940f81238a4fb27b8c2002",
+  "clause_digest": "d874838aa3c891bd1d7596cba7565448ac7387b7fd35c621aafc2f50048e3969",
   "clause_key": "S1-1_09",
   "data_kind": "qualitative",
   "definition": "披露主体是否已建立工作场所事故预防政策或管理体系，并说明其主要内容。",
@@ -459,9 +459,6 @@
       "披露主体是否已建立工作场所事故预防政策或管理体系，并说明其主要内容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

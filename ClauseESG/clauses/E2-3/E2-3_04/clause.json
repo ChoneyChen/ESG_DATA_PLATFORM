@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0b8db5fe5e6b8926feb6f7c64e59d80a51bbf9f1cb2de3f4a274cb41c3fdd009",
+  "clause_digest": "0e1ba91e7f0dd3f32d62600704f3d13ec7d0335ccf80057f05115243f3ef6969",
   "clause_key": "E2-3_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of  whether and how target relates to prevention and control of  substances of concern and substances of very high concern。目标与关注物质防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of  whether and how target relates to prevention and control of  substances of concern and substances of very high concern。目标与关注物质防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

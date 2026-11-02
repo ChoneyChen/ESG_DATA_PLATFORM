@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "de3cd0799400b38d7292c237d0f6f3bafa276f7c3f62be523c9195ea2e932cc6",
+  "clause_digest": "ae051cfd206500847cf7cdc10db67cf981dc021fc58a6cd4c0adf5a1fb60ee34",
   "clause_key": "E1-5_06",
   "data_kind": "quantitative",
   "definition": "可再生燃料消费量",
@@ -601,9 +601,6 @@
       "可再生燃料消费量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

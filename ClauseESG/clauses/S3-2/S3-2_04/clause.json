@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1853ef3c5ff0cdd3f942ba54c97b2789d781e58abae9a72ebdd93903a71a1926",
+  "clause_digest": "443d6d533c35c49f58bd2178ba11c1d3a1d6a3fa433c4a0a525edbf02b3c65bd",
   "clause_key": "S3-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责确保社区接触发生并使结果影响主体方法的职能和最资深角色。",
@@ -445,9 +445,6 @@
       "说明主体内部负责确保社区接触发生并使结果影响主体方法的职能和最资深角色。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "644e4d543f0ccd3c125ef01d338dc8b8f1cd12e7cf4ed71d337d0d2f70991461",
+  "clause_digest": "e54eb1f8cd7b76e9510ec8d3e16ada9686eb8f1e0639d3f789f996db0a9b2084",
   "clause_key": "S4-1_02",
   "data_kind": "qualitative",
   "definition": "描述与消费者和终端用户相关的人权政策承诺及其来源与适用范围。",
@@ -459,9 +459,6 @@
       "描述与消费者和终端用户相关的人权政策承诺及其来源与适用范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c388cd89ebdbf19da9b6fafd4c614e370fdaac612f458766fcc7971a07e9e55e",
+  "clause_digest": "a4622272a57680bd69b0731989d0bd80d35b28604cff8354d8966c393b9e77d5",
   "clause_key": "MDR-M_01",
   "data_kind": "qualitative",
   "definition": "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity。绩效及效果指标定义。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
@@ -473,9 +473,6 @@
       "Description of metric used to evaluate performance and effectiveness, in relation to material impact, risk or opportunity。绩效及效果指标定义。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

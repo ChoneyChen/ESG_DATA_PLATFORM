@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "60196f63b85b2e897f2c0a817281ee0bf1f0efe0422c4793ef0bebc541c7ca9e",
+  "clause_digest": "9c7cd96251ad9245537bc3957f75358211b3d30de72d03f32a4f525deb95c726",
   "clause_key": "E1-4_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how GHG emissions reduction targets and (or) any other targets have been set to manage material climate-related impacts, risks and opportunities。气候目标设定说明。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -515,9 +515,6 @@
       "Disclosure of whether and how GHG emissions reduction targets and (or) any other targets have been set to manage material climate-related impacts, risks and opportunities。气候目标设定说明。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

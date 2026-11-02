@@ -9,6 +9,7 @@ from .binding import context_from_claims, literal_categories, mapping_for
 INSTRUCTIONS = """Enrich existing raw facts from the attached report context. Never output or alter numerical values.
 Only fill requested missing attributes. Omit attributes without explicit support. Empty assignments is valid.
 Each assignment names the exact fact IDs to which the cited statement applies. A title or note applies only to its own table/section unless it explicitly describes the report-wide scope. Local entity, method, subgroup and period differences take precedence. A group report title alone does not prove every figure is a group total. Never treat a business segment name as proof of total/subtotal/member.
+Column source groups gN contain joined physical header parts. Quote their joined text and cite the group from the fact's local_source_ids. When the same supported attribute applies to several facts, return one assignment naming those fact IDs and cite the quote once.
 Read each fact's local_source_ids first. Row/column headings identify its local subject; a general Group name must not replace a business, site or subsidiary named there. A passage about another measurement cannot supply this fact's identity. For report_sources, quote the statement establishing coverage of the report or the named measure, not a bare Group or Total word. If applicability is not established, omit the assignment.
 Use exact quotes and source IDs. Do not use the clause definition or report-resource metadata as report evidence.
 Read an entity name only when the text identifies the statistical subject. Do not substitute the publisher's company.
@@ -44,6 +45,7 @@ def context_frame(documents, sources, clause, facts, profile, frames):
     terms = list(dict.fromkeys(term for axis in sorted(search_attributes)
         for term in profile["attributes"][axis]))
     texts, seen, levels, characters = [], {}, {}, 0
+    groups, group_keys = {}, {}
     fact_sources = {fact.source_fact_id: [] for fact in facts}
     objects, template = [], None
 
@@ -58,6 +60,20 @@ def context_frame(documents, sources, clause, facts, profile, frames):
         texts.append(text.model_copy(update={"source_snapshot":snapshot,"span_id":alias}))
         characters += len(text.text)
         seen[key], levels[alias] = alias, level
+        return alias
+
+    def header_group(parts, snapshot):
+        nonlocal characters
+        key = (snapshot,tuple((p.object_id,p.char_start,p.text) for p in parts))
+        if key in group_keys:
+            return group_keys[key]
+        size = sum(len(p.text) for p in parts)
+        if not parts or characters+size>7000:
+            return None
+        alias = f"g{len(groups)+1}"
+        groups[alias] = [p.model_copy(update={"source_snapshot":snapshot}) for p in parts]
+        group_keys[key],levels[alias] = alias,"column_header"
+        characters += size
         return alias
 
     # Only the frames containing this fact's value/statement supply local context.
@@ -79,8 +95,10 @@ def context_frame(documents, sources, clause, facts, profile, frames):
                 for text in frame.texts if text.object_type != "cell" or text.text in sections)
             for row,cells in rows:
                 local.extend((text,"table") for text in [*row.label_sources,*row.unit_sources])
-                local.extend((text,"table") for cell in cells
-                    for text in frame.column_sources.get(cell.column_id,[]))
+                for cell in cells:
+                    alias = header_group(frame.column_sources.get(cell.column_id,[]),frame.source_snapshot)
+                    if alias and alias not in fact_sources[fact.source_fact_id]:
+                        fact_sources[fact.source_fact_id].append(alias)
             for text,level in local:
                 alias = add(text,frame.source_snapshot,level,7000)
                 if alias and alias not in fact_sources[fact.source_fact_id]:
@@ -116,17 +134,19 @@ def context_frame(documents, sources, clause, facts, profile, frames):
     observation = {"requested_attributes":sorted(requested),"terms":terms,"objects":objects,
         "fact_sources":fact_sources,"report_sources":report_sources,
         "report_attributes":sorted(report_attributes),"source_levels":levels}
-    if not texts:
+    if not texts and not groups:
         return None,observation
+    content = {"texts":[t.model_dump(mode="json") for t in texts],
+        "column_sources":{key:[p.model_dump(mode="json") for p in parts] for key,parts in groups.items()}}
     combined = template.model_copy(update={"kind":"text","source_snapshot":None,"rows":[],"columns":{},
-        "column_sources":{},"title":"","title_sources":[],"texts":texts,"digest":digest([t.model_dump(mode="json") for t in texts])})
+        "column_sources":groups,"title":"","title_sources":[],"texts":texts,"digest":digest(content)})
     return combined,observation
 
 
 def context_schema(frame, aliases, attributes):
     schema = ContextDecision.model_json_schema()
     schema["$defs"]["AttributeAssignment"]["properties"]["fact_ids"]["items"] = {"type":"string","enum":list(aliases)}
-    evidence_identity_schema(schema,[t.span_id for t in frame.texts])
+    evidence_identity_schema(schema,[*[t.span_id for t in frame.texts],*frame.column_sources])
     schema["$defs"]["IdentityProposal"]["properties"]["axis"] = {"type":"string","enum":attributes}
     return schema
 
@@ -135,6 +155,8 @@ def apply_context(clause, sources, frame, decision, facts, mappings, aliases, ob
     updates = 0
     source_levels = {(text.source_snapshot,text.object_id):observation["source_levels"][text.span_id]
         for text in frame.texts}
+    source_levels.update({(p.source_snapshot,p.object_id):"column_header"
+        for parts in frame.column_sources.values() for p in parts})
     for assignment in decision.assignments:
         for alias in assignment.fact_ids:
             fid = aliases[alias]

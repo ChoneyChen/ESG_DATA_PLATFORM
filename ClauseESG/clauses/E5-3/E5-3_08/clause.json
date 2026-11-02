@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8c24ab24a17be40db63ced6862f1f5f877c3c360c09f24c2cf199d2d8ce7a3b4",
+  "clause_digest": "1b3f4fbfca7d83aad7ad49835d8f7c88a53cacfb4fcfcdd2b32490c80b259e1c",
   "clause_key": "E5-3_08",
   "data_kind": "qualitative",
   "definition": "说明目标如何与除废弃物管理外的其他资源利用或循环经济事项相关联。",
@@ -473,9 +473,6 @@
       "说明目标如何与除废弃物管理外的其他资源利用或循环经济事项相关联。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

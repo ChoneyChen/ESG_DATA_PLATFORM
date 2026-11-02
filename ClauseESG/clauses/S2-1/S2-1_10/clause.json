@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2f519b00e521455b7cf17a28df57c0f9571ea87b31c4bab3b131440a384f3b92",
+  "clause_digest": "f8e88703f5195e1a3074a50a09169034d2fe3c8b74b6880aa55c0feb781849ec",
   "clause_key": "S2-1_10",
   "data_kind": "qualitative",
   "definition": "说明报告年度内对价值链劳动者相关政策作出的重大变化及其原因和影响。",
@@ -459,9 +459,6 @@
       "说明报告年度内对价值链劳动者相关政策作出的重大变化及其原因和影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "08ac89c30f137823286f98bf52a4b2d1b4f34c4cc67fffc37df86aa543a3cbd3",
+  "clause_digest": "50e3c10c90357fe9ccea6c475a2f09e58c4c74998bf3a3aed119395887807d5d",
   "clause_key": "E4-4_07",
   "data_kind": "qualitative",
   "definition": "披露目标覆盖的地理范围，包括国家、区域或场址层级。",
@@ -473,9 +473,6 @@
       "披露目标覆盖的地理范围，包括国家、区域或场址层级。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

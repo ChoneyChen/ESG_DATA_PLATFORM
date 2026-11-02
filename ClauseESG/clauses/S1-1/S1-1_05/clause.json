@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dccdfcd0de725085a57020d4ce3159b149606201e54affd8f48ec4797180e0ab",
+  "clause_digest": "cf1f2f3f36010c1dc7d301692c1baf1c223533bdcd9ca39d0385a7e084187e78",
   "clause_key": "S1-1_05",
   "data_kind": "qualitative",
   "definition": "说明主体与自身劳动力人员开展接触和沟通的总体方法。",
@@ -459,9 +459,6 @@
       "说明主体与自身劳动力人员开展接触和沟通的总体方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

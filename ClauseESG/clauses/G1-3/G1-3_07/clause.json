@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1f99f615c8fa59fe480d30c79b2ae8d72757afbf7a81103564a2d60a3ae05e15",
+  "clause_digest": "7e5f3a82c885e2f0b0654950038f8aaa8fb93281fd82c570fd78327cb915cbf0",
   "clause_key": "G1-3_07",
   "data_kind": "quantitative",
   "definition": "披露高风险职能中受反腐败或反贿赂培训覆盖的比例，并说明统计口径。",
@@ -558,9 +558,6 @@
       "披露高风险职能中受反腐败或反贿赂培训覆盖的比例，并说明统计口径。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

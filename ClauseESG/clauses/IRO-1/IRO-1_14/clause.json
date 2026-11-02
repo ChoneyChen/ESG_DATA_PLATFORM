@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "93291b836eb6cab1ea48c5f177b6ba89a815e0cccfe20026730829fd3765e078",
+  "clause_digest": "55b5941644342d89df80b0d42ba28ee8669536435e5143887ccffc7ea774de75",
   "clause_key": "IRO-1_14",
   "data_kind": "qualitative",
   "definition": "读取识别、评估和管理重大影响、风险、机会所用输入参数及其来源说明；流程说明不证明任何主题已重大。",
@@ -546,9 +546,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

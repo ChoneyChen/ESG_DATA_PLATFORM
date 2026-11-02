@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f2b0661c353a328aeafaf480204f358a9ab72fe5aec9edf5f81c13361f2d32b8",
+  "clause_digest": "f5cfbdeed98a2082fe79a7c57564e1c0d8a5062f26c35cd34e56083b1ebb9307",
   "clause_key": "SBM-1_15",
   "data_kind": "qualitative",
   "definition": "Undertaking is active in chemicals production。化学品生产活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -459,9 +459,6 @@
       "Undertaking is active in chemicals production。化学品生产活动。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

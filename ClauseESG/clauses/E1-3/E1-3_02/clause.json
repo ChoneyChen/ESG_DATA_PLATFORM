@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6942fdf3a4c20f9018912c1864778c733015ee043075cb571fb76eb634f2d45e",
+  "clause_digest": "6fa079dd5aaa52814b7cc44c795ebde306e48599c640877e31a3aae34299ce02",
   "clause_key": "E1-3_02",
   "data_kind": "qualitative",
   "definition": "Adaptation solution type。适应解决方案类型。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
@@ -461,9 +461,6 @@
       "Adaptation solution type。适应解决方案类型。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

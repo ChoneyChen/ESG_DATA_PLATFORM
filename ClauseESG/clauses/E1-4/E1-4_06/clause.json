@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "80ba4a812b843e5b158d2fd5f33845d1255fa946521e10a1b72caa150fe7326c",
+  "clause_digest": "e3d7a2424f817a8f2b1e9840b6f0d1c5f89ffe5d81411545ae5d2b24c5476764",
   "clause_key": "E1-4_06",
   "data_kind": "quantitative",
   "definition": "Absolute value of Scope 1 Greenhouse gas emissions reduction。范围1绝对减排目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -628,9 +628,6 @@
       "Absolute value of Scope 1 Greenhouse gas emissions reduction。范围1绝对减排目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

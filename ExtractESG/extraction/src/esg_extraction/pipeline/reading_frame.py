@@ -22,7 +22,8 @@ def reading_frame(frame):
         "column_order": list(frame.columns),
         "columns": frame.columns,
         "column_sources": {
-            key: {"source_id": key, "parts": [item.text for item in values]}
+            key: ({"source_id":key,"text":" ".join(item.text for item in values)}
+                if frame.kind == "text" else {"source_id":key,"parts":[item.text for item in values]})
             for key, values in frame.column_sources.items()
             if values
         },

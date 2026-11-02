@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "43de20b579cdebfabf1c23bda76871f8ff4713c727426ded382187810f491e06",
+  "clause_digest": "41c01f41c5f33d3186f182c443778ea1d778c13aa17d1c0f3f53d167ec6c79c6",
   "clause_key": "S1-4_08",
   "data_kind": "qualitative",
   "definition": "说明主体如何确保自身实践不会造成或促成对自身劳动力的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体如何确保自身实践不会造成或促成对自身劳动力的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

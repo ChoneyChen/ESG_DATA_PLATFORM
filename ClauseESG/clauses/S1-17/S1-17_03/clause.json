@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dfa811464ad0a31c586c903867bc57ce8d8e4c95da7d09c7fa5fd29b5e0edd54",
+  "clause_digest": "52e6a87d051825c0345cae302be8f6606586de09720a34f3b70ed96b5f3a43a0",
   "clause_key": "S1-17_03",
   "data_kind": "quantitative",
   "definition": "Number of complaints filed through channels for people in own workforce to raise concerns",
@@ -558,9 +558,6 @@
       "Number of complaints filed through channels for people in own workforce to raise concerns"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8b7ff66041db518defbd4a9fe9ae0e047018d1e0f08e4fd029bcfadd925abdf5",
+  "clause_digest": "301052caf667f1fd26469ddcc6bd268b7326a4757cdd18f7bea7f30f54adb86c",
   "clause_key": "S1-7_06",
   "data_kind": "qualitative",
   "definition": "描述编制非员工数据所采用的方法和假设，包括估算与去重方式。",
@@ -445,9 +445,6 @@
       "描述编制非员工数据所采用的方法和假设，包括估算与去重方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

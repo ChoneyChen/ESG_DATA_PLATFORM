@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "156dd559abf0f7c0c39fa185d2af31630a7fbeaf259a417ed3df22e6fa34d401",
+  "clause_digest": "a3c4c359da16990dbdf9d84dcfd066b9a9aef014c4a64b3d945c876e522634f4",
   "clause_key": "E1-5_14",
   "data_kind": "quantitative",
   "definition": "外购或购入的化石电力、热力、蒸汽和冷却能源",
@@ -601,9 +601,6 @@
       "外购或购入的化石电力、热力、蒸汽和冷却能源"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

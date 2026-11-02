@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6a427a02ad7c5127995bb592ca0b3d6621701a15b59b9cb86728f71f67cd68e8",
+  "clause_digest": "4a005304c72b45fd4be3fd138cbd25324681c25b2b7dc425c721ed26f972c5eb",
   "clause_key": "E2.IRO-1_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
@@ -487,9 +487,6 @@
       "Disclosure of results of materiality assessment (pollution)。污染重要性评估结果。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

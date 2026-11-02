@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a33061f21a989b6f08a0c1605be384a66ffa433d3eb627f7763a4e6d8161ce50",
+  "clause_digest": "b1ad79ebc2c41c4581231c904b8e4428e9b839b598b65806779e1495baa54ff9",
   "clause_key": "E1-4_13",
   "data_kind": "quantitative",
   "definition": "Percentage of market-based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year)。范围2市场法减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -628,9 +628,6 @@
       "Percentage of market-based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year)。范围2市场法减排比例目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

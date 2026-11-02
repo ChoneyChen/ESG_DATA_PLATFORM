@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e68aa147c72994d5652a561bb077e7687c4089d51d2c11d35816a5a7509eb23c",
+  "clause_digest": "b7a1cd61441f008f7cf37c3b1eab098d6fec71e4aa8f407f22f002740b18760b",
   "clause_key": "S1-8_04",
   "data_kind": "qualitative",
   "definition": "说明未受集体谈判协议覆盖员工的就业条件和工作条款是否参照其他员工的集体协议或其他主体的协议确定。",
@@ -445,9 +445,6 @@
       "说明未受集体谈判协议覆盖员工的就业条件和工作条款是否参照其他员工的集体协议或其他主体的协议确定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

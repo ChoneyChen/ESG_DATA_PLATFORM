@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a6dfd81189a3edaf32c5ab3b082e574bdd9dbbe819c16a2cdc01853406354499",
+  "clause_digest": "a890eee3d566349f43f3143e08b57e3690081a9d667515c2e375b871584d85b9",
   "clause_key": "S2-4_18",
   "data_kind": "qualitative",
   "definition": "描述参与价值链劳动者影响管理的内部职能，以及这些职能所采取的行动类型。",
@@ -459,9 +459,6 @@
       "描述参与价值链劳动者影响管理的内部职能，以及这些职能所采取的行动类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

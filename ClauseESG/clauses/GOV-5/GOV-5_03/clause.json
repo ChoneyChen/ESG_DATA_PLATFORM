@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ba5d6311c461523ed06b5197ff96a45ae20d5a6c60cf858a62eb75be5c6f45b2",
+  "clause_digest": "3b87f483c3da6fa3785198945fe197e9685b0cc7d18b316c5500ff8cdfa44bba",
   "clause_key": "GOV-5_03",
   "data_kind": "qualitative",
   "definition": "Description of main risks identified and their mitigation strategies。主要披露风险与缓解策略。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
@@ -459,9 +459,6 @@
       "Description of main risks identified and their mitigation strategies。主要披露风险与缓解策略。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

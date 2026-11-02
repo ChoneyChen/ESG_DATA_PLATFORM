@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "69292002ec222597ac1a3df070f321dc3b2c6f252d8def1cf22622978373ed93",
+  "clause_digest": "292f83f94cd270c47ac470407282ef2d4157a4c3477286bee536bd91d516c682",
   "clause_key": "S1-7_05",
   "data_kind": "qualitative",
   "definition": "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。",
@@ -445,9 +445,6 @@
       "披露最常见的非员工类型、其与主体的关系以及所从事的工作类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

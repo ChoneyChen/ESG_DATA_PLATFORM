@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d3ef751dd640d0e3af75a981bc01a1dd3c0b05db97ae0205a3574255f8239f9b",
+  "clause_digest": "546342336eef7e119d2fe4cfa4401a68b85e61a3ed38d6adc207cff99864d3cc",
   "clause_key": "E4-1_15",
   "data_kind": "qualitative",
   "definition": "说明转型计划的实施、监督和更新过程如何管理，包括责任分工与复核频率。",
@@ -445,9 +445,6 @@
       "说明转型计划的实施、监督和更新过程如何管理，包括责任分工与复核频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

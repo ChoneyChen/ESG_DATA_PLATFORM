@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dc6429d533988892d5c2c8003af395303631536a65f457bc232e65b983576a8c",
+  "clause_digest": "cec0026477fb3c94bf2e8d974a5ad3b68aa8047c0de8344e9e914ab6b5df37e4",
   "clause_key": "E2-3_10",
   "data_kind": "qualitative",
   "definition": "Pollution-related target addresses shortcomings related to Substantial Contribution criteria for Pollution Prevention and Control。污染目标与分类法实质贡献标准差距。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Pollution-related target addresses shortcomings related to Substantial Contribution criteria for Pollution Prevention and Control。污染目标与分类法实质贡献标准差距。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

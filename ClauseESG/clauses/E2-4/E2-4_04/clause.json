@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f4824b7700002aaf12e22f205a5c2226f51845ba0a37a8b093354467c72147ae",
+  "clause_digest": "34851293fe14b9175277b7f797654500a7676eea3302a07460e911f9caa4db88",
   "clause_key": "E2-4_04",
   "data_kind": "quantitative",
   "definition": "按污染物划分的土壤排放量",
@@ -585,9 +585,6 @@
       "按污染物划分的土壤排放量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

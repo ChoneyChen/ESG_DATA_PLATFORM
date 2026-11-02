@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "59117981e44a1fd8eb19e397c65b02e8466a47f17e4becf2c632e03ed2eec54e",
+  "clause_digest": "2be0f80ac16a1d16e08c37804fa737748ae728b50e3f3b3065b407fd8bcbc6d7",
   "clause_key": "S1-4_15",
   "data_kind": "qualitative",
   "definition": "说明相关举措以及主体自身的参与如何针对所涉重大影响发挥作用。",
@@ -459,9 +459,6 @@
       "说明相关举措以及主体自身的参与如何针对所涉重大影响发挥作用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

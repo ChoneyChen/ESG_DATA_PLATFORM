@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3757fb0053a125ea40788979b1df17a3823fa47d8745191da11e517e785de66e",
+  "clause_digest": "56b0ad0d285b03c7b9e55beb517a0ff07e66c080a017cc51ea89146e064456f5",
   "clause_key": "E5-5_05",
   "data_kind": "quantitative",
   "definition": "The rates of recyclable content in products packaging",
@@ -558,9 +558,6 @@
       "The rates of recyclable content in products packaging"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

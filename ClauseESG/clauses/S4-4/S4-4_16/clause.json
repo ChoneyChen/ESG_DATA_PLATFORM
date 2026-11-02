@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f5b92266bf2046bb8bed8d9b1ce53e3cb87c84e73d30da6d4a6c3ea7516163e1",
+  "clause_digest": "16c54deebb0cd0f288293be0bc9f3f02e6619fb5d26bb33effdad3e514b0b87b",
   "clause_key": "S4-4_16",
   "data_kind": "qualitative",
   "definition": "提供面向消费者和终端用户的项目或流程的预期或已实现积极结果信息。",
@@ -459,9 +459,6 @@
       "提供面向消费者和终端用户的项目或流程的预期或已实现积极结果信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4d6fffc158ee012097fe2db85222a0387f3dc06f9434063b7cfdc9407afd205e",
+  "clause_digest": "34712b7e91a6d9f4583e6406e84a115967165867c08c2c774e968b7b2bf68710",
   "clause_key": "E1-1_01",
   "data_kind": "qualitative",
   "definition": "报告主体为减缓气候变化制定的转型计划，包括转型方向、减排路线或实施路径及计划性行动。保留报告原文，区分计划、目标、实施进展与已实现结果。单独的碳中和承诺或目录指向，不证明已披露完整转型计划。",
@@ -445,9 +445,6 @@
       "报告主体为减缓气候变化制定的转型计划，包括转型方向、减排路线或实施路径及计划性行动。保留报告原文，区分计划、目标、实施进展与已实现结果。单独的碳中和承诺或目录指向，不证明已披露完整转型计划。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

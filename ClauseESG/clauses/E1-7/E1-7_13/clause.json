@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3ade83a6f188b40b1604961ad955b3978c3cc46afd0d32c5ca0bdb51ff898ae3",
+  "clause_digest": "449bacce9ba62e19267dc6b6a655fee04992272610fe57840734583d0a44100c",
   "clause_key": "E1-7_13",
   "data_kind": "quantitative",
   "definition": "Percentage of reduction projects。减排项目比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Percentage of reduction projects。减排项目比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7ca406bfec3f24435ea312c076e39ccbc4a84350e233919627511b230c56a742",
+  "clause_digest": "51f7bd45f3b5b71c57b78078b0d6e63214b9a4bf587753ee34440b33629492ca",
   "clause_key": "G1-5_04",
   "data_kind": "quantitative",
   "definition": "披露报告期内主体发生的内部和外部游说费用金额，并说明费用范围。",
@@ -558,9 +558,6 @@
       "披露报告期内主体发生的内部和外部游说费用金额，并说明费用范围。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

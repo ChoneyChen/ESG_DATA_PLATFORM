@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "48cced9a06231e9966e8fca4f3ffbf638396bdfe8e80ce29f098efcf3555b189",
+  "clause_digest": "f7eb43b2efdf6780b9c5c6b45c98bb7b1d59afd8afd4445ade02ed2ffb68f2fb",
   "clause_key": "E1-7_06",
   "data_kind": "quantitative",
   "definition": "GHG emissions associated with removal activity。移除活动相关排放。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "GHG emissions associated with removal activity。移除活动相关排放。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

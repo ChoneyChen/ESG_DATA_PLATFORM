@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f14b21d0fb895efc708671ae6c277bf0bef0045c42bd88f2a2a749f92436a7e9",
+  "clause_digest": "970222637e7e9ba4cc09060daa873a990ef4b37d335575a7834c99a68057560e",
   "clause_key": "E4-2_02",
   "data_kind": "qualitative",
   "definition": "说明生物多样性和生态系统相关政策与重大影响是否以及如何相关，包括政策覆盖的影响类型。",
@@ -459,9 +459,6 @@
       "说明生物多样性和生态系统相关政策与重大影响是否以及如何相关，包括政策覆盖的影响类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

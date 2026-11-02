@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3f6dfe35f9980a9b12aeb73be52c0654451cd1731c2ed6ded8017bceeb23b3a0",
+  "clause_digest": "132350bba4d814f10bd037d9b0801bb1d11323cf717d716714ced313b6826919",
   "clause_key": "S4-4_15",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户是否以及如何在项目或流程的设计与实施决策中发挥作用。",
@@ -459,9 +459,6 @@
       "说明消费者和终端用户是否以及如何在项目或流程的设计与实施决策中发挥作用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

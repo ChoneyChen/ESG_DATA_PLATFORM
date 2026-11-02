@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9d7486a072309a52536140615ede59b62b3e5ea2b7db8321816a875482ba5cb3",
+  "clause_digest": "da2895d23c2d67cb5b9458d6c3576d6f5d486dd0a256d4a47b8b09e687380e81",
   "clause_key": "E4-1_11",
   "data_kind": "qualitative",
   "definition": "披露主体对生物多样性和生态系统变化影响驱动因素的贡献、按减缓层级采取的减缓行动，以及相关路径依赖和锁定资产与资源。",
@@ -445,9 +445,6 @@
       "披露主体对生物多样性和生态系统变化影响驱动因素的贡献、按减缓层级采取的减缓行动，以及相关路径依赖和锁定资产与资源。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "853271f7505d31f79bac62396e80e1643ac0fa5ab1cef7a584d7918e9f67f3be",
+  "clause_digest": "05ee3c919543e7293404c8538cb94c6b25aa249364365f1e3d3bce6b37f034e2",
   "clause_key": "MDR-A_12",
   "data_kind": "quantitative",
   "definition": "Future financial resources allocated to action plan (Opex)。未来行动运营支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -586,9 +586,6 @@
       "Future financial resources allocated to action plan (Opex)。未来行动运营支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

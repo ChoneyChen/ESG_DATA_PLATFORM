@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4c2834ac8b4bdc9780e5ecc9f6a9501dc132cf642f2f89b139f15e66709a3ca8",
+  "clause_digest": "cc4a6d48acffb164312a477939ff80b9b56b3aae538743b79a81338d151dba0f",
   "clause_key": "S4-2_09",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责处理消费者和终端用户接触的角色或职能类型。",
@@ -445,9 +445,6 @@
       "说明主体内部负责处理消费者和终端用户接触的角色或职能类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

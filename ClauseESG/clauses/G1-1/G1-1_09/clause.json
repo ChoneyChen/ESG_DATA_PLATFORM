@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "44811041f8ee46965576abcead614a3160218fafa85cc9010c5ae61cd213343c",
+  "clause_digest": "3f6848cc74bd54feead4e1c1b320c95ec6ec10395d3334e9702a548bcb3292e7",
   "clause_key": "G1-1_09",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定动物福利相关政策，并说明其适用范围与主要内容。",
@@ -459,9 +459,6 @@
       "披露主体是否已制定动物福利相关政策，并说明其适用范围与主要内容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

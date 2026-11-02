@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d4d7241927d23e57dc3f9ef3ea0d12681a38b3131ddeb7e3b2520a3fca1a8e91",
+  "clause_digest": "5b8ba37cc318d76fc5d00cd5e16ca0240290c97b310953d093fd8304a863d68d",
   "clause_key": "E4.IRO-1_07",
   "data_kind": "qualitative",
   "definition": "说明社区是否以及如何参与生物多样性和生态系统重要性评估。",
@@ -487,9 +487,6 @@
       "说明社区是否以及如何参与生物多样性和生态系统重要性评估。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

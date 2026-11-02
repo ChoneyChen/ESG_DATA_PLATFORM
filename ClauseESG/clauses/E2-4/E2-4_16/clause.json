@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d0b2f88265aa657834f0e7583ef57000ffa403f9f86e57231c6ee0b286b306ec",
+  "clause_digest": "114ffdb60e2dc4eb4b0b0896d7d08f52ad360b62e935061ad2dcbae3ec595fe4",
   "clause_key": "E2-4_16",
   "data_kind": "qualitative",
   "definition": "适用 IED 和 EU BAT Conclusions 的运营设施清单",
@@ -458,9 +458,6 @@
       "适用 IED 和 EU BAT Conclusions 的运营设施清单"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

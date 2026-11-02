@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "32bf7dd270952819e98ca065f438e7b10f514ef00ff8508e92733bb16f5f6617",
+  "clause_digest": "773c68d54bd8be3e4a7cf1ee4803df7154a0f4eac923374da3b11317841bf441",
   "clause_key": "G1-3_03",
   "data_kind": "qualitative",
   "definition": "说明将调查结果和处置情况报告给行政、管理和监督机构的流程与频率。",
@@ -445,9 +445,6 @@
       "说明将调查结果和处置情况报告给行政、管理和监督机构的流程与频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

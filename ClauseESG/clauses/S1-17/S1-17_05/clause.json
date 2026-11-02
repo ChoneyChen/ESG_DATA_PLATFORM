@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8f4d50564fc4921088de19545943008a4869285ad4b2f13f2c5edb588e5318a5",
+  "clause_digest": "f6d4d520a0b5479ac68be19b051292f6358411f415cbfe5f0cf02dc6a43e8e25",
   "clause_key": "S1-17_05",
   "data_kind": "quantitative",
   "definition": "Amount of fines, penalties, and compensation for damages as result of incidents of discrimination, including harassment and complaints filed",
@@ -558,9 +558,6 @@
       "Amount of fines, penalties, and compensation for damages as result of incidents of discrimination, including harassment and complaints filed"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fc016c4f541c42bea7d8825fcbbd0af7255ff0c7a9d32f28d1ef1e5cfe736c0e",
+  "clause_digest": "52c5a6a37e21c8236d42fe6d068b7a9f80f5c1abff87e36e84864b9e1899ea09",
   "clause_key": "BP-2_27",
   "data_kind": "qualitative",
   "definition": "读取重大可持续事项指标的名称、定义和披露说明；指标数值是独立定量事实，不要求原文含完整测量。",
@@ -462,9 +462,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

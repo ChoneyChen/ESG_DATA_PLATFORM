@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fd5e04a11b038edc297ca834adaeee88fec49ef9900ec6753430da4c2d7c40f4",
+  "clause_digest": "790d9415849fc5cec65b7d180f3e67793c39bf0a59862cc4f895ad02942eb363",
   "clause_key": "S1-14_04",
   "data_kind": "quantitative",
   "definition": "Number of recordable work-related accidents for own workforce",
@@ -558,9 +558,6 @@
       "Number of recordable work-related accidents for own workforce"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

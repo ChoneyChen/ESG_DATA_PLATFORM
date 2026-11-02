@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1434052b37f4a1ab4973c41e0499b4f256adb2b45fc11fd0de1fb4b4590ff01b",
+  "clause_digest": "dcfa32f94a04e725727c04c68a0df7fcb543acab39c747ad27fb96c132e67cfa",
   "clause_key": "S3-4_19",
   "data_kind": "qualitative",
   "definition": "描述参与社区影响管理的内部职能，以及这些职能所采取的行动类型。",
@@ -459,9 +459,6 @@
       "描述参与社区影响管理的内部职能，以及这些职能所采取的行动类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

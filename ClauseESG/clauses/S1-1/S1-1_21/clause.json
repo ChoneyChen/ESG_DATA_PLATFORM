@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "24e0d2256b233ad3e7761ce518d834aa48664f55062b94a216967cdd97a2834b",
+  "clause_digest": "393fde013d833369027d6cb3251ed7de3e5c9c7c2f315885c0f9ac4e6b7849fd",
   "clause_key": "S1-1_21",
   "data_kind": "qualitative",
   "definition": "说明主体是否已建立申诉程序，用于处理歧视投诉、上诉和救济，并关注阻碍员工发声的正式与非正式因素。",
@@ -459,9 +459,6 @@
       "说明主体是否已建立申诉程序，用于处理歧视投诉、上诉和救济，并关注阻碍员工发声的正式与非正式因素。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

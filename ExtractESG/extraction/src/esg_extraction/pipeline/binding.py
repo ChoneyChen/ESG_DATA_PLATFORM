@@ -58,7 +58,7 @@ def literal_categories(clause, context, attempts):
 
 def context_from_claims(frame, claims, *, row=None, column_id=None, document=None, attempts=None):
     physical = [*frame.texts, *frame.title_sources]
-    aliases = {}
+    aliases = dict(frame.column_sources) if frame.kind == "text" else {}
     if column_id:
         aliases[column_id] = frame.column_sources.get(column_id, [])
         physical.extend(aliases[column_id])

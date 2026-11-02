@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ea04931466e18b83f3f878e28c99aa1b3b390c3832fd20124816d3bc46c0a20c",
+  "clause_digest": "66bd9e76fe7f399c7b12cb13a0d59759551544126832782377a323f23ebcb771",
   "clause_key": "S1-6_01",
   "data_kind": "quantitative",
   "definition": "读取按性别披露的员工人数，各实际行列分别保存；合计与分项并存不相加，不从缺失性别补造人数。",
@@ -557,9 +557,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [

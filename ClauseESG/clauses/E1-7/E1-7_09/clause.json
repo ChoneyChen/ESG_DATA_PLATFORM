@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c1a2764694a400cc53de887a6a3dae931f05e5c0db5f96118f28c1db712b8747",
+  "clause_digest": "ec08aa3328e31df592645317efdfd43e3ed3b37ba9f62e138c10e08e7c8af760",
   "clause_key": "E1-7_09",
   "data_kind": "qualitative",
   "definition": "Removal activity has been converted into carbon credits and sold on to other parties on voluntary market。移除是否转为碳信用并售出。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Removal activity has been converted into carbon credits and sold on to other parties on voluntary market。移除是否转为碳信用并售出。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

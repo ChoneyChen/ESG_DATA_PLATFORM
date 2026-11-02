@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "653f3b022e43744c5382e15aeb80cea347bce80e754019e220f77ff479169191",
+  "clause_digest": "c618ed8ba191a8b0480e7c2d15f0225f394d0e717809c02231c5cfe729d7974c",
   "clause_key": "S2-4_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何针对价值链劳动者的实际重大影响采取提供或促成补救的行动。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何针对价值链劳动者的实际重大影响采取提供或促成补救的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

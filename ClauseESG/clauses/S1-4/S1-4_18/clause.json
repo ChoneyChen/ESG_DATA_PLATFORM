@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8fcab1e3910eeabf1d852df7ffb04f094b566bef48a3fb632882f63f92679298",
+  "clause_digest": "cc69617b17699e5f1c278c8b36d65af03851bbb3db0f6d23106e8828e51d9553",
   "clause_key": "S1-4_18",
   "data_kind": "qualitative",
   "definition": "说明以积极影响员工为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。",
@@ -459,9 +459,6 @@
       "说明以积极影响员工为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

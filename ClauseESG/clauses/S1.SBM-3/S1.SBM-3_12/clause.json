@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d3e28433dbf2f0dba8f69a86680c41ea3d0535467bb50f78cd7025333155ed79",
+  "clause_digest": "6a4bcb92a3ff1a3dd49e087206f8beb731102902bb74c16cbf208b04dfba0a0e",
   "clause_key": "S1.SBM-3_12",
   "data_kind": "qualitative",
   "definition": "说明自身劳动力相关重大风险与机遇中，哪些涉及特定群体。",
@@ -487,9 +487,6 @@
       "说明自身劳动力相关重大风险与机遇中，哪些涉及特定群体。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

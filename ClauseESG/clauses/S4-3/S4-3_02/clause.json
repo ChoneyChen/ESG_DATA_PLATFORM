@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "db08b488f2625c4b1aee968cb02c6995cd3046053fad8e7c00c10617176773a3",
+  "clause_digest": "ad16d4f4fe251bea4b6c96f2ed5b7b54990b4313d4ec0a5fb1e5f9cc5577b690",
   "clause_key": "S4-3_02",
   "data_kind": "qualitative",
   "definition": "披露消费者和终端用户可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -445,9 +445,6 @@
       "披露消费者和终端用户可直接向主体提出关切或需求并获得处理的特定渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

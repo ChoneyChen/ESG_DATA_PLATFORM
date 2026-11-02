@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8986965b93749b63e26036a9f4902ec31e5ba5142cd35bcd82f638273977435b",
+  "clause_digest": "b1c5b57500b39973c3f011fc215eab6075945ef2dbde2a93686ce8c444dba1a0",
   "clause_key": "S2-5_03",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者、其合法代表或可信代理是否以及如何直接参与识别绩效带来的经验教训或改进机会。",
@@ -473,9 +473,6 @@
       "说明价值链劳动者、其合法代表或可信代理是否以及如何直接参与识别绩效带来的经验教训或改进机会。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

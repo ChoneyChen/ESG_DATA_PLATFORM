@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1b1eee689eddc8e440ec5247dd83a9cf06b44194ec5e436a4f8ae834bc96b0d5",
+  "clause_digest": "05b4ebd40189937242e9568f20e2c4906f65d5108e67e78b969d8b03914a0a3f",
   "clause_key": "SBM-2_11",
   "data_kind": "qualitative",
   "definition": "Further steps that are being planned are likely to modify relationship with and views of stakeholders。后续行动对利益方关系的影响。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Further steps that are being planned are likely to modify relationship with and views of stakeholders。后续行动对利益方关系的影响。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

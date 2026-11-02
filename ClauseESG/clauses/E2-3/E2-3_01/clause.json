@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0f5843d15f3e3e736387b907bf5bbbab92896d1db2ab252397d768ae3b7736ef",
+  "clause_digest": "4da3e1db72703f3beec75e82ad676cc1b643c5ca87a98f8dc7710470c5b9ce85",
   "clause_key": "E2-3_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of  whether and  how target relates to prevention and control of air pollutants and respective specific loads。目标与空气污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of  whether and  how target relates to prevention and control of air pollutants and respective specific loads。目标与空气污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

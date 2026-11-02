@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "660d8eb7db50e44811a03477a1bab7f12f300b553e32fdf26d9528da06a2b285",
+  "clause_digest": "fde22b8af3be397f64b5d67ff51d4ccf67d700ab6b619d533847089aa43f909c",
   "clause_key": "E1-5_16",
   "data_kind": "quantitative",
   "definition": "非可再生能源生产量",
@@ -587,9 +587,6 @@
       "非可再生能源生产量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

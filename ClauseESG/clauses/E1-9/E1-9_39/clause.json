@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5806d2afdfb9d5b78c9b2f3eb42bd77d3ac969ed20beab856ec30d89060c2fa5",
+  "clause_digest": "541c28e494671a45e9f7baa237795223758d6a517ee15ff618fe55e3b242afc0",
   "clause_key": "E1-9_39",
   "data_kind": "qualitative",
   "definition": "Disclosure of reconciliations with financial statements of significant amounts of assets and net revenue at material physical risk。物理风险资产收入与财务报表对账。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of reconciliations with financial statements of significant amounts of assets and net revenue at material physical risk。物理风险资产收入与财务报表对账。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

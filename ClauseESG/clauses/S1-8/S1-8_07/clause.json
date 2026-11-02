@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bda42b0297d54d365e98f60131925a4bf7e7609450d9c2bbc4afe40c771589ab",
+  "clause_digest": "c6ce674f384a65801d931f7f12b8b61dc7672f14b4badfa6244ef1c80e1653bc",
   "clause_key": "S1-8_07",
   "data_kind": "qualitative",
   "definition": "披露主体是否与员工签订由欧洲工程委员会、欧洲公司工程委员会或欧洲合作社工程委员会代表的协议。",
@@ -445,9 +445,6 @@
       "披露主体是否与员工签订由欧洲工程委员会、欧洲公司工程委员会或欧洲合作社工程委员会代表的协议。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

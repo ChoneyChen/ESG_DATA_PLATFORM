@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4f3cb4f0db9fba90c68868bf43ab51ac3f287d7fdcd6fb446b912caaadf0c00a",
+  "clause_digest": "7262594467ae038f9cb2fa058133c22ef1ae684aa29ad6e95c69d6e5dcefd8a2",
   "clause_key": "S3.SBM-3_07",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何形成对特定特征、特定情境或特定活动的社区群体可能面临更高伤害风险的理解。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何形成对特定特征、特定情境或特定活动的社区群体可能面临更高伤害风险的理解。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

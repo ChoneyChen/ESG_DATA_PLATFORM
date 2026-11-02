@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "50e8a600b95857ac90c62eaac4fdca93bc1857e0d779b072c7138c568c183138",
+  "clause_digest": "cf250057906ea6588588d76ab691aa5e24979f1aca100d2629a5708fafc922c4",
   "clause_key": "E4-2_07",
   "data_kind": "qualitative",
   "definition": "披露政策如何规定原材料的生产、采购或消费，包括适用范围和限制条件。",
@@ -459,9 +459,6 @@
       "披露政策如何规定原材料的生产、采购或消费，包括适用范围和限制条件。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

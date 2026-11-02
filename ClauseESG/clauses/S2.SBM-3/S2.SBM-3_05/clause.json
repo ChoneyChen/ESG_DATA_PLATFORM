@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "63b1878a312a3d392fd9729921491c6ef19d8751eeca9e18a9e03e28173ce504",
+  "clause_digest": "91b530b3b6e2b7ed5503f44852a10e5930a3ba202b66ae436f1e1031e14a1225",
   "clause_key": "S2.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "披露价值链劳动者中重大负面影响是否已经发生，以及发生的情形。",
@@ -487,9 +487,6 @@
       "披露价值链劳动者中重大负面影响是否已经发生，以及发生的情形。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

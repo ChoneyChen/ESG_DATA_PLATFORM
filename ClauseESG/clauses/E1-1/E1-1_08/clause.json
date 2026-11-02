@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b80560425492ae22637dddb2975af530a8fa04de82af8cf6a4c46e07be2c5bfe",
+  "clause_digest": "d22ab0e6a45e932c8e3b16f05c329b21c37720c844710d68b2271198cdae56c8",
   "clause_key": "E1-1_08",
   "data_kind": "qualitative",
   "definition": "Explanation of any objective or plans (CapEx, CapEx plans, OpEx) for aligning economic activities (revenues, CapEx, OpEx) with criteria established in Commission Delegated Regulation 2021/2139。经济活动与分类法对齐计划。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -445,9 +445,6 @@
       "Explanation of any objective or plans (CapEx, CapEx plans, OpEx) for aligning economic activities (revenues, CapEx, OpEx) with criteria established in Commission Delegated Regulation 2021/2139。经济活动与分类法对齐计划。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

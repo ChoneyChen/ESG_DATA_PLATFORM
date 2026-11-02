@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e984eaf4f7432bb263919943d8c5a68dd721cd06f99cc65b43bb9f5850da602e",
+  "clause_digest": "7985e08cb3265c4656f633a1d08feb7a854874d290cee8ccc81e1c208f0ec70e",
   "clause_key": "S4-2_03",
   "data_kind": "qualitative",
   "definition": "披露与消费者和终端用户接触发生的阶段、接触类型和频率。",
@@ -445,9 +445,6 @@
       "披露与消费者和终端用户接触发生的阶段、接触类型和频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f6e255654fb641cbdf476437e48cedacd0385d01a0b70ce50221d925cd6a5a88",
+  "clause_digest": "5cf3d36156eb93d1930acec5ef15d28d6e3aa95fe296b394ad443948c2cc438d",
   "clause_key": "E3-4_09",
   "data_kind": "quantitative",
   "definition": "Water consumption - sectors/SEGMENTS [table]。耗水按行业板块分解。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -602,9 +602,6 @@
       "Water consumption - sectors/SEGMENTS [table]。耗水按行业板块分解。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

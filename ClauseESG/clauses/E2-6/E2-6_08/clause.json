@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bd3bbc837c0a2f21384b8f5affd53acb828a3ec498e3cd07ca90eee389abd157",
+  "clause_digest": "b9ea771c00f4b7805db09895bf93ff4dc8baf0d0e6d8d6f072ed33536fa7719e",
   "clause_key": "E2-6_08",
   "data_kind": "qualitative",
   "definition": "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)。污染财务影响的对象与时间范围。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -515,9 +515,6 @@
       "Description of effects considered, related impacts and time horizons in which they are likely to materialise (pollution)。污染财务影响的对象与时间范围。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

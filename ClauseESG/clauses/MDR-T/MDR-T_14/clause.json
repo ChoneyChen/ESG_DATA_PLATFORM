@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bd82f5946c27d943eed656cb49fbf87609a08bd6890332fb61f5b0a1ba69beae",
+  "clause_digest": "4bf3e7f55eb9d0d833d0c514405b8dfaef4d1d58eeaf545184f29110f1f195ad",
   "clause_key": "MDR-T_14",
   "data_kind": "qualitative",
   "definition": "Disclosure of timeframe for setting of measurable outcome-oriented targets。可量化成果目标的计划设定时间。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Disclosure of timeframe for setting of measurable outcome-oriented targets。可量化成果目标的计划设定时间。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

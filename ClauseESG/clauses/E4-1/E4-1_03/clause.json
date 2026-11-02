@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8968a51c3f735bdd03991d3e849b219b4074116b9aa6c7b1c42d789c97229dbd",
+  "clause_digest": "bfddec850dce59f9a4d33dcdd5e522ecb4696154370cd601b8ad9ca082a9a93a",
   "clause_key": "E4-1_03",
   "data_kind": "qualitative",
   "definition": "列出生物多样性和生态系统韧性分析所依赖的关键假设，并说明这些假设的依据与不确定性。",
@@ -445,9 +445,6 @@
       "列出生物多样性和生态系统韧性分析所依赖的关键假设，并说明这些假设的依据与不确定性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

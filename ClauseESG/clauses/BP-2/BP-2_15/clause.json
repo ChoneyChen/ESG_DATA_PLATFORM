@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3f7c5c12f9f09ffb16f01874eb1fec2e9c8fe48399844b8728dee3a38a684904",
+  "clause_digest": "70ec9770f3a134c123aef2cb828fd99cb53e51086f277c3707dbb6bc225f8e79",
   "clause_key": "BP-2_15",
   "data_kind": "qualitative",
   "definition": "Disclosure of why correction of prior period errors is not practicable。前期更正不可行原因。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Disclosure of why correction of prior period errors is not practicable。前期更正不可行原因。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

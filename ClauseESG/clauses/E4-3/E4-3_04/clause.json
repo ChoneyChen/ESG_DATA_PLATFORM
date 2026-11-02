@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5b435f9b439e7e8e153f61221a8cd30143f65e55d0267c3eaf426632edff031f",
+  "clause_digest": "ac9530299b0280a59eb2cdae088ca3e67ac835c7fefde9ed69e30def09404278",
   "clause_key": "E4-3_04",
   "data_kind": "quantitative",
   "definition": "量化生物多样性抵消产生的直接和间接成本，并说明其确认与计量基础。",
@@ -572,9 +572,6 @@
       "量化生物多样性抵消产生的直接和间接成本，并说明其确认与计量基础。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

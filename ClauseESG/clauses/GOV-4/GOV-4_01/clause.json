@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "88158d7083c079f101fa7beae9aa2e085e3a435a7f28ef336db1cacee0aa249e",
+  "clause_digest": "1d26574a4c69c2fe4ab75ccfd3522aa3b8cccb4de00fc33a4bb7aded2a95c5ce",
   "clause_key": "GOV-4_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of mapping of information provided in sustainability statement about due diligence process。可持续声明中的尽职调查信息映射。该条款是尽职调查披露的映射索引；需要保留所引用披露，不将索引自身判为所有活动都已实施。",
@@ -459,9 +459,6 @@
       "Disclosure of mapping of information provided in sustainability statement about due diligence process。可持续声明中的尽职调查信息映射。该条款是尽职调查披露的映射索引；需要保留所引用披露，不将索引自身判为所有活动都已实施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

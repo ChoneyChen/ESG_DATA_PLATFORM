@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d5f60586f433fbeb28c145e9750486cf9938efaa907ea3672f4197334f8b90be",
+  "clause_digest": "77d0b17e5acdc2af55d5263c7888ae954c76132cc89cf71cdfc73d519c8485f9",
   "clause_key": "E4-3_03",
   "data_kind": "qualitative",
   "definition": "披露每项生物多样性抵消的目的及其关键绩效指标，包括衡量生态等效性的方式。",
@@ -459,9 +459,6 @@
       "披露每项生物多样性抵消的目的及其关键绩效指标，包括衡量生态等效性的方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

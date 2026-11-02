@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "29db1da09696ea249223bc70b4aaeb64bf9f5e2173197591dbaa336f484c79df",
+  "clause_digest": "b3df95f166fcab7cea5d7c06f27e9ad402f2919c7f154765aea2e699e1c5c05e",
   "clause_key": "S4-3_10",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有消费者和终端用户开放，以及可及性安排。",
@@ -445,9 +445,6 @@
       "说明第三方机制是否向所有消费者和终端用户开放，以及可及性安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

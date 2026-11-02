@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "36dfb7a1f91caa4d2557d14fa86058ecfdd1bff2b3a4de193225b6a18ffc104f",
+  "clause_digest": "390d9a19e3a1dc880bde76adefb33ac7c9b57f66e0cf3c040d465cd00b8f34e9",
   "clause_key": "S3-5_04",
   "data_kind": "qualitative",
   "definition": "披露受影响社区相关目标拟在社区生活中产生的预期结果。",
@@ -473,9 +473,6 @@
       "披露受影响社区相关目标拟在社区生活中产生的预期结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

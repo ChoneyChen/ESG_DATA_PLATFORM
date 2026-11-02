@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "45c37c10625057c3e0b4d8c9f9982bcc89cad01ade5a02d607135ac6e99d69ec",
+  "clause_digest": "d9737b6e374dc86fcf77af188bd27dccd7cb68d14171a98c31d0e6b889e151fd",
   "clause_key": "E1-9_32",
   "data_kind": "quantitative",
   "definition": "Net revenue from customers operating in gas-related activities。天然气活动客户净收入。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Net revenue from customers operating in gas-related activities。天然气活动客户净收入。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "28ee80bbefc5b42612aac5e46633b5bd544e0184be8d461b46c5e3e7a5b4048d",
+  "clause_digest": "cbfb024c27a1b583776c03b1b6bebb1805b307d6d97c78aea380c64c42094761",
   "clause_key": "E4-3_16",
   "data_kind": "qualitative",
   "definition": "补充说明项目背景、发起方和其他参与方，以便理解行动的组织方式与影响范围。",
@@ -459,9 +459,6 @@
       "补充说明项目背景、发起方和其他参与方，以便理解行动的组织方式与影响范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

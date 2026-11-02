@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9f3f43abc4b773c34c6fe113a291ecb8a380a76e5bb3ea8b3054d7069cf18d12",
+  "clause_digest": "0dee0ee3712ae73e122d5e52d59c1fcbad15ecf093c6df7c0917a080d95c9b03",
   "clause_key": "S4-2_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否与消费者和终端用户或其合法代表、可信代理直接开展接触，并指出接触形式。",
@@ -445,9 +445,6 @@
       "说明主体是否与消费者和终端用户或其合法代表、可信代理直接开展接触，并指出接触形式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

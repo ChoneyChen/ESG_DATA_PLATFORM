@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "760a3fb8509a583ce13354dac09848c11077a6ddc10b69e24fbc80c4df457f22",
+  "clause_digest": "422be54f2b9c37ce153c35de826bad88a797a10862a60a02288b5c8f3f6afe73",
   "clause_key": "E4-2_17",
   "data_kind": "qualitative",
   "definition": "说明主体是否已就在保护区或保护区外生物多样性敏感区域内及附近拥有、租赁或管理的运营场址制定生物多样性和生态系统保护政策。",
@@ -459,9 +459,6 @@
       "说明主体是否已就在保护区或保护区外生物多样性敏感区域内及附近拥有、租赁或管理的运营场址制定生物多样性和生态系统保护政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

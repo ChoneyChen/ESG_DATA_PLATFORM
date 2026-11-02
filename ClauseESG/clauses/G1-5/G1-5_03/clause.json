@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1ff0923ec777f70aa60f8d9fcc75ad8bf91264b64dd8b03a12bedbbf9b37571d",
+  "clause_digest": "8395d9ce12a7eb76da56596a4c29d81e6daf8988b89c98ef37372fe7405519ad",
   "clause_key": "G1-5_03",
   "data_kind": "quantitative",
   "definition": "披露报告期内主体提供的财务政治捐赠金额，并说明计量口径。",
@@ -558,9 +558,6 @@
       "披露报告期内主体提供的财务政治捐赠金额，并说明计量口径。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

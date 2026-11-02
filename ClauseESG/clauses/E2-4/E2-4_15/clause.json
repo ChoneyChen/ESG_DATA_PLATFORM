@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b3399d5deb02c09a5c488281b539bb0056f6a133959870c2cf159da260972e51",
+  "clause_digest": "4c35d2141702e8d9b02b158052892e44ed0558520eef8aa94823b247abd3e2fa",
   "clause_key": "E2-4_15",
   "data_kind": "qualitative",
   "definition": "选择低于直接测量优先级方法的原因",
@@ -444,9 +444,6 @@
       "选择低于直接测量优先级方法的原因"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

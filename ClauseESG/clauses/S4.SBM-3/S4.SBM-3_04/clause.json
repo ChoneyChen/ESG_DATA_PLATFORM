@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2628151b7751f22d523cf29f4a7fad13372d53bd5420a986446540d94b6d05c9",
+  "clause_digest": "d6934a25dcf24d5abc1d9e3dde7a5584c42724690a96ae27c1d49aa187c6619c",
   "clause_key": "S4.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "披露消费者和终端用户中重大负面影响是否已经发生，以及发生的情形。",
@@ -487,9 +487,6 @@
       "披露消费者和终端用户中重大负面影响是否已经发生，以及发生的情形。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f2b76c9848fd1b556a50bf44393829ff1f0eab41203cf5f626b3329337f3378c",
+  "clause_digest": "23a55ea24eece715b2c5cb4f0d6af60d29fb50fa801b056d5fd1fd282398c722",
   "clause_key": "SBM-1_05",
   "data_kind": "qualitative",
   "definition": "Description of products and services that are banned in certain markets。特定市场禁售产品服务。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -459,9 +459,6 @@
       "Description of products and services that are banned in certain markets。特定市场禁售产品服务。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

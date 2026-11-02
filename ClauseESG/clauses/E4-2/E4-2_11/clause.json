@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "eff02a90564d69f897aa3114a15ee8858ef8350d7e3c853abe2963bb06148901",
+  "clause_digest": "f7c7b4a2f4e9eedf0bf7f79e5c8ff3bee882223b6feeea1339789835af47f2c5",
   "clause_key": "E4-2_11",
   "data_kind": "qualitative",
   "definition": "说明政策如何同时支持E4-2所述四项要求，并指出各项要求在政策中的对应条款。",
@@ -459,9 +459,6 @@
       "说明政策如何同时支持E4-2所述四项要求，并指出各项要求在政策中的对应条款。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

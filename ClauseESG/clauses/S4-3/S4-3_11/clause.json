@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4ba783d5dce7abcd4267b2ed265584a86b3535c36c5e7fc382048f4b5c5d02fd",
+  "clause_digest": "ced00dad2df3cd8352bab42112011a1f2d2dbb2c6288d9c6fc3fa8560c369afd",
   "clause_key": "S4-3_11",
   "data_kind": "qualitative",
   "definition": "说明消费者申诉如何保密处理，并尊重隐私权和数据保护要求。",
@@ -445,9 +445,6 @@
       "说明消费者申诉如何保密处理，并尊重隐私权和数据保护要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

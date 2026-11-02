@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4342e435cbcfcd0f3d80ccc0d64223eea2624adf6be5af6d3cb79699e196388d",
+  "clause_digest": "fd49b56edcd2a1f485ca33c3a74510faa74454f72e77020bd26e083d86aea1ff",
   "clause_key": "SBM-2_04",
   "data_kind": "qualitative",
   "definition": "Description of how stakeholder engagement is organised。利益方参与组织方式。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of how stakeholder engagement is organised。利益方参与组织方式。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

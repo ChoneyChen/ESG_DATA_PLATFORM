@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4dd66f800eebb04c4a4f414ec8de2b3e9898014690e96cfbf1be0a3717119d29",
+  "clause_digest": "bf1dc799b843979f34c01309a6964d5b4e9089e7909a189ef6ca19ba176ba92b",
   "clause_key": "S1-5_06",
   "data_kind": "qualitative",
   "definition": "披露目标所依据的标准、倡议或主体承诺，并指出对应关系。",
@@ -473,9 +473,6 @@
       "披露目标所依据的标准、倡议或主体承诺，并指出对应关系。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

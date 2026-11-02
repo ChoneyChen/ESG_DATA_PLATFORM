@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "030d8beb64906537468468d72716897dea4aae44a298a3e79f1cd258ed97fc6b",
+  "clause_digest": "621fdd9fb96b7321dc4e6a29234638bf89809fe86615a9fc5b1b61079770ddf1",
   "clause_key": "E3-3_10",
   "data_kind": "qualitative",
   "definition": "Target relates to reduction of water discharges。目标与排水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Target relates to reduction of water discharges。目标与排水减少关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

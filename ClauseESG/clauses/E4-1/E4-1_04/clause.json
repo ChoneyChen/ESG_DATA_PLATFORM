@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9e51c44e968e061d082fd8dbd44ca6981bd39ca68f0f5e8ded8709eb814008d7",
+  "clause_digest": "555036a9989cc223251a1bae4dcd74302f5be61f42856366b4cec51750fb2143",
   "clause_key": "E4-1_04",
   "data_kind": "qualitative",
   "definition": "说明韧性分析采用的短期、中期和长期时间范围及其划分依据。",
@@ -445,9 +445,6 @@
       "说明韧性分析采用的短期、中期和长期时间范围及其划分依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

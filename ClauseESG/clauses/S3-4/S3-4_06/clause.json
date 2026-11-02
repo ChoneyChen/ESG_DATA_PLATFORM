@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4744982d627002ecfa8c5f16c27c4e4a870e694aa7562c6dbbbac65f1d4dd621",
+  "clause_digest": "5a6862cc36d7cfe6268c72837b92f791f1f27534ac4afdfddefc1c4178525034",
   "clause_key": "S3-4_06",
   "data_kind": "qualitative",
   "definition": "描述主体针对受影响社区特定重大负面影响采取行动的方法。",
@@ -459,9 +459,6 @@
       "描述主体针对受影响社区特定重大负面影响采取行动的方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

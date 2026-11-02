@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4e7df3b9268d76d7950306a17dc3dd17616fd44ceb5127ff392f37b1ad5f782a",
+  "clause_digest": "c0da872871b12dd8a1da2811494c5958ffef0834a57105ed9e2f87ffc268538a",
   "clause_key": "SBM-3_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of current and anticipated effects of material impacts, risks and opportunities on business model, value chain, strategy and decision-making, and how undertaking has responded or plans to respond to these effects。重要事项对业务价值链战略的影响及回应。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
@@ -501,9 +501,6 @@
       "Disclosure of current and anticipated effects of material impacts, risks and opportunities on business model, value chain, strategy and decision-making, and how undertaking has responded or plans to respond to these effects。重要事项对业务价值链战略的影响及回应。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

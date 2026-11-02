@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "eff51430989cb89a254ed3321c30231af84c30b3b178aad19cbebe7395e2388e",
+  "clause_digest": "93e3457e69654ba24808aa89a5c97005c83b4f782e53adbdb7b14ab55501518f",
   "clause_key": "S1-6_14",
   "data_kind": "qualitative",
   "definition": "Employees numbers are reported in head count or full-time equivalent。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Employees numbers are reported in head count or full-time equivalent。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

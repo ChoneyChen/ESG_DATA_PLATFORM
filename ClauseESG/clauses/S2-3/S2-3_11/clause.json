@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d5cced74a78b3cc637d6e419565700f6a7e1c076fc0f91444231e7c70b375809",
+  "clause_digest": "e594fea4e3623d80c6af90e14408cd04dcfb76c1927e6aeb6fc34a7a57417512",
   "clause_key": "S2-3_11",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者申诉如何保密处理，并尊重隐私权和数据保护要求。",
@@ -445,9 +445,6 @@
       "说明价值链劳动者申诉如何保密处理，并尊重隐私权和数据保护要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

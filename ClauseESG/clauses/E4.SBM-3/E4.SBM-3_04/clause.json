@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "95528c6c9abdfb3542ca854bc17ab141adb6908e6bbee6be131c989b92347dc8",
+  "clause_digest": "bfeef1d83e06c1bf78f8ae4aa802760fd50f3e7e7b592ace3d13ae15d07dd31e",
   "clause_key": "E4.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。",
@@ -487,9 +487,6 @@
       "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

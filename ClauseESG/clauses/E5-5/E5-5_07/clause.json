@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0c44500ca05025f968d72d0f02198298556968fbbc72bef519d7b4066275b215",
+  "clause_digest": "c751797c5fb96dcdadca37d4ce6c8814c8e0271f962c0a9fa061bb7ec4922b06",
   "clause_key": "E5-5_07",
   "data_kind": "quantitative",
   "definition": "报告期内产生的全部废弃物重量。",
@@ -667,10 +667,6 @@
       "报告期内产生的全部废弃物重量。"
     ],
     "operator": "waste",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

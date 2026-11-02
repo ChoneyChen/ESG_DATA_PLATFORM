@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c9ce171b4bdfcabe7327bf4efccbd6d3a368c8ac18d1cc33f283d4f63ae3a7d5",
+  "clause_digest": "e84ed7f516883424766dd64536db2d92f6c3aae546bc74e68196e3a3db362fb5",
   "clause_key": "S1-6_06",
   "data_kind": "quantitative",
   "definition": "Average number of employees in countries with 50 or more employees representing at least 10% of total number of employees",
@@ -572,9 +572,6 @@
       "Average number of employees in countries with 50 or more employees representing at least 10% of total number of employees"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

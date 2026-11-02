@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0dabe8a5ee532ec046ca5b1eb0cfdd8404041295d63671e1faf66b7c8493294f",
+  "clause_digest": "b73b9546f474c3214a60bfefaf9beb2c340e96405a72ac81508f87acf33662bf",
   "clause_key": "S1-6_03",
   "data_kind": "quantitative",
   "definition": "Average number of employees (head count)",
@@ -572,9 +572,6 @@
       "Average number of employees (head count)"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "25cfef354f8085cf7a316350221e974c148d7bec9a15625ea349e0393b7c7da8",
+  "clause_digest": "c06facba1f51fd5153eb16419d05525fffe4870f87bb7ed712d55ea46a822892",
   "clause_key": "E2-3_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of  whether and how target relates to prevention and control of pollution to soil and respective specific loads。目标与土壤污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of  whether and how target relates to prevention and control of pollution to soil and respective specific loads。目标与土壤污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

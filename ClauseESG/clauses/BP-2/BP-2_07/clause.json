@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e2926388c25e30167dd038e93de009513b00e6a81320376a109670d9df445495",
+  "clause_digest": "d8368e72b621fde30f0b0bcc9219f2f311e7b91842bbc3e81bfb76070a3d332a",
   "clause_key": "BP-2_07",
   "data_kind": "qualitative",
   "definition": "读取报告对高测量不确定性指标/金额及其不确定性来源的原文说明；保留所指指标，不要求同时捕获金额。",
@@ -462,9 +462,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

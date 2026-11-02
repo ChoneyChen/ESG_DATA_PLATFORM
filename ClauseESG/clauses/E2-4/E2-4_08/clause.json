@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8d0bc2a3d5617268b37ca2016e08e3a346185aecaf4f4e55a3ebf60c9a2caf9a",
+  "clause_digest": "578cc3e44fa28d6c36ea41809be614d8d42ee0ddc1493e34ca2f19017e216028",
   "clause_key": "E2-4_08",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染随时间变化描述",
@@ -472,9 +472,6 @@
       "空气、水和土壤污染随时间变化描述"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

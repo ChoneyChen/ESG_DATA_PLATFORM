@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "48655ec756663b8014f3403b2b052523344ade14ec442a3507342e731f52125f",
+  "clause_digest": "92c5d5c0c64231b2cd795cbe9397cb0e19d9a341304eb3ff5fb62ab39bdc81e0",
   "clause_key": "S1-10_02",
   "data_kind": "qualitative",
   "definition": "读取报告明确列出的工资低于足额工资基准的国家及员工范围陈述，允许国家成员列表；不从国家名推断人数、工资或违规。",
@@ -462,9 +462,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

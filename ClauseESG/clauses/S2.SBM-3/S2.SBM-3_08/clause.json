@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d489ed45a5967b8b965939ef03c763ddc14153f3f76bd7d07dbb720d8b41db76",
+  "clause_digest": "f92cf01875bff9985bbeb20a7d217149d2e0b174b394d4da56c6108d8ef52f2d",
   "clause_key": "S2.SBM-3_08",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何形成对特定特征、特定情境或特定活动的价值链劳动者可能面临更高伤害风险的理解。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何形成对特定特征、特定情境或特定活动的价值链劳动者可能面临更高伤害风险的理解。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

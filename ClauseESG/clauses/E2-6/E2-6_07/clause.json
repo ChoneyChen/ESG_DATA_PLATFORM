@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ffaabb10f494d0fcce020bf4e3f8c1cc0ed09026358665fa4c8fbc27f6c2bc63",
+  "clause_digest": "a5ffa54bf36cbaeffae4b5b4a504756bb744987b12b76af9dcfaae15aa1bd49f",
   "clause_key": "E2-6_07",
   "data_kind": "qualitative",
   "definition": "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -515,9 +515,6 @@
       "Disclosure of qualitative information about anticipated financial effects of material risks and opportunities arising from pollution-related impacts。污染相关预期财务影响说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

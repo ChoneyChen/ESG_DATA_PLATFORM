@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ede8d7e7b51328e72fb91a62a5d079a3cb2ab8bcb1cb2f22ab00f0684fa21517",
+  "clause_digest": "d5bd711cbd67b3f84bacbe07d0f38819b094e02c1342d2f34e9dc136cbf6ad9e",
   "clause_key": "E1-6_16",
   "data_kind": "qualitative",
   "definition": "报告日期之间的重大事件和变化",
@@ -456,9 +456,6 @@
       "报告日期之间的重大事件和变化"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

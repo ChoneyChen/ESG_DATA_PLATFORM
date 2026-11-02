@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8970f745f6366bf6110f48eda5c98c9c820163373dc4f4efa03650f662573ca1",
+  "clause_digest": "31e98d809f6a7bec3eb8f2365a0a876a2c6ef2dca732a9abfc4f942a360cae1c",
   "clause_key": "GOV-1_09",
   "data_kind": "qualitative",
   "definition": "Disclosure of how body's or individuals within body responsibilities for impacts, risks and opportunities are reflected in undertaking's terms of reference, board mandates and other related policies。可持续监督责任的职责文件。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -459,9 +459,6 @@
       "Disclosure of how body's or individuals within body responsibilities for impacts, risks and opportunities are reflected in undertaking's terms of reference, board mandates and other related policies。可持续监督责任的职责文件。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

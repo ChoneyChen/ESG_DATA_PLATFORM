@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3bdc5179fa65400cd0bf43ce4cd72ea50fafd847397dcfc0c4d6d6f8ca93c012",
+  "clause_digest": "351c83aefe7bbfe4da57dbf094edf1da295ef4b67dfae262be65091d625de61e",
   "clause_key": "G1.GOV-1_02",
   "data_kind": "qualitative",
   "definition": "披露行政、管理和监督机构在商业行为事项方面的专长、经验及获取方式。",
@@ -445,9 +445,6 @@
       "披露行政、管理和监督机构在商业行为事项方面的专长、经验及获取方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

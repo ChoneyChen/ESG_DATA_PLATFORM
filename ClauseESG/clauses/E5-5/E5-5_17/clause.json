@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e0985cc3af94af9f9add03e3b48ad0fdddd301f81b9fca0e0849db583344b50f",
+  "clause_digest": "75d06ab3b1f8ad398f23c8f087831893d8a705f46cf1fbb773168ef07e10680b",
   "clause_key": "E5-5_17",
   "data_kind": "qualitative",
   "definition": "Description of methodologies used to calculate data (waste generated)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of methodologies used to calculate data (waste generated)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d0df172a82b736720fb08a1f993b9ac84f436d05c5e9b807755f1c83c3fcf728",
+  "clause_digest": "5431f2595fd891878b055950381493a653ac504493153410874ad6f04bbc27fb",
   "clause_key": "E4-4_05",
   "data_kind": "qualitative",
   "definition": "说明目标如何参考2030年欧盟生物多样性战略的相关内容。",
@@ -473,9 +473,6 @@
       "说明目标如何参考2030年欧盟生物多样性战略的相关内容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

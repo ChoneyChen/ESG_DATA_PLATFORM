@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8f719f1b5f02371216969ee1c811b17264cf1daeb0c67c46260fc53d9289e249",
+  "clause_digest": "0c129d8d0185878ce8d859bd520eb0e4b25545a6930e2cef1ad611f6c75b2543",
   "clause_key": "MDR-T_04",
   "data_kind": "qualitative",
   "definition": "Description of scope of target。目标适用范围。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Description of scope of target。目标适用范围。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c25a27a03327a0a739a8c51e46735806596c629367ff3d71e4a07340a5f84740",
+  "clause_digest": "9f88ab9d03ad60aa86063eac7cb330d5a373f7e71657fee9f5cd38067e273262",
   "clause_key": "S2-2_01",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
@@ -445,9 +445,6 @@
       "说明价值链劳动者的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

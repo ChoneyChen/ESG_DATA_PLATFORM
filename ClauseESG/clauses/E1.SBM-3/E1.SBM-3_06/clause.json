@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "83ea47b4ffe99371b12d96832a0cfbd8fac07aed423c8d2ec8d7eba8cc5cee59",
+  "clause_digest": "529d8a62cc1e4a73515ed454117d4c8687e0736973306754afe049a0b2221213",
   "clause_key": "E1.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "Description of results of resilience analysis。韧性分析结果。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -487,9 +487,6 @@
       "Description of results of resilience analysis。韧性分析结果。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

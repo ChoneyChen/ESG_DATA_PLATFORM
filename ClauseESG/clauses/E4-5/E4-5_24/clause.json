@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bd1eddd292821137470e348091e3d576bd9e0ced0ecdb9b131d5a7b20b3b2bd6",
+  "clause_digest": "a9e26a7a0633e8becad6d81f4447297a05b9c688ded6c726d86c3f4782e0e3ce",
   "clause_key": "E4-5_24",
   "data_kind": "qualitative",
   "definition": "披露相关生态系统的面积覆盖情况，包括类型、范围和变化趋势。",
@@ -445,9 +445,6 @@
       "披露相关生态系统的面积覆盖情况，包括类型、范围和变化趋势。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

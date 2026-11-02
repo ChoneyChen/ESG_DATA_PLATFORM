@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "57b2b566f26897685aa63aeb8356aef97c465cb50715daa03f8e0363ed07f5cc",
+  "clause_digest": "353c915bcdd436f4c593ffd22bc0010b50d48151a5165d59db48173e56ef885f",
   "clause_key": "S1-6_09",
   "data_kind": "quantitative",
   "definition": "Number of employees (head count or full-time equivalent)",
@@ -572,9 +572,6 @@
       "Number of employees (head count or full-time equivalent)"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

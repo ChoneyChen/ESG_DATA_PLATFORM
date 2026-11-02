@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "345314984d7be2b2516f210112622e551bfd94b217063f99d76f55448d7f6e20",
+  "clause_digest": "0aae8c44da6bd447bfb8780fcea0f5e6fac48b9a6321ede21391ac03f9c4159a",
   "clause_key": "E4-2_20",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定应对森林砍伐的政策，并说明其覆盖范围与承诺。",
@@ -459,9 +459,6 @@
       "披露主体是否已制定应对森林砍伐的政策，并说明其覆盖范围与承诺。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

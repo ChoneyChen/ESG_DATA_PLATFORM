@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5b08dbb8314270fef9def614455c18721055865565852650110d2481307eafc5",
+  "clause_digest": "9ff5485b3b978375a17e1cadebaa4ba966706c2566cbf235cea5ab314269b2ae",
   "clause_key": "S4-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责确保消费者接触发生并使结果影响主体方法的职能和最资深角色。",
@@ -445,9 +445,6 @@
       "说明主体内部负责确保消费者接触发生并使结果影响主体方法的职能和最资深角色。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

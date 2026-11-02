@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "91309386d074d5b4378362f42db25525099c57ffb0d8f8e73202162646e0bd31",
+  "clause_digest": "747d0af89d903d20a2e720f33540dba7e4c2f3b16189221a85a27d759c8508ec",
   "clause_key": "S1-12_03",
   "data_kind": "qualitative",
   "definition": "披露理解残障数据所必需的背景信息以及数据如何编制。",
@@ -445,9 +445,6 @@
       "披露理解残障数据所必需的背景信息以及数据如何编制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

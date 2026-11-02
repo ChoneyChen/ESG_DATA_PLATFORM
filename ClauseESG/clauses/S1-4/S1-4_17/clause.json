@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b80d3691d387989943c14a5123c495beeca3fcc51f74f6f13ad1bd421490f6ce",
+  "clause_digest": "46e24833bb188053f01704c0e6ab3c2cc211ba41f5ec74115258f798e9d98cf4",
   "clause_key": "S1-4_17",
   "data_kind": "qualitative",
   "definition": "提供针对自身劳动力的项目或流程的预期或已实现积极结果信息。",
@@ -459,9 +459,6 @@
       "提供针对自身劳动力的项目或流程的预期或已实现积极结果信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

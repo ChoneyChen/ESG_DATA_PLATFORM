@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5d766cd10e8916ff3cb1062c5a81662011c51ed269e93d3484db023374e23a80",
+  "clause_digest": "3104031e6dab008fdbc80093cba02b93cb7478776e640224190a5ff3253ec7c3",
   "clause_key": "MDR-T_03",
   "data_kind": "qualitative",
   "definition": "Nature of target。目标的绝对或相对性质。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Nature of target。目标的绝对或相对性质。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

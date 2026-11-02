@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "036166e89a864fef9201c89ec7b268503c64559f0ad5de39da906361be1cb320",
+  "clause_digest": "2f221aac9edf14435e2663e8b61075c7d7f7cad83da440378715e6e5d77c59e7",
   "clause_key": "S4.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "描述因对消费者和终端用户的影响和依赖所产生的重大风险与机遇。",
@@ -487,9 +487,6 @@
       "描述因对消费者和终端用户的影响和依赖所产生的重大风险与机遇。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

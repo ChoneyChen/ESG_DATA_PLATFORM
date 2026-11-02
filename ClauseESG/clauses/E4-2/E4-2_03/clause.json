@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "cd72fec887d0fc83867ee50dce75f67b247c0b9ad647efe974561cf6927f0dfb",
+  "clause_digest": "4abaa8d8343e3dde94cfb03748e7f7b57a3f83fb7c6474aecf463990055d6d1a",
   "clause_key": "E4-2_03",
   "data_kind": "qualitative",
   "definition": "说明生物多样性和生态系统相关政策与重大依赖、物理风险和转型风险及机遇是否以及如何相关。",
@@ -459,9 +459,6 @@
       "说明生物多样性和生态系统相关政策与重大依赖、物理风险和转型风险及机遇是否以及如何相关。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

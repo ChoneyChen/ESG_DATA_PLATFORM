@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "597119568879645563016033c09c46754ce508ceac0e541fa4298a25f37e11ee",
+  "clause_digest": "cd5705fd8593b8f786482ad000cbcf1ea647a99fc9eae046cbb5203a1055f79d",
   "clause_key": "BP-2_10",
   "data_kind": "qualitative",
   "definition": "Explanation of changes in preparation and presentation of sustainability information and reasons for them。披露编制展示变更及原因。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Explanation of changes in preparation and presentation of sustainability information and reasons for them。披露编制展示变更及原因。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

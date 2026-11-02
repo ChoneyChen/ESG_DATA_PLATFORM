@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b4ada38f9ab8bdbe5eced9e934d9297c0a828bd89214089a70f876e207d0f89b",
+  "clause_digest": "ff48a4e36f3e625e6178a418b492f0644207195c1be41fa67ad5b5a295a9a96f",
   "clause_key": "E5-3_12",
   "data_kind": "qualitative",
   "definition": "说明尊重所识别资源利用生态阈值的责任如何在主体内部及价值链相关方之间分配。",
@@ -473,9 +473,6 @@
       "说明尊重所识别资源利用生态阈值的责任如何在主体内部及价值链相关方之间分配。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

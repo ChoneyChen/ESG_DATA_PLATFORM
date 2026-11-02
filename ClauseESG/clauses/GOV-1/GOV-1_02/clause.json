@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b730f6e09172a64cbf4de25cbad22c5324f62135837677d46ba15bc7ba51d2f4",
+  "clause_digest": "472b8f13146f11adf7cf93ede887e359d1c46fdc8b96fe115c6dfc82645d6da3",
   "clause_key": "GOV-1_02",
   "data_kind": "quantitative",
   "definition": "Number of non-executive members。非执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -572,9 +572,6 @@
       "Number of non-executive members。非执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

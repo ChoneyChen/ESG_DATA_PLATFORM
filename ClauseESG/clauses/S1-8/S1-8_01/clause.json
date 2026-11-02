@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "128537b323467a683acf44d0853fa008294e5638ab1d542902a67bb4c39fcbca",
+  "clause_digest": "d518a4dde9381dc1011bcbf1045b21ac69aa4fc57badc18392355b10c1e1a1b5",
   "clause_key": "S1-8_01",
   "data_kind": "quantitative",
   "definition": "披露受集体谈判协议覆盖的员工占员工总数的比例。",
@@ -558,9 +558,6 @@
       "披露受集体谈判协议覆盖的员工占员工总数的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

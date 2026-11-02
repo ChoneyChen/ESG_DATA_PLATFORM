@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8d5bbd14128a7c4dd28f0e77e06c3aabec2affff899ee265899fc4707ee9767a",
+  "clause_digest": "5edf33fb00fcdc1b1ed295d77336d016b7e9aee94b37429d62425c24a1d26979",
   "clause_key": "GOV-1_05",
   "data_kind": "quantitative",
   "definition": "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity。治理成员性别等多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -572,9 +572,6 @@
       "Percentage of members of administrative, management and supervisory bodies by gender and other aspects of diversity。治理成员性别等多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

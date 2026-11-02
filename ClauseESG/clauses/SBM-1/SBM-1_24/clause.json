@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c5d5799434d89e1d1a9fa97f0897158775dd4daa78984473379ff165a24c6355",
+  "clause_digest": "e7afc90d36e0ef753e51893a7a5f803b972a5c6b48aeadd3034860679082f316",
   "clause_key": "SBM-1_24",
   "data_kind": "qualitative",
   "definition": "List of ESRS sectors that are significant for undertaking。重要ESRS行业清单。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -459,9 +459,6 @@
       "List of ESRS sectors that are significant for undertaking。重要ESRS行业清单。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

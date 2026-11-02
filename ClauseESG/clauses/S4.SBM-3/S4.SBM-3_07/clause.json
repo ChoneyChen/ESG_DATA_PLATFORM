@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9535827cd09317c874ee7dfcccc2780af0bc3af9fe3e59db7c3f092cd4ef7242",
+  "clause_digest": "b6f552b6c2a6a49c16f40842c02ed95178fccad436c40329b1fd372dd5cb9fb7",
   "clause_key": "S4.SBM-3_07",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何形成对特定特征、特定情境或特定活动的消费者和终端用户可能面临更高伤害风险的理解。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何形成对特定特征、特定情境或特定活动的消费者和终端用户可能面临更高伤害风险的理解。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

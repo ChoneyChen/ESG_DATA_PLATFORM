@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "adbbb5b63f54467ad2ecce92b0a7ed24ac32b79f9ecf0ea65de5a7bb3e8c346a",
+  "clause_digest": "e8fa77c1838db677eb3cb6517ac5174ed8b9ec6a83cdff41d50c43a59f54146f",
   "clause_key": "E1-6_33",
   "data_kind": "quantitative",
   "definition": "净收入总额",
@@ -572,9 +572,6 @@
       "净收入总额"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

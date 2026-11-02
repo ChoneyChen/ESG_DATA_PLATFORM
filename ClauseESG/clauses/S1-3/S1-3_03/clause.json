@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c6f0453c2542ea1f383f4b290089951f016999b372b92d5e84c53dfe1d25f2fe",
+  "clause_digest": "77419ccde31ccf0897e3542ac9e30e630116dfdd357e4e84605207ae00d62278",
   "clause_key": "S1-3_03",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向全体自身劳动力开放，以及可及性安排。",
@@ -445,9 +445,6 @@
       "说明第三方机制是否向全体自身劳动力开放，以及可及性安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

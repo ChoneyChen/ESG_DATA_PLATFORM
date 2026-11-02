@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8510fac65226829aaf8375ca86ef714150719c087f38783f2d98d25731d3fc13",
+  "clause_digest": "3a263a1aa9439ac90f45bdcce5d558a794ba613edb4d9323f4d7715d3b086622",
   "clause_key": "E5-6_02",
   "data_kind": "qualitative",
   "definition": "以定性方式说明资源利用与循环经济相关影响所产生的重大风险和机遇的预期财务影响。",
@@ -515,9 +515,6 @@
       "以定性方式说明资源利用与循环经济相关影响所产生的重大风险和机遇的预期财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

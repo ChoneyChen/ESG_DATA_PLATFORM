@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1037aaafe061a9e8c60d2a6cfe69771a8b897f11f4b7521a3137e918f8903dda",
+  "clause_digest": "77d3aa6544019deb694daf9819c20495c8a7b6e754f64cf9d07181e29b485691",
   "clause_key": "G1-3_01",
   "data_kind": "qualitative",
   "definition": "说明主体为预防、发现和处理腐败或贿赂指控或事件所建立的程序。",
@@ -445,9 +445,6 @@
       "说明主体为预防、发现和处理腐败或贿赂指控或事件所建立的程序。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

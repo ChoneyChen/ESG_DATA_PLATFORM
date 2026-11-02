@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8b07bdbc0dacfe73ef62cf3c6cec2113e4803725b6c2fc2dcc77bf74afcb65e0",
+  "clause_digest": "63473dea91ba38e4607483035834e073635e266b31baf1ae56d3ba38ee565d54",
   "clause_key": "E2-6_10",
   "data_kind": "qualitative",
   "definition": "Description of material incidents and deposits whereby pollution had negative impacts on environment and (or) is expected to have negative effects on financial cash flows, financial position and financial performance。重大污染事故和沉积说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -515,9 +515,6 @@
       "Description of material incidents and deposits whereby pollution had negative impacts on environment and (or) is expected to have negative effects on financial cash flows, financial position and financial performance。重大污染事故和沉积说明。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

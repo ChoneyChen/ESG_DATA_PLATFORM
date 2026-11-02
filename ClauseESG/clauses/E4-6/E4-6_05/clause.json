@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "50702148804b191a6eaa2013c631a78c961ab0c49ff6ccfc8abe40fd9937a81e",
+  "clause_digest": "12bb0e2b6b124b4f38f8ac5d351d264686f2b92fd11866f343e9a9dc7a9d8504",
   "clause_key": "E4-6_05",
   "data_kind": "qualitative",
   "definition": "描述在短期、中期和长期内因生物多样性和生态系统相关风险而受影响的产品和服务。",
@@ -515,9 +515,6 @@
       "描述在短期、中期和长期内因生物多样性和生态系统相关风险而受影响的产品和服务。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

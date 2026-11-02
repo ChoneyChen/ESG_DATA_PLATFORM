@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d1d36073a69116c36066e65aaa5752453bb119962ce2deced2723e2375920f00",
+  "clause_digest": "12c915c8b40ad196ec182d87b58b96ae86761789a7d3afca3d99478f200dba8e",
   "clause_key": "S1-2_03",
   "data_kind": "qualitative",
   "definition": "披露与自身劳动力接触发生的阶段、接触类型和频率。",
@@ -445,9 +445,6 @@
       "披露与自身劳动力接触发生的阶段、接触类型和频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

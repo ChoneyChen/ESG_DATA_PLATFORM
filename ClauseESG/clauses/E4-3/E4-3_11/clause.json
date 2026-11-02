@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4c2fa2b9479c6d370b9d2d5cdc7f0318c03dab6d01fe0d80795eee3a104ea989",
+  "clause_digest": "c58858bc4fbac03a68895f5342d5a722ab0d02884f247accb80a45435968138a",
   "clause_key": "E4-3_11",
   "data_kind": "qualitative",
   "definition": "说明行动为何需要适当协商，以及如何尊重受影响社区的决策与权利。",
@@ -459,9 +459,6 @@
       "说明行动为何需要适当协商，以及如何尊重受影响社区的决策与权利。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

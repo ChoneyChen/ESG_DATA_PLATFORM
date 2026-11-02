@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9c9b3d981522136375a7c44668f5d625ae0077c979badce7fbbdfad2b4c1c562",
+  "clause_digest": "a694e48d77353d1f11629b19dd452e3b9f1a1ab554fc02b152e92ed338f644ed",
   "clause_key": "E2-2_01",
   "data_kind": "qualitative",
   "definition": "Layer in mitigation hierarchy to which action can be allocated to (pollution)。污染行动在缓解层级中的位置。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。",
@@ -445,9 +445,6 @@
       "Layer in mitigation hierarchy to which action can be allocated to (pollution)。污染行动在缓解层级中的位置。按行动、场址、价值链范围和缓解层级保存；行动和资源层级互不替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

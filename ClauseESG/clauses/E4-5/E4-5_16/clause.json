@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c29871af8f56cf7fa528dfaf0b2a53518a72f2f03526904f622788151be67e7d",
+  "clause_digest": "43f68cc41ddb0445cb1882cc102bafcba45bcd70b538ac96db9415d3f7e5bf14",
   "clause_key": "E4-5_16",
   "data_kind": "quantitative",
   "definition": "披露受外来入侵物种覆盖或影响的面积，并说明调查方法与时间。",
@@ -558,9 +558,6 @@
       "披露受外来入侵物种覆盖或影响的面积，并说明调查方法与时间。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

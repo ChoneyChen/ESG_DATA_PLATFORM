@@ -126,7 +126,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2e0374311f0285903e6b37e362c7be8cc724163dd0190aa84816157f37d8b045",
+  "clause_digest": "460bdeffe9af08813ba53c42b6fa17fb8659a59861ca4745cf12b49986518465",
   "clause_key": "E2-4_19",
   "data_kind": "qualitative",
   "definition": "读取报告对实际环境绩效与BAT-AEPL的原文比较；保留指标和条件，不把参考范围当实际排放。",
@@ -489,9 +489,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

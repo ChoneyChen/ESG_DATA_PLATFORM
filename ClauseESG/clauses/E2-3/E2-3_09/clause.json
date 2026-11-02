@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2d7578fca95700ceac44849c083c2237f4bf24bb88f28d4937a7f821ff677482",
+  "clause_digest": "ba0b34212878f76d2134b9d2d3a66e838f5dc298bd6a56a66fb36c9530fcff53",
   "clause_key": "E2-3_09",
   "data_kind": "qualitative",
   "definition": "Pollution-related target is mandatory (required by legislation)/voluntary。污染目标的法定或自愿性质。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Pollution-related target is mandatory (required by legislation)/voluntary。污染目标的法定或自愿性质。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

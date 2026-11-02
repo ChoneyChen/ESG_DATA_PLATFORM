@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b63f730b011465710eeacebc4e8bdce596f25e86e17d06d2b3ebd6773f261c62",
+  "clause_digest": "f4ba24615b4fa80895f8e473d7b474cd3d6fae07668b62fcac96e569f6695dd5",
   "clause_key": "S1-1_01",
   "data_kind": "qualitative",
   "definition": "披露主体为管理自身劳动力相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全体员工的安排。",
@@ -459,9 +459,6 @@
       "披露主体为管理自身劳动力相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全体员工的安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

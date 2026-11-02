@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "888b662aba2fae6bc0491d497ddf257f6b3bd8f197b1bedf9675e26557b9e7ad",
+  "clause_digest": "8cb238447f0dc9f73380e98f1f1b8c923fdef17a04dd7374c17d25f5f0c9a561",
   "clause_key": "SBM-1_06",
   "data_kind": "quantitative",
   "definition": "Total revenue。收入总额。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -572,9 +572,6 @@
       "Total revenue。收入总额。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8163b34e09dc190fc3693caee66662a5eb31ec7301ba344645d050bd66d5af92",
+  "clause_digest": "5fd37d9463a058b43665b283c044d8b6a4078b9e13a46fce5eae39a1c990f304",
   "clause_key": "E4.IRO-1_13",
   "data_kind": "qualitative",
   "definition": "说明所用情景如何参考权威政府间工具中的预期和科学共识。",
@@ -487,9 +487,6 @@
       "说明所用情景如何参考权威政府间工具中的预期和科学共识。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

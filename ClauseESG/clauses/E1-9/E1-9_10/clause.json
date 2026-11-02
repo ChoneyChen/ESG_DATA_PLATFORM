@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "94ca972ae38a4f5fd75865cb0feed3e438ac00f23c767e20e798e88e4115bd99",
+  "clause_digest": "348139d8380ca553b8707db16b63f5632f741db09aba55a4ccbc66b47409a644",
   "clause_key": "E1-9_10",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how anticipated financial effects for assets and business activities at material physical risk have been assessed。物理风险财务影响评估方法。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of whether and how anticipated financial effects for assets and business activities at material physical risk have been assessed。物理风险财务影响评估方法。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

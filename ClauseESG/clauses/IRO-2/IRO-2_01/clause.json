@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "96a62e6e3f2f3184d921a4d123ef56c51b2f9c56c154f0ece7be928d687cc012",
+  "clause_digest": "0e8900412632053c0da83fc1e5966c89bcf27e594bf1acb17cc5ef295dcc1008",
   "clause_key": "IRO-2_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement。其他欧盟法规数据点位置清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
@@ -459,9 +459,6 @@
       "Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement。其他欧盟法规数据点位置清单。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

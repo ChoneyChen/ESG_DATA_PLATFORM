@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8759d33b892d0db0c0c7a7b937d10900f6229404ad57b7fd4abd627dfeceef45",
+  "clause_digest": "81d8ea8092e2652c4295a304a3126121c76d655629d3e15f3a03c2100fbd9498",
   "clause_key": "E1-9_15",
   "data_kind": "quantitative",
   "definition": "Percentage of assets at material transition risk before considering climate mitigation actions。重大转型风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Percentage of assets at material transition risk before considering climate mitigation actions。重大转型风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

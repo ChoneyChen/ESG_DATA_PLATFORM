@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "06f5c1f2c23c322824ef87f7ca38906fe533994387b999b2f78333c6eb93104d",
+  "clause_digest": "15e316e5c6f6ced43257d1e4e4621abf6f000874682f880084a9c924d1807adf",
   "clause_key": "E4.SBM-3_01",
   "data_kind": "qualitative",
   "definition": "列明自身运营中与生物多样性和生态系统影响相关的重大场址清单。",
@@ -487,9 +487,6 @@
       "列明自身运营中与生物多样性和生态系统影响相关的重大场址清单。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

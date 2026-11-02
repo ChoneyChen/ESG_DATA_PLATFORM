@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1b9d3d1074b987c5b0ed5beead33723d461c7aa0cffd054ffadb3cb5348e1e32",
+  "clause_digest": "e0bc33077b5355ad73dc4139a028f5f6ff77d2a337f47857039821073a42e89c",
   "clause_key": "E2-5_09",
   "data_kind": "quantitative",
   "definition": "Total amount of substances of very high concern that leave facilities as emissions, as products, or as part of products or services by main hazard classes of substances of concern。离开设施的高度关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -616,9 +616,6 @@
       "Total amount of substances of very high concern that leave facilities as emissions, as products, or as part of products or services by main hazard classes of substances of concern。离开设施的高度关注物质总量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

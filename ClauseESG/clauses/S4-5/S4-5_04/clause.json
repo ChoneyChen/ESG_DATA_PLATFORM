@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e1466340ae24ea7dc0334d8e5da5de3e26b7e3498f0ea199b6a592bd1d744722",
+  "clause_digest": "0276601797a19b5c73dca25369c285fe8043dc1acb48f5ee0f320999983233b5",
   "clause_key": "S4-5_04",
   "data_kind": "qualitative",
   "definition": "披露消费者和终端用户相关目标拟在其生活中产生的预期结果。",
@@ -473,9 +473,6 @@
       "披露消费者和终端用户相关目标拟在其生活中产生的预期结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

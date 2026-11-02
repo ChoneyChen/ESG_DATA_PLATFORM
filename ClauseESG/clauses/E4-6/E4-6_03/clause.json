@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8e9ca183c0a65733ecdb2d3cf45b5d69eea1f3619df5ce29af8dc693b33878d9",
+  "clause_digest": "23950809633fd49b3135e687ceea56320ddc7d82efc61016c19b35f370e83836",
   "clause_key": "E4-6_03",
   "data_kind": "qualitative",
   "definition": "说明财务影响估计中考虑的影响类型，以及其对应的生物多样性和生态系统影响与依赖。",
@@ -515,9 +515,6 @@
       "说明财务影响估计中考虑的影响类型，以及其对应的生物多样性和生态系统影响与依赖。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

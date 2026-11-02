@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3d1b167bf3d9627ab74b056b4be89d238f9c399bb6950a860b29eb66d8e20693",
+  "clause_digest": "bea56df1c082f554839332ed7baa5f62e0cce800726f66d8b65df3149d8b6e8b",
   "clause_key": "E1-9_16",
   "data_kind": "quantitative",
   "definition": "Percentage of assets at material transition risk addressed by climate change mitigation actions。缓解行动覆盖的转型风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Percentage of assets at material transition risk addressed by climate change mitigation actions。缓解行动覆盖的转型风险资产比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

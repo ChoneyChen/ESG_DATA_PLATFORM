@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ba376ef1efa947a734fa28f48cbfc5ff763f6e247677ea091ab498efedf6bb11",
+  "clause_digest": "cd781699666c58a7a030ce9c047764d7c596eaeb7022230867572998da809dda",
   "clause_key": "E3-3_07",
   "data_kind": "qualitative",
   "definition": "Disclosure of how responsibility for respecting identified ecological threshold is allocated (water and marine resources)。水阈值责任分配。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Disclosure of how responsibility for respecting identified ecological threshold is allocated (water and marine resources)。水阈值责任分配。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

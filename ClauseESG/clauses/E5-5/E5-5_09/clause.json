@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6c61a50af851a3ee82efa7f768768329b00d8423dcc5868825dbf51d86ad5f18",
+  "clause_digest": "242f8d045e6f1842007bec736b1e3bf00ab60e9518eef46e05a0774a448f892e",
   "clause_key": "E5-5_09",
   "data_kind": "quantitative",
   "definition": "Waste directed to disposal, breakdown by hazardous and non-hazardous waste and treatment type",
@@ -572,9 +572,6 @@
       "Waste directed to disposal, breakdown by hazardous and non-hazardous waste and treatment type"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

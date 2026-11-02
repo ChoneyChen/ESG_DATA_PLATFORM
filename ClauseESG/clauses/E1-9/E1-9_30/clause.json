@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d56cf2951b67f5786649ce83a232fffdbb86b945b59d0099cd56fe8844355008",
+  "clause_digest": "6e8baf006f7db86d2e0388c5d9334021958ef60112b94c437dcb878cce7d3a0e",
   "clause_key": "E1-9_30",
   "data_kind": "quantitative",
   "definition": "Net revenue from customers operating in coal-related activities。煤炭活动客户净收入。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Net revenue from customers operating in coal-related activities。煤炭活动客户净收入。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

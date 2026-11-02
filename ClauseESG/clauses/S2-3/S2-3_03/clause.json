@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c356c25ac40c7f11aee2ee9a604134854b4dbdab0d768e31316f241c085da5b6",
+  "clause_digest": "1e90f9e304ecdce0891921143d3481a85d6c674a6a26fbc6ebedcef39b696cb5",
   "clause_key": "S2-3_03",
   "data_kind": "qualitative",
   "definition": "说明主体通过哪些流程支持或要求价值链中提供申诉渠道，包括对供应商的要求。",
@@ -445,9 +445,6 @@
       "说明主体通过哪些流程支持或要求价值链中提供申诉渠道，包括对供应商的要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

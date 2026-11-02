@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c285843a4f6545861a27f5bb3edaddc2e5bc5d794bca65c11034ff4e44e4d8ad",
+  "clause_digest": "fc52d610f15b939ed4be280fe69c1f836fcbafae594097f4869b7e24bae6b3d9",
   "clause_key": "IRO-1_07",
   "data_kind": "qualitative",
   "definition": "Description of process used to identify, assess, prioritise and monitor risks and opportunities that have or may have financial effects。财务风险机会识别评估流程。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of process used to identify, assess, prioritise and monitor risks and opportunities that have or may have financial effects。财务风险机会识别评估流程。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

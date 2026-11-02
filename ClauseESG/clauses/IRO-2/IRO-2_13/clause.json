@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7d1cd0bb6ff9382a038d2c763acc628f1826c5d0a2ea34b63daee52e61eb90f2",
+  "clause_digest": "c07011f8984b2fefd68b55fb0abd78c84fe2bfa9cedc94fdee1dceb1bebf1316",
   "clause_key": "IRO-2_13",
   "data_kind": "qualitative",
   "definition": "Explanation of how material information to be disclosed in relation to material impacts, risks and opportunities has been determined。重要披露信息确定方法。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。",
@@ -459,9 +459,6 @@
       "Explanation of how material information to be disclosed in relation to material impacts, risks and opportunities has been determined。重要披露信息确定方法。不重大结论仅对明确主题和期间成立；未找到披露不能推定主题不重大。披露索引属于结构信息，不是条款成果证据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

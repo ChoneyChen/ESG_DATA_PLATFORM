@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e379b2f2340a43c16806b6a9f14f5a9746768bf08e630629911955690beec03b",
+  "clause_digest": "a19c476689534b7d89b9cb993375a1446f38e52cdb9805ad3a732215c31152fa",
   "clause_key": "S1-14_01",
   "data_kind": "quantitative",
   "definition": "Percentage of people in its own workforce who are covered by health and safety management system based on legal requirements and (or) recognised standards or guidelines",
@@ -558,9 +558,6 @@
       "Percentage of people in its own workforce who are covered by health and safety management system based on legal requirements and (or) recognised standards or guidelines"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

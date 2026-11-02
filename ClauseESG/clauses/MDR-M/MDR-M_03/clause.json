@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b912b918e58a6db33f96e7aa948df13ecbba12ad268ad62f7908e316b006f258",
+  "clause_digest": "6f288298d86ef40b98610ff54dad54601688a71462dd3104e843c5c342802d0d",
   "clause_key": "MDR-M_03",
   "data_kind": "qualitative",
   "definition": "Type of external body other than assurance provider that provides validation。指标外部验证机构。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。",
@@ -473,9 +473,6 @@
       "Type of external body other than assurance provider that provides validation。指标外部验证机构。方法必须关联具体被测指标或指标族；跨主题方法不自动适用，不把方法原文转成数值事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

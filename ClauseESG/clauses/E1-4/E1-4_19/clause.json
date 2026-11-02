@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "895e88bccb6969011f4750a239783e166a111b95cf48ef87afdc84214e07be91",
+  "clause_digest": "58a736728646685370ea37bd0209349561e14e08645588e55f562fb3d98af09d",
   "clause_key": "E1-4_19",
   "data_kind": "qualitative",
   "definition": "Disclosure of past progress made in meeting target before current base year。当前基准年前的目标进展。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -515,9 +515,6 @@
       "Disclosure of past progress made in meeting target before current base year。当前基准年前的目标进展。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

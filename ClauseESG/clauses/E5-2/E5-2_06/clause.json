@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f5ac3aa546fa160b2fa359532d2c77eccfeb1c718e596440fc0d5a8e10200a89",
+  "clause_digest": "f08f62c1f4acf9e13635dcde0fa4fef60ed6b4f0a0cacb824a65da594977cffa",
   "clause_key": "E5-2_06",
   "data_kind": "qualitative",
   "definition": "说明主体如何优化废弃物管理，包括分类、收集、回收和处置环节的改进。",
@@ -459,9 +459,6 @@
       "说明主体如何优化废弃物管理，包括分类、收集、回收和处置环节的改进。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

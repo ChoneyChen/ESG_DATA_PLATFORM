@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "856bdc6871ff5250bc0e7f12d2d3fb8febf30ea41c4a466893c57d78e37d5442",
+  "clause_digest": "8fe13723633d31221cae6f5dc1c67e096383fb3c7ab72447ddc1da58ecda064a",
   "clause_key": "E4-5_14",
   "data_kind": "qualitative",
   "definition": "说明主体如何管理外来入侵物种的引入和扩散路径，以及由此产生的风险。",
@@ -445,9 +445,6 @@
       "说明主体如何管理外来入侵物种的引入和扩散路径，以及由此产生的风险。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "186666e7c7d977e420de59878431c9363d8a513e5fd011fb9069545c639dcb2d",
+  "clause_digest": "bedb139029e2795deb7c34d2fe878ea41463c14431053a96e0e4892c49863ef9",
   "clause_key": "S1-14_02",
   "data_kind": "quantitative",
   "definition": "报告期内自有劳动力因工伤或职业病死亡的人数。",
@@ -593,10 +593,6 @@
       "报告期内自有劳动力因工伤或职业病死亡的人数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1ef4b7820ac4393dc8ee3fccaa959c5eb5660e063b8cfe5f8988bbde5f80fa05",
+  "clause_digest": "b9ab54d5cdd116f5eebbef82a4f29326089a509f3a2c00079f68198f91e51121",
   "clause_key": "E1-5_22",
   "data_kind": "quantitative",
   "definition": "高气候影响行业活动的净收入",
@@ -571,9 +571,6 @@
       "高气候影响行业活动的净收入"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

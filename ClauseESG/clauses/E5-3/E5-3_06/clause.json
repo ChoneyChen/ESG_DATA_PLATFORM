@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ceb4d5a7723280ca36a2fc2649496e24e0af18f7f7207ce9fe1b774d34759770",
+  "clause_digest": "34ac9dd9e6dd2df667aabef2dec76dfe8066ba7a2cfb10e9ed2ae3992063bbb3",
   "clause_key": "E5-3_06",
   "data_kind": "qualitative",
   "definition": "披露与废弃物管理相关的目标，包括减量、回收或处置方式的目标值。",
@@ -473,9 +473,6 @@
       "披露与废弃物管理相关的目标，包括减量、回收或处置方式的目标值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

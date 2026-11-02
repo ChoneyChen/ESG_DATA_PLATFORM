@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "62bca122f378fe8714df4c01a5afadd208deaeeb25d19a699593bc2d88d9cc19",
+  "clause_digest": "b364fab6258ca15ba352bfd3048a3276a3d90536ca21ae6783a667e5ca07b918",
   "clause_key": "E1-8_08",
   "data_kind": "quantitative",
   "definition": "Percentage of gross Scope 3 greenhouse gas emissions covered by internal carbon pricing scheme。内部碳定价覆盖的范围3比例。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -600,9 +600,6 @@
       "Percentage of gross Scope 3 greenhouse gas emissions covered by internal carbon pricing scheme。内部碳定价覆盖的范围3比例。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

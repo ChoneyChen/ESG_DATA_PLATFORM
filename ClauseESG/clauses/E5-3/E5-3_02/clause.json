@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e130808876347a30d85c88c6d4727e5f20e3953ee38ed0b9608ede91fccb8507",
+  "clause_digest": "3343ff700261d64f106dbd09fa7ad0b3724e8b0757e44804af160757327f7607",
   "clause_key": "E5-3_02",
   "data_kind": "qualitative",
   "definition": "说明目标如何与循环设计应用范围的扩大相关联，并给出衡量方式。",
@@ -473,9 +473,6 @@
       "说明目标如何与循环设计应用范围的扩大相关联，并给出衡量方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

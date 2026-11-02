@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "97805e78279ee0c9790aa66f06e178d2663a9ae750bf300661389e8c39770218",
+  "clause_digest": "aa874164a6674aba1e590eade8af78c15557e0df1d4a6b646b5b9674e007b184",
   "clause_key": "S4-1_01",
   "data_kind": "qualitative",
   "definition": "披露主体为管理消费者和终端用户相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全部消费者的安排。",
@@ -459,9 +459,6 @@
       "披露主体为管理消费者和终端用户相关重大影响、风险和机遇所制定的政策，包括覆盖特定群体或全部消费者的安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

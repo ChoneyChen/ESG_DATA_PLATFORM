@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b27534f2da06134720cc41adf310f3cdce23f0b76f03adebd4fd489398f27ea6",
+  "clause_digest": "8962c5f1ac2abb849e6712bf8dcebf6db5d43469b4058b5991747e8b190924fa",
   "clause_key": "S3-5_05",
   "data_kind": "qualitative",
   "definition": "说明目标在定义和方法上如何随时间保持稳定，以支持跨期可比性。",
@@ -473,9 +473,6 @@
       "说明目标在定义和方法上如何随时间保持稳定，以支持跨期可比性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

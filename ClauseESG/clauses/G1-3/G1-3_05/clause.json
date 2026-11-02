@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c034baa7f9364ad22cb8f130684cdbf6be10e44ac08a28c001940361556b1203",
+  "clause_digest": "8402d7618d896c7c20e00bfaf8d1e654693026e342adb7a60e9e9f07b1fc17a1",
   "clause_key": "G1-3_05",
   "data_kind": "qualitative",
   "definition": "说明反腐败或反贿赂政策如何传达给相关人员，包括渠道、语言和确认机制。",
@@ -445,9 +445,6 @@
       "说明反腐败或反贿赂政策如何传达给相关人员，包括渠道、语言和确认机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

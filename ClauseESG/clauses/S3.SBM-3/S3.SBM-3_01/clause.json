@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "07f10329d355ac1e53e9d64dc3c3e48a8d769c7c22b7970cd029dff73c503432",
+  "clause_digest": "44acf73d43acc25c4e9989c0a54add5aab82b5d95156d4272a6c25f04b5b19c6",
   "clause_key": "S3.SBM-3_01",
   "data_kind": "qualitative",
   "definition": "说明所有可能受主体重大影响的受影响社区是否已纳入ESRS 2披露范围。",
@@ -487,9 +487,6 @@
       "说明所有可能受主体重大影响的受影响社区是否已纳入ESRS 2披露范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

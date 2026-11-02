@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "05659f7022a2c7cea87602bf1ed439f7aa3874b34c5065be45ae65361317b6a7",
+  "clause_digest": "271174cd8c25e9a2a842bbc49539a52334efbcd59afbd7b11f46b9b4f6ff1b5b",
   "clause_key": "G1-2_01",
   "data_kind": "qualitative",
   "definition": "说明主体为防止逾期付款、尤其是对中小企业逾期付款所制定的政策与措施。",
@@ -445,9 +445,6 @@
       "说明主体为防止逾期付款、尤其是对中小企业逾期付款所制定的政策与措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

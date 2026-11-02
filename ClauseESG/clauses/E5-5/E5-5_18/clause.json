@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "84935f1956a89e545ba9ee157dd2e7448d3c796d7e7c3332e48f10be5bd4a42a",
+  "clause_digest": "941b9aef1ce18d23b53ec59c887dd6e4d27373ee3d3d7992f00a2d00285ddf0b",
   "clause_key": "E5-5_18",
   "data_kind": "qualitative",
   "definition": "Disclosure of its engagement in product end-of-life waste management。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of its engagement in product end-of-life waste management。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

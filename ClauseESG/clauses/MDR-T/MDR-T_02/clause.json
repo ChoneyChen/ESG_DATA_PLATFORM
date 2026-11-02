@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "afd80f9b83a0ddfa1458241f16a967d15c3bda45ef2ead473f67b14a716a5256",
+  "clause_digest": "49a1c3f4059b04bb4ef7ca867475723b0879e1ab6b60e3d1648fc1ee3c1e7cab",
   "clause_key": "MDR-T_02",
   "data_kind": "quantitative",
   "definition": "读取实际披露的可量化目标原值，逐项目标对象和期间保存；可为数量、比例、强度或区间，保留原单位/分母，不将基准量或实际进展当目标。",
@@ -558,9 +558,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

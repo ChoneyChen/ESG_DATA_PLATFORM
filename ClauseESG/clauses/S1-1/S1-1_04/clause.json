@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "da949c2d7fc5e51b020875759f1c0955c6450bf56a9229cfd505c17e8a1ffaba",
+  "clause_digest": "1a9fc9a9c7089191e381d93a4ca51a419d5ac74b8fcb49d44e4e57b1a83a360b",
   "clause_key": "S1-1_04",
   "data_kind": "qualitative",
   "definition": "说明主体在尊重自身劳动力人权和劳工权利方面的总体方法与责任安排。",
@@ -459,9 +459,6 @@
       "说明主体在尊重自身劳动力人权和劳工权利方面的总体方法与责任安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

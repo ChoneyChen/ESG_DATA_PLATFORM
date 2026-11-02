@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6dacd714375277168c55ee051d3c6268bd11ad3f445791137f68512c007e432d",
+  "clause_digest": "7d8a3a22e66d25b49f7d13b0c9cc9a15efe2d75bb71065b0c2fde801c79e7a09",
   "clause_key": "E5-5_06",
   "data_kind": "qualitative",
   "definition": "Description of methodologies used to calculate data (resource outflows)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of methodologies used to calculate data (resource outflows)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

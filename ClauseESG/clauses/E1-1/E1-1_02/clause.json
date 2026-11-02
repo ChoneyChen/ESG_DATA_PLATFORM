@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fe0325eb710c248b3430b6f190f3a27eabf6f2c0433eaff7eb9ceb2f6ef074b6",
+  "clause_digest": "fcb17a320cbfab2fbd7721e90e17d2b66c6beeaafbaadacd60e2de7bc9688676",
   "clause_key": "E1-1_02",
   "data_kind": "qualitative",
   "definition": "Explanation of how targets are compatible with limiting of global warming to one and half degrees Celsius in line with Paris Agreement。目标与1.5°C路径的一致性。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -445,9 +445,6 @@
       "Explanation of how targets are compatible with limiting of global warming to one and half degrees Celsius in line with Paris Agreement。目标与1.5°C路径的一致性。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

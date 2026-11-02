@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9a26555dca492d0bb2418e09b80e1d36c0de9a96433d2cd1d1affcc98d54e331",
+  "clause_digest": "85f58e24178291beb190b09e1e51c75333f9bb804b7513a9ac0459fdadaceeca",
   "clause_key": "E4.IRO-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何识别和评估与生物多样性和生态系统相关的转型风险、物理风险及机遇。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何识别和评估与生物多样性和生态系统相关的转型风险、物理风险及机遇。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

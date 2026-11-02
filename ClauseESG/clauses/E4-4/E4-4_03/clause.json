@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c0c338db6f83f18e213ba6331179ce644813e42d5a9678aee560432ab89bf847",
+  "clause_digest": "33e5d15e57698ba8aadfbd9397db4e762a33e1587db42d94906296283ecd1594",
   "clause_key": "E4-4_03",
   "data_kind": "qualitative",
   "definition": "说明主体特定生态阈值如何确定，包括本地化调整和科学依据。",
@@ -473,9 +473,6 @@
       "说明主体特定生态阈值如何确定，包括本地化调整和科学依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "60c110a2749ef7aee9544a514d347c393f91d4c26f666f6e925c6a96c5a388e8",
+  "clause_digest": "b14a7c6d81bb71ddc677668afa62d4453fc2fc41127fdb9e84e10a7e5750a192",
   "clause_key": "S4-3_05",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何评估消费者和终端用户知晓并信任相关结构或流程，以提出关切和需求。",
@@ -445,9 +445,6 @@
       "说明主体是否以及如何评估消费者和终端用户知晓并信任相关结构或流程，以提出关切和需求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

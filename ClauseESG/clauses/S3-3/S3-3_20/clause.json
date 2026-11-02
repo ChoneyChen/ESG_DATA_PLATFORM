@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "84e2ea39d580ee134e9babf53e3971fd62726dbd56407af235145a1a65ded39b",
+  "clause_digest": "fb005800b2df465ea4e904a745ab536a2b39b88706f1a23611ef34a8f2f9e872",
   "clause_key": "S3-3_20",
   "data_kind": "qualitative",
   "definition": "说明社区申诉如何保密处理，并尊重隐私权和数据保护要求。",
@@ -445,9 +445,6 @@
       "说明社区申诉如何保密处理，并尊重隐私权和数据保护要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

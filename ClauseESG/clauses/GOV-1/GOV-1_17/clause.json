@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a7906751c2896410ad6c97e38a199aa72cca1c2d827307e7727d82ebbcb77185",
+  "clause_digest": "515d6783fd4db27c5f79c0d6232aa10132c0c2c62252ec3443e3078010e6e493",
   "clause_key": "GOV-1_17",
   "data_kind": "qualitative",
   "definition": "Disclosure of how sustainability-related skills and expertise relate to material impacts, risks and opportunities。能力与重要事项关联。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -459,9 +459,6 @@
       "Disclosure of how sustainability-related skills and expertise relate to material impacts, risks and opportunities。能力与重要事项关联。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

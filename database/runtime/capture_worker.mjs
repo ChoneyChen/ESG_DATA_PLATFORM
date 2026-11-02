@@ -4,7 +4,7 @@ import {captureSchemaStatus} from './schema.mjs';
 import {serve} from './rpc.mjs';
 import {ingestExport,receiptFor} from '../queries/ingestion.mjs';
 import {capturedFacts} from '../queries/captures.mjs';
-import {projectionInput,storeProjection,projectionStatus,pendingProjections,recordProjectionFailure,productInput,projectionCatalog} from '../queries/capture_products.mjs';
+import {projectionInput,storeProjection,projectionStatus,pendingProjections,recordProjectionFailure,productInput,projectionCatalog,storePreview,previewPage} from '../queries/capture_products.mjs';
 import {publishDataset,withdrawDataset,restatementInput,recordRestatement,datasetVersion,datasetCatalog,observationPage,productDefinitions,publicSource,observationDetail,datasetSources} from '../queries/capture_publication.mjs';
 import {captureProductState} from '../queries/capture_workflow.mjs';
 import {sourceReferences,reserveSource,updateSourceReservation} from '../queries/capture_sources.mjs';
@@ -24,7 +24,7 @@ await serve(db,async(method,params)=>{
   if(method==='reserve_source')return reserveSource(db,params);
   if(method==='update_source_reservation')return updateSourceReservation(db,params);
   const products={projection_input:projectionInput,store_projection:storeProjection,projection_status:projectionStatus,
-    pending_projections:pendingProjections,record_projection_failure:recordProjectionFailure,product_input:productInput,
+    pending_projections:pendingProjections,record_projection_failure:recordProjectionFailure,product_input:productInput,store_preview:storePreview,preview_page:previewPage,
     publish_dataset:publishDataset,withdraw_dataset:withdrawDataset,restatement_input:restatementInput,record_restatement:recordRestatement,
     dataset_version:datasetVersion,dataset_catalog:datasetCatalog,observation_page:observationPage,projection_catalog:projectionCatalog,product_definitions:productDefinitions,public_source:publicSource,
     observation_detail:observationDetail,dataset_sources:datasetSources};

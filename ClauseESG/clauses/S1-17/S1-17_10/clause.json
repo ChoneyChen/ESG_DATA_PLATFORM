@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6a279bd057ed2d89019c3726c3dcd9583814087da3083a7cbddf00ab3586b48e",
+  "clause_digest": "8a7c022139c62a8696d0e44fd7f600087bc87fcd6379bcc658dde26a0a7b62f1",
   "clause_key": "S1-17_10",
   "data_kind": "qualitative",
   "definition": "No severe human rights issues and incidents connected to own workforce have occurred。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "No severe human rights issues and incidents connected to own workforce have occurred。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

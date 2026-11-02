@@ -195,7 +195,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8b55aa2a28207b4bd3d9b4da0793fd6d12c35425396177d9bb3c7bb8b7b52802",
+  "clause_digest": "5fdad398e4a78a766c90ab17644deb6a5dc4b9c82e94aa74d9318962647e722d",
   "clause_key": "E2-4_03",
   "data_kind": "quantitative",
   "definition": "按污染物划分的水体排放量",
@@ -746,10 +746,6 @@
       "为每个选中的行引用自身原始行标签，读取 pollutant 维度和实际单位/期间；不能因缺少主体或边界而丢弃已报告原值，也不能编造这些身份。"
     ],
     "operator": "pollutant",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|mg|tonne",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

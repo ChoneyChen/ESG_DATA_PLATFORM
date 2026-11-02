@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2fb8835c53132e94338ec50c5713e5fce5a01be0914481cb89be808a2cc2e2be",
+  "clause_digest": "30f856d5cffc79a09dfa0170b4e574eb8e3ca6997d1b8cc89e286174e1373e58",
   "clause_key": "SBM-2_12",
   "data_kind": "qualitative",
   "definition": "Description of how administrative, management and supervisory bodies are informed about views and interests of affected stakeholders with regard to sustainability-related impacts。治理机构获悉利益方观点的方式。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of how administrative, management and supervisory bodies are informed about views and interests of affected stakeholders with regard to sustainability-related impacts。治理机构获悉利益方观点的方式。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

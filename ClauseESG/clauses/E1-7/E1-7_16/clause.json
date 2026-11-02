@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7c62e311373c183b99f2265c065e30097d4e58fab50e8f9c8944843786fb4347",
+  "clause_digest": "b6df32346836e05aa04ab10baa46c10f209a775ac7a81084b50e7697a00b4ddb",
   "clause_key": "E1-7_16",
   "data_kind": "quantitative",
   "definition": "Percentage for recognised quality standard。认可质量标准对应比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Percentage for recognised quality standard。认可质量标准对应比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2028d196dfaefc3179fe89bf8fae46c0493d8bd067bcb31438e5d03d9c3a4924",
+  "clause_digest": "7c1853c7260e2d3a8287f45b67d57d1357cf318e8241c10ae952c88e4fef68f0",
   "clause_key": "E1-6_18",
   "data_kind": "quantitative",
   "definition": "与合同工具相关的范围2排放比例",
@@ -586,9 +586,6 @@
       "与合同工具相关的范围2排放比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

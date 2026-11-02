@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "32363a859c2fd3728dcbc81dee71f3dc7a9455b8560c73cff49976957f206610",
+  "clause_digest": "e17c52fcf8c3c55009dfe7685e500aab69c2af8cebf46e60161f4f2afc2e9665",
   "clause_key": "E4-5_09",
   "data_kind": "qualitative",
   "definition": "披露生态系统功能连通性的状况与变化，包括物种迁移和生态过程受到的影响。",
@@ -445,9 +445,6 @@
       "披露生态系统功能连通性的状况与变化，包括物种迁移和生态过程受到的影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

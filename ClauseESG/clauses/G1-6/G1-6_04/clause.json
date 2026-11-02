@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6764864c1b8ffa174a1c55d77f21788f210b21c56a625f758153c0c5b54e90f5",
+  "clause_digest": "fe1bc5473974838292d3e7c39a9fb38f23805673b597a17532c6af7dbdce4b94",
   "clause_key": "G1-6_04",
   "data_kind": "quantitative",
   "definition": "Number of outstanding legal proceedings for late payments",
@@ -558,9 +558,6 @@
       "Number of outstanding legal proceedings for late payments"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

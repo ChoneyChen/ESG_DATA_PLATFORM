@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5eb3fa1c23f6b5211b22874fad80f1b1ebd27365e641721ea8ad367af3e2fee2",
+  "clause_digest": "840f0f396c4f6dd8b8c31ae542dec0c54658ee782c9eae198db1d3fca7142b60",
   "clause_key": "S4-4_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何针对消费者和终端用户的实际重大影响采取提供或促成补救的行动。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何针对消费者和终端用户的实际重大影响采取提供或促成补救的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

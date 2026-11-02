@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "28cfee5bb1e8eab5d32ff00b357b6de0007f14d539de96f48921f87197cacc99",
+  "clause_digest": "0f5a6f9046c8fb34761849a354174bb1e0ad4e2f1f6cbb3bbf7fc3f51e62d5df",
   "clause_key": "E1-6_19",
   "data_kind": "qualitative",
   "definition": "合同工具类型",
@@ -456,9 +456,6 @@
       "合同工具类型"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

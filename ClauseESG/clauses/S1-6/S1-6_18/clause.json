@@ -162,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5ce1a0ac22d19d1384d5abe55e2fe60f1b109b866fca443c3acd9bd16a113b66",
+  "clause_digest": "bfecc68e845ea339af37b248a71ccb03f05bd2b53a339545bee6b3246cb6bc47",
   "clause_key": "S1-6_18",
   "data_kind": "quantitative",
   "definition": "读取进一步按性别和地区细分的员工人数，报告给出的细分各成一条；不自动执行兄弟条款，同格多解释不重复求和。",
@@ -584,9 +584,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [

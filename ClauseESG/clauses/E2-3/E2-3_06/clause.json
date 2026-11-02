@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "021b851d47e7dbd0e8d0061493a54c1a2b5dffecf483a8d4ab5e4112ca7a56f5",
+  "clause_digest": "796d6818acd38b35b67029aa8db38c01fa12a185047fcfd31988364f66abb9fb",
   "clause_key": "E2-3_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of ecological thresholds identified and methodology used to identify ecological thresholds (pollution)。污染生态阈值及识别方法。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of ecological thresholds identified and methodology used to identify ecological thresholds (pollution)。污染生态阈值及识别方法。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

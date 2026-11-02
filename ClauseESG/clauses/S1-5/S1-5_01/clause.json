@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "41e13415ddb6bfcc98a386a27639ef123f4fab77d02cf7b881fcc034592cc58c",
+  "clause_digest": "74b6e54efe29b38163730902d0d998901fc06874f118fc74610c36be6df2cdf1",
   "clause_key": "S1-5_01",
   "data_kind": "qualitative",
   "definition": "说明员工或员工代表是否以及如何直接参与自身劳动力相关目标的设定。",
@@ -473,9 +473,6 @@
       "说明员工或员工代表是否以及如何直接参与自身劳动力相关目标的设定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

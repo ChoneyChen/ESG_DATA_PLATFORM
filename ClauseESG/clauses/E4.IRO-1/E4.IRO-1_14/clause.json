@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f037b95cf69153d1fa5e5d7bec6ba12c8d15621227838ffa970d7d4b9c17fdf1",
+  "clause_digest": "09f59a2c60ed1d3e641648b3af7c688d16ecc3e1b78dc4c44b14e7126accbdff",
   "clause_key": "E4.IRO-1_14",
   "data_kind": "qualitative",
   "definition": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。",
@@ -487,9 +487,6 @@
       "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

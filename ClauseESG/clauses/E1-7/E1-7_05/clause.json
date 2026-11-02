@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b07e04ace3cc600dd34e14c690e225fe03e829062eeb92fbd89a8386e5d232ac",
+  "clause_digest": "b159972feef1e4c928d71f329a6ab626e7bb65a07edfc3dd9029b63fc029c4b3",
   "clause_key": "E1-7_05",
   "data_kind": "quantitative",
   "definition": "Total GHG removals and storage。温室气体移除与储存量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Total GHG removals and storage。温室气体移除与储存量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

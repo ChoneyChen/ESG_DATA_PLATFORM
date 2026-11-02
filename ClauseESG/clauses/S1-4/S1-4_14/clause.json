@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c0259a5dc8a8f675f7dbdbb12e783ca86c3c4b329a22a53ff2baa894b805b975",
+  "clause_digest": "4a3e7d94891d586f4abb4c70349f510a9eab627963ec325301153c8ec2388b78",
   "clause_key": "S1-4_14",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响自身劳动力的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响自身劳动力的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

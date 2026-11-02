@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0ce84688d05045d1d4c12b98d19cbfa99498eabe7e8f26347df5821d7bc5bae4",
+  "clause_digest": "c00c3045ad3bfe35af039a1334a0d761f96b5c5bcb809b2f8792b6c7366d9517",
   "clause_key": "S4-4_10",
   "data_kind": "qualitative",
   "definition": "说明主体如何确保自身实践不会造成或促成对消费者和终端用户的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体如何确保自身实践不会造成或促成对消费者和终端用户的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

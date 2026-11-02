@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ef10d0f52a6a4fc1970c3c359768ce01b12426df438a309dbc654aea21cfaceb",
+  "clause_digest": "6ac0eaafe6d912bdb56403048c3a24ae3f9b8dc4feafc5e5d13173d10c21d60d",
   "clause_key": "S3-3_18",
   "data_kind": "qualitative",
   "definition": "说明受影响社区是否以及如何在其受影响主体的层级使用申诉渠道。",
@@ -445,9 +445,6 @@
       "说明受影响社区是否以及如何在其受影响主体的层级使用申诉渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

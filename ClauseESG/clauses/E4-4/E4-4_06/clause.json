@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4c9108f6abf7e12dc945562200caa365450f429900db598a687ff8b72b496848",
+  "clause_digest": "a242787e04e48509568744cbaebd0d150c47a0c2eddc1cd0e8aec5e242497085",
   "clause_key": "E4-4_06",
   "data_kind": "qualitative",
   "definition": "说明目标如何与自身运营及上下游价值链中识别的生物多样性和生态系统影响、依赖、风险和机遇相关联。",
@@ -473,9 +473,6 @@
       "说明目标如何与自身运营及上下游价值链中识别的生物多样性和生态系统影响、依赖、风险和机遇相关联。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9e1a64ddeba022a88b882f0c53a09f65e7f354e9c7e1ebc7787f25074f1d5028",
+  "clause_digest": "9b65909f9e14a0f11c7fe9aedd1591ce3745e1c3170794ebcd114e6bd2af36db",
   "clause_key": "E3-3_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of how ecological entity-specific threshold was determined (water and marine resources)。企业水阈值分配方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Disclosure of how ecological entity-specific threshold was determined (water and marine resources)。企业水阈值分配方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

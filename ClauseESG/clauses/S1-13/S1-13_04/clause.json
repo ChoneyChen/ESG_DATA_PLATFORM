@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5e2350a80c223fd2fa3fbaab6c006f84167f6e6f92498f3d5259a36bd750e2bc",
+  "clause_digest": "fe10d85c32e5e1bda475ce08554cd496e7ab2176f815ec7a8a5c8f69f3c0cc1d",
   "clause_key": "S1-13_04",
   "data_kind": "quantitative",
   "definition": "报告期内员工人均培训小时数。",
@@ -756,10 +756,6 @@
       "报告期内员工人均培训小时数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

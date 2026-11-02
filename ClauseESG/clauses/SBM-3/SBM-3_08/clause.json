@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9ab696dd70359f284164af455113b2255265316c694f6edb7a422fe7d2466221",
+  "clause_digest": "254cee71dd1bd55deab371f2ab25f171c40b7a69f413e5b56a3aebd4e7083d63",
   "clause_key": "SBM-3_08",
   "data_kind": "qualitative",
   "definition": "读取重大风险机会的当前财务影响及下期资产负债重大调整风险说明；保留财务项和期间，不以必须含金额为准入门槛。",
@@ -546,9 +546,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "35c095f2252524fb06ba6ea2590cdd638b8577cc283b2874fee67951681c9dda",
+  "clause_digest": "2f280721cc4b7db055befe67ae7b174ffbe809d88e0c43e3f1a97471bcd5de08",
   "clause_key": "S3-5_02",
   "data_kind": "qualitative",
   "definition": "说明受影响社区是否以及如何直接参与对照目标跟踪绩效。",
@@ -473,9 +473,6 @@
       "说明受影响社区是否以及如何直接参与对照目标跟踪绩效。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3848f7b8c65ec90c0ff6aea5ea4adeac8c81ff0c227fc3303e24aaf131e79347",
+  "clause_digest": "38c9b208350fd3f88781ce3dd7d323f9d192ab6a6d7e7981a413b351c44835f7",
   "clause_key": "E1-8_04",
   "data_kind": "quantitative",
   "definition": "Carbon price applied for each metric tonne of greenhouse gas emission。每吨温室气体的内部碳价格。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -600,9 +600,6 @@
       "Carbon price applied for each metric tonne of greenhouse gas emission。每吨温室气体的内部碳价格。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

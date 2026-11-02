@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7d993511054c0bdce62d8de99f08d34352e73823adb368799e4e278a2a7a56b3",
+  "clause_digest": "e2f3c83c5bc74a202bf0c7526b9d68ba15fa4139641a28e571488a48c415e79d",
   "clause_key": "S1.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "描述因对自身劳动力的影响和依赖所产生的重大风险与机遇。",
@@ -487,9 +487,6 @@
       "描述因对自身劳动力的影响和依赖所产生的重大风险与机遇。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

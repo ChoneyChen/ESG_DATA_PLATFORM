@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ec70b6a4ce56e7cd4e2646054e2bd397ab736eeca30d103713fe0b9ab74a19d6",
+  "clause_digest": "71f22bc81c728d4d19db79f9a88931020f2411fc32a722d233cebb72883d348a",
   "clause_key": "GOV-5_02",
   "data_kind": "qualitative",
   "definition": "Description of risk assessment approach followed。可持续披露风险评估方法。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。",
@@ -459,9 +459,6 @@
       "Description of risk assessment approach followed。可持续披露风险评估方法。只记录可持续披露相关风控内控；一般经营风控不能无证据替代披露质量控制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e3692531d53ce20e3db9716b12088861ebb8b4136b4ceb4e7a95fad865c5f7cd",
+  "clause_digest": "abb78ffcc14eeba485f00db349abe427659437b19f07331e552dc1db75c4e685",
   "clause_key": "E1.SBM-3_01",
   "data_kind": "qualitative",
   "definition": "Type of climate-related risk。气候风险类型。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -487,9 +487,6 @@
       "Type of climate-related risk。气候风险类型。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

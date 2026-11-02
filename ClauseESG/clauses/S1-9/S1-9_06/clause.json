@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "66897540644ce51935b7f63540edb5dbbb8064eeca7fd6bb7e854160193664cb",
+  "clause_digest": "19c34b569c9319d86ed529bb76cf87c78a58d589b4dd3f7985fd5c3812edd28f",
   "clause_key": "S1-9_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of own definition of top management used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of own definition of top management used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

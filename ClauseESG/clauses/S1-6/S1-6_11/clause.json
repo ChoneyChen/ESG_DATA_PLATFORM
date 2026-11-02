@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b7cb34f3df52472cef095fa45b5cd9b029fc69cb879fef000f1c50ac312ea3fa",
+  "clause_digest": "6286f9e3074baaf7627368454fdeed9bda7a0aee8b3222c5cb3bb221e457448d",
   "clause_key": "S1-6_11",
   "data_kind": "quantitative",
   "definition": "Number of employee who have left undertaking",
@@ -558,9 +558,6 @@
       "Number of employee who have left undertaking"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

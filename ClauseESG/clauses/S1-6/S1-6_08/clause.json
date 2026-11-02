@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "502a737e888373ce74b9153facf173065905f1059fad0dd411d9787a5c0c838d",
+  "clause_digest": "1f259e2483db6abc90e31231a96579189bbc04ce13e4e8e331a187a7575f629e",
   "clause_key": "S1-6_08",
   "data_kind": "quantitative",
   "definition": "读取按地区实际披露的员工人数，地区保留原词、允许未收录分类；缺地区不删除真实人数。",
@@ -557,9 +557,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [

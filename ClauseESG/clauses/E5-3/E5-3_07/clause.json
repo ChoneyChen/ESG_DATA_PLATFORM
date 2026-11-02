@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "62e76f9a313d9cf8e4872b97fd256014db3999747c36a0bbe77aeda47bf231b2",
+  "clause_digest": "7cf249e35f1e5eb87ee5805680225c78ac9e96d4d7889834c4176f2984aeb148",
   "clause_key": "E5-3_07",
   "data_kind": "qualitative",
   "definition": "说明目标如何与废弃物管理的各个层级相关联，并指出目标的衡量口径。",
@@ -473,9 +473,6 @@
       "说明目标如何与废弃物管理的各个层级相关联，并指出目标的衡量口径。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

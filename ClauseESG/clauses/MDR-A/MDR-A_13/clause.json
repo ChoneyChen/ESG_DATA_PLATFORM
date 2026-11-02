@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "654811ea5b80c2e65b3d82e0817b3516e8432400175cdf790c25618088fa72a2",
+  "clause_digest": "b1468ac1c301179066c70fe567b38c1f55fe1c28686d18df278a69d84eb47d97",
   "clause_key": "MDR-A_13",
   "data_kind": "qualitative",
   "definition": "Disclosure of reasons for not having adopted actions。未采纳行动的原因。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Disclosure of reasons for not having adopted actions。未采纳行动的原因。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

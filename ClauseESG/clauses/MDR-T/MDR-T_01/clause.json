@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5e11c6520ad8793dc1d2a70df2ecbf3b08899290b1ce00ce4da0abee17361c02",
+  "clause_digest": "c0d77312481256b3cc4a28a3da8fe7793fbaa5a22ee3510efb035757f135ddcc",
   "clause_key": "MDR-T_01",
   "data_kind": "qualitative",
   "definition": "Relationship with policy objectives。目标与政策目标关系。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Relationship with policy objectives。目标与政策目标关系。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

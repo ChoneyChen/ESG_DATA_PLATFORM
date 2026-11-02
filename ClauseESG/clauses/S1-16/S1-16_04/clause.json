@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b3dd437ef3c4e88ef5c03145e68b3a1d9da899d2764d630cc610b8c056e2bb19",
+  "clause_digest": "736bf2de0d34eac0def58826335ec9a857735bd43ba8c9e6993f2718df5a7828",
   "clause_key": "S1-16_04",
   "data_kind": "quantitative",
   "definition": "Gender pay gap breakdown by employee category and/or country/segment [table]",
@@ -572,9 +572,6 @@
       "Gender pay gap breakdown by employee category and/or country/segment [table]"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

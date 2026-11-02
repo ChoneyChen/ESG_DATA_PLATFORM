@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1ed934dbe9e6b6cb7d918619311ad26beed0fd86a1b197fe21ad6b6521dac7d3",
+  "clause_digest": "11e3ab8e6dc9462e38b34084953944dc4a0a27ad67c0a36d3a82f24ed5a0a030",
   "clause_key": "MDR-T_09",
   "data_kind": "qualitative",
   "definition": "Description of methodologies and significant assumptions used to define target。目标设定方法与假设。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Description of methodologies and significant assumptions used to define target。目标设定方法与假设。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

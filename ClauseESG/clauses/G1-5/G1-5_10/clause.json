@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0103c580f61cd98c48fd7df088080db8803d6181b10b204dd682c1a89cf6e199",
+  "clause_digest": "dd6d26146dc0be2728b46e4b787165d3e0bca7a68680b46942d5b70554e480a6",
   "clause_key": "G1-5_10",
   "data_kind": "qualitative",
   "definition": "说明主体是否已在欧盟透明度登记册或成员国等效透明度登记册中登记。",
@@ -445,9 +445,6 @@
       "说明主体是否已在欧盟透明度登记册或成员国等效透明度登记册中登记。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

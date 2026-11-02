@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "48401cbf4f21f3126551b9f3b476f8b358aa960b41d84221b0f9d6427a1b53b3",
+  "clause_digest": "45cb203493ee687d6437674c67237a55deba1031c1ef1eacdd23c502419fc7a0",
   "clause_key": "S1-2_01",
   "data_kind": "qualitative",
   "definition": "说明自身劳动力的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
@@ -445,9 +445,6 @@
       "说明自身劳动力的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

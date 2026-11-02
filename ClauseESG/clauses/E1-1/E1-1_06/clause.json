@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "752a76cbcac852f73cffe1dbadb478fd0b9f09abb0b08773bf904f13e0fdcef4",
+  "clause_digest": "1d39240e35ee43bc9d1d4d13e6578c72745485a399a48493d2957c576718dab0",
   "clause_key": "E1-1_06",
   "data_kind": "quantitative",
   "definition": "Financial resources allocated to action plan (CapEx)。行动资本支出资源。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -558,9 +558,6 @@
       "Financial resources allocated to action plan (CapEx)。行动资本支出资源。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

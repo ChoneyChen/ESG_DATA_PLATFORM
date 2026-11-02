@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4d94747e03cc50ad719213e8ddf403ba7309b9a8f4b241984d3f0e8ff87f423b",
+  "clause_digest": "c5954d6816bd01e6f7e68ca99e182eb87186aa18e0222e3070d424ab5536d8b7",
   "clause_key": "E5-5_11",
   "data_kind": "quantitative",
   "definition": "未回收废弃物占废弃物总量的比例。",
@@ -591,10 +591,6 @@
       "未回收废弃物占废弃物总量的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

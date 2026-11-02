@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "af88a6208a202f2c0f3d42c3344f4011afb8754843b5adfd9ef31cb981770d3c",
+  "clause_digest": "0d152ebe94441d3541d2de73e0e0cf9747bb89f1132ebbfef4a16a86ee0b74af",
   "clause_key": "S1-4_16",
   "data_kind": "qualitative",
   "definition": "说明员工和员工代表是否以及如何参与以积极影响为主要目的的项目或流程的设计与实施决策。",
@@ -459,9 +459,6 @@
       "说明员工和员工代表是否以及如何参与以积极影响为主要目的的项目或流程的设计与实施决策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

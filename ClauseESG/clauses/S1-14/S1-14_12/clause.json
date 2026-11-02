@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1363315cc14f489859f8c9d650ba58dcc47f372824cbbba7061a165fb803dac9",
+  "clause_digest": "25e5b6386d9ee767af140512370f7f509954e9765dbd3c4b87e951a43e63135d",
   "clause_key": "S1-14_12",
   "data_kind": "quantitative",
   "definition": "Number of cases of recordable work-related ill health detected among former own workforce",
@@ -558,9 +558,6 @@
       "Number of cases of recordable work-related ill health detected among former own workforce"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

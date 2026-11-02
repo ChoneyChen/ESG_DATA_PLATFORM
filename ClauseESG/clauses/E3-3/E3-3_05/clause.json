@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "86079f6c748a7f2b9a3e39a1c87224ee16cee69defd7dd6e5f161105820393fd",
+  "clause_digest": "a966e61083b7d33af46ed2146fcd531649a97840bdfa7d3b90532c96f3e6f7d7",
   "clause_key": "E3-3_05",
   "data_kind": "qualitative",
   "definition": "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)。水生态阈值及识别方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Disclosure of ecological threshold identified and methodology used to identify ecological threshold (water and marine resources)。水生态阈值及识别方法。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

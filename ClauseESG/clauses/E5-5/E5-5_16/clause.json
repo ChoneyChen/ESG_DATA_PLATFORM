@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "cc13304132a896fb72aad0eb9b62526d493f1941292ca1bc009885e47c292847",
+  "clause_digest": "d5de03cfaff63a1ae1511b1041a5446ec19faa80022af7af4de6e59b815fa7dd",
   "clause_key": "E5-5_16",
   "data_kind": "quantitative",
   "definition": "Total amount of radioactive waste",
@@ -558,9 +558,6 @@
       "Total amount of radioactive waste"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

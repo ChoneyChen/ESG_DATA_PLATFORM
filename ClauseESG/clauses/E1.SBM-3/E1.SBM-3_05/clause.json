@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e2d597f73c28bc4ec276fc58d27c0500c619be3a875c4d2f1a7fbf9c3d6dcced",
+  "clause_digest": "4704d0b6ead8b9f7bc26a90a6fee934bc5bcbe0b925aff3d3f0f29cf226c20d0",
   "clause_key": "E1.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "Time horizons applied for resilience analysis。韧性分析时间范围。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -487,9 +487,6 @@
       "Time horizons applied for resilience analysis。韧性分析时间范围。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

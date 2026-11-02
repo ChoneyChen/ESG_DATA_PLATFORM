@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e79c35f157b9e49ed6e6a2c93053e67895126d1b222ce2d022c533b12671beed",
+  "clause_digest": "1f6b3d67b8ae9f3865b1ee9cefb13754c2e7ca50c0771bcc77e4e328085a2d4d",
   "clause_key": "GOV-2_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of how administrative, management and supervisory bodies consider impacts, risks and opportunities when overseeing strategy, decisions on major transactions and risk management process。重大事项在战略交易风险管理中的考虑。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
@@ -459,9 +459,6 @@
       "Disclosure of how administrative, management and supervisory bodies consider impacts, risks and opportunities when overseeing strategy, decisions on major transactions and risk management process。重大事项在战略交易风险管理中的考虑。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "60c63ca20e16baaab06d0ca7e2bd29ce6a63f792c3463393328abaf5b4050571",
+  "clause_digest": "7374bd9ca2422a57c0e066f15ec8f7a203b9ce96bc815f07ffca1884f4f26d3d",
   "clause_key": "S1-17_04",
   "data_kind": "quantitative",
   "definition": "Number of complaints filed to National Contact Points for OECD Multinational Enterprises",
@@ -558,9 +558,6 @@
       "Number of complaints filed to National Contact Points for OECD Multinational Enterprises"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

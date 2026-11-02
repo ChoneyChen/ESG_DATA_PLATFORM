@@ -210,7 +210,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "39fca815ba659dc3e37970b3377e23924011040c083ad66086c9cf5925ba40d7",
+  "clause_digest": "045aca5f9b18604a3e854a11647d4ca9eb5c02ce3c6bc868a309f6782f87988f",
   "clause_key": "E1-4_11",
   "data_kind": "quantitative",
   "definition": "Intensity value of location-based Scope 2 Greenhouse gas emissions reduction。范围2地点法减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -661,9 +661,6 @@
       "Intensity value of location-based Scope 2 Greenhouse gas emissions reduction。范围2地点法减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

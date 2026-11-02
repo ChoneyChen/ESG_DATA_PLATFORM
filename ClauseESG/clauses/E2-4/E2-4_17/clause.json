@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "766416974a670e96a0d28d4d5f5284b63f57d6616d6b95b9c8df63551faf5015",
+  "clause_digest": "072012c37df5f3bfe5f5b8f0352f2b82b48661c7678143ed0aa62c44b20ffce6",
   "clause_key": "E2-4_17",
   "data_kind": "qualitative",
   "definition": "许可条件违规事件或执法行动清单",
@@ -458,9 +458,6 @@
       "许可条件违规事件或执法行动清单"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

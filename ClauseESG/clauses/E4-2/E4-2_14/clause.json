@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f82e7a94c057d6490e87c125a4695e653f27fee71fdc343668746c1fda05e94a",
+  "clause_digest": "75f8822c7ccd5809d7627e9d46ae40ca8db9b9d40ecb59f5f6c8a69f80fc807f",
   "clause_key": "E4-2_14",
   "data_kind": "qualitative",
   "definition": "说明第三方行为标准是否鼓励渐进式改进和持续提升最佳实践，并要求设置有意义的阶段性目标与里程碑。",
@@ -459,9 +459,6 @@
       "说明第三方行为标准是否鼓励渐进式改进和持续提升最佳实践，并要求设置有意义的阶段性目标与里程碑。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

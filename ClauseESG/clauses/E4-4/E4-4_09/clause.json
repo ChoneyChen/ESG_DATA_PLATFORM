@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7d929e49ea78a9a46692c8b735d3094f7bda5ec767cd490f8ef607d2ba84cd62",
+  "clause_digest": "a23c9f73e68267b33afb626fb699990bce02dbf6c34ce5badd318d9cc463e7cf",
   "clause_key": "E4-4_09",
   "data_kind": "qualitative",
   "definition": "说明目标可归属于减缓层级的哪一层，即避免、最小化、恢复或抵消。",
@@ -473,9 +473,6 @@
       "说明目标可归属于减缓层级的哪一层，即避免、最小化、恢复或抵消。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

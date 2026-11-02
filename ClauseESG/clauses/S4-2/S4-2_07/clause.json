@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d7d201cb257a6c038b5bd9adaec862837be8c33e9cc3cbdef72b9e473090f1aa",
+  "clause_digest": "b7415f6c4e1b6b3c70a89b12201dcf1423f9bab4b0229b77c55f9e01eb79723b",
   "clause_key": "S4-2_07",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立与消费者和终端用户接触的一般性流程；若未建立，披露现状与原因。",
@@ -445,9 +445,6 @@
       "说明主体是否尚未建立与消费者和终端用户接触的一般性流程；若未建立，披露现状与原因。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

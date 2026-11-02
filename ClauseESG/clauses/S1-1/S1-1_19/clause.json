@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "617bf4f1cf0c2717eeb16a96c8f4d23546bbbe9cacc053ed56c850cd1aa54558",
+  "clause_digest": "bea1bb6c6eaa8afab5ebf5f20445cfe00f5ab8d4108f831c7b23cd447ef283b7",
   "clause_key": "S1-1_19",
   "data_kind": "qualitative",
   "definition": "说明主体是否已评估岗位要求的设定方式是否存在系统性不利于特定群体的风险。",
@@ -459,9 +459,6 @@
       "说明主体是否已评估岗位要求的设定方式是否存在系统性不利于特定群体的风险。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

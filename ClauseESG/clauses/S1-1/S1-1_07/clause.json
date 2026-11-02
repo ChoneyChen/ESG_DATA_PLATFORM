@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "87d32e01b16e409816bd7f1dfac3e7cc5dc4442f810f41cd81726b640a49b891",
+  "clause_digest": "ead4d3078dcaa4c072b77903d25b468f4ce8488914f7423540a47d13644a0261",
   "clause_key": "S1-1_07",
   "data_kind": "qualitative",
   "definition": "说明政策是否以及如何与相关国际公认文书保持一致，并指出对应文书。",
@@ -459,9 +459,6 @@
       "说明政策是否以及如何与相关国际公认文书保持一致，并指出对应文书。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

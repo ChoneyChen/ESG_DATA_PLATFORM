@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4dd3a3fcac6571f71bf8478e62b3ea441bc627acb4582f95cc1d21c0afd03644",
+  "clause_digest": "5a2ac92606597228c9c40a2e0b414d8d1f7537d42077f9531c3cff690dc3bb90",
   "clause_key": "E2-4_06",
   "data_kind": "quantitative",
   "definition": "产生的微塑料量",
@@ -600,9 +600,6 @@
       "产生的微塑料量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

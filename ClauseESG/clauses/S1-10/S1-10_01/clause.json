@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ac245732643a67c88dab5e072f03d3b3b8f2b86cd5a128dc0a6d873865bfa0a9",
+  "clause_digest": "299a769ce43bde3d005e10f01691548e49bd26b2f6d4ede0e0f6bec9757b3649",
   "clause_key": "S1-10_01",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否获得符合适用基准的足额工资，并指出所采用的基准。",
@@ -445,9 +445,6 @@
       "说明所有员工是否获得符合适用基准的足额工资，并指出所采用的基准。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

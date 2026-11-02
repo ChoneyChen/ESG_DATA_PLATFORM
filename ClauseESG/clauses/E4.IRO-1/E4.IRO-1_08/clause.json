@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "388d00b1d06137bb76edc4477c1fb6e44dbe99cb1520a36be338e8e7d91c57cb",
+  "clause_digest": "e0113586808f9c83fe4de2537585b434ca5a5d38b316a98014ef5ea6f4145206",
   "clause_key": "E4.IRO-1_08",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何避免对受影响社区相关的优先生态系统服务造成负面影响。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何避免对受影响社区相关的优先生态系统服务造成负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

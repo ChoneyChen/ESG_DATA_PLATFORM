@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "72b3e0de0db0b40a209e6b6b0ebea521a3e29aef7ec4f9009a248a4c9de5e8b6",
+  "clause_digest": "99cd188a56a2e2c8e84e94ae72279536406116f620f08e91bdac3b89b6ca66d8",
   "clause_key": "MDR-T_12",
   "data_kind": "qualitative",
   "definition": "Description of any changes in target and corresponding metrics or underlying measurement methodologies, significant assumptions, limitations, sources and adopted processes to collect data。目标及测量方法变更。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Description of any changes in target and corresponding metrics or underlying measurement methodologies, significant assumptions, limitations, sources and adopted processes to collect data。目标及测量方法变更。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

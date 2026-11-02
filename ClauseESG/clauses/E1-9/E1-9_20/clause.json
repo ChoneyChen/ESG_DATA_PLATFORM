@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ee487b58626ad1d56aaedf6459d55215d6b2094a943fd81641f7859ba2d9d396",
+  "clause_digest": "792c3fdad95c62af3a590e667136c84fdaf31fb1fecd49577e9092f88017dcde",
   "clause_key": "E1-9_20",
   "data_kind": "quantitative",
   "definition": "Estimated amount of potentially stranded assets。潜在搁浅资产金额。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Estimated amount of potentially stranded assets。潜在搁浅资产金额。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

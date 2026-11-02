@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2e39b349695365a07fd7ea0d70dc4a07c83e741457db1a58e56c778cc1ab3e99",
+  "clause_digest": "7cda7d8130596152a08f00e2254279a03a947b7950fc4bcb16618a35279f543f",
   "clause_key": "S1-11_05",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否通过公共计划或主体福利获得退休收入损失的社保覆盖。",
@@ -445,9 +445,6 @@
       "说明所有员工是否通过公共计划或主体福利获得退休收入损失的社保覆盖。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

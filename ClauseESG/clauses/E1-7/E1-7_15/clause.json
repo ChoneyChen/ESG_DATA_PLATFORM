@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "adba70a62f3e7e9398c80f1ac738696af733297b3f875fae7801e524cb329933",
+  "clause_digest": "47e225633f025db10de855d2229c5eaa917174ff08d2cae7d590d09a73ca0f9d",
   "clause_key": "E1-7_15",
   "data_kind": "qualitative",
   "definition": "Type of carbon credits from removal projects。移除项目碳信用类型。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Type of carbon credits from removal projects。移除项目碳信用类型。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

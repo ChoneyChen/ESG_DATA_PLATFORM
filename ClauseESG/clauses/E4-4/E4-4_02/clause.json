@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "caf4f15554266ccf006852211edfbc3ce12a12a58743d22314b4e9babcf5bfb6",
+  "clause_digest": "a909b784b5106ab442847c1efe93e289a6bb8b5b17c1ec9c729723407d68bdd0",
   "clause_key": "E4-4_02",
   "data_kind": "qualitative",
   "definition": "披露所识别的生态阈值以及用于识别该阈值的方法和数据来源。",
@@ -473,9 +473,6 @@
       "披露所识别的生态阈值以及用于识别该阈值的方法和数据来源。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

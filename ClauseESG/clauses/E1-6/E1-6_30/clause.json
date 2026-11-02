@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9d1e20bc5875542515a834fb6764bcf8098bb79940924c3d689041bd0004b694",
+  "clause_digest": "4b06af619f24ca83ca85cd06d3886d915edc3f0937fb38c87e751bb55da8698f",
   "clause_key": "E1-6_30",
   "data_kind": "quantitative",
   "definition": "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。",
@@ -666,10 +666,6 @@
       "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "吨|tco|co2|二氧化碳|/|每",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

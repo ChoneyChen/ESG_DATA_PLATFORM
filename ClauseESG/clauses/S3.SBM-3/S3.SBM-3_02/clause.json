@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "412b23c13387add650a0468d7be34eb55d46b19e5a99f066835e04f88da2dc2b",
+  "clause_digest": "b441e512a96661a626e0ee774ccdcd7a48545b368b8dac9cdf230ddd8d4e7373",
   "clause_key": "S3.SBM-3_02",
   "data_kind": "qualitative",
   "definition": "描述受影响社区中受重大影响的群体类型，包括原住民社区和地方社区。",
@@ -487,9 +487,6 @@
       "描述受影响社区中受重大影响的群体类型，包括原住民社区和地方社区。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

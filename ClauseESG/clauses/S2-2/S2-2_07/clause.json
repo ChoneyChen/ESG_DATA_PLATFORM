@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "26e09bac3953857c6044476a2cc12be229324dc53ad91bc36b0297b2d93bbdd5",
+  "clause_digest": "cbed60ac86565f6136b5b0693261556eab70911c67364c35f1fe29ab59d69755",
   "clause_key": "S2-2_07",
   "data_kind": "qualitative",
   "definition": "说明主体为深入了解尤其易受伤害或边缘化的价值链劳动者观点所采取的步骤。",
@@ -445,9 +445,6 @@
       "说明主体为深入了解尤其易受伤害或边缘化的价值链劳动者观点所采取的步骤。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

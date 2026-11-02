@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "597a1488ae42c283cd9e92a3d2a7f357607d9f23763df0718cda250a4b5ced05",
+  "clause_digest": "7735d13cfa0ed3ca71c5b12511107323f3b4920416bffc27b531f273fd9655e7",
   "clause_key": "E1-9_41",
   "data_kind": "quantitative",
   "definition": "Expected cost savings from climate change mitigation actions。缓解行动预期成本节约。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Expected cost savings from climate change mitigation actions。缓解行动预期成本节约。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

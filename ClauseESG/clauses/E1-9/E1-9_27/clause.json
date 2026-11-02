@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8602d9fbb7d260e77c73b2b659ae7333e293bd01a0b0062bfee68f84b925cfc1",
+  "clause_digest": "2b55aa89de22c02c7cd635991c34244da6480effae099b25322b6693b48ef646",
   "clause_key": "E1-9_27",
   "data_kind": "quantitative",
   "definition": "Monetised gross Scope 1 and 2 GHG emissions。货币化范围1和2排放。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Monetised gross Scope 1 and 2 GHG emissions。货币化范围1和2排放。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4b68ba81380297d3395cd08abacc8eac6790131ae5d62e59f365bd679a5117a1",
+  "clause_digest": "31c5e7c9414af93f23aefb346be4b5eaa03927bb38001e705f6b9be6a0a68cc3",
   "clause_key": "SBM-1_27",
   "data_kind": "qualitative",
   "definition": "Description of outputs and outcomes in terms of current and expected benefits for customers, investors and other stakeholders。产出结果及利益。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -459,9 +459,6 @@
       "Description of outputs and outcomes in terms of current and expected benefits for customers, investors and other stakeholders。产出结果及利益。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4446dd283f15275f238e333c3e70217a249503fa9d73bcd01f506023fb66db89",
+  "clause_digest": "15c093bebb2140d957886f813fa6d96f3e8a56608cea5000f4506a42199c7792",
   "clause_key": "E1-7_18",
   "data_kind": "quantitative",
   "definition": "Percentage that qualifies as corresponding adjustment。符合相应调整的比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Percentage that qualifies as corresponding adjustment。符合相应调整的比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

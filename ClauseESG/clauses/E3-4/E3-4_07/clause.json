@@ -168,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "da64305266ba2e98bbe357c69058b203e6e2bf300cd9ddf9af9278755f579d2d",
+  "clause_digest": "6332e42bfb8bb64c5f795db682b68ceb702145c8944920f6eaf69ab59be95920",
   "clause_key": "E3-4_07",
   "data_kind": "quantitative",
   "definition": "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates。水量测量方法所占比例。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -616,9 +616,6 @@
       "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates。水量测量方法所占比例。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

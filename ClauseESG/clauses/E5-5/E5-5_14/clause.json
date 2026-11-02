@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e37aaecba019a0a3924caa0744a9541c6cf368e12d610dbbdf84fa4a28069e5b",
+  "clause_digest": "ea31b80913f4833c09706194bb456585e262db2e5e4dc0372009f6ec7428aed6",
   "clause_key": "E5-5_14",
   "data_kind": "qualitative",
   "definition": "Disclosure of materials that are present in waste。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of materials that are present in waste。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

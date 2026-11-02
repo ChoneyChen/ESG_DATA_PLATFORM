@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c32398c809d1bb53efa3a8678f4b2b6bb13de3403e5baec3b513b4193652d6f0",
+  "clause_digest": "798bb2c4ff7cf66c410809818a78d98f9130a3ac18c4838c0a1f76c324f1c46f",
   "clause_key": "E2-4_12",
   "data_kind": "quantitative",
   "definition": "高水压力地区水污染物排放占比",
@@ -585,9 +585,6 @@
       "高水压力地区水污染物排放占比"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

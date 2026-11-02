@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3e9c331183128d7caa190d42c6d9851f60211ced69b1723c4c954e940ae1fda7",
+  "clause_digest": "0a459305372c4b4a658fda13dd4fe9e92bd76ec95a4c56defadc37d8d5eba622",
   "clause_key": "E4-2_04",
   "data_kind": "qualitative",
   "definition": "说明政策是否以及如何支持对生物多样性和生态系统有重大实际或潜在影响的产品、部件和原材料的可追溯性。",
@@ -459,9 +459,6 @@
       "说明政策是否以及如何支持对生物多样性和生态系统有重大实际或潜在影响的产品、部件和原材料的可追溯性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -5,15 +5,16 @@ import {createHash} from 'node:crypto';
 const core=['capture_exports','captured_facts','capture_export_facts','capture_clause_targets','capture_clause_relations','captured_properties','captured_evidence'];
 const products=['capture_projection_attempts','capture_projections','capture_product_definitions','capture_observations','capture_projection_members','capture_restatements','capture_dataset_versions','capture_dataset_projections','capture_dataset_members','capture_dataset_events'];
 const sources=['capture_source_locks','capture_source_reservations'];
-const migrations=[['0019_capture_ingestion.sql',core],['capture/0020_products.sql',products],['capture/0021_source_lifecycle.sql',sources]];
-async function installedTables(db){return new Set((await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='esg' AND table_name=ANY($1)",[[...core,...products,...sources]])).rows.map(row=>row.table_name));}
+const previews=['capture_dataset_previews'];
+const migrations=[['0019_capture_ingestion.sql',core],['capture/0020_products.sql',products],['capture/0021_source_lifecycle.sql',sources],['capture/0022_product_previews.sql',previews]];
+async function installedTables(db){return new Set((await db.query("SELECT table_name FROM information_schema.tables WHERE table_schema='esg' AND table_name=ANY($1)",[[...core,...products,...sources,...previews]])).rows.map(row=>row.table_name));}
 export async function captureSchemaStatus(db){
   const tables=await installedTables(db);
   const ledger=(await db.query("SELECT to_regclass('public.capture_schema_migrations') AS name")).rows[0].name;
   const applied=ledger?new Set((await db.query('SELECT name FROM public.capture_schema_migrations')).rows.map(row=>row.name)):new Set();
   const ready=core.every(name=>tables.has(name))&&sources.every(name=>tables.has(name))&&applied.has(migrations[0][0])&&applied.has(migrations[2][0]);
   return {profile:'capture',ready,missing:core.filter(name=>!tables.has(name)),sources_ready:sources.every(name=>tables.has(name))&&applied.has(migrations[2][0]),
-    products_ready:ready&&products.every(name=>tables.has(name))&&applied.has(migrations[1][0]),missing_products:products.filter(name=>!tables.has(name))};
+    products_ready:ready&&[...products,...previews].every(name=>tables.has(name))&&applied.has(migrations[1][0])&&applied.has(migrations[3][0]),missing_products:[...products,...previews].filter(name=>!tables.has(name))};
 }
 export async function applyCaptureSchema(db){
   await db.exec(`CREATE SCHEMA IF NOT EXISTS esg;CREATE SCHEMA IF NOT EXISTS esg_api;

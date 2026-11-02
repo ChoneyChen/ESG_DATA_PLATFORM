@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "702140321e5a5160588ee31e683ee674cea1dc7989a3f1f82fde6c54dd779fa2",
+  "clause_digest": "95deb635335293b2630673b631bdf703df40ae0ceeef43f09a844fb4a13b3532",
   "clause_key": "E1.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of how resilience analysis has been conducted。韧性分析实施日期。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -487,9 +487,6 @@
       "Disclosure of how resilience analysis has been conducted。韧性分析实施日期。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

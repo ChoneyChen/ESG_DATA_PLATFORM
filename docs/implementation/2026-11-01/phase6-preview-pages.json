@@ -1,0 +1,167 @@
+{
+  "source": "Console proxy → independent database, actual persisted observations",
+  "results": [
+    {
+      "mode": "all_sources",
+      "total": 276,
+      "selected": 276,
+      "periods": {
+        "2023": 90,
+        "2024": 93,
+        "2025": 91,
+        "unknown": 2
+      },
+      "preview_digest": "b307e54674b3e48860707e57ee0aaaab1944d88d53ddf33567fb50423a25a266",
+      "projection_ids": [
+        "projection-13e5c869fe8258d504488a007bc62a2587ccc1f46b6e6eaa7c75e3e21addb096",
+        "projection-6af19fe224c9a727a08911adfec7fbef83bbc28ca6c1776c5774561b45d60587"
+      ],
+      "decision_reasons": {
+        "all_sources": 276
+      },
+      "page_size": 25,
+      "returned": [
+        25,
+        25
+      ],
+      "overlap": 0,
+      "page_one_ids": [
+        "observation-0048222a38e4d11eece8f9e8d21f9cba2bd810f17ff09e2d5b905a9b664dfa5d",
+        "observation-008c8d6f3080077393e6ecdd75fcbb5dc0336de10868de69a89d1a1b6c0f48a0",
+        "observation-01fb6531d83adee5f323d01acbcdcdf54a6d6b7ab4453521dba3129a0ece40df",
+        "observation-0229638379ca5443f643cbdad77a02e3f24ce4145465f5ac45bcc42dd86c7119",
+        "observation-0586440157b3e2850e017414f5e80f467fd15bdfdf5500262da4ff37005a749c",
+        "observation-06ac82d7569c35e113471c0484122b02b41a8c786f6407c77f3397acd4701b23",
+        "observation-09a7f7bf7293636a7acbe5d5a736e92ce521d62bb78e172cf1f46290f4c5cec1",
+        "observation-09bc314fe8b2643ba7bace1772e44c6b7b57a40c5b5fd74c5a924c9b336eab24",
+        "observation-0b8ca2b542ec581519b1417a2ed629eb74732b45553d2ed002b8ad58a5c48980",
+        "observation-0b98c6bb733fd4146950b5e026b16811bb8475030556dc97bbde061f67dadc95",
+        "observation-0d1cee139c8fc1dc4a9a46fd1b262e3d1a49787b713074ea7456e0715e9d128d",
+        "observation-0e1d19c946018992b359de549aa25400a843e137ff626d842db51333da22557b",
+        "observation-122924d9b33b2acd1b8c92990df47389b44fdc5890a9601ad1ae3c82c30fd969",
+        "observation-123c2a2e290a541719dc2ab15b002e16a551b77c42eb1cadf5c65ccaa2c9d27f",
+        "observation-12585fb49aa26150bd58e1996847a81f024995c243fc9318b7864faeac7290d4",
+        "observation-12df8b70dc4ec64d013748ebf25c41ed00484578737a2e47a5d8250b19192863",
+        "observation-1378830c5d3dbd63f9ff06ab3035d57bc517a597eccb71b9840f179cc0ed91c0",
+        "observation-13b651bb053453191e1154000604b59b930486003104f8009c2b8b6293f70515",
+        "observation-14773cc0965f2a9a93670ac81c8e63a07a415ffd4640432487ad3abb3767e3d3",
+        "observation-1491f2e983558734c28f25addb4ea10243801b66d75c78f68b5d1959b7299106",
+        "observation-15504d77fc8e01c15790c34ab3ddf9dd8bb0739ed601a55df6b5ba07e81d157f",
+        "observation-155750f75106241348675352a3c493d4df4525a5e8e38d7f1101905337d18f19",
+        "observation-1696dfba531294e7fe3fbe5823e9d500845d442db425263975d4fe29b6929e37",
+        "observation-1936907703be638b80d4c2500b0e9f3253ffe302dc1bfe26e05bcb2fca2d5e79",
+        "observation-193b85bb0d06f5c4e9fc3bbecdb589e3b494907c3b36e5ffb5c04370be0c2868"
+      ],
+      "page_two_ids": [
+        "observation-19a97996214b46b04d452f8f0879a06bb540c9e00fdbe5849d0af1a04d5be629",
+        "observation-1a666189fe71ae9fe75d20ee85f8eb302b78d8de97a10e626849c5e43c590787",
+        "observation-1aa1f2aebdaf90b82f79eadeea3187f1b144117ad84bc0bdb047e7e52389870a",
+        "observation-1b586b1f98f078fc66e3b03cff9123e9d1fc569ccaefdb988b43985b4070e54f",
+        "observation-1d57f70a965c5a5edabdc0cab2af6d3e9ebe5646f3e6e616e415f685933d7c94",
+        "observation-1e23e3d96d91ebe0c01e8e2515d55355b57a1f5d72e9c909f0f740012bee6e6f",
+        "observation-206b1400761dd2ad46a5f769dc70cc9a7c766714efd8a15e00433629615008d4",
+        "observation-20a958d2ec1d1a2099aeec08d3318f439e537b057558aeaa5b073166aa10918e",
+        "observation-20c519aa712c17033906b3bcd1eb67e442c57380b1e47aa98d29b6a4b2e686f5",
+        "observation-239f8638019edc7ea9c623ae5069a9e42358dcdc323d5c721d184aea0f00e4c8",
+        "observation-250aa38209b248202d2249e69767ebb01ec95ffbe5f7e8a78c8756c8074b2f2a",
+        "observation-254ca5e87b6dfb6764e85e39497236925d65c2b06c950708d499595259c1fd8c",
+        "observation-2575f1d7f5649fd79cffe389dd0edbf595691de3865ff73993b12687ff46f28a",
+        "observation-27a80743a8af9b9d8617d6baaec88f105f82dd9857779931c14abd3509470fd2",
+        "observation-2831243f1338666093a7f0e59b43ac08f87671a2620a95ba2f04acb5b251c139",
+        "observation-286ed181194ca7c9d1edd1335cf2f9d0b6e8cc1de8425e164d4316487526501e",
+        "observation-299a9db00649ce1c5dea7b4520699f5c812406a068047b6ed23df1083661a073",
+        "observation-2a4a919df4ed3da983eaefb75f58742b91fe3e9f6a7ef54ba0e594812ab6f51e",
+        "observation-2aabbe9c9822c68ee553a197a9460b8534b332ff569975796b0a9663080dd184",
+        "observation-2b0094f1c535827b645bc1ec2ffd24d6526832d3490f4bf349a690e05fea1d95",
+        "observation-2d23f43d7b44af3f28b3f560e1a555e756e61a7b256dbd9bf6f8c9d262a0b016",
+        "observation-2df74adec999b8b67e854ea0850e2099ceeeccd5cf4ba2fc8f3aea9eb027746b",
+        "observation-2efe64bfa683905a6ba38d37cffdd532f76e243bc8f72b394905b8dc28aa504f",
+        "observation-3201711f304da7b28f434d500cbb48a2881cbae018a919a18d09144efceeba92",
+        "observation-33c871ef28bdf9ec0c9970a9cc0ffe9d90e5954330dc0e2700539537feb4a0a4"
+      ],
+      "same_snapshot": true,
+      "published": false
+    },
+    {
+      "mode": "latest_report",
+      "total": 276,
+      "selected": 276,
+      "periods": {
+        "2023": 90,
+        "2024": 93,
+        "2025": 91,
+        "unknown": 2
+      },
+      "preview_digest": "e3ddf78f7aea302019ce92d27fe29632d085627c254d625181e308f94c76b259",
+      "projection_ids": [
+        "projection-13e5c869fe8258d504488a007bc62a2587ccc1f46b6e6eaa7c75e3e21addb096",
+        "projection-6af19fe224c9a727a08911adfec7fbef83bbc28ca6c1776c5774561b45d60587"
+      ],
+      "decision_reasons": {
+        "identity_incomplete_keep_source": 276
+      },
+      "page_size": 25,
+      "returned": [
+        25,
+        25
+      ],
+      "overlap": 0,
+      "page_one_ids": [
+        "observation-0048222a38e4d11eece8f9e8d21f9cba2bd810f17ff09e2d5b905a9b664dfa5d",
+        "observation-008c8d6f3080077393e6ecdd75fcbb5dc0336de10868de69a89d1a1b6c0f48a0",
+        "observation-01fb6531d83adee5f323d01acbcdcdf54a6d6b7ab4453521dba3129a0ece40df",
+        "observation-0229638379ca5443f643cbdad77a02e3f24ce4145465f5ac45bcc42dd86c7119",
+        "observation-0586440157b3e2850e017414f5e80f467fd15bdfdf5500262da4ff37005a749c",
+        "observation-06ac82d7569c35e113471c0484122b02b41a8c786f6407c77f3397acd4701b23",
+        "observation-09a7f7bf7293636a7acbe5d5a736e92ce521d62bb78e172cf1f46290f4c5cec1",
+        "observation-09bc314fe8b2643ba7bace1772e44c6b7b57a40c5b5fd74c5a924c9b336eab24",
+        "observation-0b8ca2b542ec581519b1417a2ed629eb74732b45553d2ed002b8ad58a5c48980",
+        "observation-0b98c6bb733fd4146950b5e026b16811bb8475030556dc97bbde061f67dadc95",
+        "observation-0d1cee139c8fc1dc4a9a46fd1b262e3d1a49787b713074ea7456e0715e9d128d",
+        "observation-0e1d19c946018992b359de549aa25400a843e137ff626d842db51333da22557b",
+        "observation-122924d9b33b2acd1b8c92990df47389b44fdc5890a9601ad1ae3c82c30fd969",
+        "observation-123c2a2e290a541719dc2ab15b002e16a551b77c42eb1cadf5c65ccaa2c9d27f",
+        "observation-12585fb49aa26150bd58e1996847a81f024995c243fc9318b7864faeac7290d4",
+        "observation-12df8b70dc4ec64d013748ebf25c41ed00484578737a2e47a5d8250b19192863",
+        "observation-1378830c5d3dbd63f9ff06ab3035d57bc517a597eccb71b9840f179cc0ed91c0",
+        "observation-13b651bb053453191e1154000604b59b930486003104f8009c2b8b6293f70515",
+        "observation-14773cc0965f2a9a93670ac81c8e63a07a415ffd4640432487ad3abb3767e3d3",
+        "observation-1491f2e983558734c28f25addb4ea10243801b66d75c78f68b5d1959b7299106",
+        "observation-15504d77fc8e01c15790c34ab3ddf9dd8bb0739ed601a55df6b5ba07e81d157f",
+        "observation-155750f75106241348675352a3c493d4df4525a5e8e38d7f1101905337d18f19",
+        "observation-1696dfba531294e7fe3fbe5823e9d500845d442db425263975d4fe29b6929e37",
+        "observation-1936907703be638b80d4c2500b0e9f3253ffe302dc1bfe26e05bcb2fca2d5e79",
+        "observation-193b85bb0d06f5c4e9fc3bbecdb589e3b494907c3b36e5ffb5c04370be0c2868"
+      ],
+      "page_two_ids": [
+        "observation-19a97996214b46b04d452f8f0879a06bb540c9e00fdbe5849d0af1a04d5be629",
+        "observation-1a666189fe71ae9fe75d20ee85f8eb302b78d8de97a10e626849c5e43c590787",
+        "observation-1aa1f2aebdaf90b82f79eadeea3187f1b144117ad84bc0bdb047e7e52389870a",
+        "observation-1b586b1f98f078fc66e3b03cff9123e9d1fc569ccaefdb988b43985b4070e54f",
+        "observation-1d57f70a965c5a5edabdc0cab2af6d3e9ebe5646f3e6e616e415f685933d7c94",
+        "observation-1e23e3d96d91ebe0c01e8e2515d55355b57a1f5d72e9c909f0f740012bee6e6f",
+        "observation-206b1400761dd2ad46a5f769dc70cc9a7c766714efd8a15e00433629615008d4",
+        "observation-20a958d2ec1d1a2099aeec08d3318f439e537b057558aeaa5b073166aa10918e",
+        "observation-20c519aa712c17033906b3bcd1eb67e442c57380b1e47aa98d29b6a4b2e686f5",
+        "observation-239f8638019edc7ea9c623ae5069a9e42358dcdc323d5c721d184aea0f00e4c8",
+        "observation-250aa38209b248202d2249e69767ebb01ec95ffbe5f7e8a78c8756c8074b2f2a",
+        "observation-254ca5e87b6dfb6764e85e39497236925d65c2b06c950708d499595259c1fd8c",
+        "observation-2575f1d7f5649fd79cffe389dd0edbf595691de3865ff73993b12687ff46f28a",
+        "observation-27a80743a8af9b9d8617d6baaec88f105f82dd9857779931c14abd3509470fd2",
+        "observation-2831243f1338666093a7f0e59b43ac08f87671a2620a95ba2f04acb5b251c139",
+        "observation-286ed181194ca7c9d1edd1335cf2f9d0b6e8cc1de8425e164d4316487526501e",
+        "observation-299a9db00649ce1c5dea7b4520699f5c812406a068047b6ed23df1083661a073",
+        "observation-2a4a919df4ed3da983eaefb75f58742b91fe3e9f6a7ef54ba0e594812ab6f51e",
+        "observation-2aabbe9c9822c68ee553a197a9460b8534b332ff569975796b0a9663080dd184",
+        "observation-2b0094f1c535827b645bc1ec2ffd24d6526832d3490f4bf349a690e05fea1d95",
+        "observation-2d23f43d7b44af3f28b3f560e1a555e756e61a7b256dbd9bf6f8c9d262a0b016",
+        "observation-2df74adec999b8b67e854ea0850e2099ceeeccd5cf4ba2fc8f3aea9eb027746b",
+        "observation-2efe64bfa683905a6ba38d37cffdd532f76e243bc8f72b394905b8dc28aa504f",
+        "observation-3201711f304da7b28f434d500cbb48a2881cbae018a919a18d09144efceeba92",
+        "observation-33c871ef28bdf9ec0c9970a9cc0ffe9d90e5954330dc0e2700539537feb4a0a4"
+      ],
+      "same_snapshot": true,
+      "published": false
+    }
+  ]
+}

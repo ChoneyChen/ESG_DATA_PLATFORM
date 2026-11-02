@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "757bdabdcbb494f7cf9345e2284bb1affde9e36235f274854b0810815419f942",
+  "clause_digest": "8e969e215aad1be22c05c3cecd146e0968f67925a285786e286ed975f131d672",
   "clause_key": "S3-4_17",
   "data_kind": "qualitative",
   "definition": "说明所描述社会投资或发展项目覆盖的社区大致范围，以及选择这些社区的理由。",
@@ -459,9 +459,6 @@
       "说明所描述社会投资或发展项目覆盖的社区大致范围，以及选择这些社区的理由。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

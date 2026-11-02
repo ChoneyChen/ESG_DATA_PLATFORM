@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e4b594d3854a3750c089726fb01cc7018b297c9ce61fb7a908ce5c0ef1e48976",
+  "clause_digest": "24056bdb370f289a8bfd85ddbb28f0c6ceb2ebe0a1960fb431b7b55d9122bd22",
   "clause_key": "GOV-2_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of list of material impacts, risks and opportunities addressed by administrative, management and supervisory bodies or their relevant committees。治理机构处理的重要事项清单。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
@@ -459,9 +459,6 @@
       "Disclosure of list of material impacts, risks and opportunities addressed by administrative, management and supervisory bodies or their relevant committees。治理机构处理的重要事项清单。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

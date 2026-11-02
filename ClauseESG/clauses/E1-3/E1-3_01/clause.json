@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ad3605d119391de258c2233a30b4787df6ce81e9870475d881bba3820bad76b6",
+  "clause_digest": "3bf5c69737d09a376a69dacbb752621bef58e536eca631812d0d19882835dafa",
   "clause_key": "E1-3_01",
   "data_kind": "qualitative",
   "definition": "Decarbonisation lever type。脱碳杠杆类型。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。",
@@ -461,9 +461,6 @@
       "Decarbonisation lever type。脱碳杠杆类型。每个行动单独关联资源、期间和减排量；已实现与预期减排不可混同，减排量不是绝对排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

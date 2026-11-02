@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3073c1fc3b8ac2d1093be621893150bf23158fcfd5b7460325c4c992f5976de7",
+  "clause_digest": "7ea3d624634d963ab55e3d7e0cbc45779784160d8e1953e8d929e1b35ca4432c",
   "clause_key": "E1.IRO-1_09",
   "data_kind": "qualitative",
   "definition": "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain。转型风险与机会识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Description of process in relation to climate-related transition risks and opportunities in own operations and along value chain。转型风险与机会识别流程。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "14a0491b0fd7ab3b3f5f0c649822246c1741caf232679d8cb6eb2965eef142a1",
+  "clause_digest": "7c399f66ebf796863f42bd1a675e8a3cf6d85169f4bc9a2eb6303e8e4f061346",
   "clause_key": "G1-1_06",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未制定举报人保护政策；若尚未制定，披露现状、原因与拟采取措施。",
@@ -459,9 +459,6 @@
       "说明主体是否尚未制定举报人保护政策；若尚未制定，披露现状、原因与拟采取措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

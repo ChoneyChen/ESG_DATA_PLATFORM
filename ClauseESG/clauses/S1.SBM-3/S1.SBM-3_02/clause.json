@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5346201689abbbf0f3bc7fe3e8c29df15475cf67055a6e4ab20cf2987fa3880d",
+  "clause_digest": "fc8746a9141a6ba44314e286c50325eb990618586fb117ef956fc9a244ac78b1",
   "clause_key": "S1.SBM-3_02",
   "data_kind": "qualitative",
   "definition": "描述自身劳动力中受重大影响的员工和非员工类型。",
@@ -487,9 +487,6 @@
       "描述自身劳动力中受重大影响的员工和非员工类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

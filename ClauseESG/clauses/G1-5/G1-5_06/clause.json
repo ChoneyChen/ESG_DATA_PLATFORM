@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "786a3c357c49526577b7830b68e78b013d7d2bfb1ea024d6fdca218365b95064",
+  "clause_digest": "881513d93b34a0d304e2247f1467cffdc32f5c8a46fcd4ee0623a7c8fb8d179e",
   "clause_key": "G1-5_06",
   "data_kind": "quantitative",
   "definition": "披露报告期内主体提供的实物政治捐赠及其估计价值。",
@@ -558,9 +558,6 @@
       "披露报告期内主体提供的实物政治捐赠及其估计价值。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

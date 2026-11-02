@@ -126,7 +126,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "db79754a37cff089a8f1ac45767499d12978704aae61fd09893d398391ca53d0",
+  "clause_digest": "7f87a1a5fc9fe262244c5121b53cf47ff725d244cce9783535bbeaee3f5f48f2",
   "clause_key": "E2-4_18",
   "data_kind": "qualitative",
   "definition": "读取报告对实际环境绩效与BAT-AEL的原文比较及适用条件；实际量与参考限值是不同角色，不由模型另作合规判断。",
@@ -489,9 +489,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

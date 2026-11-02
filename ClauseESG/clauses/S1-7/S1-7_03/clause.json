@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "84983dda591f8eba6d3f96c541c2f68525be73b30d4e93bf87ba1a1ba3680fa0",
+  "clause_digest": "a331d54ab6a735f355fbc3c7c70bd8a583a707a86a96a6a778c121b2b7b163eb",
   "clause_key": "S1-7_03",
   "data_kind": "quantitative",
   "definition": "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。",
@@ -558,9 +558,6 @@
       "披露由主要从事就业活动的主体提供的非员工人数，并说明用工安排。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

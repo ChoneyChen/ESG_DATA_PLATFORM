@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7343cc95d3a265e61acad4c63c3f5811da62357fc1d3906cd88845854114f730",
+  "clause_digest": "20943ecb4fa614ea77d1901d1e55d74267ac0ee8c0e2cd1bbc761acb031f97b8",
   "clause_key": "E1.IRO-1_04",
   "data_kind": "qualitative",
   "definition": "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards。资产活动的灾害暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Undertaking has screened whether assets and business activities may be exposed to climate-related hazards。资产活动的灾害暴露筛查。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

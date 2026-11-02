@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f43acf26ab502c75d7bf61dc8610568ba22d0e9d3f82cec8a5589e68088f8ad9",
+  "clause_digest": "ea55ded6c726ace01b8992155945930a71fef75f4bd382619a386c1db50a24b5",
   "clause_key": "S4-4_05",
   "data_kind": "qualitative",
   "definition": "描述主体针对消费者和终端用户特定实际或潜在重大负面影响确定所需适当行动的流程。",
@@ -459,9 +459,6 @@
       "描述主体针对消费者和终端用户特定实际或潜在重大负面影响确定所需适当行动的流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

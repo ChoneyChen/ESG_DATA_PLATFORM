@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f2ce7c86baf26b77289c89da5d257954b96be723b23edc0d1ca1cf03f6ddb664",
+  "clause_digest": "994e2da09b145d761c25df8be1af949e7de2a806ed06676ce2b95c0b26c104e9",
   "clause_key": "S1-16_06",
   "data_kind": "quantitative",
   "definition": "Remuneration ratio adjusted for purchasing power differences between countries",
@@ -558,9 +558,6 @@
       "Remuneration ratio adjusted for purchasing power differences between countries"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

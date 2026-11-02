@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "124407cff3c2d2475184f543ff7d6658e841ef1522a6d047ada4b80661504afc",
+  "clause_digest": "91995b75fd35df20a3308f5d80576ad52ed15ce2895133dac5fb491b44c99fde",
   "clause_key": "E2.IRO-1_01",
   "data_kind": "qualitative",
   "definition": "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities。污染影响风险机会识别流程。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。",
@@ -487,9 +487,6 @@
       "Information about the process to identify actual and potential pollution-related impacts, risks and opportuntities。污染影响风险机会识别流程。流程、咨询和重要性结论各自举证；污染包括空气、水体、土壤，不能用气候排放流程直接代替。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

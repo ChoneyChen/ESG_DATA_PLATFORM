@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1cf3e8404f99136c1a16191fd015a008f86f5a70e05655d2290cec24f06ed6b9",
+  "clause_digest": "d8bf2db46f1f0d0ee09c46c5e17e360432ffb9d2efa64b5c7ce4b8be3c82d401",
   "clause_key": "G1-4_08",
   "data_kind": "qualitative",
   "definition": "Information about details of public legal cases regarding corruption or bribery brought against undertaking and own workers and about outcomes of such cases。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -459,9 +459,6 @@
       "Information about details of public legal cases regarding corruption or bribery brought against undertaking and own workers and about outcomes of such cases。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

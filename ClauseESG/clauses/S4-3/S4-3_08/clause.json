@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8ce66a2adf1ecab31463766254b2a194e0815d30061c9e5d63d05e48c1ff3050",
+  "clause_digest": "dbb09f7a28156f1824d004e62021f76dd0080dd8bdc2b6dbff3bb49dc3997c6c",
   "clause_key": "S4-3_08",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立面向消费者和终端用户申诉渠道或流程的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立面向消费者和终端用户申诉渠道或流程的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7bd9546512715e2d8e696503d7c8fcc61551d111175e722898d8b3f9df9ba6ef",
+  "clause_digest": "f76b5039f167bc341317849b9df0fcdba243d6d8a4dd79f2e4544f9d257ad077",
   "clause_key": "S3.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "披露受影响社区中重大负面影响是否已经发生，以及发生的情形。",
@@ -487,9 +487,6 @@
       "披露受影响社区中重大负面影响是否已经发生，以及发生的情形。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

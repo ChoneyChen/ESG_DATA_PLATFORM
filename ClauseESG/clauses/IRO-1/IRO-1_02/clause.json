@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a29c05f841a5147d60d2d7fb98201a7d4ab73277637d09c87d522dc1434aba7b",
+  "clause_digest": "eb97de0af796a7f56e5fbeeed9e3b0aece81f2c84d98bc90cef588925ffc8fc0",
   "clause_key": "IRO-1_02",
   "data_kind": "qualitative",
   "definition": "Description of process to identify, assess, prioritise and monitor potential and actual impacts on people and environment, informed by due diligence process。影响识别评估排序监测流程。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of process to identify, assess, prioritise and monitor potential and actual impacts on people and environment, informed by due diligence process。影响识别评估排序监测流程。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "43b248b0548c719477287303ae8e35d8206ff02137508ae7edc1c3823060520d",
+  "clause_digest": "b777f8a91b862c5747cd576aac7495789c10f929f37d0d370ba97638920b2194",
   "clause_key": "S3-1_09",
   "data_kind": "qualitative",
   "definition": "举例说明政策如何向受影响社区中的相关个人、群体或实体传达，包括渠道和语言。",
@@ -459,9 +459,6 @@
       "举例说明政策如何向受影响社区中的相关个人、群体或实体传达，包括渠道和语言。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

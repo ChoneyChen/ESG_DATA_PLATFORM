@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f9de8e93fe623929a8fbc138a0e5a298540d3bd3fc0c8ca3ab3e7eb84dccee56",
+  "clause_digest": "0ca1cd2724775b153211291fc86ae7b5982b8af6541db319d11731a9103cd8be",
   "clause_key": "E4-2_10",
   "data_kind": "qualitative",
   "definition": "说明政策如何处理来自经定期生物多样性监测并披露增益或损失、以维持或提升生物多样性条件方式管理的生态系统的原材料。",
@@ -459,9 +459,6 @@
       "说明政策如何处理来自经定期生物多样性监测并披露增益或损失、以维持或提升生物多样性条件方式管理的生态系统的原材料。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

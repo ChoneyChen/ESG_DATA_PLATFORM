@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "63c776362301e94ca8fc29bad87c0f6628bdb8a0e5d76ed5522c831b7d57ec87",
+  "clause_digest": "d1300c29ccc600b91b58b551d5dd77f8f0d3c32bcfbb0c8b76905a01f0ca1b52",
   "clause_key": "S4-5_06",
   "data_kind": "qualitative",
   "definition": "披露消费者和终端用户相关目标所依据的标准、倡议或主体承诺。",
@@ -473,9 +473,6 @@
       "披露消费者和终端用户相关目标所依据的标准、倡议或主体承诺。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

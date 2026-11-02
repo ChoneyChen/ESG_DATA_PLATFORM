@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5ee8f821b57aadb7094f6273ab7a5a6e4123798eec1926959bff06b3a27db373",
+  "clause_digest": "9c1786fd9927adb3a6525399a768fc2bf50d2662367ae57d53771e95b672f753",
   "clause_key": "E4-1_18",
   "data_kind": "qualitative",
   "definition": "说明在重大影响领域起草转型计划时面临的挑战和局限，以及主体正在采取的应对措施。",
@@ -445,9 +445,6 @@
       "说明在重大影响领域起草转型计划时面临的挑战和局限，以及主体正在采取的应对措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

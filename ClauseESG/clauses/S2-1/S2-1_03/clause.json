@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4e3927cfa6cf32c6a2cc0cbf2288a97cf5e8be4ea42337da19821e286f0858a4",
+  "clause_digest": "16ae233391b334b9fc919e6c284edae0aa39e247d1dcfc1fdb745cf40fa52107",
   "clause_key": "S2-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体与价值链劳动者开展接触和沟通的总体方法。",
@@ -459,9 +459,6 @@
       "说明主体与价值链劳动者开展接触和沟通的总体方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

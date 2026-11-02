@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "08fcb4369a1ba867827a1b9bb156fdaaa40a6c28ae4ed2b2f9d3e2dee505d91c",
+  "clause_digest": "1bbd2f4b881edf9c1d5dbaf0509043624fd4d1cc68e488d8dce90733dcff24f4",
   "clause_key": "G1-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。",
@@ -459,10 +459,6 @@
       "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。"
     ],
     "operator": "statement",
-    "options": {
-      "text_unit_pattern": "%|％|件|起|天|日|人|名|位|days?",
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

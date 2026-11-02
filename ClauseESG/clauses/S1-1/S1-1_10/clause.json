@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e46784cc897448a55026af50053869be8281cda634013e16af667cce17b0355a",
+  "clause_digest": "14be5be6dd6535996fa3ad8696638570e1b0f7f709a2dbc415c9c21e2f935fd3",
   "clause_key": "S1-1_10",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定旨在消除歧视的专项政策，并说明适用范围。",
@@ -459,9 +459,6 @@
       "披露主体是否已制定旨在消除歧视的专项政策，并说明适用范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

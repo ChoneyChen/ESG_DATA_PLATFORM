@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f0e10c59eb6807ec9d5799d593bbde5303a7c45a8d15f49575182bb73c8809cd",
+  "clause_digest": "54daf7be4725d5f849d78e6ac596124c3516a6291256e701df243b7ad7284b16",
   "clause_key": "GOV-1_07",
   "data_kind": "quantitative",
   "definition": "Percentage of independent board members。独立董事比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -572,9 +572,6 @@
       "Percentage of independent board members。独立董事比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

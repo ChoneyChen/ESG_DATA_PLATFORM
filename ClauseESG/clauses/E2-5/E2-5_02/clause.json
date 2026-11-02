@@ -191,7 +191,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "57d4e9e9970def710ee9ec9d761ea5db4a90e4b7d0e5c8652965ab67c30d7590",
+  "clause_digest": "6af2481cdc70c38939188a672f3ca882e58429d5a9779faff275e9ecb52f842b",
   "clause_key": "E2-5_02",
   "data_kind": "quantitative",
   "definition": "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -767,10 +767,6 @@
       "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|种|種|项|項",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

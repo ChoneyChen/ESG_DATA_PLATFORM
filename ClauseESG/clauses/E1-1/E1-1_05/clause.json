@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "86a8246eae74fc3f10263db9f0b1c7d4ec1e6be1a7bc88f5081b7cd6d2808d47",
+  "clause_digest": "64e6dbc70512205679232107dc51aa817f43ca1c5a67dbfa999746a6d3767ec9",
   "clause_key": "E1-1_05",
   "data_kind": "quantitative",
   "definition": "Financial resources allocated to action plan (OpEx)。行动运营支出资源。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -558,9 +558,6 @@
       "Financial resources allocated to action plan (OpEx)。行动运营支出资源。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

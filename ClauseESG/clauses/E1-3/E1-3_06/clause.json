@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d841e763314c6a4197520fe0c18a2956c3c5cdb9641f9dadcf8aa3fb8dbc840f",
+  "clause_digest": "2b07253e0346f4f5ec01e321d382e581f65b73b31e84a3b8afe5cdedbde51cd8",
   "clause_key": "E1-3_06",
   "data_kind": "qualitative",
   "definition": "读取重大资本/运营支出与财务报表行项目或注释的关系解释；保留所指行动和行项目，不以金额齐全作为陈述准入条件。",
@@ -478,9 +478,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

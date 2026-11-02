@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7de720e98df190368fbc1f66ebc48d8724df7d679a329d5948516a1b3ca115aa",
+  "clause_digest": "4b0c5111b141ec71e036302f5554d793941de3fd012a8890512d5b57c739e89f",
   "clause_key": "E5-6_04",
   "data_kind": "qualitative",
   "definition": "披露估计资源利用与循环经济相关重大风险与机遇财务影响时使用的关键假设。",
@@ -515,9 +515,6 @@
       "披露估计资源利用与循环经济相关重大风险与机遇财务影响时使用的关键假设。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

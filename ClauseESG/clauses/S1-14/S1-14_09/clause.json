@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1376ede770eb52113422d8a620e026e027db034f660b52f4a08005cca5de0a78",
+  "clause_digest": "fbdedb2e443cd92e934f5ba4db6d7a7eb111ecbee00761cb208dc7ccf120f2c5",
   "clause_key": "S1-14_09",
   "data_kind": "quantitative",
   "definition": "Number of days lost to work-related injuries and fatalities from work-related accidents, work-related ill health and fatalities from ill health realted to non-employees",
@@ -558,9 +558,6 @@
       "Number of days lost to work-related injuries and fatalities from work-related accidents, work-related ill health and fatalities from ill health realted to non-employees"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "685ee9c0d223590a456df956f2cb09c8043f87bb6ec7d7251d952c0f6858ebbc",
+  "clause_digest": "fcf26192c4e0b6e3462d4ec266a13f37555c09c0f7d3efbd8e6f21c2d2f8daba",
   "clause_key": "S2-2_03",
   "data_kind": "qualitative",
   "definition": "披露与价值链劳动者接触发生的阶段、接触类型和频率。",
@@ -445,9 +445,6 @@
       "披露与价值链劳动者接触发生的阶段、接触类型和频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "46abc2e9fa9b51ca9eb191da7b60e815a27152155e0232513204c058e47fc050",
+  "clause_digest": "7365fa5cbcecc40b0bbbd3499f203e86f87f2c870e0228356ed63280d3af1963",
   "clause_key": "S2-3_02",
   "data_kind": "qualitative",
   "definition": "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -445,9 +445,6 @@
       "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

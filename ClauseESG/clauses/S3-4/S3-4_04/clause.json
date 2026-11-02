@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "433a0e24727350e7dc05cb75686e1196def32908fbd637ca6bc61b27942abc89",
+  "clause_digest": "b4a143840b3b8d6d5fd9ebf2d6b5cbd02343b2eef8dcc355634f28c6c370ebc0",
   "clause_key": "S3-4_04",
   "data_kind": "qualitative",
   "definition": "说明主体如何跟踪和评估行动或举措在改善社区结果方面的有效性。",
@@ -459,9 +459,6 @@
       "说明主体如何跟踪和评估行动或举措在改善社区结果方面的有效性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

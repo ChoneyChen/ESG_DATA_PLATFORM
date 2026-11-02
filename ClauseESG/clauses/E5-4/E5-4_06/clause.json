@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f9e5ee41d181952964a7e5bf827bdbee97e466aadf2bf21c3d16acd5762f38f3",
+  "clause_digest": "26050e2b92ac45abf609f8236a36a5c3c31cb91c3c3e40dc76f605ed3ac5dfe0",
   "clause_key": "E5-4_06",
   "data_kind": "qualitative",
   "definition": "Description of methodologies used to calculate data and key assumptions used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of methodologies used to calculate data and key assumptions used。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

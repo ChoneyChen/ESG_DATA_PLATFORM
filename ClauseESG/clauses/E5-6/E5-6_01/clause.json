@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5308522ac19bd79eae901723cd4654531b1103272b305152696fd298e1a227c7",
+  "clause_digest": "d0a7ece30a3ad7902262797149d6ccab74efc872b829ef7b1a68ac85485494c3",
   "clause_key": "E5-6_01",
   "data_kind": "quantitative",
   "definition": "以定量方式披露资源利用与循环经济相关影响所产生的重大风险和机遇的预期财务影响。",
@@ -628,9 +628,6 @@
       "以定量方式披露资源利用与循环经济相关影响所产生的重大风险和机遇的预期财务影响。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

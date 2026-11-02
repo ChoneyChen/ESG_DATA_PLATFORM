@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d9f2e6f895472833951c446f484570952418d8678075a48acf0968faff624823",
+  "clause_digest": "4192f0446289f6b750b9b7b87c5a437ff22c82da272ad320bb97e94f3371bde2",
   "clause_key": "S1-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体内部负责确保接触发生并使结果影响主体方法的职能和最资深角色。",
@@ -445,9 +445,6 @@
       "说明主体内部负责确保接触发生并使结果影响主体方法的职能和最资深角色。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

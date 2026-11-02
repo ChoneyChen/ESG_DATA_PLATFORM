@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any, Literal
-from pydantic import Field, model_validator
+from pydantic import Field, model_validator, model_serializer
 from .base import StrictModel
 
 
@@ -113,7 +113,15 @@ class ReadingContract(StrictModel):
     rules: list[ReadingRule] = Field(default_factory=list)
     vocabulary: dict[str, list[str]] = Field(default_factory=dict)
     allow_regulatory_limit: bool = False
-    options: dict[str, Any] = Field(default_factory=dict)
+    options: dict[str, Any] = Field(default_factory=dict, deprecated=True,
+        description="Frozen-task input only; current clauses do not declare execution options.")
+
+    @model_serializer(mode="wrap")
+    def frozen_shape(self, serializer):
+        body = serializer(self)
+        if "options" not in self.model_fields_set:
+            body.pop("options", None)
+        return body
 
 
 class ClauseRelationships(StrictModel):

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "64a6e98efe1cde0b3f5e75c692de59def74207ac1087397f2febf15079c3b154",
+  "clause_digest": "c56f540cb64bacdef128fb7105ac3f6bf6061989fb1dec989628468f38caff76",
   "clause_key": "MDR-A_09",
   "data_kind": "quantitative",
   "definition": "Current financial resources allocated to action plan (Capex)。当前行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -586,9 +586,6 @@
       "Current financial resources allocated to action plan (Capex)。当前行动资本支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

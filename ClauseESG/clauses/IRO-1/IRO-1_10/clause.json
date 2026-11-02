@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7bb3bb2943fa9f3116246c440881c3d4481b652cf0c36d591883dbd251997e63",
+  "clause_digest": "3e598a84c4744da5e754712b359386ef66fda7ee1b09cb77f5688a77eb537096",
   "clause_key": "IRO-1_10",
   "data_kind": "qualitative",
   "definition": "Description of how sustainability-related risks relative to other types of risks have been prioritised。可持续风险相对其他风险的排序。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of how sustainability-related risks relative to other types of risks have been prioritised。可持续风险相对其他风险的排序。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6529f918653302d8307e238f8ca86f0cfb07bfc53b6ef97a084af9302494befe",
+  "clause_digest": "222eaec91e39fbaec83b464b4598e758ec2768532fb93e45c304c7bfe787b4b4",
   "clause_key": "S3-3_10",
   "data_kind": "qualitative",
   "definition": "说明主体在已识别与受影响社区重大负面影响相关时，提供或促成补救的总体方法与流程。",
@@ -445,9 +445,6 @@
       "说明主体在已识别与受影响社区重大负面影响相关时，提供或促成补救的总体方法与流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

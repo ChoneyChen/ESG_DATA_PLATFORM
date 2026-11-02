@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "88240b072df43612f9b91400d79ff6f6c507aeb183efbc7b2bbb23b7dbdddbf1",
+  "clause_digest": "aa3588a1e7dcdce3cc9dc4ac1191487e667ec61e08b653806d9c3594538c9664",
   "clause_key": "S1-6_13",
   "data_kind": "qualitative",
   "definition": "Description of methodologies and assumptions used to compile data (employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of methodologies and assumptions used to compile data (employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

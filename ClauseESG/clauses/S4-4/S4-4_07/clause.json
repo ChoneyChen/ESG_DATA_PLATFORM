@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "896814b12d3edb2d9158511920dbf74e19e5f5797103548e756cadabacd7a562",
+  "clause_digest": "f5fa53dc5041162e32c83ccd5fe09a67a51a349b7e27fd92577f2806e03f4aa8",
   "clause_key": "S4-4_07",
   "data_kind": "qualitative",
   "definition": "描述主体如何确保在消费者和终端用户发生重大负面影响时，补救流程可得、可实施且结果有效。",
@@ -459,9 +459,6 @@
       "描述主体如何确保在消费者和终端用户发生重大负面影响时，补救流程可得、可实施且结果有效。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

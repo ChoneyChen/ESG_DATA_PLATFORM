@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9ab385516ab91383b72df322d906a947c246b21932f505a944005c87928f5b3c",
+  "clause_digest": "f9eaee61415a64cec60b4a63a5c0ede2e2f27dc39488c62f3bdaadaa1fbc3038",
   "clause_key": "E5.IRO-1_01",
   "data_kind": "qualitative",
   "definition": "说明主体是否已筛查其资产和活动，以识别自身运营及上下游价值链中的实际和潜在影响、风险与机遇，并说明所用方法、假设和工具。",
@@ -487,9 +487,6 @@
       "说明主体是否已筛查其资产和活动，以识别自身运营及上下游价值链中的实际和潜在影响、风险与机遇，并说明所用方法、假设和工具。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

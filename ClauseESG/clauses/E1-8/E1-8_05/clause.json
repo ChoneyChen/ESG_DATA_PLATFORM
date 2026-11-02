@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6f723d5a7141339c18e946bd4c2765f85d5c3db92f8d7040e5b029893f2eb8a4",
+  "clause_digest": "9d9e73063182e12237523b1d64cd27153b4b41c519ef152d6ba93178978662a5",
   "clause_key": "E1-8_05",
   "data_kind": "qualitative",
   "definition": "Description of critical assumptions made to determine carbon price applied。内部碳价格确定假设。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -487,9 +487,6 @@
       "Description of critical assumptions made to determine carbon price applied。内部碳价格确定假设。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

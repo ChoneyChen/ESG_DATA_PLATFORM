@@ -114,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6a7f9437590d1f800fab696caf7dfe91fa5ffcc02f9b72e006fd2a944fa1a3a4",
+  "clause_digest": "d8bcea3f7f0f6f20711d45beaaf7f220344ac9e91c6f142af76f857e0e3a6fbb",
   "clause_key": "BP-2_14",
   "data_kind": "qualitative",
   "definition": "读取前期差错及更正的原文说明，保留涉及的期间和指标；不覆盖旧值，不把更正说明当当期金额。",
@@ -462,9 +462,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

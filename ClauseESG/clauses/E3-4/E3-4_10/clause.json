@@ -185,7 +185,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a209acdff951b8fb37a3905060856d5aabe539606c7db964b569ba40ca1c390f",
+  "clause_digest": "db7ec85fe8b534e95cc6d9fef9e2bc8721025df03bd7690784287307baaefab2",
   "clause_key": "E3-4_10",
   "data_kind": "quantitative",
   "definition": "Additional water intensity ratio。其他口径的水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -635,9 +635,6 @@
       "Additional water intensity ratio。其他口径的水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

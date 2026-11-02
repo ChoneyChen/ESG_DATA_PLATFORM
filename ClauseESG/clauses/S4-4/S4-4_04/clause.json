@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6d6fe5e7cb4a15d420b7d233bef3cff8e5fc73962b57333a2053a8b16f786d58",
+  "clause_digest": "9015f3960a49921d826a1faa3e961709aa09ebb26fed1995563a1692ac5ac7e8",
   "clause_key": "S4-4_04",
   "data_kind": "qualitative",
   "definition": "说明主体如何跟踪和评估行动或举措在改善消费者和终端用户结果方面的有效性。",
@@ -459,9 +459,6 @@
       "说明主体如何跟踪和评估行动或举措在改善消费者和终端用户结果方面的有效性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

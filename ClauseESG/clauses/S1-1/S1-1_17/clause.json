@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e48ccfdda98c39aaddd0d08e325818ed39de7158e474eb910928524ece273a76",
+  "clause_digest": "a1489bda138559c5d3d2e43443c2854b2adf7a80951d12b4332cf8f8de0c2272",
   "clause_key": "S1-1_17",
   "data_kind": "qualitative",
   "definition": "披露主体是否已开展反歧视政策和实践方面的员工培训，并说明覆盖范围。",
@@ -459,9 +459,6 @@
       "披露主体是否已开展反歧视政策和实践方面的员工培训，并说明覆盖范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

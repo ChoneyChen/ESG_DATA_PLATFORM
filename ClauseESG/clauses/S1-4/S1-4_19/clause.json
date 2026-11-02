@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "794ca3a41adf0ebcd35201f93113d01c7b75f480263eab54a2f7a7e4e4d0035c",
+  "clause_digest": "812c989ea5e7ddbedf141b22490c60cbc83078c10fe7f303244f9c5daef6cd46",
   "clause_key": "S1-4_19",
   "data_kind": "qualitative",
   "definition": "提供为缓解绿色、气候中性经济转型对员工造成的负面影响所采取的措施。",
@@ -459,9 +459,6 @@
       "提供为缓解绿色、气候中性经济转型对员工造成的负面影响所采取的措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

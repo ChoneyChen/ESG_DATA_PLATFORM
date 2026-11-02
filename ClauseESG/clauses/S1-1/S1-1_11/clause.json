@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6832170b5793027743ae5257c1d2e0dab1d37200a854e795def48e922abc070d",
+  "clause_digest": "9a95753d37cb7697cd5e5f842c5e714b4231b9ea43caf3f602c5905da8a76ece",
   "clause_key": "S1-1_11",
   "data_kind": "qualitative",
   "definition": "说明政策具体覆盖哪些歧视理由，如性别、年龄、种族、宗教、残疾等。",
@@ -459,9 +459,6 @@
       "说明政策具体覆盖哪些歧视理由，如性别、年龄、种族、宗教、残疾等。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

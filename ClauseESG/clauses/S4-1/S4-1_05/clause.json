@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5ca7518027a695e5c9faf2b933622792b358f92c22ae0f74418bd7364934f72b",
+  "clause_digest": "3e44d8a3ab2ad3a5efc23d12c16619a751f8feca8bbfae91243e07f2d11e552b",
   "clause_key": "S4-1_05",
   "data_kind": "qualitative",
   "definition": "说明主体为消费者和终端用户人权影响提供或促成补救的总体方法与机制。",
@@ -459,9 +459,6 @@
       "说明主体为消费者和终端用户人权影响提供或促成补救的总体方法与机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

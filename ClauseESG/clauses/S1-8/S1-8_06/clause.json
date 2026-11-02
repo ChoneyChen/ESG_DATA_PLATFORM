@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "26f2e9d3e83800c1d027d1c0694282d451ddfdb188d7632b1f4429ee2dc89ecf",
+  "clause_digest": "92a0120966a076cf777bf6334f220b0a2f625baf26b042691df900d79fbc56bd",
   "clause_key": "S1-8_06",
   "data_kind": "quantitative",
   "definition": "披露在欧洲经济区内具有重要就业的国家中，受员工代表覆盖的员工比例。",
@@ -558,9 +558,6 @@
       "披露在欧洲经济区内具有重要就业的国家中，受员工代表覆盖的员工比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

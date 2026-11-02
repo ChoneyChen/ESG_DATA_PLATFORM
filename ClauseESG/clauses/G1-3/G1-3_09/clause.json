@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "735677a2cc05015336a1b1d13178451a0dbae012825e835b83052cf9f864b865",
+  "clause_digest": "54772a7a7b154ad19be9bfcd834e9d2d3793ff716a2737158ef29fb7b3513919",
   "clause_key": "G1-3_09",
   "data_kind": "qualitative",
   "definition": "披露按地区、类别等维度对反腐败或反贿赂培训活动所作的分析。",
@@ -445,9 +445,6 @@
       "披露按地区、类别等维度对反腐败或反贿赂培训活动所作的分析。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

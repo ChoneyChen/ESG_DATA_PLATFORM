@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3a218282ba00e6d39c762f417fa0eef67fb80460c6b1ae32b5cdfcc412f5b408",
+  "clause_digest": "e34deb097f09292d80fcac64e635218fef9665ea3d2fca06c154c2c994a6b5d4",
   "clause_key": "S4-3_03",
   "data_kind": "qualitative",
   "definition": "说明主体通过哪些流程支持或要求提供消费者申诉渠道，包括对业务伙伴的要求。",
@@ -445,9 +445,6 @@
       "说明主体通过哪些流程支持或要求提供消费者申诉渠道，包括对业务伙伴的要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

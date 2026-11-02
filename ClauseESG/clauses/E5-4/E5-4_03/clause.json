@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "67a71bd7273700c908bcec50782ccd12b58456090dd117afa060a5de53a8c3bd",
+  "clause_digest": "68ec3540b24de2db924f09f8be20ac7a9c0d7e1fea502c0fb2f3fc4cc30954ed",
   "clause_key": "E5-4_03",
   "data_kind": "quantitative",
   "definition": "Percentage of biological materials (and biofuels used for non-energy purposes)",
@@ -558,9 +558,6 @@
       "Percentage of biological materials (and biofuels used for non-energy purposes)"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

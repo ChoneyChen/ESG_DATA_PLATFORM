@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "37bef4bf1eb4b5a3e98f8e9127e45f884de90d7126468058b8f8d7ab87c40d5d",
+  "clause_digest": "fe6a606b0f5bacc753a8ddaefc92f6450bce63688af1da8c0c6f45856581bef1",
   "clause_key": "E1-7_07",
   "data_kind": "quantitative",
   "definition": "Reversals。移除的逆转量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Reversals。移除的逆转量。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

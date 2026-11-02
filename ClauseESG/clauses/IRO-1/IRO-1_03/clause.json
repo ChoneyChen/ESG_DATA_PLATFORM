@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b74304c35b013430f716de6b8c5026bc5c2c48c05247265a7d55c784786e5f8d",
+  "clause_digest": "e58534953a69b323488d2d5fd176943bae23376af0b17e5ab78d5fc2ee46f9b0",
   "clause_key": "IRO-1_03",
   "data_kind": "qualitative",
   "definition": "Description of how process focuses on specific activities, business relationships, geographies or other factors that give rise to heightened risk of adverse impacts。高不利影响风险因素筛查。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of how process focuses on specific activities, business relationships, geographies or other factors that give rise to heightened risk of adverse impacts。高不利影响风险因素筛查。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

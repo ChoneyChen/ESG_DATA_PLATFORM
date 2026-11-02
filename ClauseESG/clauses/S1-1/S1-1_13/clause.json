@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "820999d54c46d0d40fbb0b31237b630fd7a802e42a4dcc1f7430ce1bc8f8abc5",
+  "clause_digest": "1ef8a6b844db7b324ced87d0a80f752742fd5c7870b6b21d79129abe851ab0bc",
   "clause_key": "S1-1_13",
   "data_kind": "qualitative",
   "definition": "说明政策如何通过具体程序落实，以预防、减轻并在发现后处理歧视，同时推进多元与包容。",
@@ -459,9 +459,6 @@
       "说明政策如何通过具体程序落实，以预防、减轻并在发现后处理歧视，同时推进多元与包容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

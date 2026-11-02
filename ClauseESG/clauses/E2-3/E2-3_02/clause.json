@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d92501d4b6bb65ce713cb84f4839b74418f7025f6026e23784e0dd7f2c460b4c",
+  "clause_digest": "de2bf50409ead1451e936fd8e77a00c9b1abf46996b0784bd30deaa80f4e5102",
   "clause_key": "E2-3_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of  whether and how target relates to prevention and control of emissions to water and respective specific loads。目标与水体污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of  whether and how target relates to prevention and control of emissions to water and respective specific loads。目标与水体污染防控关系。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

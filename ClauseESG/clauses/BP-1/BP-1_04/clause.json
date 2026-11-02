@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3981e2ac47e5af185d8943a4a2a33341755b8b378d6687fffc23b76d7071a82f",
+  "clause_digest": "48d1fc9c0458a3ab3c3bd6491b60718db9c16a76561ccf1919e5dc184574d96f",
   "clause_key": "BP-1_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of extent to which sustainability statement covers upstream and downstream value chain。上下游价值链披露覆盖。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
@@ -459,9 +459,6 @@
       "Disclosure of extent to which sustainability statement covers upstream and downstream value chain。上下游价值链披露覆盖。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

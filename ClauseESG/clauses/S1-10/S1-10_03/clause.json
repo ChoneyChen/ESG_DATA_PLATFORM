@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1d211c081cf30210c86680eb0115d0aa06b9af35a3618fc0dd4213ee9c60bfcd",
+  "clause_digest": "6d6182c69dc085be33b63f70760133777c641bfc2c730f2147d20ec76861cfb2",
   "clause_key": "S1-10_03",
   "data_kind": "quantitative",
   "definition": "披露工资低于适用足额工资基准的员工占员工总数的比例。",
@@ -572,9 +572,6 @@
       "披露工资低于适用足额工资基准的员工占员工总数的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

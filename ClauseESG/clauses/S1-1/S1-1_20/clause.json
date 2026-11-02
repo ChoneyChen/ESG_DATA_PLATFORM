@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0103aa12103cc98f46d547d418e4d577da7d79cd5829fc353c6b5723d9d952b4",
+  "clause_digest": "8056b1d95569b74db121c863a972ba2f8afb7dfd6adb554a48c1e80303549404",
   "clause_key": "S1-1_20",
   "data_kind": "qualitative",
   "definition": "说明主体是否保存最新的招聘、培训和晋升记录，以透明呈现员工机会与晋升路径。",
@@ -459,9 +459,6 @@
       "说明主体是否保存最新的招聘、培训和晋升记录，以透明呈现员工机会与晋升路径。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

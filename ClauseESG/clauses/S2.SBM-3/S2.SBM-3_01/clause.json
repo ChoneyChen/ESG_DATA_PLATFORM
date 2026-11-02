@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e8d634d8ef36e7c8e75eb77ba7492471faf1b5b9046ba4c0912bc372c26d1c1d",
+  "clause_digest": "54ad1f9a0588c4c090a9ac35c9e89b53bf5ba9a0ec6f9c0d1f2f69d38416e596",
   "clause_key": "S2.SBM-3_01",
   "data_kind": "qualitative",
   "definition": "说明所有可能受主体重大影响的价值链劳动者是否已纳入ESRS 2披露范围。",
@@ -487,9 +487,6 @@
       "说明所有可能受主体重大影响的价值链劳动者是否已纳入ESRS 2披露范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

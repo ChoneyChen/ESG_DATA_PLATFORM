@@ -168,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5109f5e5afcc9628377927c3a2e6683e8ab11a314f6dd4950530e4df03d37f6b",
+  "clause_digest": "51475d76ebce314553a3523b00efb1744db24fee104dc75fd2637bbc9f6ecffc",
   "clause_key": "E1-5_01",
   "data_kind": "quantitative",
   "definition": "自身运营的能源消费总量",
@@ -752,10 +752,6 @@
       "原值由后端从所选物理单元格取回，主体、边界、方法只能用实际原文支持，不能填入条款预设值。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "[mgkt]wh|千瓦时|千瓦時|兆瓦时|兆瓦時|吉瓦时|度电|度電|亿度|億度|万度|萬度|[gtp]j|吉焦|焦耳|标准煤|標準煤|标煤|tce|toe|%|％",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

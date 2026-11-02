@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a683a96428448587ba7877f08a0c44370b96698351940c98bff5355ecd35f405",
+  "clause_digest": "cf432c85bcb6436826dc0115af8ec7f5ebd85db276fa3aeab4981ace12cbcce9",
   "clause_key": "E1-1_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of decarbonisation levers and key action。脱碳杠杆与关键行动。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -445,9 +445,6 @@
       "Disclosure of decarbonisation levers and key action。脱碳杠杆与关键行动。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

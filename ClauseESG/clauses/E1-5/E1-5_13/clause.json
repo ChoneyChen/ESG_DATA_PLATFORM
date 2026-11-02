@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "333573f082d62604e4cb85402a5675b144b5ee87e72a5b25df6fd5227ed3c091",
+  "clause_digest": "dd852687426e5d814ffa885c498608855a24ef4b209c90b13feef4c47e3d966c",
   "clause_key": "E1-5_13",
   "data_kind": "quantitative",
   "definition": "其他化石能源燃料消费量",
@@ -601,9 +601,6 @@
       "其他化石能源燃料消费量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

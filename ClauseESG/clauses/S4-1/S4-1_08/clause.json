@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "374a78439c1bbffc178a985db0d132af106f309f4c47a805f2081a3b8d3d8c87",
+  "clause_digest": "1ae3632491030d17255c1769726a843bb7079d1c9663062b8e96f5edd60f8b7c",
   "clause_key": "S4-1_08",
   "data_kind": "qualitative",
   "definition": "说明报告年度内对消费者和终端用户相关政策作出的重大变化及其原因和影响。",
@@ -459,9 +459,6 @@
       "说明报告年度内对消费者和终端用户相关政策作出的重大变化及其原因和影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

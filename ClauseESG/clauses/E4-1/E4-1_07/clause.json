@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6a1632121ed2cd1f19105212d7b93d612e5f11f1d9ed231ce81c0a80b6a4e508",
+  "clause_digest": "3c4b5298ab336fc898e8493b6f12b3465811bbd68818767480a0a09fe1ec10cb",
   "clause_key": "E4-1_07",
   "data_kind": "qualitative",
   "definition": "披露为改善并最终实现商业模式和战略与生物多样性和生态系统目标对齐而制定的转型计划。",
@@ -445,9 +445,6 @@
       "披露为改善并最终实现商业模式和战略与生物多样性和生态系统目标对齐而制定的转型计划。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

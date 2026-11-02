@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b65c76da51d8dfa589045bcb3c5d07bc269ccd05bde8d0459923db56f093b579",
+  "clause_digest": "f8e320085784199d585f7749ef1d9d79866176035d26a2ecd6fd452a9a072da6",
   "clause_key": "E3-1_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy adresses prevention and abatment of water pollution。水污染预防减缓政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "Disclosure of whether and how policy adresses prevention and abatment of water pollution。水污染预防减缓政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

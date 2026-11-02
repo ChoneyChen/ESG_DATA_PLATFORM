@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "90cda04f88810b0074dfb360c3f62c377ff5105cd28319cd23aff78b9da28bfa",
+  "clause_digest": "30d857ad4fd6ece4f015e2769ef3b428340caa13afe771bed2b52c23ed028573",
   "clause_key": "S3-2_05",
   "data_kind": "qualitative",
   "definition": "说明主体如何评估与受影响社区接触的有效性，包括评估指标与反馈机制。",
@@ -445,9 +445,6 @@
       "说明主体如何评估与受影响社区接触的有效性，包括评估指标与反馈机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

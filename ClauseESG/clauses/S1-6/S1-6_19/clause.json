@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "855561ad43ecdc99721b0e42ab21e6ff858274e728c725cb36781b0539d71bab",
+  "clause_digest": "346898edfa1940c4ecf5305d08b93c1c69c20a93e0f030200b2cb5b526a66ee7",
   "clause_key": "S1-6_19",
   "data_kind": "quantitative",
   "definition": "Number of full-time employees by head count or full time equivalent",
@@ -572,9 +572,6 @@
       "Number of full-time employees by head count or full time equivalent"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

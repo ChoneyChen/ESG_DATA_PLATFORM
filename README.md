@@ -25,7 +25,7 @@ ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ConsoleESG/scripts/start.sh
 
 [当前六项骨架升级](docs/implementation/2026-11-01/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
 
-2026-11-02本轮正在实跑：CATL已完成53条原值接收与投影，含2023—2025年数据和2条定性原文；CKH已保存222条，45条标注目标关系对应，补页及能源口径任务仍在执行。逐项结果与实际限制只记录在本轮实施报告。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
+2026-11-03正在完成本轮收尾实跑：前一组CATL 54条、CKH 222条、能源71条均已接收与投影；新部署正在确认表头组合引用、补读逐批保存及分页读取。逐项实现、真实结果与限制见本轮实施报告。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
 
 1,126个独立声明：281定量、832定性、13非执行结构描述；37项已逐条归类。99展示组、16/32等集合仅组织ID，不产生专用路线；条款可直接试跑，原值接收不设置样本配额或成熟度闸门。自动发布关闭；CrawlESG保护区不接入。
 

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7136e2a3fa03e94a95a14fc935b4465853ff6613133d302d28ca8389911e5558",
+  "clause_digest": "2b5e453a866426d11ef81307b803d921081bf09c02663a9d6f5521d3996159e7",
   "clause_key": "S1-15_03",
   "data_kind": "quantitative",
   "definition": "以表格披露有权的男女员工分别实际使用家庭相关假期的比例。",
@@ -572,9 +572,6 @@
       "以表格披露有权的男女员工分别实际使用家庭相关假期的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

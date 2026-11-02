@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "aeaa5f10f25bf97ac5303875079941e1923fa6c28ae251f97de60666a673849f",
+  "clause_digest": "4470be42d4b9b272c2c1ec580182c3256c8753275cda82b14c72cd439b83302f",
   "clause_key": "S3-4_09",
   "data_kind": "qualitative",
   "definition": "描述为把握与受影响社区相关的重大机遇而计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述为把握与受影响社区相关的重大机遇而计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

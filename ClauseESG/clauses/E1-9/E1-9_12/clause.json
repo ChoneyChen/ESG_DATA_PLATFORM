@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2952b86b1a819064f12c7ed226af7278ee5028b43b9d4d2c0da1330adc58d0a7",
+  "clause_digest": "f1a06593adc8dd8fdd49ae266ec90d114e4889093e846fbd8b3e10e629be35c2",
   "clause_key": "E1-9_12",
   "data_kind": "qualitative",
   "definition": "Disclosure of risk factors for net revenue from business activities at material physical risk。物理风险收入的风险因素。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of risk factors for net revenue from business activities at material physical risk。物理风险收入的风险因素。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1877e93ea331ce4723db8f329e0c4df0566887ba1704541fe472a45113b47314",
+  "clause_digest": "f02a18e6e1a7e82de17c434482cf137b204c02c256cde82ec2197e35ad5d58cf",
   "clause_key": "S1-12_01",
   "data_kind": "quantitative",
   "definition": "披露残障员工占员工总数的比例，并说明在数据收集法律限制下的统计方式。",
@@ -558,9 +558,6 @@
       "披露残障员工占员工总数的比例，并说明在数据收集法律限制下的统计方式。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

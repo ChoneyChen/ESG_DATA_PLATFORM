@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ccdcafba56dd2be811b443629b29ed9645f1ce1ba35d16cfb0bd2e87b0a9d5a1",
+  "clause_digest": "e419523755e2b7ad7b49e8fd6b1d0334efa7e7530c488cf42ad2899563ba470c",
   "clause_key": "E3-5_06",
   "data_kind": "qualitative",
   "definition": "Explanation of how time horizons are defined, financial amounts are estimated and critical assumptions made (water and marine resources)。水财务估计时间范围与金额方法。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -515,9 +515,6 @@
       "Explanation of how time horizons are defined, financial amounts are estimated and critical assumptions made (water and marine resources)。水财务估计时间范围与金额方法。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

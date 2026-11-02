@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "cc11a129f4e5e691e1e5069241d5c0b5db8e864a03371f4dabe3fff93f61f3c3",
+  "clause_digest": "a97e0264951c0acb328cbc293a3a445614f1534af425a8351a33aa47215af0c0",
   "clause_key": "S1-4_12",
   "data_kind": "qualitative",
   "definition": "说明报告期内主体在相关行动和举措上的进展程度。",
@@ -459,9 +459,6 @@
       "说明报告期内主体在相关行动和举措上的进展程度。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

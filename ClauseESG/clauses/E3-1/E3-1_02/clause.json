@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "92614fa96b0bbd9f3231b80577d0ac0e36ecc3598dd47431b113416023ab659e",
+  "clause_digest": "c8bb5892b680a64c1958f99fc8adadea0ee3bcb6609e4e00f0ebfc33297f7a7f",
   "clause_key": "E3-1_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy adresses the use and sourcing of water and marine resources in own operations。水及海洋资源使用采购政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "Disclosure of whether and how policy adresses the use and sourcing of water and marine resources in own operations。水及海洋资源使用采购政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fd7577ec676b470d6c0669ffb2e7bfe5c12f269c819adf07a4de9c69a8c2f993",
+  "clause_digest": "2bd570c3abcf527b1ae6cdf1191cccc8c60119ec8e844c29d0a617a94f4a5edd",
   "clause_key": "MDR-P_03",
   "data_kind": "qualitative",
   "definition": "Description of most senior level in organisation that is accountable for implementation of policy。政策实施最高责任层级。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。",
@@ -473,9 +473,6 @@
       "Description of most senior level in organisation that is accountable for implementation of policy。政策实施最高责任层级。按可持续主题、政策对象和适用期间复用；已采纳政策与未采纳原因及计划时间是不同分支。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

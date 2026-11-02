@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "88e46d7bef95df7de3fb9f3df82eaac51e30ea82fd8701f36108d45d044265f7",
+  "clause_digest": "831e0f85ec207819d5b4c96236c28550e1322c42817ac673ed8e7ae1eacafa30",
   "clause_key": "E4-1_12",
   "data_kind": "qualitative",
   "definition": "说明并尽可能量化支持转型计划实施的投资和资金安排。",
@@ -445,9 +445,6 @@
       "说明并尽可能量化支持转型计划实施的投资和资金安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2c2d625d74eaa096e3aaf12275ee4852cb774ec0f5e44bc6543e47432bedb243",
+  "clause_digest": "4b4f3616bd80f6ab0a783d9e001cda46bf194563cfe935c91d042155d1ffefd3",
   "clause_key": "E3-4_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of contextual information regarding warter consumption。耗水方法与背景信息。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -489,9 +489,6 @@
       "Disclosure of contextual information regarding warter consumption。耗水方法与背景信息。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

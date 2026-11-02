@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d78fb7de6b568a457b2e04914e8b51f6bf04747fdd767dc9f5003cffb174c0bd",
+  "clause_digest": "267ca65f64423d5232ab2d352c95f67ac2fd0a9fc0e526ca7315ea9bf15f4145",
   "clause_key": "S2-5_06",
   "data_kind": "qualitative",
   "definition": "披露价值链劳动者相关目标所依据的标准、倡议或主体承诺。",
@@ -473,9 +473,6 @@
       "披露价值链劳动者相关目标所依据的标准、倡议或主体承诺。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8625815ba4089e4d6f48d73df272ba6619a2954d0c44de2c8f91b0cee236e97d",
+  "clause_digest": "8e40e0558f64990dc4f83e20e2ffe14189487b1ed315a03a31c4a9c736ddb61f",
   "clause_key": "S1-9_01",
   "data_kind": "quantitative",
   "definition": "Gender distribution in number of employees (head count) at top management level",
@@ -572,9 +572,6 @@
       "Gender distribution in number of employees (head count) at top management level"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

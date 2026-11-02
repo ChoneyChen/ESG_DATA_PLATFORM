@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6f3e77381e4851ee23c06ebbcda0f0e2289199f0507ae4bd31e20d00dc5f2dd3",
+  "clause_digest": "0d608016b38ab009c0385e54265bcdb015b7492ae6d136b20141713b3670220f",
   "clause_key": "G1-6_03",
   "data_kind": "quantitative",
   "definition": "Percentage of payments aligned with standard payment terms",
@@ -558,9 +558,6 @@
       "Percentage of payments aligned with standard payment terms"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

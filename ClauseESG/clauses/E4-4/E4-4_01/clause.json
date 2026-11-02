@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d75144eab10643edef80e6ba93cec8d35256223d8679208a3bb02b9cd8098aff",
+  "clause_digest": "b429bce28b4adc2eaff5d0cfdd954e5607479e72b3b66fedfae205ca98323e92",
   "clause_key": "E4-4_01",
   "data_kind": "qualitative",
   "definition": "说明设定生物多样性和生态系统目标时如何采用生态阈值，并将影响分配给主体。",
@@ -473,9 +473,6 @@
       "说明设定生物多样性和生态系统目标时如何采用生态阈值，并将影响分配给主体。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

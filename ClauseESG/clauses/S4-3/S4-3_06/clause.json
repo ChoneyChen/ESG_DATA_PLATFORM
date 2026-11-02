@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bc2c5a02fc053bf434e14225f725a87764bf9dbbf28cc2140a0b383e636fc103",
+  "clause_digest": "9dff93dddd2a89a9da0322413800aa745530dd1477bb66fc1634ac2fe2991360",
   "clause_key": "S4-3_06",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定保护使用申诉渠道的消费者和终端用户免遭报复的政策，并说明保护范围。",
@@ -445,9 +445,6 @@
       "披露主体是否已制定保护使用申诉渠道的消费者和终端用户免遭报复的政策，并说明保护范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

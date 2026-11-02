@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "14643cb46d352cc6e62b3742c4a98458cf50e11f74f8688a513d6d7c5ec74992",
+  "clause_digest": "8caa08a09f42e4c7c05e10c7b9f30bd7fbcb33910d15d05d67c7f1643a2619cb",
   "clause_key": "E2-4_05",
   "data_kind": "quantitative",
   "definition": "产生和使用的微塑料量（合并披露形式）",
@@ -600,9 +600,6 @@
       "产生和使用的微塑料量（合并披露形式）"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

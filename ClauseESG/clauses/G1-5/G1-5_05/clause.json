@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a69a7da4e926c5c91f8505788ca1bc4f5fee10e7350790dbef2d24e2bcdec512",
+  "clause_digest": "28edbc0e30689e1e54f5da535f42a7263cc6d11d3b41c19999ad5c3a2ca46f6a",
   "clause_key": "G1-5_05",
   "data_kind": "quantitative",
   "definition": "披露主体为加入游说协会所支付的会员费金额。",
@@ -558,9 +558,6 @@
       "披露主体为加入游说协会所支付的会员费金额。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "141e08881eee88e62a34bd43bd0ccb4ad491b034d77b974092a5d6bf40ac4ace",
+  "clause_digest": "0ebde3abfa55ea1235b39d360ba47d996cd2d6d14e7aa89842c200bd5b2f9f15",
   "clause_key": "S1-11_01",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否通过公共计划或主体福利获得因病失去收入的社保覆盖。",
@@ -445,9 +445,6 @@
       "说明所有员工是否通过公共计划或主体福利获得因病失去收入的社保覆盖。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

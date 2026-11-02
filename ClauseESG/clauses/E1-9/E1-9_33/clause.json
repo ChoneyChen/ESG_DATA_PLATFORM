@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "68c8e983325a7580e96cb0463ea7d1a929e6ff4dc1616fa6451628c5ff79b361",
+  "clause_digest": "ab402995f926d0ade1191c62b0cdd68e3473811d3b4205b7ef5984c81b00d72c",
   "clause_key": "E1-9_33",
   "data_kind": "quantitative",
   "definition": "Percentage of net revenue from customers operating in coal-related activities。煤炭活动客户净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Percentage of net revenue from customers operating in coal-related activities。煤炭活动客户净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

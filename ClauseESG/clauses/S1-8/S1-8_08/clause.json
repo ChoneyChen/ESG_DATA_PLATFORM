@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ccb8b0aaa27cedb3957a2f0c219ca7e909d4e69ef49eacee5e37a3373ec3b276",
+  "clause_digest": "271a8b3bdc1605749c22c2f97f9cec927801c9d8f4ee7e44d17e8ded15c5fbc1",
   "clause_key": "S1-8_08",
   "data_kind": "qualitative",
   "definition": "按覆盖率和地区披露欧洲经济区外受集体谈判和社会对话协议覆盖的自身劳动力。",
@@ -459,9 +459,6 @@
       "按覆盖率和地区披露欧洲经济区外受集体谈判和社会对话协议覆盖的自身劳动力。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

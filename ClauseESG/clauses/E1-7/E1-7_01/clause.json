@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f63f8df333bcc061b8017ba32c9a6a4b5eb8e90f5c80df57170dd4646334d102",
+  "clause_digest": "39fded55fb4dfdc8e984136c927358956956f1d402d5c80ae77e158535804930",
   "clause_key": "E1-7_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of GHG removals and storage resulting from projects developed in own operations or contributed to in upstream and downstream value chain。运营和价值链中的温室气体移除与储存项目。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Disclosure of GHG removals and storage resulting from projects developed in own operations or contributed to in upstream and downstream value chain。运营和价值链中的温室气体移除与储存项目。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

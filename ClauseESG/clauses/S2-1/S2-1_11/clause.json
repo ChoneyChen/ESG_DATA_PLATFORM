@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5db6ca113db27018cb8f49fbc2d14126e3f11047877f1cb48f597489ae267738",
+  "clause_digest": "5c48ecf69e7b888aed3af867fca0cd0c68aa7d7304fa246f6e7da70a6b250b7e",
   "clause_key": "S2-1_11",
   "data_kind": "qualitative",
   "definition": "举例说明政策如何向价值链中的相关个人、群体或实体传达，包括渠道和语言。",
@@ -459,9 +459,6 @@
       "举例说明政策如何向价值链中的相关个人、群体或实体传达，包括渠道和语言。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

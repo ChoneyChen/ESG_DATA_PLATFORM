@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0d6cbd626c9c2d8e7fa08243f695d103bd505eeb6a4e6f8e2342c7f8de142bb1",
+  "clause_digest": "d6087ef0c50a0a2525991c55a6248067b56a499ff5373d619a32803797b94f2b",
   "clause_key": "E3-1_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how policy adresses water management。水管理政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。",
@@ -445,9 +445,6 @@
       "Disclosure of whether and how policy adresses water management。水管理政策。水管理、取用采购、水处理、污染预防、风险区减量及海洋保护分开。高水压力区域未采纳政策的说明不能当作集团全部无政策。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "55216308bd8d895479f1cbc268f79ee8a1c1c129b0e3c134476893b7a87be0a3",
+  "clause_digest": "838d0145da22290b5d2d236c0fd77693e6eb2a9a25eb3c14085f1e00e50b71cd",
   "clause_key": "S3-4_08",
   "data_kind": "qualitative",
   "definition": "描述为缓解因对社区的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。",
@@ -459,9 +459,6 @@
       "描述为缓解因对社区的影响和依赖所产生的重大风险而计划或正在进行的行动，以及有效性跟踪方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

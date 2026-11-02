@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0e68ce208b387ad169306186773089cb7740ccbf33068cacc4cf2227b9e24657",
+  "clause_digest": "2308691a0c554acd32ffa2a83b6da9677720736e31805c4d78c3c6d08c5657ec",
   "clause_key": "G1-3_02",
   "data_kind": "qualitative",
   "definition": "说明调查人员或调查委员会是否独立于参与预防和发现腐败或贿赂的管理链条，并说明其报告关系。",
@@ -445,9 +445,6 @@
       "说明调查人员或调查委员会是否独立于参与预防和发现腐败或贿赂的管理链条，并说明其报告关系。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3a0e205bdfde57c84e1ddd7327a2c17932c8a0a7fdc5f085cd6a22a00a0621e6",
+  "clause_digest": "f31fab844a97319469059a3a0d5d7b3ff3203f32ac7b2107a346b5c996adde8d",
   "clause_key": "E5-5_02",
   "data_kind": "quantitative",
   "definition": "Disclosure of the expected durability of the products placed on the market, in relation to the industry average for each product group",
@@ -572,9 +572,6 @@
       "Disclosure of the expected durability of the products placed on the market, in relation to the industry average for each product group"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

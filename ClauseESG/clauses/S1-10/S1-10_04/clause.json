@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "411e565be3c869451619f45ebd5bb056122aa4cc7814ba6c590858d8ca0e44c2",
+  "clause_digest": "94d31adb99a1ef8dab67ef887b117765e86ceba5897a97e8fe46a87854d30368",
   "clause_key": "S1-10_04",
   "data_kind": "quantitative",
   "definition": "披露工资低于足额工资的非员工占非员工总数的比例。",
@@ -572,9 +572,6 @@
       "披露工资低于足额工资的非员工占非员工总数的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

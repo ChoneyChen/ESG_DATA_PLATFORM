@@ -126,7 +126,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "857b67087a9816a2399b85284b86def5487eac5056fa38ce681e8e49b92c78a6",
+  "clause_digest": "de59934037e3fce0db3e27f6c8194f59d730141db1728250ab732c1005268842",
   "clause_key": "MDR-T_18",
   "data_kind": "qualitative",
   "definition": "读取效果评估预期水平与所用定性/定量指标的原文说明；数值目标另作定量，不猜目标期或预期量。",
@@ -490,9 +490,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

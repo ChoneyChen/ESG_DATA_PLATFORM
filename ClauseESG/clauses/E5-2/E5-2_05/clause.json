@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a6b3d1fa7d0026305493549769d8ac6b079b767ffce834aadf69ac915e98d66c",
+  "clause_digest": "6ffaf8b85191aaea26ab104577b92fea121ef7ecc4ed821e86495c4cf4c2dc55",
   "clause_key": "E5-2_05",
   "data_kind": "qualitative",
   "definition": "说明为在上游和下游价值链中预防废弃物产生所采取的行动及其效果。",
@@ -459,9 +459,6 @@
       "说明为在上游和下游价值链中预防废弃物产生所采取的行动及其效果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

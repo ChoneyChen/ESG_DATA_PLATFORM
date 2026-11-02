@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9f2a8a4ad158b3ccbef65ff8bdae0d6f094d415a7f954a66a2c30059bb020aec",
+  "clause_digest": "21d18a193c925ef593b4167a7752f57aa9e95dd0f646374a76d868920a3161bf",
   "clause_key": "S1-6_16",
   "data_kind": "qualitative",
   "definition": "Disclosure of contextual information necessary to understand data (employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of contextual information necessary to understand data (employees)。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

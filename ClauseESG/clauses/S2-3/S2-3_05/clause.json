@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "22aa959212d85f3fa2296a6440099e96fb082ac8f3b358677d47f52297468487",
+  "clause_digest": "87fce97161dcbd8996e8009083f5d74df88fa8d4a9555e4351c25946e070999e",
   "clause_key": "S2-3_05",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何评估价值链劳动者知晓并信任相关结构或流程，以提出关切和需求。",
@@ -445,9 +445,6 @@
       "说明主体是否以及如何评估价值链劳动者知晓并信任相关结构或流程，以提出关切和需求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

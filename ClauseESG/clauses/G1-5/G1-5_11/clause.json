@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f272b21e70f1ae34eb7200627ee529e61add07c86fe7e8928a6a6e6c965c5ebf",
+  "clause_digest": "d50fbd8d3d88c8d63d63954f8bc6a87f2af00fbef187cad214eafc72de669d2a",
   "clause_key": "G1-5_11",
   "data_kind": "qualitative",
   "definition": "说明行政、管理和监督机构中是否有成员在任命前两年内曾在公共部门担任可比职位。",
@@ -445,9 +445,6 @@
       "说明行政、管理和监督机构中是否有成员在任命前两年内曾在公共部门担任可比职位。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

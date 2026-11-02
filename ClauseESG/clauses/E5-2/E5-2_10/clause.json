@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e8fe4f4c4be4f9a81335e19fee7c122422df15c5fbff7498c78aebe43035afd3",
+  "clause_digest": "f760eab5a68a98de157c2fede1979a715405a1512e32fe8d667da42dae09f5be",
   "clause_key": "E5-2_10",
   "data_kind": "qualitative",
   "definition": "说明资源利用与循环经济相关项目的组织方式，包括治理结构、责任分工和资源投入。",
@@ -459,9 +459,6 @@
       "说明资源利用与循环经济相关项目的组织方式，包括治理结构、责任分工和资源投入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

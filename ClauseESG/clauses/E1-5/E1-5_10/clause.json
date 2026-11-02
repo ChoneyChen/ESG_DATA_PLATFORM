@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bb01b62facf12680f1071b30930fb3dc9bfabf30725e3bd6e87b7155796c40ff",
+  "clause_digest": "fa9c29bfec22afbd403fb7059ec41962fb5d67af1b435cc69fa8c4e45bea9cd6",
   "clause_key": "E1-5_10",
   "data_kind": "quantitative",
   "definition": "煤炭及煤炭制品的燃料消费量",
@@ -601,9 +601,6 @@
       "煤炭及煤炭制品的燃料消费量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

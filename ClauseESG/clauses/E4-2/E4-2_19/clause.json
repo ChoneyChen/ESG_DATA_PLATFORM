@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ee30fff7615fe9a135ed338245a83cbd12309efd37801d43a74f1d138ab53e72",
+  "clause_digest": "ed76930cd94a6a0d53a02ca37bf1bfc87e957d36519390dc1bc25e30559ddc9b",
   "clause_key": "E4-2_19",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定可持续海洋或海域实践的政策或做法，并说明其主要内容。",
@@ -459,9 +459,6 @@
       "披露主体是否已制定可持续海洋或海域实践的政策或做法，并说明其主要内容。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

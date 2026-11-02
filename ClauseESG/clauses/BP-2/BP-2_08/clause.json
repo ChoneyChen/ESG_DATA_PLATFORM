@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ae25fbc3bb61ce27fa9ecb7660f97e6f8bf2c6811c242b52d8949719ad08074c",
+  "clause_digest": "8c770e8510e305132cf0a38838a94edf91dac86f6a9298ab661c31a8a16e3baf",
   "clause_key": "BP-2_08",
   "data_kind": "qualitative",
   "definition": "Disclosure of sources of measurement uncertainty。测量不确定性来源。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Disclosure of sources of measurement uncertainty。测量不确定性来源。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

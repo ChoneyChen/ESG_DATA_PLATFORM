@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "30434523d6f6777518db59837dad9f60e82292e1036397eeeb618770f7ad74fc",
+  "clause_digest": "17d4403e1979f64b24e378155a13940b3113f0ee7bad45610780ebb10d30a0ac",
   "clause_key": "S1-6_20",
   "data_kind": "quantitative",
   "definition": "Number of part-time employees by head count or full time equivalent",
@@ -572,9 +572,6 @@
       "Number of part-time employees by head count or full time equivalent"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

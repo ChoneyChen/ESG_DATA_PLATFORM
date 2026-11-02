@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "450120e9c6e5c3b41390890e5ed0054f57dd99d1109753647b549d7cc45295d5",
+  "clause_digest": "b444a970663dfd9a3982471f0f10e0feed41a12db417084676a81af8acab51f8",
   "clause_key": "S1-17_13",
   "data_kind": "qualitative",
   "definition": "Disclosure of the status of incidents and/or complaints and actions taken。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of the status of incidents and/or complaints and actions taken。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

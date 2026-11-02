@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4f12157e4013a6a59f7a0c484c718865c803baf3d850c292273b92cf97ec3fe8",
+  "clause_digest": "256b885f348754a9ef3993aa19beb771730a56831f201576d5ac09fd15a7ed49",
   "clause_key": "E1-7_20",
   "data_kind": "qualitative",
   "definition": "Explanation of scope, methodologies and frameworks applied and how residual GHG emissions are intended to be neutralised。残余排放中和的范围与方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Explanation of scope, methodologies and frameworks applied and how residual GHG emissions are intended to be neutralised。残余排放中和的范围与方法。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

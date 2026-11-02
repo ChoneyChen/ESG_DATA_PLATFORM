@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "94e514ef06c4c8e7742fb7b996624a177f3b012d5e2a1624b86343a2a694be46",
+  "clause_digest": "0c02e8165fc60c3c6b1940a009af5a8c2c0824a275e7a3d943411b6b96428741",
   "clause_key": "S2-4_03",
   "data_kind": "qualitative",
   "definition": "描述以向价值链劳动者传递积极影响为主要目的的其他举措或流程。",
@@ -459,9 +459,6 @@
       "描述以向价值链劳动者传递积极影响为主要目的的其他举措或流程。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

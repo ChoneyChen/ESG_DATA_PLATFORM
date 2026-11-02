@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9fae19946df8b31fdca1067888b3beda498ae995eba9b75b9ea1e1bb4aeedb59",
+  "clause_digest": "3eb92845c6389ccd0c87a5f3bdbed42ec613729f3ef16f0bb61a5c9dab988f8a",
   "clause_key": "E1-6_12",
   "data_kind": "quantitative",
   "definition": "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量。",
@@ -668,10 +668,6 @@
       "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量。"
     ],
     "operator": "ghg_scope",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|tco|co2|co₂|二氧化碳|碳当量|kt|mt\\b|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

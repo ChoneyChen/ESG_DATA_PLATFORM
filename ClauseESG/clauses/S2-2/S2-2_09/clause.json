@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "025c1bcaf0dd68c56f8780efc235f622385807b55125a3e5b133cee162fd2315",
+  "clause_digest": "3d25b04f05330b7c0af975bcb29d31de3435df36ecc4b224630ca720d5b87678",
   "clause_key": "S2-2_09",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立与价值链劳动者一般性接触流程的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立与价值链劳动者一般性接触流程的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

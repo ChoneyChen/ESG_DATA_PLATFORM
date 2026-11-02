@@ -690,6 +690,8 @@
         },
         "options": {
           "additionalProperties": true,
+          "deprecated": true,
+          "description": "Frozen-task input only; current clauses do not declare execution options.",
           "title": "Options",
           "type": "object"
         },

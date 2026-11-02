@@ -210,7 +210,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6a2d153edbc9c0c65a568f237171c3c1895d419dadd6f1a909a862f90faac5f0",
+  "clause_digest": "9c12f0827f88ac70106945c5f5a1a5ffaaa2e0738f7c3ca1fda9eda86f4b7c09",
   "clause_key": "E1-4_14",
   "data_kind": "quantitative",
   "definition": "Intensity value of market-based Scope 2 Greenhouse gas emissions reduction。范围2市场法减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -661,9 +661,6 @@
       "Intensity value of market-based Scope 2 Greenhouse gas emissions reduction。范围2市场法减排强度目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

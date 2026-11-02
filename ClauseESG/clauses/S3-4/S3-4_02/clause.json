@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "47d9b50dcb3efd34aef8a4ab6c5b0b0e7b282230a0c81636dbc8a4e9602173bd",
+  "clause_digest": "07f77093dd10aa9c518934c68a61f73de62acd5a672ae0397456483739ec553b",
   "clause_key": "S3-4_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

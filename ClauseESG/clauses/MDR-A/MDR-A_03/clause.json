@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4514e82ec3e4b74b6b17c6808f11fdd7f7792335c2a1b55295bdce38228dc23a",
+  "clause_digest": "626ada15d92cfe327a83c9c01d7c42cc053be135c4da8c7a3f7fb61b44bc4214",
   "clause_key": "MDR-A_03",
   "data_kind": "qualitative",
   "definition": "Time horizon under which key action is to be completed。关键行动完成时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Time horizon under which key action is to be completed。关键行动完成时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

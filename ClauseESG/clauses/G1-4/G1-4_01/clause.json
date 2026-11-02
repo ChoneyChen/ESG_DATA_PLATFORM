@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1682e9885e44dc117f893c32f033e22bd2cc51fb1372a5109643df35a8d14f72",
+  "clause_digest": "d10f1a7babcdef3505e5a7bdaea46868b88f2f9744f609bf6fefcb1b75ca088b",
   "clause_key": "G1-4_01",
   "data_kind": "quantitative",
   "definition": "报告期内违反反腐败及反贿赂法律的定罪数量。",
@@ -618,10 +618,6 @@
       "报告期内违反反腐败及反贿赂法律的定罪数量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "%|％|件|起|天|日|人|名|位|days?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

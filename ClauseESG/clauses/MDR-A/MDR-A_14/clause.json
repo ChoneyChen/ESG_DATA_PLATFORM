@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "340d04b78c950890acd23ea2af6eeccd7d78132d00553269cc728ef209f2edfd",
+  "clause_digest": "30c7bad08a4b573f1900549f409199675096faee937778185fdffe76a62bea7f",
   "clause_key": "MDR-A_14",
   "data_kind": "qualitative",
   "definition": "Disclosure of timeframe in which the undertakings aims to adopt actions。计划采纳行动的时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Disclosure of timeframe in which the undertakings aims to adopt actions。计划采纳行动的时间。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

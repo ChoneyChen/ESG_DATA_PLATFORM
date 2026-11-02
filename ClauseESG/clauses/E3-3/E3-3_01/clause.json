@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c334a1f6d21b71ac60a4dd6990b57ac0d228584efd36f9f65cb65e0e1f7d3753",
+  "clause_digest": "1b3fa1ce621543b03232e5602f52c8591e915260935c7161002c7d66e05d37f0",
   "clause_key": "E3-3_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and  how target relates to management of material impacts, risks and opportunities related to areas at water risk。目标与水风险地区关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。",
@@ -486,9 +486,6 @@
       "Disclosure of whether and  how target relates to management of material impacts, risks and opportunities related to areas at water risk。目标与水风险地区关系。目标对象、区域、期限和水量概念分别明确；取水、排水和耗水目标不可互換。生态阈值是水生态条件，不是货币金额。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

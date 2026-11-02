@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "052f886d488a1a201b41597f7709d6a0b242bad50229966bdf109aa8c1f0d245",
+  "clause_digest": "82ff54b9de05aab6aaff01b0b822aad54db749224a16b259d1d562e9a56c00cb",
   "clause_key": "S3-1_07",
   "data_kind": "qualitative",
   "definition": "披露涉及受影响社区的、未遵守联合国商业与人权指导原则、ILO基本原则和权利宣言或OECD跨国企业准则的案例性质与范围。",
@@ -459,9 +459,6 @@
       "披露涉及受影响社区的、未遵守联合国商业与人权指导原则、ILO基本原则和权利宣言或OECD跨国企业准则的案例性质与范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

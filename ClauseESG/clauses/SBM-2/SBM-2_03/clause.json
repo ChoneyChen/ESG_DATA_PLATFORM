@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "89652b4ceb57a0556889e8b312b2b1b98402ecd2255ad43268f7ea422aaff89c",
+  "clause_digest": "ff8f302e6b09cdec2f4c94de0eb3de6a2285a4951f7ac0a0d9e28b159489c701",
   "clause_key": "SBM-2_03",
   "data_kind": "qualitative",
   "definition": "Description of categories of stakeholders for which engagement occurs。参与的利益方类别。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of categories of stakeholders for which engagement occurs。参与的利益方类别。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

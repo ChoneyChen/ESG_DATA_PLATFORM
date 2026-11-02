@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7814362608c0d7a7139a98af166b5c5c6a7d52a919a5138504a40a21682f04ea",
+  "clause_digest": "dc1381b265cf9cf2919e1f377f533b989d1b90d01cba9183ee594cf220c4cf14",
   "clause_key": "E4-2_06",
   "data_kind": "qualitative",
   "definition": "说明政策是否以及如何处理生物多样性和生态系统影响所引发的社会后果。",
@@ -459,9 +459,6 @@
       "说明政策是否以及如何处理生物多样性和生态系统影响所引发的社会后果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

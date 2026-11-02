@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "108c84befa0547a9a28a53a3bf56a7eed4df53b4e412f43891f69b4dab9fefc7",
+  "clause_digest": "589e32873e77934fd3361467707326b7b282f05b97e8cf32df5f65b5dda72f90",
   "clause_key": "E5-5_08",
   "data_kind": "quantitative",
   "definition": "Waste diverted from disposal, breakdown by hazardous and non-hazardous waste and treatment type",
@@ -572,9 +572,6 @@
       "Waste diverted from disposal, breakdown by hazardous and non-hazardous waste and treatment type"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

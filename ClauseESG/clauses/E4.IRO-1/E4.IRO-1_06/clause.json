@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e22f2e0e10a71739edbb0a6ee8291050f3bec76600df1a2c09ed462f34695874",
+  "clause_digest": "49334c7af5fc0d99ad116c58a65e01a91dc2fb7a61343b296010e9f68478b718",
   "clause_key": "E4.IRO-1_06",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何识别对受影响社区产生实际或潜在负面影响的特定场址、原材料生产或采购来源。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何识别对受影响社区产生实际或潜在负面影响的特定场址、原材料生产或采购来源。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ead922b07b52610c37dfd6c1818d28043c7dce2d5df68422b07697a9e1fd7eae",
+  "clause_digest": "ad80abe9830bbf117b369c4a5e02d42ff99e565510d01b36e477abf942c3b777",
   "clause_key": "MDR-T_19",
   "data_kind": "qualitative",
   "definition": "Base year from which progress is measured。进展测量基准年。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Base year from which progress is measured。进展测量基准年。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "baseline"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

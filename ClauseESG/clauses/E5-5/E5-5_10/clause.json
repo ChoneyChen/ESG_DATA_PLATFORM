@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "12d8bae8448794ac0be972f0adfbdd3725000a829833b0ac2ff2ba6a51c5a2a7",
+  "clause_digest": "360a1437893525257ca76275ce30d9c82837b16d2d59055714fe38c9eb95ae5b",
   "clause_key": "E5-5_10",
   "data_kind": "quantitative",
   "definition": "Non-recycled waste",
@@ -558,9 +558,6 @@
       "Non-recycled waste"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

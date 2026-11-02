@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "421b34459b4581b6e0dc350f14fe1e325b04be806a2d59ad65c26255caaa2561",
+  "clause_digest": "25f10e21a41d7f1554eea81f22fd57565d721e4eaa94f8495294ac810664fe50",
   "clause_key": "E3-2_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of actions and resources  in relation to areas at water risk。水风险地区的行动和资源。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。",
@@ -445,9 +445,6 @@
       "Disclosure of actions and resources  in relation to areas at water risk。水风险地区的行动和资源。集体行动、风险区行动及缓解层级分别记录，参与倡议不能推定已经实现水量节约。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

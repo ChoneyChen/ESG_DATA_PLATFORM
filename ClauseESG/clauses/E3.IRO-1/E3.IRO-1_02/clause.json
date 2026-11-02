@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7234b9d63289621311f6cf2077790e7d41ddcb11ae0afef77db3624a2726ffe9",
+  "clause_digest": "e96610e5265f3d2f7cc38a5fe7615e2ea807c00389f5b7c5738946a1a4e32e4b",
   "clause_key": "E3.IRO-1_02",
   "data_kind": "qualitative",
   "definition": "Disclosure of how consultations have been conducted (water and marine resources) [text block]。水及海洋资源利益方咨询。区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。",
@@ -487,9 +487,6 @@
       "Disclosure of how consultations have been conducted (water and marine resources) [text block]。水及海洋资源利益方咨询。区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "246aa55f9d5c5dbca69ee2a08675deda5c1575c231632a30dfd38c40efc6e3be",
+  "clause_digest": "3c7206edbc08daf36229c6871bc1ac92bb3ce3a2a1861e2d91ee562b4c9f1134",
   "clause_key": "E1-5_18",
   "data_kind": "quantitative",
   "definition": "高气候影响行业的能源强度",
@@ -585,9 +585,6 @@
       "高气候影响行业的能源强度"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

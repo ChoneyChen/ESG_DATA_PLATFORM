@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "732d2b2c09ef372d84fe0725c4ad8d3744552516993881344a0bc347f189514d",
+  "clause_digest": "3579273e55f1003153231262741fb022a765f94d161bf5089973e820cd4e747c",
   "clause_key": "S2-1_05",
   "data_kind": "qualitative",
   "definition": "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。",
@@ -459,9 +459,6 @@
       "说明政策是否明确处理价值链中的人口贩运、强迫劳动或强制劳动以及童工问题，并给出具体条款。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

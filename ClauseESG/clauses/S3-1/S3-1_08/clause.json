@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8493c2f4d3288d264e82cb6f45ca2ca5c162ed1c728a94b36a77e3d3b903c406",
+  "clause_digest": "ad14bf4e6385796ee03565a511cea38d5d535b406a7b8f51e978c3d3b076a1e9",
   "clause_key": "S3-1_08",
   "data_kind": "qualitative",
   "definition": "说明报告年度内对受影响社区相关政策作出的重大变化及其原因和影响。",
@@ -459,9 +459,6 @@
       "说明报告年度内对受影响社区相关政策作出的重大变化及其原因和影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

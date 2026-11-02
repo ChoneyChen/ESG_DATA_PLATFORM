@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "370b37882ed8afceaee8494c2090fa3b32c77abe12f8c8185d5e597d88aa1ea5",
+  "clause_digest": "3544db9b0854898151adc57f1c841a04af8ff31705a520aa349e1dc0d959747b",
   "clause_key": "E4-2_13",
   "data_kind": "qualitative",
   "definition": "说明第三方行为标准是否通过持续协商制定或维护，且各相关利益群体均有平衡参与、无单一群体拥有不当否决权。",
@@ -459,9 +459,6 @@
       "说明第三方行为标准是否通过持续协商制定或维护，且各相关利益群体均有平衡参与、无单一群体拥有不当否决权。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

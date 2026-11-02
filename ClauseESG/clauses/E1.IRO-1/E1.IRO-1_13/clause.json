@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1c173ba23007d7110f0271f75f1fc88b4a45bd86df662a3fc6cb8f32ce865fe6",
+  "clause_digest": "0e8ad191e57a1899f9e893b44905ed43ccd091b84cefc2fe57e95a1f815bd045",
   "clause_key": "E1.IRO-1_13",
   "data_kind": "qualitative",
   "definition": "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis。情景分析用于转型暴露评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis。情景分析用于转型暴露评估。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

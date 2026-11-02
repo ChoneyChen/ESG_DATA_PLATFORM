@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "511de2f53dd7d64b47e55a05526312e865f69c8632d3648557ccc12ad6b8e2f8",
+  "clause_digest": "8c85afb6c3e4c13a4a26a0e422b61346bdc40d31ea188b1f9393dce4d23dc70d",
   "clause_key": "E5-4_02",
   "data_kind": "quantitative",
   "definition": "报告期内产品、技术材料与生物材料的投入总重量。",
@@ -635,10 +635,6 @@
       "报告期内产品、技术材料与生物材料的投入总重量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

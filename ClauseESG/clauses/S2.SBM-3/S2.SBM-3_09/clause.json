@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6cc3bc44933382a7a95dcb6d9a7f180e1696c235f898e9f9d42b2617312cb68a",
+  "clause_digest": "670475f81c20eddbfae357e3492b2e52f99468848e4203431073b724ae91e2bf",
   "clause_key": "S2.SBM-3_09",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者相关重大风险与机遇中，哪些涉及特定群体。",
@@ -487,9 +487,6 @@
       "说明价值链劳动者相关重大风险与机遇中，哪些涉及特定群体。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

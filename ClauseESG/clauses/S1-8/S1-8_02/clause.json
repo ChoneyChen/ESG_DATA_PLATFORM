@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e9344170c616b89f00d916c4e3b6cd939d53a2ee910752bbc3bcd52c0ec8b6ff",
+  "clause_digest": "999b455fd44397a785ab6df7c68b2b54ee47c7868e2d2d8580e3a3b7e2fa429b",
   "clause_key": "S1-8_02",
   "data_kind": "quantitative",
   "definition": "披露在欧洲经济区内具有重要就业的国家中，受集体谈判协议覆盖的员工比例。",
@@ -572,9 +572,6 @@
       "披露在欧洲经济区内具有重要就业的国家中，受集体谈判协议覆盖的员工比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

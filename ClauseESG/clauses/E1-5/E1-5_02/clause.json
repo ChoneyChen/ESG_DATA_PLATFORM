@@ -168,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "825ee7bf3c06b638bfadb339069a3a90edf6adf0e06b365b117f5eac1f8d97b3",
+  "clause_digest": "22dddec0964cf902616f3e6db841e65e703454bebe17f75e06156e25e0a2c993",
   "clause_key": "E1-5_02",
   "data_kind": "quantitative",
   "definition": "化石能源消费总量",
@@ -737,10 +737,6 @@
       "化石能源消费总量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "[mgkt]wh|千瓦时|千瓦時|兆瓦时|兆瓦時|吉瓦时|度电|度電|亿度|億度|万度|萬度|[gtp]j|吉焦|焦耳|标准煤|標準煤|标煤|tce|toe|%|％",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

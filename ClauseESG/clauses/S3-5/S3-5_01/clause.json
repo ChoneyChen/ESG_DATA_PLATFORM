@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c5ab7c5bba67061b1d21ce43597ac5f29711bca33d222c27fa42af76497261e8",
+  "clause_digest": "8c194a85c622de79f8061b890dfe725ef68c90441bedf0b121643992fb7507d5",
   "clause_key": "S3-5_01",
   "data_kind": "qualitative",
   "definition": "说明受影响社区是否以及如何直接参与相关目标的设定。",
@@ -473,9 +473,6 @@
       "说明受影响社区是否以及如何直接参与相关目标的设定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

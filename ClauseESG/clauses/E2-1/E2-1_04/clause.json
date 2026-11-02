@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dbeaae66e352d03de0703a6e700282a9267490f46ddd7e17953f6c5b7f6a0717",
+  "clause_digest": "bf1b6fec93a9135325822adc4396eb2bd8825ebce8dfb751200fe0fa4140dd56",
   "clause_key": "E2-1_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of contextual information on relations between policies implemented and how policies contribute to EU Action Plan Towards Zero Pollution for Air, Water and Soil。政策与欧盟零污染行动计划关系。污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。",
@@ -445,9 +445,6 @@
       "Disclosure of contextual information on relations between policies implemented and how policies contribute to EU Action Plan Towards Zero Pollution for Air, Water and Soil。政策与欧盟零污染行动计划关系。污染介质、关注物质、高度关注物质及事故情境分开；政策内容不等于实际减排成果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

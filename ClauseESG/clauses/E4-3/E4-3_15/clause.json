@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "40d397e83cbd58c312dc3a44ba8b55585417c73035c3c50c9c52b43e0c6ad080",
+  "clause_digest": "5eef04f56adb218b829db35ac57e15d8d5e94d1b84eeebcaeed0374f7a4fbd8f",
   "clause_key": "E4-3_15",
   "data_kind": "qualitative",
   "definition": "说明关键行动所属的更广泛集体行动计划、主体在其中的角色以及其他参与方。",
@@ -459,9 +459,6 @@
       "说明关键行动所属的更广泛集体行动计划、主体在其中的角色以及其他参与方。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

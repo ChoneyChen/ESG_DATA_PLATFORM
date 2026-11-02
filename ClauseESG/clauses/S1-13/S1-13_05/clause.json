@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a73d2e1864e23de63644ba24b4e7da47fc32584197b0e595e15212d37eda6857",
+  "clause_digest": "45d014fc774a412b2cca44fa6f83b859c647120950e188846712fabd6cf9f212",
   "clause_key": "S1-13_05",
   "data_kind": "quantitative",
   "definition": "Percentage of employees that participated in regular performance and career development reviews by employee category [table]",
@@ -572,9 +572,6 @@
       "Percentage of employees that participated in regular performance and career development reviews by employee category [table]"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

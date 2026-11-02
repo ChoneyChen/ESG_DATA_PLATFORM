@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fdf5e2691d18cbadd6fd66a3056d5c6ddd5c15c5551c3e55602275ddc67c2bb7",
+  "clause_digest": "16dea53b8bb9100c2a6fd6ecb3be34f217f25f9e114861ee42ee1b5e31c914e5",
   "clause_key": "S1-7_04",
   "data_kind": "qualitative",
   "definition": "说明主体的自身劳动力中是否没有非员工；如有，应披露其人数与类型。",
@@ -445,9 +445,6 @@
       "说明主体的自身劳动力中是否没有非员工；如有，应披露其人数与类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

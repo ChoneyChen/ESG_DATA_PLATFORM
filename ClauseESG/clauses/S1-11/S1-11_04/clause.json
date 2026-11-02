@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "008c7d7c362c77265068fa80db20b6a5645336dc2f2dd04e8d661055068f5eeb",
+  "clause_digest": "1f595e9f45a7e5fb68674ff29553d2e61de89e3a08828e052bb34aecdc4d0608",
   "clause_key": "S1-11_04",
   "data_kind": "qualitative",
   "definition": "说明所有员工是否通过公共计划或主体福利获得育儿假期间收入损失的社保覆盖。",
@@ -445,9 +445,6 @@
       "说明所有员工是否通过公共计划或主体福利获得育儿假期间收入损失的社保覆盖。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

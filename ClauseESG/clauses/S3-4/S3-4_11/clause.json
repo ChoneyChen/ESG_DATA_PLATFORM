@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3780a876d4a825fb8f7ad875c0565411921cb8c4339995fa4938f7a78ef73f81",
+  "clause_digest": "9b1109eca944a8d1455efa47306c704e8ab2e3616763e326a8f915ef32b3351a",
   "clause_key": "S3-4_11",
   "data_kind": "qualitative",
   "definition": "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。",
@@ -459,9 +459,6 @@
       "披露与受影响社区相关的严重人权问题和事件，包括类型、地点和处置情况。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [
       {
         "allowed": [],

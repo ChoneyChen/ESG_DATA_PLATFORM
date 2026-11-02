@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ac210c73c6bea912b545fec1d64797138d77816a0d79a579f75a61e5665519c0",
+  "clause_digest": "da24b6af45b1aa78ae3bc4cee3411dc69ef3ba3fdb802405fae91fce42fc6ca3",
   "clause_key": "E4-5_05",
   "data_kind": "qualitative",
   "definition": "披露报告期内土地覆盖类型的转化情况，包括转化面积、方向和驱动因素。",
@@ -445,9 +445,6 @@
       "披露报告期内土地覆盖类型的转化情况，包括转化面积、方向和驱动因素。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

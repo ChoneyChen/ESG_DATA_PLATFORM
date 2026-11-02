@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b33f60fdd0dc89a5e5b7fb04763a553500c99a847fa195740ac3d902dbd65559",
+  "clause_digest": "159849f0f316d5bdffd1d563084b67f03650d22532869116482fcdca624d2cbb",
   "clause_key": "E4-2_15",
   "data_kind": "qualitative",
   "definition": "说明第三方行为标准是否可由独立认证或验证机构核查，且其程序避免利益冲突并符合ISO或欧盟相关法规要求。",
@@ -459,9 +459,6 @@
       "说明第三方行为标准是否可由独立认证或验证机构核查，且其程序避免利益冲突并符合ISO或欧盟相关法规要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "09ad5c250deead910f682978e1aea7dbe802a6635efe3b8ac4c3e3832cb78a9b",
+  "clause_digest": "04c3ac70a48097a2f5a0fa71bcac1e73f17260ca7ecde4079b1a0444616c6a97",
   "clause_key": "SBM-3_07",
   "data_kind": "qualitative",
   "definition": "Description of nature of activities or business relationships through which undertaking is involved with material impacts。涉及影响的活动和商业关系。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
@@ -501,9 +501,6 @@
       "Description of nature of activities or business relationships through which undertaking is involved with material impacts。涉及影响的活动和商业关系。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dc89b30782558789ce26dbea3b2e5d9cf3fcf510f95ed012c533641c56151986",
+  "clause_digest": "9cc861e309c9514c1c2ebbc45880d57b05bb0269a078acf7f7c07b5538f6fd0e",
   "clause_key": "E4-5_13",
   "data_kind": "quantitative",
   "definition": "披露场址范围外由主体支持或管理的自然导向面积，并说明其与主体活动的关系。",
@@ -558,9 +558,6 @@
       "披露场址范围外由主体支持或管理的自然导向面积，并说明其与主体活动的关系。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

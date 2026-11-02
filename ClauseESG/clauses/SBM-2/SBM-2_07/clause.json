@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "10f16e27d13ed16a67c42c54dd0dc20ef80d71cb61714c96d8649caf33546bae",
+  "clause_digest": "b0fcc7cd20d3c5d9f55305f284451d8df09490e9e72cece547f27ef604d96fa0",
   "clause_key": "SBM-2_07",
   "data_kind": "qualitative",
   "definition": "Description of understanding of interests and views of key stakeholders as they relate to undertaking's strategy and business model。利益方观点与战略业务关系。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of understanding of interests and views of key stakeholders as they relate to undertaking's strategy and business model。利益方观点与战略业务关系。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

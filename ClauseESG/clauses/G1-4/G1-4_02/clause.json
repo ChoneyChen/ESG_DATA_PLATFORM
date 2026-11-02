@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "321e5faba4878d0bf44825ed57fed8ee108e980e5f42b2cd6d05aa3432566d89",
+  "clause_digest": "1e7e8d0921cc3289bc0436e1a9823d663fba480100a64b0d286c1984a2e2a118",
   "clause_key": "G1-4_02",
   "data_kind": "quantitative",
   "definition": "报告期内违反反腐败及反贿赂法律的罚款金额。",
@@ -600,10 +600,6 @@
       "报告期内违反反腐败及反贿赂法律的罚款金额。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "%|％|件|起|天|日|人|名|位|days?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

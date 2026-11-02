@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "99cbdd68153893b00e19564df2154d2fcaac155af88c666173b93eabe9389f8d",
+  "clause_digest": "8c7eeb9170999128d6d6544a551fb0a51a7c37895d05112b384a16585e37055a",
   "clause_key": "IRO-1_09",
   "data_kind": "qualitative",
   "definition": "Description of how likelihood, magnitude, and nature of effects of identified risks and opportunities have been assessed。财务影响的概率量级性质评估。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of how likelihood, magnitude, and nature of effects of identified risks and opportunities have been assessed。财务影响的概率量级性质评估。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

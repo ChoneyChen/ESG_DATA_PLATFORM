@@ -150,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f019f6742d60b8fd774e838d62e4b058b392cb693c9d7aefeb0b15e35d3afc8a",
+  "clause_digest": "34f1e1f54782e033983bc5db5782f766d1c1401b754f68c73e86341a8eb8e415",
   "clause_key": "SBM-3_09",
   "data_kind": "qualitative",
   "definition": "读取短中长期预期财务影响的原文说明；原文时间范围、情景和财务项有则保留，不猜年份，不当已实现量。",
@@ -546,9 +546,6 @@
       "保留所有实际披露期间；主体、边界、方法和分项有则读，无则保留未知。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {}

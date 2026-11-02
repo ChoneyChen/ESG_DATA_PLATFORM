@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d8a75d64f713ae6b14a71723ebea64588802b4a718ae3d1f66d924a9f2b8bdce",
+  "clause_digest": "b91053e2b177a1467fddd8582253af3f466b6370df201dc06710f595b57949c1",
   "clause_key": "E4-3_10",
   "data_kind": "qualitative",
   "definition": "披露行动涉及的关键利益相关方、参与方式，以及受到正面或负面影响的群体及其受影响方式。",
@@ -459,9 +459,6 @@
       "披露行动涉及的关键利益相关方、参与方式，以及受到正面或负面影响的群体及其受影响方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

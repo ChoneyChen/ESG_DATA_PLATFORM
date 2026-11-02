@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2ee2849f0c2519174edb5c422fb03cc2d5aa386e8bf0d995901edeea90c142ea",
+  "clause_digest": "c369c3214ebae3ee888de96d10694ac48c40b6a1f0d9c187a524992262f89a12",
   "clause_key": "E4.IRO-1_15",
   "data_kind": "qualitative",
   "definition": "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。",
@@ -487,9 +487,6 @@
       "说明位于或邻近生物多样性敏感区域的场址活动如何导致自然栖息地和物种栖息地退化，以及对受保护物种的干扰。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

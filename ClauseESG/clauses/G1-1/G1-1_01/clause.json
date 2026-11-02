@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e153703c90c68076e0a31e4f8cf0efe0d4cf9877b6fad6a237887760eb59ba2d",
+  "clause_digest": "b253e4db0333fb65d89de6f819aab175af791a9acc13125f7230007599607593",
   "clause_key": "G1-1_01",
   "data_kind": "qualitative",
   "definition": "说明主体如何建立、发展、推广和评估其企业文化，包括价值观、行为准则和落地机制。",
@@ -459,9 +459,6 @@
       "说明主体如何建立、发展、推广和评估其企业文化，包括价值观、行为准则和落地机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "349e02551d1d406c362ed8ba704e93f4cc31944ff24c9e6d82537e39de85b3a9",
+  "clause_digest": "e1be477bc8f3542134f7a38f126e8dc52919df099dec1fc13734d844f2bd67b4",
   "clause_key": "E1-9_01",
   "data_kind": "quantitative",
   "definition": "Assets at material physical risk before considering climate change adaptation actions。适应行动前重大物理风险资产。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Assets at material physical risk before considering climate change adaptation actions。适应行动前重大物理风险资产。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

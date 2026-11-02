@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "daf6479b10c6c2e7f959a24bd0678fb1d40d481137e62e16748f42fbc9ecad98",
+  "clause_digest": "66c033bbba19dcd1ddf1d0beee7b1481433449d7a411af4e5d864dcb4f654955",
   "clause_key": "E1-5_11",
   "data_kind": "quantitative",
   "definition": "原油及石油产品的燃料消费量",
@@ -601,9 +601,6 @@
       "原油及石油产品的燃料消费量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

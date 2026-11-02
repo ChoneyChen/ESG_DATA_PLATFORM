@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4706215f1cbb71bc205557d1fbd7959e70dc4baacb5fddc8d20cfc96ed4bf8c2",
+  "clause_digest": "0240a2ed3a05d91e57a70ab63d18674a66c86931faeba85977d1b1cdb87a2c7e",
   "clause_key": "BP-2_17",
   "data_kind": "qualitative",
   "definition": "Disclosure of reference to paragraphs of standard or framework applied。其他标准条款引用。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Disclosure of reference to paragraphs of standard or framework applied。其他标准条款引用。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

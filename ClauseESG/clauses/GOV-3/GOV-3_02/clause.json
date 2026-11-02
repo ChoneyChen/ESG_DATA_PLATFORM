@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a2b6037b7babd57a1a28990c42577c7d501ce63e4eec328586962eadb1d26254",
+  "clause_digest": "d022d3149d8e23bf228274466e88ac78f38fc47d8492df6c91a4da95bf78c4fa",
   "clause_key": "GOV-3_02",
   "data_kind": "qualitative",
   "definition": "Description of key characteristics of incentive schemes。激励机制主要特征。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。",
@@ -459,9 +459,6 @@
       "Description of key characteristics of incentive schemes。激励机制主要特征。可持续挂钩薪酬不等于气候挂钩薪酬；浮动薪酬占比与全部薪酬占比的分母不同，治理批准必须明确。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c6995e86c08b3e4a714416f575fdcbab2aee0675242dc9e3f06685e9ec50e6c1",
+  "clause_digest": "1a8ccc7fa0b01a5c65f3c49500931164b1b2b40ef56499670650b6c9ef0691c7",
   "clause_key": "S3-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体在尊重社区、尤其是原住民人权方面的总体方法与责任安排。",
@@ -459,9 +459,6 @@
       "说明主体在尊重社区、尤其是原住民人权方面的总体方法与责任安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

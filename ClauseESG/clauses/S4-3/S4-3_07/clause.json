@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5a73e0d0f4dfabcad9e9a2f88c8411f98018722db47b5d50c5782cd7961ff27d",
+  "clause_digest": "703d294f5a752a5d7f41fb251420dfb39e2ba56af8c397d703ec4d150a0efa06",
   "clause_key": "S4-3_07",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立面向消费者和终端用户的申诉流程；若未建立，披露现状与原因。",
@@ -445,9 +445,6 @@
       "说明主体是否尚未建立面向消费者和终端用户的申诉流程；若未建立，披露现状与原因。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "273e18ef29d597a46bc35f77adf38d1fb83725154cfa1e80384f89b44a874f8b",
+  "clause_digest": "1d28267f23fdeb8b22255e41a016c94a5ce420704bc9acac77811cd5485528b5",
   "clause_key": "E1-9_05",
   "data_kind": "qualitative",
   "definition": "Disclosure of location of significant assets at material physical risk。重大物理风险资产位置。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of location of significant assets at material physical risk。重大物理风险资产位置。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

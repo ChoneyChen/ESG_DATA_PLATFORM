@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7b5959d8b69620b6fd5657b18efac9b0a9548a13a218d41010e25ae90e19e6df",
+  "clause_digest": "be33c88ac8788ac7b7c97061a5f25ff3590aabef252f5be1d2e07333efbf0050",
   "clause_key": "S1-8_05",
   "data_kind": "qualitative",
   "definition": "描述自身劳动力中非员工的就业条件和工作条款在多大程度上由集体谈判协议决定或影响。",
@@ -445,9 +445,6 @@
       "描述自身劳动力中非员工的就业条件和工作条款在多大程度上由集体谈判协议决定或影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

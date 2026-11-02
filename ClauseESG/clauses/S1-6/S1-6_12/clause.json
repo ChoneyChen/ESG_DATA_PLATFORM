@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8bd8e874fa46cba5579193c3f7c3ac32f7374721ec3005d34afade256388f8ff",
+  "clause_digest": "265484fd3dcfb4cf01928a0588b4e4f16cc7dfac74e75604a16335e58712f927",
   "clause_key": "S1-6_12",
   "data_kind": "quantitative",
   "definition": "报告期内离职员工占平均员工人数的比例。",
@@ -706,10 +706,6 @@
       "报告期内离职员工占平均员工人数的比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

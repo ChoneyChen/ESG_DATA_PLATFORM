@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a999bab49e4bca84f7521b4e17083dfb4309182b592194a10fb65acc111013bc",
+  "clause_digest": "ab7ef4fe2f96e510e3c189e306136b6044e6d42bbc56e0e0757a077058e8aa06",
   "clause_key": "S4-5_02",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户是否以及如何直接参与对照目标跟踪绩效。",
@@ -473,9 +473,6 @@
       "说明消费者和终端用户是否以及如何直接参与对照目标跟踪绩效。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

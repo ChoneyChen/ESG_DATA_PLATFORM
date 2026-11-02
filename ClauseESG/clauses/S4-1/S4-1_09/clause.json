@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7fb4b79da0088ef48586e2efe7a3fc7c68ce4c3bafdbb150ac2ea6a09c6af195",
+  "clause_digest": "c95bf2026e9936f5d8a89c4efde3c72048a40e3e9f6299d2a4360a83d39afe35",
   "clause_key": "S4-1_09",
   "data_kind": "qualitative",
   "definition": "举例说明政策如何向消费者和终端用户中的相关个人、群体或实体传达，包括渠道和语言。",
@@ -459,9 +459,6 @@
       "举例说明政策如何向消费者和终端用户中的相关个人、群体或实体传达，包括渠道和语言。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

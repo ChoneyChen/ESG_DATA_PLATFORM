@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d76a772ac3e0ffa3b35aa557c3d26b3ac7d8fdba948b85cd7c9efb838580bbfe",
+  "clause_digest": "60b67bebbc0f9995f1cc63cc4de68faee8deb814684c2578dad770f53b78dd30",
   "clause_key": "G1-4_07",
   "data_kind": "quantitative",
   "definition": "Number of confirmed incidents relating to contracts with business partners that were terminated or not renewed due to violations related to corruption or bribery",
@@ -572,9 +572,6 @@
       "Number of confirmed incidents relating to contracts with business partners that were terminated or not renewed due to violations related to corruption or bribery"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

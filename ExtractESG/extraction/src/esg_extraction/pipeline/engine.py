@@ -105,6 +105,7 @@ class ExtractionBackbone:
         self.exhausted_queries = exhausted_queries or {}
         self.completed = set(checkpoint.get("completed_clauses", []))
         self.enriched = set(checkpoint.get("enriched_clauses", []))
+        self.context_reads = set(checkpoint.get("context_reads", []))
         self.frame_paths = {key:set(paths) for key,paths in checkpoint.get("evidence_frames", {}).items()}
         self.context_attempted = set(context_attempted or [])
         self.visited = set(checkpoint.get("visited_frames", []))
@@ -522,7 +523,8 @@ class ExtractionBackbone:
                 self.artifacts.write(run_id,f"diagnostics/context/{key}.json",context_search)
                 if context_evidence is not None:
                     self.artifacts.write(run_id,f"evidence/context/{key}.json",context_evidence.model_dump(mode="json"))
-                    context_values = list(context_facts.values())
+                    context_values = [fact for fid,fact in context_facts.items()
+                        if digest([context_evidence.digest,fid]) not in self.context_reads]
                     batch_size = max(1,budget.max_output_tokens//1024)
                     pending_context = [(context_values[offset:offset+batch_size],None,0)
                         for offset in range(0,len(context_values),batch_size)]
@@ -539,6 +541,16 @@ class ExtractionBackbone:
                                 {**{name:getattr(local_facts[fid].identity,name) for name in type(local_facts[fid].identity).model_fields if name != "dimensions"},
                                 **local_facts[fid].identity.dimensions}.items() if field.state in {"stated","inherited"}},
                             "local_evidence":[e.excerpt for e in local_facts[fid].evidence if e.role != "value"]} for alias,fid in aliases.items()]
+                        requested_attributes = sorted({axis for item in inputs for axis in item["missing_attributes"]})
+                        report_attributes = sorted(set(requested_attributes) & set(context_search["report_attributes"]))
+                        report_sources = context_search["report_sources"] if report_attributes else []
+                        source_ids = {sid for item in inputs for sid in item["local_source_ids"]} | set(report_sources)
+                        batch_frame = context_evidence.model_copy(update={
+                            "texts":[t for t in context_evidence.texts if t.span_id in source_ids],
+                            "column_sources":{sid:parts for sid,parts in context_evidence.column_sources.items() if sid in source_ids}})
+                        target_card = clause.reading_card()
+                        target_card["requested_identity_fields"] = [field for field in target_card["requested_identity_fields"]
+                            if field["axis"] in requested_attributes]
                         calls += 1
                         call = {"call_index":calls,"clause_key":key,"clause_digest":clause.clause_digest,
                             "task_type":"context_enrichment","data_kind":clause.data_kind,"frame_digest":context_evidence.digest,"fact_aliases":aliases,
@@ -547,17 +559,19 @@ class ExtractionBackbone:
                             "model_calls":calls,"fact_count":len(facts)+len(local_facts)})
                         try:
                             raw, telemetry = self.model.complete(instructions=CONTEXT_INSTRUCTIONS,
-                                context={"target":clause.reading_card(),"requested_attributes":context_search["requested_attributes"],"facts":inputs,"context":reading_frame(context_evidence),
-                                    "report_sources":context_search["report_sources"],"report_attributes":context_search["report_attributes"],
-                                    "execution":{"run_id":run_id,"task_type":"clause_context","evidence_ids":[t.object_id for t in context_evidence.texts],
+                                context={"target":target_card,"requested_attributes":requested_attributes,"facts":inputs,"context":reading_frame(batch_frame),
+                                    "report_sources":report_sources,"report_attributes":report_attributes,
+                                    "execution":{"run_id":run_id,"task_type":"clause_context","evidence_ids":list(dict.fromkeys([*[t.object_id for t in batch_frame.texts],
+                                            *[p.object_id for parts in batch_frame.column_sources.values() for p in parts]])),
                                         "attempt":attempt,"parent_task_id":f"{run_id}/calls/{parent_call}" if parent_call else None,
                                         "remaining_seconds":max(.001,budget.timeout_seconds-(time.monotonic()-started))}},
-                                schema=context_schema(context_evidence,aliases,context_search["requested_attributes"]),max_tokens=budget.max_output_tokens,cancel_check=cancel_check)
+                                schema=context_schema(batch_frame,aliases,requested_attributes),max_tokens=budget.max_output_tokens,cancel_check=cancel_check)
                             decision = ContextDecision.model_validate(raw if isinstance(raw,dict) else json.loads(raw))
                             count = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search)
                             call.update(status="ok",telemetry=telemetry,decision=decision.model_dump(mode="json"),attributes_added=count)
                             for fid in aliases.values():
                                 self.results.put(local_facts[fid],local_mappings[fid])
+                                self.context_reads.add(digest([context_evidence.digest,fid]))
                         except Exception as exc:
                             call.update(status="cancelled" if cancel_check() or isinstance(exc,PipelineCancelled) else "failed",error=str(exc)[:400],
                                 telemetry=getattr(exc,"telemetry",{}))
@@ -575,6 +589,8 @@ class ExtractionBackbone:
                                 reasons.append("context_reading_unavailable")
                         trace.append(call)
                         self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
+                        self.results.flush()
+                        self._save_checkpoint(calls,started)
                 unresolved = {axis for fid in context_facts
                     for axis in missing_attributes(clause,local_facts[fid])
                     if plan["context"]["attributes"].get(axis)
@@ -695,9 +711,7 @@ class ExtractionBackbone:
             },
         }
         self.results.status(body)
-        self.results.checkpoint({"calls":calls,"elapsed_seconds":time.monotonic()-started,
-            "completed_clauses":sorted(self.completed),"enriched_clauses":sorted(self.enriched),"visited_frames":sorted(self.visited),
-            "evidence_frames":{key:sorted(paths) for key,paths in self.frame_paths.items()}})
+        self._save_checkpoint(calls,started)
         if not final:
             return body
         # Complete the transport bundle once. Running views read the indexed facts.
@@ -709,6 +723,12 @@ class ExtractionBackbone:
         self.artifacts.write(run_id, "results/facts.json", body)
         self.results.status({k:v for k,v in body.items() if k not in {"facts","clause_mappings"}})
         return body
+
+    def _save_checkpoint(self,calls,started):
+        self.results.checkpoint({"calls":calls,"elapsed_seconds":time.monotonic()-started,
+            "completed_clauses":sorted(self.completed),"enriched_clauses":sorted(self.enriched),
+            "visited_frames":sorted(self.visited),"context_reads":sorted(self.context_reads),
+            "evidence_frames":{key:sorted(paths) for key,paths in self.frame_paths.items()}})
 
     def _page_request(self, key, phase, intent, reason):
         primary = next(iter(self.sources.values()))

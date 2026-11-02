@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b4f08bbb99e26126f5f1d69ccf31d4dcdb4bbd4d0d1c067f0df63c14917e0b48",
+  "clause_digest": "0ab8d4d5591107b1ee93726697d29dee575b884328452590be6686a36e10a0fd",
   "clause_key": "S4-4_13",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响消费者和终端用户的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响消费者和终端用户的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

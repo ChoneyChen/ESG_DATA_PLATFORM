@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f58ddb9c96f7fc534a3f01f973e7eceea96eee980c50fa80f4c6f9c77e0d592b",
+  "clause_digest": "882aa31e8ec7a9a1b431df014780514608dfa061d5617e30f28ca76d21d2ce10",
   "clause_key": "S4-2_01",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。",
@@ -445,9 +445,6 @@
       "说明消费者和终端用户的观点是否以及如何影响旨在管理实际和潜在影响的决策或活动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

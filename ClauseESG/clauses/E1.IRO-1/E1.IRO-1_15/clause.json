@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4d7e6f81c5ee75b14de6ac0f798c9be15bb52fa3de7bae251baf64c5a4bdfbe8",
+  "clause_digest": "ef4dd6ce9d74cc65825db0e6b9dd91d7bf5566a0208b699baea80f9d1d81f6d8",
   "clause_key": "E1.IRO-1_15",
   "data_kind": "qualitative",
   "definition": "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term。转型风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long-term。转型风险识别中的情景分析。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

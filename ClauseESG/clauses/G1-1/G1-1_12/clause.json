@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f25a45c93f505265132303acc8766c3c9783249efe23f7e1104bd0be77e972b5",
+  "clause_digest": "9cd6ca27ba74045b594a92d1dfdc0d7078e219b172c84eadb31e8faa15a7623d",
   "clause_key": "G1-1_12",
   "data_kind": "qualitative",
   "definition": "说明主体是否受举报人保护相关法律要求的约束，并指出适用的法律或监管框架。",
@@ -459,9 +459,6 @@
       "说明主体是否受举报人保护相关法律要求的约束，并指出适用的法律或监管框架。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

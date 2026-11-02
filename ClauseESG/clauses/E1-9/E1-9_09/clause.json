@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a5c71cfe54aebf3b8cd43e0709a2664dbdbe02c4d2c0484e583f8d2be2542899",
+  "clause_digest": "e8958e05664a25cc95ad6fba32b6523d7a39b0b8dbdb0e2b2756bb9d02e8d864",
   "clause_key": "E1-9_09",
   "data_kind": "quantitative",
   "definition": "Percentage of net revenue from business activities at material physical risk。物理风险业务净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Percentage of net revenue from business activities at material physical risk。物理风险业务净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

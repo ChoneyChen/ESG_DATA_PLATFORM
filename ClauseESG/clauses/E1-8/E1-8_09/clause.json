@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b6bea89f0716f37bd279419e47b6161db43e42de3ef27790d9e0ae79ea67b882",
+  "clause_digest": "eb14d249403438c8f8c038a04750d777e777e856f6d98c3dd6f3a010313237b0",
   "clause_key": "E1-8_09",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how carbon price used in internal carbon pricing scheme is consistent with carbon price used in financial statements。内部碳价格与财务报表价格一致性。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。",
@@ -487,9 +487,6 @@
       "Disclosure of whether and how carbon price used in internal carbon pricing scheme is consistent with carbon price used in financial statements。内部碳价格与财务报表价格一致性。每个碳定价机制、期间、适用范围形成独立身份。内部价格不是外部交易价格，价格的货币及每吨CO2e分母必须明确。覆盖比例不能替代被覆盖排放量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

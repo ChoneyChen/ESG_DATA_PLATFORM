@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bd85312a284cec8eec451198a800240fe33fef5f05e7d9ecea6b695c45ff5afa",
+  "clause_digest": "66ea0b13e7f88d924ddf60943fe23b0b4cd710e87eedb543c5035aab42c08788",
   "clause_key": "E4-2_12",
   "data_kind": "qualitative",
   "definition": "说明政策采用的第三方行为标准是否基于科学方法识别问题，并在多种实际情形下可客观实现。",
@@ -459,9 +459,6 @@
       "说明政策采用的第三方行为标准是否基于科学方法识别问题，并在多种实际情形下可客观实现。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

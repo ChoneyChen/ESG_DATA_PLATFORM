@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "401baa3747a1de5194b30ce86fa0bff45e7803f33a15b26685c22c62123c4d2e",
+  "clause_digest": "0380c9be3caff55a12645034cd1c56d8b6bfd4744e2cbcad8228f69b455ddd97",
   "clause_key": "MDR-T_08",
   "data_kind": "qualitative",
   "definition": "Indication of milestones or interim targets。里程碑和中期目标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Indication of milestones or interim targets。里程碑和中期目标。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

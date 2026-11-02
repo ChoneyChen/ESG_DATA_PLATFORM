@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a076b0f1f25829fe8df3e2c06692f83fad9f931d12302476f9d9dc4cfc5d8b2d",
+  "clause_digest": "3a47051268273ddb2ad87bc6cd8ce91302be38f484c803c9a1a01ce12e492866",
   "clause_key": "S1-7_02",
   "data_kind": "quantitative",
   "definition": "披露自身劳动力中自雇人员的数量，并说明其与主体的合同关系。",
@@ -558,9 +558,6 @@
       "披露自身劳动力中自雇人员的数量，并说明其与主体的合同关系。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4475f5f23f25199542dc56277f5536f409f9246c87ddd7430aac6d1689b6f99f",
+  "clause_digest": "3f9ca20dd93dc62be196b8b80f7b9125f47c397cd29fdf3c674d1b19fcb0ed27",
   "clause_key": "S1-1_22",
   "data_kind": "qualitative",
   "definition": "披露主体为促进员工获得技能发展机会所设立的项目及覆盖范围。",
@@ -459,9 +459,6 @@
       "披露主体为促进员工获得技能发展机会所设立的项目及覆盖范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c3d5bba97c9716c0063eece3d6cf4ebf596214932ad654c8e0bca724b62bbdc5",
+  "clause_digest": "dae00eba79d34b966bb7fb4fb7224e83a2b9b773a2644ae18dc25787aa78797a",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -740,10 +740,6 @@
       "报告期末属于本主体的员工人头数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

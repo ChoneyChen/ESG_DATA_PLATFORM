@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a2ddb147084afcb6f811e29725a02683e5f3d1e4b473e65ade0d851f9137be90",
+  "clause_digest": "35ef92d18c68f5f0cdd6efa1c6001e96232b6e671a9686f31e81321bb0b71dd7",
   "clause_key": "S1-2_11",
   "data_kind": "qualitative",
   "definition": "说明主体如何考虑并消除与员工接触的潜在障碍，如语言、时间、恐吓或数字鸿沟。",
@@ -445,9 +445,6 @@
       "说明主体如何考虑并消除与员工接触的潜在障碍，如语言、时间、恐吓或数字鸿沟。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

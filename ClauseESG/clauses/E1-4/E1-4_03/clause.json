@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c00b8362aace0a9db1800421ed07b81488cc2e52992885336687aba824af10b5",
+  "clause_digest": "108d55bad3d1c6f2d4ef6d3c6d937132f7d8a25fe75c8770c502fa27ec69b709",
   "clause_key": "E1-4_03",
   "data_kind": "quantitative",
   "definition": "Absolute value of total Greenhouse gas emissions reduction。总排放绝对减排目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -628,9 +628,6 @@
       "Absolute value of total Greenhouse gas emissions reduction。总排放绝对减排目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [
       {
         "allowed": [],

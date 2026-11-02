@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "24904b20c13c24cec0bcbac61075b8d78fca8c6d20790847f61402caf7e75654",
+  "clause_digest": "5ef55b464bda0cfbc4bd9248f15c07e5ef8606cabd2a93280b50860df9d27450",
   "clause_key": "E4-5_27",
   "data_kind": "qualitative",
   "definition": "披露生态系统状况的结构性组成部分，如植被结构、土壤和水文条件。",
@@ -445,9 +445,6 @@
       "披露生态系统状况的结构性组成部分，如植被结构、土壤和水文条件。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

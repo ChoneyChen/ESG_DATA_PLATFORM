@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dcf9aa616aa208165844cb1efcb96a5665f42e31a9fb9669065070a2c744d66c",
+  "clause_digest": "32f2d1c7a8df14ac083fce80458eee9ef4eed910ca73fcf1ad9ef590495a7978",
   "clause_key": "BP-2_13",
   "data_kind": "qualitative",
   "definition": "Disclosure of nature of prior period material errors。前期重大差错性质。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Disclosure of nature of prior period material errors。前期重大差错性质。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

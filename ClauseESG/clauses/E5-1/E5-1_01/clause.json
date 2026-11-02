@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "709c4182574cc2fe6b0674d4710d44a8848f0b1d5f4d9d073d81fc69a236c7e5",
+  "clause_digest": "b3455574bda978aaed796046177b5010043ed33b38fae6127abfd892bb579daf",
   "clause_key": "E5-1_01",
   "data_kind": "qualitative",
   "definition": "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。",
@@ -459,9 +459,6 @@
       "说明主体的资源利用政策是否以及如何推动逐步摆脱原生资源使用，包括提高再生（回收）资源使用比例的目标与措施。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a949dd10b696c73060336578aab638a49f2c43815a632bd3bf92446b87798f34",
+  "clause_digest": "6af25362d0d1f4f80d7784c581046b8c8207c68e04b150e60733bd7f09c46171",
   "clause_key": "E2-3_08",
   "data_kind": "qualitative",
   "definition": "Disclosure of how responsibility for respecting identified ecological thresholds is allocated (pollution)。污染阈值责任分配。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of how responsibility for respecting identified ecological thresholds is allocated (pollution)。污染阈值责任分配。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

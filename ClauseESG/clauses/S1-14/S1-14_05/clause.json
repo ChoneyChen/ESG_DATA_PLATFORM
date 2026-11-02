@@ -193,7 +193,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "cfdea8aa41593884dfe7a20e93bb85b0e99986cf8d93ea583d15536ff26a2bb7",
+  "clause_digest": "8c566ebc0074a004a9f11ea07415326489565743172f7a09fd72ce429fc20d32",
   "clause_key": "S1-14_05",
   "data_kind": "quantitative",
   "definition": "自有劳动力每百万工时的可记录工伤事故数。",
@@ -737,10 +737,6 @@
       "自有劳动力每百万工时的可记录工伤事故数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2071793b0e214040c93f9b3af412495438346f28847b47c6e4e58de63d7e2aff",
+  "clause_digest": "c1bbad0a6541dd2d46c3051a75a4258f791768a2a585b3c824c710ff62b27283",
   "clause_key": "E1-5_07",
   "data_kind": "quantitative",
   "definition": "外购或购入的可再生电力、热力、蒸汽和冷却能源",
@@ -601,9 +601,6 @@
       "外购或购入的可再生电力、热力、蒸汽和冷却能源"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

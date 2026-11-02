@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6c18c4f1c08a0c5dc1f4e8b72ed8b871119b4c1e4a8f1945846505029a459367",
+  "clause_digest": "4bcb07a3b121426a09947b41d85fdc8e414aca843a33a9c1ba81756cdcc431ea",
   "clause_key": "G1-1_11",
   "data_kind": "qualitative",
   "definition": "披露在腐败和贿赂方面风险最高的职能或部门，并说明风险识别依据。",
@@ -459,9 +459,6 @@
       "披露在腐败和贿赂方面风险最高的职能或部门，并说明风险识别依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

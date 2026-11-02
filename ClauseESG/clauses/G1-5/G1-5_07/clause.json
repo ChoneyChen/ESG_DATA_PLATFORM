@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5d611e506cc37f82e184745ffeee4f2e0cb1bff96a0445c896ef0d27093ce45d",
+  "clause_digest": "26351f32766ee4fe5ce107a3fc740f7ca7b41ca327731193af41f31d755abfec",
   "clause_key": "G1-5_07",
   "data_kind": "qualitative",
   "definition": "说明实物政治捐赠价值如何估计，包括估值基础与关键假设。",
@@ -445,9 +445,6 @@
       "说明实物政治捐赠价值如何估计，包括估值基础与关键假设。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

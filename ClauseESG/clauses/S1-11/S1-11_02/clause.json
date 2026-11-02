@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ba502e221655867c017cd62ac7a9f4a686060cf72a41910e6c38a762afbcf9e4",
+  "clause_digest": "a8a7401c7eb4ec097aeb03e7c74d00f0fe8a83a08035c7699fdfd7adc5c5cafd",
   "clause_key": "S1-11_02",
   "data_kind": "qualitative",
   "definition": "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。",
@@ -445,9 +445,6 @@
       "说明所有员工自为雇主工作起，是否通过公共计划或主体福利获得失业收入损失的社保覆盖。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

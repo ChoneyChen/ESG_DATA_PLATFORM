@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ac514ba4ebd01b7bebfc8733a4c006606a4adccaf76fa8cdb5c4109d4e7f746d",
+  "clause_digest": "d2cc718216ee5840ad7c37213b1584f0033f8459601417f66f7ef219c142f836",
   "clause_key": "S1-3_05",
   "data_kind": "qualitative",
   "definition": "披露主体是否已建立与员工事项相关的申诉或投诉处理机制，并说明其运作方式。",
@@ -445,9 +445,6 @@
       "披露主体是否已建立与员工事项相关的申诉或投诉处理机制，并说明其运作方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

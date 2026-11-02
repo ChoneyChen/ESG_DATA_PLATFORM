@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "acc70051abe1b770b847b9d14f800ebf27bf282b18e2ece293f19c10e721a4df",
+  "clause_digest": "b2193d60fb5a63e3cb816c9ffd5e9ba5bc4b36fd6f2a3f6c8ce045f15ac9c336",
   "clause_key": "G1-1_04",
   "data_kind": "qualitative",
   "definition": "披露符合《联合国反腐败公约》的反腐败或反贿赂政策的实施时间表，包括里程碑与责任部门。",
@@ -459,9 +459,6 @@
       "披露符合《联合国反腐败公约》的反腐败或反贿赂政策的实施时间表，包括里程碑与责任部门。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

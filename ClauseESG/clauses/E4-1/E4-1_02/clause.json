@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "76f281cbdb8af5d0553a65d23a49203cc8359720fb98a61f131a4163291c6a8d",
+  "clause_digest": "1867580e2b7115cc613e5b37095df9ed3fc31f0d95dfb3079a227318da7495f9",
   "clause_key": "E4-1_02",
   "data_kind": "qualitative",
   "definition": "说明韧性分析覆盖的自身运营范围以及相关的上游和下游价值链环节，并指出未覆盖的部分。",
@@ -445,9 +445,6 @@
       "说明韧性分析覆盖的自身运营范围以及相关的上游和下游价值链环节，并指出未覆盖的部分。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

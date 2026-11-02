@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "65d34bc19267e7cb2a92ee4f7f4af87af399b1cbac341815d86847e6195403db",
+  "clause_digest": "7146b328e333d6d3e8da5616d4047b373c29261238f4180e1a1929b57e764292",
   "clause_key": "S1-3_08",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何评估员工知晓并信任相关结构或流程，以提出关切和需求。",
@@ -445,9 +445,6 @@
       "说明主体是否以及如何评估员工知晓并信任相关结构或流程，以提出关切和需求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

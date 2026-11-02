@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "aa27fe06acffbd5305b43fb42be1f2afa004d184726bbe4ad6c0cf6ae9fe45ab",
+  "clause_digest": "e5008ef58f1832119f5b0b0325cb1ed1435f553ee07845bf2418445bb5ca710d",
   "clause_key": "S1-2_15",
   "data_kind": "qualitative",
   "definition": "提供以往报告期内与自身劳动力接触流程有效性的信息。",
@@ -445,9 +445,6 @@
       "提供以往报告期内与自身劳动力接触流程有效性的信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

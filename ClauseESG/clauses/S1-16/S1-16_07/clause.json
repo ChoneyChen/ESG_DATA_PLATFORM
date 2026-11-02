@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8e9020f160b0648811678dac069a01e3241839befd15e1379ecb56de60d228fc",
+  "clause_digest": "dcd43f4300587340bc7b5e5cb20cab4f2e163bbe01df7df835c45187d4db457e",
   "clause_key": "S1-16_07",
   "data_kind": "qualitative",
   "definition": "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Description of methodology used for calculation of remuneration ratio adjusted for purchasing power differences between countries。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

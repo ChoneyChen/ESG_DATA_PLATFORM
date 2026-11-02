@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "11a1766e1544bd35c74b3cd549f26ae35f557e8e4edf95e747aa8aa9119f73db",
+  "clause_digest": "347405acc9de3d6d3fa1f2dd89d4968a8bcc8983dd1b3c91a4c6a3c42c0f4e78",
   "clause_key": "S1-14_03",
   "data_kind": "quantitative",
   "definition": "Number of fatalities as result of work-related injuries and work-related ill health of other workers working on undertaking's sites",
@@ -558,9 +558,6 @@
       "Number of fatalities as result of work-related injuries and work-related ill health of other workers working on undertaking's sites"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

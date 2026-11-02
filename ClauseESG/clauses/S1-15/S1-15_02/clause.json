@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fcbe7d72d6532f2753921597b6b838be0987bfc864d017ac5a0bb04cf3486799",
+  "clause_digest": "520c24e0f8ea4c47ee50cc96cf281dbcbc2f5ed8495c046419b46d46b58d3706",
   "clause_key": "S1-15_02",
   "data_kind": "quantitative",
   "definition": "披露在有权享受家庭相关假期的员工中，实际休假员工所占比例。",
@@ -558,9 +558,6 @@
       "披露在有权享受家庭相关假期的员工中，实际休假员工所占比例。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

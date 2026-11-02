@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5c28b48e3f1fc2fed4d52cf00402c89c4174e2d2755299066d1e5bcbe95a177b",
+  "clause_digest": "b1e17bac7aeff1bf4692abc9a680858d037b5e10f75ea0b444330e46c36535e4",
   "clause_key": "E4-5_11",
   "data_kind": "quantitative",
   "definition": "披露被建筑物、铺装或其他不透水表面封固的土地面积总量。",
@@ -558,9 +558,6 @@
       "披露被建筑物、铺装或其他不透水表面封固的土地面积总量。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "328afdedd61cd515f27a65ac8ee93c8184b9702c4b4b6f8429f86851eb3c2000",
+  "clause_digest": "f37b87446dedd124b73496898670b391eb24fea70a46111a1281b79a886e9a63",
   "clause_key": "E4-5_20",
   "data_kind": "qualitative",
   "definition": "披露特定区域内物种个体数量随时间的变化，包括变化幅度与监测方法。",
@@ -445,9 +445,6 @@
       "披露特定区域内物种个体数量随时间的变化，包括变化幅度与监测方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

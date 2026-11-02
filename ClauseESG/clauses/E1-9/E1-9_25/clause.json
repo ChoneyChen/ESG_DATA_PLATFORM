@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "971a3a6944dd8f6b0754e1c41c41d83a29b7bdddcf89ba7a71c7647a42224733",
+  "clause_digest": "5e3e2e5c542208cb19d428dac0e283bf7fbb8de93a409583b877c63efb44dfa9",
   "clause_key": "E1-9_25",
   "data_kind": "quantitative",
   "definition": "Number of emission allowances stored (from previous allowances) at beginning of reporting period。期初储存排放配额数。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Number of emission allowances stored (from previous allowances) at beginning of reporting period。期初储存排放配额数。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

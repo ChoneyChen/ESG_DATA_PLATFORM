@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0739d4736c8ab7a32c08d1af0fed44ac1c71577e0f5588fae17d76df00f6d53e",
+  "clause_digest": "40c53c35de7630e199056ed20266f8978da027f187a6e95d3c022db4f96ed4ad",
   "clause_key": "MDR-A_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of key action。关键行动。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Disclosure of key action。关键行动。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

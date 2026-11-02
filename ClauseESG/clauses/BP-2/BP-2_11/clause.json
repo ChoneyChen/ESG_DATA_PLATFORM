@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b3d13f7a44254ec520f04230d309531dc7d6f248405bcff2e777a7c62d755a92",
+  "clause_digest": "778592770aaadf440346a87cf8a6262b1b89059a82681e6fff606c1cc3eb6f90",
   "clause_key": "BP-2_11",
   "data_kind": "qualitative",
   "definition": "Adjustment of comparative information for one or more prior periods is impracticable。比较信息调整不可行。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Adjustment of comparative information for one or more prior periods is impracticable。比较信息调整不可行。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

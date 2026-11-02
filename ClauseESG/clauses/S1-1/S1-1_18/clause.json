@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f576db36d931e2537636b4537e03d9676799f93563a90c768110b9aa92a08029",
+  "clause_digest": "39589f255645f781f917d23dd74470aebf3f4f487e4e4554285ddd87186a482a",
   "clause_key": "S1-1_18",
   "data_kind": "qualitative",
   "definition": "说明主体是否已对物理环境作出调整，以保障残障员工、客户和其他访客的健康与安全。",
@@ -459,9 +459,6 @@
       "说明主体是否已对物理环境作出调整，以保障残障员工、客户和其他访客的健康与安全。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

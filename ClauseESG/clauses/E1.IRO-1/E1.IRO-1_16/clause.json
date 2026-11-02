@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ff69145be03e17ed5747246e189bb0b715ab5658b52ec0f5920f41471babbacf",
+  "clause_digest": "0ad9ce90f85fce8b10398e499dfa00251d79062f431013bbe010bf4d46f5c096",
   "clause_key": "E1.IRO-1_16",
   "data_kind": "qualitative",
   "definition": "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements。气候情景与财务假设一致性。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Explanation of how climate scenarios used are compatible with critical climate-related assumptions made in financial statements。气候情景与财务假设一致性。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

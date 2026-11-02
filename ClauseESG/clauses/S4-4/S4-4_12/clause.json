@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d79a15aa1f49c815d53f803fe98d07cc8b347de132c8ae05cfc7480987c6866d",
+  "clause_digest": "73ecbfb3e606dfd324f10b63ff96aa11fc61fdf58fa2b091ed8cdd68edcc713e",
   "clause_key": "S4-4_12",
   "data_kind": "qualitative",
   "definition": "披露为管理消费者和终端用户重大影响所分配的资源，包括人员、预算和管理层投入。",
@@ -459,9 +459,6 @@
       "披露为管理消费者和终端用户重大影响所分配的资源，包括人员、预算和管理层投入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

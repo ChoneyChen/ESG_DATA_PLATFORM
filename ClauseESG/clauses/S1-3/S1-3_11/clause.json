@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "59e227d99f3a4acd64433cd8b8231d8237e6db337c3804c51994862221ce9863",
+  "clause_digest": "dfa847ce450c170211a363687ac4492b736570355d0a074afeab8899c5955d10",
   "clause_key": "S1-3_11",
   "data_kind": "qualitative",
   "definition": "披露主体计划建立提出关切渠道的时间表。",
@@ -445,9 +445,6 @@
       "披露主体计划建立提出关切渠道的时间表。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

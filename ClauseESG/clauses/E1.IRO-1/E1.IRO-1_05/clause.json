@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0b3726fd7619c06fd7a1ac2dad304b29c642b05964aff5f6814fbdd9c6f77868",
+  "clause_digest": "2bd38a459689fd9baf3da264ebf3446aee4d9b838b10782311a7d74351a2af3a",
   "clause_key": "E1.IRO-1_05",
   "data_kind": "qualitative",
   "definition": "Short-, medium- and long-term time horizons have been defined。物理风险时间范围定义。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。",
@@ -487,9 +487,6 @@
       "Short-, medium- and long-term time horizons have been defined。物理风险时间范围定义。区分物理灾害与转型事件；流程和实际风险结果不是同一事实，情景应用必须有来源支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

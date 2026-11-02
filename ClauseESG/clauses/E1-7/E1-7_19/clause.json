@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bdae6a224dd9196938daa1745b5bc20fdc92f6c3ba5a50c2ac8f3b8fe9d1163d",
+  "clause_digest": "66c2962b305de53a3803755fa29a2fb51dafa4e62804becb3e842f4640c9854a",
   "clause_key": "E1-7_19",
   "data_kind": "qualitative",
   "definition": "Date when carbon credits outside value chain are planned to be cancelled。碳信用计划核销年份。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -501,9 +501,6 @@
       "Date when carbon credits outside value chain are planned to be cancelled。碳信用计划核销年份。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

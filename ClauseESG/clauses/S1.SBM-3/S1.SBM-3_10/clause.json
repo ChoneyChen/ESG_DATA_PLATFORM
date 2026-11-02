@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dcb7e7694cbba3a27a38a3a25baa82091455dcfbc9f616e2fcedd8f2f3e836f6",
+  "clause_digest": "39e5be44eab7268389a971374713154d855ff083f3ecba07b894ed2aedbb5cd2",
   "clause_key": "S1.SBM-3_10",
   "data_kind": "qualitative",
   "definition": "提供被认为存在童工事件重大风险的国家或地理区域信息。",
@@ -487,9 +487,6 @@
       "提供被认为存在童工事件重大风险的国家或地理区域信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

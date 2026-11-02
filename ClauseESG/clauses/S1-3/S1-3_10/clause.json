@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6b404f6821dd70e8489ab7f872fe3c38416f7fa23bd8741bed8af76c66234945",
+  "clause_digest": "7f6e56729da13eaeef7a2c972a1fe708a92780b7c9f34bd0206ac0d5f9d4490b",
   "clause_key": "S1-3_10",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未建立提出关切的渠道；若未建立，披露现状与原因。",
@@ -445,9 +445,6 @@
       "说明主体是否尚未建立提出关切的渠道；若未建立，披露现状与原因。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

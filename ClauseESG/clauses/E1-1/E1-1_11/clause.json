@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ecda2c5131aee24d027cc6118c0aaed786a69cc375bf228bd844ee4af789274a",
+  "clause_digest": "c2fccee0d36c193bea6f893f4e5621b410a63c25e40f96080ab1f41ac427fd74",
   "clause_key": "E1-1_11",
   "data_kind": "quantitative",
   "definition": "Significant CapEx for gas-related economic activities。天然气活动重大资本支出。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -558,9 +558,6 @@
       "Significant CapEx for gas-related economic activities。天然气活动重大资本支出。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1d68466dab04bb3c63e338dacd1262bdd5ae70a83aaa89099b6868986a614609",
+  "clause_digest": "a361fd8040249dafd13e0ad04f40fa911537b1a0153546fd0afa17e6e4a6078d",
   "clause_key": "E1.SBM-3_07",
   "data_kind": "qualitative",
   "definition": "Description of ability to adjust or adapt strategy and business model to climate change。战略和商业模式调整能力。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。",
@@ -487,9 +487,6 @@
       "Description of ability to adjust or adapt strategy and business model to climate change。战略和商业模式调整能力。物理风险、转型风险与韧性结论分开；记录情景、时间范围和业务覆盖，不能用风险存在推断韧性结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

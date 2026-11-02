@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "87be5b7af89d82704e4be7684a220480d0b01656c7514f1203a0e728f4dd8478",
+  "clause_digest": "c5ec88ed4b8f35bf29e0a724872941e91c96293b25952a340e97e0d4d2da2d16",
   "clause_key": "SBM-3_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of reasonably expected time horizons of material impacts。影响的预期时间。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
@@ -501,9 +501,6 @@
       "Disclosure of reasonably expected time horizons of material impacts。影响的预期时间。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

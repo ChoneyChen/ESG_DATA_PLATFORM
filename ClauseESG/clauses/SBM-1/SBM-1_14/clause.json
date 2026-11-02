@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c0dfa83295d408a0dfb4c9a4a4ba3834aaa03620bb494482fe4591205318e56b",
+  "clause_digest": "60b6164e3e1dae1946f8a9d63c27eaa00d5816e7084f3306c36c0d4d989f5b30",
   "clause_key": "SBM-1_14",
   "data_kind": "quantitative",
   "definition": "Revenue from Taxonomy-aligned economic activities related to fossil gas。分类法对齐的化石气活动收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -572,9 +572,6 @@
       "Revenue from Taxonomy-aligned economic activities related to fossil gas。分类法对齐的化石气活动收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "61208a31bf9378c7e3ed675dd5c0a31e72aabed2c1099b01f34087dd56963a8a",
+  "clause_digest": "6e2acd4695b8d1fd54fe2aa5bc1a93c8686c8a4c592a1eff02304452080325c6",
   "clause_key": "E2-6_09",
   "data_kind": "qualitative",
   "definition": "Disclosure of critical assumptions used to quantify anticipated financial effects, sources and level of uncertainty of assumptions (pollution)。污染财务影响的假设来源与不确定性。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。",
@@ -515,9 +515,6 @@
       "Disclosure of critical assumptions used to quantify anticipated financial effects, sources and level of uncertainty of assumptions (pollution)。污染财务影响的假设来源与不确定性。按污染风险或事故、财务项目、币种、期间及预期时间区分。收入占比不是污染量，准备金不是已发生修复支出。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

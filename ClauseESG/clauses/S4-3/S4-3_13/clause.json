@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "311bf01fa5e6456986f2c1e6e266badde396b965f521f5c3eaaada808bd7a119",
+  "clause_digest": "41e5ed38a29a941b984664116e0a4d58ff2378119bdd137e44a66fc77cb0d651",
   "clause_key": "S4-3_13",
   "data_kind": "quantitative",
   "definition": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。",
@@ -587,9 +587,6 @@
       "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

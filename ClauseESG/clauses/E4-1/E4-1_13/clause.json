@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "321a6b8dd0944688aed355c73bf0c40069d4877315bf2c8c53c1e2960adcfe60",
+  "clause_digest": "df6f1163c345faf473bc9fcb3556a9ce27d3708b55d2a6335e8bb7e6cc25af7c",
   "clause_key": "E4-1_13",
   "data_kind": "qualitative",
   "definition": "披露使收入、资本支出等经济活动与生物多样性和生态系统目标对齐的目标或计划。",
@@ -445,9 +445,6 @@
       "披露使收入、资本支出等经济活动与生物多样性和生态系统目标对齐的目标或计划。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

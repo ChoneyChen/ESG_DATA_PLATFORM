@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c1a12fcb7f44d9e54caeadf24132c73aa640ddf69f3d3a1bbaa33749ecead3a6",
+  "clause_digest": "8cf35ac1fb839c8468a67fd16dbfd28924a84d130d5b8cc371518bd3f0810a0e",
   "clause_key": "S1-11_11",
   "data_kind": "qualitative",
   "definition": "披露未通过公共计划或主体福利获得退休收入损失保障的员工类型。",
@@ -445,9 +445,6 @@
       "披露未通过公共计划或主体福利获得退休收入损失保障的员工类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

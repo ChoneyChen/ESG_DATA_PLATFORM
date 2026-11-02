@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f9582a9e36b7bbadb726642466e877ef5b21cb056f07af31e0c6e6909f680e07",
+  "clause_digest": "ce60f74e91877f069076d57c0c796715f8f0e6b2c85bfe6919b2397158bdfe61",
   "clause_key": "G1-5_12",
   "data_kind": "qualitative",
   "definition": "说明主体是否因法律义务而必须加入商会或其他代表其利益的组织，并指出相关法律依据。",
@@ -445,9 +445,6 @@
       "说明主体是否因法律义务而必须加入商会或其他代表其利益的组织，并指出相关法律依据。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

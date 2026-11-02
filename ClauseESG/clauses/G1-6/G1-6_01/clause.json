@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7b1b6e3951da91e248d69adfb10666ca772213031cfef90293a0d67116511ade",
+  "clause_digest": "08ebcb6256615242885d09a353d70ddaa048d47b5bf373f2909b2c7bcf727175",
   "clause_key": "G1-6_01",
   "data_kind": "quantitative",
   "definition": "自合同或法定付款起算日计算的供应商平均付款天数。",
@@ -648,10 +648,6 @@
       "自合同或法定付款起算日计算的供应商平均付款天数。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "%|％|件|起|天|日|人|名|位|days?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c33f09d5a8ebfe10e24ad4125b34a0381b9227d0e3cdc2f70d7ac7d0a7faaade",
+  "clause_digest": "92d21fda2c37611990d55abbb7386e039832ce5aaa5422335cff98834065984f",
   "clause_key": "E4-5_10",
   "data_kind": "quantitative",
   "definition": "披露主体使用的土地总面积，并说明统计边界与计量方法。",
@@ -558,9 +558,6 @@
       "披露主体使用的土地总面积，并说明统计边界与计量方法。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

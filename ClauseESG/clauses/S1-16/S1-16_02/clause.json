@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a3ab68345fd95cde6a4bffa3d800f20e60dc567b8f21381adc7f3aadeb602288",
+  "clause_digest": "8a29df020e04484db1f456cadad2b97d1486bb050db9ef549ecb099e25a3e483",
   "clause_key": "S1-16_02",
   "data_kind": "quantitative",
   "definition": "Annual total remuneration ratio",
@@ -558,9 +558,6 @@
       "Annual total remuneration ratio"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

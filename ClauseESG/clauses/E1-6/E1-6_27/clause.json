@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "60a53dd34e683f20ecf134f246e7323fa1d77f413935670f81eb7072de86a11b",
+  "clause_digest": "53f7009470c841371c895e2a5d4a67e32fc7873f7f10a0084ce5633c3518c831",
   "clause_key": "E1-6_27",
   "data_kind": "qualitative",
   "definition": "纳入盘查的范围3类别清单",
@@ -470,9 +470,6 @@
       "纳入盘查的范围3类别清单"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

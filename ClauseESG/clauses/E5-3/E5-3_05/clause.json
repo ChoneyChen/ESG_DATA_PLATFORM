@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "74558b78eb79a29b4890565f1476cd0b992079a7dc801e7a1cce9a838b07ade0",
+  "clause_digest": "39b1d2789d4279238c1f35e88a14a49892caf851233db4b523dfa172de937449",
   "clause_key": "E5-3_05",
   "data_kind": "qualitative",
   "definition": "说明目标如何与逆转可再生资源存量耗竭相关联，包括再生速率与消耗速率的关系。",
@@ -473,9 +473,6 @@
       "说明目标如何与逆转可再生资源存量耗竭相关联，包括再生速率与消耗速率的关系。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

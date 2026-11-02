@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9cd2a716d9d77597ad5a0dd981c82aefc4f1c75ec27409585354c4aad8e5c73e",
+  "clause_digest": "0f8861dccc39489a01eba114049a85d392e7887c6919f86453962e4087872380",
   "clause_key": "S3-3_14",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何评估受影响社区知晓并信任相关结构或流程，以提出关切和需求。",
@@ -445,9 +445,6 @@
       "说明主体是否以及如何评估受影响社区知晓并信任相关结构或流程，以提出关切和需求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

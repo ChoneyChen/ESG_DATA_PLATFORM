@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "71dd52213adb0cab68081ba34c99a6f47fde97b7e338ab0aac2ff08e5ab6170c",
+  "clause_digest": "7bbb834a4e889de3e9441483b6da2b55ab15d5e8218ed20c0c5e6dccc26ffab3",
   "clause_key": "S2-4_10",
   "data_kind": "qualitative",
   "definition": "说明主体如何确保自身实践不会造成或促成对价值链劳动者的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体如何确保自身实践不会造成或促成对价值链劳动者的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

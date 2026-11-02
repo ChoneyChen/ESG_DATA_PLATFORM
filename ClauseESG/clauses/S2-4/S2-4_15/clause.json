@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c2a8765397de8c393fe7aca2c456814c752b531328b353a32467429c93b70533",
+  "clause_digest": "5f7f7eb4c07d28fac58ef3fe4aa404aac9e381c927f3783c5e01d7edcdecd9eb",
   "clause_key": "S2-4_15",
   "data_kind": "qualitative",
   "definition": "说明价值链劳动者及其合法代表或可信代理是否以及如何在以积极影响为主要目的的项目或流程的设计与实施决策中发挥作用。",
@@ -459,9 +459,6 @@
       "说明价值链劳动者及其合法代表或可信代理是否以及如何在以积极影响为主要目的的项目或流程的设计与实施决策中发挥作用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

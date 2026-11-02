@@ -196,7 +196,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1b8c2c72ddd2d8964bf3afc94202f041cb05ae0963306263864f42feff9adfbc",
+  "clause_digest": "9687ffad62ee4a2b1aee289fc2ba838e3e511d666b0b027317077d1c1d0c4e47",
   "clause_key": "E2-4_02",
   "data_kind": "quantitative",
   "definition": "按污染物划分的空气排放量",
@@ -746,10 +746,6 @@
       "对每个选中的行，pollutant 轴应引用该行原始标签的可见 source_id，保留原词或本条局部识别码；不能从另一行借用证据。单位与期间由实际表头/单元格决定。"
     ],
     "operator": "pollutant",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|mg|tonne",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

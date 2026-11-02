@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8fa2392ef660d2d2cf3abb2153a37da0dd43ed092497f331b53f591cf68474ff",
+  "clause_digest": "8faece5086782740b21282307aceb6a710745c906d06be7ad541daf5e5528f00",
   "clause_key": "E1-9_22",
   "data_kind": "quantitative",
   "definition": "Total carrying amount of real estate assets for which energy consumption is based on internal estimates。能耗依赖内部估计的房地产账面价值。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Total carrying amount of real estate assets for which energy consumption is based on internal estimates。能耗依赖内部估计的房地产账面价值。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

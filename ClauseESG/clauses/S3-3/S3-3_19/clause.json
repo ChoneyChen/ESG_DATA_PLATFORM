@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9692ba7aa5be1958d9101ede084a2d2aa43cb70c95578dee847d628bce573e2a",
+  "clause_digest": "1f64c95f9655f17c8cdf3106f8e39a6e159ba61a19bde8d16538a04922d273e3",
   "clause_key": "S3-3_19",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有受影响社区开放，以及可及性安排。",
@@ -445,9 +445,6 @@
       "说明第三方机制是否向所有受影响社区开放，以及可及性安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "956a4480b287790e1c62851e11259f4d6348a17b5f63819bcf3f37e16708ea73",
+  "clause_digest": "0f4f669b171deee2519214f80fd25d03c3fb9e1983fee2b19dc3471a42971d97",
   "clause_key": "S3.SBM-3_05",
   "data_kind": "qualitative",
   "definition": "描述产生积极影响的活动，以及受到或可能受到积极影响的社区类型。",
@@ -487,9 +487,6 @@
       "描述产生积极影响的活动，以及受到或可能受到积极影响的社区类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

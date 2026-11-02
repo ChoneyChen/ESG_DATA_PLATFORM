@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fec114d22a9b4281f4d97336230e7e412e62156eb574cabf116f2027f09547f8",
+  "clause_digest": "f8c6afaeb74f56dd88d5fcef408a79ce90da31747c5a448c39e38c4ca264ee5a",
   "clause_key": "S2-4_07",
   "data_kind": "qualitative",
   "definition": "描述主体如何确保在价值链劳动者发生重大负面影响时，补救流程可得、可实施且结果有效。",
@@ -459,9 +459,6 @@
       "描述主体如何确保在价值链劳动者发生重大负面影响时，补救流程可得、可实施且结果有效。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

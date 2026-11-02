@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c361236b865200633f159e75e966371a4e4f908f7e055939c7f6821111d5edff",
+  "clause_digest": "dda56fd97f05bcd0eec60bc3e5ab9aa91ea871bd74238dfe7711e023a3fc2412",
   "clause_key": "E2-4_07",
   "data_kind": "quantitative",
   "definition": "使用的微塑料量",
@@ -600,9 +600,6 @@
       "使用的微塑料量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f24c5c2beefb179d10f7ccb1a53d39bc0b3d7a63844266de7a4c31f8b81de7e6",
+  "clause_digest": "eb8acc15de9bec2263d75f0347943b847d94b85e540ae8c2a672305f1494249b",
   "clause_key": "E4-4_08",
   "data_kind": "qualitative",
   "definition": "说明设定目标时是否使用生物多样性抵消，以及抵消在目标中的角色。",
@@ -473,9 +473,6 @@
       "说明设定目标时是否使用生物多样性抵消，以及抵消在目标中的角色。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

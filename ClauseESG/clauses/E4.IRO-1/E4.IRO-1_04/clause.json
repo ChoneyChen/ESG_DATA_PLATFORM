@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4b19488bd9c71af288639aa1880e817746b542b0a5b1af3b6ab30d2ce4be8bcc",
+  "clause_digest": "57b2369cd716086f27c5410a4155237beb1a7952aded81813424ca3452e95245",
   "clause_key": "E4.IRO-1_04",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何考虑与生物多样性和生态系统相关的系统性风险。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何考虑与生物多样性和生态系统相关的系统性风险。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

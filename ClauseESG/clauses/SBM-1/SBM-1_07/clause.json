@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9688b11d8e4988f7e3369ef1f6161eae3aeb60fed35e286575b3ee6f14f9f8be",
+  "clause_digest": "5f7599155a35b7b2e93174627a72096b5ca64d139ab27f99c2f761f95ac2b2e6",
   "clause_key": "SBM-1_07",
   "data_kind": "quantitative",
   "definition": "Revenue by significant ESRS Sectors。重要ESRS行业收入分解。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -572,9 +572,6 @@
       "Revenue by significant ESRS Sectors。重要ESRS行业收入分解。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

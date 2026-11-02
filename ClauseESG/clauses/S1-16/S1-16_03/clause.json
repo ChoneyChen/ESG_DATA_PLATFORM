@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a858fc492db69e4b161bce7014c6dfeb0d94af49a37887bd2365cb70331e700b",
+  "clause_digest": "fefa8390bff0ff9761bea1d44ffa443d631feb72df1a08184b7a6c5cbe91f77f",
   "clause_key": "S1-16_03",
   "data_kind": "qualitative",
   "definition": "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",
@@ -445,9 +445,6 @@
       "Disclosure of contextual information necessary to understand data, how data has been compiled and other changes to underlying data that are to be considered。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

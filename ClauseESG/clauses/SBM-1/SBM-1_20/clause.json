@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f850bf14f63164496fa8fcc8536855cb361caabad9f17a6cdc5c442f23ca771e",
+  "clause_digest": "4702d7f82d7b7e78b70b2e6e41fb9e2de0d2c5e8c3a1e2b2cc17261f81018408",
   "clause_key": "SBM-1_20",
   "data_kind": "quantitative",
   "definition": "Revenue from cultivation and production of tobacco。烟草种植生产收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -572,9 +572,6 @@
       "Revenue from cultivation and production of tobacco。烟草种植生产收入。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

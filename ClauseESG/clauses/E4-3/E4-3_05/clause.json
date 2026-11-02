@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "eca83f6d60c71ee5484a82fed4437db79b51064af623b1c3bf8bc91de90809f1",
+  "clause_digest": "085f10cc1109a85cf1743a32c919450ad2eeed803d4f46a97894b6b8aad67f5e",
   "clause_key": "E4-3_05",
   "data_kind": "qualitative",
   "definition": "说明实施已采取或计划行动所需的重大资本支出和运营支出与财务报表相关项目或附注的对应关系。",
@@ -459,9 +459,6 @@
       "说明实施已采取或计划行动所需的重大资本支出和运营支出与财务报表相关项目或附注的对应关系。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

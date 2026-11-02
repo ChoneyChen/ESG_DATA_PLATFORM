@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "836d1cea413b4b9ae6acc7b960cbca16f330fd396cc1f614b33f33b14880def6",
+  "clause_digest": "a388c8630c29bac0d48554eb33a69a32051800e352c2ed3d018822e19bc8e95d",
   "clause_key": "E4-4_10",
   "data_kind": "qualitative",
   "definition": "说明目标如何补足欧盟分类法实质性贡献标准中与生物多样性相关的不足。",
@@ -473,9 +473,6 @@
       "说明目标如何补足欧盟分类法实质性贡献标准中与生物多样性相关的不足。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

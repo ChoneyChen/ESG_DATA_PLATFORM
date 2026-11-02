@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "73cbf9659eb4c35b67ee1ce3becb170e3f15695939baa457a5cf13e56d783ec4",
+  "clause_digest": "c5a19495c889ecacf858abbc23e698c0fd283023a8f46d2ab35b321ea52da8ea",
   "clause_key": "S1-1_06",
   "data_kind": "qualitative",
   "definition": "说明主体为自身劳动力人权影响提供或促成补救的总体方法与机制。",
@@ -459,9 +459,6 @@
       "说明主体为自身劳动力人权影响提供或促成补救的总体方法与机制。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "34448658c1a6d94994d0d748724b2800ca71c319255490d3875088df1a019423",
+  "clause_digest": "711e6cd7239224403b79b14e6cbe7f358125eed7ddfc610e16b48d82f4aec4ae",
   "clause_key": "S1-17_08",
   "data_kind": "quantitative",
   "definition": "Number of severe human rights issues and incidents connected to own workforce",
@@ -558,9 +558,6 @@
       "Number of severe human rights issues and incidents connected to own workforce"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

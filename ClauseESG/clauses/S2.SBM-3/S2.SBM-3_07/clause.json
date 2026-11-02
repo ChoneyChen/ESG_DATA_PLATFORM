@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ed10276f3b06801f7045f49246140c4cb4b0b6565bcfe40dd175d8a1b1d4399c",
+  "clause_digest": "5d51a3dce0f40e1a95528fdce0a760c9e4777ef7b228fc16f1900b8cb855c802",
   "clause_key": "S2.SBM-3_07",
   "data_kind": "qualitative",
   "definition": "描述因对价值链劳动者的影响和依赖所产生的重大风险与机遇。",
@@ -487,9 +487,6 @@
       "描述因对价值链劳动者的影响和依赖所产生的重大风险与机遇。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

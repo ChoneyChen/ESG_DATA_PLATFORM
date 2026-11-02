@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3332519d5b6087194d90dab0cd8dfb25a3d99939d53e37325f1aca73b31abafd",
+  "clause_digest": "c577fec2b2bec3b7c50f07539623207b286498a8635e0f12b1563016a8f76137",
   "clause_key": "S1-9_02",
   "data_kind": "quantitative",
   "definition": "最高管理层员工中按性别划分的占比。",
@@ -726,10 +726,6 @@
       "最高管理层员工中按性别划分的占比。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "text_unit_pattern": "人|名|位|件|起|%|％|小时|小時|学时|學時|hours?",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

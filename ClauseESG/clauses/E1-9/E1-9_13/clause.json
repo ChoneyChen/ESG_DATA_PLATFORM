@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "87b3a77381f229c285f26856d9ef888d3004ec27a5b7bc3797910fe317e6aaf8",
+  "clause_digest": "bf9dd02c4392a0d1d572f17d3dd145ae66796f357447b3b692ae48c737298636",
   "clause_key": "E1-9_13",
   "data_kind": "qualitative",
   "definition": "Disclosure of magnitude of anticipated financial effects in terms of margin erosion for business activities at material physical risk。物理风险业务利润侵蚀。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of magnitude of anticipated financial effects in terms of margin erosion for business activities at material physical risk。物理风险业务利润侵蚀。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9839c81059f6e7c322891bc4c4767eb371dcf7a35457057db5392134ca807d27",
+  "clause_digest": "509b84f028bd4c7cc96633fcfbc19c32142d7d9003f3d9ab18ba65cc815f9619",
   "clause_key": "S3-1_04",
   "data_kind": "qualitative",
   "definition": "说明主体与受影响社区开展接触和沟通的总体方法。",
@@ -459,9 +459,6 @@
       "说明主体与受影响社区开展接触和沟通的总体方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

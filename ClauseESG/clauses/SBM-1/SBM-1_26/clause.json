@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9785e2741ce8de67a6e6fb1cd0fe70249530b4af0ebd81f304f7de5e20c6c948",
+  "clause_digest": "4969ce6f4dda6e76df9ff28f1323b0c05bb130055f9bfd91e46536b8ad66bc3c",
   "clause_key": "SBM-1_26",
   "data_kind": "qualitative",
   "definition": "Description of inputs and approach to gathering, developing and securing inputs。投入及获取方式。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。",
@@ -459,9 +459,6 @@
       "Description of inputs and approach to gathering, developing and securing inputs。投入及获取方式。收入总额不是强度计算所需净收入的自动替代；行业收入可能交叉。员工人头与全职当量分开，化石燃料、化工、武器、烟草业务不可混同。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d823d64a79c273f183592b898151e52030df35ae6f5f5f8d028a873f17151a48",
+  "clause_digest": "549d6679d6305f8bfec9a141f2e6fbcdf157a98cb8b67ac015acc5934d7dbbed",
   "clause_key": "S4-4_14",
   "data_kind": "qualitative",
   "definition": "说明主体参与行业或多利益相关方倡议的情况，以及其自身参与如何针对消费者重大影响发挥作用。",
@@ -459,9 +459,6 @@
       "说明主体参与行业或多利益相关方倡议的情况，以及其自身参与如何针对消费者重大影响发挥作用。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

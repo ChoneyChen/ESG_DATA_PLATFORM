@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f733c5054f58746b96bf6b81913f69bde819af9710ed75add02c2bf4ca0cf58b",
+  "clause_digest": "47c2867b76a0c9c45b6ae7110e3a66dc781cf1e90fa20cb4e3e0e2730bcab5c9",
   "clause_key": "G1-1_08",
   "data_kind": "qualitative",
   "definition": "说明主体是否承诺及时、独立和客观地调查商业行为事件，以及承诺的落实方式。",
@@ -459,9 +459,6 @@
       "说明主体是否承诺及时、独立和客观地调查商业行为事件，以及承诺的落实方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

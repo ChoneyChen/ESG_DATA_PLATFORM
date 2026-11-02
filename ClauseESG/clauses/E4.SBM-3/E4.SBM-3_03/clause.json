@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "50a0d762b1edc2e74be15ab5d1d90050b498493eaebd48961cdf9120e4441b33",
+  "clause_digest": "2434798f0c3dd62ed3c777ab71921f664e7819cfa3270322ff67eae0128cbec1",
   "clause_key": "E4.SBM-3_03",
   "data_kind": "qualitative",
   "definition": "披露基于实际和潜在生物多样性与生态系统影响识别评估结果所确定的自身运营重大场址清单。",
@@ -487,9 +487,6 @@
       "披露基于实际和潜在生物多样性与生态系统影响识别评估结果所确定的自身运营重大场址清单。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

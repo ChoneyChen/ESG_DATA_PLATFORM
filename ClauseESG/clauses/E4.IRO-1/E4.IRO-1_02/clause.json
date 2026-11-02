@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "435bcb7a466bd935bcd83539ffd139959d494f1a7b896d9ca192f7c1e06102b2",
+  "clause_digest": "ce4e7c4aaa611d06b490405929f7853be82b76e8d8c786f57295ef3b92311678",
   "clause_key": "E4.IRO-1_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统及其服务的依赖。",
@@ -487,9 +487,6 @@
       "说明主体是否以及如何识别和评估自身场址及价值链中对生物多样性和生态系统及其服务的依赖。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

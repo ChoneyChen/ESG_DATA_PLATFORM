@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f30bdcad3a2537148a6269c5e52b9bbd1c649c1304fd51572361f177bd9c1068",
+  "clause_digest": "14a6032275c222e25b09927ed8b8cdc23a3dae2be3f86ce6f8d07d5f957e35ad",
   "clause_key": "E1-4_20",
   "data_kind": "qualitative",
   "definition": "Description of how it has been ensured that baseline value is representative in terms of activities covered and influences from external factors。基准值代表性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -515,9 +515,6 @@
       "Description of how it has been ensured that baseline value is representative in terms of activities covered and influences from external factors。基准值代表性。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

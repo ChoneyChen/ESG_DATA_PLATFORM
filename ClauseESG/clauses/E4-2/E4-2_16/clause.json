@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "429f4cc2d94f1ba92d7fbc1fb125258a3920ea040d867daa8767bca18c809e38",
+  "clause_digest": "3994a1f61ca1020173468e51a883b4fa553aa833fe085f7dc1ae28047531c420",
   "clause_key": "E4-2_16",
   "data_kind": "qualitative",
   "definition": "说明政策采用的第三方行为标准是否符合ISEAL良好实践准则。",
@@ -459,9 +459,6 @@
       "说明政策采用的第三方行为标准是否符合ISEAL良好实践准则。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

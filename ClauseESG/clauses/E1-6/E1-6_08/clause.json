@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1579b4a30cc5f2bf210654ca289153d72d2de4dd20f77283287e2174f0d1751b",
+  "clause_digest": "3b7e0a584d4742bf8e9f2f0eb88bd37b58928d368ce03ba7bde3f48407fe51ed",
   "clause_key": "E1-6_08",
   "data_kind": "quantitative",
   "definition": "受监管排放交易体系覆盖的范围1排放比例",
@@ -586,9 +586,6 @@
       "受监管排放交易体系覆盖的范围1排放比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

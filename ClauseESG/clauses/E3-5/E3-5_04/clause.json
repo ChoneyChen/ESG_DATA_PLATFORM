@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e950cf8675e27635347cc70d2e49de2b5cc5df66fc4b0269c6f55697291e2103",
+  "clause_digest": "58010dc47794140f58e0bc54202a09630e9e736cf401f29e5c4251f9fa5819f0",
   "clause_key": "E3-5_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of critical assumptions used in estimates of financial effects of material risks and opportunities arising from water and marine resources-related impacts。水财务估计的关键假设。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。",
@@ -515,9 +515,6 @@
       "Disclosure of critical assumptions used in estimates of financial effects of material risks and opportunities arising from water and marine resources-related impacts。水财务估计的关键假设。水及海洋风险的预期财务影响与实际支出分开，以风险、期间、币种、情景及假设限定，不能将一般收入当风险财务影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

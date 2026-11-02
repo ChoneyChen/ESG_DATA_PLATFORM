@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f441dd74ab8ad7af9fff4944adac75a77aadac001342648fb26d3deb29cd9aa1",
+  "clause_digest": "c80fd0512367aa01d3c2618d5b3761e0ad2f29690d53695a1f2672fd76171ce8",
   "clause_key": "E4-1_09",
   "data_kind": "qualitative",
   "definition": "说明自身运营的情况，以及主体如何应对其相关价值链中的重大生物多样性和生态系统影响。",
@@ -445,9 +445,6 @@
       "说明自身运营的情况，以及主体如何应对其相关价值链中的重大生物多样性和生态系统影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

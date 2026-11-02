@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3539adcd27905c6d00ded01d7cf5c3316965f9c053f22e4efa1e352870fc776b",
+  "clause_digest": "d63734c88f1a07efc01c64baa4d4cd6f17125300a06a7036c1ff26ab32bb6be0",
   "clause_key": "E2-3_11",
   "data_kind": "qualitative",
   "definition": "Information about targets that have been implemented at site-level (pollution)。场址污染目标。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Information about targets that have been implemented at site-level (pollution)。场址污染目标。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

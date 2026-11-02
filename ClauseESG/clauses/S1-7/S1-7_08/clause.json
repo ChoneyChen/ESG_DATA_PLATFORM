@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e7ba5fe8fb0d1142771ef0741b0c7d01788f05700bf7d027e82ec0898c2fe27e",
+  "clause_digest": "634b82e9c369c15288ec62b45dbdaeb45b2dadc538a21b12b9d9b70afc4f2059",
   "clause_key": "S1-7_08",
   "data_kind": "qualitative",
   "definition": "说明非员工人数是在报告期末、平均值或其他时点口径下报告。",
@@ -445,9 +445,6 @@
       "说明非员工人数是在报告期末、平均值或其他时点口径下报告。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

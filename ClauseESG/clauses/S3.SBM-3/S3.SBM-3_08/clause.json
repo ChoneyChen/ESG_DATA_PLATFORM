@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a1b57b79ad878193d411ad87c8001d5caa98d5c0ecff44ba21db302db3faaac8",
+  "clause_digest": "ed1faa6d9ab40efe64d4deb0e4caf5c55d154df5688c1a266526883f3065356d",
   "clause_key": "S3.SBM-3_08",
   "data_kind": "qualitative",
   "definition": "说明社区相关重大风险与机遇中，哪些涉及特定群体。",
@@ -487,9 +487,6 @@
       "说明社区相关重大风险与机遇中，哪些涉及特定群体。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

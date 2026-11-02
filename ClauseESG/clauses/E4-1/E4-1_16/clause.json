@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1f37351cb29ef0a7adf147b7755c1aeff7c4860f564593622dd1000b9fd8db2f",
+  "clause_digest": "45ab1b7c6ab11bd6f48ae399e6b5c53eb7cd5af897b449b5e756421b9460c0a1",
   "clause_key": "E4-1_16",
   "data_kind": "qualitative",
   "definition": "列明用于衡量转型计划进展的指标及相关工具，并说明它们如何纳入主体的计量方法。",
@@ -445,9 +445,6 @@
       "列明用于衡量转型计划进展的指标及相关工具，并说明它们如何纳入主体的计量方法。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

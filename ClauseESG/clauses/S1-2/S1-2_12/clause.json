@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d51df6f00aca3e27e4636b874123c672e4757fb42f4dbc22d4cfa4d3d27f265c",
+  "clause_digest": "09a4d9ce72462f3c7918be812e50ff014da01c6d7f74b55c22d20f45e11ae722",
   "clause_key": "S1-2_12",
   "data_kind": "qualitative",
   "definition": "说明主体如何通过适当渠道向员工提供可理解、可获取的信息。",
@@ -445,9 +445,6 @@
       "说明主体如何通过适当渠道向员工提供可理解、可获取的信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

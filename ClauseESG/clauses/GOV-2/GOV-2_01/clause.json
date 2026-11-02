@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "afce86f69eeb1a2ab5bff00b7ff6911f5979da32e43e9b1e2e6d5ad28d31f1b1",
+  "clause_digest": "01c4ab7371e7fd488fd9cdbfe5750adab7fbfd0a08290e625039eaf0a181db3b",
   "clause_key": "GOV-2_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them。治理机构获得可持续信息的方式与频率。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",
@@ -459,9 +459,6 @@
       "Disclosure of whether, by whom and how frequently administrative, management and supervisory bodies are informed about material impacts, risks and opportunities, implementation of due diligence, and results and effectiveness of policies, actions, metrics and targets adopted to address them。治理机构获得可持续信息的方式与频率。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

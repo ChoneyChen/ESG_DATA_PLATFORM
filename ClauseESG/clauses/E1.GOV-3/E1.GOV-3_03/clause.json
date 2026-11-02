@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d450dcef8497cc0f5f41dab74dbde99fb6d6a7b6a3110c2e8fa0c3ec05eb5f26",
+  "clause_digest": "bf11993870fe9e7863c691c1d4648a56b8b3800557112d714c5a02ac7960eef6",
   "clause_key": "E1.GOV-3_03",
   "data_kind": "qualitative",
   "definition": "Explanation of climate-related considerations that are factored into remuneration of members of administrative, management and supervisory bodies。薪酬中的气候因素说明。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
@@ -445,9 +445,6 @@
       "Explanation of climate-related considerations that are factored into remuneration of members of administrative, management and supervisory bodies。薪酬中的气候因素说明。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

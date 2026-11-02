@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "127443251c94caa18035d2803ed4baccf224caf0813539e568f9969568dfdfb9",
+  "clause_digest": "a2ef6f0f0179cc4a8213bec770d44202458d341678fc586c78627376a84ef685",
   "clause_key": "E1-9_36",
   "data_kind": "quantitative",
   "definition": "Percentage of net revenue from business activities at material transition risk。转型风险业务净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Percentage of net revenue from business activities at material transition risk。转型风险业务净收入比例。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

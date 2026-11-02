@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2c76ed8a7a62be2452f54c6d22b9fcda8f5783555e11ca0abbbe6dece66ed83b",
+  "clause_digest": "829df5253a39fe93a1e6b98ec51fcee6ef95b92500209cdb1f4bfca83c8b6af3",
   "clause_key": "GOV-1_15",
   "data_kind": "qualitative",
   "definition": "Disclosure of how administrative, management and supervisory bodies determine whether appropriate skills and expertise are available or will be developed to oversee sustainability matters。可持续技能可用性及培养。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -459,9 +459,6 @@
       "Disclosure of how administrative, management and supervisory bodies determine whether appropriate skills and expertise are available or will be developed to oversee sustainability matters。可持续技能可用性及培养。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

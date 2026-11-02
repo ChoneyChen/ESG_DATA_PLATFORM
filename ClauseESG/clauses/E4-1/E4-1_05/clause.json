@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e866bbcc287262be3b605d420f990d76c51bbc8dfd65ed4144435ccb38f6e533",
+  "clause_digest": "5c8e83e7011302733139883f90aae0a3a1d24f5b4930e36643a297ceb9252672",
   "clause_key": "E4-1_05",
   "data_kind": "qualitative",
   "definition": "披露生物多样性和生态系统韧性分析的结果，包括在不同情景下商业模式与战略的适应能力。",
@@ -445,9 +445,6 @@
       "披露生物多样性和生态系统韧性分析的结果，包括在不同情景下商业模式与战略的适应能力。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

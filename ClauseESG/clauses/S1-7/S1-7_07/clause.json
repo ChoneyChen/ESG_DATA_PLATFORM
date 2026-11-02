@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d53c20da39b354a9c82966360be22894119013503f2f627e1003f53c46fdaf30",
+  "clause_digest": "f78981adff2ae38d1a115121f4cc1968e5532df3edb6cdfd1339c3ee9ba932d5",
   "clause_key": "S1-7_07",
   "data_kind": "qualitative",
   "definition": "说明非员工人数是以人头数还是全职当量报告，并给出换算方式。",
@@ -445,9 +445,6 @@
       "说明非员工人数是以人头数还是全职当量报告，并给出换算方式。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

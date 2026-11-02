@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f74249a6d066093c63c27da91fafa80504b093f9b6609cc95f53b70adccfd97b",
+  "clause_digest": "379d145779674c27086b08cd219a7154252fbd6a595c21657a779689da0013e5",
   "clause_key": "E4.IRO-1_11",
   "data_kind": "qualitative",
   "definition": "说明主体为何选择所考虑的生物多样性和生态系统情景，以及这些情景与自身风险和机遇的相关性。",
@@ -487,9 +487,6 @@
       "说明主体为何选择所考虑的生物多样性和生态系统情景，以及这些情景与自身风险和机遇的相关性。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

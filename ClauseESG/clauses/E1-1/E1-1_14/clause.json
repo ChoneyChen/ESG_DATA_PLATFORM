@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d6ac756bcf6c86bb4dd617f9cfedaac48ed8757dcdb394949bf8a22405e4637b",
+  "clause_digest": "32c4cc87d0123e5ecfd8baac09b7284913213f59e9b2e68624274c7f23361b50",
   "clause_key": "E1-1_14",
   "data_kind": "qualitative",
   "definition": "Transition plan is approved by administrative, management and supervisory bodies。转型计划获治理机构批准。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。",
@@ -445,9 +445,6 @@
       "Transition plan is approved by administrative, management and supervisory bodies。转型计划获治理机构批准。计划、资源、基准适用情况与实施进展分别举证；承诺不等于已批准或已实现。煤、油、气支出不可互换。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

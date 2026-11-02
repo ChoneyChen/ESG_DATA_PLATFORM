@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "77054e25a9fbcdc56782dc1982a44172656cbb428daa707a51c0251e8dfcb17c",
+  "clause_digest": "9402648244d330f88916b2a4bb5610404cb12537dc666932d0fc545d6f4e74a4",
   "clause_key": "S3-3_12",
   "data_kind": "qualitative",
   "definition": "说明主体通过哪些流程支持或要求提供社区申诉渠道，包括对业务伙伴的要求。",
@@ -445,9 +445,6 @@
       "说明主体通过哪些流程支持或要求提供社区申诉渠道，包括对业务伙伴的要求。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

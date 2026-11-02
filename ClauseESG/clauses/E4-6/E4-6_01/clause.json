@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e8f9e39cee4ceec43dbf018926337efab31d95e8f33e18c41b48fc4e76f8f494",
+  "clause_digest": "e8ae963213382ad33b502d7a828c0dc0c49f6ce544de7daf2680f273ddb0934c",
   "clause_key": "E4-6_01",
   "data_kind": "quantitative",
   "definition": "以定量方式披露生物多样性和生态系统相关影响与依赖所产生的重大风险和机遇的预期财务影响，包括金额、时间范围和估计依据。",
@@ -628,9 +628,6 @@
       "以定量方式披露生物多样性和生态系统相关影响与依赖所产生的重大风险和机遇的预期财务影响，包括金额、时间范围和估计依据。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

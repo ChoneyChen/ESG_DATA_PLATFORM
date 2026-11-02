@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4edf51efc1646b2aa221bc14a0c646a48e9e4985bee5011338c8ff6f293de1df",
+  "clause_digest": "bbbcc56e35b04bb6e97de896985cdabb7544a76d57a227b5724a71d4a2be19ca",
   "clause_key": "E3-4_05",
   "data_kind": "quantitative",
   "definition": "Changes in water storage。储水变化量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -602,9 +602,6 @@
       "Changes in water storage。储水变化量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

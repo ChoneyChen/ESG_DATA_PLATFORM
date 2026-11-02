@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f42b4444be3d7d147318d7d3e988091a8437ab491455e0f93a159dcf973114cb",
+  "clause_digest": "b8b38222edc15d7e4b88bf49508b6accd94b7c73de70036e3f26114972270ae7",
   "clause_key": "S1-13_06",
   "data_kind": "quantitative",
   "definition": "Average number of employees that participated in regular performance and career development reviews by employee category",
@@ -572,9 +572,6 @@
       "Average number of employees that participated in regular performance and career development reviews by employee category"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

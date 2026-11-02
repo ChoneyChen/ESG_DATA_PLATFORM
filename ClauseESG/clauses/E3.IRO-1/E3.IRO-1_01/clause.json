@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0de73cb4e4f72bfe0d3a107a878ac7b441876ea8e8ecdf6e6df25d32db4746e6",
+  "clause_digest": "76c767f2ae848c3654d8bb8bac99718db4ea7f25db5900ab90f82220bcdd818d",
   "clause_key": "E3.IRO-1_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of whether and how assets and activities have been screened in order to identify actual and potential water and marine resources-related impacts, risks and opportunities in own operations and upstream and downstream value chain and methodologies, assumptions and tools used in screening [text block]。水及海洋资源影响风险机会筛查。区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。",
@@ -487,9 +487,6 @@
       "Disclosure of whether and how assets and activities have been screened in order to identify actual and potential water and marine resources-related impacts, risks and opportunities in own operations and upstream and downstream value chain and methodologies, assumptions and tools used in screening [text block]。水及海洋资源影响风险机会筛查。区分水风险筛查、海洋资源影响及利益方咨询，保留自有运营和上下游范围。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

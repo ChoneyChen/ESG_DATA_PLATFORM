@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ff97c7b1300b1fdb670eab82d69170c19ee3243867833a3683ba7796fbb71b25",
+  "clause_digest": "c8993aa0b95a11298eedf842a73f747c101c6ba3b9bd1af203bbadaf8848899a",
   "clause_key": "E1-9_06",
   "data_kind": "qualitative",
   "definition": "Disclosure of location of its significant assets at material physical risk (disaggregated by NUTS codes)。按NUTS地区披露风险资产位置。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -515,9 +515,6 @@
       "Disclosure of location of its significant assets at material physical risk (disaggregated by NUTS codes)。按NUTS地区披露风险资产位置。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

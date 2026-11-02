@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fb6cffc7324ea76ebcb3650c4aa485d5c251b7133902c23476b4d2e722af2a39",
+  "clause_digest": "170c79ad5a60471f14896033d4f9fa1f7dfc2bc3edaae035470dc6ef7673e602",
   "clause_key": "E1.GOV-3_02",
   "data_kind": "quantitative",
   "definition": "Percentage of remuneration recognised that is linked to climate related considerations。与气候因素挂钩的薪酬比例。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。",
@@ -558,9 +558,6 @@
       "Percentage of remuneration recognised that is linked to climate related considerations。与气候因素挂钩的薪酬比例。只记录本企业管理层薪酬的气候关联；一般绩效薪酬不能自动归为气候挂钩。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

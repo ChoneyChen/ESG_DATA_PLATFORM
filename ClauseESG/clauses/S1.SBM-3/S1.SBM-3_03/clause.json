@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "961bb01acef65c075a26e27b8d9880502d5dd4f4adb344e1de2b2142bd28cac4",
+  "clause_digest": "5d5d61069c5809de321f5e5ae2ab037d87a4f0e046891c8a38244affab838915",
   "clause_key": "S1.SBM-3_03",
   "data_kind": "qualitative",
   "definition": "披露自身劳动力中重大负面影响是否已经发生，以及发生的情形。",
@@ -487,9 +487,6 @@
       "披露自身劳动力中重大负面影响是否已经发生，以及发生的情形。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

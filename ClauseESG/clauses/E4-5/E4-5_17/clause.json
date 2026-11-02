@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "6415c6d9dd49d5917c8dcdae751b715b342c3cfbaafa7ddf28b4c9adc9d3023a",
+  "clause_digest": "f7f0fbb50ba4e2e2268a5f6172983fe4c4e0edfcf211f5acae1cee119bfe087a",
   "clause_key": "E4-5_17",
   "data_kind": "qualitative",
   "definition": "披露主体认为与物种状态相关的指标，包括指标定义、单位和监测频率。",
@@ -445,9 +445,6 @@
       "披露主体认为与物种状态相关的指标，包括指标定义、单位和监测频率。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

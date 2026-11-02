@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3fbe55de4b6396751711069c89bbbbbccebdeee60b7842fffa7063e1735cac7b",
+  "clause_digest": "a1d484e27c67fa56dcb04fad5c4455d72a3e101a35529466dd435ae4b95fbbbf",
   "clause_key": "E1-9_28",
   "data_kind": "quantitative",
   "definition": "Monetised total GHG emissions。货币化温室气体总排放。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Monetised total GHG emissions。货币化温室气体总排放。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "263df3cbb18e84f122126fb4b3afeb782f0dd29be22d98a534e4454a0d1286bd",
+  "clause_digest": "b93fcda4d4c0dad3fa3708112ad71053cff69d4b17c394dccc8ebbc8a2736f23",
   "clause_key": "BP-2_01",
   "data_kind": "qualitative",
   "definition": "Disclosure of definitions of medium- or long-term time horizons。中长期时间范围定义。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。",
@@ -459,9 +459,6 @@
       "Disclosure of definitions of medium- or long-term time horizons。中长期时间范围定义。方法、不确定性、变更和重述必须关联具体指标或主题；旧值与重述值保留各自版本，比较信息不是新的当期实际值。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

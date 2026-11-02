@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "04a8bf59d1aea7766170122008a38f84511f6d34341163763f159c6e0d36ca6e",
+  "clause_digest": "473597a807a6f99bd7a05b7cc903ea555a1725b6fe7ea564a6748c27b276106a",
   "clause_key": "S4-5_01",
   "data_kind": "qualitative",
   "definition": "说明消费者和终端用户是否以及如何直接参与相关目标的设定。",
@@ -473,9 +473,6 @@
       "说明消费者和终端用户是否以及如何直接参与相关目标的设定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

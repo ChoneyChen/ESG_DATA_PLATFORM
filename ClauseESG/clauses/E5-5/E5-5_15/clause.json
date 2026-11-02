@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bb7b6307a9f9661d7236d6e024dad1c5249452fb18ca293f3f9454daed1a26ed",
+  "clause_digest": "45840caf62e230159ef6bbab59c716256d65f4d9255e9f85496c5a595c0e6249",
   "clause_key": "E5-5_15",
   "data_kind": "quantitative",
   "definition": "报告期内产生的危险废弃物重量。",
@@ -681,10 +681,6 @@
       "报告期内产生的危险废弃物重量。"
     ],
     "operator": "waste",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|kg|千克|公斤|tonne|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "562955ee05689112e696120ec731261677d7026b54fb7648479e58e7a708b08f",
+  "clause_digest": "271368077a3c97b2e5881e07db0c6edce2457761a4274d63cfa90df108c56199",
   "clause_key": "S1-4_20",
   "data_kind": "qualitative",
   "definition": "描述参与影响管理的内部职能，以及这些职能为应对负面影响和推进积极影响所采取的行动类型。",
@@ -459,9 +459,6 @@
       "描述参与影响管理的内部职能，以及这些职能为应对负面影响和推进积极影响所采取的行动类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

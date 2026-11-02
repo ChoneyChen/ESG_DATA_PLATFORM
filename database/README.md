@@ -1,13 +1,13 @@
 # 独立数据库模块
 
-本模块拥有原值接收、精确数值存储、观测投影、来源选择、发布与撤下。当前只支持 `extraction-export-1.1`，`facts` 是原值权威；没有旧字典、旧SQL体系、冻结旧接口或历史数据库适配。
+本模块拥有原值接收、精确数值存储、观测投影、来源选择、发布与撤下。当前交接为 `extraction-export-1.2`，接收器仍支持已保存的1.1封存包；`facts` 是原值权威，没有旧字典或旧SQL体系依赖。
 
 | 目录 | 职责 |
 |---|---|
 | `src/esg_database` | 接收/产品HTTP、DTO、确定性投影、科研导出、独立HTTP客户端 |
 | `runtime` | 当前SQL worker、连接与显式管理命令 |
 | `queries` | 接收、完整分页、投影、发布及来源保护事务 |
-| `migrations` | 当前不可变模式：0019原值、0020产品、0021来源生命周期 |
+| `migrations` | 当前不可变模式：0019原值、0020产品、0021来源生命周期、0022预览决定 |
 | `contracts` | 从数据库DTO生成的JSON Schema及TypeScript类型SDK |
 | `tests` | 临时PGlite与HTTP边界测试；不打开活动库 |
 
@@ -24,4 +24,6 @@ npm --prefix database test
 
 PDF来源保护属于数据库独立接口。已接收原值引用的PDF不可直接删除；IR/OCR是可重建缓存，来源ID只作血缘，不形成对生产者目录的依赖。清理预留与接收串行，清除后的迟到交付会明确拒绝。
 
-[交接](../docs/architecture/delivery.md) · [产品接口](../docs/architecture/products.md) · [当前实施](../docs/implementation/2026-10-31/README.md)
+预览生成时保存选源决定，后续按该预览分页查询观测，不重复读取全量原值或重新计算选源。预览不发布；显式发布时仍使用当前来源决定，来源关系变化需要重新生成预览。
+
+[交接](../docs/architecture/delivery.md) · [产品接口](../docs/architecture/products.md) · [当前实施](../docs/implementation/2026-11-01/README.md)

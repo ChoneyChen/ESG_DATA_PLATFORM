@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fecf14190f5a7cdb8d8b5fe6ba0a17d404fb1ce748638f2a8b97048e72d430a1",
+  "clause_digest": "2de4aa3a2378c8cbedd77394f121bb38fdfaea62f0a994359a16e9015a19d9f0",
   "clause_key": "S1-7_09",
   "data_kind": "qualitative",
   "definition": "披露理解非员工数据所必需的背景信息，包括季节性、地区分布和用工变化。",
@@ -445,9 +445,6 @@
       "披露理解非员工数据所必需的背景信息，包括季节性、地区分布和用工变化。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

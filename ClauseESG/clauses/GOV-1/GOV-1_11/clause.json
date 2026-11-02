@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e361cfa4a39910b60987f0f72cd7b8b01f790ebf59680cf329815e0425f81a94",
+  "clause_digest": "1b9df0069c424442f6f45b3234e06d5f8dd7e00d18bd00444e5fb7b19fe8506f",
   "clause_key": "GOV-1_11",
   "data_kind": "qualitative",
   "definition": "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to。治理机构对授权管理职责的监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -459,9 +459,6 @@
       "Description of how oversight is exercised over management-level position or committee to which management's role is delegated to。治理机构对授权管理职责的监督。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

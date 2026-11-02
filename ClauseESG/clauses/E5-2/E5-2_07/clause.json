@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dc571153d8ea9bfd214dfca686b9aa7d23c3bc67ba52b6b33bf9ecdca23a5f26",
+  "clause_digest": "f36d3df7e7cb45b4ef26f9a634f475ecf6cfe4d818a250fec7c98b46bd792af6",
   "clause_key": "E5-2_07",
   "data_kind": "qualitative",
   "definition": "说明主体参与或发起的、旨在提升产品和材料循环性的合作、倡议或伙伴关系。",
@@ -459,9 +459,6 @@
       "说明主体参与或发起的、旨在提升产品和材料循环性的合作、倡议或伙伴关系。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

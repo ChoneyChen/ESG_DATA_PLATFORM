@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a0f45148d2a66f0430358bf2c06f4c242eccabc05728848835b3c7b64809e6c0",
+  "clause_digest": "9f17dc82a921b15dc74c5fb2afcf453ee191f2e5eb770bdecfcc273db6a17d7e",
   "clause_key": "S2.SBM-3_06",
   "data_kind": "qualitative",
   "definition": "描述产生积极影响的活动，以及受到或可能受到积极影响的价值链劳动者类型。",
@@ -487,9 +487,6 @@
       "描述产生积极影响的活动，以及受到或可能受到积极影响的价值链劳动者类型。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8c843e24545351034c0ae270f7d4adc1d015c68422e949fc3a15c82a3b993eef",
+  "clause_digest": "e86aa116aa58024f1a6b2b6f213898ffb8a82a68829573cc883d7d787071dca3",
   "clause_key": "E5-2_04",
   "data_kind": "qualitative",
   "definition": "说明主体采用哪些循环商业实践，如产品即服务、共享、再制造或翻新，并说明其规模。",
@@ -459,9 +459,6 @@
       "说明主体采用哪些循环商业实践，如产品即服务、共享、再制造或翻新，并说明其规模。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

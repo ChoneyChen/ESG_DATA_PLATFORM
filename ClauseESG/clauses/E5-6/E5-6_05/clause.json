@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "56c1cede7328a7260135c60f992f2ba8aac1c4eb8b61e7d929e085e857cbd610",
+  "clause_digest": "7e55d8171d42543b347bea5db076d36aba2ce36245170586b1ac8438cba6dc46",
   "clause_key": "E5-6_05",
   "data_kind": "qualitative",
   "definition": "描述因资源利用与循环经济相关风险而在短期、中期和长期内受影响的产品和服务。",
@@ -515,9 +515,6 @@
       "描述因资源利用与循环经济相关风险而在短期、中期和长期内受影响的产品和服务。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "forecast"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

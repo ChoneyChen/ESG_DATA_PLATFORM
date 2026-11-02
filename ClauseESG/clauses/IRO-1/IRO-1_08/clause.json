@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "47c8332309c8ba5d11f0b7f36521f77aad9aa6ac607a6a0624bd6b41cffb775c",
+  "clause_digest": "cea1eb1f82c709e43cde3bcf78f681efe8fd271d8ba53c5a803911b2c089590c",
   "clause_key": "IRO-1_08",
   "data_kind": "qualitative",
   "definition": "Description of how connections of impacts and dependencies with risks and opportunities that may arise from those impacts and dependencies have been considered。影响依赖与风险机会联系。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of how connections of impacts and dependencies with risks and opportunities that may arise from those impacts and dependencies have been considered。影响依赖与风险机会联系。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

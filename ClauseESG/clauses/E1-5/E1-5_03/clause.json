@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "57965f8781305995f603d72ca5cb4539c5e15dfb2a4700bb49fdf1442988980e",
+  "clause_digest": "a87b5afedc059f34e336bfd67a18ef4b019019768c5fff2b6c31238b277ea68e",
   "clause_key": "E1-5_03",
   "data_kind": "quantitative",
   "definition": "核能消费量",
@@ -587,9 +587,6 @@
       "核能消费量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "fa717299f99f12e7e291948c16c83f184f91a810cdb830688d6241f3b896414f",
+  "clause_digest": "f96b96ce62adee49f1d18a396d001124be4f78c6f4796db1d0bda05adf392db3",
   "clause_key": "E4-5_15",
   "data_kind": "quantitative",
   "definition": "披露在主体运营范围内出现的外来入侵物种数量，并说明识别与统计口径。",
@@ -558,9 +558,6 @@
       "披露在主体运营范围内出现的外来入侵物种数量，并说明识别与统计口径。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

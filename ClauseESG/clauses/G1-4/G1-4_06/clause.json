@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c7b4540c9495e7494c47c49e8dc769804ae2bcfc3858293d687a05641b1e2629",
+  "clause_digest": "78a3d2d67fb7317a28827b2c849dee4689aaf521b8328ab11dee0c16fc7aca9f",
   "clause_key": "G1-4_06",
   "data_kind": "quantitative",
   "definition": "Number of confirmed incidents in which own workers were dismissed or disciplined for corruption or bribery-related incidents",
@@ -572,9 +572,6 @@
       "Number of confirmed incidents in which own workers were dismissed or disciplined for corruption or bribery-related incidents"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

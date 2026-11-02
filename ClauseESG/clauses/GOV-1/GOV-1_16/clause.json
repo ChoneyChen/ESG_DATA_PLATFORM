@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "94385b4291f0c2b5cb9a45577bc8e211a22d23d641592763840f3d3ba53f7ac2",
+  "clause_digest": "834170c15bf80e01439c92c88c65e67de6dcc478273d1a6ec57c22ee0941c863",
   "clause_key": "GOV-1_16",
   "data_kind": "qualitative",
   "definition": "Information about sustainability-related expertise that bodies either directly possess or can leverage。治理机构可持续专业能力。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -459,9 +459,6 @@
       "Information about sustainability-related expertise that bodies either directly possess or can leverage。治理机构可持续专业能力。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

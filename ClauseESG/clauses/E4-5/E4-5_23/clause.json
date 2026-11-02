@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a1ef544dfe463803f2fbcda252223e864c05385e5fb9432405784ad577fe851d",
+  "clause_digest": "972c7e3634ac8d7f08c35afa7ea51ddbecb6d28946c8457d581428e0e1cd0278",
   "clause_key": "E4-5_23",
   "data_kind": "qualitative",
   "definition": "披露受威胁物种相关栖息地的变化，并将其作为当地种群灭绝风险的代理指标。",
@@ -445,9 +445,6 @@
       "披露受威胁物种相关栖息地的变化，并将其作为当地种群灭绝风险的代理指标。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

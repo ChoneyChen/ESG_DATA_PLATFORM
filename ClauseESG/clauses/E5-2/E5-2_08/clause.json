@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b45a23e034674dc3631753c3e07cdcd58e8f949e6eb97111f7b6d60fb90be512",
+  "clause_digest": "c0a5e47f34275b77ddbcf8fce16575ec784766edfad77c7d121c03ef1597c108",
   "clause_key": "E5-2_08",
   "data_kind": "qualitative",
   "definition": "说明主体的行动对循环经济的贡献，包括资源使用减少和材料循环性提升的结果。",
@@ -459,9 +459,6 @@
       "说明主体的行动对循环经济的贡献，包括资源使用减少和材料循环性提升的结果。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

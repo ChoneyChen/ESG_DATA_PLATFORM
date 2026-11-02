@@ -156,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ff350ae00c456416f1f766c831ec58ac75e0b68df44df7d370ac6e0ab7efe64e",
+  "clause_digest": "8745c9bc545739724d5fc4e861a551d0f817609c7ec4636954b7e7fb62b81859",
   "clause_key": "E2-3_07",
   "data_kind": "qualitative",
   "definition": "Disclosure of how ecological entity-specific thresholds were determined (pollution)。企业污染阈值分配方法。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。",
@@ -486,9 +486,6 @@
       "Disclosure of how ecological entity-specific thresholds were determined (pollution)。企业污染阈值分配方法。按目标、介质、物质、场址及期间保存。企业分配的阈值与环境整体生态阈值分开；法定目标和自愿目标必须由原文支持。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

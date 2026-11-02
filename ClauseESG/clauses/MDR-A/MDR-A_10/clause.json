@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ab8723d023260a272fddd398e2885ac888a4f26b237e60401aa26c28d098dfc5",
+  "clause_digest": "3ba0c9e91830e68b579147415b28fa69b14d0b00a61d10ac33f5f3a994739950",
   "clause_key": "MDR-A_10",
   "data_kind": "quantitative",
   "definition": "Current financial resources allocated to action plan (Opex)。当前行动运营支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -586,9 +586,6 @@
       "Current financial resources allocated to action plan (Opex)。当前行动运营支出。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

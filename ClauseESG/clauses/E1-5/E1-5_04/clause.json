@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b9165d428f399dd49ec5aacdc42ff5228e745e1ffb69fa6e8e5c4b01e6695b28",
+  "clause_digest": "0b3a284d2680b395f30f0729889f8a61441569ba13081df716cd000196684a78",
   "clause_key": "E1-5_04",
   "data_kind": "quantitative",
   "definition": "核能占能源消费总量的比例",
@@ -585,9 +585,6 @@
       "核能占能源消费总量的比例"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

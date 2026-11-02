@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "22c6de84a88f177f49ae60aabc0d734ac1f9200bdacbc20fe9a0a4de873943f0",
+  "clause_digest": "bdce8a58bf936a4745f59c2d085c16ecd6a14e8b75ec9eb644ffff2854f268a5",
   "clause_key": "S4-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体在尊重消费者和终端用户人权方面的总体方法与责任安排。",
@@ -459,9 +459,6 @@
       "说明主体在尊重消费者和终端用户人权方面的总体方法与责任安排。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

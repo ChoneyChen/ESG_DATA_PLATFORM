@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a89b0841965fbcc10c52e18479cc0e94ae8ab26f21e812212d3544c34058920d",
+  "clause_digest": "bbebcb8d11a29ca341d3c71198f976173192004eaf24016ae93cc8ce29ac4c0f",
   "clause_key": "MDR-A_07",
   "data_kind": "qualitative",
   "definition": "Explanation of how current financial resources relate to most relevant amounts presented in financial statements。当前资源与财务报表关联。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Explanation of how current financial resources relate to most relevant amounts presented in financial statements。当前资源与财务报表关联。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

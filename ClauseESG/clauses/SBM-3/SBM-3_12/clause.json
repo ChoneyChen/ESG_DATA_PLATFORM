@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "97164becc36d863f024a72f8ca20f77cecf1ece0941caa92913a6c5e02a4c1d1",
+  "clause_digest": "8fc4254d8e1ea00c3e622a81a46b839343cae5a8381903a362e19dc55f19b285",
   "clause_key": "SBM-3_12",
   "data_kind": "qualitative",
   "definition": "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures。标准覆盖与企业特有事项区分。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。",
@@ -501,9 +501,6 @@
       "Disclosure of specification of impacts, risks and opportunities that are covered by ESRS Disclosure Requirements as opposed to those covered by additional entity-specific disclosures。标准覆盖与企业特有事项区分。影响与财务风险机会分开，当前与未来财务效果分开；集团业务背景不自动适用于子公司或特定场址。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

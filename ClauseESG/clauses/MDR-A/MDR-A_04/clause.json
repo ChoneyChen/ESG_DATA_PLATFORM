@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "69e3ab471741b643a2ba4bceaec7f8da852f2eef98c40274b731d5f507795cb9",
+  "clause_digest": "e83ac5a8f577309cbe32470859fe2481bb94581f78a56bf01f9ee24ff89cc9d0",
   "clause_key": "MDR-A_04",
   "data_kind": "qualitative",
   "definition": "Description of key action taken, and its results, to provide for and cooperate in or support provision of remedy for those harmed by actual material impacts。重大实际影响的补救行动与结果。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。",
@@ -473,9 +473,6 @@
       "Description of key action taken, and its results, to provide for and cooperate in or support provision of remedy for those harmed by actual material impacts。重大实际影响的补救行动与结果。按可持续主题、行动对象、期间和范围复用；当前与未来、资本与运营资源分别保存；未采纳行动的分支不能充当行动事实。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

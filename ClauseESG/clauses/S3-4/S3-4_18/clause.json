@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "85d92033f698d258343d917082139f31882765dec57727771ffbe075ea66aa0b",
+  "clause_digest": "a60257a09aa09565ac0f1fc473a866d5cde60644d85a9a1d60f19ae605abee1e",
   "clause_key": "S3-4_18",
   "data_kind": "qualitative",
   "definition": "说明以积极影响社区为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。",
@@ -459,9 +459,6 @@
       "说明以积极影响社区为主要目的的项目或流程是否同时支持实现一项或多项可持续发展目标。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

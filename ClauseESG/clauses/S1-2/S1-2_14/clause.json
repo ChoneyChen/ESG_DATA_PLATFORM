@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d80ea99d9e5e631722b7b418b5096f2871d3377fa811b0119b339244c4d1745d",
+  "clause_digest": "a664b2bc2f8617924b450795558416e5513c96934fee0c118ab5de97df1e2926",
   "clause_key": "S1-2_14",
   "data_kind": "qualitative",
   "definition": "说明主体如何努力尊重所有参与接触的利益相关方的人权。",
@@ -445,9 +445,6 @@
       "说明主体如何努力尊重所有参与接触的利益相关方的人权。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

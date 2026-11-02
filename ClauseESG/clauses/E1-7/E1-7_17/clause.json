@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "47a2d0513ca90ad15e59c8aa9cd1504e4aa7fb592da486491df32758e3f6ef0d",
+  "clause_digest": "926513ec4b6f04409fec423c7af0340c05fae4b13c5c20e33dca16e8ad4fa071",
   "clause_key": "E1-7_17",
   "data_kind": "quantitative",
   "definition": "Percentage issued from projects in European Union。欧盟境内项目签发比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。",
@@ -614,9 +614,6 @@
       "Percentage issued from projects in European Union。欧盟境内项目签发比例。移除、储存、逆转、移除活动相关排放和碳信用各自独立；运营/价值链与价值链外项目分开，核销、计划核销和已售出不得混同。不能从毛排放减去碳信用生成本条事实。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

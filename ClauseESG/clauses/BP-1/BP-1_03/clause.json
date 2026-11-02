@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d7faf2f3296c587eaef253f094b12f0f0cf70f2f57f935e699bbf83e2f9e3f7e",
+  "clause_digest": "723c45809f7c1df9f2ef8a7a3c58a6b3d0f9b6586188c47498e31d0e527e8534",
   "clause_key": "BP-1_03",
   "data_kind": "qualitative",
   "definition": "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting。纳入合并但豁免独立披露的子公司。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。",
@@ -459,9 +459,6 @@
       "Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting。纳入合并但豁免独立披露的子公司。集团、独立主体及上下游披露范围分别记录；可持续与财务合并边界一致必须由报告明确声明，不能从名称或文件年推定。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "397733e7c767a9ab4557f1c23a984f6670339ad661844f9e48619b72e1045bfa",
+  "clause_digest": "671914a25ec50a50183044e285be7b6da952fb31b054caf1f7c38ec221940477",
   "clause_key": "E1-6_14",
   "data_kind": "qualitative",
   "definition": "报告边界、方法、数据或排放因子的变更及可比性",
@@ -456,9 +456,6 @@
       "报告边界、方法、数据或排放因子的变更及可比性"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

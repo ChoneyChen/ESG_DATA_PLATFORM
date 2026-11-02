@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5bc76a6d2c95779400a7d71221c8ba9af5dbb942377dc6b5ee8abf4699418b37",
+  "clause_digest": "62c6cc425a7ec8805e4e2ba701db963a2c5c04dc0121c09f1d90a19c9a1f54ec",
   "clause_key": "S1.SBM-3_09",
   "data_kind": "qualitative",
   "definition": "提供存在童工事件重大风险的运营类型信息。",
@@ -487,9 +487,6 @@
       "提供存在童工事件重大风险的运营类型信息。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7058630bb92a60f01738bb1abb7b514d66ff54a9f78256e5a7db6d5d06060ceb",
+  "clause_digest": "cb45e11c0809b674e4a0856790136535887e91e251030870c027ec4321e3598b",
   "clause_key": "S1-1_15",
   "data_kind": "qualitative",
   "definition": "说明主体是否已建立以资格、技能和经验为基础的招聘、安置、培训和晋升政策与程序。",
@@ -459,9 +459,6 @@
       "说明主体是否已建立以资格、技能和经验为基础的招聘、安置、培训和晋升政策与程序。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

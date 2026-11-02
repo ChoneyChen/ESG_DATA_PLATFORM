@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e0f49aa6348120baa9c49de8fd2b6d854ab8599198fc75e6e046b8410a4bb5cf",
+  "clause_digest": "e01f5f683cc2f02593c694c53bb58ebb746d8d917700c9a94956aa7370f8aeae",
   "clause_key": "E1-6_13",
   "data_kind": "quantitative",
   "definition": "范围1＋市场法范围2＋范围3温室气体排放总量",
@@ -624,9 +624,6 @@
       "范围1＋市场法范围2＋范围3温室气体排放总量"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

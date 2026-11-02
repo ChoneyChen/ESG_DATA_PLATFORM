@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b4f8944c1ca4a45da34c0ea92d9162af1cff9b0b6baafc559ae47ebab7413981",
+  "clause_digest": "c46c0ec47eb1ba50c69a763a892fab1a9497e9aff90a0ae268f0577cc4f9134e",
   "clause_key": "S3-4_13",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响社区的重大负面影响。",
@@ -459,9 +459,6 @@
       "说明主体是否以及如何利用与相关业务关系的杠杆来管理影响社区的重大负面影响。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

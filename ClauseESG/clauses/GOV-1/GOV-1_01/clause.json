@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d2388b601ff5ff31885fc04f6414c03ef4fbecf0a97c03da95c5d3d76c23ea6c",
+  "clause_digest": "b06c2c30792d677fb8b025238f99a4c397a3c2fcb6f5300903f00f7af1124122",
   "clause_key": "GOV-1_01",
   "data_kind": "quantitative",
   "definition": "Number of executive members。执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -572,9 +572,6 @@
       "Number of executive members。执行成员数量。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

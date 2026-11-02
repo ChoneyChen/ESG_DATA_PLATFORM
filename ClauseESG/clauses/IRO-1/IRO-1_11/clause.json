@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f649dff314fc9b16dab7b3ae980d6b523b5a12c8abdf639964e792d617554f06",
+  "clause_digest": "1c4e328501b6e6cc8828f794a188da11788270783ee9bd5b214f13e4a0cf1692",
   "clause_key": "IRO-1_11",
   "data_kind": "qualitative",
   "definition": "Description of decision-making process and related internal control procedures。决策流程及内控。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。",
@@ -501,9 +501,6 @@
       "Description of decision-making process and related internal control procedures。决策流程及内控。影响重要性和财务重要性判断分别保留方法、期间、覆盖及依据；流程原文不是任何具体主题重大性的自动结论。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

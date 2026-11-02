@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f2a0ffa24e6ff8ca05818c3503d9760f6178cfead2af56c668dd2b9c21f9cf53",
+  "clause_digest": "09c8f9ee42bdc2773a65d2b4f8cdf2842feea8125e15951c27f21f8ccc8f164b",
   "clause_key": "MDR-T_07",
   "data_kind": "qualitative",
   "definition": "Period to which target applies。目标适用期间。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。",
@@ -473,9 +473,6 @@
       "Period to which target applies。目标适用期间。按可持续主题、目标对象、基准年、目标期及范围复用；目标值、基准值和实际进展分开，整数类型提示不能强迫小数基准四舍五入。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "81fe41103ebc3d5cd35c8bc4fb030fca3c40c4f41fd4c5fa9cc4991c4f4fa157",
+  "clause_digest": "b043adc3a9bb01a1e7ae3aaebe86bdc185cebd3ac833c204e9448901cd0ab6b5",
   "clause_key": "E1-6_07",
   "data_kind": "quantitative",
   "definition": "范围1温室气体排放总量",
@@ -652,10 +652,6 @@
       "范围1温室气体排放总量"
     ],
     "operator": "ghg_scope",
-    "options": {
-      "text_unit_pattern": "吨|噸|t\\b|tco|co2|co₂|二氧化碳|碳当量|kt|mt\\b|万吨|萬噸",
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

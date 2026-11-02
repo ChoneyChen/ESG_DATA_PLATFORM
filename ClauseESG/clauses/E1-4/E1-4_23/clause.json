@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3acebebd88abc01605cf664cdf54536638f4b22df1734ad572dd3cd2d1a45bd0",
+  "clause_digest": "f5ef445d59899efc67ec1a2ca5fa35f588b19203ee62e4b9d53ec1aa77d1d9a5",
   "clause_key": "E1-4_23",
   "data_kind": "qualitative",
   "definition": "Description of expected decarbonisation levers and their overall quantitative contributions to achieve GHG emission reduction target。脱碳杠杆及目标贡献。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",
@@ -515,9 +515,6 @@
       "Description of expected decarbonisation levers and their overall quantitative contributions to achieve GHG emission reduction target。脱碳杠杆及目标贡献。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "target"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

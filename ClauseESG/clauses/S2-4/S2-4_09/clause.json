@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "491dfa904f4cccfcf8d1605c08124524f7e82d865f9d201e9f476117a99f8d11",
+  "clause_digest": "46eb81aed737846983b345194789fbf42770cb7f5e13c3d33ead29b422020929",
   "clause_key": "S2-4_09",
   "data_kind": "qualitative",
   "definition": "描述为把握与价值链劳动者相关的重大机遇而计划或正在进行的行动。",
@@ -459,9 +459,6 @@
       "描述为把握与价值链劳动者相关的重大机遇而计划或正在进行的行动。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

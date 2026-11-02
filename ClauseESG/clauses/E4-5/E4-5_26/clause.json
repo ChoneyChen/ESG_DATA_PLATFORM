@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a9c316aa7deb032704633077711c47f3a5b7c7f921c135b0ad3401e28047e6d4",
+  "clause_digest": "1b279d6e0de1c29ea746cdbc8b16c8ddb3c352af9ec2b5560ca13cf4ad751ac4",
   "clause_key": "E4-5_26",
   "data_kind": "qualitative",
   "definition": "披露同一生态系统内多个物种的状况，以反映生态群落而非单一物种。",
@@ -445,9 +445,6 @@
       "披露同一生态系统内多个物种的状况，以反映生态群落而非单一物种。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {

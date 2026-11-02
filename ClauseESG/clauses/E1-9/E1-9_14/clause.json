@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "52b49ef608e782cc0cf43a6a79f9cb53728dcaf1c40b8511af6befa71df9dcd9",
+  "clause_digest": "807d2649bca2d9165634ad920c8ce918bc1c5b390752f78e0b8cc9945745d773",
   "clause_key": "E1-9_14",
   "data_kind": "quantitative",
   "definition": "Assets at material transition risk before considering climate mitigation actions。缓解行动前重大转型风险资产。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。",
@@ -628,9 +628,6 @@
       "Assets at material transition risk before considering climate mitigation actions。缓解行动前重大转型风险资产。物理风险与转型风险分开；资产、收入、负债和机会各自独立。记录评估时间、情景、财务口径、缓解前后状态及不确定性。估计值不是已实现损益。"
     ],
     "operator": "numeric_label",
-    "options": {
-      "value_role": "actual"
-    },
     "rules": [
       {
         "allowed": [],

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f2dc8077c943b591d468c0154c96d6265979c17d11e51bd378211e3620dd5c55",
+  "clause_digest": "c3b9db556a8ca9373305a826aa6e8194a9807ef5d9dbc162eaf728ea9cab17fa",
   "clause_key": "SBM-2_05",
   "data_kind": "qualitative",
   "definition": "Description of purpose of stakeholder engagement。利益方参与目的。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。",
@@ -459,9 +459,6 @@
       "Description of purpose of stakeholder engagement。利益方参与目的。按利益方类别、参与对象及回应行动区分；计划变更与已经实施变更分开。"
     ],
     "operator": "statement",
-    "options": {
-      "value_role": "context"
-    },
     "rules": [],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
