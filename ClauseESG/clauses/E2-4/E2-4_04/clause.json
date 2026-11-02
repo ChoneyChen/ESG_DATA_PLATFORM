@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "pollutant": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "pollutant",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "pollution_medium": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "pollution_medium",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -70,6 +92,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -84,6 +109,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -97,6 +126,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -113,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a5081115125ae9764a58bd64eb131c88fab2545f3bba18060f84b11cf59f603a",
+  "clause_digest": "f4824b7700002aaf12e22f205a5c2226f51845ba0a37a8b093354467c72147ae",
   "clause_key": "E2-4_04",
   "data_kind": "quantitative",
   "definition": "按污染物划分的土壤排放量",

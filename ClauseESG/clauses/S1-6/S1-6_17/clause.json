@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -54,6 +68,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -68,6 +85,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -81,6 +102,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -97,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b6d5cf49ce6566ae50cf1c25054a08ec8a23021f3ec51433e8cc2487f8560858",
+  "clause_digest": "c5d7da4e48e473326b1010aa60aa6d2a055246882efdfff2d525baf782d64ead",
   "clause_key": "S1-6_17",
   "data_kind": "qualitative",
   "definition": "Disclosure of cross-reference of information reported under paragragph 50 (a) to most representative number in financial statements。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",

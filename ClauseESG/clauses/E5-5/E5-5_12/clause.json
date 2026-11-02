@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -54,6 +68,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -68,6 +85,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -81,6 +102,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -97,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4cd7abfa2c26614703a56397e9d2cc8670e66d5e6db93ca1af9bb0e2dfb953c1",
+  "clause_digest": "05d931c3da847b912116c75fbd9bb8fced8f4dde5717548d3f106537b0adc053",
   "clause_key": "E5-5_12",
   "data_kind": "qualitative",
   "definition": "Disclosure of composition of waste。陈述须直接回应该数据点的问题；泛泛的政策口号或其他数据点的陈述不能替代。",

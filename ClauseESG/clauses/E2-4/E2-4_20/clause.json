@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,10 @@
       "vocabulary": []
     },
     "facility_name": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "facility_name",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "item_type": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "item_type",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -70,6 +92,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -84,6 +109,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -97,6 +126,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -113,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "02243086fc7c7055d7a268ca9bf0feaa03be6955dbb0dcdd424b7568590bcb72",
+  "clause_digest": "f31d08e953d482c3b27db691077b5ddd1b89d60de90ded8f9e37f57b78ee9871",
   "clause_key": "E2-4_20",
   "data_kind": "qualitative",
   "definition": "与 BAT-AEL 实施相关的合规计划或 Article 15(4) IED 豁免清单",

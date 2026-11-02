@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -54,6 +68,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -68,6 +85,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -81,6 +102,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -97,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0bb40a3112c06687b9fcd82b1616326ee673b517904a02bd346a5783cf9f13cd",
+  "clause_digest": "29db1da09696ea249223bc70b4aaeb64bf9f5e2173197591dbaa336f484c79df",
   "clause_key": "S4-3_10",
   "data_kind": "qualitative",
   "definition": "说明第三方机制是否向所有消费者和终端用户开放，以及可及性安排。",

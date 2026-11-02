@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -38,6 +49,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -52,6 +66,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -65,6 +83,10 @@
       "vocabulary": []
     },
     "sustainability_topic": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "sustainability_topic",
@@ -73,6 +95,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -89,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "22970ad441e6abe7b260dde5c8eb9a37408b0c5493248a6943ddbb43a7a0ee11",
+  "clause_digest": "0f3600ca0369902203aed7418ca2a8459ac5de84a726501651bdcb26a746f179",
   "clause_key": "BP-2_24",
   "data_kind": "qualitative",
   "definition": "读取阶段安排中有时限目标及进展的原文；目标期与衡量期按原文分别保留，未给具体数值也可构成陈述。",

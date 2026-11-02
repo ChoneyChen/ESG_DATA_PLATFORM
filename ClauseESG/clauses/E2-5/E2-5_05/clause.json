@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "concern_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "concern_class",
@@ -24,6 +31,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "hazard_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "hazard_class",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "material_flow": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "material_flow",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -64,6 +86,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -78,6 +104,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -92,6 +121,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -105,6 +138,10 @@
       "vocabulary": []
     },
     "substance": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "substance",
@@ -113,6 +150,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -129,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "420dbd9b8ebc5699a49e53e192e745f2988839d637143e72b5934c912629a9ec",
+  "clause_digest": "1e49bba9b5e436ee9aaf1b6765a9fcafffae3e9786df471495c5ef9969734f5e",
   "clause_key": "E2-5_05",
   "data_kind": "quantitative",
   "definition": "Amount of substances of concern that leave facilities as products by main hazard classes of substances of concern。作为产品离开设施的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",

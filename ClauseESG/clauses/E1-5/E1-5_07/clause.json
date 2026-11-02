@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "energy_carrier": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "energy_carrier",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "energy_flow": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "energy_flow",
@@ -32,6 +43,10 @@
       "vocabulary": []
     },
     "energy_source": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "energy_source",
@@ -40,6 +55,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -64,6 +86,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -78,6 +104,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -92,6 +121,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -105,6 +138,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -121,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4b10e40e02f1d82bc46a4fb91742542824032ee671d57c29b1c363815b6695d7",
+  "clause_digest": "2071793b0e214040c93f9b3af412495438346f28847b47c6e4e58de63d7e2aff",
   "clause_key": "E1-5_07",
   "data_kind": "quantitative",
   "definition": "外购或购入的可再生电力、热力、蒸汽和冷却能源",

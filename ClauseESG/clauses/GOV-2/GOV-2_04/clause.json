@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -54,6 +68,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -68,6 +85,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -81,6 +102,10 @@
       "vocabulary": []
     },
     "sustainability_topic": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "sustainability_topic",
@@ -89,6 +114,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -105,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e437ceb651b48592ad33a60343f49acbe4c0fa68dcb1dfdeeb4502721287d96a",
+  "clause_digest": "69ece4dc56abd5930ac52e270fd3f57ddf29c7e3d12a1d80c1e5b0e3f51d48b6",
   "clause_key": "GOV-2_04",
   "data_kind": "qualitative",
   "definition": "Disclosure of how governance bodies ensure that appropriate mechanism for performance monitoring is in place。绩效监测机制。将报告线、考虑流程及实际处理事项分开，制度存在不能推定已经处理某一事件。",

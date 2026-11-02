@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -38,6 +49,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -52,6 +66,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -65,6 +83,10 @@
       "vocabulary": []
     },
     "risk_type": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "risk_type",
@@ -73,6 +95,10 @@
       "vocabulary": []
     },
     "scenario": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "scenario",
@@ -81,6 +107,10 @@
       "vocabulary": []
     },
     "sustainability_topic": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "sustainability_topic",
@@ -89,6 +119,10 @@
       "vocabulary": []
     },
     "time_horizon": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "time_horizon",
@@ -97,6 +131,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -113,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1fe311ccd898f64fce78dbe3b66859a0ed4cbef135eba0c7fb23e87496e6a786",
+  "clause_digest": "f019f6742d60b8fd774e838d62e4b058b392cb693c9d7aefeb0b15e35d3afc8a",
   "clause_key": "SBM-3_09",
   "data_kind": "qualitative",
   "definition": "读取短中长期预期财务影响的原文说明；原文时间范围、情景和财务项有则保留，不猜年份，不当已实现量。",

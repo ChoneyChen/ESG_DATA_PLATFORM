@@ -1,6 +1,10 @@
 {
   "attributes": {
     "accounting_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "accounting_method",
@@ -9,6 +13,9 @@
       "vocabulary": []
     },
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "baseline_year": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "baseline_year",
@@ -32,6 +43,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "ghg_scope": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "ghg_scope",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -64,6 +86,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -78,6 +104,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -92,6 +121,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -105,6 +138,10 @@
       "vocabulary": []
     },
     "target_ref": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "target_ref",
@@ -113,6 +150,10 @@
       "vocabulary": []
     },
     "target_year": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "target_year",
@@ -121,6 +162,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -137,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a323ec5cc39a7ed026a2244caefc06a19cfdd21b0eee68cab68b7bb2fe688c0c",
+  "clause_digest": "1f9b8ad6ed250600923210665b38560d9318ab54b6575955741645f8e23b8700",
   "clause_key": "E1-4_09",
   "data_kind": "quantitative",
   "definition": "Absolute value of location-based Scope 2 Greenhouse gas emissions reduction。范围2地点法绝对减排目标。以目标对象、目标年、基准年、排放范围和范围2方法区分事实；绝对减排、相对减排和强度目标不可互换。碳信用和移除不能直接替代毛排放减量。",

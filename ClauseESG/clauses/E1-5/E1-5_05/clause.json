@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "business_segment": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际业务板块",
@@ -24,6 +30,10 @@
       "vocabulary": []
     },
     "energy_carrier": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际能源载体",
@@ -32,6 +42,10 @@
       "vocabulary": []
     },
     "energy_flow": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "能源流向",
@@ -40,6 +54,10 @@
       "vocabulary": []
     },
     "energy_source": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "能源分类",
@@ -48,6 +66,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -64,6 +85,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -72,6 +97,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -86,6 +115,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -100,6 +132,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -113,6 +149,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -129,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "873fbf0f82ea2f5618a48a11c77e0810a88858a27518f603b79d663e42d6861d",
+  "clause_digest": "475339b73bc30e3b3726d46413221833ed96027f856462f17b87f6db2d17bb07",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",

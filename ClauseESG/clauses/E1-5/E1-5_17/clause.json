@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "energy_flow": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "energy_flow",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "energy_source": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "energy_source",
@@ -32,6 +43,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -70,6 +92,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -84,6 +109,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -97,6 +126,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -113,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c08d5f4f59a0bf2414794e1bfc506a2058c357c702f6c26525ffc3dc1bdf3a46",
+  "clause_digest": "f48cbca63d8129189a7b4ec41dd3df8dcc5a19a38df4acb2e9e4285e03e25921",
   "clause_key": "E1-5_17",
   "data_kind": "quantitative",
   "definition": "可再生能源生产量",

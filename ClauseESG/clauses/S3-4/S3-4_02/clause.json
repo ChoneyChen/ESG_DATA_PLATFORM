@@ -1,6 +1,10 @@
 {
   "attributes": {
     "action_ref": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "action_ref",
@@ -9,6 +13,9 @@
       "vocabulary": []
     },
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -24,6 +31,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -40,6 +50,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -62,6 +80,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -76,6 +97,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -89,6 +114,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -105,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "85251ed708c33246e50114b80b360f4acc2677a4d119673f7cb2f5066e0591bc",
+  "clause_digest": "47d9b50dcb3efd34aef8a4ab6c5b0b0e7b282230a0c81636dbc8a4e9602173bd",
   "clause_key": "S3-4_02",
   "data_kind": "qualitative",
   "definition": "说明主体是否以及如何针对受影响社区的实际重大影响采取提供或促成补救的行动。",

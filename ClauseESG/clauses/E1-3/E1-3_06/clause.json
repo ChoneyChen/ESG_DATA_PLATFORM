@@ -1,6 +1,10 @@
 {
   "attributes": {
     "action_ref": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "action_ref",
@@ -9,6 +13,9 @@
       "vocabulary": []
     },
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -32,6 +43,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -46,6 +61,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -60,6 +78,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -73,6 +95,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -89,7 +114,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "05d80b5528c494a42df875b75bcf9af3ee44e0b9057bdf70519204d023bbaec8",
+  "clause_digest": "d841e763314c6a4197520fe0c18a2956c3c5cdb9641f9dadcf8aa3fb8dbc840f",
   "clause_key": "E1-3_06",
   "data_kind": "qualitative",
   "definition": "读取重大资本/运营支出与财务报表行项目或注释的关系解释；保留所指行动和行项目，不以金额齐全作为陈述准入条件。",

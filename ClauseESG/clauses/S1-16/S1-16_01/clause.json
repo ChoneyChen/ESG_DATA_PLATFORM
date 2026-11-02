@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "country": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际国家／地区",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "denominator_scope": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "分母范围",
@@ -32,6 +43,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -48,6 +62,10 @@
       "vocabulary": []
     },
     "gender": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际性别",
@@ -56,6 +74,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -64,6 +86,10 @@
       "vocabulary": []
     },
     "pay_definition": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "薪酬定义",
@@ -72,6 +98,10 @@
       "vocabulary": []
     },
     "population": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际人群",
@@ -80,6 +110,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -94,6 +128,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -108,6 +145,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -121,6 +162,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -137,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "96cf81d56d33af30d1f552c00008de1c800ec0bc1fcbed48bc279f3c8a9545af",
+  "clause_digest": "1aca13746cece6085d5c218eb96440fe97bd0aa88ecec799480e9379034ff019",
   "clause_key": "S1-16_01",
   "data_kind": "quantitative",
   "definition": "男女员工薪酬水平之差占男性薪酬水平的比例。",

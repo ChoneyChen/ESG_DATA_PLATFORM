@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "currency": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "currency",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "financial_item": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "financial_item",
@@ -32,6 +43,10 @@
       "vocabulary": []
     },
     "forecast_horizon": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "forecast_horizon",
@@ -40,6 +55,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -48,6 +67,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -62,6 +85,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -76,6 +102,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -89,6 +119,10 @@
       "vocabulary": []
     },
     "risk_type": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "risk_type",
@@ -97,6 +131,10 @@
       "vocabulary": []
     },
     "scenario": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "scenario",
@@ -105,6 +143,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -121,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f912c0eb544983a1bcf8d50097d4718a91e4c5bf56881fb59d975517be71c1f9",
+  "clause_digest": "3d1cef4a088d92f7fc8af9fb154786bd953c86d98eb979aa64e4108a368ae5c5",
   "clause_key": "E1-9_38",
   "data_kind": "qualitative",
   "definition": "读取重大转型风险业务预期利润侵蚀的原文解释；保留情景、财务项和预期时间原词，不生成预测金额或实际损益。",

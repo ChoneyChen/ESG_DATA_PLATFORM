@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -38,6 +49,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -52,6 +66,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -65,6 +83,10 @@
       "vocabulary": []
     },
     "risk_type": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "risk_type",
@@ -73,6 +95,10 @@
       "vocabulary": []
     },
     "scenario": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "scenario",
@@ -81,6 +107,10 @@
       "vocabulary": []
     },
     "sustainability_topic": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "sustainability_topic",
@@ -89,6 +119,10 @@
       "vocabulary": []
     },
     "time_horizon": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "time_horizon",
@@ -97,6 +131,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -113,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "ba29e7e984d484ce170638bdf655a8170353ddfe425605616a605bd86b9b790e",
+  "clause_digest": "9ab696dd70359f284164af455113b2255265316c694f6edb7a422fe7d2466221",
   "clause_key": "SBM-3_08",
   "data_kind": "qualitative",
   "definition": "读取重大风险机会的当前财务影响及下期资产负债重大调整风险说明；保留财务项和期间，不以必须含金额为准入门槛。",

@@ -3,6 +3,17 @@
     "AttributeDefinition": {
       "additionalProperties": false,
       "properties": {
+        "context_levels": {
+          "items": {
+            "enum": [
+              "local",
+              "report"
+            ],
+            "type": "string"
+          },
+          "title": "Context Levels",
+          "type": "array"
+        },
         "context_terms": {
           "items": {
             "type": "string"

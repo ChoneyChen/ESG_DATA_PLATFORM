@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,9 @@
       "vocabulary": []
     },
     "geography": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [],
       "description": null,
       "label": "geography",
@@ -40,6 +49,10 @@
       "vocabulary": []
     },
     "measurement_basis": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "measurement_basis",
@@ -48,6 +61,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -56,6 +73,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -70,6 +91,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -84,6 +108,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -97,6 +125,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -112,6 +143,10 @@
       "vocabulary": []
     },
     "water_measure": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "water_measure",
@@ -120,6 +155,10 @@
       "vocabulary": []
     },
     "water_risk_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "water_risk_class",
@@ -129,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bc3b4f63ffbc3559ecf18744399114643ba89909da82a3df0f7650cdeb555c00",
+  "clause_digest": "da64305266ba2e98bbe357c69058b203e6e2bf300cd9ddf9af9278755f579d2d",
   "clause_key": "E3-4_07",
   "data_kind": "quantitative",
   "definition": "Share of the measure obtained from direct measurement, from sampling and extrapolation, or from best estimates。水量测量方法所占比例。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",

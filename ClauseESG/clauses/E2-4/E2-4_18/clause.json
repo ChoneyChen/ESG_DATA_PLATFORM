@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "facility_name": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "facility_name",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -32,6 +43,10 @@
       "vocabulary": []
     },
     "parameter_or_pollutant": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "parameter_or_pollutant",
@@ -40,6 +55,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -54,6 +73,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -68,6 +90,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -81,6 +107,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -97,7 +126,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b15e122a81cd4bc62472b2e5526d9acfc41bb11697f8bbb36966c9088608c899",
+  "clause_digest": "db79754a37cff089a8f1ac45767499d12978704aae61fd09893d398391ca53d0",
   "clause_key": "E2-4_18",
   "data_kind": "qualitative",
   "definition": "读取报告对实际环境绩效与BAT-AEL的原文比较及适用条件；实际量与参考限值是不同角色，不由模型另作合规判断。",

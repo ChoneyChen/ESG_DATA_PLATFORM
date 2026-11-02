@@ -522,13 +522,15 @@ class ExtractionBackbone:
                 self.artifacts.write(run_id,f"diagnostics/context/{key}.json",context_search)
                 if context_evidence is not None:
                     self.artifacts.write(run_id,f"evidence/context/{key}.json",context_evidence.model_dump(mode="json"))
-                    pending_context = list(context_facts.values())
+                    context_values = list(context_facts.values())
                     batch_size = max(1,budget.max_output_tokens//1024)
-                    for offset in range(0,len(pending_context),batch_size):
+                    pending_context = [(context_values[offset:offset+batch_size],None,0)
+                        for offset in range(0,len(context_values),batch_size)]
+                    while pending_context:
                         if calls >= budget.max_model_calls or time.monotonic()-started >= budget.timeout_seconds:
                             reasons.append("enrichment_budget_exhausted")
                             break
-                        batch = pending_context[offset:offset+batch_size]
+                        batch,parent_call,attempt = pending_context.pop(0)
                         aliases = {f"f{i}":fact.source_fact_id for i,fact in enumerate(batch,1)}
                         inputs = [{"id":alias,"label":local_facts[fid].source_row_label,
                             "local_source_ids":context_search["fact_sources"][fid],
@@ -539,7 +541,8 @@ class ExtractionBackbone:
                             "local_evidence":[e.excerpt for e in local_facts[fid].evidence if e.role != "value"]} for alias,fid in aliases.items()]
                         calls += 1
                         call = {"call_index":calls,"clause_key":key,"clause_digest":clause.clause_digest,
-                            "task_type":"context_enrichment","data_kind":clause.data_kind,"frame_digest":context_evidence.digest,"fact_aliases":aliases}
+                            "task_type":"context_enrichment","data_kind":clause.data_kind,"frame_digest":context_evidence.digest,"fact_aliases":aliases,
+                            "parent_call_index":parent_call,"attempt":attempt}
                         on_progress({"stage":"enriching","clause_key":key,"current":index-1,"total":len(clauses),
                             "model_calls":calls,"fact_count":len(facts)+len(local_facts)})
                         try:
@@ -547,6 +550,7 @@ class ExtractionBackbone:
                                 context={"target":clause.reading_card(),"requested_attributes":context_search["requested_attributes"],"facts":inputs,"context":reading_frame(context_evidence),
                                     "report_sources":context_search["report_sources"],"report_attributes":context_search["report_attributes"],
                                     "execution":{"run_id":run_id,"task_type":"clause_context","evidence_ids":[t.object_id for t in context_evidence.texts],
+                                        "attempt":attempt,"parent_task_id":f"{run_id}/calls/{parent_call}" if parent_call else None,
                                         "remaining_seconds":max(.001,budget.timeout_seconds-(time.monotonic()-started))}},
                                 schema=context_schema(context_evidence,aliases,context_search["requested_attributes"]),max_tokens=budget.max_output_tokens,cancel_check=cancel_check)
                             decision = ContextDecision.model_validate(raw if isinstance(raw,dict) else json.loads(raw))
@@ -555,18 +559,26 @@ class ExtractionBackbone:
                             for fid in aliases.values():
                                 self.results.put(local_facts[fid],local_mappings[fid])
                         except Exception as exc:
-                            call.update(status="cancelled" if cancel_check() or isinstance(exc,PipelineCancelled) else "failed",error=str(exc)[:400])
+                            call.update(status="cancelled" if cancel_check() or isinstance(exc,PipelineCancelled) else "failed",error=str(exc)[:400],
+                                telemetry=getattr(exc,"telemetry",{}))
                             self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
                             if call["status"] == "cancelled":
                                 self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
                                     [*mappings,*local_mappings.values()],coverage,calls,started,errors)
                                 raise PipelineCancelled("Extraction cancelled") from exc
-                            reasons.append("context_reading_unavailable")
+                            if getattr(exc,"category",None) in {"generation_incomplete","input_budget","timeout"} and len(batch)>1:
+                                middle = len(batch)//2
+                                pending_context[0:0] = [(batch[:middle],calls,attempt+1),(batch[middle:],calls,attempt+1)]
+                                call.update(status="split_retry",retry_fact_batches=[middle,len(batch)-middle])
+                                reasons.append("bounded_context_split")
+                            else:
+                                reasons.append("context_reading_unavailable")
                         trace.append(call)
                         self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
                 unresolved = {axis for fid in context_facts
                     for axis in missing_attributes(clause,local_facts[fid])
-                    if plan["context"]["attributes"].get(axis)}
+                    if plan["context"]["attributes"].get(axis)
+                    and "report" in clause.attributes[axis].context_levels}
                 terms = list(dict.fromkeys(term for axis in sorted(unresolved)
                     for term in plan["context"]["attributes"][axis]))
                 if terms and key not in self.context_attempted:

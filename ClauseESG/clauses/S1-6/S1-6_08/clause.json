@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "breakdown_member": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "breakdown_member",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "counting_basis": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "counting_basis",
@@ -32,6 +43,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -40,6 +55,10 @@
       "vocabulary": []
     },
     "population": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "population",
@@ -48,6 +67,10 @@
       "vocabulary": []
     },
     "region": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "region",
@@ -56,6 +79,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -70,6 +97,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -84,6 +114,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -97,6 +131,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -113,7 +150,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "aa700dd4fe28512d7828243f4e2ba609628373425bc934a8bf2848a5fbd78b31",
+  "clause_digest": "502a737e888373ce74b9153facf173065905f1059fad0dd411d9787a5c0c838d",
   "clause_key": "S1-6_08",
   "data_kind": "quantitative",
   "definition": "读取按地区实际披露的员工人数，地区保留原词、允许未收录分类；缺地区不删除真实人数。",

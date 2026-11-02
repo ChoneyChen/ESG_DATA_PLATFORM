@@ -1,0 +1,1297 @@
+{
+  "run_id": "extract-cf59323035d4dd8057803259b02ce6d7",
+  "session_id": "extract-plan-76ba1868a77845dcbb7e929fd395e99a",
+  "engine_fingerprint": "4826f61ff0580cceae7e18dcc87978a2cd3d5d39d0f603309845cbd0bc67c46d",
+  "status": "completed",
+  "summary": {
+    "selected_clauses": 1,
+    "processed_clauses": 1,
+    "source_facts": 71,
+    "quantitative": 71,
+    "qualitative": 0,
+    "model_calls": 10,
+    "elapsed_seconds": 812.374,
+    "errors": [],
+    "assessment": {
+      "execution_state": "completed",
+      "search_coverage": "bounded_complete",
+      "capture_result": "usable",
+      "metadata_completeness": "partial",
+      "comparison_status": "not_evaluated",
+      "target_facts": 3,
+      "other_facts": 68,
+      "unresolved_facts": 0,
+      "rejected_candidates": 38,
+      "periods": {
+        "2023": 13,
+        "2024": 28,
+        "2025": 30
+      }
+    }
+  },
+  "delivery": {
+    "export_id": "export-c58c8df822604eb8a307d8674e499b653f2faa9b5be74faf18e9d00638465676",
+    "state": "delivered",
+    "accepted_facts": 71,
+    "rejected_facts": 0,
+    "message": null,
+    "retryable": false
+  },
+  "projection": {
+    "export_id": "export-c58c8df822604eb8a307d8674e499b653f2faa9b5be74faf18e9d00638465676",
+    "status": "completed",
+    "projection": {
+      "schema_version": "capture-projection-1.0",
+      "projection_id": "projection-1e782f82115f6b23a32832e9b69e86eb561101dc1928afd59015c5fc68ef2a88",
+      "export_id": "export-c58c8df822604eb8a307d8674e499b653f2faa9b5be74faf18e9d00638465676",
+      "input_digest": "5299a0994c9b5f42fddfd968df209fc613d4af6fe9c932c0d211e326d88fe512",
+      "transform_version": "capture-observation-1.1",
+      "content_digest": "1afadf907995476bf00948ca636ddd8e692bcb1664e9a74ae448367bd18940ab",
+      "source": {
+        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+        "report_company": "宁德时代新能源科技股份有限公司",
+        "publication_year": null,
+        "resource_revision": 2,
+        "report_company_id": "org:catl",
+        "industry": null,
+        "reporting_year": 2025
+      },
+      "facts": 71,
+      "observations": 71,
+      "periods": {
+        "2023": 13,
+        "2024": 28,
+        "2025": 30
+      },
+      "relations": {
+        "match": 3,
+        "different": 68
+      },
+      "repeated_occurrences": 0,
+      "diagnostics": []
+    },
+    "error_code": null,
+    "retryable": false
+  },
+  "sources": {
+    "ir-20261101T113618Z-9e578088e2c4:1": {
+      "content_digest": "d55739fb2ffed22e4635f311cc31ef1d6245f8721febe10687897b1736c25811",
+      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+      "ir_revision": 1,
+      "ir_run_id": "ir-20261101T113618Z-9e578088e2c4",
+      "label": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a.pdf",
+      "limited_evidence": true,
+      "period_context": {
+        "basis": "reporting_period_statement",
+        "evidence": "2025年1月1日至2025年12月31日",
+        "inheritance": "explicit_reference_only",
+        "page_index": 2,
+        "source_id": "block-p0003-0008"
+      },
+      "report_resource": {
+        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "company": {
+          "company_id": "org:catl",
+          "name": "宁德时代新能源科技股份有限公司"
+        },
+        "extensions": {},
+        "metadata_sources": {
+          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+        },
+        "original_filename": "2025 宁德时代ESG.pdf",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "reporting_year": 2025,
+        "revision": 2,
+        "schema_version": "report-resource-1.0",
+        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告"
+      },
+      "reporting_period_raw": "2025年1月1日至2025年12月31日",
+      "reporting_year": 2025,
+      "search_scope": {
+        "available_pages": [
+          0,
+          1,
+          2,
+          30,
+          53,
+          54,
+          55,
+          56,
+          57,
+          71,
+          72,
+          73,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          0,
+          1,
+          2,
+          30,
+          53,
+          54,
+          55,
+          56,
+          57,
+          71,
+          72,
+          73,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 92
+      },
+      "source_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a"
+    }
+  },
+  "bundle_schema": "extraction-fact-bundle-2.4",
+  "bundle_has_organization": false,
+  "organized_cache_exists": false,
+  "targets": [
+    {
+      "schema_version": "source-fact-2.0",
+      "source_fact_id": "a4d736cda3f942d1f7aa7440e2980906767afe5dfb3a1dd61e76cc4c9cf6b507",
+      "source_anchor_id": "b4557fecf017b8bfb2681d2d729677831f408648be5436e82ebce0d9af1090d5",
+      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+      "ir_run_id": "ir-20261101T113618Z-9e578088e2c4",
+      "ir_revision": 1,
+      "interpretation_id": "cb8947714185729f23c4bfe494a498815a805a83ac211cd82cbdf2ca12f25b98",
+      "report_resource": {
+        "schema_version": "report-resource-1.0",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "original_filename": "2025 宁德时代ESG.pdf",
+        "company": {
+          "name": "宁德时代新能源科技股份有限公司",
+          "company_id": "org:catl"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+        "metadata_sources": {
+          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+        },
+        "extensions": {},
+        "revision": 2
+      },
+      "value": {
+        "value_raw": "10,524,882.70",
+        "parse_status": "parsed",
+        "comparator": "exact",
+        "value_numeric": "10524882.70",
+        "value_lower": null,
+        "value_upper": null,
+        "unit_raw": "兆瓦时",
+        "extensions": {},
+        "kind": "quantitative"
+      },
+      "source_row_label": "综合能源消耗量²",
+      "identity": {
+        "reporting_period": {
+          "state": "stated",
+          "raw_text": "2023",
+          "value": "2023",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0001-c0003",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "2023",
+              "role": "column_header",
+              "bbox": null,
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "reporting_entity": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "entity_aggregation_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "reporting_boundary": {
+          "state": "stated",
+          "raw_text": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+          "value": "集团合并",
+          "evidence": [
+            {
+              "object_id": "block-p0072-0011",
+              "object_type": "text_block",
+              "page_index": 71,
+              "excerpt": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 66.9746878853773,
+                "x1": 530.7993920467962,
+                "y0": 461.92796884668934,
+                "y1": 474.9259419960551
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "measurement_method": {
+          "state": "stated",
+          "raw_text": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+          "value": "GB/T 2589-2020",
+          "evidence": [
+            {
+              "object_id": "block-p0072-0022",
+              "object_type": "text_block",
+              "page_index": 71,
+              "excerpt": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+              "role": "footnote",
+              "bbox": {
+                "x0": 68.97393229986618,
+                "x1": 508.8077034874186,
+                "y0": 639.400294539952,
+                "y1": 651.3984236009051
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "value_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "aggregation_role": {
+          "state": "stated",
+          "raw_text": "综合",
+          "value": "total",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "综合",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "denominator": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "dimensions": {
+          "business_segment": {
+            "state": "stated",
+            "raw_text": "综合能源消耗量²",
+            "value": [],
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合能源消耗量²",
+                "role": "table",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_carrier": {
+            "state": "stated",
+            "raw_text": "综合能源消耗量²",
+            "value": [],
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合能源消耗量²",
+                "role": "table",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_flow": {
+            "state": "stated",
+            "raw_text": "消耗量",
+            "value": "consumption",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "消耗量",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_source": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          }
+        }
+      },
+      "evidence": [
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0003",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "10,524,882.70",
+          "role": "value",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": "c2",
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0001",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "综合能源消耗量²",
+          "role": "row",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": null,
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0001-c0003",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "2023",
+          "role": "column_header",
+          "bbox": null,
+          "row_id": null,
+          "column_id": "c2",
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0002",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "兆瓦时",
+          "role": "unit",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": null,
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        }
+      ],
+      "quality": "grounded",
+      "flags": [
+        "unbound_identity:value_role",
+        "document_evidence_limited"
+      ],
+      "extensions": {
+        "identity_attempts": [
+          "unbound_identity:value_role"
+        ]
+      }
+    },
+    {
+      "schema_version": "source-fact-2.0",
+      "source_fact_id": "56551d41288de52a23a679eb22e1718688133d2fc8121c4c532134e7dcba2360",
+      "source_anchor_id": "6c71518448069688414e23944458b85be6a6b44653ba9aaf0335542d585e63dc",
+      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+      "ir_run_id": "ir-20261101T113618Z-9e578088e2c4",
+      "ir_revision": 1,
+      "interpretation_id": "e30f51441771e00927af295c9a4c61a593ef4a965122ef84400ce37807f67a5b",
+      "report_resource": {
+        "schema_version": "report-resource-1.0",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "original_filename": "2025 宁德时代ESG.pdf",
+        "company": {
+          "name": "宁德时代新能源科技股份有限公司",
+          "company_id": "org:catl"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+        "metadata_sources": {
+          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+        },
+        "extensions": {},
+        "revision": 2
+      },
+      "value": {
+        "value_raw": "19,233,654.46",
+        "parse_status": "parsed",
+        "comparator": "exact",
+        "value_numeric": "19233654.46",
+        "value_lower": null,
+        "value_upper": null,
+        "unit_raw": "兆瓦时",
+        "extensions": {},
+        "kind": "quantitative"
+      },
+      "source_row_label": "综合能源消耗量²",
+      "identity": {
+        "reporting_period": {
+          "state": "stated",
+          "raw_text": "2024",
+          "value": "2024",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0001-c0004",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "2024",
+              "role": "column_header",
+              "bbox": null,
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "reporting_entity": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "entity_aggregation_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "reporting_boundary": {
+          "state": "stated",
+          "raw_text": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+          "value": "集团合并",
+          "evidence": [
+            {
+              "object_id": "block-p0072-0011",
+              "object_type": "text_block",
+              "page_index": 71,
+              "excerpt": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 66.9746878853773,
+                "x1": 530.7993920467962,
+                "y0": 461.92796884668934,
+                "y1": 474.9259419960551
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "measurement_method": {
+          "state": "stated",
+          "raw_text": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+          "value": "GB/T 2589-2020",
+          "evidence": [
+            {
+              "object_id": "block-p0072-0022",
+              "object_type": "text_block",
+              "page_index": 71,
+              "excerpt": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+              "role": "footnote",
+              "bbox": {
+                "x0": 68.97393229986618,
+                "x1": 508.8077034874186,
+                "y0": 639.400294539952,
+                "y1": 651.3984236009051
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "value_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "aggregation_role": {
+          "state": "stated",
+          "raw_text": "综合",
+          "value": "total",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "综合",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "denominator": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "dimensions": {
+          "business_segment": {
+            "state": "stated",
+            "raw_text": "综合能源消耗量²",
+            "value": [],
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合能源消耗量²",
+                "role": "table",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_carrier": {
+            "state": "stated",
+            "raw_text": "综合能源消耗量²",
+            "value": [],
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合能源消耗量²",
+                "role": "table",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_flow": {
+            "state": "stated",
+            "raw_text": "消耗量",
+            "value": "consumption",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "消耗量",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_source": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          }
+        }
+      },
+      "evidence": [
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0004",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "19,233,654.46",
+          "role": "value",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": "c3",
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0001",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "综合能源消耗量²",
+          "role": "row",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": null,
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0001-c0004",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "2024",
+          "role": "column_header",
+          "bbox": null,
+          "row_id": null,
+          "column_id": "c3",
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0002",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "兆瓦时",
+          "role": "unit",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": null,
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        }
+      ],
+      "quality": "grounded",
+      "flags": [
+        "unbound_identity:value_role",
+        "document_evidence_limited"
+      ],
+      "extensions": {
+        "identity_attempts": [
+          "unbound_identity:value_role"
+        ]
+      }
+    },
+    {
+      "schema_version": "source-fact-2.0",
+      "source_fact_id": "e92ba10a6f7c5ae3107b0c3551cc10cafb93a353ad9c0ae922fe6fdde9d142b8",
+      "source_anchor_id": "97c6ee064e55f24623d93e35ecad6ed99bd86cefd712fe5a8d586451b9a48698",
+      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+      "ir_run_id": "ir-20261101T113618Z-9e578088e2c4",
+      "ir_revision": 1,
+      "interpretation_id": "7f26038ee3155c1ee7c34d7418dabe83bec4faf1528502635e6a036c3f03e913",
+      "report_resource": {
+        "schema_version": "report-resource-1.0",
+        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
+        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+        "original_filename": "2025 宁德时代ESG.pdf",
+        "company": {
+          "name": "宁德时代新能源科技股份有限公司",
+          "company_id": "org:catl"
+        },
+        "publication_year": null,
+        "industry": null,
+        "reporting_year": 2025,
+        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+        "metadata_sources": {
+          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
+          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
+          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
+        },
+        "extensions": {},
+        "revision": 2
+      },
+      "value": {
+        "value_raw": "24,767,519.69",
+        "parse_status": "parsed",
+        "comparator": "exact",
+        "value_numeric": "24767519.69",
+        "value_lower": null,
+        "value_upper": null,
+        "unit_raw": "兆瓦时",
+        "extensions": {},
+        "kind": "quantitative"
+      },
+      "source_row_label": "综合能源消耗量²",
+      "identity": {
+        "reporting_period": {
+          "state": "stated",
+          "raw_text": "2025",
+          "value": "2025",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0001-c0005",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "2025",
+              "role": "column_header",
+              "bbox": null,
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "reporting_entity": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "entity_aggregation_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "reporting_boundary": {
+          "state": "stated",
+          "raw_text": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+          "value": "集团合并",
+          "evidence": [
+            {
+              "object_id": "block-p0072-0011",
+              "object_type": "text_block",
+              "page_index": 71,
+              "excerpt": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+              "role": "report",
+              "bbox": {
+                "x0": 66.9746878853773,
+                "x1": 530.7993920467962,
+                "y0": 461.92796884668934,
+                "y1": 474.9259419960551
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "measurement_method": {
+          "state": "stated",
+          "raw_text": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+          "value": "GB/T 2589-2020",
+          "evidence": [
+            {
+              "object_id": "block-p0072-0022",
+              "object_type": "text_block",
+              "page_index": 71,
+              "excerpt": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+              "role": "footnote",
+              "bbox": {
+                "x0": 68.97393229986618,
+                "x1": 508.8077034874186,
+                "y0": 639.400294539952,
+                "y1": 651.3984236009051
+              },
+              "row_id": null,
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "value_role": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "aggregation_role": {
+          "state": "stated",
+          "raw_text": "综合",
+          "value": "total",
+          "evidence": [
+            {
+              "object_id": "cell-p0072-t0003-r0003-c0001",
+              "object_type": "cell",
+              "page_index": 71,
+              "excerpt": "综合",
+              "role": "row",
+              "bbox": null,
+              "row_id": "r2",
+              "column_id": null,
+              "char_start": null,
+              "char_end": null,
+              "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+            }
+          ]
+        },
+        "denominator": {
+          "state": "not_read",
+          "raw_text": null,
+          "value": null,
+          "evidence": []
+        },
+        "dimensions": {
+          "business_segment": {
+            "state": "stated",
+            "raw_text": "综合能源消耗量²",
+            "value": [],
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合能源消耗量²",
+                "role": "table",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_carrier": {
+            "state": "stated",
+            "raw_text": "综合能源消耗量²",
+            "value": [],
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合能源消耗量²",
+                "role": "table",
+                "bbox": null,
+                "row_id": null,
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_flow": {
+            "state": "stated",
+            "raw_text": "消耗量",
+            "value": "consumption",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "消耗量",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          },
+          "energy_source": {
+            "state": "stated",
+            "raw_text": "综合",
+            "value": "all",
+            "evidence": [
+              {
+                "object_id": "cell-p0072-t0003-r0003-c0001",
+                "object_type": "cell",
+                "page_index": 71,
+                "excerpt": "综合",
+                "role": "row",
+                "bbox": null,
+                "row_id": "r2",
+                "column_id": null,
+                "char_start": null,
+                "char_end": null,
+                "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+              }
+            ]
+          }
+        }
+      },
+      "evidence": [
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0005",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "24,767,519.69",
+          "role": "value",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": "c4",
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0001",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "综合能源消耗量²",
+          "role": "row",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": null,
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0001-c0005",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "2025",
+          "role": "column_header",
+          "bbox": null,
+          "row_id": null,
+          "column_id": "c4",
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        },
+        {
+          "object_id": "cell-p0072-t0003-r0003-c0002",
+          "object_type": "cell",
+          "page_index": 71,
+          "excerpt": "兆瓦时",
+          "role": "unit",
+          "bbox": null,
+          "row_id": "r2",
+          "column_id": null,
+          "char_start": null,
+          "char_end": null,
+          "source_snapshot": "ir-20261101T113618Z-9e578088e2c4:1"
+        }
+      ],
+      "quality": "grounded",
+      "flags": [
+        "unbound_identity:value_role",
+        "document_evidence_limited"
+      ],
+      "extensions": {
+        "identity_attempts": [
+          "unbound_identity:value_role"
+        ]
+      }
+    }
+  ],
+  "context_calls": [
+    {
+      "attempt": 0,
+      "attributes_added": 12,
+      "call_index": 10,
+      "clause_digest": "5109f5e5afcc9628377927c3a2e6683e8ab11a314f6dd4950530e4df03d37f6b",
+      "clause_key": "E1-5_01",
+      "data_kind": "quantitative",
+      "decision": {
+        "assignments": [
+          {
+            "fact_ids": [
+              "f1",
+              "f2",
+              "f3"
+            ],
+            "identity": [
+              {
+                "axis": "reporting_entity",
+                "quote": "除特别说明外，本报告披露信息的覆盖范围均为宁德时代新能源科技股份有限公司及其附属公司，与年度报告保持一致。",
+                "source_id": "c13",
+                "state": "stated",
+                "value": "宁德时代新能源科技股份有限公司及其附属公司"
+              },
+              {
+                "axis": "reporting_boundary",
+                "quote": "报告期内，基于集团合并财务报表，筛选有实质性环境影响的公司进行统计，环境议题数据统计范围与该范围一致。",
+                "source_id": "c15",
+                "state": "stated",
+                "value": "集团合并"
+              },
+              {
+                "axis": "measurement_method",
+                "quote": "计算参考《综合能耗计算通则》（GB/T 2589-2020），涵盖的能源类型包括煤炭、天然气、汽油、柴油、液化石油气、乙炔、蒸汽和电力等。",
+                "source_id": "c4",
+                "state": "stated",
+                "value": "GB/T 2589-2020"
+              },
+              {
+                "axis": "energy_carrier",
+                "quote": "综合能源消耗量²",
+                "source_id": "c8",
+                "state": "stated",
+                "value": []
+              },
+              {
+                "axis": "business_segment",
+                "quote": "综合能源消耗量²",
+                "source_id": "c8",
+                "state": "stated",
+                "value": []
+              }
+            ]
+          }
+        ]
+      },
+      "fact_aliases": {
+        "f1": "a4d736cda3f942d1f7aa7440e2980906767afe5dfb3a1dd61e76cc4c9cf6b507",
+        "f2": "56551d41288de52a23a679eb22e1718688133d2fc8121c4c532134e7dcba2360",
+        "f3": "e92ba10a6f7c5ae3107b0c3551cc10cafb93a353ad9c0ae922fe6fdde9d142b8"
+      },
+      "frame_digest": "ba3f81e6507d213967ed59713632ecb83cdbf33165388aa7f84bb50abbb3a573",
+      "parent_call_index": null,
+      "status": "ok",
+      "task_type": "context_enrichment",
+      "telemetry": {
+        "elapsed_seconds": 16.055,
+        "execution": {
+          "capabilities": {
+            "input_modalities": [
+              "text",
+              "image"
+            ],
+            "max_output_tokens": 8192,
+            "model": "Qwen3.5-9B-4bit",
+            "output_constraint": "grammar_schema",
+            "provider": "local_qwen",
+            "timeout_seconds": 600.0
+          },
+          "effective_output_tokens": 4096,
+          "effective_timeout_seconds": 600.0,
+          "elapsed_seconds": 16.055,
+          "failure_category": null,
+          "input_tokens": 3072,
+          "output_constraint": "grammar_schema",
+          "output_tokens": 276,
+          "output_validation": "not_evaluated",
+          "request": {
+            "attempt": 0,
+            "call_id": "call-baf8c72d974d407fa4a60c40a49b045e",
+            "evidence_ids": [
+              "block-p0072-0013",
+              "block-p0072-0019",
+              "block-p0072-0021",
+              "block-p0072-0022",
+              "block-p0072-0023",
+              "block-p0072-0024",
+              "block-p0072-0025",
+              "cell-p0072-t0003-r0003-c0001",
+              "cell-p0072-t0003-r0003-c0002",
+              "cell-p0072-t0003-r0001-c0003",
+              "cell-p0072-t0003-r0001-c0004",
+              "cell-p0072-t0003-r0001-c0005",
+              "block-p0003-0020",
+              "block-p0003-0005",
+              "block-p0072-0011"
+            ],
+            "input_modalities": [
+              "text"
+            ],
+            "parent_task_id": null,
+            "prompt_digest": "90c431bb9711e66db8c02a5ecb3126f0564255e24001d48ed40e26bffa5521df",
+            "requested_output_tokens": 4096,
+            "requested_timeout_seconds": 13603.695422708988,
+            "run_id": "extract-cf59323035d4dd8057803259b02ce6d7",
+            "schema_digest": "7be9fa3aa8a0bb0b2fc4c5c1dd712459391bae8bc73c4bce69c0fec0b3e0fc37",
+            "task_type": "clause_context"
+          },
+          "schema_version": "model-call-1.0",
+          "status": "succeeded"
+        },
+        "finish_reason": "stop",
+        "generation_started": true,
+        "generation_tokens": 276,
+        "generation_tps": 24.266529047370756,
+        "input_chars": 10583,
+        "input_tokens": 3072,
+        "model_id": "Qwen3.5-9B-4bit",
+        "model_lifecycle": "reused",
+        "output_token_budget": 4096,
+        "peak_memory_gb": 7.762496566,
+        "preflight": {
+          "effective_budget": {
+            "capabilities": {
+              "input_modalities": [
+                "text",
+                "image"
+              ],
+              "max_output_tokens": 8192,
+              "model": "Qwen3.5-9B-4bit",
+              "output_constraint": "grammar_schema",
+              "provider": "local_qwen",
+              "timeout_seconds": 600.0
+            },
+            "effective_output_tokens": 4096,
+            "effective_timeout_seconds": 600.0,
+            "elapsed_seconds": 0.0,
+            "failure_category": null,
+            "input_tokens": null,
+            "output_constraint": "grammar_schema",
+            "output_tokens": null,
+            "output_validation": "not_evaluated",
+            "request": {
+              "attempt": 0,
+              "call_id": "call-baf8c72d974d407fa4a60c40a49b045e",
+              "evidence_ids": [
+                "block-p0072-0013",
+                "block-p0072-0019",
+                "block-p0072-0021",
+                "block-p0072-0022",
+                "block-p0072-0023",
+                "block-p0072-0024",
+                "block-p0072-0025",
+                "cell-p0072-t0003-r0003-c0001",
+                "cell-p0072-t0003-r0003-c0002",
+                "cell-p0072-t0003-r0001-c0003",
+                "cell-p0072-t0003-r0001-c0004",
+                "cell-p0072-t0003-r0001-c0005",
+                "block-p0003-0020",
+                "block-p0003-0005",
+                "block-p0072-0011"
+              ],
+              "input_modalities": [
+                "text"
+              ],
+              "parent_task_id": null,
+              "prompt_digest": "90c431bb9711e66db8c02a5ecb3126f0564255e24001d48ed40e26bffa5521df",
+              "requested_output_tokens": 4096,
+              "requested_timeout_seconds": 13603.695422708988,
+              "run_id": "extract-cf59323035d4dd8057803259b02ce6d7",
+              "schema_digest": "7be9fa3aa8a0bb0b2fc4c5c1dd712459391bae8bc73c4bce69c0fec0b3e0fc37",
+              "task_type": "clause_context"
+            },
+            "schema_version": "model-call-1.0",
+            "status": "prepared"
+          },
+          "route": "bounded_agent_task"
+        },
+        "prompt_tokens": 3072,
+        "prompt_tps": 660.0647006443019,
+        "provider": "local_qwen",
+        "schema_decoding": {
+          "compile_seconds": 0.0,
+          "decoder_schema_sha256": "4f7a9db7423c8eae14b3625bb25b3219556be878d74d5aa2d5cb75f8f4cfffe4",
+          "deferred_constraints": [],
+          "dynamic_property_unique_keys": "task_receiver",
+          "fresh_matcher_per_request": true,
+          "lenient": false,
+          "original_schema_sha256": "4f7a9db7423c8eae14b3625bb25b3219556be878d74d5aa2d5cb75f8f4cfffe4",
+          "post_validation": "required_by_task_receiver",
+          "projection_version": "mlx-llguidance-structure.v1",
+          "property_order": "schema_order",
+          "status": "installed"
+        },
+        "schema_enforcement": "grammar_schema",
+        "timings": {
+          "generation_seconds": 16.046,
+          "model_load_seconds": 0.0,
+          "template_seconds": 0.001
+        }
+      }
+    }
+  ]
+}

@@ -12,8 +12,12 @@ COMMON_ATTRIBUTES = {
     "denominator": ("分母", "引用原文明确的比率或强度分母，不由相邻数值计算，不推测缺省分母。", ["分母", "每单位", "denominator", "per unit"]),
 }
 
+LOCAL_ATTRIBUTES = {"reporting_entity", "entity_aggregation_role", "aggregation_role",
+    "value_role", "business_segment", "site", "geography"}
+
 
 def attribute_start(axis, label, source):
     content = COMMON_ATTRIBUTES.get(axis)
     return AttributeDefinition(label=content[0] if content else label,source=source,
-        reading_instruction=content[1] if content else None,context_terms=content[2] if content else [])
+        reading_instruction=content[1] if content else None,context_terms=content[2] if content else [],
+        context_levels=["local"] if axis in LOCAL_ATTRIBUTES else ["local", "report"])

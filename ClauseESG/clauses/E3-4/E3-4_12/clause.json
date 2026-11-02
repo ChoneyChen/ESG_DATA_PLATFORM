@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,9 @@
       "vocabulary": []
     },
     "geography": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际地区",
@@ -40,6 +49,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -48,6 +61,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -62,6 +79,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -76,6 +96,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -89,6 +113,9 @@
       "vocabulary": []
     },
     "site": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [],
       "description": null,
       "label": "实际场址",
@@ -97,6 +124,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -112,6 +142,10 @@
       "vocabulary": []
     },
     "water_measure": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "水量类型",
@@ -120,6 +154,10 @@
       "vocabulary": []
     },
     "water_risk_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "水风险等级",
@@ -129,7 +167,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3dbd82d3baf9b818dbbf00489f5ac2daad3b8e28e446176f5ce09f67d685b3ea",
+  "clause_digest": "e575f514aa4ccbc2540355acc2a7c6db52d1f3a9f9d8706428cf6be46a0a8973",
   "clause_key": "E3-4_12",
   "data_kind": "quantitative",
   "definition": "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",

@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "denominator": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "分母",
         "每单位",
@@ -29,6 +36,10 @@
       "vocabulary": []
     },
     "denominator_scale": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "denominator_scale",
@@ -37,6 +48,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -53,6 +67,9 @@
       "vocabulary": []
     },
     "geography": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [],
       "description": null,
       "label": "geography",
@@ -61,6 +78,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -69,6 +90,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -83,6 +108,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -97,6 +125,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -110,6 +142,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -125,6 +160,10 @@
       "vocabulary": []
     },
     "water_measure": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "water_measure",
@@ -133,6 +172,10 @@
       "vocabulary": []
     },
     "water_risk_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "water_risk_class",
@@ -142,7 +185,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1f4b1e15215730b938d2d8a4fca6aad09057058a8e17bdf5931ac2f856f6401d",
+  "clause_digest": "a209acdff951b8fb37a3905060856d5aabe539606c7db964b569ba40ca1c390f",
   "clause_key": "E3-4_10",
   "data_kind": "quantitative",
   "definition": "Additional water intensity ratio。其他口径的水强度。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",

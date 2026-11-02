@@ -26,8 +26,11 @@ class ContextDecision(DecisionModel):
 
 
 def missing_attributes(clause, fact):
+    """Missing attributes that can be supplemented from this fact's context."""
     result = []
     for axis in clause.purposes.enrichment.identity_axes:
+        if axis == "reporting_period" and not references_report_period(" ".join(e.excerpt for e in fact.evidence)):
+            continue
         field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
         if field is None or field.state in {"not_read", "not_stated"}:
             result.append(axis)
@@ -35,9 +38,10 @@ def missing_attributes(clause, fact):
 
 
 def context_frame(documents, sources, clause, facts, profile, frames):
-    missing = {axis for fact in facts for axis in missing_attributes(clause, fact)}
-    report_attributes = {axis for axis in missing if profile["attributes"].get(axis)}
-    terms = list(dict.fromkeys(term for axis in sorted(report_attributes)
+    missing = {axis for fact in facts for axis in missing_attributes(clause, fact) if profile["levels"][axis]}
+    search_attributes = {axis for axis in missing if profile["attributes"].get(axis)}
+    report_attributes = {axis for axis in search_attributes if "report" in profile["levels"][axis]}
+    terms = list(dict.fromkeys(term for axis in sorted(search_attributes)
         for term in profile["attributes"][axis]))
     texts, seen, levels, characters = [], {}, {}, 0
     fact_sources = {fact.source_fact_id: [] for fact in facts}
@@ -94,9 +98,19 @@ def context_frame(documents, sources, clause, facts, profile, frames):
         frame = documents.read(source.ir_run_id,ref,0)
         template = frame
         for text in frame.texts:
-            alias = add(text,source.snapshot_id,"report",14000)
-            if alias and alias not in report_sources:
+            nearby_facts = [fact.source_fact_id for fact in facts
+                if source.document_id == fact.document_id and any(
+                    evidence.page_index is not None and abs(evidence.page_index-text.page_index)<=1
+                    for evidence in fact.evidence if evidence.role in {"value","statement"})]
+            if not report_attributes and not nearby_facts:
+                continue
+            alias = add(text,source.snapshot_id,"report" if report_attributes else "table",14000)
+            if alias and report_attributes and alias not in report_sources:
                 report_sources.append(alias)
+            if alias:
+                for fid in nearby_facts:
+                    if alias not in fact_sources[fid]:
+                        fact_sources[fid].append(alias)
         objects.append({"source_snapshot":source.snapshot_id,"object_id":ref.object_id})
     requested = missing if any(fact_sources.values()) else report_attributes
     observation = {"requested_attributes":sorted(requested),"terms":terms,"objects":objects,
@@ -126,13 +140,11 @@ def apply_context(clause, sources, frame, decision, facts, mappings, aliases, ob
             fid = aliases[alias]
             fact = facts[fid]
             wanted = set(missing_attributes(clause, fact)) & set(observation["requested_attributes"])
-            if not references_report_period(" ".join(e.excerpt for e in fact.evidence)):
-                wanted.discard("reporting_period")
             local = set(observation["fact_sources"][fid])
             report = set(observation["report_sources"])
             report_attributes = set(observation["report_attributes"])
             claims = [claim for claim in assignment.identity if claim.axis in wanted
-                and (claim.source_id in local or
+                and (("local" in clause.attributes[claim.axis].context_levels and claim.source_id in local) or
                     (claim.axis in report_attributes and claim.source_id in report))]
             context, flags = context_from_claims(frame,claims)
             fields, dimensions = {}, dict(fact.identity.dimensions)

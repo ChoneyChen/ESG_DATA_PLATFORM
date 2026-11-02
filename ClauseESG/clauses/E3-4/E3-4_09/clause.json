@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,9 @@
       "vocabulary": []
     },
     "entity_aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "集团",
         "子公司",
@@ -32,6 +38,9 @@
       "vocabulary": []
     },
     "geography": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [],
       "description": null,
       "label": "geography",
@@ -40,6 +49,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -48,6 +61,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -62,6 +79,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -76,6 +96,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -89,6 +113,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -104,6 +131,10 @@
       "vocabulary": []
     },
     "water_measure": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "water_measure",
@@ -112,6 +143,10 @@
       "vocabulary": []
     },
     "water_risk_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "water_risk_class",
@@ -121,7 +156,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "17a3db1921fe77b9c2ebf2dff0a7afb1232baee11d8c459a0125e23b6809e559",
+  "clause_digest": "f6e255654fb641cbdf476437e48cedacd0385d01a0b70ce50221d925cd6a5a88",
   "clause_key": "E3-4_09",
   "data_kind": "quantitative",
   "definition": "Water consumption - sectors/SEGMENTS [table]。耗水按行业板块分解。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",

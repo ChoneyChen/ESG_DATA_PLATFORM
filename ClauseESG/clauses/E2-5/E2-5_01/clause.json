@@ -1,6 +1,9 @@
 {
   "attributes": {
     "aggregation_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "合计",
         "总量",
@@ -16,6 +19,10 @@
       "vocabulary": []
     },
     "concern_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "concern_class",
@@ -24,6 +31,10 @@
       "vocabulary": []
     },
     "flow": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "flow",
@@ -32,6 +43,10 @@
       "vocabulary": []
     },
     "hazard_class": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "hazard_class",
@@ -40,6 +55,10 @@
       "vocabulary": []
     },
     "material_flow": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "material_flow",
@@ -48,6 +67,10 @@
       "vocabulary": []
     },
     "measurement_method": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "测量方法",
@@ -56,6 +79,10 @@
       "vocabulary": []
     },
     "reporting_boundary": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "本报告披露信息的覆盖范围",
         "本报告涵盖",
@@ -70,6 +97,9 @@
       "vocabulary": []
     },
     "reporting_entity": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "统计范围",
         "报告范围",
@@ -84,6 +114,10 @@
       "vocabulary": []
     },
     "reporting_period": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [
         "报告期",
         "报告时间",
@@ -97,6 +131,10 @@
       "vocabulary": []
     },
     "substance": {
+      "context_levels": [
+        "local",
+        "report"
+      ],
       "context_terms": [],
       "description": null,
       "label": "substance",
@@ -105,6 +143,9 @@
       "vocabulary": []
     },
     "value_role": {
+      "context_levels": [
+        "local"
+      ],
       "context_terms": [
         "实际",
         "目标",
@@ -121,7 +162,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b64a47605b4f2dfc92a3d77fbd30f77f013d6859f97efd8e2fab4fe46571c6a2",
+  "clause_digest": "20b396c961bc40e4501fc2438b8df3c3ff6654d5fb4e31490b25d772ef6bcac8",
   "clause_key": "E2-5_01",
   "data_kind": "quantitative",
   "definition": "逐行读取关注物质在生产中生成、使用或采购的披露数量，保留物质/危害类别和流向；每行各期间分别保存，重叠类别与合计不求和。",
