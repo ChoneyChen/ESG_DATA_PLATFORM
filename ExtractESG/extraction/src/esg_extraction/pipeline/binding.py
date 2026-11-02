@@ -56,7 +56,7 @@ def literal_categories(clause, context, attempts):
     return context.model_copy(update={**updates, "dimensions": dimensions})
 
 
-def context_from_claims(frame, claims, *, row=None, column_id=None, document=None, attempts=None):
+def context_from_claims(frame, claims, *, row=None, column_id=None, document=None, attempts=None, period_text=None):
     physical = [*frame.texts, *frame.title_sources]
     aliases = dict(frame.column_sources) if frame.kind == "text" else {}
     if column_id:
@@ -163,7 +163,7 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 evidence=pieces or [evidence],
             )
         (fields if claim.axis in CONTEXT_AXES else dimensions)[claim.axis] = value
-    period, period_flags = bind_period(frame, row=row, column_id=column_id, document=document)
+    period, period_flags = bind_period(frame, row=row, column_id=column_id, document=document, period_text=period_text)
     if period is not None:
         fields["reporting_period"] = period
     flags.extend(period_flags)
@@ -401,7 +401,7 @@ def qualitative_fact(clause, document, frame, match, interpretation_id):
         evidence=" ".join(t.text for t in frame.texts),
     )
     attempts = []
-    context, flags = context_from_claims(frame, match.identity, document=document, attempts=attempts)
+    context, flags = context_from_claims(frame, match.identity, document=document, attempts=attempts, period_text=raw)
     context = literal_categories(clause, context, attempts)
     if match.quote and raw != text.text:
         flags.append("statement_is_excerpt")

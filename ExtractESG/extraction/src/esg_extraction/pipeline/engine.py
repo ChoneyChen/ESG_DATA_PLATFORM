@@ -33,6 +33,8 @@ Read ALL reported periods in each selected row, including historical years. The 
 The receiver reads actual values from those physical cells. Different years, entities, methods and members remain separate.
 Place shared frame identity in the top-level identity list ONCE; put only supported row-specific overrides in each match. Omit unsupported axes entirely; do not enumerate missing fields. An empty identity list is valid. Keep each reason to one short phrase.
 Use the short source IDs actually shown: a row label_source_id, a column source_id, a cell_id, or an object_id in texts/title_sources. Never cite a numeric cell for a header quote. Put column-specific identities in column_identity; a row identity must be true for every selected column.
+A column name may span several physical header parts. Read the complete joined name, cite the column source_id, and quote its contiguous joined wording; do not truncate a name to its first header cell.
+For an attribute without a supplied vocabulary, preserve its reported wording rather than inventing a normalized category.
 State supported attributes from requested_identity_fields with value + exact quote + source_id. Other explicitly printed attributes may remain literal dimensions.
 Never emit bound_identity_axes: those fields are already bound from physical evidence.
 Do not copy fixed clause axes into the report identity. A clause defines what to seek; it is not evidence of what the report says.
@@ -567,6 +569,8 @@ class ExtractionBackbone:
                                         "remaining_seconds":max(.001,budget.timeout_seconds-(time.monotonic()-started))}},
                                 schema=context_schema(batch_frame,aliases,requested_attributes),max_tokens=budget.max_output_tokens,cancel_check=cancel_check)
                             decision = ContextDecision.model_validate(raw if isinstance(raw,dict) else json.loads(raw))
+                            if telemetry.get("execution"):
+                                telemetry["execution"]["output_validation"] = "passed"
                             count = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search)
                             call.update(status="ok",telemetry=telemetry,decision=decision.model_dump(mode="json"),attributes_added=count)
                             for fid in aliases.values():

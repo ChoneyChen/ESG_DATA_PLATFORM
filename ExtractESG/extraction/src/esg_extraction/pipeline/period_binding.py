@@ -19,7 +19,7 @@ def _field(raw, sources, role, state="stated"):
     ])
 
 
-def bind_period(frame, *, row=None, column_id=None, document=None):
+def bind_period(frame, *, row=None, column_id=None, document=None, period_text=None):
     """Local columns > explicit row date > table title > explicit report reference.
 
     A missing local date returns None, preserving an independently grounded model
@@ -42,10 +42,14 @@ def bind_period(frame, *, row=None, column_id=None, document=None):
             return field, []
     context = document.period_context.model_dump() if document and document.period_context else None
     local_text = " ".join([frame.title or "", row.label if row else "", *(t.text for t in frame.texts if t.object_type != "cell")])
+    if period_text is not None:
+        local_text = period_text
+    # A dated standard/code is not a competing measurement period.
+    calendar_text = re.sub(r"(\d{3,}[-/:])(?:19|20|21)\d{2}\b", r"\1", local_text)
     if (context and context.get("basis") == "reporting_period_statement"
         and context.get("source_id") and context.get("evidence") and context.get("page_index") is not None
         and references_report_period(local_text)
-        and not any_column_period and not parse_period(local_text)):
+        and not any_column_period and not parse_period(calendar_text)):
         period = parse_period(context["evidence"])
         if period:
             return ReportedField(state="inherited", raw_text=context["evidence"], value=period_payload(period), evidence=[

@@ -19,11 +19,11 @@ Return assignments with fact_ids and identity proposals (axis, value, quote, sou
 
 class AttributeAssignment(DecisionModel):
     fact_ids: list[str] = Field(min_length=1)
-    identity: IdentityClaims = Field(default_factory=list)
+    identity: IdentityClaims = Field(min_length=1)
 
 
 class ContextDecision(DecisionModel):
-    assignments: list[AttributeAssignment] = Field(default_factory=list)
+    assignments: list[AttributeAssignment]
 
 
 def missing_attributes(clause, fact):
