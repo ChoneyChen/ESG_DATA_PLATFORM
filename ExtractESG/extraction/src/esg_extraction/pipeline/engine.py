@@ -4,8 +4,6 @@ from __future__ import annotations
 import json
 import re
 import time
-from collections import Counter
-from esg_data.periods import period_label
 from esg_data.hashing import digest
 from esg_contracts.evidence import SearchIntent, EvidencePreparationRequest, EvidenceFrame
 from esg_contracts.search import PageSearchIntent
@@ -21,8 +19,9 @@ from .frames import split_frame, remainder_frames
 from .reading_frame import reading_frame
 from .enrichment import (context_frame, context_schema, ContextDecision, apply_context, missing_attributes, INSTRUCTIONS as CONTEXT_INSTRUCTIONS)
 from .ports import DocumentPort, ModelPort, ArtifactPort, ResultPort
+from .statistics import RunStatistics
 
-ENGINE_VERSION = "clause-backbone-1.7"
+ENGINE_VERSION = "clause-backbone-1.8"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return row IDs and column IDs for real measurements in this bounded evidence frame. Never output, compute or convert values.
@@ -92,8 +91,6 @@ class ExtractionBackbone:
         checkpoint = self.results.checkpoint()
         started = time.monotonic() - checkpoint.get("elapsed_seconds", 0)
         calls = checkpoint.get("calls", 0)
-        facts = []
-        mappings = []
         coverage = []
         trace = []
         try:
@@ -114,9 +111,9 @@ class ExtractionBackbone:
         restored = self.results.collection() if checkpoint else {"facts":[],"clause_mappings":[]}
         restored_facts = {f["source_fact_id"]:SourceFact.model_validate(f) for f in restored["facts"]}
         restored_mappings = [ClauseMapping.model_validate(m) for m in restored["clause_mappings"]]
-        complete_ids = {m.source_fact_id for m in restored_mappings if m.clause_key in self.completed}
-        facts = [restored_facts[fid] for fid in complete_ids]
-        mappings = [m for m in restored_mappings if m.clause_key in self.completed]
+        self.statistics = RunStatistics(clauses)
+        for mapping in restored_mappings:
+            self.statistics.record(restored_facts[mapping.source_fact_id], mapping)
         previous_status = self.results.status() or {}
         errors = list((previous_status.get("summary") or {}).get("errors", []))
         coverage = [ClauseCoverage.model_validate(c) for c in previous_status.get("coverage",[]) if c["clause_key"] in self.completed]
@@ -153,6 +150,7 @@ class ExtractionBackbone:
                     "current": index - 1,
                     "total": len(clauses),
                     "model_calls": calls,
+                    "fact_count": self.statistics.fact_count,
                 }
             )
             plan = compile_search_plan(clause, limit=min(32, budget.max_objects_per_clause))
@@ -161,7 +159,8 @@ class ExtractionBackbone:
             try:
                 candidates, search_observation = retrieve_candidates(self.documents, request.ir_run_id, intent,
                     budget.max_objects_per_clause, sources=self.sources.values(),
-                    broaden=lambda: not any(m.match == "match" for m in local_mappings.values()))
+                    broaden=lambda: calls < budget.max_model_calls and time.monotonic()-started < budget.timeout_seconds
+                        and not any(m.match == "match" for m in local_mappings.values()))
             except Exception as exc:
                 errors.append(
                     {
@@ -181,8 +180,6 @@ class ExtractionBackbone:
                     run_id,
                     document,
                     clauses,
-                    facts,
-                    mappings,
                     coverage,
                     calls,
                     started,
@@ -191,11 +188,19 @@ class ExtractionBackbone:
                 continue
             local_mappings = {m.source_fact_id:m for m in restored_mappings if m.clause_key == key}
             local_facts = {fid:restored_facts[fid] for fid in local_mappings}
+            physical_facts = {(fact.kind,e.object_id,e.page_index,e.excerpt,e.char_start):fid
+                for fid,fact in local_facts.items()
+                for e in fact.evidence if e.role in {"value","statement"}}
+
+            def unread(physical):
+                previous = physical_facts.get(physical)
+                return previous is None or local_mappings[previous].match == "uncertain"
+
             read_frames = [EvidenceFrame.model_validate(self.artifacts.read(run_id,path))
                 for path in sorted(self.frame_paths.get(key,()))]
             reasons = ["object_budget_exhausted"] if search_observation["truncated"] else []
-            inspected = 0
-            inspected_ids = set()
+            inspected_ids = {item.rsplit("/",1)[0] for item in self.visited if item.startswith(key+"/")}
+            inspected = len(inspected_ids)
             complete = not search_observation["truncated"]
             for candidate in candidates:
                 source_document = self.sources[candidate.source_snapshot]
@@ -217,6 +222,9 @@ class ExtractionBackbone:
                         frame = self.documents.read(source_document.ir_run_id, candidate, chunk)
                         frame = stamp_frame(frame, source_document.snapshot_id)
                         read_frames.append(frame)
+                        frame_path = f"evidence/{digest([key,frame.source_snapshot,frame.object_id,chunk,frame.digest])}.json"
+                        self.artifacts.write(run_id,frame_path,frame.model_dump(mode="json"))
+                        self.frame_paths.setdefault(key,set()).add(frame_path)
                     except Exception as exc:
                         complete = False
                         reasons.append("document_read_failed")
@@ -248,6 +256,11 @@ class ExtractionBackbone:
                                     continue
                                 cells = []
                                 for cell in row.cells:
+                                    physical = ("quantitative",cell.source_object_id or cell.cell_id,
+                                        cell.page_index if cell.page_index is not None else frame.page_index,
+                                        cell.raw_text,cell.char_start)
+                                    if not unread(physical):
+                                        continue
                                     if cell.candidate_kind in {"measurement", "unresolved"}:
                                         cells.append(cell)
                                     else:
@@ -263,17 +276,18 @@ class ExtractionBackbone:
                             frame = frame.model_copy(
                                 update={"rows": rows}
                             )
+                        else:
+                            frame = frame.model_copy(update={"texts":[text for text in frame.texts
+                                if unread(("assertion",text.object_id,text.page_index,text.text,text.char_start))]})
                         if clause.data_kind == "quantitative" and not frame.rows:
                             reasons.append("object_has_no_bindable_quantitative_cells")
                             continue
                         if clause.data_kind == "qualitative" and not frame.texts:
                             reasons.append("object_has_no_bindable_statements")
                             continue
-                        frame_body = frame.model_dump(mode="json")
-                        frame_path = f"evidence/{digest([key, frame.object_id, chunk, frame.digest])}.json"
-                        self.artifacts.write(run_id, frame_path, frame_body)
-                        if frame.fragment is None:
-                            self.frame_paths.setdefault(key,set()).add(frame_path)
+                        if frame.fragment is not None:
+                            frame_path = f"evidence/{digest([key,frame.source_snapshot,frame.object_id,chunk,frame.digest])}.json"
+                            self.artifacts.write(run_id,frame_path,frame.model_dump(mode="json"))
                         context = {
                             "target": clause.reading_card(),
                             "frame": reading_frame(frame),
@@ -306,7 +320,7 @@ class ExtractionBackbone:
                                 "current": index - 1,
                                 "total": len(clauses),
                                 "model_calls": calls,
-                                "fact_count": len(facts) + len(local_facts),
+                                "fact_count": self.statistics.fact_count,
                             }
                         )
                         call = {
@@ -423,11 +437,20 @@ class ExtractionBackbone:
                                                 "candidate_kind": "unresolved", "selection": "nonmeasurement", "reason": rejected})
                                             continue
                                         stable_id = digest([run_id, key, fact.source_anchor_id])
+                                        location = next(e for e in fact.evidence if e.role in {"value","statement"})
+                                        physical = (fact.kind,location.object_id,location.page_index,location.excerpt,location.char_start)
+                                        previous = physical_facts.get(physical)
+                                        if previous:
+                                            if local_mappings[previous].match != "uncertain":
+                                                continue
+                                            stable_id = previous
+                                            fact = fact.model_copy(update={"source_anchor_id":local_facts[previous].source_anchor_id})
+                                        physical_facts[physical] = stable_id
                                         fact = fact.model_copy(update={"source_fact_id":stable_id})
                                         mapping = mapping.model_copy(update={"source_fact_id":stable_id})
                                         local_facts[fact.source_fact_id] = fact
                                         local_mappings[fact.source_fact_id] = mapping
-                                        self.results.put(fact, mapping)
+                                        self._record(fact, mapping)
                                         if clause.data_kind == "quantitative":
                                             row_relations.setdefault(match.row_id,set()).add(mapping.match)
                                 except (ValueError, TypeError, KeyError) as exc:
@@ -437,14 +460,13 @@ class ExtractionBackbone:
                                 if pieces:
                                     pending_frames.extend((piece,calls,attempt+1) for piece in pieces)
                                     call["remainder_frames"] = [piece.digest for piece in pieces]
-                            inspected_ids.add(candidate.object_id)
+                            inspected_ids.add(frame_key.rsplit("/",1)[0])
                             inspected = len(inspected_ids)
                         except Exception as exc:
                             if isinstance(exc,PipelineCancelled) or cancel_check():
                                 call.update(status="cancelled",error=str(exc)[:300],telemetry=getattr(exc,"telemetry",telemetry))
                                 self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
-                                self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
-                                    [*mappings,*local_mappings.values()],coverage,calls,started,errors)
+                                self._write_outputs(run_id,document,clauses,coverage,calls,started,errors)
                                 raise PipelineCancelled("Extraction cancelled") from exc
                             if telemetry.get("execution"):
                                 telemetry["execution"]["output_validation"] = "failed"
@@ -487,8 +509,6 @@ class ExtractionBackbone:
                             run_id,
                             document,
                             clauses,
-                            [*facts, *local_facts.values()],
-                            [*mappings, *local_mappings.values()],
                             [*coverage, active],
                             calls,
                             started,
@@ -496,7 +516,7 @@ class ExtractionBackbone:
                         )
                         on_progress({"stage": "extracting", "clause_key": key, "object_id": frame.object_id,
                                      "current": index - 1, "total": len(clauses), "model_calls": calls,
-                                     "fact_count": len(facts) + len(local_facts)})
+                                     "fact_count": self.statistics.fact_count})
                     if frame_succeeded:
                         self.visited.add(frame_key)
                         errors = [error for error in errors if error.get("frame_key") != frame_key]
@@ -508,13 +528,17 @@ class ExtractionBackbone:
             if search_observation["truncated"]:
                 complete = False
                 reasons.append("object_budget_exhausted")
+            inspected_ids.update(item.rsplit("/",1)[0] for item in self.visited if item.startswith(key+"/"))
+            inspected = len(inspected_ids)
             if search_observation.get("error"):
                 errors.append({"clause_key":key,"error":search_observation["error"]})
-            if complete and not any(m.match == "match" for m in local_mappings.values()) and calls < budget.max_model_calls:
-                need = self._page_request(key,"target",plan["page"],"Search current evidence did not find the target")
+            if complete and calls < budget.max_model_calls and time.monotonic()-started < budget.timeout_seconds:
+                page_intent = plan["page"]
+                if not any(m.match == "match" for m in local_mappings.values()):
+                    page_intent = {**page_intent,"required_term_groups":[]}
+                need = self._page_request(key,"target",page_intent,"Prepared evidence read; locate remaining pages for this clause")
                 if need:
-                    self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
-                        [*mappings,*local_mappings.values()],coverage,calls,started,errors)
+                    self._write_outputs(run_id,document,clauses,coverage,calls,started,errors)
                     raise EvidenceNeeded(need)
             context_facts = {fid:fact for fid,fact in local_facts.items() if local_mappings[fid].match != "different" and missing_attributes(clause,fact)}
             if context_facts and key not in self.enriched and calls < budget.max_model_calls and time.monotonic()-started < budget.timeout_seconds:
@@ -558,7 +582,7 @@ class ExtractionBackbone:
                             "task_type":"context_enrichment","data_kind":clause.data_kind,"frame_digest":context_evidence.digest,"fact_aliases":aliases,
                             "parent_call_index":parent_call,"attempt":attempt}
                         on_progress({"stage":"enriching","clause_key":key,"current":index-1,"total":len(clauses),
-                            "model_calls":calls,"fact_count":len(facts)+len(local_facts)})
+                            "model_calls":calls,"fact_count":self.statistics.fact_count})
                         try:
                             raw, telemetry = self.model.complete(instructions=CONTEXT_INSTRUCTIONS,
                                 context={"target":target_card,"requested_attributes":requested_attributes,"facts":inputs,"context":reading_frame(batch_frame),
@@ -571,18 +595,18 @@ class ExtractionBackbone:
                             decision = ContextDecision.model_validate(raw if isinstance(raw,dict) else json.loads(raw))
                             if telemetry.get("execution"):
                                 telemetry["execution"]["output_validation"] = "passed"
-                            count = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search)
+                            count, changed_ids = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search)
                             call.update(status="ok",telemetry=telemetry,decision=decision.model_dump(mode="json"),attributes_added=count)
+                            for fid in changed_ids:
+                                self._record(local_facts[fid],local_mappings[fid])
                             for fid in aliases.values():
-                                self.results.put(local_facts[fid],local_mappings[fid])
                                 self.context_reads.add(digest([context_evidence.digest,fid]))
                         except Exception as exc:
                             call.update(status="cancelled" if cancel_check() or isinstance(exc,PipelineCancelled) else "failed",error=str(exc)[:400],
                                 telemetry=getattr(exc,"telemetry",{}))
                             self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
                             if call["status"] == "cancelled":
-                                self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
-                                    [*mappings,*local_mappings.values()],coverage,calls,started,errors)
+                                self._write_outputs(run_id,document,clauses,coverage,calls,started,errors)
                                 raise PipelineCancelled("Extraction cancelled") from exc
                             if getattr(exc,"category",None) in {"generation_incomplete","input_budget","timeout"} and len(batch)>1:
                                 middle = len(batch)//2
@@ -607,12 +631,9 @@ class ExtractionBackbone:
                         "exact_terms":terms,"source_priority":["text"]}
                     need = self._page_request(key,"context",context_intent,"Read existing context first; look for unresolved attributes outside prepared pages")
                     if need:
-                        self._write_outputs(run_id,document,clauses,[*facts,*local_facts.values()],
-                            [*mappings,*local_mappings.values()],coverage,calls,started,errors)
+                        self._write_outputs(run_id,document,clauses,coverage,calls,started,errors)
                         raise EvidenceNeeded(need)
                 self.enriched.add(key)
-            facts.extend(local_facts.values())
-            mappings.extend(local_mappings.values())
             self.completed.add(key)
             required = {s.scope_id for s in clause.output_scopes if s.required}
             covered = {
@@ -640,22 +661,20 @@ class ExtractionBackbone:
                     clause_key=key,
                     clause_digest=clause.clause_digest,
                     state=state,
-                    candidate_objects=len(candidates),
+                    candidate_objects=max(len(candidates),inspected),
                     inspected_objects=inspected,
                     fact_count=len(local_facts),
                     required_scopes=sorted(required),
                     covered_scopes=sorted(covered),
                     reasons=list(dict.fromkeys(reasons)),
                     search=search_observation,
-                    periods=period_coverage(read_frames, list(local_facts.values())),
+                    periods=period_coverage(read_frames, list(local_facts.values()), data_kind=clause.data_kind),
                 )
             )
             self._write_outputs(
                 run_id,
                 document,
                 clauses,
-                facts,
-                mappings,
                 coverage,
                 calls,
                 started,
@@ -668,13 +687,13 @@ class ExtractionBackbone:
                     "current": index,
                     "total": len(clauses),
                     "model_calls": calls,
-                    "fact_count": len(facts),
+                    "fact_count": self.statistics.fact_count,
                 }
             )
         self.artifacts.write(run_id, "diagnostics/model-calls.json", trace)
         self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
         return self._write_outputs(
-            run_id, document, clauses, facts, mappings, coverage, calls, started, errors,
+            run_id, document, clauses, coverage, calls, started, errors,
             final=True, rejected_count=len(rejected_candidates),
         )
 
@@ -683,8 +702,6 @@ class ExtractionBackbone:
         run_id,
         document,
         clauses,
-        facts,
-        mappings,
         coverage,
         calls,
         started,
@@ -705,13 +722,10 @@ class ExtractionBackbone:
             "summary": {
                 "selected_clauses": len(clauses),
                 "processed_clauses": len(coverage),
-                "source_facts": len(facts),
-                "quantitative": sum(f.kind == "quantitative" for f in facts),
-                "qualitative": sum(f.kind == "assertion" for f in facts),
                 "model_calls": calls,
                 "elapsed_seconds": round(time.monotonic() - started, 3),
                 "errors": errors,
-                "assessment": assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count),
+                **self.statistics.summary(coverage, errors, final, rejected_count),
             },
         }
         self.results.status(body)
@@ -719,14 +733,17 @@ class ExtractionBackbone:
         if not final:
             return body
         # Complete the transport bundle once. Running views read the indexed facts.
-        body["facts"] = [fact.model_dump(mode="json", exclude_none=True) for fact in facts]
-        body["clause_mappings"] = [mapping.model_dump(mode="json", exclude_none=True) for mapping in mappings]
+        body.update(self.results.collection())
         body = FactBundle.model_validate(body).model_dump(
             mode="json", exclude_none=True
         )
         self.artifacts.write(run_id, "results/facts.json", body)
         self.results.status({k:v for k,v in body.items() if k not in {"facts","clause_mappings"}})
         return body
+
+    def _record(self, fact, mapping):
+        self.results.put(fact, mapping)
+        self.statistics.record(fact, mapping)
 
     def _save_checkpoint(self,calls,started):
         self.results.checkpoint({"calls":calls,"elapsed_seconds":time.monotonic()-started,
@@ -740,7 +757,7 @@ class ExtractionBackbone:
             return None
         excluded = sorted({page for source in self.sources.values()
             for page in (source.search_scope or {}).get("prepared_pages", (source.search_scope or {}).get("available_pages",[]))})
-        query = {**intent,"required_term_groups":[]}
+        query = dict(intent)
         request_id = digest([key,phase,sorted(self.sources),excluded,query])
         if request_id in self.exhausted_queries:
             return None
@@ -779,37 +796,6 @@ def adjacent_table_quantities(frame, decided_columns, matches):
                 result.append(NumericMatch(row_id=row.row_id, columns=[column], selection="measurement", match=relation,
                     reason="Printed table quantity retained independently of target selection"))
     return result
-
-
-def assess_results(facts, mappings, coverage, clauses, errors, final, rejected_count=0):
-    """One result projection, independent of views and publication decisions."""
-    interrupted = bool(errors) or len(coverage) != len(clauses) or any(
-        "execution_budget_exhausted" in c.reasons or "object_budget_exhausted" in c.reasons or c.state == "failed" or "document_read_failed" in c.reasons
-        for c in coverage
-    )
-    required = {key: clause.purposes.enrichment.identity_axes for key, clause in clauses.items()}
-    by_id = {fact.source_fact_id: fact for fact in facts}
-    incomplete = False
-    for link in mappings:
-        if link.match == "different":
-            continue
-        fact = by_id[link.source_fact_id]
-        for axis in required[link.clause_key]:
-            field = getattr(fact.identity, axis, None) or fact.identity.dimensions.get(axis)
-            if field is None or field.state not in {"stated", "inherited"}:
-                incomplete = True
-    return {
-        "execution_state": "running" if not final else "interrupted" if interrupted else "completed",
-        "search_coverage": "in_progress" if not final else "incomplete" if interrupted else "bounded_complete",
-        "capture_result": "usable" if facts else "empty",
-        "metadata_completeness": "not_requested" if not any(required.values()) or not facts else "partial" if incomplete else "complete",
-        "comparison_status": "not_evaluated",
-        "target_facts": len({m.source_fact_id for m in mappings if m.match == "match"}),
-        "other_facts": len({m.source_fact_id for m in mappings if m.match == "different"}),
-        "unresolved_facts": len({m.source_fact_id for m in mappings if m.match == "uncertain"}),
-        "rejected_candidates": rejected_count,
-        "periods": dict(Counter(period_label(fact.identity.reporting_period.value) for fact in facts)),
-    }
 
 
 def stamp_frame(frame, snapshot):

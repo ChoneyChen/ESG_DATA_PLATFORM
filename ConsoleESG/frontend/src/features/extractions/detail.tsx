@@ -102,6 +102,15 @@ export function ExtractionPage({
     );
   const clause = overview.data?.clauses.find(c => c.clause_key === childId),
     fact = results.data?.facts[0];
+  const factCount = Math.max(
+    run?.run?.summary?.source_facts ?? 0,
+    run?.progress?.fact_count ?? 0,
+    overview.data?.summary?.source_facts ?? 0,
+  );
+  const modelCalls = Math.max(
+    run?.run?.summary?.model_calls ?? 0,
+    run?.progress?.model_calls ?? 0,
+  );
   async function cancel() {
     setCancelling(true);
     setError(undefined);
@@ -293,20 +302,11 @@ export function ExtractionPage({
                       <span>选择条款</span>
                     </div>
                     <div>
-                      <strong>
-                        {run.run?.summary?.source_facts ??
-                          run.progress?.fact_count ??
-                          overview.data?.summary?.source_facts ??
-                          0}
-                      </strong>
+                      <strong>{factCount}</strong>
                       <span>原始事实</span>
                     </div>
                     <div>
-                      <strong>
-                        {run.run?.summary?.model_calls ??
-                          run.progress?.model_calls ??
-                          0}
-                      </strong>
+                      <strong>{modelCalls}</strong>
                       <span>模型调用</span>
                     </div>
                   </div>
@@ -355,7 +355,7 @@ export function ExtractionPage({
                     { id: "results", label: "条款结果" },
                     {
                       id: "facts",
-                      label: `原始事实 · ${overview.data?.summary?.source_facts || 0}`,
+                      label: `原始事实 · ${factCount}`,
                     },
                     { id: "coverage", label: "覆盖情况" },
                     {

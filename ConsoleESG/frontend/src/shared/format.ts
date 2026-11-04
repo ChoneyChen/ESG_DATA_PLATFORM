@@ -30,7 +30,7 @@ export const labels: Record<string, string> = {
   pending: "等待结果",
   empty: "无数据",
   not_stated: "未陈述",
-  not_read: "未读取",
+  not_read: "未取得",
   conflict: "冲突",
   available: "有值",
   not_applicable: "不适用",
@@ -72,6 +72,8 @@ export const tone = (
 export const text = (value: unknown): string =>
   value == null
     ? "—"
+    : Array.isArray(value)
+      ? value.map(text).join("；")
     : typeof value === "object"
       ? JSON.stringify(value)
       : String(value);

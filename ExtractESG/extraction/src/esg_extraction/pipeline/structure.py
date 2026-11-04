@@ -30,10 +30,10 @@ def period_columns(frame, document=None):
     return columns or None
 
 
-def period_coverage(frames, facts):
+def period_coverage(frames, facts, *, data_kind="quantitative"):
     """Potential table cells and actual captures are distinct, not a recall claim."""
     candidates = {}
-    for frame in frames:
+    for frame in frames if data_kind == "quantitative" else ():
         if frame.kind != "table":
             continue
         columns = {c.column_id: c for c in column_structure(frame).columns}
@@ -50,4 +50,5 @@ def period_coverage(frames, facts):
     return {"observed_candidates": dict(Counter(candidates.values())),
         "captured_facts": dict(Counter(period_label(fact.identity.reporting_period.value) for fact in facts)),
         "unselected_candidate_cells": sorted(set(candidates) - captured_sources),
-        "meaning": "Potential cells in inspected evidence; not report-wide recall or non-disclosure proof."}
+        "meaning": "Potential cells in inspected evidence; not report-wide recall or non-disclosure proof."
+            if data_kind == "quantitative" else "Periods of captured statements; numerical columns are not qualitative candidates."}

@@ -1,92 +1,63 @@
 {
-  "run_id": "extract-afdb5806d48dcfb9b6652ea435f159f5",
-  "engine_fingerprint": "78f314df0dac2966601ec2dba96f4977a0aa991fd8f697782325ff1a7bee3d90",
-  "summary": {
-    "assessment": {
-      "capture_result": "usable",
-      "comparison_status": "not_evaluated",
-      "execution_state": "completed",
-      "metadata_completeness": "partial",
-      "other_facts": 177,
-      "periods": {
-        "2023": 75,
-        "2024": 75,
-        "2025": 72
-      },
-      "rejected_candidates": 6,
-      "search_coverage": "bounded_complete",
-      "target_facts": 45,
-      "unresolved_facts": 0
-    },
-    "elapsed_seconds": 596.851,
-    "errors": [],
-    "model_calls": 8,
-    "processed_clauses": 1,
-    "qualitative": 0,
-    "quantitative": 222,
-    "selected_clauses": 1,
-    "source_facts": 222
-  },
-  "physical_header_groups": {
-    "g1": "Ports and Related Services 2023",
-    "g10": "Telecommunications (3) 2023",
-    "g11": "Telecommunications (3) 2024",
-    "g12": "Telecommunications (3) 2025",
-    "g13": "Total 2023",
-    "g14": "Total 2024",
-    "g15": "Total 2025",
-    "g2": "Ports and Related Services 2024",
-    "g3": "Ports and Related Services 2025",
-    "g4": "Retail (2) 2023",
-    "g5": "Retail (2) 2024",
-    "g6": "Retail (2) 2025",
-    "g7": "Infrastructure 2023",
-    "g8": "Infrastructure 2024",
-    "g9": "Infrastructure 2025"
-  },
-  "context_calls": [
-    {
-      "call_index": 3,
-      "status": "ok",
-      "attributes_added": 0,
-      "output_tokens": 3,
-      "assignments": []
-    },
+  "run_id": "extract-7a1ad7686a034e2a35d0700e4aa11ac0",
+  "engine_fingerprint": "b19403ea1242d61d17bbeb7b8b0d0decb91d3c955fef2f2603a8b124359c11cf",
+  "calls": [
     {
       "call_index": 4,
       "status": "ok",
-      "attributes_added": 0,
-      "output_tokens": 3,
-      "assignments": []
+      "attributes_added": 8,
+      "assigned_facts": 8,
+      "axes": [
+        "pollution_medium"
+      ]
     },
     {
       "call_index": 5,
       "status": "ok",
-      "attributes_added": 0,
-      "output_tokens": 3,
-      "assignments": []
+      "attributes_added": 8,
+      "assigned_facts": 8,
+      "axes": [
+        "pollution_medium"
+      ]
     },
     {
       "call_index": 6,
       "status": "ok",
-      "attributes_added": 0,
-      "output_tokens": 3,
-      "assignments": []
+      "attributes_added": 8,
+      "assigned_facts": 8,
+      "axes": [
+        "geography"
+      ]
     },
     {
       "call_index": 7,
       "status": "ok",
-      "attributes_added": 0,
-      "output_tokens": 3,
-      "assignments": []
+      "attributes_added": 8,
+      "assigned_facts": 8,
+      "axes": [
+        "reporting_entity"
+      ]
     },
     {
       "call_index": 8,
       "status": "ok",
+      "attributes_added": 8,
+      "assigned_facts": 8,
+      "axes": [
+        "geography"
+      ]
+    },
+    {
+      "call_index": 9,
+      "status": "ok",
       "attributes_added": 0,
-      "output_tokens": 3,
-      "assignments": []
+      "assigned_facts": 5,
+      "axes": [
+        "geography",
+        "measurement_method",
+        "reporting_entity",
+        "site"
+      ]
     }
-  ],
-  "limitation": "All enrichment decisions were empty. Primary reading already retained business names in reporting_boundary, including a truncated Ports label; unknown reporting_entity alone is not a failed capture. Full multi-line labels and an explicit empty/nonempty context response still need follow-up."
+  ]
 }

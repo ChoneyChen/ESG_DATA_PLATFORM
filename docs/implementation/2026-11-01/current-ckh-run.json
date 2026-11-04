@@ -1,7 +1,7 @@
 {
-  "run_id": "extract-afdb5806d48dcfb9b6652ea435f159f5",
-  "session_id": "extract-plan-4a54ab60241c4ed089ac24d9d5c405cb",
-  "engine_fingerprint": "78f314df0dac2966601ec2dba96f4977a0aa991fd8f697782325ff1a7bee3d90",
+  "session_id": "extract-plan-9f3932b3dcc4499b9f5be6f2271a99c0",
+  "run_id": "extract-7a1ad7686a034e2a35d0700e4aa11ac0",
+  "engine_fingerprint": "b19403ea1242d61d17bbeb7b8b0d0decb91d3c955fef2f2603a8b124359c11cf",
   "status": "completed",
   "summary": {
     "selected_clauses": 1,
@@ -9,8 +9,8 @@
     "source_facts": 222,
     "quantitative": 222,
     "qualitative": 0,
-    "model_calls": 8,
-    "elapsed_seconds": 596.851,
+    "model_calls": 9,
+    "elapsed_seconds": 717.154,
     "errors": [],
     "assessment": {
       "execution_state": "completed",
@@ -21,7 +21,7 @@
       "target_facts": 45,
       "other_facts": 177,
       "unresolved_facts": 0,
-      "rejected_candidates": 6,
+      "rejected_candidates": 4,
       "periods": {
         "2023": 75,
         "2024": 75,
@@ -30,56 +30,149 @@
     }
   },
   "delivery": {
-    "export_id": "export-a51aa0c058d1c3f6a58fa3ae656d05c81ec0cdc8bad6f9396422cad8c6ca289b",
+    "export_id": "export-40681448c68d11646c520310ceefb3db8ee484096955d3d4fab96e24f160094b",
     "state": "delivered",
     "accepted_facts": 222,
     "rejected_facts": 0,
     "message": null,
     "retryable": false
   },
-  "projection": {
-    "export_id": "export-a51aa0c058d1c3f6a58fa3ae656d05c81ec0cdc8bad6f9396422cad8c6ca289b",
-    "status": "completed",
-    "projection": {
-      "schema_version": "capture-projection-1.0",
-      "projection_id": "projection-a991adc0a74d088e7671e87e379fdf79bd759448f73f54b730be633b112a0fb4",
-      "export_id": "export-a51aa0c058d1c3f6a58fa3ae656d05c81ec0cdc8bad6f9396422cad8c6ca289b",
-      "input_digest": "59558702db3a8118e38d0ed6a0cbce474e14fff76a9abbe0b2ee03e5e938cf90",
-      "transform_version": "capture-observation-1.1",
-      "content_digest": "39fea91ce9b0463abcca956056686c9dfe7aa45d8fdc12b893f8a32c4e489be4",
-      "source": {
-        "document_id": "doc-sha256-c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
-        "pdf_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
-        "pdf_id": "pdf-c3dcf5367cffdc59d0eb4b3d",
-        "title": "2025 Sustainability Report",
-        "report_company": "CK Hutchison Holdings Limited",
-        "publication_year": null,
-        "resource_revision": 2,
-        "report_company_id": "org:ck-hutchison",
-        "industry": null,
-        "reporting_year": 2025
-      },
-      "facts": 222,
-      "observations": 222,
-      "periods": {
-        "2023": 75,
-        "2024": 75,
-        "2025": 72
-      },
-      "relations": {
-        "match": 45,
-        "different": 177
-      },
-      "repeated_occurrences": 0,
-      "diagnostics": []
+  "sources": {
+    "ir-20261103T191031Z-0406ad00718b:1": {
+      "ir_run_id": "ir-20261103T191031Z-0406ad00718b",
+      "ir_revision": 1,
+      "search_scope": {
+        "available_pages": [
+          168
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          168
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 209
+      }
     },
-    "error_code": null,
-    "retryable": false
+    "ir-20261104T061140Z-dcb91f6ffddb:1": {
+      "ir_run_id": "ir-20261104T061140Z-dcb91f6ffddb",
+      "ir_revision": 1,
+      "search_scope": {
+        "available_pages": [
+          0,
+          1,
+          2,
+          98,
+          99,
+          167,
+          168,
+          169
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          0,
+          1,
+          2,
+          98,
+          99,
+          167,
+          168,
+          169,
+          170
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 209
+      }
+    }
   },
-  "sources": [
-    "ir-20261101T134609Z-8caf1112a8ef:1"
+  "expansion": {
+    "same_native_run": true,
+    "initial_facts": 90,
+    "initial_targets": 18,
+    "final_facts": 222,
+    "final_targets": 45,
+    "retained_original_ids": 90,
+    "unchanged_files": 72,
+    "changed_files": 18,
+    "unchanged_content_rewritten": 0,
+    "handoff_progress": {
+      "stage": "preparing",
+      "clause_key": "E2-4_02",
+      "object_id": null,
+      "current": 0,
+      "total": 0,
+      "model_calls": 1,
+      "fact_count": 90
+    }
+  },
+  "target_boundaries": [
+    "Infrastructure",
+    "Ports and Related Services",
+    "Retail (2)",
+    "Telecommunications (3)",
+    "group"
   ],
-  "bundle_schema": "extraction-fact-bundle-2.4",
-  "bundle_has_organization": false,
-  "organized_cache_exists": false
+  "products": {
+    "stage_label": "已投影 · 待发布",
+    "captured_facts": 222,
+    "capture_periods": [
+      {
+        "period": "2023",
+        "facts": 75
+      },
+      {
+        "period": "2024",
+        "facts": 75
+      },
+      {
+        "period": "2025",
+        "facts": 72
+      }
+    ],
+    "receipt": {
+      "status": "accepted",
+      "accepted_facts": 222,
+      "rejected_facts": 0
+    },
+    "projection": {
+      "export_id": "export-40681448c68d11646c520310ceefb3db8ee484096955d3d4fab96e24f160094b",
+      "status": "completed",
+      "projection": {
+        "schema_version": "capture-projection-1.0",
+        "projection_id": "projection-ccf1a455b4be7c771251ffaf8bacfb193c91ed6b1466b76cb71303856a3dfe7a",
+        "export_id": "export-40681448c68d11646c520310ceefb3db8ee484096955d3d4fab96e24f160094b",
+        "input_digest": "6e47d839e76ac63176e73663cbe0e3c4e5aea661101081e7317cfd756540b37b",
+        "transform_version": "capture-observation-1.1",
+        "content_digest": "1e6766b69d360cdd65b747f082fee808a308a7b7bc5d54fc38f49338517f07d9",
+        "source": {
+          "document_id": "doc-sha256-c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+          "pdf_sha256": "c3dcf5367cffdc59d0eb4b3d536b60aa649c475623d13f17581c981d6f6b88ce",
+          "pdf_id": "pdf-c3dcf5367cffdc59d0eb4b3d",
+          "title": "2025 Sustainability Report",
+          "report_company": "CK Hutchison Holdings Limited",
+          "publication_year": null,
+          "resource_revision": 2,
+          "report_company_id": "org:ck-hutchison",
+          "industry": null,
+          "reporting_year": 2025
+        },
+        "facts": 222,
+        "observations": 222,
+        "periods": {
+          "2023": 75,
+          "2024": 75,
+          "2025": 72
+        },
+        "relations": {
+          "match": 45,
+          "different": 177
+        },
+        "repeated_occurrences": 0,
+        "diagnostics": []
+      },
+      "error_code": null,
+      "retryable": false
+    },
+    "published_dataset_count": 0,
+    "auto_publish": false
+  }
 }

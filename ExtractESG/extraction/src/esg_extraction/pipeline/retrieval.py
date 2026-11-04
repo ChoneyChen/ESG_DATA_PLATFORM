@@ -1,4 +1,4 @@
-"""Read candidates as pages arrive; broaden only when the target has not been found."""
+"""Stream clause candidates; relax object terms when the target has not been found."""
 
 
 class CandidateStream:

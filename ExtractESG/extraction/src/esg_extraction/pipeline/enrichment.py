@@ -80,13 +80,14 @@ def context_frame(documents, sources, clause, facts, profile, frames):
     # Headers and notes remain physical references, never previous model answers.
     for frame in frames:
         for fact in facts:
-            if frame.source_snapshot != f"{fact.ir_run_id}:{fact.ir_revision}":
-                continue
             anchors = {e.object_id for e in fact.evidence if e.role in {"value","statement"}}
             rows = [(row,[cell for cell in row.cells
-                if (cell.source_object_id or cell.cell_id) in anchors]) for row in frame.rows]
+                if (cell.source_object_id or cell.cell_id) in anchors
+                and cell.raw_text == getattr(fact.value,"value_raw",None)]) for row in frame.rows]
             rows = [(row,cells) for row,cells in rows if cells]
-            if not rows and not any(text.object_id in anchors for text in frame.texts):
+            if not rows and not any(text.object_id in anchors
+                and getattr(fact.value,"statement_raw",None) in text.text
+                for text in frame.texts if fact.kind == "assertion"):
                 continue
             template = frame
             local = [(text,"table") for text in frame.title_sources]
@@ -153,36 +154,40 @@ def context_schema(frame, aliases, attributes):
 
 def apply_context(clause, sources, frame, decision, facts, mappings, aliases, observation):
     updates = 0
+    changed_ids = []
     source_levels = {(text.source_snapshot,text.object_id):observation["source_levels"][text.span_id]
         for text in frame.texts}
     source_levels.update({(p.source_snapshot,p.object_id):"column_header"
         for parts in frame.column_sources.values() for p in parts})
+    proposals = {}
     for assignment in decision.assignments:
         for alias in assignment.fact_ids:
-            fid = aliases[alias]
-            fact = facts[fid]
-            wanted = set(missing_attributes(clause, fact)) & set(observation["requested_attributes"])
-            local = set(observation["fact_sources"][fid])
-            report = set(observation["report_sources"])
-            report_attributes = set(observation["report_attributes"])
-            claims = [claim for claim in assignment.identity if claim.axis in wanted
-                and (("local" in clause.attributes[claim.axis].context_levels and claim.source_id in local) or
-                    (claim.axis in report_attributes and claim.source_id in report))]
-            context, flags = context_from_claims(frame,claims)
-            fields, dimensions = {}, dict(fact.identity.dimensions)
-            for axis in wanted:
-                field = getattr(context,axis,None) or context.dimensions.get(axis)
-                if field is not None and field.state == "stated":
-                    field = field.model_copy(update={"evidence":[e.model_copy(update={
-                        "role":source_levels.get((e.source_snapshot,e.object_id),e.role)}) for e in field.evidence]})
-                    updates += 1
-                    (fields if clause.attributes[axis].source == "identity" else dimensions)[axis] = field
-            if not fields and dimensions == fact.identity.dimensions:
-                continue
-            identity = literal_categories(clause,fact.identity.model_copy(update={**fields,"dimensions":dimensions}),[])
-            changed = fact.model_copy(update={"identity":identity,"interpretation_id":digest([fact.interpretation_id,identity.model_dump(mode="json")])})
-            previous = mappings[fid]
-            source = sources[f"{fact.ir_run_id}:{fact.ir_revision}"]
-            mappings[fid] = mapping_for(clause,source,changed,previous.match,previous.reason)
-            facts[fid] = changed
-    return updates
+            proposals.setdefault(aliases[alias],[]).extend(assignment.identity)
+    for fid,proposed in proposals.items():
+        fact = facts[fid]
+        wanted = set(missing_attributes(clause, fact)) & set(observation["requested_attributes"])
+        local = set(observation["fact_sources"][fid])
+        report = set(observation["report_sources"])
+        report_attributes = set(observation["report_attributes"])
+        claims = [claim for claim in proposed if claim.axis in wanted
+            and (("local" in clause.attributes[claim.axis].context_levels and claim.source_id in local) or
+                (claim.axis in report_attributes and claim.source_id in report))]
+        context, flags = context_from_claims(frame,claims)
+        fields, dimensions = {}, dict(fact.identity.dimensions)
+        for axis in wanted:
+            field = getattr(context,axis,None) or context.dimensions.get(axis)
+            if field is not None and field.state == "stated":
+                field = field.model_copy(update={"evidence":[e.model_copy(update={
+                    "role":source_levels.get((e.source_snapshot,e.object_id),e.role)}) for e in field.evidence]})
+                updates += 1
+                (fields if clause.attributes[axis].source == "identity" else dimensions)[axis] = field
+        if not fields and dimensions == fact.identity.dimensions:
+            continue
+        identity = literal_categories(clause,fact.identity.model_copy(update={**fields,"dimensions":dimensions}),[])
+        changed = fact.model_copy(update={"identity":identity,"interpretation_id":digest([fact.interpretation_id,identity.model_dump(mode="json")])})
+        previous = mappings[fid]
+        source = sources[f"{fact.ir_run_id}:{fact.ir_revision}"]
+        mappings[fid] = mapping_for(clause,source,changed,previous.match,previous.reason)
+        facts[fid] = changed
+        changed_ids.append(fid)
+    return updates, changed_ids

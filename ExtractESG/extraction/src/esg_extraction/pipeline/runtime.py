@@ -129,7 +129,8 @@ def execute(run_id, *, model=None):
     except EvidenceNeeded as exc:
         status = ResultStore(run_id, artifacts).status() or {}
         store.progress(run_id, current_call=None, progress={"stage":"preparing", "clause_key":exc.request.clause_key,
-            "model_calls":(status.get("summary") or {}).get("model_calls",0)})
+            "model_calls":(status.get("summary") or {}).get("model_calls",0),
+            "fact_count":(status.get("summary") or {}).get("source_facts",0)})
         return store.update(run_id, worker_pid=None, worker_started=None,
             evidence_request=exc.request.model_dump(mode="json"),summary=status.get("summary"))
     except PipelineCancelled:

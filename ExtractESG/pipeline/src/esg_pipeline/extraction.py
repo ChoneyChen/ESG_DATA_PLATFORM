@@ -426,7 +426,7 @@ class ExtractionCoordinator:
             process = self.processing.create(ProcessingRequest(asset_id=asset_id, mode="auto",
                 source_sha256=(run.get("document") or {}).get("source_sha256"),
                 submission_key=f"{state['session_id']}:{need['request_id']}",
-                config=ProcessingConfig(page_indices=located["page_indices"], ocr_provider="local_paddleocr",
+                config=ProcessingConfig(page_indices=sorted(set(located["page_indices"]) | set(located.get("context_page_indices",[]))), ocr_provider="local_paddleocr",
                     allow_cloud_ocr=False,execute_required_reviews=False,execute_optional_reviews=False)))
             state.update(processing_id=process["processing_id"], expansion_request=need["request_id"],stage="preparing")
             self.save(state)

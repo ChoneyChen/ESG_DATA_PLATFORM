@@ -1,78 +1,69 @@
 # 六项链路骨架更新
 
-按[本轮规划第10节](../../audits/2026-11-01/README.md)的顺序实施。本文只记录当前实现和真实任务；条款内容扩充、增加PDF与额外审核体系不属本轮。
+按[本轮规划第10节](../../audits/2026-11-01/README.md)的顺序实施。条款内容扩充、增加PDF与额外审核体系不属本轮。
 
-当前部署：`clause-backbone-1.7`，执行指纹`5b554dd206b6302c6cf643e7c26dcd865972cde8fff11ce354f8a5b7049dfb6c`。2026-11-03已安装表头组合引用、补读逐批保存和数据库预览分页；实跑又发现陈述期间误关联，现已安装对应修补并开始新一组真实任务。下表区分已完成的前一组实跑与新部署实跑，不以旧结果证明新代码效果。
+当前部署为`clause-backbone-1.8`，指纹`b19403ea1242d61d17bbeb7b8b0d0decb91d3c955fef2f2603a8b124359c11cf`。2026-11-04三组真实任务均已完成接收与投影，逐项实现与结果如下。
 
 ## 1. 单条属性收敛
 
-- 1113个值条款均以单条`attributes`声明属性含义、读取说明、值词典、补读词及允许的上下文层级。13个结构描述不参与值提取。
-- 搜索计划、阅读卡、分类及显示分别引用属性ID，阅读不再从展示列反向取得词典。展示组及16/32集合只组织独立条款ID。
-- `context_levels`由保存的条款提供：局部主体、角色、业务和场址不能借用其他章节中的集团名称；允许读取报告说明的属性仍须有适用的原文。
-- 现行1113条已清除无人消费的`reading.options`，新建与保存不再产生它。SDK仅为旧冻结任务保留只读解码，旧合同及摘要不改写。
-- 已移除acceptance管理、模板成熟度标签、未实现派生/聚合执行选项；不恢复样本配额或发布闸门。
+1113个值条款的`attributes`集中声明含义、读取说明、值词典、补读词和允许的上下文层级；13个结构描述不参与值提取。搜索、阅读、分类和显示引用属性ID，展示组及16/32集合只组织条款ID。阅读卡排除展示配置，单条可独立部署。
 
-文件：[属性定义](../../../ClauseESG/src/esg_clauses/attributes.py)、[条款合同](../../../ClauseESG/src/esg_clauses/contract.py)、[搜索计划](../../../ClauseESG/src/esg_clauses/search.py)、[保存与冻结](../../../ClauseESG/src/esg_clauses/repository.py)。
+编码口径只消费本条字典已确认的代码；未声明字典、未列出或未证实的文字保留原文，不因不能归一而否定目标值。现行条款移除无人消费的`reading.options`、样本验收和未实现计算选项；旧冻结合同保持原摘要及只读解码。
 
-## 2. 增量保存
+文件：[属性](../../../ClauseESG/src/esg_clauses/attributes.py)、[合同与阅读卡](../../../ClauseESG/src/esg_clauses/contract.py)、[搜索计划](../../../ClauseESG/src/esg_clauses/search.py)、[保存与冻结](../../../ClauseESG/src/esg_clauses/repository.py)。
 
-- 原值和条款关系按事实ID写入，仅写新增或变更内容；模型进度使用独立运行记录。
-- 每批属性补读返回后立即保存事实及读取位置，页面可读取已取得的属性。成功批次随本任务恢复，不保存跨任务的语义理解。
-- 运行中不再重建整份组织表或反复解析FactBundle；结束时组装一次2.4原值包。组织表由结果接口按当前页生成。当前CKH实际包未写组织缓存，222条均已接收并投影，[接收与产物记录](current-ckh-run.json)。
+## 2. 增量保存与运行汇总
 
-文件：[ResultStore](../../../ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py)、[提取主干](../../../ExtractESG/extraction/src/esg_extraction/pipeline/engine.py)、[运行状态](../../../ExtractESG/extraction/src/esg_extraction/pipeline/state.py)。
+`ResultStore`按事实ID仅写新增或变更的原值及映射。`RunStatistics`随这批变更更新种类、期间、目标关系及属性完成度，不再在每帧汇总时扫描全部事实。属性补读也只提交实际改变的事实；进度和本任务读取位置分别保存。
 
-## 3. 搜索推进与恢复
+结束时从结果仓储组装一次2.4交接包。组织表由接口按当前页生成，运行中不反复解析整份FactBundle或重建组织表；恢复读取本任务原值与位置，不做跨任务语义复用。补页带回的相同物理量值或陈述保留原事实ID；已确定的内容跳过，未决内容继续读取。完整物理帧按快照保存，模型读取片段单独处理。
 
-- 先按单条合同分页读取现有证据，未找到目标时放宽检索；需要新页时交给编排层准备，阅读worker让出模型执行锁。
-- 新页完成后续跑同一原生任务，保留原值、错误和未成功帧的位置。事实及补读证据分别引用实际IR快照，不把新增来源冒充原始IR。
-- 实际扩围已经在同一CATL任务保留原63条并增加102条，两份快照共165条全部接收。该次未找到员工人数且有模型超时，不能称为该目标提取成功。[扩围实跑](phase3-expansion.json)。
-- 前一组CKH、CATL均已完成补页续跑并交付；当前组继续观察新补读保存方式。
+文件：[增量仓储](../../../ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py)、[运行统计](../../../ExtractESG/extraction/src/esg_extraction/pipeline/statistics.py)、[主干](../../../ExtractESG/extraction/src/esg_extraction/pipeline/engine.py)、[运行状态](../../../ExtractESG/extraction/src/esg_extraction/pipeline/state.py)。
 
-文件：[候选流](../../../ExtractESG/extraction/src/esg_extraction/pipeline/retrieval.py)、[PDF编排](../../../ExtractESG/pipeline/src/esg_pipeline/extraction.py)、[证据接口](../../../ExtractESG/document/src/esg_document/api/evidence.py)、[自包含导出](../../../ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py)。
+## 3. 搜索推进与来源快照
 
-## 4. 上下文补读
+先逐页消费当前证据的严格候选，目标未找到时才在预算内放宽对象词组；已有部分目标也继续定位条款计划内尚未准备的页。未命中时才放宽页查询的必含词组。实际候选耗尽或本次预算用完时结束，不以可选属性空缺要求无限补页。
 
-- 量值先保存；补读只返回既有事实的属性和原文引用，不重新生成数值或陈述。
-- 先提供该事实自己的行、列、表题、脚注和章节；报告说明另列，不能使用其他事实的局部来源。
-- 多行列标题作为组合来源交给模型，绑定时拆回实际物理单元及位置；不因表头文字换行而失去完整业务名称。
-- 每批输入只包含本批事实可用的来源与缺失属性。同一句说明确实适用于多项事实时，可一次列出这些事实ID，避免重复输出长引用。
-- 实际输出截断会拆小该批次继续阅读；未披露或未取得的属性留空，原值接收、全年份及执行状态不受其阻断。
+文档定位接口分别返回新页及已准备的相邻结构页，编排一起构建IR；横向续表由文档模块组合行名、单位和业务列。阅读worker让出模型锁，再续跑原生任务。事实及属性证据分别引用实际IR快照，导出携带来源清单。本轮CKH从原PDF第169页的单页IR起步，实际观察目标已有部分命中后的补页与续读。
 
-前一组能源已完成71条接收与投影；2023/2024/2025目标分别为10,524,882.70、19,233,654.46、24,767,519.69兆瓦时。取得GB/T 2589-2020方法和环境统计范围，主体仍未知。[已完成能源证据](completed-energy.json)。前一组CKH为222条、CATL为54条（51定量、3定性），均0拒收；最新CKH已完成222条接收，45个标注原值、单位、期间和目标关系对应；但6次属性补读均为空，尚不能把表头组合引用的效果判为完成。业务名称已有部分保存在统计边界中，主体未知本身不算失败；仍需检查完整多行名称是否妥善保留。[原值对照](current-ckh-values.json)、[补读实录](current-ckh-context.json)。补读返回合同允许省略整个数组并默认成空，当前部署已改为显式返回数组，空数组仍合法，不增加报告属性要求；新部署效果以当前组为准。
+文件：[候选流](../../../ExtractESG/extraction/src/esg_extraction/pipeline/retrieval.py)、[页面编排](../../../ExtractESG/pipeline/src/esg_pipeline/extraction.py)、[证据接口](../../../ExtractESG/document/src/esg_document/api/evidence.py)、[独立导出](../../../ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py)。
 
-CATL上一部署接收54条，9个标注值对应；逐句查看发现供应商陈述借用了邻段的报告期，监测陈述又受标准编号中的年份干扰。[原值](current-catl-values.json)、[陈述及期间实录](current-catl-run.json)。当前修补让定性期间只依据所选陈述自身的引用，标准编号不当作测量年份；无本地报告期引用仍保持未知。原来的错误结果不改写，新任务重新读取。
+## 4. 上下文补读与绑定
 
-文件：[属性补读](../../../ExtractESG/extraction/src/esg_extraction/pipeline/enrichment.py)、[阅读输入](../../../ExtractESG/extraction/src/esg_extraction/pipeline/reading_frame.py)、[物理引用绑定](../../../ExtractESG/extraction/src/esg_extraction/pipeline/binding.py)。
+先保存量值或陈述，补读只返回属性和原文引用。每个事实先读自己的行列、完整多行表头、表题、脚注和章节；报告说明另列，适用范围由该事实的引用与条款`context_levels`决定，不借用其他事实的局部来源。
+
+同一属性的多段说明按事实合并值、原文和物理引用，消除最后一条覆盖前文的问题。同一PDF另一快照中与该量值或陈述原文对应的物理帧也能提供上下文。每批只输入相关来源与缺失属性，返回后保存变更及读取位置；真实截断时拆小该批继续。可选属性没有披露或未取得时保持未知，原值、历史年份和执行完成状态不受其阻断。
+
+定性期间只根据所选原文关联；邻段的“报告期内”和标准编号版本年份不能变成测量期间。报告企业和主年份也不能替代事实主体与期间。
+
+文件：[补读](../../../ExtractESG/extraction/src/esg_extraction/pipeline/enrichment.py)、[物理绑定与多段合并](../../../ExtractESG/extraction/src/esg_extraction/pipeline/binding.py)、[期间绑定](../../../ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py)、[阅读输入](../../../ExtractESG/extraction/src/esg_extraction/pipeline/reading_frame.py)。
 
 ## 5. 比较职责归位
 
-- 提取输出原值、目标关系和有依据的属性，比较状态保留为未评估。
-- 独立数据库按冻结条款的comparison要求判断比较与选源，不额外写死主体或边界门槛。逐观测适用范围与整条披露完整度分开。
-- 未知身份保留物理来源；缺失属性不删除原值，不以报告主年份覆盖2023/2024等历史列。
-- 发布预览的选源决定保存一次，翻页直接查询所选观测；不再每翻页加载全量原值及重算选源。为此仅在独立capture库添加`0022_product_previews.sql`的预览记录表，没有迁移或重置PlatESG demo库。
+提取生产原值、目标关系和有原文依据的属性，比较状态为`not_evaluated`。数据库按冻结条款的comparison要求判断比较与选源，没有额外的固定主体/边界准入条件。未知身份保留物理来源；期间未知或不适合比较也不删除原值。各报告披露的年份分别保留。
 
-真实276观测分别以all_sources及latest_report预览，2023年90条、2024年93条、2025年91条、未知2条全部保留；各连续读取25＋25条无重叠。没有发布数据。[数据库预览分页](phase6-preview-pages.json)。
+选源预览保存一次决定，翻页直接查询所选观测，不重新加载全量原值及重算。独立capture库仅增加0022预览表，没有迁移或重置PlatESG demo库。本轮350条观测选择全部关系后，all_sources/latest_report均保留2023年103条、2024年121条、2025年121条、期间未知5条；连续25＋25行无重叠，尚未发布数据。[当前预览与分页](current-running-pages.json)。
 
-文件：[观测投影](../../../database/src/esg_database/projection.py)、[选源](../../../database/src/esg_database/selection.py)、[预览SQL](../../../database/queries/capture_products.mjs)。
+文件：[投影](../../../database/src/esg_database/projection.py)、[选源](../../../database/src/esg_database/selection.py)、[预览查询](../../../database/queries/capture_products.mjs)。
 
 ## 6. 按需结果与Console
 
-- 轻量SQL索引支持条款、期间、关系、单位、文本和单事实筛选。后端先筛选分页，再读取对应事实文件。
-- Console先读概览，再读当前条款或当前事实页；默认50行，矩阵只表达本页。完整导出继续包含全部原值。
-- 保留父子页面和运行浮窗。浮窗计数同时使用当前进度，避免被上一次汇总中的旧调用数遮住。
-- 旧冻结任务读取自己的保存合同与结果；实际CKH组织页222条中返回5条、CATL定性组织页3条均读通，没有改用现行条款。[冻结结果读取](frozen-pages.json)。
+轻量SQL索引支持条款、期间、关系、单位、文本和单事实筛选；先筛选分页，再读对应事实文件。Console先读概览，进入当前条款或事实页才读该页，默认50行；矩阵表达本页，完整导出仍包含全部原值。
 
-文件：[结果接口](../../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py)、[Console结果代理](../../../ConsoleESG/backend/src/esg_console/sessions.py)、[分页页面](../../../ConsoleESG/frontend/src/features/extractions/result-pages.tsx)、[浮窗状态](../../../ConsoleESG/backend/src/esg_console/monitor.py)。
+保留父子页面和运行浮窗，详情与浮窗均采用当前计数，补页交接也保留累计事实数。CKH目标页实际连续返回20＋20行，CATL定性页返回2＋1行，均无重叠。多段属性以文字列表呈现并保留证据入口。旧任务按自己的冻结合同和结果读取，实际CKH旧结果222条中取5条、CATL定性旧结果3条已读通。[冻结页](frozen-pages.json)。
 
-## 当前真实任务与验证范围
+文件：[结果接口](../../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py)、[Console代理](../../../ConsoleESG/backend/src/esg_console/sessions.py)、[分页结果页](../../../ConsoleESG/frontend/src/features/extractions/result-pages.tsx)、[详情](../../../ConsoleESG/frontend/src/features/extractions/detail.tsx)、[浮窗](../../../ConsoleESG/backend/src/esg_console/monitor.py)。
 
-| 任务 | 会话 | 当前状态 |
+## 真实任务结果
+
+三组均为当前指纹，使用已有PDF和本地模型，拒收均为0，自动发布关闭。
+
+| 任务 | 结果 | 实跑记录 |
 |---|---|---|
-| 能源方法及范围 | `extract-plan-ce76d2e00482457ab20daaaef4b20fdc` | 执行中 |
-| CKH完整多行表头 | `extract-plan-f24573ab64664778bd682c7cae25d485` | 队列中 |
-| CATL多年份及陈述期间 | `extract-plan-398cfe0b88044674a7e9a3a2f63b40a5` | 队列中 |
+| CKH横向续表 | 同一执行ID从90条/18个目标推进到222条/45个目标；原90条ID全部保留，72个文件未变，18个仅更新补读信息，无未变内容重写 | [结果与扩围](current-ckh-run.json)、[45个标注值](current-ckh-values.json) |
+| CATL定量＋定性 | 54条接收与投影；9个三年份标注值/单位/期间/目标关系对应；三段陈述期间为未知、2025、未知 | [结果与陈述](current-catl-run.json)、[9个标注值](current-catl-values.json) |
+| 能源 | 74条接收与投影；2023/2024/2025目标分别为10,524,882.70、19,233,654.46、24,767,519.69兆瓦时；GB/T通则、直接能源、间接能源三段说明保留 | [数值、方法与接收](current-energy-run.json) |
 
-前端生产构建通过；Console代理的结果页、冻结页及数据库预览使用真实数据读通。浏览器自动化被应用设置关闭，未重做鼠标和视觉验证，不用接口结果代替该项。
+横向续表漏读修复在文档与编排模块：补页同时带入相邻结构页。条款词库没有为这份报告增加特例；提取继续按冻结的独立条款读取，保留完整Ports名称和所有披露年份。搜索只在未找到目标时放宽对象，已命中仍检查计划内剩余页，未决或缺失属性不触发无限扩围。
 
-上一部署未启动的能源任务已取消，改用当前版本实跑；未生成原值，不冒称为一次完成测试。实际任务保留全部输出、模型调用、失败与耗时。没有新增单测套件、覆盖矩阵、条款成熟度或审批系统；本地模型、不切云，自动发布关闭。
+前端生产构建、真实结果分页和数据库预览已读通。浏览器自动化被应用设置关闭，本轮没有重新做鼠标及视觉检查。标注对照覆盖9个CATL值及45个CKH值，不代表全报告召回已穷尽。

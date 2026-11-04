@@ -56,6 +56,23 @@ def literal_categories(clause, context, attempts):
     return context.model_copy(update={**updates, "dimensions": dimensions})
 
 
+def merge_reported_fields(previous, current):
+    """Keep complementary quoted notes instead of overwriting the same attribute."""
+    if previous is None or previous.state not in {"stated", "inherited"}:
+        return current
+    if current.state not in {"stated", "inherited"}:
+        return previous
+    values = []
+    for field in (previous,current):
+        for value in field.value if isinstance(field.value,list) else [field.value]:
+            if value not in values:
+                values.append(value)
+    quotes = list(dict.fromkeys(text for text in (previous.raw_text,current.raw_text) if text))
+    evidence = [*previous.evidence,*[item for item in current.evidence if item not in previous.evidence]]
+    return current.model_copy(update={"value":values[0] if len(values)==1 else values,
+        "raw_text":"\n".join(quotes),"evidence":evidence})
+
+
 def context_from_claims(frame, claims, *, row=None, column_id=None, document=None, attempts=None, period_text=None):
     physical = [*frame.texts, *frame.title_sources]
     aliases = dict(frame.column_sources) if frame.kind == "text" else {}
@@ -162,7 +179,8 @@ def context_from_claims(frame, claims, *, row=None, column_id=None, document=Non
                 value=claim.value,
                 evidence=pieces or [evidence],
             )
-        (fields if claim.axis in CONTEXT_AXES else dimensions)[claim.axis] = value
+        destination = fields if claim.axis in CONTEXT_AXES else dimensions
+        destination[claim.axis] = merge_reported_fields(destination.get(claim.axis),value)
     period, period_flags = bind_period(frame, row=row, column_id=column_id, document=document, period_text=period_text)
     if period is not None:
         fields["reporting_period"] = period
@@ -481,9 +499,11 @@ def mapping_for(clause, document, fact, match, reason):
             for item in getattr(fact.identity, name).evidence
         ]
     flags.extend(check_evidence(clause, fields))
-    flags.extend(
-        clause.classification_flags(fact.identity.model_dump(mode="json"))
-    )
+    reported_identity = fact.identity.model_dump(mode="json")
+    flags.extend(clause.classification_flags(reported_identity))
+    scope_values = {axis:attribute.scope_value(
+        (reported_identity if attribute.source == "identity" else reported_identity["dimensions"]).get(axis))
+        for axis,attribute in clause.attributes.items()}
     axes = {
         "entity_aggregation_role": fact.identity.entity_aggregation_role,
         "measurement_method": fact.identity.measurement_method,
@@ -508,17 +528,17 @@ def mapping_for(clause, document, fact, match, reason):
         conflict = False
         known_conflicts = []
         for axis, wanted in required.items():
-            field = axes[axis]
-            if field.state not in {"stated", "inherited"}:
+            value = scope_values.get(axis)
+            if value is None:
                 complete = False
-            elif field.value != wanted:
+            elif value != wanted:
                 conflict = True
                 known_conflicts.append(axis)
         for axis, wanted in scope.axes.items():
-            field = fact.identity.dimensions.get(axis)
-            if not field or field.state not in {"stated", "inherited"}:
+            value = scope_values.get(axis)
+            if value is None:
                 complete = False
-            elif field.value != wanted:
+            elif value != wanted:
                 conflict = True
                 known_conflicts.append(axis)
         period_field = fact.identity.reporting_period
@@ -528,7 +548,7 @@ def mapping_for(clause, document, fact, match, reason):
                 complete = False
             elif scope.period in {"target_period", "baseline_period", "restated_period"}:
                 wanted = {"target_period": "target", "baseline_period": "baseline", "restated_period": "restated"}[scope.period]
-                if fact.identity.value_role.value != wanted:
+                if scope_values.get("value_role") != wanted:
                     complete = False
             elif scope.period == "annual":
                 if period.kind not in {"annual", "fiscal_year"}:

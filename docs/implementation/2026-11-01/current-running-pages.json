@@ -1,15 +1,74 @@
 {
-  "session_id": "extract-plan-4a54ab60241c4ed089ac24d9d5c405cb",
-  "engine_fingerprint": "78f314df0dac2966601ec2dba96f4977a0aa991fd8f697782325ff1a7bee3d90",
-  "source": "Console proxy, actual running CKH task",
-  "total": 222,
-  "returned": [
-    20,
-    20
+  "engine_fingerprint": "b19403ea1242d61d17bbeb7b8b0d0decb91d3c955fef2f2603a8b124359c11cf",
+  "result_pages": [
+    {
+      "case": "CKH",
+      "session_id": "extract-plan-9f3932b3dcc4499b9f5be6f2271a99c0",
+      "total": 45,
+      "returned": [
+        20,
+        20
+      ],
+      "table_rows": [
+        20,
+        20
+      ],
+      "overlap": 0,
+      "same_query": true
+    },
+    {
+      "case": "CATL定性",
+      "session_id": "extract-plan-62c24fa47319449ebc450abd51a9943e",
+      "total": 3,
+      "returned": [
+        2,
+        1
+      ],
+      "table_rows": [
+        2,
+        1
+      ],
+      "overlap": 0,
+      "same_query": true
+    }
   ],
-  "table_rows": [
-    20,
-    20
+  "database_previews": [
+    {
+      "mode": "all_sources",
+      "total": 350,
+      "selected": 350,
+      "periods": {
+        "2023": 103,
+        "2024": 121,
+        "2025": 121,
+        "unknown": 5
+      },
+      "returned": [
+        25,
+        25
+      ],
+      "overlap": 0,
+      "same_snapshot": true,
+      "preview_digest": "88a2cc1b4ccbbe1db84341d62372fc429cc053ef4aa65ae61fcf317c0d778e45"
+    },
+    {
+      "mode": "latest_report",
+      "total": 350,
+      "selected": 350,
+      "periods": {
+        "2023": 103,
+        "2024": 121,
+        "2025": 121,
+        "unknown": 5
+      },
+      "returned": [
+        25,
+        25
+      ],
+      "overlap": 0,
+      "same_snapshot": true,
+      "preview_digest": "fcbb0a5ed57cba51625af6f29bc1c1c51bbfeb212c6f43b8b3614da1ce04bed2"
+    }
   ],
-  "overlap": 0
+  "published": false
 }

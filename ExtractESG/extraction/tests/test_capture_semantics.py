@@ -131,12 +131,14 @@ def test_other_real_measurement_survives_the_model_boundary(documents, repositor
 
 
 def test_metadata_completeness_consumes_enrichment_without_display_columns(documents, repository):
-    from esg_extraction.pipeline.engine import assess_results
+    from esg_extraction.pipeline.statistics import RunStatistics
     clause = repository.get('E2-4_02')
     clause = clause.model_copy(update={'purposes': clause.purposes.model_copy(update={
         'enrichment': clause.purposes.enrichment.model_copy(update={'identity_axes': ['new_optional_axis']})})}).seal()
     source = fact(documents.document('ir-example'), 'sparse', '12.3')
-    result = assess_results([source], [mapping(clause, source)], [], {clause.clause_key: clause}, [], True)
+    statistics = RunStatistics({clause.clause_key: clause})
+    statistics.record(source, mapping(clause, source))
+    result = statistics.summary([], [], True)['assessment']
     assert result['metadata_completeness'] == 'partial'
     assert source.value.value_raw == '12.3'
 

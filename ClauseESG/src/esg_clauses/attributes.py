@@ -24,6 +24,11 @@ class AttributeDefinition(StrictModel):
     def classify(self, reported):
         return category_match(self.vocabulary, reported)
 
+    def scope_value(self, reported):
+        """Only a recognized category can establish a coded scope conflict."""
+        match = self.classify(reported)
+        return match.code if match and match.state == "recognized" else None
+
     def flags(self, axis, reported):
         match = self.classify(reported)
         return ["output_vocabulary_" + match.state + ":" + axis] if match and match.state != "recognized" else []

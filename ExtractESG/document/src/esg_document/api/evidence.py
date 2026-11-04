@@ -52,7 +52,9 @@ def evidence_router(resolver, resource_lookup=None, pdf_resolver=None):
         excluded = set(request.excluded_pages) | set((document.search_scope or {}).get("prepared_pages", []))
         candidates = selection.page_indices if selection.page_indices is not None else range(selection.source_page_count)
         remaining = [index for index in candidates if index not in excluded]
-        return {"page_indices": sorted(remaining[:request.limit]), "remaining": len(remaining),
+        selected = remaining[:request.limit]
+        context = excluded & {neighbour for page in selected for neighbour in (page-1,page+1)}
+        return {"page_indices": sorted(selected), "context_page_indices": sorted(context), "remaining": len(remaining),
             "source_page_count": selection.source_page_count, "reason": selection.reason}
 
     return router

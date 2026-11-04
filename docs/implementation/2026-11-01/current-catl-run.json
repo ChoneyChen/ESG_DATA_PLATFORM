@@ -1,7 +1,8 @@
 {
-  "run_id": "extract-72ef63f058c07769962c509e7a767dd4",
+  "session_id": "extract-plan-62c24fa47319449ebc450abd51a9943e",
+  "run_id": "extract-4bde751c573ac4adf329a3b568ec052f",
+  "engine_fingerprint": "b19403ea1242d61d17bbeb7b8b0d0decb91d3c955fef2f2603a8b124359c11cf",
   "status": "completed",
-  "engine_fingerprint": "78f314df0dac2966601ec2dba96f4977a0aa991fd8f697782325ff1a7bee3d90",
   "summary": {
     "selected_clauses": 2,
     "processed_clauses": 2,
@@ -9,7 +10,7 @@
     "quantitative": 51,
     "qualitative": 3,
     "model_calls": 12,
-    "elapsed_seconds": 1462.705,
+    "elapsed_seconds": 452.506,
     "errors": [],
     "assessment": {
       "execution_state": "completed",
@@ -20,600 +21,230 @@
       "target_facts": 11,
       "other_facts": 42,
       "unresolved_facts": 1,
-      "rejected_candidates": 54,
+      "rejected_candidates": 6,
       "periods": {
         "2023": 15,
-        "2025": 19,
         "2024": 18,
+        "2025": 19,
         "期间未知": 2
       }
     }
   },
   "delivery": {
-    "export_id": "export-2677ab939ba9d2f6804c2b3a9463766afc06b14f28d578d58815a076895695d9",
+    "export_id": "export-faa75bdf253f6115dc1bef4a93daf2ce497f3f16b431fa77f3935dfcb4c9092f",
     "state": "delivered",
     "accepted_facts": 54,
     "rejected_facts": 0,
     "message": null,
     "retryable": false
   },
-  "projection": {
-    "export_id": "export-2677ab939ba9d2f6804c2b3a9463766afc06b14f28d578d58815a076895695d9",
-    "status": "completed",
-    "projection": {
-      "schema_version": "capture-projection-1.0",
-      "projection_id": "projection-1f4a733ff3b5ce7b55106d6ed135961a6796412799741f584860b9121ee86832",
-      "export_id": "export-2677ab939ba9d2f6804c2b3a9463766afc06b14f28d578d58815a076895695d9",
-      "input_digest": "60d2b89115ef7d05041d97af73935b6b1fbd4717c057115b97f481c2994c8223",
-      "transform_version": "capture-observation-1.1",
-      "content_digest": "5174b0661aa56982ad0f5d442f2ced765c29e89d32fc25a33a3dd9e5cbf7b6e7",
-      "source": {
-        "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-        "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
-        "report_company": "宁德时代新能源科技股份有限公司",
-        "publication_year": null,
-        "resource_revision": 2,
-        "report_company_id": "org:catl",
-        "industry": null,
-        "reporting_year": 2025
-      },
-      "facts": 54,
-      "observations": 54,
-      "periods": {
-        "2023": 15,
-        "2024": 18,
-        "2025": 19,
-        "unknown": 2
-      },
-      "relations": {
-        "match": 11,
-        "different": 42,
-        "uncertain": 1
-      },
-      "repeated_occurrences": 0,
-      "diagnostics": []
-    },
-    "error_code": null,
-    "retryable": false
-  },
-  "qualitative_facts": [
-    {
-      "schema_version": "source-fact-2.0",
-      "source_fact_id": "baa2656ff58496ac1abcf914929566927f4c27feb6e96b4bd881bf79669535ed",
-      "source_anchor_id": "9f86488907cf1c504ebfdd4c46dd0b5f1d9e9b2924c59ea567c6eac6b43c969c",
-      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+  "sources": {
+    "ir-20261101T134609Z-855352b3e06f:1": {
       "ir_run_id": "ir-20261101T134609Z-855352b3e06f",
       "ir_revision": 1,
-      "interpretation_id": "87826202088654a38c6d4eda3e96550ba4acef4c2710282dcc57b949b4b4a497",
-      "report_resource": {
-        "schema_version": "report-resource-1.0",
-        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-        "original_filename": "2025 宁德时代ESG.pdf",
-        "company": {
-          "name": "宁德时代新能源科技股份有限公司",
-          "company_id": "org:catl"
-        },
-        "publication_year": null,
-        "industry": null,
-        "reporting_year": 2025,
-        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
-        "metadata_sources": {
-          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
-          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
-          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
-        },
-        "extensions": {},
-        "revision": 2
-      },
-      "value": {
-        "statement_raw": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
-        "extensions": {
-          "source_text_raw": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。报告期内，公司对130家战略供应商开展审核辅导工作。"
-        },
-        "kind": "assertion"
-      },
-      "source_row_label": null,
-      "identity": {
-        "reporting_period": {
-          "state": "inherited",
-          "raw_text": "2025年1月1日至2025年12月31日",
-          "value": "2025",
-          "evidence": [
-            {
-              "object_id": "block-p0003-0008",
-              "object_type": "text_block",
-              "page_index": 2,
-              "excerpt": "2025年1月1日至2025年12月31日",
-              "role": "report",
-              "bbox": null,
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "reporting_entity": {
-          "state": "stated",
-          "raw_text": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
-          "value": "公司",
-          "evidence": [
-            {
-              "object_id": "block-p0055-0016",
-              "object_type": "text_block",
-              "page_index": 54,
-              "excerpt": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
-              "role": "table",
-              "bbox": {
-                "x0": 66.47487678175509,
-                "x1": 529.7997698395518,
-                "y0": 652.3982676893178,
-                "y1": 699.8908618889233
-              },
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "entity_aggregation_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "reporting_boundary": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "measurement_method": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "value_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "aggregation_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "denominator": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "dimensions": {}
-      },
-      "evidence": [
-        {
-          "object_id": "block-p0055-0016",
-          "object_type": "text_block",
-          "page_index": 54,
-          "excerpt": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
-          "role": "statement",
-          "bbox": {
-            "x0": 66.47487678175509,
-            "x1": 529.7997698395518,
-            "y0": 652.3982676893178,
-            "y1": 699.8908618889233
-          },
-          "row_id": null,
-          "column_id": null,
-          "char_start": 0,
-          "char_end": 103,
-          "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-        }
-      ],
-      "quality": "grounded",
-      "flags": [
-        "statement_is_excerpt",
-        "document_evidence_limited"
-      ],
-      "extensions": {}
-    },
-    {
-      "schema_version": "source-fact-2.0",
-      "source_fact_id": "c7cc76406d5fc16a41305b9adcd2e02596f6a666d21fc5cee6158c7b33cf25ae",
-      "source_anchor_id": "c6eb9d36035954470ad55c9646424fe73d7474a18f2adf2ba8dc0a5617f06542",
-      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-      "ir_run_id": "ir-20261101T134609Z-855352b3e06f",
-      "ir_revision": 1,
-      "interpretation_id": "857ddf922b1fb595eeaa2404244a5a63b6c05decc9b19e202346fb31f5bef68a",
-      "report_resource": {
-        "schema_version": "report-resource-1.0",
-        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-        "original_filename": "2025 宁德时代ESG.pdf",
-        "company": {
-          "name": "宁德时代新能源科技股份有限公司",
-          "company_id": "org:catl"
-        },
-        "publication_year": null,
-        "industry": null,
-        "reporting_year": 2025,
-        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
-        "metadata_sources": {
-          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
-          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
-          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
-        },
-        "extensions": {},
-        "revision": 2
-      },
-      "value": {
-        "statement_raw": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
-        "extensions": {
-          "source_text_raw": "公司制定《废水排放控制管理程序》《废气排放控制管理程序》《活性炭吸附装置设计、建设与运行管理工作指示》《VOCs（Volatile Organic Compounds）物料控制管理工作指示》等内部制度，明确对生产运营环节产生的废水、废气的管控标准，确保各项污染物满足排放限值和处置要求。报告期内，公司发布《污染防治设施全生命周期管控程序》，贯穿污染防治设施设计、建设、调试及验收过程，加强对新、改、扩建项目污染防治设施全生命周期的管理，同步制定了37类环保设施的验收清单，依托内部数字化管理系统跟踪确认标准导入情况，推动标准落地。根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。监测数据表明，企业运营对社区环境质量未造成不良影响。"
-        },
-        "kind": "assertion"
-      },
-      "source_row_label": null,
-      "identity": {
-        "reporting_period": {
-          "state": "stated",
-          "raw_text": "报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
-          "value": "报告期内",
-          "evidence": [
-            {
-              "object_id": "block-p0055-0024",
-              "object_type": "text_block",
-              "page_index": 54,
-              "excerpt": "报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
-              "role": "table",
-              "bbox": {
-                "x0": 662.2497122994398,
-                "x1": 1124.574983149992,
-                "y0": 549.9142486270111,
-                "y1": 717.3881334361464
-              },
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "reporting_entity": {
-          "state": "stated",
-          "raw_text": "公司制定《废水排放控制管理程序》《废气排放控制管理程序》《活性炭吸附装置设计、建设与运行管理工作指示》《VOCs（Volatile Organic Compounds）物料控制管理工作指示》等内部制度，明确对生产运营环节产生的废水、废气的管控标准，确保各项污染物满足排放限值和处置要求。",
-          "value": "公司",
-          "evidence": [
-            {
-              "object_id": "block-p0055-0024",
-              "object_type": "text_block",
-              "page_index": 54,
-              "excerpt": "公司制定《废水排放控制管理程序》《废气排放控制管理程序》《活性炭吸附装置设计、建设与运行管理工作指示》《VOCs（Volatile Organic Compounds）物料控制管理工作指示》等内部制度，明确对生产运营环节产生的废水、废气的管控标准，确保各项污染物满足排放限值和处置要求。",
-              "role": "table",
-              "bbox": {
-                "x0": 662.2497122994398,
-                "x1": 1124.574983149992,
-                "y0": 549.9142486270111,
-                "y1": 717.3881334361464
-              },
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "entity_aggregation_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "reporting_boundary": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "measurement_method": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "value_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "aggregation_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "denominator": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "dimensions": {}
-      },
-      "evidence": [
-        {
-          "object_id": "block-p0055-0024",
-          "object_type": "text_block",
-          "page_index": 54,
-          "excerpt": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
-          "role": "statement",
-          "bbox": {
-            "x0": 662.2497122994398,
-            "x1": 1124.574983149992,
-            "y0": 549.9142486270111,
-            "y1": 717.3881334361464
-          },
-          "row_id": null,
-          "column_id": null,
-          "char_start": 265,
-          "char_end": 468,
-          "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-        }
-      ],
-      "quality": "grounded",
-      "flags": [
-        "unbound_identity:measurement_method",
-        "statement_is_excerpt",
-        "document_evidence_limited"
-      ],
-      "extensions": {
-        "identity_attempts": [
-          "unbound_identity:measurement_method",
-          "unbound_identity:measurement_method",
-          "unbound_identity:measurement_method",
-          "unbound_identity:measurement_method"
-        ]
+      "search_scope": {
+        "available_pages": [
+          0,
+          1,
+          2,
+          30,
+          53,
+          54,
+          55,
+          56,
+          57,
+          71,
+          72,
+          73,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          0,
+          1,
+          2,
+          30,
+          53,
+          54,
+          55,
+          56,
+          57,
+          71,
+          72,
+          73,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 92
       }
     },
-    {
-      "schema_version": "source-fact-2.0",
-      "source_fact_id": "ae6f51492989124962cf5ffe08ff3ab854723e8923cb64f9810ee00b4a6a48ca",
-      "source_anchor_id": "6a52549d04a288f8d5ddf1e6a326ca5798ab89bfc4947cefb9745e132d02d8eb",
-      "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-      "ir_run_id": "ir-20261101T134609Z-855352b3e06f",
+    "ir-20261104T061144Z-1607173055e3:1": {
+      "ir_run_id": "ir-20261104T061144Z-1607173055e3",
       "ir_revision": 1,
-      "interpretation_id": "096a030d5314e6edb9d6df663be1b7b01a1ea6a563435912d72de10e2ec424d6",
-      "report_resource": {
-        "schema_version": "report-resource-1.0",
-        "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "asset_id": "pdf-7ef566e38b68b8d96ef6369c",
-        "sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
-        "original_filename": "2025 宁德时代ESG.pdf",
-        "company": {
-          "name": "宁德时代新能源科技股份有限公司",
-          "company_id": "org:catl"
-        },
-        "publication_year": null,
-        "industry": null,
-        "reporting_year": 2025,
-        "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
-        "metadata_sources": {
-          "company": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:publisher_name",
-          "reporting_year": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:reporting_year",
-          "title": "registered_report:report-c13f6d558ea94eb6bb9af076544a5546:revision:3:title"
-        },
-        "extensions": {},
-        "revision": 2
-      },
-      "value": {
-        "statement_raw": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
-        "extensions": {
-          "source_text_raw": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。同时，公司将土壤污染风险识别纳入日常环保隐患排查，确保及时识别并控制潜在风险。"
-        },
-        "kind": "assertion"
-      },
-      "source_row_label": null,
-      "identity": {
-        "reporting_period": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "reporting_entity": {
-          "state": "stated",
-          "raw_text": "公司",
-          "value": "公司",
-          "evidence": [
-            {
-              "object_id": "block-p0056-0032",
-              "object_type": "text_block",
-              "page_index": 55,
-              "excerpt": "公司",
-              "role": "table",
-              "bbox": {
-                "x0": 661.7499011958175,
-                "x1": 1122.075927631881,
-                "y0": 628.4020095674118,
-                "y1": 675.3946817228109
-              },
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "entity_aggregation_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "reporting_boundary": {
-          "state": "stated",
-          "raw_text": "公司对新建工厂",
-          "value": "新建工厂",
-          "evidence": [
-            {
-              "object_id": "block-p0056-0032",
-              "object_type": "text_block",
-              "page_index": 55,
-              "excerpt": "公司对新建工厂",
-              "role": "table",
-              "bbox": {
-                "x0": 661.7499011958175,
-                "x1": 1122.075927631881,
-                "y0": 628.4020095674118,
-                "y1": 675.3946817228109
-              },
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "measurement_method": {
-          "state": "stated",
-          "raw_text": "开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测",
-          "value": "背景环境质量调查、自行监测",
-          "evidence": [
-            {
-              "object_id": "block-p0056-0032",
-              "object_type": "text_block",
-              "page_index": 55,
-              "excerpt": "开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测",
-              "role": "table",
-              "bbox": {
-                "x0": 661.7499011958175,
-                "x1": 1122.075927631881,
-                "y0": 628.4020095674118,
-                "y1": 675.3946817228109
-              },
-              "row_id": null,
-              "column_id": null,
-              "char_start": null,
-              "char_end": null,
-              "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-            }
-          ]
-        },
-        "value_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "aggregation_role": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "denominator": {
-          "state": "not_read",
-          "raw_text": null,
-          "value": null,
-          "evidence": []
-        },
-        "dimensions": {
-          "geography": {
-            "state": "stated",
-            "raw_text": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
-            "value": "新建工厂",
-            "evidence": [
-              {
-                "object_id": "block-p0056-0032",
-                "object_type": "text_block",
-                "page_index": 55,
-                "excerpt": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
-                "role": "table",
-                "bbox": {
-                  "x0": 661.7499011958175,
-                  "x1": 1122.075927631881,
-                  "y0": 628.4020095674118,
-                  "y1": 675.3946817228109
-                },
-                "row_id": null,
-                "column_id": null,
-                "char_start": null,
-                "char_end": null,
-                "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-              }
-            ]
-          },
-          "site": {
-            "state": "stated",
-            "raw_text": "新建工厂",
-            "value": "新建工厂",
-            "evidence": [
-              {
-                "object_id": "block-p0056-0032",
-                "object_type": "text_block",
-                "page_index": 55,
-                "excerpt": "新建工厂",
-                "role": "table",
-                "bbox": {
-                  "x0": 661.7499011958175,
-                  "x1": 1122.075927631881,
-                  "y0": 628.4020095674118,
-                  "y1": 675.3946817228109
-                },
-                "row_id": null,
-                "column_id": null,
-                "char_start": null,
-                "char_end": null,
-                "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-              }
-            ]
-          }
-        }
-      },
-      "evidence": [
-        {
-          "object_id": "block-p0056-0032",
-          "object_type": "text_block",
-          "page_index": 55,
-          "excerpt": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
-          "role": "statement",
-          "bbox": {
-            "x0": 661.7499011958175,
-            "x1": 1122.075927631881,
-            "y0": 628.4020095674118,
-            "y1": 675.3946817228109
-          },
-          "row_id": null,
-          "column_id": null,
-          "char_start": 0,
-          "char_end": 66,
-          "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
-        }
-      ],
-      "quality": "grounded",
-      "flags": [
-        "statement_is_excerpt",
-        "document_evidence_limited"
-      ],
-      "extensions": {}
+      "search_scope": {
+        "available_pages": [
+          73,
+          74
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          73,
+          74
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 92
+      }
+    },
+    "ir-20261104T062911Z-05a35e4653d9:1": {
+      "ir_run_id": "ir-20261104T062911Z-05a35e4653d9",
+      "ir_revision": 1,
+      "search_scope": {
+        "available_pages": [
+          70,
+          71
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          70,
+          71
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 92
+      }
+    },
+    "ir-20261104T063016Z-562ddccf1ae8:1": {
+      "ir_run_id": "ir-20261104T063016Z-562ddccf1ae8",
+      "ir_revision": 1,
+      "search_scope": {
+        "available_pages": [
+          2,
+          3
+        ],
+        "mode": "targeted",
+        "prepared_pages": [
+          2,
+          3
+        ],
+        "report_wide_absence_proven": false,
+        "source_page_count": 92
+      }
     }
-  ],
-  "limitation": "Supplier statement inherited the main report year via surrounding-frame text. Monitoring statement with dated standard identifiers did not inherit the reporting period correctly. Next revision binds a statement only to its own period reference."
+  },
+  "products": {
+    "stage_label": "已投影 · 待发布",
+    "captured_facts": 54,
+    "capture_periods": [
+      {
+        "period": "2023",
+        "facts": 15
+      },
+      {
+        "period": "2024",
+        "facts": 18
+      },
+      {
+        "period": "2025",
+        "facts": 19
+      },
+      {
+        "period": "unknown",
+        "facts": 2
+      }
+    ],
+    "receipt": {
+      "status": "accepted",
+      "accepted_facts": 54,
+      "rejected_facts": 0
+    },
+    "projection": {
+      "export_id": "export-faa75bdf253f6115dc1bef4a93daf2ce497f3f16b431fa77f3935dfcb4c9092f",
+      "status": "completed",
+      "projection": {
+        "schema_version": "capture-projection-1.0",
+        "projection_id": "projection-1c562661e3bff14ce21fc547e51fcfd5dabd81b89f13cc5614371e7c551cdd79",
+        "export_id": "export-faa75bdf253f6115dc1bef4a93daf2ce497f3f16b431fa77f3935dfcb4c9092f",
+        "input_digest": "d8015497fd04de56482d0c7c7afd668f20a60dd39cc37cab06b6a7b447d97cf8",
+        "transform_version": "capture-observation-1.1",
+        "content_digest": "9c97255557404aa90553ce54f62e2a397f89b6483b023049538e865a0e6e2625",
+        "source": {
+          "document_id": "doc-sha256-7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "pdf_sha256": "7ef566e38b68b8d96ef6369c88dc247f76b314a915121c8dc9bbe2785fa8fc6a",
+          "pdf_id": "pdf-7ef566e38b68b8d96ef6369c",
+          "title": "宁德时代新能源科技股份有限公司2025年环境、社会及公司治理（ESG）报告",
+          "report_company": "宁德时代新能源科技股份有限公司",
+          "publication_year": null,
+          "resource_revision": 2,
+          "report_company_id": "org:catl",
+          "industry": null,
+          "reporting_year": 2025
+        },
+        "facts": 54,
+        "observations": 54,
+        "periods": {
+          "2023": 15,
+          "2024": 18,
+          "2025": 19,
+          "unknown": 2
+        },
+        "relations": {
+          "match": 11,
+          "different": 42,
+          "uncertain": 1
+        },
+        "repeated_occurrences": 0,
+        "diagnostics": []
+      },
+      "error_code": null,
+      "retryable": false
+    },
+    "published_dataset_count": 0,
+    "auto_publish": false
+  },
+  "statements": [
+    {
+      "statement": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
+      "period": {
+        "evidence": [],
+        "state": "not_read"
+      },
+      "relation": "uncertain"
+    },
+    {
+      "statement": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。报告期内，公司按要求开展自行监测，所有结果均满足相关标准要求，未发生超标排放情况。",
+      "period": {
+        "evidence": [
+          {
+            "excerpt": "2025年1月1日至2025年12月31日",
+            "object_id": "block-p0003-0008",
+            "object_type": "text_block",
+            "page_index": 2,
+            "role": "report",
+            "source_snapshot": "ir-20261101T134609Z-855352b3e06f:1"
+          }
+        ],
+        "raw_text": "2025年1月1日至2025年12月31日",
+        "state": "inherited",
+        "value": "2025"
+      },
+      "relation": "match"
+    },
+    {
+      "statement": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
+      "period": {
+        "evidence": [],
+        "state": "not_read"
+      },
+      "relation": "match"
+    }
+  ]
 }
