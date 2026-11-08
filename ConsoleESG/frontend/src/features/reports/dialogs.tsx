@@ -195,7 +195,7 @@ export function ImportReportDialog({
   onImported,
 }: {
   onClose: () => void;
-  onImported: (resource?: ReportResource) => void;
+  onImported: (resource?: ReportResource, folderId?: string) => void;
 }) {
   const [mode, setMode] = useState<"file" | "folder">("file"),
     [value, setValue] = useState(() => initial()),
@@ -239,7 +239,7 @@ export function ImportReportDialog({
         if (result.preview) setPreview(result);
         else {
           invalidate("document", "/api/report-resources");
-          onImported();
+          onImported(undefined, result.folder?.folder_id);
           onClose();
         }
       }
@@ -319,7 +319,7 @@ export function ImportReportDialog({
           </>
         ) : (
           <>
-            <Field label="本机目录" hint="目录中包含 manifest.json 和 pdf/。">
+            <Field label="本机目录" hint="选择含 manifest.json 的报告目录。">
               <input
                 value={folder}
                 onChange={(e) => changedFolder(e.target.value)}
@@ -328,7 +328,7 @@ export function ImportReportDialog({
             </Field>
             {preview && (
               <div className="import-preview">
-                <h3>检查结果 · {preview.reports.length} 份</h3>
+                <h3>{preview.folder?.name || "报告文件夹"} · {preview.reports.length} 份</h3>
                 <ul>
                   {preview.reports.map((report) => (
                     <li key={report.pdf_id}>

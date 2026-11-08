@@ -10,7 +10,7 @@
 
 ## 2. 批量报告
 
-准备一个批次目录，PDF必须直接放在`pdf/`，不在该子目录里继续分企业层级：
+准备一个批次目录，PDF可直接放在目录内，也可放在`pdf/`子目录内：
 
 ```text
 batch-001/
@@ -29,7 +29,9 @@ import json
 
 root = Path("/absolute/intake/batch-001")
 pdf = root / "pdf/example-2025.pdf"
-manifest = {"schema_version": "report-resource-batch-1.0", "reports": [{
+manifest = {"schema_version": "report-resource-batch-1.0", "folder": {
+    "folder_id": "batch-001", "name": "报告批次 001"
+}, "reports": [{
     "pdf_id": "example-esg-2025",
     "file": "pdf/example-2025.pdf",
     "sha256": sha256(pdf.read_bytes()).hexdigest(),
@@ -43,13 +45,13 @@ manifest = {"schema_version": "report-resource-batch-1.0", "reports": [{
     json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 ```
 
-当前格式中仅`pdf_id/file/sha256`必填；`company/publication_year/industry/reporting_year/title/metadata_sources/extensions`选填。`reporting_year`只填主要年度，不限制提取范围，也不需要为每个历史年重复登记。
+当前格式中仅`pdf_id/file/sha256`必填；`folder`及各业务信息选填。文件在目录根部时，`file`填写文件名；在`pdf/`中时填写`pdf/文件名.pdf`。`reporting_year`只填主要年度，不限制提取范围，也不需要为每个历史年重复登记。双年度或财政年度的完整日期可放在`extensions.reporting_period`。
 
 `pdf_id`用稳定的英数字、点、下划线或短横线，最长160字符；文件名可以中文。一个批次内编号、文件路径和PDF摘要均不能重复；同一PDF已登记其他编号时复用原资源。修改已登记元数据通过编辑并产生修订，不重新上传来覆盖身份。完整格式见[报告合同](../../ExtractESG/contracts/src/esg_reports/contract.py)。
 
 ## 3. 导入并运行
 
-Console“报告”选择批量导入，填写批次目录绝对路径，先查看预览，再执行导入。系统管理PDF、登记和存储位置；不要自己搬到`.local/data`内部的blobs、registry或提取结果目录。
+Console“报告”选择批量导入，填写批次目录绝对路径，先查看预览，再执行导入。成功后进入“文件夹 → 报告列表 → 报告详情”，每层都有返回入口。文件夹属于报告模块的独立导航信息，不参与条款或原值身份。单份上传显示为独立报告。系统管理PDF、登记和存储位置；不要自己搬到`.local/data`内部的blobs、registry或提取结果目录。
 
 然后选择报告和独立条款执行。原值、属性、期间和来源由链路生成，系统输出封存ZIP并自动交付数据库接收器；页面CSV/矩阵用于浏览与分析，不是数据库正式输入合同。不要手工改中间JSON来补年份或直接把PDF放入SQL库。
 

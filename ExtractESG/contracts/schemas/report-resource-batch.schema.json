@@ -169,10 +169,43 @@
       "title": "Industry",
       "type": "object"
     },
-    "JsonValue": {}
+    "JsonValue": {},
+    "ReportFolder": {
+      "additionalProperties": false,
+      "properties": {
+        "folder_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$",
+          "title": "Folder Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "folder_id",
+        "name"
+      ],
+      "title": "ReportFolder",
+      "type": "object"
+    }
   },
   "additionalProperties": false,
   "properties": {
+    "folder": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ReportFolder"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
     "reports": {
       "items": {
         "$ref": "#/$defs/BatchItem"

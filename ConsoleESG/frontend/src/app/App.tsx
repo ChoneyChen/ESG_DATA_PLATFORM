@@ -33,7 +33,10 @@ export default function App() {
   }, []);
   const { section, parts, params } = route;
   let page;
-  if (route.valid && section === "reports" && parts.length <= 1)
+  if (route.valid && section === "reports" && parts[0] === "folders" && parts[1] && parts.length <= 3)
+    page = parts[2] ? <ReportPage key={parts.join("/")} pdfId={parts[2]} folderId={parts[1]} />
+      : <ReportsPage key={parts[1]} folderId={parts[1]} />;
+  else if (route.valid && section === "reports" && parts.length <= 1)
     page = parts[0] ? (
       <ReportPage key={parts[0]} pdfId={parts[0]} />
     ) : (

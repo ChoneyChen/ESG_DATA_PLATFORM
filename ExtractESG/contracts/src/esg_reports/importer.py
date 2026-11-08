@@ -1,12 +1,14 @@
-"""Import a validated folder: manifest.json plus pdf/<files>.pdf. No silent overwrite."""
+"""Import manifest-listed PDFs and persist their folder membership separately."""
 
 import json, shutil, tempfile, os
+from hashlib import sha256
 from pathlib import Path
 from .contract import (
     BatchManifest,
     ReportResource,
     ReportImportResult,
     ReportUploadResult,
+    ReportFolder,
 )
 from .repository import ReportRepository, file_digest
 
@@ -44,16 +46,16 @@ def import_upload(stream, filename, metadata, library, *, max_bytes=100 * 1024 *
             manifest.model_dump_json(), encoding="utf-8"
         )
         repo = repository or ReportRepository(library)
-        result = import_folder(root, library, repository=repo)
+        result = import_folder(root, library, repository=repo, create_folder=False)
         resource = repo.get(item["pdf_id"])
         return ReportUploadResult(result=result, resource=resource).model_dump(
             mode="json"
         )
 
 
-def prepare(folder):
+def prepare(folder, *, manifest=None):
     root = Path(folder).resolve()
-    manifest = BatchManifest.model_validate_json(
+    manifest = manifest or BatchManifest.model_validate_json(
         (root / "manifest.json").read_text(encoding="utf-8")
     )
     prepared = []
@@ -62,11 +64,10 @@ def prepare(folder):
         if (
             relative.is_absolute()
             or ".." in relative.parts
-            or len(relative.parts) != 2
-            or relative.parts[0] != "pdf"
+            or not (len(relative.parts)==1 or len(relative.parts)==2 and relative.parts[0]=="pdf")
             or relative.suffix.lower() != ".pdf"
         ):
-            raise ValueError("Batch files must be direct children of pdf/")
+            raise ValueError("Batch PDFs must be in the batch directory or its pdf/ child")
         path = root / relative
         if path.is_symlink() or (root / "pdf").is_symlink() or not path.is_file():
             raise ValueError("Missing or symbolic PDF source")
@@ -83,8 +84,14 @@ def prepare(folder):
     return prepared
 
 
-def import_folder(folder, library, *, preview=False, repository=None):
-    prepared = prepare(folder)
+def import_folder(folder, library, *, preview=False, repository=None, create_folder=True):
+    manifest = BatchManifest.model_validate_json((Path(folder)/"manifest.json").read_text(encoding="utf-8"))
+    prepared = prepare(folder, manifest=manifest)
+    batch_folder = manifest.folder or ReportFolder(
+        folder_id="batch-"+sha256(json.dumps(sorted(resource.sha256 for _,resource in prepared)).encode()).hexdigest()[:24],
+        name=Path(folder).resolve().name)
+    if not create_folder:
+        batch_folder = None
     repo = repository or ReportRepository(library)
     results = []
     # Validate the entire batch before copying any PDF or registering any metadata.
@@ -113,7 +120,7 @@ def import_folder(folder, library, *, preview=False, repository=None):
             }
         )
     if preview:
-        return ReportImportResult(preview=True, reports=results).model_dump(mode="json")
+        return ReportImportResult(preview=True, reports=results, folder=batch_folder).model_dump(mode="json")
     created = []
     try:
         with repo.connect() as db:
@@ -153,11 +160,16 @@ def import_folder(folder, library, *, preview=False, repository=None):
                 result["status"] = (
                     "imported" if result["status"] == "ready" else result["status"]
                 )
+            if batch_folder:
+                db.execute("INSERT INTO report_folders VALUES (?,?) ON CONFLICT(folder_id) DO UPDATE SET name=excluded.name",
+                    (batch_folder.folder_id,batch_folder.name))
+                db.executemany("INSERT OR IGNORE INTO report_folder_members VALUES (?,?)",
+                    [(batch_folder.folder_id,resource.pdf_id) for _,resource in prepared])
     except Exception:
         for path in created:
             path.unlink(missing_ok=True)
         raise
-    return ReportImportResult(preview=False, reports=results).model_dump(mode="json")
+    return ReportImportResult(preview=False, reports=results, folder=batch_folder).model_dump(mode="json")
 
 
 def main():

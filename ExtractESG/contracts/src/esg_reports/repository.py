@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import hashlib, json, sqlite3
-from .contract import ReportResource
+from .contract import ReportResource, ReportFolderSummary
 
 
 def file_digest(path):
@@ -23,6 +23,8 @@ class ReportRepository:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS resources (pdf_id TEXT PRIMARY KEY, sha256 TEXT UNIQUE NOT NULL, body TEXT NOT NULL)"
             )
+            db.execute("CREATE TABLE IF NOT EXISTS report_folders (folder_id TEXT PRIMARY KEY, name TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS report_folder_members (folder_id TEXT, pdf_id TEXT, PRIMARY KEY(folder_id,pdf_id))")
 
     def connect(self):
         return sqlite3.connect(self.db_path, timeout=30)
@@ -44,12 +46,19 @@ class ReportRepository:
         return ReportResource.model_validate_json(row[0])
 
     def list(
-        self, *, company=None, industry=None, publication_year=None, reporting_year=None
+        self, *, company=None, industry=None, publication_year=None, reporting_year=None,
+        folder_id=None, unfiled=False,
     ):
         with self.connect() as db:
+            where, parameters = "", ()
+            if folder_id is not None:
+                where = " WHERE pdf_id IN (SELECT pdf_id FROM report_folder_members WHERE folder_id=?)"
+                parameters = (folder_id,)
+            elif unfiled:
+                where = " WHERE pdf_id NOT IN (SELECT pdf_id FROM report_folder_members)"
             rows = [
                 ReportResource.model_validate_json(row[0])
-                for row in db.execute("SELECT body FROM resources ORDER BY pdf_id")
+                for row in db.execute("SELECT body FROM resources"+where+" ORDER BY pdf_id",parameters)
             ]
         if company:
             rows = [
@@ -68,6 +77,14 @@ class ReportRepository:
         if reporting_year is not None:
             rows = [r for r in rows if r.reporting_year == reporting_year]
         return rows
+
+    def folders(self):
+        with self.connect() as db:
+            return [ReportFolderSummary(folder_id=row[0],name=row[1],report_count=row[2])
+                for row in db.execute("SELECT f.folder_id,f.name,COUNT(m.pdf_id) FROM report_folders f LEFT JOIN report_folder_members m ON m.folder_id=f.folder_id GROUP BY f.folder_id ORDER BY f.name,f.folder_id")]
+
+    def folder(self, folder_id):
+        return next((folder for folder in self.folders() if folder.folder_id==folder_id),None)
 
     def save(self, resource, *, expected_revision=None):
         with self.connect() as db:

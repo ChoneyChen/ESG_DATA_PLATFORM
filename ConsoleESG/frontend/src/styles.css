@@ -614,6 +614,11 @@ code,
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 16px;
 }
+.report-folders { margin-bottom: 28px; }
+.report-folders .group-card { gap: 20px; }
+.report-folders .group-card .folder-heading { margin: 0; align-items: center; justify-content: flex-start; gap: 12px; }
+.report-folders .folder-heading h2 { margin: 0; color: var(--ink); }
+.folder-icon { flex-shrink: 0; color: var(--accent, #176b52); }
 .group-card {
   background: #fff;
   border: 1px solid var(--line);

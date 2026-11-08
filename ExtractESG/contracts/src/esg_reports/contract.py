@@ -78,10 +78,24 @@ class ReportImportItem(Model):
     status: Literal["ready", "already_present", "imported"]
 
 
+class ReportFolder(Model):
+    folder_id: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$")
+    name: str = Field(min_length=1, max_length=200)
+
+
+class ReportFolderSummary(ReportFolder):
+    report_count: int
+
+
+class ReportFolderList(Model):
+    folders: list[ReportFolderSummary]
+
+
 class ReportImportResult(Model):
     schema_version: Literal["report-resource-import-1.0"] = "report-resource-import-1.0"
     preview: bool
     reports: list[ReportImportItem]
+    folder: ReportFolder | None = None
 
 
 class ReportUploadResult(Model):
@@ -92,6 +106,7 @@ class ReportUploadResult(Model):
 class BatchManifest(Model):
     schema_version: Literal["report-resource-batch-1.0"] = "report-resource-batch-1.0"
     reports: list[BatchItem] = Field(min_length=1, max_length=10000)
+    folder: ReportFolder | None = None
 
     @model_validator(mode="after")
     def unique_pdf(self):

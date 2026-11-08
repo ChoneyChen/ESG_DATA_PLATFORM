@@ -3,6 +3,8 @@ import type {
   ReportList,
   ReportResource,
   ExtractionSession,
+  ReportFolderList,
+  ReportFolderSummary,
 } from "../../shared/contracts";
 import { useResource } from "../../shared/resource";
 import { pdfUrl, segment } from "../../shared/api";
@@ -18,7 +20,7 @@ import { href, navigate } from "../../app/routes";
 import { SessionRows } from "../extractions/list";
 import { EditReportDialog, ImportReportDialog } from "./dialogs";
 
-export function ReportsPage() {
+export function ReportsPage({ folderId }: { folderId?: string }) {
   const [search, setSearch] = useState(""),
     [company, setCompany] = useState(""),
     [industry, setIndustry] = useState(""),
@@ -26,9 +28,11 @@ export function ReportsPage() {
     [importing, setImporting] = useState(false);
   const result = useResource<ReportList>(
     "document",
-    "/api/report-resources",
+    folderId ? "/api/report-resources?folder_id=" + segment(folderId) : "/api/report-resources?unfiled=true",
     10000,
   );
+  const folders = useResource<ReportFolderList>("document", folderId ? null : "/api/report-resources/folders", 10000);
+  const folder = useResource<ReportFolderSummary>("document", folderId ? "/api/report-resources/folders/"+segment(folderId) : null);
   const all = result.data?.reports || [];
   const contains = (values: (string | null | undefined)[], query: string) =>
     !query ||
@@ -44,18 +48,31 @@ export function ReportsPage() {
       contains([r.company?.name, r.company?.company_id], company) &&
       contains([r.industry?.name, r.industry?.code], industry) &&
       (!year || String(r.publication_year) === year),
-  );
+  ).sort((a,b) => (a.company?.name || "").localeCompare(b.company?.name || "") || (b.reporting_year || 0)-(a.reporting_year || 0));
   return (
     <>
       <PageHeader
-        title="报告"
+        title={folderId ? folder.data?.name || "报告文件夹" : "报告"}
+        back={folderId ? { href: href("reports"), label: "报告" } : undefined}
         subtitle={
-          result.data ? `${all.length} 份 PDF` : "管理报告身份与提取入口"
+          result.data ? folderId ? `${all.length} 份报告` : `${folders.data?.folders.length || 0} 个文件夹 · ${all.length} 份独立报告` : undefined
         }
         actions={<button onClick={() => setImporting(true)}>导入报告</button>}
       />
+      {!folderId && <>
+        <ReadError error={folders.error} retry={folders.reload} />
+        {!!folders.data?.folders.length && <div className="group-grid report-folders">
+          {folders.data.folders.filter(f => !search || f.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(f =>
+            <a className="group-card" key={f.folder_id} href={href("reports","folders",f.folder_id)}>
+              <div className="folder-heading"><svg className="folder-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/><path d="M3 8h18"/></svg><h2>{f.name}</h2></div>
+              <div><span>{f.report_count} 份报告</span><span aria-hidden="true">→</span></div>
+            </a>)}
+        </div>}
+      </>}
+      <ReadError error={folder.error} retry={folder.reload} />
+      {!folderId && all.length > 0 && <div className="section-heading"><h2>独立报告</h2></div>}
       <div className="filters">
-        <Field label="搜索报告">
+        <Field label={folderId ? "搜索报告" : "搜索文件夹或独立报告"}>
           <input
             type="search"
             value={search}
@@ -92,10 +109,10 @@ export function ReportsPage() {
         <Loading />
       ) : result.data && rows.length === 0 ? (
         <Empty
-          title={all.length ? "没有符合筛选的报告" : "报告库为空"}
+          title={all.length ? "没有符合筛选的报告" : folderId ? "文件夹中还没有报告" : "没有独立报告"}
           action={<button onClick={() => setImporting(true)}>导入报告</button>}
         >
-          可以调整筛选，或导入 PDF 与报告身份。
+          可以调整筛选或导入报告。
         </Empty>
       ) : (
         <div className="table-scroll reports-table">
@@ -118,7 +135,7 @@ export function ReportsPage() {
                   <td>
                     <a
                       className="row-title"
-                      href={href("reports", report.pdf_id)}
+                      href={folderId ? href("reports","folders",folderId,report.pdf_id) : href("reports", report.pdf_id)}
                     >
                       {report.title || report.original_filename}
                     </a>
@@ -160,9 +177,11 @@ export function ReportsPage() {
       {importing && (
         <ImportReportDialog
           onClose={() => setImporting(false)}
-          onImported={(resource) => {
+          onImported={(resource, importedFolder) => {
             result.reload();
-            if (resource) navigate("/reports/" + segment(resource.pdf_id));
+            folders.reload();
+            if (importedFolder) navigate(href("reports","folders",importedFolder));
+            else if (resource) navigate(href("reports",resource.pdf_id));
           }}
         />
       )}
@@ -170,13 +189,16 @@ export function ReportsPage() {
   );
 }
 
-export function ReportPage({ pdfId }: { pdfId: string }) {
+export function ReportPage({ pdfId, folderId }: { pdfId: string; folderId?: string }) {
   const resource = useResource<ReportResource>(
     "document",
     "/api/report-resources/" + segment(pdfId),
   );
   const [editing, setEditing] = useState(false);
   const report = resource.data;
+  const period = report?.extensions?.reporting_period as { start?: string; end?: string } | undefined;
+  const periodText = period ? [period.start,period.end].filter(Boolean).join(" — ") : null;
+  const sourceUrl = report?.extensions?.source_url;
   const sessions = useResource<ExtractionSession[]>(
     "document",
     "/api/report-sessions",
@@ -191,7 +213,7 @@ export function ReportPage({ pdfId }: { pdfId: string }) {
     <>
       <PageHeader
         title={report?.title || report?.original_filename || "报告详情"}
-        back={{ href: href("reports"), label: "报告" }}
+        back={{ href: folderId ? href("reports","folders",folderId) : href("reports"), label: folderId ? "报告文件夹" : "报告" }}
         actions={
           report && (
             <>
@@ -238,6 +260,7 @@ export function ReportPage({ pdfId }: { pdfId: string }) {
                 <span>所属行业</span>
                 <strong>{report.industry?.name || "未提供"}</strong>
               </div>
+              {periodText && <div><span>报告期间</span><strong>{periodText}</strong></div>}
               <a
                 className="text-link"
                 href={pdfUrl(report.asset_id)}
@@ -246,6 +269,7 @@ export function ReportPage({ pdfId }: { pdfId: string }) {
               >
                 打开 PDF ↗
               </a>
+              {typeof sourceUrl === "string" && /^https?:\/\//.test(sourceUrl) && <a className="text-link" href={sourceUrl} target="_blank" rel="noreferrer">原始来源 ↗</a>}
             </section>
             <section className="section">
               <div className="section-heading">

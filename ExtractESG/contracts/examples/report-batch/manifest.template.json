@@ -1,5 +1,6 @@
 {
   "schema_version": "report-resource-batch-1.0",
+  "folder": {"folder_id": "batch-001", "name": "报告批次 001"},
   "reports": [
     {
       "pdf_id": "PDF-001",

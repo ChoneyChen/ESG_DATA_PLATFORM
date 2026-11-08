@@ -3,7 +3,7 @@
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Request
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
-from esg_reports.contract import ReportResource, ReportList
+from esg_reports.contract import ReportResource, ReportList, ReportFolderList, ReportFolderSummary
 from esg_reports.repository import ReportRepository
 from esg_reports.importer import import_folder, import_upload
 import json
@@ -54,6 +54,8 @@ def resource_router(assets, repository):
         publication_year: int | None = None,
         reporting_year: int | None = None,
         include_unavailable: bool = False,
+        folder_id: str | None = None,
+        unfiled: bool = False,
     ) -> ReportList:
         available = sync()
         rows = repository.list(
@@ -61,6 +63,7 @@ def resource_router(assets, repository):
             industry=industry,
             publication_year=publication_year,
             reporting_year=reporting_year,
+            folder_id=folder_id, unfiled=unfiled,
         )
         return ReportList.model_validate(
             {
@@ -84,6 +87,17 @@ def resource_router(assets, repository):
         )
         if not request.preview:
             assets.refresh()
+        return result
+
+    @router.get("/folders", response_model=ReportFolderList)
+    def folders():
+        return ReportFolderList(folders=repository.folders())
+
+    @router.get("/folders/{folder_id}", response_model=ReportFolderSummary)
+    def folder(folder_id: str):
+        result = repository.folder(folder_id)
+        if result is None:
+            raise HTTPException(404,"Report folder does not exist")
         return result
 
     @router.post("/uploads", status_code=201)

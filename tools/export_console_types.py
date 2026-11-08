@@ -22,6 +22,8 @@ from esg_reports.contract import (
     BatchManifest,
     ReportImportResult,
     ReportUploadResult,
+    ReportFolderList,
+    ReportFolderSummary,
 )
 from esg_contracts.facts import (
     SourceFact,
@@ -55,6 +57,8 @@ MODELS = {
     "ClauseGroup": ClauseGroup,
     "ReportResource": ReportResource,
     "ReportList": ReportList,
+    "ReportFolderList": ReportFolderList,
+    "ReportFolderSummary": ReportFolderSummary,
     "ReportBatch": BatchManifest,
     "CreateExtraction": ExtractionPlanRequest,
     "ExtractionSession": ExtractionSession,

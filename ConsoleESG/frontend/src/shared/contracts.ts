@@ -206,11 +206,17 @@ export type ReportList_JsonValue = unknown;
 export type ReportList_ReportListItem = { "schema_version"?: "report-resource-1.0"; "pdf_id": string; "asset_id": string; "sha256": string; "original_filename": string; "company"?: (ReportList_Company | null); "publication_year"?: (number | null); "industry"?: (ReportList_Industry | null); "reporting_year"?: (number | null); "title"?: (string | null); "metadata_sources"?: Record<string, string>; "extensions"?: Record<string, ReportList_JsonValue>; "revision"?: number; "asset_available": boolean; "missing_metadata": Array<string> };
 export type ReportList = { "schema_version"?: "report-resource-list-1.0"; "reports": Array<ReportList_ReportListItem> };
 
+export type ReportFolderList_ReportFolderSummary = { "folder_id": string; "name": string; "report_count": number };
+export type ReportFolderList = { "folders": Array<ReportFolderList_ReportFolderSummary> };
+
+export type ReportFolderSummary = { "folder_id": string; "name": string; "report_count": number };
+
 export type ReportBatch_BatchItem = { "pdf_id": string; "file": string; "sha256": string; "company"?: (ReportBatch_Company | null); "publication_year"?: (number | null); "industry"?: (ReportBatch_Industry | null); "reporting_year"?: (number | null); "title"?: (string | null); "metadata_sources"?: Record<string, string>; "extensions"?: Record<string, ReportBatch_JsonValue> };
 export type ReportBatch_Company = { "name": string; "company_id"?: (string | null) };
 export type ReportBatch_Industry = { "name": string; "code"?: (string | null); "taxonomy"?: (string | null) };
 export type ReportBatch_JsonValue = unknown;
-export type ReportBatch = { "schema_version"?: "report-resource-batch-1.0"; "reports": Array<ReportBatch_BatchItem> };
+export type ReportBatch_ReportFolder = { "folder_id": string; "name": string };
+export type ReportBatch = { "schema_version"?: "report-resource-batch-1.0"; "reports": Array<ReportBatch_BatchItem>; "folder"?: (ReportBatch_ReportFolder | null) };
 
 export type CreateExtraction_ExtractionInput = { "kind": "pdf" | "document_ir"; "asset_id"?: (string | null); "ir_run_id"?: (string | null) };
 export type CreateExtraction_PipelineBudget = { "max_model_calls"?: number; "max_objects_per_clause"?: number; "max_output_tokens"?: number; "timeout_seconds"?: number };
@@ -258,14 +264,16 @@ export type NativeRun_RunRequest = { "ir_run_id": string; "clause_keys"?: Array<
 export type NativeRun_RunSummary = { "selected_clauses": number; "processed_clauses": number; "source_facts": number; "quantitative": number; "qualitative": number; "model_calls": number; "elapsed_seconds": number; "errors"?: Array<NativeRun_RunError>; "assessment"?: (NativeRun_ResultAssessment | null) };
 export type NativeRun = { "run_id": string; "schema_version"?: "extraction-run-1.0"; "status": "queued" | "running" | "completed" | "partial" | "failed" | "cancelled" | "interrupted"; "name"?: string; "request"?: (NativeRun_RunRequest | null); "document"?: (NativeRun_DocumentReference | null); "evidence_sources"?: Record<string, NativeRun_DocumentReference>; "evidence_request"?: (NativeRun_EvidencePreparationRequest | null); "resumable"?: boolean; "engine_fingerprint"?: (string | null); "clause_keys"?: Array<string>; "target_digest"?: (string | null); "created_at"?: (string | null); "updated_at"?: (string | null); "started_at"?: (string | null); "finished_at"?: (string | null); "progress"?: NativeRun_ReadingProgress; "current_call"?: (NativeRun_ModelProgress | null); "last_call"?: (NativeRun_ModelProgress | null); "cancel_requested"?: boolean; "summary"?: (NativeRun_RunSummary | null); "error"?: (string | null); "delivery"?: (NativeRun_DeliveryStatus | null); "export_download_url"?: (string | null); "artifacts_url"?: (string | null); "current_phase"?: string; "phase_label"?: string };
 
+export type ReportImportResult_ReportFolder = { "folder_id": string; "name": string };
 export type ReportImportResult_ReportImportItem = { "pdf_id": string; "asset_id": string; "status": "ready" | "already_present" | "imported" };
-export type ReportImportResult = { "schema_version"?: "report-resource-import-1.0"; "preview": boolean; "reports": Array<ReportImportResult_ReportImportItem> };
+export type ReportImportResult = { "schema_version"?: "report-resource-import-1.0"; "preview": boolean; "reports": Array<ReportImportResult_ReportImportItem>; "folder"?: (ReportImportResult_ReportFolder | null) };
 
 export type ReportUploadResult_Company = { "name": string; "company_id"?: (string | null) };
 export type ReportUploadResult_Industry = { "name": string; "code"?: (string | null); "taxonomy"?: (string | null) };
 export type ReportUploadResult_JsonValue = unknown;
+export type ReportUploadResult_ReportFolder = { "folder_id": string; "name": string };
 export type ReportUploadResult_ReportImportItem = { "pdf_id": string; "asset_id": string; "status": "ready" | "already_present" | "imported" };
-export type ReportUploadResult_ReportImportResult = { "schema_version"?: "report-resource-import-1.0"; "preview": boolean; "reports": Array<ReportUploadResult_ReportImportItem> };
+export type ReportUploadResult_ReportImportResult = { "schema_version"?: "report-resource-import-1.0"; "preview": boolean; "reports": Array<ReportUploadResult_ReportImportItem>; "folder"?: (ReportUploadResult_ReportFolder | null) };
 export type ReportUploadResult_ReportResource = { "schema_version"?: "report-resource-1.0"; "pdf_id": string; "asset_id": string; "sha256": string; "original_filename": string; "company"?: (ReportUploadResult_Company | null); "publication_year"?: (number | null); "industry"?: (ReportUploadResult_Industry | null); "reporting_year"?: (number | null); "title"?: (string | null); "metadata_sources"?: Record<string, string>; "extensions"?: Record<string, ReportUploadResult_JsonValue>; "revision"?: number };
 export type ReportUploadResult = { "result": ReportUploadResult_ReportImportResult; "resource": ReportUploadResult_ReportResource };
 
