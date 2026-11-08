@@ -15,7 +15,7 @@ from .decisions import QuantitativeDecision, QualitativeDecision, NumericMatch, 
 from .binding import numeric_fact, qualitative_fact
 from .structure import period_columns, column_structure, period_coverage
 from .retrieval import retrieve_candidates
-from .frames import split_frame, remainder_frames
+from .frames import split_frame, remainder_frames, budget_frames
 from .reading_frame import reading_frame
 from .enrichment import (context_frame, context_schema, ContextDecision, apply_context, missing_attributes, INSTRUCTIONS as CONTEXT_INSTRUCTIONS)
 from .ports import DocumentPort, ModelPort, ArtifactPort, ResultPort
@@ -237,7 +237,8 @@ class ExtractionBackbone:
                             }
                         )
                         continue
-                    pending_frames = [(frame, None, 0)]
+                    pending_frames = [(piece,None,0) for piece in
+                        (budget_frames(frame,budget.max_output_tokens) if clause.data_kind == 'quantitative' else [frame])]
                     frame_succeeded = True
                     while pending_frames:
                         if cancel_check():
@@ -481,7 +482,7 @@ class ExtractionBackbone:
                                 call["incomplete_output"] = exc.raw_output
                             if hasattr(exc, "category"):
                                 call["failure_category"] = exc.category
-                            pieces = split_frame(frame, exc.category) if getattr(exc, "category", None) in {"generation_incomplete", "input_budget", "timeout"} else []
+                            pieces = split_frame(frame, exc.category,quantitative=clause.data_kind == 'quantitative') if getattr(exc, "category", None) in {"generation_incomplete", "input_budget", "timeout"} else []
                             if pieces:
                                 call["status"] = "split_retry"
                                 call["retry_frames"] = [piece.digest for piece in pieces]

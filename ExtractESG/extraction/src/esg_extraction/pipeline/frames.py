@@ -5,6 +5,9 @@ import re
 
 
 def _child(frame, reason, **updates):
+    if frame.kind == 'text' and 'rows' in updates:
+        # The numerical reader has each row's exact local quotation already.
+        updates['texts'] = []
     if frame.kind == "table" and "rows" in updates:
         rows = updates["rows"]
         sources = updates.get("column_sources", frame.column_sources)
@@ -18,8 +21,8 @@ def _child(frame, reason, **updates):
         "fragment": FrameFragment(parent_digest=frame.digest, reason=reason)})
 
 
-def split_frame(frame, reason="generation_incomplete"):
-    if frame.kind == "table":
+def split_frame(frame, reason="generation_incomplete", *, quantitative=False):
+    if frame.kind == 'table' or (quantitative and frame.rows):
         if len(frame.rows) > 1:
             middle = len(frame.rows) // 2
             return [_child(frame, reason, rows=rows) for rows in (frame.rows[:middle], frame.rows[middle:])]
@@ -45,6 +48,22 @@ def split_frame(frame, reason="generation_incomplete"):
             "char_start": source.char_start + start, "span_id": (source.span_id or source.object_id) + f"@{start}:{end}"})])
             for start, end in ((0, middle), (middle, len(source.text)))]
     return []
+
+
+def budget_frames(frame, max_tokens):
+    """Bound row/column selections before a call, preserving every physical value."""
+    maximum_rows = max(1,max_tokens//256)
+    maximum_cells = max(1,max_tokens//48)
+    pending, result = [frame], []
+    while pending:
+        item = pending.pop(0)
+        if len(item.rows)>maximum_rows or sum(len(row.cells) for row in item.rows)>maximum_cells:
+            pieces = split_frame(item,'output_budget',quantitative=True)
+            if pieces:
+                pending[0:0] = pieces
+                continue
+        result.append(item)
+    return result
 
 
 def remainder_frames(frame, supplements, row_relations):

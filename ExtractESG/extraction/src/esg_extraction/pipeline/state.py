@@ -183,9 +183,19 @@ class RunStore:
         return self.public(state)
 
     def list(self):
+        return self.views()
+
+    def views(self, run_ids=None):
+        """Control-plane reads exclude frozen clause bodies before JSON decoding."""
+        where = '' if run_ids is None else ' WHERE r.run_id IN ('+','.join('?' for _ in run_ids)+')'
         with self.connect() as db:
-            rows = db.execute("SELECT run_id,body FROM runs ORDER BY rowid DESC").fetchall()
-            return [self.public(self._merge_progress(json.loads(row[1]), self._progress(db,row[0]))) for row in rows]
+            rows = db.execute('''SELECT json_remove(r.body,'$.targets') AS body,
+                json_extract(r.body,'$.targets.digest') AS target_digest,
+                (SELECT json_group_array(key) FROM json_each(r.body,'$.targets.clauses')) AS clause_keys,
+                p.body AS progress FROM runs r LEFT JOIN run_progress p ON p.run_id=r.run_id'''
+                +where+' ORDER BY r.rowid DESC',run_ids or []).fetchall()
+        return [self._merge_progress({**json.loads(row[0]),'target_digest':row[1],
+            'clause_keys':json.loads(row[2])},json.loads(row[3]) if row[3] else {}) for row in rows]
 
     def purge(self, run_ids, remove_artifacts):
         from esg_contracts.sessions import TERMINAL
@@ -212,7 +222,7 @@ class RunStore:
     @staticmethod
     def public(state):
         return {k: v for k, v in state.items() if k != "targets"} | {
-            "clause_keys": list(state.get("targets", {}).get("clauses", {})),
-            "target_digest": state.get("targets", {}).get("digest"),
+            "clause_keys": list(state["targets"]["clauses"]) if "targets" in state else state.get("clause_keys",[]),
+            "target_digest": state["targets"]["digest"] if "targets" in state else state.get("target_digest"),
             "artifacts_url": f"/api/runs/{state['run_id']}/facts",
         }

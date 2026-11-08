@@ -56,6 +56,10 @@ class ResumeRun(BaseModel):
     reason: str | None = None
 
 
+class RunStatusQuery(BaseModel):
+    run_ids: list[str] = Field(min_length=1,max_length=1000)
+
+
 class PurgeRuns(BaseModel):
     run_ids: list[str] = Field(min_length=1, max_length=1000)
 
@@ -304,7 +308,11 @@ def create_app(resource_factory=resources):
     @app.get("/api/runs")
     def runs():
         store = resource_factory()[1]
-        return {"runs":[run_view(store.observe(state["run_id"])) for state in store.list()]}
+        return {"runs":[run_view(state) for state in store.views()]}
+
+    @app.post("/api/runs/status")
+    def statuses(query: RunStatusQuery):
+        return {"runs":[run_view(state) for state in resource_factory()[1].views(query.run_ids)]}
 
     @app.get("/api/runs/{run_id}")
     def run(run_id: str) -> NativeRun:

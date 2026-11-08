@@ -202,6 +202,7 @@ class ReportProcessingCoordinator:
                     event_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     processing_id TEXT NOT NULL REFERENCES report_processing_runs(processing_id),
                     created_at TEXT NOT NULL, stage TEXT NOT NULL, state_json TEXT NOT NULL);
+                CREATE INDEX IF NOT EXISTS idx_processing_events ON report_processing_events(processing_id,event_id);
             """)
 
     @staticmethod
@@ -471,9 +472,15 @@ class ReportProcessingCoordinator:
             old = self.get(state["processing_id"])
         except KeyError:
             pass
-        unchanged = old and {
-            k: v for k, v in old.items() if k not in {"revision", "updated_at"}
-        } == {k: v for k, v in state.items() if k not in {"revision", "updated_at"}}
+        def business(value):
+            if isinstance(value,dict):
+                return {k:business(v) for k,v in value.items() if k not in {
+                    'revision','updated_at','observed_at','heartbeat_at','timing',
+                    'last_business_progress_at','elapsed_seconds','wall_elapsed_seconds'}}
+            if isinstance(value,list):
+                return [business(v) for v in value]
+            return value
+        unchanged = old and business(old) == business(state)
         if unchanged and not force:
             return
         state["revision"] = (old or {}).get("revision", 0) + 1
@@ -484,10 +491,13 @@ class ReportProcessingCoordinator:
                 "UPDATE report_processing_runs SET status=?,state_json=? WHERE processing_id=?",
                 (state["status"], text, state["processing_id"]),
             )
-            db.execute(
-                "INSERT INTO report_processing_events(processing_id,created_at,stage,state_json) VALUES (?,?,?,?)",
-                (state["processing_id"], state["updated_at"], event_stage, text),
-            )
+            event = {k:business(state.get(k)) for k in ('status','evidence_status','steps','error','ocr_run_id','ir_run_id')}
+            prior = {k:business(old.get(k)) for k in event} if old else None
+            if force or event != prior:
+                db.execute(
+                    "INSERT INTO report_processing_events(processing_id,created_at,stage,state_json) VALUES (?,?,?,?)",
+                    (state["processing_id"], state["updated_at"], event_stage, json.dumps(event,ensure_ascii=False)),
+                )
 
     def _config_digest(self, state, stage):
         config = state["request"]["config"]
@@ -1061,7 +1071,10 @@ class ReportProcessingCoordinator:
 
     def tick(self):
         with self._lock:
-            for state in self.list():
+            with self.store._connect() as db:
+                states = [json.loads(row[0]) for row in db.execute(
+                    "SELECT state_json FROM report_processing_runs WHERE status IN ('queued','running','cancelling')")]
+            for state in states:
                 if state["status"] == "cancelling":
                     self._observe_cancellation(state)
                     self._save(state, event_stage="cancellation")

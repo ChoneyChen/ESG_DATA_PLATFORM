@@ -45,7 +45,7 @@ export function RunMonitor() {
           <header>
             <div>
               <h2 id="monitor-title">运行监视</h2>
-              <small>{monitor.data?.active_count || 0} 个任务进行中</small>
+              <small>{monitor.data?.running_count || 0} 个运行 · {monitor.data?.queued_count || 0} 个排队</small>
             </div>
             <div>
               <button
@@ -89,6 +89,7 @@ export function RunMonitor() {
                   <div className="monitor-state">
                     <Badge tone={tone(run.status)}>{label(run.status)}</Badge>
                     <span>{run.phase_label}</span>
+                    {run.clause_key && <small>{run.clause_key}</small>}
                   </div>
                   {run.products?.export_id && (
                     <a

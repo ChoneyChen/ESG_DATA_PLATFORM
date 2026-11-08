@@ -10,6 +10,7 @@ from esg_data.organization import OrganizedTable
 class RunError(FrozenModel):
     clause_key: str | None = None
     object_id: str | None = None
+    frame_key: str | None = None
     error: str
 
 

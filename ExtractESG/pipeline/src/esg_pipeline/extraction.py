@@ -92,7 +92,10 @@ class ExtractionCoordinator:
     def list(self, terminal_limit=None, archived=False):
         with self.store._connect() as db:
             rows = db.execute(
-                "SELECT body FROM clause_extraction_plans ORDER BY rowid DESC"
+                """SELECT json_set(json_remove(body,'$.target_snapshot'),
+                    '$.clause_keys',json((SELECT json_group_array(key) FROM json_each(body,'$.target_snapshot.clauses'))),
+                    '$.target_digest',json_extract(body,'$.target_snapshot.digest'))
+                    FROM clause_extraction_plans ORDER BY rowid DESC"""
             ).fetchall()
         states = [json.loads(row[0]) for row in rows]
         states = [state for state in states if bool(state.get("archived_at")) == archived]
@@ -100,7 +103,14 @@ class ExtractionCoordinator:
             active = [state for state in states if state["status"] not in TERMINAL]
             recent = [state for state in states if state["status"] in TERMINAL][:terminal_limit]
             states = [*active, *recent]
-        return [self.detail(state) for state in states]
+        runs = self.run_statuses(states)
+        return [self.detail(state,runs.get(state.get('run_id'))) for state in states]
+
+    def run_statuses(self, states):
+        ids = list(dict.fromkeys(s['run_id'] for s in states if s.get('run_id')))
+        if not ids:
+            return {}
+        return {run['run_id']:run for run in self.remote('POST','/api/runs/status',{'run_ids':ids})['runs']}
 
     def archive_many(self, keys, archived=True):
         with self._lock:
@@ -269,11 +279,12 @@ class ExtractionCoordinator:
             if step.get("status") in {"queued", "running", "cancelling"}
         ]
 
-    def detail(self, state):
+    def detail(self, state, run_record=None):
         state = {**state}
         snapshot = state.pop("target_snapshot", {})
-        state["clause_keys"] = list(snapshot.get("clauses", {}))
-        state["target_digest"] = snapshot.get("digest")
+        if snapshot:
+            state["clause_keys"] = list(snapshot["clauses"])
+            state["target_digest"] = snapshot["digest"]
         state["observation"] = (
             "unavailable" if state.get("observation_error") else "fresh"
         )
@@ -315,7 +326,7 @@ class ExtractionCoordinator:
         if state.get("run_id"):
             try:
                 run = NativeRun.model_validate(
-                    self.remote("GET", f"/api/runs/{state['run_id']}")
+                    run_record if run_record is not None else self.remote("GET", f"/api/runs/{state['run_id']}")
                 )
                 state["observation"] = "fresh"
                 state["observation_error"] = None
@@ -478,7 +489,7 @@ class ExtractionCoordinator:
         state.update(queue_task_id=None, stage="extracting", execution_index=state.get("execution_index",0)+1)
         self.save(state)
 
-    def tick(self, state):
+    def tick(self, state, run_record=None):
         if state["status"] == "cancelling":
             self._cancel_children(state)
             observed = self.detail(state)
@@ -555,7 +566,7 @@ class ExtractionCoordinator:
             )
             state.update(run_id=run["run_id"], stage="extracting")
             self.save(state)
-        run = self.remote("GET", f"/api/runs/{state['run_id']}")
+        run = run_record if run_record is not None else self.remote("GET", f"/api/runs/{state['run_id']}")
         if run.get("evidence_request"):
             self._prepare_more(state, run, request)
             return
@@ -586,11 +597,16 @@ class ExtractionCoordinator:
                     rows = db.execute(
                         "SELECT body FROM clause_extraction_plans WHERE json_extract(body,'$.status') IN ('queued','running','cancelling')"
                     ).fetchall()
-                for row in rows:
+                states = [json.loads(row[0]) for row in rows]
+                try:
+                    runs = self.run_statuses(states)
+                except ExtractionServiceUnavailable:
+                    self._stop.wait(1)
+                    continue
+                for state in states:
                     with self._lock:
-                        state = json.loads(row[0])
                         try:
-                            self.tick(state)
+                            self.tick(state,runs.get(state.get('run_id')))
                         except ExtractionServiceUnavailable as exc:
                             state["observation_error"] = str(exc)
                             self.save(state)

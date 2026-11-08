@@ -156,7 +156,7 @@ class TextEvidence(ProtocolModel):
 
 class FrameFragment(ProtocolModel):
     parent_digest: str
-    reason: Literal["input_budget", "generation_incomplete", "selection_remainder", "timeout"]
+    reason: Literal["input_budget", "output_budget", "generation_incomplete", "selection_remainder", "timeout"]
     completeness: Literal["fragment"] = "fragment"
 
 

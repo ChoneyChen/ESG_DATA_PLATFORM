@@ -35,8 +35,10 @@ OPEN = build_opener(ProxyHandler({}))
 
 
 def identity(pid):
-    result=subprocess.run(['ps','-p',str(pid),'-o','lstart='],capture_output=True,text=True)
-    return result.stdout.strip() if result.returncode==0 else None
+    result=subprocess.run(['ps','-p',str(pid),'-o','stat=','-o','lstart='],capture_output=True,text=True)
+    if result.returncode or not result.stdout.strip():return None
+    status,birth=result.stdout.strip().split(None,1)
+    return None if status.startswith('Z') else birth.strip()
 
 
 def belongs(record):
@@ -152,6 +154,10 @@ def stop_owned(state):
         if record.get('owned') and belongs(record):
             try:os.killpg(record['pid'],signal.SIGTERM)
             except ProcessLookupError:pass
+            # Let the document scheduler checkpoint/stop before its extraction API exits.
+            for _ in range(30):
+                if not belongs(record):break
+                time.sleep(.5)
 
 
 def supervise():

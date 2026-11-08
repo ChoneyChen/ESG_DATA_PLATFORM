@@ -21,6 +21,8 @@ class MonitorRun(BaseModel):
     model_phase: str | None = None
     generated_tokens: int | None = None
     elapsed_seconds: float | None = None
+    clause_key: str | None = None
+    object_id: str | None = None
     observation: Literal["fresh", "unavailable"] = "fresh"
     updated_at: str | None = None
     can_cancel: bool = False
@@ -33,6 +35,8 @@ class MonitorSnapshot(BaseModel):
     revision: str
     observed_at: str
     active_count: int
+    queued_count: int = 0
+    running_count: int = 0
     runs: list[MonitorRun] = Field(default_factory=list)
 
 
@@ -56,15 +60,18 @@ def monitor_snapshot(sessions, products=None):
             model_calls=max(summary.get("model_calls", 0), progress.get("model_calls", 0)),
             model_phase=call.get("phase"), generated_tokens=call.get("generation_tokens"),
             elapsed_seconds=call.get("elapsed_seconds"), observation=state.get("observation", "fresh"),
+            clause_key=progress.get('clause_key'),object_id=progress.get('object_id'),
             updated_at=state.get("updated_at"),
             can_cancel=any(a.get("action") == "cancel" for a in state.get("available_actions", [])),
             preparation=[{key: step.get(key) for key in ("stage", "label", "status", "current", "total", "unit")}
                 for step in (state.get("preparation") or {}).get("steps", [])],
-            products=products.for_session(state) if products else None,
+            products=products.for_session(state) if products and (native.get('delivery') or {}).get('export_id') else None,
         ))
     body = [run.model_dump(mode="json") for run in runs]
     return MonitorSnapshot(
         revision=sha256(json.dumps(body, sort_keys=True).encode()).hexdigest(),
         observed_at=datetime.now(timezone.utc).isoformat(),
         active_count=sum(run.status not in TERMINAL for run in runs), runs=runs,
+        queued_count=sum(run.status == 'queued' for run in runs),
+        running_count=sum(run.status == 'running' for run in runs),
     )
