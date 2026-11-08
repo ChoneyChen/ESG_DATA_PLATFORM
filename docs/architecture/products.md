@@ -48,11 +48,14 @@ flowchart LR
 |---|---|
 | v1/ingestion/exports/{id}/projection | 投影状态，POST显式重试 |
 | v1/projections及/{id}/observations、definitions、export | 内部投影目录、完整分页、冻结定义、科研导出 |
+| POST v1/projections/archive、restore、purge | 批量移入已删除、恢复、彻底删除；请求projection_ids |
 | v1/datasets/preview、v1/datasets、/{id}/withdraw | 预览、显式发布、撤下 |
 | v1/restatements | 明确重述关系 |
 | v2/datasets及/{id}/observations、definitions、export | 仅已发布的独立读合同；撤下后不可公开读取 |
 
 数据库拥有Python DTO、SQL事务和生成SDK：[contracts](../../database/contracts/README.md)。Console与Plat通过服务消费，不能直接打开对方产物目录或复制业务规则。所有事实/观测分页声明total、returned、next_cursor和query_digest；不可变成员为查询快照，游标不能串用到其他过滤或页大小。
+
+投影目录默认隐藏已删除项，`archived=true`读取已删除列表。永久删除只接收已移入该列表的投影，清理独有观测及相关预览；已发布或已撤下的冻结快照引用仍保留。原值接收与投影清理相互独立。
 
 ## 科研数据与类型
 

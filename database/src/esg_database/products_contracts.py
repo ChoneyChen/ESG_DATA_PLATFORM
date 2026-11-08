@@ -63,6 +63,16 @@ class ProjectionSummary(Model):
     repeated_occurrences: int = Field(ge=0)
     diagnostics: list[str]
 
+class ProjectionSelection(Model):
+    projection_ids: list[str] = Field(min_length=1,max_length=1000)
+
+class ProjectionCleanupResult(ProjectionSelection):
+    archived: bool
+
+
+class ProjectionPurgeResult(ProjectionSelection):
+    purged: Literal[True] = True
+
 
 class ProjectionStatus(Model):
     export_id: str
@@ -70,6 +80,7 @@ class ProjectionStatus(Model):
     projection: ProjectionSummary | None = None
     error_code: str | None = None
     retryable: bool = False
+    archived: bool = False
 
     @model_validator(mode="after")
     def completed_projection(self):

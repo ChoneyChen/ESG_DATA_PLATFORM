@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "projection_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Projection Ids",
+      "type": "array"
+    },
+    "purged": {
+      "const": true,
+      "default": true,
+      "title": "Purged",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "projection_ids"
+  ],
+  "title": "ProjectionPurgeResult",
+  "type": "object"
+}

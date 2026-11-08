@@ -1,0 +1,19 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "projection_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Projection Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "projection_ids"
+  ],
+  "title": "ProjectionSelection",
+  "type": "object"
+}

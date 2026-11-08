@@ -57,7 +57,10 @@ export function ReportsPage({ folderId }: { folderId?: string }) {
         subtitle={
           result.data ? folderId ? `${all.length} 份报告` : `${folders.data?.folders.length || 0} 个文件夹 · ${all.length} 份独立报告` : undefined
         }
-        actions={<button onClick={() => setImporting(true)}>导入报告</button>}
+        actions={<>
+          {folderId && <a className="button" href={href("extractions","new")+"?folder="+segment(folderId)}>批量提取此文件夹</a>}
+          <button className={folderId ? "button-secondary" : undefined} onClick={() => setImporting(true)}>导入报告</button>
+        </>}
       />
       {!folderId && <>
         <ReadError error={folders.error} retry={folders.reload} />

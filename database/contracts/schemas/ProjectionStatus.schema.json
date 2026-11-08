@@ -211,6 +211,11 @@
   },
   "additionalProperties": false,
   "properties": {
+    "archived": {
+      "default": false,
+      "title": "Archived",
+      "type": "boolean"
+    },
     "error_code": {
       "anyOf": [
         {

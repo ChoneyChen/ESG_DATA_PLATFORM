@@ -195,6 +195,18 @@
           ],
           "default": null,
           "title": "Row Id"
+        },
+        "source_snapshot": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Snapshot"
         }
       },
       "required": [

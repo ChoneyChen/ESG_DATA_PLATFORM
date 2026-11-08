@@ -1,6 +1,17 @@
 import { useEffect, useId, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
+export function SelectionCheckbox({ ids, selected, onChange, label, disabled = false }: {
+  ids: string[]; selected: string[]; onChange: (ids: string[]) => void; label: string; disabled?: boolean;
+}) {
+  const input = useRef<HTMLInputElement>(null);
+  const count = ids.filter(id => selected.includes(id)).length;
+  useEffect(() => { if (input.current) input.current.indeterminate = count > 0 && count < ids.length; }, [count, ids.length]);
+  return <label className="selection-check"><input ref={input} type="checkbox" aria-label={label}
+    disabled={disabled || !ids.length} checked={!!ids.length && count === ids.length}
+    onChange={() => onChange(count === ids.length ? selected.filter(id => !ids.includes(id)) : [...new Set([...selected,...ids])])}/>{label}</label>;
+}
+
 export function PageHeader({
   title,
   back,

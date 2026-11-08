@@ -16,6 +16,7 @@ import {
   Tabs,
   Field,
   Modal,
+  SelectionCheckbox,
 } from "../../shared/ui";
 import { href } from "../../app/routes";
 import { ObservationGrid, Pager } from "./observations";
@@ -23,8 +24,14 @@ import { date } from "../../shared/format";
 
 export function PublicationPage() {
   const [tab, setTab] = useState("candidates"),
-    [history, setHistory] = useState<(string | null)[]>([null]);
+    [history, setHistory] = useState<(string | null)[]>([null]),
+    [archived, setArchived] = useState(false),
+    [selected, setSelected] = useState<string[]>([]),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState<Error>(),
+    [purging, setPurging] = useState(false);
   const params = new URLSearchParams({ limit: "50" });
+  if (tab === "candidates" && archived) params.set("archived","true");
   if (history.at(-1)) params.set("cursor", history.at(-1)!);
   const candidates = useResource<ProjectionPage>(
     "database",
@@ -37,6 +44,16 @@ export function PublicationPage() {
     5000,
   );
   const resource = tab === "candidates" ? candidates : published;
+  async function changeSelected(action: "archive" | "restore" | "purge") {
+    setBusy(true); setError(undefined);
+    try {
+      await write("database","/v1/projections/"+action,{projection_ids:selected});
+      setSelected([]); setHistory([null]); setPurging(false); invalidate("database","/v1/projections");
+      invalidate("database","/v1/ingestion/exports/");
+      invalidate("document","/api/report-sessions");
+    } catch (e) { setError(e as Error); }
+    finally { setBusy(false); }
+  }
   return (
     <>
       <PageHeader
@@ -52,29 +69,43 @@ export function PublicationPage() {
         onChange={(value) => {
           setTab(value);
           setHistory([null]);
+          setSelected([]); setError(undefined);
         }}
         tabs={[
           { id: "candidates", label: "已投影数据" },
           { id: "published", label: "发布记录" },
         ]}
       />
+      {tab === "candidates" && <>
+        <div className="toolbar cleanup-toolbar">
+          <SelectionCheckbox ids={candidates.data?.items.map(p => p.projection_id) || []} selected={selected} onChange={setSelected} disabled={busy} label="全选本页"/>
+          <span>已选 {selected.length} 项</span>
+          <button className={archived ? "button-secondary" : "button-danger"} disabled={busy || !selected.length} onClick={() => changeSelected(archived ? "restore" : "archive")}>
+            {busy ? "处理中…" : archived ? "恢复所选" : "删除所选"}
+          </button>
+          {archived && <button className="button-danger" disabled={busy || !selected.length} onClick={() => setPurging(true)}>彻底删除所选</button>}
+          <button className="text-button" disabled={busy} onClick={() => { setArchived(!archived); setHistory([null]); setSelected([]); setError(undefined); }}>{archived ? "返回已投影数据" : "已删除"}</button>
+        </div>
+      </>}
+      <ReadError error={error}/>
       <ReadError error={resource.error} retry={resource.reload} />
       {!resource.data && !resource.error ? (
         <Loading />
       ) : !resource.data?.items.length ? (
         <Empty
-          title={tab === "candidates" ? "暂无已投影数据" : "暂无发布记录"}
+          title={tab === "candidates" ? archived ? "没有已删除投影" : "暂无已投影数据" : "暂无发布记录"}
         />
       ) : (
         <>
           <div className="object-list">
             {tab === "candidates"
               ? candidates.data?.items.map((item) => (
-                  <a
-                    className="object-row"
-                    key={item.projection_id}
+                  <div className="projection-choice" key={item.projection_id}>
+                  <input type="checkbox" aria-label={"选择投影 "+(item.source.title || item.projection_id)} disabled={busy}
+                    checked={selected.includes(item.projection_id)} onChange={() => setSelected(selected.includes(item.projection_id) ? selected.filter(id => id !== item.projection_id) : [...selected,item.projection_id])}/>
+                  <a className="object-row"
                     href={
-                      href("publication", "new") +
+                      archived ? undefined : href("publication", "new") +
                       "?projection=" +
                       segment(item.projection_id)
                     }
@@ -92,8 +123,9 @@ export function PublicationPage() {
                           .join("、")}
                       </small>
                     </div>
-                    <span>准备发布 →</span>
+                    {!archived && <span>准备发布 →</span>}
                   </a>
+                  </div>
                 ))
               : published.data?.items.map((item) => (
                   <a
@@ -119,10 +151,14 @@ export function PublicationPage() {
             returned={resource.data.returned}
             next={resource.data.next_cursor}
             history={history}
-            onPage={setHistory}
+            onPage={(value) => { setHistory(value); setSelected([]); }}
           />
         </>
       )}
+      {purging && <Modal title="彻底删除投影" onClose={() => !busy && setPurging(false)} busy={busy} footer={<>
+        <button className="button-secondary" disabled={busy} onClick={() => setPurging(false)}>取消</button>
+        <button className="button-danger" disabled={busy} onClick={() => changeSelected("purge")}>{busy ? "删除中…" : "确认彻底删除"}</button>
+      </>}><p>永久删除选中的 {selected.length} 份未发布投影及其观测数据，无法恢复。原PDF和已接收原值保留。</p><ReadError error={error}/></Modal>}
     </>
   );
 }

@@ -73,6 +73,7 @@ export default function App() {
       <CreateExtractionPage
         key={location.hash}
         initialReport={params.get("report") || undefined}
+        initialFolder={params.get("folder") || undefined}
       />
     );
   else if (

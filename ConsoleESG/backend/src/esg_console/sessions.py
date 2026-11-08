@@ -1,9 +1,13 @@
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
 from urllib.parse import urlencode
 from esg_contracts.results import FactPage, ResultOverview, OrganizedPage
 from esg_contracts.sessions import ExtractionPlanRequest
 from .monitor import MonitorSnapshot, monitor_snapshot
 from .products import SessionProducts
+
+class SessionSelection(BaseModel):
+    session_ids: list[str] = Field(min_length=1,max_length=1000)
 
 
 def extraction_router(coordinator, require_ready=lambda: None,products=None):
@@ -36,6 +40,18 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
     def restore(key: str):
         return call(coordinator.restore, key)
 
+    @router.post("/api/report-sessions/archive")
+    def archive_selected(request: SessionSelection):
+        return call(coordinator.archive_many,request.session_ids)
+
+    @router.post("/api/report-sessions/restore")
+    def restore_selected(request: SessionSelection):
+        return call(coordinator.archive_many,request.session_ids,False)
+
+    @router.post("/api/report-sessions/purge")
+    def purge_selected(request: SessionSelection):
+        return call(coordinator.purge_many, request.session_ids)
+
     @router.get("/api/report-sessions/{key}/candidates")
     def candidates(key: str):
         state = call(coordinator.get, key)
@@ -54,8 +70,8 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
         return call(coordinator.create, request)
 
     @router.get("/api/report-sessions")
-    def runs():
-        return call(coordinator.list)
+    def runs(archived: bool = False):
+        return call(coordinator.list,None,archived)
 
     @router.get("/api/report-sessions/{key}")
     def run(key: str):

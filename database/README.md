@@ -7,7 +7,7 @@
 | `src/esg_database` | 接收/产品HTTP、DTO、确定性投影、科研导出、独立HTTP客户端 |
 | `runtime` | 当前SQL worker、连接与显式管理命令 |
 | `queries` | 接收、完整分页、投影、发布及来源保护事务 |
-| `migrations` | 当前不可变模式：0019原值、0020产品、0021来源生命周期、0022预览决定 |
+| `migrations` | 当前不可变模式：0019原值、0020产品、0021来源生命周期、0022预览决定、0023投影删除列表 |
 | `contracts` | 从数据库DTO生成的JSON Schema及TypeScript类型SDK |
 | `tests` | 临时PGlite与HTTP边界测试；不打开活动库 |
 
@@ -25,5 +25,7 @@ npm --prefix database test
 PDF来源保护属于数据库独立接口。已接收原值引用的PDF不可直接删除；IR/OCR是可重建缓存，来源ID只作血缘，不形成对生产者目录的依赖。清理预留与接收串行，清除后的迟到交付会明确拒绝。
 
 预览生成时保存选源决定，后续按该预览分页查询观测，不重复读取全量原值或重新计算选源。预览不发布；显式发布时仍使用当前来源决定，来源关系变化需要重新生成预览。
+
+投影支持批量移入已删除、恢复及彻底删除。彻底删除清理投影成员和不再被其他投影/发布引用的观测；接收原值独立保留。任何发布快照引用的投影不能单独彻底删除。删除后后台不自动重建，也不会把该报告的旧投影重新顶回目录。接口和实际操作见[清理与文件夹选择](../docs/implementation/2026-11-09/README.md)。
 
 [交接](../docs/architecture/delivery.md) · [产品接口](../docs/architecture/products.md) · [当前实施](../docs/implementation/2026-11-01/README.md)

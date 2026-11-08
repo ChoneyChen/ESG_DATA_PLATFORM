@@ -2,7 +2,7 @@
 
 export type CaptureFactPage_CaptureFact = { "record": CaptureFactPage_SourceFact; "exact_numeric"?: (string | null) };
 export type CaptureFactPage_Company = { "name": string; "company_id"?: (string | null) };
-export type CaptureFactPage_EvidenceLocation = { "object_id": string; "object_type": "cell" | "text_block" | "table" | "report"; "page_index"?: (number | null); "excerpt": string; "role": "value" | "statement" | "row" | "column_header" | "unit" | "table" | "footnote" | "report"; "bbox"?: (Record<string, (number | null)> | null); "row_id"?: (string | null); "column_id"?: (string | null); "char_start"?: (number | null); "char_end"?: (number | null) };
+export type CaptureFactPage_EvidenceLocation = { "object_id": string; "object_type": "cell" | "text_block" | "table" | "report"; "page_index"?: (number | null); "excerpt": string; "role": "value" | "statement" | "row" | "column_header" | "unit" | "table" | "footnote" | "report"; "bbox"?: (Record<string, (number | null)> | null); "row_id"?: (string | null); "column_id"?: (string | null); "char_start"?: (number | null); "char_end"?: (number | null); "source_snapshot"?: (string | null) };
 export type CaptureFactPage_Industry = { "name": string; "code"?: (string | null); "taxonomy"?: (string | null) };
 export type CaptureFactPage_JsonValue = unknown;
 export type CaptureFactPage_PeriodFacet = { "period": string; "facts": number };
@@ -16,7 +16,7 @@ export type CaptureFactPage = { "schema_version"?: "capture-fact-page-1.0"; "exp
 
 export type Observation_ClauseMapping = { "clause_key": string; "clause_digest": string; "source_fact_id": string; "match": "match" | "uncertain" | "different"; "reason": string; "scope_ids"?: Array<string>; "flags"?: Array<string> };
 export type Observation_ComparisonStatus = { "eligible": boolean; "reasons": Array<string> };
-export type Observation_EvidenceLocation = { "object_id": string; "object_type": "cell" | "text_block" | "table" | "report"; "page_index"?: (number | null); "excerpt": string; "role": "value" | "statement" | "row" | "column_header" | "unit" | "table" | "footnote" | "report"; "bbox"?: (Record<string, (number | null)> | null); "row_id"?: (string | null); "column_id"?: (string | null); "char_start"?: (number | null); "char_end"?: (number | null) };
+export type Observation_EvidenceLocation = { "object_id": string; "object_type": "cell" | "text_block" | "table" | "report"; "page_index"?: (number | null); "excerpt": string; "role": "value" | "statement" | "row" | "column_header" | "unit" | "table" | "footnote" | "report"; "bbox"?: (Record<string, (number | null)> | null); "row_id"?: (string | null); "column_id"?: (string | null); "char_start"?: (number | null); "char_end"?: (number | null); "source_snapshot"?: (string | null) };
 export type Observation_JsonValue = unknown;
 export type Observation_ObservationSource = { "document_id": string; "pdf_sha256"?: (string | null); "pdf_id"?: (string | null); "title"?: (string | null); "report_company"?: (string | null); "publication_year"?: (number | null); "resource_revision"?: (number | null); "report_company_id"?: (string | null); "industry"?: (string | null); "reporting_year"?: (number | null) };
 export type Observation_QualitativePayload = { "statement_raw": string; "extensions"?: Record<string, Observation_JsonValue>; "kind": "assertion" };
@@ -31,7 +31,7 @@ export type ProjectionSummary = { "schema_version"?: "capture-projection-1.0"; "
 
 export type ProjectionStatus_ObservationSource = { "document_id": string; "pdf_sha256"?: (string | null); "pdf_id"?: (string | null); "title"?: (string | null); "report_company"?: (string | null); "publication_year"?: (number | null); "resource_revision"?: (number | null); "report_company_id"?: (string | null); "industry"?: (string | null); "reporting_year"?: (number | null) };
 export type ProjectionStatus_ProjectionSummary = { "schema_version"?: "capture-projection-1.0"; "projection_id": string; "export_id": string; "input_digest": string; "transform_version": string; "content_digest": string; "source": ProjectionStatus_ObservationSource; "facts": number; "observations": number; "periods": Record<string, number>; "relations": Record<string, number>; "repeated_occurrences": number; "diagnostics": Array<string> };
-export type ProjectionStatus = { "export_id": string; "status": "pending" | "completed" | "failed" | "schema_unavailable"; "projection"?: (ProjectionStatus_ProjectionSummary | null); "error_code"?: (string | null); "retryable"?: boolean };
+export type ProjectionStatus = { "export_id": string; "status": "pending" | "completed" | "failed" | "schema_unavailable"; "projection"?: (ProjectionStatus_ProjectionSummary | null); "error_code"?: (string | null); "retryable"?: boolean; "archived"?: boolean };
 
 export type SourceSelectionPolicy = { "schema_version"?: "source-selection-1.0"; "mode"?: "all_sources" | "latest_report" | "prefer_explicit_restated"; "relations"?: Array<"match" | "uncertain" | "different"> };
 
@@ -54,7 +54,7 @@ export type DatasetVersion = { "schema_version"?: "capture-dataset-version-1.0";
 
 export type ObservationPage_ClauseMapping = { "clause_key": string; "clause_digest": string; "source_fact_id": string; "match": "match" | "uncertain" | "different"; "reason": string; "scope_ids"?: Array<string>; "flags"?: Array<string> };
 export type ObservationPage_ComparisonStatus = { "eligible": boolean; "reasons": Array<string> };
-export type ObservationPage_EvidenceLocation = { "object_id": string; "object_type": "cell" | "text_block" | "table" | "report"; "page_index"?: (number | null); "excerpt": string; "role": "value" | "statement" | "row" | "column_header" | "unit" | "table" | "footnote" | "report"; "bbox"?: (Record<string, (number | null)> | null); "row_id"?: (string | null); "column_id"?: (string | null); "char_start"?: (number | null); "char_end"?: (number | null) };
+export type ObservationPage_EvidenceLocation = { "object_id": string; "object_type": "cell" | "text_block" | "table" | "report"; "page_index"?: (number | null); "excerpt": string; "role": "value" | "statement" | "row" | "column_header" | "unit" | "table" | "footnote" | "report"; "bbox"?: (Record<string, (number | null)> | null); "row_id"?: (string | null); "column_id"?: (string | null); "char_start"?: (number | null); "char_end"?: (number | null); "source_snapshot"?: (string | null) };
 export type ObservationPage_JsonValue = unknown;
 export type ObservationPage_Observation = { "schema_version"?: "capture-observation-1.0"; "observation_id": string; "source_fact_id": string; "occurrence_id": string; "clause_key": (string | null); "clause_digest": (string | null); "title": string; "relation": "match" | "uncertain" | "different"; "mapping": (ObservationPage_ClauseMapping | null); "period": ObservationPage_ReportedPeriod; "source_row_label": (string | null); "value": (ObservationPage_QuantitativePayload | ObservationPage_QualitativePayload); "identity": ObservationPage_ReportedContext; "evidence": Array<ObservationPage_EvidenceLocation>; "quality": "grounded" | "needs_confirmation"; "flags": Array<string>; "extensions": Record<string, ObservationPage_JsonValue>; "source": ObservationPage_ObservationSource; "comparison": ObservationPage_ComparisonStatus; "comparison_key": (string | null) };
 export type ObservationPage_ObservationSource = { "document_id": string; "pdf_sha256"?: (string | null); "pdf_id"?: (string | null); "title"?: (string | null); "report_company"?: (string | null); "publication_year"?: (number | null); "resource_revision"?: (number | null); "report_company_id"?: (string | null); "industry"?: (string | null); "reporting_year"?: (number | null) };
@@ -82,7 +82,7 @@ export type CaptureProductState_IngestionReceipt = { "schema_version"?: "extract
 export type CaptureProductState_JsonValue = unknown;
 export type CaptureProductState_ObservationSource = { "document_id": string; "pdf_sha256"?: (string | null); "pdf_id"?: (string | null); "title"?: (string | null); "report_company"?: (string | null); "publication_year"?: (number | null); "resource_revision"?: (number | null); "report_company_id"?: (string | null); "industry"?: (string | null); "reporting_year"?: (number | null) };
 export type CaptureProductState_PeriodFacet = { "period": string; "facts": number };
-export type CaptureProductState_ProjectionStatus = { "export_id": string; "status": "pending" | "completed" | "failed" | "schema_unavailable"; "projection"?: (CaptureProductState_ProjectionSummary | null); "error_code"?: (string | null); "retryable"?: boolean };
+export type CaptureProductState_ProjectionStatus = { "export_id": string; "status": "pending" | "completed" | "failed" | "schema_unavailable"; "projection"?: (CaptureProductState_ProjectionSummary | null); "error_code"?: (string | null); "retryable"?: boolean; "archived"?: boolean };
 export type CaptureProductState_ProjectionSummary = { "schema_version"?: "capture-projection-1.0"; "projection_id": string; "export_id": string; "input_digest": string; "transform_version": string; "content_digest": string; "source": CaptureProductState_ObservationSource; "facts": number; "observations": number; "periods": Record<string, number>; "relations": Record<string, number>; "repeated_occurrences": number; "diagnostics": Array<string> };
 export type CaptureProductState_SourceSelectionPolicy = { "schema_version"?: "source-selection-1.0"; "mode"?: "all_sources" | "latest_report" | "prefer_explicit_restated"; "relations"?: Array<"match" | "uncertain" | "different"> };
 export type CaptureProductState = { "schema_version"?: "capture-product-state-1.0"; "export_id": string; "receipt": CaptureProductState_IngestionReceipt; "captured_facts": number; "capture_periods": Array<CaptureProductState_PeriodFacet>; "projection": CaptureProductState_ProjectionStatus; "datasets"?: (CaptureProductState_DatasetPage | null); "published_dataset_count"?: (number | null); "auto_publish"?: false };
@@ -91,3 +91,9 @@ export type PreviewQuery_SourceSelectionPolicy = { "schema_version"?: "source-se
 export type PreviewQuery = { "title": string; "projection_ids": Array<string>; "policy"?: PreviewQuery_SourceSelectionPolicy; "preview_digest": string };
 
 export type ObservationSource = { "document_id": string; "pdf_sha256"?: (string | null); "pdf_id"?: (string | null); "title"?: (string | null); "report_company"?: (string | null); "publication_year"?: (number | null); "resource_revision"?: (number | null); "report_company_id"?: (string | null); "industry"?: (string | null); "reporting_year"?: (number | null) };
+
+export type ProjectionSelection = { "projection_ids": Array<string> };
+
+export type ProjectionCleanupResult = { "projection_ids": Array<string>; "archived": boolean };
+
+export type ProjectionPurgeResult = { "projection_ids": Array<string>; "purged"?: true };

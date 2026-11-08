@@ -7,6 +7,7 @@ import type {
   ExtractionSession,
   ExtractionBudget,
   Clause,
+  ReportFolderList,
 } from "../../shared/contracts";
 import { EXTRACTION_BUDGET_DEFAULTS, EXTRACTION_BUDGET_LIMITS } from "../../shared/contracts";
 import { write } from "../../shared/api";
@@ -19,6 +20,7 @@ import {
   Notice,
   Badge,
   Empty,
+  SelectionCheckbox,
 } from "../../shared/ui";
 import { href, navigate } from "../../app/routes";
 import { label } from "../../shared/format";
@@ -31,10 +33,15 @@ type Preview = {
 type Selection = { selections: Record<string, string[]> };
 export function CreateExtractionPage({
   initialReport,
+  initialFolder,
 }: {
   initialReport?: string;
+  initialFolder?: string;
 }) {
+  const [reportFolder, setReportFolder] = useState(initialFolder || "");
   const reports = useResource<ReportList>("document", "/api/report-resources"),
+    folders = useResource<ReportFolderList>("document","/api/report-resources/folders",10000),
+    members = useResource<ReportList>("document",reportFolder ? "/api/report-resources?"+(reportFolder === "__unfiled" ? "unfiled=true" : "folder_id="+encodeURIComponent(reportFolder)) : null,10000),
     catalog = useResource<ClauseCatalog>("extraction", "/api/clauses"),
     groups = useResource<{ groups: ClauseGroup[] }>(
       "extraction",
@@ -64,6 +71,8 @@ export function CreateExtractionPage({
     [error, setError] = useState<Error>(),
     [step, setStep] = useState(1);
   const available = reports.data?.reports || [],
+    visibleReports = (reportFolder ? members.data?.reports || [] : available)
+      .slice().sort((a,b) => (a.company?.name || "").localeCompare(b.company?.name || "") || (b.reporting_year || 0)-(a.reporting_year || 0)),
     rows = (catalog.data?.clauses || []).filter(
       (c) =>
         (!group || c.group_id === group) &&
@@ -173,9 +182,18 @@ export function CreateExtractionPage({
                 <h2>1. 报告</h2>
                 <span>已选 {selectedReports.length} 份</span>
               </div>
-              {available.length ? (
+              <div className="toolbar">
+                <Field label="报告文件夹"><select value={reportFolder} onChange={e => setReportFolder(e.target.value)}>
+                  <option value="">全部报告</option><option value="__unfiled">独立报告</option>
+                  {folders.data?.folders.map(f => <option key={f.folder_id} value={f.folder_id}>{f.name} · {f.report_count} 份</option>)}
+                </select></Field>
+                <SelectionCheckbox ids={visibleReports.filter(r => r.asset_available).map(r => r.pdf_id)} selected={selectedReports} onChange={setReports} label={reportFolder && reportFolder !== "__unfiled" ? "全选此文件夹" : "全选当前报告"}/>
+                {!!selectedReports.length && <button className="text-button" onClick={() => setReports([])}>清空选择</button>}
+              </div>
+              <ReadError error={folders.error || members.error} retry={() => { folders.reload(); members.reload(); }}/>
+              {reportFolder && !members.data && !members.error ? <Loading/> : visibleReports.length ? (
                 <div className="choice-list">
-                  {available.map((r) => (
+                  {visibleReports.map((r) => (
                     <label className="choice-row" key={r.pdf_id}>
                       <input
                         type="checkbox"
@@ -200,7 +218,7 @@ export function CreateExtractionPage({
                 </div>
               ) : (
                 <Empty
-                  title="请先导入报告"
+                  title={reportFolder ? "这个文件夹中没有可用报告" : "请先导入报告"}
                   action={
                     <a className="button" href={href("reports")}>
                       报告库

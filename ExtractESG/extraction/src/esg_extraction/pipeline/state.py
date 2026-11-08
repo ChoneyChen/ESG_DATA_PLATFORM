@@ -187,6 +187,28 @@ class RunStore:
             rows = db.execute("SELECT run_id,body FROM runs ORDER BY rowid DESC").fetchall()
             return [self.public(self._merge_progress(json.loads(row[1]), self._progress(db,row[0]))) for row in rows]
 
+    def purge(self, run_ids, remove_artifacts):
+        from esg_contracts.sessions import TERMINAL
+        from esg_runtime.process import observed_alive
+
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            states = []
+            for run_id in dict.fromkeys(run_ids):
+                row = db.execute("SELECT body FROM runs WHERE run_id=?", (run_id,)).fetchone()
+                if row:
+                    state = json.loads(row[0])
+                    if state["status"] not in TERMINAL or (
+                        state.get("worker_pid") and observed_alive(state["worker_pid"], state.get("worker_started")) is True
+                    ):
+                        raise ValueError("执行中的任务不能彻底删除。")
+                    states.append(run_id)
+            for run_id in states:
+                remove_artifacts(run_id)
+                for table in ("run_progress", "run_signals", "runs"):
+                    db.execute(f"DELETE FROM {table} WHERE run_id=?", (run_id,))
+        return {"run_ids": list(dict.fromkeys(run_ids)), "purged": True}
+
     @staticmethod
     def public(state):
         return {k: v for k, v in state.items() if k != "targets"} | {

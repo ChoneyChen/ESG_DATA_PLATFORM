@@ -57,8 +57,9 @@ export async function storeProjection(db,{summary,definitions,observations}) {
 
 export async function projectionStatus(db,{export_id,transform_version}) {
   if(!(await db.query('SELECT 1 FROM esg.capture_exports WHERE export_id=$1',[export_id])).rows.length)throw fault('not_found','Unknown capture');
-  const projection=(await db.query('SELECT summary FROM esg.capture_projections WHERE export_id=$1 AND transform_version=$2',[export_id,transform_version])).rows[0];
-  if(projection)return {export_id,status:'completed',projection:projection.summary,error_code:null,retryable:false};
+  const projection=(await db.query(`SELECT summary,EXISTS(SELECT 1 FROM esg.capture_projection_archives a WHERE a.projection_id=p.projection_id) AS archived
+    FROM esg.capture_projections p WHERE export_id=$1 AND transform_version=$2`,[export_id,transform_version])).rows[0];
+  if(projection)return {export_id,status:'completed',projection:projection.summary,error_code:null,retryable:false,archived:projection.archived};
   const attempt=(await db.query('SELECT status,error_code,retryable FROM esg.capture_projection_attempts WHERE export_id=$1 AND transform_version=$2',[export_id,transform_version])).rows[0];
   return {export_id,status:attempt?.status||'pending',projection:null,error_code:attempt?.error_code||null,retryable:attempt?.retryable??true};
 }
@@ -79,25 +80,64 @@ export async function recordProjectionFailure(db,{export_id,transform_version,er
 export async function productInput(db,{projection_ids}) {
   if(!Array.isArray(projection_ids)||!projection_ids.length||projection_ids.length>1000)throw fault('invalid_query','Select projection identities');
   const ids=[...new Set(projection_ids)].sort();
-  const projections=(await db.query('SELECT projection_id,content_digest FROM esg.capture_projections WHERE projection_id=ANY($1) ORDER BY projection_id',[ids])).rows;
-  if(projections.length!==ids.length)throw fault('not_found','A projection does not exist');
+  const projections=(await db.query(`SELECT projection_id,content_digest FROM esg.capture_projections p WHERE projection_id=ANY($1)
+    AND NOT EXISTS(SELECT 1 FROM esg.capture_projection_archives a WHERE a.projection_id=p.projection_id) ORDER BY projection_id`,[ids])).rows;
+  if(projections.length!==ids.length)throw fault('not_found','A projection was removed or does not exist');
   const observations=(await db.query('SELECT DISTINCT o.observation_id,o.record FROM esg.capture_observations o JOIN esg.capture_projection_members m USING(observation_id) WHERE m.projection_id=ANY($1) ORDER BY o.observation_id',[ids])).rows.map(row=>row.record);
   const links=(await db.query(`SELECT link_id,newer_observation_id,older_observation_id FROM esg.capture_restatements
     WHERE newer_observation_id=ANY($1) AND older_observation_id=ANY($1) ORDER BY link_id`,[observations.map(row=>row.observation_id)])).rows;
   return {projections,observations,links};
 }
 
-export async function projectionCatalog(db,{limit=100,cursor=null}={}) {
+export async function projectionCatalog(db,{limit=100,cursor=null,archived=false}={}) {
   if(!Number.isInteger(limit)||limit<1||limit>1000)throw fault('invalid_query','Invalid page size');
-  const current=`SELECT DISTINCT ON(export_id) projection_id,content_digest,summary FROM esg.capture_projections
+  const latest=`SELECT DISTINCT ON(export_id) projection_id,export_id,created_at,content_digest,summary FROM esg.capture_projections
     ORDER BY export_id,created_at DESC,projection_id DESC`;
+  const current=`SELECT * FROM (${latest}) p WHERE ${archived?'':'NOT '}EXISTS(SELECT 1 FROM esg.capture_projection_archives a WHERE a.projection_id=p.projection_id)
+    AND NOT EXISTS(SELECT 1 FROM esg.capture_projection_attempts a WHERE a.export_id=p.export_id AND a.error_code='projection_deleted' AND a.updated_at>=p.created_at)`;
   const source=(await db.query(`SELECT projection_id,content_digest FROM (${current}) p ORDER BY projection_id`)).rows;
-  const query=digest([source,limit]);
+  const query=digest([source,limit,archived]);
   const after=cursorAfter(cursor,query);
   const rows=(await db.query(`SELECT projection_id,summary FROM (${current}) p WHERE projection_id>$1 ORDER BY projection_id LIMIT $2`,[after,limit+1])).rows;
   const more=rows.length>limit;if(more)rows.pop();
   return {schema_version:'capture-projection-page-1.0',query_digest:query,total:source.length,returned:rows.length,items:rows.map(row=>row.summary),
     next_cursor:more?encodeCursor(query,rows.at(-1).projection_id):null};
+}
+
+export async function archiveProjections(db,{projection_ids,archived=true,actor}) {
+  const ids=[...new Set(projection_ids)].sort();
+  return db.transaction(async tx=>{
+    const rows=(await tx.query('SELECT projection_id FROM esg.capture_projections WHERE projection_id=ANY($1) ORDER BY projection_id FOR UPDATE',[ids])).rows;
+    if(rows.length!==ids.length)throw fault('not_found','A projection does not exist');
+    if(archived) {
+      for(const id of ids)await tx.query('INSERT INTO esg.capture_projection_archives(projection_id,actor) VALUES($1,$2) ON CONFLICT(projection_id) DO NOTHING',[id,actor]);
+    } else await tx.query('DELETE FROM esg.capture_projection_archives WHERE projection_id=ANY($1)',[ids]);
+    return {projection_ids:ids,archived};
+  });
+}
+
+export async function purgeProjections(db,{projection_ids}) {
+  const ids=[...new Set(projection_ids)].sort();
+  return db.transaction(async tx=>{
+    const rows=(await tx.query('SELECT projection_id,export_id,transform_version FROM esg.capture_projections WHERE projection_id=ANY($1) ORDER BY projection_id FOR UPDATE',[ids])).rows;
+    if(rows.length!==ids.length)throw fault('not_found','A projection does not exist');
+    if((await tx.query('SELECT 1 FROM esg.capture_dataset_projections WHERE projection_id=ANY($1) LIMIT 1',[ids])).rows.length)
+      throw fault('projection_in_use','投影已被发布快照引用，不能单独彻底删除。');
+    if((await tx.query('SELECT count(*)::int AS n FROM esg.capture_projection_archives WHERE projection_id=ANY($1)',[ids])).rows[0].n!==ids.length)
+      throw fault('revision_conflict','请先将投影移入已删除列表。');
+    const observations=(await tx.query('SELECT DISTINCT observation_id FROM esg.capture_projection_members WHERE projection_id=ANY($1)',[ids])).rows.map(r=>r.observation_id);
+    await tx.query("DELETE FROM esg.capture_dataset_previews WHERE (snapshot->'projection_ids') ?| $1",[ids]);
+    await tx.query('DELETE FROM esg.capture_projection_members WHERE projection_id=ANY($1)',[ids]);
+    await tx.query('DELETE FROM esg.capture_projection_archives WHERE projection_id=ANY($1)',[ids]);
+    await tx.query('DELETE FROM esg.capture_projections WHERE projection_id=ANY($1)',[ids]);
+    const orphaned=(await tx.query(`SELECT observation_id FROM esg.capture_observations o WHERE observation_id=ANY($1)
+      AND NOT EXISTS(SELECT 1 FROM esg.capture_projection_members m WHERE m.observation_id=o.observation_id)
+      AND NOT EXISTS(SELECT 1 FROM esg.capture_dataset_members m WHERE m.observation_id=o.observation_id)`,[observations])).rows.map(r=>r.observation_id);
+    await tx.query('DELETE FROM esg.capture_restatements WHERE newer_observation_id=ANY($1) OR older_observation_id=ANY($1)',[orphaned]);
+    await tx.query('DELETE FROM esg.capture_observations WHERE observation_id=ANY($1)',[orphaned]);
+    for(const row of rows)await tx.query("UPDATE esg.capture_projection_attempts SET status='failed',error_code='projection_deleted',retryable=false,updated_at=CURRENT_TIMESTAMP WHERE export_id=$1 AND transform_version=$2",[row.export_id,row.transform_version]);
+    return {projection_ids:ids,purged:true};
+  });
 }
 
 // A reviewed selection is stored once; paging reads only selected observation records.

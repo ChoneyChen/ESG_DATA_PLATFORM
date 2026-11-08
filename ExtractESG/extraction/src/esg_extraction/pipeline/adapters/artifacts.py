@@ -1,6 +1,7 @@
 """Artifacts are a producer-owned store addressed by run and artifact IDs."""
 
 import json
+import shutil
 from pathlib import Path
 
 
@@ -31,3 +32,8 @@ class FileArtifactPort:
 
     def read(self, run_id, name):
         return json.loads(self.path(run_id, name).read_text(encoding="utf-8"))
+
+    def remove_run(self, run_id):
+        root = self.path(run_id, "results").parent
+        if root.exists():
+            shutil.rmtree(root)

@@ -51,6 +51,7 @@ class DeliveryOutbox:
         import threading
         self.resource_factory = resource_factory
         self.stop_event = threading.Event()
+        self.lock = threading.RLock()
         self.thread = None
 
     def start(self):
@@ -67,7 +68,8 @@ class DeliveryOutbox:
                 delivery = state.get("delivery") or {}
                 if delivery.get("export_id") and delivery.get("retryable", True) and delivery.get("state") in {"prepared", "failed", "unknown"}:
                     try:
-                        deliver(state["run_id"], store, artifacts, os.environ["ESG_DATABASE_INGEST_URL"])
+                        with self.lock:
+                            deliver(state["run_id"], store, artifacts, os.environ["ESG_DATABASE_INGEST_URL"])
                     except (ValueError, KeyError, OSError):
                         pass
             self.stop_event.wait(15)

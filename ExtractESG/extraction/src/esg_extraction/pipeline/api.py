@@ -56,6 +56,10 @@ class ResumeRun(BaseModel):
     reason: str | None = None
 
 
+class PurgeRuns(BaseModel):
+    run_ids: list[str] = Field(min_length=1, max_length=1000)
+
+
 def create_app(resource_factory=resources):
     from .delivery import DeliveryOutbox
     outbox = DeliveryOutbox(resource_factory)
@@ -305,6 +309,15 @@ def create_app(resource_factory=resources):
     @app.get("/api/runs/{run_id}")
     def run(run_id: str) -> NativeRun:
         return run_view(resource_factory()[1].observe(run_id))
+
+    @app.post("/api/runs/purge")
+    def purge_runs(request: PurgeRuns):
+        _, store, artifacts, _ = resource_factory()
+        try:
+            with outbox.lock:
+                return store.purge(request.run_ids, artifacts.remove_run)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
 
     @app.get("/api/runs/{run_id}/targets")
     def run_targets(run_id: str):

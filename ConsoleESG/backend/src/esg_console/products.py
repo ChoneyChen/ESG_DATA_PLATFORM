@@ -47,6 +47,8 @@ class ProductStatus:
         label=(f"已发布 · {state.published_dataset_count} 个数据集" if state.published_dataset_count else
             "已接收 · 待安装投影模式" if projection.status=="schema_unavailable" else
             "发布已撤下" if state.datasets and state.datasets.total and not state.published_dataset_count else
+            "投影已移入已删除" if projection.archived else
             "已投影 · 待发布" if projection.status=="completed" else
+            "投影已彻底删除 · 原值保留" if projection.error_code=="projection_deleted" else
             "投影失败 · 原值已保留" if projection.status=="failed" else "已接收 · 等待投影")
         return SessionProducts(**base,observation="fresh",stage_label=label,state=state)

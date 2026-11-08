@@ -6,7 +6,7 @@ from esg_runtime.local_operator import require_local_origin, LOOPBACK_HOSTS
 from .projection import TRANSFORM_VERSION
 from .selection import preview_dataset, publish_dataset, record_restatement, preview_observations
 from .products_contracts import (ProjectionStatus, ProjectionPage, DatasetRequest, DatasetPreview,
-    PublishRequest, WithdrawalRequest, RestatementRequest, DatasetVersion, DatasetPage, ObservationPage, ProductDefinition, CaptureProductState, PreviewQuery, ObservationSource, Observation)
+    PublishRequest, WithdrawalRequest, RestatementRequest, DatasetVersion, DatasetPage, ObservationPage, ProductDefinition, CaptureProductState, PreviewQuery, ObservationSource, Observation, ProjectionSelection, ProjectionCleanupResult, ProjectionPurgeResult)
 from .research import contract as research_contract, archive as research_archive, observation_stream, ResearchCapacityError
 from .operator import require_operator
 
@@ -53,8 +53,21 @@ def product_router(bridge, release, projector):
         return status(export_id)
 
     @router.get("/v1/projections", response_model=ProjectionPage)
-    def projections(limit: int = Query(100, ge=1, le=1000), cursor: str | None = Query(None, max_length=4096)):
-        return bridge.call("projection_catalog", {"limit": limit, "cursor": cursor})
+    def projections(limit: int = Query(100, ge=1, le=1000), cursor: str | None = Query(None, max_length=4096), archived: bool = False):
+        return bridge.call("projection_catalog", {"limit": limit, "cursor": cursor,"archived":archived})
+
+    @router.post("/v1/projections/archive",response_model=ProjectionCleanupResult)
+    def archive_projections(body: ProjectionSelection,http: Request):
+        return bridge.call("archive_projections",{**body.model_dump(),"archived":True,"actor":operator(http)})
+
+    @router.post("/v1/projections/restore",response_model=ProjectionCleanupResult)
+    def restore_projections(body: ProjectionSelection,http: Request):
+        return bridge.call("archive_projections",{**body.model_dump(),"archived":False,"actor":operator(http)})
+
+    @router.post("/v1/projections/purge",response_model=ProjectionPurgeResult)
+    def purge_projections(body: ProjectionSelection,http: Request):
+        operator(http)
+        return bridge.call("purge_projections",body.model_dump())
 
     @router.get("/v1/projections/{projection_id}/observations", response_model=ObservationPage)
     def projection_observations(projection_id: str, limit: int = Query(200, ge=1, le=1000), cursor: str | None = Query(None, max_length=4096),

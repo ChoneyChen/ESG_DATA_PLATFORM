@@ -35,8 +35,8 @@ def create_app(bridge=None):
 
     @app.exception_handler(DatabaseError)
     async def database_error(_, exc):
-        status = 404 if exc.code == "not_found" else 422 if exc.code in {"invalid_query", "invalid_cursor", "invalid_preview"} else 409 if exc.code in {"preview_changed", "revision_conflict", "restatement_cycle"} else 503
-        return JSONResponse(status_code=status, content={"detail": exc.code})
+        status = 404 if exc.code == "not_found" else 422 if exc.code in {"invalid_query", "invalid_cursor", "invalid_preview"} else 409 if exc.code in {"preview_changed", "revision_conflict", "restatement_cycle", "projection_in_use"} else 503
+        return JSONResponse(status_code=status, content={"detail": "投影已被发布快照引用，不能单独彻底删除。" if exc.code == "projection_in_use" else exc.code})
 
     @app.get("/health")
     def health():

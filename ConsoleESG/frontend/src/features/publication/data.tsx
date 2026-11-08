@@ -102,7 +102,7 @@ export function ReceivedDataPage({ sessionId }: { sessionId: string }) {
               >
                 Parquet
               </a>
-              <a
+              {!state?.projection.archived && <a
                 className="button"
                 href={
                   href("publication", "new") +
@@ -111,7 +111,7 @@ export function ReceivedDataPage({ sessionId }: { sessionId: string }) {
                 }
               >
                 准备发布
-              </a>
+              </a>}
             </>
           ) : undefined
         }

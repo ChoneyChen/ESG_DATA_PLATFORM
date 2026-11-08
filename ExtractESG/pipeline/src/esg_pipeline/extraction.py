@@ -1,6 +1,6 @@
 """PDF preparation → independent clause run. Orchestration owns neither reader nor clauses."""
 
-import json, threading
+import json, threading, shutil
 from uuid import uuid4
 import requests
 from esg_contracts.sessions import (
@@ -89,35 +89,72 @@ class ExtractionCoordinator:
                 (state["session_id"], json.dumps(state, ensure_ascii=False)),
             )
 
-    def list(self, terminal_limit=None):
+    def list(self, terminal_limit=None, archived=False):
         with self.store._connect() as db:
             rows = db.execute(
                 "SELECT body FROM clause_extraction_plans ORDER BY rowid DESC"
             ).fetchall()
         states = [json.loads(row[0]) for row in rows]
-        states = [state for state in states if not state.get("archived_at")]
+        states = [state for state in states if bool(state.get("archived_at")) == archived]
         if terminal_limit is not None:
             active = [state for state in states if state["status"] not in TERMINAL]
             recent = [state for state in states if state["status"] in TERMINAL][:terminal_limit]
             states = [*active, *recent]
         return [self.detail(state) for state in states]
 
-    def archive(self, key):
+    def archive_many(self, keys, archived=True):
         with self._lock:
-            state = self.get(key)
-            observed = self.detail(state)
-            if observed["status"] not in TERMINAL:
-                raise ValueError("Cannot archive an active extraction")
-            state["archived_at"] = datetime.now(timezone.utc).isoformat()
-            self.save(state)
-            return {"session_id": key, "archived": True, "facts_retained": True}
+            states = [self.get(key) for key in dict.fromkeys(keys)]
+            if archived and any(self.detail(state)["status"] not in TERMINAL for state in states):
+                raise ValueError("执行中的任务请先取消，结束后再删除记录。")
+            now = datetime.now(timezone.utc).isoformat()
+            with self.store._connect() as db:
+                for state in states:
+                    if archived:
+                        state["archived_at"] = now
+                    else:
+                        state.pop("archived_at",None)
+                    state["updated_at"] = now
+                    db.execute("UPDATE clause_extraction_plans SET body=? WHERE id=?",
+                        (json.dumps(state,ensure_ascii=False),state["session_id"]))
+            return {"session_ids":[state["session_id"] for state in states],"archived":archived}
+
+    def archive(self, key):
+        self.archive_many([key])
+        return {"session_id": key, "archived": True, "facts_retained": True}
 
     def restore(self, key):
-        with self._lock:
-            state = self.get(key)
-            state.pop("archived_at", None)
-            self.save(state)
-            return {"session_id": key, "archived": False, "facts_retained": True}
+        self.archive_many([key],False)
+        return {"session_id": key, "archived": False, "facts_retained": True}
+
+    def purge_many(self, keys):
+        with self._lock, self.store._lock:
+            states = [self.get(key) for key in dict.fromkeys(keys)]
+            if any(not state.get("archived_at") for state in states):
+                raise ValueError("请先将任务移入已删除列表。")
+            if any(self.detail(state)["status"] not in TERMINAL for state in states):
+                raise ValueError("执行中的任务不能彻底删除。")
+            run_ids = [state["run_id"] for state in states if state.get("run_id")]
+            with self.store._connect() as db:
+                task_ids = []
+                for run_id in run_ids:
+                    for row in db.execute("SELECT task_id,status FROM pipeline_tasks WHERE task_type='targeted_extraction' AND native_job_id=?", (run_id,)):
+                        if row["status"] in {"queued", "running"}:
+                            raise ValueError("任务正在收尾，请结束后再彻底删除。")
+                        task_ids.append(row["task_id"])
+            if run_ids:
+                self.remote("POST", "/api/runs/purge", {"run_ids": run_ids})
+            with self.store._connect() as db:
+                for owner in [*keys, *run_ids, *task_ids]:
+                    db.execute("DELETE FROM ir_input_pins WHERE owner_id=?", (owner,))
+                for task_id in task_ids:
+                    logs = self.store.path.parent / "tasks" / task_id
+                    if logs.exists():
+                        shutil.rmtree(logs)
+                    db.execute("DELETE FROM pipeline_tasks WHERE task_id=?", (task_id,))
+                for state in states:
+                    db.execute("DELETE FROM clause_extraction_plans WHERE id=?", (state["session_id"],))
+            return {"session_ids": [state["session_id"] for state in states], "purged": True}
 
     def preview(self, request):
         native = request.native(
