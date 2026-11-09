@@ -55,7 +55,7 @@ def execute(run_id, *, model=None):
     from esg_contracts.facts import RunRequest
     from esg_contracts.evidence import DocumentReference
     from .adapters.local_model import LocalQwenModel
-    from .engine import ExtractionBackbone, PipelineCancelled, EvidenceNeeded, ENGINE_VERSION
+    from .engine import ExtractionBackbone, PipelineCancelled, EvidenceNeeded, ExecutionYield, ENGINE_VERSION
     from .result_store import ResultStore
 
     repo, store, artifacts, documents = resources()
@@ -126,6 +126,15 @@ def execute(run_id, *, model=None):
                 delivery={"state": "failed", "message": "原值已保存，导出准备失败。"},
             )
         return result
+    except ExecutionYield:
+        status = ResultStore(run_id,artifacts).status() or {}
+        summary = status.get('summary') or {}
+        checkpoint = ResultStore(run_id,artifacts).checkpoint()
+        store.progress(run_id,current_call=None,progress={'stage':'queued','current':len(checkpoint.get('completed_clauses',[])),
+            'total':len(state['targets']['clauses']),'model_calls':summary.get('model_calls',0),
+            'fact_count':summary.get('source_facts',0)})
+        return store.update(run_id,status='queued',worker_pid=None,worker_started=None,
+            execution_continues=True,summary=summary)
     except EvidenceNeeded as exc:
         status = ResultStore(run_id, artifacts).status() or {}
         store.progress(run_id, current_call=None, progress={"stage":"preparing", "clause_key":exc.request.clause_key,

@@ -45,7 +45,7 @@ export function RunMonitor() {
           <header>
             <div>
               <h2 id="monitor-title">运行监视</h2>
-              <small>{monitor.data?.running_count || 0} 个运行 · {monitor.data?.queued_count || 0} 个排队</small>
+              <small>{monitor.data?.running_count || 0} 个执行 · {monitor.data?.waiting_count || 0} 个等待补页 · {monitor.data?.queued_count || 0} 个排队</small>
             </div>
             <div>
               <button

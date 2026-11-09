@@ -409,13 +409,20 @@ class PipelineQueueStore:
             ).fetchone()
             if running:
                 return None
+            last = connection.execute(
+                "SELECT task_type FROM pipeline_tasks WHERE started_at IS NOT NULL ORDER BY started_at DESC LIMIT 1"
+            ).fetchone()
+            prepare = last is not None and last['task_type'] == 'targeted_extraction'
             row = connection.execute(
                 """
                 SELECT task_id FROM pipeline_tasks
                 WHERE status = ? AND cancel_requested = 0
-                ORDER BY position, created_at LIMIT 1
+                ORDER BY
+                    CASE WHEN (task_type != 'targeted_extraction') = ? THEN 0 ELSE 1 END,
+                    CASE WHEN task_type='document_ir' THEN 0 ELSE 1 END,
+                    position, created_at LIMIT 1
                 """,
-                (PipelineTaskStatus.QUEUED.value,),
+                (PipelineTaskStatus.QUEUED.value,int(prepare)),
             ).fetchone()
             if row is None:
                 return None

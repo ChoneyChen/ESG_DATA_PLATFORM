@@ -37,6 +37,7 @@ class MonitorSnapshot(BaseModel):
     active_count: int
     queued_count: int = 0
     running_count: int = 0
+    waiting_count: int = 0
     runs: list[MonitorRun] = Field(default_factory=list)
 
 
@@ -73,5 +74,6 @@ def monitor_snapshot(sessions, products=None):
         observed_at=datetime.now(timezone.utc).isoformat(),
         active_count=sum(run.status not in TERMINAL for run in runs), runs=runs,
         queued_count=sum(run.status == 'queued' for run in runs),
-        running_count=sum(run.status == 'running' for run in runs),
+        running_count=sum(run.status == 'running' and run.current_phase != 'preparing' for run in runs),
+        waiting_count=sum(run.status == 'running' and run.current_phase == 'preparing' for run in runs),
     )

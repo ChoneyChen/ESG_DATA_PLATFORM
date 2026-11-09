@@ -137,6 +137,9 @@ class NativeRun(View):
         elif self.cancel_requested:
             self.current_phase = "cancelling"
             self.current_call = None
+        elif self.evidence_request:
+            self.current_phase = 'preparing'
+            self.current_call = None
         else:
             self.current_phase = self.progress.stage or (
                 "queued" if self.status == "queued" else "running"

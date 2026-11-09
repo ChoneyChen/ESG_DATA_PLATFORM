@@ -572,6 +572,8 @@ class ExtractionCoordinator:
             return
         previous = self.store.get(state["queue_task_id"]) if state.get("queue_task_id") else None
         if run["status"] == "queued" and (previous is None or previous.status.value not in {"queued", "running"}):
+            if previous is not None:
+                state['execution_index'] = state.get('execution_index',0)+1
             token = dispatch_key.set(f"{state['session_id']}:extract:{state.get('execution_index',0)}")
             try:
                 task = self.queue(

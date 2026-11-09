@@ -21,7 +21,7 @@ from .enrichment import (context_frame, context_schema, ContextDecision, apply_c
 from .ports import DocumentPort, ModelPort, ArtifactPort, ResultPort
 from .statistics import RunStatistics
 
-ENGINE_VERSION = "clause-backbone-1.8"
+ENGINE_VERSION = "clause-backbone-1.9"
 QUANTITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent clause target.
 The target owns the definition, dictionary, exclusions, scope and reading rules.
 Return row IDs and column IDs for real measurements in this bounded evidence frame. Never output, compute or convert values.
@@ -52,6 +52,10 @@ Do not claim non-disclosure from a search miss. No supported statements means ma
 
 class PipelineCancelled(RuntimeError):
     pass
+
+
+class ExecutionYield(RuntimeError):
+    """Saved work continues in another turn of the shared execution queue."""
 
 
 class EvidenceNeeded(RuntimeError):
@@ -91,6 +95,7 @@ class ExtractionBackbone:
         checkpoint = self.results.checkpoint()
         started = time.monotonic() - checkpoint.get("elapsed_seconds", 0)
         calls = checkpoint.get("calls", 0)
+        turn_start_calls = calls
         coverage = []
         trace = []
         try:
@@ -108,6 +113,7 @@ class ExtractionBackbone:
         self.frame_paths = {key:set(paths) for key,paths in checkpoint.get("evidence_frames", {}).items()}
         self.context_attempted = set(context_attempted or [])
         self.visited = set(checkpoint.get("visited_frames", []))
+        self.pending_reads = dict(checkpoint.get('pending_reads',{}))
         restored = self.results.collection() if checkpoint else {"facts":[],"clause_mappings":[]}
         restored_facts = {f["source_fact_id"]:SourceFact.model_validate(f) for f in restored["facts"]}
         restored_mappings = [ClauseMapping.model_validate(m) for m in restored["clause_mappings"]]
@@ -237,9 +243,13 @@ class ExtractionBackbone:
                             }
                         )
                         continue
-                    pending_frames = [(piece,None,0) for piece in
-                        (budget_frames(frame,budget.max_output_tokens) if clause.data_kind == 'quantitative' else [frame])]
-                    frame_succeeded = True
+                    saved = self.pending_reads.get(frame_key)
+                    pending_frames = [(EvidenceFrame.model_validate(body),parent,attempt) for body,parent,attempt in saved] if saved else [
+                        (piece,None,0) for piece in (budget_frames(frame,budget.max_output_tokens) if clause.data_kind == 'quantitative' else [frame])]
+                    frame_succeeded = saved is None or not any(
+                        error.get("frame_key") == frame_key for error in errors
+                    )
+                    complete = complete and frame_succeeded
                     while pending_frames:
                         if cancel_check():
                             raise PipelineCancelled("Extraction cancelled")
@@ -506,6 +516,16 @@ class ExtractionBackbone:
                             fact_count=len(local_facts),
                             reasons=["reading_in_progress"],
                         )
+                        if pending_frames:
+                            self.pending_reads[frame_key] = [
+                                (piece.model_dump(mode="json"), parent, attempt)
+                                for piece, parent, attempt in pending_frames
+                            ]
+                        else:
+                            self.pending_reads.pop(frame_key, None)
+                            if frame_succeeded:
+                                self.visited.add(frame_key)
+                                errors = [error for error in errors if error.get("frame_key") != frame_key]
                         self._write_outputs(
                             run_id,
                             document,
@@ -518,6 +538,8 @@ class ExtractionBackbone:
                         on_progress({"stage": "extracting", "clause_key": key, "object_id": frame.object_id,
                                      "current": index - 1, "total": len(clauses), "model_calls": calls,
                                      "fact_count": self.statistics.fact_count})
+                        if calls-turn_start_calls >= 2 and (pending_frames or frame_succeeded):
+                            raise ExecutionYield()
                     if frame_succeeded:
                         self.visited.add(frame_key)
                         errors = [error for error in errors if error.get("frame_key") != frame_key]
@@ -620,6 +642,9 @@ class ExtractionBackbone:
                         self.artifacts.write(run_id,f"diagnostics/calls/{calls}.json",call)
                         self.results.flush()
                         self._save_checkpoint(calls,started)
+                        if call['status'] == 'ok' and calls-turn_start_calls >= 2 and pending_context:
+                            self._write_outputs(run_id,document,clauses,coverage,calls,started,errors)
+                            raise ExecutionYield()
                 unresolved = {axis for fid in context_facts
                     for axis in missing_attributes(clause,local_facts[fid])
                     if plan["context"]["attributes"].get(axis)
@@ -691,6 +716,8 @@ class ExtractionBackbone:
                     "fact_count": self.statistics.fact_count,
                 }
             )
+            if calls-turn_start_calls >= 2 and index < len(clauses):
+                raise ExecutionYield()
         self.artifacts.write(run_id, "diagnostics/model-calls.json", trace)
         self.artifacts.write(run_id, "diagnostics/candidates.json", rejected_candidates)
         return self._write_outputs(
@@ -750,6 +777,7 @@ class ExtractionBackbone:
         self.results.checkpoint({"calls":calls,"elapsed_seconds":time.monotonic()-started,
             "completed_clauses":sorted(self.completed),"enriched_clauses":sorted(self.enriched),
             "visited_frames":sorted(self.visited),"context_reads":sorted(self.context_reads),
+            'pending_reads':self.pending_reads,
             "evidence_frames":{key:sorted(paths) for key,paths in self.frame_paths.items()}})
 
     def _page_request(self, key, phase, intent, reason):

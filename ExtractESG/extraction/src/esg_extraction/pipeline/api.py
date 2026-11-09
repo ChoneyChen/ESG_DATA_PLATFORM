@@ -347,7 +347,7 @@ def create_app(resource_factory=resources):
     @app.post("/api/runs/{run_id}/resume", response_model=NativeRun)
     def resume(run_id: str, request: ResumeRun):
         require_current_engine()
-        _, store, _, documents = resource_factory()
+        _, store, artifacts, documents = resource_factory()
         state = store.get(run_id)
         if state["status"] == "queued":
             return store.public(state)
@@ -373,7 +373,8 @@ def create_app(resource_factory=resources):
         context_attempted = set(state.get("context_attempted",[]))
         if need and need["phase"] == "context":
             context_attempted.add(need["clause_key"])
-        store.progress(run_id, current_call=None, progress={"stage":"queued", "current":0,
+        checkpoint = ResultStore(run_id, artifacts).checkpoint()
+        store.progress(run_id, current_call=None, progress={"stage":"queued", "current":len(checkpoint.get("completed_clauses", [])),
             "model_calls":(state.get("summary") or {}).get("model_calls",0),
             "total":len(state["targets"]["clauses"]), "fact_count":(state.get("summary") or {}).get("source_facts",0)})
         return store.update(run_id, status="queued", worker_pid=None, worker_started=None,
