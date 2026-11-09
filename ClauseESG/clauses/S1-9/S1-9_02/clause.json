@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c577fec2b2bec3b7c50f07539623207b286498a8635e0f12b1563016a8f76137",
+  "clause_digest": "52a3fc387b7ef950ccb315a1ee6456f11e0c3aa1bea35ad5fe4eb572a5676be3",
   "clause_key": "S1-9_02",
   "data_kind": "quantitative",
   "definition": "最高管理层员工中按性别划分的占比。",
@@ -856,7 +856,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

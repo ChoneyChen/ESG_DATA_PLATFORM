@@ -25,6 +25,14 @@ class RetrievalProfile(StrictModel):
     excluded_object_terms: list[str] = Field(default_factory=list)
     context_terms: list[str] = Field(default_factory=list)
     expected_candidate_types: list[str] = Field(default_factory=list)
+    vocabulary_refs: list[str] = Field(default_factory=list)
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if not self.vocabulary_refs:
+            body.pop("vocabulary_refs", None)
+        return body
 
     @model_validator(mode="after")
     def usable_terms(self):

@@ -57,6 +57,7 @@ def execute(run_id, *, model=None):
     from .adapters.local_model import LocalQwenModel
     from .engine import ExtractionBackbone, PipelineCancelled, EvidenceNeeded, ExecutionYield, ENGINE_VERSION
     from .result_store import ResultStore
+    from .ports import DocumentUnavailable
 
     repo, store, artifacts, documents = resources()
     state = store.claim(run_id)
@@ -94,7 +95,6 @@ def execute(run_id, *, model=None):
             document=frozen_document,
             sources={key: DocumentReference.model_validate(value) for key,value in state.get("evidence_sources",{}).items()},
             exhausted_queries=state.get("exhausted_queries",{}),
-            context_attempted=state.get("context_attempted",[]),
             cancel_check=lambda: store.is_cancelled(run_id),
             on_progress=lambda event: store.progress(run_id, progress=event),
         )
@@ -137,11 +137,16 @@ def execute(run_id, *, model=None):
             execution_continues=True,summary=summary)
     except EvidenceNeeded as exc:
         status = ResultStore(run_id, artifacts).status() or {}
+        checkpoint = ResultStore(run_id, artifacts).checkpoint()
         store.progress(run_id, current_call=None, progress={"stage":"preparing", "clause_key":exc.request.clause_key,
+            "current":len(checkpoint.get("completed_clauses", [])), "total":len(state["targets"]["clauses"]),
             "model_calls":(status.get("summary") or {}).get("model_calls",0),
             "fact_count":(status.get("summary") or {}).get("source_facts",0)})
         return store.update(run_id, worker_pid=None, worker_started=None,
             evidence_request=exc.request.model_dump(mode="json"),summary=status.get("summary"))
+    except DocumentUnavailable as exc:
+        return store.update(run_id, status="interrupted", worker_pid=None, worker_started=None,
+            error=str(exc), summary=(ResultStore(run_id, artifacts).status() or {}).get("summary"))
     except PipelineCancelled:
         return store.update(run_id, status="cancelled")
     except Exception as exc:

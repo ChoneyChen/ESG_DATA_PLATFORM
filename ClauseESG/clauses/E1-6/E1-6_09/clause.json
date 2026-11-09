@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7d241aacc27bb772040376b9d8ea138d6c672200cebaf136be3d35608fec239b",
+  "clause_digest": "4fcfe26b6083791a704964e23ec03d8ad6487115ab9c1b6f7b04ee4f6a76229b",
   "clause_key": "E1-6_09",
   "data_kind": "quantitative",
   "definition": "基于位置法的范围2温室气体排放总量",
@@ -749,7 +749,7 @@
         "scope": "text",
         "terms": [
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
-          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
           "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
         ],
         "unless_terms": []
@@ -818,7 +818,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "scope1": [
         "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"

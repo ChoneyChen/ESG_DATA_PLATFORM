@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "40f8cd9d68f4713afc347a7539f4be164b9de39440cdacb773957d67dc658426",
+  "clause_digest": "6182ae96866c187a9f817a217acf7eb51bb83b396585777fc143ca7b1c7f3379",
   "clause_key": "S1-13_03",
   "data_kind": "quantitative",
   "definition": "按性别划分的员工人均培训小时数。",
@@ -725,7 +725,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

@@ -195,7 +195,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "5fdad398e4a78a766c90ab17644deb6a5dc4b9c82e94aa74d9318962647e722d",
+  "clause_digest": "02e02c26169f27843ba4d61ad01e8d648eff278ed040054121ecd6ecbcffc817",
   "clause_key": "E2-4_03",
   "data_kind": "quantitative",
   "definition": "按污染物划分的水体排放量",
@@ -836,7 +836,7 @@
         "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)"
       ],
       "air_pollutant": [
-        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|lead|arsenic|particulate|dust|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
+        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|\\blead\\b|arsenic|particulate|\\bdust\\b|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
       ],
       "change": [
         "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
@@ -857,7 +857,7 @@
         "re:(?:浓度|concentration|mg\\s*/|达标|compliance|去除|removal|减排|reduction|温室|ghg|二氧化碳(?!硫)|\\bco\\s*2\\b|co₂|废水量|废水排放量|wastewater\\s+(?:volume|discharge))"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

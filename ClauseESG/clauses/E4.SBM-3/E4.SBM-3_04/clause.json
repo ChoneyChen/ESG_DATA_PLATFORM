@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bfeef1d83e06c1bf78f8ae4aa802760fd50f3e7e7b592ace3d13ae15d07dd31e",
+  "clause_digest": "eabd0c5be2d2369e5cb075a3b4d15825d0c269dd2b8496b06018e7e526dcc4a5",
   "clause_key": "E4.SBM-3_04",
   "data_kind": "qualitative",
   "definition": "披露受到主体活动影响的生物多样性敏感区域，包括区域位置、类型与受影响程度。",
@@ -534,7 +534,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

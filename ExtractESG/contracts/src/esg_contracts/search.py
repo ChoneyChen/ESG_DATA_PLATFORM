@@ -9,6 +9,8 @@ class PageSearchIntent(BaseModel):
     target_id: str = Field(min_length=1)
     contract_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
     data_kind: Literal["quantitative", "qualitative"]
+    matching: Literal["phrase", "lexical"] = "phrase"
+    fallback_terms: list[str] = Field(default_factory=list)
     positive_terms: list[str] = Field(min_length=1)
     negative_terms: list[str] = Field(default_factory=list)
     supporting_terms: list[str] = Field(default_factory=list)

@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7365fa5cbcecc40b0bbbd3499f203e86f87f2c870e0228356ed63280d3af1963",
+  "clause_digest": "e49afb144602b67cf06f66bc8bfd3517a762e70b25e3b407b029429ac8ba6b4f",
   "clause_key": "S2-3_02",
   "data_kind": "qualitative",
   "definition": "披露价值链劳动者可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -507,7 +507,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

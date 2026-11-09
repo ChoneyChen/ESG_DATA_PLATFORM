@@ -12,12 +12,13 @@ from esg_contracts.facts import (
     QualitativePayload,
     ClauseMapping,
 )
-from esg_data.units import canonical_unit_id, unit_dimension, normalize_unit_text
+from esg_data.units import is_unit_expression, unit_dimension, normalize_unit_text
 from esg_clauses.reading import check_reading
 from esg_clauses.evidence import check_evidence
 from esg_data.literals import parse_measure
 from .decisions import IdentityProposal
 from .period_binding import bind_period
+from .reading_frame import statement_scope
 from esg_data.periods import normalize_period
 
 CONTEXT_AXES = set(ReportedContext.model_fields) - {"dimensions"}
@@ -210,7 +211,7 @@ def _number(raw):
             raise ValueError("Selected cell is not a supported quantitative literal")
         parsed = parse_measure(match.group(1))
         suffix = match.group(2).strip()
-        if parsed is None or canonical_unit_id(suffix) is None:
+        if parsed is None or not is_unit_expression(suffix):
             raise ValueError("Unbound quantitative unit suffix")
     else:
         suffix = None
@@ -241,11 +242,16 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     column_unit = None
     for header in frame.columns.get(cell.column_id, []):
         for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", header):
-            if canonical_unit_id(candidate):
+            if is_unit_expression(candidate):
                 column_unit = candidate
                 break
     # The actual cell and column outrank a shared row-unit label.
     unit = suffix or column_unit or row.unit_raw
+    if not unit:
+        for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", row.label):
+            if is_unit_expression(candidate):
+                unit = candidate
+                break
     if unit:
         for source in row.unit_sources:
             if normalize_unit_text(source.text) == normalize_unit_text(unit):
@@ -253,7 +259,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
                 break
     if not unit and frame.title:
         for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", frame.title):
-            if canonical_unit_id(candidate):
+            if is_unit_expression(candidate):
                 unit = candidate
                 break
     number = format(parsed["value"], "f") if parsed["value"] is not None else None
@@ -310,6 +316,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     if unit:
         sources = [
             *row.unit_sources,
+            *row.label_sources,
             *frame.column_sources.get(cell.column_id, []),
             *frame.title_sources,
             *[t for t in frame.texts if t.object_type != "cell"],
@@ -416,7 +423,7 @@ def qualitative_fact(clause, document, frame, match, interpretation_id):
         frame.title,
         None,
         None,
-        evidence=" ".join(t.text for t in frame.texts),
+        evidence=statement_scope(frame, text),
     )
     attempts = []
     context, flags = context_from_claims(frame, match.identity, document=document, attempts=attempts, period_text=raw)
@@ -596,7 +603,7 @@ def apply_reading(mapping, reading):
                 "flags": flags,
             }
         )
-    if (reading.status or reading.flags) and mapping.match != "different":
+    if reading.status == "review" and mapping.match != "different":
         return mapping.model_copy(update={"match": "uncertain", "flags": flags})
     return mapping
 

@@ -155,17 +155,17 @@ def test_constrained_schema_cannot_call_another_target_measurement_nonmeasuremen
     with pytest.raises(ValidationError):NumericMatch.model_validate(item)
     with pytest.raises(jsonschema.ValidationError):jsonschema.validate({'matches':[item]},decision_schema('quantitative',frame))
     item['selection']='measurement'
-    jsonschema.validate({'matches':[item]},decision_schema('quantitative',frame))
+    jsonschema.validate({'matches':[{k:item[k] for k in ('row_id','columns','match')}]},decision_schema('quantitative',frame))
 
 
-def test_adjacent_quantity_capture_requires_physical_table_unit_and_period():
+def test_adjacent_quantity_capture_does_not_capture_unselected_rows():
     from esg_extraction.pipeline.engine import adjacent_table_quantities
     source=TextEvidence(object_id='unit',object_type='cell',text='吨',page_index=0)
     row=EvidenceRow(row_id='other',label='其他实测项目',row_role='data',unit_raw='吨',unit_sources=[source],
         cells=[EvidenceCell(cell_id='value',column_id='2025',raw_text='175.61')])
     frame=EvidenceFrame(object_id='table',kind='table',page_index=0,digest='x',rows=[row])
     extra=adjacent_table_quantities(frame,['2025'],[])
-    assert len(extra)==1 and extra[0].match=='uncertain' and extra[0].selection=='measurement'
+    assert not extra
     assert not adjacent_table_quantities(frame,None,[])
     assert not adjacent_table_quantities(frame.model_copy(update={'kind':'text'}),['2025'],[])
     assert not adjacent_table_quantities(frame,['2025'],extra)

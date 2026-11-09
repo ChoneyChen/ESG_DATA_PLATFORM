@@ -167,7 +167,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b91d8076e2c5b2294bf7da53241b58575882d8c829668521004b3198c79849e2",
+  "clause_digest": "9b836c299f95c1c23e93a6f96cb5bb138030b94d32cd07c70a0a0770d39d022a",
   "clause_key": "E3-4_03",
   "data_kind": "quantitative",
   "definition": "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -865,7 +865,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "recycle": [
         "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
@@ -1018,6 +1018,9 @@
         "循环用水",
         "重复使用水"
       ]
+    ],
+    "vocabulary_refs": [
+      "recycle"
     ]
   },
   "schema_version": "clause-contract-1.4",

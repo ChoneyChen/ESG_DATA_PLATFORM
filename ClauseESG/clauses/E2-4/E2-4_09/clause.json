@@ -143,14 +143,15 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b099196f94c25c6cbd21a0dd880191e8c5e383064c79a0de4736f374283ed94b",
+  "clause_digest": "4b8a295430cf371b07c751d5e39ef7d90a721783c7d8f6876d8bc217a17a6463",
   "clause_key": "E2-4_09",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染测量方法描述",
   "distinguish_from": [
     "污染物排放数值本身",
     "监测设施数量",
-    "无具体测量说明的认证名称"
+    "无具体测量说明的认证名称",
+    "供应商筛选准则清单、仅列出监测管理主题而未描述实际测量做法的短语"
   ],
   "evidence": [
     {
@@ -503,7 +504,8 @@
     "allow_regulatory_limit": false,
     "instructions": [
       "读取空气、水体、土壤污染的测量、监测、计算或估算方法原文，包括土壤/地下水背景调查、自行监测、在线监测、排放因子或物料衡算等实际做法。无需出现数值或特定化学物质名称。",
-      "选择完整而相关的句子或段落，保留原文；供应商质量测试系统分析、一般培训、仅标题不属于污染测量方法。缺少主体、期间等信息时留待确认，不编造。"
+      "选择完整而相关的句子或段落，保留原文；供应商质量测试系统分析、一般培训、仅标题不属于污染测量方法。缺少主体、期间等信息时留待确认，不编造。",
+      "供应商环境筛选清单不等于实际污染测量方法；只列出空气排放监测与管理等话题的条目不是方法说明。所选原句必须描述实际怎样监测、测量、计算或估算。"
     ],
     "operator": "statement",
     "rules": [
@@ -547,12 +549,46 @@
         "rule": "require_any",
         "scope": "all",
         "terms": [
-          "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|lead|arsenic|particulate|dust|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))",
+          "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|\\blead\\b|arsenic|particulate|\\bdust\\b|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))",
           "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|nh\\s*3\\s*-?\\s*n|总氮|总磷|石油类|悬浮物|(?<![a-z0-9])ss(?![a-z0-9])|氰化物|氟化物|硫化物|挥发酚|重金属|铜|锌|铅|镉|汞|砷|铬|镍|ammonia|chemical\\s+oxygen|nitrogen|phosph|heavy\\s+metal|水污染物|废水污染物)",
           "土壤污染",
           "土壤、地下水",
           "soil pollution",
-          "groundwater"
+          "groundwater",
+          "废水",
+          "污水",
+          "废气",
+          "wastewater",
+          "effluent",
+          "air quality",
+          "water quality"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "statement_is_a_topic_only",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:^\\s*(?:(?:air|water|soil|pollutants?|emissions?|pollution)\\s+)+(?:monitoring|measurement|management|methodologies|methods?)(?:\\s*(?:and|&|/)\\s*(?:monitoring|measurement|management|methods?))*\\s*[.!。]?\\s*$"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "statement_describes_supplier_screening",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:^\\s*suppliers?\\s+(?:are\\s+|were\\s+)?screen(?:ed|ing)\\b",
+          "re:^\\s*供应商.{0,12}(?:筛选|准入|评估)(?:标准|准则|条件|清单)"
         ],
         "unless_terms": []
       }
@@ -560,7 +596,7 @@
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "air_pollutant": [
-        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|lead|arsenic|particulate|dust|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
+        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|\\blead\\b|arsenic|particulate|\\bdust\\b|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"

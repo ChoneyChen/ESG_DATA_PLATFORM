@@ -213,11 +213,17 @@ class ClausePageSelector:
         self.search_targets = search_targets or []
         self._negative_matchers = {}
         self._required_matchers = {}
+        self._required_terms = {}
+        self._lexical_groups = set()
+        self._lexical_terms = {}
         if self.search_targets:
             from esg_contracts.search import PageSearchIntent
 
             targets = [PageSearchIntent.model_validate(v) for v in self.search_targets]
             self.search_targets = [target.model_dump(mode="json") for target in targets]
+            self._lexical_groups = {target.target_id for target in targets if target.matching == "lexical"}
+            self._lexical_terms = {target.target_id:[*target.positive_terms, *target.fallback_terms] for target in targets}
+            self._required_terms = {target.target_id:target.required_term_groups for target in targets}
             keyword_groups = tuple(
                 KeywordGroup(
                     t.target_id,
@@ -326,6 +332,9 @@ class ClausePageSelector:
     ) -> PageSelection:
         started = time.perf_counter() if started is None else started
         scores = tuple(self.score_page(index, text) for index, text in enumerate(texts))
+        missing = set(self._lexical_terms) - {key for score in scores for key in score.group_scores}
+        if missing:
+            scores = tuple(self.score_page(index, text, lexical_groups=missing) for index, text in enumerate(texts))
         page_count = len(scores)
         text_pages = sum(1 for item in scores if item.text_chars >= self.min_text_chars)
         if not page_count or text_pages < page_count * self.min_text_page_ratio:
@@ -419,7 +428,8 @@ class ClausePageSelector:
             source=source,
         )
 
-    def score_page(self, page_index: int, text: str) -> PageScore:
+    def score_page(self, page_index: int, text: str, *, lexical_groups=None) -> PageScore:
+        from esg_data.text_search import lexical_score
         folded = fold_text(text)
         spaced = _WHITESPACE.sub(" ", folded).strip()
         compact = _WHITESPACE.sub("", folded)
@@ -427,6 +437,14 @@ class ClausePageSelector:
         group_hits: dict[str, list[str]] = {}
         for key, (strong_matchers, weak_matchers) in self.matchers.items():
             strong = _hits(strong_matchers, compact, spaced)
+            if not strong and key in (self._lexical_groups | (lexical_groups or set())):
+                broad = lexical_score(self._lexical_terms.get(key, []), spaced)
+                if broad and all(_hits(matchers, compact, spaced) or lexical_score(terms, spaced)
+                    for terms,matchers in zip(self._required_terms.get(key, []), self._required_matchers.get(key, []))):
+                    group_scores[key] = min(2.0, broad)
+                    if _hits(self._negative_matchers.get(key, []), compact, spaced):
+                        group_scores[key] *= 0.25
+                    group_hits[key] = ["lexical:"+key]
             if not strong:
                 continue
             if any(

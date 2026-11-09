@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "09f59a2c60ed1d3e641648b3af7c688d16ecc3e1b78dc4c44b14e7126accbdff",
+  "clause_digest": "085b8962c95e860bedc2a59c61962b0c7d7d4201070de4096d11b9d3ae1b06d4",
   "clause_key": "E4.IRO-1_14",
   "data_kind": "qualitative",
   "definition": "披露主体是否在生物多样性敏感区域内或附近拥有场址，并指出相关场址。",
@@ -533,7 +533,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

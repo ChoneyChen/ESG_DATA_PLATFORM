@@ -167,7 +167,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b0cb6abdb508acf11f94016d105664173ab3679f5960a4d98e70d72b67a1942d",
+  "clause_digest": "22f9140b006fed9a002c140fda341550aa95b6377a04c29275a27eceaeab5031",
   "clause_key": "E3-4_11",
   "data_kind": "quantitative",
   "definition": "Total water withdrawals。取水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -871,7 +871,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "recycle": [
         "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
@@ -1024,6 +1024,9 @@
         "取水量",
         "新鲜水取用量"
       ]
+    ],
+    "vocabulary_refs": [
+      "withdrawal"
     ]
   },
   "schema_version": "clause-contract-1.4",

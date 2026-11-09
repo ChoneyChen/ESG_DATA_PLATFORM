@@ -8,6 +8,10 @@ from .products import ProductStatus
 from esg_database.http_client import ProductClient
 
 app = document.app
+# The composition root starts the queue after ownership reconciliation, and
+# stops dispatch before shutting down its document/evidence service.
+app.router.on_startup.remove(document.start_current_pipeline)
+app.router.on_shutdown.remove(document.stop_current_pipeline)
 
 
 def queue_clause_run(run_id, name, timeout, *, session_id):
@@ -34,9 +38,12 @@ app.include_router(extraction_router(extraction_plans, document._require_process
 @app.on_event("startup")
 def start_plans():
     if not os.getenv("PYTEST_CURRENT_TEST"):
+        extraction_plans.reconcile_cancelled()
+        document.start_current_pipeline()
         extraction_plans.start()
 
 
 @app.on_event("shutdown")
 def stop_plans():
     extraction_plans.stop()
+    document.stop_current_pipeline()

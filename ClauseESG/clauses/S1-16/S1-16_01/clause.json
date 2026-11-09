@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2e91251c65a9872a2166a609523d73dda6c232031528d6aa3a4e7c1c4df4fb65",
+  "clause_digest": "f9fcbb835241fd0088e93a6144c9871c73fc4350c47faa5f502babb6c337c219",
   "clause_key": "S1-16_01",
   "data_kind": "quantitative",
   "definition": "男女员工薪酬水平之差占男性薪酬水平的比例。",
@@ -812,7 +812,7 @@
         "re:(?:薪酬差距|薪酬差异|男女薪酬|gender\\s+pay\\s+gap|pay\\s+gap)"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "remun_ratio": [
         "re:(?:薪酬比|薪酬倍数|总薪酬比|remuneration\\s+ratio|pay\\s+ratio)"

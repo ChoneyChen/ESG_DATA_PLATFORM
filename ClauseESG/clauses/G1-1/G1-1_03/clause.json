@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1bbd2f4b881edf9c1d5dbaf0509043624fd4d1cc68e488d8dce90733dcff24f4",
+  "clause_digest": "19c4a13d04b25979d13b0ec4cf229d8028ae9a8f27aa8c79620eb172ad6e8c57",
   "clause_key": "G1-1_03",
   "data_kind": "qualitative",
   "definition": "说明主体是否尚未制定符合《联合国反腐败公约》的反腐败或反贿赂政策；若尚未制定，披露现状、原因与拟采取措施。",
@@ -510,7 +510,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4b06af619f24ca83ca85cd06d3886d915edc3f0937fb38c87e751bb55da8698f",
+  "clause_digest": "b931eda57ee56dadffa4dcc00783ad90534e7828448ba901dffe0367ebf64af0",
   "clause_key": "E1-6_30",
   "data_kind": "quantitative",
   "definition": "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。",
@@ -781,7 +781,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "revenue": [
         "re:(?:营收|营业收入|营业额|收入|revenue|net\\s+sales)"

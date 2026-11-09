@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c2dcf9c21262460cafedb1387525fbd82f9f98ced2ef0456fb94473fc2a81987",
+  "clause_digest": "3342cd96698d243d2a78e1a4a0d9292e447811e7b5be2fcf25cbfaaf1612a655",
   "clause_key": "S2-4_11",
   "data_kind": "qualitative",
   "definition": "披露与上下游价值链相关的严重人权问题和事件，包括类型、地点和处置情况。",
@@ -489,7 +489,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

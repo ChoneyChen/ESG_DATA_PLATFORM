@@ -13,6 +13,7 @@ CO2E_TOKEN = (
 GHG_FORMULA_RE = re.compile(CO2E_TOKEN, re.IGNORECASE)
 GHG_UNIT = (
     rf"(?:(?:Mt|kt|t|kg|g|吨|噸|千克|公斤|克)\s*\$?\s*{CO2E_TOKEN}\s*\$?|"
+    rf"(?:metric\s*)?(?:tonnes?|tons?|kilograms?)\s*{CO2E_TOKEN}|"
     rf"(?:百万|百萬|千)\s*(?:吨|噸)?\s*\$?\s*t?\s*{CO2E_TOKEN}\s*\$?|"
     r"(?:百万吨|百萬噸|千吨|千噸|吨|噸|千克|公斤|克)\s*二氧化碳(?:当量|當量))"
 )
@@ -23,6 +24,7 @@ ENERGY_UNIT = (
 )
 MASS_UNIT = (
     r"(?:万吨|千克|公斤|毫克|微克|吨|噸|克|"
+    r"(?:metric\s*)?(?:tonnes?|tons?|kilograms?|grams?)|"
     r"(?<![A-Za-z])(?:kg|mg|μg|ug|kt|t)(?![A-Za-z]))"
 )
 CURRENCY_UNIT = (
@@ -34,18 +36,28 @@ DENOMINATOR = (
     r"(?:收入|营收|營收|净收入|人民币|美元|欧元|英镑|日元|港元|元|"
     r"CNY|RMB|USD|EUR|GBP|JPY|HKD|monetary\s+unit|net\s+revenue)"
 )
+SCALE_PREFIX = r"(?:(?:ten\s*thousand|hundred|thousand|million|billion|十亿|百万|千万|十万|千|万|亿)\s*)?"
+VOLUME_UNIT = r"(?:litres?|liters?|gallons?|cubic\s*met(?:er|re)s?|m³|m3|立方米|升)"
+COUNT_UNIT = r"(?:headcounts?|persons?|people|employees?|units?|人|名|件|个|次|起)"
+TIME_UNIT = r"(?:hours?|hrs?|days?|minutes?|mins?|seconds?|secs?|小时|分钟|秒|天)"
+PRINTED_UNIT = rf"{SCALE_PREFIX}(?:{GHG_UNIT}|{ENERGY_UNIT}|{MASS_UNIT}|{VOLUME_UNIT}|{COUNT_UNIT}|{TIME_UNIT}|{CURRENCY_UNIT})"
 PHYSICAL_DENOMINATOR = (
     rf"(?:{ENERGY_UNIT}|{MASS_UNIT}|"
     r"m(?:²|³|2|3|\^\s*\{?[23]\}?)|平方米|平米|立方米|"
     r"square\s+met(?:er|re)s?|人|员工|員工|件|台)"
 )
 MEASUREMENT_UNIT_PATTERN = (
-    rf"(?:{GHG_UNIT}|{ENERGY_UNIT}|{MASS_UNIT}|{CURRENCY_UNIT})"
+    rf"(?:{PRINTED_UNIT})"
     rf"(?:\s*(?:/|／|per|每)\s*(?:{CURRENCY_UNIT}|{DENOMINATOR}|{PHYSICAL_DENOMINATOR}))?"
 )
 UNIT_PATTERN = rf"(?:{MEASUREMENT_UNIT_PATTERN}|%|％|百分比)"
 UNIT_RE = re.compile(UNIT_PATTERN, re.IGNORECASE)
 UNIT_ONLY_RE = re.compile(rf"^(?:{UNIT_PATTERN})$", re.IGNORECASE)
+
+
+def is_unit_expression(raw: str | None) -> bool:
+    """Recognise printed units without replacing their wording or scale."""
+    return bool(raw and (canonical_unit_id(raw) or UNIT_ONLY_RE.fullmatch(normalize_unit_text(raw))))
 
 
 _EXACT_UNIT_IDS = {
@@ -219,7 +231,7 @@ FALLBACK_DIMENSIONS = (
             "btu",
         ),
     ),
-    ("volume", ("m3", "m³", "立方米", "升", "megalit", "litre", "liter")),
+    ("volume", ("m3", "m³", "立方米", "升", "megalit", "litre", "liter", "gallon")),
     ("area", ("公顷", "hectare", "ha", "平方米", "m2", "m²", "平方公里", "km2")),
     ("currency", ("元", "usd", "rmb", "cny", "hkd", "eur", "dollar")),
     ("mass", ("吨", "噸", "kg", "千克", "公斤", "tonne")),
@@ -249,6 +261,10 @@ def unit_dimension(unit: str | None) -> str | None:
 
     if not unit:
         return None
+    if re.fullmatch(SCALE_PREFIX + COUNT_UNIT, unit.strip(), re.I):
+        return "count"
+    if re.fullmatch(SCALE_PREFIX + TIME_UNIT, unit.strip(), re.I):
+        return "time"
     raw_unit = unit.casefold()
     # "m3 (m3 per employee)" prints a conversion note after the unit; the base
     # unit is still m3. Only a denominator in the unit itself is an intensity.

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "3eb92845c6389ccd0c87a5f3bdbed42ec613729f3ef16f0bb61a5c9dab988f8a",
+  "clause_digest": "958fdd7ae1b80cfac1c3f45de6c048098964c1c841010d7100409ddec4364c03",
   "clause_key": "E1-6_12",
   "data_kind": "quantitative",
   "definition": "报告期内范围 1、按地点法计算的范围 2 与范围 3 温室气体排放的合计量。",
@@ -736,7 +736,7 @@
         "scope": "text",
         "terms": [
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
-          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
           "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
         ],
         "unless_terms": []
@@ -805,7 +805,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "scope1": [
         "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"

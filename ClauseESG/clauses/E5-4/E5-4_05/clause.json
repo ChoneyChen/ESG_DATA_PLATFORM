@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0a9adf6c9a468919a8c0a06b5202a57b800b8e36e7ba7aed17c0194da2ccbc6e",
+  "clause_digest": "8cc1a7ee9f53bc94e0bb009453d0e38795612c221000c32331b86232380adfd8",
   "clause_key": "E5-4_05",
   "data_kind": "quantitative",
   "definition": "二次使用或再生材料占材料投入的比例。",
@@ -696,7 +696,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

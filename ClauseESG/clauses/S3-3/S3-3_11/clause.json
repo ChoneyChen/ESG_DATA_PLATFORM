@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2a08f0e4ab9f75ae29cfbf585fcfa23ef7b83d5bcd5689e379e5c7624eb9b495",
+  "clause_digest": "1cbf6ddb60d0c25f36333d2c1ed0c53cbb654d3c8f47177be55980bca2ea236e",
   "clause_key": "S3-3_11",
   "data_kind": "qualitative",
   "definition": "披露受影响社区可直接向主体提出关切或需求并获得处理的特定渠道。",
@@ -503,7 +503,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

@@ -2,6 +2,7 @@
 
 import re
 from esg_contracts.evidence import EvidenceRow, EvidenceCell, TextEvidence
+from esg_data.units import UNIT_PATTERN
 
 NUMBER = r"[-+−]?\d[\d,，]*(?:\.\d+)?(?:[eE][-+]?\d+|\s*[×xX*]\s*10\s*(?:\^\s*[-+]?\d+|[⁰¹²³⁴⁵⁶⁷⁸⁹]+))?"
 LITERAL = re.compile(
@@ -11,10 +12,7 @@ LITERAL = re.compile(
     + NUMBER
     + r")?\s*[%％‰‱]?"
 )
-UNIT = re.compile(
-    r"^\s*((?:万|萬|亿|億|百万|百萬|千)?(?:吨二氧化碳当量|吨标准煤|吨|噸|立方米|千瓦时|兆瓦时|小时|人|名|件|起|天|元|MWh|GWh|kWh|tCO2e|kg|tonnes?|m³|m3|hours?|days?|%|％))",
-    re.I,
-)
+UNIT = re.compile(rf"^\s*({UNIT_PATTERN})(?![A-Za-z])", re.I)
 
 
 def text_spans(text, *, size=500):
@@ -91,6 +89,11 @@ def literal_kind(text, start, end, unit):
     reaches the reader; a missing unit alone never rejects a genuine count.
     """
     before, after = text[:start], text[end:]
+    if not unit:
+        if re.fullmatch(r"(?:19|20|21)\d{2}", text[start:end].strip()) and re.search(r"\b(?:in|since|during|year|FY)\s*$", before, re.I):
+            return "date"
+        if re.search(r"\b(?:series|model|version|scope|section|page|ISO|IEC|GRI|ESRS|SASB|NSF|IFRS)\s*$", before, re.I):
+            return "identifier"
     if after.lstrip().startswith(("年", "月", "日")):
         return "date"
     if re.search(r"[A-Za-zα-ωΑ-Ω]$", before):

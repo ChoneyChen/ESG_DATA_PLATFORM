@@ -168,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "22dddec0964cf902616f3e6db841e65e703454bebe17f75e06156e25e0a2c993",
+  "clause_digest": "926715caae02af6e61b249e923b98ee7f3fc5d43f11664f9628d2871fd79584e",
   "clause_key": "E1-5_02",
   "data_kind": "quantitative",
   "definition": "化石能源消费总量",
@@ -786,7 +786,7 @@
         "rule": "forbid_any",
         "scope": "text",
         "terms": [
-          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
         ],
         "unless_terms": []
@@ -868,7 +868,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "recycle": [
         "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"

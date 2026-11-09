@@ -1,0 +1,801 @@
+{
+  "schema_version": "incident-observation-1.0",
+  "observed_at": "2026-11-09T18:05:04.220905+00:00",
+  "current_engine": {
+    "version": "clause-backbone-2.7",
+    "fingerprint": "b7173acca49a48940f8a1b84ce86222fdb1bc00ca34bbd61b2c8154fd07eaa6a",
+    "ready": true
+  },
+  "original_batch": {
+    "original_reports": 50,
+    "statuses": {
+      "cancelled": 49,
+      "partial": 1
+    },
+    "requests_unchanged": 49,
+    "target_digests_unchanged": 49,
+    "compared_requests": 49,
+    "previous_fact_ids_retained": 1590,
+    "previous_fact_ids_count": 1590,
+    "original_fact_files": 1777,
+    "main_ports_listening": {
+      "18080": false,
+      "18180": false,
+      "18081": false,
+      "18280": false,
+      "8765": false
+    },
+    "baseline_model_calls": 774,
+    "baseline_completed_clauses": 53,
+    "baseline_relation_counts": {
+      "target": 49,
+      "other": 1626,
+      "unresolved": 102
+    },
+    "cancelled_dangling_children": 18
+  },
+  "real_runs": [
+    {
+      "version": "2.4",
+      "runs": [
+        {
+          "name": "2.4 固定代码PDF实跑 · First Solar 2026 · 32条",
+          "session_id": "extract-plan-a53d10bb53e847488e16d09bd286f942",
+          "run_id": "extract-94a4e96757cd7769833d5e60ea9e223e",
+          "engine_fingerprint": "59217070e44e4dca8295e74105ad9d9be70dee52eb7f4dc94bb9ac8443eb8ad8",
+          "status": "completed",
+          "selected_clauses": 32,
+          "processed_clauses": 32,
+          "model_calls": 49,
+          "source_facts": 38,
+          "quantitative": 37,
+          "qualitative": 1,
+          "relation_counts": {
+            "target_facts": 12,
+            "other_facts": 6,
+            "unresolved_facts": 20
+          },
+          "engine_active_seconds": 902.924,
+          "native_run_wall_seconds_including_waits": 2474.151,
+          "model_seconds": 865.767,
+          "input_tokens": 142512,
+          "output_tokens": 4244,
+          "execution_errors": [],
+          "export_state": "prepared"
+        },
+        {
+          "name": "2.4 固定代码PDF实跑 · 协鑫科技2023 · 32条",
+          "session_id": "extract-plan-10b6241c527b4fe2952c72fc760ea673",
+          "run_id": "extract-9d1333f3673c8d5c45e640efa8f70754",
+          "engine_fingerprint": "59217070e44e4dca8295e74105ad9d9be70dee52eb7f4dc94bb9ac8443eb8ad8",
+          "status": "completed",
+          "selected_clauses": 32,
+          "processed_clauses": 32,
+          "model_calls": 75,
+          "source_facts": 76,
+          "quantitative": 75,
+          "qualitative": 1,
+          "relation_counts": {
+            "target_facts": 30,
+            "other_facts": 13,
+            "unresolved_facts": 33
+          },
+          "engine_active_seconds": 1658.987,
+          "native_run_wall_seconds_including_waits": 2857.126,
+          "model_seconds": 1620.334,
+          "input_tokens": 213117,
+          "output_tokens": 11261,
+          "execution_errors": [],
+          "export_state": "prepared"
+        }
+      ]
+    },
+    {
+      "version": "2.5",
+      "runs": [
+        {
+          "name": "2.5 有界阅读PDF实跑 · First Solar 2026 · 32条",
+          "session_id": "extract-plan-0fb4f30c3bb3493c884ac1190a4c86d8",
+          "run_id": "extract-b3129e4bcb4af28f2e814756710938a3",
+          "engine_fingerprint": "2212d7e213b0d8fe81315fbbe74af7aac5a698b6f7445c3af162ae3a82bf088c",
+          "status": "completed",
+          "selected_clauses": 32,
+          "processed_clauses": 32,
+          "model_calls": 27,
+          "source_facts": 31,
+          "quantitative": 31,
+          "qualitative": 0,
+          "relation_counts": {
+            "target_facts": 17,
+            "other_facts": 8,
+            "unresolved_facts": 6
+          },
+          "engine_active_seconds": 444.431,
+          "native_run_wall_seconds_including_waits": 1055.876,
+          "model_seconds": 437.348,
+          "input_tokens": 78489,
+          "output_tokens": 2425,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 1,
+          "additional_new_pages": 8
+        },
+        {
+          "name": "2.5 有界阅读PDF实跑 · 协鑫科技2023 · 32条",
+          "session_id": "extract-plan-9995b3768e664100b48d2231f7feb08b",
+          "run_id": "extract-15b483b655acdc050f1fc12fbe9beacd",
+          "engine_fingerprint": "2212d7e213b0d8fe81315fbbe74af7aac5a698b6f7445c3af162ae3a82bf088c",
+          "status": "completed",
+          "selected_clauses": 32,
+          "processed_clauses": 32,
+          "model_calls": 20,
+          "source_facts": 46,
+          "quantitative": 45,
+          "qualitative": 1,
+          "relation_counts": {
+            "target_facts": 31,
+            "other_facts": 6,
+            "unresolved_facts": 9
+          },
+          "engine_active_seconds": 466.003,
+          "native_run_wall_seconds_including_waits": 1056.835,
+          "model_seconds": 457.133,
+          "input_tokens": 61690,
+          "output_tokens": 3847,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 1,
+          "additional_new_pages": 8
+        },
+        {
+          "name": "2.5 定性方法正向实跑 · 宁德时代2025 · 1条",
+          "session_id": "extract-plan-030b9362b9a9436b8296d5cc23fd9bb8",
+          "run_id": "extract-f52578809aec93503625411c7fc2b753",
+          "engine_fingerprint": "2212d7e213b0d8fe81315fbbe74af7aac5a698b6f7445c3af162ae3a82bf088c",
+          "status": "completed",
+          "selected_clauses": 1,
+          "processed_clauses": 1,
+          "model_calls": 3,
+          "source_facts": 2,
+          "quantitative": 0,
+          "qualitative": 2,
+          "relation_counts": {
+            "target_facts": 1,
+            "other_facts": 0,
+            "unresolved_facts": 1
+          },
+          "engine_active_seconds": 67.21,
+          "native_run_wall_seconds_including_waits": 145.926,
+          "model_seconds": 67.073,
+          "input_tokens": 7189,
+          "output_tokens": 570,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 0,
+          "additional_new_pages": 0
+        }
+      ]
+    },
+    {
+      "version": "2.6",
+      "runs": [
+        {
+          "name": "2.6 行级排序PDF实跑 · 协鑫科技2023 · 32条",
+          "session_id": "extract-plan-cd6b92132fdb4774a6d84203fac53e30",
+          "run_id": "extract-1f6150260a6dd0efd3ec405eca0d9ef1",
+          "engine_fingerprint": "4b8702df92f8aa27d3a49769452b152b2244957f139eca6d0fd7c67cb9194a33",
+          "status": "completed",
+          "selected_clauses": 32,
+          "processed_clauses": 32,
+          "model_calls": 23,
+          "source_facts": 49,
+          "quantitative": 48,
+          "qualitative": 1,
+          "relation_counts": {
+            "target_facts": 34,
+            "other_facts": 6,
+            "unresolved_facts": 9
+          },
+          "engine_active_seconds": 472.4,
+          "native_run_wall_seconds_including_waits": 636.787,
+          "model_seconds": 463.8,
+          "input_tokens": 71382,
+          "output_tokens": 4224,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 1,
+          "additional_new_pages": 8
+        },
+        {
+          "name": "2.6 行级排序PDF实跑 · First Solar 2026 · 4条",
+          "session_id": "extract-plan-29ddf50feb9a4d77b4c2d9bc0a7e68a3",
+          "run_id": "extract-3c643436d2e73d8cfacc14ceee660094",
+          "engine_fingerprint": "4b8702df92f8aa27d3a49769452b152b2244957f139eca6d0fd7c67cb9194a33",
+          "status": "completed",
+          "selected_clauses": 4,
+          "processed_clauses": 4,
+          "model_calls": 7,
+          "source_facts": 8,
+          "quantitative": 8,
+          "qualitative": 0,
+          "relation_counts": {
+            "target_facts": 6,
+            "other_facts": 2,
+            "unresolved_facts": 0
+          },
+          "engine_active_seconds": 74.453,
+          "native_run_wall_seconds_including_waits": 246.916,
+          "model_seconds": 73.771,
+          "input_tokens": 19976,
+          "output_tokens": 706,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 1,
+          "additional_new_pages": 4
+        }
+      ]
+    },
+    {
+      "version": "2.7",
+      "runs": [
+        {
+          "name": "2.7 引句边界PDF实跑 · 协鑫科技2023 · 1条",
+          "session_id": "extract-plan-572ced5688a74f9f93bfb41d422f8d52",
+          "run_id": "extract-ee49b60d35137a71764675e464228e46",
+          "engine_fingerprint": "b7173acca49a48940f8a1b84ce86222fdb1bc00ca34bbd61b2c8154fd07eaa6a",
+          "status": "completed",
+          "selected_clauses": 1,
+          "processed_clauses": 1,
+          "model_calls": 1,
+          "source_facts": 1,
+          "quantitative": 0,
+          "qualitative": 1,
+          "relation_counts": {
+            "target_facts": 0,
+            "other_facts": 1,
+            "unresolved_facts": 0
+          },
+          "engine_active_seconds": 11.311,
+          "native_run_wall_seconds_including_waits": 92.249,
+          "model_seconds": 10.86,
+          "input_tokens": 2635,
+          "output_tokens": 58,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 0,
+          "maximum_page_rounds_per_clause": 1,
+          "additional_new_pages": 4,
+          "assertions": [
+            {
+              "clause_digest": "e42d01beb64fc3a59fbb95aac04e5e0b1fd36d638bf219f7896c6b4b3c147b54",
+              "clause_key": "E2-4_09",
+              "flags": [
+                "statement_is_excerpt",
+                "scope_requires_confirmation",
+                "label_not_about_pollutants",
+                "rejected"
+              ],
+              "match": "different",
+              "reason": "label_not_about_pollutants",
+              "scope_ids": [],
+              "source_fact_id": "0412fda6094360606b26fc8eb6109941c713b08e4a249edfc25f4692c5afe77c",
+              "statement": "Conducted carbon footprint measurement and certification for products.",
+              "pages": [
+                23
+              ]
+            }
+          ]
+        },
+        {
+          "name": "2.7 引句边界PDF实跑 · 宁德时代2025 · 1条",
+          "session_id": "extract-plan-28b94511d19148f0ae4ae67f6f34fefd",
+          "run_id": "extract-d5347b1a1dc39d08b346f4eac3be90ed",
+          "engine_fingerprint": "b7173acca49a48940f8a1b84ce86222fdb1bc00ca34bbd61b2c8154fd07eaa6a",
+          "status": "completed",
+          "selected_clauses": 1,
+          "processed_clauses": 1,
+          "model_calls": 4,
+          "source_facts": 3,
+          "quantitative": 0,
+          "qualitative": 3,
+          "relation_counts": {
+            "target_facts": 1,
+            "other_facts": 1,
+            "unresolved_facts": 1
+          },
+          "engine_active_seconds": 53.926,
+          "native_run_wall_seconds_including_waits": 79.182,
+          "model_seconds": 53.73,
+          "input_tokens": 9540,
+          "output_tokens": 675,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 0,
+          "additional_new_pages": 0,
+          "assertions": [
+            {
+              "clause_digest": "e42d01beb64fc3a59fbb95aac04e5e0b1fd36d638bf219f7896c6b4b3c147b54",
+              "clause_key": "E2-4_09",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ],
+              "match": "match",
+              "reason": "Reported statement selected for the clause",
+              "scope_ids": [],
+              "source_fact_id": "1fd72aa13ac171df01b6c3c3e7d0fc202979b6ec0eac2a2e171c343d3de131fc",
+              "statement": "针对土壤污染防治，公司对新建工厂开展土壤、地下水背景环境质量调查，工厂投产后按规定开展自行监测，发现异常立即进行原因排查和专项整改。",
+              "pages": [
+                56
+              ]
+            },
+            {
+              "clause_digest": "e42d01beb64fc3a59fbb95aac04e5e0b1fd36d638bf219f7896c6b4b3c147b54",
+              "clause_key": "E2-4_09",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ],
+              "match": "uncertain",
+              "reason": "Reported statement selected for the clause",
+              "scope_ids": [],
+              "source_fact_id": "3025a079da5c4da34cb0a0e88cacda4ae8c7742d28026bafa6ba52b0a096a538",
+              "statement": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
+              "pages": [
+                55
+              ]
+            },
+            {
+              "clause_digest": "e42d01beb64fc3a59fbb95aac04e5e0b1fd36d638bf219f7896c6b4b3c147b54",
+              "clause_key": "E2-4_09",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation",
+                "label_not_about_pollutants",
+                "rejected"
+              ],
+              "match": "different",
+              "reason": "label_not_about_pollutants",
+              "scope_ids": [],
+              "source_fact_id": "a5c337ca1a96457e80357d4bd0345b5c888f681f2ab21acd77ddfd7dbd78c00e",
+              "statement": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。",
+              "pages": [
+                55
+              ]
+            }
+          ]
+        },
+        {
+          "name": "2.7 引句边界与介质声明PDF实跑 · 宁德时代2025 · 1条",
+          "session_id": "extract-plan-0524df397e22441a9c0fd35d1df2622e",
+          "run_id": "extract-61176b104cb7a8744ef099667982cef8",
+          "engine_fingerprint": "b7173acca49a48940f8a1b84ce86222fdb1bc00ca34bbd61b2c8154fd07eaa6a",
+          "status": "completed",
+          "selected_clauses": 1,
+          "processed_clauses": 1,
+          "model_calls": 3,
+          "source_facts": 2,
+          "quantitative": 0,
+          "qualitative": 2,
+          "relation_counts": {
+            "target_facts": 1,
+            "other_facts": 0,
+            "unresolved_facts": 1
+          },
+          "engine_active_seconds": 50.768,
+          "native_run_wall_seconds_including_waits": 51.549,
+          "model_seconds": 50.617,
+          "input_tokens": 7237,
+          "output_tokens": 570,
+          "execution_errors": [],
+          "export_state": "prepared",
+          "maximum_context_calls_per_clause": 1,
+          "maximum_page_rounds_per_clause": 0,
+          "additional_new_pages": 0,
+          "assertions": [
+            {
+              "clause_digest": "4b8a295430cf371b07c751d5e39ef7d90a721783c7d8f6876d8bc217a17a6463",
+              "clause_key": "E2-4_09",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ],
+              "match": "uncertain",
+              "reason": "Reported statement selected for the clause",
+              "scope_ids": [],
+              "source_fact_id": "077336e4466f6116dc69aa678eba0801b838884aa8c841ba6c84bfbd11e88fe1",
+              "statement": "对于战略供应商，公司围绕环保合规性、环保设施运行状况、环境监测数据、三废合规处置等要素对其进行现场审核，要求其制定重点水污染物、大气污染物与固体废弃物减量目标，并持续跟踪审核后续整改情况及减排目标达成情况。",
+              "pages": [
+                55
+              ]
+            },
+            {
+              "clause_digest": "4b8a295430cf371b07c751d5e39ef7d90a721783c7d8f6876d8bc217a17a6463",
+              "clause_key": "E2-4_09",
+              "flags": [
+                "statement_is_excerpt",
+                "document_evidence_limited",
+                "scope_requires_confirmation"
+              ],
+              "match": "match",
+              "reason": "Reported statement selected for the clause",
+              "scope_ids": [],
+              "source_fact_id": "3b88e963ef720b59378c40ba613d3df79092f382faf5faa1d0ad7caf87579210",
+              "statement": "根据相关法规要求，公司制定涵盖废水、废气、厂界噪声等项目的环境自行监测方案，监测方案满足《排污单位自行监测技术指南电池工业》（HJ 1204-2021）、《排污单位自行监测技术指南火力发电及锅炉》（HJ 820-2017）、《排污单位自行监测技术指南总则》（HJ 819-2017）等标准及排污许可相关要求，不存在重大缺陷。",
+              "pages": [
+                55
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "numeric_checks": {
+    "passed": 18,
+    "total": 18,
+    "items": [
+      {
+        "report": "First Solar",
+        "clause": "E1-5_01",
+        "year": 2024,
+        "expected_value": "1782056",
+        "expected_unit": "MWh",
+        "matched": [
+          {
+            "value_raw": "1,782,056",
+            "unit_raw": "MWh",
+            "match": "match",
+            "label": "Total Energy Consumption (MWh) › Global (Operational Control)",
+            "pages": [
+              83
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "First Solar",
+        "clause": "E1-5_01",
+        "year": 2025,
+        "expected_value": "1960995",
+        "expected_unit": "MWh",
+        "matched": [
+          {
+            "value_raw": "1,960,995",
+            "unit_raw": "MWh",
+            "match": "match",
+            "label": "Total Energy Consumption (MWh) › Global (Operational Control)",
+            "pages": [
+              83
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "First Solar",
+        "clause": "E1-6_07",
+        "year": 2024,
+        "expected_value": "16593",
+        "expected_unit": "Metric Tons CO2eq",
+        "matched": [
+          {
+            "value_raw": "16,593",
+            "unit_raw": "Metric Tons CO2 eq",
+            "match": "match",
+            "label": "Scope 1 GHG Emissions (Metric Tons CO2 eq) › Global (Operational Control)",
+            "pages": [
+              84
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "First Solar",
+        "clause": "E1-6_07",
+        "year": 2025,
+        "expected_value": "22386",
+        "expected_unit": "Metric Tons CO2eq",
+        "matched": [
+          {
+            "value_raw": "22,386",
+            "unit_raw": "Metric Tons CO2 eq",
+            "match": "match",
+            "label": "Scope 1 GHG Emissions (Metric Tons CO2 eq) › Global (Operational Control)",
+            "pages": [
+              84
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "First Solar",
+        "clause": "E3-4_03",
+        "year": 2024,
+        "expected_value": "469",
+        "expected_unit": "million liters",
+        "matched": [
+          {
+            "value_raw": "469",
+            "unit_raw": "million liters",
+            "match": "match",
+            "label": "Total Water Recycled or Reused (million liters) › Manufacturing, Recycling, and R&D",
+            "pages": [
+              84
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "First Solar",
+        "clause": "E3-4_03",
+        "year": 2025,
+        "expected_value": "510",
+        "expected_unit": "million liters",
+        "matched": [
+          {
+            "value_raw": "510",
+            "unit_raw": "million liters",
+            "match": "match",
+            "label": "Total Water Recycled or Reused (million liters) › Manufacturing, Recycling, and R&D",
+            "pages": [
+              84
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E1-5_01",
+        "year": 2021,
+        "expected_value": "9011701",
+        "expected_unit": "MWh",
+        "matched": [
+          {
+            "value_raw": "9,011,701",
+            "unit_raw": "MWh",
+            "match": "match",
+            "label": "Comprehensive energy consumption⁴",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E1-5_01",
+        "year": 2022,
+        "expected_value": "11865553",
+        "expected_unit": "MWh",
+        "matched": [
+          {
+            "value_raw": "11,865,553",
+            "unit_raw": "MWh",
+            "match": "match",
+            "label": "Comprehensive energy consumption⁴",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E1-5_01",
+        "year": 2023,
+        "expected_value": "17985903",
+        "expected_unit": "MWh",
+        "matched": [
+          {
+            "value_raw": "17,985,903",
+            "unit_raw": "MWh",
+            "match": "match",
+            "label": "Comprehensive energy consumption⁴",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "S1-6_02",
+        "year": 2021,
+        "expected_value": "8863",
+        "expected_unit": "Headcount",
+        "matched": [
+          {
+            "value_raw": "8,863",
+            "unit_raw": "Headcount",
+            "match": "match",
+            "label": "Number of employees",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "S1-6_02",
+        "year": 2022,
+        "expected_value": "11527",
+        "expected_unit": "Headcount",
+        "matched": [
+          {
+            "value_raw": "11,527",
+            "unit_raw": "Headcount",
+            "match": "match",
+            "label": "Number of employees",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "S1-6_02",
+        "year": 2023,
+        "expected_value": "15002",
+        "expected_unit": "Headcount",
+        "matched": [
+          {
+            "value_raw": "15,002",
+            "unit_raw": "Headcount",
+            "match": "match",
+            "label": "Number of employees",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E5-5_15",
+        "year": 2021,
+        "expected_value": "1310",
+        "expected_unit": "Tonnes",
+        "matched": [
+          {
+            "value_raw": "1,310",
+            "unit_raw": "Tonnes",
+            "match": "match",
+            "label": "Hazardous waste³",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E5-5_15",
+        "year": 2022,
+        "expected_value": "1233",
+        "expected_unit": "Tonnes",
+        "matched": [
+          {
+            "value_raw": "1,233",
+            "unit_raw": "Tonnes",
+            "match": "match",
+            "label": "Hazardous waste³",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E5-5_15",
+        "year": 2023,
+        "expected_value": "2218",
+        "expected_unit": "Tonnes",
+        "matched": [
+          {
+            "value_raw": "2,218",
+            "unit_raw": "Tonnes",
+            "match": "match",
+            "label": "Hazardous waste³",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E3-4_12",
+        "year": 2021,
+        "expected_value": "459",
+        "expected_unit": "Ten thousand tonnes",
+        "matched": [
+          {
+            "value_raw": "459",
+            "unit_raw": "Ten thousand tonnes",
+            "match": "match",
+            "label": "Total wastewater discharge",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E3-4_12",
+        "year": 2022,
+        "expected_value": "837",
+        "expected_unit": "Ten thousand tonnes",
+        "matched": [
+          {
+            "value_raw": "837",
+            "unit_raw": "Ten thousand tonnes",
+            "match": "match",
+            "label": "Total wastewater discharge",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      },
+      {
+        "report": "协鑫",
+        "clause": "E3-4_12",
+        "year": 2023,
+        "expected_value": "933",
+        "expected_unit": "Ten thousand tonnes",
+        "matched": [
+          {
+            "value_raw": "933",
+            "unit_raw": "Ten thousand tonnes",
+            "match": "match",
+            "label": "Total wastewater discharge",
+            "pages": [
+              45
+            ]
+          }
+        ],
+        "passed": true
+      }
+    ]
+  },
+  "interpretation": [
+    "Only real PDF tasks were executed; no expected value was written to the producer.",
+    "Physical OCR/IR preparation could be reused. This is not a cold OCR benchmark.",
+    "2.4 and 2.5 both used 32 clauses for both reports; 2.6 used GCL 32 and First Solar 4.",
+    "2.5 reduced calls but missed five of eighteen core values; 2.6 recovered all five.",
+    "2.6 GCL had one false qualitative target. 2.7 changes only selected-quote context and reruns that clause on GCL and CATL.",
+    "Relation counts are observed system labels, not a measured overall accuracy.",
+    "Original batch remained stopped. No database ingestion or publication was performed."
+  ]
+}

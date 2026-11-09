@@ -67,6 +67,9 @@ class SearchIntent(ProtocolModel):
     target_id: str
     contract_digest: str
     data_kind: Literal["quantitative", "qualitative"]
+    matching: Literal["phrase", "lexical"] = "phrase"
+    fallback_terms: list[str] = Field(default_factory=list)
+    unit_dimensions: list[str] = Field(default_factory=list)
     positive_terms: list[str] = Field(min_length=1)
     negative_terms: list[str] = Field(default_factory=list)
     exact_terms: list[str] = Field(default_factory=list)
@@ -84,6 +87,7 @@ class SearchIntent(ProtocolModel):
 
 class ObjectReference(ProtocolModel):
     object_id: str
+    content_digest: str | None = None
     kind: Literal["table", "text"]
     page_index: int
     score: float
@@ -99,6 +103,7 @@ class EvidencePreparationRequest(ProtocolModel):
     intent: PageSearchIntent
     excluded_pages: list[int]
     reason: str
+    max_pages: int = Field(default=4, ge=1)
 
 
 class ObjectSearchPage(ProtocolModel):

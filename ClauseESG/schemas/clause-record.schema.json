@@ -1123,6 +1123,13 @@
           },
           "title": "Topic Term Groups",
           "type": "array"
+        },
+        "vocabulary_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Vocabulary Refs",
+          "type": "array"
         }
       },
       "required": [

@@ -821,7 +821,7 @@
       "title": "脱碳杠杆识别中的多情景考虑"
     },
     {
-      "clause_digest": "51475d76ebce314553a3523b00efb1744db24fee104dc75fd2637bbc9f6ecffc",
+      "clause_digest": "e588ddbab33cfa221ddf6829d8159066230ebb461780106b7b7b58e3210c50cf",
       "clause_key": "E1-5_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -831,7 +831,7 @@
       "title": "总能源消耗 Total energy consumption"
     },
     {
-      "clause_digest": "22dddec0964cf902616f3e6db841e65e703454bebe17f75e06156e25e0a2c993",
+      "clause_digest": "926715caae02af6e61b249e923b98ee7f3fc5d43f11664f9628d2871fd79584e",
       "clause_key": "E1-5_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -861,7 +861,7 @@
       "title": "核能占能源消费总量的比例"
     },
     {
-      "clause_digest": "de54bdb43873804ce933ae85ccf93c89a352c91986a7a20f2a3abdd598a1385d",
+      "clause_digest": "7770468c3bf1bbb520486944818723259f409f92af3d5d30bd9c61dc7fc9eb34",
       "clause_key": "E1-5_05",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -901,7 +901,7 @@
       "title": "自产非燃料可再生能源"
     },
     {
-      "clause_digest": "b6ffc8bcf82caaea444a5edd361913e7e8bec09a7da6dff5f7c54fc7d3a1ddae",
+      "clause_digest": "c02a6d2e47314bef94d062dcca50c0588b4b01f9627ca65757499efd111b8d4e",
       "clause_key": "E1-5_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1111,7 +1111,7 @@
       "title": "范围3价值链分解结构"
     },
     {
-      "clause_digest": "b043adc3a9bb01a1e7ae3aaebe86bdc185cebd3ac833c204e9448901cd0ab6b5",
+      "clause_digest": "0e3443afb40be3070b431e1350f4533a2863db341c7c1bd9861dbe95d0f368fe",
       "clause_key": "E1-6_07",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1131,7 +1131,7 @@
       "title": "受监管排放交易体系覆盖的范围1排放比例"
     },
     {
-      "clause_digest": "7d241aacc27bb772040376b9d8ea138d6c672200cebaf136be3d35608fec239b",
+      "clause_digest": "4fcfe26b6083791a704964e23ec03d8ad6487115ab9c1b6f7b04ee4f6a76229b",
       "clause_key": "E1-6_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1141,7 +1141,7 @@
       "title": "范围2地点法排放 Scope 2 location-based"
     },
     {
-      "clause_digest": "08146f416dede0be48f627f0ebffaa2b936c341928b507429ae3ef39434e3411",
+      "clause_digest": "a19995f3787f08c9fa3f99b7bb4550ae109ffbc450ff05f28a54efabc877abf0",
       "clause_key": "E1-6_10",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1151,7 +1151,7 @@
       "title": "范围2市场法排放 Scope 2 market-based"
     },
     {
-      "clause_digest": "ef9f8d15dfcb8ae725ad2dd551c981060423de0b33715b0621ffb258e4a343e9",
+      "clause_digest": "b0a9fc53c708a1945f2eb7025b5ac1dd90774cac7ff2c05fa1c01f60f89f8c24",
       "clause_key": "E1-6_11",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1161,7 +1161,7 @@
       "title": "范围3排放 Scope 3 GHG emissions"
     },
     {
-      "clause_digest": "3eb92845c6389ccd0c87a5f3bdbed42ec613729f3ef16f0bb61a5c9dab988f8a",
+      "clause_digest": "958fdd7ae1b80cfac1c3f45de6c048098964c1c841010d7100409ddec4364c03",
       "clause_key": "E1-6_12",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1341,7 +1341,7 @@
       "title": "范围3边界、方法、假设与工具"
     },
     {
-      "clause_digest": "4b06af619f24ca83ca85cd06d3886d915edc3f0937fb38c87e751bb55da8698f",
+      "clause_digest": "b931eda57ee56dadffa4dcc00783ad90534e7828448ba901dffe0367ebf64af0",
       "clause_key": "E1-6_30",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2641,7 +2641,7 @@
       "title": "空气、水和土壤污染披露维度结构"
     },
     {
-      "clause_digest": "9687ffad62ee4a2b1aee289fc2ba838e3e511d666b0b027317077d1c1d0c4e47",
+      "clause_digest": "1fac26929544a55288120cbc92843421d185217d3ac107c751baf46b9c84baf2",
       "clause_key": "E2-4_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2651,7 +2651,7 @@
       "title": "向空气排放污染物 Pollutants emitted to air"
     },
     {
-      "clause_digest": "5fdad398e4a78a766c90ab17644deb6a5dc4b9c82e94aa74d9318962647e722d",
+      "clause_digest": "02e02c26169f27843ba4d61ad01e8d648eff278ed040054121ecd6ecbcffc817",
       "clause_key": "E2-4_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2711,7 +2711,7 @@
       "title": "空气、水和土壤污染随时间变化描述"
     },
     {
-      "clause_digest": "b099196f94c25c6cbd21a0dd880191e8c5e383064c79a0de4736f374283ed94b",
+      "clause_digest": "4b8a295430cf371b07c751d5e39ef7d90a721783c7d8f6876d8bc217a17a6463",
       "clause_key": "E2-4_09",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -2841,7 +2841,7 @@
       "title": "关注物质按危害类别分解的披露结构"
     },
     {
-      "clause_digest": "6af2481cdc70c38939188a672f3ca882e58429d5a9779faff275e9ecb52f842b",
+      "clause_digest": "b598972e3b4c09dc8ede370f8937e5027248f1ed93cf5423cc21c6b4001220ab",
       "clause_key": "E2-5_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3351,7 +3351,7 @@
       "title": "目标与排水减少关系"
     },
     {
-      "clause_digest": "e353a347193b6645d79d17eec91255d108927b6a12ad5dff8de341ccdf87d21b",
+      "clause_digest": "f4cd064af3eb4755ecfa7185309161a6221c5ce75466a87ca4140eb43479d222",
       "clause_key": "E3-4_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3361,7 +3361,7 @@
       "title": "耗水总量 Total water consumption"
     },
     {
-      "clause_digest": "b858bbe3b8804ccca58fa64db6d0f5905147b38706f242a2f342b6c56ed50c26",
+      "clause_digest": "412d1321b26aefb2c864ab6ef911e37d3de86e7dca02e6c0118d0879a009abb1",
       "clause_key": "E3-4_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3371,7 +3371,7 @@
       "title": "水风险地区耗水量 Water consumption in areas at water risk"
     },
     {
-      "clause_digest": "b91d8076e2c5b2294bf7da53241b58575882d8c829668521004b3198c79849e2",
+      "clause_digest": "9b836c299f95c1c23e93a6f96cb5bb138030b94d32cd07c70a0a0770d39d022a",
       "clause_key": "E3-4_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3451,7 +3451,7 @@
       "title": "其他口径的水强度"
     },
     {
-      "clause_digest": "b0cb6abdb508acf11f94016d105664173ab3679f5960a4d98e70d72b67a1942d",
+      "clause_digest": "22f9140b006fed9a002c140fda341550aa95b6377a04c29275a27eceaeab5031",
       "clause_key": "E3-4_11",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3461,7 +3461,7 @@
       "title": "取水总量 Total water withdrawal"
     },
     {
-      "clause_digest": "12a3f680d4cb5e5a49176207aa32c1da1144d7dc8a7f6a677d190525fb67d2c7",
+      "clause_digest": "96bb7a1cc3bff2de0e06712f0d470e0bfe778960bdfec7d5e6625b74fb54920e",
       "clause_key": "E3-4_12",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -4191,7 +4191,7 @@
       "title": "目标对实质性贡献标准的补足"
     },
     {
-      "clause_digest": "21ab7def989cbb7f580529daaee3edec339fca180dff3d81005a177b3dedb77c",
+      "clause_digest": "198088d142bd093dbc00ef563dfaf823f4c163348e8d9259e6c3029fdca0f3b5",
       "clause_key": "E4-5_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -4201,7 +4201,7 @@
       "title": "受负面影响的保护区内或附近场址数量"
     },
     {
-      "clause_digest": "d04f72ceeaa91808af758c9a40d02990f416cb1c4bada051667c439b562d0308",
+      "clause_digest": "7b901c253d03ab17b0ff0565a8f7571bbaf05c9572817af1bbf750acb4a34642",
       "clause_key": "E4-5_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -4651,7 +4651,7 @@
       "title": "情景与权威政府间工具及科学共识的一致性"
     },
     {
-      "clause_digest": "09f59a2c60ed1d3e641648b3af7c688d16ecc3e1b78dc4c44b14e7126accbdff",
+      "clause_digest": "085b8962c95e860bedc2a59c61962b0c7d7d4201070de4096d11b9d3ae1b06d4",
       "clause_key": "E4.IRO-1_14",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -4711,7 +4711,7 @@
       "title": "基于影响识别与评估的重大场址清单"
     },
     {
-      "clause_digest": "bfeef1d83e06c1bf78f8ae4aa802760fd50f3e7e7b592ace3d13ae15d07dd31e",
+      "clause_digest": "eabd0c5be2d2369e5cb075a3b4d15825d0c269dd2b8496b06018e7e526dcc4a5",
       "clause_key": "E4.SBM-3_04",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -5021,7 +5021,7 @@
       "title": "Disclosure of information on material resource inflows"
     },
     {
-      "clause_digest": "8c85afb6c3e4c13a4a26a0e422b61346bdc40d31ea188b1f9393dce4d23dc70d",
+      "clause_digest": "d41236823b10ef8b05842d941857ce0e5416cd7beba8dfc1b0380e0a8c2a64d4",
       "clause_key": "E5-4_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5051,7 +5051,7 @@
       "title": "The absolute weight of secondary reused or recycled components, secondary intermediary products and secondary materials used to manufacture the undertaking’s products and services (including packaging)"
     },
     {
-      "clause_digest": "0a9adf6c9a468919a8c0a06b5202a57b800b8e36e7ba7aed17c0194da2ccbc6e",
+      "clause_digest": "8cc1a7ee9f53bc94e0bb009453d0e38795612c221000c32331b86232380adfd8",
       "clause_key": "E5-4_05",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5151,7 +5151,7 @@
       "title": "Description of methodologies used to calculate data (resource outflows)"
     },
     {
-      "clause_digest": "c751797c5fb96dcdadca37d4ce6c8814c8e0271f962c0a9fa061bb7ec4922b06",
+      "clause_digest": "5db7c83b9a41e7887e528353d426eb04247a514f610332537649074e4271ad80",
       "clause_key": "E5-5_07",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5191,7 +5191,7 @@
       "title": "Non-recycled waste"
     },
     {
-      "clause_digest": "c5954d6816bd01e6f7e68ca99e182eb87186aa18e0222e3070d424ab5536d8b7",
+      "clause_digest": "46235aa746a7e6cd6ea0d2a722fe147d7ccebde65df8135c1630f1d6d3cd406b",
       "clause_key": "E5-5_11",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5231,7 +5231,7 @@
       "title": "Disclosure of materials that are present in waste"
     },
     {
-      "clause_digest": "45840caf62e230159ef6bbab59c716256d65f4d9255e9f85496c5a595c0e6249",
+      "clause_digest": "863223dbc89060ffa8d999892bbfa333accbac72008e2dbae366d8b91a38a803",
       "clause_key": "E5-5_15",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5371,7 +5371,7 @@
       "title": "违法或违反行为准则行为的识别、报告与调查机制"
     },
     {
-      "clause_digest": "1bbd2f4b881edf9c1d5dbaf0509043624fd4d1cc68e488d8dce90733dcff24f4",
+      "clause_digest": "19c4a13d04b25979d13b0ec4cf229d8028ae9a8f27aa8c79620eb172ad6e8c57",
       "clause_key": "G1-1_03",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -5591,7 +5591,7 @@
       "title": "培训活动的分析"
     },
     {
-      "clause_digest": "d10f1a7babcdef3505e5a7bdaea46868b88f2f9744f609bf6fefcb1b75ca088b",
+      "clause_digest": "d9024685eaf7eb6d24888b316eef2124bd970aae616d7e07dd322484544338ab",
       "clause_key": "G1-4_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5601,7 +5601,7 @@
       "title": "腐败贿赂定罪数量 Convictions for corruption"
     },
     {
-      "clause_digest": "1e7e8d0921cc3289bc0436e1a9823d663fba480100a64b0d286c1984a2e2a118",
+      "clause_digest": "2a1c055cbf24458d60522201bd4d01dd006f317ded77510286e3185fba288963",
       "clause_key": "G1-4_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5621,7 +5621,7 @@
       "title": "Prevention and detection of corruption or bribery - anti-corruption and bribery training table"
     },
     {
-      "clause_digest": "65910bb5b7a97255d43d1a4a84bd9fc898f1576190ede6333263a337ab593a6c",
+      "clause_digest": "286ef72bf2cd55345038ef610cf1479899105eb9ccd423673b8c845453a88521",
       "clause_key": "G1-4_04",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5791,7 +5791,7 @@
       "title": "依法强制加入商会或其他利益代表组织"
     },
     {
-      "clause_digest": "08ebcb6256615242885d09a353d70ddaa048d47b5bf373f2909b2c7bcf727175",
+      "clause_digest": "a0362ccfafba055f41efa403dcda37a1ff4010dbd63aa59f6cb9629bc7ad9c6b",
       "clause_key": "G1-6_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5911,7 +5911,7 @@
       "title": "治理成员性别等多样性比例"
     },
     {
-      "clause_digest": "391e4fe054c3beec7c79d2c98f446f032f8bf1c7199bac6aa95d2742745f65d6",
+      "clause_digest": "30642c2a9944fd07ca7088ac0cc703ff496c72cb090eda1b8bb03d0ccaefae1e",
       "clause_key": "GOV-1_06",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7331,7 +7331,7 @@
       "title": "Percentage of employees that participated in regular performance and career development reviews"
     },
     {
-      "clause_digest": "40f8cd9d68f4713afc347a7539f4be164b9de39440cdacb773957d67dc658426",
+      "clause_digest": "6182ae96866c187a9f817a217acf7eb51bb83b396585777fc143ca7b1c7f3379",
       "clause_key": "S1-13_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7341,7 +7341,7 @@
       "title": "按性别划分的平均培训小时数 Average training hours by gender"
     },
     {
-      "clause_digest": "fe10d85c32e5e1bda475ce08554cd496e7ab2176f815ec7a8a5c8f69f3c0cc1d",
+      "clause_digest": "d602537b4ff00c8da92457391a28205cbaf0513bb392e67495ba4c7cfb313feb",
       "clause_key": "S1-13_04",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7391,7 +7391,7 @@
       "title": "Percentage of people in its own workforce who are covered by health and safety management system based on legal requirements and (or) recognised standards or guidelines"
     },
     {
-      "clause_digest": "bedb139029e2795deb7c34d2fe878ea41463c14431053a96e0e4892c49863ef9",
+      "clause_digest": "1c96739181f67373bf085b55058691eb2b81f9b3cdf5d92f6b71168277b6bb81",
       "clause_key": "S1-14_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7421,7 +7421,7 @@
       "title": "Number of recordable work-related accidents for own workforce"
     },
     {
-      "clause_digest": "8c566ebc0074a004a9f11ea07415326489565743172f7a09fd72ce429fc20d32",
+      "clause_digest": "f618d259ca652f4edaa2cc480ae2759ba1ecb0932f5e0b95befd9ead763e0f5f",
       "clause_key": "S1-14_05",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7541,7 +7541,7 @@
       "title": "通过社会政策或集体协议保障家庭相关假期"
     },
     {
-      "clause_digest": "2e91251c65a9872a2166a609523d73dda6c232031528d6aa3a4e7c1c4df4fb65",
+      "clause_digest": "f9fcbb835241fd0088e93a6144c9871c73fc4350c47faa5f502babb6c337c219",
       "clause_key": "S1-16_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7621,7 +7621,7 @@
       "title": "按类型划分的歧视事件数量（表）"
     },
     {
-      "clause_digest": "093efbe855fc3b87d6fa0078cac548376965d70e0d7da775ad15b130c1ec18d5",
+      "clause_digest": "23ff139bc6024c19642b4aafff7320db08a8891f0dd1105d0596136677bdbda4",
       "clause_key": "S1-17_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8281,7 +8281,7 @@
       "title": "Characteristics of undertaking's employees - number of employees by gender [table]"
     },
     {
-      "clause_digest": "dae00eba79d34b966bb7fb4fb7224e83a2b9b773a2644ae18dc25787aa78797a",
+      "clause_digest": "61737809fc2937606ead3f5cb55db3ee7092560c9cb24459f56131e5176c42db",
       "clause_key": "S1-6_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8381,7 +8381,7 @@
       "title": "Number of employee who have left undertaking"
     },
     {
-      "clause_digest": "265484fd3dcfb4cf01928a0588b4e4f16cc7dfac74e75604a16335e58712f927",
+      "clause_digest": "3f12d22f39bfe7e2eae11dfcb86d9668f719f83fe422f1a37fcf19f68656b766",
       "clause_key": "S1-6_12",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8661,7 +8661,7 @@
       "title": "Gender distribution in number of employees (head count) at top management level"
     },
     {
-      "clause_digest": "c577fec2b2bec3b7c50f07539623207b286498a8635e0f12b1563016a8f76137",
+      "clause_digest": "52a3fc387b7ef950ccb315a1ee6456f11e0c3aa1bea35ad5fe4eb572a5676be3",
       "clause_key": "S1-9_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8871,7 +8871,7 @@
       "title": "提供或促成补救的总体方法（价值链劳动者）"
     },
     {
-      "clause_digest": "3579273e55f1003153231262741fb022a765f94d161bf5089973e820cd4e747c",
+      "clause_digest": "a4f1e7ea6c1671af1ba96bc02b19baa0e672f818e5e6b24806c824bd7da1fc47",
       "clause_key": "S2-1_05",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9041,7 +9041,7 @@
       "title": "价值链劳动者影响的补救方法与流程"
     },
     {
-      "clause_digest": "7365fa5cbcecc40b0bbbd3499f203e86f87f2c870e0228356ed63280d3af1963",
+      "clause_digest": "e49afb144602b67cf06f66bc8bfd3517a762e70b25e3b407b029429ac8ba6b4f",
       "clause_key": "S2-3_02",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9081,7 +9081,7 @@
       "title": "价值链劳动者对渠道的知晓与信任评估"
     },
     {
-      "clause_digest": "1f76594102655978615624f6f7fc54394d0f49419161d2c69076e7c8a4ce7daf",
+      "clause_digest": "e18b154c86f0f7883e22555b6416565f60875880ecada048da8e5e0fb6a73c30",
       "clause_key": "S2-3_06",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9251,7 +9251,7 @@
       "title": "确保自身实践不造成价值链负面影响的机制"
     },
     {
-      "clause_digest": "c2dcf9c21262460cafedb1387525fbd82f9f98ced2ef0456fb94473fc2a81987",
+      "clause_digest": "3342cd96698d243d2a78e1a4a0d9292e447811e7b5be2fcf25cbfaaf1612a655",
       "clause_key": "S2-4_11",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9481,7 +9481,7 @@
       "title": "重大风险与机遇对应的特定群体（价值链）"
     },
     {
-      "clause_digest": "15496608ac8738ea1d9b1ea3528c7a94f94010f06a3a8adc2687a62a2f9a43c1",
+      "clause_digest": "8369f4fdb4b68efb35c349314236a69fccd7715856e9f6968ae5cf673821c43f",
       "clause_key": "S3-1_01",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9671,7 +9671,7 @@
       "title": "受影响社区影响的补救方法与流程"
     },
     {
-      "clause_digest": "2a08f0e4ab9f75ae29cfbf585fcfa23ef7b83d5bcd5689e379e5c7624eb9b495",
+      "clause_digest": "1cbf6ddb60d0c25f36333d2c1ed0c53cbb654d3c8f47177be55980bca2ea236e",
       "clause_key": "S3-3_11",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9791,7 +9791,7 @@
       "title": "预防、减轻或补救社区负面影响的行动"
     },
     {
-      "clause_digest": "07f77093dd10aa9c518934c68a61f73de62acd5a672ae0397456483739ec553b",
+      "clause_digest": "cdc3b93c44382088665eeed72ec0f450a30ff2e18c093e80cc0dd43e38d1d71c",
       "clause_key": "S3-4_02",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -9881,7 +9881,7 @@
       "title": "确保自身实践不造成社区负面影响的机制"
     },
     {
-      "clause_digest": "9b1109eca944a8d1455efa47306c704e8ab2e3616763e326a8f915ef32b3351a",
+      "clause_digest": "5bc935ac3762cf091b6c3b4e198c19a04e4a5710e2e1bb8117ab18d5e832ca62",
       "clause_key": "S3-4_11",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -10111,7 +10111,7 @@
       "title": "重大风险与机遇对应的特定社区群体"
     },
     {
-      "clause_digest": "aa874164a6674aba1e590eade8af78c15557e0df1d4a6b646b5b9674e007b184",
+      "clause_digest": "fd47e74e0ecc6caa48234dfd5c2e55724a18e8521298cad43b2bf25e58fcede6",
       "clause_key": "S4-1_01",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -10301,7 +10301,7 @@
       "title": "消费者和终端用户影响的补救方法与流程"
     },
     {
-      "clause_digest": "ad16d4f4fe251bea4b6c96f2ed5b7b54990b4313d4ec0a5fb1e5f9cc5577b690",
+      "clause_digest": "35c313cd18b856c65d90334f5b685ea051d6af4b4a45285d06081d2beca5ef21",
       "clause_key": "S4-3_02",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -10411,7 +10411,7 @@
       "title": "消费者匿名提出关切的渠道"
     },
     {
-      "clause_digest": "41e5ed38a29a941b984664116e0a4d58ff2378119bdd137e44a66fc77cb0d651",
+      "clause_digest": "b10a05a7a36bf8d3c50cffc5248fc96dd8b28061f05fefedea15fab73a583059",
       "clause_key": "S4-3_13",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -10521,7 +10521,7 @@
       "title": "确保自身实践不造成消费者负面影响的机制"
     },
     {
-      "clause_digest": "88784002eb8722243e9bedf566d285bfc16aca67a75a8a9840a222d43749950d",
+      "clause_digest": "0adbc491c240e3b5819646f6a92dd212e07638559a26c4d950bb792ac41f311f",
       "clause_key": "S4-4_11",
       "data_kind": "qualitative",
       "entry_kind": "value",

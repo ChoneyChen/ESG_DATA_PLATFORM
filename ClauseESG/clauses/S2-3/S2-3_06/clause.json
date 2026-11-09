@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1f76594102655978615624f6f7fc54394d0f49419161d2c69076e7c8a4ce7daf",
+  "clause_digest": "e18b154c86f0f7883e22555b6416565f60875880ecada048da8e5e0fb6a73c30",
   "clause_key": "S2-3_06",
   "data_kind": "qualitative",
   "definition": "披露主体是否已制定保护使用申诉渠道的价值链劳动者免遭报复的政策，并说明保护范围。",
@@ -489,7 +489,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

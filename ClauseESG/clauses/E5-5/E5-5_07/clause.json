@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c751797c5fb96dcdadca37d4ce6c8814c8e0271f962c0a9fa061bb7ec4922b06",
+  "clause_digest": "5db7c83b9a41e7887e528353d426eb04247a514f610332537649074e4271ad80",
   "clause_key": "E5-5_07",
   "data_kind": "quantitative",
   "definition": "报告期内产生的全部废弃物重量。",
@@ -764,7 +764,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
@@ -853,6 +853,9 @@
       [
         "Total Waste generated"
       ]
+    ],
+    "vocabulary_refs": [
+      "waste"
     ]
   },
   "schema_version": "clause-contract-1.4",

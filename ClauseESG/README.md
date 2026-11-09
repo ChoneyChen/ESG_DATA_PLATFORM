@@ -14,6 +14,12 @@ python -m pip install -e ExtractESG/contracts -e ClauseESG
 
 `compile_search_plan(clause)`返回完整、可追踪的页/对象检索计划。对物理页尚不能执行的对象规则明确延后到分段后的检索，而不静默丢弃字段。
 
-结构标准条目使用独立 `clause-descriptor-1.0`，仍保留一条一目录，但没有data_kind或值合同。目录4.0通过entry_kind区分value/structure；提取只接收ClauseContract，结构成员关系不构成执行依赖。`selection_options`提供明确的可执行与排除原因，技术ready与真实样本验收分开。[37项逐条处置](../docs/implementation/2026-10-31/clause-dispositions.md)。
+`retrieval.vocabulary_refs`可引用本条`reading.vocabulary`中的词表名，词语不重复维护。页定位兼顾短语与词项召回；对象先检索短语，未命中目标时再使用显式检索词项及本条引用的词典扩围。阅读规则用于判断含义，不自动充当搜索词。检索器处理括号、英文词形和声明的正则词项，不保存另一份指标词库。
+
+阅读卡1.1提供本条完整阅读规则及词典。定量模型只选择行/列，定性模型只选择原文段/引句；数值、单位与年份从物理证据绑定，可选属性由共享补读步骤读取。补读卡1.0只提供定义和属性声明及其词典，不带测量筛选规则。缺少属性不改写量值，也不将成功执行改成失败。物理IR可缓存；模型理解不跨条款复用。
+
+定性候选先使用本条已有的正向阅读条件筛选，再向模型呈现原文和引用ID。排除规则应用于模型选择的原句，不因同段其他主题排除有效句子。这里不增加条款之外的词库或属性准入要求。
+
+结构标准条目使用独立 `clause-descriptor-1.0`，仍保留一条一目录，但没有data_kind或值合同。目录4.0通过entry_kind区分value/structure；提取只接收ClauseContract，结构成员关系不构成执行依赖。`selection_options`提供明确的可执行与排除原因；可执行状态不表示每份报告都有披露值。[37项逐条处置](../docs/implementation/2026-10-31/clause-dispositions.md)。
 
 独立部署一条时，输入只需它自己的clause.json；显式reindex生成导航索引。group.json可生成，selections.json可缺省；缺省集合为空，点名不存在的集合会明确拒绝，不影响按条款ID执行。

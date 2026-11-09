@@ -34,6 +34,12 @@ def bind_period(frame, *, row=None, column_id=None, document=None, period_text=N
         field = _field(row.label, row.label_sources, "row")
         if field:
             return field, []
+    if row and frame.kind == "text" and re.search(r"\bin\s+(?:19|20|21)\d{2}\b|(?:19|20|21)\d{2}\s*年", row.label, re.I):
+        period = parse_period(row.label)
+        if period and period.kind == "annual":
+            field = _field(row.label, row.label_sources, "row")
+            if field:
+                return field, []
     any_column_period = any(parse_period(" › ".join(path)) for path in frame.columns.values())
     title_period = parse_period(frame.title)
     if title_period and title_period.kind != "range" and not any_column_period:

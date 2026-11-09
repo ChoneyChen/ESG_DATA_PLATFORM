@@ -1,4 +1,5 @@
 """Stream clause candidates; relax object terms when the target has not been found."""
+from .reading_policy import POLICY
 
 
 class CandidateStream:
@@ -21,17 +22,25 @@ class CandidateStream:
     def _pages(self):
         for source in self.sources:
             for level in ('primary','broader'):
-                if level == 'broader' and (not self.broaden() or not self.intent.required_term_groups):
+                if level == 'broader' and not self.broaden():
                     break
                 intent = self.intent.model_copy(update={'cursor':None,'source_snapshot':source.snapshot_id,
-                    'required_term_groups':self.intent.required_term_groups if level == 'primary' else []})
+                    'required_term_groups':self.intent.required_term_groups if level == 'primary' else [],
+                    'matching':self.intent.matching if level == 'primary' else 'lexical',
+                    'positive_terms':self.intent.positive_terms if level == 'primary' else
+                        (self.intent.fallback_terms or self.intent.positive_terms)})
                 query = {'source_snapshot':source.snapshot_id,'level':level,'returned':0}
                 self.observation['queries'].append(query)
-                while True:
+                limit = POLICY.primary_objects_per_source if level == 'primary' else POLICY.fallback_objects_per_source
+                while query['returned'] < limit:
+                    if level == 'broader' and not self.broaden():
+                        break
                     page = self.documents.search_page(source.ir_run_id,intent)
                     query.update(total=page.total,query_digest=page.query_digest)
                     for ref in page.objects:
-                        identity = (source.snapshot_id,ref.object_id)
+                        if query['returned'] >= limit or (level == 'broader' and not self.broaden()):
+                            break
+                        identity = (ref.kind,ref.object_id,ref.content_digest) if ref.content_digest else (source.snapshot_id,ref.object_id)
                         if identity in self.seen:
                             continue
                         if len(self.seen) >= self.maximum:

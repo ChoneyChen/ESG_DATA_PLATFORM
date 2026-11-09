@@ -10,6 +10,10 @@ from esg_contracts.evidence import (
 )
 
 
+class DocumentUnavailable(RuntimeError):
+    """Evidence transport stopped; it says nothing about report disclosure."""
+
+
 class DocumentPort(Protocol):
     def document(self, ir_run_id: str) -> DocumentReference: ...
     def search_page(self, ir_run_id: str, intent: SearchIntent) -> ObjectSearchPage: ...

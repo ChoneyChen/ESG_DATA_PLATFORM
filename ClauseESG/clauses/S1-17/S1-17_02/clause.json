@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "093efbe855fc3b87d6fa0078cac548376965d70e0d7da775ad15b130c1ec18d5",
+  "clause_digest": "23ff139bc6024c19642b4aafff7320db08a8891f0dd1105d0596136677bdbda4",
   "clause_key": "S1-17_02",
   "data_kind": "quantitative",
   "definition": "报告期内报告的歧视事件数量。",
@@ -860,7 +860,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

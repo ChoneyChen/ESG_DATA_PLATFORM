@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "41e5ed38a29a941b984664116e0a4d58ff2378119bdd137e44a66fc77cb0d651",
+  "clause_digest": "b10a05a7a36bf8d3c50cffc5248fc96dd8b28061f05fefedea15fab73a583059",
   "clause_key": "S4-3_13",
   "data_kind": "quantitative",
   "definition": "披露报告期内从消费者和终端用户收到的投诉数量，并说明统计口径与分类方式。",
@@ -702,7 +702,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

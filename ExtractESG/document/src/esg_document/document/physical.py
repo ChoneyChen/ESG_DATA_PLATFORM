@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal, InvalidOperation
 
 from esg_data.normalize import fold
+from esg_data.units import is_unit_expression
 from esg_data.literals import (
     CN_DIGITS,
     CN_YEAR_RE,
@@ -572,6 +573,10 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
                 current_section = text
             continue
         label = " › ".join(part for part in label_parts if part)
+        if not unit:
+            unit = next((part for text in label_parts
+                for part in re.findall(r"[（(]([^（）()]{1,30})[）)]", text)
+                if is_unit_expression(part)), None)
         # A two-panel table can land the unit cell in the label column; when the
         # roles are visibly reversed, trust the cell contents.
         if unit and _is_unit_like(label) and not _is_unit_like(unit):

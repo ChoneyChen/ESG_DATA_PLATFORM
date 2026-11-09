@@ -8,6 +8,7 @@ import re
 from functools import lru_cache
 from pathlib import Path
 from esg_data.hashing import digest
+from .search_ranking import query_terms, table_score, text_score
 from esg_contracts.evidence import (
     DocumentReference,
     SearchIntent,
@@ -34,18 +35,12 @@ def _box(row):
     return None
 
 
-def _fold(text):
-    from esg_data.normalize import fold
-
-    return re.sub(r"\s+", "", fold(text or ""))
-
-
-def _terms(text):
-    return [
-        part.strip()
-        for part in re.split(r"[。；;，,、|\n]", text)
-        if len(part.strip()) >= 2
-    ]
+def reference_columns(view):
+    """Printed standard codes and page references are not measured quantities."""
+    if view is None:
+        return set()
+    return {col for col, parts in view.column_paths.items()
+        if re.fullmatch(r"\s*(?:GRI|ESRS|CSRD|SASB|ISSB|NSF|HKEX|页码|頁碼|参照|參照|references?|pages?(?:\s+(?:no\.?|number))?)\s*", " ".join(parts), re.I)}
 
 
 class DocumentEvidenceService:
@@ -63,7 +58,7 @@ class DocumentEvidenceService:
         return self._load(str(path), signature)
 
     @staticmethod
-    @lru_cache(maxsize=2)
+    @lru_cache(maxsize=16)
     def _load(path, revision_signature):
         # Structural IR caching is document-local; it stores no model interpretation.
         ir = DocumentIrLoader().load(Path(path), require_ready=True)
@@ -134,7 +129,18 @@ class DocumentEvidenceService:
                 "report_wide_absence_proven": False,
             },
         )
-        return document, tables, raw_tables, texts
+        object_digests = {}
+        for key, raw in raw_tables.items():
+            view = tables.get(key)
+            object_digests[key] = digest([document.source_sha256 or document.document_id, key,
+                [{field:cell.get(field) for field in ("cell_id","row_index","col_index","row_span","col_span","text","bbox","page_index")}
+                    for cell in raw.get("cells", [])],
+                {"title":view.title,"caption":view.caption,"heading":view.heading_above,
+                 "columns":view.column_paths,"notes":[note.text for note in view.notes],
+                 "lines":[(line.row,line.label,line.unit,line.section) for line in view.lines]} if view else raw.get("title")])
+        object_digests.update({key:digest([document.source_sha256 or document.document_id,
+            key,text.text,text.page_index,text.bbox,text.char_start]) for key,text in texts.items()})
+        return document, tables, raw_tables, texts, object_digests
 
     def document(self, ir_run_id):
         reference = self._document(ir_run_id)[0]
@@ -149,56 +155,22 @@ class DocumentEvidenceService:
 
     def search_page(self, ir_run_id, intent):
         intent = SearchIntent.model_validate(intent)
-        document, tables, raw, texts = self._document(ir_run_id)
+        document, tables, raw, texts, object_digests = self._document(ir_run_id)
         if intent.source_snapshot and intent.source_snapshot != document.snapshot_id:
             raise ValueError("Document snapshot changed; prepare a new extraction")
-        terms = list(
-            dict.fromkeys(
-                part for term in intent.positive_terms for part in _terms(term)
-            )
-        )
+        terms = query_terms(intent.positive_terms)
         results = []
         for key, table in raw.items():
             view = tables.get(key)
-            text = " ".join(
-                [
-                    str(table.get("title") or ""),
-                    *(clean_text(c.get("text")) for c in table.get("cells", [])),
-                ]
-            )
-            direct_score = 8 * self._score(terms, text) + 20 * self._score(
-                intent.exact_terms, text
-            )
-            context = (
-                " ".join(
-                    filter(
-                        None,
-                        [
-                            view.title,
-                            view.caption,
-                            view.heading_above,
-                            *[n.text for n in view.notes],
-                        ],
-                    )
-                )
-                if view
-                else ""
-            )
-            score = (
-                direct_score
-                + 0.2 * self._score(terms, context)
-                + self._score(intent.structural_anchors, text)
-            ) * (
-                4
-                if intent.source_priority and intent.source_priority[0] == "table"
-                else 1
-            )
-            score = self._intent_score(intent, text, score)
+            if intent.data_kind == "quantitative" and view and view.value_cols and not set(view.value_cols) - reference_columns(view):
+                continue
+            score = table_score(intent, terms, table, view)
             if score:
                 rows = max(1, int(table.get("row_count") or 1))
                 results.append(
                     ObjectReference(
                         object_id=key,
+                        content_digest=object_digests[key],
                         kind="table",
                         page_index=table.get("page_index", 0),
                         score=score,
@@ -208,23 +180,16 @@ class DocumentEvidenceService:
         for key, item in texts.items():
             if intent.data_kind == "quantitative":
                 literals = [cell for row in numeric_rows(item) for cell in row.cells if cell.candidate_kind in {"measurement", "unresolved"}]
-                if not numeric_rows(item):
+                if not literals:
                     continue
-            score = (
-                8 * self._score(terms, item.text)
-                + 20 * self._score(intent.exact_terms, item.text)
-            ) * (
-                4
-                if intent.source_priority and intent.source_priority[0] == "text"
-                else 1
-            )
-            score = self._intent_score(intent, item.text, score)
+            score = text_score(intent, terms, item.text)
             if intent.data_kind == "quantitative" and "percentage" in intent.expected_candidate_types and any("%" in cell.raw_text or "％" in cell.raw_text for cell in literals):
                 score *= 1.5
             if score:
                 results.append(
                     ObjectReference(
                         object_id=key,
+                        content_digest=object_digests[key],
                         kind="text",
                         page_index=item.page_index,
                         score=score,
@@ -251,56 +216,9 @@ class DocumentEvidenceService:
         return ObjectSearchPage(objects=objects, total=len(ranked), returned=len(objects), next_cursor=cursor,
             query_digest=query, scope=document.search_scope or {})
 
-    @staticmethod
-    def _intent_score(intent, text, score):
-        if score <= 0:
-            return score
-        if DocumentEvidenceService._score(intent.excluded_object_terms, text):
-            return 0
-        if any(
-            not DocumentEvidenceService._score(group, text)
-            for group in intent.required_term_groups
-        ):
-            return 0
-        groups = [*intent.topic_term_groups, *intent.role_term_groups]
-        score += sum(
-            2 for group in groups if DocumentEvidenceService._score(group, text)
-        )
-        score += 0.1 * DocumentEvidenceService._score(intent.context_terms, text)
-        # An exclusion in an adjacent table row is not proof that the whole
-        # object is irrelevant. Deprioritize it; clause reading makes the decision.
-        if DocumentEvidenceService._score(intent.negative_terms, text):
-            score *= 0.25
-        return score
-
-    @staticmethod
-    def _score(terms, text):
-        from esg_data.normalize import fold
-        import unicodedata
-
-        spaced = unicodedata.normalize("NFKC", fold(text))
-        compact = re.sub(r"\s+", "", spaced)
-        score = 0
-        for term in terms:
-            normalized = unicodedata.normalize("NFKC", fold(term)).strip()
-            if not normalized:
-                continue
-            if normalized.isascii():
-                pattern = (
-                    r"(?<![a-z0-9])"
-                    + r"\s*".join(re.escape(part) for part in normalized.split())
-                    + r"(?![a-z0-9])"
-                )
-                hit = bool(re.search(pattern, spaced))
-            else:
-                hit = re.sub(r"\s+", "", normalized) in compact
-            if hit:
-                score += min(6, len(term) / 3)
-        return score
-
     def read(self, ir_run_id, reference, chunk_index=0):
         reference = ObjectReference.model_validate(reference)
-        document, tables, raw_tables, texts = self._document(ir_run_id)
+        document, tables, raw_tables, texts, _ = self._document(ir_run_id)
         if reference.source_snapshot and reference.source_snapshot != document.snapshot_id:
             raise ValueError("Document snapshot changed; prepare a new extraction")
         if reference.kind == "text":
@@ -330,6 +248,7 @@ class DocumentEvidenceService:
             if raw is None:
                 raise KeyError(reference.object_id)
             view = tables.get(reference.object_id)
+            references = reference_columns(view)
             count = max(
                 1, math.ceil(max(1, int(raw.get("row_count") or 1)) / CHUNK_ROWS)
             )
@@ -397,10 +316,13 @@ class DocumentEvidenceService:
                                 for c in physical.values()
                                 if c.get("text")
                                 and c.get("row_index") == line.row
-                                and c.get("col_index") == view.unit_col
+                                and (c.get("col_index") == view.unit_col or
+                                    (line.unit and line.unit in clean_text(c.get("text"))
+                                     and c.get("col_index") in view.label_cols))
                             ],
                             cells=[
                                 EvidenceCell(
+                                    candidate_kind="identifier" if col in references else "measurement",
                                     cell_id=cell.cell_id,
                                     column_id=f"c{col}",
                                     raw_text=physical.get(cell.cell_id, {}).get(
@@ -432,6 +354,7 @@ class DocumentEvidenceService:
                 label = clean_text(cells[0].get("text"))
                 values = [
                     EvidenceCell(
+                        candidate_kind="identifier" if c.get("col_index", 0) in references else "measurement",
                         cell_id=c["cell_id"],
                         column_id=f"c{c.get('col_index', 0)}",
                         raw_text=c.get("text") or "",

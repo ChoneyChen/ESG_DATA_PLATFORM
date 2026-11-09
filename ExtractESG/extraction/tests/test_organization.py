@@ -224,7 +224,8 @@ def test_reading_port_uses_local_instructions_and_medium_specific_vocabulary(rep
     air=repository.get('E2-4_02');water=repository.get('E2-4_03');method=repository.get('E2-4_09')
     card=water.reading_card()
     assert card['reading']['instructions']==water.reading.instructions
-    assert 'rules' not in card['reading'] and 'retrieval' not in card
+    assert card['reading']['rules']==[rule.model_dump(mode='json',exclude_none=True) for rule in water.reading.rules]
+    assert card['reading']['vocabulary']==water.reading.vocabulary and 'retrieval' not in card
     vocab=next(field for field in card['requested_identity_fields'] if field['axis']=='pollutant')['vocabulary']
     assert 'COD' in {v['code'] for v in vocab} and 'SO2' not in {v['code'] for v in vocab}
     assert check_reading(water,'化学需氧量（COD）','废水污染物排放','吨','mass').ok

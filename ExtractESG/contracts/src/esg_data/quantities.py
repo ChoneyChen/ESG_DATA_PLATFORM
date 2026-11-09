@@ -12,7 +12,7 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
     (re.compile(pattern), family, Decimal(scale))
     for pattern, family, scale in (
         (
-            r"(?:百万|million|mt|mn)t?(?:onnes?)?co2e|百万吨二氧化碳当量|mtco2",
+            r"(?:百万|million|mt|mn)(?:metric)?t?(?:onnes?|ons?)?co2e|百万吨二氧化碳当量|mtco2",
             "ghg",
             "1e6",
         ),
@@ -20,7 +20,7 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
         (r"(?:千|kt|thousand)t?(?:onnes?)?co2e|千吨二氧化碳当量|ktco2", "ghg", "1e3"),
         (r"kgco2e|千克二氧化碳当量|公斤二氧化碳当量", "ghg", "1e-3"),
         (
-            r"(?:^|[^a-z])t(?:onnes?|ons?)?co2e|吨二氧化碳当量|^tco2|tonnesco2",
+            r"(?:^|[^a-z])(?:metric)?t(?:onnes?|ons?)?co2e|吨二氧化碳当量|^tco2|tonnesco2",
             "ghg",
             "1",
         ),
@@ -38,14 +38,17 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
         (r"万吨标准煤|万tce", "energy_tce", "1e4"),
         (r"吨标准煤|tce|标煤", "energy_tce", "1"),
         (r"百万立方米|百万m3|millionm3|mm3|百萬立方米", "volume", "1e6"),
-        (r"万立方米|万m3|萬立方米", "volume", "1e4"),
+        (r"万立方米|万m3|萬立方米|tenthousand(?:m3|cubicmet)", "volume", "1e4"),
+        (r"(?:million|百万)lit(?:er|re)s?", "volume", "1e3"),
+        (r"(?:thousand|千)lit(?:er|re)s?", "volume", "1"),
         (r"千立方米|千m3|thousandm3|megalit|^ml$|兆升", "volume", "1e3"),
         (r"立方米|m3|m³|cubicmet", "volume", "1"),
+        (r"lit(?:er|re)s?|升|^l$", "volume", "1e-3"),
         (r"平方公里|km2|km²|squarekilomet", "area", "100"),
         (r"公顷|hectares?|^ha$", "area", "1"),
         (r"平方米|squaremet|m2|m²|sqm", "area", "1e-4"),
         (r"百万吨|百萬噸|milliontonnes?|^mt$", "mass", "1e6"),
-        (r"万吨|萬噸", "mass", "1e4"),
+        (r"万吨|萬噸|tenthousand(?:tonnes?|tons?)", "mass", "1e4"),
         (r"千吨|kt$|^kt|thousandtonnes?", "mass", "1e3"),
         (r"千克|公斤|kg", "mass", "1e-3"),
         (r"公吨|吨|噸|tonnes?|^t$|\(t\)|metricton", "mass", "1"),

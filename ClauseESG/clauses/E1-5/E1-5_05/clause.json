@@ -168,7 +168,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "de54bdb43873804ce933ae85ccf93c89a352c91986a7a20f2a3abdd598a1385d",
+  "clause_digest": "7770468c3bf1bbb520486944818723259f409f92af3d5d30bd9c61dc7fc9eb34",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",
@@ -864,7 +864,7 @@
         "rule": "forbid_any",
         "scope": "text",
         "terms": [
-          "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)",
+          "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
           "re:(?:发电量|装机|产生|生产|出售|售出|上网|generat|capacity|installed|sold|produced|exported)",
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
           "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
@@ -980,7 +980,7 @@
         "self generat"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "renewable": [
         "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"

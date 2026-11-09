@@ -8,6 +8,18 @@
           "title": "Chunk Count",
           "type": "integer"
         },
+        "content_digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Digest"
+        },
         "kind": {
           "enum": [
             "table",

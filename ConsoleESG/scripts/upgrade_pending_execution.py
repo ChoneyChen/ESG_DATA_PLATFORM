@@ -24,7 +24,7 @@ def main():
             state = json.loads(body)
             if rid not in pending or state.get('engine_fingerprint') != args.from_fingerprint:
                 continue
-            if state.get('cancel_requested') or state['status'] not in {'queued','running','interrupted','cancelled'}:
+            if state.get('cancel_requested') or state['status'] not in {'queued','running','interrupted','cancelled','failed'}:
                 continue
             if (state.get('delivery') or {}).get('export_id'):
                 continue
@@ -35,7 +35,7 @@ def main():
             transition = {'at':now(),'from':args.from_fingerprint,'to':current,'reason':args.reason}
             state.setdefault('engine_upgrades',[]).append(transition)
             state.update(engine_fingerprint=current,worker_pid=None,worker_started=None)
-            if state['status'] in {'interrupted','cancelled'}:
+            if state['status'] in {'interrupted','cancelled','failed'}:
                 state.update(status='queued',error=None,finished_at=None)
                 progress = db.execute('SELECT body FROM run_progress WHERE run_id=?',(rid,)).fetchone()
                 patch = json.loads(progress[0]) if progress else {}

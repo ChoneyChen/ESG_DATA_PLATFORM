@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "65910bb5b7a97255d43d1a4a84bd9fc898f1576190ede6333263a337ab593a6c",
+  "clause_digest": "286ef72bf2cd55345038ef610cf1479899105eb9ccd423673b8c845453a88521",
   "clause_key": "G1-4_04",
   "data_kind": "quantitative",
   "definition": "报告期内已确认的腐败或贿赂事件数量。",
@@ -708,7 +708,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

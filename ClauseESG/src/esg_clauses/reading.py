@@ -78,7 +78,6 @@ def _unit_rule(
     params = rule.params or {}
     if dimension is None:
         if params.get("allow_missing", True):
-            flags.append("unit_dimension_not_confirmed")
             return None
         return _reject("unit_missing")
     if dimension in allowed:
@@ -365,8 +364,9 @@ def check_reading(
     dimension: str | None,
     *,
     evidence: str | None = None,
+    requirements_only: bool = False,
 ) -> GuardResult:
-    """Evaluate a frozen reading contract; the rule engine knows no clause key."""
+    """Evaluate clause rules; candidate selection uses positive requirements only."""
     reading = getattr(metric, "reading", None)
     text = normalize(label)
     section = normalize(section)
@@ -391,6 +391,8 @@ def check_reading(
     if unit and (dimension or "").endswith("intensity") and not intensity_metric:
         return _reject("unit_is_intensity")
     for rule in getattr(reading, "rules", ()):
+        if requirements_only and rule.rule not in {"require_any", "require_all"}:
+            continue
         target = _rule_scope(
             rule,
             text=text,

@@ -18,6 +18,8 @@ def check_evidence(clause, fields):
                 return True
             levels = {source.get("object_type")}
             role = source.get("role")
+            if requirement.field == "statement_context" and role == "statement":
+                levels.add("text")
             if role in {"row", "column_header", "table", "footnote", "report"}:
                 levels.add(role)
             if role == "unit" and source.get("row_id"):

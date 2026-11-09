@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "45840caf62e230159ef6bbab59c716256d65f4d9255e9f85496c5a595c0e6249",
+  "clause_digest": "863223dbc89060ffa8d999892bbfa333accbac72008e2dbae366d8b91a38a803",
   "clause_key": "E5-5_15",
   "data_kind": "quantitative",
   "definition": "报告期内产生的危险废弃物重量。",
@@ -778,7 +778,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
@@ -872,6 +872,10 @@
       [
         "Total amount of hazardous waste"
       ]
+    ],
+    "vocabulary_refs": [
+      "waste",
+      "hazardous"
     ]
   },
   "schema_version": "clause-contract-1.4",

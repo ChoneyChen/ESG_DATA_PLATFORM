@@ -50,7 +50,17 @@ def evidence_router(resolver, resource_lookup=None, pdf_resolver=None):
         path = call(pdf_resolver, document)
         selection = ClausePageSelector(search_targets=[request.target.model_dump(mode="json")]).select(path)
         excluded = set(request.excluded_pages) | set((document.search_scope or {}).get("prepared_pages", []))
-        candidates = selection.page_indices if selection.page_indices is not None else range(selection.source_page_count)
+        if selection.reason == "no_clause_keyword_pages":
+            # A searchable PDF with no lexical location is not a request to OCR
+            # the entire report again. Unreadable pages remain OCR candidates.
+            candidates = [score.page_index for score in selection.scores
+                if score.text_chars < selection.parameters["min_text_chars"]]
+        elif selection.scores and any(score.score > 0 for score in selection.scores):
+            ranked = [score.page_index for score in sorted(selection.scores,
+                key=lambda score:(-score.score,score.page_index)) if score.score > 0]
+            candidates = [*ranked,*[page for page in (selection.page_indices or []) if page not in ranked]]
+        else:
+            candidates = selection.page_indices if selection.page_indices is not None else range(selection.source_page_count)
         remaining = [index for index in candidates if index not in excluded]
         selected = remaining[:request.limit]
         context = excluded & {neighbour for page in selected for neighbour in (page-1,page+1)}

@@ -38,4 +38,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    from esg_runtime.power import idle_sleep_assertion
+
+    with idle_sleep_assertion(lambda detail: print(encode_event(
+        "log", stage="resource_lifecycle", message=detail["kind"], detail=detail,
+    ), flush=True)):
+        main()

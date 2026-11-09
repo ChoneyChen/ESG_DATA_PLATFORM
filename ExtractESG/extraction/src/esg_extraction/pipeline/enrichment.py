@@ -152,7 +152,7 @@ def context_schema(frame, aliases, attributes):
     return schema
 
 
-def apply_context(clause, sources, frame, decision, facts, mappings, aliases, observation):
+def apply_context(clause, sources, frame, decision, facts, mappings, aliases, observation, requested_by_fact=None):
     updates = 0
     changed_ids = []
     source_levels = {(text.source_snapshot,text.object_id):observation["source_levels"][text.span_id]
@@ -166,6 +166,8 @@ def apply_context(clause, sources, frame, decision, facts, mappings, aliases, ob
     for fid,proposed in proposals.items():
         fact = facts[fid]
         wanted = set(missing_attributes(clause, fact)) & set(observation["requested_attributes"])
+        if requested_by_fact is not None:
+            wanted &= set(requested_by_fact[fid])
         local = set(observation["fact_sources"][fid])
         report = set(observation["report_sources"])
         report_attributes = set(observation["report_attributes"])

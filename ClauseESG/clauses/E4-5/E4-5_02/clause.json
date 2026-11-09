@@ -121,7 +121,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d04f72ceeaa91808af758c9a40d02990f416cb1c4bada051667c439b562d0308",
+  "clause_digest": "7b901c253d03ab17b0ff0565a8f7571bbaf05c9572817af1bbf750acb4a34642",
   "clause_key": "E4-5_02",
   "data_kind": "quantitative",
   "definition": "披露主体在保护区或重点生物多样性区域内及附近拥有、租赁或管理、且正受到主体负面影响的场址面积。",
@@ -640,7 +640,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

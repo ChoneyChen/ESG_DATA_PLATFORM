@@ -1,7 +1,26 @@
 """Compact model input; full physical frames remain immutable binding evidence."""
 
+from esg_data.literals import parse_measure
 
-def reading_frame(frame):
+
+def qualitative_spans(frame):
+    """Standalone numerical cells cannot answer a statement target."""
+    return [item for item in frame.texts
+        if item.object_type != "cell" or parse_measure(item.text) is None]
+
+
+def reading_frame(frame, *, data_kind=None):
+    if data_kind == "qualitative":
+        spans = []
+        for item in qualitative_spans(frame):
+            span = {"span_id": item.span_id or item.object_id, "text": item.text}
+            local = statement_scope(frame, item).removeprefix(frame.title or "").strip()
+            if local and local != item.text:
+                span["context"] = local
+            spans.append(span)
+        return {"object_id": frame.object_id, "kind": frame.kind,
+            "title": frame.title, "texts": spans}
+
     def text(item):
         return {
             "object_id": item.span_id or item.object_id,
@@ -70,3 +89,20 @@ def identity_source_ids(frame):
             for cell in row.cells
         )
     return sorted(sources)
+
+
+def statement_scope(frame, text):
+    """A statement uses its physical row and title, not other rows' subjects."""
+    parts = [frame.title or ""]
+    if frame.kind == "table":
+        for row in frame.rows:
+            source_ids = {source.object_id for source in [*row.label_sources, *row.unit_sources]}
+            source_ids.update(cell.source_object_id or cell.cell_id for cell in row.cells)
+            if text.object_id in source_ids:
+                parts.extend(source.text for source in row.label_sources
+                    if source.object_id != text.object_id)
+                parts.append(row.section or "")
+                for cell in row.cells:
+                    if text.object_id == (cell.source_object_id or cell.cell_id):
+                        parts.extend(frame.columns.get(cell.column_id, []))
+    return " ".join(parts)

@@ -133,7 +133,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "88784002eb8722243e9bedf566d285bfc16aca67a75a8a9840a222d43749950d",
+  "clause_digest": "0adbc491c240e3b5819646f6a92dd212e07638559a26c4d950bb792ac41f311f",
   "clause_key": "S4-4_11",
   "data_kind": "qualitative",
   "definition": "披露与消费者和终端用户相关的严重人权问题和事件，包括类型、地点和处置情况。",
@@ -503,7 +503,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

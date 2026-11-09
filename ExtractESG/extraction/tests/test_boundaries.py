@@ -218,11 +218,10 @@ def test_model_reference_schema_excludes_target_and_resource_metadata(documents,
     c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
     frame=documents.read('ir-example',documents.search('ir-example',intent)[0])
     schema=decision_schema('quantitative',frame)
-    ids=schema['$defs']['IdentityProposal']['properties']['source_id']['enum']
-    assert 'target' not in ids and 'frame' not in ids and 'doc-example' not in ids
-    assert 'c1' in ids and 'r1.c1' in ids
-    assert 't:r0c1' not in ids and 't:r1c1' not in ids
-    assert all(branch['properties']['row_id']['enum']==[r.row_id for r in frame.rows] for branch in schema['$defs']['NumericMatch']['anyOf'])
+    proposal=schema['properties']['matches']['items']['properties']
+    assert 'identity' not in proposal
+    assert proposal['row_id']['enum']==[r.row_id for r in frame.rows]
+    assert proposal['columns']['items']['enum']==sorted({cell.column_id for row in frame.rows for cell in row.cells})
 
 
 def test_mutable_report_labels_do_not_replace_the_frozen_reading_context(documents,repository,tmp_path,monkeypatch):

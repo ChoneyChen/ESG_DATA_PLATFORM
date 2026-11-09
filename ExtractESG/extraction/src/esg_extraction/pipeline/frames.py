@@ -52,12 +52,15 @@ def split_frame(frame, reason="generation_incomplete", *, quantitative=False):
 
 def budget_frames(frame, max_tokens):
     """Bound row/column selections before a call, preserving every physical value."""
-    maximum_rows = max(1,max_tokens//256)
-    maximum_cells = max(1,max_tokens//48)
     pending, result = [frame], []
     while pending:
         item = pending.pop(0)
-        if len(item.rows)>maximum_rows or sum(len(row.cells) for row in item.rows)>maximum_cells:
+        # The reader emits row/column references, not values and attribute
+        # objects per cell. Budget that wire contract instead of the retired one.
+        estimated = 8 + sum(48 + 8 * len([cell for cell in row.cells
+            if cell.candidate_kind in {"measurement", "unresolved"}])
+            for row in item.rows if row.row_role != "header")
+        if estimated > max_tokens:
             pieces = split_frame(item,'output_budget',quantitative=True)
             if pieces:
                 pending[0:0] = pieces

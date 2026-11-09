@@ -331,6 +331,8 @@ class ExtractionCoordinator:
                 state["observation"] = "fresh"
                 state["observation_error"] = None
                 state["run"] = run
+                if run.error:
+                    state["error"] = run.error
                 state["status"] = (
                     "cancelling"
                     if state.get("cancel_requested") and run.status not in TERMINAL
@@ -433,35 +435,33 @@ class ExtractionCoordinator:
                         self.cancel_task(state["queue_task_id"])
                     except ValueError:
                         pass  # A finished queue child needs no second stop.
-        elif state.get("processing_id"):
-            process = self.processing.get(state["processing_id"])
-            if process["status"] in {"queued", "running", "cancelling"}:
-                self.processing.action(
-                    state["processing_id"], "cancel", ProcessingActionRequest()
-                )
-                process = self.processing.get(state["processing_id"])
-            active = self._active_preparation(process)
-            for step in active:
-                if step.get("task_id"):
-                    try:
-                        self.cancel_task(step["task_id"])
-                    except KeyError:
-                        state["observation_error"] = (
-                            "子任务记录暂不可用，尚未确认停止。"
-                        )
-                    except ValueError:
-                        pass
+        if state.get("processing_id"):
+            active = self._cancel_preparation(state)
             state["status"] = "cancelling" if active else "cancelled"
-        else:
+        elif not state.get("run_id"):
             state["status"] = "cancelled"
         self.save(state)
+
+    def _cancel_preparation(self, state):
+        process = self.processing.get(state["processing_id"])
+        if process["status"] in {"queued", "running", "cancelling"}:
+            self.processing.action(state["processing_id"], "cancel", ProcessingActionRequest())
+            process = self.processing.get(state["processing_id"])
+        active = self._active_preparation(process)
+        for step in active:
+            if step.get("task_id"):
+                try:
+                    self.cancel_task(step["task_id"])
+                except ValueError:
+                    pass  # The child may have returned while cancellation propagated.
+        return active
 
     def _prepare_more(self, state, run, request):
         need = run["evidence_request"]
         if state.get("expansion_request") != need["request_id"]:
             try:
                 located = self.remote("POST", f"/api/evidence/{need['source_ir_run_id']}/locate-pages",
-                    {"target":need["intent"], "excluded_pages":need["excluded_pages"], "limit":16},
+                    {"target":need["intent"], "excluded_pages":need["excluded_pages"], "limit":need.get("max_pages",4)},
                     base_url=self.document_url)
             except ValueError as exc:
                 located = {"page_indices":[],"reason":str(exc)}
@@ -585,8 +585,29 @@ class ExtractionCoordinator:
             state["status"] = "running"
             self.save(state)
         if run["status"] in TERMINAL:
+            if run["status"] == "cancelled":
+                state.update(cancel_requested=True, status="cancelling")
+                self._cancel_children(state)
+                return
             state["status"] = run["status"]
             self.save(state)
+
+    def reconcile_cancelled(self):
+        """Stop dangling children without changing already cancelled reports."""
+        with self.store._connect() as db:
+            rows = db.execute("SELECT body FROM clause_extraction_plans WHERE json_extract(body,'$.status')='cancelled'").fetchall()
+        stopped = []
+        for row in rows:
+            state = json.loads(row[0])
+            child = self.store.active_native_task(state['run_id']) if state.get('run_id') else None
+            if child:
+                self.cancel_task(child.task_id)
+                stopped.append(child.task_id)
+            if state.get('processing_id'):
+                process = self.processing.get(state['processing_id'])
+                if self._active_preparation(process):
+                    stopped.extend(step['task_id'] for step in self._cancel_preparation(state) if step.get('task_id'))
+        return stopped
 
     def start(self):
         if self._thread and self._thread.is_alive():

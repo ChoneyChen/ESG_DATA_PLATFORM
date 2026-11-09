@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c5954d6816bd01e6f7e68ca99e182eb87186aa18e0222e3070d424ab5536d8b7",
+  "clause_digest": "46235aa746a7e6cd6ea0d2a722fe147d7ccebde65df8135c1630f1d6d3cd406b",
   "clause_key": "E5-5_11",
   "data_kind": "quantitative",
   "definition": "未回收废弃物占废弃物总量的比例。",
@@ -692,7 +692,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1e7e8d0921cc3289bc0436e1a9823d663fba480100a64b0d286c1984a2e2a118",
+  "clause_digest": "2a1c055cbf24458d60522201bd4d01dd006f317ded77510286e3185fba288963",
   "clause_key": "G1-4_02",
   "data_kind": "quantitative",
   "definition": "报告期内违反反腐败及反贿赂法律的罚款金额。",
@@ -716,7 +716,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

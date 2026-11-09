@@ -135,18 +135,32 @@ class ClauseContract(StrictModel):
             },
         )
         body["clause_schema_version"] = body.pop("schema_version")
-        body["schema_version"] = "clause-reading-card-1.0"
+        body["schema_version"] = "clause-reading-card-1.1"
         body["reading"] = {
             "schema_version": self.reading.schema_version,
             "operator": self.reading.operator,
             "instructions": self.reading.instructions,
             "allow_regulatory_limit": self.reading.allow_regulatory_limit,
+            "rules": [rule.model_dump(mode="json", exclude_none=True) for rule in self.reading.rules],
+            "vocabulary": self.reading.vocabulary,
         }
         body["requested_identity_fields"] = [
             {"axis": axis, **self.attributes[axis].model_dump(mode="json", exclude_none=True)}
             for axis in self.attributes
         ]
         return body
+
+    def enrichment_card(self):
+        """Attribute reading needs its vocabulary, not measurement selection rules."""
+        return {
+            "schema_version":"clause-enrichment-card-1.0",
+            "clause_key":self.clause_key,
+            "definition":self.definition,
+            "requested_identity_fields":[
+                {"axis":axis, **attribute.model_dump(mode="json", exclude_none=True)}
+                for axis,attribute in self.attributes.items()
+            ],
+        }
 
     def classification_flags(self, identity):
         flags = []

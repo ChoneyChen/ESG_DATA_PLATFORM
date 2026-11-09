@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "08ebcb6256615242885d09a353d70ddaa048d47b5bf373f2909b2c7bcf727175",
+  "clause_digest": "a0362ccfafba055f41efa403dcda37a1ff4010dbd63aa59f6cb9629bc7ad9c6b",
   "clause_key": "G1-6_01",
   "data_kind": "quantitative",
   "definition": "自合同或法定付款起算日计算的供应商平均付款天数。",
@@ -738,7 +738,7 @@
         "re:(?:付款|支付|账期|payment)"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "standard_terms": [
         "标准账期",

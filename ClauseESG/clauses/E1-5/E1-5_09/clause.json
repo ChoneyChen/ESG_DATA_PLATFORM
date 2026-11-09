@@ -180,7 +180,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b6ffc8bcf82caaea444a5edd361913e7e8bec09a7da6dff5f7c54fc7d3a1ddae",
+  "clause_digest": "c02a6d2e47314bef94d062dcca50c0588b4b01f9627ca65757499efd111b8d4e",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
@@ -930,7 +930,7 @@
         "others"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "renewable": [
         "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"

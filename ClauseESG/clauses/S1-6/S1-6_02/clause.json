@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "dae00eba79d34b966bb7fb4fb7224e83a2b9b773a2644ae18dc25787aa78797a",
+  "clause_digest": "61737809fc2937606ead3f5cb55db3ee7092560c9cb24459f56131e5176c42db",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -982,7 +982,7 @@
         "复员"
       ],
       "ratio_word": [
-        "re:(?:%|％|率|占比|比例|比率|比重|percentage|proportion|share|ratio|rate)"
+        "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
@@ -1069,6 +1069,9 @@
       [
         "Number of employees (head count)"
       ]
+    ],
+    "vocabulary_refs": [
+      "employee"
     ]
   },
   "schema_version": "clause-contract-1.4",
