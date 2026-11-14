@@ -143,7 +143,9 @@ def main():
                 "live_data_touched": False,
                 "engine_digest": engine_digest(),
             }
-            (ROOT / "docs/verification/installed-worker.json").write_text(
+            output_path = ROOT / ".local/development/installed-worker.json"
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(
                 json.dumps(output, ensure_ascii=False, indent=2) + "\n"
             )
             print(json.dumps(output))

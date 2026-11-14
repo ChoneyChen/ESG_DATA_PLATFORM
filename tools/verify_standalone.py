@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/verification/standalone.json"
+        "--output", type=Path, default=ROOT / ".local/development/standalone.json"
     )
     output = parser.parse_args().output
     with tempfile.TemporaryDirectory(prefix="esg-standalone-") as td:

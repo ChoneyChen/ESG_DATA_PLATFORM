@@ -1,34 +1,15 @@
 # ESG Data Platform
 
-当前链路：**报告资源 → 条款搜索 → PDF物理证据 → 两类原值 → 独立数据库接收 → 观测投影 → 显式发布 → Plat只读展示**。接收不等于审核或发布。
+从完整PDF和独立条款目标，生产带原文证据的定量/定性原值，经独立数据库接收、观测投影及显式发布，由Plat展示。
 
-| 模块 | 所有权 |
+**唯一开发文档入口：[docs/README.md](docs/README.md)。** 人工开发、IDE、终端和AI代理共同维护这套文档。先读[开发指引](AGENTS.md)，按文档目录顺序查阅需求、架构、模块和合同，再同步修改实现与规范。
+
+| 模块 | 责任 |
 |---|---|
-| `ClauseESG/` | 一条一整体：定义、定性/定量、属性、词典、读取与补读、用途、证据及展示 |
-| `ExtractESG/contracts/` | 两类原值、字段证据、报告资源、运行和交接 DTO；独立轻量 SDK |
-| `ExtractESG/document/` | 原生文字、布局、本地 OCR、IR、证据对象 |
-| `ExtractESG/extraction/` | 检索、局部阅读、原值绑定、目标关系与输出；不写条款专用词典 |
-| `ExtractESG/pipeline/` | PDF 准备、冻结输入、队列、取消和运行状态 |
-| `ExtractESG/shared_runtime/` | 调用信封、部署指纹与本机组合配置；独立基础包 |
-| `ConsoleESG/frontend/`、`backend/` | 对象导航、结果表和常驻运行窗；后端安全展示投影与应用组合 |
-| `database/` | 原值接收、SQL、精确数值、观测、来源、发布与撤下；连接和迁移由本模块拥有 |
-| `PlatESG/frontend/`、`backend/` | 已发布产品的只读HTTP与页面；按来源散列取回PDF |
+| ClauseESG | 单条合同、属性、词典、检索与阅读语义 |
+| ExtractESG | 共享数据合同、PDF物理证据、提取、队列与运行时 |
+| ConsoleESG | 操作前后端及本地应用组合 |
+| database | 原值接收、SQL、投影、选源和发布 |
+| PlatESG | 已发布产品只读展示与来源读取 |
 
-```sh
-bash ConsoleESG/scripts/install_local.sh
-ESG_SKIP_BROWSER=1 ESG_SKIP_DEPENDENCY_INSTALL=1 ConsoleESG/scripts/start.sh
-```
-
-本地服务：Console 18081、文档/Console 组合 API 18080、提取 18180、独立数据库18280、Plat8765，由同一控制器管理。启动器不初始化或迁移数据库，使用已配置的独立原值库。
-
-业务数据集中在 `$ESG_DATA_ROOT`（默认 `.local/data`）；报告、文档证据、提取结果、控制记录、日志和数据库分别存放。原PDF独立保管，新运行固定当前输入与合同；旧指标体系不参与生产，已保存任务按冻结输入与结果读取。模型理解不跨条款/运行复用，物理 OCR/IR 可按内容和配置复用。
-
-[当前六项骨架升级](docs/implementation/2026-11-01/README.md) · [架构](docs/architecture/README.md) · [目录与运维](docs/guides/local-operation.md) · [文档目录](docs/README.md)
-
-2026-11-04完成提取主干1.8六项骨架升级：条款属性统一、增量保存与计数、补页续跑、属性补读、比较归数据库、结果分页。当前部署CATL 54条、CKH 222条、能源74条均已接收与投影；CKH从单页18个目标补齐到45个，原90条ID全部保留。逐项文件与真实结果见实施报告。制作说明：[独立条款](docs/guides/clause-authoring.md)、[PDF整理导入](docs/guides/pdf-intake.md)。
-
-1,126个独立声明：281定量、832定性、13非执行结构描述；37项已逐条归类。99展示组、16/32等集合仅组织ID，不产生专用路线；条款可直接试跑，原值接收不设置样本配额或成熟度闸门。自动发布关闭；CrawlESG保护区不接入。
-
-桌面入口更新：运行 `ExtractESG/.local/python/bin/python ConsoleESG/scripts/install_desktop_launcher.py`。双击“启动ESG统一工作台.command”后台启动并打开Console；同一入口支持 `status --json`、`stop`、`restart`。关闭终端不停止服务。
-
-模型worker使用离线安装的合同/条款/运行时与提取应用包，不拼接兄弟源码路径；代码指纹按实际安装包内容计算。安装入口会更新所配置MLX及Paddle专用Python中的本项目包，不安装或替换第三方模型依赖。队列与worker共用运行时执行锁；worker不能绕过队列直接启动模型。
+安装、启动及故障处理见[运维手册](docs/08-operations.md)。制作输入见[条款说明](docs/guides/clause-authoring.md)和[PDF说明](docs/guides/pdf-intake.md)。CrawlESG为保护区，不在本轮维护范围内。

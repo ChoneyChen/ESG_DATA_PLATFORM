@@ -1,29 +1,7 @@
-# 报告目录提交格式
+# 报告批次输入
 
-```text
-batch/
-├── manifest.json
-└── pdf/
-    ├── report-001.pdf
-    └── report-002.pdf
-```
+统一规范在[软件开发文档](../../../../docs/README.md)。按入口顺序查阅后修改，模块内不维护副本。
 
-把 `manifest.template.json` 改名为 `manifest.json`，每个 PDF 填一条记录。必须填写实际`sha256`、PDF编号和文件路径；企业、发表年份、行业未知可空。PDF 编号、文件相对路径和完整 SHA-256 在批次内分别唯一；文件可以直接放在批次目录（`"file":"report-001.pdf"`），也可以是 `pdf/` 的直接子文件。发表年份与报告覆盖年度分别填写。
-
-`folder`指定导入后Console中的文件夹编号和名称。省略时使用目录名称，并根据成员摘要生成稳定编号；重复导入同一批次不会增加文件夹或报告副本。文件夹成员与报告身份分别保存，同一PDF可属于多个文件夹。
-
-企业和行业可用名称筛选，也可填写稳定代码；行业的分类体系通过 `taxonomy` 声明。原始名称保留，接口不猜测缺失信息。额外资料放进 `extensions`，资料出处放进 `metadata_sources`。
-
-仓库根目录执行：
-
-```sh
-PYTHONPATH=ExtractESG/contracts/src ExtractESG/.local/python/bin/python \
-  -m esg_reports.importer /path/to/batch --library /path/to/pdf-library --preview
-
-PYTHONPATH=ExtractESG/contracts/src ExtractESG/.local/python/bin/python \
-  -m esg_reports.importer /path/to/batch --library /path/to/pdf-library
-```
-
-导入前验证整批元数据、文件和散列；冲突不静默覆盖。相同提交可重复执行。更新已有资源元数据使用资源 API 与 `expected_revision`，不通过重新导入覆盖。
-
-HTTP 入口：`POST /api/report-resources/imports`，请求 `{"folder":"/path/to/batch","preview":true}`。确认预览后将 `preview` 改为 `false`。这是文档服务本机目录接口；平台消费者使用资源查询接口，不读取目录。
+- [模块/输入说明](../../../../docs/guides/pdf-intake.md)
+- [相关设计与合同](../../../../docs/04-contracts.md)
+- [维护或操作说明](../../../../docs/08-operations.md)

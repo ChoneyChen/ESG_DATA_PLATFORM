@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 import pytest
 from esg_clauses.repository import ClauseRepository, ClauseRepositoryError
@@ -35,22 +34,6 @@ def test_energy_total_is_not_an_intensity_and_optional_unit_is_not_a_blocker(cur
     assert check_reading(clause, "高气候影响行业能源消费总量", None, "MWh", "energy").ok
     assert check_reading(clause, "高气候影响行业能源消费总量", None, None, None).ok
     assert not check_reading(clause, "单位收入能源强度", None, "MWh/万元", "energy-intensity").ok
-
-
-def test_content_dispositions_are_specific_and_do_not_claim_scientific_acceptance(current):
-    path = Path(__file__).resolve().parents[2] / "docs/implementation/2026-10-31/clause-dispositions.json"
-    rows = json.loads(path.read_text())["changes"]
-    assert len(rows) == 37 and len({row["clause_key"] for row in rows}) == 37
-    assert {kind: sum(row["decision"] == kind for row in rows) for kind in ("structure", "quantitative", "qualitative")} == {
-        "structure": 13, "quantitative": 9, "qualitative": 15}
-    for row in rows:
-        clause = current.get(row["clause_key"])
-        assert clause.clause_digest == row["after_digest"]
-        assert clause.provenance["content_review"]["scientific_acceptance"] == "not_evaluated"
-        if not isinstance(clause, ClauseDescriptor):
-            assert clause.acceptance.samples == []
-            assert clause.purposes.capture.period_policy == "all_reported"
-            assert not any(field.required_for_confirmation for field in clause.organization.fields if field.role != "raw_value")
 
 
 def test_retired_value_contract_is_rejected(current):

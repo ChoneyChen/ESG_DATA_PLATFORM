@@ -5,7 +5,7 @@ import argparse, ast, hashlib, json, subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "docs/verification/project-structure.json"
+OUTPUT = ROOT / ".local/development/project-structure.json"
 EXCLUDED = {
     "CrawlESG",
     ".claude",
@@ -178,7 +178,7 @@ def main():
     args = parser.parse_args()
     result = inspect()
     if args.write:
-        OUTPUT.parent.mkdir(exist_ok=True)
+        OUTPUT.parent.mkdir(parents=True, exist_ok=True)
         OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(
         json.dumps(

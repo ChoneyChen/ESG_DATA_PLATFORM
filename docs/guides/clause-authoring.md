@@ -1,18 +1,16 @@
 # 标准条款如何构造
 
-适用：当前`clause-contract-1.4`。单条声明属性、词典、搜索和阅读；做完后直接跑真实报告。
+先读[需求](../01-requirements.md)和[单条合同](../04-contracts.md)。条款是目标声明，不是直接入库的事实文件；从PDF产生原值后，系统自行封存交接。
 
-## 1. 一个文件就是一条完整条款
+## 一条一个完整文件
 
-```text
-ClauseESG/clauses/<展示组>/<条款ID>/clause.json
-```
+`ClauseESG/clauses/<展示组>/<条款ID>/clause.json`。
 
-条款包含“找什么、怎么找、怎样读取、如何安放与显示”。展示组只起名字；16/32等集合只是一起选择的条款ID，不是另一种提取方式。不要到提取引擎中添加这条的词表、年份或专用判断。
+展示组只有简名和成员；16/32集合只是一起选择的ID。需要定义、词典、范围或新属性时修改这条合同，不到搜索器/引擎再写一份指标内容。纯表结构用ClauseDescriptor，不假造定性陈述。
 
-## 2. 先生成完整模板，再填写
+## 生成草稿
 
-在Console“条款”中新增，或从SDK生成草稿；不要凭一个简略示例手拼全部JSON：
+优先在Console“条款”中新增。SDK方式在已安装项目包的Python中运行：
 
 ```python
 from pathlib import Path
@@ -22,43 +20,33 @@ draft = new_clause("PROJECT.energy_use", "PROJECT", "quantitative", "能源消�
 Path("clause-draft.json").write_text(draft.model_dump_json(indent=2), encoding="utf-8")
 ```
 
-该代码需要已安装本仓库SDK。模板默认blocked，填写内容后保存并启用；保存自动生成摘要。完整格式见[Schema](../../ClauseESG/schemas/clause.schema.json)。
+模板默认blocked，填完内容再设ready。不要把示例草稿直接作为可用条款。完整字段形状由[Clause Schema](../../ClauseESG/schemas/clause.schema.json)定义，不手拼一份简化格式。
 
-## 3. 填清这些内容
+## 填写顺序
 
-| 内容 | 填写方法 |
+| 内容 | 写法 |
 |---|---|
-| ID与主要名字 | ID稳定且唯一；`labels.zh`写短名字，`definition`说清测量/陈述含义 |
-| `data_kind` | 只有quantitative（定量）或qualitative（定性）；混合要求拆成独立值目标，关系只是说明 |
-| `value` | 单位维度、可选规范单位与目标固定分类；报告原单位和真实细分仍保留 |
-| `attributes` | 以属性ID为键，填写含义、读取说明、来源与值词典；每个属性只定义一次 |
-| `retrieval` | 实际可能出现的中英文词/别名、表或正文优先级；必需词组慎用，避免把真实披露排除 |
-| `reading` | 用简单句说明选哪些行/列/原文，排除标题、编号、脚注、化学式；不要让模型生成数值 |
-| `purposes` | capture.period_policy固定all_reported，保留真实原值；enrichment列出尽量读取的属性；target_scope判断已知冲突；comparison只限制相应比较 |
-| `output_scopes`与`evidence` | 声明所求口径及支持它的来源，不要求所有报告都披露同样丰富的属性 |
-| `organization` | 原值列必有；显示列通过binding引用属性ID，属性词典由attributes提供 |
-| `provenance` | 保存标准原文来源说明 |
+| ID/名字/定义 | ID稳定唯一，labels短而清楚；definition写核心测量或陈述 |
+| 类型和值 | 只有quantitative/qualitative；量/比例/强度/区间均是定量，定性保留原文 |
+| 概念边界 | distinguish_from/exclusions明确总量/分项、实际/目标、消费/强度等区别 |
+| attributes | 每属性定义一次，含读取说明、分类词典、context_terms及local/report层级 |
+| retrieval | 报告实际可能出现的中英文别名/词组、表/文优先级；vocabulary_refs引用本条已有词表 |
+| reading | 说明选哪些实际行列/句子；规则和词典跟随单条，不要求模型生成量值 |
+| purposes | capture.period_policy为all_reported；enrichment尽量取属性；target_scope判断目标冲突；comparison表达后续可比性 |
+| scopes/evidence | 目标口径与支持它的证据，不要求所有报告提供同样丰富的维度 |
+| organization | 原值列及实际身份展示；binding引用attributes，不重复写属性语义 |
+| provenance | 可查的标准名称、版本、条文来源及必要说明，未知不伪造 |
 
-`attributes.<属性>.context_terms`决定补读该字段的检索词；空列表表示本轮只从直接证据读取该字段。报告范围使用明确的报告级表述；方法词应与所求数据有关，例如“综合能源折算方法”，不要只填“统计方法”而命中其他指标的说明。字段补读缺失时原值仍接收。
+阅读指令示例：“读取所有已披露期间的能源消费原值，分主体、场址和方法分别保留；没有单位或主体时留未知；不求和、不填零、不按报告主年份过滤。”
 
-局部表头、行标签、章节与脚注也属于直接证据，无须为了让它们参与补读而填写泛用词。报告企业是资源资料；子公司、业务和场址的实际主体按各行列来源读取，不自动继承报告企业或集团名称。
+补读词要指向该字段真正相关的说明。统计主体/业务/场址通常使用local；明确的报告统计边界可以允许report。空context_terms只使用直接证据；局部行列标题和脚注本来就是证据，不必补一组泛用词。缺属性不阻止原值保存。
 
-`attributes.<属性>.context_levels`声明补读范围：`local`使用本表、脚注及同报告相邻页说明，`report`允许更远的报告说明。统计主体、业务/场址和数值角色默认只用local；统计边界可用报告范围说明。此设置只决定去哪里补充属性，不增加原值准入条件。旧冻结输入保留原来的序列化内容。
+现行声明不使用reading.options驱动执行。新行为必须有明确消费者：条款语义在单条声明，通用执行能力在所属模块实现；不能添加一个没人读的JSON开关就算完成。
 
-阅读要求示例：“保留表中所有已披露年份的能源消费原值，各期间各一行；单位、主体、场址和范围有则读取，未明确就留未知；不求和、不填零、不把报告主年份作为筛选条件。”
+## 保存并用真实报告试跑
 
-现行条款不填写`reading.options`。阅读指令与规则放在`reading`，属性含义放在`attributes`，实际值角色由报告证据决定；旧冻结任务中的该字段仅保留原样读取，不驱动执行。
+Console编辑保存；API模板是POST /api/clauses/template，保存是PUT /api/clauses/{key}，端口18180，更新已有条款带expected_digest。保存生成内容摘要和导航索引。
 
-季度、累计、基准、目标或重述保留真实期间和角色。历史实际值仍是actual，不因年份早就改成baseline。单条的概念边界仍要清楚，例如消费量和强度不混成一个值。
+选择本条执行真实PDF，查看值、全部期间、单位、关系和来源；错误含义改本条，物理错误改文档，通用阅读错误改提取。ready只表示可执行，不设科学成熟度或样本配额。新编辑不改旧任务冻结合同；成员关系不自动触发兄弟/父条。
 
-## 4. 保存、试跑、使用
-
-Console新增/编辑中的“属性与词典”和“输出组织”分别填写语义与展示。需要用API时，模板为`POST /api/clauses/template`，保存为`PUT /api/clauses/{key}`，服务端口18180。更新已有条款带`expected_digest`。
-
-设为ready后直接用真实报告提取，看原值、年份和属性；哪里不合适就修改该单条。运行自动固定本条，后续编辑不改写已经生成的事实。选择这条不自动执行父条、兄弟条或展示组。
-
-**条款不是直接入库的数据文件。** 条款供链路读取；PDF提取产生SourceFact，再由系统封存、交付接收。不要手写事实编号、伪造来源，或把条款JSON直接送进原值接收器。
-
-[PDF制作说明](pdf-intake.md) · [37条未决说明](../audits/2026-10-31/unresolved-clauses.md)
-
-纯表结构或成员组织要求使用[结构描述合同](../../ClauseESG/schemas/clause-descriptor.schema.json)，不填data_kind、不输出虚构陈述。可列相关值目标供导航；选择结构不会执行成员。含明确人数、数量或目标量的表也可以是一条返回多行的定量目标，无须按性别或年份机械拆条。[37项已处置说明](../implementation/2026-10-31/clause-dispositions.md)。
+新增模型/字段并非每次条款工作必需；先用现有合同表达。输入PDF整理见[PDF指南](pdf-intake.md)。

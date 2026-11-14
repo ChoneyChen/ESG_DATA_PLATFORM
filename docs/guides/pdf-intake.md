@@ -1,26 +1,26 @@
-# PDF如何组织并导入
+# PDF如何组织
 
-目的：提供完整原报告和可识别的资源信息，让链路读取报告中的原值。**一份报告含2023、2024、2025，就保留同一PDF中的三年数据；不要裁成三份。** 当前真实运行核验见[实施记录](../implementation/2026-10-31/README.md)。
+目的：交完整原报告及已知资源信息，让链路自行生产原值和交接文件。一份报告同时有2023、2024、2025，不按年份裁开；每个实际披露期间都需要保留。
 
-## 1. 单份报告
+## 单份上传
 
-在Console“报告”上传完整原PDF，按已知情况填写报告企业、发表年份、行业、报告名称和企业ID。上述业务元数据均可选，不知道时留空；系统以实际文件摘要建立资源身份，不从文件名猜企业或年份。
+在Console“报告”上传原PDF。企业、发表年、行业、主要覆盖年和标题按已知情况填写，未知留空。发表年与主要覆盖年不同，两者也不能替代具体测量期间。
 
-发表年份指报告实际发布年份；报告覆盖年度指主要报告期。它们都不能代替每条测量的实际年份。历史表格、子公司、脚注、附录和方法说明应随原PDF保留。扫描报告也交原件，不需人工OCR或转Word。
+保留附录、历史列、子公司、范围和方法脚注。扫描报告交原件，不要求先人工OCR或转Word。文件内容决定sha256和asset_id，不从文件名猜实际身份。当前单次浏览器上传上限为100MiB，由报告导入器定义。
 
-## 2. 批量报告
-
-准备一个批次目录，PDF可直接放在目录内，也可放在`pdf/`子目录内：
+## 批次目录
 
 ```text
 batch-001/
   manifest.json
   pdf/
-    example-2025.pdf
-    another-report.pdf
+    report-a.pdf
+    report-b.pdf
 ```
 
-每份PDF在manifest中登记一项。用实际PDF计算SHA-256，不能填示例摘要。下面代码为**一份示例文件**生成manifest；按自己的企业/发表年/行业修改，并为其余文件追加同样的记录：
+PDF也可以直接放批次根目录。当前只接受根部文件或pdf/下的文件，不嵌套任意多层目录。一个批次的pdf_id、路径和散列分别唯一。
+
+下面脚本给目录内的真实PDF生成最小有效清单，不凭空填写摘要或企业：
 
 ```python
 from pathlib import Path
@@ -28,42 +28,26 @@ from hashlib import sha256
 import json
 
 root = Path("/absolute/intake/batch-001")
-pdf = root / "pdf/example-2025.pdf"
-manifest = {"schema_version": "report-resource-batch-1.0", "folder": {
-    "folder_id": "batch-001", "name": "报告批次 001"
-}, "reports": [{
-    "pdf_id": "example-esg-2025",
-    "file": "pdf/example-2025.pdf",
-    "sha256": sha256(pdf.read_bytes()).hexdigest(),
-    "company": {"name": "示例企业有限公司"},
-    "publication_year": 2026,
-    "industry": {"name": "制造业"},
-    "reporting_year": 2025,
-    "title": "示例企业2025年度ESG报告"
-}]}
-(root / "manifest.json").write_text(
-    json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+paths = sorted([*root.glob("*.pdf"), *(root / "pdf").glob("*.pdf")])
+reports = [
+    {"pdf_id": f"batch001-{i:04d}", "file": p.relative_to(root).as_posix(),
+     "sha256": sha256(p.read_bytes()).hexdigest()}
+    for i, p in enumerate(paths, 1)
+]
+manifest = {"schema_version": "report-resource-batch-1.0",
+            "folder": {"folder_id": "batch-001", "name": "报告批次001"},
+            "reports": reports}
+(root / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 ```
 
-当前格式中仅`pdf_id/file/sha256`必填；`folder`及各业务信息选填。文件在目录根部时，`file`填写文件名；在`pdf/`中时填写`pdf/文件名.pdf`。`reporting_year`只填主要年度，不限制提取范围，也不需要为每个历史年重复登记。双年度或财政年度的完整日期可放在`extensions.reporting_period`。
+准备非空目录后生成，编号一旦导入应保持稳定。已知元数据再补到每项中：company对象含name/可选company_id；publication_year；industry对象含name/可选code/taxonomy；reporting_year；title；metadata_sources；extensions。未知对象整体省略，不填一个name=null的假企业。
 
-`pdf_id`用稳定的英数字、点、下划线或短横线，最长160字符；文件名可以中文。一个批次内编号、文件路径和PDF摘要均不能重复；同一PDF已登记其他编号时复用原资源。修改已登记元数据通过编辑并产生修订，不重新上传来覆盖身份。完整格式见[报告合同](../../ExtractESG/contracts/src/esg_reports/contract.py)。
+清单必需pdf_id/file/sha256；folder和业务资料选填。多期间完整日期可放extensions.reporting_period。完整格式见[报告合同](../../ExtractESG/contracts/src/esg_reports/contract.py)，模板位于ExtractESG/contracts/examples/report-batch，但其中占位值必须替换。
 
-## 3. 导入并运行
+## 导入与后续
 
-Console“报告”选择批量导入，填写批次目录绝对路径，先查看预览，再执行导入。成功后进入“文件夹 → 报告列表 → 报告详情”，每层都有返回入口。文件夹属于报告模块的独立导航信息，不参与条款或原值身份。单份上传显示为独立报告。系统管理PDF、登记和存储位置；不要自己搬到`.local/data`内部的blobs、registry或提取结果目录。
+Console批量导入填写目录绝对路径，先预览再导入；随后按“文件夹→报告→详情”导航。相同PDF重复导入复用原资源，不增加内容副本；元数据修改产生修订。
 
-然后选择报告和独立条款执行。原值、属性、期间和来源由链路生成，系统输出封存ZIP并自动交付数据库接收器；页面CSV/矩阵用于浏览与分析，不是数据库正式输入合同。不要手工改中间JSON来补年份或直接把PDF放入SQL库。
+选择报告与独立条款执行。系统生成事实、来源、导出包和接收回执，再自动投影；产品预览后显式发布，Plat只展示有效发布。PDF、条款JSON、页面CSV或手写中间JSON都不是数据库正式接收文件。
 
-当前流程为提取→原值接收→自动观测投影；在Console核对成员后显式发布，Plat只读取有效发布。接收成功不等于公开发布。
-
-## 4. 提交前只核对四件事
-
-1. 是完整、可打开的原PDF，历史列和附录没有被裁去。
-2. 企业、发表年、主要覆盖期分别填写，未知不猜。
-3. 每份PDF登记一次，manifest路径与实际字节摘要一致。
-4. 只整理输入材料；事实ID、证据、导出和接收回执交给系统生成。
-
-提取保留候选证据中的各期间，仍需核对实际搜索范围和所需单元格；有限范围完成不代表全报告读全。不要通过拆PDF或清空年度规避期间问题。
-
-[条款制作说明](clause-authoring.md) · [本地运行和数据根](local-operation.md)
+不要自己搬入内部blobs/IR/提取目录，不手写事实ID或补年份，不因为某报告缺维度就裁剪或重复登记。提交材料只需原PDF、准确路径/摘要和已知资料；未找到的证据由运行结果如实表达。
